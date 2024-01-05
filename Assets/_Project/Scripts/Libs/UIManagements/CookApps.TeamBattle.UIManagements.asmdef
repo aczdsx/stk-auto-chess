@@ -1,0 +1,22 @@
+{
+    "name": "CookApps.TeamBattle.UIManagements",
+    "rootNamespace": "",
+    "references": [
+        "UniTask",
+        "UniTask.Addressables",
+        "UniTask.DOTween",
+        "Unity.ResourceManager",
+        "Unity.Addressables",
+        "CookApps.TeamBattle.Core",
+        "CookApps.TeamBattle.Utility"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
