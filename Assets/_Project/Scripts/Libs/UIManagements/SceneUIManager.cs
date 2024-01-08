@@ -16,13 +16,13 @@ namespace CookApps.TeamBattle.UIManagements
             OK,
             DuplicatedKey,
             NotExistUIName,
-            Loading
+            Loading,
         }
 
         public enum PopReqCode
         {
             OK,
-            NotExist
+            NotExist,
         }
 
         private enum UIState
@@ -30,7 +30,7 @@ namespace CookApps.TeamBattle.UIManagements
             Initialized,
             Entering,
             Entered,
-            Exiting
+            Exiting,
         }
 
         public enum UITransaction
@@ -46,7 +46,7 @@ namespace CookApps.TeamBattle.UIManagements
             None = 0,
             Cover,
             Overlay,
-            Popup
+            Popup,
         }
 
         [Serializable]
@@ -96,16 +96,6 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
-        private class WaitingUIData
-        {
-            public string uiName;
-            public long inc;
-            public string key;
-            public object data;
-            public bool noNeedOpen;
-            public Action<object> closeCallback;
-        }
-
         [Serializable]
         public class UIData
         {
@@ -126,7 +116,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public string[] GetPreloads(string sceneName)
         {
-            if (_dataSource.SceneDataList.TryGetValue(sceneName, out var sceneData))
+            if (_dataSource.SceneDataList.TryGetValue(sceneName, out SceneData sceneData))
             {
                 return sceneData.preloads;
             }
@@ -136,7 +126,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public string[] GetDefaultUINames(string sceneName)
         {
-            if (_dataSource.SceneDataList.TryGetValue(sceneName, out var sceneData))
+            if (_dataSource.SceneDataList.TryGetValue(sceneName, out SceneData sceneData))
             {
                 return sceneData.defaultUINames;
             }
@@ -147,11 +137,15 @@ namespace CookApps.TeamBattle.UIManagements
         private ISceneUIDataSource _dataSource;
 
         // lobby ui pool
-        private Dictionary<string, Queue<GameObject>> lobbyUIPool = new Dictionary<string, Queue<GameObject>>();
+        private Dictionary<string, Queue<GameObject>> lobbyUIPool = new ();
 
-        private List<UIStackData> uiStacks = new List<UIStackData>();
-        private WaitingUIData currLoadingUIData = null;
-        private List<WaitingUIData> waitingUIDataList = new List<WaitingUIData>();
+        private List<UIStackData> uiStacks = new ();
+
+        private bool isLoadingUI;
+
+        private bool noNeedToLoadUI;
+        // private WaitingUIData currLoadingUIData = null;
+        // private List<WaitingUIData> waitingUIDataList = new ();
 
         public string CurrentSceneName { get; set; }
         private Transform mainNode = null;
@@ -194,8 +188,8 @@ namespace CookApps.TeamBattle.UIManagements
             sceneLoadedAsyncTasks.Remove(task);
         }
 
-        public int CurrentUICount => waitingUIDataList.Count + uiStacks.Count;
-        private List<string> blockBackKeySources = new List<string>();
+        public int CurrentUICount => /*waitingUIDataList.Count + */uiStacks.Count;
+        private List<string> blockBackKeySources = new ();
 
         public void BlockBackKey(string srcKey)
         {
@@ -228,36 +222,51 @@ namespace CookApps.TeamBattle.UIManagements
             // 첫번째 씬에서 필요
             ResetNodeRefs();
 
-            this._dataSource = dataSource;
+            _dataSource = dataSource;
             SelectableBlockerManager.Instance.AddBlocker(this);
         }
 
-        void ResetNodeRefs()
+        private void ResetNodeRefs()
         {
             CameraManager.Instance.ReleaseMainCamera();
             mainCanvas = null;
-            var rootGOs = SceneManager.GetActiveScene().GetRootGameObjects();
-            for (int i = 0; i < rootGOs.Length; i++)
+            GameObject[] rootGOs = SceneManager.GetActiveScene().GetRootGameObjects();
+            for (var i = 0; i < rootGOs.Length; i++)
             {
                 if (rootGOs[i].name == "MainCanvas")
                 {
                     mainCanvas = rootGOs[i].GetComponent<Canvas>();
                     if (CameraManager.Main != null)
+                    {
                         mainCanvas.worldCamera = CameraManager.Main;
+                    }
+
                     var canvas = rootGOs[i].GetComponent<Transform>();
                     mainNode = canvas.Find("MainNode");
                     mainNodeCanvas = mainNode.GetComponent<Canvas>();
                     if (mainNodeCanvas == null)
+                    {
                         mainNodeCanvas = mainNode.gameObject.AddComponent<Canvas>();
+                    }
+
                     var mainNodeGR = mainNode.GetComponent<GraphicRaycaster>();
                     if (mainNodeGR == null)
+                    {
                         mainNode.gameObject.AddComponent<GraphicRaycaster>();
+                    }
+
                     floatingNode = canvas.Find("FloatingNode");
                     if (floatingNodeCanvas == null)
+                    {
                         floatingNodeCanvas = floatingNode.gameObject.AddComponent<Canvas>();
+                    }
+
                     var floatingNodeGR = floatingNode.GetComponent<GraphicRaycaster>();
                     if (floatingNodeGR == null)
+                    {
                         floatingNode.gameObject.AddComponent<GraphicRaycaster>();
+                    }
+
                     var mainCanvasScaler = mainCanvas.GetComponent<CanvasScaler>();
                     var recycleCanvasScaler = recycles.GetComponent<CanvasScaler>();
                     recycleCanvasScaler.referenceResolution = mainCanvasScaler.referenceResolution;
@@ -277,7 +286,9 @@ namespace CookApps.TeamBattle.UIManagements
                     {
                         CameraManager.Instance.SetMainCamera(camera);
                         if (mainCanvas != null)
+                        {
                             mainCanvas.worldCamera = camera;
+                        }
                     }
                 }
             }
@@ -295,8 +306,8 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (dimLayer != null)
             {
-                var targetOpacity = isDimLayerOn ? 0.82f : 0f;
-                var opacity = dimLayer.color.a;
+                float targetOpacity = isDimLayerOn ? 0.82f : 0f;
+                float opacity = dimLayer.color.a;
 
                 if (opacity > 0 && !dimLayer.gameObject.activeSelf)
                 {
@@ -310,11 +321,11 @@ namespace CookApps.TeamBattle.UIManagements
 
                 if (isDimLayerOn ? targetOpacity > opacity : targetOpacity < opacity)
                 {
-                    var sign = Mathf.Sign(targetOpacity - opacity) > 0;
-                    var color = dimLayer.color;
+                    bool sign = Mathf.Sign(targetOpacity - opacity) > 0;
+                    Color color = dimLayer.color;
                     opacity += (sign ? 1 : -1) * 5f * Time.unscaledDeltaTime;
                     color.a = opacity;
-                    var resSign = Mathf.Sign(targetOpacity - opacity) > 0;
+                    bool resSign = Mathf.Sign(targetOpacity - opacity) > 0;
                     if (resSign != sign)
                     {
                         color.a = targetOpacity;
@@ -327,73 +338,69 @@ namespace CookApps.TeamBattle.UIManagements
                 }
             }
 
-            if (currLoadingUIData != null)
-                return;
-
-            if (waitingUIDataList.Count == 0)
-                return;
-
-            currLoadingUIData = waitingUIDataList[0];
-            waitingUIDataList.RemoveAt(0);
-            StartLoadingUI().Forget();
+            // if (currLoadingUIData != null)
+            // {
+            //     return;
+            // }
+            //
+            // if (waitingUIDataList.Count == 0)
+            // {
+            //     return;
+            // }
+            //
+            // currLoadingUIData = waitingUIDataList[0];
+            // waitingUIDataList.RemoveAt(0);
+            // StartLoadingUI().Forget();
         }
 
-        private async UniTaskVoid StartLoadingUI()
-        {
-            try
-            {
-                var uiName = currLoadingUIData.uiName;
-
-                UIBase uiBase;
-                var uiType = _dataSource.UIDataList[uiName].uiType;
-                var uiKey = currLoadingUIData.key;
-                var closeCallback = currLoadingUIData.closeCallback;
-
-                // LoadingIndicator.ShowIndicator();
-                if (lobbyUIPool.ContainsKey(uiName) && lobbyUIPool[uiName].Count > 0)
-                {
-                    var ui = lobbyUIPool[uiName].Dequeue();
-                    uiBase = ui.GetComponent<UIBase>();
-                    var uiTr = uiBase.CachedRectTr;
-                    uiTr.SetParent(mainNode, false);
-                    if (lobbyUIPool[uiName].Count == 0)
-                        lobbyUIPool.Remove(uiName);
-                }
-                else
-                {
-                    uiBase = await LoadUI(uiName);
-                }
-
-                if (currLoadingUIData.noNeedOpen)
-                {
-                    AddressableInstantiateHelper.ReleaseGameObject(uiBase.CachedGo);
-                    Destroy(uiBase.CachedGo);
-                    return;
-                }
-
-                uiBase.CachedGo.SetActive(false);
-                uiBase.name = uiKey;
-                uiBase.UIType = uiType;
-
-                var inc = currLoadingUIData.inc + uiBase.Priority * 100;
-                var uiData = new UIStackData(uiName, uiKey, inc, uiBase, UIState.Initialized, closeCallback);
-                PushUI(uiData, currLoadingUIData.data);
-                currLoadingUIData = null;
-                // LoadingIndicator.HideIndicator();
-            }
-            catch (Exception ex) when (!(ex is OperationCanceledException))
-            {
-                Debug.LogException(ex);
-            }
-        }
+        // private async UniTaskVoid StartLoadingUI()
+        // {
+        //     try
+        //     {
+        //         UIBase uiBase;
+        //         string uiName = currLoadingUIData.uiName;
+        //         string uiKey = currLoadingUIData.key;
+        //         Action<object> closeCallback = currLoadingUIData.closeCallback;
+        //
+        //         // LoadingIndicator.ShowIndicator();
+        //         if (lobbyUIPool.ContainsKey(uiName) && lobbyUIPool[uiName].Count > 0)
+        //         {
+        //             GameObject ui = lobbyUIPool[uiName].Dequeue();
+        //             uiBase = ui.GetComponent<UIBase>();
+        //             if (lobbyUIPool[uiName].Count == 0)
+        //             {
+        //                 lobbyUIPool.Remove(uiName);
+        //             }
+        //         }
+        //         else
+        //         {
+        //             uiBase = await LoadUI(uiName);
+        //         }
+        //
+        //         if (currLoadingUIData.noNeedOpen)
+        //         {
+        //             AddressableInstantiateHelper.ReleaseGameObject(uiBase.CachedGo);
+        //             Destroy(uiBase.CachedGo);
+        //             return;
+        //         }
+        //
+        //         UIStackData uiData = MakeUIStackData(uiBase, uiKey, uiName, closeCallback);
+        //         PushUI(uiData, currLoadingUIData.data);
+        //         currLoadingUIData = null;
+        //     }
+        //     catch (Exception ex) when (!(ex is OperationCanceledException))
+        //     {
+        //         Debug.LogException(ex);
+        //     }
+        // }
 
         public void ClearUIPool()
         {
-            foreach (var pair in lobbyUIPool)
+            foreach (KeyValuePair<string, Queue<GameObject>> pair in lobbyUIPool)
             {
                 while (pair.Value.Count > 0)
                 {
-                    var go = pair.Value.Dequeue();
+                    GameObject go = pair.Value.Dequeue();
                     AddressableInstantiateHelper.ReleaseGameObject(go);
                     Destroy(go);
                 }
@@ -415,11 +422,20 @@ namespace CookApps.TeamBattle.UIManagements
             return uiStacks.Where(x =>
             {
                 if (x.ui.UIType == UIType.Popup)
+                {
                     return true;
+                }
+
                 if (isContainCover && x.ui.UIType == UIType.Cover)
+                {
                     return true;
+                }
+
                 if (isContainOverlay && x.ui.UIType == UIType.Overlay)
+                {
                     return true;
+                }
+
                 return false;
             }).Select(x => x.ui).ToArray();
         }
@@ -428,13 +444,13 @@ namespace CookApps.TeamBattle.UIManagements
         public async UniTask<(PushReqCode, object)> RequestPushUIAsync(string uiName, object data = null)
         {
             (PushReqCode, object) ret = (PushReqCode.OK, null);
-            bool isClosed = false;
+            var isClosed = false;
             Action<object> closeCallback = res =>
             {
                 ret = (ret.Item1, res);
                 isClosed = true;
             };
-            var reqCode = RequestPushUIWithKey(uiName, uiName, data, closeCallback);
+            PushReqCode reqCode = RequestPushUIWithKey(uiName, uiName, data, closeCallback);
             if (reqCode != PushReqCode.OK)
             {
                 ret.Item1 = reqCode;
@@ -452,11 +468,11 @@ namespace CookApps.TeamBattle.UIManagements
 
         public PushReqCode RequestPushUIWithKey(string uiName, string key, object data = null, Action<object> closeCallback = null)
         {
-            bool isExistUIStack = uiStacks.Exists((x) =>
+            bool isExistUIStack = uiStacks.Exists(x =>
                 x.state != UIState.Exiting && x.key.Equals(key));
 
-            bool isExistWaiting = waitingUIDataList.Exists(x => x.key == key);
-            if (isExistUIStack || isExistWaiting)
+            // bool isExistWaiting = waitingUIDataList.Exists(x => x.key == key);
+            if (isExistUIStack /* || isExistWaiting*/)
             {
                 Debug.LogAssertion($"{uiName}::{key} is already exist!!");
                 return PushReqCode.DuplicatedKey;
@@ -470,29 +486,47 @@ namespace CookApps.TeamBattle.UIManagements
 
             if (lobbyUIPool.ContainsKey(uiName) && lobbyUIPool[uiName].Count > 0)
             {
-                var ui = lobbyUIPool[uiName].Dequeue();
-                var uiBase = ui.GetComponent<UIBase>();
-                uiBase.CachedGo.SetActive(false);
-                var uiTr = uiBase.CachedRectTr;
-                uiTr.SetParent(mainNode, false);
+                GameObject ui = lobbyUIPool[uiName].Dequeue();
                 if (lobbyUIPool[uiName].Count == 0)
+                {
                     lobbyUIPool.Remove(uiName);
+                }
 
-                uiBase.name = key;
-                uiBase.UIType = _dataSource.UIDataList[uiName].uiType;
-                var inc = uiIncAcc + uiBase.Priority * 100;
-                uiIncAcc++;
-                var uiData = new UIStackData(uiName, key, inc, uiBase, UIState.Initialized, closeCallback);
+                var uiBase = ui.GetComponent<UIBase>();
+                UIStackData uiData = MakeUIStackData(uiBase, key, uiName, closeCallback);
                 PushUI(uiData, data);
                 return PushReqCode.OK;
             }
 
-            waitingUIDataList.Add(new WaitingUIData {uiName = uiName, key = key, data = data, noNeedOpen = false, closeCallback = closeCallback, inc = uiIncAcc++});
+            isLoadingUI = true;
+            LoadUI(uiName).ContinueWith(ui =>
+            {
+                isLoadingUI = false;
+                if (noNeedToLoadUI)
+                {
+                    AddressableInstantiateHelper.ReleaseGameObject(ui.CachedGo);
+                    Destroy(ui.CachedGo);
+                    return;
+                }
 
+                UIStackData uiData = MakeUIStackData(ui, key, uiName, closeCallback);
+                PushUI(uiData, data);
+            }).Forget();
             return PushReqCode.OK;
         }
 
-        void PushUI(UIStackData uiData, object data)
+        private UIStackData MakeUIStackData(UIBase uiBase, string key, string uiName, Action<object> closeCallback)
+        {
+            uiBase.CachedGo.SetActive(false);
+            uiBase.CachedRectTr.SetParent(mainNode, false);
+            uiBase.name = key;
+            uiBase.UIType = _dataSource.UIDataList[uiName].uiType;
+            long inc = uiIncAcc + (uiBase.Priority * 100);
+            uiIncAcc++;
+            return new UIStackData(uiName, key, inc, uiBase, UIState.Initialized, closeCallback);
+        }
+
+        private void PushUI(UIStackData uiData, object data)
         {
             if (_dataSource.UIDataList[uiData.uiName].bgmKey != null)
             {
@@ -510,13 +544,16 @@ namespace CookApps.TeamBattle.UIManagements
             isDimLayerOn = false;
             for (int i = uiStacks.Count - 1; i >= 0; i--)
             {
-                var uiTr = uiStacks[i].ui.CachedRectTr;
+                RectTransform uiTr = uiStacks[i].ui.CachedRectTr;
 
                 uiTr.SetAsFirstSibling();
                 if (uiStacks[i].state != UIState.Exiting && uiStacks[i].ui.UIType == UIType.Popup && !isDimLayerOn)
                 {
                     if (dimLayer == null)
+                    {
                         dimLayer = CreateDimLayer("DimLayer");
+                    }
+
                     dimLayer.transform.SetAsFirstSibling();
                     isDimLayerOn = true;
                 }
@@ -528,35 +565,42 @@ namespace CookApps.TeamBattle.UIManagements
             // preload addressables
             if (_dataSource.UIDataList[uiData.uiName].preloads != null)
             {
-                // for (int i = 0; i < _dataSource.UIDataList[uiData.uiName].preloads.Length; i++)
-                // {
-                //     ResourceManager.LoadAssetAsync<GameObject>(_dataSource.UIDataList[uiData.uiName].preloads[i]).Forget();
-                // }
+                for (var i = 0; i < _dataSource.UIDataList[uiData.uiName].preloads.Length; i++)
+                {
+                    AddressableLoadHelper.LoadAssetAsync<GameObject>(_dataSource.UIDataList[uiData.uiName].preloads[i]).Forget();
+                }
             }
 
             Canvas.ForceUpdateCanvases();
             uiData.ui.StartEnterAnimation(OnEndEnterAnimation);
         }
 
-        void OnEndEnterAnimation(UIBase ui)
+        private void OnEndEnterAnimation(UIBase ui)
         {
             bool isExist = uiStacks.Exists(x => x.ui == ui);
             if (!isExist)
+            {
                 return;
-            var uiData = uiStacks.Find(x => x.ui == ui);
+            }
+
+            UIStackData uiData = uiStacks.Find(x => x.ui == ui);
 
             uiData.state = UIState.Entered;
             ui.OnPostEnter();
             OnUITransactionEvent?.Invoke(UITransaction.EnterFinished, uiData.key, uiData.ui);
 
             if (ui.UIType != UIType.Cover)
+            {
                 return;
+            }
 
-            bool isFoundPrevCover = false;
-            for (int i = 0; i < uiStacks.Count; i++)
+            var isFoundPrevCover = false;
+            for (var i = 0; i < uiStacks.Count; i++)
             {
                 if (uiStacks[i].ui == ui)
+                {
                     break;
+                }
 
                 if (!isFoundPrevCover)
                 {
@@ -572,36 +616,36 @@ namespace CookApps.TeamBattle.UIManagements
 
         public PopReqCode RequestPopUI(string key, object dataToCloseCallback = null)
         {
-            if (waitingUIDataList.Exists(x => x.key == key))
-            {
-                waitingUIDataList.RemoveAll(x => x.key == key);
-                return PopReqCode.OK;
-            }
-
-            var isExist = uiStacks.Exists((x) => x.key.Equals(key));
+            bool isExist = uiStacks.Exists(x => x.key.Equals(key));
             if (!isExist)
             {
                 return PopReqCode.NotExist;
             }
 
-            var uiData = uiStacks.Find((x) => x.key.Equals(key));
+            UIStackData uiData = uiStacks.Find(x => x.key.Equals(key));
             if (uiData.state == UIState.Exiting)
+            {
                 return PopReqCode.NotExist;
+            }
+
             PopUI(uiData, dataToCloseCallback);
             return PopReqCode.OK;
         }
 
         public PopReqCode RequestPopUI(UIBase ui, object dataToCloseCallback = null)
         {
-            var isExist = uiStacks.Exists((x) => x.ui.Equals(ui));
+            bool isExist = uiStacks.Exists(x => x.ui.Equals(ui));
             if (!isExist)
             {
                 return PopReqCode.NotExist;
             }
 
-            var uiData = uiStacks.Find((x) => x.ui.Equals(ui));
+            UIStackData uiData = uiStacks.Find(x => x.ui.Equals(ui));
             if (uiData.state == UIState.Exiting)
+            {
                 return PopReqCode.NotExist;
+            }
+
             PopUI(uiData, dataToCloseCallback);
             return PopReqCode.OK;
         }
@@ -626,7 +670,6 @@ namespace CookApps.TeamBattle.UIManagements
                     uiStacks[i].state == UIState.Entered)
                 {
                     uiStacks[i].ui.OnPreExit();
-
                 }
 
                 OnUITransactionEvent?.Invoke(UITransaction.Exiting, uiStacks[i].key, uiStacks[i].ui);
@@ -640,13 +683,13 @@ namespace CookApps.TeamBattle.UIManagements
             uiStacks.Clear();
         }
 
-        enum CoverState
+        private enum CoverState
         {
             NoNeedToCheck,
-            Check
+            Check,
         }
 
-        void PopUI(UIStackData uiData, object dataToCloseCallback)
+        private void PopUI(UIStackData uiData, object dataToCloseCallback)
         {
             // z order 정렬
             uiData.ui.OnPreExit();
@@ -680,7 +723,7 @@ namespace CookApps.TeamBattle.UIManagements
                     }
                 }
 
-                var uiTr = uiStacks[i].ui.CachedRectTr;
+                RectTransform uiTr = uiStacks[i].ui.CachedRectTr;
 
                 uiTr.SetAsFirstSibling();
 
@@ -698,7 +741,7 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
-        void PoolingUI(string uiName, UIBase ui)
+        private void PoolingUI(string uiName, UIBase ui)
         {
             ui.gameObject.SetActive(false);
             ui.CachedRectTr.SetParent(recycles, false);
@@ -712,7 +755,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public UIBase GetUIBase(string uiKey)
         {
-            for (int i = 0; i < uiStacks.Count; i++)
+            for (var i = 0; i < uiStacks.Count; i++)
             {
                 if (uiStacks[i].key == uiKey)
                 {
@@ -747,10 +790,10 @@ namespace CookApps.TeamBattle.UIManagements
         #endregion
 
         #region Load UI from addressables
-        async UniTask<UIBase> LoadUI(string uiName)
+        private async UniTask<UIBase> LoadUI(string uiName)
         {
-            var sceneUIData = _dataSource.UIDataList[uiName];
-            var instance = await AddressableInstantiateHelper.InstantiateAddressableGameObjectAsync(sceneUIData.assetName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            UIData sceneUIData = _dataSource.UIDataList[uiName];
+            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUIData.assetName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
             return instance.GetComponent<UIBase>();
         }
         #endregion
@@ -758,18 +801,21 @@ namespace CookApps.TeamBattle.UIManagements
         private void OnEventBackKey()
         {
             if (isSceneChanging)
+            {
                 return;
-
-            if (waitingUIDataList.Count > 0)
-                return;
+            }
 
             if (blockBackKeySources.Count != 0)
+            {
                 return;
+            }
 
             for (var i = 0; i < uiStacks.Count; i++)
             {
                 if (uiStacks[i].state == UIState.Entering || uiStacks[i].state == UIState.Exiting)
+                {
                     return;
+                }
             }
 
             if (uiStacks.Count > 0)
@@ -777,10 +823,13 @@ namespace CookApps.TeamBattle.UIManagements
                 int index = uiStacks.Count - 1;
                 while (index >= 0)
                 {
-                    bool isOffPrevUI = false;
+                    var isOffPrevUI = false;
                     uiStacks[index].ui.OnBackButton(ref isOffPrevUI);
                     if (!isOffPrevUI)
+                    {
                         break;
+                    }
+
                     --index;
                 }
             }
@@ -816,8 +865,8 @@ namespace CookApps.TeamBattle.UIManagements
             Vector3 currScale = Vector3.one;
             for (var i = 0; i < parentRectTrs.Count; i++)
             {
-                currPos -= (Vector2) (parentRectTrs[i].localPosition) * currScale;
-                var localScale = parentRectTrs[i].localScale;
+                currPos -= (Vector2) parentRectTrs[i].localPosition * currScale;
+                Vector3 localScale = parentRectTrs[i].localScale;
                 currScale.x = currScale.x * localScale.x;
                 currScale.y = currScale.y * localScale.y;
                 currScale.z = currScale.z * localScale.z;
@@ -827,7 +876,7 @@ namespace CookApps.TeamBattle.UIManagements
             targetRectTr.localScale = new Vector3(1f / currScale.x, 1f / currScale.y, 1f / currScale.z);
         }
 
-        Image CreateDimLayer(string name)
+        private Image CreateDimLayer(string name)
         {
             var dimLayerGo = new GameObject(name, typeof(RectTransform));
             var dimLayer = dimLayerGo.AddComponent<Image>();
@@ -853,7 +902,7 @@ namespace CookApps.TeamBattle.UIManagements
                 boxColliderTr.sizeDelta = Vector2.zero;
                 boxColliderTr.localScale = Vector3.one;
                 boxColliderTr.localPosition = new Vector3(0, 0, 1);
-                var canvasSize = boxColliderTr.rect.size;
+                Vector2 canvasSize = boxColliderTr.rect.size;
                 boxCollider.size = canvasSize;
             }
 
@@ -866,7 +915,9 @@ namespace CookApps.TeamBattle.UIManagements
             Debug.Log("OnClickDimLayer!");
 
             if (isDimLayerOn)
+            {
                 OnEventBackKey();
+            }
         }
         #endregion
 
@@ -876,11 +927,6 @@ namespace CookApps.TeamBattle.UIManagements
             private AsyncOperation asyncOperation;
             public event Action completed;
 
-            public SceneLoadAsyncOperationWrapper()
-            {
-                allowSceneActivation = true;
-            }
-
             internal void SetAsyncOperation(AsyncOperation asyncOperation)
             {
                 this.asyncOperation = asyncOperation;
@@ -888,7 +934,7 @@ namespace CookApps.TeamBattle.UIManagements
             }
 
             public float progress => asyncOperation?.progress ?? 0f;
-            public bool allowSceneActivation;
+            public bool allowSceneActivation = true;
 
             internal bool internalAllowSceneActivation
             {
@@ -912,7 +958,9 @@ namespace CookApps.TeamBattle.UIManagements
             var operationWrapper = new SceneLoadAsyncOperationWrapper();
             isSceneChanging = true;
             if (transition == null)
+            {
                 transition = new SceneTransaction_Instant();
+            }
 
             operationWrapper.completed += () => OnSceneLoaded(sceneName, defaultUIData, transition);
             ChangeSceneAsync(sceneName, operationWrapper, defaultUIData, transition).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
@@ -923,40 +971,50 @@ namespace CookApps.TeamBattle.UIManagements
         {
             ClearUIPool();
 
-            var task = transition.FadeInAsync();
+            UniTask task = transition.FadeInAsync();
 
             {
-                var tasks = sceneLoadedAsyncTasks.Select(x => x.Invoke(sceneName, defaultUIData)).ToArray();
+                UniTask[] tasks = sceneLoadedAsyncTasks.Select(x => x.Invoke(sceneName, defaultUIData)).ToArray();
                 await tasks;
             }
 
             // default UI load
             {
                 var tasks = new UniTask<UIBase>[_dataSource.SceneDataList[sceneName].defaultUINames.Length];
-                for (int i = 0; i < _dataSource.SceneDataList[sceneName].defaultUINames.Length; i++)
+                for (var i = 0; i < _dataSource.SceneDataList[sceneName].defaultUINames.Length; i++)
                 {
-                    var index = i;
+                    int index = i;
                     tasks[i] = LoadUI(_dataSource.SceneDataList[sceneName].defaultUINames[index]);
                 }
 
-                var res = await UniTask.WhenAll(tasks);
-                for (int i = 0; i < res.Length; i++)
+                UIBase[] res = await UniTask.WhenAll(tasks);
+                for (var i = 0; i < res.Length; i++)
                 {
                     PoolingUI(_dataSource.SceneDataList[sceneName].defaultUINames[i], res[i]);
                 }
             }
 
-            var asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            // preload addressable
+            if (_dataSource.SceneDataList[sceneName].preloads != null)
+            {
+                for (var i = 0; i < _dataSource.SceneDataList[sceneName].preloads.Length; i++)
+                {
+                    AddressableLoadHelper.LoadAssetAsync<GameObject>(_dataSource.SceneDataList[sceneName].preloads[i]).Forget();
+                }
+            }
+
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
             asyncOperation.allowSceneActivation = false;
             operationWrapper.SetAsyncOperation(asyncOperation);
             await UniTask.WaitUntil(() => operationWrapper.progress >= 0.9f);
             await UniTask.WaitUntil(() => operationWrapper.allowSceneActivation);
 
-            waitingUIDataList.Clear();
-            if (currLoadingUIData != null)
-                currLoadingUIData.noNeedOpen = true;
+            if (isLoadingUI)
+            {
+                noNeedToLoadUI = true;
+            }
 
-            for (int i = 0; i < uiStacks.Count; i++)
+            for (var i = 0; i < uiStacks.Count; i++)
             {
                 uiStacks[i].ui.OnPreExit();
                 uiStacks[i].state = UIState.Exiting;
@@ -999,7 +1057,7 @@ namespace CookApps.TeamBattle.UIManagements
         bool ISelectableBlocker.IsAllowSelectable(string selectableName)
         {
             // 띄울 유아이가 있을 때 누르는 버튼 차단
-            if (waitingUIDataList.Count > 0 || currLoadingUIData != null)
+            if (isLoadingUI)
             {
                 return false;
             }
@@ -1008,7 +1066,9 @@ namespace CookApps.TeamBattle.UIManagements
             for (var i = 0; i < uiStacks.Count; i++)
             {
                 if (uiStacks[i].state == UIState.Entering || uiStacks[i].state == UIState.Exiting)
+                {
                     return false;
+                }
             }
 
             return true;
