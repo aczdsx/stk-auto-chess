@@ -1,7 +1,13 @@
 {
   "dependencies": {
+    "com.cookapps.build": "1.1.1",
+    "com.cookapps.grpc": "3.5.0",
+    "com.cookapps.iap": "2.2.2",
+    "com.cookapps.obfuscator": "1.1.5",
     "com.cookapps.postprocessor": "1.0.6",
-    "com.cookapps.unitysettings": "2.0.1",
+    "com.cookapps.scene.helper": "1.0.8",
+    "com.cookapps.specdatamanager": "1.0.13",
+    "com.cookapps.unitysettings": "2.0.3",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "1.21.19",
     "com.unity.ai.navigation": "1.1.5",
