@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace CookApps.TeamBattle.EffectCode
+namespace CookApps.TeamBattle.BattleSystem
 {
     [Flags]
     public enum EffectCodeInheritFlag : ulong

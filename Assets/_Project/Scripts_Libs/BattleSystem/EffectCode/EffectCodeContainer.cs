@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle.Utility;
 
-namespace CookApps.TeamBattle.EffectCode
+namespace CookApps.TeamBattle.BattleSystem
 {
     public class EffectCodeContainer
     {
@@ -69,7 +69,7 @@ namespace CookApps.TeamBattle.EffectCode
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (var flag in statEffectCode.GetFlag().GetUniqueFlags())
+                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
                 {
                     if (!isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                     {
@@ -133,7 +133,7 @@ namespace CookApps.TeamBattle.EffectCode
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (var flag in statEffectCode.GetFlag().GetUniqueFlags())
+                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
                 {
                     if (!isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                     {
@@ -176,7 +176,7 @@ namespace CookApps.TeamBattle.EffectCode
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (var flag in statEffectCode.GetFlag().GetUniqueFlags())
+                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
                 {
                     if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                     {
@@ -226,7 +226,7 @@ namespace CookApps.TeamBattle.EffectCode
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (var flag in statEffectCode.GetFlag().GetUniqueFlags())
+                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
                 {
                     if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                     {
@@ -268,7 +268,7 @@ namespace CookApps.TeamBattle.EffectCode
 
                     if (effectCode is EffectCodeStatBase statEffectCode)
                     {
-                        foreach (var flag in statEffectCode.GetFlag().GetUniqueFlags())
+                        foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
                         {
                             if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                             {
@@ -318,7 +318,7 @@ namespace CookApps.TeamBattle.EffectCode
 
                     if (effectCode is EffectCodeStatBase statEffectCode)
                     {
-                        foreach (var flag in statEffectCode.GetFlag().GetUniqueFlags())
+                        foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
                         {
                             if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                             {

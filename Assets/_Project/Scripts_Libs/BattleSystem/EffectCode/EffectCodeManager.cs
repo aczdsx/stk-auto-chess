@@ -4,10 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using CookApps.Obfuscator;
-using CookApps.TeamBattle;
-using Cysharp.Threading.Tasks;
 
-namespace CookApps.TeamBattle.EffectCode
+namespace CookApps.TeamBattle.BattleSystem
 {
     public class EffectCodeManager : Singleton<EffectCodeManager>
     {
@@ -38,8 +36,8 @@ namespace CookApps.TeamBattle.EffectCode
                 FieldInfo codeIdFieldInfo = effectCodeImpl.GetField("UseCodeIds");
                 var codeIds = (List<ObfuscatorInt>) codeIdFieldInfo.GetValue(null);
                 NewExpression constructorExpression = Expression.New(effectCodeImpl);
-                var lambdaExpression = Expression.Lambda<Func<EffectCodeBase>>(constructorExpression);
-                var createHeadersFunc = lambdaExpression.Compile();
+                Expression<Func<EffectCodeBase>> lambdaExpression = Expression.Lambda<Func<EffectCodeBase>>(constructorExpression);
+                Func<EffectCodeBase> createHeadersFunc = lambdaExpression.Compile();
                 foreach (ObfuscatorInt codeId in codeIds)
                 {
                     AddEffectCodeCreator(codeId, createHeadersFunc);
@@ -50,7 +48,7 @@ namespace CookApps.TeamBattle.EffectCode
         public void AddEffectCodeCreator(int codeId, Func<EffectCodeBase> lambda)
         {
             effectCodeClassDatas.Add(codeId, lambda);
-            var temp = lambda.Invoke();
+            EffectCodeBase temp = lambda.Invoke();
             effectCodeTypeDatas.Add(codeId, temp.Type);
             effectCodeLifeTypeDatas.Add(codeId, temp.LifeType);
         }
@@ -86,7 +84,7 @@ namespace CookApps.TeamBattle.EffectCode
             }
             else
             {
-                var pool = pools[codeId];
+                Queue<EffectCodeBase> pool = pools[codeId];
                 codeBase = pool.Dequeue();
             }
 
@@ -103,13 +101,13 @@ namespace CookApps.TeamBattle.EffectCode
             T res;
             if (!pools.ContainsKey(codeId) || pools[codeId].Count <= 0)
             {
-                var codeBase = effectCodeClassDatas[codeId].Invoke();
+                EffectCodeBase codeBase = effectCodeClassDatas[codeId].Invoke();
                 codeBase.CodeId = codeId;
                 res = codeBase as T;
             }
             else
             {
-                var pool = pools[codeId];
+                Queue<EffectCodeBase> pool = pools[codeId];
                 res = pool.Dequeue() as T;
             }
 

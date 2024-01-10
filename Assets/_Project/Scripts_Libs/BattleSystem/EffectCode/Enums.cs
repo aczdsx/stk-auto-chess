@@ -1,4 +1,4 @@
-namespace CookApps.TeamBattle.EffectCode
+namespace CookApps.TeamBattle.BattleSystem
 {
     public enum CrowdControlType
     {

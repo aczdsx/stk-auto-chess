@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CookApps.Obfuscator;
 using UnityEngine;
 
-namespace CookApps.TeamBattle.EffectCode
+namespace CookApps.TeamBattle.BattleSystem
 {
     public class EffectCodeInfo
     {
