@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.cookapps.analytics-lite": {
+      "version": "1.2.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.debug": "1.1.6",
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "url": "http://packages.tech.cookapps.com"
+    },
     "com.cookapps.build": {
       "version": "1.1.1",
       "depth": 0,
@@ -15,6 +25,35 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "http://packages.tech.cookapps.com"
+    },
+    "com.cookapps.dependency": {
+      "version": "1.2.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.2d.sprite": "1.0.0",
+        "com.cookapps.package.window": "1.0.10"
+      },
+      "url": "http://packages.tech.cookapps.com"
+    },
+    "com.cookapps.facebook": {
+      "version": "1.1.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.link-xml-resolver": "1.0.0",
+        "com.cookapps.package.window": "1.0.3"
+      },
+      "url": "http://packages.tech.cookapps.com"
+    },
+    "com.cookapps.favorites": {
+      "version": "1.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.package.window": "1.0.10"
+      },
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.grpc": {
@@ -57,7 +96,7 @@
     },
     "com.cookapps.local.data": {
       "version": "3.0.6",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
@@ -91,6 +130,15 @@
       "source": "registry",
       "dependencies": {
         "com.unity.2d.sprite": "1.0.0"
+      },
+      "url": "http://packages.tech.cookapps.com"
+    },
+    "com.cookapps.reloaddomain": {
+      "version": "1.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.package.window": "1.0.10"
       },
       "url": "http://packages.tech.cookapps.com"
     },
