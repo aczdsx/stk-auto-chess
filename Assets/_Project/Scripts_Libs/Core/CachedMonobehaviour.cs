@@ -1,15 +1,17 @@
 using UnityEngine;
 
-namespace CookApps.TeamBattle.Core
+namespace CookApps.TeamBattle
 {
     public interface ICachedGameObject
     {
         GameObject CachedGo { get; }
     }
+
     public interface ICachedTransform
     {
         Transform CachedTr { get; }
     }
+
     public interface ICachedRectTransform
     {
         RectTransform CachedRectTr { get; }
@@ -18,24 +20,33 @@ namespace CookApps.TeamBattle.Core
     public class CachedMonoBehaviour : MonoBehaviour, ICachedGameObject, ICachedTransform, ICachedRectTransform
     {
         private GameObject cachedGo = null;
-        public GameObject CachedGo {
-            get {
+
+        public GameObject CachedGo
+        {
+            get
+            {
                 cachedGo ??= gameObject;
                 return cachedGo;
             }
         }
 
         private Transform cachedTr = null;
-        public Transform CachedTr {
-            get {
+
+        public Transform CachedTr
+        {
+            get
+            {
                 cachedTr ??= transform;
                 return cachedTr;
             }
         }
 
         private RectTransform cachedRectTr = null;
-        public RectTransform CachedRectTr {
-            get {
+
+        public RectTransform CachedRectTr
+        {
+            get
+            {
                 cachedRectTr ??= GetComponent<RectTransform>();
                 return cachedRectTr;
             }

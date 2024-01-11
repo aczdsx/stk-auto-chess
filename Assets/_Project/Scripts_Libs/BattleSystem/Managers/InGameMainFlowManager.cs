@@ -29,7 +29,7 @@ namespace CookApps.TeamBattle.BattleSystem
             nextStates.Clear();
         }
 
-        public void StartInGameMainLoop()
+        public void StartInGameMainLoop<T>() where T : StateBase, new()
         {
             OneTick = 1f / Application.targetFrameRate;
             prevProcessingTime = Time.time;
@@ -40,7 +40,7 @@ namespace CookApps.TeamBattle.BattleSystem
             fastForwardRate = 1f;
             AddUpdateListener(UpdatePriority_TopTier, ManagedUpdate);
 
-            // flowState = StatePool.Instance.GetState<FlowStateStageStart>();
+            flowState = StatePool.Instance.GetState<T>();
             // CADebug.Assert(flowState != null, "시작 Flow State를 생성하지 못했다!");
 
             flowState.StateInit(this);
@@ -52,12 +52,9 @@ namespace CookApps.TeamBattle.BattleSystem
             updateHandlers.Clear();
             lateUpdateHandlers.Clear();
             flowState.StateEnd(true);
-            // InGameStatePool.Instance.Push(flowState);
-            while (nextStates.Count > 0)
-            {
-                flowState = nextStates.Dequeue();
-                // InGameStatePool.Instance.Push(flowState);
-            }
+            nextStates.Clear();
+            flowState = null;
+            StatePool.Instance.Clear();
         }
 
         #region Managing update loop

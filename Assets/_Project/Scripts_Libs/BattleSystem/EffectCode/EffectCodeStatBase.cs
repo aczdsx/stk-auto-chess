@@ -21,8 +21,9 @@ namespace CookApps.TeamBattle.BattleSystem
         StatAttackRange = 1L << 9,
         StatSkillDamageRate = 1L << 10,
         StatSkillCooltimeRate = 1L << 11,
-        StatNormalAttackDamageRate = 1L << 12,
-        StatAttackDamageRate = 1L << 13,
+        StatAttackDamageRate = 1L << 12,
+
+        // 13
         StatTakenDamageRate = 1L << 14,
         StatGivenHealRate = 1L << 15,
         StatTakenHealRate = 1L << 16,
@@ -36,19 +37,14 @@ namespace CookApps.TeamBattle.BattleSystem
         UseOnCritical = 1L << 24,
         UseIsReadyToActivate = 1L << 25,
         UseIsUseNormalAttack = 1L << 26,
-        StatBloodSucking = 1L << 27,
-        StatBossAttackDamageRate = 1L << 28,
-        UseOnDead = 1L << 29,
-        UseModifyDamageAmount = 1L << 30,
-        UseModifyHealAmount = 1L << 31,
-        UseModifyShieldAmount = 1L << 32,
-        UseOnSkill = 1L << 33, // 변경 가능
-        StatGoldGainIndividual = 1L << 34,
-        StatExpGainIndividual = 1L << 35,
-        StatDungeonAttackDamageRate = 1L << 36,
-        StatStatusDamageRate = 1L << 37,
-        MAX = 1L << 38,
-        All = ~(-1L << 38),
+        UseOnDead = 1L << 27,
+        UseModifyDamageAmount = 1L << 28,
+        UseModifyHealAmount = 1L << 29,
+        UseModifyShieldAmount = 1L << 30,
+        UseOnSkill = 1L << 31,
+        UseOnCombatStart = 1L << 32,
+        MAX = 1L << 33,
+        All = ~(-1L << 33),
     };
 
     public static class EffectCodeInheritFlagExtension
@@ -258,12 +254,6 @@ namespace CookApps.TeamBattle.BattleSystem
             return 0f;
         }
 
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatNormalAttackDamageRate)]
-        public virtual float GetNormalAttackDamageRate()
-        {
-            return 0f;
-        }
-
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatSkillCooltimeRate)]
         public virtual float GetSkillCooltimeRate()
         {
@@ -298,42 +288,6 @@ namespace CookApps.TeamBattle.BattleSystem
         public virtual CrowdControlType GetCrowdControlImmune()
         {
             return CrowdControlType.None;
-        }
-
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatBossAttackDamageRate)]
-        public virtual float GetBossAttackDamageRate()
-        {
-            return 0f;
-        }
-
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatGoldGainIndividual)]
-        public virtual float GetGoldGainIndividual()
-        {
-            return 0f;
-        }
-
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatExpGainIndividual)]
-        public virtual float GetExpGainIndividual()
-        {
-            return 0f;
-        }
-
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDungeonAttackDamageRate)]
-        public virtual float GetIncreaseDungeonDamageRateIndividual()
-        {
-            return 0f;
-        }
-
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatBloodSucking)]
-        public virtual float GetIncreaseBloodSucking()
-        {
-            return 0f;
-        }
-
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatStatusDamageRate)]
-        public virtual float GetIncreaseStatusDamageRate()
-        {
-            return 0f;
         }
     }
 
@@ -587,54 +541,6 @@ namespace CookApps.TeamBattle.BattleSystem
             return Mathf.Max(0, basicStat + fixedValue);
         }
 
-        public static float CalculateNormalAttackDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
-        {
-            if (list.Count == 0)
-            {
-                return basicStat;
-            }
-
-            float fixedValue = 0;
-            for (var i = 0; i < list.Count; i++)
-            {
-                fixedValue += list[i].GetNormalAttackDamageRate();
-            }
-
-            return Mathf.Max(0, basicStat + fixedValue);
-        }
-
-        public static float CalculateDungeonAttackDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
-        {
-            if (list.Count == 0)
-            {
-                return basicStat;
-            }
-
-            float fixedValue = 0;
-            for (var i = 0; i < list.Count; i++)
-            {
-                fixedValue += list[i].GetIncreaseDungeonDamageRateIndividual();
-            }
-
-            return Mathf.Max(0, basicStat + fixedValue);
-        }
-
-        public static float CalculateBossAttackDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
-        {
-            if (list.Count == 0)
-            {
-                return basicStat;
-            }
-
-            float fixedValue = 0;
-            for (var i = 0; i < list.Count; i++)
-            {
-                fixedValue += list[i].GetBossAttackDamageRate();
-            }
-
-            return Mathf.Max(0, basicStat + fixedValue);
-        }
-
         public static float CalculateSkillCooltimeRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
@@ -646,38 +552,6 @@ namespace CookApps.TeamBattle.BattleSystem
             for (var i = 0; i < list.Count; i++)
             {
                 fixedValue += list[i].GetSkillCooltimeRate();
-            }
-
-            return Mathf.Max(0, basicStat + fixedValue);
-        }
-
-        public static float CalculateBloodSucking<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
-        {
-            if (list.Count == 0)
-            {
-                return basicStat;
-            }
-
-            float fixedValue = 0;
-            for (var i = 0; i < list.Count; i++)
-            {
-                fixedValue += list[i].GetIncreaseBloodSucking();
-            }
-
-            return Mathf.Max(0, basicStat + fixedValue);
-        }
-
-        public static float CalculateStatusDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
-        {
-            if (list.Count == 0)
-            {
-                return basicStat;
-            }
-
-            float fixedValue = 0;
-            for (var i = 0; i < list.Count; i++)
-            {
-                fixedValue += list[i].GetIncreaseStatusDamageRate();
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
@@ -758,40 +632,6 @@ namespace CookApps.TeamBattle.BattleSystem
             for (var i = 0; i < list.Count; i++)
             {
                 fixedValue = fixedValue | list[i].GetCrowdControlImmune();
-            }
-
-            return fixedValue;
-        }
-
-        public static float CalculateGoldGainIndividual<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
-        {
-            if (list.Count == 0)
-            {
-                return basicStat;
-            }
-
-            float fixedValue = 0;
-
-            for (var i = 0; i < list.Count; i++)
-            {
-                fixedValue += list[i].GetGoldGainIndividual();
-            }
-
-            return fixedValue;
-        }
-
-        public static float CalculateExpGainIndividual<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
-        {
-            if (list.Count == 0)
-            {
-                return basicStat;
-            }
-
-            float fixedValue = 0;
-
-            for (var i = 0; i < list.Count; i++)
-            {
-                fixedValue += list[i].GetExpGainIndividual();
             }
 
             return fixedValue;

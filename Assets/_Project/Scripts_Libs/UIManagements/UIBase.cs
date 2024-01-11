@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using CookApps.TeamBattle.Core;
 using Cysharp.Threading.Tasks;
 
 namespace CookApps.TeamBattle.UIManagements
@@ -26,18 +25,26 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 baseAnimator = GetComponent<Animator>();
                 if (baseAnimator == null)
+                {
                     return;
+                }
             }
 
-            foreach (var clip in baseAnimator.runtimeAnimatorController.animationClips)
+            foreach (AnimationClip clip in baseAnimator.runtimeAnimatorController.animationClips)
             {
                 if (clip.name == "StartEnter" || clip.name == "StartExit")
                 {
                     if (clip.name == "StartEnter")
+                    {
                         hasEnterAnimation = true;
+                    }
+
                     if (clip.name == "StartExit")
+                    {
                         hasExitAnimation = true;
-                    AnimationEvent animationEndEvent = new AnimationEvent();
+                    }
+
+                    var animationEndEvent = new AnimationEvent();
                     animationEndEvent.time = clip.length;
                     animationEndEvent.functionName = "AnimationCompleteHandler";
                     animationEndEvent.stringParameter = clip.name;
@@ -96,14 +103,14 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (name == "StartEnter")
             {
-                var tempAction = enterEndCallback;
+                Action<UIBase> tempAction = enterEndCallback;
                 enterEndCallback = null;
                 tempAction?.Invoke(this);
             }
 
             if (name == "StartExit")
             {
-                var tempAction = exitEndCallback;
+                Action<UIBase> tempAction = exitEndCallback;
                 exitEndCallback = null;
                 tempAction?.Invoke(this);
             }

@@ -1,14 +1,16 @@
 using System;
 using UnityEngine;
 
-namespace CookApps.TeamBattle {
+namespace CookApps.TeamBattle
+{
     /// <summary>
     /// 싱글톤
     /// </summary>
     public class Singleton<T> where T : class, new()
     {
         private static T _instance;
-        private static object _lock = new object();
+        private static object _lock = new ();
+
         public static T Instance
         {
             get
@@ -31,12 +33,13 @@ namespace CookApps.TeamBattle {
     /// </summary>
     public class LazySingleton<T> where T : class, new()
     {
-        private static readonly Lazy<T> _instance = new Lazy<T>(() => new T());
+        private static readonly Lazy<T> _instance = new (() => new T());
+
         public static T Instance
         {
             get
             {
-                var inst = _instance.Value;
+                T inst = _instance.Value;
                 lock (inst)
                 {
                     return inst;
@@ -52,7 +55,8 @@ namespace CookApps.TeamBattle {
     {
         private static bool _destroyed;
         private static T _instance;
-        private static object _lock = new object();
+        private static object _lock = new ();
+
         public static T Instance
         {
             get
@@ -66,7 +70,7 @@ namespace CookApps.TeamBattle {
                 {
                     if (_instance == null)
                     {
-                        _instance = (T)FindObjectOfType(typeof(T));
+                        _instance = (T) FindObjectOfType(typeof(T));
                         if (_instance == null)
                         {
                             var singleton = new GameObject(typeof(T).ToString());
@@ -74,6 +78,7 @@ namespace CookApps.TeamBattle {
                             DontDestroyOnLoad(singleton);
                         }
                     }
+
                     return _instance;
                 }
             }
@@ -102,12 +107,12 @@ namespace CookApps.TeamBattle {
     /// </summary>
     public class LazySingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static readonly Lazy<T> _instance = new Lazy<T>(() =>
+        private static readonly Lazy<T> _instance = new (() =>
         {
-            T instance = (T)FindObjectOfType(typeof(T));
+            var instance = (T) FindObjectOfType(typeof(T));
             if (instance == null)
             {
-                GameObject singleton = new GameObject(typeof(T).ToString());
+                var singleton = new GameObject(typeof(T).ToString());
                 instance = singleton.AddComponent<T>();
                 DontDestroyOnLoad(singleton);
             }
@@ -119,7 +124,7 @@ namespace CookApps.TeamBattle {
         {
             get
             {
-                var inst = _instance.Value;
+                T inst = _instance.Value;
                 lock (inst)
                 {
                     return inst;
