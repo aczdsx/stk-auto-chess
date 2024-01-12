@@ -1,0 +1,37 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace CookApps.TeamBattle.Utility
+{
+    [RequireComponent(typeof(Image))]
+    public class SimpleImageMaterialSwapper : SimpleSwapper
+    {
+        [SerializeField] private Image image;
+        [SerializeField] private SerializableDictionary<SimpleSwapType, Material> materials;
+        [SerializeField] private SimpleSwapType currentType;
+
+        private void Awake()
+        {
+            if (image == null)
+            {
+                image = GetComponent<Image>();
+            }
+
+            materials.TryGetValue(currentType, out Material material);
+            image.material = material;
+        }
+
+        public override void Swap(SimpleSwapType swapType)
+        {
+            if (currentType == swapType)
+            {
+                return;
+            }
+
+            currentType = swapType;
+            materials.TryGetValue(currentType, out Material material);
+            image.material = material;
+        }
+    }
+}
