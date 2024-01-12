@@ -14,6 +14,7 @@ namespace CookApps.TeamBattle.BattleSystem
         void SetAnimationSpeed(float speed);
         void LookAt(bool isFlipX);
         void PlayAnimation(AnimationKey animationKey, bool isLoop = false);
+        void OnHit();
     }
 
     public interface ICharacterViewPool

@@ -25,8 +25,8 @@ namespace CookApps.TeamBattle.BattleSystem
             owner = container.Owner as CharacterController;
             waitUpdateElapsedTime = 0f;
             waitCooltimeElapsedTime = 0f;
-            updatePendingTime = ConstDataSource.Instance.EffectCodeUpdatePendingTime;
-            cooltimePendingTime = ConstDataSource.Instance.EffectCodeCooltimePendingTime;
+            updatePendingTime = Const.Instance.EffectCodeUpdatePendingTime;
+            cooltimePendingTime = Const.Instance.EffectCodeCooltimePendingTime;
         }
 
         public override void OnPreRemoved()

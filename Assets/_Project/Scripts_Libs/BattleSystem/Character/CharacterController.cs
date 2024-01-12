@@ -193,7 +193,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             bool isSlowing = HasCrowdControl(CrowdControlType.Slowing);
-            float modifiedSpeedRate = isSlowing ? ConstDataSource.Instance.CrowdControlSlowRate : 1f;
+            float modifiedSpeedRate = isSlowing ? Const.Instance.CrowdControlSlowRate : 1f;
 
             // 기본 공격 쿨타임을 컨틀롤러에서 가지고 있는다.
             // 스테이트에서 관리하면 적을 죽이고 난 뒤에 관리가 안된다.
@@ -221,7 +221,7 @@ namespace CookApps.TeamBattle.BattleSystem
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
             {
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
-                float skillCooltimeRate = 1f - (ConstDataSource.Instance.MaxCooltime * (1f - (1f / (1f + SkillCooltimeRate))));
+                float skillCooltimeRate = 1f - (Const.Instance.MaxCooltime * (1f - (1f / (1f + SkillCooltimeRate))));
                 EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
             }
 
@@ -236,7 +236,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             // Regen HP
-            DoRecoveryHP(dt);
+            RecoverHP(dt);
 
             if (nextStates.Count > 0)
             {
@@ -270,7 +270,7 @@ namespace CookApps.TeamBattle.BattleSystem
         private ObfuscatorFloat recoveryHPElapsedTime;
         private ObfuscatorFloat? recoveryHPPendingTime;
 
-        private void DoRecoveryHP(float dt)
+        private void RecoverHP(float dt)
         {
             if (currHp <= 0)
             {
@@ -282,7 +282,7 @@ namespace CookApps.TeamBattle.BattleSystem
                 return;
             }
 
-            recoveryHPPendingTime ??= ConstDataSource.Instance.RegenHPPendingTime;
+            recoveryHPPendingTime ??= Const.Instance.RegenHPPendingTime;
             recoveryHPElapsedTime += dt;
             if (recoveryHPElapsedTime > recoveryHPPendingTime)
             {
@@ -507,7 +507,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public double PostCalculateDamageAmount(double damageAmount, CharacterController enemy = null)
         {
-            double minDamageAmount = ConstDataSource.Instance.MinDamageRate * damageAmount;
+            double minDamageAmount = Const.Instance.MinDamageRate * damageAmount;
             damageAmount = damageAmount * AttackDamageRate * (enemy?.TakenDamageRate ?? 1f);
             damageAmount = Math.Max(minDamageAmount, damageAmount);
             damageAmount = Math.Floor(damageAmount);
@@ -527,16 +527,8 @@ namespace CookApps.TeamBattle.BattleSystem
                 return DamageReturnType.AlreadyDead;
             }
 
-            Color color1 = damageInfo.isCritical == true ? Color.yellow : Color.white;
-
-            if (damageInfo.isDoubleCritical == true)
-            {
-                color1 = Color.red;
-            }
-
-            // TODO: show damage and hit effect
-            // GetCharacterView().OnHit().Forget();
-            // CreateDamageText(GetCharacterView().transform.position + new Vector3(0, 0.5f, 0), damageInfo.damageAmount.ConvertToUnitSystem(), color1, damageInfo.isCritical, damageInfo.isDoubleCritical);
+            GetCharacterView().OnHit();
+            ShowDamageText(damageInfo.damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 
             currHp -= damageInfo.damageAmount;
 
@@ -564,16 +556,6 @@ namespace CookApps.TeamBattle.BattleSystem
 
             return DamageReturnType.Damaging;
         }
-
-        // private void CreateDamageText(Vector3 position, string message, Color? color = null, bool isCri = false, bool isDouble = false)
-        // {
-        //     DamageText damage = UnityPool<DamageText>.Instance.Get(null);
-        //     if (damage != null)
-        //     {
-        //         damage.transform.localScale = Vector3.one;
-        //         damage.SetValue(position + new Vector3(0, yPos, 0), message, color, isCri: isCri, isDouble: isDouble);
-        //     }
-        // }
 
         #region Hp
         public void ForceSetHp(double hp)
@@ -630,7 +612,7 @@ namespace CookApps.TeamBattle.BattleSystem
                 currHp += amount;
             }
 
-            // CreateDamageText(GetCharacterView().transform.position + new Vector3(0, 0.5f, 0), amount.ConvertToUnitSystem(), Color.green);
+            ShowHealText(amount).Forget();
 
             if (currHp > HP)
             {
@@ -639,6 +621,20 @@ namespace CookApps.TeamBattle.BattleSystem
 
             UpdateHp();
             return true;
+        }
+
+        private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
+        {
+            ITextView textView = await TextViewPool.Instance.GetDamageTextView();
+            await textView.ShowDamageText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount, isCritical, isDoubleCritical);
+            TextViewPool.Instance.ReturnDamageTextView(textView);
+        }
+
+        private async UniTask ShowHealText(double amount)
+        {
+            ITextView textView = await TextViewPool.Instance.GetDamageTextView();
+            await textView.ShowHealText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount);
+            TextViewPool.Instance.ReturnDamageTextView(textView);
         }
     }
 }

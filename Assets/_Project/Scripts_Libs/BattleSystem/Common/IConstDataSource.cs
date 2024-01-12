@@ -12,7 +12,7 @@ namespace CookApps.TeamBattle.BattleSystem
         float MinDamageRate { get; }
     }
 
-    public static class ConstDataSource
+    public static class Const
     {
         private static IConstDataSource instance;
 
@@ -31,7 +31,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public static void Initialize(IConstDataSource instance)
         {
-            ConstDataSource.instance = instance;
+            Const.instance = instance;
         }
     }
 }
