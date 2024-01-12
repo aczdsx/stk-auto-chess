@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
@@ -153,7 +154,7 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
             {
-                if (charactersInPlaygroundForUpdate[i].GetCharacterStat().CharacterUId == characUId)
+                if (charactersInPlaygroundForUpdate[i].CharacUId == characUId)
                 {
                     return charactersInPlaygroundForUpdate[i];
                 }
@@ -162,7 +163,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return null;
         }
 
-        public async UniTask<CharacterController> AddCharacterToField(ICharacterStatData statData, Vector2 initPos, AllianceType allianceType)
+        public async UniTask<CharacterController> AddCharacterToField(ICharacterStatData statData, Vector2 initPos, AllianceType allianceType, Type startStateType)
         {
             var characCtrl = new CharacterController();
             await characCtrl.Initialize(statData, initPos, allianceType);
@@ -176,6 +177,8 @@ namespace CookApps.TeamBattle.BattleSystem
             {
                 enemiesInPlaygroundForUpdate.Add(characCtrl);
             }
+
+            characCtrl.AddNextState(startStateType);
 
             return characCtrl;
         }

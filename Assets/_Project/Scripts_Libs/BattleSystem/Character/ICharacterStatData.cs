@@ -7,7 +7,7 @@ namespace CookApps.TeamBattle.BattleSystem
         EffectCodeInheritFlag DirtyFlags { get; }
         void RemoveDirtyFlag(EffectCodeInheritFlag flag);
 
-        ObfuscatorInt CharacterUId { get; }
+        ObfuscatorInt CharacterId { get; }
 
         ObfuscatorDouble HP { get; }
         ObfuscatorDouble AD { get; }

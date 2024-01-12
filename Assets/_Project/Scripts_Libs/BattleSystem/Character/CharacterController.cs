@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
     public partial class CharacterController : IEffectCodeSource, IFollowable
     {
+        public static Type defaultDeadState;
+
         private static int characUIdInc;
         private int characUId;
+        public int CharacUId => characUId;
 
         private EffectCodeContainer ecc;
 
@@ -537,6 +537,12 @@ namespace CookApps.TeamBattle.BattleSystem
                 var deathInfo = new DeathInfo {attacker = attacker};
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
                 deathInfo = EffectCodeHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
+
+                if (!deathInfo.isUseCustomState && defaultDeadState != null)
+                {
+                    AddNextState(defaultDeadState);
+                }
+
                 return DamageReturnType.Killed;
             }
 
