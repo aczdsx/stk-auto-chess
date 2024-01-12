@@ -54,14 +54,6 @@ namespace CookApps.TeamBattle.BattleSystem
         Enemy,
     }
 
-    public enum EnemyType
-    {
-        None,
-        Basic,
-        Boss,
-        Elite,
-    }
-
     public enum AnimationEventKey
     {
         Start,
@@ -124,7 +116,6 @@ namespace CookApps.TeamBattle.BattleSystem
         AlreadyDead,
         Killed,
         Damaging,
-        Invincibility,
     }
 
     public enum AnimationKey

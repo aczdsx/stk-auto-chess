@@ -40,8 +40,6 @@ namespace CookApps.TeamBattle.BattleSystem
         public CharacterController target { get; set; }
 
         public bool IsAlive { get; set; }
-
-        public bool IsInvincibility { get; set; }
         public bool IsForceIdle { get; set; }
         public bool IsBlockChangeState { get; set; }
 
@@ -127,7 +125,6 @@ namespace CookApps.TeamBattle.BattleSystem
                 buffDebuffEffectViewDict.Add(i, null);
             }
 
-            IsInvincibility = false;
             // add EffectCodes
             ecc = new EffectCodeContainer(this);
             needUpdateFlag = EffectCodeInheritFlag.All;
@@ -261,10 +258,9 @@ namespace CookApps.TeamBattle.BattleSystem
 
         private void CalculateZ()
         {
-            Vector3 pos = view.CachedTr.transform.localPosition;
+            Vector3 pos = view.CachedTr.localPosition;
             pos.z = pos.y;
-
-            view.CachedTr.transform.localPosition = pos;
+            view.CachedTr.localPosition = pos;
         }
 
         private ObfuscatorFloat recoveryHPElapsedTime;
@@ -516,11 +512,6 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public DamageReturnType GetDamaged(DamageInfo damageInfo, CharacterController attacker, int hitId, bool isPure = true)
         {
-            if (IsInvincibility)
-            {
-                return DamageReturnType.Invincibility;
-            }
-
             // 같은 틱에 데미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
             if (currHp <= 0 || view == null)
             {
@@ -546,11 +537,6 @@ namespace CookApps.TeamBattle.BattleSystem
                 var deathInfo = new DeathInfo {attacker = attacker};
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
                 deathInfo = EffectCodeHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
-                if (!deathInfo.isUseCustomState)
-                {
-                    AddNextState<CharacterStateDead>();
-                }
-
                 return DamageReturnType.Killed;
             }
 

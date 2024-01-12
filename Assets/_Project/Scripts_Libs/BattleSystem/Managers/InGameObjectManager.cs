@@ -162,69 +162,23 @@ namespace CookApps.TeamBattle.BattleSystem
             return null;
         }
 
-        // public async UniTask<CharacterController> AddCharacterToField(int charId, ICharacterStatData statData,
-        //     Vector2 initPos, AllianceType allianceType, EnemyType enemyType, int equipIdx = -1, SpecStageMonster stageSpecData = null, bool IsInvincibility = true)
-        // {
-        //     var characCtrl = new CharacterController();
-        //     await characCtrl.Initialize(charId, statData, initPos, allianceType, enemyType, equipIdx, stageSpecData);
-        //
-        //     Transform trParent = allianceType == AllianceType.Player || allianceType == AllianceType.SubPlayer || allianceType == AllianceType.Summon
-        //         ? JoystickMover.transform
-        //         : Playground;
-        //
-        //     characCtrl.GetCharacterView().CachedTr.SetParent(trParent, false);
-        //     characCtrl.GetCharacterView().SetCamera();
-        //
-        //     if (allianceType == AllianceType.Player || allianceType == AllianceType.SubPlayer || allianceType == AllianceType.Summon)
-        //     {
-        //         characCtrl.GetCharacterView().ResetAssemble();
-        //
-        //         var isAdded = false;
-        //         for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-        //         {
-        //             if (charactersInPlaygroundForUpdate[i].GetCharacterStat().heroId < charId)
-        //             {
-        //                 charactersInPlaygroundForUpdate.Insert(i, characCtrl);
-        //                 isAdded = true;
-        //                 break;
-        //             }
-        //         }
-        //
-        //         if (!isAdded)
-        //         {
-        //             charactersInPlaygroundForUpdate.Add(characCtrl);
-        //         }
-        //     }
-        //     else if (allianceType == AllianceType.Enemy)
-        //     {
-        //         if (enemyType == EnemyType.Boss)
-        //         {
-        //             characCtrl.IsInvincibility = IsInvincibility;
-        //         }
-        //
-        //         enemyCtrlsInPlaygroundForUpdate.Add(characCtrl);
-        //         InGameMain.GetIngameMainUI().SetAssembleDebuff(characCtrl);
-        //         InGameMain.GetIngameMainUI().SetBlackHole(characCtrl);
-        //     }
-        //
-        //     if (InGameMain.GetIngameMainUI().IsTown() == true)
-        //     {
-        //         if (allianceType == AllianceType.SubPlayer)
-        //         {
-        //             characCtrl.AddNextState<CharacterStateAi>();
-        //         }
-        //         else
-        //         {
-        //             characCtrl.AddNextState<CharacterStateIdle>();
-        //         }
-        //     }
-        //     else
-        //     {
-        //         characCtrl.AddNextState<CharacterStateIdle>();
-        //     }
-        //
-        //     return characCtrl;
-        // }
+        public async UniTask<CharacterController> AddCharacterToField(ICharacterStatData statData, Vector2 initPos, AllianceType allianceType)
+        {
+            var characCtrl = new CharacterController();
+            await characCtrl.Initialize(statData, initPos, allianceType);
+            characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
+
+            if (allianceType == AllianceType.Player)
+            {
+                charactersInPlaygroundForUpdate.Add(characCtrl);
+            }
+            else if (allianceType == AllianceType.Enemy)
+            {
+                enemiesInPlaygroundForUpdate.Add(characCtrl);
+            }
+
+            return characCtrl;
+        }
 
         public void RemoveCharacterFromField(CharacterController characCtrl)
         {
