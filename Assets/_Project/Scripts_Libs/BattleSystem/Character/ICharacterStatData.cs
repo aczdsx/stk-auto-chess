@@ -32,6 +32,6 @@ namespace CookApps.TeamBattle.BattleSystem
         ObfuscatorFloat GivenHealRate { get; }
         ObfuscatorFloat TakenHealRate { get; }
 
-        ObfuscatorFloat statusDamageRate { get; }
+        AttackType AttackType { get; }
     }
 }

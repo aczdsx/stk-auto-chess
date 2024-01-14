@@ -132,9 +132,6 @@ namespace CookApps.TeamBattle.BattleSystem
         Spawn,
         Crying,
         LongCrying,
-        Attack_1,
-        Idle_1,
-        Walk_1,
     }
 
     public enum InGameEffectAnimationKey
@@ -143,5 +140,11 @@ namespace CookApps.TeamBattle.BattleSystem
         Idle,
         Broken,
         Disappear,
+    }
+
+    public enum AttackType
+    {
+        Melee = 1,
+        Projectile = 2,
     }
 }

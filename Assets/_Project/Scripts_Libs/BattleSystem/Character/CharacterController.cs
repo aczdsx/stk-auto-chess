@@ -138,6 +138,7 @@ namespace CookApps.TeamBattle.BattleSystem
         public void Clear()
         {
             target = null;
+            ClearAllState();
             view.OnAnimationEvent -= OnAnimationEvent;
             ecc.Clear();
             CharacterViewPool.Instance.ReturnCharacterView(view);
@@ -510,7 +511,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return damageAmount;
         }
 
-        public DamageReturnType GetDamaged(DamageInfo damageInfo, CharacterController attacker, int hitId, bool isPure = true)
+        public DamageReturnType GetDamaged(DamageInfo damageInfo, CharacterController attacker, bool isPure = true)
         {
             // 같은 틱에 데미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
             if (currHp <= 0 || view == null)
