@@ -973,6 +973,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             UniTask task = transition.FadeInAsync();
 
+            if (sceneLoadedAsyncTasks != null)
             {
                 UniTask[] tasks = sceneLoadedAsyncTasks.Select(x => x.Invoke(sceneName, defaultUIData)).ToArray();
                 await tasks;
