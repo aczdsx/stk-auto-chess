@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcf9bce74484d878ca0ca8fe1db802a, type: 3}
   m_Name: SpecDataAsset
   m_EditorClassIdentifier: 
-  FilterTitle: 
+  FilterTitle: '[Tech]'
   SheetId: 
   SheetName: 
   SourceNamespace: 
