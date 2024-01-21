@@ -4,24 +4,24 @@ using UnityEngine.UI;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-    public class SceneTransaction_FadeInOut : MonoBehaviour, ISceneTransition
+    public class SceneTransition_FadeInOut : MonoBehaviour, ISceneTransition
     {
         [SerializeField] private Image dim;
         private float fadeInDuration = 0.25f;
         private float fadeOutDuration = 0.5f;
 
-        public static SceneTransaction_FadeInOut Create()
+        public static SceneTransition_FadeInOut Create()
         {
             var prefab = Resources.Load<GameObject>("UI/FakeLoading");
-            var go = Instantiate(prefab);
+            GameObject go = Instantiate(prefab);
             DontDestroyOnLoad(go);
-            return go.GetComponent<SceneTransaction_FadeInOut>();
+            return go.GetComponent<SceneTransition_FadeInOut>();
         }
 
         public async UniTask FadeInAsync()
         {
-            var color = dim.color;
-            var diff = 1f - color.a;
+            Color color = dim.color;
+            float diff = 1f - color.a;
             while (color.a < 1f)
             {
                 color.a += diff * Time.deltaTime / fadeInDuration;
@@ -32,8 +32,8 @@ namespace CookApps.TeamBattle.UIManagements
 
         public async UniTask FadeOutAsync(bool withDelete)
         {
-            var color = dim.color;
-            var diff = 0f - color.a;
+            Color color = dim.color;
+            float diff = 0f - color.a;
             while (color.a > 0f)
             {
                 color.a += diff * Time.deltaTime / fadeOutDuration;
@@ -42,7 +42,9 @@ namespace CookApps.TeamBattle.UIManagements
             }
 
             if (withDelete)
+            {
                 Destroy(gameObject);
+            }
         }
     }
 }

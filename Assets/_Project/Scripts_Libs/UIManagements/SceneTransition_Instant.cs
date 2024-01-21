@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-    public class SceneTransaction_Instant : ISceneTransition
+    public class SceneTransition_Instant : ISceneTransition
     {
         public async UniTask FadeInAsync()
         {

@@ -18,6 +18,6 @@ MonoBehaviour:
     - TitleBase
     - Title
     preloads: []
-  - sceneName: Loading
+  - sceneName: SceneLoading
     defaultUINames: []
     preloads: []
