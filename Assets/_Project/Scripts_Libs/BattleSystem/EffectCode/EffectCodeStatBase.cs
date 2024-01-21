@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -11,45 +12,47 @@ namespace CookApps.TeamBattle.BattleSystem
         None = 0L,
         StatHP = 1L << 0,
         StatAD = 1L << 1,
-        StatRecoveryHP = 1L << 2,
-        StatMoveSpeed = 1L << 3,
-        StatCriticalProb = 1L << 4,
-        StatCriticalDamageRate = 1L << 5,
-        StatDoubleCriticalProb = 1L << 6,
-        StatDoubleCriticalDamageRate = 1L << 7,
-        StatAttackSpeed = 1L << 8,
-        StatAttackRange = 1L << 9,
-        StatSkillDamageRate = 1L << 10,
-        StatSkillCooltimeRate = 1L << 11,
-        StatAttackDamageRate = 1L << 12,
+        StatDEF = 1L << 2,
+        StatAP = 1L << 3,
+        StatRES = 1L << 4,
+        StatRecoveryHP = 1L << 5,
+        StatMoveSpeed = 1L << 6,
+        StatCriticalProb = 1L << 7,
+        StatCriticalDamageRate = 1L << 8,
+        StatDoubleCriticalProb = 1L << 9,
+        StatDoubleCriticalDamageRate = 1L << 10,
+        StatAttackSpeed = 1L << 11,
+        StatAttackRange = 1L << 12,
+        StatSkillDamageRate = 1L << 13,
+        StatSkillCooltimeRate = 1L << 14,
+        StatAttackDamageRate = 1L << 15,
+        StatTakenDamageRate = 1L << 16,
+        StatGivenHealRate = 1L << 17,
+        StatTakenHealRate = 1L << 18,
+        StatCrowdControlImmune = 1L << 19,
 
-        // 13
-        StatTakenDamageRate = 1L << 14,
-        StatGivenHealRate = 1L << 15,
-        StatTakenHealRate = 1L << 16,
-        StatCrowdControlImmune = 1L << 17,
-        UseOnUpdate = 1L << 18,
-        UseOnAttack = 1L << 19,
-        UseOnCooltime = 1L << 20,
-        UseOnKill = 1L << 21,
-        UseOnHealed = 1L << 22,
-        UseOnDamaged = 1L << 23,
-        UseOnCritical = 1L << 24,
-        UseIsReadyToActivate = 1L << 25,
-        UseIsUseNormalAttack = 1L << 26,
-        UseOnDead = 1L << 27,
-        UseModifyDamageAmount = 1L << 28,
-        UseModifyHealAmount = 1L << 29,
-        UseModifyShieldAmount = 1L << 30,
-        UseOnSkill = 1L << 31,
-        UseOnCombatStart = 1L << 32,
-        MAX = 1L << 33,
-        All = ~(-1L << 33),
+        UseOnUpdate = 1L << 40,
+        UseOnAttack = 1L << 41,
+        UseOnCooltime = 1L << 42,
+        UseOnKill = 1L << 43,
+        UseOnHealed = 1L << 44,
+        UseOnDamaged = 1L << 45,
+        UseOnCritical = 1L << 46,
+        UseIsReadyToActivate = 1L << 47,
+        UseIsUseNormalAttack = 1L << 48,
+        UseOnDead = 1L << 49,
+        UseModifyDamageAmount = 1L << 50,
+        UseModifyHealAmount = 1L << 51,
+        UseModifyShieldAmount = 1L << 52,
+        UseOnSkill = 1L << 53,
+        UseOnCombatStart = 1L << 54,
     };
 
-    public static class EffectCodeInheritFlagExtension
+    public static class EffectCodeInheritFlagExtensions
     {
         private static Dictionary<Type, EffectCodeInheritFlag> flagDict = new ();
+        private static EffectCodeInheritFlag[] allFlagTypes;
+        private static EffectCodeInheritFlag allFlags = EffectCodeInheritFlag.None;
 
         public static EffectCodeInheritFlag GetFlag(this EffectCodeStatBase src)
         {
@@ -97,16 +100,30 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public static IEnumerable<EffectCodeInheritFlag> GetUniqueFlags(this EffectCodeInheritFlag src)
         {
-            ulong flag = 1;
-            while (flag != (ulong) EffectCodeInheritFlag.MAX)
+            allFlagTypes ??= Enum.GetValues(typeof(EffectCodeInheritFlag)).Cast<EffectCodeInheritFlag>().ToArray();
+            foreach (EffectCodeInheritFlag flagType in allFlagTypes)
             {
-                if (src.HasFlag((EffectCodeInheritFlag) flag))
+                if (src.IsIncludeFlag(flagType))
                 {
-                    yield return (EffectCodeInheritFlag) flag;
+                    yield return flagType;
                 }
-
-                flag <<= 1;
             }
+        }
+
+        public static EffectCodeInheritFlag AllFlags()
+        {
+            if (allFlags != EffectCodeInheritFlag.None)
+            {
+                return allFlags;
+            }
+
+            allFlagTypes ??= Enum.GetValues(typeof(EffectCodeInheritFlag)).Cast<EffectCodeInheritFlag>().ToArray();
+            foreach (EffectCodeInheritFlag flagType in allFlagTypes)
+            {
+                allFlags.AddFlag(flagType);
+            }
+
+            return allFlags;
         }
     }
 

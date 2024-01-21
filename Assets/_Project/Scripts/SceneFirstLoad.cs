@@ -86,8 +86,8 @@ namespace CookApps.SampleTeamBattle
 #if UNITY_EDITOR
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
 #endif
-            var transaction = SceneTransaction_FadeInOut.Create();
-            await SceneLoading.GoToNextScene("Title", null, transaction);
+            var transition = SceneTransition_FadeInOut.Create();
+            await SceneLoading.GoToNextScene("Title", null, transition);
         }
     }
 }

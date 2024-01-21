@@ -15,24 +15,24 @@ namespace CookApps.TeamBattle.UIManagements
             SceneUIManager.Instance.isSceneChanging = true;
             if (transition == null)
             {
-                transition = new SceneTransaction_Instant();
+                transition = new SceneTransition_Instant();
             }
 
             SceneLoading.transition = transition;
             await transition.FadeInAsync();
             SceneLoading.nextScene = nextScene;
             SceneLoading.nextSceneData = nextSceneData;
-            SceneUIManager.Instance.ChangeScene("Loading");
+            SceneUIManager.Instance.ChangeScene("SceneLoading");
         }
 
         public IEnumerator Start()
         {
             yield return null;
-            SceneUIManager.OnUITransactionEvent += OneTimeCheckSceneLoaded;
+            SceneUIManager.OnUITransitionEvent += OneTimeCheckSceneLoaded;
             SceneUIManager.Instance.ChangeScene(nextScene, nextSceneData);
         }
 
-        private void OneTimeCheckSceneLoaded(SceneUIManager.UITransaction transaction, string uiKey, UIBase uiBase)
+        private void OneTimeCheckSceneLoaded(SceneUIManager.UITransition transition, string uiKey, UIBase uiBase)
         {
             string[] defaultUINames = SceneUIManager.Instance.GetDefaultUINames(nextScene);
             if (defaultUINames[^1] != uiKey) // default UI는 key와 uiName이 같다.
@@ -40,13 +40,21 @@ namespace CookApps.TeamBattle.UIManagements
                 return;
             }
 
-            if (transaction != SceneUIManager.UITransaction.EnterFinished)
+            if (transition != SceneUIManager.UITransition.EnterFinished)
             {
                 return;
             }
 
-            SceneUIManager.OnUITransactionEvent -= OneTimeCheckSceneLoaded;
-            transition.FadeOutAsync(true).ContinueWith(() => { transition = null; }).Forget();
+            SceneUIManager.OnUITransitionEvent -= OneTimeCheckSceneLoaded;
+            SceneLoading.transition.FadeOutAsync(true).ContinueWith(ClearData).Forget();
+        }
+
+        private void ClearData()
+        {
+            nextScene = null;
+            nextSceneBaseUI = null;
+            nextSceneData = null;
+            transition = null;
         }
     }
 }

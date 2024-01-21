@@ -7,7 +7,7 @@ namespace CookApps.TeamBattle.BattleSystem
     {
         #region Stat getter
         private EffectCodeInheritFlag needUpdateFlag;
-        private ObfuscatorDouble postHP, postAD, postRecoveryHP;
+        private ObfuscatorDouble postHP, postAD, postAP, postDEF, postRES, postRecoveryHP;
 
         private ObfuscatorFloat
             postCriticalProb,
@@ -81,6 +81,57 @@ namespace CookApps.TeamBattle.BattleSystem
                 }
 
                 return postAD;
+            }
+        }
+
+        public double AP
+        {
+            get
+            {
+                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatAP) ||
+                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatAP))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAP);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAP);
+                    List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAP);
+                    postAP = effectCodes.CalculateAD(GetCharacterStat().AP);
+                }
+
+                return postAP;
+            }
+        }
+
+        public double DEF
+        {
+            get
+            {
+                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatDEF) ||
+                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatDEF))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDEF);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEF);
+                    List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
+                    postDEF = effectCodes.CalculateAD(GetCharacterStat().DEF);
+                }
+
+                return postDEF;
+            }
+        }
+
+        public double RES
+        {
+            get
+            {
+                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatRES) ||
+                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatRES))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRES);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRES);
+                    List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
+                    postRES = effectCodes.CalculateAD(GetCharacterStat().RES);
+                }
+
+                return postRES;
             }
         }
 

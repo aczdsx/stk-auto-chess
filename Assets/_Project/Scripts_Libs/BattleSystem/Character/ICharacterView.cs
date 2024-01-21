@@ -13,7 +13,7 @@ namespace CookApps.TeamBattle.BattleSystem
         void UpdateTickAndPosition(float deltaTime, Vector3 position, Vector3 viewPosition);
         void SetAnimationSpeed(float speed);
         void LookAt(bool isFlipX);
-        void PlayAnimation(AnimationKey animationKey, bool isLoop = false);
+        AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false);
         void OnHit();
     }
 

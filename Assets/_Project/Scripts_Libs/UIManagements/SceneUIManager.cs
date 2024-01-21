@@ -33,7 +33,7 @@ namespace CookApps.TeamBattle.UIManagements
             Exiting,
         }
 
-        public enum UITransaction
+        public enum UITransition
         {
             Entering,
             EnterFinished,
@@ -162,7 +162,7 @@ namespace CookApps.TeamBattle.UIManagements
         private Canvas floatingNodeCanvas;
         public Transform FloatingNode => floatingNode;
 
-        public static event Action<UITransaction, string, UIBase> OnUITransactionEvent;
+        public static event Action<UITransition, string, UIBase> OnUITransitionEvent;
         public static event Action<string> OnSceneUnloadedEvent;
         public static event Action<string> OnSceneLoadedEvent;
 
@@ -230,7 +230,10 @@ namespace CookApps.TeamBattle.UIManagements
         {
             CameraManager.Instance.ReleaseMainCamera();
             mainCanvas = null;
+            Scene activeScene = SceneManager.GetActiveScene();
             GameObject[] rootGOs = SceneManager.GetActiveScene().GetRootGameObjects();
+            bool isLoadingScene = activeScene.name == "SceneLoading";
+            var hasLoadingComp = false;
             for (var i = 0; i < rootGOs.Length; i++)
             {
                 if (rootGOs[i].name == "MainCanvas")
@@ -291,6 +294,17 @@ namespace CookApps.TeamBattle.UIManagements
                         }
                     }
                 }
+
+                if (isLoadingScene && rootGOs[i].GetComponent<SceneLoading>() != null)
+                {
+                    hasLoadingComp = true;
+                }
+            }
+
+            if (isLoadingScene && !hasLoadingComp)
+            {
+                var loadingGO = new GameObject("SceneLoading");
+                loadingGO.AddComponent<SceneLoading>();
             }
         }
 
@@ -536,7 +550,7 @@ namespace CookApps.TeamBattle.UIManagements
             uiData.ui.CachedGo.SetActive(true);
             uiData.ui.OnPreEnter(data);
             uiData.state = UIState.Entering;
-            OnUITransactionEvent?.Invoke(UITransaction.Entering, uiData.key, uiData.ui);
+            OnUITransitionEvent?.Invoke(UITransition.Entering, uiData.key, uiData.ui);
             uiStacks.Add(uiData);
             uiStacks.Sort((x, y) => (int) (x.inc - y.inc));
 
@@ -587,7 +601,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             uiData.state = UIState.Entered;
             ui.OnPostEnter();
-            OnUITransactionEvent?.Invoke(UITransaction.EnterFinished, uiData.key, uiData.ui);
+            OnUITransitionEvent?.Invoke(UITransition.EnterFinished, uiData.key, uiData.ui);
 
             if (ui.UIType != UIType.Cover)
             {
@@ -672,10 +686,10 @@ namespace CookApps.TeamBattle.UIManagements
                     uiStacks[i].ui.OnPreExit();
                 }
 
-                OnUITransactionEvent?.Invoke(UITransaction.Exiting, uiStacks[i].key, uiStacks[i].ui);
+                OnUITransitionEvent?.Invoke(UITransition.Exiting, uiStacks[i].key, uiStacks[i].ui);
                 uiStacks[i].state = UIState.Exiting;
                 uiStacks[i].ui.OnPostExit();
-                OnUITransactionEvent?.Invoke(UITransaction.ExitFinished, uiStacks[i].key, uiStacks[i].ui);
+                OnUITransitionEvent?.Invoke(UITransition.ExitFinished, uiStacks[i].key, uiStacks[i].ui);
                 PoolingUI(uiStacks[i].uiName, uiStacks[i].ui);
                 uiStacks[i] = null;
             }
@@ -693,7 +707,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             // z order 정렬
             uiData.ui.OnPreExit();
-            OnUITransactionEvent?.Invoke(UITransaction.Exiting, uiData.key, uiData.ui);
+            OnUITransitionEvent?.Invoke(UITransition.Exiting, uiData.key, uiData.ui);
             uiData.state = UIState.Exiting;
             uiStacks.Remove(uiData);
 
@@ -706,7 +720,7 @@ namespace CookApps.TeamBattle.UIManagements
                 PoolingUI(uiData.uiName, ui);
 
                 uiData.closeCallback?.Invoke(dataToCloseCallback);
-                OnUITransactionEvent?.Invoke(UITransaction.ExitFinished, uiData.key, uiData.ui);
+                OnUITransitionEvent?.Invoke(UITransition.ExitFinished, uiData.key, uiData.ui);
             });
 
             CoverState coverState = uiData.ui.UIType == UIType.Cover ? CoverState.Check : CoverState.NoNeedToCheck;
@@ -959,7 +973,7 @@ namespace CookApps.TeamBattle.UIManagements
             isSceneChanging = true;
             if (transition == null)
             {
-                transition = new SceneTransaction_Instant();
+                transition = new SceneTransition_Instant();
             }
 
             operationWrapper.completed += () => OnSceneLoaded(sceneName, defaultUIData, transition);
@@ -973,6 +987,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             UniTask task = transition.FadeInAsync();
 
+            if (sceneLoadedAsyncTasks != null)
             {
                 UniTask[] tasks = sceneLoadedAsyncTasks.Select(x => x.Invoke(sceneName, defaultUIData)).ToArray();
                 await tasks;
@@ -1018,9 +1033,9 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 uiStacks[i].ui.OnPreExit();
                 uiStacks[i].state = UIState.Exiting;
-                OnUITransactionEvent?.Invoke(UITransaction.Exiting, uiStacks[i].key, uiStacks[i].ui);
+                OnUITransitionEvent?.Invoke(UITransition.Exiting, uiStacks[i].key, uiStacks[i].ui);
                 uiStacks[i].ui.OnPostExit();
-                OnUITransactionEvent?.Invoke(UITransaction.ExitFinished, uiStacks[i].key, uiStacks[i].ui);
+                OnUITransitionEvent?.Invoke(UITransition.ExitFinished, uiStacks[i].key, uiStacks[i].ui);
             }
 
             uiStacks.Clear();
