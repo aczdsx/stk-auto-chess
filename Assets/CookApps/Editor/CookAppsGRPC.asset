@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcafdfad1a042faa622c42869767495, type: 3}
   m_Name: CookAppsGRPC
   m_EditorClassIdentifier: 
-  _ignoreList: []
-  _items: []
+  _ignoreList:
+  - universal
+  _items:
+  - _srcPath: Assets/_Project/Scripts/gRPC/grpc-proto
+    _destPath: Assets/_Project/Scripts/gRPC/grpc-proto/dist/csharp
