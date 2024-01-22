@@ -14,7 +14,7 @@ namespace CookApps.SampleTeamBattle
         private bool isStartUp;
         private ProgressCallback progressCallback;
 
-        public void Initialize(Title titleUI, ProgressCallback progressCallback)
+        public void Initialize(TitleMain titleMainUI, ProgressCallback progressCallback)
         {
             this.progressCallback = progressCallback;
             progressCallback.Invoke(GetHashCode(), 0f);

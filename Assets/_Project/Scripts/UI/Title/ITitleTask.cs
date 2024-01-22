@@ -9,7 +9,7 @@ namespace CookApps.SampleTeamBattle
     {
         ITitleTaskPriority Priority { get; }
 
-        void Initialize(Title titleUI, ProgressCallback getProgress);
+        void Initialize(TitleMain titleMainUI, ProgressCallback getProgress);
         UniTask RunTask();
         (bool, string) HasError();
         UniTask HandleError();

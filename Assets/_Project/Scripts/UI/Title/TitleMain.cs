@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace CookApps.SampleTeamBattle
 {
-    public class Title : UIBase
+    public class TitleMain : UIBase
     {
         public static int SessionCount { get; private set; }
 
