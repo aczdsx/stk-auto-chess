@@ -29,28 +29,19 @@ namespace CookApps.SampleTeamBattle
         {
             await UniTask.NextFrame();
             // get list of all ITitleTask implementations in this assembly
-            var assembly = Assembly.GetAssembly(typeof(ITitleTask));
-            Type[] types = assembly.GetTypes();
+            Type[] types = InterfaceHelper.GetAllImplementations<ITitleTask>();
             var allTasks = new List<ITitleTask>();
 
             foreach (Type type in types)
             {
-                if (type.IsInterface || type.IsAbstract)
+                var titleTask = Activator.CreateInstance(type) as ITitleTask;
+                if (titleTask == null)
                 {
                     continue;
                 }
 
-                if (typeof(ITitleTask).IsAssignableFrom(type))
-                {
-                    var titleTask = Activator.CreateInstance(type) as ITitleTask;
-                    if (titleTask == null)
-                    {
-                        continue;
-                    }
-
-                    allTasks.Add(titleTask);
-                    progressDict.Add(titleTask.GetHashCode(), 0);
-                }
+                allTasks.Add(titleTask);
+                progressDict.Add(titleTask.GetHashCode(), 0);
             }
 
             // run tasks in order
