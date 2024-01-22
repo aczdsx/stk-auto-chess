@@ -2,7 +2,7 @@ using CookApps.TeamBattle.UIManagements;
 
 namespace CookApps.SampleTeamBattle
 {
-    public class TitleBase : UIBase
+    public class TitleBase : UILayer
     {
     }
 }

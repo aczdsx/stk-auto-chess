@@ -32,7 +32,7 @@ namespace CookApps.TeamBattle.UIManagements
             SceneUIManager.Instance.ChangeScene(nextScene, nextSceneData);
         }
 
-        private void OneTimeCheckSceneLoaded(SceneUIManager.UITransition transition, string uiKey, UIBase uiBase)
+        private void OneTimeCheckSceneLoaded(SceneUIManager.UITransition transition, string uiKey, UILayer uiLayer)
         {
             string[] defaultUINames = SceneUIManager.Instance.GetDefaultUINames(nextScene);
             if (defaultUINames[^1] != uiKey) // default UI는 key와 uiName이 같다.

@@ -4,12 +4,12 @@ using Cysharp.Threading.Tasks;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-    public abstract class UIBase : CachedMonoBehaviour
+    public abstract class UILayer : CachedMonoBehaviour
     {
         [SerializeField] protected Animator baseAnimator;
 
-        protected Action<UIBase> enterEndCallback;
-        protected Action<UIBase> exitEndCallback;
+        protected Action<UILayer> enterEndCallback;
+        protected Action<UILayer> exitEndCallback;
 
         private bool hasEnterAnimation;
         private bool hasExitAnimation;
@@ -57,7 +57,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
         }
 
-        public virtual void StartEnterAnimation(Action<UIBase> endCallback)
+        public virtual void StartEnterAnimation(Action<UILayer> endCallback)
         {
             if (hasEnterAnimation)
             {
@@ -77,7 +77,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
         }
 
-        public virtual void StartExitAnimation(Action<UIBase> endCallback)
+        public virtual void StartExitAnimation(Action<UILayer> endCallback)
         {
             if (hasExitAnimation)
             {
@@ -103,20 +103,20 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (name == "StartEnter")
             {
-                Action<UIBase> tempAction = enterEndCallback;
+                Action<UILayer> tempAction = enterEndCallback;
                 enterEndCallback = null;
                 tempAction?.Invoke(this);
             }
 
             if (name == "StartExit")
             {
-                Action<UIBase> tempAction = exitEndCallback;
+                Action<UILayer> tempAction = exitEndCallback;
                 exitEndCallback = null;
                 tempAction?.Invoke(this);
             }
         }
 
-        private async UniTask CallAfterDelayFrame(int delayFrame, Action<UIBase> endCallback)
+        private async UniTask CallAfterDelayFrame(int delayFrame, Action<UILayer> endCallback)
         {
             await UniTask.DelayFrame(delayFrame);
             endCallback?.Invoke(this);

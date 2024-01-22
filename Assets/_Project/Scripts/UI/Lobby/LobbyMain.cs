@@ -1,6 +1,6 @@
 using CookApps.TeamBattle.UIManagements;
 
-public class LobbyMain : UIBase
+public class LobbyMain : UILayer
 {
     public void OnClickStart()
     {

@@ -52,7 +52,7 @@ namespace CookApps.TeamBattle.UIManagements
         [Serializable]
         private class UIStackData
         {
-            public UIStackData(string uiName, string key, long inc, UIBase ui, UIState state, Action<object> closeCallback)
+            public UIStackData(string uiName, string key, long inc, UILayer ui, UIState state, Action<object> closeCallback)
             {
                 this.uiName = uiName;
                 this.key = key;
@@ -66,7 +66,7 @@ namespace CookApps.TeamBattle.UIManagements
             public readonly long inc;
             public string uiName;
             public readonly string key;
-            public UIBase ui;
+            public UILayer ui;
             public UIState state;
             public Action<object> closeCallback;
 
@@ -162,7 +162,7 @@ namespace CookApps.TeamBattle.UIManagements
         private Canvas floatingNodeCanvas;
         public Transform FloatingNode => floatingNode;
 
-        public static event Action<UITransition, string, UIBase> OnUITransitionEvent;
+        public static event Action<UITransition, string, UILayer> OnUITransitionEvent;
         public static event Action<string> OnSceneUnloadedEvent;
         public static event Action<string> OnSceneLoadedEvent;
 
@@ -431,7 +431,7 @@ namespace CookApps.TeamBattle.UIManagements
         /// <summary>
         /// uiBase의 값들을 바꾸진 말자
         /// </summary>
-        public UIBase[] GetUIRoutes(bool isContainCover = true, bool isContainOverlay = false)
+        public UILayer[] GetUIRoutes(bool isContainCover = true, bool isContainOverlay = false)
         {
             return uiStacks.Where(x =>
             {
@@ -506,7 +506,7 @@ namespace CookApps.TeamBattle.UIManagements
                     lobbyUIPool.Remove(uiName);
                 }
 
-                var uiBase = ui.GetComponent<UIBase>();
+                var uiBase = ui.GetComponent<UILayer>();
                 UIStackData uiData = MakeUIStackData(uiBase, key, uiName, closeCallback);
                 PushUI(uiData, data);
                 return PushReqCode.OK;
@@ -529,15 +529,15 @@ namespace CookApps.TeamBattle.UIManagements
             return PushReqCode.OK;
         }
 
-        private UIStackData MakeUIStackData(UIBase uiBase, string key, string uiName, Action<object> closeCallback)
+        private UIStackData MakeUIStackData(UILayer uiLayer, string key, string uiName, Action<object> closeCallback)
         {
-            uiBase.CachedGo.SetActive(false);
-            uiBase.CachedRectTr.SetParent(mainNode, false);
-            uiBase.name = key;
-            uiBase.UIType = _dataSource.UIDataList[uiName].uiType;
-            long inc = uiIncAcc + (uiBase.Priority * 100);
+            uiLayer.CachedGo.SetActive(false);
+            uiLayer.CachedRectTr.SetParent(mainNode, false);
+            uiLayer.name = key;
+            uiLayer.UIType = _dataSource.UIDataList[uiName].uiType;
+            long inc = uiIncAcc + (uiLayer.Priority * 100);
             uiIncAcc++;
-            return new UIStackData(uiName, key, inc, uiBase, UIState.Initialized, closeCallback);
+            return new UIStackData(uiName, key, inc, uiLayer, UIState.Initialized, closeCallback);
         }
 
         private void PushUI(UIStackData uiData, object data)
@@ -589,7 +589,7 @@ namespace CookApps.TeamBattle.UIManagements
             uiData.ui.StartEnterAnimation(OnEndEnterAnimation);
         }
 
-        private void OnEndEnterAnimation(UIBase ui)
+        private void OnEndEnterAnimation(UILayer ui)
         {
             bool isExist = uiStacks.Exists(x => x.ui == ui);
             if (!isExist)
@@ -646,7 +646,7 @@ namespace CookApps.TeamBattle.UIManagements
             return PopReqCode.OK;
         }
 
-        public PopReqCode RequestPopUI(UIBase ui, object dataToCloseCallback = null)
+        public PopReqCode RequestPopUI(UILayer ui, object dataToCloseCallback = null)
         {
             bool isExist = uiStacks.Exists(x => x.ui.Equals(ui));
             if (!isExist)
@@ -755,7 +755,7 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
-        private void PoolingUI(string uiName, UIBase ui)
+        private void PoolingUI(string uiName, UILayer ui)
         {
             ui.CachedGo.SetActive(false);
             ui.CachedRectTr.SetParent(recycles, false);
@@ -767,7 +767,7 @@ namespace CookApps.TeamBattle.UIManagements
             lobbyUIPool[uiName].Enqueue(ui.CachedGo);
         }
 
-        public UIBase GetUIBase(string uiKey)
+        public UILayer GetUIBase(string uiKey)
         {
             for (var i = 0; i < uiStacks.Count; i++)
             {
@@ -804,11 +804,11 @@ namespace CookApps.TeamBattle.UIManagements
         #endregion
 
         #region Load UI from addressables
-        private async UniTask<UIBase> LoadUI(string uiName)
+        private async UniTask<UILayer> LoadUI(string uiName)
         {
             UIData sceneUIData = _dataSource.UIDataList[uiName];
             GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUIData.assetName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
-            return instance.GetComponent<UIBase>();
+            return instance.GetComponent<UILayer>();
         }
         #endregion
 
@@ -995,14 +995,14 @@ namespace CookApps.TeamBattle.UIManagements
 
             // default UI load
             {
-                var tasks = new UniTask<UIBase>[_dataSource.SceneDataList[sceneName].defaultUINames.Length];
+                var tasks = new UniTask<UILayer>[_dataSource.SceneDataList[sceneName].defaultUINames.Length];
                 for (var i = 0; i < _dataSource.SceneDataList[sceneName].defaultUINames.Length; i++)
                 {
                     int index = i;
                     tasks[i] = LoadUI(_dataSource.SceneDataList[sceneName].defaultUINames[index]);
                 }
 
-                UIBase[] res = await UniTask.WhenAll(tasks);
+                UILayer[] res = await UniTask.WhenAll(tasks);
                 for (var i = 0; i < res.Length; i++)
                 {
                     PoolingUI(_dataSource.SceneDataList[sceneName].defaultUINames[i], res[i]);

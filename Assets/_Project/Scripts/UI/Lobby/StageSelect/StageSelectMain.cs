@@ -3,7 +3,7 @@ using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class StageSelectMain : UIBase
+public class StageSelectMain : UILayer
 {
     [SerializeField] private TableView tableView;
     [SerializeField] private StageSlot stageSlotOrigin;
