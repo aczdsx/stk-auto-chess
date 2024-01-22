@@ -1,3 +1,4 @@
+using CookApps.TeamBattle.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 
@@ -22,9 +23,9 @@ namespace CookApps.SampleTeamBattle
         public async UniTask RunTask()
         {
             progressCallback.Invoke(GetHashCode(), 0.5f);
-            // await SpecDataManager.Instance.Initialize();
+            await SpecDataManager.Instance.Initialize();
             // GlobalEffectCodeInfoManager.Instance.Initialize(); // userdatamanager.initialize보다 먼저 호출되어야함
-            // EffectCodeManager.Instance.LoadEffectCodeClassDatas();
+            EffectCodeManager.Instance.LoadEffectCodeClassDatas();
             isComplete = true;
             progressCallback.Invoke(GetHashCode(), 1f);
             progressCallback = null;

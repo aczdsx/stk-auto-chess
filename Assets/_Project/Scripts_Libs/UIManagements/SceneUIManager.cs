@@ -623,7 +623,7 @@ namespace CookApps.TeamBattle.UIManagements
 
                 if (isFoundPrevCover)
                 {
-                    uiStacks[i].ui.gameObject.SetActive(false);
+                    uiStacks[i].ui.CachedGo.SetActive(false);
                 }
             }
         }
@@ -730,7 +730,7 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 if (coverState == CoverState.Check)
                 {
-                    uiStacks[i].ui.gameObject.SetActive(true);
+                    uiStacks[i].ui.CachedGo.SetActive(true);
                     if (uiStacks[i].ui.UIType == UIType.Cover)
                     {
                         coverState = CoverState.NoNeedToCheck;
@@ -757,14 +757,14 @@ namespace CookApps.TeamBattle.UIManagements
 
         private void PoolingUI(string uiName, UIBase ui)
         {
-            ui.gameObject.SetActive(false);
+            ui.CachedGo.SetActive(false);
             ui.CachedRectTr.SetParent(recycles, false);
             if (!lobbyUIPool.ContainsKey(uiName))
             {
                 lobbyUIPool.Add(uiName, new Queue<GameObject>());
             }
 
-            lobbyUIPool[uiName].Enqueue(ui.gameObject);
+            lobbyUIPool[uiName].Enqueue(ui.CachedGo);
         }
 
         public UIBase GetUIBase(string uiKey)
@@ -850,7 +850,7 @@ namespace CookApps.TeamBattle.UIManagements
         }
 
         #region Dim Layer
-        public void SetSizeAsDimlayer(RectTransform targetRectTr)
+        public void SetSizeAsDimLayer(RectTransform targetRectTr)
         {
             targetRectTr.anchorMin = new Vector2(0.5f, 0.5f);
             targetRectTr.anchorMax = new Vector2(0.5f, 0.5f);
@@ -898,7 +898,7 @@ namespace CookApps.TeamBattle.UIManagements
             dimLayer.sprite = Resources.Load<Sprite>("UI/Common/black");
             var dimLayerTr = dimLayerGo.GetComponent<RectTransform>();
             dimLayerTr.SetParent(mainNode, false);
-            SetSizeAsDimlayer(dimLayerTr);
+            SetSizeAsDimLayer(dimLayerTr);
 
             var btn = dimLayerGo.AddComponent<Button>();
             btn.onClick = new Button.ButtonClickedEvent();
@@ -926,7 +926,7 @@ namespace CookApps.TeamBattle.UIManagements
         public void OnClickDimLayer(GameObject go)
         {
             // SoundManager.Instance.PlaySFX("button_close");
-            Debug.Log("OnClickDimLayer!");
+            // Debug.Log("OnClickDimLayer!");
 
             if (isDimLayerOn)
             {
