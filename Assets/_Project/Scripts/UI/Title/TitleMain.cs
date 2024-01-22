@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace CookApps.SampleTeamBattle
         {
             await UniTask.NextFrame();
             // get list of all ITitleTask implementations in this assembly
-            Type[] types = InterfaceHelper.GetAllImplementations<ITitleTask>();
+            Type[] types = InheritHelper.GetAllImplementations<ITitleTask>();
             var allTasks = new List<ITitleTask>();
 
             foreach (Type type in types)

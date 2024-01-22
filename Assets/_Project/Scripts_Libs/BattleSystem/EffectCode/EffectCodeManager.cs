@@ -30,7 +30,7 @@ namespace CookApps.TeamBattle.BattleSystem
             effectCodeLifeTypeDatas.Clear();
 
             Type baseType = typeof(EffectCodeBase);
-            IEnumerable<Type> allEffectCodeImpls = GetType().Assembly.GetTypes().Where(x => x.IsSubclassOf(baseType) && !x.IsAbstract);
+            IEnumerable<Type> allEffectCodeImpls = InterfaceHelper.GetAllImplementations<EffectCodeBase>();
             foreach (Type effectCodeImpl in allEffectCodeImpls)
             {
                 FieldInfo codeIdFieldInfo = effectCodeImpl.GetField("UseCodeIds");

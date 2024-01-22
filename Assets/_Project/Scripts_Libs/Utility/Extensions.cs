@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
@@ -88,6 +89,17 @@ namespace CookApps.TeamBattle.Utility
         {
             color.a = alpha;
             return color;
+        }
+    }
+
+    public static class InheritHelper
+    {
+        public static Type[] GetAllImplementations<T>()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => typeof(T).IsAssignableFrom(p) && p.IsClass)
+                .ToArray();
         }
     }
 }
