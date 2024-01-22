@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using CookApps.Obfuscator;
+using CookApps.TeamBattle.Utility;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
@@ -29,8 +30,7 @@ namespace CookApps.TeamBattle.BattleSystem
             effectCodeTypeDatas.Clear();
             effectCodeLifeTypeDatas.Clear();
 
-            Type baseType = typeof(EffectCodeBase);
-            IEnumerable<Type> allEffectCodeImpls = InterfaceHelper.GetAllImplementations<EffectCodeBase>();
+            IEnumerable<Type> allEffectCodeImpls = InheritHelper.GetAllImplementations<EffectCodeBase>();
             foreach (Type effectCodeImpl in allEffectCodeImpls)
             {
                 FieldInfo codeIdFieldInfo = effectCodeImpl.GetField("UseCodeIds");

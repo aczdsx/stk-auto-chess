@@ -98,7 +98,7 @@ namespace CookApps.TeamBattle.Utility
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => typeof(T).IsAssignableFrom(p) && p.IsClass)
+                .Where(p => typeof(T).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract)
                 .ToArray();
         }
     }
