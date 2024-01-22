@@ -48,35 +48,10 @@ public partial class SpecCharacter
     public CookApps.Obfuscator.ObfuscatorFloat atkRange;
     public CookApps.Obfuscator.ObfuscatorInt skill_id;
     public CookApps.Obfuscator.ObfuscatorInt skill_id2;
-    /// ?
-    public CookApps.Obfuscator.ObfuscatorInt odds;
-    /// ?
-    public CookApps.Obfuscator.ObfuscatorInt weight;
-    /// ?
-    public bool is_limited;
-    /// 전용무기?
     public CookApps.Obfuscator.ObfuscatorInt equipment_id;
-    /// 전용무기 착용시 스킬변경?
     public CookApps.Obfuscator.ObfuscatorInt upgrade_skill_id;
     public bool is_equip_private;
     public CookApps.Obfuscator.ObfuscatorFloat scale;
-    public CookApps.Obfuscator.ObfuscatorInt app_version;
-    /// ?
-    public string cv_kr_token;
-    /// ?
-    public string cv_jp_token;
-    /// ?
-    public string birth_token;
-    /// ?
-    public string group_token;
-    /// ?
-    public string hobby_token;
-    /// ?
-    public string like_token;
-    /// ?
-    public string hate_token;
-    /// ?
-    public string story_token;
 }
 
 [GeneratorSpecData]
@@ -102,6 +77,27 @@ public partial class SpecSkill
     public CookApps.Obfuscator.ObfuscatorFloat cool;
     /// ?
     public bool is_skill_ani_onetake;
+}
+
+[GeneratorSpecData]
+public partial class SpecChapter
+{
+    [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+    public CookApps.Obfuscator.ObfuscatorInt id;
+    public CookApps.Obfuscator.ObfuscatorInt chapter_id;
+    public string name_token;
+    public string desc_token;
+    public global::RewardType reward_type_1;
+    public CookApps.Obfuscator.ObfuscatorInt reward_key_1;
+    public CookApps.Obfuscator.ObfuscatorInt reward_count_1;
+    public global::RewardType reward_type_2;
+    public CookApps.Obfuscator.ObfuscatorInt reward_key_2;
+    public CookApps.Obfuscator.ObfuscatorInt reward_count_2;
+    public global::RewardType reward_type_3;
+    public CookApps.Obfuscator.ObfuscatorInt reward_key_3;
+    public CookApps.Obfuscator.ObfuscatorInt reward_count_3;
+    public string clear_pack_bg_image;
+    public string clear_pack_char_image;
 }
 
 [GeneratorSpecData]

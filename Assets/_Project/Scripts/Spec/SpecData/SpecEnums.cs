@@ -26,4 +26,9 @@ public enum Grade
 public enum RewardType
 {
     JEWEL = 1,
+    KTICKET = 2,
+    ETICKET = 3,
+    DUNGEON_KEY1 = 4,
+    DUNGEON_KEY2 = 5,
+    DUNGEON_KEY3 = 6,
 }

@@ -4,6 +4,7 @@
 using CookApps.gRPC.Universal;
 using CookApps.LocalData;
 #endif
+using System.Collections.Generic;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 
@@ -42,5 +43,33 @@ public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
 #endif
         Load(json);
         await UniTask.Yield();
+        CustomizeSpecData();
+    }
+
+    private Dictionary<int, List<SpecStage>> stageDict = new (); // key : chapter, value : stage list
+
+    private void CustomizeSpecData()
+    {
+        stageDict.Clear();
+        foreach (SpecStage stage in SpecStage.All)
+        {
+            if (!stageDict.TryGetValue(stage.chapter_id, out List<SpecStage> stageList))
+            {
+                stageList = new List<SpecStage>();
+                stageDict.Add(stage.chapter_id, stageList);
+            }
+
+            stageList.Add(stage);
+        }
+    }
+
+    public int GetStageCount(int chapter)
+    {
+        if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
+        {
+            return stageList.Count;
+        }
+
+        return 0;
     }
 }
