@@ -1,0 +1,4 @@
+public class TopPanel_KTicket : TopPanelBase
+{
+    public override TopPanelType PanelType => TopPanelType.CloseButton;
+}

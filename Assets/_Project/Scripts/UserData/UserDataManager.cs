@@ -14,6 +14,7 @@ public class UserDataManager : Singleton<UserDataManager>
 {
     private Dictionary<string, IUserData> userDataDict = new ();
     public static UserDataStage Stage => Instance.userDataDict[DataCategory.UserStage.ToCategoryString()] as UserDataStage;
+    public static UserDataWallet Wallet => Instance.userDataDict[DataCategory.UserWallet.ToCategoryString()] as UserDataWallet;
 
     public async UniTask<bool> Initialize()
     {
@@ -54,5 +55,11 @@ public class UserDataManager : Singleton<UserDataManager>
         }
 
         return true;
+    }
+
+    public static event Action<int> OnBreadChanged
+    {
+        add => Wallet.OnBreadChanged += value;
+        remove => Wallet.OnBreadChanged -= value;
     }
 }
