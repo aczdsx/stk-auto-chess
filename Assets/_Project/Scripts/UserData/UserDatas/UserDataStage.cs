@@ -1,10 +1,10 @@
-using Com.Cookapps.Playgrounds.Heroidle;
+using Com.Cookapps.Sampleteambattle;
 using CookApps.gRPC.Universal;
 
+[UserDataInitializeInfo(DataCategory.UserStage)]
 public class UserDataStage : IUserData
 {
     private UserStage userStageData;
-    public static DataCategory Category => DataCategory.UserStage;
 
     public void Initialize(string data)
     {

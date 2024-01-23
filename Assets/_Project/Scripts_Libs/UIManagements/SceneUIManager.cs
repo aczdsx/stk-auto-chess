@@ -166,19 +166,19 @@ namespace CookApps.TeamBattle.UIManagements
         public static event Action<string> OnSceneUnloadedEvent;
         public static event Action<string> OnSceneLoadedEvent;
 
-        private static List<Func<string, object, UniTask>> sceneLoadedAsyncTasks;
+        private static List<Func<string, string, object, UniTask>> sceneLoadedAsyncTasks;
 
-        public static void AddSceneLoadedAsyncTask(Func<string, object, UniTask> task)
+        public static void AddSceneLoadedAsyncTask(Func<string, string, object, UniTask> task)
         {
             if (sceneLoadedAsyncTasks == null)
             {
-                sceneLoadedAsyncTasks = new List<Func<string, object, UniTask>>();
+                sceneLoadedAsyncTasks = new List<Func<string, string, object, UniTask>>();
             }
 
             sceneLoadedAsyncTasks.Add(task);
         }
 
-        public static void RemoveSceneLoadedAsyncTask(Func<string, object, UniTask> task)
+        public static void RemoveSceneLoadedAsyncTask(Func<string, string, object, UniTask> task)
         {
             if (sceneLoadedAsyncTasks == null)
             {
@@ -985,11 +985,16 @@ namespace CookApps.TeamBattle.UIManagements
         {
             ClearUIPool();
 
-            UniTask task = transition.FadeInAsync();
+            await transition.FadeInAsync();
 
             if (sceneLoadedAsyncTasks != null)
             {
-                UniTask[] tasks = sceneLoadedAsyncTasks.Select(x => x.Invoke(sceneName, defaultUIData)).ToArray();
+                var tasks = new UniTask[sceneLoadedAsyncTasks.Count];
+                for (var i = 0; i < sceneLoadedAsyncTasks.Count; i++)
+                {
+                    tasks[i] = sceneLoadedAsyncTasks[i].Invoke(CurrentSceneName, sceneName, defaultUIData);
+                }
+
                 await tasks;
             }
 
@@ -1045,8 +1050,6 @@ namespace CookApps.TeamBattle.UIManagements
             OnSceneUnloadedEvent?.Invoke(CurrentSceneName);
             Resources.UnloadUnusedAssets();
             GC.Collect();
-
-            await task;
 
             operationWrapper.internalAllowSceneActivation = true;
         }

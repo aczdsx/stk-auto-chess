@@ -1,11 +1,11 @@
 using System;
-using Com.Cookapps.Playgrounds.Heroidle;
+using Com.Cookapps.Sampleteambattle;
 using CookApps.gRPC.Universal;
 
+[UserDataInitializeInfo(DataCategory.UserWallet)]
 public class UserDataWallet : IUserData
 {
     private UserWallet userWalletData;
-    public static DataCategory Category => DataCategory.UserWallet;
 
     public event Action<int> OnBreadChanged;
 

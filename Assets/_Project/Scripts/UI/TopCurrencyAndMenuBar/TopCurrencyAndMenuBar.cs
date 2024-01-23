@@ -7,7 +7,7 @@ public class TopCurrencyAndMenuBar : UILayer
 {
     private static int inc;
 
-    public static void AddToUI(UILayer targetUI, TopPanelType[] ownPanelTypes)
+    public static void AddToUILayer(UILayer targetUI, params TopPanelType[] ownPanelTypes)
     {
         SceneUIManager.Instance.RequestPushUIWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
     }
@@ -24,11 +24,8 @@ public class TopCurrencyAndMenuBar : UILayer
     public override void OnPreEnter(object param)
     {
         base.OnPreEnter(param);
-        var data = ((UILayer, TopPanelType[])) param;
-        targetUI = data.Item1;
-
+        (targetUI, usePanelFlags) = ((UILayer, TopPanelType[])) param;
         TopPanelSingleUseHelper.Instance.Push(this);
-
         SceneUIManager.OnUITransitionEvent += OnUITransitionEvent;
     }
 
@@ -55,38 +52,43 @@ public class TopCurrencyAndMenuBar : UILayer
 
     public void AddPanel(TopPanelType type, RectTransform panel)
     {
-        int index = -1;
+        panel.SetParent(panelParent, false);
+        if (panelAnchoredPositions == null)
+        {
+            return;
+        }
+
         for (var i = 0; i < usePanelFlags.Length; i++)
         {
             if (usePanelFlags[i] == type)
             {
-                index = i;
+                panel.anchoredPosition = panelAnchoredPositions[i];
                 break;
             }
-        }
-
-        if (index == -1)
-        {
-            Debug.LogError($"Not found panel type: {type}");
-            return;
-        }
-
-        panel.SetParent(panelParent, false);
-        panel.SetSiblingIndex(index);
-        if (panelAnchoredPositions != null && panelAnchoredPositions.Length > index)
-        {
-            panel.anchoredPosition = panelAnchoredPositions[index];
         }
     }
 
     public void ForceUpdateLayout()
     {
         panelParentLayoutGroup.enabled = true;
+        for (var i = 0; i < usePanelFlags.Length; i++)
+        {
+            for (var j = 0; j < panelParent.childCount; j++)
+            {
+                var panel = panelParent.GetChild(j).GetComponent<TopPanelBase>();
+                if (panel.PanelType == usePanelFlags[i])
+                {
+                    panel.CachedTr.SetAsFirstSibling();
+                    break;
+                }
+            }
+        }
+
         LayoutRebuilder.ForceRebuildLayoutImmediate(panelParent);
         panelAnchoredPositions = new Vector2[panelParent.childCount];
         for (var i = 0; i < panelParent.childCount; i++)
         {
-            panelAnchoredPositions[i] = panelParent.GetChild(i).GetComponent<RectTransform>().anchoredPosition;
+            panelAnchoredPositions[i] = panelParent.GetChild(i).GetComponent<TopPanelBase>().CachedRectTr.anchoredPosition;
         }
 
         panelParentLayoutGroup.enabled = false;

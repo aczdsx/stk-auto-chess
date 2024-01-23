@@ -15,7 +15,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
         }
     }
 #endif
-    private TopPanelBase[] panels;
+    private Dictionary<TopPanelType, TopPanelBase> panels = new ();
     private Transform topUIOriginTr;
 
     private List<TopCurrencyAndMenuBar> topUIs = new ();
@@ -25,11 +25,11 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
         GameObject topUIOrigin = await AddressableInstantiateHelper.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
         topUIOriginTr = topUIOrigin.transform;
         int childCount = topUIOriginTr.childCount;
-        panels = new TopPanelBase[childCount];
         for (var i = 0; i < childCount; i++)
         {
             Transform child = topUIOriginTr.GetChild(i);
-            panels[i] = child.GetComponent<TopPanelBase>();
+            var panel = child.GetComponent<TopPanelBase>();
+            panels.Add(panel.PanelType, panel);
         }
 
         topUIOrigin.SetActive(false);
@@ -37,7 +37,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
 
     public void Clear()
     {
-        foreach (TopPanelBase ui in panels)
+        foreach ((_, TopPanelBase ui) in panels)
         {
             ui.CachedRectTr.SetParent(topUIOriginTr);
         }
@@ -48,7 +48,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
 
     public TopPanelBase GetPanel(TopPanelType type)
     {
-        return panels[(int) type];
+        return panels[type];
     }
 
     public void Push(TopCurrencyAndMenuBar topUI)
@@ -57,7 +57,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
         for (var i = 0; i < topUI.UsePanelFlags.Length; i++)
         {
             TopPanelType type = topUI.UsePanelFlags[i];
-            topUI.AddPanel(type, panels[(int) type].CachedRectTr);
+            topUI.AddPanel(type, panels[type].CachedRectTr);
         }
 
         topUI.ForceUpdateLayout();
@@ -69,7 +69,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
         for (var i = 0; i < topUI.UsePanelFlags.Length; i++)
         {
             TopPanelType type = topUI.UsePanelFlags[i];
-            TopPanelBase panel = panels[(int) type];
+            TopPanelBase panel = panels[type];
             var isOccupied = false;
             for (int j = topUIs.Count - 1; j >= 0; j--)
             {

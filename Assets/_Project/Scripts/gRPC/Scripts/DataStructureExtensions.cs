@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Com.Cookapps.Playgrounds.Heroidle;
+using Com.Cookapps.Sampleteambattle;
 using Google.Protobuf.Reflection;
 
 public static class DataStructureExtensions
