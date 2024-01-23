@@ -12,25 +12,26 @@ using GetUserDataResponse = Com.Cookapps.Tech.GetUserDataResponse;
 
 namespace CookApps.SampleTeamBattle
 {
-    public class UserDataManager : Singleton<UserDataManager>
+    public partial class UserDataManager : Singleton<UserDataManager>
     {
         private Dictionary<string, IUserData> userDataDict = new ();
-        public static UserDataStage Stage => Instance.userDataDict[DataCategory.UserStage.ToCategoryString()] as UserDataStage;
-        public static UserDataWallet Wallet => Instance.userDataDict[DataCategory.UserWallet.ToCategoryString()] as UserDataWallet;
+
+        public static T Get<T>(DataCategory dataCategory) where T : IUserData
+        {
+            return (T) Instance.userDataDict[dataCategory.ToCategoryString()];
+        }
 
         public async UniTask<bool> Initialize()
         {
             var tryCount = 0;
             Type[] impls = InheritHelper.GetAllImplementations<IUserData>();
-            Dictionary<string, Func<IUserData>> constructorDict = new ();
+            List<IUserData> userDataList = new ();
             foreach (Type userDataImpl in impls)
             {
-                var attribute = userDataImpl.GetCustomAttribute<UserDataInitializeInfoAttribute>();
-                // var dataCategory = (DataCategory) categoryFieldInfo.GetValue(null);
                 NewExpression constructorExpression = Expression.New(userDataImpl);
                 Expression<Func<IUserData>> lambdaExpression = Expression.Lambda<Func<IUserData>>(constructorExpression);
                 Func<IUserData> constructorFunc = lambdaExpression.Compile();
-                constructorDict.Add(attribute.DataCategory.ToCategoryString(), constructorFunc);
+                userDataList.Add(constructorFunc.Invoke());
             }
 
             GetUserDataResponse resp;
@@ -46,42 +47,43 @@ namespace CookApps.SampleTeamBattle
                 return false;
             }
 
-            foreach ((string category, string respData) in resp.UserDatas)
+            // 받은 정보 중에 없는 카테고리는 기본값으로 채워준다.
+            Dictionary<string, string> userDatas = new ();
             {
-                string data = respData;
-                if (string.IsNullOrEmpty(data))
+                foreach ((string category, string respData) in resp.UserDatas)
                 {
-                    continue;
-                }
-
-                for (var i = 0; i < allCategories.Count; i++)
-                {
-                    if (allCategories[i].ToCategoryString() == category)
+                    string data = respData;
+                    if (string.IsNullOrEmpty(data))
                     {
-                        allCategories.RemoveAt(i);
-                        break;
+                        continue;
                     }
+
+                    for (var i = 0; i < allCategories.Count; i++)
+                    {
+                        if (allCategories[i].ToCategoryString() == category)
+                        {
+                            allCategories.RemoveAt(i);
+                            break;
+                        }
+                    }
+
+                    userDatas.Add(category, data);
                 }
 
-                IUserData userData = constructorDict[category].Invoke();
-                userData.Initialize(data);
-                userDataDict.Add(category, userData);
+                foreach (DataCategory category in allCategories)
+                {
+                    userDatas.Add(category.ToCategoryString(), UserDataDefault.Get(category));
+                }
             }
 
-            foreach (DataCategory category in allCategories)
+            userDataList.Sort((x, y) => x.Priority - y.Priority);
+            foreach (IUserData userData in userDataList)
             {
-                IUserData userData = constructorDict[category.ToCategoryString()].Invoke();
-                userData.Initialize(UserDataDefault.Get(category));
-                userDataDict.Add(category.ToCategoryString(), userData);
+                userData.Initialize(userDatas[userData.DataCategory.ToCategoryString()]);
+                userDataDict.Add(userData.DataCategory.ToCategoryString(), userData);
             }
 
             return true;
-        }
-
-        public static event Action<int> OnBreadChanged
-        {
-            add => Wallet.OnBreadChanged += value;
-            remove => Wallet.OnBreadChanged -= value;
         }
     }
 }

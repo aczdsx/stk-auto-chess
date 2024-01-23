@@ -1,13 +1,18 @@
 using Com.Cookapps.Sampleteambattle;
 using CookApps.gRPC.Universal;
 
-[UserDataInitializeInfo(DataCategory.UserData)]
-public class UserBasicData : IUserData
+namespace CookApps.SampleTeamBattle
 {
-    private UserData userBasicData;
-
-    public void Initialize(string data)
+    public class UserBasicData : IUserData
     {
-        userBasicData = MessageUtility.FromBase64String<UserData>(data);
+        DataCategory IUserData.DataCategory => DataCategory.UserData;
+        int IUserData.Priority => 0;
+
+        private UserData userBasicData;
+
+        void IUserData.Initialize(string data)
+        {
+            userBasicData = MessageUtility.FromBase64String<UserData>(data);
+        }
     }
 }

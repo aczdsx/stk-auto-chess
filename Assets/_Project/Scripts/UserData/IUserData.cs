@@ -1,17 +1,13 @@
 using System;
 using Com.Cookapps.Sampleteambattle;
 
-public interface IUserData
+namespace CookApps.SampleTeamBattle
 {
-    void Initialize(string data);
-}
-
-public class UserDataInitializeInfoAttribute : Attribute
-{
-    public DataCategory DataCategory { get; }
-
-    public UserDataInitializeInfoAttribute(DataCategory dataCategory)
+    public interface IUserData
     {
-        DataCategory = dataCategory;
+        DataCategory DataCategory { get; }
+        int Priority { get; } // 낮을수록 먼저 초기화됨
+
+        void Initialize(string data);
     }
 }
