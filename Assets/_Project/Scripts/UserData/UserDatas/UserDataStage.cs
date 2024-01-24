@@ -23,7 +23,12 @@ namespace CookApps.SampleTeamBattle
 
         public UserStage GetUserStage(int stageId)
         {
-            return userStageGroupData.UserStages[stageId];
+            if (userStageGroupData.UserStages.TryGetValue(stageId, out UserStage userStage))
+            {
+                return userStage;
+            }
+
+            return new UserStage();
         }
 
         public int GetCurrentStageId()
