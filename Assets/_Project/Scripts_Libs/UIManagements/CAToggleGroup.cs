@@ -7,35 +7,37 @@ using UnityEngine.EventSystems;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-    [AddComponentMenu("UI/PG Toggle Group")]
+    [AddComponentMenu("UI/CA Toggle Group")]
     [DisallowMultipleComponent]
-    public class PGToggleGroup : UIBehaviour
+    public class CAToggleGroup : UIBehaviour
     {
         public bool allowSwitchOff;
 
-        private List<PGToggle> m_Toggles = new List<PGToggle>();
+        private List<CAToggle> m_Toggles = new ();
 
         [Serializable]
         public class ToggleGroupEvent : UnityEvent<bool>
         {
         }
 
-        public ToggleGroupEvent onToggleGroupChanged = new ToggleGroupEvent();
-        public ToggleGroupEvent onToggleGroupToggleChanged = new ToggleGroupEvent();
+        public ToggleGroupEvent onToggleGroupChanged = new ();
+        public ToggleGroupEvent onToggleGroupToggleChanged = new ();
 
-        public PGToggle selectedToggle;
+        public CAToggle selectedToggle;
 
-        protected PGToggleGroup()
+        protected CAToggleGroup()
         {
         }
 
-        private void ValidateToggleIsInGroup(PGToggle toggle)
+        private void ValidateToggleIsInGroup(CAToggle toggle)
         {
             if (toggle == null || !m_Toggles.Contains(toggle))
+            {
                 throw new ArgumentException(string.Format("Toggle {0} is not part of ToggleGroup {1}", new object[] {toggle, this}));
+            }
         }
 
-        public void NotifyToggleOn(PGToggle toggle)
+        public void NotifyToggleOn(CAToggle toggle)
         {
             ValidateToggleIsInGroup(toggle);
 
@@ -54,7 +56,7 @@ namespace CookApps.TeamBattle.UIManagements
             onToggleGroupChanged.Invoke(AnyTogglesOn());
         }
 
-        public void UnregisterToggle(PGToggle toggle)
+        public void UnregisterToggle(CAToggle toggle)
         {
             if (m_Toggles.Contains(toggle))
             {
@@ -68,7 +70,7 @@ namespace CookApps.TeamBattle.UIManagements
             onToggleGroupToggleChanged.Invoke(isOn);
         }
 
-        public void RegisterToggle(PGToggle toggle)
+        public void RegisterToggle(CAToggle toggle)
         {
             if (!m_Toggles.Contains(toggle))
             {
@@ -82,7 +84,7 @@ namespace CookApps.TeamBattle.UIManagements
             return m_Toggles.Find(x => x.isOn) != null;
         }
 
-        public IEnumerable<PGToggle> ActiveToggles()
+        public IEnumerable<CAToggle> ActiveToggles()
         {
             return m_Toggles.Where(x => x.isOn);
         }
@@ -93,7 +95,9 @@ namespace CookApps.TeamBattle.UIManagements
             allowSwitchOff = true;
 
             for (var i = 0; i < m_Toggles.Count; i++)
+            {
                 m_Toggles[i].isOn = false;
+            }
 
             allowSwitchOff = oldAllowSwitchOff;
         }

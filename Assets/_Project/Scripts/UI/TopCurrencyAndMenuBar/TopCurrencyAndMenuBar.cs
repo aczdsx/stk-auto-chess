@@ -9,7 +9,7 @@ public class TopCurrencyAndMenuBar : UILayer
 
     public static void AddToUILayer(UILayer targetUI, params TopPanelType[] ownPanelTypes)
     {
-        SceneUIManager.Instance.RequestPushUIWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
+        SceneUIManager.Instance.PushUILayerWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
     }
 
     [SerializeField] private RectTransform panelParent;
@@ -20,6 +20,7 @@ public class TopCurrencyAndMenuBar : UILayer
     public TopPanelType[] UsePanelFlags => usePanelFlags;
 
     private UILayer targetUI;
+    public UILayer TargetUI => targetUI;
 
     public override void OnPreEnter(object param)
     {
@@ -41,7 +42,7 @@ public class TopCurrencyAndMenuBar : UILayer
     {
         if (transaction == SceneUIManager.UITransition.Exiting && ui == targetUI)
         {
-            SceneUIManager.Instance.RequestPopUI(this);
+            SceneUIManager.Instance.PopUILayer(this);
         }
     }
 

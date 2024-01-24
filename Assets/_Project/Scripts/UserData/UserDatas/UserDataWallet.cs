@@ -4,9 +4,11 @@ using CookApps.gRPC.Universal;
 
 namespace CookApps.SampleTeamBattle
 {
-    // event 연결
+    // userWallet에 쉽게 접근하기위해
     public partial class UserDataManager
     {
+        public static UserDataWallet UserWallet => Get<UserDataWallet>(DataCategory.UserWallet);
+
         public static event Action<int> OnBreadChanged
         {
             add => Get<UserDataWallet>(DataCategory.UserWallet).OnBreadChanged += value;

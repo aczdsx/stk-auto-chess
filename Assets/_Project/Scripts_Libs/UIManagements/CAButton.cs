@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-
     public enum DefaultClickSoundType
     {
         None = -1,
@@ -18,7 +17,8 @@ namespace CookApps.TeamBattle.UIManagements
     /// <summary>
     /// 유니티가 제공하는 버튼을 상속받은 버튼 클래스
     /// </summary>
-    public class PGButton : Button
+    [AddComponentMenu("UI/CA Button")]
+    public class CAButton : Button
     {
         [SerializeField] private bool isBlockDrag = false;
         [SerializeField] private bool useDefaultClickSound = true;
@@ -28,22 +28,32 @@ namespace CookApps.TeamBattle.UIManagements
         public override void OnPointerClick(PointerEventData eventData)
         {
             if (!SelectableBlockerManager.Instance.IsAllowSelectable(name))
+            {
                 return;
+            }
 
             SelectableBlockerManager.Instance.OnClicked(gameObject.name);
             if (useDefaultClickSound)
+            {
                 OnPlayDefaultClickSound?.Invoke(defaultClickSoundType);
+            }
+
             base.OnPointerClick(eventData);
         }
 
         public override void OnSubmit(BaseEventData eventData)
         {
             if (!SelectableBlockerManager.Instance.IsAllowSelectable(name))
+            {
                 return;
+            }
 
             SelectableBlockerManager.Instance.OnClicked(gameObject.name);
             if (useDefaultClickSound)
+            {
                 OnPlayDefaultClickSound?.Invoke(defaultClickSoundType);
+            }
+
             base.OnSubmit(eventData);
         }
     }

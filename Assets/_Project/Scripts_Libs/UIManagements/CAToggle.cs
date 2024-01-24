@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -10,14 +11,14 @@ namespace CookApps.TeamBattle.UIManagements
     /// <summary>
     /// Simple toggle -- something that has an 'on' and 'off' states: checkbox, toggle button, radio button, etc.
     /// </summary>
-    [AddComponentMenu("UI/PG Toggle")]
+    [AddComponentMenu("UI/CA Toggle")]
     [RequireComponent(typeof(RectTransform))]
-    public class PGToggle : Selectable, IPointerClickHandler, ISubmitHandler, ICanvasElement
+    public class CAToggle : Selectable, IPointerClickHandler, ISubmitHandler, ICanvasElement
     {
         public enum ToggleTransition
         {
             None,
-            Fade
+            Fade,
         }
 
         [Serializable]
@@ -26,7 +27,7 @@ namespace CookApps.TeamBattle.UIManagements
         }
 
         [Serializable]
-        public class ToggleEventObject : UnityEvent<PGToggle>
+        public class ToggleEventObject : UnityEvent<CAToggle>
         {
         }
 
@@ -45,9 +46,9 @@ namespace CookApps.TeamBattle.UIManagements
         public CanvasGroup inactivateCanvasGroup;
 
         // group that this toggle can belong to
-        [SerializeField] private PGToggleGroup m_Group;
+        [SerializeField] private CAToggleGroup m_Group;
 
-        public PGToggleGroup group
+        public CAToggleGroup group
         {
             get { return m_Group; }
             set
@@ -67,21 +68,21 @@ namespace CookApps.TeamBattle.UIManagements
         /// Allow for delegate-based subscriptions for faster events than 'eventReceiver', and allowing for multiple receivers.
         /// </summary>
         [Tooltip("Use this event if you only need the bool state of the toggle that was changed")]
-        public ToggleEvent onValueChanged = new ToggleEvent();
+        public ToggleEvent onValueChanged = new ();
 
         /// <summary>
         /// Allow for delegate-based subscriptions for faster events than 'eventReceiver', and allowing for multiple receivers.
         /// </summary>
         [Tooltip("Use this event if you need access to the toggle that was changed")]
-        public ToggleEventObject onToggleChanged = new ToggleEventObject();
+        public ToggleEventObject onToggleChanged = new ();
 
-        public UnityEvent onToggleOn = new UnityEvent();
+        public UnityEvent onToggleOn = new ();
 
         // Whether the toggle is on
         [FormerlySerializedAs("m_IsActive")] [Tooltip("Is the toggle currently on or off?")] [SerializeField]
         private bool m_IsOn;
 
-        protected PGToggle()
+        protected CAToggle()
         {
         }
 
@@ -92,9 +93,11 @@ namespace CookApps.TeamBattle.UIManagements
             Set(m_IsOn, false);
             PlayEffect(toggleTransition == ToggleTransition.None);
 
-            var prefabType = UnityEditor.PrefabUtility.GetPrefabType(this);
-            if (prefabType != UnityEditor.PrefabType.Prefab && !Application.isPlaying)
+            PrefabType prefabType = PrefabUtility.GetPrefabType(this);
+            if (prefabType != PrefabType.Prefab && !Application.isPlaying)
+            {
                 CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(this);
+            }
         }
 #endif // if UNITY_EDITOR
 
@@ -147,28 +150,36 @@ namespace CookApps.TeamBattle.UIManagements
             base.OnDidApplyAnimationProperties();
         }
 
-        private void SetToggleGroup(PGToggleGroup newGroup, bool setMemberValue)
+        private void SetToggleGroup(CAToggleGroup newGroup, bool setMemberValue)
         {
-            var oldGroup = m_Group;
+            CAToggleGroup oldGroup = m_Group;
 
             // Sometimes IsActive returns false in OnDisable so don't check for it.
             // Rather remove the toggle too often than too little.
             if (m_Group != null)
+            {
                 m_Group.UnregisterToggle(this);
+            }
 
             // At runtime the group variable should be set but not when calling this method from OnEnable or OnDisable.
             // That's why we use the setMemberValue parameter.
             if (setMemberValue)
+            {
                 m_Group = newGroup;
+            }
 
             // Only register to the new group if this Toggle is active.
             if (m_Group != null && IsActive())
+            {
                 m_Group.RegisterToggle(this);
+            }
 
             // If we are in a new group, and this toggle is on, notify group.
             // Note: Don't refer to m_Group here as it's not guaranteed to have been set.
             if (newGroup != null && newGroup != oldGroup && isOn && IsActive())
+            {
                 m_Group.NotifyToggleOn(this);
+            }
         }
 
         /// <summary>
@@ -176,19 +187,21 @@ namespace CookApps.TeamBattle.UIManagements
         /// </summary>
         public bool isOn
         {
-            get { return m_IsOn; }
-            set { Set(value); }
+            get => m_IsOn;
+            set => Set(value);
         }
 
-        void Set(bool value)
+        private void Set(bool value)
         {
             Set(value, true);
         }
 
-        void Set(bool value, bool sendCallback)
+        private void Set(bool value, bool sendCallback)
         {
             if (m_IsOn == value)
+            {
                 return;
+            }
 
             // if we are in a group and set to true, do group logic
             m_IsOn = value;
@@ -229,27 +242,35 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (activateGraphics != null)
             {
-                for (int i = 0; i < activateGraphics.Length; i++)
+                for (var i = 0; i < activateGraphics.Length; i++)
                 {
 #if UNITY_EDITOR
                     if (!Application.isPlaying)
+                    {
                         activateGraphics[i].canvasRenderer.SetAlpha(m_IsOn ? 1f : 0f);
+                    }
                     else
 #endif
+                    {
                         activateGraphics[i].CrossFadeAlpha(m_IsOn ? 1f : 0f, instant ? 0f : 0.1f, true);
+                    }
                 }
             }
 
             if (inactivateGraphics != null)
             {
-                for (int i = 0; i < inactivateGraphics.Length; i++)
+                for (var i = 0; i < inactivateGraphics.Length; i++)
                 {
 #if UNITY_EDITOR
                     if (!Application.isPlaying)
+                    {
                         inactivateGraphics[i].canvasRenderer.SetAlpha(!m_IsOn ? 1f : 0f);
+                    }
                     else
 #endif
+                    {
                         inactivateGraphics[i].CrossFadeAlpha(!m_IsOn ? 1f : 0f, instant ? 0f : 0.1f, true);
+                    }
                 }
             }
 
@@ -275,7 +296,9 @@ namespace CookApps.TeamBattle.UIManagements
         private void InternalToggle()
         {
             if (!IsActive() || !IsInteractable())
+            {
                 return;
+            }
 
             if (m_Group != null)
             {
@@ -297,12 +320,20 @@ namespace CookApps.TeamBattle.UIManagements
         public virtual void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left)
+            {
                 return;
+            }
+
             if (!SelectableBlockerManager.Instance.IsAllowSelectable(name))
+            {
                 return;
+            }
 
             if (useDefaultClickSound)
+            {
                 OnPlayDefaultSound?.Invoke();
+            }
+
             InternalToggle();
             SelectableBlockerManager.Instance.OnClicked(name);
         }
@@ -310,10 +341,15 @@ namespace CookApps.TeamBattle.UIManagements
         public virtual void OnSubmit(BaseEventData eventData)
         {
             if (!SelectableBlockerManager.Instance.IsAllowSelectable(name))
+            {
                 return;
+            }
 
             if (useDefaultClickSound)
+            {
                 OnPlayDefaultSound?.Invoke();
+            }
+
             InternalToggle();
             SelectableBlockerManager.Instance.OnClicked(name);
         }

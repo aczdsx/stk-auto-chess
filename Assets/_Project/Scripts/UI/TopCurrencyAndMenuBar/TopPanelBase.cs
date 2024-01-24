@@ -17,4 +17,5 @@ public abstract class TopPanelBase : CachedMonoBehaviour
 {
     [SerializeField] protected TMP_Text currencyText;
     public abstract TopPanelType PanelType { get; }
+    public TopCurrencyAndMenuBar attachedTopBar { get; set; }
 }

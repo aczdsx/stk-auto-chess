@@ -1,17 +1,6 @@
 #if UNITY_EDITOR
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using DG.Tweening;
 using UnityEditor;
-using UnityEditor.Search;
-using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 namespace CookApps.TeamBattle.UIManagements
@@ -41,9 +30,11 @@ namespace CookApps.TeamBattle.UIManagements
 
             EditorGUILayout.Space(20);
 
-            obj = EditorGUILayout.ObjectField(obj, typeof(GameObject), allowSceneObjects: false);
+            obj = EditorGUILayout.ObjectField(obj, typeof(GameObject), false);
             if (GUILayout.Button("Bind"))
+            {
                 origin.Add(obj);
+            }
 
             serializedObject.ApplyModifiedProperties();
             serializedObject.Update();

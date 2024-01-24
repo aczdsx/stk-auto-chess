@@ -47,8 +47,8 @@ namespace CookApps.SampleTeamBattle
                     };
                     break;
 
-                case DataCategory.UserStage:
-                    message = new UserStage
+                case DataCategory.UserStageGroup:
+                    message = new UserStageGroup
                     {
                         LastStageId = 1,
                         CurrentStageId = 1,

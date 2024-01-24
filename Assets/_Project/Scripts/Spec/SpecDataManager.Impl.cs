@@ -72,4 +72,30 @@ public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
 
         return 0;
     }
+
+    public SpecStage GetSpecStage(int chapter, int stageIdx)
+    {
+        if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
+        {
+            return stageList[stageIdx];
+        }
+
+        return null;
+    }
+
+    public int GetStageIndex(int chapter, int stageId)
+    {
+        if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
+        {
+            for (var i = 0; i < stageList.Count; i++)
+            {
+                if (stageList[i].stage_id == stageId)
+                {
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
 }

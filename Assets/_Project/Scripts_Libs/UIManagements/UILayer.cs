@@ -96,7 +96,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public virtual void OnBackButton(ref bool offPrevUI)
         {
-            SceneUIManager.Instance.RequestPopUI(this);
+            SceneUIManager.Instance.PopUILayer(this);
         }
 
         private void AnimationCompleteHandler(string name)

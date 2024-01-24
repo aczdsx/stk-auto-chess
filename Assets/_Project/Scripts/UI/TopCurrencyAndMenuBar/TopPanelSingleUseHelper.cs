@@ -58,6 +58,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
         {
             TopPanelType type = topUI.UsePanelFlags[i];
             topUI.AddPanel(type, panels[type].CachedRectTr);
+            panels[type].attachedTopBar = topUI;
         }
 
         topUI.ForceUpdateLayout();
@@ -76,6 +77,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
                 if (topUIs[j].UsePanelFlags.Contains(type))
                 {
                     topUIs[j].AddPanel(type, panel.CachedRectTr);
+                    panel.attachedTopBar = topUIs[j];
                     isOccupied = true;
                     break;
                 }
@@ -84,6 +86,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
             if (!isOccupied)
             {
                 topUI.CachedTr.SetParent(topUIOriginTr, false);
+                panel.attachedTopBar = null;
             }
         }
     }

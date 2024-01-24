@@ -455,7 +455,7 @@ namespace CookApps.TeamBattle.UIManagements
         }
 
         #region Push or Pop UI
-        public async UniTask<(PushReqCode, object)> RequestPushUIAsync(string uiName, object data = null)
+        public async UniTask<(PushReqCode, object)> PushUILayerAsync(string uiName, object data = null)
         {
             (PushReqCode, object) ret = (PushReqCode.OK, null);
             var isClosed = false;
@@ -464,7 +464,7 @@ namespace CookApps.TeamBattle.UIManagements
                 ret = (ret.Item1, res);
                 isClosed = true;
             };
-            PushReqCode reqCode = RequestPushUIWithKey(uiName, uiName, data, closeCallback);
+            PushReqCode reqCode = PushUILayerWithKey(uiName, uiName, data, closeCallback);
             if (reqCode != PushReqCode.OK)
             {
                 ret.Item1 = reqCode;
@@ -475,12 +475,12 @@ namespace CookApps.TeamBattle.UIManagements
             return ret;
         }
 
-        public PushReqCode RequestPushUI(string uiName, object data = null, Action<object> closeCallback = null)
+        public PushReqCode PushUILayer(string uiName, object data = null, Action<object> closeCallback = null)
         {
-            return RequestPushUIWithKey(uiName, uiName, data, closeCallback);
+            return PushUILayerWithKey(uiName, uiName, data, closeCallback);
         }
 
-        public PushReqCode RequestPushUIWithKey(string uiName, string key, object data = null, Action<object> closeCallback = null)
+        public PushReqCode PushUILayerWithKey(string uiName, string key, object data = null, Action<object> closeCallback = null)
         {
             bool isExistUIStack = uiStacks.Exists(x =>
                 x.state != UIState.Exiting && x.key.Equals(key));
@@ -513,7 +513,7 @@ namespace CookApps.TeamBattle.UIManagements
             }
 
             isLoadingUI = true;
-            LoadUI(uiName).ContinueWith(ui =>
+            LoadUILayer(uiName).ContinueWith(ui =>
             {
                 isLoadingUI = false;
                 if (noNeedToLoadUI)
@@ -628,7 +628,7 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
-        public PopReqCode RequestPopUI(string key, object dataToCloseCallback = null)
+        public PopReqCode PopUILayer(string key, object dataToCloseCallback = null)
         {
             bool isExist = uiStacks.Exists(x => x.key.Equals(key));
             if (!isExist)
@@ -646,7 +646,7 @@ namespace CookApps.TeamBattle.UIManagements
             return PopReqCode.OK;
         }
 
-        public PopReqCode RequestPopUI(UILayer ui, object dataToCloseCallback = null)
+        public PopReqCode PopUILayer(UILayer ui, object dataToCloseCallback = null)
         {
             bool isExist = uiStacks.Exists(x => x.ui.Equals(ui));
             if (!isExist)
@@ -664,7 +664,7 @@ namespace CookApps.TeamBattle.UIManagements
             return PopReqCode.OK;
         }
 
-        public PopReqCode RequestPopTopUI(object dataToCloseCallback = null)
+        public PopReqCode PopTopUILayer(object dataToCloseCallback = null)
         {
             if (uiStacks.Count <= 1)
             {
@@ -804,7 +804,7 @@ namespace CookApps.TeamBattle.UIManagements
         #endregion
 
         #region Load UI from addressables
-        private async UniTask<UILayer> LoadUI(string uiName)
+        private async UniTask<UILayer> LoadUILayer(string uiName)
         {
             UIData sceneUIData = _dataSource.UIDataList[uiName];
             GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUIData.assetName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
@@ -1004,7 +1004,7 @@ namespace CookApps.TeamBattle.UIManagements
                 for (var i = 0; i < _dataSource.SceneDataList[sceneName].defaultUINames.Length; i++)
                 {
                     int index = i;
-                    tasks[i] = LoadUI(_dataSource.SceneDataList[sceneName].defaultUINames[index]);
+                    tasks[i] = LoadUILayer(_dataSource.SceneDataList[sceneName].defaultUINames[index]);
                 }
 
                 UILayer[] res = await UniTask.WhenAll(tasks);
@@ -1061,7 +1061,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             for (var i = 0; i < _dataSource.SceneDataList[sceneName].defaultUINames.Length; i++)
             {
-                RequestPushUI(_dataSource.SceneDataList[sceneName].defaultUINames[i], defaultUIData); // default UI는 key와 uiName이 같아야 한다.
+                PushUILayer(_dataSource.SceneDataList[sceneName].defaultUINames[i], defaultUIData); // default UI는 key와 uiName이 같아야 한다.
             }
 
             transition.FadeOutAsync(true);
