@@ -4,14 +4,13 @@ using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.Serialization;
 
 namespace CookApps.SampleTeamBattle
 {
     public class StageReward
     {
-        public int targetStarCount;
-        public Reward reward;
+        public int targetStarCount { init; get; }
+        public RewardItem rewardItem { init; get; }
     }
 
     public class StageDetailPopup : UILayer
@@ -97,7 +96,7 @@ namespace CookApps.SampleTeamBattle
         {
             SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
             UserStage userStage = UserDataManager.UserStage.GetUserStage(specStage.stage_id);
-            Reward[] starReward = specStage.GetStarRewards();
+            RewardItem[] starReward = specStage.GetStarRewards();
             for (var i = 0; i < starReward.Length; i++)
             {
                 if (i < userStage.StarCount)
@@ -105,9 +104,23 @@ namespace CookApps.SampleTeamBattle
                     continue;
                 }
 
-                var reward = new StageReward();
-                reward.targetStarCount = i + 1;
-                reward.reward = starReward[i];
+                var reward = new StageReward
+                {
+                    targetStarCount = i + 1,
+                    rewardItem = starReward[i],
+                };
+                rewards.Add(reward);
+            }
+
+            List<RewardItem> specChests = SpecDataManager.Instance.GetChestList(specStage.chest_id);
+
+            foreach (RewardItem rewardItem in specChests)
+            {
+                var reward = new StageReward
+                {
+                    targetStarCount = 0,
+                    rewardItem = rewardItem,
+                };
                 rewards.Add(reward);
             }
 

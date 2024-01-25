@@ -48,8 +48,8 @@ namespace CookApps.SampleTeamBattle
             CustomizeSpecData();
         }
 
-        private Dictionary<int, List<SpecStage>> stageDict = new (); // key : chapter, value : stage list
-        private Dictionary<int, List<SpecChest>> chestDict = new (); // key : chest_id, value : chest list
+        private Dictionary<int, List<SpecStage>> stageDict = new ();  // key : chapter, value : stage list
+        private Dictionary<int, List<RewardItem>> chestDict = new (); // key : chest_id, value : chest list
 
         private void CustomizeSpecData()
         {
@@ -68,13 +68,13 @@ namespace CookApps.SampleTeamBattle
             chestDict.Clear();
             foreach (SpecChest chest in SpecChest.All)
             {
-                if (!chestDict.TryGetValue(chest.chest_id, out List<SpecChest> chestList))
+                if (!chestDict.TryGetValue(chest.chest_id, out List<RewardItem> chestList))
                 {
-                    chestList = new List<SpecChest>();
+                    chestList = new List<RewardItem>();
                     chestDict.Add(chest.chest_id, chestList);
                 }
 
-                chestList.Add(chest);
+                chestList.Add(chest.ToRewardItem());
             }
         }
 
@@ -114,7 +114,7 @@ namespace CookApps.SampleTeamBattle
             return -1;
         }
 
-        public List<SpecChest> GetChestList(int chestId)
+        public List<RewardItem> GetChestList(int chestId)
         {
             return chestDict.GetValueOrDefault(chestId);
         }
