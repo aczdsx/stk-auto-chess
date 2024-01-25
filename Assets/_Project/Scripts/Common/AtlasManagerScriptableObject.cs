@@ -1,0 +1,20 @@
+using System.Collections.Generic;
+using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.U2D;
+
+namespace CookApps.SampleTeamBattle
+{
+    [CreateAssetMenu(fileName = "AtlasManager", menuName = "ScriptableObjects/AtlasManager", order = 1)]
+    public class AtlasManagerScriptableObject : ScriptableObject
+    {
+        // [SerializeField] public AssetReferenceT<SpriteAtlas>[] ingameAtlasRefs;
+        // [SerializeField] public AssetReferenceT<SpriteAtlas>[] outgameAtlasRefs;
+        [SerializeField] [Header("아틀라스가 쓰이는 씬들의 이름을 적어주세요.")]
+        public SerializableDictionary<AssetReferenceT<SpriteAtlas>, List<string>> atlasRefs;
+    }
+
+}
