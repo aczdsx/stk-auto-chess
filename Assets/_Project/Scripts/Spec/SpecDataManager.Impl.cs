@@ -8,11 +8,13 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 
-public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
+namespace CookApps.SampleTeamBattle
 {
-    public async UniTask Initialize()
+    public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
     {
-        await UniTask.Yield();
+        public async UniTask Initialize()
+        {
+            await UniTask.Yield();
 #if USE_SERVER_SPEC
         var localData = new CookAppsLocalData(SecretKey.GetKey());
         string json;
@@ -38,64 +40,83 @@ public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
             }
         }
 #else
-        string json = SpecDataResourceLoader.LoadSpecData();
-        await UniTask.Yield();
+            string json = SpecDataResourceLoader.LoadSpecData();
+            await UniTask.Yield();
 #endif
-        Load(json);
-        await UniTask.Yield();
-        CustomizeSpecData();
-    }
+            Load(json);
+            await UniTask.Yield();
+            CustomizeSpecData();
+        }
 
-    private Dictionary<int, List<SpecStage>> stageDict = new (); // key : chapter, value : stage list
+        private Dictionary<int, List<SpecStage>> stageDict = new (); // key : chapter, value : stage list
+        private Dictionary<int, List<SpecChest>> chestDict = new (); // key : chest_id, value : chest list
 
-    private void CustomizeSpecData()
-    {
-        stageDict.Clear();
-        foreach (SpecStage stage in SpecStage.All)
+        private void CustomizeSpecData()
         {
-            if (!stageDict.TryGetValue(stage.chapter_id, out List<SpecStage> stageList))
+            stageDict.Clear();
+            foreach (SpecStage stage in SpecStage.All)
             {
-                stageList = new List<SpecStage>();
-                stageDict.Add(stage.chapter_id, stageList);
+                if (!stageDict.TryGetValue(stage.chapter_id, out List<SpecStage> stageList))
+                {
+                    stageList = new List<SpecStage>();
+                    stageDict.Add(stage.chapter_id, stageList);
+                }
+
+                stageList.Add(stage);
             }
 
-            stageList.Add(stage);
-        }
-    }
-
-    public int GetStageCount(int chapter)
-    {
-        if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
-        {
-            return stageList.Count;
-        }
-
-        return 0;
-    }
-
-    public SpecStage GetSpecStage(int chapter, int stageIdx)
-    {
-        if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
-        {
-            return stageList[stageIdx];
-        }
-
-        return null;
-    }
-
-    public int GetStageIndex(int chapter, int stageId)
-    {
-        if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
-        {
-            for (var i = 0; i < stageList.Count; i++)
+            chestDict.Clear();
+            foreach (SpecChest chest in SpecChest.All)
             {
-                if (stageList[i].stage_id == stageId)
+                if (!chestDict.TryGetValue(chest.chest_id, out List<SpecChest> chestList))
                 {
-                    return i;
+                    chestList = new List<SpecChest>();
+                    chestDict.Add(chest.chest_id, chestList);
+                }
+
+                chestList.Add(chest);
+            }
+        }
+
+        public int GetStageCount(int chapter)
+        {
+            if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
+            {
+                return stageList.Count;
+            }
+
+            return 0;
+        }
+
+        public SpecStage GetSpecStage(int chapter, int stageIdx)
+        {
+            if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
+            {
+                return stageList[stageIdx];
+            }
+
+            return null;
+        }
+
+        public int GetStageIndex(int chapter, int stageId)
+        {
+            if (stageDict.TryGetValue(chapter, out List<SpecStage> stageList))
+            {
+                for (var i = 0; i < stageList.Count; i++)
+                {
+                    if (stageList[i].stage_id == stageId)
+                    {
+                        return i;
+                    }
                 }
             }
+
+            return -1;
         }
 
-        return -1;
+        public List<SpecChest> GetChestList(int chestId)
+        {
+            return chestDict.GetValueOrDefault(chestId);
+        }
     }
 }

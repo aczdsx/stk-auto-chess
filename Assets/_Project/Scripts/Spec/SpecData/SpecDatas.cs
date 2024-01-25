@@ -6,146 +6,161 @@
 
 using CookApps.SpecData.Generator;
 
-
-[GeneratorSpecData]
-public partial class SpecOption
+namespace CookApps.SampleTeamBattle
 {
-    [GeneratorId(nameof(name), typeof(string))]
-    public string name;
-    public string value;
-}
 
-[GeneratorSpecData]
-public partial class SpecCharacter
-{
-    [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-    public CookApps.Obfuscator.ObfuscatorInt id;
-    /// ?
-    public CookApps.Obfuscator.ObfuscatorInt seq;
-    public CookApps.Obfuscator.ObfuscatorInt prefab_id;
-    public CookApps.Obfuscator.ObfuscatorInt chapter;
-    public string nickname_token;
-    public string name_token;
-    public string desc_token;
-    public CookApps.Obfuscator.ObfuscatorInt boss_type;
-    public global::Grade grade;
-    public CookApps.Obfuscator.ObfuscatorInt grade_value;
-    public CookApps.Obfuscator.ObfuscatorInt need_piece;
-    public CookApps.Obfuscator.ObfuscatorInt init_star;
-    public CookApps.Obfuscator.ObfuscatorInt max_star;
-    public CookApps.Obfuscator.ObfuscatorInt stat_hp;
-    /// 공격 계산식 & 레벨업 스텟 계산식?
-    public CookApps.Obfuscator.ObfuscatorInt stat_atk;
-    public CookApps.Obfuscator.ObfuscatorInt stat_def;
-    /// 관통?
-    public CookApps.Obfuscator.ObfuscatorInt stat_atk_pierce;
-    public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
-    public CookApps.Obfuscator.ObfuscatorFloat inc_star;
-    public CookApps.Obfuscator.ObfuscatorFloat crit_power;
-    public CookApps.Obfuscator.ObfuscatorFloat crit_rate;
-    public CookApps.Obfuscator.ObfuscatorDouble base_inc;
-    public CookApps.Obfuscator.ObfuscatorFloat atkSpd;
-    public CookApps.Obfuscator.ObfuscatorFloat atkRange;
-    public CookApps.Obfuscator.ObfuscatorInt skill_id;
-    public CookApps.Obfuscator.ObfuscatorInt skill_id2;
-    public CookApps.Obfuscator.ObfuscatorInt equipment_id;
-    public CookApps.Obfuscator.ObfuscatorInt upgrade_skill_id;
-    public bool is_equip_private;
-    public CookApps.Obfuscator.ObfuscatorFloat scale;
-}
+    [GeneratorSpecData]
+    public partial class SpecOption
+    {
+        [GeneratorId(nameof(name), typeof(string))]
+        public string name;
+        public string value;
+    }
 
-[GeneratorSpecData]
-public partial class SpecSkill
-{
-    [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-    public CookApps.Obfuscator.ObfuscatorInt id;
-    public string name_token;
-    public string desc_token;
-    /// ?
-    public string pick_up_desc_token;
-    /// ?
-    public CookApps.Obfuscator.ObfuscatorInt character_id;
-    /// 레벨업이나 초월시 안올라가나?
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate;
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate_2;
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate_3;
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate_4;
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate_5;
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate_6;
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate_7;
-    public CookApps.Obfuscator.ObfuscatorFloat base_rate_8;
-    public CookApps.Obfuscator.ObfuscatorFloat cool;
-    /// ?
-    public bool is_skill_ani_onetake;
-}
+    [GeneratorSpecData]
+    public partial class SpecCharacter
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// ?
+        public CookApps.Obfuscator.ObfuscatorInt seq;
+        public CookApps.Obfuscator.ObfuscatorInt prefab_id;
+        public CookApps.Obfuscator.ObfuscatorInt chapter;
+        public string nickname_token;
+        public string name_token;
+        public string desc_token;
+        public CookApps.Obfuscator.ObfuscatorInt boss_type;
+        public global::CookApps.SampleTeamBattle.Grade grade;
+        public CookApps.Obfuscator.ObfuscatorInt grade_value;
+        public CookApps.Obfuscator.ObfuscatorInt need_piece;
+        public CookApps.Obfuscator.ObfuscatorInt init_star;
+        public CookApps.Obfuscator.ObfuscatorInt max_star;
+        public CookApps.Obfuscator.ObfuscatorInt stat_hp;
+        /// 공격 계산식 & 레벨업 스텟 계산식?
+        public CookApps.Obfuscator.ObfuscatorInt stat_atk;
+        public CookApps.Obfuscator.ObfuscatorInt stat_def;
+        /// 관통?
+        public CookApps.Obfuscator.ObfuscatorInt stat_atk_pierce;
+        public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
+        public CookApps.Obfuscator.ObfuscatorFloat inc_star;
+        public CookApps.Obfuscator.ObfuscatorFloat crit_power;
+        public CookApps.Obfuscator.ObfuscatorFloat crit_rate;
+        public CookApps.Obfuscator.ObfuscatorDouble base_inc;
+        public CookApps.Obfuscator.ObfuscatorFloat atkSpd;
+        public CookApps.Obfuscator.ObfuscatorFloat atkRange;
+        public CookApps.Obfuscator.ObfuscatorInt skill_id;
+        public CookApps.Obfuscator.ObfuscatorInt skill_id2;
+        public CookApps.Obfuscator.ObfuscatorInt equipment_id;
+        public CookApps.Obfuscator.ObfuscatorInt upgrade_skill_id;
+        public bool is_equip_private;
+        public CookApps.Obfuscator.ObfuscatorFloat scale;
+    }
 
-[GeneratorSpecData]
-public partial class SpecChapter
-{
-    [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-    public CookApps.Obfuscator.ObfuscatorInt id;
-    public CookApps.Obfuscator.ObfuscatorInt chapter_id;
-    public string name_token;
-    public string desc_token;
-    public global::RewardType reward_type_1;
-    public CookApps.Obfuscator.ObfuscatorInt reward_key_1;
-    public CookApps.Obfuscator.ObfuscatorInt reward_count_1;
-    public global::RewardType reward_type_2;
-    public CookApps.Obfuscator.ObfuscatorInt reward_key_2;
-    public CookApps.Obfuscator.ObfuscatorInt reward_count_2;
-    public global::RewardType reward_type_3;
-    public CookApps.Obfuscator.ObfuscatorInt reward_key_3;
-    public CookApps.Obfuscator.ObfuscatorInt reward_count_3;
-    public string clear_pack_bg_image;
-    public string clear_pack_char_image;
-}
+    [GeneratorSpecData]
+    public partial class SpecSkill
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        public string name_token;
+        public string desc_token;
+        /// ?
+        public string pick_up_desc_token;
+        /// ?
+        public CookApps.Obfuscator.ObfuscatorInt character_id;
+        /// 레벨업이나 초월시 안올라가나?
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate_2;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate_3;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate_4;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate_5;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate_6;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate_7;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate_8;
+        public CookApps.Obfuscator.ObfuscatorFloat cool;
+        /// ?
+        public bool is_skill_ani_onetake;
+    }
 
-[GeneratorSpecData]
-public partial class SpecStage
-{
-    [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-    public CookApps.Obfuscator.ObfuscatorInt id;
-    public CookApps.Obfuscator.ObfuscatorInt chapter_id;
-    public CookApps.Obfuscator.ObfuscatorInt dialogue_id;
-    public CookApps.Obfuscator.ObfuscatorInt attr;
-    public CookApps.Obfuscator.ObfuscatorInt stage_id;
-    public bool is_elite;
-    public CookApps.Obfuscator.ObfuscatorInt limit_count;
-    public CookApps.Obfuscator.ObfuscatorInt cost;
-    public CookApps.Obfuscator.ObfuscatorInt cost_hard;
-    public CookApps.Obfuscator.ObfuscatorInt front_1;
-    public CookApps.Obfuscator.ObfuscatorInt front_1Lv;
-    public CookApps.Obfuscator.ObfuscatorInt front_2;
-    public CookApps.Obfuscator.ObfuscatorInt front_2Lv;
-    public CookApps.Obfuscator.ObfuscatorInt front_3;
-    public CookApps.Obfuscator.ObfuscatorInt front_3Lv;
-    public CookApps.Obfuscator.ObfuscatorInt mid_1;
-    public CookApps.Obfuscator.ObfuscatorInt mid_1Lv;
-    public CookApps.Obfuscator.ObfuscatorInt mid_2;
-    public CookApps.Obfuscator.ObfuscatorInt mid_2Lv;
-    public CookApps.Obfuscator.ObfuscatorInt mid_3;
-    public CookApps.Obfuscator.ObfuscatorInt mid_3Lv;
-    public CookApps.Obfuscator.ObfuscatorInt back_1;
-    public CookApps.Obfuscator.ObfuscatorInt back_1Lv;
-    public CookApps.Obfuscator.ObfuscatorInt back_2;
-    public CookApps.Obfuscator.ObfuscatorInt back_2Lv;
-    public CookApps.Obfuscator.ObfuscatorInt back_3;
-    public CookApps.Obfuscator.ObfuscatorInt back_3Lv;
-    public CookApps.Obfuscator.ObfuscatorFloat multiple;
-    public CookApps.Obfuscator.ObfuscatorInt hard_add_lv;
-    public CookApps.Obfuscator.ObfuscatorFloat hard_multiple;
-    public CookApps.Obfuscator.ObfuscatorInt chest_id;
-    public CookApps.Obfuscator.ObfuscatorInt hard_chest_id;
-    public global::RewardType star_reward_type_1;
-    /// ?
-    public CookApps.Obfuscator.ObfuscatorInt star_reward_key_1;
-    public CookApps.Obfuscator.ObfuscatorInt star_reward_count_1;
-    public global::RewardType star_reward_type_2;
-    /// ?
-    public CookApps.Obfuscator.ObfuscatorInt star_reward_key_2;
-    public CookApps.Obfuscator.ObfuscatorInt star_reward_count_2;
-    public global::RewardType star_reward_type_3;
-    /// ?
-    public CookApps.Obfuscator.ObfuscatorInt star_reward_key_3;
-    public CookApps.Obfuscator.ObfuscatorInt star_reward_count_3;
+    [GeneratorSpecData]
+    public partial class SpecChapter
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
+        public string name_token;
+        public string desc_token;
+        public global::CookApps.SampleTeamBattle.RewardType reward_type_1;
+        public CookApps.Obfuscator.ObfuscatorInt reward_key_1;
+        public CookApps.Obfuscator.ObfuscatorInt reward_count_1;
+        public global::CookApps.SampleTeamBattle.RewardType reward_type_2;
+        public CookApps.Obfuscator.ObfuscatorInt reward_key_2;
+        public CookApps.Obfuscator.ObfuscatorInt reward_count_2;
+        public global::CookApps.SampleTeamBattle.RewardType reward_type_3;
+        public CookApps.Obfuscator.ObfuscatorInt reward_key_3;
+        public CookApps.Obfuscator.ObfuscatorInt reward_count_3;
+        public string clear_pack_bg_image;
+        public string clear_pack_char_image;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecStage
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
+        public CookApps.Obfuscator.ObfuscatorInt dialogue_id;
+        public CookApps.Obfuscator.ObfuscatorInt attr;
+        public CookApps.Obfuscator.ObfuscatorInt stage_id;
+        public bool is_elite;
+        public CookApps.Obfuscator.ObfuscatorInt limit_count;
+        public CookApps.Obfuscator.ObfuscatorInt cost;
+        public CookApps.Obfuscator.ObfuscatorInt cost_hard;
+        public CookApps.Obfuscator.ObfuscatorInt front_1;
+        public CookApps.Obfuscator.ObfuscatorInt front_1Lv;
+        public CookApps.Obfuscator.ObfuscatorInt front_2;
+        public CookApps.Obfuscator.ObfuscatorInt front_2Lv;
+        public CookApps.Obfuscator.ObfuscatorInt front_3;
+        public CookApps.Obfuscator.ObfuscatorInt front_3Lv;
+        public CookApps.Obfuscator.ObfuscatorInt mid_1;
+        public CookApps.Obfuscator.ObfuscatorInt mid_1Lv;
+        public CookApps.Obfuscator.ObfuscatorInt mid_2;
+        public CookApps.Obfuscator.ObfuscatorInt mid_2Lv;
+        public CookApps.Obfuscator.ObfuscatorInt mid_3;
+        public CookApps.Obfuscator.ObfuscatorInt mid_3Lv;
+        public CookApps.Obfuscator.ObfuscatorInt back_1;
+        public CookApps.Obfuscator.ObfuscatorInt back_1Lv;
+        public CookApps.Obfuscator.ObfuscatorInt back_2;
+        public CookApps.Obfuscator.ObfuscatorInt back_2Lv;
+        public CookApps.Obfuscator.ObfuscatorInt back_3;
+        public CookApps.Obfuscator.ObfuscatorInt back_3Lv;
+        public CookApps.Obfuscator.ObfuscatorFloat multiple;
+        public CookApps.Obfuscator.ObfuscatorInt hard_add_lv;
+        public CookApps.Obfuscator.ObfuscatorFloat hard_multiple;
+        public CookApps.Obfuscator.ObfuscatorInt chest_id;
+        public CookApps.Obfuscator.ObfuscatorInt hard_chest_id;
+        public global::CookApps.SampleTeamBattle.RewardType star_reward_type_1;
+        /// ?
+        public CookApps.Obfuscator.ObfuscatorInt star_reward_key_1;
+        public CookApps.Obfuscator.ObfuscatorInt star_reward_count_1;
+        public global::CookApps.SampleTeamBattle.RewardType star_reward_type_2;
+        /// ?
+        public CookApps.Obfuscator.ObfuscatorInt star_reward_key_2;
+        public CookApps.Obfuscator.ObfuscatorInt star_reward_count_2;
+        public global::CookApps.SampleTeamBattle.RewardType star_reward_type_3;
+        /// ?
+        public CookApps.Obfuscator.ObfuscatorInt star_reward_key_3;
+        public CookApps.Obfuscator.ObfuscatorInt star_reward_count_3;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecChest
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        public CookApps.Obfuscator.ObfuscatorInt chest_id;
+        public global::CookApps.SampleTeamBattle.RewardType type;
+        public CookApps.Obfuscator.ObfuscatorInt key;
+        public CookApps.Obfuscator.ObfuscatorInt value;
+        public CookApps.Obfuscator.ObfuscatorDouble rate;
+    }
 }

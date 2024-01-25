@@ -4,31 +4,43 @@
 // 이진호(jhlee8@cookapps.com)
 // </auto-generated>
 
-
-public enum HeroEffect
+namespace CookApps.SampleTeamBattle
 {
-    NONE = 0,
-    ATK_POWER_UP = 1,
-    MAX_HP_UP = 2,
-    ATK_POWER_RATE_UP = 3,
-    MAX_HP_RATE_UP = 4,
-    HP_REGEN_UP = 5,
-}
 
-public enum Grade
-{
-    COMMON = 1,
-    RARE = 2,
-    EPIC = 3,
-    LEGEND = 4,
-}
+    public enum HeroEffect
+    {
+        NONE = 0,
+        ATK_POWER_UP = 1,
+        MAX_HP_UP = 2,
+        ATK_POWER_RATE_UP = 3,
+        MAX_HP_RATE_UP = 4,
+        HP_REGEN_UP = 5,
+    }
 
-public enum RewardType
-{
-    JEWEL = 1,
-    KTICKET = 2,
-    ETICKET = 3,
-    DUNGEON_KEY1 = 4,
-    DUNGEON_KEY2 = 5,
-    DUNGEON_KEY3 = 6,
+    public enum Grade
+    {
+        COMMON = 1,
+        RARE = 2,
+        EPIC = 3,
+        LEGEND = 4,
+    }
+
+    public enum RewardType
+    {
+        COIN = 1,
+        JEWEL = 2,
+        BREAD = 3,
+        KTICKET = 4,
+        EXPITEM = 5,
+        DUNGEON_KEY1 = 6,
+        DUNGEON_KEY2 = 7,
+        DUNGEON_KEY3 = 8,
+        BUILDING_SUPPLIES = 9,
+        ETICKET = 10,
+        EXP = 11,
+        KNIGHT_PIECE = 12,
+        RANDOM_KNIGHT_PIECE = 13,
+        RANDOM_WEAPON_PIECE = 14,
+        RUNE = 15,
+    }
 }
