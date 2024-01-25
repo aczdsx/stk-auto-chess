@@ -39,6 +39,7 @@ namespace CookApps.SampleTeamBattle
 
         protected override void OnDestroy()
         {
+            base.OnDestroy();
             tableView.OnGetTotalCellItemCount -= OnGetTotalTableViewCellItemCount;
             tableView.OnGetCellItemSize -= OnGetTableViewCellItemSize;
             tableView.OnReleaseCellItem -= OnReleaseTableViewCellItem;

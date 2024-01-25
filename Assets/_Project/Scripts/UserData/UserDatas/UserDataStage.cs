@@ -28,7 +28,7 @@ namespace CookApps.SampleTeamBattle
                 return userStage;
             }
 
-            return new UserStage();
+            return new UserStage {StageId = stageId, StarCount = 0};
         }
 
         public int GetCurrentStageId()

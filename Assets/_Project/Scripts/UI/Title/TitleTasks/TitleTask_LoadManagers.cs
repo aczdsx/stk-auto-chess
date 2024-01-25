@@ -1,5 +1,6 @@
 using CookApps.SampleTeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 
 public class TitleTask_LoadManagers : ITitleTask
@@ -18,7 +19,8 @@ public class TitleTask_LoadManagers : ITitleTask
 
     public async UniTask RunTask()
     {
-        SceneUIManager.AddSceneLoadedAsyncTask(SceneLoadingTask.HandleLoading);
+        SceneUIManager.OnStartChangeScene += SceneLoadingTask.HandleLoading;
+        await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
         isComplete = true;
         progressCallback.Invoke(GetHashCode(), 1f);
     }

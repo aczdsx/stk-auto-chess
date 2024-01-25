@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using CookApps.Obfuscator;
+using Cysharp.Text;
 using UnityEngine;
 using Random = System.Random;
 
@@ -89,6 +92,70 @@ namespace CookApps.TeamBattle.Utility
         {
             color.a = alpha;
             return color;
+        }
+
+        public static ulong djb2Hash(this string s)
+        {
+            ulong hash = 5381;
+            for (var i = 0; i < s.Length; i++)
+            {
+                hash = (hash << 5) + hash + s[i];
+            }
+
+            return hash;
+        }
+
+        public static ulong djb2HashCaseInsensitive(this string s)
+        {
+            ulong hash = 5381;
+            for (var i = 0; i < s.Length; i++)
+            {
+                hash = ((hash << 5) + hash) ^ (s[i] & ~0x20UL);
+            }
+
+            return hash;
+        }
+
+        public static string ToInvariantString<T>(this T obj) where T : unmanaged
+        {
+            switch (obj)
+            {
+                case sbyte value: return value.ToString(CultureInfo.InvariantCulture);
+                case byte value: return value.ToString(CultureInfo.InvariantCulture);
+                case short value: return value.ToString(CultureInfo.InvariantCulture);
+                case ushort value: return value.ToString(CultureInfo.InvariantCulture);
+                case int value: return value.ToString(CultureInfo.InvariantCulture);
+                case uint value: return value.ToString(CultureInfo.InvariantCulture);
+                case long value: return value.ToString(CultureInfo.InvariantCulture);
+                case ulong value: return value.ToString(CultureInfo.InvariantCulture);
+                case char value: return value.ToString(CultureInfo.InvariantCulture);
+                case float value: return value.ToString(CultureInfo.InvariantCulture);
+                case double value: return value.ToString(CultureInfo.InvariantCulture);
+                case decimal value: return value.ToString(CultureInfo.InvariantCulture);
+                case bool value: return value.ToString(CultureInfo.InvariantCulture);
+            }
+
+            return obj.ToString();
+        }
+
+        public static string ToCommaString(this long value)
+        {
+            return ZString.Format("{0:#,##0}", value);
+        }
+
+        public static string ToCommaString(this ObfuscatorLong value)
+        {
+            return ZString.Format("{0:#,##0}", value);
+        }
+
+        public static string ToCommaString(this int value)
+        {
+            return ZString.Format("{0:#,##0}", value);
+        }
+
+        public static string ToCommaString(this ObfuscatorInt value)
+        {
+            return ZString.Format("{0:#,##0}", value);
         }
     }
 

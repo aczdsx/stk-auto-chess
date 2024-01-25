@@ -166,26 +166,14 @@ namespace CookApps.TeamBattle.UIManagements
         public static event Action<string> OnSceneUnloadedEvent;
         public static event Action<string> OnSceneLoadedEvent;
 
-        private static List<Func<string, string, object, UniTask>> sceneLoadedAsyncTasks;
+        public delegate UniTask SceneLoadedAsyncTask(string prevScene, string nextScene, object defaultUIData);
 
-        public static void AddSceneLoadedAsyncTask(Func<string, string, object, UniTask> task)
+        private static List<SceneLoadedAsyncTask> startChangeSceneAsyncTasks = new ();
+
+        public static event SceneLoadedAsyncTask OnStartChangeScene
         {
-            if (sceneLoadedAsyncTasks == null)
-            {
-                sceneLoadedAsyncTasks = new List<Func<string, string, object, UniTask>>();
-            }
-
-            sceneLoadedAsyncTasks.Add(task);
-        }
-
-        public static void RemoveSceneLoadedAsyncTask(Func<string, string, object, UniTask> task)
-        {
-            if (sceneLoadedAsyncTasks == null)
-            {
-                return;
-            }
-
-            sceneLoadedAsyncTasks.Remove(task);
+            add => startChangeSceneAsyncTasks.Add(value);
+            remove => startChangeSceneAsyncTasks.Remove(value);
         }
 
         public int CurrentUICount => /*waitingUIDataList.Count + */uiStacks.Count;
@@ -985,35 +973,24 @@ namespace CookApps.TeamBattle.UIManagements
         {
             ClearUIPool();
 
-            await transition.FadeInAsync();
-
-            if (sceneLoadedAsyncTasks != null)
-            {
-                var tasks = new UniTask[sceneLoadedAsyncTasks.Count];
-                for (var i = 0; i < sceneLoadedAsyncTasks.Count; i++)
-                {
-                    tasks[i] = sceneLoadedAsyncTasks[i].Invoke(CurrentSceneName, sceneName, defaultUIData);
-                }
-
-                await tasks;
-            }
-
             // default UI load
             {
-                var tasks = new UniTask<UILayer>[_dataSource.SceneDataList[sceneName].defaultUINames.Length];
+                var uiLayerLoadingTask = new UniTask<UILayer>[_dataSource.SceneDataList[sceneName].defaultUINames.Length];
                 for (var i = 0; i < _dataSource.SceneDataList[sceneName].defaultUINames.Length; i++)
                 {
                     int index = i;
-                    tasks[i] = LoadUILayer(_dataSource.SceneDataList[sceneName].defaultUINames[index]);
+                    uiLayerLoadingTask[i] = LoadUILayer(_dataSource.SceneDataList[sceneName].defaultUINames[index]);
                 }
 
-                UILayer[] res = await UniTask.WhenAll(tasks);
+                UILayer[] res = await UniTask.WhenAll(uiLayerLoadingTask);
                 for (var i = 0; i < res.Length; i++)
                 {
                     PoolingUI(_dataSource.SceneDataList[sceneName].defaultUINames[i], res[i]);
                 }
             }
+            await transition.FadeInAsync();
 
+            List<UniTask> tasks = new ();
             // preload addressable
             if (_dataSource.SceneDataList[sceneName].preloads != null)
             {
@@ -1023,9 +1000,12 @@ namespace CookApps.TeamBattle.UIManagements
                 }
             }
 
+            tasks.AddRange(startChangeSceneAsyncTasks.Select(x => x.Invoke(CurrentSceneName, sceneName, defaultUIData)));
+
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
             asyncOperation.allowSceneActivation = false;
             operationWrapper.SetAsyncOperation(asyncOperation);
+            await UniTask.WhenAll(tasks);
             await UniTask.WaitUntil(() => operationWrapper.progress >= 0.9f);
             await UniTask.WaitUntil(() => operationWrapper.allowSceneActivation);
 

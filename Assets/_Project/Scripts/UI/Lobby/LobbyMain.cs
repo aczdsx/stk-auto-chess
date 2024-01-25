@@ -16,7 +16,7 @@ public class LobbyMain : UILayer
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        btnStart.onClick.RemoveAllListeners();
+        btnStart.onClick.RemoveListener(OnClickStart);
     }
 
     public override void OnPreEnter(object param)
