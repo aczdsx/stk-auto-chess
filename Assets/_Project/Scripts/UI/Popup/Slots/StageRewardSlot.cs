@@ -8,7 +8,7 @@ namespace CookApps.SampleTeamBattle
 
         public void SetReward(StageReward reward)
         {
-            rewardView.SetReward(reward.reward);
+            rewardView.SetReward(reward.rewardItem.ToGrpcReward());
         }
     }
 }
