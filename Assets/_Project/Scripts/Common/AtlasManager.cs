@@ -32,8 +32,10 @@ namespace CookApps.SampleTeamBattle
 
         private async UniTask OnStartChangeScene(string prevSceneName, string nextSceneName, object defaultUIData)
         {
-            foreach ((AssetReferenceT<SpriteAtlas> assetRef, List<string> sceneNames) in so.atlasRefs)
+            foreach (AtlasData data in so.atlasRefs)
             {
+                AssetReferenceT<SpriteAtlas> assetRef = data.assetRef;
+                List<string> sceneNames = data.sceneNames;
                 if (sceneNames.Contains(prevSceneName))
                 {
                     if (sceneNames.Contains(nextSceneName))
