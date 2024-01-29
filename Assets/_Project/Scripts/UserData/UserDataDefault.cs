@@ -54,6 +54,20 @@ namespace CookApps.SampleTeamBattle
                         CurrentStageId = 1,
                     };
                     break;
+                case DataCategory.UserCharacterGroup:
+                    message = new UserCharacterGroup();
+                    break;
+                case DataCategory.UserDeck:
+                    message = new UserDeck
+                    {
+                        LineCharacters =
+                        {
+                            new UserDeckLine(),
+                            new UserDeckLine(),
+                            new UserDeckLine(),
+                        },
+                    };
+                    break;
             }
 
             return message;

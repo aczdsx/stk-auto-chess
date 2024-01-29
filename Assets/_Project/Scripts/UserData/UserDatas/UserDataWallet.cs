@@ -8,12 +8,6 @@ namespace CookApps.SampleTeamBattle
     public partial class UserDataManager
     {
         public static UserDataWallet UserWallet => Get<UserDataWallet>(DataCategory.UserWallet);
-
-        public static event Action<int> OnBreadChanged
-        {
-            add => Get<UserDataWallet>(DataCategory.UserWallet).OnBreadChanged += value;
-            remove => Get<UserDataWallet>(DataCategory.UserWallet).OnBreadChanged -= value;
-        }
     }
 
     public class UserDataWallet : IUserData
@@ -23,7 +17,7 @@ namespace CookApps.SampleTeamBattle
 
         private UserWallet userWalletData;
 
-        public event Action<int> OnBreadChanged;
+        public static event Action<int> OnBreadChanged;
 
         public void Initialize(string data)
         {
