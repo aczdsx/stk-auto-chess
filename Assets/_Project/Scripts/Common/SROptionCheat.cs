@@ -1,3 +1,4 @@
+#if !RELEASE && ENABLE_CHEAT
 using System.ComponentModel;
 using CookApps.SampleTeamBattle;
 
@@ -48,4 +49,21 @@ public partial class SROptions
 
     [Category("Reward")] [Sort(4)]
     public string ItemResultMessage { get; private set; }
+
+    [Category("Reward")] [Sort(10)]
+    public void AddAllCharacters()
+    {
+        foreach (SpecCharacter spec in SpecDataManager.Instance.SpecCharacter.All)
+        {
+            if (spec.seq <= 0)
+            {
+                continue;
+            }
+
+            UserDataManager.UserCharacter.AddCharacter(spec.id, 1);
+        }
+
+        UserDataManager.UserCharacter.Save();
+    }
 }
+#endif
