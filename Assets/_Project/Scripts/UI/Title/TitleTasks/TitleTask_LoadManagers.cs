@@ -21,6 +21,9 @@ public class TitleTask_LoadManagers : ITitleTask
     {
         SceneUIManager.OnStartChangeScene += SceneLoadingTask.HandleLoading;
         await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
+#if !RELEASE && ENABLE_CHEAT
+        SRDebug.Init();
+#endif
         isComplete = true;
         progressCallback.Invoke(GetHashCode(), 1f);
     }
