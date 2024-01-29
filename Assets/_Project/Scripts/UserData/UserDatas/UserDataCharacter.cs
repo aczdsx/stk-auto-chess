@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Com.Cookapps.Sampleteambattle;
 using CookApps.gRPC.Common;
 using CookApps.gRPC.Universal;
@@ -24,6 +25,11 @@ namespace CookApps.SampleTeamBattle
         void IUserData.Initialize(string data)
         {
             userCharacterGroup = MessageUtility.FromBase64String<UserCharacterGroup>(data);
+        }
+
+        public int[] GetAllCharacterIds()
+        {
+            return userCharacterGroup.UserCharacters.Select(x => x.CharacterId).ToArray();
         }
 
         public void AddCharacter(int characterId, int cardCount)
@@ -55,6 +61,24 @@ namespace CookApps.SampleTeamBattle
             }
 
             OnUserCharacterChanged?.Invoke(userCharacter);
+        }
+
+        public UserCharacter GetUserCharacter(int characterId)
+        {
+            foreach (UserCharacter user in userCharacterGroup.UserCharacters)
+            {
+                if (user.CharacterId == characterId)
+                {
+                    return user;
+                }
+            }
+
+            return null;
+        }
+
+        public UserCharacter GetUserCharacterByIndex(int index)
+        {
+            return userCharacterGroup.UserCharacters[index];
         }
 
         public int GetCharacterCount()

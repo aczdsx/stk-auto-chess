@@ -51,6 +51,19 @@ namespace CookApps.SampleTeamBattle
             userDeckData.LineCharacters[lineIndex].CharacterIds.Remove(characterId);
         }
 
+        public bool IsDeployed(int characterId)
+        {
+            foreach (UserDeckLine userDeckLine in userDeckData.LineCharacters)
+            {
+                if (userDeckLine.CharacterIds.Contains(characterId))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public RepeatedField<int> GetFront()
         {
             return userDeckData.LineCharacters[0].CharacterIds;

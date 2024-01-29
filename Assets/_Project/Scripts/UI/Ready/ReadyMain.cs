@@ -16,6 +16,7 @@ namespace CookApps.SampleTeamBattle
         private ObjectPool<CharacterSlot> characterSlotPool;
         private int chapter;
         private int stageIndex;
+        private List<int> ownCharacterIds = new ();
 
         private List<CharacterSlot> playerCharacterSlots = new ();
         private List<CharacterSlot> enemyCharacterSlots = new ();
@@ -67,7 +68,7 @@ namespace CookApps.SampleTeamBattle
             CharacterSlot slot = characterSlotPool.Get();
             slot.CachedTr.SetParent(tableView.content, false);
             slot.CachedTr.localRotation = Quaternion.identity;
-            slot.SetCharacterData(false, idx);
+            slot.SetCharacterData(false, ownCharacterIds[idx]);
             return slot.CachedRectTr;
         }
 
@@ -83,7 +84,7 @@ namespace CookApps.SampleTeamBattle
 
         private int OnGetTotalTableViewCellItemCount()
         {
-            return UserDataManager.UserCharacter.GetCharacterCount();
+            return ownCharacterIds.Count;
         }
 
         public override void OnPreEnter(object param)
@@ -91,6 +92,8 @@ namespace CookApps.SampleTeamBattle
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.CloseButton);
             (chapter, stageIndex) = ((int, int)) param;
+            ownCharacterIds.Clear();
+            ownCharacterIds.AddRange(UserDataManager.UserCharacter.GetAllCharacterIds());
             tableView.RefreshAll();
             RefreshDeck();
             RefreshEnemyDeck();
@@ -103,31 +106,33 @@ namespace CookApps.SampleTeamBattle
                 characterSlotPool.Release(slot);
             }
 
+            playerCharacterSlots.Clear();
+
             foreach (int id in UserDataManager.UserDeck.GetFront())
             {
                 CharacterSlot slot = characterSlotPool.Get();
-                slot.CachedTr.SetParent(enemyPositionParentTrs[0], false);
+                slot.CachedTr.SetParent(playerPositionParentTrs[0], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetCharacterData(true, id);
-                enemyCharacterSlots.Add(slot);
+                playerCharacterSlots.Add(slot);
             }
 
             foreach (int id in UserDataManager.UserDeck.GetMid())
             {
                 CharacterSlot slot = characterSlotPool.Get();
-                slot.CachedTr.SetParent(enemyPositionParentTrs[1], false);
+                slot.CachedTr.SetParent(playerPositionParentTrs[1], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetCharacterData(true, id);
-                enemyCharacterSlots.Add(slot);
+                playerCharacterSlots.Add(slot);
             }
 
             foreach (int id in UserDataManager.UserDeck.GetBack())
             {
                 CharacterSlot slot = characterSlotPool.Get();
-                slot.CachedTr.SetParent(enemyPositionParentTrs[2], false);
+                slot.CachedTr.SetParent(playerPositionParentTrs[2], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetCharacterData(true, id);
-                enemyCharacterSlots.Add(slot);
+                playerCharacterSlots.Add(slot);
             }
         }
 
@@ -138,31 +143,33 @@ namespace CookApps.SampleTeamBattle
                 characterSlotPool.Release(slot);
             }
 
+            enemyCharacterSlots.Clear();
+
             SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
-            foreach (int id in specStage.GetFront())
+            foreach ((int id, int level) in specStage.GetFront())
             {
                 CharacterSlot slot = characterSlotPool.Get();
                 slot.CachedTr.SetParent(enemyPositionParentTrs[0], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
-                slot.SetCharacterData(true, id);
+                slot.SetEnemyCharacterData(id, level);
                 enemyCharacterSlots.Add(slot);
             }
 
-            foreach (int id in specStage.GetMid())
+            foreach ((int id, int level) in specStage.GetMid())
             {
                 CharacterSlot slot = characterSlotPool.Get();
                 slot.CachedTr.SetParent(enemyPositionParentTrs[1], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
-                slot.SetCharacterData(true, id);
+                slot.SetEnemyCharacterData(id, level);
                 enemyCharacterSlots.Add(slot);
             }
 
-            foreach (int id in specStage.GetBack())
+            foreach ((int id, int level) in specStage.GetBack())
             {
                 CharacterSlot slot = characterSlotPool.Get();
                 slot.CachedTr.SetParent(enemyPositionParentTrs[2], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
-                slot.SetCharacterData(true, id);
+                slot.SetEnemyCharacterData(id, level);
                 enemyCharacterSlots.Add(slot);
             }
         }
@@ -175,15 +182,17 @@ namespace CookApps.SampleTeamBattle
                 return;
             }
 
-            if (slot.IsInDeck)
+            if (UserDataManager.UserDeck.IsDeployed(specCharacter.id))
             {
                 UserDataManager.UserDeck.RemoveCharacterInTeam(slot.CharacterId);
                 RefreshDeck();
+                tableView.RefreshAll();
             }
             else
             {
                 UserDataManager.UserDeck.AddCharacterInTeam(slot.CharacterId);
                 RefreshDeck();
+                tableView.RefreshAll();
             }
         }
     }

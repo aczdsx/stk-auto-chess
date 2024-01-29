@@ -28,14 +28,24 @@ namespace CookApps.SampleTeamBattle
         {
             return SimpleSwapType.Grade_0 + ((int) grade - 1);
         }
+
+        public static SimpleSwapType ToSimpleSwapType(this CharacterType type)
+        {
+            return SimpleSwapType.Custom_0 + ((int) type - 1);
+        }
+
+        public static SimpleSwapType ToSimpleSwapType(this CharacterPosition pos)
+        {
+            return SimpleSwapType.Custom_0 + ((int) pos - 1);
+        }
     }
 
     public partial class SpecStage
     {
         private RewardItem[] starRewards;
-        private int[] front;
-        private int[] mid;
-        private int[] back;
+        private (int id, int level)[] front;
+        private (int id, int level)[] mid;
+        private (int id, int level)[] back;
 
         public RewardItem[] GetStarRewards()
         {
@@ -62,81 +72,81 @@ namespace CookApps.SampleTeamBattle
             };
         }
 
-        public int[] GetFront()
+        public (int id, int level)[] GetFront()
         {
             if (this.front != null)
             {
                 return this.front;
             }
 
-            var front = new List<int>();
+            var front = new List<(int id, int level)>();
             if (front_1 > 0)
             {
-                front.Add(front_1);
+                front.Add((front_1, front_1Lv));
             }
 
             if (front_2 > 0)
             {
-                front.Add(front_2);
+                front.Add((front_2, front_2Lv));
             }
 
             if (front_3 > 0)
             {
-                front.Add(front_3);
+                front.Add((front_3, front_3Lv));
             }
 
             this.front = front.ToArray();
             return this.front;
         }
 
-        public int[] GetMid()
+        public (int id, int level)[] GetMid()
         {
             if (this.mid != null)
             {
                 return this.mid;
             }
 
-            var mid = new List<int>();
+            var mid = new List<(int id, int level)>();
             if (mid_1 > 0)
             {
-                mid.Add(mid_1);
+                mid.Add((mid_1, mid_1Lv));
             }
 
             if (mid_2 > 0)
             {
-                mid.Add(mid_2);
+                mid.Add((mid_2, mid_2Lv));
             }
 
             if (mid_3 > 0)
             {
-                mid.Add(mid_3);
+                mid.Add((mid_3, mid_3Lv));
             }
 
             this.mid = mid.ToArray();
             return this.mid;
         }
 
-        public int[] GetBack()
+        public (int id, int level)[] GetBack()
         {
             if (this.back != null)
             {
                 return this.back;
             }
 
-            var back = new List<int>();
+            var back = new List<(int id, int level)>();
             if (back_1 > 0)
             {
-                back.Add(back_1);
+                back.Add((back_1, back_1Lv));
             }
 
             if (back_2 > 0)
             {
-                back.Add(back_2);
+                back.Add((back_2, back_2Lv));
             }
 
             if (back_3 > 0)
             {
-                back.Add(back_3);
+                back.Add((back_3, back_3Lv));
             }
 
             this.back = back.ToArray();
