@@ -56,6 +56,13 @@
       },
       "url": "http://packages.tech.cookapps.com"
     },
+    "com.cookapps.google.apis.helper": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "http://packages.tech.cookapps.com"
+    },
     "com.cookapps.grpc": {
       "version": "3.5.0",
       "depth": 0,
@@ -152,19 +159,20 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.specdatamanager": {
-      "version": "1.0.13",
+      "version": "1.0.14",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.cookapps.package.window": "1.2.0",
+        "com.cookapps.package.window": "1.2.3",
         "com.cookapps.inspector": "1.0.1",
         "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.cookapps.obfuscator": "1.1.5"
+        "com.cookapps.obfuscator": "1.1.5",
+        "com.cookapps.google.apis.helper": "1.0.0"
       },
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.unitysettings": {
-      "version": "2.0.3",
+      "version": "2.0.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
