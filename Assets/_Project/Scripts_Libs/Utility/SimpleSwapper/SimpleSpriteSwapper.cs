@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,15 @@ namespace CookApps.TeamBattle.Utility
     {
         [SerializeField] private SpriteRenderer image;
         [SerializeField] private SerializableDictionary<SimpleSwapType, Sprite> sprites;
-        [SerializeField] private SimpleSwapType currentType;
 
-        private void Awake()
+        protected override IEnumerable<SimpleSwapType> GetSwapTypes()
         {
+            return sprites.Keys;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
             if (image == null)
             {
                 image = GetComponent<SpriteRenderer>();

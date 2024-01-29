@@ -10,7 +10,6 @@ namespace CookApps.TeamBattle.Utility
     public class SimpleObjectActiveSwapper : SimpleSwapper
     {
         [SerializeField] private SerializableDictionary<SimpleSwapType, Item> objects;
-        [SerializeField] private SimpleSwapType currentType;
 
         [Serializable]
         public class Item
@@ -18,8 +17,14 @@ namespace CookApps.TeamBattle.Utility
             public List<GameObject> list;
         }
 
-        private void Awake()
+        protected override IEnumerable<SimpleSwapType> GetSwapTypes()
         {
+            return objects.Keys;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
             Refresh();
         }
 
