@@ -33,6 +33,9 @@ namespace CookApps.SampleTeamBattle
     public partial class SpecStage
     {
         private RewardItem[] starRewards;
+        private int[] front;
+        private int[] mid;
+        private int[] back;
 
         public RewardItem[] GetStarRewards()
         {
@@ -58,6 +61,87 @@ namespace CookApps.SampleTeamBattle
                 },
             };
         }
+
+        public int[] GetFront()
+        {
+            if (this.front != null)
+            {
+                return this.front;
+            }
+
+            var front = new List<int>();
+            if (front_1 > 0)
+            {
+                front.Add(front_1);
+            }
+
+            if (front_2 > 0)
+            {
+                front.Add(front_2);
+            }
+
+            if (front_3 > 0)
+            {
+                front.Add(front_3);
+            }
+
+            this.front = front.ToArray();
+            return this.front;
+        }
+
+        public int[] GetMid()
+        {
+            if (this.mid != null)
+            {
+                return this.mid;
+            }
+
+            var mid = new List<int>();
+            if (mid_1 > 0)
+            {
+                mid.Add(mid_1);
+            }
+
+            if (mid_2 > 0)
+            {
+                mid.Add(mid_2);
+            }
+
+            if (mid_3 > 0)
+            {
+                mid.Add(mid_3);
+            }
+
+            this.mid = mid.ToArray();
+            return this.mid;
+        }
+
+        public int[] GetBack()
+        {
+            if (this.back != null)
+            {
+                return this.back;
+            }
+
+            var back = new List<int>();
+            if (back_1 > 0)
+            {
+                back.Add(back_1);
+            }
+
+            if (back_2 > 0)
+            {
+                back.Add(back_2);
+            }
+
+            if (back_3 > 0)
+            {
+                back.Add(back_3);
+            }
+
+            this.back = back.ToArray();
+            return this.back;
+        }
     }
 
     public partial class SpecChest
@@ -70,6 +154,23 @@ namespace CookApps.SampleTeamBattle
                 Key = key,
                 Count = value,
                 Probability = rate,
+            };
+        }
+    }
+
+    public partial class SpecCharacter
+    {
+        public int GetLineIndex()
+        {
+            return position switch
+            {
+                CharacterPosition.WARRIOR => 0,
+                CharacterPosition.TANK => 0,
+                CharacterPosition.RANGER => 1,
+                CharacterPosition.WIZARD => 1,
+                CharacterPosition.ASSASSIN => 2,
+                CharacterPosition.SUPPORTER => 2,
+                _ => 0,
             };
         }
     }
