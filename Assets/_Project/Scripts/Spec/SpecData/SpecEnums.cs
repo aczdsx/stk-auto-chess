@@ -43,4 +43,25 @@ namespace CookApps.SampleTeamBattle
         RANDOM_WEAPON_PIECE = 14,
         RUNE = 15,
     }
+
+    public enum CharacterType
+    {
+        EARTH = 1,
+        WIND = 2,
+        WATER = 3,
+        FIRE = 4,
+        DARK = 5,
+        MACHINE = 6,
+        LIGHT = 7,
+    }
+
+    public enum CharacterPosition
+    {
+        WARRIOR = 1,
+        TANK = 2,
+        WIZARD = 3,
+        RANGER = 4,
+        ASSASSIN = 5,
+        SUPPORTER = 6,
+    }
 }

@@ -33,6 +33,10 @@ namespace CookApps.SampleTeamBattle
         public global::CookApps.SampleTeamBattle.Grade grade;
         public CookApps.Obfuscator.ObfuscatorInt grade_value;
         public CookApps.Obfuscator.ObfuscatorInt need_piece;
+        /// ?
+        public global::CookApps.SampleTeamBattle.CharacterType type;
+        /// ?
+        public global::CookApps.SampleTeamBattle.CharacterPosition position;
         public CookApps.Obfuscator.ObfuscatorInt init_star;
         public CookApps.Obfuscator.ObfuscatorInt max_star;
         public CookApps.Obfuscator.ObfuscatorInt stat_hp;
