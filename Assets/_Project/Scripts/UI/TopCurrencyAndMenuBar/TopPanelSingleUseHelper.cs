@@ -54,9 +54,9 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
     public void Push(TopCurrencyAndMenuBar topUI)
     {
         topUIs.Add(topUI);
-        for (var i = 0; i < topUI.UsePanelFlags.Length; i++)
+        for (var i = 0; i < topUI.UsePanelTypes.Length; i++)
         {
-            TopPanelType type = topUI.UsePanelFlags[i];
+            TopPanelType type = topUI.UsePanelTypes[i];
             topUI.AddPanel(type, panels[type].CachedRectTr);
             panels[type].attachedTopBar = topUI;
         }
@@ -67,14 +67,14 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
     public void Pop(TopCurrencyAndMenuBar topUI)
     {
         topUIs.Remove(topUI);
-        for (var i = 0; i < topUI.UsePanelFlags.Length; i++)
+        for (var i = 0; i < topUI.UsePanelTypes.Length; i++)
         {
-            TopPanelType type = topUI.UsePanelFlags[i];
+            TopPanelType type = topUI.UsePanelTypes[i];
             TopPanelBase panel = panels[type];
             var isOccupied = false;
             for (int j = topUIs.Count - 1; j >= 0; j--)
             {
-                if (topUIs[j].UsePanelFlags.Contains(type))
+                if (topUIs[j].UsePanelTypes.Contains(type))
                 {
                     topUIs[j].AddPanel(type, panel.CachedRectTr);
                     panel.attachedTopBar = topUIs[j];

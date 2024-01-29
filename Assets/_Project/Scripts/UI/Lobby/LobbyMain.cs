@@ -22,7 +22,7 @@ public class LobbyMain : UILayer
     public override void OnPreEnter(object param)
     {
         base.OnPreEnter(param);
-        TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Menu, TopPanelType.Jewel, TopPanelType.Coin, TopPanelType.Bread);
+        TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.Coin, TopPanelType.Jewel, TopPanelType.Menu);
     }
 
     private void OnClickStart()

@@ -15,9 +15,9 @@ public class TopCurrencyAndMenuBar : UILayer
     [SerializeField] private RectTransform panelParent;
     [SerializeField] private LayoutGroup panelParentLayoutGroup;
 
-    private TopPanelType[] usePanelFlags;
+    private TopPanelType[] usePanelTypes;
     private Vector2[] panelAnchoredPositions;
-    public TopPanelType[] UsePanelFlags => usePanelFlags;
+    public TopPanelType[] UsePanelTypes => usePanelTypes;
 
     private UILayer targetUI;
     public UILayer TargetUI => targetUI;
@@ -25,7 +25,7 @@ public class TopCurrencyAndMenuBar : UILayer
     public override void OnPreEnter(object param)
     {
         base.OnPreEnter(param);
-        (targetUI, usePanelFlags) = ((UILayer, TopPanelType[])) param;
+        (targetUI, usePanelTypes) = ((UILayer, TopPanelType[])) param;
         TopPanelSingleUseHelper.Instance.Push(this);
         SceneUIManager.OnUITransitionEvent += OnUITransitionEvent;
     }
@@ -59,9 +59,9 @@ public class TopCurrencyAndMenuBar : UILayer
             return;
         }
 
-        for (var i = 0; i < usePanelFlags.Length; i++)
+        for (var i = 0; i < usePanelTypes.Length; i++)
         {
-            if (usePanelFlags[i] == type)
+            if (usePanelTypes[i] == type)
             {
                 panel.anchoredPosition = panelAnchoredPositions[i];
                 break;
@@ -72,14 +72,14 @@ public class TopCurrencyAndMenuBar : UILayer
     public void ForceUpdateLayout()
     {
         panelParentLayoutGroup.enabled = true;
-        for (var i = 0; i < usePanelFlags.Length; i++)
+        for (var i = 0; i < usePanelTypes.Length; i++)
         {
             for (var j = 0; j < panelParent.childCount; j++)
             {
                 var panel = panelParent.GetChild(j).GetComponent<TopPanelBase>();
-                if (panel.PanelType == usePanelFlags[i])
+                if (panel.PanelType == usePanelTypes[i])
                 {
-                    panel.CachedTr.SetAsFirstSibling();
+                    panel.CachedTr.SetAsLastSibling();
                     break;
                 }
             }
