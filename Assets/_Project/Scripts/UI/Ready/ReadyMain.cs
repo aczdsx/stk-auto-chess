@@ -107,6 +107,12 @@ namespace CookApps.SampleTeamBattle
             RefreshEnemyDeck();
         }
 
+        public override void OnPreExit()
+        {
+            base.OnPreExit();
+            UserDataManager.UserDeck.Save();
+        }
+
         private void RefreshDeck()
         {
             foreach (CharacterSlot slot in playerCharacterSlots)
