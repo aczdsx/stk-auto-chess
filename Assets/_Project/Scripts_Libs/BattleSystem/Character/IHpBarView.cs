@@ -3,22 +3,22 @@ using Cysharp.Threading.Tasks;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
-    public interface IHpBar : ICachedGameObject, ICachedTransform
+    public interface IHpBarView : ICachedGameObject, ICachedTransform
     {
         void SetHpValue(double currHp, double maxHp);
     }
 
-    public interface IHpBarPool
+    public interface IHpBarViewPool
     {
-        UniTask<IHpBar> GetHpBar();
-        void ReturnHpBar(IHpBar hpBar);
+        UniTask<IHpBarView> GetHpBar();
+        void ReturnHpBar(IHpBarView hpBarView);
     }
 
-    public static class HpBarPool
+    public static class HpBarViewPool
     {
-        private static IHpBarPool instance;
+        private static IHpBarViewPool instance;
 
-        public static IHpBarPool Instance
+        public static IHpBarViewPool Instance
         {
             get
             {
@@ -31,9 +31,9 @@ namespace CookApps.TeamBattle.BattleSystem
             }
         }
 
-        public static void Initialize(IHpBarPool instance)
+        public static void Initialize(IHpBarViewPool instance)
         {
-            HpBarPool.instance = instance;
+            HpBarViewPool.instance = instance;
         }
     }
 }

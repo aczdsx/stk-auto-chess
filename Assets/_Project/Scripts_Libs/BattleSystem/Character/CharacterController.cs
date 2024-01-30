@@ -98,7 +98,7 @@ namespace CookApps.TeamBattle.BattleSystem
         private double currHp;
         public double CurrentHp => currHp;
 
-        private IHpBar hpBar;
+        private IHpBarView hpBarView;
 
         private AllianceType allianceType;
         public AllianceType AllianceType => allianceType;
@@ -111,7 +111,7 @@ namespace CookApps.TeamBattle.BattleSystem
             this.position = position;
             this.allianceType = allianceType;
 
-            hpBar = await HpBarPool.Instance.GetHpBar();
+            hpBarView = await HpBarViewPool.Instance.GetHpBar();
             view = await CharacterViewPool.Instance.GetCharacterView(statData);
             FollowHpBar();
 
@@ -143,8 +143,8 @@ namespace CookApps.TeamBattle.BattleSystem
             ecc.Clear();
             CharacterViewPool.Instance.ReturnCharacterView(view);
             view = null;
-            HpBarPool.Instance.ReturnHpBar(hpBar);
-            hpBar = null;
+            HpBarViewPool.Instance.ReturnHpBar(hpBarView);
+            hpBarView = null;
         }
 
         private CrowdControlType crowdControlType = CrowdControlType.None;
@@ -611,17 +611,17 @@ namespace CookApps.TeamBattle.BattleSystem
 
         private void FollowHpBar()
         {
-            hpBar.CachedTr.position = GetCharacterView().CachedTr.position + new Vector3(0, GetCharacterView().Height);
+            hpBarView.CachedTr.position = GetCharacterView().CachedTr.position + new Vector3(0, GetCharacterView().Height);
         }
 
         private void UpdateHp()
         {
-            hpBar.SetHpValue(currHp, HP);
+            hpBarView.SetHpValue(currHp, HP);
         }
 
         public void RefreshHp()
         {
-            hpBar.SetHpValue(currHp, HP);
+            hpBarView.SetHpValue(currHp, HP);
         }
         #endregion
 
