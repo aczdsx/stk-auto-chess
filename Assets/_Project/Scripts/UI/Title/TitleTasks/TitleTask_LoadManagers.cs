@@ -20,8 +20,9 @@ public class TitleTask_LoadManagers : ITitleTask
 
     public async UniTask RunTask()
     {
-        SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
         await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
+        SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
+        SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
         CharacterViewPool.Initialize(new SpriteCharacterViewPool());
         TextViewPool.Initialize(new InGameTextViewPool());
         HpBarViewPool.Initialize(new InGameHpBarViewPool());

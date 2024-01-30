@@ -27,10 +27,9 @@ namespace CookApps.SampleTeamBattle
         public async UniTask Initialize(string soAddressable)
         {
             so = await AddressableLoadHelper.LoadAssetAsync<AtlasManagerScriptableObject>(soAddressable);
-            SceneLoading.OnStartChangeScene += OnStartChangeScene;
         }
 
-        private async UniTask OnStartChangeScene(string prevSceneName, string nextSceneName, object defaultUIData)
+        public async UniTask OnStartChangeScene(string prevSceneName, string nextSceneName, object defaultUIData)
         {
             foreach (AtlasData data in so.atlasRefs)
             {
