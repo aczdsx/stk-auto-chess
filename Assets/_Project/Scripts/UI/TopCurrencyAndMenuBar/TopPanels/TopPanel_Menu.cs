@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public class TopPanel_Menu : TopPanelBase
+namespace CookApps.SampleTeamBattle
 {
-    public override TopPanelType PanelType => TopPanelType.Menu;
+    public class TopPanel_Menu : TopPanelBase
+    {
+        public override TopPanelType PanelType => TopPanelType.Menu;
+    }
 }

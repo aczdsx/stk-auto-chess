@@ -1,4 +1,7 @@
-public class TopPanel_Jewel : TopPanelBase
+namespace CookApps.SampleTeamBattle
 {
-    public override TopPanelType PanelType => TopPanelType.Jewel;
+    public class TopPanel_Jewel : TopPanelBase
+    {
+        public override TopPanelType PanelType => TopPanelType.Jewel;
+    }
 }

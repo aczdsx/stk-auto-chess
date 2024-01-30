@@ -1,4 +1,7 @@
-public class TopPanel_Coin : TopPanelBase
+namespace CookApps.SampleTeamBattle
 {
-    public override TopPanelType PanelType => TopPanelType.Coin;
+    public class TopPanel_Coin : TopPanelBase
+    {
+        public override TopPanelType PanelType => TopPanelType.Coin;
+    }
 }

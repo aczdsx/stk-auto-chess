@@ -1,4 +1,7 @@
-public class TopPanel_KTicket : TopPanelBase
+namespace CookApps.SampleTeamBattle
 {
-    public override TopPanelType PanelType => TopPanelType.KTicket;
+    public class TopPanel_KTicket : TopPanelBase
+    {
+        public override TopPanelType PanelType => TopPanelType.KTicket;
+    }
 }

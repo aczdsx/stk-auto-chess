@@ -3,95 +3,98 @@ using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TopCurrencyAndMenuBar : UILayer
+namespace CookApps.SampleTeamBattle
 {
-    private static int inc;
-
-    public static void AddToUILayer(UILayer targetUI, params TopPanelType[] ownPanelTypes)
+    public class TopCurrencyAndMenuBar : UILayer
     {
-        SceneUIManager.Instance.PushUILayerWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
-    }
+        private static int inc;
 
-    [SerializeField] private RectTransform panelParent;
-    [SerializeField] private LayoutGroup panelParentLayoutGroup;
-
-    private TopPanelType[] usePanelTypes;
-    private Vector2[] panelAnchoredPositions;
-    public TopPanelType[] UsePanelTypes => usePanelTypes;
-
-    private UILayer targetUI;
-    public UILayer TargetUI => targetUI;
-
-    public override void OnPreEnter(object param)
-    {
-        base.OnPreEnter(param);
-        (targetUI, usePanelTypes) = ((UILayer, TopPanelType[])) param;
-        TopPanelSingleUseHelper.Instance.Push(this);
-        SceneUIManager.OnUITransitionEvent += OnUITransitionEvent;
-    }
-
-    public override void OnPreExit()
-    {
-        base.OnPreExit();
-        panelAnchoredPositions = null;
-        TopPanelSingleUseHelper.Instance.Pop(this);
-        SceneUIManager.OnUITransitionEvent -= OnUITransitionEvent;
-    }
-
-    private void OnUITransitionEvent(SceneUIManager.UITransition transaction, string uiKey, UILayer ui)
-    {
-        if (transaction == SceneUIManager.UITransition.Exiting && ui == targetUI)
+        public static void AddToUILayer(UILayer targetUI, params TopPanelType[] ownPanelTypes)
         {
-            SceneUIManager.Instance.PopUILayer(this);
-        }
-    }
-
-    public override void OnBackButton(ref bool offPrevUI)
-    {
-        offPrevUI = true;
-    }
-
-    public void AddPanel(TopPanelType type, RectTransform panel)
-    {
-        panel.SetParent(panelParent, false);
-        if (panelAnchoredPositions == null)
-        {
-            return;
+            SceneUIManager.Instance.PushUILayerWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
         }
 
-        for (var i = 0; i < usePanelTypes.Length; i++)
+        [SerializeField] private RectTransform panelParent;
+        [SerializeField] private LayoutGroup panelParentLayoutGroup;
+
+        private TopPanelType[] usePanelTypes;
+        private Vector2[] panelAnchoredPositions;
+        public TopPanelType[] UsePanelTypes => usePanelTypes;
+
+        private UILayer targetUI;
+        public UILayer TargetUI => targetUI;
+
+        public override void OnPreEnter(object param)
         {
-            if (usePanelTypes[i] == type)
+            base.OnPreEnter(param);
+            (targetUI, usePanelTypes) = ((UILayer, TopPanelType[])) param;
+            TopPanelSingleUseHelper.Instance.Push(this);
+            SceneUIManager.OnUITransitionEvent += OnUITransitionEvent;
+        }
+
+        public override void OnPreExit()
+        {
+            base.OnPreExit();
+            panelAnchoredPositions = null;
+            TopPanelSingleUseHelper.Instance.Pop(this);
+            SceneUIManager.OnUITransitionEvent -= OnUITransitionEvent;
+        }
+
+        private void OnUITransitionEvent(SceneUIManager.UITransition transaction, string uiKey, UILayer ui)
+        {
+            if (transaction == SceneUIManager.UITransition.Exiting && ui == targetUI)
             {
-                panel.anchoredPosition = panelAnchoredPositions[i];
-                break;
+                SceneUIManager.Instance.PopUILayer(this);
             }
         }
-    }
 
-    public void ForceUpdateLayout()
-    {
-        panelParentLayoutGroup.enabled = true;
-        for (var i = 0; i < usePanelTypes.Length; i++)
+        public override void OnBackButton(ref bool offPrevUI)
         {
-            for (var j = 0; j < panelParent.childCount; j++)
+            offPrevUI = true;
+        }
+
+        public void AddPanel(TopPanelType type, RectTransform panel)
+        {
+            panel.SetParent(panelParent, false);
+            if (panelAnchoredPositions == null)
             {
-                var panel = panelParent.GetChild(j).GetComponent<TopPanelBase>();
-                if (panel.PanelType == usePanelTypes[i])
+                return;
+            }
+
+            for (var i = 0; i < usePanelTypes.Length; i++)
+            {
+                if (usePanelTypes[i] == type)
                 {
-                    panel.CachedTr.SetAsLastSibling();
+                    panel.anchoredPosition = panelAnchoredPositions[i];
                     break;
                 }
             }
         }
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(panelParent);
-        panelAnchoredPositions = new Vector2[panelParent.childCount];
-        for (var i = 0; i < panelParent.childCount; i++)
+        public void ForceUpdateLayout()
         {
-            panelAnchoredPositions[i] = panelParent.GetChild(i).GetComponent<TopPanelBase>().CachedRectTr.anchoredPosition;
-        }
+            panelParentLayoutGroup.enabled = true;
+            for (var i = 0; i < usePanelTypes.Length; i++)
+            {
+                for (var j = 0; j < panelParent.childCount; j++)
+                {
+                    var panel = panelParent.GetChild(j).GetComponent<TopPanelBase>();
+                    if (panel.PanelType == usePanelTypes[i])
+                    {
+                        panel.CachedTr.SetAsLastSibling();
+                        break;
+                    }
+                }
+            }
 
-        panelParentLayoutGroup.enabled = false;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(panelParent);
+            panelAnchoredPositions = new Vector2[panelParent.childCount];
+            for (var i = 0; i < panelParent.childCount; i++)
+            {
+                panelAnchoredPositions[i] = panelParent.GetChild(i).GetComponent<TopPanelBase>().CachedRectTr.anchoredPosition;
+            }
+
+            panelParentLayoutGroup.enabled = false;
+        }
     }
 }
