@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 namespace CookApps.TeamBattle.UIManagements
@@ -165,16 +168,6 @@ namespace CookApps.TeamBattle.UIManagements
         public static event Action<UITransition, string, UILayer> OnUITransitionEvent;
         public static event Action<string> OnSceneUnloadedEvent;
         public static event Action<string> OnSceneLoadedEvent;
-
-        public delegate UniTask SceneLoadedAsyncTask(string prevScene, string nextScene, object defaultUIData);
-
-        private static List<SceneLoadedAsyncTask> startChangeSceneAsyncTasks = new ();
-
-        public static event SceneLoadedAsyncTask OnStartChangeScene
-        {
-            add => startChangeSceneAsyncTasks.Add(value);
-            remove => startChangeSceneAsyncTasks.Remove(value);
-        }
 
         public int CurrentUICount => /*waitingUIDataList.Count + */uiStacks.Count;
         private List<string> blockBackKeySources = new ();
@@ -926,32 +919,25 @@ namespace CookApps.TeamBattle.UIManagements
         #region Scene Load
         public class SceneLoadAsyncOperationWrapper
         {
-            private AsyncOperation asyncOperation;
-            public event Action completed;
+            private AsyncOperationHandle<SceneInstance>? asyncOperation;
+            public event Action Completed;
 
-            internal void SetAsyncOperation(AsyncOperation asyncOperation)
+            internal void SetAsyncOperation(AsyncOperationHandle<SceneInstance> asyncOperation)
             {
                 this.asyncOperation = asyncOperation;
-                asyncOperation.completed += CompleteCallback;
+                asyncOperation.Completed += CompleteCallback;
             }
 
-            public float progress => asyncOperation?.progress ?? 0f;
+            public float progress => asyncOperation?.PercentComplete ?? 0f;
             public bool allowSceneActivation = true;
 
-            internal bool internalAllowSceneActivation
-            {
-                get => asyncOperation.allowSceneActivation;
-                set => asyncOperation.allowSceneActivation = value;
-            }
+            public bool IsDone => asyncOperation?.IsDone ?? false;
 
-            public bool isDone => asyncOperation?.isDone ?? false;
-            public int priority => asyncOperation?.priority ?? int.MaxValue;
-
-            private void CompleteCallback(AsyncOperation operation)
+            private void CompleteCallback(AsyncOperationHandle<SceneInstance> operation)
             {
-                completed?.Invoke();
-                completed = null;
-                asyncOperation.completed -= CompleteCallback;
+                operation.Completed -= CompleteCallback;
+                Completed?.Invoke();
+                Completed = null;
             }
         }
 
@@ -964,7 +950,6 @@ namespace CookApps.TeamBattle.UIManagements
                 transition = new SceneTransition_Instant();
             }
 
-            operationWrapper.completed += () => OnSceneLoaded(sceneName, defaultUIData, transition);
             ChangeSceneAsync(sceneName, operationWrapper, defaultUIData, transition).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
             return operationWrapper;
         }
@@ -1000,13 +985,10 @@ namespace CookApps.TeamBattle.UIManagements
                 }
             }
 
-            tasks.AddRange(startChangeSceneAsyncTasks.Select(x => x.Invoke(CurrentSceneName, sceneName, defaultUIData)));
-
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-            asyncOperation.allowSceneActivation = false;
+            AsyncOperationHandle<SceneInstance> asyncOperation = Addressables.LoadSceneAsync(sceneName, activateOnLoad: false);
             operationWrapper.SetAsyncOperation(asyncOperation);
             await UniTask.WhenAll(tasks);
-            await UniTask.WaitUntil(() => operationWrapper.progress >= 0.9f);
+            SceneInstance sceneInstance = await asyncOperation;
             await UniTask.WaitUntil(() => operationWrapper.allowSceneActivation);
 
             if (isLoadingUI)
@@ -1030,8 +1012,8 @@ namespace CookApps.TeamBattle.UIManagements
             OnSceneUnloadedEvent?.Invoke(CurrentSceneName);
             Resources.UnloadUnusedAssets();
             GC.Collect();
-
-            operationWrapper.internalAllowSceneActivation = true;
+            await sceneInstance.ActivateAsync();
+            OnSceneLoaded(sceneName, defaultUIData, transition);
         }
 
         private void OnSceneLoaded(string sceneName, object defaultUIData, ISceneTransition transition)

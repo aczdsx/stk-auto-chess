@@ -19,7 +19,7 @@ public class TitleTask_LoadManagers : ITitleTask
 
     public async UniTask RunTask()
     {
-        SceneUIManager.OnStartChangeScene += SceneLoadingTask.HandleLoading;
+        SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
         await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
 #if !RELEASE && ENABLE_CHEAT
         SRDebug.Init();
