@@ -1,4 +1,5 @@
 using CookApps.SampleTeamBattle;
+using CookApps.TeamBattle.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
@@ -21,6 +22,10 @@ public class TitleTask_LoadManagers : ITitleTask
     {
         SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
         await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
+        CharacterViewPool.Initialize(new SpriteCharacterViewPool());
+        TextViewPool.Initialize(new InGameTextViewPool());
+        HpBarViewPool.Initialize(new InGameHpBarViewPool());
+
 #if !RELEASE && ENABLE_CHEAT
         SRDebug.Init();
 #endif
