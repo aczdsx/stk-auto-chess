@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Com.Cookapps.Sampleteambattle;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -15,6 +16,8 @@ namespace CookApps.SampleTeamBattle
 
     public class StageDetailPopup : UILayer
     {
+        [SerializeField] private TMP_Text stageNameText;
+        [SerializeField] private GameObject[] starObjs;
         [SerializeField] private TableView tableView;
         [SerializeField] private StageRewardSlot rewardSlotOrigin;
         [SerializeField] private CAButton startButton;
@@ -88,14 +91,20 @@ namespace CookApps.SampleTeamBattle
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.CloseButton);
-
             (chapter, stageIndex) = ((int, int)) param;
+            SetPopupInfo();
         }
 
         private void SetPopupInfo()
         {
+            stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
             SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
             UserStage userStage = UserDataManager.UserStage.GetUserStage(specStage.stage_id);
+            for (var i = 0; i < starObjs.Length; i++)
+            {
+                starObjs[i].SetActive(i < userStage.StarCount);
+            }
+
             RewardItem[] starReward = specStage.GetStarRewards();
             for (var i = 0; i < starReward.Length; i++)
             {

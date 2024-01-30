@@ -9,7 +9,7 @@ public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseH
 #if ENABLE_CHEAT
     public void SetActive(bool isActive)
     {
-        foreach (var ui in topUIs)
+        foreach (TopCurrencyAndMenuBar ui in topUIs)
         {
             ui.CachedGo.SetActive(isActive);
         }

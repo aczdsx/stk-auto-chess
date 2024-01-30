@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Text;
+using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -8,10 +11,12 @@ namespace CookApps.SampleTeamBattle
 {
     public class ReadyMain : UILayer
     {
+        [SerializeField] private TMP_Text stageNameText;
         [SerializeField] private Transform[] playerPositionParentTrs;
         [SerializeField] private Transform[] enemyPositionParentTrs;
         [SerializeField] private CharacterSlot characterSlotOrigin;
         [SerializeField] private TableView tableView;
+        [SerializeField] private CAButton startButton;
 
         private ObjectPool<CharacterSlot> characterSlotPool;
         private int chapter;
@@ -51,6 +56,7 @@ namespace CookApps.SampleTeamBattle
             );
 
             characterSlotOrigin.CachedGo.SetActive(false);
+            startButton.onClick.AddListener(OnClickStartButton);
         }
 
         protected override void OnDestroy()
@@ -61,6 +67,7 @@ namespace CookApps.SampleTeamBattle
             tableView.OnReleaseCellItem -= OnReleaseTableViewCellItem;
             tableView.OnGetCellItem -= OnGetTableViewCellItem;
             characterSlotPool.Dispose();
+            startButton.onClick.RemoveListener(OnClickStartButton);
         }
 
         private RectTransform OnGetTableViewCellItem(int idx)
@@ -92,6 +99,7 @@ namespace CookApps.SampleTeamBattle
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.CloseButton);
             (chapter, stageIndex) = ((int, int)) param;
+            stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
             ownCharacterIds.Clear();
             ownCharacterIds.AddRange(UserDataManager.UserCharacter.GetAllCharacterIds());
             tableView.RefreshAll();
@@ -114,6 +122,7 @@ namespace CookApps.SampleTeamBattle
                 slot.CachedTr.SetParent(playerPositionParentTrs[0], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetCharacterData(true, id);
+                slot.CachedTr.SetAsLastSibling();
                 playerCharacterSlots.Add(slot);
             }
 
@@ -123,6 +132,7 @@ namespace CookApps.SampleTeamBattle
                 slot.CachedTr.SetParent(playerPositionParentTrs[1], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetCharacterData(true, id);
+                slot.CachedTr.SetAsLastSibling();
                 playerCharacterSlots.Add(slot);
             }
 
@@ -132,6 +142,7 @@ namespace CookApps.SampleTeamBattle
                 slot.CachedTr.SetParent(playerPositionParentTrs[2], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetCharacterData(true, id);
+                slot.CachedTr.SetAsLastSibling();
                 playerCharacterSlots.Add(slot);
             }
         }
@@ -152,6 +163,7 @@ namespace CookApps.SampleTeamBattle
                 slot.CachedTr.SetParent(enemyPositionParentTrs[0], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetEnemyCharacterData(id, level);
+                slot.CachedTr.SetAsLastSibling();
                 enemyCharacterSlots.Add(slot);
             }
 
@@ -161,6 +173,7 @@ namespace CookApps.SampleTeamBattle
                 slot.CachedTr.SetParent(enemyPositionParentTrs[1], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetEnemyCharacterData(id, level);
+                slot.CachedTr.SetAsLastSibling();
                 enemyCharacterSlots.Add(slot);
             }
 
@@ -170,6 +183,7 @@ namespace CookApps.SampleTeamBattle
                 slot.CachedTr.SetParent(enemyPositionParentTrs[2], false);
                 slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
                 slot.SetEnemyCharacterData(id, level);
+                slot.CachedTr.SetAsLastSibling();
                 enemyCharacterSlots.Add(slot);
             }
         }
@@ -194,6 +208,11 @@ namespace CookApps.SampleTeamBattle
                 RefreshDeck();
                 tableView.RefreshAll();
             }
+        }
+
+        private void OnClickStartButton()
+        {
+            SceneLoading.GoToNextScene("InGame", (chapter, stageIndex)).Forget();
         }
     }
 }
