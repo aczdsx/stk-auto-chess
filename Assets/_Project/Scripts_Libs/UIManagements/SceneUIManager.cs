@@ -881,7 +881,7 @@ namespace CookApps.TeamBattle.UIManagements
             dimLayerTr.SetParent(mainNode, false);
             SetSizeAsDimLayer(dimLayerTr);
 
-            var btn = dimLayerGo.AddComponent<Button>();
+            var btn = dimLayerGo.AddComponent<CAButton>();
             btn.onClick = new Button.ButtonClickedEvent();
             btn.transition = Selectable.Transition.None;
             btn.onClick.AddListener(() => OnClickDimLayer(dimLayerGo));
