@@ -11,7 +11,7 @@ namespace CookApps.SampleTeamBattle
 
         public static void AddToUILayer(UILayer targetUI, params TopPanelType[] ownPanelTypes)
         {
-            SceneUIManager.Instance.PushUILayerWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
+            SceneUILayerManager.Instance.PushUILayerWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
         }
 
         [SerializeField] private RectTransform panelParent;
@@ -29,7 +29,7 @@ namespace CookApps.SampleTeamBattle
             base.OnPreEnter(param);
             (targetUI, usePanelTypes) = ((UILayer, TopPanelType[])) param;
             TopPanelSingleUseHelper.Instance.Push(this);
-            SceneUIManager.OnUITransitionEvent += OnUITransitionEvent;
+            SceneUILayerManager.OnUITransitionEvent += OnUITransitionEvent;
         }
 
         public override void OnPreExit()
@@ -37,14 +37,14 @@ namespace CookApps.SampleTeamBattle
             base.OnPreExit();
             panelAnchoredPositions = null;
             TopPanelSingleUseHelper.Instance.Pop(this);
-            SceneUIManager.OnUITransitionEvent -= OnUITransitionEvent;
+            SceneUILayerManager.OnUITransitionEvent -= OnUITransitionEvent;
         }
 
-        private void OnUITransitionEvent(SceneUIManager.UITransition transaction, string uiKey, UILayer ui)
+        private void OnUITransitionEvent(SceneUILayerManager.UILayerTransition transaction, string uiKey, UILayer ui)
         {
-            if (transaction == SceneUIManager.UITransition.Exiting && ui == targetUI)
+            if (transaction == SceneUILayerManager.UILayerTransition.Exiting && ui == targetUI)
             {
-                SceneUIManager.Instance.PopUILayer(this);
+                SceneUILayerManager.Instance.PopUILayer(this);
             }
         }
 

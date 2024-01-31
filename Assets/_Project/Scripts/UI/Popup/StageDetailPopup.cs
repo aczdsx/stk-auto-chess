@@ -138,7 +138,7 @@ namespace CookApps.SampleTeamBattle
 
         private void OnStartButtonClicked()
         {
-            SceneUIManager.Instance.PushUILayer("ReadyMain", (chapter, stageIndex));
+            SceneUILayerManager.Instance.PushUILayer("ReadyMain", (chapter, stageIndex));
         }
     }
 }

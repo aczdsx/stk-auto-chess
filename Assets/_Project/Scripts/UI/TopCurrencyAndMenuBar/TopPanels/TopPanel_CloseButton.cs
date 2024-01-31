@@ -17,7 +17,7 @@ namespace CookApps.SampleTeamBattle
 
         private void OnClick()
         {
-            SceneUIManager.Instance.PopUILayer(attachedTopBar.TargetUI);
+            SceneUILayerManager.Instance.PopUILayer(attachedTopBar.TargetUI);
         }
     }
 }

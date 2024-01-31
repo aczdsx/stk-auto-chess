@@ -28,7 +28,7 @@ namespace CookApps.SampleTeamBattle
         private void OnClickStart()
         {
             int currentStageId = UserDataManager.UserStage.GetCurrentStageId();
-            SceneUIManager.Instance.PushUILayer("ChapterMain", currentStageId);
+            SceneUILayerManager.Instance.PushUILayer("ChapterMain", currentStageId);
         }
     }
 }

@@ -1,24 +1,26 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
+using UnityEngine.Pool;
 using Object = UnityEngine.Object;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-    [CustomEditor(typeof(SceneDatabase))]
-    public class SceneDataEditor : Editor
+    [CustomEditor(typeof(UILayerDatabase))]
+    public class UILayerDatabaseEditor : Editor
     {
-        private SceneDatabase origin;
+        private UILayerDatabase origin;
         private SerializedProperty list;
 
         private Object obj;
 
         private void Awake()
         {
-            origin = (SceneDatabase) target;
+            origin = (UILayerDatabase) target;
         }
 
         private void OnEnable()
@@ -33,16 +35,30 @@ namespace CookApps.TeamBattle.UIManagements
 
             EditorGUILayout.Space(20);
 
-            obj = EditorGUILayout.ObjectField(obj, typeof(SceneAsset), false);
+            obj = EditorGUILayout.ObjectField(obj, typeof(GameObject), false);
             if (GUILayout.Button("Bind"))
             {
                 int index = list.arraySize;
                 list.InsertArrayElementAtIndex(index);
                 SerializedProperty property = list.GetArrayElementAtIndex(index);
-                SerializedProperty nameProperty = property.FindPropertyRelative("sceneName");
+                SceneUILayerManager.UILayerType layerType;
+                if (obj.name.Contains("Popup"))
+                {
+                    layerType = SceneUILayerManager.UILayerType.Popup;
+                }
+                else if (obj.name.Contains("Modal"))
+                {
+                    layerType = SceneUILayerManager.UILayerType.Modal;
+                }
+                else
+                {
+                    layerType = SceneUILayerManager.UILayerType.Cover;
+                }
+
+                SerializedProperty nameProperty = property.FindPropertyRelative("name");
                 nameProperty.stringValue = obj.name;
-                SerializedProperty defaultUIsProperty = property.FindPropertyRelative("defaultUILayerNames");
-                defaultUIsProperty.ClearArray();
+                SerializedProperty layerTypeProperty = property.FindPropertyRelative("layerType");
+                layerTypeProperty.enumValueIndex = (int) layerType;
                 SerializedProperty addressableNameProperty = property.FindPropertyRelative("addressableName");
                 AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.GetSettings(false);
                 if (settings != null)
@@ -80,4 +96,5 @@ namespace CookApps.TeamBattle.UIManagements
         }
     }
 }
+
 #endif

@@ -17,7 +17,7 @@ namespace CookApps.TeamBattle.UIManagements
         public virtual int Priority => 0;
 
         public string Key { get; set; }
-        public SceneUIManager.UIType UIType { get; set; }
+        public SceneUILayerManager.UILayerType UILayerType { get; set; }
 
         protected virtual void Awake()
         {
@@ -96,7 +96,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public virtual void OnBackButton(ref bool offPrevUI)
         {
-            SceneUIManager.Instance.PopUILayer(this);
+            SceneUILayerManager.Instance.PopUILayer(this);
         }
 
         private void AnimationCompleteHandler(string name)

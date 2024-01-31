@@ -24,19 +24,19 @@ namespace CookApps.TeamBattle.UIManagements
         public static async UniTask GoToNextScene(string nextScene, object nextSceneData = null, ISceneTransition transition = null)
         {
             // transition 연출 진행중 다른 씬으로 넘어가는 것을 방지하기 위해
-            SceneUIManager.Instance.isSceneChanging = true;
+            SceneUILayerManager.Instance.isSceneChanging = true;
             if (transition == null)
             {
                 transition = new SceneTransition_Instant();
             }
 
-            currentSceneName = SceneUIManager.Instance.CurrentSceneName;
+            currentSceneName = SceneUILayerManager.Instance.CurrentSceneName;
 
             SceneLoading.transition = transition;
             await transition.FadeInAsync();
             nextSceneName = nextScene;
             SceneLoading.nextSceneData = nextSceneData;
-            SceneUIManager.Instance.ChangeScene("SceneLoading");
+            SceneUILayerManager.Instance.ChangeScene("SceneLoading");
         }
 
         public void Start()
@@ -48,25 +48,25 @@ namespace CookApps.TeamBattle.UIManagements
         {
             await UniTask.Yield();
             await UniTask.WhenAll(startChangeSceneAsyncTasks.Select(x => x.Invoke(currentSceneName, nextSceneName, nextSceneData)));
-            SceneUIManager.OnUITransitionEvent += OneTimeCheckSceneLoaded;
-            SceneUIManager.Instance.ChangeScene(nextSceneName, nextSceneData);
+            SceneUILayerManager.OnUITransitionEvent += OneTimeCheckSceneLoaded;
+            SceneUILayerManager.Instance.ChangeScene(nextSceneName, nextSceneData);
         }
 
-        private void OneTimeCheckSceneLoaded(SceneUIManager.UITransition transition, string uiKey, UILayer uiLayer)
+        private void OneTimeCheckSceneLoaded(SceneUILayerManager.UILayerTransition layerTransition, string uiKey, UILayer uiLayer)
         {
-            string[] defaultUINames = SceneUIManager.Instance.GetDefaultUINames(nextSceneName);
+            string[] defaultUINames = SceneUILayerManager.Instance.GetDefaultUILayerNames(nextSceneName);
             if (defaultUINames[^1] != uiKey) // default UI는 key와 uiName이 같다.
             {
                 return;
             }
 
-            if (transition != SceneUIManager.UITransition.EnterFinished)
+            if (layerTransition != SceneUILayerManager.UILayerTransition.EnterFinished)
             {
                 return;
             }
 
-            SceneUIManager.OnUITransitionEvent -= OneTimeCheckSceneLoaded;
-            SceneLoading.transition.FadeOutAsync(true).ContinueWith(ClearData).Forget();
+            SceneUILayerManager.OnUITransitionEvent -= OneTimeCheckSceneLoaded;
+            transition.FadeOutAsync(true).ContinueWith(ClearData).Forget();
         }
 
         private void ClearData()

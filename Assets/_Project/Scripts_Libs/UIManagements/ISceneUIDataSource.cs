@@ -4,7 +4,7 @@ namespace CookApps.TeamBattle.UIManagements
 {
     public interface ISceneUIDataSource
     {
-        public Dictionary<string, SceneUIManager.SceneData> SceneDataList { get; }
-        public Dictionary<string, SceneUIManager.UIData> UIDataList { get; }
+        public Dictionary<string, SceneUILayerManager.SceneData> SceneDataList { get; }
+        public Dictionary<string, SceneUILayerManager.UILayerData> UIDataList { get; }
     }
 }

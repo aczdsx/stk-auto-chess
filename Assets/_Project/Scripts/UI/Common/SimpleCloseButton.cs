@@ -7,7 +7,7 @@ namespace CookApps.SampleTeamBattle
     {
         public void OnClickClose(UILayer ui)
         {
-            SceneUIManager.Instance.PopUILayer(ui);
+            SceneUILayerManager.Instance.PopUILayer(ui);
         }
     }
 }

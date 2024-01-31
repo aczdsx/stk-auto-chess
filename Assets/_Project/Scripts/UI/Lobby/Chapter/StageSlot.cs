@@ -42,7 +42,7 @@ namespace CookApps.SampleTeamBattle
 
         private void OnClickEnter()
         {
-            SceneUIManager.Instance.PushUILayer("StageDetailPopup", (chapter, stageIndex));
+            SceneUILayerManager.Instance.PushUILayer("StageDetailPopup", (chapter, stageIndex));
         }
     }
 }
