@@ -35,6 +35,7 @@ namespace CookApps.TeamBattle.UIManagements
             Entering,
             Entered,
             Exiting,
+            Hiding, // use only popup
         }
 
         public enum UILayerTransition
@@ -57,13 +58,13 @@ namespace CookApps.TeamBattle.UIManagements
         [Serializable]
         private class UILayerStackData
         {
-            public UILayerStackData(string layerName, string key, long inc, UILayer layer, UILayerState layerState, Action<object> closeCallback)
+            public UILayerStackData(string layerName, string key, long inc, UILayer layer, UILayerState state, Action<object> closeCallback)
             {
                 this.layerName = layerName;
                 this.key = key;
                 this.layer = layer;
                 this.layer.Key = key;
-                this.layerState = layerState;
+                this.state = state;
                 this.closeCallback = closeCallback;
                 this.inc = inc;
             }
@@ -72,7 +73,9 @@ namespace CookApps.TeamBattle.UIManagements
             public string layerName;
             public readonly string key;
             public UILayer layer;
-            public UILayerState layerState;
+
+            public UILayerState state;
+
             public Action<object> closeCallback;
         }
 
@@ -326,7 +329,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return uiLayerStacks.Where(x =>
             {
-                if (x.layer.UILayerType == UILayerType.Popup)
+                if (x.layer.UILayerType is UILayerType.Popup or UILayerType.Modal)
                 {
                     return true;
                 }
@@ -376,7 +379,7 @@ namespace CookApps.TeamBattle.UIManagements
         public PushReqCode PushUILayerWithKey(string uiName, string key, object data = null, Action<object> closeCallback = null)
         {
             bool isExistUIStack = uiLayerStacks.Exists(x =>
-                x.layerState != UILayerState.Exiting && x.key.Equals(key));
+                x.state != UILayerState.Exiting && x.key.Equals(key));
 
             // bool isExistWaiting = waitingUIDataList.Exists(x => x.key == key);
             if (isExistUIStack /* || isExistWaiting*/)
@@ -400,8 +403,8 @@ namespace CookApps.TeamBattle.UIManagements
                 }
 
                 var uiBase = ui.GetComponent<UILayer>();
-                UILayerStackData uiLayerData = MakeUIStackData(uiBase, key, uiName, closeCallback);
-                PushUI(uiLayerData, data);
+                UILayerStackData stackData = MakeUIStackData(uiBase, key, uiName, closeCallback);
+                PushUILayerInternal(stackData, data);
                 return PushReqCode.OK;
             }
 
@@ -416,8 +419,8 @@ namespace CookApps.TeamBattle.UIManagements
                     return;
                 }
 
-                UILayerStackData uiLayerData = MakeUIStackData(ui, key, uiName, closeCallback);
-                PushUI(uiLayerData, data);
+                UILayerStackData stackData = MakeUIStackData(ui, key, uiName, closeCallback);
+                PushUILayerInternal(stackData, data);
             }).Forget();
             return PushReqCode.OK;
         }
@@ -433,23 +436,52 @@ namespace CookApps.TeamBattle.UIManagements
             return new UILayerStackData(uiName, key, inc, uiLayer, UILayerState.Initialized, closeCallback);
         }
 
-        private void PushUI(UILayerStackData uiLayerData, object data)
+        private void PushUILayerInternal(UILayerStackData uiLayerData, object data)
         {
             uiLayerData.layer.CachedGo.SetActive(true);
             uiLayerData.layer.OnPreEnter(data);
-            uiLayerData.layerState = UILayerState.Entering;
+            uiLayerData.state = UILayerState.Entering;
             OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerData.key, uiLayerData.layer);
             uiLayerStacks.Add(uiLayerData);
             uiLayerStacks.Sort((x, y) => (int) (x.inc - y.inc));
 
             // managing z order
             isDimLayerOn = false;
+            var isPopupShown = false;
             for (int i = uiLayerStacks.Count - 1; i >= 0; i--)
             {
-                RectTransform uiTr = uiLayerStacks[i].layer.CachedRectTr;
-
+                UILayerStackData stackData = uiLayerStacks[i];
+                RectTransform uiTr = stackData.layer.CachedRectTr;
                 uiTr.SetAsFirstSibling();
-                if (uiLayerStacks[i].layerState != UILayerState.Exiting && uiLayerStacks[i].layer.UILayerType == UILayerType.Popup && !isDimLayerOn)
+                if (stackData.state == UILayerState.Exiting)
+                {
+                    continue;
+                }
+
+                if (stackData.layer.UILayerType == UILayerType.Popup)
+                {
+                    if (isPopupShown)
+                    {
+                        if (stackData.state != UILayerState.Hiding)
+                        {
+                            stackData.state = UILayerState.Hiding;
+                            stackData.layer.StartExitAnimation(null);
+                        }
+                    }
+                    else
+                    {
+                        isPopupShown = true;
+                    }
+                }
+
+                {
+                    if (isDimLayerOn)
+                    {
+                        continue;
+                    }
+                }
+
+                if (uiLayerStacks[i].layer.UILayerType is UILayerType.Popup or UILayerType.Modal)
                 {
                     if (dimLayer == null)
                     {
@@ -473,11 +505,11 @@ namespace CookApps.TeamBattle.UIManagements
                 return;
             }
 
-            UILayerStackData uiLayerData = uiLayerStacks.Find(x => x.layer == ui);
+            UILayerStackData stackData = uiLayerStacks.Find(x => x.layer == ui);
 
-            uiLayerData.layerState = UILayerState.Entered;
+            stackData.state = UILayerState.Entered;
             ui.OnPostEnter();
-            OnUITransitionEvent?.Invoke(UILayerTransition.EnterFinished, uiLayerData.key, uiLayerData.layer);
+            OnUITransitionEvent?.Invoke(UILayerTransition.EnterFinished, stackData.key, stackData.layer);
 
             if (ui.UILayerType != UILayerType.Cover)
             {
@@ -512,13 +544,13 @@ namespace CookApps.TeamBattle.UIManagements
                 return PopReqCode.NotExist;
             }
 
-            UILayerStackData uiLayerData = uiLayerStacks.Find(x => x.key.Equals(key));
-            if (uiLayerData.layerState == UILayerState.Exiting)
+            UILayerStackData stackData = uiLayerStacks.Find(x => x.key.Equals(key));
+            if (stackData.state == UILayerState.Exiting)
             {
                 return PopReqCode.NotExist;
             }
 
-            PopUI(uiLayerData, dataToCloseCallback);
+            PopUILayerInternal(stackData, dataToCloseCallback);
             return PopReqCode.OK;
         }
 
@@ -530,13 +562,13 @@ namespace CookApps.TeamBattle.UIManagements
                 return PopReqCode.NotExist;
             }
 
-            UILayerStackData uiLayerData = uiLayerStacks.Find(x => x.layer.Equals(ui));
-            if (uiLayerData.layerState == UILayerState.Exiting)
+            UILayerStackData stackData = uiLayerStacks.Find(x => x.layer.Equals(ui));
+            if (stackData.state == UILayerState.Exiting)
             {
                 return PopReqCode.NotExist;
             }
 
-            PopUI(uiLayerData, dataToCloseCallback);
+            PopUILayerInternal(stackData, dataToCloseCallback);
             return PopReqCode.OK;
         }
 
@@ -547,7 +579,7 @@ namespace CookApps.TeamBattle.UIManagements
                 return PopReqCode.NotExist;
             }
 
-            PopUI(uiLayerStacks[^1], dataToCloseCallback);
+            PopUILayerInternal(uiLayerStacks[^1], dataToCloseCallback);
             return PopReqCode.OK;
         }
 
@@ -555,18 +587,18 @@ namespace CookApps.TeamBattle.UIManagements
         {
             for (int i = uiLayerStacks.Count - 1; i >= 0; i--)
             {
-                if (uiLayerStacks[i].layerState == UILayerState.Initialized ||
-                    uiLayerStacks[i].layerState == UILayerState.Entering ||
-                    uiLayerStacks[i].layerState == UILayerState.Entered)
+                if (uiLayerStacks[i].state == UILayerState.Initialized ||
+                    uiLayerStacks[i].state == UILayerState.Entering ||
+                    uiLayerStacks[i].state == UILayerState.Entered)
                 {
                     uiLayerStacks[i].layer.OnPreExit();
                 }
 
                 OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].key, uiLayerStacks[i].layer);
-                uiLayerStacks[i].layerState = UILayerState.Exiting;
+                uiLayerStacks[i].state = UILayerState.Exiting;
                 uiLayerStacks[i].layer.OnPostExit();
                 OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].key, uiLayerStacks[i].layer);
-                PoolingUI(uiLayerStacks[i].layerName, uiLayerStacks[i].layer);
+                PoolingUILayer(uiLayerStacks[i].layerName, uiLayerStacks[i].layer);
                 uiLayerStacks[i] = null;
             }
 
@@ -579,41 +611,72 @@ namespace CookApps.TeamBattle.UIManagements
             Check,
         }
 
-        private void PopUI(UILayerStackData uiLayerData, object dataToCloseCallback)
+        private void PopUILayerInternal(UILayerStackData popUILayerData, object dataToCloseCallback)
         {
             // z order 정렬
-            uiLayerData.layer.OnPreExit();
-            OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerData.key, uiLayerData.layer);
-            uiLayerData.layerState = UILayerState.Exiting;
-            uiLayerStacks.Remove(uiLayerData);
+            popUILayerData.layer.OnPreExit();
+            OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, popUILayerData.key, popUILayerData.layer);
+            popUILayerData.state = UILayerState.Exiting;
+            uiLayerStacks.Remove(popUILayerData);
 
-            uiLayerData.layer.StartExitAnimation(ui =>
+            popUILayerData.layer.StartExitAnimation(ui =>
             {
                 ui.OnPostExit();
-                PoolingUI(uiLayerData.layerName, ui);
+                PoolingUILayer(popUILayerData.layerName, ui);
 
-                uiLayerData.closeCallback?.Invoke(dataToCloseCallback);
-                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerData.key, uiLayerData.layer);
+                popUILayerData.closeCallback?.Invoke(dataToCloseCallback);
+                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, popUILayerData.key, popUILayerData.layer);
             });
 
-            CoverState coverState = uiLayerData.layer.UILayerType == UILayerType.Cover ? CoverState.Check : CoverState.NoNeedToCheck;
+            CoverState coverState = popUILayerData.layer.UILayerType == UILayerType.Cover ? CoverState.Check : CoverState.NoNeedToCheck;
+            var isPopupShown = false;
             isDimLayerOn = false;
             for (int i = uiLayerStacks.Count - 1; i >= 0; i--)
             {
+                UILayerStackData stackData = uiLayerStacks[i];
                 if (coverState == CoverState.Check)
                 {
-                    uiLayerStacks[i].layer.CachedGo.SetActive(true);
-                    if (uiLayerStacks[i].layer.UILayerType == UILayerType.Cover)
+                    stackData.layer.CachedGo.SetActive(true);
+                    if (stackData.layer.UILayerType == UILayerType.Cover)
                     {
                         coverState = CoverState.NoNeedToCheck;
                     }
                 }
 
-                RectTransform uiTr = uiLayerStacks[i].layer.CachedRectTr;
+                stackData.layer.CachedRectTr.SetAsFirstSibling();
 
-                uiTr.SetAsFirstSibling();
+                if (stackData.layer.UILayerType == UILayerType.Popup)
+                {
+                    if (isPopupShown)
+                    {
+                        if (stackData.state != UILayerState.Hiding)
+                        {
+                            stackData.state = UILayerState.Hiding;
+                            stackData.layer.StartExitAnimation(null);
+                        }
+                    }
+                    else
+                    {
+                        isPopupShown = true;
+                        if (stackData.state == UILayerState.Hiding)
+                        {
+                            stackData.state = UILayerState.Entering;
+                            stackData.layer.StartEnterAnimation(_ => stackData.state = UILayerState.Entered);
+                        }
+                    }
+                }
 
-                if (uiLayerStacks[i].layerState != UILayerState.Exiting && uiLayerStacks[i].layer.UILayerType == UILayerType.Popup && !isDimLayerOn)
+                if (uiLayerStacks[i].state == UILayerState.Exiting)
+                {
+                    continue;
+                }
+
+                if (isDimLayerOn)
+                {
+                    continue;
+                }
+
+                if (uiLayerStacks[i].layer.UILayerType is UILayerType.Popup or UILayerType.Modal)
                 {
                     dimLayer.rectTransform.SetAsFirstSibling();
                     isDimLayerOn = true;
@@ -621,7 +684,7 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
-        private void PoolingUI(string uiName, UILayer ui)
+        private void PoolingUILayer(string uiName, UILayer ui)
         {
             ui.CachedGo.SetActive(false);
             ui.CachedRectTr.SetParent(recycles, false);
@@ -692,7 +755,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                if (uiLayerStacks[i].layerState == UILayerState.Entering || uiLayerStacks[i].layerState == UILayerState.Exiting)
+                if (uiLayerStacks[i].state == UILayerState.Entering || uiLayerStacks[i].state == UILayerState.Exiting)
                 {
                     return;
                 }
@@ -853,7 +916,7 @@ namespace CookApps.TeamBattle.UIManagements
                 UILayer[] res = await UniTask.WhenAll(uiLayerLoadingTask);
                 for (var i = 0; i < res.Length; i++)
                 {
-                    PoolingUI(sceneData.defaultUILayerNames[i], res[i]);
+                    PoolingUILayer(sceneData.defaultUILayerNames[i], res[i]);
                 }
             }
             await transition.FadeInAsync();
@@ -871,7 +934,7 @@ namespace CookApps.TeamBattle.UIManagements
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
                 uiLayerStacks[i].layer.OnPreExit();
-                uiLayerStacks[i].layerState = UILayerState.Exiting;
+                uiLayerStacks[i].state = UILayerState.Exiting;
                 OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].key, uiLayerStacks[i].layer);
                 uiLayerStacks[i].layer.OnPostExit();
                 OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].key, uiLayerStacks[i].layer);
@@ -917,7 +980,7 @@ namespace CookApps.TeamBattle.UIManagements
             // 유아이가 뜨거나 닫히고 있다면 버튼 차단
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                if (uiLayerStacks[i].layerState == UILayerState.Entering || uiLayerStacks[i].layerState == UILayerState.Exiting)
+                if (uiLayerStacks[i].state == UILayerState.Entering || uiLayerStacks[i].state == UILayerState.Exiting)
                 {
                     return false;
                 }
