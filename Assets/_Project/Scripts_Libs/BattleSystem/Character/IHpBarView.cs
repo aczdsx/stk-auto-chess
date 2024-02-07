@@ -5,12 +5,13 @@ namespace CookApps.TeamBattle.BattleSystem
 {
     public interface IHpBarView : ICachedGameObject, ICachedTransform
     {
+        void Initialize(ICharacterStatData statData);
         void SetHpValue(double currHp, double maxHp);
     }
 
     public interface IHpBarViewPool
     {
-        UniTask<IHpBarView> GetHpBar();
+        IHpBarView GetHpBar();
         void ReturnHpBar(IHpBarView hpBarView);
     }
 

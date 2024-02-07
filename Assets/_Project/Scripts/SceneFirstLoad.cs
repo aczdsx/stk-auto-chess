@@ -62,9 +62,6 @@ namespace CookApps.SampleTeamBattle
 
     public class SceneFirstLoad : MonoBehaviour
     {
-        private SceneDatabase SceneData;
-        private UILayerDatabase uiLayerData;
-
         private void Awake()
         {
             StartUp().Forget();

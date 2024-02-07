@@ -10,7 +10,7 @@ namespace CookApps.SampleTeamBattle
 
         private UserData userBasicData;
 
-        void IUserData.Initialize(string data)
+        void IUserData.SetDataFromServer(string data)
         {
             userBasicData = MessageUtility.FromBase64String<UserData>(data);
         }

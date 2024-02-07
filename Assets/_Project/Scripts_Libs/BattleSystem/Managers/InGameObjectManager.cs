@@ -166,7 +166,7 @@ namespace CookApps.TeamBattle.BattleSystem
         public async UniTask<CharacterController> AddCharacterToField(ICharacterStatData statData, Vector2 initPos, AllianceType allianceType, Type startStateType)
         {
             var characCtrl = new CharacterController();
-            await characCtrl.Initialize(statData, initPos, allianceType);
+            characCtrl.Initialize(statData, initPos, allianceType);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 
             if (allianceType == AllianceType.Player)

@@ -19,7 +19,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
     public interface ICharacterViewPool
     {
-        UniTask<ICharacterView> GetCharacterView(ICharacterStatData statData);
+        ICharacterView GetCharacterView(ICharacterStatData statData);
         void ReturnCharacterView(ICharacterView characterView);
     }
 

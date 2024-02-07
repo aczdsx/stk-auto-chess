@@ -22,7 +22,7 @@ namespace CookApps.SampleTeamBattle
 
         public static event Action<UserCharacter> OnUserCharacterChanged;
 
-        void IUserData.Initialize(string data)
+        void IUserData.SetDataFromServer(string data)
         {
             userCharacterGroup = MessageUtility.FromBase64String<UserCharacterGroup>(data);
         }

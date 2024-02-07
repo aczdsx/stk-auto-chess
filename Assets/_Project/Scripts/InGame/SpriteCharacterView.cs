@@ -1,8 +1,10 @@
 using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.BattleSystem;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CookApps.SampleTeamBattle
 {
@@ -11,6 +13,11 @@ namespace CookApps.SampleTeamBattle
         public event Action<string, AnimationEventKey> OnAnimationEvent;
 
         public float Height => throw new NotImplementedException();
+
+        public async UniTask Initialize(ICharacterStatData statData)
+        {
+            throw new NotImplementedException();
+        }
 
         public void UpdateTickAndPosition(float deltaTime, Vector3 position, Vector3 viewPosition)
         {
@@ -40,14 +47,24 @@ namespace CookApps.SampleTeamBattle
 
     public class SpriteCharacterViewPool : ICharacterViewPool
     {
-        public UniTask<ICharacterView> GetCharacterView(ICharacterStatData statData)
+        public ICharacterView GetCharacterView(ICharacterStatData statData)
         {
-            throw new NotImplementedException();
+            if (!InGameResourceHolder.PlayerCharacterPrefabs.TryGetValue(statData.CharacterId, out GameObject prefab))
+            {
+                return default;
+            }
+
+            GameObject go = Object.Instantiate(prefab);
+            var view = go.GetComponent<SpriteCharacterView>();
+            return view;
         }
 
         public void ReturnCharacterView(ICharacterView characterView)
         {
-            throw new NotImplementedException();
+            if (characterView is SpriteCharacterView view)
+            {
+                Object.Destroy(view.gameObject);
+            }
         }
     }
 }

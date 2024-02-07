@@ -79,7 +79,7 @@ namespace CookApps.SampleTeamBattle
             userDataList.Sort((x, y) => x.Priority - y.Priority);
             foreach (IUserData userData in userDataList)
             {
-                userData.Initialize(userDatas[userData.DataCategory.ToCategoryString()]);
+                userData.SetDataFromServer(userDatas[userData.DataCategory.ToCategoryString()]);
                 userDataDict.Add(userData.DataCategory.ToCategoryString(), userData);
             }
 

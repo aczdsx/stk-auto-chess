@@ -169,6 +169,42 @@ namespace CookApps.TeamBattle.BattleSystem
             return 0d;
         }
 
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEF)]
+        public virtual double GetIncrementFixedDEF()
+        {
+            return 0;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEF)]
+        public virtual double GetIncrementPercentDEF()
+        {
+            return 0d;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAP)]
+        public virtual double GetIncrementFixedAP()
+        {
+            return 0;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAP)]
+        public virtual double GetIncrementPercentAP()
+        {
+            return 0d;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRES)]
+        public virtual double GetIncrementFixedRES()
+        {
+            return 0;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRES)]
+        public virtual double GetIncrementPercentRES()
+        {
+            return 0d;
+        }
+
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRecoveryHP)]
         public virtual double GetIncrementFixedRecoveryHP()
         {
@@ -360,6 +396,108 @@ namespace CookApps.TeamBattle.BattleSystem
 
                 fixedValues[x.CalcOrder] += x.GetIncrementFixedAD();
                 percentValues[x.CalcOrder] += x.GetIncrementPercentAD();
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                basicStat = (basicStat + fixedValues[i]) * (1f + percentValues[i]);
+            }
+
+            if (basicStat < 0)
+            {
+                basicStat = 0;
+            }
+
+            return basicStat;
+        }
+
+        public static double CalculateDEF<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                fixedValues[i] = 0;
+                percentValues[i] = 0f;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedDEF();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentDEF();
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                basicStat = (basicStat + fixedValues[i]) * (1f + percentValues[i]);
+            }
+
+            if (basicStat < 0)
+            {
+                basicStat = 0;
+            }
+
+            return basicStat;
+        }
+
+        public static double CalculateAP<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                fixedValues[i] = 0;
+                percentValues[i] = 0f;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedAP();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentAP();
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                basicStat = (basicStat + fixedValues[i]) * (1f + percentValues[i]);
+            }
+
+            if (basicStat < 0)
+            {
+                basicStat = 0;
+            }
+
+            return basicStat;
+        }
+
+        public static double CalculateRES<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                fixedValues[i] = 0;
+                percentValues[i] = 0f;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedRES();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentRES();
             }
 
             for (var i = 0; i < maxCalcOrder; i++)

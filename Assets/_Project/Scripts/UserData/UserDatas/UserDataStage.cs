@@ -16,7 +16,7 @@ namespace CookApps.SampleTeamBattle
 
         private UserStageGroup userStageGroupData;
 
-        void IUserData.Initialize(string data)
+        void IUserData.SetDataFromServer(string data)
         {
             userStageGroupData = MessageUtility.FromBase64String<UserStageGroup>(data);
         }

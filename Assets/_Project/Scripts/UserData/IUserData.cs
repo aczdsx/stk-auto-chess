@@ -8,6 +8,6 @@ namespace CookApps.SampleTeamBattle
         DataCategory DataCategory { get; }
         int Priority { get; } // 낮을수록 먼저 초기화됨
 
-        void Initialize(string data);
+        void SetDataFromServer(string data);
     }
 }

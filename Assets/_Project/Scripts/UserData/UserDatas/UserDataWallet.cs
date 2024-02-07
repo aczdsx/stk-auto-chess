@@ -19,7 +19,7 @@ namespace CookApps.SampleTeamBattle
 
         public static event Action<int> OnBreadChanged;
 
-        public void Initialize(string data)
+        public void SetDataFromServer(string data)
         {
             userWalletData = MessageUtility.FromBase64String<UserWallet>(data);
         }

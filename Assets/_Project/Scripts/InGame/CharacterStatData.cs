@@ -1,61 +1,225 @@
+using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle.BattleSystem;
 
 namespace CookApps.SampleTeamBattle
 {
-    public class CharacterStatData : ICharacterStatData
+    public class CharacterStatData : IEffectCodeSource, ICharacterStatData
     {
-        public CharacterStatData(int characterId, int level)
+        public EffectCodeContainer EffectCodeContainer { get; }
+
+        private int characterId;
+        private SpecCharacter spec;
+
+        public CharacterStatData(int characterId, int level, List<EffectCodeInfo> globalEffectCodeInfos = null)
         {
+            this.characterId = characterId;
+            EffectCodeContainer = new EffectCodeContainer(this);
+            spec = SpecDataManager.Instance.SpecCharacter.Get(characterId);
+            // TODO: level에 따른 스탯 증가 적용
+            // HP = spec.stat_hp * spec.inc_rate * level;...
+
+            var flags = EffectCodeInheritFlag.None;
+            if (globalEffectCodeInfos != null)
+            {
+                foreach (EffectCodeInfo effectCodeInfo in globalEffectCodeInfos)
+                {
+                    EffectCodeBase code = EffectCodeContainer.AddEffectCode(effectCodeInfo, this);
+                    if (code is EffectCodeStatBase statCode)
+                    {
+                        flags.AddFlag(statCode.GetFlag());
+                    }
+                }
+            }
+
+            UpdateStats(flags);
         }
 
-        public EffectCodeInheritFlag DirtyFlags => throw new System.NotImplementedException();
+        public void AddOrUpdateEffectCode(EffectCodeInfo codeInfo)
+        {
+            EffectCodeBase effectCode = EffectCodeContainer.AddOrMergeEffectCode(codeInfo, this);
+            if (effectCode is EffectCodeStatBase statEffectCode)
+            {
+                UpdateStats(statEffectCode.GetFlag());
+            }
+        }
+
+        public void RemoveEffectCode(int codeId)
+        {
+            EffectCodeBase effectCode = EffectCodeContainer.RemoveEffectCode(codeId);
+            if (effectCode is EffectCodeStatBase statEffectCode)
+            {
+                UpdateStats(statEffectCode.GetFlag());
+            }
+        }
+
+        private EffectCodeInheritFlag dirtyFlags = EffectCodeInheritFlag.None;
+        public EffectCodeInheritFlag DirtyFlags => dirtyFlags;
 
         public void RemoveDirtyFlag(EffectCodeInheritFlag flag)
         {
-            throw new System.NotImplementedException();
+            dirtyFlags.RemoveFlag(flag);
         }
 
-        public ObfuscatorInt CharacterId => throw new System.NotImplementedException();
+        private void UpdateStats(EffectCodeInheritFlag flags)
+        {
+            dirtyFlags.AddFlag(flags);
 
-        public ObfuscatorDouble HP => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatHP))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHP);
+                HP = codes.CalculateHP(0);
+            }
 
-        public ObfuscatorDouble AD => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAD))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAD);
+                AD = codes.CalculateAD(0);
+            }
 
-        public ObfuscatorDouble AP => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAP))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAP);
+                AP = codes.CalculateAP(0);
+            }
 
-        public ObfuscatorDouble DEF => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatDEF))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
+                DEF = codes.CalculateDEF(0);
+            }
 
-        public ObfuscatorDouble RES => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatRES))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
+                RES = codes.CalculateRES(0);
+            }
 
-        public ObfuscatorDouble HPRecovery => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatRecoveryHP))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRecoveryHP);
+                HPRecovery = codes.CalculateRecoveryHP(0);
+            }
 
-        public ObfuscatorFloat CriticalProb => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatMoveSpeed))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatMoveSpeed);
+                MoveSpeed = codes.CalculateMoveSpeed(1 /*spec.move_speed*/);
+            }
 
-        public ObfuscatorFloat CriticalDamageRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalProb))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalProb);
+                CriticalProb = codes.CalculateCriticalProb(0);
+            }
 
-        public ObfuscatorFloat DoubleCriticalProb => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalDamageRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
+                CriticalDamageRate = codes.CalculateCriticalDamageRate(1);
+            }
 
-        public ObfuscatorFloat DoubleCriticalDamageRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalProb))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
+                DoubleCriticalProb = codes.CalculateDoubleCriticalProb(0);
+            }
 
-        public ObfuscatorFloat MoveSpeed => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
+                DoubleCriticalDamageRate = codes.CalculateDoubleCriticalDamageRate(1);
+            }
 
-        public ObfuscatorFloat AttackSpeed => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackSpeed))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackSpeed);
+                AttackSpeed = codes.CalculateAttackSpeed(spec.atkSpd);
+            }
 
-        public ObfuscatorFloat AttackRange => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackRange))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
+                AttackRange = codes.CalculateAttackRange(spec.atkRange);
+            }
 
-        public ObfuscatorFloat SkillDamageRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatSkillDamageRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillDamageRate);
+                SkillDamageRate = codes.CalculateSkillDamageRate(1f);
+            }
 
-        public ObfuscatorFloat SkillCooltimeRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatSkillCooltimeRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
+                SkillCooltimeRate = codes.CalculateSkillCooltimeRate(0f);
+            }
 
-        public ObfuscatorFloat AttackDamageRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackDamageRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackDamageRate);
+                AttackDamageRate = codes.CalculateAttackDamageRate(1f);
+            }
 
-        public ObfuscatorFloat TakenDamageRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatTakenDamageRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenDamageRate);
+                TakenDamageRate = codes.CalculateTakenDamageRate(1f);
+            }
 
-        public ObfuscatorFloat GivenHealRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatGivenHealRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatGivenHealRate);
+                GivenHealRate = codes.CalculateGivenHealRate(1f);
+            }
 
-        public ObfuscatorFloat TakenHealRate => throw new System.NotImplementedException();
+            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatTakenHealRate))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenHealRate);
+                TakenHealRate = codes.CalculateTakenHealRate(1f);
+            }
+        }
 
-        public AttackType AttackType => throw new System.NotImplementedException();
+        public ObfuscatorInt CharacterId => characterId;
+
+        public ObfuscatorDouble HP { get; private set; }
+
+        public ObfuscatorDouble AD { get; private set; }
+
+        public ObfuscatorDouble AP { get; private set; }
+
+        public ObfuscatorDouble DEF { get; private set; }
+
+        public ObfuscatorDouble RES { get; private set; }
+
+        public ObfuscatorDouble HPRecovery { get; private set; }
+
+        public ObfuscatorFloat CriticalProb { get; private set; }
+
+        public ObfuscatorFloat CriticalDamageRate { get; private set; }
+
+        public ObfuscatorFloat DoubleCriticalProb { get; private set; }
+
+        public ObfuscatorFloat DoubleCriticalDamageRate { get; private set; }
+
+        public ObfuscatorFloat MoveSpeed { get; private set; }
+
+        public ObfuscatorFloat AttackSpeed { get; private set; }
+
+        public ObfuscatorFloat AttackRange { get; private set; }
+
+        public ObfuscatorFloat SkillDamageRate { get; private set; }
+
+        public ObfuscatorFloat SkillCooltimeRate { get; private set; }
+
+        public ObfuscatorFloat AttackDamageRate { get; private set; }
+
+        public ObfuscatorFloat TakenDamageRate { get; private set; }
+
+        public ObfuscatorFloat GivenHealRate { get; private set; }
+
+        public ObfuscatorFloat TakenHealRate { get; private set; }
+
+        public AttackType AttackType { get; private set; }
     }
 }

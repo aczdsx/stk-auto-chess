@@ -12,7 +12,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
     public interface ITextViewPool
     {
-        UniTask<ITextView> GetDamageTextView();
+        ITextView GetDamageTextView();
         void ReturnDamageTextView(ITextView textView);
     }
 

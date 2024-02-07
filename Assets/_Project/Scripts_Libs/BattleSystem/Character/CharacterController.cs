@@ -103,7 +103,7 @@ namespace CookApps.TeamBattle.BattleSystem
         private AllianceType allianceType;
         public AllianceType AllianceType => allianceType;
 
-        public async UniTask Initialize(ICharacterStatData statData, Vector3 position, AllianceType allianceType)
+        public void Initialize(ICharacterStatData statData, Vector3 position, AllianceType allianceType)
         {
             characUId = characUIdInc++;
             this.statData = statData;
@@ -111,8 +111,9 @@ namespace CookApps.TeamBattle.BattleSystem
             this.position = position;
             this.allianceType = allianceType;
 
-            hpBarView = await HpBarViewPool.Instance.GetHpBar();
-            view = await CharacterViewPool.Instance.GetCharacterView(statData);
+            view = CharacterViewPool.Instance.GetCharacterView(statData);
+            hpBarView = HpBarViewPool.Instance.GetHpBar();
+            hpBarView.Initialize(statData);
             FollowHpBar();
 
             view.OnAnimationEvent += OnAnimationEvent;
@@ -670,14 +671,14 @@ namespace CookApps.TeamBattle.BattleSystem
 
         private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
         {
-            ITextView textView = await TextViewPool.Instance.GetDamageTextView();
+            ITextView textView = TextViewPool.Instance.GetDamageTextView();
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount, isCritical, isDoubleCritical);
             TextViewPool.Instance.ReturnDamageTextView(textView);
         }
 
         private async UniTask ShowHealText(double amount)
         {
-            ITextView textView = await TextViewPool.Instance.GetDamageTextView();
+            ITextView textView = TextViewPool.Instance.GetDamageTextView();
             await textView.ShowHealText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount);
             TextViewPool.Instance.ReturnDamageTextView(textView);
         }

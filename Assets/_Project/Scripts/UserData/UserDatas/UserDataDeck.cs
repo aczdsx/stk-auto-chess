@@ -18,7 +18,7 @@ namespace CookApps.SampleTeamBattle
 
         private UserDeck userDeckData;
 
-        void IUserData.Initialize(string data)
+        void IUserData.SetDataFromServer(string data)
         {
             userDeckData = MessageUtility.FromBase64String<UserDeck>(data);
         }
