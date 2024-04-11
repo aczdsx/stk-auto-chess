@@ -53,6 +53,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
             effectCode.Initialize(codeInfo, this, source);
             effectCodes.Add(effectCode);
+
             // 높은 아이디의 이펙트 코드가 먼저 발동해야하기때문에 정렬을 계속 해준다.
             effectCodes.Sort(EffectCodeBase.SortByPriorityFunc);
 
@@ -285,7 +286,7 @@ namespace CookApps.TeamBattle.BattleSystem
                 }
             }
 
-            effectCodes.RemoveAllNull();
+            effectCodes.RemoveAll(NullChecker<EffectCodeBase>.NullCheck);
         }
 
         public void RemoveAllEffectCodesWithoutSourceIsNull()
@@ -335,37 +336,43 @@ namespace CookApps.TeamBattle.BattleSystem
                 }
             }
 
-            effectCodes.RemoveAllNull();
+            effectCodes.RemoveAll(NullChecker<EffectCodeBase>.NullCheck);
         }
 
+        // 더티 플래그 방식으로 리스트를 업데이트한다.
         private Dictionary<EffectCodeInheritFlag, List<EffectCodeStatBase>> effectCodesDividedByFlag = new ();
         private Dictionary<EffectCodeInheritFlag, bool> isEffectCodesDividedByFlagDirty = new ();
 
         public List<EffectCodeStatBase> GetCharacterEffectCodesByFlag(EffectCodeInheritFlag flag)
         {
-            if (!isEffectCodesDividedByFlagDirty.ContainsKey(flag))
+            if (isEffectCodesDividedByFlagDirty.TryAdd(flag, false))
             {
-                isEffectCodesDividedByFlagDirty.Add(flag, false);
                 effectCodesDividedByFlag.Add(flag, new List<EffectCodeStatBase>());
             }
 
-            if (isEffectCodesDividedByFlagDirty[flag])
+            if (!isEffectCodesDividedByFlagDirty[flag])
             {
-                effectCodesDividedByFlag[flag].Clear();
+                return effectCodesDividedByFlag[flag];
+            }
 
-                for (var i = 0; i < effectCodes.Count; i++)
+            effectCodesDividedByFlag[flag].Clear();
+
+            for (var i = 0; i < effectCodes.Count; i++)
+            {
+                if (effectCodes[i] is not EffectCodeStatBase statEffectCode)
                 {
-                    if (effectCodes[i] is EffectCodeStatBase statEffectCode)
-                    {
-                        if (statEffectCode.GetFlag().IsIncludeFlag(flag))
-                        {
-                            effectCodesDividedByFlag[flag].Add(statEffectCode);
-                        }
-                    }
+                    continue;
                 }
 
-                isEffectCodesDividedByFlagDirty[flag] = false;
+                if (!statEffectCode.GetFlag().HasFlag(flag))
+                {
+                    continue;
+                }
+
+                effectCodesDividedByFlag[flag].Add(statEffectCode);
             }
+
+            isEffectCodesDividedByFlagDirty[flag] = false;
 
             return effectCodesDividedByFlag[flag];
         }
@@ -375,9 +382,8 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public List<EffectCodeBase> GetEffectCodesByType(EffectCodeType type)
         {
-            if (!isEffectCodesDividedByTypeDirty.ContainsKey(type))
+            if (isEffectCodesDividedByTypeDirty.TryAdd(type, false))
             {
-                isEffectCodesDividedByTypeDirty.Add(type, false);
                 effectCodesDividedByType.Add(type, new List<EffectCodeBase>());
             }
 

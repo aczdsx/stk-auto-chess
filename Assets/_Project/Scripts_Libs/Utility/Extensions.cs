@@ -17,14 +17,11 @@ namespace CookApps.TeamBattle.Utility
         }
     }
 
-    public static class Extensions
+    public static class NullChecker<T>
     {
-        public static int RemoveAllNull<T>(this List<T> list)
-        {
-            return list.RemoveAll(NullCheck);
-        }
+        public static Predicate<T> NullCheck = InternalNullCheck;
 
-        private static bool NullCheck<T>(T x)
+        private static bool InternalNullCheck<T>(T x)
         {
             return x == null;
         }

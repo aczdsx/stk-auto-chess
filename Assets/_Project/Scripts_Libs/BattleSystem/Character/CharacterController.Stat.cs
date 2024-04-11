@@ -40,8 +40,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatHP) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatHP))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatHP) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatHP))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatHP);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatHP);
@@ -71,8 +71,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatAD) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatAD))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAD) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAD))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAD);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAD);
@@ -88,8 +88,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatAP) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatAP))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAP) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAP))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAP);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAP);
@@ -105,8 +105,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatDEF) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatDEF))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatDEF) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatDEF))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDEF);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEF);
@@ -122,8 +122,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatRES) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatRES))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatRES) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatRES))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRES);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRES);
@@ -139,8 +139,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatRecoveryHP) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatRecoveryHP))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatRecoveryHP) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatRecoveryHP))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRecoveryHP);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRecoveryHP);
@@ -156,8 +156,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatMoveSpeed) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatMoveSpeed))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatMoveSpeed) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatMoveSpeed))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatMoveSpeed);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatMoveSpeed);
@@ -173,8 +173,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatAttackSpeed) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackSpeed))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAttackSpeed) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAttackSpeed))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackSpeed);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackSpeed);
@@ -190,8 +190,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatAttackRange) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackRange))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAttackRange) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAttackRange))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackRange);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackRange);
@@ -209,8 +209,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalProb) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalProb))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatCriticalProb) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatCriticalProb))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatCriticalProb);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatCriticalProb);
@@ -226,8 +226,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalDamageRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalDamageRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatCriticalDamageRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatCriticalDamageRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
@@ -243,8 +243,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalProb) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalProb))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatDoubleCriticalProb) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatDoubleCriticalProb))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
@@ -260,8 +260,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
@@ -277,8 +277,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatSkillDamageRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatSkillDamageRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatSkillDamageRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatSkillDamageRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatSkillDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatSkillDamageRate);
@@ -294,8 +294,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatSkillCooltimeRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatSkillCooltimeRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatSkillCooltimeRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatSkillCooltimeRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
@@ -311,8 +311,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatAttackDamageRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackDamageRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAttackDamageRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAttackDamageRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackDamageRate);
@@ -328,8 +328,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatTakenDamageRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatTakenDamageRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatTakenDamageRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatTakenDamageRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatTakenDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatTakenDamageRate);
@@ -345,8 +345,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatGivenHealRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatGivenHealRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatGivenHealRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatGivenHealRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatGivenHealRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatGivenHealRate);
@@ -362,8 +362,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             get
             {
-                if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatTakenHealRate) ||
-                    GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatTakenHealRate))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatTakenHealRate) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatTakenHealRate))
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatTakenHealRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatTakenHealRate);
@@ -377,8 +377,8 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public bool IsImmuneCrowdControlType(CrowdControlType type)
         {
-            if (needUpdateFlag.IsIncludeFlag(EffectCodeInheritFlag.StatCrowdControlImmune) ||
-                GetCharacterStat().DirtyFlags.IsIncludeFlag(EffectCodeInheritFlag.StatCrowdControlImmune))
+            if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatCrowdControlImmune) ||
+                GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatCrowdControlImmune))
             {
                 needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatCrowdControlImmune);
                 GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatCrowdControlImmune);

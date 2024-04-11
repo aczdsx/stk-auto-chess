@@ -83,11 +83,6 @@ namespace CookApps.TeamBattle.BattleSystem
             return flag;
         }
 
-        public static bool IsIncludeFlag(this EffectCodeInheritFlag src, EffectCodeInheritFlag flag)
-        {
-            return (src & flag) == flag;
-        }
-
         public static void AddFlag(this ref EffectCodeInheritFlag src, EffectCodeInheritFlag flag)
         {
             src |= flag;
@@ -103,7 +98,7 @@ namespace CookApps.TeamBattle.BattleSystem
             allFlagTypes ??= Enum.GetValues(typeof(EffectCodeInheritFlag)).Cast<EffectCodeInheritFlag>().ToArray();
             foreach (EffectCodeInheritFlag flagType in allFlagTypes)
             {
-                if (src.IsIncludeFlag(flagType))
+                if (src.HasFlag(flagType))
                 {
                     yield return flagType;
                 }

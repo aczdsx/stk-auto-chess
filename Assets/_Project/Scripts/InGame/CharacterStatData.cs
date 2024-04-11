@@ -65,115 +65,115 @@ namespace CookApps.SampleTeamBattle
         {
             dirtyFlags.AddFlag(flags);
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatHP))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatHP))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHP);
                 HP = codes.CalculateHP(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAD))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAD))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAD);
                 AD = codes.CalculateAD(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAP))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAP))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAP);
                 AP = codes.CalculateAP(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatDEF))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatDEF))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
                 DEF = codes.CalculateDEF(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatRES))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatRES))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
                 RES = codes.CalculateRES(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatRecoveryHP))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatRecoveryHP))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRecoveryHP);
                 HPRecovery = codes.CalculateRecoveryHP(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatMoveSpeed))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatMoveSpeed))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatMoveSpeed);
                 MoveSpeed = codes.CalculateMoveSpeed(1 /*spec.move_speed*/);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalProb))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatCriticalProb))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalProb);
                 CriticalProb = codes.CalculateCriticalProb(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatCriticalDamageRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatCriticalDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
                 CriticalDamageRate = codes.CalculateCriticalDamageRate(1);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalProb))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatDoubleCriticalProb))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
                 DoubleCriticalProb = codes.CalculateDoubleCriticalProb(0);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
                 DoubleCriticalDamageRate = codes.CalculateDoubleCriticalDamageRate(1);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackSpeed))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAttackSpeed))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackSpeed);
                 AttackSpeed = codes.CalculateAttackSpeed(spec.atkSpd);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackRange))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAttackRange))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
                 AttackRange = codes.CalculateAttackRange(spec.atkRange);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatSkillDamageRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatSkillDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillDamageRate);
                 SkillDamageRate = codes.CalculateSkillDamageRate(1f);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatSkillCooltimeRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatSkillCooltimeRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
                 SkillCooltimeRate = codes.CalculateSkillCooltimeRate(0f);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatAttackDamageRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAttackDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackDamageRate);
                 AttackDamageRate = codes.CalculateAttackDamageRate(1f);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatTakenDamageRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatTakenDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenDamageRate);
                 TakenDamageRate = codes.CalculateTakenDamageRate(1f);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatGivenHealRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatGivenHealRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatGivenHealRate);
                 GivenHealRate = codes.CalculateGivenHealRate(1f);
             }
 
-            if (flags.IsIncludeFlag(EffectCodeInheritFlag.StatTakenHealRate))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatTakenHealRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenHealRate);
                 TakenHealRate = codes.CalculateTakenHealRate(1f);
