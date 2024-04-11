@@ -89,7 +89,10 @@ namespace CookApps.TeamBattle.BattleSystem
             source = null;
         }
 
-        public static int SortByPriority(EffectCodeBase x, EffectCodeBase y)
+        // 함수 캐싱
+        public static Comparison<EffectCodeBase> SortByPriorityFunc = SortByPriority;
+
+        private static int SortByPriority(EffectCodeBase x, EffectCodeBase y)
         {
             if (x.CodeInfo.Priority != y.CodeInfo.Priority)
             {

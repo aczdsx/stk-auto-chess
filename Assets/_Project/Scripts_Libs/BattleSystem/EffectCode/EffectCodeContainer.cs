@@ -30,7 +30,7 @@ namespace CookApps.TeamBattle.BattleSystem
             for (var i = 0; i < effectCodes.Count; i++)
             {
                 effectCodes[i].OnPreRemoved();
-                EffectCodeManager.Instance.Push(effectCodes[i]);
+                EffectCodePoolManager.Instance.Push(effectCodes[i]);
             }
 
             owner = null;
@@ -45,7 +45,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public EffectCodeBase AddEffectCode(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
-            EffectCodeBase effectCode = EffectCodeManager.Instance.GetEffectCodeBase(codeInfo.CodeId);
+            EffectCodeBase effectCode = EffectCodePoolManager.Instance.GetEffectCodeBase(codeInfo.CodeId);
             if (effectCode == null)
             {
                 return null;
@@ -54,7 +54,7 @@ namespace CookApps.TeamBattle.BattleSystem
             effectCode.Initialize(codeInfo, this, source);
             effectCodes.Add(effectCode);
             // 높은 아이디의 이펙트 코드가 먼저 발동해야하기때문에 정렬을 계속 해준다.
-            effectCodes.Sort(EffectCodeBase.SortByPriority);
+            effectCodes.Sort(EffectCodeBase.SortByPriorityFunc);
 
             if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
             {
@@ -108,7 +108,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
             if (effectCode == null)
             {
-                effectCode = EffectCodeManager.Instance.GetEffectCodeBase(codeInfo.CodeId);
+                effectCode = EffectCodePoolManager.Instance.GetEffectCodeBase(codeInfo.CodeId);
                 if (effectCode == null)
                 {
                     return null;
@@ -117,7 +117,7 @@ namespace CookApps.TeamBattle.BattleSystem
                 effectCode.Initialize(codeInfo, this, source);
                 effectCodes.Add(effectCode);
                 // 높은 아이디의 이펙트 코드가 먼저 발동해야하기때문에 정렬을 계속 해준다.
-                effectCodes.Sort(EffectCodeBase.SortByPriority);
+                effectCodes.Sort(EffectCodeBase.SortByPriorityFunc);
             }
 
             if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
@@ -188,7 +188,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             effectCodes.Remove(effectCode);
-            EffectCodeManager.Instance.Push(effectCode);
+            EffectCodePoolManager.Instance.Push(effectCode);
             return true;
         }
 
@@ -238,7 +238,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             effectCodes.Remove(effectCode);
-            EffectCodeManager.Instance.Push(effectCode);
+            EffectCodePoolManager.Instance.Push(effectCode);
             return effectCode;
         }
 
@@ -280,7 +280,7 @@ namespace CookApps.TeamBattle.BattleSystem
                     }
 
                     effectCodes[i].OnPreRemoved();
-                    EffectCodeManager.Instance.Push(effectCodes[i]);
+                    EffectCodePoolManager.Instance.Push(effectCodes[i]);
                     effectCodes[i] = null;
                 }
             }
@@ -330,7 +330,7 @@ namespace CookApps.TeamBattle.BattleSystem
                     }
 
                     effectCodes[i].OnPreRemoved();
-                    EffectCodeManager.Instance.Push(effectCodes[i]);
+                    EffectCodePoolManager.Instance.Push(effectCodes[i]);
                     effectCodes[i] = null;
                 }
             }

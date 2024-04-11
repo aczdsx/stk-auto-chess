@@ -48,12 +48,12 @@ namespace CookApps.TeamBattle.UI
         /// <summary>
         /// 인덱스에 맞는 리스트 아이템 오브젝트를 리턴하세요.
         /// </summary>
-        public event Func<int, RectTransform> OnGetCellItem;
+        public event Func<int, GameObject> OnGetCellItem;
 
         /// <summary>
         /// 사용이 끝난 아이템 오브젝트를 재활용하세요.
         /// </summary>
-        public event Action<int, RectTransform> OnReleaseCellItem;
+        public event Action<int, Transform> OnReleaseCellItem;
 
         /// <summary>
         /// 스크롤 시에 호출됩니다. 인자값은 content rect의 position입니다.
@@ -527,7 +527,8 @@ namespace CookApps.TeamBattle.UI
             var cellItemRects = new Rect[cellItemCount];
             for (int i = group.startIdx; i <= group.endIdx; i++)
             {
-                RectTransform cellItem = OnGetCellItem?.Invoke(i);
+                GameObject go = OnGetCellItem?.Invoke(i);
+                var cellItem = go.GetComponent<RectTransform>();
                 int idx = i - group.startIdx;
                 group.items[idx] = cellItem;
                 cellItemRects[idx] = cellItem.rect;

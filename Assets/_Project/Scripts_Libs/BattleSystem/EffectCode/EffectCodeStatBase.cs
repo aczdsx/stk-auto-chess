@@ -139,7 +139,6 @@ namespace CookApps.TeamBattle.BattleSystem
 
     public abstract class EffectCodeStatBase : EffectCodeBase
     {
-        public static List<int> UseCodeIds = new ();
         public override EffectCodeType Type => EffectCodeType.Stat;
 
         public override EffectCodeLifeType LifeType => EffectCodeLifeType.Permanent;

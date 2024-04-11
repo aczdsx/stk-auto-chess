@@ -8,33 +8,42 @@ using CookApps.TeamBattle.Utility;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
-    public class EffectCodeManager : Singleton<EffectCodeManager>
+    public class UseEffectCodeIdsAttribute : Attribute
+    {
+        public List<ObfuscatorInt> CodeIds { get; }
+
+        public UseEffectCodeIdsAttribute(params int[] codeIds)
+        {
+            CodeIds = codeIds.Select(id => new ObfuscatorInt(id)).ToList();
+        }
+    }
+
+    public class EffectCodePoolManager : Singleton<EffectCodePoolManager>
     {
         #region Effect Code Datas
-        private Dictionary<int, Func<EffectCodeBase>> effectCodeClassDatas = new ();
-        private Dictionary<int, EffectCodeType> effectCodeTypeDatas = new ();
-        private Dictionary<int, EffectCodeLifeType> effectCodeLifeTypeDatas = new ();
+        private Dictionary<int, Func<EffectCodeBase>> effectCodeCreators = new ();
+        private Dictionary<int, EffectCodeType> effectCodeTypeMap = new ();
+        private Dictionary<int, EffectCodeLifeType> effectCodeLifeTypeMap = new ();
         private Dictionary<int, Queue<EffectCodeBase>> pools = new ();
 
         public void Clear()
         {
-            effectCodeClassDatas.Clear();
-            effectCodeTypeDatas.Clear();
-            effectCodeLifeTypeDatas.Clear();
+            effectCodeCreators.Clear();
+            effectCodeTypeMap.Clear();
+            effectCodeLifeTypeMap.Clear();
             pools.Clear();
         }
 
-        public void LoadEffectCodeClassDatas()
+        public void RegisterEffectCodeCreators()
         {
-            effectCodeClassDatas.Clear();
-            effectCodeTypeDatas.Clear();
-            effectCodeLifeTypeDatas.Clear();
+            effectCodeCreators.Clear();
+            effectCodeTypeMap.Clear();
+            effectCodeLifeTypeMap.Clear();
 
             IEnumerable<Type> allEffectCodeImpls = InheritHelper.GetAllImplementations<EffectCodeBase>();
             foreach (Type effectCodeImpl in allEffectCodeImpls)
             {
-                FieldInfo codeIdFieldInfo = effectCodeImpl.GetField("UseCodeIds");
-                var codeIds = (List<ObfuscatorInt>) codeIdFieldInfo.GetValue(null);
+                IEnumerable<ObfuscatorInt> codeIds = effectCodeImpl.GetCustomAttributes<UseEffectCodeIdsAttribute>().SelectMany(x => x.CodeIds);
                 NewExpression constructorExpression = Expression.New(effectCodeImpl);
                 Expression<Func<EffectCodeBase>> lambdaExpression = Expression.Lambda<Func<EffectCodeBase>>(constructorExpression);
                 Func<EffectCodeBase> createHeadersFunc = lambdaExpression.Compile();
@@ -45,25 +54,23 @@ namespace CookApps.TeamBattle.BattleSystem
             }
         }
 
-        public void AddEffectCodeCreator(int codeId, Func<EffectCodeBase> lambda)
+        private void AddEffectCodeCreator(int codeId, Func<EffectCodeBase> lambda)
         {
-            effectCodeClassDatas.Add(codeId, lambda);
+            effectCodeCreators.Add(codeId, lambda);
             EffectCodeBase temp = lambda.Invoke();
-            effectCodeTypeDatas.Add(codeId, temp.Type);
-            effectCodeLifeTypeDatas.Add(codeId, temp.LifeType);
+            effectCodeTypeMap.Add(codeId, temp.Type);
+            effectCodeLifeTypeMap.Add(codeId, temp.LifeType);
         }
 
         public EffectCodeType GetEffectCodeType(int codeId)
         {
-            EffectCodeType type;
-            effectCodeTypeDatas.TryGetValue(codeId, out type);
+            effectCodeTypeMap.TryGetValue(codeId, out EffectCodeType type);
             return type;
         }
 
         public EffectCodeLifeType GetEffectCodeLifeType(int codeId)
         {
-            EffectCodeLifeType type;
-            effectCodeLifeTypeDatas.TryGetValue(codeId, out type);
+            effectCodeLifeTypeMap.TryGetValue(codeId, out EffectCodeLifeType type);
             return type;
         }
         #endregion
@@ -71,7 +78,7 @@ namespace CookApps.TeamBattle.BattleSystem
         #region EffectCodeBase class Pooling
         public EffectCodeBase GetEffectCodeBase(int codeId)
         {
-            if (!effectCodeClassDatas.ContainsKey(codeId))
+            if (!effectCodeCreators.ContainsKey(codeId))
             {
                 return null;
             }
@@ -79,7 +86,7 @@ namespace CookApps.TeamBattle.BattleSystem
             EffectCodeBase codeBase;
             if (!pools.ContainsKey(codeId) || pools[codeId].Count <= 0)
             {
-                codeBase = effectCodeClassDatas[codeId].Invoke();
+                codeBase = effectCodeCreators[codeId].Invoke();
                 codeBase.CodeId = codeId;
             }
             else
@@ -93,44 +100,43 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public T GetEffectCodeBase<T>(int codeId) where T : EffectCodeBase
         {
-            if (!effectCodeClassDatas.ContainsKey(codeId))
+            if (!effectCodeCreators.ContainsKey(codeId))
             {
                 return null;
             }
 
-            T res;
+            EffectCodeBase effectCode;
             if (!pools.ContainsKey(codeId) || pools[codeId].Count <= 0)
             {
-                EffectCodeBase codeBase = effectCodeClassDatas[codeId].Invoke();
-                codeBase.CodeId = codeId;
-                res = codeBase as T;
+                effectCode = effectCodeCreators[codeId].Invoke();
+                effectCode.CodeId = codeId;
             }
             else
             {
                 Queue<EffectCodeBase> pool = pools[codeId];
-                res = pool.Dequeue() as T;
+                effectCode = pool.Dequeue();
             }
 
-            if (res == null)
+            if (effectCode is T res)
             {
-                Push(res);
+                return res;
             }
 
-            return res;
+            Push(effectCode);
+            throw new Exception($"{codeId} is not {typeof(T).Name}");
         }
 
         public void Push(EffectCodeBase effectCode)
         {
-            if (pools.ContainsKey(effectCode.CodeId))
+            if (pools.TryGetValue(effectCode.CodeId, out Queue<EffectCodeBase> pool))
             {
-                pools[effectCode.CodeId].Enqueue(effectCode);
-            }
-            else
-            {
-                var pool = new Queue<EffectCodeBase>();
                 pool.Enqueue(effectCode);
-                pools.Add(effectCode.CodeId, pool);
+                return;
             }
+
+            pool = new Queue<EffectCodeBase>();
+            pool.Enqueue(effectCode);
+            pools.Add(effectCode.CodeId, pool);
         }
         #endregion
     }
