@@ -65,14 +65,14 @@ namespace CookApps.SampleTeamBattle
             startButton.onClick.RemoveListener(OnStartButtonClicked);
         }
 
-        private RectTransform OnGetTableViewCellItem(int idx)
+        private GameObject OnGetTableViewCellItem(int idx)
         {
             StageRewardSlot slot = rewardSlotPool.Get();
             slot.SetReward(rewards[idx]);
-            return slot.CachedRectTr;
+            return slot.CachedGo;
         }
 
-        private void OnReleaseTableViewCellItem(int idx, Transform obj)
+        private void OnReleaseTableViewCellItem(int idx, GameObject obj)
         {
             rewardSlotPool.Release(obj.GetComponent<StageRewardSlot>());
         }

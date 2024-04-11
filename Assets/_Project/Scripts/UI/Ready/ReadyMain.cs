@@ -70,16 +70,16 @@ namespace CookApps.SampleTeamBattle
             startButton.onClick.RemoveListener(OnClickStartButton);
         }
 
-        private RectTransform OnGetTableViewCellItem(int idx)
+        private GameObject OnGetTableViewCellItem(int idx)
         {
             CharacterSlot slot = characterSlotPool.Get();
             slot.CachedTr.SetParent(tableView.content, false);
             slot.CachedTr.localRotation = Quaternion.identity;
             slot.SetCharacterData(false, ownCharacterIds[idx]);
-            return slot.CachedRectTr;
+            return slot.CachedGo;
         }
 
-        private void OnReleaseTableViewCellItem(int idx, Transform obj)
+        private void OnReleaseTableViewCellItem(int idx, GameObject obj)
         {
             characterSlotPool.Release(obj.GetComponent<CharacterSlot>());
         }

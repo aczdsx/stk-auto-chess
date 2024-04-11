@@ -47,14 +47,14 @@ namespace CookApps.SampleTeamBattle
             stageSlotPool.Dispose();
         }
 
-        private RectTransform OnGetTableViewCellItem(int idx)
+        private GameObject OnGetTableViewCellItem(int idx)
         {
             StageSlot slot = stageSlotPool.Get();
             slot.SetStageData(currentChapter, idx);
-            return slot.CachedRectTr;
+            return slot.CachedGo;
         }
 
-        private void OnReleaseTableViewCellItem(int idx, Transform obj)
+        private void OnReleaseTableViewCellItem(int idx, GameObject obj)
         {
             stageSlotPool.Release(obj.GetComponent<StageSlot>());
         }

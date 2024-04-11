@@ -53,7 +53,7 @@ namespace CookApps.TeamBattle.UI
         /// <summary>
         /// 사용이 끝난 아이템 오브젝트를 재활용하세요.
         /// </summary>
-        public event Action<int, Transform> OnReleaseCellItem;
+        public event Action<int, GameObject> OnReleaseCellItem;
 
         /// <summary>
         /// 스크롤 시에 호출됩니다. 인자값은 content rect의 position입니다.
@@ -247,7 +247,7 @@ namespace CookApps.TeamBattle.UI
                 {
                     for (var j = 0; j < groups[i].items.Length; j++)
                     {
-                        OnReleaseCellItem.Invoke(groups[i].startIdx + j, groups[i].items[j]);
+                        OnReleaseCellItem.Invoke(groups[i].startIdx + j, groups[i].items[j].gameObject);
                     }
                 }
             }
@@ -519,7 +519,7 @@ namespace CookApps.TeamBattle.UI
             {
                 for (var i = 0; i < group.items.Length; i++)
                 {
-                    OnReleaseCellItem?.Invoke(group.startIdx + i, group.items[i]);
+                    OnReleaseCellItem?.Invoke(group.startIdx + i, group.items[i].gameObject);
                 }
             }
 
@@ -548,7 +548,7 @@ namespace CookApps.TeamBattle.UI
             {
                 for (var i = 0; i < group.items.Length; i++)
                 {
-                    OnReleaseCellItem?.Invoke(group.startIdx + i, group.items[i]);
+                    OnReleaseCellItem?.Invoke(group.startIdx + i, group.items[i].gameObject);
                 }
 
                 group.items = null;
