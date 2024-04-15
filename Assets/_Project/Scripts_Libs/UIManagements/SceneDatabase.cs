@@ -7,8 +7,8 @@ namespace CookApps.TeamBattle.UIManagements
     [CreateAssetMenu(fileName = "new Scene Data", menuName = "ScriptableObjects/SceneData")]
     public class SceneDatabase : ScriptableObject
     {
-        [SerializeField] private List<SceneUILayerManager.SceneData> list;
+        [SerializeField] private List<SceneData> list;
 
-        public List<SceneUILayerManager.SceneData> List => list;
+        public List<SceneData> List => list;
     }
 }

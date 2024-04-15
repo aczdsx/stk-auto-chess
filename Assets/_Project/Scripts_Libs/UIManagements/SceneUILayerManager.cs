@@ -9,114 +9,21 @@ using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace CookApps.TeamBattle.UIManagements
 {
     public sealed partial class SceneUILayerManager : SingletonMonoBehaviour<SceneUILayerManager>, ISelectableBlocker
     {
-        public enum PushReqCode
-        {
-            OK,
-            DuplicatedKey,
-            NotExistUILayerName,
-            Loading,
-        }
-
-        public enum PopReqCode
-        {
-            OK,
-            NotExist,
-        }
-
-        private enum UILayerState
-        {
-            Initialized,
-            Entering,
-            Entered,
-            Exiting,
-            Hiding, // use only popup
-        }
-
-        public enum UILayerTransition
-        {
-            Entering,
-            EnterFinished,
-            Exiting,
-            ExitFinished,
-        }
-
-        public enum UILayerType
-        {
-            None = 0,
-            Cover,
-            Overlay,
-            Popup,
-            Modal,
-        }
-
-        [Serializable]
-        private class UILayerStackData
-        {
-            public UILayerStackData(string layerName, string key, long inc, UILayer layer, UILayerState state, Action<object> closeCallback)
-            {
-                this.layerName = layerName;
-                this.key = key;
-                this.layer = layer;
-                this.layer.Key = key;
-                this.state = state;
-                this.closeCallback = closeCallback;
-                this.inc = inc;
-            }
-
-            public readonly long inc;
-            public string layerName;
-            public readonly string key;
-            public UILayer layer;
-
-            public UILayerState state;
-
-            public Action<object> closeCallback;
-        }
-
-        [Serializable]
-        public class UILayerData
-        {
-            public string name;
-            public UILayerType layerType;
-            public string addressableName;
-        }
-
-        [Serializable]
-        public class SceneData
-        {
-            public string sceneName;
-            public string addressableName;
-            public string[] defaultUILayerNames;
-        }
-
-        public string[] GetDefaultUILayerNames(string sceneName)
-        {
-            if (_dataSource.SceneDataList.TryGetValue(sceneName, out SceneData sceneData))
-            {
-                return sceneData.defaultUILayerNames;
-            }
-
-            return null;
-        }
-
-        private ISceneUIDataSource _dataSource;
+        public Dictionary<string, SceneData> SceneDataList { get; }
+        public Dictionary<Type, UILayerData> UIDataList { get; }
 
         // ui layer pool
-        private Dictionary<string, Queue<GameObject>> uiLayerPool = new ();
+        private Dictionary<Type, Queue<GameObject>> uiLayerPool = new ();
 
         private List<UILayerStackData> uiLayerStacks = new ();
 
         private bool isLoadingUI;
-
         private bool noNeedToLoadUI;
-        // private WaitingUIData currLoadingUIData = null;
-        // private List<WaitingUIData> waitingUIDataList = new ();
 
         public string CurrentSceneName { get; private set; }
         private Transform mainNode;
@@ -137,7 +44,11 @@ namespace CookApps.TeamBattle.UIManagements
         public static event Action<string> OnSceneUnloadedEvent;
         public static event Action<string> OnSceneLoadedEvent;
 
-        public int CurrentUICount => /*waitingUIDataList.Count + */uiLayerStacks.Count;
+        public int CurrentUICount => uiLayerStacks.Count;
+
+        /// <summary>
+        /// 간단하게 back key 블록을 하고 싶을 때 사용
+        /// </summary>
         private List<string> blockBackKeySources = new ();
 
         public void BlockBackKey(string srcKey)
@@ -154,7 +65,11 @@ namespace CookApps.TeamBattle.UIManagements
 
         public long uiIncAcc;
 
-        public void Initialize(ISceneUIDataSource dataSource)
+        /// <summary>
+        /// UIManagements 초기화
+        /// 재사용 UI들을 관리할 recycles 생성, UI Layer Date Source 생성
+        /// </summary>
+        public void Initialize(SceneDatabase sceneDatabase, Type[] uiLayerTypes)
         {
             var recycleGo = new GameObject("recycledUIs");
             var recycleCanvas = recycleGo.AddComponent<Canvas>();
@@ -168,19 +83,52 @@ namespace CookApps.TeamBattle.UIManagements
             dimLayer = null;
             isDimLayerOn = false;
 
+            SceneDataList.Clear();
+            foreach (SceneData sceneData in sceneDatabase.List)
+            {
+                SceneDataList.Add(sceneData.SceneName, sceneData);
+            }
+
+            UIDataList.Clear();
+            foreach (Type uiLayerType in uiLayerTypes)
+            {
+                RegisterUILayerAttribute attribute = RegisterUILayerAttributeHelper.GetAttribute(uiLayerType);
+                if (attribute == null)
+                {
+                    continue;
+                }
+
+                UIDataList.Add(uiLayerType, new UILayerData(attribute.LayerType, attribute.AddressableName));
+            }
+
             // 첫번째 씬에서 필요
             ResetNodeRefs();
-
-            _dataSource = dataSource;
             SelectableBlockerManager.Instance.AddBlocker(this);
         }
 
         private void ResetNodeRefs()
         {
-            CameraManager.Instance.ReleaseMainCamera();
             mainCanvas = null;
             Scene activeScene = SceneManager.GetActiveScene();
-            GameObject[] rootGOs = SceneManager.GetActiveScene().GetRootGameObjects();
+            GameObject[] rootGOs = activeScene.GetRootGameObjects();
+            CameraManager.Instance.ReleaseMainCamera();
+            for (var i = 0; i < rootGOs.Length; i++)
+            {
+                var camera = rootGOs[i].GetComponent<Camera>();
+                if (camera == null)
+                {
+                    continue;
+                }
+
+                if (!camera.tag.Contains("MainCamera"))
+                {
+                    continue;
+                }
+
+                CameraManager.Instance.SetMainCamera(camera);
+                break;
+            }
+
             bool isLoadingScene = activeScene.name == "SceneLoading";
             var hasLoadingComp = false;
             for (var i = 0; i < rootGOs.Length; i++)
@@ -188,36 +136,18 @@ namespace CookApps.TeamBattle.UIManagements
                 if (rootGOs[i].name == "MainCanvas")
                 {
                     mainCanvas = rootGOs[i].GetComponent<Canvas>();
-                    if (CameraManager.Main != null)
-                    {
-                        mainCanvas.worldCamera = CameraManager.Main;
-                    }
+                    mainCanvas.worldCamera = CameraManager.Main;
 
                     var canvas = rootGOs[i].GetComponent<Transform>();
                     mainNode = canvas.Find("MainNode");
-                    mainNodeCanvas = mainNode.GetComponent<Canvas>();
-                    if (mainNodeCanvas == null)
-                    {
-                        mainNodeCanvas = mainNode.gameObject.AddComponent<Canvas>();
-                    }
-
-                    var mainNodeGR = mainNode.GetComponent<GraphicRaycaster>();
-                    if (mainNodeGR == null)
-                    {
-                        mainNode.gameObject.AddComponent<GraphicRaycaster>();
-                    }
+                    GameObject mainNodeGo = mainNode.gameObject;
+                    mainNodeCanvas = mainNodeGo.AddComponent<Canvas>();
+                    mainNodeGo.AddComponent<GraphicRaycaster>();
 
                     floatingNode = canvas.Find("FloatingNode");
-                    if (floatingNodeCanvas == null)
-                    {
-                        floatingNodeCanvas = floatingNode.gameObject.AddComponent<Canvas>();
-                    }
-
-                    var floatingNodeGR = floatingNode.GetComponent<GraphicRaycaster>();
-                    if (floatingNodeGR == null)
-                    {
-                        floatingNode.gameObject.AddComponent<GraphicRaycaster>();
-                    }
+                    GameObject floatingNodeGo = floatingNode.gameObject;
+                    floatingNodeCanvas = floatingNodeGo.AddComponent<Canvas>();
+                    floatingNodeGo.AddComponent<GraphicRaycaster>();
 
                     var mainCanvasScaler = mainCanvas.GetComponent<CanvasScaler>();
                     var recycleCanvasScaler = recycles.GetComponent<CanvasScaler>();
@@ -229,19 +159,6 @@ namespace CookApps.TeamBattle.UIManagements
                 {
                     rootGOs[i].GetComponent<EventSystem>().pixelDragThreshold = UIManagementsConst.DragThreshold;
                     continue;
-                }
-
-                if (CameraManager.Main == null)
-                {
-                    var camera = rootGOs[i].GetComponent<Camera>();
-                    if (camera != null && camera.name.Contains("Main"))
-                    {
-                        CameraManager.Instance.SetMainCamera(camera);
-                        if (mainCanvas != null)
-                        {
-                            mainCanvas.worldCamera = camera;
-                        }
-                    }
                 }
 
                 if (isLoadingScene && rootGOs[i].GetComponent<SceneLoading>() != null)
@@ -304,7 +221,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public void ClearUIPool()
         {
-            foreach (KeyValuePair<string, Queue<GameObject>> pair in uiLayerPool)
+            foreach (KeyValuePair<Type, Queue<GameObject>> pair in uiLayerPool)
             {
                 while (pair.Value.Count > 0)
                 {
@@ -319,7 +236,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public string[] GetAllLoadedUIKeys()
         {
-            return uiLayerStacks.Select(x => x.key).ToArray();
+            return uiLayerStacks.Select(x => x.Key).ToArray();
         }
 
         /// <summary>
@@ -327,145 +244,129 @@ namespace CookApps.TeamBattle.UIManagements
         /// </summary>
         public UILayer[] GetUIRoutes(bool isContainCover = true, bool isContainOverlay = false)
         {
-            return uiLayerStacks.Where(x =>
-            {
-                if (x.layer.UILayerType is UILayerType.Popup or UILayerType.Modal)
-                {
-                    return true;
-                }
-
-                if (isContainCover && x.layer.UILayerType == UILayerType.Cover)
-                {
-                    return true;
-                }
-
-                if (isContainOverlay && x.layer.UILayerType == UILayerType.Overlay)
-                {
-                    return true;
-                }
-
-                return false;
-            }).Select(x => x.layer).ToArray();
+            return uiLayerStacks.Where(x => x.Layer.UILayerType is UILayerType.Popup or UILayerType.Modal ||
+                                            (isContainCover && x.Layer.UILayerType == UILayerType.Cover) ||
+                                            (isContainOverlay && x.Layer.UILayerType == UILayerType.Overlay)).Select(x => x.Layer).ToArray();
         }
 
         #region Push or Pop UI
-        public async UniTask<(PushReqCode, object)> PushUILayerAsync(string uiName, object data = null)
+        /// <summary>
+        /// 팝업을 띄우고 해당 팝업을 리턴합니다. 동일한 팝업은 여러개 띄울 수 없습니다.
+        /// </summary>
+        /// <param name="data">팝업의 OnPreEnter 함수의 인자로 넣어줄 데이터입니다.</param>
+        /// <param name="closeCallback">팝업이 닫힐 때 호출될 콜백입니다.</param>
+        /// <returns>팝업 객체입니다.</returns>
+        public async UniTask<T> PushUILayerAsync<T>(object data = null, Action<object> closeCallback = null) where T : UILayer
         {
-            (PushReqCode, object) ret = (PushReqCode.OK, null);
-            var isClosed = false;
-
-            PushReqCode reqCode = PushUILayerWithKey(uiName, uiName, data, closeCallback);
-            if (reqCode != PushReqCode.OK)
-            {
-                ret.Item1 = reqCode;
-                return ret;
-            }
-
-            await UniTask.WaitUntil(() => isClosed);
-            return ret;
-
-            void closeCallback(object res)
-            {
-                ret = (ret.Item1, res);
-                isClosed = true;
-            }
+            string uiName = nameof(T);
+            var layer = await PushUILayerWithKeyAsync<T>(uiName, data, closeCallback);
+            return layer;
         }
 
-        public PushReqCode PushUILayer(string uiName, object data = null, Action<object> closeCallback = null)
+        /// <summary>
+        /// 팝업을 띄우고 해당 팝업을 리턴합니다. key를 사용하여 같은 팝업을 여러개 띄울 수 있습니다.
+        /// </summary>
+        /// <param name="key">팝업의 유니크한 키입니다.</param>
+        /// <param name="data">팝업의 OnPreEnter 함수의 인자로 넣어줄 데이터입니다.</param>
+        /// <param name="closeCallback">팝업이 닫힐 때 호출될 콜백입니다.</param>
+        /// <returns>팝업 객체입니다.</returns>
+        public async UniTask<T> PushUILayerWithKeyAsync<T>(string key, object data = null, Action<object> closeCallback = null) where T : UILayer
         {
-            return PushUILayerWithKey(uiName, uiName, data, closeCallback);
-        }
-
-        public PushReqCode PushUILayerWithKey(string uiName, string key, object data = null, Action<object> closeCallback = null)
-        {
-            bool isExistUIStack = uiLayerStacks.Exists(x =>
-                x.state != UILayerState.Exiting && x.key.Equals(key));
-
-            // bool isExistWaiting = waitingUIDataList.Exists(x => x.key == key);
-            if (isExistUIStack /* || isExistWaiting*/)
+            while (isLoadingUI)
             {
-                Debug.LogAssertion($"{uiName}::{key} is already exist!!");
-                return PushReqCode.DuplicatedKey;
+                await UniTask.Yield();
             }
 
-            if (!_dataSource.UIDataList.ContainsKey(uiName))
+            var isExistUIStack = false;
+            for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                Debug.LogAssertion($"{uiName} is not exist UI name!");
-                return PushReqCode.NotExistUILayerName;
-            }
-
-            if (uiLayerPool.ContainsKey(uiName) && uiLayerPool[uiName].Count > 0)
-            {
-                GameObject ui = uiLayerPool[uiName].Dequeue();
-                if (uiLayerPool[uiName].Count == 0)
+                if (uiLayerStacks[i].Key != key ||
+                    uiLayerStacks[i].State == UILayerState.Exiting)
                 {
-                    uiLayerPool.Remove(uiName);
+                    continue;
                 }
 
-                var uiBase = ui.GetComponent<UILayer>();
-                UILayerStackData stackData = MakeUIStackData(uiBase, key, uiName, closeCallback);
-                PushUILayerInternal(stackData, data);
-                return PushReqCode.OK;
+                isExistUIStack = true;
+                break;
             }
 
-            isLoadingUI = true;
-            LoadUILayer(uiName).ContinueWith(ui =>
+            if (isExistUIStack)
             {
+                Debug.LogAssertion($"{nameof(T)}::{key} is already exist!!");
+                return null;
+            }
+
+            Type uiType = typeof(T);
+            if (!UIDataList.ContainsKey(uiType))
+            {
+                Debug.LogAssertion($"{nameof(T)} is not exist UI name!");
+                return null;
+            }
+
+            T uiLayer;
+            if (uiLayerPool.TryGetValue(uiType, out Queue<GameObject> queue) && queue.Count > 0)
+            {
+                uiLayer = queue.Dequeue().GetComponent<T>();
+            }
+            else
+            {
+                isLoadingUI = true;
+                uiLayer = await LoadUILayer<T>();
                 isLoadingUI = false;
                 if (noNeedToLoadUI)
                 {
-                    AddressableInstantiateHelper.ReleaseGameObject(ui.CachedGo);
-                    Destroy(ui.CachedGo);
-                    return;
+                    AddressableInstantiateHelper.ReleaseGameObject(uiLayer.CachedGo);
+                    Destroy(uiLayer.CachedGo);
+                    return null;
                 }
+            }
 
-                UILayerStackData stackData = MakeUIStackData(ui, key, uiName, closeCallback);
-                PushUILayerInternal(stackData, data);
-            }).Forget();
-            return PushReqCode.OK;
+            UILayerStackData stackData = MakeUIStackData(uiLayer, key, closeCallback);
+            PushUILayerInternal(ref stackData, data);
+            return uiLayer;
         }
 
-        private UILayerStackData MakeUIStackData(UILayer uiLayer, string key, string uiName, Action<object> closeCallback)
+        private UILayerStackData MakeUIStackData(UILayer uiLayer, string key, Action<object> closeCallback)
         {
             uiLayer.CachedGo.SetActive(false);
             uiLayer.CachedRectTr.SetParent(mainNode, false);
-            uiLayer.name = key;
-            uiLayer.UILayerType = _dataSource.UIDataList[uiName].layerType;
+            uiLayer.name = nameof(UILayer);
+            Type type = typeof(UILayer);
+            uiLayer.UILayerType = UIDataList[type].LayerType;
             long inc = uiIncAcc + (uiLayer.Priority * 100);
             uiIncAcc++;
-            return new UILayerStackData(uiName, key, inc, uiLayer, UILayerState.Initialized, closeCallback);
+            return new UILayerStackData(type, key, inc, uiLayer, UILayerState.Initialized, closeCallback);
         }
 
-        private void PushUILayerInternal(UILayerStackData uiLayerData, object data)
+        private void PushUILayerInternal(ref UILayerStackData uiLayerStackData, object data)
         {
-            uiLayerData.layer.CachedGo.SetActive(true);
-            uiLayerData.layer.OnPreEnter(data);
-            uiLayerData.state = UILayerState.Entering;
-            OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerData.key, uiLayerData.layer);
-            uiLayerStacks.Add(uiLayerData);
-            uiLayerStacks.Sort((x, y) => (int) (x.inc - y.inc));
+            uiLayerStackData.Layer.CachedGo.SetActive(true);
+            uiLayerStackData.Layer.OnPreEnter(data);
+            uiLayerStackData.SetState(UILayerState.Entering);
+            OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerStackData.Key, uiLayerStackData.Layer);
+            uiLayerStacks.Add(uiLayerStackData);
+            uiLayerStacks.Sort(UILayerStackData.SortByInc);
 
             // managing z order
             isDimLayerOn = false;
             var isPopupShown = false;
             for (int i = uiLayerStacks.Count - 1; i >= 0; i--)
             {
-                UILayerStackData stackData = uiLayerStacks[i];
-                RectTransform uiTr = stackData.layer.CachedRectTr;
+                RectTransform uiTr = uiLayerStacks[i].Layer.CachedRectTr;
                 uiTr.SetAsFirstSibling();
-                if (stackData.state == UILayerState.Exiting)
+                if (uiLayerStacks[i].State == UILayerState.Exiting)
                 {
                     continue;
                 }
 
-                if (stackData.layer.UILayerType == UILayerType.Popup)
+                if (uiLayerStacks[i].Layer.UILayerType == UILayerType.Popup)
                 {
                     if (isPopupShown)
                     {
-                        if (stackData.state != UILayerState.Hiding)
+                        if (uiLayerStacks[i].State != UILayerState.Hiding)
                         {
-                            stackData.state = UILayerState.Hiding;
-                            stackData.layer.StartExitAnimation(null);
+                            uiLayerStacks[i].SetState(UILayerState.Hiding);
+                            uiLayerStacks[i].Layer.StartExitAnimation(null);
                         }
                     }
                     else
@@ -474,42 +375,44 @@ namespace CookApps.TeamBattle.UIManagements
                     }
                 }
 
+                if (isDimLayerOn || uiLayerStacks[i].Layer.UILayerType is not (UILayerType.Popup or UILayerType.Modal))
                 {
-                    if (isDimLayerOn)
-                    {
-                        continue;
-                    }
+                    continue;
                 }
 
-                if (uiLayerStacks[i].layer.UILayerType is UILayerType.Popup or UILayerType.Modal)
+                if (dimLayer == null)
                 {
-                    if (dimLayer == null)
-                    {
-                        dimLayer = CreateDimLayer("DimLayer");
-                    }
-
-                    dimLayer.transform.SetAsFirstSibling();
-                    isDimLayerOn = true;
+                    dimLayer = CreateDimLayer("DimLayer");
                 }
+
+                dimLayer.transform.SetAsFirstSibling();
+                isDimLayerOn = true;
             }
 
             Canvas.ForceUpdateCanvases();
-            uiLayerData.layer.StartEnterAnimation(OnEndEnterAnimation);
+            uiLayerStackData.Layer.StartEnterAnimation(OnEndEnterAnimation);
         }
 
         private void OnEndEnterAnimation(UILayer ui)
         {
-            bool isExist = uiLayerStacks.Exists(x => x.layer == ui);
-            if (!isExist)
+            int index = -1;
+            for (var i = 0; i < uiLayerStacks.Count; i++)
+            {
+                if (uiLayerStacks[i].Layer == ui)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index < 0)
             {
                 return;
             }
 
-            UILayerStackData stackData = uiLayerStacks.Find(x => x.layer == ui);
-
-            stackData.state = UILayerState.Entered;
+            uiLayerStacks[index].SetState(UILayerState.Entered);
             ui.OnPostEnter();
-            OnUITransitionEvent?.Invoke(UILayerTransition.EnterFinished, stackData.key, stackData.layer);
+            OnUITransitionEvent?.Invoke(UILayerTransition.EnterFinished, uiLayerStacks[index].Key, uiLayerStacks[index].Layer);
 
             if (ui.UILayerType != UILayerType.Cover)
             {
@@ -519,87 +422,92 @@ namespace CookApps.TeamBattle.UIManagements
             var isFoundPrevCover = false;
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                if (uiLayerStacks[i].layer == ui)
+                if (uiLayerStacks[i].Layer == ui)
                 {
                     break;
                 }
 
                 if (!isFoundPrevCover)
                 {
-                    isFoundPrevCover = uiLayerStacks[i].layer.UILayerType == UILayerType.Cover;
+                    isFoundPrevCover = uiLayerStacks[i].Layer.UILayerType == UILayerType.Cover;
                 }
 
                 if (isFoundPrevCover)
                 {
-                    uiLayerStacks[i].layer.CachedGo.SetActive(false);
+                    uiLayerStacks[i].Layer.CachedGo.SetActive(false);
                 }
             }
         }
 
-        public PopReqCode PopUILayer(string key, object dataToCloseCallback = null)
+        public bool PopUILayer(string key, object dataToCloseCallback = null)
         {
-            bool isExist = uiLayerStacks.Exists(x => x.key.Equals(key));
-            if (!isExist)
+            int index = -1;
+            for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                return PopReqCode.NotExist;
+                if (uiLayerStacks[i].Key == key)
+                {
+                    index = i;
+                    break;
+                }
             }
 
-            UILayerStackData stackData = uiLayerStacks.Find(x => x.key.Equals(key));
-            if (stackData.state == UILayerState.Exiting)
+            if (index < 0)
             {
-                return PopReqCode.NotExist;
+                return false;
             }
 
-            PopUILayerInternal(stackData, dataToCloseCallback);
-            return PopReqCode.OK;
+            PopUILayerInternal(index, dataToCloseCallback);
+            return true;
         }
 
-        public PopReqCode PopUILayer(UILayer ui, object dataToCloseCallback = null)
+        public bool PopUILayer(UILayer ui, object dataToCloseCallback = null)
         {
-            bool isExist = uiLayerStacks.Exists(x => x.layer.Equals(ui));
-            if (!isExist)
+            int index = -1;
+            for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                return PopReqCode.NotExist;
+                if (uiLayerStacks[i].Layer == ui)
+                {
+                    index = i;
+                    break;
+                }
             }
 
-            UILayerStackData stackData = uiLayerStacks.Find(x => x.layer.Equals(ui));
-            if (stackData.state == UILayerState.Exiting)
+            if (index < 0)
             {
-                return PopReqCode.NotExist;
+                return false;
             }
 
-            PopUILayerInternal(stackData, dataToCloseCallback);
-            return PopReqCode.OK;
+            PopUILayerInternal(index, dataToCloseCallback);
+            return true;
         }
 
-        public PopReqCode PopTopUILayer(object dataToCloseCallback = null)
+        public bool PopTopUILayer(object dataToCloseCallback = null)
         {
             if (uiLayerStacks.Count <= 1)
             {
-                return PopReqCode.NotExist;
+                return false;
             }
 
-            PopUILayerInternal(uiLayerStacks[^1], dataToCloseCallback);
-            return PopReqCode.OK;
+            PopUILayerInternal(uiLayerStacks.Count - 1, dataToCloseCallback);
+            return true;
         }
 
         public void PopAllUI()
         {
             for (int i = uiLayerStacks.Count - 1; i >= 0; i--)
             {
-                if (uiLayerStacks[i].state == UILayerState.Initialized ||
-                    uiLayerStacks[i].state == UILayerState.Entering ||
-                    uiLayerStacks[i].state == UILayerState.Entered)
+                if (uiLayerStacks[i].State == UILayerState.Initialized ||
+                    uiLayerStacks[i].State == UILayerState.Entering ||
+                    uiLayerStacks[i].State == UILayerState.Entered)
                 {
-                    uiLayerStacks[i].layer.OnPreExit();
+                    uiLayerStacks[i].Layer.OnPreExit();
                 }
 
-                OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].key, uiLayerStacks[i].layer);
-                uiLayerStacks[i].state = UILayerState.Exiting;
-                uiLayerStacks[i].layer.OnPostExit();
-                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].key, uiLayerStacks[i].layer);
-                PoolingUILayer(uiLayerStacks[i].layerName, uiLayerStacks[i].layer);
-                uiLayerStacks[i] = null;
+                OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
+                uiLayerStacks[i].SetState(UILayerState.Exiting);
+                uiLayerStacks[i].Layer.OnPostExit();
+                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
+                PoolingUILayer(uiLayerStacks[i].Layer);
             }
 
             uiLayerStacks.Clear();
@@ -611,24 +519,26 @@ namespace CookApps.TeamBattle.UIManagements
             Check,
         }
 
-        private void PopUILayerInternal(UILayerStackData popUILayerData, object dataToCloseCallback)
+        private void PopUILayerInternal(int index, object dataToCloseCallback)
         {
             // z order 정렬
-            popUILayerData.layer.OnPreExit();
-            OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, popUILayerData.key, popUILayerData.layer);
-            popUILayerData.state = UILayerState.Exiting;
-            uiLayerStacks.Remove(popUILayerData);
+            uiLayerStacks[index].Layer.OnPreExit();
+            OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[index].Key, uiLayerStacks[index].Layer);
+            uiLayerStacks[index].SetState(UILayerState.Exiting);
+            UILayer uiLayer = uiLayerStacks[index].Layer;
+            Action<object> callback = uiLayerStacks[index].CloseCallback;
+            uiLayerStacks.RemoveAt(index);
 
-            popUILayerData.layer.StartExitAnimation(ui =>
+            uiLayer.StartExitAnimation(ui =>
             {
                 ui.OnPostExit();
-                PoolingUILayer(popUILayerData.layerName, ui);
+                PoolingUILayer(ui);
 
-                popUILayerData.closeCallback?.Invoke(dataToCloseCallback);
-                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, popUILayerData.key, popUILayerData.layer);
+                callback?.Invoke(dataToCloseCallback);
+                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayer.Key, uiLayer);
             });
 
-            CoverState coverState = popUILayerData.layer.UILayerType == UILayerType.Cover ? CoverState.Check : CoverState.NoNeedToCheck;
+            CoverState coverState = uiLayer.UILayerType == UILayerType.Cover ? CoverState.Check : CoverState.NoNeedToCheck;
             var isPopupShown = false;
             isDimLayerOn = false;
             for (int i = uiLayerStacks.Count - 1; i >= 0; i--)
@@ -636,37 +546,37 @@ namespace CookApps.TeamBattle.UIManagements
                 UILayerStackData stackData = uiLayerStacks[i];
                 if (coverState == CoverState.Check)
                 {
-                    stackData.layer.CachedGo.SetActive(true);
-                    if (stackData.layer.UILayerType == UILayerType.Cover)
+                    stackData.Layer.CachedGo.SetActive(true);
+                    if (stackData.Layer.UILayerType == UILayerType.Cover)
                     {
                         coverState = CoverState.NoNeedToCheck;
                     }
                 }
 
-                stackData.layer.CachedRectTr.SetAsFirstSibling();
+                stackData.Layer.CachedRectTr.SetAsFirstSibling();
 
-                if (stackData.layer.UILayerType == UILayerType.Popup)
+                if (stackData.Layer.UILayerType == UILayerType.Popup)
                 {
                     if (isPopupShown)
                     {
-                        if (stackData.state != UILayerState.Hiding)
+                        if (stackData.State != UILayerState.Hiding)
                         {
-                            stackData.state = UILayerState.Hiding;
-                            stackData.layer.StartExitAnimation(null);
+                            stackData.SetState(UILayerState.Hiding);
+                            stackData.Layer.StartExitAnimation(null);
                         }
                     }
                     else
                     {
                         isPopupShown = true;
-                        if (stackData.state == UILayerState.Hiding)
+                        if (stackData.State == UILayerState.Hiding)
                         {
-                            stackData.state = UILayerState.Entering;
-                            stackData.layer.StartEnterAnimation(_ => stackData.state = UILayerState.Entered);
+                            stackData.SetState(UILayerState.Entering);
+                            stackData.Layer.StartEnterAnimation(_ => stackData.SetState(UILayerState.Entered));
                         }
                     }
                 }
 
-                if (uiLayerStacks[i].state == UILayerState.Exiting)
+                if (uiLayerStacks[i].State == UILayerState.Exiting)
                 {
                     continue;
                 }
@@ -676,7 +586,7 @@ namespace CookApps.TeamBattle.UIManagements
                     continue;
                 }
 
-                if (uiLayerStacks[i].layer.UILayerType is UILayerType.Popup or UILayerType.Modal)
+                if (uiLayerStacks[i].Layer.UILayerType is UILayerType.Popup or UILayerType.Modal)
                 {
                     dimLayer.rectTransform.SetAsFirstSibling();
                     isDimLayerOn = true;
@@ -684,25 +594,26 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
-        private void PoolingUILayer(string uiName, UILayer ui)
+        private void PoolingUILayer(UILayer ui)
         {
             ui.CachedGo.SetActive(false);
             ui.CachedRectTr.SetParent(recycles, false);
-            if (!uiLayerPool.ContainsKey(uiName))
+            Type type = ui.GetType();
+            if (!uiLayerPool.ContainsKey(type))
             {
-                uiLayerPool.Add(uiName, new Queue<GameObject>());
+                uiLayerPool.Add(type, new Queue<GameObject>());
             }
 
-            uiLayerPool[uiName].Enqueue(ui.CachedGo);
+            uiLayerPool[type].Enqueue(ui.CachedGo);
         }
 
-        public UILayer GetUIBase(string uiKey)
+        public UILayer GetUILayer(string uiKey)
         {
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                if (uiLayerStacks[i].key == uiKey)
+                if (uiLayerStacks[i].Key == uiKey)
                 {
-                    return uiLayerStacks[i].layer;
+                    return uiLayerStacks[i].Layer;
                 }
             }
 
@@ -711,33 +622,24 @@ namespace CookApps.TeamBattle.UIManagements
         #endregion
 
         #region Control Canvas
-        public void ActivateMainNodeCanvas()
+        public void SetEnableMainNodeCanvas(bool isEnable)
         {
-            mainNodeCanvas.enabled = true;
+            mainNodeCanvas.enabled = isEnable;
         }
 
-        public void DeactivateMainNodeCanvas()
+        public void SetEnableFloatingNodeCanvas(bool isEnable)
         {
-            mainNodeCanvas.enabled = false;
-        }
-
-        public void ActivateFloatingNodeCanvas()
-        {
-            floatingNodeCanvas.enabled = true;
-        }
-
-        public void DeactivateFloatingNodeCanvas()
-        {
-            floatingNodeCanvas.enabled = false;
+            floatingNodeCanvas.enabled = isEnable;
         }
         #endregion
 
         #region Load UI from addressables
-        private async UniTask<UILayer> LoadUILayer(string uiName)
+        private async UniTask<T> LoadUILayer<T>()
         {
-            UILayerData sceneUILayerData = _dataSource.UIDataList[uiName];
-            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.addressableName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
-            return instance.GetComponent<UILayer>();
+            Type uiType = typeof(T);
+            UILayerData sceneUILayerData = UIDataList[uiType];
+            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.AddressableName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            return instance.GetComponent<T>();
         }
         #endregion
 
@@ -755,7 +657,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                if (uiLayerStacks[i].state == UILayerState.Entering || uiLayerStacks[i].state == UILayerState.Exiting)
+                if (uiLayerStacks[i].State == UILayerState.Entering || uiLayerStacks[i].State == UILayerState.Exiting)
                 {
                     return;
                 }
@@ -767,7 +669,7 @@ namespace CookApps.TeamBattle.UIManagements
                 while (index >= 0)
                 {
                     var isOffPrevUI = false;
-                    uiLayerStacks[index].layer.OnBackButton(ref isOffPrevUI);
+                    uiLayerStacks[index].Layer.OnBackButton(ref isOffPrevUI);
                     if (!isOffPrevUI)
                     {
                         break;
@@ -779,46 +681,6 @@ namespace CookApps.TeamBattle.UIManagements
         }
 
         #region Dim Layer
-        public void SetSizeAsDimLayer(RectTransform targetRectTr)
-        {
-            targetRectTr.anchorMin = new Vector2(0.5f, 0.5f);
-            targetRectTr.anchorMax = new Vector2(0.5f, 0.5f);
-            targetRectTr.pivot = new Vector2(0.5f, 0.5f);
-            var mainCanvasRectTr = mainCanvas.GetComponent<RectTransform>();
-            targetRectTr.sizeDelta = mainCanvasRectTr.rect.size;
-            var parentRectTrs = new List<RectTransform>();
-            var tmpTr = targetRectTr.parent.GetComponent<RectTransform>();
-            while (tmpTr != null && tmpTr != mainCanvas.transform)
-            {
-                parentRectTrs.Add(tmpTr);
-                tmpTr = tmpTr.parent.GetComponent<RectTransform>();
-            }
-
-            parentRectTrs.Sort((x, y) =>
-            {
-                if (x.parent == y)
-                {
-                    return 1;
-                }
-
-                return -1;
-            });
-
-            Vector2 currPos = Vector2.zero;
-            Vector3 currScale = Vector3.one;
-            for (var i = 0; i < parentRectTrs.Count; i++)
-            {
-                currPos -= (Vector2) parentRectTrs[i].localPosition * currScale;
-                Vector3 localScale = parentRectTrs[i].localScale;
-                currScale.x = currScale.x * localScale.x;
-                currScale.y = currScale.y * localScale.y;
-                currScale.z = currScale.z * localScale.z;
-            }
-
-            targetRectTr.anchoredPosition = new Vector3(currPos.x / currScale.x, currPos.y / currScale.y, 0f);
-            targetRectTr.localScale = new Vector3(1f / currScale.x, 1f / currScale.y, 1f / currScale.z);
-        }
-
         private Image CreateDimLayer(string name)
         {
             var dimLayerGo = new GameObject(name, typeof(RectTransform));
@@ -827,27 +689,29 @@ namespace CookApps.TeamBattle.UIManagements
             dimLayer.sprite = Resources.Load<Sprite>("UI/Common/black");
             var dimLayerTr = dimLayerGo.GetComponent<RectTransform>();
             dimLayerTr.SetParent(mainNode, false);
-            SetSizeAsDimLayer(dimLayerTr);
+            dimLayerTr.anchorMax = Vector2.one;
+            dimLayerTr.anchorMin = Vector2.zero;
+            dimLayerTr.sizeDelta = Vector2.zero;
 
             var btn = dimLayerGo.AddComponent<CAButton>();
             btn.onClick = new Button.ButtonClickedEvent();
             btn.transition = Selectable.Transition.None;
             btn.onClick.AddListener(OnClickDimLayer);
 
-            if (mainCanvas.renderMode == RenderMode.ScreenSpaceCamera)
-            {
-                var boxColliderGo = new GameObject("boxCollider", typeof(RectTransform), typeof(BoxCollider));
-                var boxColliderTr = boxColliderGo.GetComponent<RectTransform>();
-                var boxCollider = boxColliderGo.GetComponent<BoxCollider>();
-                boxColliderTr.SetParent(dimLayerTr, false);
-                boxColliderTr.anchorMin = Vector2.zero;
-                boxColliderTr.anchorMax = Vector2.one;
-                boxColliderTr.sizeDelta = Vector2.zero;
-                boxColliderTr.localScale = Vector3.one;
-                boxColliderTr.localPosition = new Vector3(0, 0, 1);
-                Vector2 canvasSize = boxColliderTr.rect.size;
-                boxCollider.size = canvasSize;
-            }
+            // if (mainCanvas.renderMode == RenderMode.ScreenSpaceCamera)
+            // {
+            //     var boxColliderGo = new GameObject("boxCollider", typeof(RectTransform), typeof(BoxCollider));
+            //     var boxColliderTr = boxColliderGo.GetComponent<RectTransform>();
+            //     var boxCollider = boxColliderGo.GetComponent<BoxCollider>();
+            //     boxColliderTr.SetParent(dimLayerTr, false);
+            //     boxColliderTr.anchorMin = Vector2.zero;
+            //     boxColliderTr.anchorMax = Vector2.one;
+            //     boxColliderTr.sizeDelta = Vector2.zero;
+            //     boxColliderTr.localScale = Vector3.one;
+            //     boxColliderTr.localPosition = new Vector3(0, 0, 1);
+            //     Vector2 canvasSize = boxColliderTr.rect.size;
+            //     boxCollider.size = canvasSize;
+            // }
 
             return dimLayer;
         }
@@ -903,25 +767,10 @@ namespace CookApps.TeamBattle.UIManagements
         {
             ClearUIPool();
 
-            SceneData sceneData = _dataSource.SceneDataList[sceneName];
-            // default UI load
-            {
-                var uiLayerLoadingTask = new UniTask<UILayer>[sceneData.defaultUILayerNames.Length];
-                for (var i = 0; i < sceneData.defaultUILayerNames.Length; i++)
-                {
-                    int index = i;
-                    uiLayerLoadingTask[i] = LoadUILayer(sceneData.defaultUILayerNames[index]);
-                }
-
-                UILayer[] res = await UniTask.WhenAll(uiLayerLoadingTask);
-                for (var i = 0; i < res.Length; i++)
-                {
-                    PoolingUILayer(sceneData.defaultUILayerNames[i], res[i]);
-                }
-            }
+            SceneData sceneData = SceneDataList[sceneName];
             await transition.FadeInAsync();
 
-            AsyncOperationHandle<SceneInstance> asyncOperation = Addressables.LoadSceneAsync(sceneData.addressableName, activateOnLoad: false);
+            AsyncOperationHandle<SceneInstance> asyncOperation = Addressables.LoadSceneAsync(sceneData.AddressableName, activateOnLoad: false);
             operationWrapper.SetAsyncOperation(asyncOperation);
             SceneInstance sceneInstance = await asyncOperation;
             await UniTask.WaitUntil(() => operationWrapper.allowSceneActivation);
@@ -933,11 +782,11 @@ namespace CookApps.TeamBattle.UIManagements
 
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                uiLayerStacks[i].layer.OnPreExit();
-                uiLayerStacks[i].state = UILayerState.Exiting;
-                OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].key, uiLayerStacks[i].layer);
-                uiLayerStacks[i].layer.OnPostExit();
-                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].key, uiLayerStacks[i].layer);
+                uiLayerStacks[i].Layer.OnPreExit();
+                uiLayerStacks[i].SetState(UILayerState.Exiting);
+                OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
+                uiLayerStacks[i].Layer.OnPostExit();
+                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
             }
 
             uiLayerStacks.Clear();
@@ -956,9 +805,16 @@ namespace CookApps.TeamBattle.UIManagements
             CurrentSceneName = sceneName;
             ResetNodeRefs();
 
-            for (var i = 0; i < _dataSource.SceneDataList[sceneName].defaultUILayerNames.Length; i++)
+            for (var i = 0; i < mainNode.childCount; i++)
             {
-                PushUILayer(_dataSource.SceneDataList[sceneName].defaultUILayerNames[i], defaultUIData); // default UI는 key와 uiName이 같아야 한다.
+                var uiLayer = mainNode.GetChild(i).GetComponent<UILayer>();
+                if (uiLayer == null)
+                {
+                    continue;
+                }
+
+                uiLayerStacks.Add(MakeUIStackData(uiLayer, uiLayer.Key, null));
+                uiLayer.OnPreEnter(defaultUIData);
             }
 
             transition.FadeOutAsync(true);
@@ -980,7 +836,7 @@ namespace CookApps.TeamBattle.UIManagements
             // 유아이가 뜨거나 닫히고 있다면 버튼 차단
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {
-                if (uiLayerStacks[i].state == UILayerState.Entering || uiLayerStacks[i].state == UILayerState.Exiting)
+                if (uiLayerStacks[i].State == UILayerState.Entering || uiLayerStacks[i].State == UILayerState.Exiting)
                 {
                     return false;
                 }

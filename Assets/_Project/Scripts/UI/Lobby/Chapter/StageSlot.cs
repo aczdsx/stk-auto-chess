@@ -2,6 +2,7 @@ using System;
 using Com.Cookapps.Sampleteambattle;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace CookApps.SampleTeamBattle
 
         private void OnClickEnter()
         {
-            SceneUILayerManager.Instance.PushUILayer("StageDetailPopup", (chapter, stageIndex));
+            SceneUILayerManager.Instance.PushUILayerAsync<StageDetailPopup>((chapter, stageIndex)).Forget();
         }
     }
 }

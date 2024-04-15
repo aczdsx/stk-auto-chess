@@ -48,25 +48,14 @@ namespace CookApps.TeamBattle.UIManagements
         {
             await UniTask.Yield();
             await UniTask.WhenAll(startChangeSceneAsyncTasks.Select(x => x.Invoke(currentSceneName, nextSceneName, nextSceneData)));
-            SceneUILayerManager.OnUITransitionEvent += OneTimeCheckSceneLoaded;
-            SceneUILayerManager.Instance.ChangeScene(nextSceneName, nextSceneData);
+            SceneUILayerManager.SceneLoadAsyncOperationWrapper wrapper = SceneUILayerManager.Instance.ChangeScene(nextSceneName, nextSceneData);
+            wrapper.Completed += OneTimeCheckSceneLoaded;
         }
 
-        private void OneTimeCheckSceneLoaded(SceneUILayerManager.UILayerTransition layerTransition, string uiKey, UILayer uiLayer)
+        private void OneTimeCheckSceneLoaded()
         {
-            string[] defaultUINames = SceneUILayerManager.Instance.GetDefaultUILayerNames(nextSceneName);
-            if (defaultUINames[^1] != uiKey) // default UI는 key와 uiName이 같다.
-            {
-                return;
-            }
-
-            if (layerTransition != SceneUILayerManager.UILayerTransition.EnterFinished)
-            {
-                return;
-            }
-
-            SceneUILayerManager.OnUITransitionEvent -= OneTimeCheckSceneLoaded;
-            transition.FadeOutAsync(true).ContinueWith(ClearData).Forget();
+            transition.FadeOutAsync(true);
+            ClearData();
         }
 
         private void ClearData()

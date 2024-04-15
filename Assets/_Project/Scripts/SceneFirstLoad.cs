@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using CookApps.SampleTeamBattle.Utilities;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Collections;
 using UnityEngine;
@@ -34,32 +36,6 @@ namespace CookApps.SampleTeamBattle
         }
     }
 
-    public class SceneUIDataSource : ISceneUIDataSource
-    {
-        public SceneUIDataSource(SceneDatabase sceneDatabase, UILayerDatabase uiLayerDatabase)
-        {
-            sceneDatas = new Dictionary<string, SceneUILayerManager.SceneData>();
-
-            foreach (SceneUILayerManager.SceneData e in sceneDatabase.List)
-            {
-                sceneDatas.Add(e.sceneName, e);
-            }
-
-            uiDatas = new Dictionary<string, SceneUILayerManager.UILayerData>();
-
-            foreach (SceneUILayerManager.UILayerData e in uiLayerDatabase.List)
-            {
-                uiDatas.Add(e.name, e);
-            }
-        }
-
-        private Dictionary<string, SceneUILayerManager.SceneData> sceneDatas;
-        public Dictionary<string, SceneUILayerManager.SceneData> SceneDataList => sceneDatas;
-
-        public Dictionary<string, SceneUILayerManager.UILayerData> uiDatas;
-        public Dictionary<string, SceneUILayerManager.UILayerData> UIDataList => uiDatas;
-    }
-
     public class SceneFirstLoad : MonoBehaviour
     {
         private void Awake()
@@ -75,10 +51,10 @@ namespace CookApps.SampleTeamBattle
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             AppLifeCycleEventsDispatcher _ = AppLifeCycleEventsDispatcher.Instance;
+
             var SceneData = await AddressableLoadHelper.LoadAssetAsync<SceneDatabase>("Data/SceneData.asset");
-            var UIData = await AddressableLoadHelper.LoadAssetAsync<UILayerDatabase>("Data/UIData.asset");
-            var dataSource = new SceneUIDataSource(SceneData, UIData);
-            SceneUILayerManager.Instance.Initialize(dataSource);
+            Type[] allUILayers = InheritHelper.GetAllImplementations<UILayer>();
+            SceneUILayerManager.Instance.Initialize(SceneData, allUILayers);
 
 #if UNITY_EDITOR
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;

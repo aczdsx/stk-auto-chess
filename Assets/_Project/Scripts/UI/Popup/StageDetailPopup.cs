@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Com.Cookapps.Sampleteambattle;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -138,7 +139,7 @@ namespace CookApps.SampleTeamBattle
 
         private void OnStartButtonClicked()
         {
-            SceneUILayerManager.Instance.PushUILayer("ReadyMain", (chapter, stageIndex));
+            SceneUILayerManager.Instance.PushUILayerAsync<ReadyMain>((chapter, stageIndex)).Forget();
         }
     }
 }

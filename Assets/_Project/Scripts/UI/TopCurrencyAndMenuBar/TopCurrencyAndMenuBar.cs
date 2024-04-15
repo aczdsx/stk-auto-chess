@@ -1,5 +1,6 @@
 using System;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace CookApps.SampleTeamBattle
 
         public static void AddToUILayer(UILayer targetUI, params TopPanelType[] ownPanelTypes)
         {
-            SceneUILayerManager.Instance.PushUILayerWithKey("TopCurrencyAndMenuBar", $"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes));
+            SceneUILayerManager.Instance.PushUILayerWithKeyAsync<TopCurrencyAndMenuBar>($"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes)).Forget();
         }
 
         [SerializeField] private RectTransform panelParent;
@@ -40,9 +41,9 @@ namespace CookApps.SampleTeamBattle
             SceneUILayerManager.OnUITransitionEvent -= OnUITransitionEvent;
         }
 
-        private void OnUITransitionEvent(SceneUILayerManager.UILayerTransition transaction, string uiKey, UILayer ui)
+        private void OnUITransitionEvent(UILayerTransition transaction, string uiKey, UILayer ui)
         {
-            if (transaction == SceneUILayerManager.UILayerTransition.Exiting && ui == targetUI)
+            if (transaction == UILayerTransition.Exiting && ui == targetUI)
             {
                 SceneUILayerManager.Instance.PopUILayer(this);
             }

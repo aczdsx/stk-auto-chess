@@ -1,4 +1,5 @@
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.SampleTeamBattle
@@ -28,7 +29,7 @@ namespace CookApps.SampleTeamBattle
         private void OnClickStart()
         {
             int currentStageId = UserDataManager.UserStage.GetCurrentStageId();
-            SceneUILayerManager.Instance.PushUILayer("ChapterMain", currentStageId);
+            SceneUILayerManager.Instance.PushUILayerAsync<ChapterMain>(currentStageId).Forget();
         }
     }
 }

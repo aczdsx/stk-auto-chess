@@ -17,7 +17,7 @@ namespace CookApps.TeamBattle.UIManagements
         public virtual int Priority => 0;
 
         public string Key { get; set; }
-        public SceneUILayerManager.UILayerType UILayerType { get; set; }
+        public UILayerType UILayerType { get; set; }
 
         protected virtual void Awake()
         {

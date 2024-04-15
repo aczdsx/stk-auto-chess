@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle;
-using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
