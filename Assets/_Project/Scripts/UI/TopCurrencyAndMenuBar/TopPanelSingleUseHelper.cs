@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ namespace CookApps.SampleTeamBattle
 
         public async UniTask Initialize()
         {
+            await SceneUILayerManager.Instance.PreloadUILayer<TopCurrencyAndMenuBar>();
             GameObject topUIOrigin = await AddressableInstantiateHelper.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
             topUIOriginTr = topUIOrigin.transform;
             int childCount = topUIOriginTr.childCount;

@@ -14,8 +14,8 @@ namespace CookApps.TeamBattle.UIManagements
 {
     public sealed partial class SceneUILayerManager : SingletonMonoBehaviour<SceneUILayerManager>, ISelectableBlocker
     {
-        public Dictionary<string, SceneData> SceneDataList { get; }
-        public Dictionary<Type, UILayerData> UIDataList { get; }
+        private Dictionary<string, SceneData> SceneDataList { get; } = new ();
+        private Dictionary<Type, UILayerData> UIDataList { get; } = new ();
 
         // ui layer pool
         private Dictionary<Type, Queue<GameObject>> uiLayerPool = new ();
@@ -258,7 +258,7 @@ namespace CookApps.TeamBattle.UIManagements
         /// <returns>팝업 객체입니다.</returns>
         public async UniTask<T> PushUILayerAsync<T>(object data = null, Action<object> closeCallback = null) where T : UILayer
         {
-            string uiName = nameof(T);
+            string uiName = typeof(T).Name;
             var layer = await PushUILayerWithKeyAsync<T>(uiName, data, closeCallback);
             return layer;
         }
@@ -322,7 +322,7 @@ namespace CookApps.TeamBattle.UIManagements
             }
 
             UILayerStackData stackData = MakeUIStackData(uiLayer, key, closeCallback);
-            PushUILayerInternal(ref stackData, data);
+            PushUILayerInternal(stackData, data);
             return uiLayer;
         }
 
@@ -330,15 +330,15 @@ namespace CookApps.TeamBattle.UIManagements
         {
             uiLayer.CachedGo.SetActive(false);
             uiLayer.CachedRectTr.SetParent(mainNode, false);
-            uiLayer.name = nameof(UILayer);
-            Type type = typeof(UILayer);
+            uiLayer.name = key;
+            Type type = uiLayer.GetType();
             uiLayer.UILayerType = UIDataList[type].LayerType;
             long inc = uiIncAcc + (uiLayer.Priority * 100);
             uiIncAcc++;
             return new UILayerStackData(type, key, inc, uiLayer, UILayerState.Initialized, closeCallback);
         }
 
-        private void PushUILayerInternal(ref UILayerStackData uiLayerStackData, object data)
+        private void PushUILayerInternal(UILayerStackData uiLayerStackData, object data)
         {
             uiLayerStackData.Layer.CachedGo.SetActive(true);
             uiLayerStackData.Layer.OnPreEnter(data);
@@ -641,6 +641,14 @@ namespace CookApps.TeamBattle.UIManagements
             GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.AddressableName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
             return instance.GetComponent<T>();
         }
+
+        public async UniTask PreloadUILayer<T>()
+        {
+            Type uiType = typeof(T);
+            UILayerData sceneUILayerData = UIDataList[uiType];
+            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.AddressableName, recycles).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            PoolingUILayer(instance.GetComponent<UILayer>());
+        }
         #endregion
 
         private void OnEventBackKey()
@@ -813,8 +821,8 @@ namespace CookApps.TeamBattle.UIManagements
                     continue;
                 }
 
-                uiLayerStacks.Add(MakeUIStackData(uiLayer, uiLayer.Key, null));
-                uiLayer.OnPreEnter(defaultUIData);
+                UILayerStackData stackData = MakeUIStackData(uiLayer, uiLayer.GetType().Name, null);
+                PushUILayerInternal(stackData, defaultUIData);
             }
 
             transition.FadeOutAsync(true);

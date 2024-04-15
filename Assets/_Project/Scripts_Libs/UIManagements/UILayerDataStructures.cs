@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace CookApps.TeamBattle.UIManagements
 {
@@ -63,10 +64,10 @@ namespace CookApps.TeamBattle.UIManagements
     }
 
     [Serializable]
-    public readonly struct UILayerData
+    public class UILayerData
     {
-        public readonly UILayerType LayerType { get; }
-        public readonly string AddressableName { get; }
+        public readonly UILayerType LayerType;
+        public readonly string AddressableName;
 
         public UILayerData(UILayerType layerType, string addressableName)
         {
@@ -76,16 +77,12 @@ namespace CookApps.TeamBattle.UIManagements
     }
 
     [Serializable]
-    public readonly struct SceneData
+    public class SceneData
     {
-        public readonly string SceneName { get; }
-        public readonly string AddressableName { get; }
-
-        public SceneData(string sceneName, string addressableName)
-        {
-            SceneName = sceneName;
-            AddressableName = addressableName;
-        }
+        [SerializeField] private string sceneName;
+        public string SceneName => sceneName;
+        [SerializeField] private string addressableName;
+        public string AddressableName => addressableName;
     }
     #endregion
 }

@@ -41,8 +41,6 @@ namespace CookApps.TeamBattle.UIManagements
                 SerializedProperty property = list.GetArrayElementAtIndex(index);
                 SerializedProperty nameProperty = property.FindPropertyRelative("sceneName");
                 nameProperty.stringValue = obj.name;
-                SerializedProperty defaultUIsProperty = property.FindPropertyRelative("defaultUILayerNames");
-                defaultUIsProperty.ClearArray();
                 SerializedProperty addressableNameProperty = property.FindPropertyRelative("addressableName");
                 AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.GetSettings(false);
                 if (settings != null)
