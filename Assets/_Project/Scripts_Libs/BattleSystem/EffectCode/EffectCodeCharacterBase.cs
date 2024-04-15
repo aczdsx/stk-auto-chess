@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
 using CookApps.Obfuscator;
-using JetBrains.Annotations;
-using UnityEngine;
-using UnityEngine.Pool;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
@@ -182,71 +178,57 @@ namespace CookApps.TeamBattle.BattleSystem
 
     public static class EffectCodeCharacterLambda
     {
-        public static Action<EffectCodeStatBase, float> CallOnUpdateLambda = new (CallOnUpdate);
-
-        private static void CallOnUpdate(EffectCodeStatBase x, float dt)
+        public static Action<EffectCodeStatBase, float> CallOnUpdateLambda = (x, dt) =>
         {
             if (x is EffectCodeCharacterBase code && code.WaitForUpdate(dt))
             {
                 code.OnUpdate(code.waitUpdateElapsedTime);
                 code.waitUpdateElapsedTime = 0;
             }
-        }
+        };
 
-        public static Action<EffectCodeStatBase, float> CallOnCooltimeLambda = new (CallOnCooltime);
-
-        private static void CallOnCooltime(EffectCodeStatBase x, float dt)
+        public static Action<EffectCodeStatBase, float> CallOnCooltimeLambda = (x, dt) =>
         {
             if (x is EffectCodeCharacterBase code && code.WaitForCooltime(dt))
             {
                 code.OnCooltime(code.waitCooltimeElapsedTime);
                 code.waitCooltimeElapsedTime = 0;
             }
-        }
+        };
 
-        public static Action<EffectCodeStatBase> CallOnCombatStartLambda = new (CallOnCombatStart);
-
-        private static void CallOnCombatStart(EffectCodeStatBase x)
+        public static Action<EffectCodeStatBase> CallOnCombatStartLambda = x =>
         {
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnCombatStart();
             }
-        }
+        };
 
-        public static Action<EffectCodeStatBase> CallOnAttackLambda = new (CallOnAttack);
-
-        private static void CallOnAttack(EffectCodeStatBase x)
+        public static Action<EffectCodeStatBase> CallOnAttackLambda = x =>
         {
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnAttack();
             }
-        }
+        };
 
-        public static Action<EffectCodeStatBase, EffectCodeBase> CallOnSkillLambda = new (CallOnSkill);
-
-        private static void CallOnSkill(EffectCodeStatBase x, EffectCodeBase skillEffectCode)
+        public static Action<EffectCodeStatBase, EffectCodeBase> CallOnSkillLambda = (x, skillEffectCode) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnSkill(skillEffectCode);
             }
-        }
+        };
 
-        public static Action<EffectCodeStatBase, CharacterController> CallOnKillLambda = new (CallOnKill);
-
-        private static void CallOnKill(EffectCodeStatBase x, CharacterController deadCharacter)
+        public static Action<EffectCodeStatBase, CharacterController> CallOnKillLambda = (x, deadCharacter) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnKill(deadCharacter);
             }
-        }
+        };
 
-        public static Func<EffectCodeStatBase, int, int> CallModifyDamageAmountLambda = new (CallModifyDamageAmount);
-
-        private static int CallModifyDamageAmount(EffectCodeStatBase x, int damageAmount)
+        public static Func<EffectCodeStatBase, int, int> CallModifyDamageAmountLambda = (x, damageAmount) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -254,11 +236,9 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             return damageAmount;
-        }
+        };
 
-        public static Func<EffectCodeStatBase, int, int> CallModifyHealAmountLambda = new (CallModifyHealAmount);
-
-        private static int CallModifyHealAmount(EffectCodeStatBase x, int healAmount)
+        public static Func<EffectCodeStatBase, int, int> CallModifyHealAmountLambda = (x, healAmount) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -266,11 +246,9 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             return healAmount;
-        }
+        };
 
-        public static Func<EffectCodeStatBase, int, int> CallModifyShieldAmountLambda = new (CallModifyShieldAmount);
-
-        private static int CallModifyShieldAmount(EffectCodeStatBase x, int shieldAmount)
+        public static Func<EffectCodeStatBase, int, int> CallModifyShieldAmountLambda = (x, shieldAmount) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -278,21 +256,17 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             return shieldAmount;
-        }
+        };
 
-        public static Action<EffectCodeStatBase, int, bool> CallOnHealedLambda = new (CallOnHealed);
-
-        private static void CallOnHealed(EffectCodeStatBase x, int healAmount, bool isPure)
+        public static Action<EffectCodeStatBase, int, bool> CallOnHealedLambda = (x, healAmount, isPure) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnHealed(healAmount, isPure);
             }
-        }
+        };
 
-        public static Func<EffectCodeStatBase, int, CharacterController, bool, int> CallOnDamagedLambda = new (CallOnDamaged);
-
-        private static int CallOnDamaged(EffectCodeStatBase x, int damageAmount, CharacterController attacker, bool isPure)
+        public static Func<EffectCodeStatBase, int, CharacterController, bool, int> CallOnDamagedLambda = (x, damageAmount, attacker, isPure) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -300,11 +274,9 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             return damageAmount;
-        }
+        };
 
-        public static Func<EffectCodeStatBase, DeathInfo, DeathInfo> CallOnDeadLambda = new (CallOnDead);
-
-        private static DeathInfo CallOnDead(EffectCodeStatBase x, DeathInfo deathInfo)
+        public static Func<EffectCodeStatBase, DeathInfo, DeathInfo> CallOnDeadLambda = (x, deathInfo) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -312,21 +284,17 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             return deathInfo;
-        }
+        };
 
-        public static Action<EffectCodeStatBase> CallOnCriticalLambda = new (CallOnCritical);
-
-        private static void CallOnCritical(EffectCodeStatBase x)
+        public static Action<EffectCodeStatBase> CallOnCriticalLambda = x =>
         {
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnCritical();
             }
-        }
+        };
 
-        public static Func<EffectCodeStatBase, bool> CallIsReadyToActivateLambda = new (CallIsReadyToActivate);
-
-        private static bool CallIsReadyToActivate(EffectCodeStatBase x)
+        public static Func<EffectCodeStatBase, bool> CallIsReadyToActivateLambda = x =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -334,11 +302,9 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             return false;
-        }
+        };
 
-        public static Func<EffectCodeStatBase, bool> CallIsUseNormalAttackLambda = new (CallIsUseNormalAttack);
-
-        private static bool CallIsUseNormalAttack(EffectCodeStatBase x)
+        public static Func<EffectCodeStatBase, bool> CallIsUseNormalAttackLambda = x =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -346,6 +312,6 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             return false;
-        }
+        };
     }
 }

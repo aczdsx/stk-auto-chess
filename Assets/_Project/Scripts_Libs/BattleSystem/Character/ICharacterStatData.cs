@@ -14,6 +14,9 @@ namespace CookApps.TeamBattle.BattleSystem
         ObfuscatorDouble AP { get; }
         ObfuscatorDouble DEF { get; }
         ObfuscatorDouble RES { get; }
+        ObfuscatorDouble DEFPenetration { get; }
+        ObfuscatorDouble RESPenetration { get; }
+
         ObfuscatorDouble HPRecovery { get; }
         ObfuscatorFloat CriticalProb { get; }
         ObfuscatorFloat CriticalDamageRate { get; }

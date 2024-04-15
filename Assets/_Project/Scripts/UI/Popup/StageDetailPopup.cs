@@ -15,6 +15,7 @@ namespace CookApps.SampleTeamBattle
         public RewardItem rewardItem { init; get; }
     }
 
+    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Popup/StageDetailPopup.prefab")]
     public class StageDetailPopup : UILayer
     {
         [SerializeField] private TMP_Text stageNameText;

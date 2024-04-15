@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace CookApps.SampleTeamBattle
 {
+    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/Title/TitleMain.prefab")]
     public class TitleMain : UILayer
     {
         public static int SessionCount { get; private set; }

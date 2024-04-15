@@ -7,7 +7,16 @@ namespace CookApps.TeamBattle.BattleSystem
     {
         #region Stat getter
         private EffectCodeInheritFlag needUpdateFlag;
-        private ObfuscatorDouble postHP, postAD, postAP, postDEF, postRES, postRecoveryHP;
+
+        private ObfuscatorDouble
+            postHP,
+            postAD,
+            postAP,
+            postDEF,
+            postRES,
+            postDEFPenetration,
+            postRESPenetration,
+            postRecoveryHP;
 
         private ObfuscatorFloat
             postCriticalProb,
@@ -132,6 +141,40 @@ namespace CookApps.TeamBattle.BattleSystem
                 }
 
                 return postRES;
+            }
+        }
+
+        public double DEFPenetration
+        {
+            get
+            {
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatDEFPenetration) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatDEFPenetration))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDEFPenetration);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEFPenetration);
+                    List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
+                    postDEFPenetration = effectCodes.CalculateAD(GetCharacterStat().DEFPenetration);
+                }
+
+                return postDEFPenetration;
+            }
+        }
+
+        public double RESPenetration
+        {
+            get
+            {
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatRESPenetration) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatRESPenetration))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRESPenetration);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRESPenetration);
+                    List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
+                    postRESPenetration = effectCodes.CalculateAD(GetCharacterStat().RESPenetration);
+                }
+
+                return postRESPenetration;
             }
         }
 

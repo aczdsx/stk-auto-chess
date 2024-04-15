@@ -19,12 +19,7 @@ namespace CookApps.TeamBattle.Utility
 
     public static class NullChecker<T>
     {
-        public static Predicate<T> NullCheck = InternalNullCheck;
-
-        private static bool InternalNullCheck<T>(T x)
-        {
-            return x == null;
-        }
+        public static Predicate<T> NullCheck = x => x == null;
     }
 
     public static class RandomExtensions

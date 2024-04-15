@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle.Utility;
+using UnityEngine.Pool;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
     public class EffectCodeContainer
     {
-        private List<EffectCodeBase> effectCodes = new ();
+        private List<EffectCodeBase> effectCodes = ListPool<EffectCodeBase>.Get();
         public List<EffectCodeBase> EffectCodes => effectCodes;
         private object owner;
         public object Owner => owner;
@@ -34,11 +35,22 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             owner = null;
-            effectCodes.Clear();
-            effectCodesDividedByFlag.Clear();
-            isEffectCodesDividedByFlagDirty.Clear();
-            effectCodesDividedByType.Clear();
-            isEffectCodesDividedByTypeDirty.Clear();
+            ListPool<EffectCodeBase>.Release(effectCodes);
+            effectCodes = null;
+            foreach (KeyValuePair<EffectCodeInheritFlag, List<EffectCodeStatBase>> pair in effectCodesDividedByFlag)
+            {
+                ListPool<EffectCodeStatBase>.Release(pair.Value);
+            }
+
+            effectCodesDividedByFlag = null;
+            isEffectCodesDividedByFlagDirty = null;
+            foreach (KeyValuePair<EffectCodeType, List<EffectCodeBase>> pair in effectCodesDividedByType)
+            {
+                ListPool<EffectCodeBase>.Release(pair.Value);
+            }
+
+            effectCodesDividedByType = null;
+            isEffectCodesDividedByTypeDirty = null;
             dirtyFlagEvent = null;
             dirtyTypeEvent = null;
         }
@@ -63,19 +75,24 @@ namespace CookApps.TeamBattle.BattleSystem
             }
             else
             {
-                effectCodesDividedByType.Add(effectCode.Type, new List<EffectCodeBase>());
+                effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
             }
 
             dirtyTypeEvent?.Invoke(effectCode.Type);
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
+                IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                foreach (EffectCodeInheritFlag flag in allFlagTypes)
                 {
-                    if (!isEffectCodesDividedByFlagDirty.ContainsKey(flag))
+                    if (!statEffectCode.GetFlag().HasFlag(flag))
                     {
-                        isEffectCodesDividedByFlagDirty.Add(flag, true);
-                        effectCodesDividedByFlag.Add(flag, new List<EffectCodeStatBase>());
+                        continue;
+                    }
+
+                    if (isEffectCodesDividedByFlagDirty.TryAdd(flag, true))
+                    {
+                        effectCodesDividedByFlag.Add(flag, ListPool<EffectCodeStatBase>.Get());
                     }
                     else
                     {
@@ -134,12 +151,17 @@ namespace CookApps.TeamBattle.BattleSystem
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
+                IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                foreach (EffectCodeInheritFlag flag in allFlagTypes)
                 {
-                    if (!isEffectCodesDividedByFlagDirty.ContainsKey(flag))
+                    if (!statEffectCode.GetFlag().HasFlag(flag))
                     {
-                        isEffectCodesDividedByFlagDirty.Add(flag, true);
-                        effectCodesDividedByFlag.Add(flag, new List<EffectCodeStatBase>());
+                        continue;
+                    }
+
+                    if (isEffectCodesDividedByFlagDirty.TryAdd(flag, true))
+                    {
+                        effectCodesDividedByFlag.Add(flag, ListPool<EffectCodeStatBase>.Get());
                     }
                     else
                     {
@@ -170,15 +192,21 @@ namespace CookApps.TeamBattle.BattleSystem
             }
             else
             {
-                effectCodesDividedByType.Add(effectCode.Type, new List<EffectCodeBase>());
+                effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
             }
 
             dirtyTypeEvent?.Invoke(effectCode.Type);
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
+                IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                foreach (EffectCodeInheritFlag flag in allFlagTypes)
                 {
+                    if (!statEffectCode.GetFlag().HasFlag(flag))
+                    {
+                        continue;
+                    }
+
                     if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                     {
                         isEffectCodesDividedByFlagDirty[flag] = true;
@@ -220,15 +248,21 @@ namespace CookApps.TeamBattle.BattleSystem
             }
             else
             {
-                effectCodesDividedByType.Add(effectCode.Type, new List<EffectCodeBase>());
+                effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
             }
 
             dirtyTypeEvent?.Invoke(effectCode.Type);
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
-                foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
+                IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                foreach (EffectCodeInheritFlag flag in allFlagTypes)
                 {
+                    if (!statEffectCode.GetFlag().HasFlag(flag))
+                    {
+                        continue;
+                    }
+
                     if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                     {
                         isEffectCodesDividedByFlagDirty[flag] = true;
@@ -262,15 +296,21 @@ namespace CookApps.TeamBattle.BattleSystem
                     }
                     else
                     {
-                        effectCodesDividedByType.Add(effectCode.Type, new List<EffectCodeBase>());
+                        effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
                     }
 
                     dirtyTypeEvent?.Invoke(effectCode.Type);
 
                     if (effectCode is EffectCodeStatBase statEffectCode)
                     {
-                        foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
+                        IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                        foreach (EffectCodeInheritFlag flag in allFlagTypes)
                         {
+                            if (!statEffectCode.GetFlag().HasFlag(flag))
+                            {
+                                continue;
+                            }
+
                             if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                             {
                                 isEffectCodesDividedByFlagDirty[flag] = true;
@@ -312,15 +352,21 @@ namespace CookApps.TeamBattle.BattleSystem
                     }
                     else
                     {
-                        effectCodesDividedByType.Add(effectCode.Type, new List<EffectCodeBase>());
+                        effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
                     }
 
                     dirtyTypeEvent?.Invoke(effectCode.Type);
 
                     if (effectCode is EffectCodeStatBase statEffectCode)
                     {
-                        foreach (EffectCodeInheritFlag flag in statEffectCode.GetFlag().GetUniqueFlags())
+                        IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                        foreach (EffectCodeInheritFlag flag in allFlagTypes)
                         {
+                            if (!statEffectCode.GetFlag().HasFlag(flag))
+                            {
+                                continue;
+                            }
+
                             if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
                             {
                                 isEffectCodesDividedByFlagDirty[flag] = true;
@@ -347,7 +393,7 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             if (isEffectCodesDividedByFlagDirty.TryAdd(flag, false))
             {
-                effectCodesDividedByFlag.Add(flag, new List<EffectCodeStatBase>());
+                effectCodesDividedByFlag.Add(flag, ListPool<EffectCodeStatBase>.Get());
             }
 
             if (!isEffectCodesDividedByFlagDirty[flag])
@@ -384,7 +430,7 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             if (isEffectCodesDividedByTypeDirty.TryAdd(type, false))
             {
-                effectCodesDividedByType.Add(type, new List<EffectCodeBase>());
+                effectCodesDividedByType.Add(type, ListPool<EffectCodeBase>.Get());
             }
 
             if (isEffectCodesDividedByTypeDirty[type])

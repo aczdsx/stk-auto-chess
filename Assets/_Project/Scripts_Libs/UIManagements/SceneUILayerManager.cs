@@ -833,6 +833,11 @@ namespace CookApps.TeamBattle.UIManagements
                 return false;
             }
 
+            if (isSceneChanging)
+            {
+                return false;
+            }
+
             // 유아이가 뜨거나 닫히고 있다면 버튼 차단
             for (var i = 0; i < uiLayerStacks.Count; i++)
             {

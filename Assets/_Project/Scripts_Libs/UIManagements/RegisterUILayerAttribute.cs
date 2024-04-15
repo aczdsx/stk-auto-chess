@@ -5,8 +5,8 @@ namespace CookApps.TeamBattle.UIManagements
 {
     public class RegisterUILayerAttribute : Attribute
     {
-        public UILayerType LayerType { get; init; }
-        public string AddressableName { get; init; }
+        public UILayerType LayerType { get; }
+        public string AddressableName { get; }
 
         public RegisterUILayerAttribute(UILayerType layerType, string addressableName)
         {

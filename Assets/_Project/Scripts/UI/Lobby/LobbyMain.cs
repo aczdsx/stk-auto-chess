@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace CookApps.SampleTeamBattle
 {
+    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
     public class LobbyMain : UILayer
     {
         [SerializeField] private CAButton btnStart;

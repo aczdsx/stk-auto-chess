@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace CookApps.SampleTeamBattle
 {
+    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/Top/TopCurrencyAndMenuBar.prefab")]
     public class TopCurrencyAndMenuBar : UILayer
     {
         private static int inc;

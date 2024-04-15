@@ -9,6 +9,7 @@ using UnityEngine.Pool;
 
 namespace CookApps.SampleTeamBattle
 {
+    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Ready/ReadyMain.prefab")]
     public class ReadyMain : UILayer
     {
         [SerializeField] private TMP_Text stageNameText;
@@ -99,7 +100,7 @@ namespace CookApps.SampleTeamBattle
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.CloseButton);
             (chapter, stageIndex) = ((int, int)) param;
-            stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
+            stageNameText.text = ZString.Format("{0}-{1}", chapter, stageIndex + 1);
             ownCharacterIds.Clear();
             ownCharacterIds.AddRange(UserDataManager.UserCharacter.GetAllCharacterIds());
             tableView.RefreshAll();

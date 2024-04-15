@@ -95,6 +95,18 @@ namespace CookApps.SampleTeamBattle
                 RES = codes.CalculateRES(0);
             }
 
+            if (flags.HasFlag(EffectCodeInheritFlag.StatDEFPenetration))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
+                DEFPenetration = codes.CalculateDEFPenetration(0);
+            }
+
+            if (flags.HasFlag(EffectCodeInheritFlag.StatRESPenetration))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
+                RESPenetration = codes.CalculateRESPenetration(0);
+            }
+
             if (flags.HasFlag(EffectCodeInheritFlag.StatRecoveryHP))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRecoveryHP);
@@ -191,6 +203,10 @@ namespace CookApps.SampleTeamBattle
         public ObfuscatorDouble DEF { get; private set; }
 
         public ObfuscatorDouble RES { get; private set; }
+
+        public ObfuscatorDouble DEFPenetration { get; private set; }
+
+        public ObfuscatorDouble RESPenetration { get; private set; }
 
         public ObfuscatorDouble HPRecovery { get; private set; }
 

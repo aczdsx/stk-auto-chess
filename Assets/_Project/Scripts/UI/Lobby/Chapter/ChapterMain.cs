@@ -5,6 +5,7 @@ using UnityEngine.Pool;
 
 namespace CookApps.SampleTeamBattle
 {
+    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Chapter/ChapterMain.prefab")]
     public class ChapterMain : UILayer
     {
         [SerializeField] private TableView tableView;

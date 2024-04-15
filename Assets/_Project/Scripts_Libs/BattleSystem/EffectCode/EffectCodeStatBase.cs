@@ -10,27 +10,33 @@ namespace CookApps.TeamBattle.BattleSystem
     public enum EffectCodeInheritFlag : ulong
     {
         None = 0L,
+
+        #region Stat
         StatHP = 1L << 0,
         StatAD = 1L << 1,
         StatDEF = 1L << 2,
-        StatAP = 1L << 3,
-        StatRES = 1L << 4,
-        StatRecoveryHP = 1L << 5,
-        StatMoveSpeed = 1L << 6,
-        StatCriticalProb = 1L << 7,
-        StatCriticalDamageRate = 1L << 8,
-        StatDoubleCriticalProb = 1L << 9,
-        StatDoubleCriticalDamageRate = 1L << 10,
-        StatAttackSpeed = 1L << 11,
-        StatAttackRange = 1L << 12,
-        StatSkillDamageRate = 1L << 13,
-        StatSkillCooltimeRate = 1L << 14,
-        StatAttackDamageRate = 1L << 15,
-        StatTakenDamageRate = 1L << 16,
-        StatGivenHealRate = 1L << 17,
-        StatTakenHealRate = 1L << 18,
-        StatCrowdControlImmune = 1L << 19,
+        StatDEFPenetration = 1L << 3,
+        StatAP = 1L << 4,
+        StatRES = 1L << 5,
+        StatRESPenetration = 1L << 6,
+        StatRecoveryHP = 1L << 7,
+        StatMoveSpeed = 1L << 8,
+        StatCriticalProb = 1L << 9,
+        StatCriticalDamageRate = 1L << 10,
+        StatDoubleCriticalProb = 1L << 11,
+        StatDoubleCriticalDamageRate = 1L << 12,
+        StatAttackSpeed = 1L << 13,
+        StatAttackRange = 1L << 14,
+        StatSkillDamageRate = 1L << 15,
+        StatSkillCooltimeRate = 1L << 16,
+        StatAttackDamageRate = 1L << 17,
+        StatTakenDamageRate = 1L << 18,
+        StatGivenHealRate = 1L << 19,
+        StatTakenHealRate = 1L << 20,
+        StatCrowdControlImmune = 1L << 21,
+        #endregion
 
+        #region Event
         UseOnUpdate = 1L << 40,
         UseOnAttack = 1L << 41,
         UseOnCooltime = 1L << 42,
@@ -46,6 +52,7 @@ namespace CookApps.TeamBattle.BattleSystem
         UseModifyShieldAmount = 1L << 52,
         UseOnSkill = 1L << 53,
         UseOnCombatStart = 1L << 54,
+        #endregion
     };
 
     public static class EffectCodeInheritFlagExtensions
@@ -93,9 +100,14 @@ namespace CookApps.TeamBattle.BattleSystem
             src &= ~flag;
         }
 
+        public static IReadOnlyList<EffectCodeInheritFlag> GetAllFlagTypes()
+        {
+            return allFlagTypes ??= Enum.GetValues(typeof(EffectCodeInheritFlag)).Cast<EffectCodeInheritFlag>().ToArray();
+        }
+
         public static IEnumerable<EffectCodeInheritFlag> GetUniqueFlags(this EffectCodeInheritFlag src)
         {
-            allFlagTypes ??= Enum.GetValues(typeof(EffectCodeInheritFlag)).Cast<EffectCodeInheritFlag>().ToArray();
+            IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = GetAllFlagTypes();
             foreach (EffectCodeInheritFlag flagType in allFlagTypes)
             {
                 if (src.HasFlag(flagType))
@@ -175,6 +187,18 @@ namespace CookApps.TeamBattle.BattleSystem
             return 0d;
         }
 
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEFPenetration)]
+        public virtual double GetIncrementFixedDEFPenetration()
+        {
+            return 0;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEFPenetration)]
+        public virtual double GetIncrementPercentDEFPenetration()
+        {
+            return 0d;
+        }
+
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAP)]
         public virtual double GetIncrementFixedAP()
         {
@@ -195,6 +219,18 @@ namespace CookApps.TeamBattle.BattleSystem
 
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRES)]
         public virtual double GetIncrementPercentRES()
+        {
+            return 0d;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRESPenetration)]
+        public virtual double GetIncrementFixedRESPenetration()
+        {
+            return 0;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRESPenetration)]
+        public virtual double GetIncrementPercentRESPenetration()
         {
             return 0d;
         }
@@ -439,6 +475,40 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
+        public static double CalculateDEFPenetration<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                fixedValues[i] = 0;
+                percentValues[i] = 0f;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedDEFPenetration();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentDEFPenetration();
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                basicStat = (basicStat + fixedValues[i]) * (1f + percentValues[i]);
+            }
+
+            if (basicStat < 0)
+            {
+                basicStat = 0;
+            }
+
+            return basicStat;
+        }
+
         public static double CalculateAP<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
@@ -492,6 +562,40 @@ namespace CookApps.TeamBattle.BattleSystem
 
                 fixedValues[x.CalcOrder] += x.GetIncrementFixedRES();
                 percentValues[x.CalcOrder] += x.GetIncrementPercentRES();
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                basicStat = (basicStat + fixedValues[i]) * (1f + percentValues[i]);
+            }
+
+            if (basicStat < 0)
+            {
+                basicStat = 0;
+            }
+
+            return basicStat;
+        }
+
+        public static double CalculateRESPenetration<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                fixedValues[i] = 0;
+                percentValues[i] = 0f;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedRESPenetration();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentRESPenetration();
             }
 
             for (var i = 0; i < maxCalcOrder; i++)
