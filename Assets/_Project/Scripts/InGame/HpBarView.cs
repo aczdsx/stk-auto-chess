@@ -60,6 +60,12 @@ namespace CookApps.SampleTeamBattle
 
     public class InGameHpBarViewPool : IHpBarViewPool
     {
+        [RuntimeInitializeOnLoadMethod]
+        private static void Initialize()
+        {
+            HpBarViewPool.Initialize(new InGameHpBarViewPool());
+        }
+
         private UnityPool<HpBarView> hpBarViewPool;
 
         public async UniTask InitializePool()

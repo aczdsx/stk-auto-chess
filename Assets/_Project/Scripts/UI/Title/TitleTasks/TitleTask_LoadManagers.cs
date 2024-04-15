@@ -23,9 +23,6 @@ public class TitleTask_LoadManagers : ITitleTask
         await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
         SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
         SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
-        CharacterViewPool.Initialize(new SpriteCharacterViewPool());
-        TextViewPool.Initialize(new InGameTextViewPool());
-        HpBarViewPool.Initialize(new InGameHpBarViewPool());
 
 #if !RELEASE && ENABLE_CHEAT
         SRDebug.Init();

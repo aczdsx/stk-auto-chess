@@ -478,59 +478,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public DamageInfo PrecalculateDamageAmount(double ad, double ap, CharacterController attacker, int source, bool isSkill)
         {
-            double damage = ad;
-            if (DEF > 0)
-            {
-                damage += ad * 50f / (50f + DEF);
-            }
-            else
-            {
-                damage += ad * (2f - (50f / (50f - DEF)));
-            }
-
-            if (RES > 0)
-            {
-                damage += ap * 50f / (50f + RES);
-            }
-            else
-            {
-                damage += ap * (2f - (50f / (50f - RES)));
-            }
-
-            var damageInfo = new DamageInfo();
-
-            if (isSkill)
-            {
-                damage *= attacker.SkillDamageRate;
-            }
-
-            damageInfo.isCritical = attacker.CriticalTest();
-            if (damageInfo.isCritical)
-            {
-                damage *= attacker.CriticalDamageRate;
-                damageInfo.isDoubleCritical = attacker.DoubleCriticalTest();
-                if (damageInfo.isDoubleCritical)
-                {
-                    damage *= attacker.DoubleCriticalDamageRate;
-                }
-            }
-
-            damageInfo.damageAmount = damage;
-            damageInfo.source = source;
-            return damageInfo;
-        }
-
-        public DamageInfo PrecalculateDamageAmountWithoutAP(double ad, CharacterController attacker, int source, bool isSkill)
-        {
-            double damage = ad;
-            if (DEF > 0)
-            {
-                damage += ad * 50f / (50f + DEF);
-            }
-            else
-            {
-                damage += ad * (2f - (50f / (50f - DEF)));
-            }
+            double damage = DamageCalculator.Instance.CalculateDefaultDamage(ad, ap, DEF, RES, DEFPenetration, RESPenetration);
 
             var damageInfo = new DamageInfo();
 

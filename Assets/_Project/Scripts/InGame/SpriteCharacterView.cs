@@ -47,6 +47,12 @@ namespace CookApps.SampleTeamBattle
 
     public class SpriteCharacterViewPool : ICharacterViewPool
     {
+        [RuntimeInitializeOnLoadMethod]
+        private static void Initialize()
+        {
+            CharacterViewPool.Initialize(new SpriteCharacterViewPool());
+        }
+
         public ICharacterView GetCharacterView(ICharacterStatData statData)
         {
             if (!InGameResourceHolder.PlayerCharacterPrefabs.TryGetValue(statData.CharacterId, out GameObject prefab))

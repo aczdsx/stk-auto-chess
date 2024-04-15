@@ -28,6 +28,12 @@ namespace CookApps.SampleTeamBattle
 
     public class InGameTextViewPool : ITextViewPool
     {
+        [RuntimeInitializeOnLoadMethod]
+        private static void Initialize()
+        {
+            TextViewPool.Initialize(new InGameTextViewPool());
+        }
+
         private UnityPool<InGameTextView> textViewPool;
 
         public async UniTask InitializePool()
