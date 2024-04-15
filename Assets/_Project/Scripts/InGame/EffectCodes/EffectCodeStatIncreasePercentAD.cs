@@ -2,14 +2,25 @@ using CookApps.Obfuscator;
 using CookApps.TeamBattle.BattleSystem;
 
 [UseEffectCodeIds(101)]
-public class EffectCodeStatFixedAD : EffectCodeStatBase
+public class EffectCodeStatIncreasePercentAD : EffectCodeStatBase
 {
+    public override int CalcOrder { get => calcOrder; }
+
     private ObfuscatorDouble increment;
+    private int calcOrder;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
         increment = codeInfo.GetCodeStat(1);
+        if (codeInfo.HasCodeStat(2))
+        {
+            calcOrder = codeInfo.GetCodeStatToInt(2);
+        }
+        else
+        {
+            calcOrder = 0;
+        }
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -17,12 +28,20 @@ public class EffectCodeStatFixedAD : EffectCodeStatBase
         base.Merge(codeInfo, source);
         // 덮어 씌우고 싶을 때
         increment = codeInfo.GetCodeStat(1);
+        if (codeInfo.HasCodeStat(2))
+        {
+            calcOrder = codeInfo.GetCodeStatToInt(2);
+        }
+        else
+        {
+            calcOrder = 0;
+        }
         // 더하고 싶을 때
         // increment += codeInfo.GetCodeStat(1);
     }
 
-    public virtual double GetIncrementFixedAD()
+    public override double GetIncrementPercentAD()
     {
-        return 0;
+        return increment;
     }
 }
