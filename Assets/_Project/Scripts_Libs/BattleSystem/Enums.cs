@@ -151,6 +151,16 @@ namespace CookApps.TeamBattle.BattleSystem
         Disappear,
     }
 
+    public enum AttackRangeShape
+    {
+        Rectangle = 1,
+        RectangleCut1Edge,
+        RectangleCut2Edge,
+        RectangleCut3Edge,
+        RectangleCut4Edge,
+        RectangleCut5Edge,
+    }
+
     public enum AttackType
     {
         Melee = 1,

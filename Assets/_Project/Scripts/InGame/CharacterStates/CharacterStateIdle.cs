@@ -28,33 +28,29 @@ public class CharacterStateIdle : CharacterStateBase
         }
         scanTargetTime = ScanTargetInterval;
 
-        // 2. 적을 찾아서 타겟으로 설정
-        if (characCtrl.GetCharacterStat().ScanType == ScanType.Nearest)
+        // 2. 적을 찾아서 타겟으로 설정 (찾을 필요 없다면 스킵)
+        if (characCtrl.Target is {IsAlive: false})
         {
-            characCtrl.target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
-        }
-        else
-        {
-            characCtrl.target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
-        }
-
-        if (characCtrl.target == null)
-        {
-            return CharacterStateRunningResult.CanCallAllWithoutMove;
+            if (characCtrl.GetCharacterStat().ScanType == ScanType.Nearest)
+            {
+                characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
+            }
+            else
+            {
+                characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
+            }
         }
 
-        if (!characCtrl.target.IsAlive)
+        if (characCtrl.Target is {IsAlive: false})
         {
-            characCtrl.target = null;
+            characCtrl.Target = null;
             return CharacterStateRunningResult.CanCallAllWithoutMove;
         }
 
         // 3. 적이 공격 범위 안에 들어왔는지 체크
-        float range = characCtrl.AttackRange;
-        Vector2 diff = characCtrl.target.Position - characCtrl.Position;
-        float resultRange = range * range;
+        var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
 
-        if (diff.sqrMagnitude < resultRange)
+        if (isInRange)
         {
             // 4-1. 공격 범위 안에 들어왔다면 공격 상태로 전환
             characCtrl.AddNextState<CharacterStateAttack>();

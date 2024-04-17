@@ -28,7 +28,7 @@ public class CharacterStateAttack : CharacterStateBase
         }
 
         // 1. 잡는 적이 아직 살아있는지 체크
-        CharacterController atkTarget = characCtrl.target;
+        CharacterController atkTarget = characCtrl.Target;
         if (atkTarget == null || !atkTarget.IsAlive)
         {
             isAttackAnimRunning = false;
@@ -37,7 +37,7 @@ public class CharacterStateAttack : CharacterStateBase
         }
 
         float range = characCtrl.AttackRange;
-        Vector2 diff = characCtrl.target.Position - characCtrl.Position;
+        Vector2 diff = characCtrl.Target.Position - characCtrl.Position;
         float resultRange = range * range;
 
         characCtrl.FlipX = diff.x > 0;
@@ -88,7 +88,7 @@ public class CharacterStateAttack : CharacterStateBase
             return;
         }
 
-        if (characCtrl.target == null)
+        if (characCtrl.Target == null)
         {
             return;
         }
@@ -98,8 +98,8 @@ public class CharacterStateAttack : CharacterStateBase
             int hitCount = eventKey - AnimationEventKey.ExecuteStart;
 
             // damage 계산
-            CharacterController.DamageInfo damageInfo = characCtrl.target.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl, 0, false);
-            characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.target);
+            CharacterController.DamageInfo damageInfo = characCtrl.Target.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl, 0, false);
+            characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
             if (hitCount > 1)
             {
                 damageInfo.damageAmount /= hitCount;
@@ -114,19 +114,19 @@ public class CharacterStateAttack : CharacterStateBase
                 }
 
                 // TODO: throw projectile Effect
-                characCtrl.target.GetDamaged(damageInfo, characCtrl);
+                characCtrl.Target.GetDamaged(damageInfo, characCtrl);
             }
             else
             {
                 // TODO: Effect
-                characCtrl.target.GetDamaged(damageInfo, characCtrl);
+                characCtrl.Target.GetDamaged(damageInfo, characCtrl);
             }
         }
     }
 
     protected virtual void ReturnToIdle()
     {
-        characCtrl.target = null;
+        characCtrl.Target = null;
         characCtrl.AddNextState<CharacterStateIdle>();
     }
 

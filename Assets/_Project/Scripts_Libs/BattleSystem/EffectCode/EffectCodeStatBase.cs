@@ -27,13 +27,14 @@ namespace CookApps.TeamBattle.BattleSystem
         StatDoubleCriticalDamageRate = 1L << 12,
         StatAttackSpeed = 1L << 13,
         StatAttackRange = 1L << 14,
-        StatSkillDamageRate = 1L << 15,
-        StatSkillCooltimeRate = 1L << 16,
-        StatAttackDamageRate = 1L << 17,
-        StatTakenDamageRate = 1L << 18,
-        StatGivenHealRate = 1L << 19,
-        StatTakenHealRate = 1L << 20,
-        StatCrowdControlImmune = 1L << 21,
+        StatAttackRangeShape = 1L << 15,
+        StatSkillDamageRate = 1L << 16,
+        StatSkillCooltimeRate = 1L << 17,
+        StatAttackDamageRate = 1L << 18,
+        StatTakenDamageRate = 1L << 19,
+        StatGivenHealRate = 1L << 20,
+        StatTakenHealRate = 1L << 21,
+        StatCrowdControlImmune = 1L << 22,
         #endregion
 
         #region Event
@@ -329,6 +330,12 @@ namespace CookApps.TeamBattle.BattleSystem
         public virtual float GetIncrementPercentAtkRange()
         {
             return 0f;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAttackRangeShape)]
+        public virtual AttackRangeShape ModifyAtkRangeShape(AttackRangeShape prevShape)
+        {
+            return prevShape;
         }
 
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatSkillDamageRate)]
@@ -759,7 +766,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return Mathf.Max(0, Mathf.Max(0f, (basicStat + fixedValue) * (1f + percentValue)));
         }
 
-        public static float CalculateAttackRange<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static int CalculateAttackRange<T>(this List<T> list, int basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -775,7 +782,22 @@ namespace CookApps.TeamBattle.BattleSystem
                 percentValue += x.GetIncrementPercentAtkRange();
             }
 
-            return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
+            return Mathf.Max(0, Mathf.RoundToInt((basicStat + fixedValue) * (1f + percentValue)));
+        }
+
+        public static AttackRangeShape CalculateAttackRangeShape<T>(this List<T> list, AttackRangeShape basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                basicStat = list[i].ModifyAtkRangeShape(basicStat);
+            }
+
+            return basicStat;
         }
 
         public static float CalculateSkillDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
@@ -884,7 +906,7 @@ namespace CookApps.TeamBattle.BattleSystem
             var fixedValue = CrowdControlType.None;
             for (var i = 0; i < list.Count; i++)
             {
-                fixedValue = fixedValue | list[i].GetCrowdControlImmune();
+                fixedValue |= list[i].GetCrowdControlImmune();
             }
 
             return fixedValue;

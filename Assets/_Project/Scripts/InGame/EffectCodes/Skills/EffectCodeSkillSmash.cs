@@ -69,11 +69,11 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
     {
         base.Activate();
         // 공격할 타겟부터 설정. 이미 공격중인 타겟이 있으면 스킵
-        if (owner.target == null || !owner.target.IsAlive)
+        if (owner.Target == null || !owner.Target.IsAlive)
         {
             // 검색 방식에 따라 타겟을 찾음
-            owner.target = InGameObjectManager.Instance.GetNearestEnemy(owner);
-            if (owner.target == null)
+            owner.Target = InGameObjectManager.Instance.GetNearestEnemy(owner);
+            if (owner.Target == null)
             {
                 return;
             }
@@ -88,20 +88,20 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        if (owner.target == null)
+        if (owner.Target == null)
             return;
         // 타겟에게 데미지를 입힘
         var ad = owner.AD * power;
-        var damageInfo = owner.PrecalculateDamageAmount(ad, 0, owner.target, codeId, true);
-        owner.PostCalculateDamageAmount(ref damageInfo, owner.target);
-        owner.target.GetDamaged(in damageInfo, owner);
+        var damageInfo = owner.PrecalculateDamageAmount(ad, 0, owner.Target, codeId, true);
+        owner.PostCalculateDamageAmount(ref damageInfo, owner.Target);
+        owner.Target.GetDamaged(in damageInfo, owner);
 
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
-        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.target, splashRange, enemies);
+        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, splashRange, enemies);
         foreach (var enemy in enemies)
         {
-            if (enemy == owner.target || !enemy.IsAlive)
+            if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
             ad = owner.AD * splashPower;
             damageInfo = owner.PrecalculateDamageAmount(ad, 0, enemy, codeId, true);

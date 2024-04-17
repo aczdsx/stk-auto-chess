@@ -29,9 +29,7 @@ namespace CookApps.SampleTeamBattle
         public string nickname_token;
         public string name_token;
         public string desc_token;
-        public CookApps.Obfuscator.ObfuscatorInt boss_type;
         public global::CookApps.SampleTeamBattle.Grade grade;
-        public CookApps.Obfuscator.ObfuscatorInt grade_value;
         public CookApps.Obfuscator.ObfuscatorInt need_piece;
         /// ?
         public global::CookApps.SampleTeamBattle.CharacterType type;
@@ -51,12 +49,11 @@ namespace CookApps.SampleTeamBattle
         public CookApps.Obfuscator.ObfuscatorFloat crit_rate;
         public CookApps.Obfuscator.ObfuscatorDouble base_inc;
         public CookApps.Obfuscator.ObfuscatorFloat atkSpd;
-        public CookApps.Obfuscator.ObfuscatorFloat atkRange;
-        public CookApps.Obfuscator.ObfuscatorInt skill_id;
-        public CookApps.Obfuscator.ObfuscatorInt skill_id2;
+        public CookApps.Obfuscator.ObfuscatorInt atkRange;
+        public global::CookApps.SampleTeamBattle.AttackRangeShape atkRangeShape;
+        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
         public CookApps.Obfuscator.ObfuscatorInt equipment_id;
-        public CookApps.Obfuscator.ObfuscatorInt upgrade_skill_id;
-        public bool is_equip_private;
+        public CookApps.Obfuscator.ObfuscatorInt[] upgrade_skill_ids;
         public CookApps.Obfuscator.ObfuscatorFloat scale;
     }
 

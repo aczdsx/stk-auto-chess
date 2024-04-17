@@ -23,6 +23,7 @@ public class TitleTask_LoadManagers : ITitleTask
         await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
         SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
         SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
+        CharacterController.DefaultDeadState = typeof(CharacterStateDead);
 
 #if !RELEASE && ENABLE_CHEAT
         SRDebug.Init();

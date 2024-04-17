@@ -24,7 +24,7 @@ public class CharacterStateSkill : CharacterStateBase
         var characId = characCtrl.GetCharacterStat().CharacterId;
         var specCharac = SpecDataManager.Instance.SpecCharacter.Get(characId);
         skillIndex = 0;
-        var skillIds = specCharac.GetSkillIds();
+        var skillIds = specCharac.skill_ids;
         for (int i = 0; i < skillIds.Length; i++)
         {
             if (skillIds[i] == effectCode.CodeId)

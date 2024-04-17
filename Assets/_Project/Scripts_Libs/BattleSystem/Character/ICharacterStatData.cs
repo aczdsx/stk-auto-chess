@@ -59,7 +59,7 @@ namespace CookApps.TeamBattle.BattleSystem
         /// </summary>
         ObfuscatorFloat DoubleCriticalDamageRate { get; }
         /// <summary>
-        /// 이동속도
+        /// 이동속도 : 1 = 1초에 1타일, 2 = 1초에 2타일
         /// </summary>
         ObfuscatorFloat MoveSpeed { get; }
         /// <summary>
@@ -69,7 +69,11 @@ namespace CookApps.TeamBattle.BattleSystem
         /// <summary>
         /// 공격 범위
         /// </summary>
-        ObfuscatorFloat AttackRange { get; }
+        ObfuscatorInt AttackRange { get; }
+        /// <summary>
+        /// 공격 범위 모양 (사각형, 사각형 모퉁이 1칸 제거, 사각형 모퉁이 2칸 제거, 사각형 모퉁이 3칸 제거, 사각형 모퉁이 4칸 제거, ...)
+        /// </summary>
+        AttackRangeShape AttackRangeShape { get; }
 
         /// <summary>
         /// 스킬 대미지 배율

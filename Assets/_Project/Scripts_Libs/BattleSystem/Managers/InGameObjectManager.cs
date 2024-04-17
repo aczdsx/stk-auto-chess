@@ -15,64 +15,12 @@ namespace CookApps.TeamBattle.BattleSystem
         private List<CharacterController> enemiesInPlaygroundForUpdate = new ();
         private List<CharacterController> charactersInPlaygroundForUpdate = new ();
 
-        private bool isChangeCharacterFailStage;
-
-        public void ChangeCharacterFailStage(bool isOn)
-        {
-            isChangeCharacterFailStage = isOn;
-        }
-
-        public bool GetChangeCharacterFailStage()
-        {
-            return isChangeCharacterFailStage;
-        }
-
-        private int currentMainHeroId = 0;
-
-        public int GetMainHeroId()
-        {
-            return currentMainHeroId;
-        }
-
-        public void ChangeMainHero(int id)
-        {
-            currentMainHeroId = id;
-        }
-
         private Transform playground;
         public Transform Playground => playground;
 
         private List<InGameEffectBase> inGameEffects = new ();
         private Queue<InGameEffectBase> addWaitingInGameEffects = new ();
         private Queue<InGameEffectBase> removeWaitingInGameEffects = new ();
-
-        private bool isAuto = false;
-        public bool IsAuto => isAuto;
-
-        public void ChangeAuto(bool isAuto)
-        {
-            this.isAuto = isAuto;
-        }
-
-        private bool isAutoAssemble = false;
-        public bool IsAutoAssemble => isAutoAssemble;
-
-        public void ChangeAutoAssemble(bool isAuto)
-        {
-            isAutoAssemble = isAuto;
-        }
-
-        private bool isPreAuto;
-
-        public void SavePreAuto()
-        {
-            isPreAuto = isAuto;
-        }
-
-        public void SetPreAuto()
-        {
-            isAuto = isPreAuto;
-        }
 
         public void Initialize(int2 gridSize, IInGameTileView[] views)
         {
@@ -166,10 +114,11 @@ namespace CookApps.TeamBattle.BattleSystem
             return null;
         }
 
-        public async UniTask<CharacterController> AddCharacterToField(ICharacterStatData statData, Vector2 initPos, AllianceType allianceType, Type startStateType)
+        public async UniTask<CharacterController> AddCharacterToField(ICharacterStatData statData, int2 initPos, AllianceType allianceType, Type startStateType)
         {
             var characCtrl = new CharacterController();
-            characCtrl.Initialize(statData, initPos, allianceType);
+            var tile = grid.GetTile(initPos);
+            characCtrl.Initialize(statData, tile, allianceType);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 
             if (allianceType == AllianceType.Player)
@@ -237,15 +186,15 @@ namespace CookApps.TeamBattle.BattleSystem
 
             CharacterController target = null;
 
-            if (charCtrl.target != null)
+            if (charCtrl.Target != null)
             {
-                target = charCtrl.target;
+                target = charCtrl.Target;
             }
 
             RemoveCharacterFromField(charCtrl);
             if (target != null)
             {
-                target.target = null;
+                target.Target = null;
             }
         }
 
@@ -285,6 +234,18 @@ namespace CookApps.TeamBattle.BattleSystem
         public List<CharacterController> GetEnemiesList()
         {
             return enemiesInPlaygroundForUpdate;
+        }
+
+        public bool IsInRange(CharacterController pivot, CharacterController target)
+        {
+            if (pivot == null || target == null)
+            {
+                return false;
+            }
+
+            int distance = grid.GetRange(pivot.CurrentTile, target.CurrentTile);
+            float range = pivot.AttackRange;
+            return false;
         }
 
         /// <summary>

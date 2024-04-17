@@ -1,7 +1,5 @@
 using CookApps.SampleTeamBattle;
 using CookApps.TeamBattle.BattleSystem;
-using PrimeTween;
-using UnityEngine;
 
 /// <summary>
 /// 1칸 이동하는 상태
@@ -15,7 +13,9 @@ public class CharacterStateMove : CharacterStateBase
     {
         base.StateStart();
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Walk);
-        PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.targetTile.View.Position, 1f, 5f);
+        var moveDuration = SpecOptionCache.DefaultMoveDuration / characCtrl.GetCharacterStat().MoveSpeed;
+        var jumpHeight = SpecOptionCache.CharacterMoveJumpHeight;
+        PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight);
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)

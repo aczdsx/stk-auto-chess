@@ -154,6 +154,12 @@ namespace CookApps.SampleTeamBattle
                 AttackRange = codes.CalculateAttackRange(spec.atkRange);
             }
 
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAttackRangeShape))
+            {
+                List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
+                AttackRangeShape = codes.CalculateAttackRangeShape(spec.atkRangeShape.ToInGameAttackRangeShape());
+            }
+
             if (flags.HasFlag(EffectCodeInheritFlag.StatSkillDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillDamageRate);
@@ -221,7 +227,9 @@ namespace CookApps.SampleTeamBattle
 
         public ObfuscatorFloat AttackSpeed { get; private set; }
 
-        public ObfuscatorFloat AttackRange { get; private set; }
+        public ObfuscatorInt AttackRange { get; private set; }
+
+        public TeamBattle.BattleSystem.AttackRangeShape AttackRangeShape { get; private set; }
 
         public ObfuscatorFloat SkillDamageRate { get; private set; }
 

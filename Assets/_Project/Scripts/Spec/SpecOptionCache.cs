@@ -13,6 +13,12 @@ namespace CookApps.SampleTeamBattle
         private static ObfuscatorInt? deckLineMaxSize;
         public static int DeckLineMaxSize => deckLineMaxSize ??= GetOptionFromSpec_Int("DECK_LINE_MAX_SIZE", 3);
 
+        private static ObfuscatorFloat? defaultMoveDuration;
+        public static float DefaultMoveDuration => defaultMoveDuration ??= GetOptionFromSpec_Float("DEFAULT_MOVE_DURATION", 1f);
+
+        private static ObfuscatorFloat? characterMoveJumpHeight;
+        public static float CharacterMoveJumpHeight => characterMoveJumpHeight ??= GetOptionFromSpec_Float("CHARACTER_MOVE_JUMP_HEIGHT", 1f);
+
         #region Getters
         private static int GetOptionFromSpec_Int(string optionName, int defaultData)
         {

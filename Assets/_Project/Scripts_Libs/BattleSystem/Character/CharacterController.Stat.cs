@@ -25,7 +25,6 @@ namespace CookApps.TeamBattle.BattleSystem
             postDoubleCriticalDamageRate,
             postMoveSpeed,
             postAttackSpeed,
-            postAttackRange,
             postSearchRange,
             postSkillRange,
             postSkillDamageRate,
@@ -42,6 +41,10 @@ namespace CookApps.TeamBattle.BattleSystem
             postExpGainIndividual,
             postDungeonAttackDamageRateIndividual,
             postStatusDamageRate;
+
+        private ObfuscatorInt postAttackRange;
+
+        private AttackRangeShape postAttackRangeShape;
 
         private CrowdControlType postCCImmune;
 
@@ -229,6 +232,23 @@ namespace CookApps.TeamBattle.BattleSystem
             }
         }
 
+        public AttackRangeShape AttackRangeShape
+        {
+            get
+            {
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAttackRangeShape) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAttackRangeShape))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackRangeShape);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackRangeShape);
+                    List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRangeShape);
+                    postAttackRangeShape = effectCodes.CalculateAttackRangeShape(GetCharacterStat().AttackRangeShape);
+                }
+
+                return postAttackRangeShape;
+            }
+        }
+
         public float AttackRange
         {
             get
@@ -245,8 +265,6 @@ namespace CookApps.TeamBattle.BattleSystem
                 return postAttackRange;
             }
         }
-
-        public float SearchRange => postSearchRange;
 
         public float CriticalProb
         {

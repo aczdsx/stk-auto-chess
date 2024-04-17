@@ -8,7 +8,7 @@ namespace CookApps.TeamBattle.BattleSystem
 {
     public partial class CharacterController : IEffectCodeSource, IFollowable
     {
-        public static Type defaultDeadState;
+        public static Type DefaultDeadState;
 
         private static int characUIdInc;
         private int characterUId;
@@ -38,8 +38,8 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public event Action<CharacterStateBase> OnStateChanged;
 
-        public CharacterController target { get; set; }
-        public InGameTile targetTile { get; set; }
+        public CharacterController Target { get; set; }
+        public InGameTile CurrentTile { get; set; }
 
         public bool IsAlive { get; set; }
         public bool IsForceIdle { get; set; }
@@ -105,11 +105,12 @@ namespace CookApps.TeamBattle.BattleSystem
         private AllianceType allianceType;
         public AllianceType AllianceType => allianceType;
 
-        public void Initialize(ICharacterStatData statData, Vector3 position, AllianceType allianceType)
+        public void Initialize(ICharacterStatData statData, InGameTile tile, AllianceType allianceType)
         {
             characterUId = characUIdInc++;
             this.statData = statData;
-            this.position = position;
+            CurrentTile = tile;
+            position = tile.View.Position;
             this.allianceType = allianceType;
 
             view = CharacterViewPool.Instance.GetCharacterView(statData);
@@ -139,7 +140,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public void Clear()
         {
-            target = null;
+            Target = null;
             ClearAllState();
             view.OnAnimationEvent -= OnAnimationEvent;
             ecc.Clear();
@@ -482,6 +483,7 @@ namespace CookApps.TeamBattle.BattleSystem
         /// <param name="ap">공격자가 순수하게 입히려고 하는 마법 대미지</param>
         /// <param name="target">대상</param>
         /// <param name="source">기본 공격일 경우 0, 스킬일 경우 effectCodeId</param>
+        /// <param name="isSkill">스킬로 입히는 대미지인지</param>
         /// <returns></returns>
         public DamageInfo PrecalculateDamageAmount(double ad, double ap, CharacterController target, int source, bool isSkill)
         {
@@ -570,9 +572,9 @@ namespace CookApps.TeamBattle.BattleSystem
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
                 deathInfo = EffectCodeHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
 
-                if (!deathInfo.isUseCustomState && defaultDeadState != null)
+                if (!deathInfo.isUseCustomState && DefaultDeadState != null)
                 {
-                    AddNextState(defaultDeadState);
+                    AddNextState(DefaultDeadState);
                 }
 
                 return DamageReturnType.Killed;

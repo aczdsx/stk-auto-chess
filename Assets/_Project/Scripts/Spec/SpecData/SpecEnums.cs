@@ -64,4 +64,14 @@ namespace CookApps.SampleTeamBattle
         ASSASSIN = 5,
         SUPPORTER = 6,
     }
+
+    public enum AttackRangeShape
+    {
+        Rectangle = 1,
+        RectangleCut1Edge = 2,
+        RectangleCut2Edge = 3,
+        RectangleCut3Edge = 4,
+        RectangleCut4Edge = 5,
+        RectangleCut5Edge = 6,
+    }
 }
