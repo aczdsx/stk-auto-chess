@@ -25,7 +25,7 @@ public class CharacterStateIdle : CharacterStateBase
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
 
-        characCtrl.target = InGameObjectManager.Instance.GetTarget(characCtrl);
+        characCtrl.target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
         scanTargetTime = 1f;
 
         if (characCtrl.target == null)

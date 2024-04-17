@@ -21,7 +21,7 @@ public class FlowStateStageCombat : StateBase
     {
         await UniTask.Delay(1000);
         List<CharacterController> characters = ListPool<CharacterController>.Get();
-        InGameObjectManager.Instance.GetAllAliveCharacters(ref characters);
+        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
             charac.IsForceIdle = false;

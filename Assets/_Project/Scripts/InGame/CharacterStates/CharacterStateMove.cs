@@ -23,7 +23,7 @@ public class CharacterStateMove : CharacterStateBase
         //조이스틱 떗을때 한번더 타겟 검사해야됨
         if (characCtrl.target == null)
         {
-            characCtrl.target = InGameObjectManager.Instance.GetTarget(characCtrl);
+            characCtrl.target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
         }
         else
         {
@@ -33,7 +33,7 @@ public class CharacterStateMove : CharacterStateBase
                 return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
             }
 
-            characCtrl.target = InGameObjectManager.Instance.GetTarget(characCtrl);
+            characCtrl.target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
             scanTargetTime = 1f;
         }
 

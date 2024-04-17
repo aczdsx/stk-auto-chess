@@ -18,6 +18,9 @@ namespace CookApps.TeamBattle.BattleSystem
         }
     }
 
+    /// <summary>
+    /// 이펙트 코드들을 재사용하는 풀링 매니저
+    /// </summary>
     public class EffectCodePoolManager : Singleton<EffectCodePoolManager>
     {
         #region Effect Code Datas
@@ -34,12 +37,16 @@ namespace CookApps.TeamBattle.BattleSystem
             pools.Clear();
         }
 
-        public void RegisterEffectCodeCreators()
+        public void RegisterCodeId(int codeId, Type effectCodeImpl)
         {
-            effectCodeCreators.Clear();
-            effectCodeTypeMap.Clear();
-            effectCodeLifeTypeMap.Clear();
+            NewExpression constructorExpression = Expression.New(effectCodeImpl);
+            Expression<Func<EffectCodeBase>> lambdaExpression = Expression.Lambda<Func<EffectCodeBase>>(constructorExpression);
+            Func<EffectCodeBase> createHeadersFunc = lambdaExpression.Compile();
+            AddEffectCodeCreator(codeId, createHeadersFunc);
+        }
 
+        public void RegisterAttributedCodeIds()
+        {
             IEnumerable<Type> allEffectCodeImpls = InheritHelper.GetAllImplementations<EffectCodeBase>();
             foreach (Type effectCodeImpl in allEffectCodeImpls)
             {
@@ -56,7 +63,12 @@ namespace CookApps.TeamBattle.BattleSystem
 
         private void AddEffectCodeCreator(int codeId, Func<EffectCodeBase> lambda)
         {
-            effectCodeCreators.Add(codeId, lambda);
+            if (!effectCodeCreators.TryAdd(codeId, lambda))
+            {
+                CADebug.LogError($"EffectCodePoolManager.RegisterCodeId - Already registered codeId {codeId}");
+                return;
+            }
+
             EffectCodeBase temp = lambda.Invoke();
             effectCodeTypeMap.Add(codeId, temp.Type);
             effectCodeLifeTypeMap.Add(codeId, temp.LifeType);

@@ -34,6 +34,13 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
+        /// <summary>
+        /// 씬을 변경합니다. Lobby => Game, Game => Lobby 등 무거운 씬 간의 전환은 SceneLoading.GoToNextScene 을 사용하세요.
+        /// </summary>
+        /// <param name="sceneName">SceneData내의 sceneName</param>
+        /// <param name="defaultUIData">씬에 기본으로 포함되어있는 UI에 전달할 정보</param>
+        /// <param name="transition">전환 연출</param>
+        /// <returns>씬 전환을 제어하고 싶은 경우 이 객체의 allowSceneActivation로 제어할 것</returns>
         public SceneLoadAsyncOperationWrapper ChangeScene(string sceneName, object defaultUIData = null, ISceneTransition transition = null)
         {
             var operationWrapper = new SceneLoadAsyncOperationWrapper();

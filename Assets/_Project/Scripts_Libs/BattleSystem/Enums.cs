@@ -54,32 +54,6 @@ namespace CookApps.TeamBattle.BattleSystem
         Enemy,
     }
 
-    public enum AnimationEventKey
-    {
-        Start,
-        End,
-        Effect1,
-        Effect2,
-        Effect3,
-        Effect4,
-        Effect5,
-
-        ActivateStart = 1000,
-        Activate1Per1,
-        Activate1Per2,
-        Activate1Per3,
-        Activate1Per4,
-        Activate1Per5,
-        Activate1Per6,
-        Activate1Per7,
-        Activate1Per8,
-        Activate1Per9,
-        Activate1Per10,
-        Activate1Per11,
-        Activate1Per12,
-        ActivateEnd,
-    }
-
     public enum BuffDebuffType
     {
         None = 0,
@@ -118,12 +92,15 @@ namespace CookApps.TeamBattle.BattleSystem
         Damaging,
     }
 
+    /// <summary>
+    /// 애니메이션 키
+    /// </summary>
     public enum AnimationKey
     {
         Idle,
         Walk,
         Attack,
-        Skill,
+        Skill1,
         Skill2,
         Skill3,
         Skill4,
@@ -132,6 +109,38 @@ namespace CookApps.TeamBattle.BattleSystem
         Spawn,
         Crying,
         LongCrying,
+    }
+
+    /// <summary>
+    /// 애니메이션 내에 발생하는 이벤트 키
+    /// </summary>
+    public enum AnimationEventKey
+    {
+        Start,
+        End,
+
+        VFXStart = 100,
+        VFX1,
+        VFX2,
+        VFX3,
+        VFX4,
+        VFX5,
+        VFXEnd,
+
+        ExecuteStart = 1000,
+        Execute1Per1,
+        Execute1Per2,
+        Execute1Per3,
+        Execute1Per4,
+        Execute1Per5,
+        Execute1Per6,
+        Execute1Per7,
+        Execute1Per8,
+        Execute1Per9,
+        Execute1Per10,
+        Execute1Per11,
+        Execute1Per12,
+        ExecuteEnd,
     }
 
     public enum InGameEffectAnimationKey

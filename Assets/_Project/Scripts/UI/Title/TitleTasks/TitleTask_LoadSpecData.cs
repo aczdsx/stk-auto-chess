@@ -24,8 +24,8 @@ namespace CookApps.SampleTeamBattle
         {
             progressCallback.Invoke(GetHashCode(), 0.5f);
             await SpecDataManager.Instance.Initialize();
-            // GlobalEffectCodeInfoManager.Instance.Initialize(); // userdatamanager.initialize보다 먼저 호출되어야함
-            EffectCodePoolManager.Instance.RegisterEffectCodeCreators();
+            GlobalEffectCodeManager.Instance.Initialize(); // userdatamanager.initialize보다 먼저 호출되어야함
+            EffectCodePoolManager.Instance.RegisterAttributedCodeIds();
             isComplete = true;
             progressCallback.Invoke(GetHashCode(), 1f);
             progressCallback = null;

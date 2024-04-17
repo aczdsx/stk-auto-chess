@@ -93,14 +93,19 @@ public class CharacterStateAttack : CharacterStateBase
             return;
         }
 
-        if (AnimationEventKey.ActivateStart < eventKey && eventKey < AnimationEventKey.ActivateEnd)
+        if (AnimationEventKey.ExecuteStart < eventKey && eventKey < AnimationEventKey.ExecuteEnd)
         {
-            int hitCount = eventKey - AnimationEventKey.ActivateStart;
+            int hitCount = eventKey - AnimationEventKey.ExecuteStart;
 
             // damage 계산
             CharacterController.DamageInfo damageInfo = characCtrl.target.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl, 0, false);
-            damageInfo.damageAmount = characCtrl.PostCalculateDamageAmount(damageInfo.damageAmount, characCtrl.target) / hitCount;
-            var hitId = 0;
+            characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.target);
+            if (hitCount > 1)
+            {
+                damageInfo.damageAmount /= hitCount;
+            }
+
+            // var hitId = 0;
             if (characCtrl.GetCharacterStat().AttackType == AttackType.Projectile)
             {
                 if (characCtrl == null || characCtrl.IsAlive == false)

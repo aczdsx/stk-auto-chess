@@ -154,7 +154,7 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
             {
-                if (charactersInPlaygroundForUpdate[i].CharacUId == characUId)
+                if (charactersInPlaygroundForUpdate[i].CharacterUId == characUId)
                 {
                     return charactersInPlaygroundForUpdate[i];
                 }
@@ -296,161 +296,92 @@ namespace CookApps.TeamBattle.BattleSystem
             return enemiesInPlaygroundForUpdate;
         }
 
-        public List<CharacterController> GetNearestCharactersInRange(CharacterController owner, float range)
+        public void GetNearestColleaguesInRange(CharacterController self, float range, List<CharacterController> resTargets)
         {
-            List<CharacterController> targets = ListPool<CharacterController>.Get();
-            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
+            List<CharacterController> searchList = null;
+            if (self.AllianceType == AllianceType.Player)
             {
-                CharacterController other = enemiesInPlaygroundForUpdate[i];
-                if (other == null || !other.IsAlive)
+                searchList = enemiesInPlaygroundForUpdate;
+            }
+            else if (self.AllianceType == AllianceType.Enemy)
+            {
+                searchList = charactersInPlaygroundForUpdate;
+            }
+
+            if (searchList == null)
+                return;
+
+            for (var i = 0; i < searchList.Count; i++)
+            {
+                CharacterController other = searchList[i];
+                if (other is not {IsAlive: true})
                 {
                     continue;
                 }
 
-                Vector2 posDiff = owner.Position - other.Position;
-                bool isInRange = posDiff.sqrMagnitude < range * range;
+                Vector2 distance = self.Position - other.Position;
+                bool isInRange = distance.sqrMagnitude < range * range;
                 if (isInRange)
                 {
-                    targets.Add(other);
+                    resTargets.Add(other);
                 }
             }
-
-            return targets;
-        }
-
-        public List<CharacterController> GetNearestEnemyInRange(CharacterController owner, float range)
-        {
-            List<CharacterController> targets = ListPool<CharacterController>.Get();
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-            {
-                CharacterController other = charactersInPlaygroundForUpdate[i];
-                if (other == null || !other.IsAlive)
-                {
-                    continue;
-                }
-
-                Vector2 posDiff = owner.Position - other.Position;
-                bool isInRange = posDiff.sqrMagnitude < range * range;
-                if (isInRange)
-                {
-                    targets.Add(other);
-                }
-            }
-
-            return targets;
         }
 
         // 타겟 기준 범위
-        public List<CharacterController> GetNearestTargetInRange(CharacterController target, float range)
+        public void GetNearestEnemiesInRange(CharacterController self, float range, List<CharacterController> resTargets)
         {
-            List<CharacterController> targets = ListPool<CharacterController>.Get();
-            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
+            List<CharacterController> searchList = null;
+            if (self.AllianceType == AllianceType.Player)
             {
-                CharacterController other = enemiesInPlaygroundForUpdate[i];
-                if (other == null || !other.IsAlive)
+                searchList = enemiesInPlaygroundForUpdate;
+            }
+            else if (self.AllianceType == AllianceType.Enemy)
+            {
+                searchList = charactersInPlaygroundForUpdate;
+            }
+
+            if (searchList == null)
+                return;
+
+            for (var i = 0; i < searchList.Count; i++)
+            {
+                CharacterController other = searchList[i];
+                if (other is not {IsAlive: true})
                 {
                     continue;
                 }
 
-                Vector2 posDiff = target.Position - other.Position;
-                bool isInRange = posDiff.sqrMagnitude < range * range;
+                Vector2 distance = self.Position - other.Position;
+                bool isInRange = distance.sqrMagnitude < range * range;
                 if (isInRange)
                 {
-                    targets.Add(other);
+                    resTargets.Add(other);
                 }
             }
-
-            return targets;
         }
 
-        // 체력이 제일 적은 기준
-        public CharacterController GetNearestCharactersInHp()
-        {
-            CharacterController healTarget = null;
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-            {
-                CharacterController other = charactersInPlaygroundForUpdate[i];
-                if (!other.IsAlive)
-                {
-                    continue;
-                }
-
-                if (healTarget == null)
-                {
-                    healTarget = other;
-                }
-                else
-                {
-                    if (healTarget.CurrentHp > other.CurrentHp)
-                    {
-                        healTarget = other;
-                    }
-                }
-            }
-
-            return healTarget;
-        }
-
-        public CharacterController GetTarget(CharacterController characCtrl)
-        {
-            return GetCharactersWithTargetNear(characCtrl);
-        }
-
-        public CharacterController GetNearPlayer(Vector2 pos)
-        {
-            CharacterController target = null;
-
-            List<CharacterController> targets = charactersInPlaygroundForUpdate;
-
-            if (targets.Count == 0)
-            {
-                return null;
-            }
-
-            var minDest = float.MaxValue; // (recognitionRange * recognitionRange);
-            var dis = float.MaxValue;
-
-            for (var idx = 0; idx < targets.Count; ++idx)
-            {
-                if (targets[idx].IsAlive == false)
-                {
-                    continue;
-                }
-
-                dis = Vector3.SqrMagnitude(pos - targets[idx].Position);
-                if (minDest > dis)
-                {
-                    minDest = dis;
-                    target = targets[idx];
-                }
-            }
-
-            return target;
-        }
-
-        public CharacterController GetCharactersWithTargetNear(CharacterController characCtrl)
+        public CharacterController GetNearestEnemy(CharacterController self)
         {
             CharacterController target = null;
 
             List<CharacterController> targets = null;
 
-            if (characCtrl.AllianceType == AllianceType.Enemy)
+            if (self.AllianceType == AllianceType.Enemy)
             {
                 targets = charactersInPlaygroundForUpdate;
             }
-            else if (characCtrl.AllianceType == AllianceType.Player)
+            else if (self.AllianceType == AllianceType.Player)
             {
                 targets = enemiesInPlaygroundForUpdate;
             }
 
-            if (targets.Count == 0)
+            if (targets == null || targets.Count == 0)
             {
                 return null;
             }
 
-            var minDest = float.MaxValue; // (recognitionRange * recognitionRange);
-            var dis = float.MaxValue;
-
+            var minDistance = float.MaxValue;
             for (var idx = 0; idx < targets.Count; ++idx)
             {
                 if (targets[idx].IsAlive == false)
@@ -458,10 +389,10 @@ namespace CookApps.TeamBattle.BattleSystem
                     continue;
                 }
 
-                dis = Vector3.SqrMagnitude(characCtrl.Position - targets[idx].Position);
-                if (minDest > dis)
+                var distance = Vector3.SqrMagnitude(self.Position - targets[idx].Position);
+                if (minDistance > distance)
                 {
-                    minDest = dis;
+                    minDistance = distance;
 
                     target = targets[idx];
                 }
@@ -470,208 +401,41 @@ namespace CookApps.TeamBattle.BattleSystem
             return target;
         }
 
-        public CharacterController GetAssembleTarget()
-        {
-            CharacterController target = null;
-
-            target = charactersInPlaygroundForUpdate[0].target;
-
-            return target;
-        }
-        //
-        // public CharacterController GetRandomEnemy(CharacterController myUnit)
-        // {
-        //     CharacterController target = null;
-        //
-        //     List<CharacterController> targetlist = enemiesInPlaygroundForUpdate;
-        //
-        //     var minDest = float.MaxValue; //(recognitionRange * recognitionRange);
-        //     var dis = float.MaxValue;
-        //
-        //     for (var idx = 0; idx < targetlist.Count; ++idx)
-        //     {
-        //         if (!targetlist[idx].IsAlive || targetlist[idx].GetTargetAttackerPlayerList().Count > 0)
-        //         {
-        //             continue;
-        //         }
-        //
-        //         dis = GameUtil.DistanceNoSqrt((Vector2) myUnit.Position, (Vector2) targetlist[idx].Position);
-        //
-        //         if (minDest > dis)
-        //         {
-        //             minDest = dis;
-        //
-        //             target = targetlist[idx];
-        //         }
-        //     }
-        //
-        //     if (target == null)
-        //     {
-        //         for (var idx = 0; idx < targetlist.Count; ++idx)
-        //         {
-        //             if (targetlist[idx].IsAlive == false)
-        //             {
-        //                 continue;
-        //             }
-        //
-        //             dis = GameUtil.DistanceNoSqrt((Vector2) myUnit.Position, (Vector2) targetlist[idx].Position);
-        //
-        //             if (minDest > dis)
-        //             {
-        //                 minDest = dis;
-        //
-        //                 target = targetlist[idx];
-        //             }
-        //         }
-        //     }
-        //
-        //     if (target != null)
-        //     {
-        //         target.SetTargetAttackerPlayer(myUnit);
-        //     }
-        //
-        //     return target;
-        // }
-        //
-        // public CharacterController GetRandomTargetEnemy(CharacterController myUnit)
-        // {
-        //     CharacterController target = null;
-        //
-        //     List<CharacterController> targets = null;
-        //
-        //     if (myUnit.GetCharacterView().allianceType == AllianceType.Enemy)
-        //     {
-        //         targets = charactersInPlaygroundForUpdate;
-        //     }
-        //     else if (myUnit.GetCharacterView().allianceType == AllianceType.Player || myUnit.GetCharacterView().allianceType == AllianceType.SubPlayer || myUnit.GetCharacterView().allianceType == AllianceType.Summon)
-        //     {
-        //         targets = enemyCtrlsInPlaygroundForUpdate;
-        //     }
-        //
-        //     if (targets.Count != 0)
-        //     {
-        //         int ran = Random.Range(0, targets.Count);
-        //
-        //         if (targets[ran].IsAlive == false)
-        //         {
-        //             return null;
-        //         }
-        //         else
-        //         {
-        //             return targets[ran];
-        //         }
-        //     }
-        //
-        //     return null;
-        // }
-
-        // 타겟 기준 원뿔 범위 내 모든 캐릭터
-        // public List<CharacterController> GetCharactersWithTargetByCornRange(CharacterController target, float overRange, float nearRange, float cornAngle)
-        // {
-        //     List<CharacterController> targets = ListPool<CharacterController>.Get();
-        //
-        //     var bossPos = boss.Position;
-        //     var targetPos = target.Position;
-        //     var diff = bossPos - targetPos;
-        //     var diffSqrMag = diff.sqrMagnitude;
-        //     float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        //     float angleRange = cornAngle / 2f;
-        //     float angleMin = angle - angleRange;
-        //     float angleMax = angle + angleRange;
-        //
-        //     for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-        //     {
-        //         CharacterController other = charactersInPlaygroundForUpdate[i];
-        //         if (!other.IsAlive)
-        //         {
-        //             continue;
-        //         }
-        //
-        //         var otherPos = other.Position;
-        //         var otherDiff = bossPos - otherPos;
-        //         var otherDiffSqrMag = Mathf.Abs(otherDiff.sqrMagnitude - diffSqrMag);
-        //         bool isInRange = nearRange * nearRange <= otherDiffSqrMag && otherDiffSqrMag <= overRange * overRange;
-        //         if (!isInRange)
-        //         {
-        //             continue;
-        //         }
-        //
-        //         float otherAngle = Mathf.Atan2(otherDiff.y, otherDiff.x) * Mathf.Rad2Deg;
-        //         bool isAngleInRange = angleMin <= otherAngle && otherAngle <= angleMax;
-        //         if (!isAngleInRange)
-        //         {
-        //             continue;
-        //         }
-        //
-        //         targets.Add(other);
-        //     }
-        //
-        //     return targets;
-        // }
-
-        //특정 오브젝트를 기준으로 범위 내 모든 캐릭터들
-        // public List<CharacterController> GetCharactersInRangeByObject(float range, Vector2 objPos)
-        // {
-        //     List<CharacterController> targets = ListPool<CharacterController>.Get();
-        //     for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-        //     {
-        //         CharacterController other = charactersInPlaygroundForUpdate[i];
-        //         if (!other.IsAlive)
-        //         {
-        //             continue;
-        //         }
-        //
-        //         Vector2 posDiff = other.Position - objPos;
-        //         if (posDiff.sqrMagnitude <= range * range)
-        //         {
-        //             targets.Add(other);
-        //         }
-        //     }
-        //
-        //     return targets;
-        // }
-
         #region 아군 탐색
-        // public int GetAllHeroCount()
-        // {
-        //     List<CharacterController> targets = ListPool<CharacterController>.Get();
-        //
-        //     for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-        //     {
-        //         CharacterController other = charactersInPlaygroundForUpdate[i];
-        //
-        //         if (other.AllianceType == AllianceType.Summon)
-        //         {
-        //             continue;
-        //         }
-        //
-        //         targets.Add(other);
-        //     }
-        //
-        //     return targets.Count;
-        // }
-
-        public void GetAllAliveCharacters(ref List<CharacterController> targets)
+        public void GetAllAliveCharacters(AllianceType type, List<CharacterController> resTargets)
         {
-            targets.Clear();
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
+            List<CharacterController> searchList = null;
+            if (type == AllianceType.Player)
             {
-                CharacterController other = charactersInPlaygroundForUpdate[i];
+                searchList = enemiesInPlaygroundForUpdate;
+            }
+            else if (type == AllianceType.Enemy)
+            {
+                searchList = charactersInPlaygroundForUpdate;
+            }
+
+            if (searchList == null)
+                return;
+
+            resTargets.Clear();
+            for (var i = 0; i < searchList.Count; i++)
+            {
+                CharacterController other = searchList[i];
 
                 if (!other.IsAlive)
                 {
                     continue;
                 }
 
-                targets.Add(other);
+                resTargets.Add(other);
             }
         }
 
-        public CharacterController GetAnyCharacter()
+        public CharacterController GetAnyCharacter(AllianceType allianceType)
         {
             CharacterController res = null;
-            List<CharacterController> targets = ListPool<CharacterController>.Get();
-            GetAllAliveCharacters(ref targets);
+            using var _ = ListPool<CharacterController>.Get(out List<CharacterController> targets);
+            GetAllAliveCharacters(allianceType, targets);
             if (targets.Count == 0)
             {
                 ListPool<CharacterController>.Release(targets);
@@ -686,7 +450,7 @@ namespace CookApps.TeamBattle.BattleSystem
         }
 
         //자신을 기준으로 범위내 랜덤 아군
-        public List<CharacterController> GetRandomColleaguesInRange(CharacterController owner, float range, bool includeOwner, int count = int.MaxValue, CharacterController exception = null)
+        public List<CharacterController> GetRandomColleaguesInRange(CharacterController self, float range, bool includeOwner, int count = int.MaxValue, CharacterController exception = null)
         {
             List<CharacterController> colleagues = ListPool<CharacterController>.Get();
 
@@ -723,13 +487,13 @@ namespace CookApps.TeamBattle.BattleSystem
 
                 if (!includeOwner)
                 {
-                    if (owner == other)
+                    if (self == other)
                     {
                         continue;
                     }
                 }
 
-                Vector2 posDiff = other.Position - owner.Position;
+                Vector2 posDiff = other.Position - self.Position;
                 bool isInRange = posDiff.sqrMagnitude <= range * range;
                 if (isInRange)
                 {

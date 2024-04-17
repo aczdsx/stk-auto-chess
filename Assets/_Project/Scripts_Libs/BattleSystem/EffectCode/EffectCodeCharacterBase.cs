@@ -97,8 +97,8 @@ namespace CookApps.TeamBattle.BattleSystem
         {
         }
 
-        // 데미지를 받을 때마다 호출 된다. 특수하게 데미지를 감소시키는 경우에만 여기서 감소된 데미지를 리턴한다.(예. 3067)
-        // 보통은 데미지 감소 버프로 계산하자.
+        // 대미지를 받을 때마다 호출 된다. 특수하게 대미지를 감소시키는 경우에만 여기서 감소된 대미지를 리턴한다.(예. 3067)
+        // 보통은 대미지 감소 버프로 계산하자.
         // attacker는 nullable
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnDamaged)]
         public virtual int OnDamaged(int damageAmount, CharacterController attacker, bool isPure)
@@ -147,7 +147,7 @@ namespace CookApps.TeamBattle.BattleSystem
         }
 
         /// 발동시키자
-        public virtual void Activate(bool isClick = false)
+        public virtual void Activate()
         {
         }
         #endregion
@@ -162,7 +162,26 @@ namespace CookApps.TeamBattle.BattleSystem
         #endregion
 
         #region Skill Animation 또는 State 관련
+        /// <summary>
+        /// 스킬의 애니메이션 이벤트에 따라 호출됨.
+        /// 애니메이션키가 Execute1Per1 이면 인자로 (0, 1)로 1회 호출되고,
+        /// 애니메이션키가 Execute1Per2 이면 인자로 (0, 2)로 1회 (1, 2)로 1회 총 2회 호출될 것으로 의도하였음.
+        /// 예로 특정 캐릭터의 애니메이션이 칼을 3번 휘둘러서 300 만큼의 대미지를 주는 스킬이라면
+        /// 애니메이션에 Execute1Per3 이벤트 키를 3곳에 찍어두고 인덱스에 맞게 300의 대미지를 나눠서 주는 것으로 구현하면 됨.
+        /// </summary>
+        /// <param name="executeIndex"></param>
+        /// <param name="totalLength"></param>
         public virtual void OnSkillExecute(int executeIndex, int totalLength)
+        {
+        }
+
+        /// <summary>
+        /// 스킬 애니메이션 중 특정 이펙트를 발동시켜야할 때
+        /// 애니메이션에 이벤트키를 VFX1, VFX2, VFX3, VFX4, VFX5로 찍어두고
+        /// 이 함수를 오버라이드하여 특정 이펙트를 발동시키면 됨.
+        /// </summary>
+        /// <param name="effectIndex"></param>
+        public virtual void OnSkillVFX(int effectIndex)
         {
         }
 

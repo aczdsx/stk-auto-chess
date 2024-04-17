@@ -11,8 +11,9 @@ namespace CookApps.TeamBattle.BattleSystem
         public static Type defaultDeadState;
 
         private static int characUIdInc;
-        private int characUId;
-        public int CharacUId => characUId;
+        private int characterUId;
+        public int CharacterUId => characterUId;
+        public int CharacterId => statData.CharacterId;
 
         private EffectCodeContainer ecc;
 
@@ -105,7 +106,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public void Initialize(ICharacterStatData statData, Vector3 position, AllianceType allianceType)
         {
-            characUId = characUIdInc++;
+            characterUId = characUIdInc++;
             this.statData = statData;
             position.z = position.y;
             this.position = position;
@@ -220,7 +221,7 @@ namespace CookApps.TeamBattle.BattleSystem
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
             {
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
-                float skillCooltimeRate = 1f - (Const.Instance.MaxCooltime * (1f - (1f / (1f + SkillCooltimeRate))));
+                float skillCooltimeRate = InGameCalculator.Instance.CalculateCooltimeRate(SkillCooltimeRate);
                 EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
             }
 
@@ -266,8 +267,6 @@ namespace CookApps.TeamBattle.BattleSystem
         }
 
         private ObfuscatorFloat recoveryHPElapsedTime;
-        private ObfuscatorFloat? recoveryHPPendingTime;
-
         private void RecoverHP(float dt)
         {
             if (currHp <= 0)
@@ -280,9 +279,8 @@ namespace CookApps.TeamBattle.BattleSystem
                 return;
             }
 
-            recoveryHPPendingTime ??= Const.Instance.RegenHPPendingTime;
             recoveryHPElapsedTime += dt;
-            if (recoveryHPElapsedTime > recoveryHPPendingTime)
+            if (recoveryHPElapsedTime > Const.Instance.RegenHPPendingTime)
             {
                 recoveryHPElapsedTime = 0;
                 currHp += RecoveryHP;
@@ -476,25 +474,34 @@ namespace CookApps.TeamBattle.BattleSystem
             public ObfuscatorInt source;
         }
 
-        public DamageInfo PrecalculateDamageAmount(double ad, double ap, CharacterController attacker, int source, bool isSkill)
+        /// <summary>
+        /// 기본 스텟으로 대미지 계산
+        /// 퓨어 대미지의 경우 이 함수를 거치지 않고 바로 PostCalculateDamageAmount를 호출
+        /// </summary>
+        /// <param name="ad">공격자가 순수하게 입히려고 하는 물리 대미지</param>
+        /// <param name="ap">공격자가 순수하게 입히려고 하는 마법 대미지</param>
+        /// <param name="target">대상</param>
+        /// <param name="source">기본 공격일 경우 0, 스킬일 경우 effectCodeId</param>
+        /// <returns></returns>
+        public DamageInfo PrecalculateDamageAmount(double ad, double ap, CharacterController target, int source, bool isSkill)
         {
-            double damage = DamageCalculator.Instance.CalculateDefaultDamage(ad, ap, DEF, RES, DEFPenetration, RESPenetration);
+            double damage = InGameCalculator.Instance.CalculateDefaultDamage(ad, ap, this, target);
 
             var damageInfo = new DamageInfo();
 
             if (isSkill)
             {
-                damage *= attacker.SkillDamageRate;
+                damage *= SkillDamageRate;
             }
 
-            damageInfo.isCritical = attacker.CriticalTest();
+            damageInfo.isCritical = CriticalTest();
             if (damageInfo.isCritical)
             {
-                damage *= attacker.CriticalDamageRate;
-                damageInfo.isDoubleCritical = attacker.DoubleCriticalTest();
+                damage *= CriticalDamageRate;
+                damageInfo.isDoubleCritical = DoubleCriticalTest();
                 if (damageInfo.isDoubleCritical)
                 {
-                    damage *= attacker.DoubleCriticalDamageRate;
+                    damage *= DoubleCriticalDamageRate;
                 }
             }
 
@@ -503,18 +510,40 @@ namespace CookApps.TeamBattle.BattleSystem
             return damageInfo;
         }
 
-        public double PostCalculateDamageAmount(double damageAmount, CharacterController enemy = null)
+        /// <summary>
+        /// 주는/받는 피해량 계수로 최종 대미지 계산
+        /// </summary>
+        /// <param name="damageInfo">계산 전 대미지 정보</param>
+        /// <param name="target">피해 받는 대상</param>
+        public void PostCalculateDamageAmount(ref DamageInfo damageInfo, CharacterController target = null)
         {
-            double minDamageAmount = Const.Instance.MinDamageRate * damageAmount;
-            damageAmount = damageAmount * AttackDamageRate * (enemy?.TakenDamageRate ?? 1f);
-            damageAmount = Math.Max(minDamageAmount, damageAmount);
-            damageAmount = Math.Floor(damageAmount);
-            return damageAmount;
+            // 최소 대미지량
+            double minDamageAmount = Const.Instance.MinDamageRate * damageInfo.damageAmount;
+            // 대미지 증감에 따른 최종 대미지 계산
+            damageInfo.damageAmount = damageInfo.damageAmount * AttackDamageRate * (target?.TakenDamageRate ?? 1f);
+            // 추가로 종족, 크기, 속성에 따른 대미지 계산이 필요하다면 여기서 할 것
+
+            // 최소 대미지량 적용
+            damageInfo.damageAmount = Math.Floor(Math.Max(minDamageAmount, damageInfo.damageAmount));
         }
 
-        public DamageReturnType GetDamaged(DamageInfo damageInfo, CharacterController attacker, bool isPure = true)
+        /// <summary>
+        /// 실제로 대미지를 입히는 함수
+        /// </summary>
+        /// <param name="damageInfo">계산된 대미지 정보</param>
+        /// <param name="attacker">공격자</param>
+        /// <param name="isFirstDamage">
+        /// 스킬중에 피해를 받으면 받는 피해의 일부를 주변 동료에게 넘기는 스킬을 가진 캐릭터가 둘 있다면,
+        /// 그 둘중 하나가 피헤를 받을 경우, 둘이서 피해를 무한으로 넘기고 받을 수 있을 텐데,
+        /// 이를 막기위해 첫번째 피해인 것을 명시하여 이후의 피해는 스킬 효과를 적용하지 않도록 한다.
+        /// </param>
+        /// <returns>
+        /// 대미지를 입힌 후 상태
+        /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
+        /// </returns>
+        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker, bool isFirstDamage = true)
         {
-            // 같은 틱에 데미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
+            // 같은 틱에 대미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
             if (currHp <= 0 || view == null)
             {
                 return DamageReturnType.AlreadyDead;
@@ -524,6 +553,7 @@ namespace CookApps.TeamBattle.BattleSystem
             ShowDamageText(damageInfo.damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 
             currHp -= damageInfo.damageAmount;
+            InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, currHp, damageInfo.source);
 
             UpdateHp();
 
@@ -580,14 +610,34 @@ namespace CookApps.TeamBattle.BattleSystem
             EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
         }
 
-        public int PostCalculateHealAmount(int recoveryAmount, CharacterController friend)
+        /// <summary>
+        /// 회복량 계산
+        /// </summary>
+        /// <param name="recoveryAmount"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int PostCalculateHealAmount(int recoveryAmount, CharacterController target)
         {
-            // 속성, 크기, 종족, 힐량증감 stat 계산
-            recoveryAmount = Mathf.RoundToInt(recoveryAmount * GivenHealRate * friend.TakenHealRate);
+            // 주는/받는 회복량 계수로 회복량 계산
+            recoveryAmount = Mathf.RoundToInt(recoveryAmount * GivenHealRate * target.TakenHealRate);
+            // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
+
             return recoveryAmount;
         }
 
-        public bool GetHealed(int amount, CharacterController friend, int source, bool isPure = true)
+        /// <summary>
+        /// 회복
+        /// </summary>
+        /// <param name="amount">힐량</param>
+        /// <param name="healer">힐을 준 캐릭터</param>
+        /// <param name="source">힐이 사용된 effectCodeId</param>
+        /// <param name="isFirstHeal">
+        /// 스킬중에 힐을 받으면 주변 동료에게 받은 힐량의 절반을 회복하는 스킬을 가진 캐릭터가 둘 있다면,
+        /// 그 둘중 하나가 힐을 받을 경우, 둘이서 회복을 계속 하면서 무한으로 주고 받을 수 있을텐데,
+        /// 이를 막기위해 첫번째 힐인 것을 명시하여 이후의 힐은 스킬 효과를 적용하지 않도록 한다.
+        /// </param>
+        /// <returns>회복 됬는지 유무</returns>
+        public bool GetHealed(int amount, CharacterController healer, int source, bool isFirstHeal = true)
         {
             // 죽어있으면 안준다.
             if (currHp <= 0 || !IsAlive)
@@ -602,9 +652,10 @@ namespace CookApps.TeamBattle.BattleSystem
             {
                 // effectCode에게 이벤트 전달
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHealed);
-                EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnHealedLambda, amount, isPure);
+                EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnHealedLambda, amount, isFirstHeal);
                 currHp += amount;
             }
+
 
             ShowHealText(amount).Forget();
 
@@ -612,6 +663,8 @@ namespace CookApps.TeamBattle.BattleSystem
             {
                 currHp = HP;
             }
+
+            InGameStatistics.Instance.AddCombatHeal(healer, this, amount, currHp, HP, source);
 
             UpdateHp();
             return true;

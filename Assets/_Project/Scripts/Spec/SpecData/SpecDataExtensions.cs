@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Com.Cookapps.Sampleteambattle;
+using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 
 namespace CookApps.SampleTeamBattle
@@ -170,6 +171,8 @@ namespace CookApps.SampleTeamBattle
 
     public partial class SpecCharacter
     {
+        private ObfuscatorInt[] skillIds;
+
         public int GetLineIndex()
         {
             return position switch
@@ -181,6 +184,15 @@ namespace CookApps.SampleTeamBattle
                 CharacterPosition.ASSASSIN => 2,
                 CharacterPosition.SUPPORTER => 2,
                 _ => 0,
+            };
+        }
+
+        public ObfuscatorInt[] GetSkillIds()
+        {
+            return skillIds ??= new []
+            {
+                skill_id,
+                skill_id2,
             };
         }
     }
