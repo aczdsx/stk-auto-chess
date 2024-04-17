@@ -29,6 +29,7 @@ namespace CookApps.SampleTeamBattle
             if (!Mathf.Approximately(target.position.z, endValue.z)) {
                 result.Group(Tween.PositionZ(target, endValue.z, duration, Ease.Linear));
             }
+
             return result;
         }
     }

@@ -1,3 +1,4 @@
+using CookApps.SampleTeamBattle;
 using CookApps.TeamBattle.BattleSystem;
 using PrimeTween;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class CharacterStateMove : CharacterStateBase
     {
         base.StateStart();
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Walk);
-        Tween.(characCtrl.GetCharacterView().CachedTr, )
+        PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.targetTile.View.Position, 1f, 5f);
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
