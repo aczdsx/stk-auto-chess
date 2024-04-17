@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using CookApps.Obfuscator;
 using PrimeTween;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
 
@@ -32,11 +33,11 @@ namespace CookApps.TeamBattle.BattleSystem
         #endregion
 
         #region InGame Cycle
-        public void StartInGame<T>() where T : StateBase, new()
+        public void StartInGame<T>(int2 gridSize) where T : StateBase, new()
         {
             IsInGamePlaying = true;
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>();
-            InGameObjectManager.Instance.Initialize();
+            InGameObjectManager.Instance.Initialize(gridSize);
             // IngameResourceManager.Instance.Initialize();
         }
 

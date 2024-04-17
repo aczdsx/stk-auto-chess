@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
@@ -10,6 +11,7 @@ namespace CookApps.TeamBattle.BattleSystem
 {
     public class InGameObjectManager : SingletonMonoBehaviour<InGameObjectManager>
     {
+        private InGameGrid grid;
         private List<CharacterController> enemiesInPlaygroundForUpdate = new ();
         private List<CharacterController> charactersInPlaygroundForUpdate = new ();
 
@@ -72,11 +74,12 @@ namespace CookApps.TeamBattle.BattleSystem
             isAuto = isPreAuto;
         }
 
-        public void Initialize()
+        public void Initialize(int2 gridSize)
         {
             InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, ManagedUpdate);
             InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, LateManagedUpdate);
             playground = GameObject.Find("Playground").GetComponent<Transform>();
+            grid = new InGameGrid(gridSize);
         }
 
         public void Clear()
