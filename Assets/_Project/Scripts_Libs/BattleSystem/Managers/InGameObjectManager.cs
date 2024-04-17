@@ -74,12 +74,12 @@ namespace CookApps.TeamBattle.BattleSystem
             isAuto = isPreAuto;
         }
 
-        public void Initialize(int2 gridSize)
+        public void Initialize(int2 gridSize, IInGameTileView[] views)
         {
             InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, ManagedUpdate);
             InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, LateManagedUpdate);
             playground = GameObject.Find("Playground").GetComponent<Transform>();
-            grid = new InGameGrid(gridSize);
+            grid = new InGameGrid(gridSize, views);
         }
 
         public void Clear()

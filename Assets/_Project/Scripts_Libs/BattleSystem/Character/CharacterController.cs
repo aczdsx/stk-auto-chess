@@ -39,6 +39,7 @@ namespace CookApps.TeamBattle.BattleSystem
         public event Action<CharacterStateBase> OnStateChanged;
 
         public CharacterController target { get; set; }
+        public InGameTile targetTile { get; set; }
 
         public bool IsAlive { get; set; }
         public bool IsForceIdle { get; set; }

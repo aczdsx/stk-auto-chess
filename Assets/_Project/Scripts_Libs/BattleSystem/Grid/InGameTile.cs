@@ -1,3 +1,5 @@
+using Unity.Mathematics;
+
 namespace CookApps.TeamBattle.BattleSystem
 {
     public class InGameTile
@@ -5,13 +7,16 @@ namespace CookApps.TeamBattle.BattleSystem
         public int X { get; }
         public int Y { get; }
 
+        public IInGameTileView View { get; private set; }
+
         // 점유 여부
         public CharacterController OccupiedCharacter { get; set; }
 
-        public InGameTile(int x, int y)
+        public InGameTile(int x, int y, IInGameTileView view)
         {
             X = x;
             Y = y;
+            View = view;
         }
 
         public bool IsOccupied()

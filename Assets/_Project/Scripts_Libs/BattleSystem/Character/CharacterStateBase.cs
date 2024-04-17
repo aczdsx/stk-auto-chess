@@ -12,6 +12,7 @@ namespace CookApps.TeamBattle.BattleSystem
         CanCallMove = 1 << 3,                 //이동 하겠다
         CanCallEffectCodeOnUpdateAndOnCooltime = CanCallEffectCodeOnUpdate | CanCallEffectCodeOnCooltime,
         CanCallAllWithoutMove = CanCallEffectCodeOnUpdate | CanCallEffectCodeOnCooltime | CanCallEffectCodeActivate,
+        CanCallAllWithoutActivate = CanCallEffectCodeOnUpdate | CanCallEffectCodeOnCooltime | CanCallMove,
         CanCallAll = CanCallEffectCodeOnUpdate | CanCallEffectCodeOnCooltime | CanCallEffectCodeActivate | CanCallMove,
     }
 

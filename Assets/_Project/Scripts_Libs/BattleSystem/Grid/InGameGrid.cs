@@ -10,14 +10,14 @@ namespace CookApps.TeamBattle.BattleSystem
         public int Width { get; }
         public int Height { get; }
 
-        public InGameGrid(int2 gridSize)
+        public InGameGrid(int2 gridSize, IInGameTileView[] views)
         {
             Width = gridSize.x;
             Height = gridSize.y;
             tiles = new InGameTile[Width * Height];
             for (var i = 0; i < Width * Height; i++)
             {
-                tiles[i] = new InGameTile(i % Width, i / Width);
+                tiles[i] = new InGameTile(i % Width, i / Width, views[i]);
             }
         }
 
