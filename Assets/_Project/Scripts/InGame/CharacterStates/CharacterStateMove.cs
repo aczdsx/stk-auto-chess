@@ -1,15 +1,19 @@
 using CookApps.TeamBattle.BattleSystem;
 using UnityEngine;
 
+/// <summary>
+/// 1칸 이동하는 상태
+/// 이동 후 idle로 전환
+/// </summary>
 public class CharacterStateMove : CharacterStateBase
 {
-    private float scanTargetTime = 0f;
+    private bool isMoving;
 
     public override void StateStart()
     {
         base.StateStart();
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Walk);
-        scanTargetTime = 1f;
+        isMoving = true;
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -18,23 +22,6 @@ public class CharacterStateMove : CharacterStateBase
         {
             characCtrl.AddNextState<CharacterStateIdle>();
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
-        }
-
-        //조이스틱 떗을때 한번더 타겟 검사해야됨
-        if (characCtrl.target == null)
-        {
-            characCtrl.target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
-        }
-        else
-        {
-            scanTargetTime -= dt;
-            if (scanTargetTime > 0f)
-            {
-                return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
-            }
-
-            characCtrl.target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
-            scanTargetTime = 1f;
         }
 
         if (characCtrl.target == null)

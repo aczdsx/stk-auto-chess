@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using CookApps.Obfuscator;
-using DG.Tweening;
+using PrimeTween;
 using UnityEngine;
 using Random = System.Random;
 
@@ -38,8 +38,6 @@ namespace CookApps.TeamBattle.BattleSystem
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>();
             InGameObjectManager.Instance.Initialize();
             // IngameResourceManager.Instance.Initialize();
-            DOTween.defaultUpdateType = UpdateType.Manual;
-            InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_DOTween, DOTweenUpdateHandler);
         }
 
         public void EndInGame()
@@ -49,17 +47,11 @@ namespace CookApps.TeamBattle.BattleSystem
             // IngameEffectViewPool.Instance.Clear(false);
             InGameObjectManager.Instance.Clear();
             // IngameResourceManager.Instance.Clear();
-            DOTween.defaultUpdateType = UpdateType.Normal;
-            InGameMainFlowManager.Instance.RemoveUpdateListener(DOTweenUpdateHandler);
+            // DOTween.defaultUpdateType = UpdateType.Normal;
             // IngameGlobalBuffPanel.popupStoreBuffs.Clear();
             // IngameGlobalBuffPanel.itemBuffs.Clear();
             // IngameGlobalBuffPanel.questBuffInfo = null;
             // ClearStageData();
-        }
-
-        private void DOTweenUpdateHandler(float dt)
-        {
-            DOTween.ManualUpdate(dt, dt);
         }
         #endregion
 

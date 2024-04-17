@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
+using PrimeTween;
 using UnityEngine;
 
 namespace CookApps.TeamBattle.BattleSystem
@@ -45,6 +46,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
             flowState.StateInit(this);
             flowState.StateStart();
+            Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
         }
 
         public void StopInGameMainLoop()
@@ -55,6 +57,7 @@ namespace CookApps.TeamBattle.BattleSystem
             nextStates.Clear();
             flowState = null;
             StatePool.Instance.Clear();
+            Tween.GlobalTimeScale(1f, new TweenSettings());
         }
 
         #region Managing update loop
@@ -135,16 +138,19 @@ namespace CookApps.TeamBattle.BattleSystem
         public void Pause()
         {
             isPaused = true;
+            Tween.SetPausedAll(true);
         }
 
         public void Resume()
         {
             isPaused = false;
+            Tween.SetPausedAll(false);
         }
 
         public void SetPlaySpeed(float speed)
         {
             fastForwardRate = speed;
+            Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
         }
 
         public void AddUpdateListener(int priority, UpdateEventHandler handler)

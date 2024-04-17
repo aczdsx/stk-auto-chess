@@ -278,32 +278,69 @@ namespace CookApps.TeamBattle.BattleSystem
             enemiesInPlaygroundForUpdate.Remove(characCtrl);
         }
 
-        public void RemoveEnemyEffectCode(CharacterController characCtrl)
-        {
-            if (characCtrl != null)
-            {
-                characCtrl.GetEffectCodeContainer().Clear();
-                for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
-                {
-                    CharacterController other = enemiesInPlaygroundForUpdate[i];
-                    other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
-                }
-            }
-        }
-
+        #region 탐색
         public List<CharacterController> GetEnemiesList()
         {
             return enemiesInPlaygroundForUpdate;
         }
 
-        public void GetNearestColleaguesInRange(CharacterController self, float range, List<CharacterController> resTargets)
+        /// <summary>
+        /// pivot을 기준으로 range내에 있는 동료들을 반환
+        /// </summary>
+        /// <param name="pivot"></param>
+        /// <param name="range"></param>
+        /// <param name="includePivot"></param>
+        /// <param name="resTargets"></param>
+        public void GetNearestColleaguesInRange(CharacterController pivot, float range, bool includePivot, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
-            if (self.AllianceType == AllianceType.Player)
+            if (pivot.AllianceType == AllianceType.Player)
             {
                 searchList = enemiesInPlaygroundForUpdate;
             }
-            else if (self.AllianceType == AllianceType.Enemy)
+            else if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                searchList = charactersInPlaygroundForUpdate;
+            }
+
+            if (searchList == null)
+                return;
+
+            for (var i = 0; i < searchList.Count; i++)
+            {
+                CharacterController other = searchList[i];
+                if (!includePivot && other == pivot)
+                {
+                    continue;
+                }
+                if (other is not {IsAlive: true})
+                {
+                    continue;
+                }
+
+                Vector2 distance = pivot.Position - other.Position;
+                bool isInRange = distance.sqrMagnitude < range * range;
+                if (isInRange)
+                {
+                    resTargets.Add(other);
+                }
+            }
+        }
+
+        /// <summary>
+        /// pivot을 기준으로 range내에 있는 적들을 반환
+        /// </summary>
+        /// <param name="pivot"></param>
+        /// <param name="range"></param>
+        /// <param name="resTargets"></param>
+        public void GetNearestEnemiesInRange(CharacterController pivot, float range, List<CharacterController> resTargets)
+        {
+            List<CharacterController> searchList = null;
+            if (pivot.AllianceType == AllianceType.Player)
+            {
+                searchList = enemiesInPlaygroundForUpdate;
+            }
+            else if (pivot.AllianceType == AllianceType.Enemy)
             {
                 searchList = charactersInPlaygroundForUpdate;
             }
@@ -319,7 +356,7 @@ namespace CookApps.TeamBattle.BattleSystem
                     continue;
                 }
 
-                Vector2 distance = self.Position - other.Position;
+                Vector2 distance = pivot.Position - other.Position;
                 bool isInRange = distance.sqrMagnitude < range * range;
                 if (isInRange)
                 {
@@ -328,50 +365,22 @@ namespace CookApps.TeamBattle.BattleSystem
             }
         }
 
-        // 타겟 기준 범위
-        public void GetNearestEnemiesInRange(CharacterController self, float range, List<CharacterController> resTargets)
-        {
-            List<CharacterController> searchList = null;
-            if (self.AllianceType == AllianceType.Player)
-            {
-                searchList = enemiesInPlaygroundForUpdate;
-            }
-            else if (self.AllianceType == AllianceType.Enemy)
-            {
-                searchList = charactersInPlaygroundForUpdate;
-            }
-
-            if (searchList == null)
-                return;
-
-            for (var i = 0; i < searchList.Count; i++)
-            {
-                CharacterController other = searchList[i];
-                if (other is not {IsAlive: true})
-                {
-                    continue;
-                }
-
-                Vector2 distance = self.Position - other.Position;
-                bool isInRange = distance.sqrMagnitude < range * range;
-                if (isInRange)
-                {
-                    resTargets.Add(other);
-                }
-            }
-        }
-
-        public CharacterController GetNearestEnemy(CharacterController self)
+        /// <summary>
+        /// pivot을 기준으로 가장 가까운 적을 반환
+        /// </summary>
+        /// <param name="pivot"></param>
+        /// <returns></returns>
+        public CharacterController GetNearestEnemy(CharacterController pivot)
         {
             CharacterController target = null;
 
             List<CharacterController> targets = null;
 
-            if (self.AllianceType == AllianceType.Enemy)
+            if (pivot.AllianceType == AllianceType.Enemy)
             {
                 targets = charactersInPlaygroundForUpdate;
             }
-            else if (self.AllianceType == AllianceType.Player)
+            else if (pivot.AllianceType == AllianceType.Player)
             {
                 targets = enemiesInPlaygroundForUpdate;
             }
@@ -389,7 +398,7 @@ namespace CookApps.TeamBattle.BattleSystem
                     continue;
                 }
 
-                var distance = Vector3.SqrMagnitude(self.Position - targets[idx].Position);
+                var distance = Vector3.SqrMagnitude(pivot.Position - targets[idx].Position);
                 if (minDistance > distance)
                 {
                     minDistance = distance;
@@ -401,7 +410,56 @@ namespace CookApps.TeamBattle.BattleSystem
             return target;
         }
 
-        #region 아군 탐색
+        /// <summary>
+        /// pivot을 기준으로 가장 먼 적을 반환
+        /// </summary>
+        /// <param name="pivot"></param>
+        /// <returns></returns>
+        public CharacterController GetFarthestEnemy(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            List<CharacterController> targets = null;
+
+            if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                targets = charactersInPlaygroundForUpdate;
+            }
+            else if (pivot.AllianceType == AllianceType.Player)
+            {
+                targets = enemiesInPlaygroundForUpdate;
+            }
+
+            if (targets == null || targets.Count == 0)
+            {
+                return null;
+            }
+
+            var maxDistance = 0f;
+            for (var idx = 0; idx < targets.Count; ++idx)
+            {
+                if (targets[idx].IsAlive == false)
+                {
+                    continue;
+                }
+
+                var distance = Vector3.SqrMagnitude(pivot.Position - targets[idx].Position);
+                if (maxDistance < distance)
+                {
+                    maxDistance = distance;
+
+                    target = targets[idx];
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// type과 동일한 모든 캐릭터를 반환
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="resTargets"></param>
         public void GetAllAliveCharacters(AllianceType type, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
@@ -431,6 +489,11 @@ namespace CookApps.TeamBattle.BattleSystem
             }
         }
 
+        /// <summary>
+        /// type과 동일한 랜덤한 캐릭터를 반환
+        /// </summary>
+        /// <param name="allianceType"></param>
+        /// <returns></returns>
         public CharacterController GetAnyCharacter(AllianceType allianceType)
         {
             CharacterController res = null;
@@ -449,64 +512,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return res;
         }
 
-        //자신을 기준으로 범위내 랜덤 아군
-        public List<CharacterController> GetRandomColleaguesInRange(CharacterController self, float range, bool includeOwner, int count = int.MaxValue, CharacterController exception = null)
-        {
-            List<CharacterController> colleagues = ListPool<CharacterController>.Get();
-
-            List<int> indices = null;
-            if (count != int.MaxValue)
-            {
-                // 인덱스를 셔플해서 매번 같은 캐릭터가 나오지않게 만들자.
-                indices = ListPool<int>.Get();
-                for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-                {
-                    indices.Add(i);
-                }
-
-                InGameRandomManager.UniversalShuffle(indices);
-                ListPool<int>.Release(indices);
-            }
-
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-            {
-                int index = indices != null ? indices[i] : i;
-                CharacterController other = charactersInPlaygroundForUpdate[index];
-                if (!other.IsAlive)
-                {
-                    continue;
-                }
-
-                if (exception != null)
-                {
-                    if (exception == other)
-                    {
-                        continue;
-                    }
-                }
-
-                if (!includeOwner)
-                {
-                    if (self == other)
-                    {
-                        continue;
-                    }
-                }
-
-                Vector2 posDiff = other.Position - self.Position;
-                bool isInRange = posDiff.sqrMagnitude <= range * range;
-                if (isInRange)
-                {
-                    colleagues.Add(other);
-                    if (colleagues.Count >= count)
-                    {
-                        break;
-                    }
-                }
-            }
-
-            return colleagues;
-        }
+        // TODO: 부채꼴 검색, 직선 검색등 검색 기능이 많이 필요할텐데.. 모듈 내에 이 코드가 있는게 맞을지 고민해보자.
         #endregion
     }
 }

@@ -26,7 +26,6 @@ namespace CookApps.TeamBattle.BattleSystem
         Buff,
         Debuff,
         CrowdControl,
-        Spread,
         Item,
     }
 
@@ -42,6 +41,7 @@ namespace CookApps.TeamBattle.BattleSystem
         None,
         Mage,
         Sword,
+        Assassin,
         Ranger,
         Buffer,
         All,
@@ -155,5 +155,12 @@ namespace CookApps.TeamBattle.BattleSystem
     {
         Melee = 1,
         Projectile = 2,
+    }
+
+    public enum ScanType
+    {
+        None,
+        Nearest,
+        Farthest,
     }
 }

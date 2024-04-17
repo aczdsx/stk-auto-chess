@@ -14,8 +14,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public static bool IsStatCode(this EffectCodeType type)
         {
-            return type == EffectCodeType.Stat ||
-                   type == EffectCodeType.Spread;
+            return type == EffectCodeType.Stat;
         }
 
         public static bool IsCharacterCode(this EffectCodeType type)

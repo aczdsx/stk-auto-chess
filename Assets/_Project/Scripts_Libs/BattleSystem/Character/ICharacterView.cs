@@ -10,7 +10,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
         float Height { get; }
 
-        void UpdateTickAndPosition(float deltaTime, Vector3 position, Vector3 viewPosition);
+        void UpdatePosition(Vector3 viewPosition);
         void SetAnimationSpeed(float speed);
         void LookAt(bool isFlipX);
         AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false);

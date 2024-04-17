@@ -44,12 +44,10 @@ namespace CookApps.TeamBattle.BattleSystem
         public bool IsForceIdle { get; set; }
         public bool IsBlockChangeState { get; set; }
 
-        public bool IsBlackHole { get; set; }
-
+        /// <summary>
+        /// 논리적 위치
+        /// </summary>
         private Vector3 position;
-
-        public bool isJoystickMove = false;
-
         public Vector2 Position
         {
             get => position;
@@ -62,8 +60,10 @@ namespace CookApps.TeamBattle.BattleSystem
             set => position = value;
         }
 
+        /// <summary>
+        /// view의 위치, 에어본이나 점프 같은 경우 뷰의 위치와 논리적 위치가 다를 수 있다.
+        /// </summary>
         private Vector3 viewPosition;
-
         public Vector2 ViewPosition
         {
             get => viewPosition;
@@ -108,7 +108,6 @@ namespace CookApps.TeamBattle.BattleSystem
         {
             characterUId = characUIdInc++;
             this.statData = statData;
-            position.z = position.y;
             this.position = position;
             this.allianceType = allianceType;
 
@@ -206,7 +205,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
             {
-                view.UpdateTickAndPosition(dt * modifiedSpeedRate, position, viewPosition);
+                // view.UpdateTickAndPosition(dt * modifiedSpeedRate, position, viewPosition);
             }
 
             view.LookAt(FlipX);

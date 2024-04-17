@@ -16,8 +16,7 @@ namespace CookApps.SampleTeamBattle
             this.characterId = characterId;
             EffectCodeContainer = new EffectCodeContainer(this);
             spec = SpecDataManager.Instance.SpecCharacter.Get(characterId);
-            // TODO: level에 따른 스탯 증가 적용
-            // HP = spec.stat_hp * spec.inc_rate * level;...
+            // TODO: level에 따른 스탯 증가 적용! 이펙트 코드로 적용되어야 함
 
             var flags = EffectCodeInheritFlag.None;
             if (globalEffectCodeInfos != null)
@@ -237,5 +236,7 @@ namespace CookApps.SampleTeamBattle
         public ObfuscatorFloat TakenHealRate { get; private set; }
 
         public AttackType AttackType { get; private set; }
+
+        public ScanType ScanType { get; private set; }
     }
 }

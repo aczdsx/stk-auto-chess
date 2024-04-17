@@ -103,5 +103,10 @@ namespace CookApps.TeamBattle.BattleSystem
         /// 공격 타입 (근거리, 원거리)
         /// </summary>
         AttackType AttackType { get; }
+
+        /// <summary>
+        /// 기본 공격 검색 타입 (가까운 적 탐색, 먼 적 탐색)
+        /// </summary>
+        ScanType ScanType { get; }
     }
 }

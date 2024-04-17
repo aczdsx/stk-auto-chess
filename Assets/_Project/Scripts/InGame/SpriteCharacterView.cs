@@ -10,6 +10,9 @@ namespace CookApps.SampleTeamBattle
 {
     public class SpriteCharacterView : CachedMonoBehaviour, ICharacterView
     {
+        [SerializeField] private Animator animator;
+        private bool cachedFlipX;
+
         public event Action<string, AnimationEventKey> OnAnimationEvent;
 
         public float Height => throw new NotImplementedException();
@@ -19,19 +22,30 @@ namespace CookApps.SampleTeamBattle
             throw new NotImplementedException();
         }
 
-        public void UpdateTickAndPosition(float deltaTime, Vector3 position, Vector3 viewPosition)
+        /// <summary>
+        /// viewPosition을 받아 위치를 업데이트 합니다.
+        /// </summary>
+        /// <param name="viewPosition">뷰의 위치</param>
+        public void UpdatePosition(Vector3 viewPosition)
         {
-            throw new NotImplementedException();
+            CachedTr.localPosition = viewPosition;
         }
 
         public void SetAnimationSpeed(float speed)
         {
-            throw new NotImplementedException();
+            animator.speed = speed;
         }
 
-        public void LookAt(bool isFlipX)
+        public void LookAt(bool flipX)
         {
-            throw new NotImplementedException();
+            if (cachedFlipX != flipX)
+            {
+                var scale = CachedTr.localScale;
+                var x = scale.x;
+                scale.x = flipX ? -Mathf.Abs(x) : Mathf.Abs(x);
+                CachedTr.localScale = scale;
+                cachedFlipX = flipX;
+            }
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)

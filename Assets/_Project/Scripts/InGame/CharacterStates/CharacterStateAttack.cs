@@ -129,4 +129,10 @@ public class CharacterStateAttack : CharacterStateBase
         characCtrl.target = null;
         characCtrl.AddNextState<CharacterStateIdle>();
     }
+
+    public override void StateEnd(bool isForced)
+    {
+        base.StateEnd(isForced);
+        characCtrl.GetCharacterView().SetAnimationSpeed(1f);
+    }
 }
