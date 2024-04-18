@@ -249,7 +249,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
         }
 
-        public float AttackRange
+        public int AttackRange
         {
             get
             {

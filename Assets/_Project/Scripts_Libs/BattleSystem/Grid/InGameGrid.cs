@@ -31,19 +31,44 @@ namespace CookApps.TeamBattle.BattleSystem
             return tiles[index];
         }
 
-        public int GetRange(InGameTile from, InGameTile dest)
+        public int2 GetDistanceVector(InGameTile from, InGameTile dest)
         {
-            return Mathf.Abs(from.X - dest.X) + Mathf.Abs(from.Y - dest.Y);
+            return new int2(Mathf.Abs(from.X - dest.X), Mathf.Abs(from.Y - dest.Y));
         }
 
-        public void GetTilesInRange(InGameTile pivot, int range, List<InGameTile> tiles)
+        public bool IsInRange(InGameTile from, InGameTile dest, int range, AttackRangeShape shape)
+        {
+            var distanceVec = GetDistanceVector(from, dest);
+            if (distanceVec.x > range || distanceVec.y > range)
+            {
+                return false;
+            }
+
+            var distance = distanceVec.x + distanceVec.y;
+            var allowDistance = range * 2 - (AttackRangeShape.Rectangle - shape);
+            return distance <= allowDistance;
+        }
+
+        public void GetTilesInRange(InGameTile pivot, int range, AttackRangeShape shape, List<InGameTile> resTiles)
         {
             for (var i = 0; i < Width * Height; i++)
             {
                 InGameTile tile = GetTile(i);
-                if (GetRange(pivot, tile) <= range)
+                var distanceVec = GetDistanceVector(pivot, tile);
+                if (distanceVec.x > range || distanceVec.y > range)
                 {
-                    tiles.Add(tile);
+                    continue;
+                }
+
+                var distance = distanceVec.x + distanceVec.y;
+                var allowDistance = range * 2 - (AttackRangeShape.Rectangle - shape);
+                if (distance > allowDistance)
+                {
+                    continue;
+                }
+
+                {
+                    resTiles.Add(tile);
                 }
             }
         }
@@ -88,21 +113,22 @@ namespace CookApps.TeamBattle.BattleSystem
                     continue;
                 }
 
-                int range = GetRange(tile, dest);
+                int2 distanceVec = GetDistanceVector(tile, dest);
+                var distance = distanceVec.x + distanceVec.y;
                 if (scanType == ScanType.Nearest)
                 {
-                    if (range < minRange)
+                    if (distance < minRange)
                     {
                         nextTile = tile;
-                        minRange = range;
+                        minRange = distance;
                     }
                 }
                 else
                 {
-                    if (range > minRange)
+                    if (distance > minRange)
                     {
                         nextTile = tile;
-                        minRange = range;
+                        minRange = distance;
                     }
                 }
             }

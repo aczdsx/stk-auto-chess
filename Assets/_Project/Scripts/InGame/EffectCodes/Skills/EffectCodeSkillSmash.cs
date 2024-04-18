@@ -11,7 +11,8 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat power;
-    private ObfuscatorFloat splashRange;
+    private ObfuscatorInt splashRange;
+    private AttackRangeShape splashShape;
     private ObfuscatorFloat splashPower;
 
     private ObfuscatorFloat elapsedTime;
@@ -24,8 +25,9 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
         power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        splashRange = codeInfo.GetCodeStatToFloat(2);
-        splashPower = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        splashRange = codeInfo.GetCodeStatToInt(2);
+        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        splashPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -36,8 +38,9 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
         power = codeInfo.GetCodeStatToFloat(1);
-        splashRange = codeInfo.GetCodeStatToFloat(2);
-        splashPower = codeInfo.GetCodeStatToFloat(3);
+        splashRange = codeInfo.GetCodeStatToInt(2);
+        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        splashPower = codeInfo.GetCodeStatToFloat(4);
     }
 
     public override void OnUpdate(float dt)
@@ -98,7 +101,7 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
 
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
-        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, splashRange, enemies);
+        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, splashRange, splashShape, enemies);
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)

@@ -208,9 +208,7 @@ namespace CookApps.TeamBattle.BattleSystem
                 return false;
             }
 
-            int distance = grid.GetRange(pivot.CurrentTile, target.CurrentTile);
-            float range = pivot.AttackRange;
-            return false;
+            return grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShape);
         }
 
         /// <summary>
@@ -218,9 +216,10 @@ namespace CookApps.TeamBattle.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <param name="range"></param>
+        /// <param name="rangeShape"></param>
         /// <param name="includePivot"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestColleaguesInRange(CharacterController pivot, float range, bool includePivot, List<CharacterController> resTargets)
+        public void GetNearestColleaguesInRange(CharacterController pivot, int range, AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -247,9 +246,7 @@ namespace CookApps.TeamBattle.BattleSystem
                     continue;
                 }
 
-                Vector2 distance = pivot.Position - other.Position;
-                bool isInRange = distance.sqrMagnitude < range * range;
-                if (isInRange)
+                if (grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
                 {
                     resTargets.Add(other);
                 }
@@ -261,8 +258,9 @@ namespace CookApps.TeamBattle.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <param name="range"></param>
+        /// <param name="rangeShape"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestEnemiesInRange(CharacterController pivot, float range, List<CharacterController> resTargets)
+        public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShape, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -285,9 +283,7 @@ namespace CookApps.TeamBattle.BattleSystem
                     continue;
                 }
 
-                Vector2 distance = pivot.Position - other.Position;
-                bool isInRange = distance.sqrMagnitude < range * range;
-                if (isInRange)
+                if (grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
                 {
                     resTargets.Add(other);
                 }
