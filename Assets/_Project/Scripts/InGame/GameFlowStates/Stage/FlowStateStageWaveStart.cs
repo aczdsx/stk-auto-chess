@@ -1,6 +1,6 @@
 using CookApps.TeamBattle.BattleSystem;
 
-public class FlowStateStageStart : StateBase
+public class FlowStateStageWaveStart : StateBase
 {
     public override void StateInit(object target)
     {
@@ -8,11 +8,16 @@ public class FlowStateStageStart : StateBase
 
     public override void StateStart()
     {
+        // 웨이브 n 시작! UI 출력
+
+        // 적들 등장
+
+        // 다 등장하면 CombatState으로 전환
+        InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
     }
 
     public override void StateRunning(float dt)
     {
-        return;
     }
 
     public override void StateEnd(bool isForced)

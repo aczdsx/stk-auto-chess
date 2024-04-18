@@ -21,6 +21,12 @@ namespace CookApps.TeamBattle.UIManagements
             remove => startChangeSceneAsyncTasks.Remove(value);
         }
 
+        /// <summary>
+        /// 무거운 씬간 전환시 사용, 전환 중간에 가벼운 씬을 둠으로써 무거운 씬2개가 동시에 떠서 메모리가 부족해지는 것을 방지
+        /// </summary>
+        /// <param name="nextScene"></param>
+        /// <param name="nextSceneData"></param>
+        /// <param name="transition"></param>
         public static async UniTask GoToNextScene(string nextScene, object nextSceneData = null, ISceneTransition transition = null)
         {
             // transition 연출 진행중 다른 씬으로 넘어가는 것을 방지하기 위해
