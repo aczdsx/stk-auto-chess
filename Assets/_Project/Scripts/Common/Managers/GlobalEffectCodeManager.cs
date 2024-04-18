@@ -67,10 +67,9 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
             return;
         }
 
-        if (!globalEffectCodes.Remove((source, codeId), out EffectCodeInfo effectCodeInfo))
+        if (!globalEffectCodes.Remove((source, codeId)))
             return;
 
-        GenericPool<EffectCodeInfo>.Release(effectCodeInfo);
         OnEffectCodeChanged?.Invoke(source, codeId);
     }
 

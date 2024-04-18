@@ -61,9 +61,6 @@ namespace CookApps.TeamBattle.BattleSystem
         public virtual void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             CADebug.Assert(codeInfo.CodeId == codeId, "EffectCodeBase does not match codeId!!");
-            if (this.codeInfo != null)
-                GenericPool<EffectCodeInfo>.Release(this.codeInfo);
-
             this.codeInfo = codeInfo;
             this.container = container;
             this.source = source;
@@ -72,9 +69,6 @@ namespace CookApps.TeamBattle.BattleSystem
         public virtual void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             CADebug.Assert(codeInfo.CodeId == codeId, "EffectCodeBase does not match codeId!! (Merge)");
-            if (this.codeInfo != null)
-                GenericPool<EffectCodeInfo>.Release(this.codeInfo);
-
             this.codeInfo = codeInfo;
             this.source = source;
         }
@@ -91,9 +85,6 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public virtual void OnPreRemoved()
         {
-            if (codeInfo != null)
-                GenericPool<EffectCodeInfo>.Release(codeInfo);
-            codeInfo = null;
             container = null;
             source = null;
         }
