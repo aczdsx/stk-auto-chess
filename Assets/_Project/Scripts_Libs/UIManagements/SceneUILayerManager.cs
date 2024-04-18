@@ -256,7 +256,7 @@ namespace CookApps.TeamBattle.UIManagements
         public async UniTask<T> PushUILayerAsync<T>(object data = null, Action<object> closeCallback = null) where T : UILayer
         {
             string uiName = typeof(T).Name;
-            var layer = await PushUILayerWithKeyAsync<T>(uiName, data, closeCallback);
+            var layer = await PushUILayerAsync<T>(uiName, data, closeCallback);
             return layer;
         }
 
@@ -267,7 +267,7 @@ namespace CookApps.TeamBattle.UIManagements
         /// <param name="data">팝업의 OnPreEnter 함수의 인자로 넣어줄 데이터입니다.</param>
         /// <param name="closeCallback">팝업이 닫힐 때 호출될 콜백입니다.</param>
         /// <returns>팝업 객체입니다.</returns>
-        public async UniTask<T> PushUILayerWithKeyAsync<T>(string key, object data = null, Action<object> closeCallback = null) where T : UILayer
+        public async UniTask<T> PushUILayerAsync<T>(string key, object data = null, Action<object> closeCallback = null) where T : UILayer
         {
             while (isLoadingUI)
             {

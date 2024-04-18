@@ -13,7 +13,7 @@ namespace CookApps.SampleTeamBattle
 
         public static void AddToUILayer(UILayer targetUI, params TopPanelType[] ownPanelTypes)
         {
-            SceneUILayerManager.Instance.PushUILayerWithKeyAsync<TopCurrencyAndMenuBar>($"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes)).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<TopCurrencyAndMenuBar>($"TopCurrencyAndMenuBar_{inc++}", (targetUI, ownPanelTypes)).Forget();
         }
 
         [SerializeField] private RectTransform panelParent;
