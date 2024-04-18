@@ -2,10 +2,10 @@ using CookApps.Obfuscator;
 using CookApps.TeamBattle.BattleSystem;
 
 [UseEffectCodeIds(101021)]
-public class EffectCodeDebuffHowling : EffectCodeCharacterBase
+public class EffectCodeBuffBless : EffectCodeCharacterBase
 {
     private ObfuscatorFloat duration;
-    private ObfuscatorFloat decreaseRate;
+    private ObfuscatorFloat increaseRate;
 
     private float elapsedTime;
 
@@ -13,14 +13,14 @@ public class EffectCodeDebuffHowling : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         duration = codeInfo.GetCodeStatToFloat(1);
-        decreaseRate = codeInfo.GetCodeStatToFloat(2); // 이미 0.01f 곱해져서 들어옴
+        increaseRate = codeInfo.GetCodeStatToFloat(2); // 이미 0.01f 곱해져서 들어옴
         elapsedTime = 0f;
-        var stackCount = owner.AddBuffDebuffType(BuffDebuffType.DefenceDown);
+        var stackCount = owner.AddBuffDebuffType(BuffDebuffType.AttackUp);
         if (stackCount == 1)
         {
-            var effect = InGameEffectManager.Instance.Get(BuffDebuffType.DefenceDown, owner.GetCharacterView().CachedTr);
+            var effect = InGameEffectManager.Instance.Get(BuffDebuffType.AttackUp, owner.GetCharacterView().CachedTr);
             if (!ReferenceEquals(effect, null))
-                owner.AddBuffDebuffEffectView(BuffDebuffType.DefenceDown, effect);
+                owner.AddBuffDebuffEffectView(BuffDebuffType.AttackUp, effect);
         }
     }
 
@@ -29,7 +29,7 @@ public class EffectCodeDebuffHowling : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         // 덮어 씌울 경우
         duration = codeInfo.GetCodeStatToFloat(1);
-        decreaseRate = codeInfo.GetCodeStatToFloat(2); // 이미 0.01f 곱해져서 들어옴
+        increaseRate = codeInfo.GetCodeStatToFloat(2); // 이미 0.01f 곱해져서 들어옴
         elapsedTime = 0f;
         // 더할 경우
         // duration += codeInfo.GetCodeStatToFloat(1);
@@ -49,7 +49,7 @@ public class EffectCodeDebuffHowling : EffectCodeCharacterBase
     public override void OnPreRemoved()
     {
         base.OnPreRemoved();
-        var (stackCount, effectView) = owner.RemoveBuffDebuffType(BuffDebuffType.DefenceDown);
+        var (stackCount, effectView) = owner.RemoveBuffDebuffType(BuffDebuffType.AttackUp);
         if (stackCount != 0)
             return;
 
@@ -59,8 +59,8 @@ public class EffectCodeDebuffHowling : EffectCodeCharacterBase
         InGameEffectManager.Instance.RemoveInGameEffect(effectView as InGameEffectBase);
     }
 
-    public override double GetIncrementPercentDEF()
+    public override double GetIncrementPercentAD()
     {
-        return -decreaseRate;
+        return increaseRate;
     }
 }
