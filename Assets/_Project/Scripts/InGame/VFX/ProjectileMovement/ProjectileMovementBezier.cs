@@ -17,7 +17,7 @@ namespace CookApps.TeamBattle.BattleSystem
         private float _newPointDistanceFromEndTr = 2;
         private Vector3 direction;
 
-        public override void SetData(InGameEffectProjectileBase effect, Vector3 srcPos, Vector3 destPos, float speed)
+        public override void SetData(InGameEffectProjectile effect, Vector3 srcPos, Vector3 destPos, float speed)
         {
             base.SetData(effect, srcPos, destPos, speed);
             InitializeBezierData();

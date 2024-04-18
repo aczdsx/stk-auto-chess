@@ -18,10 +18,6 @@ namespace CookApps.TeamBattle.BattleSystem
         private Transform playground;
         public Transform Playground => playground;
 
-        private List<InGameEffectBase> inGameEffects = new ();
-        private Queue<InGameEffectBase> addWaitingInGameEffects = new ();
-        private Queue<InGameEffectBase> removeWaitingInGameEffects = new ();
-
         public void Initialize(int2 gridSize, IInGameTileView[] views)
         {
             InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, ManagedUpdate);
@@ -37,8 +33,6 @@ namespace CookApps.TeamBattle.BattleSystem
             playground = null;
             ClearAllCharactersInField();
             ClearAllEnemiesInField();
-            addWaitingInGameEffects.Clear();
-            removeWaitingInGameEffects.Clear();
         }
 
         private void ManagedUpdate(float dt)
@@ -51,11 +45,6 @@ namespace CookApps.TeamBattle.BattleSystem
             for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
             {
                 enemiesInPlaygroundForUpdate[i].ManagedUpdate(dt);
-            }
-
-            for (var i = 0; i < inGameEffects.Count; i++)
-            {
-                inGameEffects[i].ManagedUpdate(dt);
             }
         }
 
@@ -70,31 +59,7 @@ namespace CookApps.TeamBattle.BattleSystem
             {
                 enemiesInPlaygroundForUpdate[i].LateUpdate(dt);
             }
-
-            while (addWaitingInGameEffects.Count > 0)
-            {
-                InGameEffectBase effect = addWaitingInGameEffects.Dequeue();
-                inGameEffects.Add(effect);
-            }
-
-            while (removeWaitingInGameEffects.Count > 0)
-            {
-                InGameEffectBase effect = removeWaitingInGameEffects.Dequeue();
-                inGameEffects.Remove(effect);
-            }
         }
-
-        #region Ingame Effect
-        public void AddInGameEffect(InGameEffectBase effect)
-        {
-            addWaitingInGameEffects.Enqueue(effect);
-        }
-
-        public void RemoveInGameEffect(InGameEffectBase view)
-        {
-            removeWaitingInGameEffects.Enqueue(view);
-        }
-        #endregion
 
         public List<CharacterController> GetCharacterAll()
         {

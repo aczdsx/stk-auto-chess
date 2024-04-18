@@ -1,17 +1,71 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
-    public static class InGameEffectFactory
+    public class InGameEffectManager : Singleton<InGameEffectManager>
     {
-        public static InGameEffectBase Get(string effectName, Transform trPos = null)
+        private List<InGameEffectBase> runningEffects = new ();
+        private Queue<InGameEffectBase> addWaitingInGameEffects = new ();
+        private Queue<InGameEffectBase> removeWaitingInGameEffects = new ();
+
+        public void Initialize()
+        {
+            InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, ManagedUpdate);
+            InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, LateManagedUpdate);
+        }
+
+        public void Clear()
+        {
+            InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
+            InGameMainFlowManager.Instance.RemoveLateUpdateListener(LateManagedUpdate);
+            addWaitingInGameEffects.Clear();
+            removeWaitingInGameEffects.Clear();
+        }
+
+        private void ManagedUpdate(float dt)
+        {
+            for (var i = 0; i < runningEffects.Count; i++)
+            {
+                runningEffects[i].ManagedUpdate(dt);
+            }
+        }
+
+        private void LateManagedUpdate(float dt)
+        {
+            while (addWaitingInGameEffects.Count > 0)
+            {
+                InGameEffectBase effect = addWaitingInGameEffects.Dequeue();
+                runningEffects.Add(effect);
+            }
+
+            while (removeWaitingInGameEffects.Count > 0)
+            {
+                InGameEffectBase effect = removeWaitingInGameEffects.Dequeue();
+                runningEffects.Remove(effect);
+            }
+        }
+
+        #region Ingame Effect
+        public void AddInGameEffect(InGameEffectBase effect)
+        {
+            addWaitingInGameEffects.Enqueue(effect);
+        }
+
+        public void RemoveInGameEffect(InGameEffectBase view)
+        {
+            removeWaitingInGameEffects.Enqueue(view);
+        }
+        #endregion
+
+        public InGameEffectBase Get(string effectName, Transform trPos = null)
         {
             // IngameObjectManager.Instance.AddIngameEffect(effect);
             // return effect;
             return null;
         }
 
-        public static InGameEffectBase Get(BuffDebuffType buffDebuffType, Transform parent)
+        public InGameEffectBase Get(BuffDebuffType buffDebuffType, Transform parent)
         {
             // InGameEffectBase effect = buffDebuffType switch
             // {

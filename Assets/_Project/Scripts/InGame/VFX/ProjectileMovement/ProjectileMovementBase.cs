@@ -4,22 +4,16 @@ using UnityEngine;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
-    public enum ProjectileMovementType
-    {
-        Linear,
-        Bezier,
-    }
-
     public abstract class ProjectileMovementBase
     {
         public event Action OnReachedTarget = delegate { };
 
-        protected InGameEffectProjectileBase effect;
+        protected InGameEffectProjectile effect;
         protected Vector3 srcPos;
         protected Vector3 destPos;
         protected ObfuscatorFloat speed;
 
-        public virtual void SetData(InGameEffectProjectileBase effect, Vector3 srcPos, Vector3 destPos, float speed)
+        public virtual void SetData(InGameEffectProjectile effect, Vector3 srcPos, Vector3 destPos, float speed)
         {
             this.effect = effect;
             this.srcPos = srcPos;

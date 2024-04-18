@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
-    public class InGameEffectWithParticleBase : InGameEffectBase
+    public class InGameEffectWithParticle : InGameEffectBase
     {
         [SerializeField] private ParticleSystem particle;
 
-        protected virtual ObfuscatorFloat Duration => 0.5f;
+        protected ObfuscatorFloat Duration;
 
         protected virtual bool IsAutoRemove => false;
 
@@ -17,6 +17,8 @@ namespace CookApps.TeamBattle.BattleSystem
             {
                 particle = GetComponent<ParticleSystem>();
             }
+
+            Duration = particle.main.duration;
         }
 
         private float elapsedTime;
@@ -86,13 +88,8 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public override void Remove()
         {
+            base.Remove();
             isRemoved = true;
-            InGameObjectManager.Instance.RemoveInGameEffect(this);
-            ReturnToPool();
-        }
-
-        protected virtual void ReturnToPool()
-        {
         }
     }
 }
