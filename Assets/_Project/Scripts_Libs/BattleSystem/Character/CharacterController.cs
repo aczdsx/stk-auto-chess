@@ -202,7 +202,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
             {
-                // view.UpdateTickAndPosition(dt * modifiedSpeedRate, position, viewPosition);
+                view.UpdatePosition(viewPosition);
             }
 
             view.LookAt(FlipX);

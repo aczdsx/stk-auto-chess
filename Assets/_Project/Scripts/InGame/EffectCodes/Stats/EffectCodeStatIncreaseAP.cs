@@ -1,8 +1,9 @@
 using CookApps.Obfuscator;
+using CookApps.SampleTeamBattle;
 using CookApps.TeamBattle.BattleSystem;
 
-[UseEffectCodeIds(101)]
-public class EffectCodeStatIncreaseFixedAD : EffectCodeStatBase
+[UseEffectCodeIds((int)CharacterEffect.AP_UP)]
+public class EffectCodeStatIncreaseAP : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }
 
@@ -40,7 +41,7 @@ public class EffectCodeStatIncreaseFixedAD : EffectCodeStatBase
         // increment += codeInfo.GetCodeStat(1);
     }
 
-    public override double GetIncrementFixedAD()
+    public override double GetIncrementFixedAP()
     {
         return increment;
     }

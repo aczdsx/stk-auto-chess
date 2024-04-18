@@ -3,90 +3,25 @@ using System.Buffers;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
     public class EffectCodeInfo
     {
-        public EffectCodeInfo(int codeId, int priority, double stat)
+        public void Set(int codeId, int priority, int statsLength, double stat1, double stat2 = 0, double stat3 = 0, double stat4 = 0, double stat5 = 0, double stat6 = 0, double stat7 = 0, double stat8 = 0)
         {
             this.codeId = codeId;
             this.priority = priority;
-            statsLength = 1;
-            stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(statsLength);
-            stats[0] = stat;
-        }
-
-        public EffectCodeInfo(int codeId, int priority, double stat1, double stat2)
-        {
-            this.codeId = codeId;
-            this.priority = priority;
-            statsLength = 2;
-            stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(statsLength);
-            stats[0] = stat1;
-            stats[1] = stat2;
-        }
-
-        public EffectCodeInfo(int codeId, int priority, double stat1, double stat2, double stat3)
-        {
-            this.codeId = codeId;
-            this.priority = priority;
-            statsLength = 3;
-            stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(statsLength);
-            stats[0] = stat1;
-            stats[1] = stat2;
-            stats[2] = stat3;
-        }
-
-        public EffectCodeInfo(int codeId, int priority, double stat1, double stat2, double stat3, double stat4)
-        {
-            this.codeId = codeId;
-            this.priority = priority;
-            statsLength = 4;
-            stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(statsLength);
-            stats[0] = stat1;
-            stats[1] = stat2;
-            stats[2] = stat3;
-            stats[3] = stat4;
-        }
-
-        public EffectCodeInfo(int codeId, int priority, double stat1, double stat2, double stat3, double stat4, double stat5)
-        {
-            this.codeId = codeId;
-            this.priority = priority;
-            statsLength = 5;
-            stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(statsLength);
-            stats[0] = stat1;
-            stats[1] = stat2;
-            stats[2] = stat3;
-            stats[3] = stat4;
-            stats[4] = stat5;
-        }
-
-        public EffectCodeInfo(int codeId, int priority, double stat1, double stat2, double stat3, double stat4, double stat5, double stat6)
-        {
-            this.codeId = codeId;
-            this.priority = priority;
-            statsLength = 6;
-            stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(statsLength);
+            this.statsLength = statsLength;
             stats[0] = stat1;
             stats[1] = stat2;
             stats[2] = stat3;
             stats[3] = stat4;
             stats[4] = stat5;
             stats[5] = stat6;
-        }
-
-        public EffectCodeInfo(int codeId, int priority, int statsLength, params double[] stats)
-        {
-            this.codeId = codeId;
-            this.priority = priority;
-            this.statsLength = statsLength;
-            this.stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(statsLength);
-            for (var i = 0; i < statsLength; i++)
-            {
-                this.stats[i] = stats[i];
-            }
+            stats[6] = stat7;
+            stats[7] = stat8;
         }
 
         ~EffectCodeInfo()
@@ -145,16 +80,20 @@ namespace CookApps.TeamBattle.BattleSystem
         public int CodeId => codeId;
         private ObfuscatorInt priority;
         public int Priority => priority;
-        private ObfuscatorDouble[] stats;
+        private ObfuscatorDouble[] stats = ArrayPool<ObfuscatorDouble>.Shared.Rent(8);
         public ObfuscatorDouble[] Stats => stats;
         private int statsLength;
 
         public EffectCodeInfo Clone()
         {
-            double[] statsArr = ArrayPool<double>.Shared.Rent(statsLength);
-            Array.Copy(stats, statsArr, statsLength);
-            var res = new EffectCodeInfo(codeId, priority, statsLength, statsArr);
-            ArrayPool<double>.Shared.Return(statsArr);
+            var res = GenericPool<EffectCodeInfo>.Get();
+            res.codeId = codeId;
+            res.priority = priority;
+            res.statsLength = statsLength;
+            for (int i = 0; i < statsLength; i++)
+            {
+                res.stats[i] = stats[i];
+            }
             return res;
         }
     }

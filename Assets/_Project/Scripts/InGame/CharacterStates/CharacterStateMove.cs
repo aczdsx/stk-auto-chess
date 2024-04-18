@@ -15,7 +15,8 @@ public class CharacterStateMove : CharacterStateBase
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Walk);
         var moveDuration = SpecOptionCache.DefaultMoveDuration / characCtrl.GetCharacterStat().MoveSpeed;
         var jumpHeight = SpecOptionCache.CharacterMoveJumpHeight;
-        PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight);
+        PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)
+            .OnComplete(this, target => target.ChangeToIdleState());
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -23,8 +24,8 @@ public class CharacterStateMove : CharacterStateBase
         return CharacterStateRunningResult.CanCallAllWithoutActivate;
     }
 
-    private void ChangeToAttackState()
+    private void ChangeToIdleState()
     {
-        characCtrl.AddNextState<CharacterStateAttack>();
+        characCtrl.AddNextState<CharacterStateIdle>();
     }
 }

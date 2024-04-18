@@ -79,7 +79,7 @@ namespace CookApps.TeamBattle.BattleSystem
         {
         }
 
-        // 공격 시마다 호출 된다.
+        // 스킬 사용 시마다 호출 된다.
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnSkill)]
         public virtual void OnSkill(EffectCodeBase skillEffectCode)
         {

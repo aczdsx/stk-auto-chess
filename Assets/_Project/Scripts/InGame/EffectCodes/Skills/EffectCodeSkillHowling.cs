@@ -5,16 +5,16 @@ using UnityEngine.Pool;
 
 /// <summary>
 /// 예시 스킬 코드
-/// {0}초마다 적을 강타하여 공격력의 {1}%의 물리 피해를 입히고, 주변 적에게는 공격력의 {2}%의 물리 피해를 입힙니다.
+/// {0}초마다 크게 소리쳐 {1}초간 {2} {3} 범위의 적들의 방어력을 {4}% 감소시킵니다.
 /// </summary>
-[UseEffectCodeIds(10101)]
-public class EffectCodeSkillSmash : EffectCodeCharacterBase
+[UseEffectCodeIds(10102)]
+public class EffectCodeHowling : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
-    private ObfuscatorFloat power;
-    private ObfuscatorInt splashRange;
-    private AttackRangeShape splashShape;
-    private ObfuscatorFloat splashPower;
+    private ObfuscatorFloat debuffDuration;
+    private ObfuscatorInt range;
+    private AttackRangeShape rangeShape;
+    private ObfuscatorFloat debuffPower;
 
     private ObfuscatorFloat elapsedTime;
 
@@ -25,10 +25,10 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        splashRange = codeInfo.GetCodeStatToInt(2);
-        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
-        splashPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
+        debuffDuration = codeInfo.GetCodeStatToFloat(1);
+        range = codeInfo.GetCodeStatToInt(2);
+        rangeShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        debuffPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -38,10 +38,10 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1);
-        splashRange = codeInfo.GetCodeStatToInt(2);
-        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
-        splashPower = codeInfo.GetCodeStatToFloat(4);
+        debuffDuration = codeInfo.GetCodeStatToFloat(1);
+        range = codeInfo.GetCodeStatToInt(2);
+        rangeShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        debuffPower = codeInfo.GetCodeStatToFloat(4);
     }
 
     public override void OnUpdate(float dt)
@@ -94,23 +94,17 @@ public class EffectCodeSkillSmash : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-        // 타겟에게 데미지를 입힘
-        var ad = owner.AD * power;
-        var damageInfo = owner.PrecalculateDamageAmount(ad, 0, owner.Target, codeId, true);
-        owner.PostCalculateDamageAmount(ref damageInfo, owner.Target);
-        owner.Target.GetDamaged(in damageInfo, owner);
 
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
-        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, splashRange, splashShape, enemies);
+        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, range, rangeShape, enemies);
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
-            ad = owner.AD * splashPower;
-            damageInfo = owner.PrecalculateDamageAmount(ad, 0, enemy, codeId, true);
-            owner.PostCalculateDamageAmount(ref damageInfo, enemy);
-            enemy.GetDamaged(in damageInfo, owner);
+            var debuffCodeInfo = GenericPool<EffectCodeInfo>.Get();
+            debuffCodeInfo.Set(codeId*10+1, 0, 2, debuffDuration, debuffPower);
+            enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
         }
     }
 

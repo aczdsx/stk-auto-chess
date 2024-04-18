@@ -29,17 +29,14 @@ public class CharacterStateAttack : CharacterStateBase
 
         // 1. 잡는 적이 아직 살아있는지 체크
         CharacterController atkTarget = characCtrl.Target;
-        if (atkTarget == null || !atkTarget.IsAlive)
+        if (atkTarget == null || !atkTarget.IsAlive || !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
         {
             isAttackAnimRunning = false;
             ReturnToIdle();
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
 
-        float range = characCtrl.AttackRange;
         Vector2 diff = characCtrl.Target.Position - characCtrl.Position;
-        float resultRange = range * range;
-
         characCtrl.FlipX = diff.x > 0;
 
         if (characCtrl.GetAttackCoolTime() <= 0f)

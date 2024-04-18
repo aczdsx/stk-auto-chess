@@ -1,92 +1,92 @@
-
 using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.BattleSystem;
+using UnityEngine.Pool;
 
 public enum GlobalEffectCodeSource
 {
-
 }
 
 public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffectCodeSource
 {
-     public void Initialize()
-     {
-          eccForGame = new EffectCodeContainer(this);
-     }
+    public void Initialize()
+    {
+        eccForGame = new EffectCodeContainer(this);
+    }
 
-     public void Clear()
-     {
-          eccForGame.Clear();
-          eccForGame = null;
-     }
+    public void Clear()
+    {
+        eccForGame.Clear();
+        eccForGame = null;
+    }
 
-     /// <summary>
-     /// Action의 두번째 인자는 effectCodeId
-     /// </summary>
-     public static event Action<GlobalEffectCodeSource, int> OnEffectCodeChanged;
+    /// <summary>
+    /// Action의 두번째 인자는 effectCodeId
+    /// </summary>
+    public static event Action<GlobalEffectCodeSource, int> OnEffectCodeChanged;
 
-     /// <summary>
-     /// 전역으로 등록되는 EffectCode들
-     /// </summary>
-     private Dictionary<(GlobalEffectCodeSource src, int codeId), EffectCodeInfo> globalEffectCodes = new ();
+    /// <summary>
+    /// 전역으로 등록되는 EffectCode들
+    /// </summary>
+    private Dictionary<(GlobalEffectCodeSource src, int codeId), EffectCodeInfo> globalEffectCodes = new ();
 
-     /// <summary>
-     /// 인게임 안에서 사용되는 Type이 EffectCodeType.Game인 특수한 effectCode들
-     /// </summary>
-     private EffectCodeContainer eccForGame;
-     public List<EffectCodeBase> GetGameEffectCodes()
-     {
-          return eccForGame.GetEffectCodesByType(EffectCodeType.Game);
-     }
+    /// <summary>
+    /// 인게임 안에서 사용되는 Type이 EffectCodeType.Game인 특수한 effectCode들
+    /// </summary>
+    private EffectCodeContainer eccForGame;
 
-     /// <summary>
-     /// 전역으로 동작하는 effectCode를 추가하거나 업데이트한다.
-     /// </summary>
-     /// <param name="source"></param>
-     /// <param name="codeInfo"></param>
-     public void AddOrUpdateEffectCode(GlobalEffectCodeSource source, EffectCodeInfo codeInfo)
-     {
-          var effectCode = eccForGame.AddOrMergeEffectCode(codeInfo, this);
-          if (effectCode.Type == EffectCodeType.Game)
-          {
-               return;
-          }
+    public List<EffectCodeBase> GetGameEffectCodes()
+    {
+        return eccForGame.GetEffectCodesByType(EffectCodeType.Game);
+    }
 
-          eccForGame.RemoveEffectCode(effectCode);
-          globalEffectCodes[(source, codeInfo.CodeId)] = codeInfo;
-          OnEffectCodeChanged?.Invoke(source, codeInfo.CodeId);
-     }
+    /// <summary>
+    /// 전역으로 동작하는 effectCode를 추가하거나 업데이트한다.
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="codeInfo"></param>
+    public void AddOrUpdateEffectCode(GlobalEffectCodeSource source, EffectCodeInfo codeInfo)
+    {
+        var effectCode = eccForGame.AddOrMergeEffectCode(codeInfo, this);
+        if (effectCode.Type == EffectCodeType.Game)
+        {
+            return;
+        }
 
-     public void RemoveEffectCode(GlobalEffectCodeSource source, int codeId)
-     {
-          var effectCode = eccForGame.RemoveEffectCode(codeId);
-          if (effectCode?.Type == EffectCodeType.Game)
-          {
-               return;
-          }
+        eccForGame.RemoveEffectCode(effectCode);
+        globalEffectCodes[(source, codeInfo.CodeId)] = codeInfo;
+        OnEffectCodeChanged?.Invoke(source, codeInfo.CodeId);
+    }
 
-          if (!globalEffectCodes.Remove((source, codeId)))
-               return;
+    public void RemoveEffectCode(GlobalEffectCodeSource source, int codeId)
+    {
+        var effectCode = eccForGame.RemoveEffectCode(codeId);
+        if (effectCode?.Type == EffectCodeType.Game)
+        {
+            return;
+        }
 
-          OnEffectCodeChanged?.Invoke(source, codeId);
-     }
+        if (!globalEffectCodes.Remove((source, codeId), out EffectCodeInfo effectCodeInfo))
+            return;
 
-     public IEnumerable<EffectCodeInfo> GetAllGlobalEffectCodes() => globalEffectCodes.Values;
+        GenericPool<EffectCodeInfo>.Release(effectCodeInfo);
+        OnEffectCodeChanged?.Invoke(source, codeId);
+    }
 
-     public IEnumerable<EffectCodeInfo> GetAllGlobalEffectCodes(GlobalEffectCodeSource source)
-     {
-          foreach (var code in globalEffectCodes)
-          {
-               if (code.Key.Item1 == source)
-                    yield return code.Value;
-          }
-     }
+    public IEnumerable<EffectCodeInfo> GetAllGlobalEffectCodes() => globalEffectCodes.Values;
 
-     public EffectCodeInfo GetGlobalEffectCode(GlobalEffectCodeSource source, int codeId)
-     {
-         return globalEffectCodes.GetValueOrDefault((source, codeId));
-     }
+    public IEnumerable<EffectCodeInfo> GetAllGlobalEffectCodes(GlobalEffectCodeSource source)
+    {
+        foreach (var code in globalEffectCodes)
+        {
+            if (code.Key.Item1 == source)
+                yield return code.Value;
+        }
+    }
+
+    public EffectCodeInfo GetGlobalEffectCode(GlobalEffectCodeSource source, int codeId)
+    {
+        return globalEffectCodes.GetValueOrDefault((source, codeId));
+    }
 }
-

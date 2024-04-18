@@ -7,14 +7,25 @@
 namespace CookApps.SampleTeamBattle
 {
 
-    public enum HeroEffect
+    public enum CharacterEffect
     {
         NONE = 0,
-        ATK_POWER_UP = 1,
-        MAX_HP_UP = 2,
-        ATK_POWER_RATE_UP = 3,
-        MAX_HP_RATE_UP = 4,
-        HP_REGEN_UP = 5,
+        AD_UP = 1,
+        AD_PERCENT_UP = 2,
+        AP_UP = 3,
+        AP_PERCENT_UP = 4,
+        DEF_UP = 5,
+        DEF_PERCENT_UP = 6,
+        RES_UP = 7,
+        RES_PERCENT_UP = 8,
+        DEF_PENETRATION_UP = 9,
+        DEF_PENETRATION_PERCENT_UP = 10,
+        RES_PENETRATION_UP = 11,
+        RES_PENETRATION_PERCENT_UP = 12,
+        HP_RECOVERY_UP = 13,
+        HP_RECOVERY_PERCENT_UP = 14,
+        MOVESPEED_UP = 15,
+        MOVESPEED_PERCENT_UP = 16,
     }
 
     public enum Grade
