@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.SampleTeamBattle;
 using CookApps.TeamBattle.BattleSystem;
-using UnityEngine;
 
 public class EffectCodeCrowdControlStun : EffectCodeCharacterBase
 {
