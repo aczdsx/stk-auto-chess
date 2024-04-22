@@ -85,8 +85,7 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
 
         isReadyToActivate = false;
         isSkillActivated = true;
-        var state = owner.AddNextState<CharacterStateSkill>();
-        state.SetEffectCode(this);
+        owner.AddNextState<CharacterStateSkill>(this);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)

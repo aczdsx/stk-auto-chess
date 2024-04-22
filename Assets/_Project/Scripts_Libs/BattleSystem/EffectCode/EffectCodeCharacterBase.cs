@@ -21,8 +21,8 @@ namespace CookApps.TeamBattle.BattleSystem
             owner = container.Owner as CharacterController;
             waitUpdateElapsedTime = 0f;
             waitCooltimeElapsedTime = 0f;
-            updatePendingTime = Const.Instance.EffectCodeUpdatePendingTime;
-            cooltimePendingTime = Const.Instance.EffectCodeCooltimePendingTime;
+            updatePendingTime = InGameCalculator.Instance.EffectCodeUpdatePendingTime;
+            cooltimePendingTime = InGameCalculator.Instance.EffectCodeCooltimePendingTime;
         }
 
         public override void OnPreRemoved()
@@ -139,14 +139,21 @@ namespace CookApps.TeamBattle.BattleSystem
         }
 
         #region Active 기능들
-        /// 발동할 수 있는지
+        /// <summary>
+        /// 액티브 스킬의 경우 스킬 발동 가능할 때 True를 리턴하면 된다.
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseIsReadyToActivate)]
         public virtual bool IsReadyToActivate()
         {
             return false;
         }
 
-        /// 발동시키자
+        /// <summary>
+        /// 캐릭터가 이 스킬을 발동 가능한 경우에 호출된다.
+        /// 실제로 스킬을 발동안시켜도 되지만, 발동시키려면 여기서 발동시키면 된다.
+        /// 캐릭터 애니메이션을 실행시킬 경우 owner.AddNextState<CharacterStateSkill>(skillEffectCode)를 호출하면 된다.
+        /// </summary>
         public virtual void Activate()
         {
         }

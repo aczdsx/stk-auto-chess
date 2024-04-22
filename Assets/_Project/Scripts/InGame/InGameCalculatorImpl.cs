@@ -12,6 +12,18 @@ namespace CookApps.SampleTeamBattle
             InGameCalculator.Initialize(new InGameCalculatorImpl());
         }
 
+        public float CrowdControlSlowRate => SpecOptionCache.CrowdControlSlowRate;
+
+        public float EffectCodeUpdatePendingTime => SpecOptionCache.EffectCodeUpdatePendingTime;
+
+        public float EffectCodeCooltimePendingTime => SpecOptionCache.EffectCodeCooltimePendingTime;
+
+        public float MaxCooltime => SpecOptionCache.MaxCooltime;
+
+        public float RegenHPPendingTime => SpecOptionCache.RegenHPPendingTime;
+
+        public float MinDamageRate => SpecOptionCache.MinDamageRate;
+
         public double CalculateDefaultDamage(double ad, double ap, CharacterController attacker, CharacterController target)
         {
             double defPenetration = attacker.DEFPenetration;
@@ -44,7 +56,7 @@ namespace CookApps.SampleTeamBattle
 
         public float CalculateCooltimeRate(float skillCooltimeRate)
         {
-            return 1f - (Const.Instance.MaxCooltime * (1f - (1f / (1f + skillCooltimeRate))));
+            return 1f - (MaxCooltime * (1f - (1f / (1f + skillCooltimeRate))));
         }
     }
 }

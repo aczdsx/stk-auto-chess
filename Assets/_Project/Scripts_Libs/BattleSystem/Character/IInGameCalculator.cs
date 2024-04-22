@@ -4,6 +4,13 @@ namespace CookApps.TeamBattle.BattleSystem
 {
     public interface IInGameCalculator
     {
+        float CrowdControlSlowRate { get; }
+        float EffectCodeUpdatePendingTime { get; }
+        float EffectCodeCooltimePendingTime { get; }
+        float MaxCooltime { get; }
+        float RegenHPPendingTime { get; }
+        float MinDamageRate { get; }
+
         double CalculateDefaultDamage(double ad, double ap, CharacterController attacker, CharacterController target);
         float CalculateCooltimeRate(float skillCooltimeRate);
     }

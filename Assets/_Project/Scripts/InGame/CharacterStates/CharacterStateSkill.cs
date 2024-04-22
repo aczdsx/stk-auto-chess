@@ -10,9 +10,9 @@ public class CharacterStateSkill : CharacterStateBase
     private bool isSkillEnd;
     private int skillExecuteIndex;
 
-    public void SetEffectCode(EffectCodeCharacterBase effectCode)
+    public override void SetStateData(object effectCode)
     {
-        this.effectCode = effectCode;
+        this.effectCode = effectCode as EffectCodeCharacterBase;
     }
 
     public override void StateInit(object target)
@@ -39,6 +39,13 @@ public class CharacterStateSkill : CharacterStateBase
     public override void StateStart()
     {
         base.StateStart();
+
+        if (effectCode == null)
+        {
+            characCtrl.AddNextState<CharacterStateIdle>();
+            return;
+        }
+
         characCtrl.GetCharacterView().PlayAnimation(skillAnimationKey);
     }
 

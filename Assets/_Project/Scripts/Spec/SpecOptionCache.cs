@@ -19,6 +19,24 @@ namespace CookApps.SampleTeamBattle
         private static ObfuscatorFloat? characterMoveJumpHeight;
         public static float CharacterMoveJumpHeight => characterMoveJumpHeight ??= GetOptionFromSpec_Float("CHARACTER_MOVE_JUMP_HEIGHT", 1f);
 
+        private static ObfuscatorFloat? crowdControlSlowRate;
+        public static float CrowdControlSlowRate => crowdControlSlowRate ??= GetOptionFromSpec_Float("CROWD_CONTROL_SLOW_RATE", 0.5f);
+
+        private static ObfuscatorFloat? effectCodeUpdatePendingTime;
+        public static float EffectCodeUpdatePendingTime => effectCodeUpdatePendingTime ??= GetOptionFromSpec_Float("EFFECT_CODE_UPDATE_PENDING_TIME", 0.1f);
+
+        private static ObfuscatorFloat? effectCodeCooltimePendingTime;
+        public static float EffectCodeCooltimePendingTime => effectCodeCooltimePendingTime ??= GetOptionFromSpec_Float("EFFECT_CODE_COOLTIME_PENDING_TIME", 0.1f);
+
+        private static ObfuscatorFloat? maxCooltime;
+        public static float MaxCooltime => maxCooltime ??= GetOptionFromSpec_Float("MAX_COOLTIME", 1f);
+
+        private static ObfuscatorFloat? regenHPPendingTime;
+        public static float RegenHPPendingTime => regenHPPendingTime ??= GetOptionFromSpec_Float("REGEN_HP_PENDING_TIME", 0.1f);
+
+        private static ObfuscatorFloat? minDamageRate;
+        public static float MinDamageRate => minDamageRate ??= GetOptionFromSpec_Float("MIN_DAMAGE_RATE", 0.5f);
+
         #region Getters
         private static int GetOptionFromSpec_Int(string optionName, int defaultData)
         {

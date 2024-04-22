@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CookApps.TeamBattle.BattleSystem
 {
-    public class StatePool : Singleton<StatePool>
+    internal class StatePool : Singleton<StatePool>
     {
         private Dictionary<Type, Queue<StateBase>> pools = new ();
 

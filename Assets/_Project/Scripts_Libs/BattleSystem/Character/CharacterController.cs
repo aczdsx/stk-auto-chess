@@ -189,7 +189,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             bool isSlowing = HasCrowdControl(CrowdControlType.Slowing);
-            float modifiedSpeedRate = isSlowing ? Const.Instance.CrowdControlSlowRate : 1f;
+            float modifiedSpeedRate = isSlowing ? InGameCalculator.Instance.CrowdControlSlowRate : 1f;
 
             // 기본 공격 쿨타임을 컨틀롤러에서 가지고 있는다.
             // 스테이트에서 관리하면 적을 죽이고 난 뒤에 관리가 안된다.
@@ -276,7 +276,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             recoveryHPElapsedTime += dt;
-            if (recoveryHPElapsedTime > Const.Instance.RegenHPPendingTime)
+            if (recoveryHPElapsedTime > InGameCalculator.Instance.RegenHPPendingTime)
             {
                 recoveryHPElapsedTime = 0;
                 currHp += RecoveryHP;
@@ -289,7 +289,7 @@ namespace CookApps.TeamBattle.BattleSystem
             }
         }
 
-        public StateBase AddNextState(Type stateType)
+        public StateBase AddNextState(Type stateType, object stateData = null)
         {
 #if UNITY_EDITOR
             // Debug.Log($"AddNextState >> {Time.frameCount}, {CharacId}, {CharacUId}, {stateType}");
@@ -297,30 +297,30 @@ namespace CookApps.TeamBattle.BattleSystem
             StateBase state = StatePool.Instance.GetState(stateType);
             if (state != null)
             {
-                // Debug.Assert(nextStates.Count == 0, "Character Controller Already has Next State (count : " + nextStates.Count + ", first state name : " + nextStates.GetType().ToString() + "), Adding state : " + stateType.ToString());
-                // Debug.Assert(state is CharacterStateBase, "Character Controller Adding state is not CharacterStateBase : " + stateType.ToString());
+                state.SetStateData(stateData);
                 nextStates.Enqueue(state as CharacterStateBase);
             }
 
             return state;
         }
 
-        public T AddNextState<T>() where T : CharacterStateBase, new()
+        public T AddNextState<T>(object stateData = null) where T : CharacterStateBase, new()
         {
 #if UNITY_EDITOR
             // Debug.Log($"AddNextState >> {Time.frameCount}, {CharacId}, {CharacUId}, {typeof(T).ToString()}");
 #endif
             var state = StatePool.Instance.GetState<T>();
-            // Debug.Assert(nextStates.Count == 0, "Character Controller Already has Next State (count : " + nextStates.Count + ", first state name : " + nextStates.GetType().ToString() + "), Adding state : " + state.GetType().ToString());
+            state.SetStateData(stateData);
             nextStates.Enqueue(state);
             return state;
         }
 
-        public void ForceSetNextState<T>() where T : CharacterStateBase, new()
+        public void ForceSetNextState<T>(object stateData = null) where T : CharacterStateBase, new()
         {
             ClearAllState();
             var state = StatePool.Instance.GetState<T>();
             currState = state;
+            currState.SetStateData(stateData);
             currState.StateInit(this);
             currState.StateStart();
         }
@@ -498,7 +498,7 @@ namespace CookApps.TeamBattle.BattleSystem
         public void PostCalculateDamageAmount(ref DamageInfo damageInfo, CharacterController target = null)
         {
             // 최소 대미지량
-            double minDamageAmount = Const.Instance.MinDamageRate * damageInfo.damageAmount;
+            double minDamageAmount = InGameCalculator.Instance.MinDamageRate * damageInfo.damageAmount;
             // 대미지 증감에 따른 최종 대미지 계산
             damageInfo.damageAmount = damageInfo.damageAmount * AttackDamageRate * (target?.TakenDamageRate ?? 1f);
             // 추가로 종족, 크기, 속성에 따른 대미지 계산이 필요하다면 여기서 할 것
