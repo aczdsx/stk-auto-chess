@@ -406,22 +406,14 @@ namespace CookApps.TeamBattle.BattleSystem
             }
 
             buffDebuffRefCountDict[type] -= 1;
+            var effectView = buffDebuffEffectViewDict[type];
             if (buffDebuffRefCountDict[type] <= 0)
             {
                 buffDebuffRefCountDict[type] = 0;
+                buffDebuffEffectViewDict.Remove(type);
             }
 
-            return (buffDebuffRefCountDict[type], buffDebuffEffectViewDict[type]);
-        }
-
-        public void RemoveBuffDebuffEffectView(BuffDebuffType type)
-        {
-            if (type is BuffDebuffType.None or BuffDebuffType.MAX)
-            {
-                return;
-            }
-
-            buffDebuffEffectViewDict.Remove(type);
+            return (buffDebuffRefCountDict[type], effectView);
         }
 
         public bool HasBuffDebuffType(BuffDebuffType type)

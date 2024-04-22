@@ -12,8 +12,7 @@ namespace CookApps.TeamBattle.BattleSystem
         Stun = 0x0008,
         Slowing = 0x0010,
         Provocation = 0x0020,
-        Invincibility = 0x0040,
-        BlackHole = 0x0080,
+        Freezing = 0x0040,
         All = 0x0FFF,
     }
 
