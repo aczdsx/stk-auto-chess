@@ -378,7 +378,7 @@ namespace CookApps.TeamBattle.BattleSystem
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackDamageRate);
                     List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackDamageRate);
-                    postAttackDamageRate = effectCodes.CalculateAttackDamageRate(GetCharacterStat().AttackDamageRate);
+                    postAttackDamageRate = effectCodes.CalculateTotalDamageRate(GetCharacterStat().AttackDamageRate);
                 }
 
                 return postAttackDamageRate;
@@ -450,7 +450,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return (postCCImmune & type) == type;
         }
 
-        private void EffectCodeDirtyFlagHandler(EffectCodeInheritFlag flag)
+        private void EffectCodeOnChangedDirtyFlagHandler(EffectCodeInheritFlag flag)
         {
             needUpdateFlag |= flag;
         }

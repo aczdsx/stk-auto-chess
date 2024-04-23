@@ -23,7 +23,7 @@ namespace CookApps.SampleTeamBattle
             {
                 foreach (EffectCodeInfo effectCodeInfo in globalEffectCodeInfos)
                 {
-                    EffectCodeBase code = EffectCodeContainer.AddEffectCode(effectCodeInfo, this);
+                    EffectCodeBase code = EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, this);
                     if (code is EffectCodeStatBase statCode)
                     {
                         flags.AddFlag(statCode.GetFlag());
@@ -45,7 +45,7 @@ namespace CookApps.SampleTeamBattle
 
         public void RemoveEffectCode(int codeId)
         {
-            EffectCodeBase effectCode = EffectCodeContainer.RemoveEffectCode(codeId);
+            EffectCodeContainer.RemoveEffectCode(codeId, out var effectCode);
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
                 UpdateStats(statEffectCode.GetFlag());
@@ -175,7 +175,7 @@ namespace CookApps.SampleTeamBattle
             if (flags.HasFlag(EffectCodeInheritFlag.StatAttackDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackDamageRate);
-                AttackDamageRate = codes.CalculateAttackDamageRate(1f);
+                AttackDamageRate = codes.CalculateTotalDamageRate(1f);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatTakenDamageRate))

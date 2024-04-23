@@ -116,16 +116,7 @@ namespace CookApps.TeamBattle.BattleSystem
             characCtrl.Clear();
         }
 
-        public void RemoveAllEffectCodesWithoutSourceIsNull()
-        {
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-            {
-                CharacterController other = charactersInPlaygroundForUpdate[i];
-                other.GetEffectCodeContainer().RemoveAllEffectCodesWithoutSourceIsNull();
-            }
-        }
-
-        public bool IsCheckAllIsAliveCharacter()
+        public bool IsCharacterAllIsAlive()
         {
             var isAlive = false;
             for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
@@ -140,7 +131,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return isAlive;
         }
 
-        public bool IsCheckAllDieCharacter()
+        public bool IsDieCharacterAllDead()
         {
             return charactersInPlaygroundForUpdate.Count == 0 ? true : false;
         }

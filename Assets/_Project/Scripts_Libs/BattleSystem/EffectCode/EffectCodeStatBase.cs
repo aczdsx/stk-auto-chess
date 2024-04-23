@@ -152,228 +152,382 @@ namespace CookApps.TeamBattle.BattleSystem
         public override EffectCodeLifeType LifeType => EffectCodeLifeType.Permanent;
         public virtual int CalcOrder => 0;
 
+        /// <summary>
+        /// +일 경우 체력 고정 증가, -일 경우 체력 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatHP)]
         public virtual double GetIncrementFixedHP()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 체력 퍼센트 증가, -일 경우 체력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatHP)]
         public virtual double GetIncrementPercentHP()
         {
             return 0d;
         }
 
+        /// <summary>
+        /// +일 경우 공격력 퍼센트 증가, -일 경우 공격력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAD)]
         public virtual double GetIncrementFixedAD()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 공격력 퍼센트 증가, -일 경우 공격력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAD)]
         public virtual double GetIncrementPercentAD()
         {
             return 0d;
         }
 
+        /// <summary>
+        /// +일 경우 방어력 고정 증가, -일 경우 방어력 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEF)]
         public virtual double GetIncrementFixedDEF()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 방어력 퍼센트 증가, -일 경우 방어력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEF)]
         public virtual double GetIncrementPercentDEF()
         {
             return 0d;
         }
 
+        /// <summary>
+        /// +일 경우 방어관통력 고정 증가, -일 경우 방어관통력 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEFPenetration)]
         public virtual double GetIncrementFixedDEFPenetration()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 방어관통력 퍼센트 증가, -일 경우 방어관통력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEFPenetration)]
         public virtual double GetIncrementPercentDEFPenetration()
         {
             return 0d;
         }
 
+        /// <summary>
+        /// +일 경우 주문력 고정 증가, -일 경우 주문력 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAP)]
         public virtual double GetIncrementFixedAP()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 주문력 퍼센트 증가, -일 경우 주문력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAP)]
         public virtual double GetIncrementPercentAP()
         {
             return 0d;
         }
 
+
+        /// <summary>
+        /// +일 경우 저항력 고정 증가, -일 경우 저항력 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRES)]
         public virtual double GetIncrementFixedRES()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 저항력 퍼센트 증가, -일 경우 저항력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRES)]
         public virtual double GetIncrementPercentRES()
         {
             return 0d;
         }
 
+        /// <summary>
+        /// +일 경우 저항관통력 고정 증가, -일 경우 저항관통력 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRESPenetration)]
         public virtual double GetIncrementFixedRESPenetration()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 저항관통력 퍼센트 증가, -일 경우 저항관통력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRESPenetration)]
         public virtual double GetIncrementPercentRESPenetration()
         {
             return 0d;
         }
 
+        /// <summary>
+        /// +일 경우 회복력 고정 증가, -일 경우 회복력 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRecoveryHP)]
         public virtual double GetIncrementFixedRecoveryHP()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 회복력 퍼센트 증가, -일 경우 회복력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRecoveryHP)]
         public virtual double GetIncrementPercentRecoveryHP()
         {
             return 0d;
         }
 
+        /// <summary>
+        /// +일 경우 이동속도 고정 증가, -일 경우 이동속도 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatMoveSpeed)]
         public virtual float GetIncrementFixedMoveSpeed()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 이동속도 퍼센트 증가, -일 경우 이동속도 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatMoveSpeed)]
         public virtual float GetIncrementPercentMoveSpeed()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 크리티컬 확률 고정 증가, -일 경우 크리티컬 확률 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatCriticalProb)]
         public virtual float GetIncrementFixedCriticalProbRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 크리티컬 확률 퍼센트 증가, -일 경우 크리티컬 확률 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatCriticalProb)]
         public virtual float GetIncrementPercentCriticalProbRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 크리티컬 대미지 고정 증가, -일 경우 크리티컬 대미지 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatCriticalDamageRate)]
         public virtual float GetIncrementFixedCriticalDamageRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 크리티컬 대미지 퍼센트 증가, -일 경우 크리티컬 대미지 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatCriticalDamageRate)]
         public virtual float GetIncrementPercentCriticalDamageRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 더블 크리티컬 확률 고정 증가, -일 경우 더블 크리티컬 확률 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDoubleCriticalProb)]
         public virtual float GetIncrementFixedDoubleCriticalProbRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 더블 크리티컬 확률 퍼센트 증가, -일 경우 더블 크리티컬 확률 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDoubleCriticalProb)]
         public virtual float GetIncrementPercentDoubleCriticalProbRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 더블 크리티컬 대미지 배율 고정 증가, -일 경우 더블 크리티컬 대미지 배율 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate)]
         public virtual float GetIncrementFixedDoubleCriticalDamageRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 더블 크리티컬 대미지 배율 퍼센트 증가, -일 경우 더블 크리티컬 대미지 배율 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate)]
         public virtual float GetIncrementPercentDoubleCriticalDamageRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 공격속도 고정 증가, -일 경우 공격속도 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAttackSpeed)]
-        public virtual float GetIncrementFixedAtkSpeed()
+        public virtual float GetIncrementFixedAttackSpeed()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 공격속도 퍼센트 증가, -일 경우 공격속도 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAttackSpeed)]
-        public virtual float GetIncrementPercentAtkSpeed()
+        public virtual float GetIncrementPercentAttackSpeed()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 공격범위 고정 증가, -일 경우 공격범위 고정 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAttackRange)]
-        public virtual float GetIncrementFixedAtkRange()
+        public virtual float GetIncrementFixedAttackRange()
         {
             return 0;
         }
 
+        /// <summary>
+        /// +일 경우 공격범위 퍼센트 증가, -일 경우 공격범위 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAttackRange)]
-        public virtual float GetIncrementPercentAtkRange()
+        public virtual float GetIncrementPercentAttackRange()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// 공격범위 모양을 변경합니다.
+        /// </summary>
+        /// <param name="prevShape"></param>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAttackRangeShape)]
-        public virtual AttackRangeShape ModifyAtkRangeShape(AttackRangeShape prevShape)
+        public virtual AttackRangeShape ModifyAttackRangeShape(AttackRangeShape prevShape)
         {
             return prevShape;
         }
 
+        /// <summary>
+        /// +일 경우 스킬 대미지 배율 증가, -일 경우 스킬 대미지 배율 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatSkillDamageRate)]
-        public virtual float GetSkillDamageRate()
+        public virtual float GetIncrementFixedSkillDamageRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 스킬 쿨타임 배율 증가, -일 경우 스킬 쿨타임 배율 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatSkillCooltimeRate)]
-        public virtual float GetSkillCooltimeRate()
+        public virtual float GetIncrementFixedSkillCooltimeRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 총피해량 배율 증가, -일 경우 총피해량 배율 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAttackDamageRate)]
-        public virtual float GetAttackDamageRate()
+        public virtual float GetIncrementFixedTotalDamageRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 받는 피해량 배율 증가, -일 경우 받는 피해량 배율 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatTakenDamageRate)]
-        public virtual float GetTakenDamageRate()
+        public virtual float GetIncrementFixedTakenDamageRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 주는 회복량 배율 증가, -일 경우 주는 회복량 배율 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatGivenHealRate)]
-        public virtual float GetGivenHealRate()
+        public virtual float GetIncrementFixedGivenHealRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// +일 경우 받는 회복량 배율 증가, -일 경우 받는 회복량 배율 감소
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatTakenHealRate)]
-        public virtual float GetTakenHealRate()
+        public virtual float GetIncrementFixedTakenHealRate()
         {
             return 0f;
         }
 
+        /// <summary>
+        /// CC기 면역 여부
+        /// </summary>
+        /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatCrowdControlImmune)]
         public virtual CrowdControlType GetCrowdControlImmune()
         {
@@ -387,7 +541,7 @@ namespace CookApps.TeamBattle.BattleSystem
         private static double[] fixedValues = new double[maxCalcOrder];
         private static double[] percentValues = new double[maxCalcOrder];
 
-        public static double CalculateHP<T>(this IEnumerable<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateHP<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             for (var i = 0; i < maxCalcOrder; i++)
             {
@@ -414,7 +568,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateAD<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateAD<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -448,7 +602,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateDEF<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateDEF<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -482,7 +636,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateDEFPenetration<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateDEFPenetration<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -516,7 +670,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateAP<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateAP<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -550,7 +704,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateRES<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateRES<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -584,7 +738,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateRESPenetration<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateRESPenetration<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -618,7 +772,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateRecoveryHP<T>(this List<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateRecoveryHP<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -652,7 +806,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return basicStat;
         }
 
-        public static float CalculateMoveSpeed<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateMoveSpeed<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -671,7 +825,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
-        public static float CalculateCriticalProb<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateCriticalProb<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -690,7 +844,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
-        public static float CalculateCriticalDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateCriticalDamageRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -709,7 +863,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
-        public static float CalculateDoubleCriticalProb<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateDoubleCriticalProb<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -728,7 +882,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
-        public static float CalculateDoubleCriticalDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateDoubleCriticalDamageRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -747,7 +901,7 @@ namespace CookApps.TeamBattle.BattleSystem
             return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
-        public static float CalculateAttackSpeed<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateAttackSpeed<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -759,14 +913,14 @@ namespace CookApps.TeamBattle.BattleSystem
             for (var i = 0; i < list.Count; i++)
             {
                 T x = list[i];
-                fixedValue += x.GetIncrementFixedAtkSpeed();
-                percentValue += x.GetIncrementPercentAtkSpeed();
+                fixedValue += x.GetIncrementFixedAttackSpeed();
+                percentValue += x.GetIncrementPercentAttackSpeed();
             }
 
             return Mathf.Max(0, Mathf.Max(0f, (basicStat + fixedValue) * (1f + percentValue)));
         }
 
-        public static int CalculateAttackRange<T>(this List<T> list, int basicStat) where T : EffectCodeStatBase
+        public static int CalculateAttackRange<T>(this IReadOnlyList<T> list, int basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -778,14 +932,14 @@ namespace CookApps.TeamBattle.BattleSystem
             for (var i = 0; i < list.Count; i++)
             {
                 T x = list[i];
-                fixedValue += x.GetIncrementFixedAtkRange();
-                percentValue += x.GetIncrementPercentAtkRange();
+                fixedValue += x.GetIncrementFixedAttackRange();
+                percentValue += x.GetIncrementPercentAttackRange();
             }
 
             return Mathf.Max(0, Mathf.RoundToInt((basicStat + fixedValue) * (1f + percentValue)));
         }
 
-        public static AttackRangeShape CalculateAttackRangeShape<T>(this List<T> list, AttackRangeShape basicStat) where T : EffectCodeStatBase
+        public static AttackRangeShape CalculateAttackRangeShape<T>(this IReadOnlyList<T> list, AttackRangeShape basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -794,13 +948,13 @@ namespace CookApps.TeamBattle.BattleSystem
 
             for (var i = 0; i < list.Count; i++)
             {
-                basicStat = list[i].ModifyAtkRangeShape(basicStat);
+                basicStat = list[i].ModifyAttackRangeShape(basicStat);
             }
 
             return basicStat;
         }
 
-        public static float CalculateSkillDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateSkillDamageRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -810,13 +964,13 @@ namespace CookApps.TeamBattle.BattleSystem
             float fixedValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
-                fixedValue += list[i].GetSkillDamageRate();
+                fixedValue += list[i].GetIncrementFixedSkillDamageRate();
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
         }
 
-        public static float CalculateSkillCooltimeRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateSkillCooltimeRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -826,13 +980,13 @@ namespace CookApps.TeamBattle.BattleSystem
             float fixedValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
-                fixedValue += list[i].GetSkillCooltimeRate();
+                fixedValue += list[i].GetIncrementFixedSkillCooltimeRate();
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
         }
 
-        public static float CalculateAttackDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateTotalDamageRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -842,13 +996,13 @@ namespace CookApps.TeamBattle.BattleSystem
             float fixedValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
-                fixedValue += list[i].GetAttackDamageRate();
+                fixedValue += list[i].GetIncrementFixedTotalDamageRate();
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
         }
 
-        public static float CalculateTakenDamageRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateTakenDamageRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -858,13 +1012,13 @@ namespace CookApps.TeamBattle.BattleSystem
             float fixedValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
-                fixedValue += list[i].GetTakenDamageRate();
+                fixedValue += list[i].GetIncrementFixedTakenDamageRate();
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
         }
 
-        public static float CalculateGivenHealRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateGivenHealRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -874,13 +1028,13 @@ namespace CookApps.TeamBattle.BattleSystem
             float fixedValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
-                fixedValue += list[i].GetGivenHealRate();
+                fixedValue += list[i].GetIncrementFixedGivenHealRate();
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
         }
 
-        public static float CalculateTakenHealRate<T>(this List<T> list, float basicStat) where T : EffectCodeStatBase
+        public static float CalculateTakenHealRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -890,13 +1044,13 @@ namespace CookApps.TeamBattle.BattleSystem
             float fixedValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
-                fixedValue += list[i].GetTakenHealRate();
+                fixedValue += list[i].GetIncrementFixedTakenHealRate();
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
         }
 
-        public static CrowdControlType CalculateCrowdControlImmune<T>(this List<T> list) where T : EffectCodeStatBase
+        public static CrowdControlType CalculateCrowdControlImmune<T>(this IReadOnlyList<T> list) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {

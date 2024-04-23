@@ -13,17 +13,17 @@ namespace CookApps.TeamBattle.BattleSystem
 
         public delegate void EffectCodeFlagDirtyDelegate(EffectCodeInheritFlag dirtyFlag);
 
-        public event EffectCodeFlagDirtyDelegate dirtyFlagEvent;
+        public event EffectCodeFlagDirtyDelegate OnChangedDirtyFlag;
 
         public delegate void EffectCodeTypeDirtyDelegate(EffectCodeType dirtyType);
 
-        public event EffectCodeTypeDirtyDelegate dirtyTypeEvent;
+        public event EffectCodeTypeDirtyDelegate OnChangeDirtyType;
 
         public EffectCodeContainer(object onwer)
         {
             owner = onwer;
-            dirtyFlagEvent = null;
-            dirtyTypeEvent = null;
+            OnChangedDirtyFlag = null;
+            OnChangeDirtyType = null;
         }
 
         public void Clear()
@@ -51,79 +51,32 @@ namespace CookApps.TeamBattle.BattleSystem
 
             effectCodesDividedByType = null;
             isEffectCodesDividedByTypeDirty = null;
-            dirtyFlagEvent = null;
-            dirtyTypeEvent = null;
+            OnChangedDirtyFlag = null;
+            OnChangeDirtyType = null;
         }
 
-        public EffectCodeBase AddEffectCode(EffectCodeInfo codeInfo, IEffectCodeSource source)
-        {
-            EffectCodeBase effectCode = EffectCodePoolManager.Instance.GetEffectCodeBase(codeInfo.CodeId);
-            if (effectCode == null)
-            {
-                return null;
-            }
-
-            effectCode.Initialize(codeInfo, this, source);
-            effectCodes.Add(effectCode);
-
-            // 높은 아이디의 이펙트 코드가 먼저 발동해야하기때문에 정렬을 계속 해준다.
-            effectCodes.Sort(EffectCodeBase.SortByPriorityFunc);
-
-            if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
-            {
-                isEffectCodesDividedByTypeDirty[effectCode.Type] = true;
-            }
-            else
-            {
-                effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
-            }
-
-            dirtyTypeEvent?.Invoke(effectCode.Type);
-
-            if (effectCode is EffectCodeStatBase statEffectCode)
-            {
-                IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
-                foreach (EffectCodeInheritFlag flag in allFlagTypes)
-                {
-                    if (!statEffectCode.GetFlag().HasFlag(flag))
-                    {
-                        continue;
-                    }
-
-                    if (isEffectCodesDividedByFlagDirty.TryAdd(flag, true))
-                    {
-                        effectCodesDividedByFlag.Add(flag, ListPool<EffectCodeStatBase>.Get());
-                    }
-                    else
-                    {
-                        isEffectCodesDividedByFlagDirty[flag] = true;
-                    }
-
-                    dirtyFlagEvent?.Invoke(flag);
-                }
-            }
-
-            return effectCode;
-        }
-
+        /// <summary>
+        /// 컨테이너에 이펙트코드를 추가한다.
+        /// 동일한 codeId가 존재할 경우 해당 코드의 Merge함수를 호출한다.
+        /// </summary>
+        /// <param name="codeInfo"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public EffectCodeBase AddOrMergeEffectCode(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
+            // 같은 코드가 있는지 체크
             EffectCodeBase effectCode = null;
             for (var i = 0; i < effectCodes.Count; i++)
             {
                 if (effectCodes[i].CodeId == codeInfo.CodeId)
                 {
                     effectCodes[i].Merge(codeInfo, source);
-                    if (effectCodes.Count <= 0)
-                    {
-                        break;
-                    }
-
                     effectCode = effectCodes[i];
                     break;
                 }
             }
 
+            // 없으면 생성
             if (effectCode == null)
             {
                 effectCode = EffectCodePoolManager.Instance.GetEffectCodeBase(codeInfo.CodeId);
@@ -134,10 +87,11 @@ namespace CookApps.TeamBattle.BattleSystem
 
                 effectCode.Initialize(codeInfo, this, source);
                 effectCodes.Add(effectCode);
-                // 높은 아이디의 이펙트 코드가 먼저 발동해야하기때문에 정렬을 계속 해준다.
+                // 높은 아이디의 이펙트 코드가 먼저 발동해야하기때문에 정렬을 해준다.
                 effectCodes.Sort(EffectCodeBase.SortByPriorityFunc);
             }
 
+            // 이펙트 코드가 추가되었으므로 타입별로 나누어진 리스트를 업데이트하기 위해 더티 플래그를 세팅한다.
             if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
             {
                 isEffectCodesDividedByTypeDirty[effectCode.Type] = true;
@@ -147,8 +101,9 @@ namespace CookApps.TeamBattle.BattleSystem
                 effectCodesDividedByType.Add(effectCode.Type, new List<EffectCodeBase>());
             }
 
-            dirtyTypeEvent?.Invoke(effectCode.Type);
+            OnChangeDirtyType?.Invoke(effectCode.Type);
 
+            // 이펙트 코드가 스탯 이펙트 코드일 경우 플래그별로 나누어진 리스트를 업데이트하기 위해 더티 플래그를 세팅한다.
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
                 IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
@@ -168,13 +123,18 @@ namespace CookApps.TeamBattle.BattleSystem
                         isEffectCodesDividedByFlagDirty[flag] = true;
                     }
 
-                    dirtyFlagEvent?.Invoke(flag);
+                    OnChangedDirtyFlag?.Invoke(flag);
                 }
             }
 
             return effectCode;
         }
 
+        /// <summary>
+        /// 이펙트 코드 제거
+        /// </summary>
+        /// <param name="effectCode"></param>
+        /// <returns></returns>
         public bool RemoveEffectCode(EffectCodeBase effectCode)
         {
             bool isRemoved = effectCodes.Remove(effectCode);
@@ -195,7 +155,7 @@ namespace CookApps.TeamBattle.BattleSystem
                 effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
             }
 
-            dirtyTypeEvent?.Invoke(effectCode.Type);
+            OnChangeDirtyType?.Invoke(effectCode.Type);
 
             if (effectCode is EffectCodeStatBase statEffectCode)
             {
@@ -212,7 +172,7 @@ namespace CookApps.TeamBattle.BattleSystem
                         isEffectCodesDividedByFlagDirty[flag] = true;
                     }
 
-                    dirtyFlagEvent?.Invoke(flag);
+                    OnChangedDirtyFlag?.Invoke(flag);
                 }
             }
 
@@ -221,10 +181,13 @@ namespace CookApps.TeamBattle.BattleSystem
             return true;
         }
 
-        public EffectCodeBase RemoveEffectCode(int effectCodeId)
+        /// <summary>
+        /// codeId로 이펙트코드 제거
+        /// </summary>
+        public bool RemoveEffectCode(int effectCodeId, out EffectCodeBase effectCode)
         {
             var isRemoved = false;
-            EffectCodeBase effectCode = null;
+            effectCode = null;
             foreach (EffectCodeBase effectCodeItem in effectCodes)
             {
                 if (effectCodeItem.CodeId == effectCodeId)
@@ -237,46 +200,20 @@ namespace CookApps.TeamBattle.BattleSystem
 
             if (!isRemoved)
             {
-                return null;
+                return false;
             }
 
-            effectCode.OnPreRemoved();
-
-            if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
-            {
-                isEffectCodesDividedByTypeDirty[effectCode.Type] = true;
-            }
-            else
-            {
-                effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
-            }
-
-            dirtyTypeEvent?.Invoke(effectCode.Type);
-
-            if (effectCode is EffectCodeStatBase statEffectCode)
-            {
-                IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
-                foreach (EffectCodeInheritFlag flag in allFlagTypes)
-                {
-                    if (!statEffectCode.GetFlag().HasFlag(flag))
-                    {
-                        continue;
-                    }
-
-                    if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
-                    {
-                        isEffectCodesDividedByFlagDirty[flag] = true;
-                    }
-
-                    dirtyFlagEvent?.Invoke(flag);
-                }
-            }
-
-            effectCodes.Remove(effectCode);
-            EffectCodePoolManager.Instance.Push(effectCode);
-            return effectCode;
+            RemoveEffectCode(effectCode);
+            return true;
         }
 
+        /// <summary>
+        /// source가 같은 이펙트 코드를 제거
+        /// 사용 예시.
+        /// 주변 동료의 공격력을 n%증가 시키는 캐릭터가 있을 경우
+        /// 해당 캐릭터가 죽었을 때 주변 동료의 공격력 증가 효과를 제거해야하고, 이때 사용한다.
+        /// </summary>
+        /// <param name="source"></param>
         public void RemoveEffectCodesAssociatedWithSource(IEffectCodeSource source)
         {
             for (var i = 0; i < effectCodes.Count; i++)
@@ -299,7 +236,7 @@ namespace CookApps.TeamBattle.BattleSystem
                         effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
                     }
 
-                    dirtyTypeEvent?.Invoke(effectCode.Type);
+                    OnChangeDirtyType?.Invoke(effectCode.Type);
 
                     if (effectCode is EffectCodeStatBase statEffectCode)
                     {
@@ -316,63 +253,7 @@ namespace CookApps.TeamBattle.BattleSystem
                                 isEffectCodesDividedByFlagDirty[flag] = true;
                             }
 
-                            dirtyFlagEvent?.Invoke(flag);
-                        }
-                    }
-
-                    effectCodes[i].OnPreRemoved();
-                    EffectCodePoolManager.Instance.Push(effectCodes[i]);
-                    effectCodes[i] = null;
-                }
-            }
-
-            effectCodes.RemoveAll(NullChecker<EffectCodeBase>.NullCheck);
-        }
-
-        public void RemoveAllEffectCodesWithoutSourceIsNull()
-        {
-            for (var i = 0; i < effectCodes.Count; i++)
-            {
-                if (effectCodes[i].Source == null)
-                {
-                    continue;
-                }
-
-                {
-                    EffectCodeBase effectCode = effectCodes[i];
-
-                    if (!effectCode.IsRemoveWithSource)
-                    {
-                        continue;
-                    }
-
-                    if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
-                    {
-                        isEffectCodesDividedByTypeDirty[effectCode.Type] = true;
-                    }
-                    else
-                    {
-                        effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
-                    }
-
-                    dirtyTypeEvent?.Invoke(effectCode.Type);
-
-                    if (effectCode is EffectCodeStatBase statEffectCode)
-                    {
-                        IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
-                        foreach (EffectCodeInheritFlag flag in allFlagTypes)
-                        {
-                            if (!statEffectCode.GetFlag().HasFlag(flag))
-                            {
-                                continue;
-                            }
-
-                            if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
-                            {
-                                isEffectCodesDividedByFlagDirty[flag] = true;
-                            }
-
-                            dirtyFlagEvent?.Invoke(flag);
+                            OnChangedDirtyFlag?.Invoke(flag);
                         }
                     }
 

@@ -126,7 +126,7 @@ namespace CookApps.TeamBattle.BattleSystem
             // add EffectCodes
             ecc = new EffectCodeContainer(this);
             needUpdateFlag = EffectCodeInheritFlagExtensions.AllFlags();
-            ecc.dirtyFlagEvent += EffectCodeDirtyFlagHandler;
+            ecc.OnChangedDirtyFlag += EffectCodeOnChangedDirtyFlagHandler;
 
             currHp = HP;
             IsAlive = true;
@@ -198,7 +198,16 @@ namespace CookApps.TeamBattle.BattleSystem
                 atkCoolTime += -dt * AttackSpeed * modifiedSpeedRate;
             }
 
+            var tempPosition = Position;
             CharacterStateRunningResult result = currState.CharacterStateRunning(dt * modifiedSpeedRate);
+
+            if (HasCrowdControl(CrowdControlType.Airborne) ||
+                HasCrowdControl(CrowdControlType.Freezing) ||
+                HasCrowdControl(CrowdControlType.KnockBack) ||
+                HasCrowdControl(CrowdControlType.Entangle))
+            {
+                result &= ~CharacterStateRunningResult.CanCallMove;
+            }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
             {
@@ -207,24 +216,23 @@ namespace CookApps.TeamBattle.BattleSystem
 
             view.LookAt(FlipX);
 
-            CalculateZ();
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnUpdate))
             {
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnUpdate);
-                EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnUpdateLambda, dt);
+                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnUpdateLambda, dt);
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
             {
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
                 float skillCooltimeRate = InGameCalculator.Instance.CalculateCooltimeRate(SkillCooltimeRate);
-                EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
+                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeActivate))
             {
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
-                EffectCodeStatBase effectCode = EffectCodeHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
+                EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
                 if (effectCode is EffectCodeCharacterBase runEffectCode)
                 {
                     runEffectCode.Activate();
@@ -253,13 +261,6 @@ namespace CookApps.TeamBattle.BattleSystem
         public void LateUpdate(float dt)
         {
             FollowHpBar();
-        }
-
-        private void CalculateZ()
-        {
-            Vector3 pos = view.CachedTr.localPosition;
-            pos.z = pos.y;
-            view.CachedTr.localPosition = pos;
         }
 
         private ObfuscatorFloat recoveryHPElapsedTime;
@@ -540,7 +541,7 @@ namespace CookApps.TeamBattle.BattleSystem
 
                 var deathInfo = new DeathInfo {attacker = attacker};
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
-                deathInfo = EffectCodeHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
+                deathInfo = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
 
                 if (!deathInfo.isUseCustomState && DefaultDeadState != null)
                 {
@@ -579,7 +580,7 @@ namespace CookApps.TeamBattle.BattleSystem
         private void IncreaseKillCount(CharacterController deadCharacter)
         {
             List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
-            EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
+            EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
         }
 
         /// <summary>
@@ -619,12 +620,12 @@ namespace CookApps.TeamBattle.BattleSystem
 
             {
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
-                amount = EffectCodeHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, amount);
+                amount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, amount);
             }
             {
                 // effectCode에게 이벤트 전달
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHealed);
-                EffectCodeHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnHealedLambda, amount, isFirstHeal);
+                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnHealedLambda, amount, isFirstHeal);
                 currHp += amount;
             }
 

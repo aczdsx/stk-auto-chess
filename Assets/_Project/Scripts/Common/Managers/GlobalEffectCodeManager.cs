@@ -61,11 +61,11 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
 
     public void RemoveEffectCode(GlobalEffectCodeSource source, int codeId)
     {
-        var effectCode = eccForGame.RemoveEffectCode(codeId);
-        if (effectCode?.Type == EffectCodeType.Game)
-        {
+        if (!eccForGame.RemoveEffectCode(codeId, out var effectCode))
             return;
-        }
+
+        if (effectCode?.Type == EffectCodeType.Game)
+            return;
 
         if (!globalEffectCodes.Remove((source, codeId)))
             return;
