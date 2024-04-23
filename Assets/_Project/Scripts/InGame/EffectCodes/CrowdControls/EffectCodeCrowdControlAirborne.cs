@@ -1,4 +1,5 @@
 using CookApps.Obfuscator;
+using CookApps.SampleTeamBattle;
 using CookApps.TeamBattle.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.TeamBattle.BattleSystem.CharacterController;
@@ -12,11 +13,9 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
     private ObfuscatorFloat duration;
     private ObfuscatorFloat height;
     private ObfuscatorFloat startY;
-    private Vector2 knockBackSpeed;
 
     // runtime data
     private ObfuscatorFloat elapsedTime;
-    private bool isKnockBacking;
     private bool isGoingUp;
     private ObfuscatorFloat upFactor;
     private ObfuscatorFloat downFactor;
@@ -35,24 +34,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         upFactor = (startY - height) / (halfDuration * halfDuration);
         downFactor = -height / (halfDuration * halfDuration);
 
-        if (codeInfo.HasCodeStat(2))
-        {
-            var sign = 1;
-            if (attacker != null)
-            {
-                sign = attacker.Position.x < owner.Position.x ? 1 : -1;
-            }
-            knockBackSpeed = new Vector2(sign * codeInfo.GetCodeStatToFloat(2), codeInfo.GetCodeStatToFloat(3));
-            owner.AddCrowdControl(CrowdControlType.KnockBack);
-            isKnockBacking = true;
-        }
-        else
-        {
-            knockBackSpeed = Vector2.zero;
-            owner.AddCrowdControl(CrowdControlType.Airborne);
-            isKnockBacking = false;
-        }
-
+        owner.AddCrowdControlWrapped(CrowdControlType.Airborne);
         elapsedTime = 0;
     }
 
@@ -96,25 +78,6 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         var halfDuration = duration * 0.5f;
         upFactor = (startY - height) / (halfDuration * halfDuration);
         downFactor = -height / (halfDuration * halfDuration);
-
-        if (codeInfo.HasCodeStat(2))
-        {
-            var sign = 1;
-            if (attacker != null)
-            {
-                sign = attacker.Position.x < owner.Position.x ? 1 : -1;
-            }
-            knockBackSpeed = new Vector2(sign * codeInfo.GetCodeStatToFloat(2), codeInfo.GetCodeStatToFloat(3));
-            owner.AddCrowdControl(CrowdControlType.KnockBack);
-            isKnockBacking = true;
-        }
-        else
-        {
-            knockBackSpeed = Vector2.zero;
-            owner.AddCrowdControl(CrowdControlType.Airborne);
-            isKnockBacking = false;
-        }
-
         elapsedTime = 0;
     }
 
@@ -124,22 +87,10 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         if (elapsedTime > duration)
         {
             RemoveFromContainer();
-            owner.RemoveCrowdControl(CrowdControlType.KnockBack);
             var pos = owner.ViewPosition3D;
             pos.y = 0;
             owner.ViewPosition3D = pos;
             return;
-        }
-
-        // 넉백 위치 계산
-        if (isKnockBacking)
-        {
-            var pos = owner.Position;
-            pos += knockBackSpeed * dt;
-            owner.Position = pos;
-
-            // 저항 계산을 해서 자연스럽게 밀리도록
-            knockBackSpeed -= knockBackSpeed.normalized * (-0.5f * knockBackSpeed.sqrMagnitude * 0.1f * dt);
         }
 
         // 에어본 위치 계산
@@ -158,5 +109,11 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
             pos.y = downFactor * x * x + height;
             owner.ViewPosition3D = pos;
         }
+    }
+
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
+        owner.RemoveCrowdControlWrapped(CrowdControlType.Airborne);
     }
 }
