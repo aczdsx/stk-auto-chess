@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace CookApps.TeamBattle.BattleSystem
+namespace CookApps.BattleSystem
 {
     public class ProjectileMovementLinear : ProjectileMovementBase
     {

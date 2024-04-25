@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using CookApps.TeamBattle.BattleSystem;
+using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
-using CharacterController = CookApps.TeamBattle.BattleSystem.CharacterController;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class FlowStateStageCombat : StateBase
 {

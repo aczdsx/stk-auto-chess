@@ -1,4 +1,4 @@
-using CookApps.TeamBattle.BattleSystem;
+using CookApps.BattleSystem;
 
 public class FlowStateStageWaveClear : StateBase
 {

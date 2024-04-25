@@ -34,6 +34,8 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
+        private SceneInstance? currentSceneInstance;
+
         /// <summary>
         /// 씬을 변경합니다. Lobby => Game, Game => Lobby 등 무거운 씬 간의 전환은 SceneLoading.GoToNextScene 을 사용하세요.
         /// </summary>
@@ -61,9 +63,14 @@ namespace CookApps.TeamBattle.UIManagements
             SceneData sceneData = SceneDataList[sceneName];
             await transition.FadeInAsync();
 
-            AsyncOperationHandle<SceneInstance> asyncOperation = Addressables.LoadSceneAsync(sceneData.AddressableName, activateOnLoad: false);
-            operationWrapper.SetAsyncOperation(asyncOperation);
-            SceneInstance sceneInstance = await asyncOperation;
+            if (currentSceneInstance.HasValue)
+            {
+                await Addressables.UnloadSceneAsync(currentSceneInstance.Value);
+            }
+
+            var asyncOperationHandle = Addressables.LoadSceneAsync(sceneData.AddressableName, activateOnLoad: false);
+            operationWrapper.SetAsyncOperation(asyncOperationHandle);
+            currentSceneInstance = await asyncOperationHandle;
             await UniTask.WaitUntil(() => operationWrapper.allowSceneActivation);
 
             if (isLoadingUI)
@@ -87,7 +94,7 @@ namespace CookApps.TeamBattle.UIManagements
             OnSceneUnloadedEvent?.Invoke(CurrentSceneName);
             Resources.UnloadUnusedAssets();
             GC.Collect();
-            await sceneInstance.ActivateAsync();
+            await currentSceneInstance.Value.ActivateAsync();
             OnSceneLoaded(sceneName, defaultUIData, transition);
         }
 

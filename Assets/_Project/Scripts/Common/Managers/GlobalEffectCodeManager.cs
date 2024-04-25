@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
-using CookApps.TeamBattle.BattleSystem;
+using CookApps.BattleSystem;
 using UnityEngine.Pool;
 
 public enum GlobalEffectCodeSource

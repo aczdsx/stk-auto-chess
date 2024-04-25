@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using UnityEngine;
 
-namespace CookApps.TeamBattle.BattleSystem
+namespace CookApps.BattleSystem
 {
     public class InGameEffectManager : Singleton<InGameEffectManager>
     {

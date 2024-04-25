@@ -1,6 +1,6 @@
 using UnityEngine.Pool;
 
-namespace CookApps.TeamBattle.BattleSystem
+namespace CookApps.BattleSystem
 {
     public interface IProjectileMovementPool
     {

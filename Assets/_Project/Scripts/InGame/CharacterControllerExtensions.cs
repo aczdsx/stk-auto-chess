@@ -1,9 +1,10 @@
-using CookApps.TeamBattle.BattleSystem;
+using CookApps.BattleSystem;
 
 namespace CookApps.SampleTeamBattle
 {
     public static class BattleSystemExtensions
     {
+        // TODO: Character Controller에 통합할 것
         public static void AddBuffDebuffTypeWrapped(this CharacterController characterController, BuffDebuffType type)
         {
             characterController.AddBuffDebuffType(type);
@@ -14,12 +15,14 @@ namespace CookApps.SampleTeamBattle
             }
         }
 
+        // TODO: Character Controller에 통합할 것
         public static void AddCrowdControlWrapped(this CharacterController characterController, CrowdControlType type)
         {
             characterController.AddCrowdControl(type);
             characterController.AddBuffDebuffTypeWrapped(type.ToBuffDebuffType());
         }
 
+        // TODO: Character Controller에 통합할 것
         public static void RemoveBuffDebuffTypeWrapped(this CharacterController characterController, BuffDebuffType type)
         {
             var (currCount, effectView) = characterController.RemoveBuffDebuffType(type);
@@ -29,6 +32,7 @@ namespace CookApps.SampleTeamBattle
             }
         }
 
+        // TODO: Character Controller에 통합할 것
         public static void RemoveCrowdControlWrapped(this CharacterController characterController, CrowdControlType type)
         {
             characterController.RemoveCrowdControl(type);

@@ -1,7 +1,7 @@
 using CookApps.Obfuscator;
 using UnityEngine;
 
-namespace CookApps.TeamBattle.BattleSystem
+namespace CookApps.BattleSystem
 {
     public class InGameEffectWithParticle : InGameEffectBase
     {

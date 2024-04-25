@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Com.Cookapps.Sampleteambattle;
 using CookApps.Obfuscator;
-using CookApps.TeamBattle.BattleSystem;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 
 namespace CookApps.SampleTeamBattle
@@ -41,29 +41,29 @@ namespace CookApps.SampleTeamBattle
             return SimpleSwapType.Custom_0 + ((int) pos - 1);
         }
 
-        public static CookApps.TeamBattle.BattleSystem.AttackRangeShape ToInGameAttackRangeShape(this AttackRangeShape type)
+        public static BattleSystem.AttackRangeShape ToInGameAttackRangeShape(this AttackRangeShape type)
         {
             return type switch
             {
-                AttackRangeShape.Rectangle => CookApps.TeamBattle.BattleSystem.AttackRangeShape.Rectangle,
-                AttackRangeShape.RectangleCut1Edge => CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut1Edge,
-                AttackRangeShape.RectangleCut2Edge => CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut2Edge,
-                AttackRangeShape.RectangleCut3Edge => CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut3Edge,
-                AttackRangeShape.RectangleCut4Edge => CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut4Edge,
-                AttackRangeShape.RectangleCut5Edge => CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut5Edge,
-                _ => CookApps.TeamBattle.BattleSystem.AttackRangeShape.Rectangle,
+                AttackRangeShape.Rectangle => BattleSystem.AttackRangeShape.Rectangle,
+                AttackRangeShape.RectangleCut1Edge => BattleSystem.AttackRangeShape.RectangleCut1Edge,
+                AttackRangeShape.RectangleCut2Edge => BattleSystem.AttackRangeShape.RectangleCut2Edge,
+                AttackRangeShape.RectangleCut3Edge => BattleSystem.AttackRangeShape.RectangleCut3Edge,
+                AttackRangeShape.RectangleCut4Edge => BattleSystem.AttackRangeShape.RectangleCut4Edge,
+                AttackRangeShape.RectangleCut5Edge => BattleSystem.AttackRangeShape.RectangleCut5Edge,
+                _ => BattleSystem.AttackRangeShape.Rectangle,
             };
         }
-        public static AttackRangeShape ToSpecAttackRangeShape(this CookApps.TeamBattle.BattleSystem.AttackRangeShape type)
+        public static AttackRangeShape ToSpecAttackRangeShape(this BattleSystem.AttackRangeShape type)
         {
             return type switch
             {
-                CookApps.TeamBattle.BattleSystem.AttackRangeShape.Rectangle => AttackRangeShape.Rectangle,
-                CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut1Edge => AttackRangeShape.RectangleCut1Edge,
-                CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut2Edge => AttackRangeShape.RectangleCut2Edge,
-                CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut3Edge => AttackRangeShape.RectangleCut3Edge,
-                CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut4Edge => AttackRangeShape.RectangleCut4Edge,
-                CookApps.TeamBattle.BattleSystem.AttackRangeShape.RectangleCut5Edge => AttackRangeShape.RectangleCut5Edge,
+                BattleSystem.AttackRangeShape.Rectangle => AttackRangeShape.Rectangle,
+                BattleSystem.AttackRangeShape.RectangleCut1Edge => AttackRangeShape.RectangleCut1Edge,
+                BattleSystem.AttackRangeShape.RectangleCut2Edge => AttackRangeShape.RectangleCut2Edge,
+                BattleSystem.AttackRangeShape.RectangleCut3Edge => AttackRangeShape.RectangleCut3Edge,
+                BattleSystem.AttackRangeShape.RectangleCut4Edge => AttackRangeShape.RectangleCut4Edge,
+                BattleSystem.AttackRangeShape.RectangleCut5Edge => AttackRangeShape.RectangleCut5Edge,
                 _ => AttackRangeShape.Rectangle,
             };
         }

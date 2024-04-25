@@ -1,5 +1,5 @@
 using CookApps.SampleTeamBattle;
-using CookApps.TeamBattle.BattleSystem;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;

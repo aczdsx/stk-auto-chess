@@ -1,5 +1,5 @@
 using System.Linq;
-using CookApps.TeamBattle.BattleSystem;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Unity.Mathematics;
 using UnityEngine;
