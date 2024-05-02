@@ -6,9 +6,9 @@ namespace CookApps.BattleSystem
 {
     public class InGameEffectManager : Singleton<InGameEffectManager>
     {
-        private List<InGameEffectBase> runningEffects = new ();
-        private Queue<InGameEffectBase> addWaitingInGameEffects = new ();
-        private Queue<InGameEffectBase> removeWaitingInGameEffects = new ();
+        private List<InGameEffectView> runningEffects = new ();
+        private Queue<InGameEffectView> addWaitingInGameEffects = new ();
+        private Queue<InGameEffectView> removeWaitingInGameEffects = new ();
 
         public void Initialize()
         {
@@ -36,37 +36,37 @@ namespace CookApps.BattleSystem
         {
             while (addWaitingInGameEffects.Count > 0)
             {
-                InGameEffectBase effect = addWaitingInGameEffects.Dequeue();
+                InGameEffectView effect = addWaitingInGameEffects.Dequeue();
                 runningEffects.Add(effect);
             }
 
             while (removeWaitingInGameEffects.Count > 0)
             {
-                InGameEffectBase effect = removeWaitingInGameEffects.Dequeue();
+                InGameEffectView effect = removeWaitingInGameEffects.Dequeue();
                 runningEffects.Remove(effect);
             }
         }
 
         #region Ingame Effect
-        public void AddInGameEffect(InGameEffectBase effect)
+        public void AddInGameEffect(InGameEffectView effect)
         {
             addWaitingInGameEffects.Enqueue(effect);
         }
 
-        public void RemoveInGameEffect(InGameEffectBase view)
+        public void RemoveInGameEffect(InGameEffectView view)
         {
             removeWaitingInGameEffects.Enqueue(view);
         }
         #endregion
 
-        public InGameEffectBase Get(string effectName, Transform trPos = null)
+        public InGameEffectView Get(string effectName, Transform trPos = null)
         {
             // IngameObjectManager.Instance.AddIngameEffect(effect);
             // return effect;
             return null;
         }
 
-        public InGameEffectBase Get(BuffDebuffType buffDebuffType, Transform parent)
+        public InGameEffectView Get(BuffDebuffType buffDebuffType, Transform parent)
         {
             // InGameEffectBase effect = buffDebuffType switch
             // {

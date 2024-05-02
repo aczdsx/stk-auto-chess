@@ -96,7 +96,7 @@ namespace CookApps.BattleSystem
         }
 
         private Dictionary<BuffDebuffType, ObfuscatorInt> buffDebuffRefCountDict;
-        private Dictionary<BuffDebuffType, IInGameEffectView> buffDebuffEffectViewDict;
+        private Dictionary<BuffDebuffType, InGameEffectView> buffDebuffEffectViewDict;
 
         private double currHp;
         public double CurrentHp => currHp;
@@ -122,7 +122,7 @@ namespace CookApps.BattleSystem
             view.OnAnimationEvent += OnAnimationEvent;
             view.CachedTr.localPosition = position;
             buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
-            buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, IInGameEffectView>();
+            buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameEffectView>();
 
             // add EffectCodes
             ecc = new EffectCodeContainer(this);
@@ -161,11 +161,13 @@ namespace CookApps.BattleSystem
         public void AddCrowdControl(CrowdControlType type)
         {
             crowdControlType = crowdControlType | type;
+            AddBuffDebuffType(type.ToBuffDebuffType());
         }
 
         public void RemoveCrowdControl(CrowdControlType type)
         {
             crowdControlType = crowdControlType & ~type;
+            RemoveBuffDebuffType(type.ToBuffDebuffType());
         }
 
         private void OnAnimationEvent(string animName, AnimationEventKey eventKey)
@@ -364,58 +366,44 @@ namespace CookApps.BattleSystem
         /// 공격력 버프가 2개 걸려있을 경우 캐릭터에 이펙트가 1개만 보여야 하므로 레퍼런스 카운트로 관리한다.
         /// </summary>
         /// <param name="type">버프나 디버프 타입</param>
-        /// <returns>
-        /// 중첩수
-        /// 이 값을 통해서 이펙트를 보여줄지 말지를 결정
-        /// </returns>
-        public int AddBuffDebuffType(BuffDebuffType type)
+        public void AddBuffDebuffType(BuffDebuffType type)
         {
             if (IsAlive == false)
             {
-                return 0;
+                return;
             }
 
             if (type == BuffDebuffType.None || type == BuffDebuffType.MAX)
             {
-                return 0;
+                return;
             }
 
             buffDebuffRefCountDict[type] += 1;
-            return buffDebuffRefCountDict[type];
+            if (buffDebuffEffectViewDict.ContainsKey(type) == false)
+            {
+                var effectView = InGameEffectManager.Instance.Get(type, view.CachedTr);
+                buffDebuffEffectViewDict.Add(type, effectView);
+            }
         }
 
-        public bool AddBuffDebuffEffectView(BuffDebuffType type, IInGameEffectView effectView)
-        {
-            if (IsAlive == false)
-            {
-                return false;
-            }
-
-            if (type == BuffDebuffType.None || type == BuffDebuffType.MAX)
-            {
-                return false;
-            }
-
-            buffDebuffEffectViewDict[type] = effectView;
-            return true;
-        }
-
-        public (int, IInGameEffectView) RemoveBuffDebuffType(BuffDebuffType type)
+        public void RemoveBuffDebuffType(BuffDebuffType type)
         {
             if (type is BuffDebuffType.None or BuffDebuffType.MAX)
             {
-                return (buffDebuffRefCountDict[type], null);
+                return;
             }
 
             buffDebuffRefCountDict[type] -= 1;
-            var effectView = buffDebuffEffectViewDict[type];
             if (buffDebuffRefCountDict[type] <= 0)
             {
                 buffDebuffRefCountDict[type] = 0;
-                buffDebuffEffectViewDict.Remove(type);
+                if (buffDebuffEffectViewDict.ContainsKey(type))
+                {
+                    var effectView = buffDebuffEffectViewDict[type];
+                    buffDebuffEffectViewDict.Remove(type);
+                    InGameEffectManager.Instance.RemoveInGameEffect(effectView);
+                }
             }
-
-            return (buffDebuffRefCountDict[type], effectView);
         }
 
         public bool HasBuffDebuffType(BuffDebuffType type)

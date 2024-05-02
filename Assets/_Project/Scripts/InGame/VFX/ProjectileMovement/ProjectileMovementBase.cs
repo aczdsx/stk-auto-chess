@@ -8,14 +8,14 @@ namespace CookApps.BattleSystem
     {
         public event Action OnReachedTarget = delegate { };
 
-        protected InGameEffectProjectile effect;
+        protected InGameEffectViewProjectile EffectView;
         protected Vector3 srcPos;
         protected Vector3 destPos;
         protected ObfuscatorFloat speed;
 
-        public virtual void SetData(InGameEffectProjectile effect, Vector3 srcPos, Vector3 destPos, float speed)
+        public virtual void SetData(InGameEffectViewProjectile effectView, Vector3 srcPos, Vector3 destPos, float speed)
         {
-            this.effect = effect;
+            this.EffectView = effectView;
             this.srcPos = srcPos;
             this.destPos = destPos;
             this.speed = speed;
@@ -25,7 +25,7 @@ namespace CookApps.BattleSystem
 
         public virtual void Clear()
         {
-            effect = null;
+            EffectView = null;
         }
 
         public virtual void InvokeReachedTarget()

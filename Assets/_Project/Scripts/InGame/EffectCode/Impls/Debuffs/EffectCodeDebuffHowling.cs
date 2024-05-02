@@ -15,13 +15,7 @@ public class EffectCodeDebuffHowling : EffectCodeCharacterBase
         duration = codeInfo.GetCodeStatToFloat(1);
         decreaseRate = codeInfo.GetCodeStatToFloat(2); // 이미 0.01f 곱해져서 들어옴
         elapsedTime = 0f;
-        var stackCount = owner.AddBuffDebuffType(BuffDebuffType.DefenceDown);
-        if (stackCount == 1)
-        {
-            var effect = InGameEffectManager.Instance.Get(BuffDebuffType.DefenceDown, owner.GetCharacterView().CachedTr);
-            if (!ReferenceEquals(effect, null))
-                owner.AddBuffDebuffEffectView(BuffDebuffType.DefenceDown, effect);
-        }
+        owner.AddBuffDebuffType(BuffDebuffType.DefenceDown);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -49,14 +43,7 @@ public class EffectCodeDebuffHowling : EffectCodeCharacterBase
     public override void OnPreRemoved()
     {
         base.OnPreRemoved();
-        var (stackCount, effectView) = owner.RemoveBuffDebuffType(BuffDebuffType.DefenceDown);
-        if (stackCount != 0)
-            return;
-
-        if (effectView == null)
-            return;
-
-        InGameEffectManager.Instance.RemoveInGameEffect(effectView as InGameEffectBase);
+        owner.RemoveBuffDebuffType(BuffDebuffType.DefenceDown);
     }
 
     public override double GetIncrementPercentDEF()

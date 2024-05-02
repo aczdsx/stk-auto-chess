@@ -17,7 +17,7 @@ public class EffectCodeCrowdControlProvocation : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         duration = codeInfo.GetCodeStatToFloat(0);
-        owner.AddCrowdControlWrapped(CrowdControlType.Provocation);
+        owner.AddCrowdControl(CrowdControlType.Provocation);
         elapsedTime = 0;
         prevTarget = owner.Target;
         owner.Target = source as CharacterController;
@@ -32,7 +32,7 @@ public class EffectCodeCrowdControlProvocation : EffectCodeCharacterBase
             owner.Target = prevTarget;
         }
 
-        owner.RemoveCrowdControlWrapped(CrowdControlType.Provocation);
+        owner.RemoveCrowdControl(CrowdControlType.Provocation);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
-    public class InGameEffectBase : CachedMonoBehaviour, IInGameEffectView
+    public class InGameEffectView : CachedMonoBehaviour
     {
         protected bool cachedFlipX = false;
 

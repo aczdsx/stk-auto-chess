@@ -19,13 +19,13 @@ public class EffectCodeCrowdControlFreezing : EffectCodeCharacterBase
         base.Initialize(codeInfo, container, source);
         duration = codeInfo.GetCodeStatToFloat(0);
         elapsedTime = 0;
-        owner.AddCrowdControlWrapped(CrowdControlType.Freezing);
+        owner.AddCrowdControl(CrowdControlType.Freezing);
     }
 
     public override void OnPreRemoved()
     {
         base.OnPreRemoved();
-        owner.RemoveCrowdControlWrapped(CrowdControlType.Freezing);
+        owner.RemoveCrowdControl(CrowdControlType.Freezing);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

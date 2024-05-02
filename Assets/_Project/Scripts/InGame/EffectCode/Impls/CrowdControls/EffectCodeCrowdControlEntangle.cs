@@ -13,20 +13,19 @@ public class EffectCodeCrowdControlEntangle : EffectCodeCharacterBase
 
     private ObfuscatorFloat elapsedTime;
     private ObfuscatorFloat duration;
-    private IInGameEffectView effectView;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
         duration = codeInfo.GetCodeStatToFloat(0);
         elapsedTime = 0;
-        owner.AddCrowdControlWrapped(CrowdControlType.Entangle);
+        owner.AddCrowdControl(CrowdControlType.Entangle);
     }
 
     public override void OnPreRemoved()
     {
         base.OnPreRemoved();
-        owner.RemoveCrowdControlWrapped(CrowdControlType.Entangle);
+        owner.RemoveCrowdControl(CrowdControlType.Entangle);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

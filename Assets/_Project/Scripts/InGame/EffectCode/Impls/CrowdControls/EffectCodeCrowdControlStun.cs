@@ -15,13 +15,13 @@ public class EffectCodeCrowdControlStun : EffectCodeCharacterBase
         base.Initialize(codeInfo, container, source);
         duration = codeInfo.GetCodeStatToFloat(0);
         elapsedTime = 0;
-        owner.AddCrowdControlWrapped(CrowdControlType.Stun);
+        owner.AddCrowdControl(CrowdControlType.Stun);
     }
 
     public override void OnPreRemoved()
     {
         base.OnPreRemoved();
-        owner.RemoveCrowdControlWrapped(CrowdControlType.Stun);
+        owner.RemoveCrowdControl(CrowdControlType.Stun);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

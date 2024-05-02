@@ -34,7 +34,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         upFactor = (startY - height) / (halfDuration * halfDuration);
         downFactor = -height / (halfDuration * halfDuration);
 
-        owner.AddCrowdControlWrapped(CrowdControlType.Airborne);
+        owner.AddCrowdControl(CrowdControlType.Airborne);
         elapsedTime = 0;
     }
 
@@ -114,6 +114,6 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
     public override void OnPreRemoved()
     {
         base.OnPreRemoved();
-        owner.RemoveCrowdControlWrapped(CrowdControlType.Airborne);
+        owner.RemoveCrowdControl(CrowdControlType.Airborne);
     }
 }

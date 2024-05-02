@@ -12,18 +12,18 @@ namespace CookApps.BattleSystem
 
         private Vector3 direction;
 
-        public override void SetData(InGameEffectProjectile effect, Vector3 srcPos, Vector3 destPos, float speed)
+        public override void SetData(InGameEffectViewProjectile effectView, Vector3 srcPos, Vector3 destPos, float speed)
         {
-            base.SetData(effect, srcPos, destPos, speed);
+            base.SetData(effectView, srcPos, destPos, speed);
             direction = destPos - srcPos;
         }
 
         public override void ManagedUpdate(float dt)
         {
-            Vector3 position = effect.CachedTr.localPosition;
+            Vector3 position = EffectView.CachedTr.localPosition;
             Vector3 move = direction.normalized * dt * speed;
 
-            Transform transform = effect.CachedTr;
+            Transform transform = EffectView.CachedTr;
             transform.localPosition = position + move;
         }
     }

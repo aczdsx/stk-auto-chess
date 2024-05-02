@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
-    public class InGameEffectWithParticle : InGameEffectBase
+    public class InGameEffectViewWithParticle : InGameEffectView
     {
         [SerializeField] private ParticleSystem particle;
 

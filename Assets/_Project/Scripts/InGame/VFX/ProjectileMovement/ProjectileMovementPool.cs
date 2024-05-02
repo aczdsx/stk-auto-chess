@@ -4,7 +4,7 @@ namespace CookApps.BattleSystem
 {
     public interface IProjectileMovementPool
     {
-        ProjectileMovementBase Create(InGameEffectBase effect);
+        ProjectileMovementBase Create(InGameEffectView effect);
         void Release(ProjectileMovementBase movement);
     }
 

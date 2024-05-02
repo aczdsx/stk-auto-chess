@@ -17,9 +17,9 @@ namespace CookApps.BattleSystem
         private float _newPointDistanceFromEndTr = 2;
         private Vector3 direction;
 
-        public override void SetData(InGameEffectProjectile effect, Vector3 srcPos, Vector3 destPos, float speed)
+        public override void SetData(InGameEffectViewProjectile effectView, Vector3 srcPos, Vector3 destPos, float speed)
         {
-            base.SetData(effect, srcPos, destPos, speed);
+            base.SetData(effectView, srcPos, destPos, speed);
             InitializeBezierData();
         }
 
@@ -38,7 +38,7 @@ namespace CookApps.BattleSystem
 
             // 도착 지점.
             m_points[3] = destPos;
-            effect.CachedTr.localPosition = srcPos;
+            EffectView.CachedTr.localPosition = srcPos;
         }
 
         public override void ManagedUpdate(float dt)
@@ -56,16 +56,16 @@ namespace CookApps.BattleSystem
                 CubicBezierCurve(m_points[0].x, m_points[1].x, m_points[2].x, m_points[3].x),
                 CubicBezierCurve(m_points[0].y, m_points[1].y, m_points[2].y, m_points[3].y)
             );
-            direction = (pos - effect.CachedTr.position).normalized;
+            direction = (pos - EffectView.CachedTr.position).normalized;
             SetRotation(direction);
-            effect.CachedTr.position = pos;
+            EffectView.CachedTr.position = pos;
         }
 
         private void SetRotation(Vector2 direction)
         {
             float angle = Vector3.Angle(Vector3.left, direction);
 
-            effect.CachedTr.rotation = Quaternion.Euler(0, 0, angle + 180);
+            EffectView.CachedTr.rotation = Quaternion.Euler(0, 0, angle + 180);
         }
 
         /// <summary>
