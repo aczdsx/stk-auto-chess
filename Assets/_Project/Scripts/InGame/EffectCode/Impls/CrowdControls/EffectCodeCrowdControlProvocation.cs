@@ -51,5 +51,9 @@ public class EffectCodeCrowdControlProvocation : EffectCodeCharacterBase
         {
             RemoveFromContainer();
         }
+        else
+        {
+            owner.Target = source as CharacterController;
+        }
     }
 }

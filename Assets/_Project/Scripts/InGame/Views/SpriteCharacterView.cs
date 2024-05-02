@@ -29,10 +29,11 @@ namespace CookApps.SampleTeamBattle
         /// <summary>
         /// viewPosition을 받아 위치를 업데이트 합니다.
         /// </summary>
-        /// <param name="viewPosition">뷰의 위치</param>
-        public void UpdatePosition(Vector3 viewPosition)
+        /// <param name="position">view의 필드 위치</param>
+        /// <param name="viewPosition">에어본이나 점프등을 하기 위해 필드 위치와의 offset이 필요할 경우 사용</param>
+        public void UpdatePosition(Vector2 position, Vector3 viewPosition)
         {
-            CachedTr.localPosition = viewPosition;
+            CachedTr.localPosition = (Vector3)position + viewPosition;
         }
 
         public void SetAnimationSpeed(float speed)

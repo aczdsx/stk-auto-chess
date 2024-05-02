@@ -191,11 +191,10 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            bool isSlowing = HasCrowdControl(CrowdControlType.Slowing);
-            float modifiedSpeedRate = isSlowing ? InGameCalculator.CrowdControlSlowRate : 1f;
+            float modifiedSpeedRate = HasCrowdControl(CrowdControlType.Slowing) ? InGameCalculator.CrowdControlSlowRate : 1f;
 
             // 기본 공격 쿨타임을 컨틀롤러에서 가지고 있는다.
-            // 스테이트에서 관리하면 적을 죽이고 난 뒤에 관리가 안된다.
+            // 공격 스테이트가 아닌 스테이트에서도 쿨타임을 감소 시켜야 하기 때문
             if (atkCoolTime > 0f)
             {
                 atkCoolTime += -dt * AttackSpeed * modifiedSpeedRate;
@@ -204,17 +203,23 @@ namespace CookApps.BattleSystem
             var tempPosition = Position;
             CharacterStateRunningResult result = currState.CharacterStateRunning(dt * modifiedSpeedRate);
 
-            if (HasCrowdControl(CrowdControlType.Airborne) ||
-                HasCrowdControl(CrowdControlType.Freezing) ||
-                HasCrowdControl(CrowdControlType.KnockBack) ||
-                HasCrowdControl(CrowdControlType.Entangle))
+            var isAirborne = HasCrowdControl(CrowdControlType.Airborne);
+            var isFreezing = HasCrowdControl(CrowdControlType.Freezing);
+            var isKnockBack = HasCrowdControl(CrowdControlType.KnockBack);
+            var isStun = HasCrowdControl(CrowdControlType.Stun);
+            var isEntangle = HasCrowdControl(CrowdControlType.Entangle);
+            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle)
             {
                 result &= ~CharacterStateRunningResult.CanCallMove;
+                if (isStun || isAirborne || isFreezing || isKnockBack)
+                {
+                    result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
+                }
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
             {
-                view.UpdatePosition(viewPosition);
+                view.UpdatePosition(position, ViewPosition3D);
             }
 
             view.LookAt(FlipX);
@@ -223,6 +228,11 @@ namespace CookApps.BattleSystem
             {
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnUpdate);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnUpdateLambda, dt);
+            }
+
+            if (isAirborne || isKnockBack)
+            {
+                view.UpdatePosition(position, ViewPosition3D);
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
