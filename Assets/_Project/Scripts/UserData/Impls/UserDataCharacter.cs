@@ -10,19 +10,11 @@ namespace CookApps.SampleTeamBattle
 {
     public partial class UserDataManager
     {
-        public static UserDataCharacter UserCharacter => Get<UserDataCharacter>(DataCategory.UserCharacterGroup);
-    }
-
-    public class UserDataCharacter : IUserData
-    {
-        DataCategory IUserData.DataCategory => DataCategory.UserCharacterGroup;
-        int IUserData.Priority => 0;
-
         private UserCharacterGroup userCharacterGroup;
-
         public static event Action<UserCharacter> OnUserCharacterChanged;
 
-        void IUserData.SetDataFromServer(string data)
+        [Initialize(DataCategory.UserCharacterGroup)]
+        void Initialize_CharacterGroup(string data)
         {
             userCharacterGroup = MessageUtility.FromBase64String<UserCharacterGroup>(data);
         }
@@ -86,7 +78,7 @@ namespace CookApps.SampleTeamBattle
             return userCharacterGroup.UserCharacters.Count;
         }
 
-        public void Save()
+        public void SaveCharacterGroup()
         {
             CommonGrpcManager.Instance.SetUserDataAsync(DataCategory.UserCharacterGroup.ToCategoryString(), userCharacterGroup);
         }

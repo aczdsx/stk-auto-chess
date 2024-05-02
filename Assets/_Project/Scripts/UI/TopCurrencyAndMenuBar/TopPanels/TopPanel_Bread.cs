@@ -9,12 +9,12 @@ namespace CookApps.SampleTeamBattle
 
         private void OnEnable()
         {
-            UserDataWallet.OnBreadChanged += OnBreadChanged;
+            UserDataManager.OnBreadChanged += OnBreadChanged;
         }
 
         private void OnDisable()
         {
-            UserDataWallet.OnBreadChanged -= OnBreadChanged;
+            UserDataManager.OnBreadChanged -= OnBreadChanged;
         }
 
         private void OnBreadChanged(int bread)

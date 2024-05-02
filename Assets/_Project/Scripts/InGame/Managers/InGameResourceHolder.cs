@@ -20,9 +20,9 @@ namespace CookApps.SampleTeamBattle
             StagePrefab = await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
             // load player character
             List<int> deckCharacIds = ListPool<int>.Get();
-            deckCharacIds.AddRange(UserDataManager.UserDeck.GetFront());
-            deckCharacIds.AddRange(UserDataManager.UserDeck.GetMid());
-            deckCharacIds.AddRange(UserDataManager.UserDeck.GetBack());
+            deckCharacIds.AddRange(UserDataManager.Instance.GetFront());
+            deckCharacIds.AddRange(UserDataManager.Instance.GetMid());
+            deckCharacIds.AddRange(UserDataManager.Instance.GetBack());
             foreach (int characId in deckCharacIds)
             {
                 PlayerCharacterPrefabs.Add(characId, await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Prefabs/Characters/{characId}.prefab"));

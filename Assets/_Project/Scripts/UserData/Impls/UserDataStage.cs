@@ -3,20 +3,12 @@ using CookApps.gRPC.Universal;
 
 namespace CookApps.SampleTeamBattle
 {
-    // userStage에 쉽게 접근하기위해
     public partial class UserDataManager
     {
-        public static UserDataStage UserStage => Get<UserDataStage>(DataCategory.UserStageGroup);
-    }
-
-    public class UserDataStage : IUserData
-    {
-        DataCategory IUserData.DataCategory => DataCategory.UserStageGroup;
-        int IUserData.Priority => 1;
-
         private UserStageGroup userStageGroupData;
 
-        void IUserData.SetDataFromServer(string data)
+        [Initialize(DataCategory.UserStageGroup, 1)]
+        private void Initialize_StageGroup(string data)
         {
             userStageGroupData = MessageUtility.FromBase64String<UserStageGroup>(data);
         }

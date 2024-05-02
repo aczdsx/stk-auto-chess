@@ -102,7 +102,7 @@ namespace CookApps.SampleTeamBattle
             (chapter, stageIndex) = ((int, int)) param;
             stageNameText.text = ZString.Format("{0}-{1}", chapter, stageIndex + 1);
             ownCharacterIds.Clear();
-            ownCharacterIds.AddRange(UserDataManager.UserCharacter.GetAllCharacterIds());
+            ownCharacterIds.AddRange(UserDataManager.Instance.GetAllCharacterIds());
             tableView.RefreshAll();
             RefreshDeck();
             RefreshEnemyDeck();
@@ -111,7 +111,7 @@ namespace CookApps.SampleTeamBattle
         public override void OnPreExit()
         {
             base.OnPreExit();
-            UserDataManager.UserDeck.Save();
+            UserDataManager.Instance.SaveUserDeck();
         }
 
         private void RefreshDeck()
@@ -123,7 +123,7 @@ namespace CookApps.SampleTeamBattle
 
             playerCharacterSlots.Clear();
 
-            foreach (int id in UserDataManager.UserDeck.GetFront())
+            foreach (int id in UserDataManager.Instance.GetFront())
             {
                 CharacterSlot slot = characterSlotPool.Get();
                 slot.CachedTr.SetParent(playerPositionParentTrs[0], false);
@@ -133,7 +133,7 @@ namespace CookApps.SampleTeamBattle
                 playerCharacterSlots.Add(slot);
             }
 
-            foreach (int id in UserDataManager.UserDeck.GetMid())
+            foreach (int id in UserDataManager.Instance.GetMid())
             {
                 CharacterSlot slot = characterSlotPool.Get();
                 slot.CachedTr.SetParent(playerPositionParentTrs[1], false);
@@ -143,7 +143,7 @@ namespace CookApps.SampleTeamBattle
                 playerCharacterSlots.Add(slot);
             }
 
-            foreach (int id in UserDataManager.UserDeck.GetBack())
+            foreach (int id in UserDataManager.Instance.GetBack())
             {
                 CharacterSlot slot = characterSlotPool.Get();
                 slot.CachedTr.SetParent(playerPositionParentTrs[2], false);
@@ -203,15 +203,15 @@ namespace CookApps.SampleTeamBattle
                 return;
             }
 
-            if (UserDataManager.UserDeck.IsDeployed(specCharacter.id))
+            if (UserDataManager.Instance.IsDeployed(specCharacter.id))
             {
-                UserDataManager.UserDeck.RemoveCharacterInTeam(slot.CharacterId);
+                UserDataManager.Instance.RemoveCharacterInTeam(slot.CharacterId);
                 RefreshDeck();
                 tableView.RefreshAll();
             }
             else
             {
-                UserDataManager.UserDeck.AddCharacterInTeam(slot.CharacterId);
+                UserDataManager.Instance.AddCharacterInTeam(slot.CharacterId);
                 RefreshDeck();
                 tableView.RefreshAll();
             }

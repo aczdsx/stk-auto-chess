@@ -62,7 +62,7 @@ namespace CookApps.SampleTeamBattle
             IsInDeck = isInDeck;
             CharacterId = characterId;
             SetDefaultCharacterData(characterId);
-            UserCharacter userCharacter = UserDataManager.UserCharacter.GetUserCharacter(characterId);
+            UserCharacter userCharacter = UserDataManager.Instance.GetUserCharacter(characterId);
             for (var i = 0; i < starBgs.Length; i++)
             {
                 starBgs[i].SetActive(true);
@@ -71,7 +71,7 @@ namespace CookApps.SampleTeamBattle
 
             levelText.text = userCharacter.Level.ToString();
 
-            deployedNode.SetActive(UserDataManager.UserDeck.IsDeployed(characterId));
+            deployedNode.SetActive(UserDataManager.Instance.IsDeployed(characterId));
         }
 
         internal void SetEnemyCharacterData(int characterId, int level)

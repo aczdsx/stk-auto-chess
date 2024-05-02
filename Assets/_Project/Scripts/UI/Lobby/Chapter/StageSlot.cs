@@ -33,7 +33,7 @@ namespace CookApps.SampleTeamBattle
             this.chapter = chapter;
             this.stageIndex = stageIndex;
             SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
-            UserStage userStage = UserDataManager.UserStage.GetUserStage(specStage.stage_id);
+            UserStage userStage = UserDataManager.Instance.GetUserStage(specStage.stage_id);
             stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
             for (var i = 0; i < starObjs.Length; i++)
             {

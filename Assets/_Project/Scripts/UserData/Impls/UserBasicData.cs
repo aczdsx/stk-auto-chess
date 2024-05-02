@@ -3,14 +3,12 @@ using CookApps.gRPC.Universal;
 
 namespace CookApps.SampleTeamBattle
 {
-    public class UserBasicData : IUserData
+    public partial class UserDataManager
     {
-        DataCategory IUserData.DataCategory => DataCategory.UserData;
-        int IUserData.Priority => 0;
-
         private UserData userBasicData;
 
-        void IUserData.SetDataFromServer(string data)
+        [Initialize(DataCategory.UserData)]
+        private void Initialize_BasicData(string data)
         {
             userBasicData = MessageUtility.FromBase64String<UserData>(data);
         }

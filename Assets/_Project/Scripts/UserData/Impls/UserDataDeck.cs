@@ -8,17 +8,10 @@ namespace CookApps.SampleTeamBattle
 {
     public partial class UserDataManager
     {
-        public static UserDataDeck UserDeck => Get<UserDataDeck>(DataCategory.UserDeck);
-    }
-
-    public class UserDataDeck : IUserData
-    {
-        DataCategory IUserData.DataCategory => DataCategory.UserDeck;
-        int IUserData.Priority => 0;
-
         private UserDeck userDeckData;
 
-        void IUserData.SetDataFromServer(string data)
+        [Initialize(DataCategory.UserDeck)]
+        private void Initialize_Deck(string data)
         {
             userDeckData = MessageUtility.FromBase64String<UserDeck>(data);
         }
@@ -79,7 +72,7 @@ namespace CookApps.SampleTeamBattle
             return userDeckData.LineCharacters[2].CharacterIds;
         }
 
-        public void Save()
+        public void SaveUserDeck()
         {
             CommonGrpcManager.Instance.SetUserDataAsync(DataCategory.UserDeck.ToCategoryString(), userDeckData);
         }

@@ -29,7 +29,7 @@ namespace CookApps.SampleTeamBattle
 
         private void OnClickStart()
         {
-            int currentStageId = UserDataManager.UserStage.GetCurrentStageId();
+            int currentStageId = UserDataManager.Instance.GetCurrentStageId();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterMain>(currentStageId).Forget();
         }
     }

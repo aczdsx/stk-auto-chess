@@ -12,28 +12,68 @@ using GetUserDataResponse = Com.Cookapps.Tech.GetUserDataResponse;
 
 namespace CookApps.SampleTeamBattle
 {
+
+
     public partial class UserDataManager : Singleton<UserDataManager>
     {
-        private Dictionary<string, IUserData> userDataDict = new ();
-
-        public static T Get<T>(DataCategory dataCategory) where T : IUserData
+        /// <summary>
+        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 로 선언할 것!
+        /// </summary>
+        private class InitializeAttribute : Attribute
         {
-            return (T) Instance.userDataDict[dataCategory.ToCategoryString()];
+            public int Priority { get; }
+            public DataCategory Category { get; }
+
+            public InitializeAttribute(DataCategory category)
+            {
+                Category = category;
+                Priority = 0;
+            }
+            public InitializeAttribute(DataCategory category, int priority)
+            {
+                Category = category;
+                Priority = priority;
+            }
         }
+
+        /// <summary>
+        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 로 선언할 것!
+        /// </summary>
+        private class AfterInitializeAttribute : Attribute
+        { }
+
+        /// <summary>
+        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 로 선언할 것!
+        /// </summary>
+        private class ClearFuncAttribute : Attribute
+        { }
 
         public async UniTask<bool> Initialize()
         {
-            var tryCount = 0;
-            Type[] impls = InheritHelper.GetAllImplementations<IUserData>();
-            List<IUserData> userDataList = new ();
-            foreach (Type userDataImpl in impls)
+            // Get All Initialize Method
+            var allMethods = typeof(UserDataManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
+            var methods = new List<(DataCategory category, int priority, MethodInfo methodInfo)>();
+            var afterInitializeMethods = new List<MethodInfo>();
+            foreach (var method in allMethods)
             {
-                NewExpression constructorExpression = Expression.New(userDataImpl);
-                Expression<Func<IUserData>> lambdaExpression = Expression.Lambda<Func<IUserData>>(constructorExpression);
-                Func<IUserData> constructorFunc = lambdaExpression.Compile();
-                userDataList.Add(constructorFunc.Invoke());
+                var initializeAttribute = method.GetCustomAttribute<InitializeAttribute>(false);
+                if (initializeAttribute != null)
+                {
+                    var category = initializeAttribute.Category;
+                    var priority = initializeAttribute.Priority;
+
+                    methods.Add((category, priority, method));
+                    continue;
+                }
+
+                var afterInitializeAttribute = method.GetCustomAttribute<AfterInitializeAttribute>(false);
+                if (afterInitializeAttribute != null)
+                {
+                    afterInitializeMethods.Add(method);
+                }
             }
 
+            var tryCount = 0;
             GetUserDataResponse resp;
             List<DataCategory> allCategories = Enum.GetValues(typeof(DataCategory)).Cast<DataCategory>().ToList();
             do
@@ -76,14 +116,40 @@ namespace CookApps.SampleTeamBattle
                 }
             }
 
-            userDataList.Sort((x, y) => x.Priority - y.Priority);
-            foreach (IUserData userData in userDataList)
+            methods.Sort((x, y) => x.priority - y.priority);
+            foreach ((var category, var _, var method) in methods)
             {
-                userData.SetDataFromServer(userDatas[userData.DataCategory.ToCategoryString()]);
-                userDataDict.Add(userData.DataCategory.ToCategoryString(), userData);
+                if (category == DataCategory.None)
+                {
+                    method.Invoke(this, Array.Empty<object>());
+                }
+                else
+                {
+                    method.Invoke(this, new object[] {userDatas[category.ToCategoryString()]});
+                }
             }
 
             return true;
         }
+
+        public void Clear()
+        {
+            var allMethods = typeof(UserDataManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
+            var methods = new List<MethodInfo>();
+            foreach (var method in allMethods)
+            {
+                var attributes = method.GetCustomAttributes(typeof(ClearFuncAttribute), false);
+                if (attributes.Length > 0)
+                {
+                    methods.Add(method);
+                }
+            }
+
+            foreach (var method in methods)
+            {
+                method.Invoke(this, null);
+            }
+        }
+
     }
 }
