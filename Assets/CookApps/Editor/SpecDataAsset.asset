@@ -15,8 +15,8 @@ MonoBehaviour:
   FilterTitle: '[Tech]'
   SheetId: 1fYFU0SWCDzHZg2Cn10ps_XcbvWeV7Dz9BAox5zS6F3Q
   SheetName: '[Tech] TeamBattleTemplate'
-  SourceNamespace: 
-  SourceEnumNamespace: 
+  SourceNamespace: CookApps.SampleTeamBattle
+  SourceEnumNamespace: CookApps.SampleTeamBattle
   SourceFolder: Assets/_Project/Scripts/Spec/SpecData
   Obfuscator: 1
   CreateValidFile: 0

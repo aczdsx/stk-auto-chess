@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +10,15 @@ namespace CookApps.TeamBattle.Utility
     {
         [SerializeField] private Image image;
         [SerializeField] private SerializableDictionary<SimpleSwapType, Material> materials;
-        [SerializeField] private SimpleSwapType currentType;
 
-        private void Awake()
+        protected override IEnumerable<SimpleSwapType> GetSwapTypes()
         {
+            return materials.Keys;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
             if (image == null)
             {
                 image = GetComponent<Image>();

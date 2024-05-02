@@ -9,8 +9,11 @@ using System.Security.Cryptography;
 using System.Text;
 using CookApps.SpecData.Generator;
 
-[GeneratorSpecDataResource]
-public static partial class SpecDataResourceLoader
+namespace CookApps.SampleTeamBattle
 {
-    private static readonly byte[] _key = {41, 120, 96, 104, 53, 82, 76, 85, 102, 72, 44, 85, 94, 87, 76, 124};
+    [GeneratorSpecDataResource]
+    public static partial class SpecDataResourceLoader
+    {
+        private static readonly byte[] _key = {41, 120, 96, 104, 53, 82, 76, 85, 102, 72, 44, 85, 94, 87, 76, 124};
+    }
 }

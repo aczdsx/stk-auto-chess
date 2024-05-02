@@ -6,12 +6,15 @@
 
 using CookApps.SpecData.Generator;
 
-[GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_NET)]
-public partial class SpecDataManager
+namespace CookApps.SampleTeamBattle
 {
-}
+    [GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_NET)]
+    public partial class SpecDataManager
+    {
+    }
 
-[GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_NET | EnumSpecDataManagerType.VALIDATOR)]
-public partial class SpecDataValidManager
-{
+    [GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_NET | EnumSpecDataManagerType.VALIDATOR)]
+    public partial class SpecDataValidManager
+    {
+    }
 }

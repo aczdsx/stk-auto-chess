@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -8,10 +9,15 @@ namespace CookApps.TeamBattle.Utility
     {
         [SerializeField] private TMP_Text text;
         [SerializeField] private SerializableDictionary<SimpleSwapType, Material> materials;
-        [SerializeField] private SimpleSwapType currentType;
 
-        private void Awake()
+        protected override IEnumerable<SimpleSwapType> GetSwapTypes()
         {
+            return materials.Keys;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
             if (text == null)
             {
                 text = GetComponent<TMP_Text>();

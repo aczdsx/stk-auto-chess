@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CookApps.TeamBattle.Utility
 {
@@ -32,6 +33,36 @@ namespace CookApps.TeamBattle.Utility
 
     public abstract class SimpleSwapper : CachedMonoBehaviour
     {
+        [SerializeField] protected SimpleSwapType currentType;
+        protected abstract IEnumerable<SimpleSwapType> GetSwapTypes();
+
+        protected virtual void Awake()
+        {
+            IEnumerable<SimpleSwapType> getSwapTypes = GetSwapTypes();
+            var currentTypeContained = false;
+            var defaultType = SimpleSwapType.Normal;
+            var firstCheck = true;
+            foreach (SimpleSwapType swapType in getSwapTypes)
+            {
+                if (firstCheck)
+                {
+                    defaultType = swapType;
+                    firstCheck = false;
+                }
+
+                if (swapType == currentType)
+                {
+                    currentTypeContained = true;
+                    break;
+                }
+            }
+
+            if (!currentTypeContained)
+            {
+                currentType = defaultType;
+            }
+        }
+
         public abstract void Swap(SimpleSwapType swapType);
     }
 
