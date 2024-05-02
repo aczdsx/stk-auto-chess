@@ -5,17 +5,32 @@ namespace CookApps.SampleTeamBattle
 {
     public partial class UserDataManager
     {
-        private UserStageGroup userStageGroupData;
+        private UserStageGroup userStageGroup;
 
         [Initialize(DataCategory.UserStageGroup, 1)]
         private void Initialize_StageGroup(string data)
         {
-            userStageGroupData = MessageUtility.FromBase64String<UserStageGroup>(data);
+            if (data == null)
+            {
+                userStageGroup = new UserStageGroup
+                {
+                    CurrentStageId = 1,
+                    LastStageId = 1,
+                };
+                return;
+            }
+            userStageGroup = MessageUtility.FromBase64String<UserStageGroup>(data);
+        }
+
+        [ClearFunc]
+        private void Clear_StageGroup()
+        {
+            userStageGroup = null;
         }
 
         public UserStage GetUserStage(int stageId)
         {
-            if (userStageGroupData.UserStages.TryGetValue(stageId, out UserStage userStage))
+            if (userStageGroup.UserStages.TryGetValue(stageId, out UserStage userStage))
             {
                 return userStage;
             }
@@ -25,12 +40,12 @@ namespace CookApps.SampleTeamBattle
 
         public int GetCurrentStageId()
         {
-            return userStageGroupData.CurrentStageId;
+            return userStageGroup.CurrentStageId;
         }
 
         public int GetLastStageId()
         {
-            return userStageGroupData.LastStageId;
+            return userStageGroup.LastStageId;
         }
     }
 }

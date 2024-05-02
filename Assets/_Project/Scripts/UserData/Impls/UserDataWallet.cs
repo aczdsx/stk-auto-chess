@@ -6,20 +6,39 @@ namespace CookApps.SampleTeamBattle
 {
     public partial class UserDataManager
     {
-        private UserWallet userWalletData;
+        private UserWallet userWallet;
 
         public static event Action<int> OnBreadChanged;
 
         [Initialize(DataCategory.UserWallet)]
         private void Initialize_Wallet(string data)
         {
-            userWalletData = MessageUtility.FromBase64String<UserWallet>(data);
+            if (data == null)
+            {
+                userWallet = new UserWallet
+                {
+                    Coin = 0,
+                    Gem = 0,
+                    Bread = 100,
+                    ETicket = 0,
+                    KTicket = 0,
+                };
+                return;
+            }
+
+            userWallet = MessageUtility.FromBase64String<UserWallet>(data);
+        }
+
+        [ClearFunc]
+        private void Clear_Wallet()
+        {
+            userWallet = null;
         }
 
         public void AddBread(int amount)
         {
-            userWalletData.Bread += amount;
-            OnBreadChanged?.Invoke(userWalletData.Bread);
+            userWallet.Bread += amount;
+            OnBreadChanged?.Invoke(userWallet.Bread);
         }
     }
 }

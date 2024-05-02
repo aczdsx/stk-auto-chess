@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using Com.Cookapps.Sampleteambattle;
 using CookApps.gRPC.Common;
 using CookApps.TeamBattle;
-using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using GetUserDataResponse = Com.Cookapps.Tech.GetUserDataResponse;
 
 namespace CookApps.SampleTeamBattle
 {
-
-
     public partial class UserDataManager : Singleton<UserDataManager>
     {
         /// <summary>
@@ -54,6 +51,7 @@ namespace CookApps.SampleTeamBattle
             var allMethods = typeof(UserDataManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
             var methods = new List<(DataCategory category, int priority, MethodInfo methodInfo)>();
             var afterInitializeMethods = new List<MethodInfo>();
+            var getDefaultMethods = new Dictionary<DataCategory, MethodInfo>();
             foreach (var method in allMethods)
             {
                 var initializeAttribute = method.GetCustomAttribute<InitializeAttribute>(false);
@@ -112,7 +110,7 @@ namespace CookApps.SampleTeamBattle
 
                 foreach (DataCategory category in allCategories)
                 {
-                    userDatas.Add(category.ToCategoryString(), UserDataDefault.Get(category));
+                    userDatas.Add(category.ToCategoryString(), string.Empty);
                 }
             }
 
@@ -150,6 +148,5 @@ namespace CookApps.SampleTeamBattle
                 method.Invoke(this, null);
             }
         }
-
     }
 }

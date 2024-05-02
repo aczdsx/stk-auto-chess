@@ -16,7 +16,19 @@ namespace CookApps.SampleTeamBattle
         [Initialize(DataCategory.UserCharacterGroup)]
         void Initialize_CharacterGroup(string data)
         {
+            if (data == null)
+            {
+                userCharacterGroup = new UserCharacterGroup();
+                return;
+            }
+
             userCharacterGroup = MessageUtility.FromBase64String<UserCharacterGroup>(data);
+        }
+
+        [ClearFunc]
+        void Clear_CharacterGroup()
+        {
+            userCharacterGroup = null;
         }
 
         public int[] GetAllCharacterIds()
