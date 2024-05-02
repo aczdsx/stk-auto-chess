@@ -5,7 +5,20 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/_Project/Scenes/StartUp.unity
+    guid: 16b82d33cb9ba43b99ade802db2c034c
+  - enabled: 1
+    path: Assets/_Project/Scenes/SceneLoading.unity
+    guid: 82d3b55c0d6944acd81604cfdc57e37e
+  - enabled: 1
+    path: Assets/_Project/Scenes/Title.unity
+    guid: 76c96ee710c04450dbdb02e5ff8a6cac
+  - enabled: 1
+    path: Assets/_Project/Scenes/Lobby.unity
+    guid: 61e7bd672efcc4045915939216d08afd
+  - enabled: 1
+    path: Assets/_Project/Scenes/InGame.unity
+    guid: 8029178524cba4055adeed793914bebd
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ca50eb65f17a94bcb8c599fee3c83e0d, type: 2}

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05e66e33d294a19a449fa51c776bcce, type: 3}
+  m_Name: BuildAsset
+  m_EditorClassIdentifier: 
+  Assets:
+  - rid: 9161305264687939584
+  references:
+    version: 2
+    RefIds:
+    - rid: 9161305264687939584
+      type: {class: BuildPlatformIOS, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
+      data:
+        Name: ios-dev
+        Target: 9
+        Identifier: com.cookapps.tech.sampleteambattle
+        Version: 1.0.0
+        UseAutoVersionCode: 1
+        BaseVersionCode: 0
+        VersionCode: 76
+        Scenes:
+        - Guid: 16b82d33cb9ba43b99ade802db2c034c
+        - Guid: 82d3b55c0d6944acd81604cfdc57e37e
+        - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
+        - Guid: 61e7bd672efcc4045915939216d08afd
+        - Guid: 8029178524cba4055adeed793914bebd
+        AddDefine:
+        - ENABLE_CHEAT
+        RemoveDefine: []
+        BuildOptions: 0
+        SigningTeamID: AE446264XG
+        CodeGeneration: 0
+        ManagedStrippingLevel: 4
+        AppIcon: 

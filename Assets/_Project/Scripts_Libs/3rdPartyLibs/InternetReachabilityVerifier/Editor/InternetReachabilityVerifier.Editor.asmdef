@@ -1,0 +1,18 @@
+{
+    "name": "InternetReachabilityVerifier.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:261de20a2b1b74c94b25b9ea00ae220f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
