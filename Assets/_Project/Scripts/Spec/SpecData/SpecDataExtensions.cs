@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class RewardItem
     {

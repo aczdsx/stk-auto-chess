@@ -1,4 +1,4 @@
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class RewardView : CachedMonoBehaviour
     {

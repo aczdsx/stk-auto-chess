@@ -4,7 +4,7 @@ using CookApps.TeamBattle.UIManagements;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer

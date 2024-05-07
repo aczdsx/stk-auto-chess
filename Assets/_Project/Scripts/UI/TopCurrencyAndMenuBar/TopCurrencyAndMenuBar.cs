@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/Top/TopCurrencyAndMenuBar.prefab")]
     public class TopCurrencyAndMenuBar : UILayer

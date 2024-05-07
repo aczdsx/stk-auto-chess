@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
-using CookApps.SampleTeamBattle;
+using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 

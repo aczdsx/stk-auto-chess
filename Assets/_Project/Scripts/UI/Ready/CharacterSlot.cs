@@ -1,5 +1,5 @@
 using System;
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class CharacterSlot : CachedMonoBehaviour
     {

@@ -1,5 +1,5 @@
 using CookApps.Obfuscator;
-using CookApps.SampleTeamBattle;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;

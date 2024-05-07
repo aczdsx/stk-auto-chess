@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Common;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using GetUserDataResponse = Com.Cookapps.Tech.GetUserDataResponse;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public partial class UserDataManager : Singleton<UserDataManager>
     {

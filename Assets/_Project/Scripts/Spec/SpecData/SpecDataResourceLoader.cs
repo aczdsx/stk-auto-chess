@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using CookApps.SpecData.Generator;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     [GeneratorSpecDataResource]
     public static partial class SpecDataResourceLoader

@@ -3,7 +3,7 @@ using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Chapter/ChapterMain.prefab")]
     public class ChapterMain : UILayer

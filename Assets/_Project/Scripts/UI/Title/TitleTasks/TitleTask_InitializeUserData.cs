@@ -3,7 +3,7 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class TitleTask_InitializeUserData : ITitleTask
     {

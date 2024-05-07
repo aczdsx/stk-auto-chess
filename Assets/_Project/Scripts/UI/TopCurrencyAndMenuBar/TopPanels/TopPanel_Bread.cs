@@ -1,7 +1,7 @@
 using System;
 using Cysharp.Text;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class TopPanel_Bread : TopPanelBase
     {

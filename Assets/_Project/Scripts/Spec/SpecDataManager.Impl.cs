@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
     {

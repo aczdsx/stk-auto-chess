@@ -2,7 +2,7 @@ using System;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class TopPanel_CloseButton : TopPanelBase
     {

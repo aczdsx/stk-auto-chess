@@ -1,6 +1,6 @@
 using CookApps.BattleSystem;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public static class BattleSystemExtensions
     {

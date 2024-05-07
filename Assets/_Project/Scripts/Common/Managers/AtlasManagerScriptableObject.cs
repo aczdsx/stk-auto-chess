@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.U2D;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     [Serializable]
     public class AtlasData

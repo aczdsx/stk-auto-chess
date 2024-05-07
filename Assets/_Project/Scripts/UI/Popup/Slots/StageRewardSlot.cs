@@ -1,7 +1,7 @@
 using CookApps.TeamBattle;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class StageRewardSlot : CachedMonoBehaviour
     {

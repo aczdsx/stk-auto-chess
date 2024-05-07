@@ -1,4 +1,4 @@
-using CookApps.SampleTeamBattle;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;

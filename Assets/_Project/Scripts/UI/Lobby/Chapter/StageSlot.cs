@@ -1,12 +1,12 @@
 using System;
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class StageSlot : CachedMonoBehaviour
     {

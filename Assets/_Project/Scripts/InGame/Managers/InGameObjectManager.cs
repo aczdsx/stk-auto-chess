@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using CookApps.SampleTeamBattle;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;

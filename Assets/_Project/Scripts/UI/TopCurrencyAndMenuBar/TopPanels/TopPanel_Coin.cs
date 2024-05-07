@@ -1,4 +1,4 @@
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class TopPanel_Coin : TopPanelBase
     {

@@ -1,7 +1,7 @@
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Universal;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public partial class UserDataManager
     {

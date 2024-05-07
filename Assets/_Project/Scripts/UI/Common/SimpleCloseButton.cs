@@ -1,7 +1,7 @@
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class SimpleCloseButton : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using CookApps.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public static class InGameCalculator
     {

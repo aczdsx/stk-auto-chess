@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using Google.Protobuf.Reflection;
 
 public static class DataStructureExtensions

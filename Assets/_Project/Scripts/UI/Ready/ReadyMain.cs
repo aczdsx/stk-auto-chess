@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Ready/ReadyMain.prefab")]
     public class ReadyMain : UILayer

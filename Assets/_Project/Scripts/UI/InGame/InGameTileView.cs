@@ -2,7 +2,7 @@ using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class InGameTileView : CachedMonoBehaviour, IInGameTileView
     {

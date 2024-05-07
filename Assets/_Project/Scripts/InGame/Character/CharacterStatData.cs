@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class CharacterStatData : IEffectCodeSource
     {

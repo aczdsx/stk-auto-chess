@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
-using CookApps.SampleTeamBattle;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
 

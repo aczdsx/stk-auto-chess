@@ -4,7 +4,7 @@
 // 이진호(jhlee8@cookapps.com)
 // </auto-generated>
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
 
     public enum CharacterEffect

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class StageReward
     {

@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public static class InGameResourceHolder
     {

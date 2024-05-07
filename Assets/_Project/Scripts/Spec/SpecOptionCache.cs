@@ -3,7 +3,7 @@ using System.Linq;
 using CookApps.Obfuscator;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public static class SpecOptionCache
     {

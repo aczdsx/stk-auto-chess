@@ -1,7 +1,7 @@
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public static class SceneLoadingTask
     {

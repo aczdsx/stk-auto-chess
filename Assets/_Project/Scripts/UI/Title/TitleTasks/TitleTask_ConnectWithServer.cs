@@ -8,7 +8,7 @@ using CookApps.gRPC.Universal;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public class TitleTask_ConnectWithServer : ITitleTask
     {

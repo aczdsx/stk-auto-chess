@@ -1,6 +1,6 @@
 using System;
 using CookApps.Obfuscator;
-using CookApps.SampleTeamBattle;
+using CookApps.AutoBattler;
 using JetBrains.Annotations;
 
 namespace CookApps.BattleSystem

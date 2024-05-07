@@ -1,4 +1,4 @@
-using CookApps.SampleTeamBattle;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
 

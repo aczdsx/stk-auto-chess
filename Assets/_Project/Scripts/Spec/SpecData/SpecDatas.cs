@@ -6,7 +6,7 @@
 
 using CookApps.SpecData.Generator;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
 
     [GeneratorSpecData]
@@ -29,12 +29,12 @@ namespace CookApps.SampleTeamBattle
         public string nickname_token;
         public string name_token;
         public string desc_token;
-        public global::CookApps.SampleTeamBattle.Grade grade;
+        public global::CookApps.AutoBattler.Grade grade;
         public CookApps.Obfuscator.ObfuscatorInt need_piece;
         /// ?
-        public global::CookApps.SampleTeamBattle.CharacterType type;
+        public global::CookApps.AutoBattler.CharacterType type;
         /// ?
-        public global::CookApps.SampleTeamBattle.CharacterPosition position;
+        public global::CookApps.AutoBattler.CharacterPosition position;
         public CookApps.Obfuscator.ObfuscatorInt init_star;
         public CookApps.Obfuscator.ObfuscatorInt max_star;
         public CookApps.Obfuscator.ObfuscatorInt stat_hp;
@@ -50,7 +50,7 @@ namespace CookApps.SampleTeamBattle
         public CookApps.Obfuscator.ObfuscatorDouble base_inc;
         public CookApps.Obfuscator.ObfuscatorFloat atkSpd;
         public CookApps.Obfuscator.ObfuscatorInt atkRange;
-        public global::CookApps.SampleTeamBattle.AttackRangeShape atkRangeShape;
+        public global::CookApps.AutoBattler.AttackRangeShape atkRangeShape;
         public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
         public CookApps.Obfuscator.ObfuscatorInt equipment_id;
         public CookApps.Obfuscator.ObfuscatorInt[] upgrade_skill_ids;
@@ -90,13 +90,13 @@ namespace CookApps.SampleTeamBattle
         public CookApps.Obfuscator.ObfuscatorInt chapter_id;
         public string name_token;
         public string desc_token;
-        public global::CookApps.SampleTeamBattle.RewardType reward_type_1;
+        public global::CookApps.AutoBattler.RewardType reward_type_1;
         public CookApps.Obfuscator.ObfuscatorInt reward_key_1;
         public CookApps.Obfuscator.ObfuscatorInt reward_count_1;
-        public global::CookApps.SampleTeamBattle.RewardType reward_type_2;
+        public global::CookApps.AutoBattler.RewardType reward_type_2;
         public CookApps.Obfuscator.ObfuscatorInt reward_key_2;
         public CookApps.Obfuscator.ObfuscatorInt reward_count_2;
-        public global::CookApps.SampleTeamBattle.RewardType reward_type_3;
+        public global::CookApps.AutoBattler.RewardType reward_type_3;
         public CookApps.Obfuscator.ObfuscatorInt reward_key_3;
         public CookApps.Obfuscator.ObfuscatorInt reward_count_3;
         public string clear_pack_bg_image;
@@ -139,15 +139,15 @@ namespace CookApps.SampleTeamBattle
         public CookApps.Obfuscator.ObfuscatorFloat hard_multiple;
         public CookApps.Obfuscator.ObfuscatorInt chest_id;
         public CookApps.Obfuscator.ObfuscatorInt hard_chest_id;
-        public global::CookApps.SampleTeamBattle.RewardType star_reward_type_1;
+        public global::CookApps.AutoBattler.RewardType star_reward_type_1;
         /// ?
         public CookApps.Obfuscator.ObfuscatorInt star_reward_key_1;
         public CookApps.Obfuscator.ObfuscatorInt star_reward_count_1;
-        public global::CookApps.SampleTeamBattle.RewardType star_reward_type_2;
+        public global::CookApps.AutoBattler.RewardType star_reward_type_2;
         /// ?
         public CookApps.Obfuscator.ObfuscatorInt star_reward_key_2;
         public CookApps.Obfuscator.ObfuscatorInt star_reward_count_2;
-        public global::CookApps.SampleTeamBattle.RewardType star_reward_type_3;
+        public global::CookApps.AutoBattler.RewardType star_reward_type_3;
         /// ?
         public CookApps.Obfuscator.ObfuscatorInt star_reward_key_3;
         public CookApps.Obfuscator.ObfuscatorInt star_reward_count_3;
@@ -159,7 +159,7 @@ namespace CookApps.SampleTeamBattle
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
         public CookApps.Obfuscator.ObfuscatorInt chest_id;
-        public global::CookApps.SampleTeamBattle.RewardType type;
+        public global::CookApps.AutoBattler.RewardType type;
         public CookApps.Obfuscator.ObfuscatorInt key;
         public CookApps.Obfuscator.ObfuscatorInt value;
         public CookApps.Obfuscator.ObfuscatorDouble rate;

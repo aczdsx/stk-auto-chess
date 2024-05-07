@@ -6,7 +6,7 @@
 
 using CookApps.SpecData.Generator;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     [GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_NET)]
     public partial class SpecDataManager

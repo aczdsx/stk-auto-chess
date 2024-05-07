@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using CookApps.SampleTeamBattle.Utilities;
+using CookApps.AutoBattler.Utilities;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
@@ -11,7 +11,7 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.AddressableAssets;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     internal static class IDTransformer
     {

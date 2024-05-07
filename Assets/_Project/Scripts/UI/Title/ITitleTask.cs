@@ -1,7 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public delegate void ProgressCallback(int hashCode, float progress);
 

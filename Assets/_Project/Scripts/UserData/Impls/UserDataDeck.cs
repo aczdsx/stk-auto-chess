@@ -1,10 +1,10 @@
 using System.Linq;
-using Com.Cookapps.Sampleteambattle;
+using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Common;
 using CookApps.gRPC.Universal;
 using Google.Protobuf.Collections;
 
-namespace CookApps.SampleTeamBattle
+namespace CookApps.AutoBattler
 {
     public partial class UserDataManager
     {
