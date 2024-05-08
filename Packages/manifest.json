@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coffee.ui-effect": "https://github.com/mob-sakai/UIEffect.git",
     "com.cookapps.analytics-lite": "1.2.2",
     "com.cookapps.build": "1.1.1",
     "com.cookapps.dependency": "1.2.2",
@@ -29,6 +30,7 @@
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",
+    "com.unity.uiextensions": "https://github.com/Unity-UI-Extensions/com.unity.uiextensions.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
