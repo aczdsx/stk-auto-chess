@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list:
   - sceneName: Title
-    defaultUINames:
-    - TitleBase
-    - Title
-    preloads: []
+    addressableName: Title
   - sceneName: SceneLoading
-    defaultUINames: []
-    preloads: []
+    addressableName: SceneLoading
+  - sceneName: Lobby
+    addressableName: Lobby
