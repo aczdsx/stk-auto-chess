@@ -98,7 +98,7 @@ namespace CookApps.AutoBattler
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.CloseButton);
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
             (chapter, stageIndex) = ((int, int)) param;
             stageNameText.text = ZString.Format("{0}-{1}", chapter, stageIndex + 1);
             ownCharacterIds.Clear();

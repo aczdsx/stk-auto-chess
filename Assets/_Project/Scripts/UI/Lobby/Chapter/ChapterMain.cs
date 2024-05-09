@@ -74,7 +74,7 @@ namespace CookApps.AutoBattler
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.CloseButton);
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
             var currentStageId = (int) param;
             SpecStage specStage = SpecDataManager.Instance.SpecStage.Get(currentStageId);
             currentChapter = specStage.chapter_id;
