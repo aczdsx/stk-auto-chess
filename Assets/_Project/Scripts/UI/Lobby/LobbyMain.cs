@@ -8,17 +8,20 @@ namespace CookApps.AutoBattler
     public class LobbyMain : UILayer
     {
         [SerializeField] private CAButton commanderSkillButton;
+        [SerializeField] private CAButton _playButton;
 
         protected override void Awake()
         {
             base.Awake();
             commanderSkillButton.onClick.AddListener(OnClickCommanderSkillButton);
+            _playButton.onClick.AddListener(OnClickStartButton);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
             commanderSkillButton.onClick.RemoveListener(OnClickCommanderSkillButton);
+            _playButton.onClick.RemoveListener(OnClickStartButton);
         }
 
         public override void OnPreEnter(object param)
@@ -34,6 +37,10 @@ namespace CookApps.AutoBattler
             {
                 SceneUILayerManager.Instance.SetEnableFloatingNodeCanvas(true);
             }).Forget();
+        }
+        private void OnClickStartButton()
+        {
+            SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
         }
     }
 }
