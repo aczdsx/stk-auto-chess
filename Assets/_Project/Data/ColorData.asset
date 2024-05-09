@@ -16,6 +16,12 @@ MonoBehaviour:
     _serializedList:
     - Key: BUTTON_NORMAL
       Value: {r: 0.84313726, g: 0.8509804, b: 0.9019608, a: 1}
+    - Key: DIM
+      Value: {r: 0.08627451, g: 0.09019608, b: 0.09411765, a: 0.98039216}
+    - Key: TEXT_POP_DESC
+      Value: {r: 0.41960785, g: 0.43529412, b: 0.49019608, a: 1}
+    - Key: TEXT_POP_TITLE
+      Value: {r: 0.3647059, g: 0.38431373, b: 0.4509804, a: 1}
     - Key: TEXT_PRIMARY
       Value: {r: 1, g: 0.99215686, b: 0.93333334, a: 1}
     - Key: TEXT_STRONG
