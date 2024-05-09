@@ -20,8 +20,8 @@ namespace CookApps.AutoBattler
                 userWallet = new UserWallet
                 {
                     Coin = 0,
-                    Jewel = 0,
-                    Energy = 100,
+                    // Jewel = 0,
+                    // Energy = 100,
                 };
                 return;
             }
@@ -37,8 +37,8 @@ namespace CookApps.AutoBattler
 
         public void AddEnergy(int amount)
         {
-            userWallet.Energy += amount;
-            OnEnergyChanged?.Invoke(userWallet.Energy);
+            // userWallet.Energy += amount;
+            // OnEnergyChanged?.Invoke(userWallet.Energy);
         }
     }
 }
