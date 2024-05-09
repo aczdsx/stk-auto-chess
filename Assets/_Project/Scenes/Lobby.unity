@@ -856,6 +856,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2600347879176092910, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
+      propertyPath: commanderSkillButton
+      value: 
+      objectReference: {fileID: 4485959478128003988}
     - target: {fileID: 3384464649777059112, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1030,6 +1034,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7409389282505193048, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
   m_PrefabInstance: {fileID: 4485959478128003986}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4485959478128003988 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8875471266541138312, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
+  m_PrefabInstance: {fileID: 4485959478128003986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
