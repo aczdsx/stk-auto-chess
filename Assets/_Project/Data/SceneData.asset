@@ -19,3 +19,5 @@ MonoBehaviour:
     addressableName: SceneLoading
   - sceneName: Lobby
     addressableName: Lobby
+  - sceneName: InGame
+    addressableName: InGame
