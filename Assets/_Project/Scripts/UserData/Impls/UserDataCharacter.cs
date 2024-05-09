@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Cookapps.Autobattleproject.V1;
-using CookApps.gRPC.Common;
+using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
-using Google.Protobuf.Collections;
 
 namespace CookApps.AutoBattler
 {
@@ -92,7 +90,7 @@ namespace CookApps.AutoBattler
 
         public void SaveCharacterGroup()
         {
-            CommonGrpcManager.Instance.SetUserDataAsync(DataCategory.UserCharacterGroup.ToCategoryString(), userCharacterGroup);
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserCharacterGroup.ToCategoryString(), userCharacterGroup);
         }
     }
 }

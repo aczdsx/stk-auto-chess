@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Cookapps.Autobattleproject.V1;
-using CookApps.gRPC.Common;
+using CookApps.gRPC.Hatchery;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using GetUserDataResponse = Com.Cookapps.Tech.GetUserDataResponse;
+using Tech.Hatchery.V2;
 
 namespace CookApps.AutoBattler
 {
@@ -72,11 +71,11 @@ namespace CookApps.AutoBattler
             }
 
             var tryCount = 0;
-            GetUserDataResponse resp;
+            GetPlayerDataResponse resp;
             List<DataCategory> allCategories = Enum.GetValues(typeof(DataCategory)).Cast<DataCategory>().ToList();
             do
             {
-                resp = await CommonGrpcManager.Instance.GetUserDatasAsync(allCategories.Select(x => x.ToCategoryString()));
+                resp = await HatcheryGrpcManager.Instance.GetPlayerDatasAsync(allCategories.Select(x => x.ToCategoryString()));
                 tryCount++;
             } while (resp.IsError && tryCount < 3);
 
@@ -88,7 +87,7 @@ namespace CookApps.AutoBattler
             // 받은 정보 중에 없는 카테고리는 기본값으로 채워준다.
             Dictionary<string, string> userDatas = new ();
             {
-                foreach ((string category, string respData) in resp.UserDatas)
+                foreach ((string category, string respData) in resp.PlayerDatas)
                 {
                     string data = respData;
                     if (string.IsNullOrEmpty(data))

@@ -1,12 +1,10 @@
 #define USE_LOCAL_SERVER
 
 using System;
-using Com.Cookapps.Tech;
 using CookApps.gRPC;
-using CookApps.gRPC.Common;
+using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -29,7 +27,7 @@ namespace CookApps.AutoBattler
         public async UniTask RunTask()
         {
             var param = new GrpcInitializeParam(true);
-            CommonGrpcManager.Instance.Initialize(param);
+            HatcheryGrpcManager.Instance.Initialize(param);
             progressCallback.Invoke(GetHashCode(), 1f);
         }
 

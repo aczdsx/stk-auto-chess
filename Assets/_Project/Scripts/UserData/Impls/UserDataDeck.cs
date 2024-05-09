@@ -1,6 +1,6 @@
 using System.Linq;
 using Cookapps.Autobattleproject.V1;
-using CookApps.gRPC.Common;
+using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 using Google.Protobuf.Collections;
 
@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserDeck()
         {
-            CommonGrpcManager.Instance.SetUserDataAsync(DataCategory.UserDeck.ToCategoryString(), userDeck);
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserDeck.ToCategoryString(), userDeck);
         }
     }
 }
