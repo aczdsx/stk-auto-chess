@@ -35,6 +35,10 @@ namespace CookApps.TeamBattle.UIManagements
         }
 
         private SceneInstance? currentSceneInstance;
+        public void ForceSetCurrentSceneInstance(SceneInstance sceneInstance)
+        {
+            currentSceneInstance = sceneInstance;
+        }
 
         /// <summary>
         /// 씬을 변경합니다. Lobby => Game, Game => Lobby 등 무거운 씬 간의 전환은 SceneLoading.GoToNextScene 을 사용하세요.
