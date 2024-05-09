@@ -1,9 +1,11 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using Cysharp.Text;
 
 namespace CookApps.AutoBattler
 {
-    public class TopPanel_Bread : TopPanelBase
+    public class TopPanel_Energy : TopPanelBase
     {
         public override TopPanelType PanelType => TopPanelType.Energy;
 

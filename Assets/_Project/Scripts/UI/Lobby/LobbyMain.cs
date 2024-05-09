@@ -10,7 +10,7 @@ namespace CookApps.AutoBattler
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.Coin, TopPanelType.Jewel, TopPanelType.Menu);
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Coin, TopPanelType.Jewel, TopPanelType.Menu);
         }
     }
 }
