@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcf9bce74484d878ca0ca8fe1db802a, type: 3}
   m_Name: SpecDataAsset
   m_EditorClassIdentifier: 
-  FilterTitle: '[Tech]'
-  SheetId: 1fYFU0SWCDzHZg2Cn10ps_XcbvWeV7Dz9BAox5zS6F3Q
+  FilterTitle: '[BM]'
+  SheetId: 1wkiHFUoeBbdiyeO2WZ0YsB0zvMRY9r1vRrrVfzJikIo
   SheetName: '[Tech] TeamBattleTemplate'
-  SourceNamespace: CookApps.SampleTeamBattle
-  SourceEnumNamespace: CookApps.SampleTeamBattle
+  SourceNamespace: CookApps.AutoBattler
+  SourceEnumNamespace: CookApps.AutoBattler
   SourceFolder: Assets/_Project/Scripts/Spec/SpecData
   Obfuscator: 1
   CreateValidFile: 0
