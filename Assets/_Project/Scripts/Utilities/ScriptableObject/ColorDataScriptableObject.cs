@@ -9,6 +9,9 @@ namespace CookApps.AutoBattler
     [CreateAssetMenu(fileName = "ColorData", menuName = "ScriptableObjects/ColorData")]
     public class ColorDataScriptableObject : ScriptableObject
     {
+        [SerializedDictionary("Color Name", "Color")]
+        public SerializedDictionary<string, Color> StandardColorDataDic;
+
         [SerializedDictionaryAttribute("Color Name", "Color")]
         public SerializedDictionary<string, Color> GaugeColorDataDic;
 

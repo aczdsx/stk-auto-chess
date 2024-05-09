@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d5d9ced924e4642ba2f6b680c632f5, type: 3}
   m_Name: ColorData
   m_EditorClassIdentifier: 
+  StandardColorDataDic:
+    _serializedList:
+    - Key: BUTTON_NORMAL
+      Value: {r: 0.84313726, g: 0.8509804, b: 0.9019608, a: 1}
+    - Key: TEXT_STRONG
+      Value: {r: 0.25882354, g: 0.27058825, b: 0.30980393, a: 1}
   GaugeColorDataDic:
     _serializedList:
     - Key: PLAYER_FILL
