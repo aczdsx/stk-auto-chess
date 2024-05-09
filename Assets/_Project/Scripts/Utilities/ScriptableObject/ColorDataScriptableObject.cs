@@ -10,7 +10,10 @@ namespace CookApps.AutoBattler
     public class ColorDataScriptableObject : ScriptableObject
     {
         [SerializedDictionaryAttribute("Color Name", "Color")]
-        public SerializedDictionary<string, Color> ColorDataDic;
+        public SerializedDictionary<string, Color> GaugeColorDataDic;
+
+        [SerializedDictionary("Color Name", "Gradient")]
+        public SerializedDictionary<string, Gradient> GaugeColorGradientDataDic;
     }
 }
 
