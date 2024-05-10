@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Characters
+    uniqueID: 2722353985
+    locked: 0
+  - name: HpBar
+    uniqueID: 2574358269
+    locked: 0
