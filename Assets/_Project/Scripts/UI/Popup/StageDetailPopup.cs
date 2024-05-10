@@ -92,7 +92,7 @@ namespace CookApps.AutoBattler
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Bread, TopPanelType.CloseButton);
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
             (chapter, stageIndex) = ((int, int)) param;
             SetPopupInfo();
         }

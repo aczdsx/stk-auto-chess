@@ -5,19 +5,19 @@ namespace CookApps.AutoBattler
 {
     public class TopPanel_Bread : TopPanelBase
     {
-        public override TopPanelType PanelType => TopPanelType.Bread;
+        public override TopPanelType PanelType => TopPanelType.Energy;
 
         private void OnEnable()
         {
-            UserDataManager.OnBreadChanged += OnBreadChanged;
+            UserDataManager.OnEnergyChanged += EnergyChanged;
         }
 
         private void OnDisable()
         {
-            UserDataManager.OnBreadChanged -= OnBreadChanged;
+            UserDataManager.OnEnergyChanged -= EnergyChanged;
         }
 
-        private void OnBreadChanged(int bread)
+        private void EnergyChanged(int bread)
         {
             currencyText.SetText(bread);
         }
