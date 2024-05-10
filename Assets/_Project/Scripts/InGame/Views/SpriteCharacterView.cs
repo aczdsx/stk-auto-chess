@@ -20,10 +20,20 @@ namespace CookApps.AutoBattler
         public CharacterStatData GetStatData() => statData;
         public float Height => throw new NotImplementedException();
 
+        private GameObject _instance;
+
         public async UniTask Initialize(CharacterStatData statData)
         {
             this.statData = statData;
-            throw new NotImplementedException();
+            _instance = await AddressableInstantiateHelper.InstantiateAsync($"Characters/{statData.CharacterId}/{statData.CharacterId}.prefab", CachedTr);
+            var hpBar = InGameHpBarViewPool.Instance.GetHpBar();
+            hpBar.CachedTr.SetParent(CachedTr);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            AddressableInstantiateHelper.ReleaseGameObject(_instance);
         }
 
         /// <summary>

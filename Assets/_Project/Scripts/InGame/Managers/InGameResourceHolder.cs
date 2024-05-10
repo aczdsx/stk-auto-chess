@@ -20,22 +20,23 @@ namespace CookApps.AutoBattler
             StagePrefab = await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
             // load player character
             List<int> deckCharacIds = ListPool<int>.Get();
-            deckCharacIds.AddRange(UserDataManager.Instance.GetFront());
-            deckCharacIds.AddRange(UserDataManager.Instance.GetMid());
-            deckCharacIds.AddRange(UserDataManager.Instance.GetBack());
+            deckCharacIds.Add(30001);
+            // deckCharacIds.AddRange(UserDataManager.Instance.GetFront());
+            // deckCharacIds.AddRange(UserDataManager.Instance.GetMid());
+            // deckCharacIds.AddRange(UserDataManager.Instance.GetBack());PlayerCharacterPrefabs
             foreach (int characId in deckCharacIds)
             {
-                PlayerCharacterPrefabs.Add(characId, await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Prefabs/Characters/{characId}.prefab"));
+                PlayerCharacterPrefabs.Add(characId, await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Characters/{characId}/{characId}.prefab"));
             }
-
             // load enemy character
             deckCharacIds.Clear();
-            deckCharacIds.AddRange(specStage.GetFront().Select(x => x.id));
-            deckCharacIds.AddRange(specStage.GetMid().Select(x => x.id));
-            deckCharacIds.AddRange(specStage.GetBack().Select(x => x.id));
+            deckCharacIds.Add(30002);
+            // deckCharacIds.AddRange(specStage.GetFront().Select(x => x.id));
+            // deckCharacIds.AddRange(specStage.GetMid().Select(x => x.id));
+            // deckCharacIds.AddRange(specStage.GetBack().Select(x => x.id));
             foreach (int characId in deckCharacIds)
             {
-                EnemyCharacterPrefabs.Add(characId, await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Prefabs/Characters/{characId}.prefab"));
+                EnemyCharacterPrefabs.Add(characId, await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Characters/{characId}/{characId}.prefab"));
             }
 
             ListPool<int>.Release(deckCharacIds);

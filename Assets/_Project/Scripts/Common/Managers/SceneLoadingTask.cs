@@ -42,12 +42,14 @@ namespace CookApps.AutoBattler
         private static async UniTask LoadInGameResources(object defaultUIData)
         {
             (int chapter, int stageIndex) = ((int, int)) defaultUIData;
+            await InGameHpBarViewPool.Instance.InitializePool();
             await InGameResourceHolder.LoadResources(chapter, stageIndex);
         }
 
         private static async UniTask UnloadInGameResources()
         {
             InGameResourceHolder.UnloadResources();
+            InGameHpBarViewPool.Instance.ReleasePool();
             await UniTask.Yield();
         }
     }
