@@ -66,7 +66,8 @@ namespace CookApps.AutoBattler
         public async UniTask InitializePool()
         {
             // TODO: load hp bar prefab from addressable
-            _instance = await AddressableInstantiateHelper.InstantiateAsync($"Prefabs/InGame/FloatingHpBar.prefab");
+            _instance = await AddressableInstantiateHelper.InstantiateAsync($"FloatingHpBar.prefab");
+            _hpBarViewPool = new UnityPool<HpBarView>();
             _hpBarViewPool.Initialize((GameObject)_instance);
         }
 

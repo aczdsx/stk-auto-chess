@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2b1797dd4f4683b43fc6694bc65d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpGauge: {fileID: 4958810916096986481}
+  _hpGauge: {fileID: 9152901164981225817}
 --- !u!1 &7995963061343826316
 GameObject:
   m_ObjectHideFlags: 0

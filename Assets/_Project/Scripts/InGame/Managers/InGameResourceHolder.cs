@@ -13,8 +13,13 @@ namespace CookApps.AutoBattler
         public static Dictionary<int, GameObject> PlayerCharacterPrefabs { get; private set; } = new ();
         public static Dictionary<int, GameObject> EnemyCharacterPrefabs { get; private set; } = new ();
 
+        public static HpBarView HpBarView = null;
+
         public static async UniTask LoadResources(int chapter, int stageIdx)
         {
+            GameObject hpBarPrefab = await AddressableLoadHelper.LoadAssetAsync<GameObject>($"FloatingHpBar.prefab");
+            HpBarView = hpBarPrefab.GetComponent<HpBarView>();
+            
             SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIdx);
             // load stage
             StagePrefab = await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
@@ -44,6 +49,7 @@ namespace CookApps.AutoBattler
 
         public static void UnloadResources()
         {
+            AddressableLoadHelper.ReleaseLoadedAsset(HpBarView);
             // unload stage
             AddressableLoadHelper.ReleaseLoadedAsset(StagePrefab);
             StagePrefab = null;

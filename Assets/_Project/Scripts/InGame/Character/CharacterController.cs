@@ -108,13 +108,14 @@ namespace CookApps.BattleSystem
 
         public void Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType)
         {
+            Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
             characterUId = characUIdInc++;
             this.statData = statData;
             CurrentTile = tile;
             position = tile.View.Position;
             this.allianceType = allianceType;
 
-            view = SpriteCharacterViewPool.Instance.GetCharacterView(statData);
+            view = SpriteCharacterViewPool.Instance.GetCharacterView(statData, allianceType);
             hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
             hpBarView.Initialize(statData);
             FollowHpBar();
@@ -562,7 +563,7 @@ namespace CookApps.BattleSystem
 
         private void FollowHpBar()
         {
-            hpBarView.CachedTr.position = GetCharacterView().CachedTr.position + new Vector3(0, GetCharacterView().Height);
+            // hpBarView.CachedTr.position = GetCharacterView().CachedTr.position + new Vector3(0, GetCharacterView().Height);
         }
 
         private void UpdateHp()

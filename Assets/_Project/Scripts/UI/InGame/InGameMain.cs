@@ -19,6 +19,13 @@ namespace CookApps.AutoBattler
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+            LoadResources().Forget();
+        }
+
+        private async UniTask  LoadResources()
+        {
+            InGameHpBarViewPool.Instance.InitializePool();
+            
             GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
             if (!stageObj.TryGetComponent(out InGameStage stage))
             {
@@ -26,16 +33,16 @@ namespace CookApps.AutoBattler
                 return;
             }
             var tileViews = stage.TileViews.Select(x => x as IInGameTileView).ToArray();
-            InGameManager.Instance.StartInGame<FlowStateStageStart>(stage.GridSize, tileViews);
-            LoadResources().Forget();
-        }
-
-        private async UniTask  LoadResources()
-        {
+            InGameGrid grid = new InGameGrid(stage.GridSize, tileViews);
+            InGameObjectManager.Instance.Initialize(grid);
+            
             CharacterStatData statData1 = new CharacterStatData(30001, 10);
             CharacterStatData statData2 = new CharacterStatData(30002, 10);
-            await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player, typeof(SpriteCharacterView));
             await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy, typeof(SpriteCharacterView));
+            await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player, typeof(SpriteCharacterView));
+            
+            
+            InGameManager.Instance.StartInGame<FlowStateStageStart>();
         }
     }
 }
