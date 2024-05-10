@@ -17,8 +17,28 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c139e0f31ed074a79bb51afa922c7ccc
   m_SerializeEntries:
+  - m_GUID: 61e7bd672efcc4045915939216d08afd
+    m_Address: Lobby
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82d3b55c0d6944acd81604cfdc57e37e
+    m_Address: SceneLoading
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76c96ee710c04450dbdb02e5ff8a6cac
+    m_Address: Title
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 277af44f55effe04bb7711cdc1e45a6c
     m_Address: Prefabs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8029178524cba4055adeed793914bebd
+    m_Address: InGame
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -29,21 +49,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dde712b1c2d6a04aaab5a1cb6e1c988
     m_Address: Characters/30001/30001.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 55020f2bdaa5cf14bb3f39eb8bd6dfe3
-    m_Address: Prefabs/UI/InGame/IngameMain.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c1e880dbff2a632438e110e703cc3987
-    m_Address: Prefabs/InGame/DamageText.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 96e838b63c764f640a827bd9e1c74c5d
-    m_Address: Prefabs/InGame/FloatingHpBar.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
