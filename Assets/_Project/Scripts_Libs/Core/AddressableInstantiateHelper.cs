@@ -17,7 +17,7 @@ namespace CookApps.TeamBattle
             IList<IResourceLocation> resourceLocations = await Addressables.LoadResourceLocationsAsync(assetLabel, typeof(GameObject));
             if (resourceLocations.Count != 1)
             {
-                throw new EvaluateException($"{assetLabel} is not single addressable!");
+                throw new EvaluateException($"{assetLabel} is {resourceLocations.Count} count addressable!");
             }
 
             return await InstantiateAsync(resourceLocations[0], parent);
