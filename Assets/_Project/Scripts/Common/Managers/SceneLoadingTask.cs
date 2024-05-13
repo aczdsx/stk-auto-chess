@@ -1,5 +1,6 @@
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -7,6 +8,7 @@ namespace CookApps.AutoBattler
     {
         public static async UniTask HandleLoading(string prevSceneName, string sceneName, object defaultUIData)
         {
+            Debug.LogColor($"Scene Change : {prevSceneName} -> {sceneName}", "blue");
             if (prevSceneName == "Lobby")
             {
                 await UnloadLobbyResources();
@@ -48,6 +50,7 @@ namespace CookApps.AutoBattler
         private static async UniTask UnloadInGameResources()
         {
             InGameResourceHolder.UnloadResources();
+            InGameHpBarViewPool.Instance.ReleasePool();
             await UniTask.Yield();
         }
     }

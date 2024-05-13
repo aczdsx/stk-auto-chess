@@ -34,11 +34,10 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region InGame Cycle
-        public void StartInGame<T>(int2 gridSize, IInGameTileView[] views) where T : StateBase, new()
+        public void StartInGame<T>() where T : StateBase, new()
         {
             IsInGamePlaying = true;
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>();
-            InGameObjectManager.Instance.Initialize(gridSize, views);
             // IngameResourceManager.Instance.Initialize();
         }
 

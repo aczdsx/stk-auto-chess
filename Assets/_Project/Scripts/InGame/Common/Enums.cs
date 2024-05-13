@@ -96,15 +96,15 @@ namespace CookApps.BattleSystem
     /// </summary>
     public enum AnimationKey
     {
-        Idle,
-        Walk,
-        Attack,
-        Skill1,
+        IDLE,
+        MOVE,
+        ATK,
+        SKILL,
         Skill2,
         Skill3,
         Skill4,
         Skill5,
-        Death,
+        DEAD,
         Spawn,
         Crying,
         LongCrying,

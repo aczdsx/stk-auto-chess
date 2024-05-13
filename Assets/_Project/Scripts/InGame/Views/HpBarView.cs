@@ -3,18 +3,19 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
     public class HpBarView : CachedMonoBehaviour
     {
-        [SerializeField] private SpriteRenderer hpGauge;
+        [SerializeField] private SpriteRenderer _hpGauge;
 
-        private Vector2 defaultSize;
+        private Vector2 _defaultSize;
 
         private void Awake()
         {
-            defaultSize = hpGauge.size;
+            _defaultSize = _hpGauge.size;
         }
 
         public void Initialize(CharacterStatData statData)
@@ -24,7 +25,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            hpGauge.size = defaultSize;
+            _hpGauge.size = _defaultSize;
         }
 
         public void SetHpValue(double current, double max)
@@ -35,9 +36,9 @@ namespace CookApps.AutoBattler
             }
 
             float ratio = Mathf.Max(0f, (float) (current / max));
-            Vector2 size = defaultSize;
-            size.x = defaultSize.x * ratio;
-            hpGauge.size = size;
+            Vector2 size = _defaultSize;
+            size.x = _defaultSize.x * ratio;
+            _hpGauge.size = size;
 
             /*
             if (null != _text)
@@ -59,28 +60,31 @@ namespace CookApps.AutoBattler
 
     public class InGameHpBarViewPool : Singleton<InGameHpBarViewPool>
     {
-        private UnityPool<HpBarView> hpBarViewPool;
+        private UnityPool<HpBarView> _hpBarViewPool;
+        private GameObject _instance;
 
         public async UniTask InitializePool()
         {
             // TODO: load hp bar prefab from addressable
-            // hpBarViewPool.Initialize(prefab);
+            _instance = await AddressableInstantiateHelper.InstantiateAsync($"FloatingHpBar.prefab");
+            _hpBarViewPool = new UnityPool<HpBarView>();
+            _hpBarViewPool.Initialize((GameObject)_instance);
         }
 
         public void ReleasePool()
         {
-            hpBarViewPool.ClearPool();
-            hpBarViewPool = null;
+            _hpBarViewPool.ClearPool();
+            _hpBarViewPool = null;
         }
 
         public HpBarView GetHpBar()
         {
-            return hpBarViewPool.Get(null);
+            return _hpBarViewPool.Get(null);
         }
 
         public void ReturnHpBar(HpBarView hpBarView)
         {
-            hpBarViewPool.Return(hpBarView as HpBarView);
+            _hpBarViewPool.Return(hpBarView as HpBarView);
         }
     }
 }

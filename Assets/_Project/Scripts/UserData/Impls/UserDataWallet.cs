@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
         [Initialize(DataCategory.UserWallet)]
         private void Initialize_Wallet(string data)
         {
-            if (data == null)
+            if (string.IsNullOrEmpty(data))
             {
                 userWallet = new UserWallet
                 {

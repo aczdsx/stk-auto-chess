@@ -9,12 +9,14 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private CAButton commanderSkillButton;
         [SerializeField] private CAButton _playButton;
+        [SerializeField] private CAButton _stageSelectButton;
 
         protected override void Awake()
         {
             base.Awake();
             commanderSkillButton.onClick.AddListener(OnClickCommanderSkillButton);
             _playButton.onClick.AddListener(OnClickStartButton);
+            _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
         }
 
         protected override void OnDestroy()
@@ -22,6 +24,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
             commanderSkillButton.onClick.RemoveListener(OnClickCommanderSkillButton);
             _playButton.onClick.RemoveListener(OnClickStartButton);
+            _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
         }
 
         public override void OnPreEnter(object param)
@@ -41,6 +44,12 @@ namespace CookApps.AutoBattler
         private void OnClickStartButton()
         {
             SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
+        }
+
+        private void OnClickChapterStageButton()
+        {
+            int currentStageId = UserDataManager.Instance.GetCurrentStageId();
+            SceneUILayerManager.Instance.PushUILayerAsync<ChapterMain>(currentStageId).Forget();
         }
     }
 }

@@ -13,8 +13,9 @@ public class CharacterStateMove : CharacterStateBase
     public override void StateStart()
     {
         base.StateStart();
-        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Walk);
+        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.MOVE);
         // TODO: Running 에서 직접 이동 로직 구현하도록 변경 필요
+        // [TODO] : 캐릭터 로직에 대한 이해도가 필요.
         var moveDuration = SpecOptionCache.DefaultMoveDuration / characCtrl.GetCharacterStat().MoveSpeed;
         var jumpHeight = SpecOptionCache.CharacterMoveJumpHeight;
         PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)

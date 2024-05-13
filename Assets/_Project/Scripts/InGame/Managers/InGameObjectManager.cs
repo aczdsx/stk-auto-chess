@@ -12,19 +12,20 @@ namespace CookApps.BattleSystem
 {
     public class InGameObjectManager : SingletonMonoBehaviour<InGameObjectManager>
     {
-        private InGameGrid grid;
+        private InGameGrid _grid;
         private List<CharacterController> enemiesInPlaygroundForUpdate = new ();
         private List<CharacterController> charactersInPlaygroundForUpdate = new ();
 
         private Transform playground;
         public Transform Playground => playground;
 
-        public void Initialize(int2 gridSize, IInGameTileView[] views)
+        public void Initialize(InGameGrid grid)
         {
             InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, ManagedUpdate);
             InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, LateManagedUpdate);
+            
             playground = GameObject.Find("Playground").GetComponent<Transform>();
-            grid = new InGameGrid(gridSize, views);
+            _grid = grid;
         }
 
         public void Clear()
@@ -83,7 +84,7 @@ namespace CookApps.BattleSystem
         public async UniTask<CharacterController> AddCharacterToField(CharacterStatData statData, int2 initPos, AllianceType allianceType, Type startStateType)
         {
             var characCtrl = new CharacterController();
-            var tile = grid.GetTile(initPos);
+            var tile = _grid.GetTile(initPos);
             characCtrl.Initialize(statData, tile, allianceType);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 
@@ -200,7 +201,7 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
-            return grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShape);
+            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShape);
         }
 
         /// <summary>
@@ -238,7 +239,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
+                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
                 {
                     resTargets.Add(other);
                 }
@@ -275,7 +276,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
+                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
                 {
                     resTargets.Add(other);
                 }

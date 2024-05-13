@@ -18,12 +18,23 @@ namespace CookApps.AutoBattler
 
         private CharacterStatData statData;
         public CharacterStatData GetStatData() => statData;
-        public float Height => throw new NotImplementedException();
+        public float Height => 1.0f;
+
+        private GameObject _instance;
 
         public async UniTask Initialize(CharacterStatData statData)
         {
+            Debug.LogColor($"CharView Initialize : {statData}");
             this.statData = statData;
-            throw new NotImplementedException();
+            _instance = await AddressableInstantiateHelper.InstantiateAsync($"Characters/{statData.CharacterId}/{statData.CharacterId}.prefab", CachedTr);
+            var hpBar = InGameHpBarViewPool.Instance.GetHpBar();
+            hpBar.CachedTr.SetParent(CachedTr);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            AddressableInstantiateHelper.ReleaseGameObject(_instance);
         }
 
         /// <summary>
@@ -55,6 +66,8 @@ namespace CookApps.AutoBattler
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
         {
+            //[TODO] Clip return 하는 이유 확인 필요
+            animator.SetTrigger(animationKey.ToString());
             throw new NotImplementedException();
         }
 
@@ -72,11 +85,23 @@ namespace CookApps.AutoBattler
         {
         }
 
-        public SpriteCharacterView GetCharacterView(CharacterStatData statData)
+        public SpriteCharacterView GetCharacterView(CharacterStatData statData, AllianceType allianceType)
         {
-            if (!InGameResourceHolder.PlayerCharacterPrefabs.TryGetValue(statData.CharacterId, out GameObject prefab))
+            // [TODO] PlayerCharacterPrefabs, EnemyCharacterPrefabs 왜 나눠 있는 지 확인 필요.
+            GameObject prefab = null;
+            if(allianceType == AllianceType.Player)
             {
-                return null;
+                if (!InGameResourceHolder.PlayerCharacterPrefabs.TryGetValue(statData.CharacterId, out prefab))
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                if (!InGameResourceHolder.EnemyCharacterPrefabs.TryGetValue(statData.CharacterId, out prefab))
+                {
+                    return null;
+                }
             }
 
             if (!pool.TryGetValue(statData.CharacterId, out UnityPool<SpriteCharacterView> characterPool))
