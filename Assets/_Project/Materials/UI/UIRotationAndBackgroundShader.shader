@@ -7,7 +7,12 @@ Shader "Custom/UIRotationAndBackgroundShader"
         _RotateTex ("Rotate Texture", 2D) = "white" {}
         _RotationSpeed ("Rotation Speed", Float) = 1.0
         _Scale ("Texture Scale", Float) = 1.0
-        _BlendIntensity ("Blend Intensity", Float) = 1.0 // Soft Light 효과의 강도
+        _BlendIntensity ("Blend Intensity", Float) = 1.0
+        _ExtraTex ("Extra Texture", 2D) = "white" {}
+        _ExtraColor ("Extra Texture Color", Color) = (1,1,1,1)
+        _ExtraTex_ST ("Extra Texture Tiling and Offset", Vector) = (1,1,0,0)
+        _ExtraTexScale ("Extra Texture Scale", Float) = 1.0
+        _MaskRadius ("Mask Radius", Float) = 0.5  // 원형 마스크의 반지름
     }
     SubShader
     {
@@ -30,23 +35,28 @@ Shader "Custom/UIRotationAndBackgroundShader"
             {
                 float2 uv : TEXCOORD0;
                 float2 uvRotate : TEXCOORD1;
+                float2 uvExtra : TEXCOORD2;
                 float4 vertex : SV_POSITION;
             };
 
             sampler2D _BackgroundTex;
             sampler2D _RotateTex;
+            sampler2D _ExtraTex;
             float _RotationSpeed;
             float4 _Color;
             float _Scale;
-            float _BlendIntensity; // Soft Light 효과의 강도를 저장하는 변수
+            float _BlendIntensity;
+            float4 _ExtraColor;
+            float4 _ExtraTex_ST;
+            float _ExtraTexScale;
+            float _MaskRadius;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
-                o.uvRotate = v.uv;
-
+                
                 float angle = _Time.y * _RotationSpeed;
                 float cosA = cos(angle);
                 float sinA = sin(angle);
@@ -56,29 +66,24 @@ Shader "Custom/UIRotationAndBackgroundShader"
                     sinA * centeredUV.x + cosA * centeredUV.y
                 ) + 0.5;
 
-                return o;
-            }
+                o.uvExtra = (o.uv - 0.5) * _ExtraTexScale + 0.5;
+                o.uvExtra = o.uvExtra * _ExtraTex_ST.xy + _ExtraTex_ST.zw;
 
-            fixed4 SoftLightBlend(fixed4 base, fixed4 blend)
-            {
-                fixed4 result;
-                result.rgb = lerp(
-                    sqrt(base.rgb) * (2.0 * blend.rgb) + base.rgb * (1.0 - 2.0 * blend.rgb),
-                    1.0 - (1.0 - base.rgb) * (1.0 - blend.rgb * 2.0),
-                    step(0.5, blend.rgb)
-                );
-                result.a = base.a; // Alpha channel remains unaffected
-                return result;
+                return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 backgroundCol = tex2D(_BackgroundTex, i.uv) * _Color;
-                fixed4 rotateCol = tex2D(_RotateTex, i.uvRotate);
-                fixed4 softLightResult = SoftLightBlend(backgroundCol, rotateCol);
+                float2 center = float2(0.5, 0.5);
+                float dist = length(i.uvRotate - center);
+                float mask = dist < _MaskRadius ? 1.0 : 0.0; // 선명한 마스크 경계
 
-                // Apply soft light blending with adjustable intensity
-                return lerp(backgroundCol, softLightResult, _BlendIntensity);
+                fixed4 backgroundCol = tex2D(_BackgroundTex, i.uv) * _Color;
+                fixed4 rotateCol = tex2D(_RotateTex, i.uvRotate) * mask; // 마스크 적용
+                fixed4 extraCol = tex2D(_ExtraTex, i.uvExtra) * _ExtraColor;
+
+                fixed4 result = lerp(lerp(backgroundCol, rotateCol, _BlendIntensity), extraCol, extraCol.a);
+                return result;
             }
             ENDCG
         }
