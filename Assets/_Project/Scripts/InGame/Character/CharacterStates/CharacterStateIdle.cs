@@ -9,7 +9,7 @@ public class CharacterStateIdle : CharacterStateBase
     public override void StateStart()
     {
         base.StateStart();
-        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Idle);
+        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.IDLE);
         scanTargetTime = ScanTargetInterval;
     }
 

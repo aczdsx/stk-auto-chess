@@ -5,7 +5,7 @@ public class CharacterStateDead : CharacterStateBase
     public override void StateStart()
     {
         base.StateStart();
-        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Death);
+        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.DEAD);
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -18,7 +18,7 @@ public class CharacterStateDead : CharacterStateBase
         base.AnimationEventCallback(animName, eventKey);
         // Debug.Log($"dead AnimationEventCallback {animName}, {eventKey}");
 
-        if (animName != AnimationKey.Death.ToAnimationName())
+        if (animName != AnimationKey.DEAD.ToAnimationName())
         {
             return;
         }

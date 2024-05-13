@@ -108,6 +108,7 @@ namespace CookApps.BattleSystem
 
         public void Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType)
         {
+            //[TODO] 빈 오브젝트 생성하고 안에 넣으라고 하셨던거 같은데... 지금은 내부에 하나 더 생성
             Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
             characterUId = characUIdInc++;
             this.statData = statData;

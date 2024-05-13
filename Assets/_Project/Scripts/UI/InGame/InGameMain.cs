@@ -38,8 +38,8 @@ namespace CookApps.AutoBattler
             
             CharacterStatData statData1 = new CharacterStatData(30001, 10);
             CharacterStatData statData2 = new CharacterStatData(30002, 10);
-            await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy, typeof(SpriteCharacterView));
-            await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player, typeof(SpriteCharacterView));
+            await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy, typeof(CharacterStateIdle));
+            await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player, typeof(CharacterStateIdle));
             
             
             InGameManager.Instance.StartInGame<FlowStateStageStart>();

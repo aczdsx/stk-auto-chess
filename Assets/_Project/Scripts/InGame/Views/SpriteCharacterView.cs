@@ -24,6 +24,7 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(CharacterStatData statData)
         {
+            Debug.LogColor($"CharView Initialize : {statData}");
             this.statData = statData;
             _instance = await AddressableInstantiateHelper.InstantiateAsync($"Characters/{statData.CharacterId}/{statData.CharacterId}.prefab", CachedTr);
             var hpBar = InGameHpBarViewPool.Instance.GetHpBar();
@@ -65,6 +66,8 @@ namespace CookApps.AutoBattler
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
         {
+            //[TODO] Clip return 하는 이유 확인 필요
+            animator.SetTrigger(animationKey.ToString());
             throw new NotImplementedException();
         }
 

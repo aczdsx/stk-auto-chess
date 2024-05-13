@@ -11,7 +11,7 @@ public class CharacterStateAttack : CharacterStateBase
     {
         base.StateStart();
         isAttackAnimRunning = false;
-        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Idle);
+        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.IDLE);
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -56,7 +56,7 @@ public class CharacterStateAttack : CharacterStateBase
 
     protected virtual void RunAttackAnimation()
     {
-        AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.Attack);
+        AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.ATK);
         // 공격 애니메이션 타임 스케일 계산 방법 : 기본 공격 시간 (atkTime : 1/atkSpeed)이 공격 애니메이션 시간의 1.5배보다 느리면
         // 공격 애니메이션 타임에 공속을 곱함. 아님 1f
         float animTime = clip.length * 1.5f;
@@ -73,7 +73,7 @@ public class CharacterStateAttack : CharacterStateBase
 
     public override void AnimationEventCallback(string animName, AnimationEventKey eventKey)
     {
-        if (animName != AnimationKey.Attack.ToAnimationName())
+        if (animName != AnimationKey.ATK.ToAnimationName())
         {
             return;
         }
