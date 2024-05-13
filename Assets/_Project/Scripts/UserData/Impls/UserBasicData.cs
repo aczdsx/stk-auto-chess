@@ -10,7 +10,7 @@ namespace CookApps.AutoBattler
         [Initialize(DataCategory.UserData)]
         private void Initialize_BasicData(string data)
         {
-            if (data == null)
+            if (string.IsNullOrEmpty(data))
             {
                 userBasicData = new UserBasicData
                 {

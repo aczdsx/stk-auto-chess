@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
         [Initialize(DataCategory.UserCharacterGroup)]
         void Initialize_CharacterGroup(string data)
         {
-            if (data == null)
+            if (string.IsNullOrEmpty(data))
             {
                 userCharacterGroup = new UserCharacterGroup();
                 return;

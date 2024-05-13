@@ -1724,6 +1724,7 @@ MonoBehaviour:
   baseAnimator: {fileID: 0}
   commanderSkillButton: {fileID: 0}
   _playButton: {fileID: 527963977007477802}
+  _stageSelectButton: {fileID: 6692724837655265189}
 --- !u!1001 &63409249374894145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4189,6 +4190,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8008340971267065607, guid: 08f5064a401f03a4f914ac3809e61661, type: 3}
   m_PrefabInstance: {fileID: 7813018446711038306}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6692724837655265189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3498240444815974087, guid: 08f5064a401f03a4f914ac3809e61661, type: 3}
+  m_PrefabInstance: {fileID: 7813018446711038306}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7889019251395012889
 PrefabInstance:
   m_ObjectHideFlags: 0

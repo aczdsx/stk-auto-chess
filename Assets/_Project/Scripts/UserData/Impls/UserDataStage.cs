@@ -10,7 +10,7 @@ namespace CookApps.AutoBattler
         [Initialize(DataCategory.UserStageGroup, 1)]
         private void Initialize_StageGroup(string data)
         {
-            if (data == null)
+            if (string.IsNullOrEmpty(data))
             {
                 userStageGroup = new UserStageGroup
                 {

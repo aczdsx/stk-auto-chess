@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
         [Initialize(DataCategory.UserDeck)]
         private void Initialize_Deck(string data)
         {
-            if (data == null)
+            if (string.IsNullOrEmpty(data))
             {
                 userDeck = new UserDeck
                 {

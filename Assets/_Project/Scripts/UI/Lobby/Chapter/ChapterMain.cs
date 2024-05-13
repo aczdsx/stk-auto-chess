@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Chapter/ChapterMain.prefab")]
+    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Popup/ChapterMain.prefab")]
     public class ChapterMain : UILayer
     {
         [SerializeField] private TableView tableView;
