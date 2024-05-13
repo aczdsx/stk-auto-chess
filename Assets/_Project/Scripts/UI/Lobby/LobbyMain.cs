@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
         private void OnClickChapterStageButton()
         {
             int currentStageId = UserDataManager.Instance.GetCurrentStageId();
-            SceneUILayerManager.Instance.PushUILayerAsync<ChapterMain>(1).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ChapterMain>(currentStageId).Forget();
         }
     }
 }
