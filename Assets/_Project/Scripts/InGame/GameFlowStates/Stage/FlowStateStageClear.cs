@@ -15,7 +15,7 @@ public class FlowStateStageClear : StateBase
 
         // 로비로 이동
         InGameManager.Instance.EndInGame();
-        // SceneLoading.GoToNextScene("Lobby").Forget();
+        SceneLoading.GoToNextScene("Lobby").Forget();
     }
 
     public override void StateRunning(float dt)
