@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SKL
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 0
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 03942c95879f541408b6ed06088a093e, type: 3}
+    - {fileID: 2800000, guid: d933038dc1818ce41a00af3a74154042, type: 3}
+    - {fileID: 2800000, guid: fb3820e0713f0eb4291cbf18bef3e737, type: 3}
+    - {fileID: 2800000, guid: a31dd15305168314c965fdfee220d8d5, type: 3}
+    - {fileID: 2800000, guid: 5198c3f0f1f91ae4bbf8c542c820c2d7, type: 3}
+    - {fileID: 2800000, guid: 0d640abf79602f74aacc558ffff59a74, type: 3}
+    - {fileID: 2800000, guid: 63b610c27f7a0f94784b5424c8bbc763, type: 3}
+    - {fileID: 2800000, guid: 8a93ea4c323055a42a169c71e29dc78d, type: 3}
+    - {fileID: 2800000, guid: 7edf1cb928eb0f6438e7e927d67f1fa6, type: 3}
+    - {fileID: 2800000, guid: aeafee1d426562d49a8ff6f9e4fe8a4f, type: 3}
+    - {fileID: 2800000, guid: 4ac46007453a49844aa17942d73c69c6, type: 3}
+    - {fileID: 2800000, guid: e79dca1e411bb6345ab6fb0bbe2c19ca, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - fb3820e0713f0eb4291cbf18bef3e737: 21300000
+    - 5198c3f0f1f91ae4bbf8c542c820c2d7: 21300000
+    - 63b610c27f7a0f94784b5424c8bbc763: 21300000
+    - a31dd15305168314c965fdfee220d8d5: 21300000
+    - 03942c95879f541408b6ed06088a093e: 21300000
+    - 4ac46007453a49844aa17942d73c69c6: 21300000
+    - 7edf1cb928eb0f6438e7e927d67f1fa6: 21300000
+    - 8a93ea4c323055a42a169c71e29dc78d: 21300000
+    - aeafee1d426562d49a8ff6f9e4fe8a4f: 21300000
+    - d933038dc1818ce41a00af3a74154042: 21300000
+    - e79dca1e411bb6345ab6fb0bbe2c19ca: 21300000
+    - 0d640abf79602f74aacc558ffff59a74: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: fb3820e0713f0eb4291cbf18bef3e737, type: 3}
+  - {fileID: 21300000, guid: 5198c3f0f1f91ae4bbf8c542c820c2d7, type: 3}
+  - {fileID: 21300000, guid: 63b610c27f7a0f94784b5424c8bbc763, type: 3}
+  - {fileID: 21300000, guid: a31dd15305168314c965fdfee220d8d5, type: 3}
+  - {fileID: 21300000, guid: 03942c95879f541408b6ed06088a093e, type: 3}
+  - {fileID: 21300000, guid: 4ac46007453a49844aa17942d73c69c6, type: 3}
+  - {fileID: 21300000, guid: 7edf1cb928eb0f6438e7e927d67f1fa6, type: 3}
+  - {fileID: 21300000, guid: 8a93ea4c323055a42a169c71e29dc78d, type: 3}
+  - {fileID: 21300000, guid: aeafee1d426562d49a8ff6f9e4fe8a4f, type: 3}
+  - {fileID: 21300000, guid: d933038dc1818ce41a00af3a74154042, type: 3}
+  - {fileID: 21300000, guid: e79dca1e411bb6345ab6fb0bbe2c19ca, type: 3}
+  - {fileID: 21300000, guid: 0d640abf79602f74aacc558ffff59a74, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SR_YUNI_B_skl11
+  - SR_YUNI_B_skl2
+  - SR_YUNI_B_skl4
+  - SR_YUNI_B_skl12
+  - SR_YUNI_B_skl1
+  - SR_YUNI_B_skl8
+  - SR_YUNI_B_skl6
+  - SR_YUNI_B_skl5
+  - SR_YUNI_B_skl7
+  - SR_YUNI_B_skl10
+  - SR_YUNI_B_skl9
+  - SR_YUNI_B_skl3
+  m_RenderDataMap: {}
+  m_Tag: SKL
+  m_IsVariant: 0
