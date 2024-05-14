@@ -22,7 +22,7 @@ namespace CookApps.BattleSystem
         public float FastForwardRate => fastForwardRate;
 
         public void Clear()
-        {
+        { 
             isPaused = false;
             fastForwardRate = 1f;
             updateHandlers.Clear();

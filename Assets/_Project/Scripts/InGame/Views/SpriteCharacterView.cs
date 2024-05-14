@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
         {
-            //[TODO] Clip return 하는 이유 확인 필요
+            //[TODO] Clip return 하는 이유 확인 필요 Animation 구조 어떻게 가져갈지 논의 필요
             animator.SetTrigger(animationKey.ToString());
             throw new NotImplementedException();
         }
