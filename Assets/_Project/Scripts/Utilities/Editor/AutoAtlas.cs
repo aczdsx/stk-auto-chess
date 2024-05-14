@@ -88,6 +88,7 @@ internal class AutoAtlas
                 spriteAtlas.SetPackingSettings(packaingSettings);
                 
                 SpriteAtlasTextureSettings textureSettings = new SpriteAtlasTextureSettings();
+                textureSettings.sRGB = true;       //sRGB 값 true
                 textureSettings.generateMipMaps = false;
                 textureSettings.readable = false;
                 textureSettings.filterMode = FilterMode.Point;
