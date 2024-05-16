@@ -72,6 +72,22 @@ namespace CookApps.TeamBattle.UIManagements
                 await Addressables.UnloadSceneAsync(currentSceneInstance.Value);
             }
 
+            // default UI load
+            {
+                var tasks = new UniTask<UILayer>[SceneDataList[sceneName].DefaultUILayers.Count];
+                for (int i = 0; i < SceneDataList[sceneName].DefaultUILayers.Count; i++)
+                {
+                    var index = i;
+                    tasks[i] = LoadUILayer(SceneDataList[sceneName].DefaultUILayers[index]);
+                }
+
+                var res = await UniTask.WhenAll(tasks);
+                for (int i = 0; i < res.Length; i++)
+                {
+                    PoolingUILayer(res[i]);
+                }
+            }
+
             var asyncOperationHandle = Addressables.LoadSceneAsync(sceneData.AddressableName, activateOnLoad: false);
             operationWrapper.SetAsyncOperation(asyncOperationHandle);
             currentSceneInstance = await asyncOperationHandle;
@@ -98,6 +114,7 @@ namespace CookApps.TeamBattle.UIManagements
             OnSceneUnloadedEvent?.Invoke(CurrentSceneName);
             Resources.UnloadUnusedAssets();
             GC.Collect();
+
             await currentSceneInstance.Value.ActivateAsync();
             OnSceneLoaded(sceneName, defaultUIData, transition);
         }
@@ -117,6 +134,12 @@ namespace CookApps.TeamBattle.UIManagements
 
                 UILayerStackData stackData = MakeUIStackData(uiLayer, uiLayer.GetType().Name, null);
                 PushUILayerInternal(stackData, defaultUIData);
+            }
+
+            for (var i = 0; i < SceneDataList[sceneName].DefaultUILayers.Count; i++)
+            {
+                var uiName = SceneDataList[sceneName].DefaultUILayers[i].Name;
+                PushUILayerAsync(SceneDataList[sceneName].DefaultUILayers[i], uiName, defaultUIData).Forget();
             }
 
             transition.FadeOutAsync(true);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CookApps.TeamBattle.UIManagements
@@ -83,6 +84,9 @@ namespace CookApps.TeamBattle.UIManagements
         public string SceneName => sceneName;
         [SerializeField] private string addressableName;
         public string AddressableName => addressableName;
+        private List<Type> defaultUILayers = new List<Type>();
+        internal void AddDefaultUILayer(Type uiType) => defaultUILayers.Add(uiType);
+        public IReadOnlyList<Type> DefaultUILayers => defaultUILayers;
     }
     #endregion
 }
