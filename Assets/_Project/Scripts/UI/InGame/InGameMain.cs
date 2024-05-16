@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
         private int stageId;
         // char///
     }
-    
+
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
@@ -31,8 +31,8 @@ namespace CookApps.AutoBattler
 
         private async UniTask LoadResources()
         {
-            InGameHpBarViewPool.Instance.InitializePool();
-            
+            InGameHpBarViewPool.Instance.InitializePool(InGameResourceHolder.HpBarView.CachedGo);
+
             GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
             if (!stageObj.TryGetComponent(out InGameStage stage))
             {
@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
             var tileViews = stage.TileViews.Select(x => x as IInGameTileView).ToArray();
             InGameGrid grid = new InGameGrid(stage.GridSize, tileViews);
             InGameObjectManager.Instance.Initialize(grid);
-            
+
             CharacterStatData statData1 = new CharacterStatData(30001, 10);
             CharacterStatData statData2 = new CharacterStatData(30002, 10);
             await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy,

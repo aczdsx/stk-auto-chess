@@ -3,6 +3,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
@@ -63,12 +64,12 @@ namespace CookApps.AutoBattler
         private UnityPool<HpBarView> _hpBarViewPool;
         private GameObject _instance;
 
-        public async UniTask InitializePool()
+        public void InitializePool(GameObject instance)
         {
             // TODO: load hp bar prefab from addressable
-            _instance = await AddressableInstantiateHelper.InstantiateAsync($"FloatingHpBar.prefab");
+            _instance = instance;
             _hpBarViewPool = new UnityPool<HpBarView>();
-            _hpBarViewPool.Initialize((GameObject)_instance);
+            _hpBarViewPool.Initialize(_instance);
         }
 
         public void ReleasePool()
@@ -84,7 +85,7 @@ namespace CookApps.AutoBattler
 
         public void ReturnHpBar(HpBarView hpBarView)
         {
-            _hpBarViewPool.Return(hpBarView as HpBarView);
+            _hpBarViewPool.Return(hpBarView);
         }
     }
 }
