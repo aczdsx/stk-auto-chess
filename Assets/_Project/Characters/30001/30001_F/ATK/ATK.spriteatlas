@@ -73,9 +73,7 @@ SpriteAtlas:
     - a6495d30840293c48b530b5d81d453f2: 21300000
     - c025e5a1761bbb64eb2cef5f243a13e9: 21300000
     - 86f23362c22a38f49b83b85c1746c025: 21300000
-    - 673c95357cfd4a34bb6055282d285ae5: 21300000
     - fba7bf5aa14f337408c9ecd88f843374: 21300000
-    - e387b24c399d78c4d9311c8ac21f4d6d: 21300000
     - c7830a9c4c01df243afa30d79c73a85b: 21300000
     - 8578bb1e1d2f2d841a38c1b6ae218f33: 21300000
   m_MasterAtlas: {fileID: 0}
@@ -83,18 +81,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a6495d30840293c48b530b5d81d453f2, type: 3}
   - {fileID: 21300000, guid: c025e5a1761bbb64eb2cef5f243a13e9, type: 3}
   - {fileID: 21300000, guid: 86f23362c22a38f49b83b85c1746c025, type: 3}
-  - {fileID: 21300000, guid: 673c95357cfd4a34bb6055282d285ae5, type: 3}
   - {fileID: 21300000, guid: fba7bf5aa14f337408c9ecd88f843374, type: 3}
-  - {fileID: 21300000, guid: e387b24c399d78c4d9311c8ac21f4d6d, type: 3}
   - {fileID: 21300000, guid: c7830a9c4c01df243afa30d79c73a85b, type: 3}
   - {fileID: 21300000, guid: 8578bb1e1d2f2d841a38c1b6ae218f33, type: 3}
   m_PackedSpriteNamesToIndex:
   - SR_ATRESIA_F_atk2
   - SR_ATRESIA_F_atk4
   - SR_ATRESIA_F_atk1
-  - SR_ATRESIA_F_atk8
   - SR_ATRESIA_F_atk7
-  - SR_ATRESIA_F_atk5
   - SR_ATRESIA_F_atk3
   - SR_ATRESIA_F_atk6
   m_RenderDataMap: {}

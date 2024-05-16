@@ -82,7 +82,6 @@ SpriteAtlas:
     - 4ac46007453a49844aa17942d73c69c6: 21300000
     - 7edf1cb928eb0f6438e7e927d67f1fa6: 21300000
     - 8a93ea4c323055a42a169c71e29dc78d: 21300000
-    - aeafee1d426562d49a8ff6f9e4fe8a4f: 21300000
     - d933038dc1818ce41a00af3a74154042: 21300000
     - e79dca1e411bb6345ab6fb0bbe2c19ca: 21300000
     - 0d640abf79602f74aacc558ffff59a74: 21300000
@@ -96,7 +95,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4ac46007453a49844aa17942d73c69c6, type: 3}
   - {fileID: 21300000, guid: 7edf1cb928eb0f6438e7e927d67f1fa6, type: 3}
   - {fileID: 21300000, guid: 8a93ea4c323055a42a169c71e29dc78d, type: 3}
-  - {fileID: 21300000, guid: aeafee1d426562d49a8ff6f9e4fe8a4f, type: 3}
   - {fileID: 21300000, guid: d933038dc1818ce41a00af3a74154042, type: 3}
   - {fileID: 21300000, guid: e79dca1e411bb6345ab6fb0bbe2c19ca, type: 3}
   - {fileID: 21300000, guid: 0d640abf79602f74aacc558ffff59a74, type: 3}
@@ -109,7 +107,6 @@ SpriteAtlas:
   - SR_YUNI_B_skl8
   - SR_YUNI_B_skl6
   - SR_YUNI_B_skl5
-  - SR_YUNI_B_skl7
   - SR_YUNI_B_skl10
   - SR_YUNI_B_skl9
   - SR_YUNI_B_skl3

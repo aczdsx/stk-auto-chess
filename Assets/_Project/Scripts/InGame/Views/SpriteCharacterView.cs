@@ -4,37 +4,38 @@ using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using PrimeTweenDemo;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 namespace CookApps.AutoBattler
 {
     public class SpriteCharacterView : CachedMonoBehaviour
     {
-        [SerializeField] private Animator animator;
-        private bool cachedFlipX;
-
-        public event Action<string, AnimationEventKey> OnAnimationEvent;
-
-        private CharacterStatData statData;
-        public CharacterStatData GetStatData() => statData;
+        [FormerlySerializedAs("animator")]
+        [SerializeField] private Animator _animator;
+        public CharacterStatData GetStatData() => _statData;
         public float Height => 1.0f;
-
+        public event Action<string, AnimationEventKey> OnAnimationEvent;
+        
         private GameObject _instance;
+        private bool _cachedFlipX;
+        private CharacterStatData _statData;
 
         public async UniTask Initialize(CharacterStatData statData)
         {
             Debug.LogColor($"CharView Initialize : {statData}");
-            this.statData = statData;
-            _instance = await AddressableInstantiateHelper.InstantiateAsync($"Characters/{statData.CharacterId}/{statData.CharacterId}.prefab", CachedTr);
+            this._statData = statData;
+            // _instance = await AddressableInstantiateHelper.InstantiateAsync($"Characters/{statData.CharacterId}/{statData.CharacterId}.prefab", CachedTr);
             var hpBar = InGameHpBarViewPool.Instance.GetHpBar();
-            hpBar.CachedTr.SetParent(CachedTr);
+            hpBar.CachedTr.SetParent(_animator.transform);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            AddressableInstantiateHelper.ReleaseGameObject(_instance);
+            // AddressableInstantiateHelper.ReleaseGameObject(_instance);
         }
 
         /// <summary>
@@ -42,32 +43,32 @@ namespace CookApps.AutoBattler
         /// </summary>
         /// <param name="position">view의 필드 위치</param>
         /// <param name="viewPosition">에어본이나 점프등을 하기 위해 필드 위치와의 offset이 필요할 경우 사용</param>
-        public void UpdatePosition(Vector2 position, Vector3 viewPosition)
+        public void UpdatePosition(Vector3 position, Vector3 viewPosition)
         {
             CachedTr.localPosition = (Vector3)position + viewPosition;
         }
 
         public void SetAnimationSpeed(float speed)
         {
-            animator.speed = speed;
+            _animator.speed = speed;
         }
 
         public void LookAt(bool flipX)
         {
-            if (cachedFlipX != flipX)
+            if (_cachedFlipX != flipX)
             {
                 var scale = CachedTr.localScale;
                 var x = scale.x;
                 scale.x = flipX ? -Mathf.Abs(x) : Mathf.Abs(x);
                 CachedTr.localScale = scale;
-                cachedFlipX = flipX;
+                _cachedFlipX = flipX;
             }
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
         {
             //[TODO] Clip return 하는 이유 확인 필요 Animation 구조 어떻게 가져갈지 논의 필요
-            animator.SetTrigger(animationKey.ToString());
+            _animator.SetTrigger(animationKey.ToString());
             throw new NotImplementedException();
         }
 

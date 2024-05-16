@@ -72,7 +72,6 @@ SpriteAtlas:
     packedSpriteRenderDataKeys:
     - 1bd9c1e15387ce94382022d0e95596e0: 21300000
     - 3f2b600348a7b15488964897730f0a36: 21300000
-    - 255f80448e4e5374280e6ac72d8d0fe6: 21300000
     - 70b258d4aa699aa449f938a883b196cf: 21300000
     - 91e69346bc4816743ad8faad17f5f435: 21300000
     - c33815d8d6909bf4cb295e587bcc6b78: 21300000
@@ -82,7 +81,6 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 1bd9c1e15387ce94382022d0e95596e0, type: 3}
   - {fileID: 21300000, guid: 3f2b600348a7b15488964897730f0a36, type: 3}
-  - {fileID: 21300000, guid: 255f80448e4e5374280e6ac72d8d0fe6, type: 3}
   - {fileID: 21300000, guid: 70b258d4aa699aa449f938a883b196cf, type: 3}
   - {fileID: 21300000, guid: 91e69346bc4816743ad8faad17f5f435, type: 3}
   - {fileID: 21300000, guid: c33815d8d6909bf4cb295e587bcc6b78, type: 3}
@@ -91,7 +89,6 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - SR_YUNI_B_idle5
   - SR_YUNI_B_idle2
-  - SR_YUNI_B_idle7
   - SR_YUNI_B_idle6
   - SR_YUNI_B_idle3
   - SR_YUNI_B_idle1

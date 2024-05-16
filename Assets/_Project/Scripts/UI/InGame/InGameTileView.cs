@@ -6,6 +6,6 @@ namespace CookApps.AutoBattler
 {
     public class InGameTileView : CachedMonoBehaviour, IInGameTileView
     {
-        public Vector2 Position => CachedTr.position;
+        public Vector3 Position => CachedTr.position;
     }
 }

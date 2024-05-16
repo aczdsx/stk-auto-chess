@@ -73,29 +73,23 @@ SpriteAtlas:
     - d1f23120a0c6baa45853363bebd3fe41: 21300000
     - 647eb0d60cf488f41853cf0644ebc4bf: 21300000
     - 38b1268763d27fc44ac4f8ee15fe7e24: 21300000
-    - 8529a5b7724cc2742a96597942d463cb: 21300000
     - 947fe1d737228bb489ff8bb39a7240f7: 21300000
     - 7517b0d9a6bcc8044819bfdceab2b5e4: 21300000
-    - 911d3b1db6c6ffd47b6982d3cea87f65: 21300000
     - d927053d45df2c2419d3c571af8c0fbe: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: d1f23120a0c6baa45853363bebd3fe41, type: 3}
   - {fileID: 21300000, guid: 647eb0d60cf488f41853cf0644ebc4bf, type: 3}
   - {fileID: 21300000, guid: 38b1268763d27fc44ac4f8ee15fe7e24, type: 3}
-  - {fileID: 21300000, guid: 8529a5b7724cc2742a96597942d463cb, type: 3}
   - {fileID: 21300000, guid: 947fe1d737228bb489ff8bb39a7240f7, type: 3}
   - {fileID: 21300000, guid: 7517b0d9a6bcc8044819bfdceab2b5e4, type: 3}
-  - {fileID: 21300000, guid: 911d3b1db6c6ffd47b6982d3cea87f65, type: 3}
   - {fileID: 21300000, guid: d927053d45df2c2419d3c571af8c0fbe, type: 3}
   m_PackedSpriteNamesToIndex:
   - SR_YUNI_B_atk8
   - SR_YUNI_B_atk4
   - SR_YUNI_B_atk6
-  - SR_YUNI_B_atk3
   - SR_YUNI_B_atk5
   - SR_YUNI_B_atk7
-  - SR_YUNI_B_atk2
   - SR_YUNI_B_atk1
   m_RenderDataMap: {}
   m_Tag: ATK

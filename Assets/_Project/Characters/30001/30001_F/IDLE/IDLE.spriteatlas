@@ -71,8 +71,6 @@ SpriteAtlas:
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 9e674430f7e06b84197525775ab4ad94: 21300000
-    - f97e74a1c4d4765428bed80d544ae544: 21300000
-    - 2db559d56f2a3c44e925745f2d8e3c39: 21300000
     - 4e0b6706e53669b4dada9a9acd324a4b: 21300000
     - 227558da235902d4586e91e6b7ff5b46: 21300000
     - 433e22fa24daa6c4ba27505ce314d704: 21300000
@@ -81,8 +79,6 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 9e674430f7e06b84197525775ab4ad94, type: 3}
-  - {fileID: 21300000, guid: f97e74a1c4d4765428bed80d544ae544, type: 3}
-  - {fileID: 21300000, guid: 2db559d56f2a3c44e925745f2d8e3c39, type: 3}
   - {fileID: 21300000, guid: 4e0b6706e53669b4dada9a9acd324a4b, type: 3}
   - {fileID: 21300000, guid: 227558da235902d4586e91e6b7ff5b46, type: 3}
   - {fileID: 21300000, guid: 433e22fa24daa6c4ba27505ce314d704, type: 3}
@@ -90,8 +86,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ae75f6efb389c194e8dd6c3fd47a35b1, type: 3}
   m_PackedSpriteNamesToIndex:
   - SR_ATRESIA_F_idle3
-  - SR_ATRESIA_F_idle5
-  - SR_ATRESIA_F_idle7
   - SR_ATRESIA_F_idle4
   - SR_ATRESIA_F_idle6
   - SR_ATRESIA_F_idle1

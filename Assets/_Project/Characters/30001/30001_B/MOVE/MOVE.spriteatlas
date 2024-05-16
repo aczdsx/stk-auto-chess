@@ -69,7 +69,6 @@ SpriteAtlas:
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - b278ade3313b0ce418d644aebf64fc84: 21300000
-    - 4c704db497f517349ad3393c9078cdc9: 21300000
     - 777deb8a5c7f1144e9c8126fb95ee6e6: 21300000
     - 6744952c2eb69d745a6fc73decf68e88: 21300000
     - 5846f6cf361faeb49adc1c8e85277c6b: 21300000
@@ -77,14 +76,12 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: b278ade3313b0ce418d644aebf64fc84, type: 3}
-  - {fileID: 21300000, guid: 4c704db497f517349ad3393c9078cdc9, type: 3}
   - {fileID: 21300000, guid: 777deb8a5c7f1144e9c8126fb95ee6e6, type: 3}
   - {fileID: 21300000, guid: 6744952c2eb69d745a6fc73decf68e88, type: 3}
   - {fileID: 21300000, guid: 5846f6cf361faeb49adc1c8e85277c6b, type: 3}
   - {fileID: 21300000, guid: b6a10ecf1f59d8c488881aed9deeec0d, type: 3}
   m_PackedSpriteNamesToIndex:
   - SR_ATRESIA_B_move1
-  - SR_ATRESIA_B_move5
   - SR_ATRESIA_B_move3
   - SR_ATRESIA_B_move4
   - SR_ATRESIA_B_move2
