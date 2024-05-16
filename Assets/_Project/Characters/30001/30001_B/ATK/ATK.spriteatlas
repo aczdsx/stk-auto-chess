@@ -72,6 +72,7 @@ SpriteAtlas:
     packedSpriteRenderDataKeys:
     - 75947a8140d071b49bae22df16584aa1: 21300000
     - 6763b925d2249e94dbe79c0cf01e9742: 21300000
+    - b0473c2566b9002449f8e2284e68da96: 21300000
     - 14109e8576bf37c40b6e93736ff5f1ec: 21300000
     - e124250a20b9cbd4da57eb446fa1701c: 21300000
     - e7b8e2bab7722e64ebf4bb501c535543: 21300000
@@ -81,6 +82,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 75947a8140d071b49bae22df16584aa1, type: 3}
   - {fileID: 21300000, guid: 6763b925d2249e94dbe79c0cf01e9742, type: 3}
+  - {fileID: 21300000, guid: b0473c2566b9002449f8e2284e68da96, type: 3}
   - {fileID: 21300000, guid: 14109e8576bf37c40b6e93736ff5f1ec, type: 3}
   - {fileID: 21300000, guid: e124250a20b9cbd4da57eb446fa1701c, type: 3}
   - {fileID: 21300000, guid: e7b8e2bab7722e64ebf4bb501c535543, type: 3}
@@ -89,6 +91,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - SR_ATRESIA_B_atk1
   - SR_ATRESIA_B_atk4
+  - SR_ATRESIA_B_atk8
   - SR_ATRESIA_B_atk7
   - SR_ATRESIA_B_atk3
   - SR_ATRESIA_B_atk5

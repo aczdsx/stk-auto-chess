@@ -81,6 +81,7 @@ SpriteAtlas:
     - 9dac7a287851e6c4382d60b3db78e042: 21300000
     - b87723c8ed22e504db5aaee3e0b9b2cc: 21300000
     - e1657779583d0204088af7fb2e9ba860: 21300000
+    - 6891ce5b59781684cbe2bdd85459f2b1: 21300000
     - 5e200e6b995c4954e974ad89bea9176a: 21300000
     - eb75268eb69f3f9499e57078d203d07c: 21300000
     - 3da16aafa6511ec4881ca007ef362fb2: 21300000
@@ -94,6 +95,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9dac7a287851e6c4382d60b3db78e042, type: 3}
   - {fileID: 21300000, guid: b87723c8ed22e504db5aaee3e0b9b2cc, type: 3}
   - {fileID: 21300000, guid: e1657779583d0204088af7fb2e9ba860, type: 3}
+  - {fileID: 21300000, guid: 6891ce5b59781684cbe2bdd85459f2b1, type: 3}
   - {fileID: 21300000, guid: 5e200e6b995c4954e974ad89bea9176a, type: 3}
   - {fileID: 21300000, guid: eb75268eb69f3f9499e57078d203d07c, type: 3}
   - {fileID: 21300000, guid: 3da16aafa6511ec4881ca007ef362fb2, type: 3}
@@ -106,6 +108,7 @@ SpriteAtlas:
   - SR_ATRESIA_F_skl1
   - SR_ATRESIA_F_skl3
   - SR_ATRESIA_F_skl9
+  - SR_ATRESIA_F_skl2
   - SR_ATRESIA_F_skl6
   - SR_ATRESIA_F_skl10
   - SR_ATRESIA_F_skl7

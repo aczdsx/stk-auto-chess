@@ -71,6 +71,7 @@ SpriteAtlas:
     - 6ad2fb10f6fc1fc47ac8b08d7f970843: 21300000
     - 581ed0e1498c6354dbcfafe064924af1: 21300000
     - 8b563c7272e3dd34194f5bf039d9cc86: 21300000
+    - 6a428b832dedb9048bcdd1a3ce46f898: 21300000
     - c98dcb34f0f351143967a6bef146048d: 21300000
     - d5c8ea7814a68e647b987387398570d9: 21300000
   m_MasterAtlas: {fileID: 0}
@@ -78,12 +79,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6ad2fb10f6fc1fc47ac8b08d7f970843, type: 3}
   - {fileID: 21300000, guid: 581ed0e1498c6354dbcfafe064924af1, type: 3}
   - {fileID: 21300000, guid: 8b563c7272e3dd34194f5bf039d9cc86, type: 3}
+  - {fileID: 21300000, guid: 6a428b832dedb9048bcdd1a3ce46f898, type: 3}
   - {fileID: 21300000, guid: c98dcb34f0f351143967a6bef146048d, type: 3}
   - {fileID: 21300000, guid: d5c8ea7814a68e647b987387398570d9, type: 3}
   m_PackedSpriteNamesToIndex:
   - SR_ATRESIA_F_move5
   - SR_ATRESIA_F_move6
   - SR_ATRESIA_F_move3
+  - SR_ATRESIA_F_move4
   - SR_ATRESIA_F_move2
   - SR_ATRESIA_F_move1
   m_RenderDataMap: {}
