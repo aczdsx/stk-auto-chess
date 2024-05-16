@@ -5,6 +5,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using PrimeTweenDemo;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
@@ -18,7 +19,7 @@ namespace CookApps.AutoBattler
         public CharacterStatData GetStatData() => _statData;
         public float Height => 1.0f;
         public event Action<string, AnimationEventKey> OnAnimationEvent;
-        
+
         private GameObject _instance;
         private bool _cachedFlipX;
         private CharacterStatData _statData;
@@ -30,6 +31,9 @@ namespace CookApps.AutoBattler
             // _instance = await AddressableInstantiateHelper.InstantiateAsync($"Characters/{statData.CharacterId}/{statData.CharacterId}.prefab", CachedTr);
             var hpBar = InGameHpBarViewPool.Instance.GetHpBar();
             hpBar.CachedTr.SetParent(_animator.transform);
+            hpBar.CachedTr.localPosition = Vector3.zero;
+            hpBar.CachedTr.localRotation = Quaternion.identity;
+            hpBar.CachedTr.localScale = Vector3.one;
         }
 
         protected override void OnDestroy()
@@ -57,10 +61,10 @@ namespace CookApps.AutoBattler
         {
             if (_cachedFlipX != flipX)
             {
-                var scale = CachedTr.localScale;
+                var scale = _animator.transform.localScale;
                 var x = scale.x;
                 scale.x = flipX ? -Mathf.Abs(x) : Mathf.Abs(x);
-                CachedTr.localScale = scale;
+                _animator.transform.localScale = scale;
                 _cachedFlipX = flipX;
             }
         }

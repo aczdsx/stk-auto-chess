@@ -10,10 +10,7 @@ namespace CookApps.BattleSystem
     public partial class CharacterController : IEffectCodeSource, IFollowable
     {
         public static Type DefaultDeadState;
-
-        private static int characUIdInc;
-        private int characterUId;
-        public int CharacterUId => characterUId;
+        public int CharacterUId => _characterUId;
         public int CharacterId => statData.CharacterId;
 
         private EffectCodeContainer ecc;
@@ -80,58 +77,67 @@ namespace CookApps.BattleSystem
 
         public bool FlipX { get; set; }
 
-        private CharacterStateBase currState;
-        private Queue<CharacterStateBase> nextStates = new ();
-
-        private ObfuscatorFloat atkCoolTime;
-
         public float GetAttackCoolTime()
         {
-            return atkCoolTime;
+            return _atkCoolTime;
         }
 
         public void ResetAttackCoolTime()
         {
-            atkCoolTime = 1f;
+            _atkCoolTime = 1f;
         }
 
-        private Dictionary<BuffDebuffType, ObfuscatorInt> buffDebuffRefCountDict;
-        private Dictionary<BuffDebuffType, InGameEffectView> buffDebuffEffectViewDict;
+        public AllianceType AllianceType => _allianceType;
+        public double CurrentHp => _currHp;
 
-        private double currHp;
-        public double CurrentHp => currHp;
+        private HpBarView _hpBarView;
 
-        private HpBarView hpBarView;
+        private AllianceType _allianceType;
 
-        private AllianceType allianceType;
-        public AllianceType AllianceType => allianceType;
+        private CrowdControlType _crowdControlType = CrowdControlType.None;
+        private double _currHp;
+
+        private CharacterStateBase _currState;
+        private Queue<CharacterStateBase> _nextStates = new ();
+
+        private ObfuscatorFloat _atkCoolTime;
+
+        private Dictionary<BuffDebuffType, ObfuscatorInt> _buffDebuffRefCountDict;
+        private Dictionary<BuffDebuffType, InGameEffectView> _buffDebuffEffectViewDict;
+
+        private static int characUIdInc;
+        private int _characterUId;
 
         public void Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType)
         {
             //[TODO] 빈 오브젝트 생성하고 안에 넣으라고 하셨던거 같은데... 지금은 내부에 하나 더 생성
             Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
-            characterUId = characUIdInc++;
+            _characterUId = characUIdInc++;
             this.statData = statData;
             CurrentTile = tile;
             position = tile.View.Position;
-            this.allianceType = allianceType;
+            _allianceType = allianceType;
 
-            view = SpriteCharacterViewPool.Instance.GetCharacterView(statData, allianceType);
-            hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
-            hpBarView.Initialize(statData);
+            view = SpriteCharacterViewPool.Instance.GetCharacterView(statData, _allianceType);
+            if (_allianceType == AllianceType.Enemy)
+            {
+                FlipX = true;
+            }
+            _hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
+            _hpBarView.Initialize(statData);
             FollowHpBar();
 
             view.OnAnimationEvent += OnAnimationEvent;
             view.CachedTr.localPosition = position;
-            buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
-            buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameEffectView>();
+            _buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
+            _buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameEffectView>();
 
             // add EffectCodes
             ecc = new EffectCodeContainer(this);
             needUpdateFlag = EffectCodeInheritFlagExtensions.AllFlags();
             ecc.OnChangedDirtyFlag += EffectCodeOnChangedDirtyFlagHandler;
 
-            currHp = HP;
+            _currHp = HP;
             IsAlive = true;
             IsForceIdle = false;
         }
@@ -144,11 +150,9 @@ namespace CookApps.BattleSystem
             ecc.Clear();
             SpriteCharacterViewPool.Instance.ReturnCharacterView(view);
             view = null;
-            InGameHpBarViewPool.Instance.ReturnHpBar(hpBarView);
-            hpBarView = null;
+            InGameHpBarViewPool.Instance.ReturnHpBar(_hpBarView);
+            _hpBarView = null;
         }
-
-        private CrowdControlType crowdControlType = CrowdControlType.None;
 
         public bool NeedToBeIdle()
         {
@@ -157,37 +161,37 @@ namespace CookApps.BattleSystem
 
         public bool HasCrowdControl(CrowdControlType type)
         {
-            return (crowdControlType & type) == type;
+            return (_crowdControlType & type) == type;
         }
 
         public void AddCrowdControl(CrowdControlType type)
         {
-            crowdControlType = crowdControlType | type;
+            _crowdControlType = _crowdControlType | type;
             AddBuffDebuffType(type.ToBuffDebuffType());
         }
 
         public void RemoveCrowdControl(CrowdControlType type)
         {
-            crowdControlType = crowdControlType & ~type;
+            _crowdControlType = _crowdControlType & ~type;
             RemoveBuffDebuffType(type.ToBuffDebuffType());
         }
 
         private void OnAnimationEvent(string animName, AnimationEventKey eventKey)
         {
-            currState.AnimationEventCallback(animName, eventKey);
+            _currState.AnimationEventCallback(animName, eventKey);
         }
 
         // Update is called once per frame
         public void ManagedUpdate(float dt)
         {
-            if (currState == null)
+            if (_currState == null)
             {
-                if (nextStates.Count > 0)
+                if (_nextStates.Count > 0)
                 {
-                    currState = nextStates.Dequeue();
-                    currState.StateInit(this);
-                    currState.StateStart();
-                    OnStateChanged?.Invoke(currState);
+                    _currState = _nextStates.Dequeue();
+                    _currState.StateInit(this);
+                    _currState.StateStart();
+                    OnStateChanged?.Invoke(_currState);
                 }
 
                 return;
@@ -197,13 +201,13 @@ namespace CookApps.BattleSystem
 
             // 기본 공격 쿨타임을 컨틀롤러에서 가지고 있는다.
             // 공격 스테이트가 아닌 스테이트에서도 쿨타임을 감소 시켜야 하기 때문
-            if (atkCoolTime > 0f)
+            if (_atkCoolTime > 0f)
             {
-                atkCoolTime += -dt * AttackSpeed * modifiedSpeedRate;
+                _atkCoolTime += -dt * AttackSpeed * modifiedSpeedRate;
             }
 
             var tempPosition = Position;
-            CharacterStateRunningResult result = currState.CharacterStateRunning(dt * modifiedSpeedRate);
+            CharacterStateRunningResult result = _currState.CharacterStateRunning(dt * modifiedSpeedRate);
 
             var isAirborne = HasCrowdControl(CrowdControlType.Airborne);
             var isFreezing = HasCrowdControl(CrowdControlType.Freezing);
@@ -257,19 +261,19 @@ namespace CookApps.BattleSystem
             // Regen HP
             RecoverHP(dt);
 
-            if (nextStates.Count > 0)
+            if (_nextStates.Count > 0)
             {
                 if (IsBlockChangeState)
                 {
                     return;
                 }
 
-                currState.StateEnd(false);
-                StatePool.Instance.Push(currState);
-                currState = nextStates.Dequeue();
-                currState.StateInit(this);
-                currState.StateStart();
-                OnStateChanged?.Invoke(currState);
+                _currState.StateEnd(false);
+                StatePool.Instance.Push(_currState);
+                _currState = _nextStates.Dequeue();
+                _currState.StateInit(this);
+                _currState.StateStart();
+                OnStateChanged?.Invoke(_currState);
             }
         }
 
@@ -278,10 +282,10 @@ namespace CookApps.BattleSystem
             FollowHpBar();
         }
 
-        private ObfuscatorFloat recoveryHPElapsedTime;
+        private ObfuscatorFloat _recoveryHPElapsedTime;
         private void RecoverHP(float dt)
         {
-            if (currHp <= 0)
+            if (_currHp <= 0)
             {
                 return;
             }
@@ -291,14 +295,14 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            recoveryHPElapsedTime += dt;
-            if (recoveryHPElapsedTime > InGameCalculator.RegenHPPendingTime)
+            _recoveryHPElapsedTime += dt;
+            if (_recoveryHPElapsedTime > InGameCalculator.RegenHPPendingTime)
             {
-                recoveryHPElapsedTime = 0;
-                currHp += RecoveryHP;
-                if (currHp > HP)
+                _recoveryHPElapsedTime = 0;
+                _currHp += RecoveryHP;
+                if (_currHp > HP)
                 {
-                    currHp = HP;
+                    _currHp = HP;
                 }
 
                 UpdateHp();
@@ -314,7 +318,7 @@ namespace CookApps.BattleSystem
             if (state != null)
             {
                 state.SetStateData(stateData);
-                nextStates.Enqueue(state as CharacterStateBase);
+                _nextStates.Enqueue(state as CharacterStateBase);
             }
 
             return state;
@@ -327,7 +331,7 @@ namespace CookApps.BattleSystem
 #endif
             var state = StatePool.Instance.GetState<T>();
             state.SetStateData(stateData);
-            nextStates.Enqueue(state);
+            _nextStates.Enqueue(state);
             return state;
         }
 
@@ -335,26 +339,26 @@ namespace CookApps.BattleSystem
         {
             ClearAllState();
             var state = StatePool.Instance.GetState<T>();
-            currState = state;
-            currState.SetStateData(stateData);
-            currState.StateInit(this);
-            currState.StateStart();
+            _currState = state;
+            _currState.SetStateData(stateData);
+            _currState.StateInit(this);
+            _currState.StateStart();
         }
 
         public CharacterStateBase GetCurrentState()
         {
-            return currState;
+            return _currState;
         }
 
         public void ClearAllState()
         {
-            if (currState != null)
+            if (_currState != null)
             {
-                currState.StateEnd(true);
-                StatePool.Instance.Push(currState);
-                while (nextStates.Count > 0)
+                _currState.StateEnd(true);
+                StatePool.Instance.Push(_currState);
+                while (_nextStates.Count > 0)
                 {
-                    CharacterStateBase nextState = nextStates.Dequeue();
+                    CharacterStateBase nextState = _nextStates.Dequeue();
                     StatePool.Instance.Push(nextState);
                 }
             }
@@ -390,11 +394,11 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            buffDebuffRefCountDict[type] += 1;
-            if (buffDebuffEffectViewDict.ContainsKey(type) == false)
+            _buffDebuffRefCountDict[type] += 1;
+            if (_buffDebuffEffectViewDict.ContainsKey(type) == false)
             {
                 var effectView = InGameEffectManager.Instance.Get(type, view.CachedTr);
-                buffDebuffEffectViewDict.Add(type, effectView);
+                _buffDebuffEffectViewDict.Add(type, effectView);
             }
         }
 
@@ -405,14 +409,14 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            buffDebuffRefCountDict[type] -= 1;
-            if (buffDebuffRefCountDict[type] <= 0)
+            _buffDebuffRefCountDict[type] -= 1;
+            if (_buffDebuffRefCountDict[type] <= 0)
             {
-                buffDebuffRefCountDict[type] = 0;
-                if (buffDebuffEffectViewDict.ContainsKey(type))
+                _buffDebuffRefCountDict[type] = 0;
+                if (_buffDebuffEffectViewDict.ContainsKey(type))
                 {
-                    var effectView = buffDebuffEffectViewDict[type];
-                    buffDebuffEffectViewDict.Remove(type);
+                    var effectView = _buffDebuffEffectViewDict[type];
+                    _buffDebuffEffectViewDict.Remove(type);
                     InGameEffectManager.Instance.RemoveInGameEffect(effectView);
                 }
             }
@@ -420,7 +424,7 @@ namespace CookApps.BattleSystem
 
         public bool HasBuffDebuffType(BuffDebuffType type)
         {
-            if (buffDebuffRefCountDict[type] > 0)
+            if (_buffDebuffRefCountDict[type] > 0)
             {
                 return true;
             }
@@ -518,7 +522,7 @@ namespace CookApps.BattleSystem
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker, bool isFirstDamage = true)
         {
             // 같은 틱에 대미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
-            if (currHp <= 0 || view == null)
+            if (_currHp <= 0 || view == null)
             {
                 return DamageReturnType.AlreadyDead;
             }
@@ -526,14 +530,14 @@ namespace CookApps.BattleSystem
             GetCharacterView().OnHit();
             ShowDamageText(damageInfo.damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 
-            currHp -= damageInfo.damageAmount;
-            InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, currHp, damageInfo.source);
+            _currHp -= damageInfo.damageAmount;
+            InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
 
             UpdateHp();
 
-            if (currHp <= 0)
+            if (_currHp <= 0)
             {
-                currHp = 0;
+                _currHp = 0;
                 IsAlive = false;
                 if (attacker != null)
                 {
@@ -558,7 +562,7 @@ namespace CookApps.BattleSystem
         #region Hp
         public void ForceSetHp(double hp)
         {
-            currHp = Math.Min(hp, HP);
+            _currHp = Math.Min(hp, HP);
             UpdateHp();
         }
 
@@ -569,12 +573,12 @@ namespace CookApps.BattleSystem
 
         private void UpdateHp()
         {
-            hpBarView.SetHpValue(currHp, HP);
+            _hpBarView.SetHpValue(_currHp, HP);
         }
 
         public void RefreshHp()
         {
-            hpBarView.SetHpValue(currHp, HP);
+            _hpBarView.SetHpValue(_currHp, HP);
         }
         #endregion
 
@@ -614,7 +618,7 @@ namespace CookApps.BattleSystem
         public bool GetHealed(int amount, CharacterController healer, int source, bool isFirstHeal = true)
         {
             // 죽어있으면 안준다.
-            if (currHp <= 0 || !IsAlive)
+            if (_currHp <= 0 || !IsAlive)
             {
                 return false;
             }
@@ -627,18 +631,18 @@ namespace CookApps.BattleSystem
                 // effectCode에게 이벤트 전달
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHealed);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnHealedLambda, amount, isFirstHeal);
-                currHp += amount;
+                _currHp += amount;
             }
 
 
             ShowHealText(amount).Forget();
 
-            if (currHp > HP)
+            if (_currHp > HP)
             {
-                currHp = HP;
+                _currHp = HP;
             }
 
-            InGameStatistics.Instance.AddCombatHeal(healer, this, amount, currHp, HP, source);
+            InGameStatistics.Instance.AddCombatHeal(healer, this, amount, _currHp, HP, source);
 
             UpdateHp();
             return true;

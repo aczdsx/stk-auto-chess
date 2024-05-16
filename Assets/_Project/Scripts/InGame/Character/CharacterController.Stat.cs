@@ -64,12 +64,12 @@ namespace CookApps.BattleSystem
                     ObfuscatorDouble diff = postHP - prevHp;
                     if (0 < diff)
                     {
-                        currHp += diff;
+                        _currHp += diff;
                     }
 
-                    if (currHp > postHP)
+                    if (_currHp > postHP)
                     {
-                        currHp = postHP;
+                        _currHp = postHP;
                     }
 
                     UpdateHp();
