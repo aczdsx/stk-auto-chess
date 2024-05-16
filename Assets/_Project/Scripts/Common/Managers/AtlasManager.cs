@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(string soAddressable)
         {
-            so = await AddressableLoadHelper.LoadAssetAsync<AtlasManagerScriptableObject>(soAddressable);
+            so = await Addressables.LoadAssetAsync<AtlasManagerScriptableObject>(soAddressable);
         }
 
         public async UniTask OnStartChangeScene(string prevSceneName, string nextSceneName, object defaultUIData)
@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
                     if (assetRefToAtlasNameDict.TryGetValue(assetRef, out string atlasName) &&
                         loadedAtlasDict.TryGetValue(atlasName, out SpriteAtlas atlas))
                     {
-                        AddressableLoadHelper.ReleaseLoadedAsset(atlas);
+                        Addressables.Release(atlas);
                         loadedAtlasDict.Remove(atlasName);
                     }
                 }
@@ -55,7 +55,7 @@ namespace CookApps.AutoBattler
                 }
 
                 {
-                    var atlas = await AddressableLoadHelper.LoadAssetAsync<SpriteAtlas>(assetRef);
+                    var atlas = await Addressables.LoadAssetAsync<SpriteAtlas>(assetRef);
                     assetRefToAtlasNameDict.Add(assetRef, atlas.name);
                     loadedAtlasDict.Add(atlas.name, atlas);
                 }

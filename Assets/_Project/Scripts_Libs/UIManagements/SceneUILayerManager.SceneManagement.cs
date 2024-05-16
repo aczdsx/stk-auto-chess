@@ -105,7 +105,7 @@ namespace CookApps.TeamBattle.UIManagements
                 OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
                 uiLayerStacks[i].Layer.OnPostExit();
                 OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
-                AddressableInstantiateHelper.ReleaseGameObject(uiLayerStacks[i].Layer.CachedGo);
+                Addressables.ReleaseInstance(uiLayerStacks[i].Layer.CachedGo);
             }
 
             uiLayerStacks.Clear();

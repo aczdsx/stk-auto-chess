@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -239,7 +240,7 @@ namespace CookApps.TeamBattle.UIManagements
                 while (pair.Value.Count > 0)
                 {
                     GameObject go = pair.Value.Dequeue();
-                    AddressableInstantiateHelper.ReleaseGameObject(go);
+                    Addressables.ReleaseInstance(go);
                     Destroy(go);
                 }
             }
@@ -333,7 +334,7 @@ namespace CookApps.TeamBattle.UIManagements
                 isLoadingUI = false;
                 if (noNeedToLoadUI)
                 {
-                    AddressableInstantiateHelper.ReleaseGameObject(uiLayer.CachedGo);
+                    Addressables.ReleaseInstance(uiLayer.CachedGo);
                     Destroy(uiLayer.CachedGo);
                     return null;
                 }
@@ -655,14 +656,14 @@ namespace CookApps.TeamBattle.UIManagements
         private async UniTask<UILayer> LoadUILayer(Type uiType)
         {
             UILayerData sceneUILayerData = UIDataList[uiType];
-            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.AddressableName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            GameObject instance = await Addressables.InstantiateAsync(sceneUILayerData.AddressableName, mainNode).ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy());
             return instance.GetComponent<UILayer>();
         }
 
         public async UniTask PreloadUILayer(Type uiType)
         {
             UILayerData sceneUILayerData = UIDataList[uiType];
-            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.AddressableName, recycles).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            GameObject instance = await Addressables.InstantiateAsync(sceneUILayerData.AddressableName, recycles).ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy());
             PoolingUILayer(instance.GetComponent<UILayer>());
         }
         #endregion
