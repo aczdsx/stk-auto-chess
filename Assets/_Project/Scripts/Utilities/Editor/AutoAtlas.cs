@@ -13,7 +13,8 @@ public class SpriteAnimationFromFolderGroup : Editor
     private static bool ValidateCreateAnimation()
     {
         // 메뉴가 활성화될 조건: 선택한 것이 폴더여야 함
-        return Selection.activeObject != null && AssetDatabase.IsValidFolder(AssetDatabase.GetAssetPath(Selection.activeObject));
+        return Selection.activeObject != null &&
+               AssetDatabase.IsValidFolder(AssetDatabase.GetAssetPath(Selection.activeObject));
     }
 
     [MenuItem("Assets/Create Sprite Animations From Folder Group")]
@@ -22,16 +23,17 @@ public class SpriteAnimationFromFolderGroup : Editor
         // 선택된 상위 폴더의 경로
         string parentFolderPath = AssetDatabase.GetAssetPath(Selection.activeObject);
         string parentFolderName = new DirectoryInfo(parentFolderPath).Name;
-        string animationFolderPath = Path.Combine(parentFolderPath, "Animation");
+        string animationFolderPath = Path.Combine(parentFolderPath, "GenerateResources");
 
         // Animation 폴더 생성
         if (!AssetDatabase.IsValidFolder(animationFolderPath))
         {
-            AssetDatabase.CreateFolder(parentFolderPath, "Animation");
+            AssetDatabase.CreateFolder(parentFolderPath, "GenerateResources");
         }
 
         // 상위 폴더 내의 모든 하위 폴더 검색 (예: Front, Back)
         string[] subFolderPaths = Directory.GetDirectories(parentFolderPath);
+        List<Sprite> allSprites = new List<Sprite>();
 
         foreach (string subFolderPath in subFolderPaths)
         {
@@ -39,12 +41,17 @@ public class SpriteAnimationFromFolderGroup : Editor
             string[] subSubFolderPaths = Directory.GetDirectories(subFolderPath);
             foreach (string subSubFolderPath in subSubFolderPaths)
             {
-                CreateAnimationFromFolder(subSubFolderPath, animationFolderPath, parentFolderName, new DirectoryInfo(subFolderPath).Name);
+                allSprites.AddRange(LoadSpritesFromFolder(subSubFolderPath));
+                CreateAnimationFromFolder(subSubFolderPath, animationFolderPath, parentFolderName,
+                    new DirectoryInfo(subFolderPath).Name);
             }
         }
 
+        // 상위 폴더에 단일 스프라이트 아틀라스 생성
+        CreateSingleSpriteAtlas(animationFolderPath, allSprites, parentFolderName);
+
         // 애니메이션 컨트롤러에 애니메이션 클립 추가
-        AddAnimationsToBaseController(parentFolderPath);
+        AddAnimationsToBaseController(animationFolderPath);
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -52,21 +59,38 @@ public class SpriteAnimationFromFolderGroup : Editor
         Debug.Log("Animations created in selected folder group.");
     }
 
-    private static void CreateAnimationFromFolder(string folderPath, string animationFolderPath, string parentFolderName, string subFolderName)
+    private static List<Sprite> LoadSpritesFromFolder(string folderPath)
     {
-
-        // 스프라이트 아틀라스 생성
-        string atlasFolderPath = Path.Combine(parentFolderName, "SpriteAtlases");
-        string atlasName = $"{subFolderName}_Atlas";
-        CreateSpriteAtlas(folderPath, atlasFolderPath, atlasName);
-
-        string folderName = new DirectoryInfo(folderPath).Name;
-
         // 하위 폴더 내의 모든 스프라이트 로드
         string[] filePaths = Directory.GetFiles(folderPath, "*.png");
-        Sprite[] sprites = filePaths.Select(path => AssetDatabase.LoadAssetAtPath<Sprite>(path)).ToArray();
+        List<Sprite> sprites = filePaths.Select(path =>
+        {
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (sprite != null)
+            {
+                // 스프라이트의 텍스처를 로드하고 필터 모드를 Point로 설정
+                string texturePath = AssetDatabase.GetAssetPath(sprite.texture);
+                TextureImporter textureImporter = AssetImporter.GetAtPath(texturePath) as TextureImporter;
+                if (textureImporter != null)
+                {
+                    textureImporter.filterMode = FilterMode.Point;
+                    textureImporter.SaveAndReimport(); // 변경 사항 저장 및 다시 가져오기
+                }
+            }
+            return sprite;
+        }).ToList();
 
-        if (sprites.Length == 0)
+        return sprites;
+    }
+
+
+    private static void CreateAnimationFromFolder(string folderPath, string animationFolderPath,
+        string parentFolderName, string subFolderName)
+    {
+        string folderName = new DirectoryInfo(folderPath).Name;
+        List<Sprite> sprites = LoadSpritesFromFolder(folderPath);
+
+        if (sprites.Count == 0)
         {
             Debug.LogWarning($"No sprites found in the folder: {folderPath}");
             return;
@@ -74,20 +98,19 @@ public class SpriteAnimationFromFolderGroup : Editor
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = 12f;  // 프레임 레이트를 원하는 값으로 설정
+        animationClip.frameRate = 12f; // 프레임 레이트를 원하는 값으로 설정
 
         EditorCurveBinding curveBinding = new EditorCurveBinding();
         curveBinding.type = typeof(SpriteRenderer);
         curveBinding.path = "";
         curveBinding.propertyName = "m_Sprite";
 
-        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[sprites.Length];
+        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[sprites.Count];
 
-        for (int i = 0; i < sprites.Length; i++)
+        for (int i = 0; i < sprites.Count; i++)
         {
             keyFrames[i] = new ObjectReferenceKeyframe();
             keyFrames[i].time = i / animationClip.frameRate;
-            sprites[i].texture.filterMode = FilterMode.Point;
             keyFrames[i].value = sprites[i];
         }
 
@@ -103,12 +126,12 @@ public class SpriteAnimationFromFolderGroup : Editor
     private static void AddAnimationsToBaseController(string parentFolderPath)
     {
         // Animation 폴더 내의 애니메이션 클립 가져오기
-        string animationFolderPath = Path.Combine(parentFolderPath, "Animation");
-        string[] animationClipPaths = Directory.GetFiles(animationFolderPath, "*.anim");
-        AnimationClip[] animationClips = animationClipPaths.Select(path => AssetDatabase.LoadAssetAtPath<AnimationClip>(path)).ToArray();
+        string[] animationClipPaths = Directory.GetFiles(parentFolderPath, "*.anim");
+        AnimationClip[] animationClips = animationClipPaths
+            .Select(path => AssetDatabase.LoadAssetAtPath<AnimationClip>(path)).ToArray();
 
         // AnimationOverrideController 생성
-        string overrideControllerPath = Path.Combine(animationFolderPath, "AnimationOverrideController.controller");
+        string overrideControllerPath = Path.Combine(parentFolderPath, "AnimationOverrideController.controller");
         AnimatorOverrideController overrideController = new AnimatorOverrideController();
         AssetDatabase.CreateAsset(overrideController, overrideControllerPath);
 
@@ -142,26 +165,76 @@ public class SpriteAnimationFromFolderGroup : Editor
         Debug.Log("Animations added to BaseAnimController successfully.");
     }
 
-    private static void CreateSpriteAtlas(string folderPath, string atlasFolderPath, string atlasName)
+    private static void CreateSingleSpriteAtlas(string parentFolderPath, List<Sprite> allSprites,
+        string parentFolderName)
     {
-        // 폴더 내의 모든 스프라이트 로드
-        string[] filePaths = Directory.GetFiles(folderPath, "*.png");
-        Sprite[] sprites = filePaths.Select(path => AssetDatabase.LoadAssetAtPath<Sprite>(path)).ToArray();
-
-        if (sprites.Length == 0)
+        if (allSprites.Count == 0)
         {
-            Debug.LogWarning($"No sprites found in the folder: {folderPath}");
+            Debug.LogWarning("No sprites found to add to the atlas.");
             return;
         }
 
         // 스프라이트 아틀라스 생성
         SpriteAtlas spriteAtlas = new SpriteAtlas();
-        spriteAtlas.Add(sprites);
+
+        spriteAtlas.SetIncludeInBuild(true);
+        spriteAtlas.SetIsVariant(false);
+
+        // Packing settings
+        SpriteAtlasPackingSettings packingSettings = spriteAtlas.GetPackingSettings();
+        packingSettings.enableRotation = true;
+        packingSettings.enableTightPacking = false;
+        packingSettings.padding = 4; // 이미지 간 거리를 최소화시킴
+        spriteAtlas.SetPackingSettings(packingSettings);
+
+        // Texture settings
+        SpriteAtlasTextureSettings textureSettings = new SpriteAtlasTextureSettings
+        {
+            sRGB = true,
+            generateMipMaps = false,
+            readable = false,
+            filterMode = FilterMode.Point
+        };
+        spriteAtlas.SetTextureSettings(textureSettings);
+
+        // Add sprites to atlas
+        spriteAtlas.Add(allSprites.ToArray());
+
+        // Platform settings for Android
+        TextureImporterPlatformSettings androidSettings = new TextureImporterPlatformSettings
+        {
+            name = "Android",
+            overridden = true,
+            maxTextureSize = 2048,
+            format = TextureImporterFormat.ASTC_4x4,
+            compressionQuality = 50,
+            crunchedCompression = true,
+            androidETC2FallbackOverride = AndroidETC2FallbackOverride.Quality32Bit
+        };
+        spriteAtlas.SetPlatformSettings(androidSettings);
+
+        // Platform settings for iOS
+        TextureImporterPlatformSettings iosSettings = new TextureImporterPlatformSettings
+        {
+            name = "iPhone",
+            overridden = true,
+            maxTextureSize = 2048,
+            format = TextureImporterFormat.ASTC_4x4,
+            compressionQuality = 50,
+            crunchedCompression = true
+        };
+        spriteAtlas.SetPlatformSettings(iosSettings);
 
         // 아틀라스 저장
-        string savePath = Path.Combine(folderPath, $"{atlasName}.spriteatlas");
+        string savePath = Path.Combine(parentFolderPath, $"{parentFolderName}.spriteatlas");
         savePath = savePath.Replace("\\", "/"); // 경로가 유니티에서 인식될 수 있도록 슬래시 변경
         AssetDatabase.CreateAsset(spriteAtlas, savePath);
+
+        // Packing atlases
+        UnityEditor.U2D.SpriteAtlasUtility.PackAtlases(new[] {spriteAtlas}, EditorUserBuildSettings.activeBuildTarget);
+
+        Debug.Log("Single SpriteAtlas created with all sprites.");
     }
+
 }
 
