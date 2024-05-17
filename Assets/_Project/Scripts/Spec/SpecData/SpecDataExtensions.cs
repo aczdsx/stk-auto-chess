@@ -17,9 +17,9 @@ namespace CookApps.AutoBattler
         {
             return new Reward
             {
-                reward_type = Type,
-                reward_key = Key,
-                reward_value = Count,
+                RewardType = (int)Type,
+                RewardKey = Key,
+                RewardCount = Count,
             };
         }
     }

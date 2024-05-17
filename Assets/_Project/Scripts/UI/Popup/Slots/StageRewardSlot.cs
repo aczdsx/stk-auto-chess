@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
                 isSpecialReward |= i < reward.targetStarCount;
             }
 
-            bool isKnightPiece = reward.rewardItem.ToGrpcReward().reward_type == RewardType.KNIGHT_PIECE;
+            bool isKnightPiece = reward.rewardItem.ToGrpcReward().RewardType == (int)RewardType.KNIGHT_PIECE;
             isSpecialReward |= isKnightPiece;
             characterPieceNode.SetActive(isKnightPiece);
 

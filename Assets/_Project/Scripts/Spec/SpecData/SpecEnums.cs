@@ -38,21 +38,23 @@ namespace CookApps.AutoBattler
 
     public enum RewardType
     {
-        COIN = 1,
-        JEWEL = 2,
-        BREAD = 3,
-        KTICKET = 4,
-        EXPITEM = 5,
-        DUNGEON_KEY1 = 6,
-        DUNGEON_KEY2 = 7,
-        DUNGEON_KEY3 = 8,
-        BUILDING_SUPPLIES = 9,
-        ETICKET = 10,
-        EXP = 11,
-        KNIGHT_PIECE = 12,
-        RANDOM_KNIGHT_PIECE = 13,
+        JEWEL = 1,
+        COIN = 2,
+        SOUL = 3,
+        BREAD = 4,
+        KTICKET = 5,
+        ETICKET = 6,
+        EXP = 7,
+        EXPITEM = 8,
+        DUNGEON_KEY1 = 9,
+        DUNGEON_KEY2 = 10,
+        DUNGEON_KEY3 = 11,
+        KNIGHT = 12,
+        KNIGHT_PIECE = 13,
         RANDOM_WEAPON_PIECE = 14,
         RUNE = 15,
+        BUILDING_SUPPLIES = 16,
+        RANDOM_KNIGHT_PIECE = 17,
     }
 
     public enum CharacterType
