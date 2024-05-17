@@ -85,4 +85,46 @@ namespace CookApps.AutoBattler
         RectangleCut4Edge = 5,
         RectangleCut5Edge = 6,
     }
+
+    public enum DifficultyType
+    {
+        NORMAL = 1,
+        HARD = 2,
+    }
+
+    public enum StageType
+    {
+        BATTLE_NORMAL = 1,
+        BATTLE_ELITE = 2,
+        BATTLE_BOSS = 3,
+        CHEST = 4,
+    }
+
+    public enum MonsterType
+    {
+        NORMAL = 1,
+        ELITE = 2,
+        BOSS = 3,
+    }
+
+    public enum RewardContentType
+    {
+        NORMAL = 1,
+        HARD = 2,
+    }
+
+    public enum TutorialEventType
+    {
+        SHOW_DIALOGUE = 1,
+        OPEN_MENU = 2,
+        HIGHLIGHT_BUTTON = 3,
+    }
+
+    public enum DirectionType
+    {
+        UP = 1,
+        DOWN = 2,
+        LEFT = 3,
+        RIGHT = 4,
+    }
 }
