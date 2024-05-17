@@ -7,22 +7,6 @@ using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class AtlasGenerator : Editor
-{
-    [MenuItem("버거몬스터/아틀라스 생성", priority = 1000)]
-    private static void ExecuteAnimation()
-    {
-        AutoAtlas.ExecuteAtlas();
-    }
-    private static void ExecuteAtlas()
-    {
-        AutoAtlas.ExecuteAtlas();
-    }
-}
-
-
-
-
 public class SpriteAnimationFromFolderGroup : Editor
 {
     [MenuItem("Assets/Create Sprite Animations From Folder Group", true)]
@@ -70,6 +54,12 @@ public class SpriteAnimationFromFolderGroup : Editor
 
     private static void CreateAnimationFromFolder(string folderPath, string animationFolderPath, string parentFolderName, string subFolderName)
     {
+
+        // 스프라이트 아틀라스 생성
+        string atlasFolderPath = Path.Combine(parentFolderName, "SpriteAtlases");
+        string atlasName = $"{subFolderName}_Atlas";
+        CreateSpriteAtlas(folderPath, atlasFolderPath, atlasName);
+
         string folderName = new DirectoryInfo(folderPath).Name;
 
         // 하위 폴더 내의 모든 스프라이트 로드
@@ -97,6 +87,7 @@ public class SpriteAnimationFromFolderGroup : Editor
         {
             keyFrames[i] = new ObjectReferenceKeyframe();
             keyFrames[i].time = i / animationClip.frameRate;
+            sprites[i].texture.filterMode = FilterMode.Point;
             keyFrames[i].value = sprites[i];
         }
 
@@ -151,99 +142,26 @@ public class SpriteAnimationFromFolderGroup : Editor
         Debug.Log("Animations added to BaseAnimController successfully.");
     }
 
-}
-
-
-
-
-
-internal class AutoAtlas
-{
-    internal static void ExecuteAtlas()
+    private static void CreateSpriteAtlas(string folderPath, string atlasFolderPath, string atlasName)
     {
-        string rootPath = Path.Combine("Assets", "_Project", "Characters");
-        FindChildFolderRecursive(rootPath);
+        // 폴더 내의 모든 스프라이트 로드
+        string[] filePaths = Directory.GetFiles(folderPath, "*.png");
+        Sprite[] sprites = filePaths.Select(path => AssetDatabase.LoadAssetAtPath<Sprite>(path)).ToArray();
 
-        // 원하는 경로를 추가하세요
-        // rootPath = Path.Combine("Assets", "JH_Resource", "CHARACTER2");
-        // FindChildFolderRecursive(rootPath);
-
-        AssetDatabase.Refresh();
-    }
-
-
-    private static void FindChildFolderRecursive(string rootPath)
-    {
-        string[] rootFolers = Directory.GetDirectories(Path.Combine(Path.GetFullPath("."), rootPath));
-        string fullPath = Path.GetFullPath(".");
-        for (int i = 0; i < rootFolers.Length; i++)
+        if (sprites.Length == 0)
         {
-            string rootFolder = rootFolers[i];
-            string[] files = Directory.GetFiles(rootFolder);
-            List<string> imageFiles = new List<string>();
-            foreach (string file in files)
-            {
-                string extension = Path.GetExtension(file);
-                if (extension.Equals(".png") || extension.Equals(".jpg"))
-                {
-                    imageFiles.Add(file);
-                }
-            }
-
-            //png나 jpg가 있는 폴더
-            if (imageFiles.Count > 0)
-            {
-                string currentDirectory = new DirectoryInfo(rootFolder).Name;
-                //.으로 시작하는 폴더는 무시
-                if (currentDirectory.Substring(0, 1).Equals("."))
-                {
-                    continue;
-                }
-                string atlasName = $"{currentDirectory}.spriteatlas";
-                List<Texture2D> textures = new List<Texture2D>();
-                for (int j = 0; j < imageFiles.Count; j++)
-                {
-                    string imagePath = imageFiles[j].Replace($"{fullPath}\\", "");
-                    Texture2D texture2D = AssetDatabase.LoadAssetAtPath<Texture2D>(imagePath);
-                    textures.Add(texture2D);
-                }
-
-                SpriteAtlas spriteAtlas = null;
-                string spriteFilePath = Path.Combine(rootPath, currentDirectory, atlasName);
-                string spriteFileFullPath = Path.Combine(Path.GetFullPath("."), spriteFilePath);
-                if (File.Exists(spriteFileFullPath))
-                {
-                    spriteAtlas = AssetDatabase.LoadAssetAtPath<SpriteAtlas>(spriteFilePath);
-                    spriteAtlas.Remove(SpriteAtlasExtensions.GetPackables(spriteAtlas));
-                }
-                else
-                {
-                    spriteAtlas = new SpriteAtlas();
-                    AssetDatabase.CreateAsset(spriteAtlas, spriteFilePath);
-                }
-
-                spriteAtlas.SetIncludeInBuild(true);
-                spriteAtlas.SetIsVariant(false);
-                SpriteAtlasPackingSettings packaingSettings = spriteAtlas.GetPackingSettings();
-                packaingSettings.enableRotation = true;
-                packaingSettings.enableTightPacking = false;
-                packaingSettings.padding = 4;       //이미지간 거리를 최소화시킴
-                spriteAtlas.SetPackingSettings(packaingSettings);
-
-                SpriteAtlasTextureSettings textureSettings = new SpriteAtlasTextureSettings();
-                textureSettings.sRGB = true;       //sRGB 값 true
-                textureSettings.generateMipMaps = false;
-                textureSettings.readable = false;
-                textureSettings.filterMode = FilterMode.Point;
-                spriteAtlas.SetTextureSettings(textureSettings);
-
-
-                spriteAtlas.Add(textures.ToArray());
-
-                UnityEditor.U2D.SpriteAtlasUtility.PackAtlases(new[] { spriteAtlas }, EditorUserBuildSettings.activeBuildTarget);
-            }
-
-            FindChildFolderRecursive(rootFolder.Replace($"{fullPath}\\", ""));
+            Debug.LogWarning($"No sprites found in the folder: {folderPath}");
+            return;
         }
+
+        // 스프라이트 아틀라스 생성
+        SpriteAtlas spriteAtlas = new SpriteAtlas();
+        spriteAtlas.Add(sprites);
+
+        // 아틀라스 저장
+        string savePath = Path.Combine(folderPath, $"{atlasName}.spriteatlas");
+        savePath = savePath.Replace("\\", "/"); // 경로가 유니티에서 인식될 수 있도록 슬래시 변경
+        AssetDatabase.CreateAsset(spriteAtlas, savePath);
     }
 }
+

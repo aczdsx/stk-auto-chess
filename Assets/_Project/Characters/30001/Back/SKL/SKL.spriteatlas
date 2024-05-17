@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SKL
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: d6833349821413b41afe9800f0804c5d, type: 3}
+    - {fileID: 2800000, guid: a53a687daf65961448d7f7cb1f1da482, type: 3}
+    - {fileID: 2800000, guid: 79019bcdc4039a74e9553886880873ed, type: 3}
+    - {fileID: 2800000, guid: b0e92b6792fcf5f4ca069a9fb15f0690, type: 3}
+    - {fileID: 2800000, guid: 716b1511a50768645a0cae6873632edc, type: 3}
+    - {fileID: 2800000, guid: 29bfaadf809e8fd4d84c62fd4af8a385, type: 3}
+    - {fileID: 2800000, guid: 25a46cafe6520754694fb82d5353452e, type: 3}
+    - {fileID: 2800000, guid: dbe5d614a0e8c3b4a8d29d8c5c0d9c02, type: 3}
+    - {fileID: 2800000, guid: c313916f12484a14a828c7db7ae268ce, type: 3}
+    - {fileID: 2800000, guid: 9fa5fac18cc4c4e46ae38e02f870b590, type: 3}
+    - {fileID: 2800000, guid: d59e98b1e5d81b94997e110318d039a5, type: 3}
+    - {fileID: 2800000, guid: 2b2f3f41d2d49bc469157f4ce4e41e16, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 716b1511a50768645a0cae6873632edc: 21300000
+    - 2b2f3f41d2d49bc469157f4ce4e41e16: 21300000
+    - d59e98b1e5d81b94997e110318d039a5: 21300000
+    - 9fa5fac18cc4c4e46ae38e02f870b590: 21300000
+    - dbe5d614a0e8c3b4a8d29d8c5c0d9c02: 21300000
+    - b0e92b6792fcf5f4ca069a9fb15f0690: 21300000
+    - d6833349821413b41afe9800f0804c5d: 21300000
+    - a53a687daf65961448d7f7cb1f1da482: 21300000
+    - 79019bcdc4039a74e9553886880873ed: 21300000
+    - c313916f12484a14a828c7db7ae268ce: 21300000
+    - 25a46cafe6520754694fb82d5353452e: 21300000
+    - 29bfaadf809e8fd4d84c62fd4af8a385: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 716b1511a50768645a0cae6873632edc, type: 3}
+  - {fileID: 21300000, guid: 2b2f3f41d2d49bc469157f4ce4e41e16, type: 3}
+  - {fileID: 21300000, guid: d59e98b1e5d81b94997e110318d039a5, type: 3}
+  - {fileID: 21300000, guid: 9fa5fac18cc4c4e46ae38e02f870b590, type: 3}
+  - {fileID: 21300000, guid: dbe5d614a0e8c3b4a8d29d8c5c0d9c02, type: 3}
+  - {fileID: 21300000, guid: b0e92b6792fcf5f4ca069a9fb15f0690, type: 3}
+  - {fileID: 21300000, guid: d6833349821413b41afe9800f0804c5d, type: 3}
+  - {fileID: 21300000, guid: a53a687daf65961448d7f7cb1f1da482, type: 3}
+  - {fileID: 21300000, guid: 79019bcdc4039a74e9553886880873ed, type: 3}
+  - {fileID: 21300000, guid: c313916f12484a14a828c7db7ae268ce, type: 3}
+  - {fileID: 21300000, guid: 25a46cafe6520754694fb82d5353452e, type: 3}
+  - {fileID: 21300000, guid: 29bfaadf809e8fd4d84c62fd4af8a385, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SR_ATRESIA_B_skl2
+  - SR_ATRESIA_B_skl9
+  - SR_ATRESIA_B_skl8
+  - SR_ATRESIA_B_skl7
+  - SR_ATRESIA_B_skl5
+  - SR_ATRESIA_B_skl12
+  - SR_ATRESIA_B_skl1
+  - SR_ATRESIA_B_skl10
+  - SR_ATRESIA_B_skl11
+  - SR_ATRESIA_B_skl6
+  - SR_ATRESIA_B_skl4
+  - SR_ATRESIA_B_skl3
+  m_RenderDataMap: {}
+  m_Tag: SKL
+  m_IsVariant: 0
