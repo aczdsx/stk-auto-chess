@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MOVE
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: b278ade3313b0ce418d644aebf64fc84, type: 3}
+    - {fileID: 2800000, guid: 5846f6cf361faeb49adc1c8e85277c6b, type: 3}
+    - {fileID: 2800000, guid: 777deb8a5c7f1144e9c8126fb95ee6e6, type: 3}
+    - {fileID: 2800000, guid: 6744952c2eb69d745a6fc73decf68e88, type: 3}
+    - {fileID: 2800000, guid: 4c704db497f517349ad3393c9078cdc9, type: 3}
+    - {fileID: 2800000, guid: b6a10ecf1f59d8c488881aed9deeec0d, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - b278ade3313b0ce418d644aebf64fc84: 21300000
+    - 4c704db497f517349ad3393c9078cdc9: 21300000
+    - 777deb8a5c7f1144e9c8126fb95ee6e6: 21300000
+    - 6744952c2eb69d745a6fc73decf68e88: 21300000
+    - 5846f6cf361faeb49adc1c8e85277c6b: 21300000
+    - b6a10ecf1f59d8c488881aed9deeec0d: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b278ade3313b0ce418d644aebf64fc84, type: 3}
+  - {fileID: 21300000, guid: 4c704db497f517349ad3393c9078cdc9, type: 3}
+  - {fileID: 21300000, guid: 777deb8a5c7f1144e9c8126fb95ee6e6, type: 3}
+  - {fileID: 21300000, guid: 6744952c2eb69d745a6fc73decf68e88, type: 3}
+  - {fileID: 21300000, guid: 5846f6cf361faeb49adc1c8e85277c6b, type: 3}
+  - {fileID: 21300000, guid: b6a10ecf1f59d8c488881aed9deeec0d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SR_ATRESIA_B_move1
+  - SR_ATRESIA_B_move5
+  - SR_ATRESIA_B_move3
+  - SR_ATRESIA_B_move4
+  - SR_ATRESIA_B_move2
+  - SR_ATRESIA_B_move6
+  m_RenderDataMap: {}
+  m_Tag: MOVE
+  m_IsVariant: 0
