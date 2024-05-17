@@ -42,7 +42,7 @@ public class SpriteAnimationFromFolderGroup : Editor
             foreach (string subSubFolderPath in subSubFolderPaths)
             {
                 allSprites.AddRange(LoadSpritesFromFolder(subSubFolderPath));
-                CreateAnimationFromFolder(subSubFolderPath, animationFolderPath, parentFolderName,
+                GenerateExtraFiles(subSubFolderPath, animationFolderPath, parentFolderName,
                     new DirectoryInfo(subFolderPath).Name);
             }
         }
@@ -51,7 +51,7 @@ public class SpriteAnimationFromFolderGroup : Editor
         CreateSingleSpriteAtlas(animationFolderPath, allSprites, parentFolderName);
 
         // 애니메이션 컨트롤러에 애니메이션 클립 추가
-        AddAnimationsToBaseController(animationFolderPath);
+        AddAnimationsToBaseController(animationFolderPath, parentFolderName);
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -84,7 +84,7 @@ public class SpriteAnimationFromFolderGroup : Editor
     }
 
 
-    private static void CreateAnimationFromFolder(string folderPath, string animationFolderPath,
+    private static void GenerateExtraFiles(string folderPath, string animationFolderPath,
         string parentFolderName, string subFolderName)
     {
         string folderName = new DirectoryInfo(folderPath).Name;
@@ -123,7 +123,7 @@ public class SpriteAnimationFromFolderGroup : Editor
         AssetDatabase.CreateAsset(animationClip, savePath);
     }
 
-    private static void AddAnimationsToBaseController(string parentFolderPath)
+    private static void AddAnimationsToBaseController(string parentFolderPath, string parentFolderName)
     {
         // Animation 폴더 내의 애니메이션 클립 가져오기
         string[] animationClipPaths = Directory.GetFiles(parentFolderPath, "*.anim");
@@ -131,7 +131,7 @@ public class SpriteAnimationFromFolderGroup : Editor
             .Select(path => AssetDatabase.LoadAssetAtPath<AnimationClip>(path)).ToArray();
 
         // AnimationOverrideController 생성
-        string overrideControllerPath = Path.Combine(parentFolderPath, "AnimationOverrideController.controller");
+        string overrideControllerPath = Path.Combine(parentFolderPath, $"{parentFolderName}_AnimationController.controller");
         AnimatorOverrideController overrideController = new AnimatorOverrideController();
         AssetDatabase.CreateAsset(overrideController, overrideControllerPath);
 
