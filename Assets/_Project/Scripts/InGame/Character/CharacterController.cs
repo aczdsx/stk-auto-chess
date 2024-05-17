@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     {
         public static Type DefaultDeadState;
         public int CharacterUId => _characterUId;
-        public int CharacterId => statData.CharacterId;
+        public int CharacterId => _statData.CharacterId;
 
         private EffectCodeContainer ecc;
 
@@ -20,11 +20,11 @@ namespace CookApps.BattleSystem
             return ecc;
         }
 
-        private CharacterStatData statData;
+        private CharacterStatData _statData;
 
         public CharacterStatData GetCharacterStat()
         {
-            return statData;
+            return _statData;
         }
 
         private SpriteCharacterView view = null;
@@ -113,9 +113,10 @@ namespace CookApps.BattleSystem
             //[TODO] 빈 오브젝트 생성하고 안에 넣으라고 하셨던거 같은데... 지금은 내부에 하나 더 생성
             Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
             _characterUId = characUIdInc++;
-            this.statData = statData;
+            _statData = statData;
             CurrentTile = tile;
             position = tile.View.Position;
+            tile.SetOccupied(this);
             _allianceType = allianceType;
 
             view = SpriteCharacterViewPool.Instance.GetCharacterView(statData, _allianceType);
@@ -152,6 +153,26 @@ namespace CookApps.BattleSystem
             view = null;
             InGameHpBarViewPool.Instance.ReturnHpBar(_hpBarView);
             _hpBarView = null;
+        }
+
+        public void SetSelectedCharacter(bool isSetSelected)
+        {
+            view.SetSelected(isSetSelected);
+        }
+
+        public void ChangeTile(InGameTile newTile)
+        {
+            if (CurrentTile != null)
+            {
+                if (CurrentTile.OccupiedCharacter != null && CurrentTile.OccupiedCharacter == this)
+                    CurrentTile.SetOccupied(null);
+            }
+
+            // 새로운 타일을 현재 타일로 설정하고, 새로운 타일에 캐릭터를 설정
+            CurrentTile = newTile;
+            position = CurrentTile.View.Position;
+            newTile.SetOccupied(this);
+
         }
 
         public bool NeedToBeIdle()

@@ -14,8 +14,8 @@ namespace CookApps.AutoBattler
 {
     public class SpriteCharacterView : CachedMonoBehaviour
     {
-        [FormerlySerializedAs("animator")]
         [SerializeField] private Animator _animator;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
         public CharacterStatData GetStatData() => _statData;
         public float Height => 1.0f;
         public event Action<string, AnimationEventKey> OnAnimationEvent;
@@ -34,6 +34,8 @@ namespace CookApps.AutoBattler
             hpBar.CachedTr.localPosition = Vector3.zero;
             hpBar.CachedTr.localRotation = Quaternion.identity;
             hpBar.CachedTr.localScale = Vector3.one;
+
+            _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
         }
 
         protected override void OnDestroy()
@@ -50,6 +52,19 @@ namespace CookApps.AutoBattler
         public void UpdatePosition(Vector3 position, Vector3 viewPosition)
         {
             CachedTr.localPosition = (Vector3)position + viewPosition;
+        }
+
+        public void SetSelected(bool isSetSelected)
+        {
+            //[TODO] sortingOrder ingame에서 위치에 따라 관리 해야할듯.
+            if (isSetSelected)
+            {
+                _spriteRenderer.sortingOrder = 10;
+            }
+            else
+            {
+                _spriteRenderer.sortingOrder = 1;
+            }
         }
 
         public void SetAnimationSpeed(float speed)
@@ -79,6 +94,12 @@ namespace CookApps.AutoBattler
         public void OnHit()
         {
             throw new NotImplementedException();
+        }
+
+        protected void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(this.transform.position, new Vector3(0.9f, 1f));
         }
     }
 

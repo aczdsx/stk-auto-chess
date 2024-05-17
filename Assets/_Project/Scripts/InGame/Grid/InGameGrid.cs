@@ -18,6 +18,7 @@ namespace CookApps.BattleSystem
             for (var i = 0; i < Width * Height; i++)
             {
                 tiles[i] = new InGameTile(i % Width, i / Width, views[i]);
+                views[i].ID = i;
             }
         }
 

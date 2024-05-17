@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
@@ -19,12 +20,15 @@ namespace CookApps.BattleSystem
         private Transform playground;
         public Transform Playground => playground;
 
-        public void Initialize(InGameGrid grid)
+        public void Initialize(InGameStage stage)
         {
             InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, ManagedUpdate);
             InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, LateManagedUpdate);
-            
+
             playground = GameObject.Find("Playground").GetComponent<Transform>();
+
+            var tileViews = stage.TileViews.Select(x => x as IInGameTileView).ToArray();
+            InGameGrid grid = new InGameGrid(stage.GridSize, tileViews);
             _grid = grid;
         }
 
@@ -35,32 +39,6 @@ namespace CookApps.BattleSystem
             playground = null;
             ClearAllCharactersInField();
             ClearAllEnemiesInField();
-        }
-
-        private void ManagedUpdate(float dt)
-        {
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-            {
-                charactersInPlaygroundForUpdate[i].ManagedUpdate(dt);
-            }
-
-            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
-            {
-                enemiesInPlaygroundForUpdate[i].ManagedUpdate(dt);
-            }
-        }
-
-        private void LateManagedUpdate(float dt)
-        {
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-            {
-                charactersInPlaygroundForUpdate[i].LateUpdate(dt);
-            }
-
-            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
-            {
-                enemiesInPlaygroundForUpdate[i].LateUpdate(dt);
-            }
         }
 
         public List<CharacterController> GetCharacterAll()
@@ -186,6 +164,27 @@ namespace CookApps.BattleSystem
 
             characCtrl.Clear();
             enemiesInPlaygroundForUpdate.Remove(characCtrl);
+        }
+
+        public InGameTile GetInGameTile(int id)
+        {
+            return _grid.GetTile(id);
+        }
+
+        public void ChangeTileCharacterToCharacter(CharacterController selectedCharacter, CharacterController occupiedCharacter)
+        {
+            // 임시 변수를 사용하여 타일을 교환
+            InGameTile selectedCharacterTile = selectedCharacter.CurrentTile;
+            InGameTile occupiedCharacterTile = occupiedCharacter.CurrentTile;
+
+            // 각 캐릭터가 새로운 타일로 이동하도록 설정
+            selectedCharacter.ChangeTile(occupiedCharacterTile);
+            occupiedCharacter.ChangeTile(selectedCharacterTile);
+        }
+
+        public void ChangeTile(CharacterController selectedCharacter, InGameTile newTile)
+        {
+            selectedCharacter.ChangeTile(newTile);
         }
 
         #region 탐색
@@ -383,7 +382,7 @@ namespace CookApps.BattleSystem
             List<CharacterController> searchList = null;
             if (type == AllianceType.Player)
             {
-                
+
                 searchList = enemiesInPlaygroundForUpdate;
             }
             else if (type == AllianceType.Enemy)
@@ -433,5 +432,31 @@ namespace CookApps.BattleSystem
 
         // TODO: 부채꼴 검색, 직선 검색등 검색 기능이 많이 필요할텐데.. 모듈 내에 이 코드가 있는게 맞을지 고민해보자.
         #endregion
+
+        private void ManagedUpdate(float dt)
+        {
+            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
+            {
+                charactersInPlaygroundForUpdate[i].ManagedUpdate(dt);
+            }
+
+            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
+            {
+                enemiesInPlaygroundForUpdate[i].ManagedUpdate(dt);
+            }
+        }
+
+        private void LateManagedUpdate(float dt)
+        {
+            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
+            {
+                charactersInPlaygroundForUpdate[i].LateUpdate(dt);
+            }
+
+            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
+            {
+                enemiesInPlaygroundForUpdate[i].LateUpdate(dt);
+            }
+        }
     }
 }

@@ -27,6 +27,8 @@ namespace CookApps.AutoBattler
             // load player character
             List<int> deckCharacIds = ListPool<int>.Get();
             deckCharacIds.Add(40101);
+            deckCharacIds.Add(30601);
+            deckCharacIds.Add(40402);
             // deckCharacIds.AddRange(UserDataManager.Instance.GetFront());
             // deckCharacIds.AddRange(UserDataManager.Instance.GetMid());
             // deckCharacIds.AddRange(UserDataManager.Instance.GetBack());PlayerCharacterPrefabs
