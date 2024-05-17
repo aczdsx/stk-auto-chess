@@ -42,13 +42,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 96e838b63c764f640a827bd9e1c74c5d
-    m_Address: FloatingHpBar.prefab
+  - m_GUID: 052c2f93aefb0a743b0c779508223620
+    m_Address: Prefabs/InGame
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c1e880dbff2a632438e110e703cc3987
-    m_Address: Prefabs/InGame/DamageText.prefab
+  - m_GUID: 616ca225f7231644dbd901c4f35a2a65
+    m_Address: Characters/40101
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59885bc5df59aeb4da4ed32e4e81434f
+    m_Address: Characters/30601
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fe32a349b3c8d6489359c17f671e7d5
+    m_Address: Characters/40402
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

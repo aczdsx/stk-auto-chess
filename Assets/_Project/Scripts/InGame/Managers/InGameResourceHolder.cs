@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
 
         public static async UniTask LoadResources(int chapter, int stageIdx)
         {
-            GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"FloatingHpBar.prefab");
+            GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();
 
             SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIdx);
@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
             // load player character
             List<int> deckCharacIds = ListPool<int>.Get();
-            deckCharacIds.Add(30001);
+            deckCharacIds.Add(40101);
             // deckCharacIds.AddRange(UserDataManager.Instance.GetFront());
             // deckCharacIds.AddRange(UserDataManager.Instance.GetMid());
             // deckCharacIds.AddRange(UserDataManager.Instance.GetBack());PlayerCharacterPrefabs
@@ -36,7 +36,8 @@ namespace CookApps.AutoBattler
             }
             // load enemy character
             deckCharacIds.Clear();
-            deckCharacIds.Add(30002);
+            deckCharacIds.Add(30601);
+            deckCharacIds.Add(40402);
             // deckCharacIds.AddRange(specStage.GetFront().Select(x => x.id));
             // deckCharacIds.AddRange(specStage.GetMid().Select(x => x.id));
             // deckCharacIds.AddRange(specStage.GetBack().Select(x => x.id));

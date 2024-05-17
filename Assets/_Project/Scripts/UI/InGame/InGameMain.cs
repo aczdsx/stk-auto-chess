@@ -43,11 +43,14 @@ namespace CookApps.AutoBattler
             InGameGrid grid = new InGameGrid(stage.GridSize, tileViews);
             InGameObjectManager.Instance.Initialize(grid);
 
-            CharacterStatData statData1 = new CharacterStatData(30001, 10);
-            CharacterStatData statData2 = new CharacterStatData(30002, 10);
+            CharacterStatData statData1 = new CharacterStatData(40101, 10);
+            CharacterStatData statData2 = new CharacterStatData(30601, 10);
+            CharacterStatData statData3 = new CharacterStatData(40402, 10);
+            await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player,
+                typeof(CharacterStateIdle));
             await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy,
                 typeof(CharacterStateIdle));
-            await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player,
+            await InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 3), AllianceType.Enemy,
                 typeof(CharacterStateIdle));
 
             InGameManager.Instance.StartInGame<FlowStateStageReady>();

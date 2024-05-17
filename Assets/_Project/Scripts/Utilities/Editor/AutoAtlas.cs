@@ -235,6 +235,5 @@ public class SpriteAnimationFromFolderGroup : Editor
 
         Debug.Log("Single SpriteAtlas created with all sprites.");
     }
-
 }
 
