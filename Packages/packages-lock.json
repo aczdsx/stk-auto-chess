@@ -211,6 +211,13 @@
       },
       "url": "http://packages.tech.cookapps.com"
     },
+    "com.febucci.custom-hierarchy": {
+      "version": "https://github.com/febucci/unitypackage-custom-hierarchy.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "093baf4e09c2cd21c284303a977ec112a43041a7"
+    },
     "com.google.external-dependency-manager": {
       "version": "file:./GooglePackages/com.google.external-dependency-manager-1.2.177.tgz",
       "depth": 0,
