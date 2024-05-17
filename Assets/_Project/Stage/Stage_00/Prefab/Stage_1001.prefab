@@ -45415,7 +45415,7 @@ GameObject:
   - component: {fileID: 9111133589110311074}
   - component: {fileID: 8850286598573975462}
   m_Layer: 0
-  m_Name: Tree_02 (1)
+  m_Name: Tree_02_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80842,7 +80842,7 @@ GameObject:
   - component: {fileID: 7793908790997967056}
   - component: {fileID: 5263316115384261268}
   m_Layer: 0
-  m_Name: Tree_01 (1)
+  m_Name: Tree_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86228,7 +86228,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e56b33746b6adc64b9bc69e8b64f084d, type: 2}
     - target: {fileID: 919132149155446097, guid: 642ea311576cd3f42943a5f1945e37a7, type: 3}
       propertyPath: m_Name
-      value: Stage_1001_Obj_12 (2)
+      value: Stage_1001_Obj_12_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -86461,9 +86461,17 @@ PrefabInstance:
       value: 0.5800552
       objectReference: {fileID: 0}
     - target: {fileID: 9052576703297259876, guid: 9dde712b1c2d6a04aaab5a1cb6e1c988, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9052576703297259876, guid: 9dde712b1c2d6a04aaab5a1cb6e1c988, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1572613311
+      objectReference: {fileID: 0}
+    - target: {fileID: 9052576703297259876, guid: 9dde712b1c2d6a04aaab5a1cb6e1c988, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: b8c3b65e57b672d469e665b3892ce214, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -87070,7 +87078,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f685fab16aa941b418933f6baedb701d, type: 2}
     - target: {fileID: 919132149155446097, guid: 5b4d26e8d2e86704485ed0398bf85b3e, type: 3}
       propertyPath: m_Name
-      value: Bulding_04 (1)
+      value: Bulding_04_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -87144,7 +87152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fe87e72d22944464f94b07a1a534d71c, type: 3}
       propertyPath: m_Name
-      value: Stage_1001_Obj_15 (1)
+      value: Stage_1001_Obj_15_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -87222,7 +87230,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f685fab16aa941b418933f6baedb701d, type: 2}
     - target: {fileID: 919132149155446097, guid: 8aae8b0605424684e9299afa9442aed7, type: 3}
       propertyPath: m_Name
-      value: Bulding_03 (1)
+      value: Bulding_03_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -87834,7 +87842,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a5fe1457cb05fbc489c78470641ef0cd, type: 2}
     - target: {fileID: 919132149155446097, guid: 642ea311576cd3f42943a5f1945e37a7, type: 3}
       propertyPath: m_Name
-      value: Stage_1001_Obj_12 (1)
+      value: Stage_1001_Obj_12_03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -87986,7 +87994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bfd7cd97b74d54741bd57c2dabe41b69, type: 3}
       propertyPath: m_Name
-      value: Stage_1001_Obj_14 (1)
+      value: Stage_1001_Obj_14_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
