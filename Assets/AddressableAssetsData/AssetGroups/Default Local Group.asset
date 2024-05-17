@@ -42,11 +42,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9dde712b1c2d6a04aaab5a1cb6e1c988
-    m_Address: Characters/30001/30001.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 96e838b63c764f640a827bd9e1c74c5d
     m_Address: FloatingHpBar.prefab
     m_ReadOnly: 0
