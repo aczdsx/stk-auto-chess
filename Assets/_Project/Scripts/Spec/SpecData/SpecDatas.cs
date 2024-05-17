@@ -354,32 +354,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Reward
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 보상 지급 콘텐츠
-        public string content_1;
-        public global::CookApps.AutoBattler.RewardContentType content_2;
-        /// 보상 id
-        public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        /// 보상 지급 확률 유무
-        public string prob_type;
-        /// 보상 획득 빈도
-        public string frequency_type;
-        /// 보상 타입
-        public global::CookApps.AutoBattler.RewardType reward_type;
-        /// 보상 타입_소분류
-        public CookApps.Obfuscator.ObfuscatorInt sub_type;
-        /// 보상 키 값
-        public CookApps.Obfuscator.ObfuscatorInt reward_key;
-        /// 보상 수량
-        public CookApps.Obfuscator.ObfuscatorInt reward_value;
-        /// 보상 지급 확률
-        public CookApps.Obfuscator.ObfuscatorDouble rate;
-    }
-
-    [GeneratorSpecData]
     public partial class Tutorial
     {
         /// 유니크 id
@@ -405,5 +379,57 @@ namespace CookApps.AutoBattler
         public string focus_btn_name;
         /// 화살표의 방향 (위 아래)
         public global::CookApps.AutoBattler.DirectionType arrow_y_up;
+    }
+
+    [GeneratorSpecData]
+    public partial class RewardInfo
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 보상 지급 콘텐츠
+        public string content_1;
+        public global::CookApps.AutoBattler.RewardContentType content_2;
+        /// 보상 id
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 보상 지급 확률 유무
+        public string prob_type;
+        /// 보상 획득 빈도
+        public string frequency_type;
+        /// 보상 타입
+        public global::CookApps.AutoBattler.RewardType reward_type;
+        /// 보상 타입_소분류
+        public CookApps.Obfuscator.ObfuscatorInt sub_type;
+        /// 보상 키 값
+        public CookApps.Obfuscator.ObfuscatorInt reward_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt reward_value;
+        /// 보상 지급 확률
+        public CookApps.Obfuscator.ObfuscatorDouble rate;
+    }
+
+    [GeneratorSpecData]
+    public partial class Item
+    {
+        /// 유니크 ID
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 보상 타입 이름
+        public global::CookApps.AutoBattler.RewardType reward_type;
+        /// 보상 등급
+        public global::CookApps.AutoBattler.Grade grade;
+        /// 보상 이름 토큰
+        public string name_token;
+        /// 보상 설명 토큰
+        public string desc_token;
+        /// 보상 획득 채널 토큰
+        public string desc_token_1;
+        /// 인벤토리 표시 유무
+        public bool info_show;
+        /// 사용 가능 유무
+        public bool is_consumable;
+        /// 합성 요구량
+        public CookApps.Obfuscator.ObfuscatorInt merge_count;
+        /// 세부 ID 특정 가능 여부
+        public bool is_common;
     }
 }
