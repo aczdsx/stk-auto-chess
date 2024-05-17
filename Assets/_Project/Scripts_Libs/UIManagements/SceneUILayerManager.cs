@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -96,6 +97,22 @@ namespace CookApps.TeamBattle.UIManagements
                 }
 
                 UIDataList.Add(uiLayerType, new UILayerData(attribute.LayerType, attribute.AddressableName));
+
+                SceneNameWithUILayerAttribute[] sceneNameWithUILayerAttributes = SceneNameWithUILayerAttributeHelper.GetAttribute(uiLayerType);
+                if (sceneNameWithUILayerAttributes == null)
+                {
+                    continue;
+                }
+
+                foreach (SceneNameWithUILayerAttribute sceneNameWithUILayerAttribute in sceneNameWithUILayerAttributes)
+                {
+                    SceneData sceneData = SceneDataList[sceneNameWithUILayerAttribute.SceneName];
+                    sceneData.AddDefaultUILayer(uiLayerType);
+                    foreach (Type subUILayer in sceneNameWithUILayerAttribute.SubUILayers)
+                    {
+                        sceneData.AddDefaultUILayer(subUILayer);
+                    }
+                }
             }
 
             // 첫번째 씬에서 필요
@@ -223,7 +240,7 @@ namespace CookApps.TeamBattle.UIManagements
                 while (pair.Value.Count > 0)
                 {
                     GameObject go = pair.Value.Dequeue();
-                    AddressableInstantiateHelper.ReleaseGameObject(go);
+                    Addressables.ReleaseInstance(go);
                     Destroy(go);
                 }
             }
@@ -269,6 +286,12 @@ namespace CookApps.TeamBattle.UIManagements
         /// <returns>팝업 객체입니다.</returns>
         public async UniTask<T> PushUILayerAsync<T>(string key, object data = null, Action<object> closeCallback = null) where T : UILayer
         {
+            var layer = await PushUILayerAsync(typeof(T), key, data, closeCallback);
+            return layer as T;
+        }
+
+        private async UniTask<UILayer> PushUILayerAsync(Type uiType, string key, object data = null, Action<object> closeCallback = null)
+        {
             while (isLoadingUI)
             {
                 await UniTask.Yield();
@@ -289,30 +312,29 @@ namespace CookApps.TeamBattle.UIManagements
 
             if (isExistUIStack)
             {
-                Debug.LogAssertion($"{nameof(T)}::{key} is already exist!!");
+                Debug.LogAssertion($"{uiType.Name}::{key} is already exist!!");
                 return null;
             }
 
-            Type uiType = typeof(T);
             if (!UIDataList.ContainsKey(uiType))
             {
-                Debug.LogAssertion($"{nameof(T)} is not exist UI name!");
+                Debug.LogAssertion($"{uiType.Name} is not exist UI name!");
                 return null;
             }
 
-            T uiLayer;
+            UILayer uiLayer;
             if (uiLayerPool.TryGetValue(uiType, out Queue<GameObject> queue) && queue.Count > 0)
             {
-                uiLayer = queue.Dequeue().GetComponent<T>();
+                uiLayer = queue.Dequeue().GetComponent(uiType) as UILayer;
             }
             else
             {
                 isLoadingUI = true;
-                uiLayer = await LoadUILayer<T>();
+                uiLayer = await LoadUILayer(uiType);
                 isLoadingUI = false;
                 if (noNeedToLoadUI)
                 {
-                    AddressableInstantiateHelper.ReleaseGameObject(uiLayer.CachedGo);
+                    Addressables.ReleaseInstance(uiLayer.CachedGo);
                     Destroy(uiLayer.CachedGo);
                     return null;
                 }
@@ -631,19 +653,17 @@ namespace CookApps.TeamBattle.UIManagements
         #endregion
 
         #region Load UI from addressables
-        private async UniTask<T> LoadUILayer<T>()
+        private async UniTask<UILayer> LoadUILayer(Type uiType)
         {
-            Type uiType = typeof(T);
             UILayerData sceneUILayerData = UIDataList[uiType];
-            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.AddressableName, mainNode).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
-            return instance.GetComponent<T>();
+            GameObject instance = await Addressables.InstantiateAsync(sceneUILayerData.AddressableName, mainNode).ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy());
+            return instance.GetComponent<UILayer>();
         }
 
-        public async UniTask PreloadUILayer<T>()
+        public async UniTask PreloadUILayer(Type uiType)
         {
-            Type uiType = typeof(T);
             UILayerData sceneUILayerData = UIDataList[uiType];
-            GameObject instance = await AddressableInstantiateHelper.InstantiateAsync(sceneUILayerData.AddressableName, recycles).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            GameObject instance = await Addressables.InstantiateAsync(sceneUILayerData.AddressableName, recycles).ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy());
             PoolingUILayer(instance.GetComponent<UILayer>());
         }
         #endregion

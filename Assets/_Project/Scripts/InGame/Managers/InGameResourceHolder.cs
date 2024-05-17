@@ -3,6 +3,7 @@ using System.Linq;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
@@ -17,12 +18,12 @@ namespace CookApps.AutoBattler
 
         public static async UniTask LoadResources(int chapter, int stageIdx)
         {
-            GameObject hpBarPrefab = await AddressableLoadHelper.LoadAssetAsync<GameObject>($"FloatingHpBar.prefab");
+            GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();
-            
+
             SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIdx);
             // load stage
-            StagePrefab = await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
+            StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
             // load player character
             List<int> deckCharacIds = ListPool<int>.Get();
             deckCharacIds.Add(30001);
@@ -31,7 +32,7 @@ namespace CookApps.AutoBattler
             // deckCharacIds.AddRange(UserDataManager.Instance.GetBack());PlayerCharacterPrefabs
             foreach (int characId in deckCharacIds)
             {
-                PlayerCharacterPrefabs.Add(characId, await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Characters/{characId}/{characId}.prefab"));
+                PlayerCharacterPrefabs.Add(characId, await Addressables.LoadAssetAsync<GameObject>($"Characters/{characId}/{characId}.prefab"));
             }
             // load enemy character
             deckCharacIds.Clear();
@@ -41,7 +42,7 @@ namespace CookApps.AutoBattler
             // deckCharacIds.AddRange(specStage.GetBack().Select(x => x.id));
             foreach (int characId in deckCharacIds)
             {
-                EnemyCharacterPrefabs.Add(characId, await AddressableLoadHelper.LoadAssetAsync<GameObject>($"Characters/{characId}/{characId}.prefab"));
+                EnemyCharacterPrefabs.Add(characId, await Addressables.LoadAssetAsync<GameObject>($"Characters/{characId}/{characId}.prefab"));
             }
 
             ListPool<int>.Release(deckCharacIds);
@@ -49,21 +50,21 @@ namespace CookApps.AutoBattler
 
         public static void UnloadResources()
         {
-            AddressableLoadHelper.ReleaseLoadedAsset(HpBarView);
+            Addressables.Release(HpBarView);
             // unload stage
-            AddressableLoadHelper.ReleaseLoadedAsset(StagePrefab);
+            Addressables.Release(StagePrefab);
             StagePrefab = null;
             // unload player character
             foreach ((int _, GameObject prefab) in PlayerCharacterPrefabs)
             {
-                AddressableLoadHelper.ReleaseLoadedAsset(prefab);
+                Addressables.Release(prefab);
             }
 
             PlayerCharacterPrefabs = null;
             // unload enemy character
             foreach ((int _, GameObject prefab) in EnemyCharacterPrefabs)
             {
-                AddressableLoadHelper.ReleaseLoadedAsset(prefab);
+                Addressables.Release(prefab);
             }
 
             EnemyCharacterPrefabs = null;

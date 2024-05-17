@@ -4,6 +4,7 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
@@ -25,8 +26,8 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize()
         {
-            await SceneUILayerManager.Instance.PreloadUILayer<TopCurrencyAndMenuBar>();
-            GameObject topUIOrigin = await AddressableInstantiateHelper.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
+            await SceneUILayerManager.Instance.PreloadUILayer(typeof(TopCurrencyAndMenuBar));
+            GameObject topUIOrigin = await Addressables.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
             topUIOriginTr = topUIOrigin.transform;
             int childCount = topUIOriginTr.childCount;
             for (var i = 0; i < childCount; i++)
@@ -46,7 +47,7 @@ namespace CookApps.AutoBattler
                 ui.CachedRectTr.SetParent(topUIOriginTr);
             }
 
-            AddressableInstantiateHelper.ReleaseGameObject(topUIOriginTr.gameObject);
+            Addressables.ReleaseInstance(topUIOriginTr.gameObject);
             Destroy(topUIOriginTr.gameObject);
         }
 

@@ -52,9 +52,9 @@ namespace CookApps.AutoBattler
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             AppLifeCycleEventsDispatcher _ = AppLifeCycleEventsDispatcher.Instance;
 
-            var SceneData = await AddressableLoadHelper.LoadAssetAsync<SceneDatabase>("Data/SceneData.asset");
+            var sceneData = await Addressables.LoadAssetAsync<SceneDatabase>("Data/SceneData.asset");
             Type[] allUILayers = InheritHelper.GetAllImplementations<UILayer>();
-            SceneUILayerManager.Instance.Initialize(SceneData, allUILayers);
+            SceneUILayerManager.Instance.Initialize(sceneData, allUILayers);
 
 #if UNITY_EDITOR
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
