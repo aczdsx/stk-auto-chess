@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
@@ -6,6 +7,7 @@ using CookApps.TeamBattle;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using PrimeTween;
 
 public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 {
@@ -44,10 +46,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 HandleTouch(Input.mousePosition, TouchPhase.Began, isPointerOverUI);
             }
+
             if (Input.GetMouseButton(0))
             {
                 HandleTouch(Input.mousePosition, TouchPhase.Moved, isPointerOverUI);
             }
+
             if (Input.GetMouseButtonUp(0))
             {
                 HandleTouch(Input.mousePosition, TouchPhase.Ended, isPointerOverUI);
@@ -86,10 +90,11 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 CheckSelectedCharacter(touchPosition);
                 break;
             case TouchPhase.Canceled:
+                Debug.LogColor("Canceled");
                 CancelMoveCharacter();
                 break;
             case TouchPhase.Ended:
-                CheckChangeCharacter(touchPosition);
+                EndedMoveCharacter(touchPosition);
                 break;
             case TouchPhase.Moved:
                 MoveCharacter(touchPosition);
@@ -106,14 +111,15 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         return results.Count > 0;
     }
 
-private void CheckSelectedCharacter(Vector3 touchPosition)
-{
-    Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
-    RaycastHit hit;
-
-    if (Physics.Raycast(ray, out hit))
+    private void CheckSelectedCharacter(Vector3 touchPosition)
     {
-        if (hit.transform.CompareTag("Slot"))
+        if (_selectedCharacterController != null)
+            return;
+
+        Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
         {
             InGameTileView inGameTileView = hit.transform.GetComponent<InGameTileView>();
             InGameTile tile =
@@ -122,63 +128,57 @@ private void CheckSelectedCharacter(Vector3 touchPosition)
             {
                 _selectedTileView = inGameTileView;
                 SetSelectedCharacter(tile.OccupiedCharacter);
-
-                _offset = hit.transform.position -
-                          _mainCamera.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y,
-                              _mainCamera.nearClipPlane));
+                // _offset = hit.transform.position -
+                //           _mainCamera.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y,
+                //               _mainCamera.nearClipPlane));
             }
         }
     }
-}
 
-private void MoveCharacter(Vector3 touchPosition)
-{
-    if (_selectedCharacterController != null)
-    {
-        Vector3 worldPoint = _mainCamera.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, _mainCamera.nearClipPlane));
-        Vector3 newCharacterPosition = worldPoint + _offset;
-        newCharacterPosition.y = _selectedCharacterController.GetCharacterView().CachedTr.transform.position.y;
-
-        Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.CompareTag("Slot"))
-            {
-                InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
-                if (ingameTileView.ID != _selectedTileView.ID)
-                {
-                    if (ingameTileView.AllianceAllianceType == AllianceType.Player)
-                    {
-                        _selectedTileView.SetActiveObj(false);
-                        _selectedTileView = ingameTileView;
-                        _selectedTileView.SetActiveObj(true);
-                        _selectedCharacterController.Position3D =
-                            ingameTileView.CachedTr.transform.position;
-                    }
-                }
-                else
-                {
-
-                }
-            }
-        }
-    }
-}
-
-
-
-
-    private void CancelMoveCharacter(bool isSameHero = false)
+    private void MoveCharacter(Vector3 touchPosition)
     {
         if (_selectedCharacterController != null)
         {
-            _selectedCharacterController.ChangeTile(_selectedCharacterController.CurrentTile);
+            Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
+            {
+                InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
+                if (ingameTileView.ID != _selectedTileView.ID &&
+                    ingameTileView.AllianceAllianceType == AllianceType.Player)
+                {
+                    _selectedTileView.SetActiveObj(false);
+                    _selectedTileView = ingameTileView;
+                    _selectedTileView.SetActiveObj(true);
+
+                    Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
+                    float duration = 0.15f;
+
+                    Tween.Custom(
+                        _selectedCharacterController.Position3D,
+                        targetPosition,
+                        duration,
+                        (Vector3 value) =>
+                        {
+                            if (_selectedCharacterController != null)
+                                _selectedCharacterController.Position3D = value;
+                        });
+                }
+            }
+        }
+    }
+
+    private void CancelMoveCharacter(bool isSameHero = false)
+    {
+        Debug.LogColor("CancelMoveCharacter");
+        if (_selectedCharacterController != null)
+        {
+            _selectedCharacterController.ChangeOccupiedTile(_selectedCharacterController.CurrentTile);
             ReleaseSelectedHero();
         }
     }
 
-    private void CheckChangeCharacter(Vector3 touchPosition)
+    private void EndedMoveCharacter(Vector3 touchPosition)
     {
         if (_selectedCharacterController != null)
         {
@@ -192,25 +192,103 @@ private void MoveCharacter(Vector3 touchPosition)
 
                     if (ingameTileView.AllianceAllianceType == AllianceType.Player)
                     {
-                        InGameTile tile =
-                            InGameObjectManager.Instance.GetInGameTile(ingameTileView.ID);
-                        if (tile.OccupiedCharacter != null)
-                        {
-                            InGameObjectManager.Instance.ChangeTileCharacterToCharacter(_selectedCharacterController, tile.OccupiedCharacter);
-                        }
-                        else
-                        {
-                            InGameObjectManager.Instance.ChangeTile(_selectedCharacterController, tile);
-                        }
+                        InGameTile tile = InGameObjectManager.Instance.GetInGameTile(ingameTileView.ID);
+                        HandleCharacterTileChange(tile, ingameTileView);
+                        break;
                     }
                 }
             }
-            CancelMoveCharacter();
+        }
+    }
+
+    private void HandleCharacterTileChange(InGameTile tile, InGameTileView ingameTileView)
+    {
+        if (tile.OccupiedCharacter != null)
+        {
+            CharacterController targetCharacter = tile.OccupiedCharacter;
+            if (_selectedCharacterController == targetCharacter)
+            {
+                CancelMoveCharacter();
+            }
+            else
+            {
+                AnimateCharacterSwap(_selectedCharacterController, targetCharacter);
+            }
         }
         else
         {
-            CancelMoveCharacter();
+            if (_selectedCharacterController != null)
+            {
+                Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
+                AnimateCharacterMove(_selectedCharacterController, targetPosition, () =>
+                {
+                    InGameObjectManager.Instance.ChangeTile(_selectedCharacterController, tile);
+                    CancelMoveCharacter();
+                });
+            }
         }
+    }
+
+    private void AnimateCharacterSwap(CharacterController character1, CharacterController character2)
+    {
+        Vector3 startPosition1 = character1.Position3D;
+        Vector3 targetPosition1 = character2.Position3D;
+
+        Vector3 startPosition2 = character2.Position3D;
+        Vector3 targetPosition2 = character1.CurrentTile.View.Position;
+
+        float duration = 0.15f;
+        int completedTweens = 0;
+
+        Tween.Custom(
+            startPosition1,
+            targetPosition1,
+            duration,
+            (Vector3 value) =>
+            {
+                if (character1 != null)
+                    character1.Position3D = value;
+            }).OnComplete(() =>
+        {
+            completedTweens++;
+            if (completedTweens >= 2)
+            {
+                CompleteSwap(character1, character2, targetPosition1);
+            }
+        });
+
+        Tween.Custom(
+            startPosition2,
+            targetPosition2,
+            duration,
+            (Vector3 value) => character2.Position3D = value).OnComplete(() =>
+        {
+            completedTweens++;
+            if (completedTweens >= 2)
+            {
+                CompleteSwap(character1, character2, targetPosition1);
+            }
+        });
+    }
+
+    private void CompleteSwap(CharacterController character1, CharacterController character2, Vector3 targetPosition1)
+    {
+        if (character1 != null && character2 != null)
+            InGameObjectManager.Instance.ChangeTileCharacterToCharacter(character1, character2);
+
+        CancelMoveCharacter();
+    }
+
+    private void AnimateCharacterMove(CharacterController character, Vector3 targetPosition, Action onComplete)
+    {
+        Vector3 startPosition = character.Position3D;
+        float duration = 0.15f;
+
+        Tween.Custom(
+            startPosition,
+            targetPosition,
+            duration,
+            (Vector3 value) => character.Position3D = value).OnComplete(onComplete);
     }
 
     private void SetSelectedCharacter(CharacterController character)

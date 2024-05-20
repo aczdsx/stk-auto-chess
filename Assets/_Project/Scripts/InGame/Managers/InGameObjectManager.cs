@@ -178,13 +178,13 @@ namespace CookApps.BattleSystem
             InGameTile occupiedCharacterTile = occupiedCharacter.CurrentTile;
 
             // 각 캐릭터가 새로운 타일로 이동하도록 설정
-            selectedCharacter.ChangeTile(occupiedCharacterTile);
-            occupiedCharacter.ChangeTile(selectedCharacterTile);
+            selectedCharacter.ChangeOccupiedTile(occupiedCharacterTile);
+            occupiedCharacter.ChangeOccupiedTile(selectedCharacterTile);
         }
 
         public void ChangeTile(CharacterController selectedCharacter, InGameTile newTile)
         {
-            selectedCharacter.ChangeTile(newTile);
+            selectedCharacter.ChangeOccupiedTile(newTile);
         }
 
         #region 탐색

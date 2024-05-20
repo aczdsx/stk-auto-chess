@@ -160,7 +160,7 @@ namespace CookApps.BattleSystem
             view.SetSelected(isSetSelected);
         }
 
-        public void ChangeTile(InGameTile newTile)
+        public void ChangeOccupiedTile(InGameTile newTile)
         {
             if (CurrentTile != null)
             {
@@ -170,7 +170,6 @@ namespace CookApps.BattleSystem
 
             // 새로운 타일을 현재 타일로 설정하고, 새로운 타일에 캐릭터를 설정
             CurrentTile = newTile;
-            position = CurrentTile.View.Position;
             newTile.SetOccupied(this);
 
         }
