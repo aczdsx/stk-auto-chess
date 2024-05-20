@@ -9,9 +9,9 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
     public class LobbyMain : UILayer
     {
-        [SerializeField] private CAButton _commanderSkillButton;
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
+        [SerializeField] private CAButton _shopButton;
 
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
@@ -23,23 +23,33 @@ namespace CookApps.AutoBattler
         protected override void Awake()
         {
             base.Awake();
-            _commanderSkillButton.onClick.AddListener(OnClickCommanderSkillButton);
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
+            _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _commanderSkillButton.onClick.RemoveListener(OnClickCommanderSkillButton);
             _playButton.onClick.RemoveListener(OnClickStartButton);
             _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
+            _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
         }
 
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Coin, TopPanelType.Jewel, TopPanelType.Menu);
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.Jewel, TopPanelType.Menu);
+        }
+
+        public void RefreshUI()
+        {
+
+        }
+
+        private void SetLobbyMainUI()
+        {
+
         }
 
         private void OnClickCommanderSkillButton()
@@ -59,6 +69,11 @@ namespace CookApps.AutoBattler
         {
             int currentStageId = UserDataManager.Instance.GetCurrentStageId();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterMain>(currentStageId).Forget();
+        }
+
+        private void OnClickCharacterCollectionButton()
+        {
+            SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
         }
     }
 }

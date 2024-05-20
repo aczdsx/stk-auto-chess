@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            LoadResources().Forget();
+            InitializeInGame().Forget();
         }
 
         protected override void Awake()
@@ -29,34 +29,16 @@ namespace CookApps.AutoBattler
             _startButton?.onClick.AddListener(OnStartButtonClicked);
         }
 
-        private async UniTask LoadResources()
+        private async UniTask InitializeInGame()
         {
-            InGameHpBarViewPool.Instance.InitializePool(InGameResourceHolder.HpBarView.CachedGo);
-
             GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
             if (!stageObj.TryGetComponent(out InGameStage stage))
             {
                 Debug.LogError("InGameStage is not found");
                 return;
             }
-            InGameObjectManager.Instance.Initialize(stage);
 
-            CharacterStatData statData1 = new CharacterStatData(40101, 10);
-            CharacterStatData statData2 = new CharacterStatData(30601, 10);
-            CharacterStatData statData3 = new CharacterStatData(40402, 10);
-            await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player,
-                typeof(CharacterStateIdle));
-            await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(2, 1), AllianceType.Player,
-                typeof(CharacterStateIdle));
-            await InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(3, 1), AllianceType.Player,
-                typeof(CharacterStateIdle));
-
-            await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy,
-                typeof(CharacterStateIdle));
-            await InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 3), AllianceType.Enemy,
-                typeof(CharacterStateIdle));
-
-            InGameManager.Instance.StartInGame<FlowStateStageReady>();
+            InGameManager.Instance.StartInGame<FlowStateStageReady>(stage);
         }
 
         private void OnStartButtonClicked()

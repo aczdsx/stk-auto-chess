@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameTileView : CachedMonoBehaviour, IInGameTileView
+    public class InGameTileView : CachedMonoBehaviour
     {
         [SerializeField] private GameObject _activeObj;
         [SerializeField] private AllianceType _allianceType;

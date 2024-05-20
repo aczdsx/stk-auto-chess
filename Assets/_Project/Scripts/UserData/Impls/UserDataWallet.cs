@@ -8,8 +8,10 @@ namespace CookApps.AutoBattler
     {
         private UserWallet userWallet;
 
+        public UserWallet UserWallet => userWallet;
+
         public static event Action<int> OnEnergyChanged;
-        public static event Action<int> OnCoinChanged;
+        public static event Action<int> OnGoldChanged;
         public static event Action<int> OnJewelChanged;
 
         [Initialize(DataCategory.UserWallet)]
@@ -19,9 +21,9 @@ namespace CookApps.AutoBattler
             {
                 userWallet = new UserWallet
                 {
-                    Coin = 0,
-                    // Jewel = 0,
-                    // Energy = 100,
+                    Gold = 0,
+                    Jewel = 0,
+                    Energy = 100,
                 };
                 return;
             }
@@ -37,8 +39,8 @@ namespace CookApps.AutoBattler
 
         public void AddEnergy(int amount)
         {
-            // userWallet.Energy += amount;
-            // OnEnergyChanged?.Invoke(userWallet.Energy);
+            userWallet.Energy += amount;
+            OnEnergyChanged?.Invoke(userWallet.Energy);
         }
     }
 }

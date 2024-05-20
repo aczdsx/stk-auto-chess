@@ -1049,6 +1049,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2600347879176092910, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
+      propertyPath: _shopButton
+      value: 
+      objectReference: {fileID: 4485959478128003988}
+    - target: {fileID: 2600347879176092910, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
       propertyPath: commanderSkillButton
       value: 
       objectReference: {fileID: 4485959478128003988}
@@ -1131,6 +1135,10 @@ PrefabInstance:
     - target: {fileID: 4160591286077406498, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202879466727244399, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4644384077959445610, guid: d83c0520fa3f9d14cbb992d10c15f22d, type: 3}
       propertyPath: m_AnchorMax.y

@@ -34,18 +34,19 @@ namespace CookApps.AutoBattler
         RARE = 2,
         EPIC = 3,
         LEGEND = 4,
+        ANCIENT = 5,
     }
 
     public enum RewardType
     {
         JEWEL = 1,
-        COIN = 2,
+        GOLD = 2,
         SOUL = 3,
-        BREAD = 4,
-        KTICKET = 5,
-        ETICKET = 6,
-        EXP = 7,
-        EXPITEM = 8,
+        AP = 4,
+        C_TICKET = 5,
+        W_TICKET = 6,
+        USER_USER_EXP = 7,
+        CHAR_USER_EXP_ITEM = 8,
         DUNGEON_KEY1 = 9,
         DUNGEON_KEY2 = 10,
         DUNGEON_KEY3 = 11,
@@ -55,6 +56,18 @@ namespace CookApps.AutoBattler
         RUNE = 15,
         BUILDING_SUPPLIES = 16,
         RANDOM_KNIGHT_PIECE = 17,
+        CHARACTER_PIECE = 18,
+        CHAR_USER_EXP_ITEM_2 = 19,
+        CHAR_TRANSCENDENCE_FIRE = 20,
+        CHAR_TRANSCENDENCE_WATER = 21,
+        CHAR_TRANSCENDENCE_EARTH = 22,
+        CHAR_TRANSCENDENCE_WIND = 23,
+        CHAR_TRANSCENDENCE_LIGHT = 24,
+        CHAR_TRANSCENDENCE_DARK = 25,
+        TIME_REWARD_ARTIFACT = 26,
+        CHARACTER = 27,
+        BREAD = 28,
+        USER_EXP = 29,
     }
 
     public enum CharacterType
@@ -64,8 +77,8 @@ namespace CookApps.AutoBattler
         WATER = 3,
         FIRE = 4,
         DARK = 5,
-        MACHINE = 6,
-        LIGHT = 7,
+        LIGHT = 6,
+        MACHINE = 7,
     }
 
     public enum CharacterPosition
@@ -109,7 +122,7 @@ namespace CookApps.AutoBattler
         BOSS = 3,
     }
 
-    public enum RewardContentType
+    public enum ContentSubType
     {
         NORMAL = 1,
         HARD = 2,
@@ -128,5 +141,18 @@ namespace CookApps.AutoBattler
         DOWN = 2,
         LEFT = 3,
         RIGHT = 4,
+    }
+
+    public enum FrequencyType
+    {
+        ONCE = 1,
+        REPEAT = 2,
+    }
+
+    public enum ContentType
+    {
+        STAGE = 1,
+        CHAPTER = 2,
+        DUNGEON = 3,
     }
 }

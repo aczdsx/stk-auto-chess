@@ -6,7 +6,7 @@ namespace CookApps.AutoBattler
 {
     public enum TopPanelType
     {
-        Coin = 0,
+        Gold = 0,
         Energy,
         Jewel,
         Menu,

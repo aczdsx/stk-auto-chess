@@ -11351,7 +11351,7 @@ PrefabInstance:
       objectReference: {fileID: 7042856006002831707}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_Name
-      value: Coin
+      value: Gold
       objectReference: {fileID: 0}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_IsActive
@@ -11367,10 +11367,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4228527616159861454}
+      addedObject: {fileID: 2152771387904515829}
     - targetCorrespondingSourceObject: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2152771387904515829}
+      addedObject: {fileID: 903457827923559782}
     - targetCorrespondingSourceObject: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3257818703484244619}
@@ -11391,19 +11391,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
   m_PrefabInstance: {fileID: 8137042176806119442}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4228527616159861454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004149773925555481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ff179566354a168d985e4391297013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currencyText: {fileID: 843792037474445792}
 --- !u!222 &2152771387904515829
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11412,6 +11399,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004149773925555481}
   m_CullTransparentMesh: 1
+--- !u!114 &903457827923559782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004149773925555481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4df9cd281bcba4cbd6f86cd520a53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currencyText: {fileID: 843792037474445792}
 --- !u!114 &3257818703484244619
 MonoBehaviour:
   m_ObjectHideFlags: 0

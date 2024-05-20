@@ -38,12 +38,7 @@ namespace CookApps.AutoBattler
 
     public class SceneFirstLoad : MonoBehaviour
     {
-        private void Awake()
-        {
-            StartUp().Forget();
-        }
-
-        private async UniTask StartUp()
+        private async void Awake()
         {
             await UniTask.Yield();
 
@@ -55,6 +50,7 @@ namespace CookApps.AutoBattler
             var sceneData = await Addressables.LoadAssetAsync<SceneDatabase>("Data/SceneData.asset");
             Type[] allUILayers = InheritHelper.GetAllImplementations<UILayer>();
             SceneUILayerManager.Instance.Initialize(sceneData, allUILayers);
+            Addressables.Release(sceneData);
 
 #if UNITY_EDITOR
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
