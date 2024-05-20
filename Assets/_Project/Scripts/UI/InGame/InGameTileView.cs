@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private AllianceType _allianceType;
         public int ID { get; set; }
         public Vector3 Position => CachedTr.position;
-        public AllianceType AllianceAllianceType => _allianceType;
+        public AllianceType AllianceType => _allianceType;
 
         public void SetActiveObj(bool isActive)
         {

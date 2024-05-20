@@ -145,7 +145,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
                 if (ingameTileView.ID != _selectedTileView.ID &&
-                    ingameTileView.AllianceAllianceType == AllianceType.Player)
+                    ingameTileView.AllianceType == AllianceType.Player)
                 {
                     _selectedTileView.SetActiveObj(false);
                     _selectedTileView = ingameTileView;
@@ -184,20 +184,24 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         {
             Ray ray = Camera.main.ScreenPointToRay(touchPosition);
             RaycastHit[] hits = Physics.RaycastAll(ray);
+
+            InGameTileView ingameTileView = _selectedTileView;
+
             foreach (RaycastHit hit in hits)
             {
                 if (hit.transform.tag.Equals("Slot"))
                 {
-                    InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
-
-                    if (ingameTileView.AllianceAllianceType == AllianceType.Player)
+                    InGameTileView hitTileView = hit.transform.GetComponent<InGameTileView>();
+                    if (hitTileView.AllianceType == AllianceType.Player)
                     {
-                        InGameTile tile = InGameObjectManager.Instance.GetInGameTile(ingameTileView.ID);
-                        HandleCharacterTileChange(tile, ingameTileView);
+                        ingameTileView = hitTileView;
                         break;
                     }
                 }
             }
+
+            InGameTile tile = InGameObjectManager.Instance.GetInGameTile(ingameTileView.ID);
+            HandleCharacterTileChange(tile, ingameTileView);
         }
     }
 
