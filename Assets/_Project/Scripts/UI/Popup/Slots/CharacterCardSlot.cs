@@ -18,6 +18,8 @@ namespace CookApps.AutoBattler
         [Header("Character Info")]
         [SerializeField] private TextMeshProUGUI _chracterLevelText;
         [SerializeField] private Image _gradeImage;
+        [SerializeField] private SynergyUI _synergyUI;
+        [SerializeField] private SynergyUI _positionSynergyUI;
 
         private Character _characterData;
         private UserCharacter _userCharacterData;
@@ -28,6 +30,12 @@ namespace CookApps.AutoBattler
 
             _characterData = characterData;
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.id);
+
+            // 기본 데이터 관련 세팅
+            _gradeImage.sprite = ImageManager.Instance.GetGradeSprite(_characterData.grade);
+
+            _synergyUI.SetSynergyUI(_characterData.type);
+            _positionSynergyUI.SetPositionSynergyUI(_characterData.position);
 
             // BG Layer 세팅
             bool haveCharacter = _userCharacterData != null;

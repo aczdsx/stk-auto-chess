@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3230d9b05b740f6984c5e638f582686, type: 3}
   m_Name: AtlasManager
   m_EditorClassIdentifier: 
-  atlasRefs: []
+  atlasRefs:
+  - assetRef:
+      m_AssetGUID: d59266943ae69f949a660ec9d26a43c6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
