@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
+using CookApps.Obfuscator;
+using CookApps.SpecData;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.TeamBattle.UIManagements;
 using Google.Protobuf.Collections;
+using JetBrains.Annotations;
 
 namespace CookApps.AutoBattler
 {
@@ -23,11 +26,13 @@ namespace CookApps.AutoBattler
     public class CharacterCollectionPopup : UILayer
     {
         [SerializeField] private ScrollRect _characterScrollRect;
+        [SerializeField] private GameObject _characterCardSlotObject;
 
-        CharacterCollectionTabType _currentTabType = CharacterCollectionTabType.All;
+        private CharacterCollectionTabType _currentTabType = CharacterCollectionTabType.All;
 
-        RepeatedField<UserCharacter> _totalUserCharacterList = new RepeatedField<UserCharacter>();      // 전체 캐릭터 리스트
-        RepeatedField<UserCharacter> _selectedUserCharacterList = new RepeatedField<UserCharacter>();   // 선택된 캐릭터 리스트
+        private ISpecData<ObfuscatorInt, Character> _totalCharacterList;      // 전체 캐릭터 리스트
+        private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
+
 
         public override void OnPreEnter(object param)
         {
@@ -46,9 +51,18 @@ namespace CookApps.AutoBattler
 
         private void SetCharacterCollectionUI()
         {
-            _totalUserCharacterList = UserDataManager.Instance.GetAllUserCharacters();
+            ClearList();
 
+            _totalCharacterList = SpecDataManager.Instance.Character;
 
+            foreach (var characterData in _totalCharacterList.All)
+            {
+                GameObject newCardObject = Instantiate(_characterCardSlotObject, _characterScrollRect.content);
+                CharacterCardSlot slot = newCardObject.GetComponent<CharacterCardSlot>();
+                slot.SetCharcacterSlot(characterData);
+
+                _characterCardSlotList.Add(slot);
+            }
         }
 
         private void RefreshUI()
@@ -58,7 +72,9 @@ namespace CookApps.AutoBattler
 
         private void ClearList()
         {
+            _characterCardSlotList.Clear();
 
+            BMUtil.RemoveChildObjects(_characterScrollRect.content);
         }
     }
 }

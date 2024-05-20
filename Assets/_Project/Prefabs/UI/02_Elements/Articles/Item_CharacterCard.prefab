@@ -441,7 +441,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 11, y: 67}
-  m_SizeDelta: {x: 99.91, y: 36}
+  m_SizeDelta: {x: 0, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5352338704575048743
 CanvasRenderer:
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289103488
+    rgba: 4290680463
   m_fontColor: {r: 0.56078434, g: 0.5882353, b: 0.74509805, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1089,7 +1089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5138642262407603498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1307,6 +1307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2911763679344931164}
   - component: {fileID: 5649083970703530440}
+  - component: {fileID: 8414641692425643944}
   - component: {fileID: 1078707308649889360}
   - component: {fileID: 2209376420024090465}
   m_Layer: 5
@@ -1349,6 +1350,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4586888279536952738}
   m_CullTransparentMesh: 1
+--- !u!114 &8414641692425643944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4586888279536952738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123e4c39e7fe4424e9c0451105193021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockBGLayerObject: {fileID: 4148385798364129275}
+  _normalBGLayerObject: {fileID: 2401059792589424745}
+  _SSRBGLayerObject: {fileID: 1096239293079922928}
+  _chracterLevelText: {fileID: 1962317474202989515}
+  _gradeImage: {fileID: 2059757146688642251}
 --- !u!114 &1078707308649889360
 MonoBehaviour:
   m_ObjectHideFlags: 0
