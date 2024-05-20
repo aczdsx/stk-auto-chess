@@ -62,7 +62,7 @@ namespace CookApps.BattleSystem
         {
             var characCtrl = new CharacterController();
             var tile = _grid.GetTile(initPos);
-            characCtrl.Initialize(statData, tile, allianceType);
+            await characCtrl.Initialize(statData, tile, allianceType);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 
             if (allianceType == AllianceType.Player)

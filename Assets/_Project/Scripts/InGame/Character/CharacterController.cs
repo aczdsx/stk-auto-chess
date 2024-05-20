@@ -4,6 +4,7 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.BattleSystem
 {
@@ -108,9 +109,8 @@ namespace CookApps.BattleSystem
         private static int characUIdInc;
         private int _characterUId;
 
-        public void Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType)
+        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType)
         {
-            //[TODO] 빈 오브젝트 생성하고 안에 넣으라고 하셨던거 같은데... 지금은 내부에 하나 더 생성
             Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
             _characterUId = characUIdInc++;
             _statData = statData;
@@ -119,7 +119,8 @@ namespace CookApps.BattleSystem
             tile.SetOccupied(this);
             _allianceType = allianceType;
 
-            view = SpriteCharacterViewPool.Instance.GetCharacterView(statData, _allianceType);
+            var viewGo = await Addressables.InstantiateAsync($"Characters/{_statData.CharacterId}/{_statData.CharacterId}.prefab");
+            view = viewGo.GetComponent<SpriteCharacterView>();
             if (_allianceType == AllianceType.Enemy)
             {
                 FlipX = true;
@@ -146,10 +147,11 @@ namespace CookApps.BattleSystem
         public void Clear()
         {
             Target = null;
+            ecc.Clear();
+            ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
             ClearAllState();
             view.OnAnimationEvent -= OnAnimationEvent;
-            ecc.Clear();
-            SpriteCharacterViewPool.Instance.ReturnCharacterView(view);
+            Addressables.ReleaseInstance(view.gameObject);
             view = null;
             InGameHpBarViewPool.Instance.ReturnHpBar(_hpBarView);
             _hpBarView = null;
