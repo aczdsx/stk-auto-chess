@@ -1,10 +1,26 @@
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using Unity.Mathematics;
 
 public class FlowStateStageReady : StateBase
 {
     //[TODO] 캐릭터 배치 관련 로직 추가
-    public override void StateInit(object target)
+    public override async void StateInit(object target)
     {
+        CharacterStatData statData1 = new CharacterStatData(40101, 10);
+        CharacterStatData statData2 = new CharacterStatData(30601, 10);
+        CharacterStatData statData3 = new CharacterStatData(40402, 10);
+        await InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player,
+            typeof(CharacterStateIdle));
+        await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(2, 1), AllianceType.Player,
+            typeof(CharacterStateIdle));
+        await InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(3, 1), AllianceType.Player,
+            typeof(CharacterStateIdle));
+
+        await InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy,
+            typeof(CharacterStateIdle));
+        await InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 3), AllianceType.Enemy,
+            typeof(CharacterStateIdle));
     }
 
     public override void StateStart()

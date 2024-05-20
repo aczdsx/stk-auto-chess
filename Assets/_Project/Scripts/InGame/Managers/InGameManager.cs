@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
 using PrimeTween;
@@ -34,9 +35,12 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region InGame Cycle
-        public void StartInGame<T>() where T : StateBase, new()
+        public void StartInGame<T>(InGameStage stage) where T : StateBase, new()
         {
             IsInGamePlaying = true;
+            // 순서 중요!
+            InGameHpBarViewPool.Instance.InitializePool(InGameResourceHolder.HpBarView.CachedGo);
+            InGameObjectManager.Instance.Initialize(stage);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>();
             // IngameResourceManager.Instance.Initialize();
         }
@@ -45,14 +49,8 @@ namespace CookApps.BattleSystem
         {
             IsInGamePlaying = false;
             InGameMainFlowManager.Instance.StopInGameMainLoop();
-            // IngameEffectViewPool.Instance.Clear(false);
             InGameObjectManager.Instance.Clear();
-            // IngameResourceManager.Instance.Clear();
-            // DOTween.defaultUpdateType = UpdateType.Normal;
-            // IngameGlobalBuffPanel.popupStoreBuffs.Clear();
-            // IngameGlobalBuffPanel.itemBuffs.Clear();
-            // IngameGlobalBuffPanel.questBuffInfo = null;
-            // ClearStageData();
+            InGameHpBarViewPool.Instance.ReleasePool();
         }
         #endregion
 
