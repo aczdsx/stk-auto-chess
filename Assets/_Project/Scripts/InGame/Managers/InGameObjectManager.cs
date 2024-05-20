@@ -27,8 +27,7 @@ namespace CookApps.BattleSystem
 
             playground = GameObject.Find("Playground").GetComponent<Transform>();
 
-            var tileViews = stage.TileViews.Select(x => x as IInGameTileView).ToArray();
-            InGameGrid grid = new InGameGrid(stage.GridSize, tileViews);
+            InGameGrid grid = new InGameGrid(stage.GridSize, stage.TileViews);
             _grid = grid;
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace CookApps.BattleSystem
         public int Width { get; }
         public int Height { get; }
 
-        public InGameGrid(int2 gridSize, IInGameTileView[] views)
+        public InGameGrid(int2 gridSize, InGameTileView[] views)
         {
             Width = gridSize.x;
             Height = gridSize.y;

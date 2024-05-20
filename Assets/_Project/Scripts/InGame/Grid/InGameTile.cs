@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using Unity.Mathematics;
 
 namespace CookApps.BattleSystem
@@ -7,12 +8,12 @@ namespace CookApps.BattleSystem
         public int X { get; }
         public int Y { get; }
 
-        public IInGameTileView View { get; private set; }
+        public InGameTileView View { get; private set; }
 
         // 점유 여부
         public CharacterController OccupiedCharacter { get; set; }
 
-        public InGameTile(int x, int y, IInGameTileView view)
+        public InGameTile(int x, int y, InGameTileView view)
         {
             X = x;
             Y = y;
