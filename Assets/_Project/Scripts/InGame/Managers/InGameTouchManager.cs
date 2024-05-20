@@ -148,11 +148,11 @@ private void MoveCharacter(Vector3 touchPosition)
                 InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
                 if (ingameTileView.ID != _selectedTileView.ID)
                 {
-                    _selectedTileView.SetActiveObj(false);
-                    _selectedTileView = ingameTileView;
-                    _selectedTileView.SetActiveObj(true);
                     if (ingameTileView.AllianceAllianceType == AllianceType.Player)
                     {
+                        _selectedTileView.SetActiveObj(false);
+                        _selectedTileView = ingameTileView;
+                        _selectedTileView.SetActiveObj(true);
                         _selectedCharacterController.Position3D =
                             ingameTileView.CachedTr.transform.position;
                     }
@@ -189,17 +189,20 @@ private void MoveCharacter(Vector3 touchPosition)
                 if (hit.transform.tag.Equals("Slot"))
                 {
                     InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
-                    InGameTile tile =
-                        InGameObjectManager.Instance.GetInGameTile(ingameTileView.ID);
-                    if (tile.OccupiedCharacter != null)
-                    {
-                        InGameObjectManager.Instance.ChangeTileCharacterToCharacter(_selectedCharacterController, tile.OccupiedCharacter);
-                    }
-                    else
-                    {
-                        InGameObjectManager.Instance.ChangeTile(_selectedCharacterController, tile);
-                    }
 
+                    if (ingameTileView.AllianceAllianceType == AllianceType.Player)
+                    {
+                        InGameTile tile =
+                            InGameObjectManager.Instance.GetInGameTile(ingameTileView.ID);
+                        if (tile.OccupiedCharacter != null)
+                        {
+                            InGameObjectManager.Instance.ChangeTileCharacterToCharacter(_selectedCharacterController, tile.OccupiedCharacter);
+                        }
+                        else
+                        {
+                            InGameObjectManager.Instance.ChangeTile(_selectedCharacterController, tile);
+                        }
+                    }
                 }
             }
             CancelMoveCharacter();
