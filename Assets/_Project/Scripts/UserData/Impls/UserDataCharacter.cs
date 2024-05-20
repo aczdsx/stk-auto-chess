@@ -3,6 +3,7 @@ using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
+using Google.Protobuf.Collections;
 
 namespace CookApps.AutoBattler
 {
@@ -34,7 +35,7 @@ namespace CookApps.AutoBattler
             return userCharacterGroup.UserCharacters.Select(x => x.CharacterId).ToArray();
         }
 
-        public void AddCharacter(int characterId, int cardCount)
+        public void AddCharacter(int characterId)
         {
             SpecCharacter specCharacter = SpecDataManager.Instance.SpecCharacter.Get(characterId);
             UserCharacter userCharacter = null;
@@ -53,16 +54,20 @@ namespace CookApps.AutoBattler
                 {
                     CharacterId = characterId,
                     StarLevel = specCharacter.init_star,
-                    StarExp = cardCount,
                 };
                 userCharacterGroup.UserCharacters.Add(userCharacter);
             }
             else
             {
-                userCharacter.StarExp += cardCount;
+                //userCharacter.StarExp += cardCount;
             }
 
             OnUserCharacterChanged?.Invoke(userCharacter);
+        }
+
+        public RepeatedField<UserCharacter> GetAllUserCharacters()
+        {
+            return userCharacterGroup.UserCharacters;
         }
 
         public UserCharacter GetUserCharacter(int characterId)
