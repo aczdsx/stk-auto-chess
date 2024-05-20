@@ -3,13 +3,14 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEditor.Rendering;
 using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class SpriteAnimationFromFolderGroup : Editor
+public class GeneratePixelResources : Editor
 {
-    [MenuItem("Assets/Create Sprite Animations From Folder Group", true)]
+    [MenuItem("Assets/Generate Pixel Resources", true)]
     private static bool ValidateCreateAnimation()
     {
         // 메뉴가 활성화될 조건: 선택한 것이 폴더여야 함
@@ -17,7 +18,7 @@ public class SpriteAnimationFromFolderGroup : Editor
                AssetDatabase.IsValidFolder(AssetDatabase.GetAssetPath(Selection.activeObject));
     }
 
-    [MenuItem("Assets/Create Sprite Animations From Folder Group")]
+    [MenuItem("Assets/Generate Pixel Resources")]
     private static void CreateAnimations()
     {
         // 선택된 상위 폴더의 경로
@@ -182,9 +183,9 @@ public class SpriteAnimationFromFolderGroup : Editor
 
         // Packing settings
         SpriteAtlasPackingSettings packingSettings = spriteAtlas.GetPackingSettings();
-        packingSettings.enableRotation = true;
+        packingSettings.enableRotation = false;
         packingSettings.enableTightPacking = false;
-        packingSettings.padding = 4; // 이미지 간 거리를 최소화시킴
+        packingSettings.padding = 2; // 이미지 간 거리를 최소화시킴
         spriteAtlas.SetPackingSettings(packingSettings);
 
         // Texture settings
@@ -208,7 +209,7 @@ public class SpriteAnimationFromFolderGroup : Editor
             maxTextureSize = 2048,
             format = TextureImporterFormat.ASTC_4x4,
             compressionQuality = 50,
-            crunchedCompression = true,
+            crunchedCompression = false,
             androidETC2FallbackOverride = AndroidETC2FallbackOverride.Quality32Bit
         };
         spriteAtlas.SetPlatformSettings(androidSettings);
@@ -221,7 +222,7 @@ public class SpriteAnimationFromFolderGroup : Editor
             maxTextureSize = 2048,
             format = TextureImporterFormat.ASTC_4x4,
             compressionQuality = 50,
-            crunchedCompression = true
+            crunchedCompression = false
         };
         spriteAtlas.SetPlatformSettings(iosSettings);
 
