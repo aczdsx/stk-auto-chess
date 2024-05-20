@@ -1,20 +1,29 @@
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
     public class LobbyMain : UILayer
     {
-        [SerializeField] private CAButton commanderSkillButton;
+        [SerializeField] private CAButton _commanderSkillButton;
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
+
+        [Header("Bottom Stage Select Layer")]
+        [SerializeField] private ScrollRect _stageSelectScrollRect;
+        [SerializeField] private Image _chapterImage;
+        [SerializeField] private TextMeshProUGUI _chapterNameText;
+        [SerializeField] private TextMeshProUGUI _stageProgressText;
+
 
         protected override void Awake()
         {
             base.Awake();
-            commanderSkillButton.onClick.AddListener(OnClickCommanderSkillButton);
+            _commanderSkillButton.onClick.AddListener(OnClickCommanderSkillButton);
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
         }
@@ -22,7 +31,7 @@ namespace CookApps.AutoBattler
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            commanderSkillButton.onClick.RemoveListener(OnClickCommanderSkillButton);
+            _commanderSkillButton.onClick.RemoveListener(OnClickCommanderSkillButton);
             _playButton.onClick.RemoveListener(OnClickStartButton);
             _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
         }
