@@ -77,8 +77,8 @@ namespace CookApps.AutoBattler
         WATER = 3,
         FIRE = 4,
         DARK = 5,
-        MACHINE = 6,
-        LIGHT = 7,
+        LIGHT = 6,
+        MACHINE = 7,
     }
 
     public enum CharacterPosition

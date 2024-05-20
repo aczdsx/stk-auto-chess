@@ -14,12 +14,12 @@ namespace CookApps.AutoBattler
     public enum CharacterCollectionTabType
     {
         All,
-        FIRE,
-        WATER,
-        WIND,
-        GROUND,
-        LIGHT,
-        DARK
+        EARTH = 1,
+        WIND = 2,
+        WATER = 3,
+        FIRE = 4,
+        DARK = 5,
+        LIGHT = 6,
     }
 
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/Pop_CharacterCollection.prefab")]
@@ -46,7 +46,9 @@ namespace CookApps.AutoBattler
 
         public void OnClickTabToggleButton(int tabIndex)
         {
-            CharacterCollectionTabType tabType = (CharacterCollectionTabType)tabIndex;
+            _currentTabType = (CharacterCollectionTabType)tabIndex;
+
+            FilterCharacterList(_currentTabType);
         }
 
         private void SetCharacterCollectionUI()
@@ -63,6 +65,21 @@ namespace CookApps.AutoBattler
 
                 _characterCardSlotList.Add(slot);
             }
+        }
+
+        private void FilterCharacterList(CharacterCollectionTabType targetType)
+        {
+            _characterCardSlotList.ForEach(slot =>
+            {
+                if (targetType == CharacterCollectionTabType.All)
+                {
+                    slot.gameObject.SetActive(true);
+                }
+                else
+                {
+                    slot.gameObject.SetActive((int)slot.CharacterData.type == (int)targetType);
+                }
+            });
         }
 
         private void RefreshUI()

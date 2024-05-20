@@ -24,6 +24,8 @@ namespace CookApps.AutoBattler
         private Character _characterData;
         private UserCharacter _userCharacterData;
 
+        public Character CharacterData => _characterData;
+
         public void SetCharcacterSlot(Character characterData)
         {
             if (characterData == null) return;
