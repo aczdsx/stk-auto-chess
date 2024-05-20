@@ -149,29 +149,13 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 if (rootGOs[i].name == "MainCanvas")
                 {
-                    mainCanvas = rootGOs[i].GetComponent<Canvas>();
-                    mainCanvas.worldCamera = CameraManager.Main;
-
-                    var canvas = rootGOs[i].GetComponent<Transform>();
-                    mainNode = canvas.Find("MainNode");
-                    GameObject mainNodeGo = mainNode.gameObject;
-                    mainNodeCanvas = mainNodeGo.AddComponent<Canvas>();
-                    mainNodeGo.AddComponent<GraphicRaycaster>();
-
-                    floatingNode = canvas.Find("FloatingNode");
-                    GameObject floatingNodeGo = floatingNode.gameObject;
-                    floatingNodeCanvas = floatingNodeGo.AddComponent<Canvas>();
-                    floatingNodeGo.AddComponent<GraphicRaycaster>();
-
-                    var mainCanvasScaler = mainCanvas.GetComponent<CanvasScaler>();
-                    var recycleCanvasScaler = recycles.GetComponent<CanvasScaler>();
-                    recycleCanvasScaler.referenceResolution = mainCanvasScaler.referenceResolution;
+                    SetMainCanvas(rootGOs[i]);
                     continue;
                 }
 
                 if (rootGOs[i].name == "EventSystem")
                 {
-                    rootGOs[i].GetComponent<EventSystem>().pixelDragThreshold = UIManagementsConst.DragThreshold;
+                    rootGOs[i].GetComponent<EventSystem>().pixelDragThreshold = UIManagementsConst.Default.DragThreshold;
                     continue;
                 }
 
@@ -183,8 +167,8 @@ namespace CookApps.TeamBattle.UIManagements
 
             if (isLoadingScene && !hasLoadingComp)
             {
-                var loadingGO = new GameObject("SceneLoading");
-                loadingGO.AddComponent<SceneLoading>();
+                var loadingGo = new GameObject("SceneLoading");
+                loadingGo.AddComponent<SceneLoading>();
             }
         }
 
@@ -704,6 +688,67 @@ namespace CookApps.TeamBattle.UIManagements
                 }
             }
         }
+
+        #region MainCanvas
+        private void SetMainCanvas(GameObject canvasGo)
+        {
+            mainCanvas = canvasGo.GetComponent<Canvas>();
+            mainCanvas.worldCamera = CameraManager.Main;
+
+            Transform canvasTr = canvasGo.transform;
+            mainNode = canvasTr.Find("MainNode");
+            GameObject mainNodeGo = null;
+            if (mainNode == null)
+            {
+                mainNodeGo = new GameObject("MainNode", typeof(RectTransform));
+                var mainNodeRectTr = mainNodeGo.GetComponent<RectTransform>();
+                mainNodeRectTr.SetParent(canvasTr, false);
+                mainNodeRectTr.anchorMin = Vector2.zero;
+                mainNodeRectTr.anchorMax = Vector2.one;
+                mainNodeRectTr.anchoredPosition = Vector2.zero;
+                mainNodeRectTr.pivot = new Vector2(0.5f, 0.5f);
+                mainNodeRectTr.sizeDelta = Vector2.zero;
+            }
+            else
+            {
+                mainNodeGo = mainNode.gameObject;
+            }
+
+            mainNodeCanvas = mainNodeGo.AddComponent<Canvas>();
+            if (mainNodeGo.GetComponent<GraphicRaycaster>() == null)
+            {
+                mainNodeGo.AddComponent<GraphicRaycaster>();
+            }
+
+            floatingNode = canvasTr.Find("FloatingNode");
+            GameObject floatingNodeGo = null;
+            if (floatingNode == null)
+            {
+                floatingNodeGo = new GameObject("floatingNode", typeof(RectTransform));
+                var floatingNodeRectTr = floatingNodeGo.GetComponent<RectTransform>();
+                floatingNodeRectTr.SetParent(canvasTr, false);
+                floatingNodeRectTr.anchorMin = Vector2.zero;
+                floatingNodeRectTr.anchorMax = Vector2.one;
+                floatingNodeRectTr.anchoredPosition = Vector2.zero;
+                floatingNodeRectTr.pivot = new Vector2(0.5f, 0.5f);
+                floatingNodeRectTr.sizeDelta = Vector2.zero;
+            }
+            else
+            {
+                floatingNodeGo = floatingNode.gameObject;
+            }
+
+            floatingNodeCanvas = floatingNodeGo.AddComponent<Canvas>();
+            if (floatingNodeGo.GetComponent<GraphicRaycaster>() == null)
+            {
+                floatingNodeGo.AddComponent<GraphicRaycaster>();
+            }
+
+            var mainCanvasScaler = mainCanvas.GetComponent<CanvasScaler>();
+            var recycleCanvasScaler = recycles.GetComponent<CanvasScaler>();
+            recycleCanvasScaler.referenceResolution = mainCanvasScaler.referenceResolution;
+        }
+        #endregion
 
         #region Dim Layer
         private Image CreateDimLayer(string name)
