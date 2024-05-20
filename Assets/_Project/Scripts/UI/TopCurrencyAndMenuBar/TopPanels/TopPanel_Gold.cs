@@ -6,6 +6,11 @@ namespace CookApps.AutoBattler
     {
         public override TopPanelType PanelType => TopPanelType.Gold;
 
+        private void Awake()
+        {
+            GoldChanged(UserDataManager.Instance.UserWallet.Gold);
+        }
+
         private void OnEnable()
         {
             UserDataManager.OnGoldChanged += GoldChanged;

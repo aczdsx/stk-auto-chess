@@ -6,6 +6,11 @@ namespace CookApps.AutoBattler
     {
         public override TopPanelType PanelType => TopPanelType.Jewel;
 
+        private void Awake()
+        {
+            JewelChanged(UserDataManager.Instance.UserWallet.Jewel);
+        }
+
         private void OnEnable()
         {
             UserDataManager.OnJewelChanged += JewelChanged;
