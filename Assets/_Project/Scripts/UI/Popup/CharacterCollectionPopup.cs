@@ -6,8 +6,6 @@ using CookApps.SpecData;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.TeamBattle.UIManagements;
-using Google.Protobuf.Collections;
-using JetBrains.Annotations;
 
 namespace CookApps.AutoBattler
 {
@@ -65,6 +63,8 @@ namespace CookApps.AutoBattler
 
                 _characterCardSlotList.Add(slot);
             }
+
+            _characterScrollRect.verticalNormalizedPosition = 1;
         }
 
         private void FilterCharacterList(CharacterCollectionTabType targetType)
@@ -80,6 +80,8 @@ namespace CookApps.AutoBattler
                     slot.gameObject.SetActive((int)slot.CharacterData.type == (int)targetType);
                 }
             });
+
+            _characterScrollRect.verticalNormalizedPosition = 1;
         }
 
         private void RefreshUI()
