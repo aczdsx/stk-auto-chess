@@ -53,6 +53,8 @@ namespace CookApps.AutoBattler
                 userCharacter = new UserCharacter
                 {
                     CharacterId = characterId,
+                    Level = 1,
+                    Exp = 0,
                     StarLevel = specCharacter.init_star,
                 };
                 userCharacterGroup.UserCharacters.Add(userCharacter);

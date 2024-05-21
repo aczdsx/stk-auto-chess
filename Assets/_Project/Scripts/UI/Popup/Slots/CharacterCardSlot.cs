@@ -22,7 +22,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _positionSynergyUI;
 
         [Space(10)]
+        [SerializeField] private GameObject _outlineActiveObject;
+        [SerializeField] private GameObject _outlineInactiveObject;
+
+        [Space(10)]
         [SerializeField] private List<GameObject> _starObjectList;
+
 
         private Character _characterData;
         private UserCharacter _userCharacterData;
@@ -38,17 +43,27 @@ namespace CookApps.AutoBattler
             _characterData = characterData;
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.id);
 
-            // 기본 데이터 관련 세팅
-            _gradeImage.sprite = ImageManager.Instance.GetGradeSprite(_characterData.grade);
+            bool haveCharacter = _userCharacterData != null;
 
-            _synergyUI.SetSynergyUI(_characterData.type);
-            _positionSynergyUI.SetPositionSynergyUI(_characterData.position);
+            // 기본 데이터 관련 세팅
+            _gradeImage.sprite = ImageManager.Instance.GetGradeSprite(_characterData.grade, haveCharacter);
+
+            _synergyUI.SetSynergyUI(_characterData.type, haveCharacter);
+            _positionSynergyUI.SetPositionSynergyUI(_characterData.position, haveCharacter);
+
+            _chracterLevelText.gameObject.SetActive(haveCharacter);
+            if (haveCharacter)
+            {
+                _chracterLevelText.text = _userCharacterData.Level.ToString();
+            }
 
             SetStarObject(_characterData.grade);
 
-            // BG Layer 세팅
-            bool haveCharacter = _userCharacterData != null;
+            // 캐릭터 보유 여부 관련 처리
+            _outlineActiveObject.SetActive(haveCharacter);
+            _outlineInactiveObject.SetActive(!haveCharacter);
 
+            // BG Layer 세팅
             _lockBGLayerObject.SetActive(!haveCharacter);
             _normalBGLayerObject.SetActive(haveCharacter && _characterData.grade != Grade.LEGEND);
             _SSRBGLayerObject.SetActive(haveCharacter && _characterData.grade == Grade.LEGEND);

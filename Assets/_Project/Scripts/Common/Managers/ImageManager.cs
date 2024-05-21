@@ -7,63 +7,84 @@ namespace CookApps.AutoBattler
 {
     public class ImageManager : Singleton<ImageManager>
     {
-        public Sprite GetGradeSprite(Grade grade)
+        public Sprite GetGradeSprite(Grade grade, bool isActive = true)
         {
+            string spriteName = string.Empty;
+
             switch (grade)
             {
                 // case Grade.COMMON:
                 //     return AtlasManager.Instance.GetSprite("UI_Main", "Icon_R");
                 case Grade.RARE:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_R");
+                    spriteName = isActive ? "Icon_R" : "Icon_R_Locked";
+                    break;
                 case Grade.EPIC:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_SR");
+                    spriteName = isActive ? "Icon_SR" : "Icon_SR_Locked";
+                    break;
                 case Grade.LEGEND:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_SSR");
-                default:
-                    return null;
+                    spriteName = isActive ? "Icon_SSR" : "Icon_SSR_Locked";
+                    break;
             }
+
+            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetSynergySprite(CharacterType type)
+        public Sprite GetSynergySprite(CharacterType type, bool isActive = true)
         {
+            string spriteName = string.Empty;
+
             switch (type)
             {
                 case CharacterType.FIRE:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Fire_Active");
+                    spriteName = isActive ? "Icon_Fire_Active" : "Icon_Fire_Locked";
+                    break;
                 case CharacterType.WATER:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Water_Active");
+                    spriteName = isActive ? "Icon_Water_Active" : "Icon_Water_Locked";
+                    break;
                 case CharacterType.EARTH:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Ground_Active");
+                    spriteName = isActive ? "Icon_Ground_Active" : "Icon_Ground_Locked";
+                    break;
                 case CharacterType.WIND:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Wind_Active");
+                    spriteName = isActive ? "Icon_Wind_Active" : "Icon_Wind_Locked";
+                    break;
                 case CharacterType.LIGHT:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Light_Active");
+                    spriteName = isActive ? "Icon_Light_Active" : "Icon_Light_Locked";
+                    break;
                 case CharacterType.DARK:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Dark_Active");
-                default:
-                    return null;
+                    spriteName = isActive ? "Icon_Dark_Active" : "Icon_Dark_Locked";
+                    break;
             }
+
+            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetPositionSprite(CharacterPosition position)
+        public Sprite GetPositionSprite(CharacterPosition position, bool isActive = true)
         {
+            string spriteName = string.Empty;
+
             switch (position)
             {
                 case CharacterPosition.TANK:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Position_Tank_Active");
+                    spriteName = isActive ? "Icon_Position_Tank_Active" : "Icon_Position_Tank_Locked";
+                    break;
                 case CharacterPosition.WARRIOR:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Position_Warrior_Active");
+                    spriteName = isActive ? "Icon_Position_Warrior_Active" : "Icon_Position_Warrior_Locked";
+                    break;
                 case CharacterPosition.RANGER:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Position_Sniper_Active");
+                    spriteName = isActive ? "Icon_Position_Sniper_Active" : "Icon_Position_Sniper_Locked";
+                    break;
                 case CharacterPosition.WIZARD:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Position_Wizard_Active");
+                    spriteName = isActive ? "Icon_Position_Wizard_Active" : "Icon_Position_Wizard_Locked";
+                    break;
                 case CharacterPosition.SUPPORTER:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Position_Supporter_Active");
+                    spriteName = isActive ? "Icon_Position_Supporter_Active" : "Icon_Position_Supporter_Locked";
+                    break;
                 case CharacterPosition.ASSASSIN:
-                    return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Position_Assassin_Active");
-                default:
-                    return null;
+                    spriteName = isActive ? "Icon_Position_Assassin_Active" : "Icon_Position_Assassin_Locked";
+                    break;
             }
+
+            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
     }
 }

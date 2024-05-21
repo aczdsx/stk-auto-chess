@@ -40,6 +40,8 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.Jewel, TopPanelType.Menu);
+
+            SetLobbyMainUI();
         }
 
         public void RefreshUI()
@@ -49,7 +51,17 @@ namespace CookApps.AutoBattler
 
         private void SetLobbyMainUI()
         {
+            //TEST
+            TestAddCharacter();
+        }
 
+        private void TestAddCharacter()
+        {
+            UserDataManager.Instance.AddCharacter(40101);
+            UserDataManager.Instance.AddCharacter(30201);
+            UserDataManager.Instance.AddCharacter(40201);
+            UserDataManager.Instance.AddCharacter(40301);
+            UserDataManager.Instance.AddCharacter(30401);
         }
 
         private void OnClickCommanderSkillButton()
