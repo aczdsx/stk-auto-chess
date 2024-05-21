@@ -170,6 +170,11 @@ namespace CookApps.BattleSystem
             return _grid.GetTile(id);
         }
 
+        public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest)
+        {
+            return _grid.GetNextMovableTile(src, dest);
+        }
+
         public void ChangeTileCharacterToCharacter(CharacterController selectedCharacter, CharacterController occupiedCharacter)
         {
             // 임시 변수를 사용하여 타일을 교환

@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
 
         private GameObject _instance;
         private bool _cachedFlipX;
+        private bool _cachedFlipFront;
         private CharacterStatData _statData;
 
         public async UniTask Initialize(CharacterStatData statData)
@@ -86,9 +87,26 @@ namespace CookApps.AutoBattler
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
         {
-            //[TODO] Clip return 하는 이유 확인 필요 Animation 구조 어떻게 가져갈지 논의 필요
+            // 애니메이션 트리거 설정
             _animator.SetTrigger(animationKey.ToString());
-            throw new NotImplementedException();
+
+            // 애니메이터 컨트롤러에서 현재 활성화된 상태를 찾고 해당 상태의 애니메이션 클립을 반환합니다.
+            var runtimeAnimatorController = _animator.runtimeAnimatorController;
+            if (!runtimeAnimatorController)
+            {
+                throw new InvalidOperationException("runtimeAnimatorController is null.");
+            }
+
+            foreach (var animationClip in runtimeAnimatorController.animationClips)
+            {
+                string prefix = (_cachedFlipFront) ? "Front_" : "Back_";
+                if (animationClip.name == prefix + animationKey)
+                {
+                    return animationClip;
+                }
+            }
+
+            throw new KeyNotFoundException($"[{animationKey}] is not found.");
         }
 
         public void OnHit()

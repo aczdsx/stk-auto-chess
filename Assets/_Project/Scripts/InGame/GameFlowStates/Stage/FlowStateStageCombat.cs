@@ -13,7 +13,6 @@ public class FlowStateStageCombat : StateBase
     public override void StateInit(object target)
     {
         characters = ListPool<CharacterController>.Get();
-        characters.Add((CharacterController)target);
     }
 
     public override void StateStart()

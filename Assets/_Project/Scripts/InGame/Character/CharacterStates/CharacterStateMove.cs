@@ -1,5 +1,7 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using PrimeTween;
+using UnityEngine;
 
 /// <summary>
 /// 1칸 이동하는 상태
@@ -14,12 +16,23 @@ public class CharacterStateMove : CharacterStateBase
     {
         base.StateStart();
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.MOVE);
-        // TODO: Running 에서 직접 이동 로직 구현하도록 변경 필요
-        // [TODO] : 캐릭터 로직에 대한 이해도가 필요.
+
         var moveDuration = SpecOptionCache.DefaultMoveDuration / characCtrl.GetCharacterStat().MoveSpeed;
+        moveDuration = 1; // [TODO] 임시 moveDuration 나중에 삭제
         var jumpHeight = SpecOptionCache.CharacterMoveJumpHeight;
-        PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)
-            .OnComplete(this, target => target.ChangeToIdleState());
+        // [TODO] Jump 동작을 제대로 안합니다 ㅠ
+        // PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)
+        //     .OnComplete(this, target => target.ChangeToIdleState());
+
+        Tween.Custom(
+            characCtrl.Position3D,
+            characCtrl.CurrentTile.View.Position,
+            moveDuration,
+            (Vector3 value) =>
+            {
+                if (characCtrl != null)
+                    characCtrl.Position3D = value;
+            }).OnComplete(this, target => target.ChangeToIdleState());
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)

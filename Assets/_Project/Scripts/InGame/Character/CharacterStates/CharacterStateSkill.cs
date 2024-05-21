@@ -33,7 +33,7 @@ public class CharacterStateSkill : CharacterStateBase
                 break;
             }
         }
-        skillAnimationKey = AnimationKey.SKILL + skillIndex;
+        skillAnimationKey = AnimationKey.SKL + skillIndex;
     }
 
     public override void StateStart()

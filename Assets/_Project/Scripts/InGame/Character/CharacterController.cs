@@ -114,9 +114,8 @@ namespace CookApps.BattleSystem
             Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
             _characterUId = characUIdInc++;
             _statData = statData;
-            CurrentTile = tile;
             position = tile.View.Position;
-            tile.SetOccupied(this);
+            ChangeOccupiedTile(tile);
             _allianceType = allianceType;
 
             var viewGo = await Addressables.InstantiateAsync($"Characters/{_statData.CharacterId}/{_statData.CharacterId}.prefab");
@@ -171,6 +170,7 @@ namespace CookApps.BattleSystem
             }
 
             // 새로운 타일을 현재 타일로 설정하고, 새로운 타일에 캐릭터를 설정
+            Debug.LogColor($"[Set Tile] {CharacterId} : ({newTile.X}, {newTile.Y})");
             CurrentTile = newTile;
             newTile.SetOccupied(this);
 

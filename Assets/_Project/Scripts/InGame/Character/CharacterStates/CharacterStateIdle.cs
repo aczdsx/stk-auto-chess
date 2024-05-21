@@ -29,16 +29,13 @@ public class CharacterStateIdle : CharacterStateBase
         scanTargetTime = ScanTargetInterval;
 
         // 2. 적을 찾아서 타겟으로 설정 (찾을 필요 없다면 스킵)
-        if (characCtrl.Target is {IsAlive: false})
+        if (characCtrl.GetCharacterStat().ScanType == ScanType.Nearest)
         {
-            if (characCtrl.GetCharacterStat().ScanType == ScanType.Nearest)
-            {
-                characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
-            }
-            else
-            {
-                characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
-            }
+            characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
+        }
+        else
+        {
+            characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
         }
 
         if (characCtrl.Target is {IsAlive: false})
@@ -48,18 +45,24 @@ public class CharacterStateIdle : CharacterStateBase
         }
 
         // 3. 적이 공격 범위 안에 들어왔는지 체크
-        var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
+        if (characCtrl.Target != null)
+        {
+            var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
 
-        if (isInRange)
-        {
-            // 4-1. 공격 범위 안에 들어왔다면 공격 상태로 전환
-            characCtrl.AddNextState<CharacterStateAttack>();
-        }
-        else
-        {
-            // 4-2. 공격 범위 밖에 있다면 이동 상태로 전환
-            characCtrl.AddNextState<CharacterStateMove>();
-            return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
+            if (isInRange)
+            {
+                // 4-1. 공격 범위 안에 들어왔다면 공격 상태로 전환
+                characCtrl.AddNextState<CharacterStateAttack>();
+            }
+            else
+            {
+                // 4-2. 공격 범위 밖에 있다면 이동 상태로 전환
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(characCtrl.CurrentTile,
+                    characCtrl.Target.CurrentTile);
+                characCtrl.ChangeOccupiedTile(bestTile);
+                characCtrl.AddNextState<CharacterStateMove>();
+                return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
+            }
         }
 
         return CharacterStateRunningResult.CanCallAllWithoutMove;
