@@ -602,16 +602,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 6043700716150002989}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -924,6 +928,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7164957201141000804}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (2)
@@ -1075,6 +1095,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9180637348078941915}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (4)
@@ -1149,16 +1185,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 5484634032503832970}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -1238,16 +1278,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 6043700716150002989}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -1327,16 +1371,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 5484634032503832970}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -1493,6 +1541,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4223782850725386466}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (3)
@@ -1566,6 +1630,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4223782850725386466}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (1)
@@ -1718,16 +1798,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 5484634032503832970}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -1896,6 +1980,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7164957201141000804}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (4)
@@ -1970,16 +2070,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 5484634032503832970}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -2148,6 +2252,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7164957201141000804}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView
@@ -2222,16 +2342,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 6043700716150002989}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -2310,6 +2434,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4223782850725386466}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView
@@ -2383,6 +2523,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4223782850725386466}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (4)
@@ -2457,16 +2613,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 8203005546489054516}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -2546,16 +2706,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 8203005546489054516}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -2634,6 +2798,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7164957201141000804}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (3)
@@ -2707,6 +2887,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4223782850725386466}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (2)
@@ -2780,6 +2976,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9180637348078941915}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (2)
@@ -2854,16 +3066,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 8203005546489054516}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -3177,16 +3393,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 5484634032503832970}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -3266,16 +3486,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 8203005546489054516}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -3354,6 +3578,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9180637348078941915}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (1)
@@ -3428,16 +3668,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 6043700716150002989}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -3517,16 +3761,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 6043700716150002989}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
@@ -3839,6 +4087,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9180637348078941915}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (3)
@@ -3912,6 +4176,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9180637348078941915}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView
@@ -3985,6 +4265,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7164957201141000804}
     m_Modifications:
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.36356357
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5472376
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
       value: InGameTileView (1)
@@ -4145,16 +4441,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 8203005546489054516}
     m_Modifications:
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.b
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.g
-      value: 0.23529412
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 1497983088874606, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885015638858243754, guid: 114b46af61fea6e4ba249585a0632bf8, type: 3}
       propertyPath: m_Name
