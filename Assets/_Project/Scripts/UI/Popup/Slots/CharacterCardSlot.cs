@@ -21,6 +21,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _synergyUI;
         [SerializeField] private SynergyUI _positionSynergyUI;
 
+        [Space(10)]
+        [SerializeField] private List<GameObject> _starObjectList;
+
         private Character _characterData;
         private UserCharacter _userCharacterData;
 
@@ -29,6 +32,8 @@ namespace CookApps.AutoBattler
         public void SetCharcacterSlot(Character characterData)
         {
             if (characterData == null) return;
+
+            ClearCardSlot();
 
             _characterData = characterData;
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.id);
@@ -39,12 +44,27 @@ namespace CookApps.AutoBattler
             _synergyUI.SetSynergyUI(_characterData.type);
             _positionSynergyUI.SetPositionSynergyUI(_characterData.position);
 
+            SetStarObject(_characterData.grade);
+
             // BG Layer 세팅
             bool haveCharacter = _userCharacterData != null;
 
             _lockBGLayerObject.SetActive(!haveCharacter);
             _normalBGLayerObject.SetActive(haveCharacter && _characterData.grade != Grade.LEGEND);
             _SSRBGLayerObject.SetActive(haveCharacter && _characterData.grade == Grade.LEGEND);
+        }
+
+        private void SetStarObject(Grade gradeType)
+        {
+            for (int i = 0; i < _starObjectList.Count; i++)
+            {
+                _starObjectList[i].SetActive(i <= (int)gradeType);
+            }
+        }
+
+        private void ClearCardSlot()
+        {
+            //_starObjectList?.ForEach(star => star.SetActive(false));
         }
     }
 }
