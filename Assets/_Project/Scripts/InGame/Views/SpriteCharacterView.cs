@@ -2,13 +2,9 @@ using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
-using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using PrimeTweenDemo;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -16,15 +12,31 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        private AnimationEventListener _animationEventListener;
         public CharacterStatData GetStatData() => _statData;
         public float Height => 1.0f;
-        public event Action<string, AnimationEventKey> OnAnimationEvent;
+        public event Action<AnimationKey, AnimationEventKey> OnAnimationEvent;
 
+        private AnimationKey _currentAnimationKey;
         private GameObject _instance;
         private bool _cachedFlipX;
         private bool _cachedFront;
         private CharacterStatData _statData;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
+
+        private void Awake()
+        {
+            _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
+            _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
+            _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            // AddressableInstantiateHelper.ReleaseGameObject(_instance);
+            _animationEventListener.OnAnimationEvent -= OnFiredAnimationEvent;
+        }
 
         public async UniTask Initialize(CharacterStatData statData)
         {
@@ -36,14 +48,6 @@ namespace CookApps.AutoBattler
             hpBar.CachedTr.localPosition = Vector3.zero;
             hpBar.CachedTr.localRotation = Quaternion.identity;
             hpBar.CachedTr.localScale = Vector3.one;
-
-            _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            // AddressableInstantiateHelper.ReleaseGameObject(_instance);
         }
 
         /// <summary>
@@ -106,6 +110,7 @@ namespace CookApps.AutoBattler
             {
                 if (animationClip.name == fullAnimationName)
                 {
+                    _currentAnimationKey = animationKey;
                     return animationClip;
                 }
             }
@@ -113,6 +118,10 @@ namespace CookApps.AutoBattler
             throw new KeyNotFoundException($"[{fullAnimationName}] is not found.");
         }
 
+        public void OnFiredAnimationEvent(AnimationEventKey animationEventKey)
+        {
+            OnAnimationEvent?.Invoke(_currentAnimationKey, animationEventKey);
+        }
 
         public void OnHit()
         {
