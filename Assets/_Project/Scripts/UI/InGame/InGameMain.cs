@@ -43,7 +43,8 @@ namespace CookApps.AutoBattler
 
         private void OnStartButtonClicked()
         {
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
+            SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
+            // InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         }
     }
 }

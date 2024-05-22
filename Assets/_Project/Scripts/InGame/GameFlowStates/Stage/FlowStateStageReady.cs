@@ -17,7 +17,7 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateIdle)),
             InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(2, 1), AllianceType.Player,
                 typeof(CharacterStateIdle)),
-            InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(3, 1), AllianceType.Player,
+            InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 2), AllianceType.Player,
                 typeof(CharacterStateIdle)),
             InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy,
                 typeof(CharacterStateIdle)),

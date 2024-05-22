@@ -10,8 +10,8 @@ public class CharacterStateAttack : CharacterStateBase
     public override void StateStart()
     {
         base.StateStart();
+        characCtrl.LookAtTarget();
         isAttackAnimRunning = false;
-        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.IDLE);
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -35,6 +35,8 @@ public class CharacterStateAttack : CharacterStateBase
             ReturnToIdle();
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
+
+        // Flip은 공격, 스킬(타겟 방향), 이동(다음 타일 방향)
 
         Vector2 diff = characCtrl.Target.Position - characCtrl.Position;
         characCtrl.FlipX = diff.x > 0;

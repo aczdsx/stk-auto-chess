@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
+            SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
         }
 
         protected override void OnDestroy()

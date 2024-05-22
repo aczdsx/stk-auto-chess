@@ -22,8 +22,9 @@ namespace CookApps.AutoBattler
 
         private GameObject _instance;
         private bool _cachedFlipX;
-        private bool _cachedFlipFront;
+        private bool _cachedFront;
         private CharacterStatData _statData;
+        private static readonly int IsFront = Animator.StringToHash("IsFront");
 
         public async UniTask Initialize(CharacterStatData statData)
         {
@@ -73,41 +74,45 @@ namespace CookApps.AutoBattler
             _animator.speed = speed;
         }
 
-        public void LookAt(bool flipX)
+        public void LookAt(InGameTile currentTile, InGameTile targetTile)
         {
-            if (_cachedFlipX != flipX)
-            {
-                var scale = _animator.transform.localScale;
-                var x = scale.x;
-                scale.x = flipX ? -Mathf.Abs(x) : Mathf.Abs(x);
-                _animator.transform.localScale = scale;
-                _cachedFlipX = flipX;
-            }
+            int gapX = currentTile.X - targetTile.X;
+            int gapY = currentTile.Y - targetTile.Y;
+
+            _cachedFlipX = Mathf.Abs(gapX) == 1;
+            _cachedFront = gapY == 1 || (gapX == 0 && gapY != -1);
+
+            Vector3 scale = _animator.transform.localScale;
+            scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+            _animator.transform.localScale = scale;
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
         {
-            // 애니메이션 트리거 설정
-            _animator.SetTrigger(animationKey.ToString());
+            string animationTrigger = animationKey.ToString();
+            _animator.SetBool(IsFront, _cachedFront);
+            _animator.SetTrigger(animationTrigger);
 
-            // 애니메이터 컨트롤러에서 현재 활성화된 상태를 찾고 해당 상태의 애니메이션 클립을 반환합니다.
             var runtimeAnimatorController = _animator.runtimeAnimatorController;
-            if (!runtimeAnimatorController)
+            if (runtimeAnimatorController == null)
             {
                 throw new InvalidOperationException("runtimeAnimatorController is null.");
             }
 
+            string prefix = (_cachedFront) ? "Front_" : "Back_";
+            string fullAnimationName = prefix + animationTrigger;
+
             foreach (var animationClip in runtimeAnimatorController.animationClips)
             {
-                string prefix = (_cachedFlipFront) ? "Front_" : "Back_";
-                if (animationClip.name == prefix + animationKey)
+                if (animationClip.name == fullAnimationName)
                 {
                     return animationClip;
                 }
             }
 
-            throw new KeyNotFoundException($"[{animationKey}] is not found.");
+            throw new KeyNotFoundException($"[{fullAnimationName}] is not found.");
         }
+
 
         public void OnHit()
         {

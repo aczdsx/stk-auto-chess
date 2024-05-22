@@ -120,10 +120,6 @@ namespace CookApps.BattleSystem
 
             var viewGo = await Addressables.InstantiateAsync($"Characters/{_statData.CharacterId}/{_statData.CharacterId}.prefab");
             view = viewGo.GetComponent<SpriteCharacterView>();
-            if (_allianceType == AllianceType.Enemy)
-            {
-                FlipX = true;
-            }
             _hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
             _hpBarView.Initialize(statData);
             FollowHpBar();
@@ -198,6 +194,11 @@ namespace CookApps.BattleSystem
             RemoveBuffDebuffType(type.ToBuffDebuffType());
         }
 
+        public void LookAtTarget()
+        {
+            view.LookAt(CurrentTile, Target.CurrentTile);
+        }
+
         private void OnAnimationEvent(string animName, AnimationEventKey eventKey)
         {
             _currState.AnimationEventCallback(animName, eventKey);
@@ -249,8 +250,6 @@ namespace CookApps.BattleSystem
             {
                 view.UpdatePosition(position, ViewPosition3D);
             }
-
-            view.LookAt(FlipX);
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnUpdate))
             {
