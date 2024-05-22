@@ -128,6 +128,28 @@ namespace CookApps.AutoBattler
             throw new NotImplementedException();
         }
 
+        public void SetDeadSprite()
+        {
+            DoBurn().Forget();
+        }
+
+        public async UniTask DoBurn()
+        {
+            float temp = 0;
+
+            while (true)
+            {
+                temp += Time.deltaTime * 0.4f;
+
+                GetComponent<Renderer>().material.SetFloat("_FadeAmount", temp);
+
+                if (temp >= 1.0f)
+                    return;
+                else
+                    await UniTask.Yield();
+            }
+        }
+
         protected void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
