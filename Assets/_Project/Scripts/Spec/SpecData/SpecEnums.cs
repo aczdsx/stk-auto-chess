@@ -124,6 +124,7 @@ namespace CookApps.AutoBattler
 
     public enum ContentSubType
     {
+        NONE = 0,
         NORMAL = 1,
         HARD = 2,
     }
@@ -154,5 +155,34 @@ namespace CookApps.AutoBattler
         STAGE = 1,
         CHAPTER = 2,
         DUNGEON = 3,
+        ACCOUNT_LV_EXP = 4,
+        STAGE_STAR = 5,
+    }
+
+    public enum ConfigValueType
+    {
+        STRING = 0,
+        INT = 1,
+        FLOAT = 2,
+    }
+
+    public enum AtkType
+    {
+        AD = 1,
+        AP = 2,
+        ALL = 3,
+    }
+
+    public enum SkillValueType
+    {
+        PERCENT = 1,
+        TIME = 2,
+    }
+
+    public enum SkillType
+    {
+        none = 1,
+        normal = 2,
+        weapon = 3,
     }
 }

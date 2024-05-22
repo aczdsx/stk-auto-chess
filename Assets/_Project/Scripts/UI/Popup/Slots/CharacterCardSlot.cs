@@ -48,8 +48,8 @@ namespace CookApps.AutoBattler
             // 기본 데이터 관련 세팅
             _gradeImage.sprite = ImageManager.Instance.GetGradeSprite(_characterData.grade, haveCharacter);
 
-            _synergyUI.SetSynergyUI(_characterData.type, haveCharacter);
-            _positionSynergyUI.SetPositionSynergyUI(_characterData.position, haveCharacter);
+            _synergyUI.SetSynergyUI(_characterData.element_type, haveCharacter);
+            _positionSynergyUI.SetPositionSynergyUI(_characterData.class_type, haveCharacter);
 
             _chracterLevelText.gameObject.SetActive(haveCharacter);
             if (haveCharacter)
