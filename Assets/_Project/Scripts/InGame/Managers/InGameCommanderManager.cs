@@ -9,13 +9,12 @@ using UnityEngine.UI;
 
 public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public GameObject tempSwitchObj; // [TODO] 임시 Obj
+    public GameObject switchObj;
     public float switchThreshold = 40f;
     public float maxFadeAlpha = 0.5f;
 
     private Camera _mainCamera;
     private bool _isDragging = false;
-    private GameObject _instantiatedObj;
     private Vector2 _dragStartPosition;
     private Image _selectedImage;
     private InGameTileView _hitTileView;
@@ -57,13 +56,8 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
             else
             {
                 Vector3 worldPos = HandleRuntimeDrag(eventData);
-                if (_instantiatedObj == null)
-                {
-                    _instantiatedObj = Instantiate(tempSwitchObj, Vector3.zero, Quaternion.identity);
-                    _instantiatedObj.gameObject.SetActive(true);
-                }
-
-                _instantiatedObj.transform.position = worldPos;
+                switchObj.SetActive(true);
+                switchObj.transform.position = worldPos;
 
                 RaycastHit hit;
                 if (Physics.Raycast(_mainCamera.ScreenPointToRay(eventData.position), out hit))
@@ -80,6 +74,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        switchObj.SetActive(false);
         _isDragging = false;
 
         // [TODO] _hitTileView 해당 위치에 액션

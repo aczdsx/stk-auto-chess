@@ -1132,7 +1132,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
 --- !u!1 &878428098 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 9044487684650393388, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3656462793111299346, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
   m_PrefabInstance: {fileID: 878428097}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1527212429
@@ -1635,6 +1635,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7525333084038406762, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7935975156185646265, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1934,7 +1938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b8b459ed578764ea11a6e9730bc0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempSwitchObj: {fileID: 878428098}
+  switchObj: {fileID: 878428098}
   switchThreshold: 40
   maxFadeAlpha: 0.5
 --- !u!1660057539 &9223372036854775807
