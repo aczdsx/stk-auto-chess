@@ -18,6 +18,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     private Vector2 _dragStartPosition;
     private Image _selectedImage;
     private InGameTileView _hitTileView;
+    private List<InGameTile> _activeTiles = new List<InGameTile>();
 
     void Start()
     {
@@ -29,20 +30,17 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         _isDragging = true;
         _dragStartPosition = eventData.position;
 
-        //[TODO] CommanderSkill UI 제작 후 변경 필요.
-        GameObject hitGameObject = eventData.pointerCurrentRaycast.gameObject;
-        _selectedImage = hitGameObject.GetComponent<Image>();
+        // [TODO] CommanderSkill UI 제작 후 변경 필요.
+        _selectedImage = eventData.pointerCurrentRaycast.gameObject?.GetComponent<Image>();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (_isDragging)
         {
-            if (Vector2.Distance(eventData.position, _dragStartPosition) < switchThreshold)
+            float distance = Vector2.Distance(eventData.position, _dragStartPosition);
+            if (distance < switchThreshold)
             {
-                // 드래그가 시작된 지점과 현재 위치 간의 거리 계산
-                float distance = Vector2.Distance(eventData.position, _dragStartPosition);
-
                 // 거리에 따른 알파값 계산
                 float normalizedDistance = Mathf.Clamp01(distance / switchThreshold);
                 float fadeAlpha = Mathf.Lerp(0f, maxFadeAlpha, normalizedDistance);
@@ -59,13 +57,15 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
                 switchObj.SetActive(true);
                 switchObj.transform.position = worldPos;
 
-                RaycastHit hit;
-                if (Physics.Raycast(_mainCamera.ScreenPointToRay(eventData.position), out hit))
+                if (Physics.Raycast(_mainCamera.ScreenPointToRay(eventData.position), out RaycastHit hit))
                 {
-                    if (hit.collider != null)
+                    _hitTileView = hit.transform.GetComponent<InGameTileView>();
+                    if (_hitTileView != null)
                     {
-                        _hitTileView = hit.transform.GetComponent<InGameTileView>();
                         Debug.LogColor("충돌한 오브젝트: " + _hitTileView.ID);
+                        InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
+                        var tiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(centerTile, 2);
+                        ClearAndSetActive(tiles);
                     }
                 }
             }
@@ -76,13 +76,31 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     {
         switchObj.SetActive(false);
         _isDragging = false;
+        ClearAndSetActive(null);
 
-        // [TODO] _hitTileView 해당 위치에 액션
+        // [TODO] _hitTileView 해당 위치에 지휘자 스킬 액션
     }
 
     Vector3 HandleRuntimeDrag(PointerEventData eventData)
     {
         return _mainCamera.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, _mainCamera.nearClipPlane));
     }
-}
 
+    private void ClearAndSetActive(IEnumerable<InGameTile> newTiles)
+    {
+        foreach (var tile in _activeTiles)
+        {
+            tile.View.SetActiveObj(false);
+        }
+        _activeTiles.Clear();
+
+        if (newTiles != null)
+        {
+            foreach (var tile in newTiles)
+            {
+                tile.View.SetActiveObj(true);
+                _activeTiles.Add(tile);
+            }
+        }
+    }
+}

@@ -8,30 +8,45 @@ namespace CookApps.BattleSystem
 {
     public class InGameGrid
     {
-        private InGameTile[] tiles;
         public int Width { get; }
         public int Height { get; }
 
+        private InGameTile[] _tiles;
         public InGameGrid(int2 gridSize, InGameTileView[] views)
         {
             Width = gridSize.x;
             Height = gridSize.y;
-            tiles = new InGameTile[Width * Height];
+            _tiles = new InGameTile[Width * Height];
             for (var i = 0; i < Width * Height; i++)
             {
-                tiles[i] = new InGameTile(i % Width, i / Width, views[i]);
+                _tiles[i] = new InGameTile(i % Width, i / Width, views[i]);
                 views[i].ID = i;
             }
         }
 
         public InGameTile GetTile(int2 pos)
         {
-            return tiles[pos.x + pos.y * Width];
+            return _tiles[pos.x + pos.y * Width];
         }
 
         public InGameTile GetTile(int index)
         {
-            return tiles[index];
+            return _tiles[index];
+        }
+
+        public InGameTile[] GetManhattanDistanceTiles(InGameTile centerTile, int distance)
+        {
+            List<InGameTile> resultTiles = new List<InGameTile>();
+            foreach (var tile in _tiles)
+            {
+                int manhattanDistance = GetManhattanDistance(centerTile, tile);
+                if (manhattanDistance <= distance)
+                {
+                    resultTiles.Add(tile);
+                }
+            }
+
+            return resultTiles.ToArray();
         }
 
         public int GetManhattanDistance(InGameTile from, InGameTile dest)
@@ -68,7 +83,7 @@ namespace CookApps.BattleSystem
             var priorityQueue = new PriorityQueue<InGameTile, int>();
             var closedList = new HashSet<InGameTile>();
 
-            foreach (var tile in tiles)
+            foreach (var tile in _tiles)
             {
                 tile.G = int.MaxValue;
                 tile.H = int.MaxValue;

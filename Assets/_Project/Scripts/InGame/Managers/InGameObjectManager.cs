@@ -19,6 +19,7 @@ namespace CookApps.BattleSystem
 
         private Transform playground;
         public Transform Playground => playground;
+        public InGameGrid InGameGrid => _grid;
 
         public void Initialize(InGameStage stage)
         {
