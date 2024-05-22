@@ -77,7 +77,7 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    slot.gameObject.SetActive((int)slot.CharacterData.type == (int)targetType);
+                    slot.gameObject.SetActive((int)slot.CharacterData.element_type == (int)targetType);
                 }
             });
 
