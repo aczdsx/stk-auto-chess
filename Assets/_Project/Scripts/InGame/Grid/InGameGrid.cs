@@ -65,23 +65,31 @@ namespace CookApps.BattleSystem
         {
             Debug.Log($"GetNextMovableTile : ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
 
-            var openList = new PriorityQueue<InGameTile, int>();
+            var priorityQueue = new PriorityQueue<InGameTile, int>();
             var closedList = new HashSet<InGameTile>();
-            var gCosts = new Dictionary<InGameTile, int>();
-            var fCosts = new Dictionary<InGameTile, int>();
-            var cameFrom = new Dictionary<InGameTile, InGameTile>();
 
-            openList.Enqueue(src, 0);
-            gCosts[src] = 0;
-            fCosts[src] = GetManhattanDistance(src, dest);
-
-            while (openList.Count > 0)
+            foreach (var tile in tiles)
             {
-                var current = openList.Dequeue();
+                tile.G = int.MaxValue;
+                tile.H = int.MaxValue;
+                tile.cameFrom = null;
+            }
+
+            src.G = 0;
+            src.H = GetManhattanDistance(src, dest);
+            priorityQueue.Enqueue(src, src.H);
+
+            while (priorityQueue.Count > 0)
+            {
+                var current = priorityQueue.Dequeue();
 
                 if (current == dest)
                 {
-                    return ReconstructPath(cameFrom, current, src);
+                    while (current.cameFrom != src)
+                    {
+                        current = current.cameFrom;
+                    }
+                    return current;
                 }
 
                 closedList.Add(current);
@@ -93,67 +101,47 @@ namespace CookApps.BattleSystem
                         continue;
                     }
 
-                    int tentativeGCost = gCosts[current] + GetManhattanDistance(current, neighbor);
+                    int tentativeGCost = current.G + GetManhattanDistance(current, neighbor);
 
-                    if (!gCosts.ContainsKey(neighbor) || tentativeGCost < gCosts[neighbor])
+                    if (tentativeGCost < neighbor.G)
                     {
-                        cameFrom[neighbor] = current;
-                        gCosts[neighbor] = tentativeGCost;
-                        int fCost = tentativeGCost + GetManhattanDistance(neighbor, dest);
-                        fCosts[neighbor] = fCost;
+                        neighbor.cameFrom = current;
+                        neighbor.G = tentativeGCost;
+                        neighbor.H = tentativeGCost + GetManhattanDistance(neighbor, dest);
 
-                        if (!openList.Contains(neighbor))
+                        if (!priorityQueue.Contains(neighbor))
                         {
-                            openList.Enqueue(neighbor, fCost);
+                            priorityQueue.Enqueue(neighbor, neighbor.H);
                         }
                     }
                 }
             }
 
-            return FindBestTile(closedList, gCosts, src, dest);
+            return FindBestTile(closedList, src);
         }
 
-        private InGameTile ReconstructPath(Dictionary<InGameTile, InGameTile> cameFrom, InGameTile current, InGameTile start)
-        {
-            var path = new List<InGameTile>();
-            while (current != start)
-            {
-                path.Add(current);
-                current = cameFrom[current];
-            }
-
-            path.Reverse();
-            return path.Count > 1 ? path[1] : path.FirstOrDefault();
-        }
-
-        private InGameTile FindBestTile(HashSet<InGameTile> closedList, Dictionary<InGameTile, int> gCosts, InGameTile src, InGameTile dest)
+        private InGameTile FindBestTile(HashSet<InGameTile> closedList, InGameTile src)
         {
             InGameTile bestTile = null;
-            int bestCost = int.MaxValue;
+            int bestFScore = int.MaxValue;
 
             foreach (var tile in closedList)
             {
-                if (tile == src)
-                    continue;
+                if (tile == src) continue;
 
-                int cost = gCosts[tile] + GetManhattanDistance(tile, dest);
-                if (cost < bestCost)
+                if (tile.H < bestFScore)
                 {
-                    bestCost = cost;
+                    bestFScore = tile.H;
                     bestTile = tile;
                 }
             }
 
-            return bestTile;
+            return bestTile ?? src;
         }
+
 
         private IEnumerable<InGameTile> GetNeighbors(InGameTile tile)
         {
-            // var directions = new int2[]
-            // {
-            //     new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
-            //     new int2(-1, -1), new int2(-1, 1), new int2(1, -1), new int2(1, 1)
-            // };
             var directions = new int2[]
             {
                 new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
@@ -167,42 +155,6 @@ namespace CookApps.BattleSystem
                     yield return GetTile(newPos);
                 }
             }
-        }
-    }
-
-    public class PriorityQueue<TElement, TPriority>
-    {
-        private readonly SortedDictionary<TPriority, Queue<TElement>> _dictionary = new();
-
-        public int Count { get; private set; }
-
-        public void Enqueue(TElement element, TPriority priority)
-        {
-            if (!_dictionary.TryGetValue(priority, out var elements))
-            {
-                elements = new Queue<TElement>();
-                _dictionary[priority] = elements;
-            }
-
-            elements.Enqueue(element);
-            Count++;
-        }
-
-        public TElement Dequeue()
-        {
-            var firstPair = _dictionary.First();
-            var element = firstPair.Value.Dequeue();
-            if (firstPair.Value.Count == 0)
-            {
-                _dictionary.Remove(firstPair.Key);
-            }
-            Count--;
-            return element;
-        }
-
-        public bool Contains(TElement element)
-        {
-            return _dictionary.Values.Any(queue => queue.Contains(element));
         }
     }
 }

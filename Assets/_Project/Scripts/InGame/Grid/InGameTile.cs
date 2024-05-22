@@ -7,6 +7,11 @@ namespace CookApps.BattleSystem
     {
         public int X { get; }
         public int Y { get; }
+        public int G { set; get; } = -1;
+        public int H { set; get; } = -1;
+        public int F => G + H;
+        public InGameTile cameFrom { set; get; } = null;
+
 
         public InGameTileView View { get; private set; }
 
@@ -18,6 +23,11 @@ namespace CookApps.BattleSystem
             X = x;
             Y = y;
             View = view;
+        }
+
+        public int CompareTo(InGameTile other)
+        {
+            return F == other.F ? 0 : F - other.F;
         }
 
         public bool IsOccupied()
