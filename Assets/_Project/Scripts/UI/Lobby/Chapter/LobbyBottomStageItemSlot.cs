@@ -20,12 +20,14 @@ namespace CookApps.AutoBattler
         [Header("[State - Normal]")]
         [SerializeField] private GameObject _normalLayerObject;
         [SerializeField] private GameObject _normalStarLayerObject;
+        [SerializeField] private GameObject _normalCharacterLayerObject;
         [SerializeField] private TextMeshProUGUI _normalStageNumberText;
         [SerializeField] private List<GameObject> _normalStarObjectList;
 
         [Header("[State - Boss]")]
         [SerializeField] private GameObject _bossLayerObject;
         [SerializeField] private GameObject _bossStarLayerObject;
+        [SerializeField] private GameObject _bossCharacterLayerObject;
         [SerializeField] private TextMeshProUGUI _bossStageNumberText;
         [SerializeField] private List<GameObject> _bossStarObjectList;
 
@@ -48,6 +50,11 @@ namespace CookApps.AutoBattler
             _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.id);
             _isCurrentStage = UserDataManager.Instance.GetCurrentStageId() == _specStageData.id;
 
+            SetStageState();
+        }
+
+        public void RefershSlot()
+        {
             SetStageState();
         }
 
@@ -89,6 +96,8 @@ namespace CookApps.AutoBattler
                     _normalStarObjectList[i].SetActive(i < _userStageData.StarCount);
                 }
             }
+
+            _normalCharacterLayerObject.SetActive(_isCurrentStage);
         }
 
         private void SetBossLayerState()
@@ -107,6 +116,8 @@ namespace CookApps.AutoBattler
                     _bossStarObjectList[i].SetActive(i < _userStageData.StarCount);
                 }
             }
+
+            _bossCharacterLayerObject.SetActive(_isCurrentStage);
         }
 
         private void ClearSlot()
