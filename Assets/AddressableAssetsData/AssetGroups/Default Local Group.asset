@@ -47,21 +47,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 616ca225f7231644dbd901c4f35a2a65
-    m_Address: Characters/40101
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 59885bc5df59aeb4da4ed32e4e81434f
-    m_Address: Characters/30601
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8fe32a349b3c8d6489359c17f671e7d5
-    m_Address: Characters/40402
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf66a36bb0cadf946874506890dd414b
     m_Address: Characters
     m_ReadOnly: 0
