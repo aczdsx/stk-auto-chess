@@ -42,9 +42,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Skill_Back
+    uniqueID: 1311564209
+    locked: 0
   - name: Characters
     uniqueID: 2722353985
     locked: 0
   - name: HpBar
     uniqueID: 2574358269
+    locked: 0
+  - name: Skill_Front
+    uniqueID: 576703033
     locked: 0
