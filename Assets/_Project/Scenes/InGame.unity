@@ -185,7 +185,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -209,13 +209,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32453728}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2546557, y: 0.36785895, z: -0.10548183, w: 0.8880901}
+  m_LocalRotation: {x: 0.260076, y: 0.36720774, z: -0.107727, w: 0.8865179}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 32, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 32.7, y: 45, z: 0}
 --- !u!114 &32453732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,6 +957,18 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.8113208
       objectReference: {fileID: 0}
+    - target: {fileID: 6580677265914944184, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+      propertyPath: m_Color.b
+      value: 0.30153078
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580677265914944184, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5252227
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580677265914944184, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8301887
+      objectReference: {fileID: 0}
     - target: {fileID: 6693964487099514526, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
       propertyPath: m_Color.a
       value: 0.8
@@ -1068,6 +1080,18 @@ PrefabInstance:
     - target: {fileID: 7603635620202121443, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
       propertyPath: m_Color.r
       value: 0.8113208
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766600061832132533, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+      propertyPath: m_Color.b
+      value: 0.33962262
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766600061832132533, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+      propertyPath: m_Color.g
+      value: 0.23921862
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766600061832132533, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+      propertyPath: m_Color.r
+      value: 0.21626912
       objectReference: {fileID: 0}
     - target: {fileID: 8068526820998581660, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
       propertyPath: m_Color.a

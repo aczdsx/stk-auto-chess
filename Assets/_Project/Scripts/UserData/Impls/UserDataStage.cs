@@ -7,6 +7,8 @@ namespace CookApps.AutoBattler
     {
         private UserStageGroup userStageGroup;
 
+        public UserStageGroup UserStageGroup => userStageGroup;
+
         [Initialize(DataCategory.UserStageGroup, 1)]
         private void Initialize_StageGroup(string data)
         {
@@ -28,6 +30,18 @@ namespace CookApps.AutoBattler
             userStageGroup = null;
         }
 
+        public void SetUserStage(int stageID, int starCount)
+        {
+            if (userStageGroup.UserStages.TryGetValue(stageID, out UserStage userStage))
+            {
+                userStage.StarCount = starCount;
+            }
+            else
+            {
+                userStageGroup.UserStages.Add(stageID, new UserStage {StageId = stageID, StarCount = starCount});
+            }
+        }
+
         public UserStage GetUserStage(int stageId)
         {
             if (userStageGroup.UserStages.TryGetValue(stageId, out UserStage userStage))
@@ -46,6 +60,17 @@ namespace CookApps.AutoBattler
         public int GetLastStageId()
         {
             return userStageGroup.LastStageId;
+        }
+
+        // 해당 스테이지 클리어 여부 확인
+        public bool IsClearStage(int stageID)
+        {
+            if (userStageGroup.UserStages.TryGetValue(stageID, out UserStage userStage))
+            {
+                return userStage.StarCount > 0;
+            }
+
+            return false;
         }
     }
 }

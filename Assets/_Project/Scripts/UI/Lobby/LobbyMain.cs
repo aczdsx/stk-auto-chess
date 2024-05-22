@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -15,10 +16,13 @@ namespace CookApps.AutoBattler
 
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
+        [SerializeField] private GameObject _stageSelectSlotObject;
         [SerializeField] private Image _chapterImage;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
 
+
+        private List<LobbyBottomStageItemSlot> _stageSlotList = new();
 
         protected override void Awake()
         {
@@ -51,8 +55,37 @@ namespace CookApps.AutoBattler
 
         private void SetLobbyMainUI()
         {
+            SetBottomStageUI();
+
             //TEST
             TestAddCharacter();
+        }
+
+        private void SetBottomStageUI()
+        {
+            ClearBottomSlotLayer();
+
+            int currentStageId = UserDataManager.Instance.GetCurrentStageId();
+
+            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStageId);
+            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(stageSpecData.chapter_id);
+
+            var stageList = SpecDataManager.Instance.GetStageList(stageSpecData.chapter_id, DifficultyType.NORMAL);
+
+            //_chapterImage.sprite = specStage.chapter_image;
+            _chapterNameText.SetText(chapterSpecData.name_token);
+
+            int totalStageCount = SpecDataManager.Instance.GetStageCount(stageSpecData.chapter_id, DifficultyType.NORMAL);
+            _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
+
+            for (int i = 0; i < stageList.Count; i++)
+            {
+                GameObject newSlotObject = Instantiate(_stageSelectSlotObject, _stageSelectScrollRect.content);
+                LobbyBottomStageItemSlot slot = newSlotObject.GetComponent<LobbyBottomStageItemSlot>();
+                slot.SetStageItemSlot(stageList[i]);
+
+                _stageSlotList.Add(slot);
+            }
         }
 
         private void TestAddCharacter()
@@ -86,6 +119,13 @@ namespace CookApps.AutoBattler
         private void OnClickCharacterCollectionButton()
         {
             SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
+        }
+
+        private void ClearBottomSlotLayer()
+        {
+            _stageSlotList.Clear();
+
+            BMUtil.RemoveChildObjects(_stageSelectScrollRect.content);
         }
     }
 }
