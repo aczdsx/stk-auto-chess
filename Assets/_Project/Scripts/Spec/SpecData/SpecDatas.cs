@@ -214,6 +214,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt stat_hp;
         /// 공격력
         public CookApps.Obfuscator.ObfuscatorInt stat_atk;
+        /// AP AD 판정 유무
+        public global::CookApps.AutoBattler.AtkType atk_type;
         /// 체력, 공격력 레벨 당 성장율
         public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
         /// 방어력

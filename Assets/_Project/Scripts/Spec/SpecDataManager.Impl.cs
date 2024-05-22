@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
+
 
 namespace CookApps.AutoBattler
 {
@@ -52,6 +54,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<SpecStage>> specStageDic = new ();  // key : chapter, value : stage list
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
         private Dictionary<int, List<Stage>> stageChapterDic = new (); // key : chapter_id, value : stage list
+        private Dictionary<string, GameConfig> configDic = new (); // key : config_key, value : game config data
 
         private void CustomizeSpecData()
         {
@@ -93,6 +96,29 @@ namespace CookApps.AutoBattler
 
                 stageList.Add(stage);
             }
+
+            // Game Config
+            configDic.Clear();
+            foreach (GameConfig config in GameConfig.All)
+            {
+                if (!configDic.ContainsKey(config.config_key))
+                {
+                    configDic.Add(config.config_key, config);
+                }
+            }
+        }
+
+        public T GetGameConfig<T>(string key)
+        {
+            if (!configDic.TryGetValue(key, out GameConfig configData))
+            {
+                return default;
+            }
+
+            if (typeof(T) == typeof(int) && configData.config_value_type == ConfigValueType.INT) return int.Parse(configData.config_value).ConvertTo<T>();
+            if (typeof(T) == typeof(float) && configData.config_value_type == ConfigValueType.FLOAT) return float.Parse(configData.config_value).ConvertTo<T>();
+
+            return configData.config_value.ConvertTo<T>();
         }
 
         public List<Stage> GetStageList(int chapter)
