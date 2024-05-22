@@ -51,7 +51,8 @@ namespace CookApps.AutoBattler
 
         public void RefreshUI()
         {
-
+            // 하단 스테이지 UI 갱신
+            RefreshBottomStageUI();
         }
 
         private void SetLobbyMainUI()
@@ -87,6 +88,26 @@ namespace CookApps.AutoBattler
 
                 _stageSlotList.Add(slot);
             }
+        }
+
+        private void RefreshBottomStageUI()
+        {
+            if (_stageSlotList == null || _stageSlotList.Count <= 0) return;
+
+            // 기본 데이터 갱신
+            int currentStageId = UserDataManager.Instance.GetCurrentStageId();
+
+            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStageId);
+            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(stageSpecData.chapter_id);
+
+            //_chapterImage.sprite = specStage.chapter_image;
+            _chapterNameText.SetText(chapterSpecData.name_token);
+
+            int totalStageCount = SpecDataManager.Instance.GetStageCount(stageSpecData.chapter_id, DifficultyType.NORMAL);
+            _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
+
+            // 슬롯 데이터 갱신
+            _stageSlotList.ForEach(slot => slot.RefershSlot());
         }
 
         private void TestAddCharacter()
