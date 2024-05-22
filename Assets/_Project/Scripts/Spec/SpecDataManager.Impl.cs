@@ -5,6 +5,7 @@ using CookApps.gRPC.Universal;
 using CookApps.LocalData;
 #endif
 using System.Collections.Generic;
+using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 
