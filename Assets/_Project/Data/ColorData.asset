@@ -16,6 +16,10 @@ MonoBehaviour:
     _serializedList:
     - Key: BUTTON_NORMAL
       Value: {r: 0.84313726, g: 0.8509804, b: 0.9019608, a: 1}
+    - Key: DirectionalLight
+      Value: {r: 0.21626912, g: 0.23921862, b: 0.33962262, a: 1}
+    - Key: SpotLight
+      Value: {r: 0.8301887, g: 0.5252227, b: 0.30153078, a: 1}
     - Key: DIM
       Value: {r: 0.08627451, g: 0.09019608, b: 0.09411765, a: 0.98039216}
     - Key: TEXT_POP_DESC
