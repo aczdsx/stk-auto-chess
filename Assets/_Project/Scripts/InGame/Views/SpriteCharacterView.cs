@@ -80,7 +80,7 @@ namespace CookApps.AutoBattler
             int gapY = currentTile.Y - targetTile.Y;
 
             _cachedFlipX = (gapX == -1 && gapY == 0) || (gapX == 0 && gapY == 1);
-            _cachedFront = (gapX == 1 && gapY == 0) || (gapX == 0 && gapY == -1);
+            _cachedFront = (gapX == 1 && gapY == 0) || (gapX == 0 && gapY == 1);
 
             Vector3 scale = _animator.transform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
