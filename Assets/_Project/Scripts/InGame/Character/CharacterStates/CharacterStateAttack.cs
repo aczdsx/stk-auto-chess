@@ -73,9 +73,9 @@ public class CharacterStateAttack : CharacterStateBase
         }
     }
 
-    public override void AnimationEventCallback(string animName, AnimationEventKey eventKey)
+    public override void AnimationEventCallback(AnimationKey animName, AnimationEventKey eventKey)
     {
-        if (animName != AnimationKey.ATK.ToAnimationName())
+        if (animName != AnimationKey.ATK)
         {
             return;
         }

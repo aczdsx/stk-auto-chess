@@ -199,7 +199,7 @@ namespace CookApps.BattleSystem
             view.LookAt(CurrentTile, Target.CurrentTile);
         }
 
-        private void OnAnimationEvent(string animName, AnimationEventKey eventKey)
+        private void OnAnimationEvent(AnimationKey animName, AnimationEventKey eventKey)
         {
             _currState.AnimationEventCallback(animName, eventKey);
         }

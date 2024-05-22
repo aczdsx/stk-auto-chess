@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CookApps.BattleSystem;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.Rendering;
@@ -113,6 +114,28 @@ public class GeneratePixelResources : Editor
             keyFrames[i] = new ObjectReferenceKeyframe();
             keyFrames[i].time = i / animationClip.frameRate;
             keyFrames[i].value = sprites[i];
+        }
+
+        // Animation Event 추가
+        AnimationEvent startEvent = new AnimationEvent();
+        startEvent.functionName = "InvokeAnimationEvent";
+        startEvent.time = 0f;
+        startEvent.intParameter = (int)AnimationEventKey.Start;
+        animationClip.AddEvent(startEvent);
+
+        AnimationEvent endEvent = new AnimationEvent();
+        endEvent.functionName = "InvokeAnimationEvent";
+        endEvent.time = keyFrames.Length / animationClip.frameRate;
+        endEvent.intParameter = (int)AnimationEventKey.End;
+        animationClip.AddEvent(endEvent);
+
+        if (folderName == "ATK")
+        {
+            AnimationEvent attackEvent = new AnimationEvent();
+            attackEvent.functionName = "InvokeAnimationEvent";
+            attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
+            attackEvent.time = 4 / animationClip.frameRate;
+            animationClip.AddEvent(attackEvent);
         }
 
         AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);

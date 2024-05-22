@@ -13,12 +13,12 @@ public class CharacterStateDead : CharacterStateBase
         return CharacterStateRunningResult.None;
     }
 
-    public override void AnimationEventCallback(string animName, AnimationEventKey eventKey)
+    public override void AnimationEventCallback(AnimationKey animName, AnimationEventKey eventKey)
     {
         base.AnimationEventCallback(animName, eventKey);
         // Debug.Log($"dead AnimationEventCallback {animName}, {eventKey}");
 
-        if (animName != AnimationKey.DEAD.ToAnimationName())
+        if (animName != AnimationKey.DEAD)
         {
             return;
         }

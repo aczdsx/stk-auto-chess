@@ -68,9 +68,9 @@ public class CharacterStateSkill : CharacterStateBase
         return CharacterStateRunningResult.None;
     }
 
-    public override void AnimationEventCallback(string animName, AnimationEventKey eventKey)
+    public override void AnimationEventCallback(AnimationKey animName, AnimationEventKey eventKey)
     {
-        if (animName != skillAnimationKey.ToAnimationName())
+        if (animName != skillAnimationKey)
             return;
 
         if (eventKey is > AnimationEventKey.VFXStart and < AnimationEventKey.VFXEnd)

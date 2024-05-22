@@ -47,7 +47,7 @@ namespace CookApps.BattleSystem
             characCtrl = null;
         }
 
-        public virtual void AnimationEventCallback(string animName, AnimationEventKey eventKey)
+        public virtual void AnimationEventCallback(AnimationKey animName, AnimationEventKey eventKey)
         {
         }
     }
