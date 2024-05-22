@@ -28,6 +28,18 @@ namespace CookApps.AutoBattler
             userStageGroup = null;
         }
 
+        public void SetUserStage(int stageID, int starCount)
+        {
+            if (userStageGroup.UserStages.TryGetValue(stageID, out UserStage userStage))
+            {
+                userStage.StarCount = starCount;
+            }
+            else
+            {
+                userStageGroup.UserStages.Add(stageID, new UserStage {StageId = stageID, StarCount = starCount});
+            }
+        }
+
         public UserStage GetUserStage(int stageId)
         {
             if (userStageGroup.UserStages.TryGetValue(stageId, out UserStage userStage))
