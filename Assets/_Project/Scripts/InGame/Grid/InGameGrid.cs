@@ -159,6 +159,7 @@ namespace CookApps.BattleSystem
             var directions = new int2[]
             {
                 new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
+                // new int2(1, 1), new int2(1, -1), new int2(-1, 1), new int2(-1, -1),
             };
 
             foreach (var dir in directions)

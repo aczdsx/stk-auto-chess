@@ -1,6 +1,7 @@
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -13,6 +14,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _enemyColor;
 
         private Vector2 _defaultSize;
+        private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
@@ -29,17 +31,36 @@ namespace CookApps.AutoBattler
             _defaultSize = _hpFillGuage.size;
         }
 
-        public void SetHpValue(double current, double max)
+        public async void SetHpValue(double current, double max)
         {
             if (!CachedGo.activeSelf)
             {
                 ShowHpBar();
             }
 
-            float ratio = Mathf.Clamp01((float)(current / max));
-            Vector2 size = _defaultSize;
-            size.x *= ratio;
-            _hpFillGuage.size = size;
+            float targetRatio = Mathf.Clamp01((float)(current / max));
+            float startRatio = 1 - _hpFillGuage.material.GetFloat("_ClipUvRight");
+            await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
+        }
+
+        private async UniTask AnimateHpBar(float startRatio, float targetRatio, float duration)
+        {
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
+                float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1)); // 슬라이스 효과를 만듭니다.
+
+                _hpFillGuage.material.SetFloat("_ClipUvRight", 1 - ratio);
+                _hpFillGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
+
+                await UniTask.Yield();
+            }
+
+            _hpFillGuage.material.SetFloat("_ClipUvRight", 1 - targetRatio);
+            _hpFillGuage.material.SetFloat("_HitEffectBlend", 0); // 애니메이션이 끝난 후 히트 효과를 해제합니다.
         }
 
         private void HideHpBar()

@@ -65,10 +65,17 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
                     _hitTileView = hit.transform.GetComponent<InGameTileView>();
                     if (_hitTileView != null)
                     {
-                        Debug.LogColor("충돌한 오브젝트: " + _hitTileView.ID);
                         InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
                         var tiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(centerTile, 2);
                         ClearAndSetActive(tiles);
+                        if (centerTile.OccupiedCharacter != null)
+                        {
+                            Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
+                        }
+                        else
+                        {
+                            Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y})");
+                        }
                     }
                 }
             }

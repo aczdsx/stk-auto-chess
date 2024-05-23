@@ -93,6 +93,7 @@ namespace CookApps.BattleSystem
                 enemiesInPlaygroundForUpdate.Remove(characCtrl);
             }
 
+            characCtrl.CurrentTile.SetUnoccupied();
             characCtrl.Clear();
         }
 
@@ -161,7 +162,7 @@ namespace CookApps.BattleSystem
                 CharacterController other = enemiesInPlaygroundForUpdate[i];
                 other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
             }
-
+            characCtrl.CurrentTile.SetUnoccupied();
             characCtrl.Clear();
             enemiesInPlaygroundForUpdate.Remove(characCtrl);
         }
