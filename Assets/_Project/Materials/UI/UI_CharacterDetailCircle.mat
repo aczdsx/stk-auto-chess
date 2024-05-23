@@ -29,10 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _InnerRadius: 0.498
-    - _MaskX: 0.532
+    - _InnerRadius: 0.496
+    - _MaskX: 0.554
     - _MaskY: 1
     - _Scale: 0.5
     m_Colors:
-    - _Color: {r: 0.745283, g: 0.7400098, b: 0.7136436, a: 1}
+    - _Color: {r: 0.7803922, g: 0.7960785, b: 0.7843138, a: 1}
   m_BuildTextureStacks: []
