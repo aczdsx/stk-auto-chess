@@ -72,6 +72,7 @@ namespace CookApps.AutoBattler
 
     public enum CharacterType
     {
+        NONE = 0,
         EARTH = 1,
         WIND = 2,
         WATER = 3,
@@ -83,6 +84,7 @@ namespace CookApps.AutoBattler
 
     public enum CharacterPosition
     {
+        NONE = 0,
         WARRIOR = 1,
         TANK = 2,
         WIZARD = 3,
@@ -122,6 +124,15 @@ namespace CookApps.AutoBattler
         BOSS = 3,
     }
 
+    public enum ContentType
+    {
+        STAGE = 1,
+        CHAPTER = 2,
+        DUNGEON = 3,
+        ACCOUNT_LV_EXP = 4,
+        STAGE_STAR = 5,
+    }
+
     public enum ContentSubType
     {
         NONE = 0,
@@ -148,15 +159,6 @@ namespace CookApps.AutoBattler
     {
         ONCE = 1,
         REPEAT = 2,
-    }
-
-    public enum ContentType
-    {
-        STAGE = 1,
-        CHAPTER = 2,
-        DUNGEON = 3,
-        ACCOUNT_LV_EXP = 4,
-        STAGE_STAR = 5,
     }
 
     public enum ConfigValueType
