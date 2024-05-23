@@ -1,10 +1,7 @@
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
@@ -16,11 +13,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _enemyColor;
 
         private Vector2 _defaultSize;
-
-        private void Awake()
-        {
-            _defaultSize = _hpBaseGauge.size;
-        }
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
@@ -34,26 +26,20 @@ namespace CookApps.AutoBattler
             else if (allianceType == AllianceType.Enemy)
                 _hpFillGuage.color = _enemyColor;
 
-            _hpBaseGauge.size = _defaultSize;
+            _defaultSize = _hpFillGuage.size;
         }
 
         public void SetHpValue(double current, double max)
         {
-            if (CachedGo.activeSelf == false)
+            if (!CachedGo.activeSelf)
             {
                 ShowHpBar();
             }
 
-            float ratio = Mathf.Max(0f, (float) (current / max));
+            float ratio = Mathf.Clamp01((float)(current / max));
             Vector2 size = _defaultSize;
-            size.x = _defaultSize.x * ratio;
-            _hpBaseGauge.size = size;
-
-            /*
-            if (null != _text)
-            {
-                _text.text = ((int)current).ToString();
-            }*/
+            size.x *= ratio;
+            _hpFillGuage.size = size;
         }
 
         private void HideHpBar()

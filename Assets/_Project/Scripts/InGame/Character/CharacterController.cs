@@ -565,10 +565,13 @@ namespace CookApps.BattleSystem
             }
 
             GetCharacterView().OnHit();
-            ShowDamageText(damageInfo.damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
+            // [TODO] damage 작업 필요
+            // ShowDamageText(damageInfo.damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 
             _currHp -= damageInfo.damageAmount;
-            InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
+
+            // [TODO] statics 에러 납니답...
+            // InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
 
             UpdateHp();
 

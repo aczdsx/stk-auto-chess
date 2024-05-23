@@ -18,7 +18,6 @@ public class CharacterStateMove : CharacterStateBase
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.MOVE);
 
         var moveDuration = SpecOptionCache.DefaultMoveDuration / characCtrl.GetCharacterStat().MoveSpeed;
-        moveDuration = 1; // [TODO] 임시 moveDuration 나중에 삭제
         var jumpHeight = SpecOptionCache.CharacterMoveJumpHeight;
         // [TODO] Jump 동작을 제대로 안합니다 ㅠ
         // PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)

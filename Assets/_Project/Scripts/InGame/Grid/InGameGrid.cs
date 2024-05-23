@@ -56,7 +56,6 @@ namespace CookApps.BattleSystem
 
         public bool IsInRange(InGameTile from, InGameTile dest, int range, AttackRangeShape shape)
         {
-            range = 1; //[TODO] 임시 코드 나중에 삭제
             var distance = GetManhattanDistance(from, dest);
             return distance <= range;
         }

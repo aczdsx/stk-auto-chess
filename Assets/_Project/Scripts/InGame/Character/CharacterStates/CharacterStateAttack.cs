@@ -21,36 +21,40 @@ public class CharacterStateAttack : CharacterStateBase
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
 
-        if (characCtrl.NeedToBeIdle())
+        if (characCtrl != null)
         {
-            ReturnToIdle();
-            return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
-        }
 
-        // 1. 잡는 적이 아직 살아있는지 체크
-        CharacterController atkTarget = characCtrl.Target;
-        if (atkTarget == null || !atkTarget.IsAlive || !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
-        {
-            isAttackAnimRunning = false;
-            ReturnToIdle();
-            return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
-        }
+            if (characCtrl.NeedToBeIdle())
+            {
+                ReturnToIdle();
+                return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
+            }
 
-        // Flip은 공격, 스킬(타겟 방향), 이동(다음 타일 방향)
+            // 1. 잡는 적이 아직 살아있는지 체크
+            CharacterController atkTarget = characCtrl.Target;
+            if (atkTarget == null || !atkTarget.IsAlive || !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
+            {
+                isAttackAnimRunning = false;
+                ReturnToIdle();
+                return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
+            }
 
-        Vector2 diff = characCtrl.Target.Position - characCtrl.Position;
-        characCtrl.FlipX = diff.x > 0;
+            // Flip은 공격, 스킬(타겟 방향), 이동(다음 타일 방향)
 
-        if (characCtrl.GetAttackCoolTime() <= 0f)
-        {
-            characCtrl.ResetAttackCoolTime();
+            Vector2 diff = characCtrl.Target.Position - characCtrl.Position;
+            characCtrl.FlipX = diff.x > 0;
 
-            // 이펙트 코드에게 공격 횟수 전달
-            List<EffectCodeStatBase> characEffectCodes = characCtrl.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttack);
-            EffectCodeForLoopHelper.Call(characEffectCodes, EffectCodeCharacterLambda.CallOnAttackLambda);
+            if (characCtrl.GetAttackCoolTime() <= 0f)
+            {
+                characCtrl.ResetAttackCoolTime();
 
-            RunAttackAnimation();
-            isAttackAnimRunning = true;
+                // 이펙트 코드에게 공격 횟수 전달
+                List<EffectCodeStatBase> characEffectCodes = characCtrl.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttack);
+                EffectCodeForLoopHelper.Call(characEffectCodes, EffectCodeCharacterLambda.CallOnAttackLambda);
+
+                RunAttackAnimation();
+                isAttackAnimRunning = true;
+            }
         }
 
         return isAttackAnimRunning ? CharacterStateRunningResult.CanCallAllWithoutMove : CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
@@ -131,7 +135,7 @@ public class CharacterStateAttack : CharacterStateBase
 
     public override void StateEnd(bool isForced)
     {
-        base.StateEnd(isForced);
         characCtrl.GetCharacterView().SetAnimationSpeed(1f);
+        base.StateEnd(isForced);
     }
 }
