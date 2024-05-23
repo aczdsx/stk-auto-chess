@@ -35,6 +35,7 @@ namespace CookApps.BattleSystem
         StatGivenHealRate = 1L << 20,
         StatTakenHealRate = 1L << 21,
         StatCrowdControlImmune = 1L << 22,
+        StatAll = ~(0xffffffffffffff << 22),
         #endregion
 
         #region Event

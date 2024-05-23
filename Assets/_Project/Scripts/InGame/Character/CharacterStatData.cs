@@ -19,20 +19,15 @@ namespace CookApps.AutoBattler
             _spec = SpecDataManager.Instance.Character.Get(characterId);
             // TODO: level에 따른 스탯 증가 적용! 이펙트 코드로 적용되어야 함
 
-            var flags = EffectCodeInheritFlag.None;
             if (globalEffectCodeInfos != null)
             {
                 foreach (EffectCodeInfo effectCodeInfo in globalEffectCodeInfos)
                 {
                     EffectCodeBase code = EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, this);
-                    if (code is EffectCodeStatBase statCode)
-                    {
-                        flags.AddFlag(statCode.GetFlag());
-                    }
                 }
             }
 
-            UpdateStats(flags);
+            UpdateStats(EffectCodeInheritFlag.StatAll);
         }
 
         public void AddOrUpdateEffectCode(EffectCodeInfo codeInfo)
