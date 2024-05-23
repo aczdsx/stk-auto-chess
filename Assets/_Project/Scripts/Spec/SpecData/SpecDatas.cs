@@ -214,8 +214,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt stat_hp;
         /// 공격력
         public CookApps.Obfuscator.ObfuscatorInt stat_atk;
-        /// AP AD 판정 유무
-        public global::CookApps.AutoBattler.AtkType atk_type;
         /// 체력, 공격력 레벨 당 성장율
         public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
         /// 방어력
@@ -469,6 +467,32 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt multiple_atk;
         /// 체력 멀티플
         public CookApps.Obfuscator.ObfuscatorInt multiple_hp;
+    }
+
+    [GeneratorSpecData]
+    public partial class Synergy
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 속성 시너지
+        public global::CookApps.AutoBattler.CharacterPosition element_type;
+        /// 포지션 시너지
+        public global::CookApps.AutoBattler.CharacterType class_type;
+        /// 시너지 이름 토큰
+        public string name_token;
+        /// 시너지 효과 설명 토큰
+        public string desc_token;
+        /// 시너지 단계
+        public CookApps.Obfuscator.ObfuscatorInt grade;
+        /// 단계 발동 최소 명수 조건
+        public CookApps.Obfuscator.ObfuscatorInt min_count;
+        /// 단계 발동 최대 명수 조건
+        public CookApps.Obfuscator.ObfuscatorInt max_count;
+        /// 계수 타입
+        public global::CookApps.AutoBattler.SkillValueType value_type;
+        /// 계수
+        public CookApps.Obfuscator.ObfuscatorFloat stat_value;
     }
 
     [GeneratorSpecData]
