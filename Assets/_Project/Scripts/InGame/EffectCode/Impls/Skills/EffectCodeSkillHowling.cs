@@ -102,8 +102,15 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
             if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
 
-            var debuffCodeInfo = new EffectCodeInfo(codeId*10+1, 0, 2, debuffDuration, debuffPower);
-            enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
+            unsafe
+            {
+                double* debuffStats = stackalloc double[2];
+                debuffStats[0] = debuffDuration;
+                debuffStats[1] = debuffPower;
+
+                var debuffCodeInfo = new EffectCodeInfo(codeId*10+1, 0, 2, debuffStats);
+                enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
+            }
         }
     }
 

@@ -55,6 +55,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
         private Dictionary<int, List<Stage>> stageChapterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<string, GameConfig> configDic = new (); // key : config_key, value : game config data
+        private Dictionary<int, List<Skill>> skillDic = new (); // key : skill_id, value : skill list
 
         private void CustomizeSpecData()
         {
@@ -105,6 +106,19 @@ namespace CookApps.AutoBattler
                 {
                     configDic.Add(config.config_key, config);
                 }
+            }
+
+            // Game Config
+            skillDic.Clear();
+            foreach (Skill skill in Skill.All)
+            {
+                if (!skillDic.TryGetValue(skill.skill_id, out List<Skill> skillList))
+                {
+                    skillList = new List<Skill>();
+                    skillDic.Add(skill.skill_id, skillList);
+                }
+
+                skillList.Add(skill);
             }
         }
 
@@ -190,6 +204,11 @@ namespace CookApps.AutoBattler
         public List<RewardItem> GetChestList(int chestId)
         {
             return chestDic.GetValueOrDefault(chestId);
+        }
+
+        public List<Skill> GetSkillDataList(int skillID)
+        {
+            return skillDic.GetValueOrDefault(skillID);
         }
     }
 }

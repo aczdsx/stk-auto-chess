@@ -4,17 +4,17 @@ using CookApps.BattleSystem;
 using UnityEngine.Pool;
 
 /// <summary>
-/// 예시 스킬 코드
-/// {0}초마다 {1}초간 {2} {3} 범위에 있는 동료의 공격력을 {4}% 증가시킵니다.
+// "전방에 X축 2칸에 해당하는 범위 만큼 검기를 날려, 적에게 대미지를 준다.
+// 검기 대미지 : 공격력의 {0}%"
 /// </summary>
-[UseEffectCodeIds(10103)]
-public class EffectCodeSkillBless : EffectCodeCharacterBase
+[UseEffectCodeIds(401012, 401013)]
+public class EffectCodeSkillAura : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
-    private ObfuscatorFloat buffDuration;
-    private ObfuscatorInt range;
-    private AttackRangeShape rangeShape;
-    private ObfuscatorFloat buffPower;
+    private ObfuscatorFloat power;
+    private ObfuscatorInt splashRange;
+    private AttackRangeShape splashShape;
+    private ObfuscatorFloat splashPower;
 
     private ObfuscatorFloat elapsedTime;
 
@@ -24,11 +24,12 @@ public class EffectCodeSkillBless : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
+        //CodeId
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        buffDuration = codeInfo.GetCodeStatToFloat(1);
-        range = codeInfo.GetCodeStatToInt(2);
-        rangeShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
-        buffPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
+        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        splashRange = codeInfo.GetCodeStatToInt(2);
+        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        splashPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -38,10 +39,10 @@ public class EffectCodeSkillBless : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        buffDuration = codeInfo.GetCodeStatToFloat(1);
-        range = codeInfo.GetCodeStatToInt(2);
-        rangeShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
-        buffPower = codeInfo.GetCodeStatToFloat(4);
+        power = codeInfo.GetCodeStatToFloat(1);
+        splashRange = codeInfo.GetCodeStatToInt(2);
+        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        splashPower = codeInfo.GetCodeStatToFloat(4);
     }
 
     public override void OnUpdate(float dt)
@@ -93,24 +94,23 @@ public class EffectCodeSkillBless : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
+        // 타겟에게 데미지를 입힘
+        var ad = owner.AD * power;
+        var damageInfo = owner.PrecalculateDamageAmount(ad, 0, owner.Target, codeId, true);
+        owner.PostCalculateDamageAmount(ref damageInfo, owner.Target);
+        owner.Target.GetDamaged(in damageInfo, owner);
 
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
-        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, range, rangeShape, enemies);
+        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, splashRange, splashShape, enemies);
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
-
-            unsafe
-            {
-                double* debuffStats = stackalloc double[2];
-                debuffStats[0] = buffDuration;
-                debuffStats[1] = buffPower;
-
-                var debuffCodeInfo = new EffectCodeInfo(codeId * 10 + 1, 0, 2, debuffStats);
-                enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
-            }
+            ad = owner.AD * splashPower;
+            damageInfo = owner.PrecalculateDamageAmount(ad, 0, enemy, codeId, true);
+            owner.PostCalculateDamageAmount(ref damageInfo, enemy);
+            enemy.GetDamaged(in damageInfo, owner);
         }
     }
 
