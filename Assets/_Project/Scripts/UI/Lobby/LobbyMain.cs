@@ -30,7 +30,8 @@ namespace CookApps.AutoBattler
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
-            SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
+
+            //SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
         }
 
         protected override void OnDestroy()
@@ -61,6 +62,7 @@ namespace CookApps.AutoBattler
 
             //TEST
             TestAddCharacter();
+            TestAddStage();
         }
 
         private void SetBottomStageUI()
@@ -119,6 +121,17 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.AddCharacter(30401);
         }
 
+        private void TestAddStage()
+        {
+            var stageList1 = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL);
+            foreach (var stageData in stageList1)
+            {
+                int random = Random.Range(1, 4);
+
+                UserDataManager.Instance.SetUserStage(stageData.id, random);
+            }
+        }
+
         private void OnClickCommanderSkillButton()
         {
             SceneUILayerManager.Instance.SetEnableFloatingNodeCanvas(false);
@@ -135,7 +148,7 @@ namespace CookApps.AutoBattler
         private void OnClickChapterStageButton()
         {
             int currentStageId = UserDataManager.Instance.GetCurrentStageId();
-            SceneUILayerManager.Instance.PushUILayerAsync<ChapterMain>(currentStageId).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ChapterListPopup>(currentStageId).Forget();
         }
 
         private void OnClickCharacterCollectionButton()
