@@ -130,6 +130,22 @@ namespace CookApps.AutoBattler
 
                 UserDataManager.Instance.SetUserStage(stageData.id, random);
             }
+
+            var stageList3 = SpecDataManager.Instance.GetStageList(1, DifficultyType.HARD);
+            foreach (var stageData in stageList3)
+            {
+                int random = Random.Range(1, 4);
+
+                UserDataManager.Instance.SetUserStage(stageData.id, random);
+            }
+
+            var stageList2 = SpecDataManager.Instance.GetStageList(2, DifficultyType.NORMAL);
+            foreach (var stageData in stageList2)
+            {
+                int random = Random.Range(1, 4);
+
+                UserDataManager.Instance.SetUserStage(stageData.id, random);
+            }
         }
 
         private void OnClickCommanderSkillButton()

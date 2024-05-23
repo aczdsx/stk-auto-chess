@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +14,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _selectedLayerObject;
         [SerializeField] private GameObject _chapterStarLayerObject;
         [SerializeField] private GameObject _dimmedLayerObject;
+        [SerializeField] private CAButton _chapterButton;
 
         [Space(10)]
         [SerializeField] private Image _chapterImage;
@@ -24,6 +27,18 @@ namespace CookApps.AutoBattler
         private Chapter _chapterSpecData;
 
         public Chapter ChapterData => _chapterSpecData;
+
+        private void Awake()
+        {
+            _chapterButton.onClick.AddListener(OnClickChapter);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _chapterButton.onClick.RemoveListener(OnClickChapter);
+        }
 
         public void SetChapterItemSlot(Chapter data)
         {
@@ -60,6 +75,24 @@ namespace CookApps.AutoBattler
 
             //
             // userStageData.StarCount > 0
+        }
+
+        public void SetSelectedLayer(int selectedChapterID)
+        {
+            if (_chapterSpecData == null) return;
+
+            _selectedLayerObject.SetActive(_chapterSpecData.id == selectedChapterID);
+        }
+
+        public void OnClickChapter()
+        {
+            if (_chapterSpecData == null) return;
+
+            var chapterListPop = SceneUILayerManager.Instance.GetUILayer("ChapterListPopup");
+            if (chapterListPop != null)
+            {
+                chapterListPop.GetComponent<ChapterListPopup>()?.RefreshSelectedLayer(_chapterSpecData.id);
+            }
         }
     }
 }

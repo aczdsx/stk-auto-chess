@@ -17,10 +17,10 @@ namespace CookApps.AutoBattler
                 userStageGroup = new UserStageGroup
                 {
                     CurrentSelectedChapterId = 1,
-                    CurrentNormalStageId = 1,
-                    CurrentHardStageId = 0,
-                    LastNormalStageId = 2,
-                    LastHardStageId = 0,
+                    CurrentNormalStageId = 4,
+                    CurrentHardStageId = 7,
+                    LastNormalStageId = 17,
+                    LastHardStageId = 9,
                 };
                 return;
             }

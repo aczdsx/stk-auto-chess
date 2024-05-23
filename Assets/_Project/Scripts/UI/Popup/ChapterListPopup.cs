@@ -14,14 +14,33 @@ namespace CookApps.AutoBattler
 
         private List<ChapterListItemSlot> _chapterSlotList = new();
 
+        int _selectedChapterID = 0;
+
         public override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             var currentStageId = (int) param;
+            _selectedChapterID = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
 
             SetChapterListUI();
+            
+            RefreshSelectedLayer(_selectedChapterID);
+        }
+
+        public void RefreshUI()
+        {
+
+        }
+
+        public void RefreshSelectedLayer(int targetChapterID)
+        {
+            if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
+
+            _selectedChapterID = targetChapterID;
+
+            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_selectedChapterID));
         }
 
         private void SetChapterListUI()
