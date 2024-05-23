@@ -16,8 +16,11 @@ namespace CookApps.AutoBattler
             {
                 userStageGroup = new UserStageGroup
                 {
-                    CurrentStageId = 1,
-                    LastStageId = 1,
+                    CurrentSelectedChapterId = 1,
+                    CurrentNormalStageId = 4,
+                    CurrentHardStageId = 7,
+                    LastNormalStageId = 17,
+                    LastHardStageId = 9,
                 };
                 return;
             }
@@ -52,15 +55,79 @@ namespace CookApps.AutoBattler
             return new UserStage {StageId = stageId, StarCount = 0};
         }
 
-        public int GetCurrentStageId()
+        public int GetTotalChapterStarCount(int chapterID, DifficultyType type)
         {
-            return userStageGroup.CurrentStageId;
+            int totalStarCount = 0;
+
+            foreach (var userStage in userStageGroup.UserStages.Values)
+            {
+                var specStage = SpecDataManager.Instance.Stage.Get(userStage.StageId);
+                if (specStage != null)
+                {
+                    if (specStage.chapter_id == chapterID && specStage.difficulty == type)
+                    {
+                        totalStarCount += userStage.StarCount;
+                    }
+                }
+            }
+
+            return totalStarCount;
         }
 
-        public int GetLastStageId()
+        // 현재 진행 중인 스테이지 ID 반환 (현재 선택중인 챕터 기반)
+        public int GetCurrentStageId()
         {
-            return userStageGroup.LastStageId;
+            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(userStageGroup.CurrentSelectedChapterId);
+
+            if (chapterSpecData != null)
+            {
+                switch (chapterSpecData.difficulty)
+                {
+                    case DifficultyType.NORMAL:
+                        return userStageGroup.CurrentNormalStageId;
+                    case DifficultyType.HARD:
+                        return userStageGroup.CurrentHardStageId;
+                }
+            }
+
+            return 0;
         }
+
+        // 진행 가능한 최대 스테이지 ID 반환
+        public int GetLastStageId(DifficultyType type)
+        {
+            switch (type)
+            {
+                case DifficultyType.NORMAL:
+                    return userStageGroup.LastNormalStageId;
+                case DifficultyType.HARD:
+                    return userStageGroup.LastHardStageId;
+            }
+
+            return 0;
+        }
+
+        // 챕터 개방 여부 확인
+        // public bool IsChapterOpen(int chapterID, DifficultyType type)
+        // {
+        //     int lastStageId = 0;
+        //
+        //     switch (type)
+        //     {
+        //         case DifficultyType.NORMAL:
+        //             lastStageId = userStageGroup.LastNormalStageId;
+        //             break;
+        //         case DifficultyType.HARD:
+        //             lastStageId = userStageGroup.LastHardStageId;
+        //             break;
+        //     }
+        //
+        //     var specStageData = SpecDataManager.Instance.Stage.Get(lastStageId);
+        //     if (specStageData != null)
+        //     {
+        //
+        //     }
+        // }
 
         // 해당 스테이지 클리어 여부 확인
         public bool IsClearStage(int stageID)

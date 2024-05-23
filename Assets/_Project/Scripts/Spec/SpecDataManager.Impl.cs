@@ -5,6 +5,7 @@ using CookApps.gRPC.Universal;
 using CookApps.LocalData;
 #endif
 using System.Collections.Generic;
+using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
@@ -53,6 +54,7 @@ namespace CookApps.AutoBattler
 
         private Dictionary<int, List<SpecStage>> specStageDic = new ();  // key : chapter, value : stage list
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
+        private Dictionary<int, List<Chapter>> chapterDic = new (); // key : chapter_id, value : chapter list
         private Dictionary<int, List<Stage>> stageChapterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<string, GameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<Skill>> skillDic = new (); // key : skill_id, value : skill list
@@ -85,6 +87,19 @@ namespace CookApps.AutoBattler
                 chestList.Add(chest.ToRewardItem());
             }
 
+            // Chapter
+            chapterDic.Clear();
+            foreach (Chapter chapter in Chapter.All)
+            {
+                if (!chapterDic.TryGetValue(chapter.chapter_id, out List<Chapter> chapterList))
+                {
+                    chapterList = new List<Chapter>();
+                    chapterDic.Add(chapter.chapter_id, chapterList);
+                }
+
+                chapterList.Add(chapter);
+            }
+
             // Stage
             stageChapterDic.Clear();
             foreach (Stage stage in Stage.All)
@@ -108,7 +123,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // Game Config
+            // Skill
             skillDic.Clear();
             foreach (Skill skill in Skill.All)
             {
@@ -135,6 +150,51 @@ namespace CookApps.AutoBattler
             return configData.config_value.ConvertTo<T>();
         }
 
+        public List<Chapter> GetChapterList(int chapter)
+        {
+            if (chapterDic.TryGetValue(chapter, out List<Chapter> chapterList))
+            {
+                return chapterList;
+            }
+
+            return null;
+        }
+
+        public List<Chapter> GetChapterList(int chapter, DifficultyType difficulty)
+        {
+            if (chapterDic.TryGetValue(chapter, out List<Chapter> chapterList))
+            {
+                return chapterList.FindAll(stage => stage.difficulty == difficulty);
+            }
+
+            return null;
+        }
+
+        public int GetTotalChapterStarCount(int chapterID, DifficultyType type)
+        {
+            int totalStarCount = 0;
+
+            int stageStarCount = GetGameConfig<int>("max_stage_star_count");
+
+            if (stageChapterDic.TryGetValue(chapterID, out List<Stage> stageList))
+            {
+                return stageList.FindAll(stage => stage.difficulty == type).Count * stageStarCount;
+            }
+
+            return totalStarCount;
+        }
+
+        public Stage GetStageData(int chapterID, int stageNumber, DifficultyType type)
+        {
+            if (stageChapterDic.TryGetValue(chapterID, out List<Stage> stageList))
+            {
+                return stageList.Find(stage => stage.stage_number == stageNumber && stage.difficulty == type);
+            }
+
+            return null;
+        }
+
+
         public List<Stage> GetStageList(int chapter)
         {
             if (stageChapterDic.TryGetValue(chapter, out List<Stage> stageList))
@@ -142,7 +202,7 @@ namespace CookApps.AutoBattler
                 return stageList;
             }
 
-            return new List<Stage>();
+            return null;
         }
 
         public List<Stage> GetStageList(int chapter, DifficultyType difficulty)
@@ -152,7 +212,7 @@ namespace CookApps.AutoBattler
                 return stageList.FindAll(stage => stage.difficulty == difficulty);
             }
 
-            return new List<Stage>();
+            return null;
         }
 
         public int GetStageCount(int chapter, DifficultyType difficulty)
@@ -163,6 +223,29 @@ namespace CookApps.AutoBattler
             }
 
             return 0;
+        }
+
+        // 해당 챕터의 마지막 스테이지 데이터 반환
+        public Stage GetLastStageData(int chapterID, DifficultyType difficulty)
+        {
+            if (stageChapterDic.TryGetValue(chapterID, out List<Stage> stageList))
+            {
+                var targetStageList = stageList.FindAll(stage => stage.difficulty == difficulty);
+
+                int maxStageNumber = targetStageList.Max(stage => stage.stage_number);
+                return targetStageList.Find(stage => stage.stage_number == maxStageNumber);
+            }
+
+            return null;
+        }
+
+        // 해당 스테이지가 마지막 스테이지인지 체크
+        public bool IsLastStage(int stageID)
+        {
+            Stage stageSpecData = Stage.Get(stageID);
+            Stage nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty);
+
+            return nextStageSpecData == null;
         }
 
         public int GetStageCount(int chapter)
