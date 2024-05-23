@@ -53,46 +53,10 @@ namespace CookApps.AutoBattler
         public void RefreshUI()
         {
             // 하단 스테이지 UI 갱신
-            RefreshBottomStageUI();
-        }
-
-        private void SetLobbyMainUI()
-        {
             SetBottomStageUI();
-
-            //TEST
-            TestAddCharacter();
-            TestAddStage();
         }
 
-        private void SetBottomStageUI()
-        {
-            ClearBottomSlotLayer();
-
-            int currentStageId = UserDataManager.Instance.GetCurrentStageId();
-
-            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStageId);
-            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(stageSpecData.chapter_id);
-
-            var stageList = SpecDataManager.Instance.GetStageList(stageSpecData.chapter_id, DifficultyType.NORMAL);
-
-            //_chapterImage.sprite = specStage.chapter_image;
-            _chapterNameText.SetText(chapterSpecData.name_token);
-
-            int totalStageCount = SpecDataManager.Instance.GetStageCount(stageSpecData.chapter_id, DifficultyType.NORMAL);
-            _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
-
-            for (int i = 0; i < stageList.Count; i++)
-            {
-                GameObject newSlotObject = Instantiate(_stageSelectSlotObject, _stageSelectScrollRect.content);
-                LobbyBottomStageItemSlot slot = newSlotObject.GetComponent<LobbyBottomStageItemSlot>();
-                slot.SetStageItemSlot(stageList[i]);
-
-                _stageSlotList.Add(slot);
-            }
-        }
-
-        private void RefreshBottomStageUI()
+        public void RefreshBottomStageUI()
         {
             if (_stageSlotList == null || _stageSlotList.Count <= 0) return;
 
@@ -110,6 +74,43 @@ namespace CookApps.AutoBattler
 
             // 슬롯 데이터 갱신
             _stageSlotList.ForEach(slot => slot.RefershSlot());
+        }
+
+        private void SetLobbyMainUI()
+        {
+            SetBottomStageUI();
+
+            //TEST
+            TestAddCharacter();
+            TestAddStage();
+        }
+
+        private void SetBottomStageUI()
+        {
+            ClearBottomSlotLayer();
+
+            int currentStagdId = UserDataManager.Instance.GetCurrentStageId();
+            int currentChapterId = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
+
+            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStagdId);
+            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(currentChapterId);
+
+            var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty);
+
+            //_chapterImage.sprite = specStage.chapter_image;
+            _chapterNameText.SetText(chapterSpecData.name_token);
+
+            int totalStageCount = stageList.Count;
+            _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
+
+            for (int i = 0; i < stageList.Count; i++)
+            {
+                GameObject newSlotObject = Instantiate(_stageSelectSlotObject, _stageSelectScrollRect.content);
+                LobbyBottomStageItemSlot slot = newSlotObject.GetComponent<LobbyBottomStageItemSlot>();
+                slot.SetStageItemSlot(stageList[i]);
+
+                _stageSlotList.Add(slot);
+            }
         }
 
         private void TestAddCharacter()

@@ -25,22 +25,33 @@ namespace CookApps.AutoBattler
             _selectedChapterID = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
 
             SetChapterListUI();
-            
+
             RefreshSelectedLayer(_selectedChapterID);
         }
 
         public void RefreshUI()
         {
-
+            SetChapterListUI();
         }
 
         public void RefreshSelectedLayer(int targetChapterID)
         {
             if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
 
+            // 유저 데이터 처리
+            UserDataManager.Instance.SelectUserChapter(targetChapterID);
+
+            // 팝업 관련 처리
             _selectedChapterID = targetChapterID;
 
             _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_selectedChapterID));
+
+            // 로비 메인 하단 스테이지 UI 갱신
+            var lobbyMain = SceneUILayerManager.Instance.GetUILayer("LobbyMain");
+            if (lobbyMain != null)
+            {
+                lobbyMain.GetComponent<LobbyMain>()?.RefreshUI();
+            }
         }
 
         private void SetChapterListUI()

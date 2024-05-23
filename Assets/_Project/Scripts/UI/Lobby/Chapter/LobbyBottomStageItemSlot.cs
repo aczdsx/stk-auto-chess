@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,6 +17,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private int _normalStateHeight;        // 일반 스테이지 높이
         [SerializeField] private int _doneStateHeight;          // 완료 스테이지 높이
         [SerializeField] private int _currentStateHeight;       // 현재 스테이지 높이
+        [SerializeField] private CAButton _bottomStageSlotButton;   // 스테이지 선택 버튼
 
         [Header("[State - Normal]")]
         [SerializeField] private GameObject _normalLayerObject;
@@ -40,6 +42,18 @@ namespace CookApps.AutoBattler
 
         private int _resultCustomHeight;    // 스테이지 상태에 따른 최종 높이 값
 
+        private void Awake()
+        {
+            _bottomStageSlotButton.onClick.AddListener(OnClickBottomStageSlot);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _bottomStageSlotButton.onClick.RemoveListener(OnClickBottomStageSlot);
+        }
+
         public void SetStageItemSlot(Stage data)
         {
             if (data == null) return;
@@ -55,6 +69,9 @@ namespace CookApps.AutoBattler
 
         public void RefershSlot()
         {
+            _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.id);
+            _isCurrentStage = UserDataManager.Instance.GetCurrentStageId() == _specStageData.id;
+
             SetStageState();
         }
 
@@ -71,11 +88,13 @@ namespace CookApps.AutoBattler
                     SetNormalLayerState();
                     break;
                 case StageType.BATTLE_ELITE:
+                    SetBossLayerState();    // temp..임시처리
                     break;
                 case StageType.BATTLE_BOSS:
                     SetBossLayerState();
                     break;
                 case StageType.CHEST:
+                    SetNormalLayerState();  // temp..임시처리
                     break;
             }
         }
@@ -87,7 +106,7 @@ namespace CookApps.AutoBattler
             var originNormalSizeDelta = _normalLayerObject.GetComponent<RectTransform>().sizeDelta;
             _normalLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originNormalSizeDelta.x, _resultCustomHeight);
 
-            _normalLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_NORMAL);
+            _normalLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_NORMAL || _specStageData.stage_type == StageType.CHEST);
             _normalStarLayerObject.SetActive(_isValidStage);
             if (_isValidStage)
             {
@@ -107,7 +126,7 @@ namespace CookApps.AutoBattler
             var originBossSizeDelta = _bossLayerObject.GetComponent<RectTransform>().sizeDelta;
             _bossLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originBossSizeDelta.x, _resultCustomHeight);
 
-            _bossLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_BOSS);
+            _bossLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_BOSS || _specStageData.stage_type == StageType.BATTLE_ELITE);
             _bossStarLayerObject.SetActive(_isValidStage);
             if (_isValidStage)
             {
@@ -118,6 +137,19 @@ namespace CookApps.AutoBattler
             }
 
             _bossCharacterLayerObject.SetActive(_isCurrentStage);
+        }
+
+        private void OnClickBottomStageSlot()
+        {
+            // 유저 데이터 갱신
+            UserDataManager.Instance.SelectUserStage(_specStageData.id, _specStageData.difficulty);
+
+            // 로비 메인 하단 스테이지 UI 갱신
+            var lobbyMain = SceneUILayerManager.Instance.GetUILayer("LobbyMain");
+            if (lobbyMain != null)
+            {
+                lobbyMain.GetComponent<LobbyMain>()?.RefreshBottomStageUI();
+            }
         }
 
         private void ClearSlot()

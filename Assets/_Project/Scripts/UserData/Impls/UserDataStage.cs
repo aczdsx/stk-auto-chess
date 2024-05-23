@@ -33,6 +33,24 @@ namespace CookApps.AutoBattler
             userStageGroup = null;
         }
 
+        public void SelectUserChapter(int chapterID)
+        {
+            userStageGroup.CurrentSelectedChapterId = chapterID;
+        }
+
+        public void SelectUserStage(int stageID, DifficultyType type)
+        {
+            switch (type)
+            {
+                case DifficultyType.NORMAL:
+                    userStageGroup.CurrentNormalStageId = stageID;
+                    break;
+                case DifficultyType.HARD:
+                    userStageGroup.CurrentHardStageId = stageID;
+                    break;
+            }
+        }
+
         public void SetUserStage(int stageID, int starCount)
         {
             if (userStageGroup.UserStages.TryGetValue(stageID, out UserStage userStage))
