@@ -4,8 +4,11 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Pool;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using AttackRangeShape = CookApps.BattleSystem.AttackRangeShape;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -79,6 +82,12 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         ClearAndSetActive(null);
 
         // [TODO] _hitTileView 해당 위치에 지휘자 스킬 액션
+        var characters = ListPool<CharacterController>.Get();
+        InGameObjectManager.Instance.GetNearestEnemiesInRange(default, 0, AttackRangeShape.Rectangle, characters);
+        foreach (CharacterController characterController in characters)
+        {
+
+        }
     }
 
     Vector3 HandleRuntimeDrag(PointerEventData eventData)

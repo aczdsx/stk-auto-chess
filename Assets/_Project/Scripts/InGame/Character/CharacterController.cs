@@ -134,6 +134,22 @@ namespace CookApps.BattleSystem
             needUpdateFlag = EffectCodeInheritFlagExtensions.AllFlags();
             ecc.OnChangedDirtyFlag += EffectCodeOnChangedDirtyFlagHandler;
 
+            unsafe
+            {
+                var skillDataList = SpecDataManager.Instance.GetSkillDataList(statData.Spec.skill_id);
+                if (skillDataList != null && skillDataList.Count > 0)
+                {
+                    double* d = stackalloc double[skillDataList.Count];
+                    for (int i = 0; i < skillDataList.Count; i++)
+                    {
+                        d[i] = skillDataList[i].base_rate;
+                    }
+
+                    var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, skillDataList.Count, d);
+                    ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                }
+            }
+
             _currHp = HP;
             IsAlive = true;
             IsForceIdle = false;

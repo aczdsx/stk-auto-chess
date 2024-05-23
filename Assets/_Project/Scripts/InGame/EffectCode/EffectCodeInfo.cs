@@ -24,20 +24,35 @@ namespace CookApps.BattleSystem
         private ObfuscatorDouble stat8;
         private int statsLength;
 
-        public EffectCodeInfo(int codeId, int priority, int statsLength, double stat1, double stat2 = 0, double stat3 = 0, double stat4 = 0, double stat5 = 0, double stat6 = 0, double stat7 = 0, double stat8 = 0)
+        public unsafe EffectCodeInfo(int codeId, int priority, int statsLength, double* stats)
         {
             this.codeId = codeId;
             this.priority = priority;
             this.statsLength = statsLength;
-            this.stat1 = stat1;
-            this.stat2 = stat2;
-            this.stat3 = stat3;
-            this.stat4 = stat4;
-            this.stat5 = stat5;
-            this.stat6 = stat6;
-            this.stat7 = stat7;
-            this.stat8 = stat8;
+            this.stat1 = stats[0];
+            this.stat2 = stats[1];
+            this.stat3 = stats[2];
+            this.stat4 = stats[3];
+            this.stat5 = stats[4];
+            this.stat6 = stats[5];
+            this.stat7 = stats[6];
+            this.stat8 = stats[7];
         }
+
+        // public EffectCodeInfo(int codeId, int priority, int statsLength, double stat1, double stat2 = 0, double stat3 = 0, double stat4 = 0, double stat5 = 0, double stat6 = 0, double stat7 = 0, double stat8 = 0)
+        // {
+        //     this.codeId = codeId;
+        //     this.priority = priority;
+        //     this.statsLength = statsLength;
+        //     this.stat1 = stat1;
+        //     this.stat2 = stat2;
+        //     this.stat3 = stat3;
+        //     this.stat4 = stat4;
+        //     this.stat5 = stat5;
+        //     this.stat6 = stat6;
+        //     this.stat7 = stat7;
+        //     this.stat8 = stat8;
+        // }
 
         public bool HasCodeStat(int idx)
         {

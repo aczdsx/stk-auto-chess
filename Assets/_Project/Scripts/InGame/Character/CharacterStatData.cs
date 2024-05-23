@@ -7,31 +7,27 @@ namespace CookApps.AutoBattler
     public class CharacterStatData : IEffectCodeSource
     {
         public EffectCodeContainer EffectCodeContainer { get; }
+        public Character Spec => _spec;
 
         private int characterId;
-        private Character spec;
+        private Character _spec;
 
         public CharacterStatData(int characterId, int level, List<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             this.characterId = characterId;
             EffectCodeContainer = new EffectCodeContainer(this);
-            spec = SpecDataManager.Instance.Character.Get(characterId);
+            _spec = SpecDataManager.Instance.Character.Get(characterId);
             // TODO: level에 따른 스탯 증가 적용! 이펙트 코드로 적용되어야 함
 
-            var flags = EffectCodeInheritFlag.None;
             if (globalEffectCodeInfos != null)
             {
                 foreach (EffectCodeInfo effectCodeInfo in globalEffectCodeInfos)
                 {
                     EffectCodeBase code = EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, this);
-                    if (code is EffectCodeStatBase statCode)
-                    {
-                        flags.AddFlag(statCode.GetFlag());
-                    }
                 }
             }
 
-            UpdateStats(flags);
+            UpdateStats(EffectCodeInheritFlag.StatAll);
         }
 
         public void AddOrUpdateEffectCode(EffectCodeInfo codeInfo)
@@ -145,19 +141,19 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatAttackSpeed))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackSpeed);
-                AttackSpeed = codes.CalculateAttackSpeed(spec.atkSpd);
+                AttackSpeed = codes.CalculateAttackSpeed(_spec.atkSpd);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatAttackRange))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
-                AttackRange = codes.CalculateAttackRange(spec.atkRange);
+                AttackRange = codes.CalculateAttackRange(_spec.atkRange);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatAttackRangeShape))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
-                AttackRangeShape = codes.CalculateAttackRangeShape(spec.atkRangeShape.ToInGameAttackRangeShape());
+                AttackRangeShape = codes.CalculateAttackRangeShape(_spec.atkRangeShape.ToInGameAttackRangeShape());
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatSkillDamageRate))
