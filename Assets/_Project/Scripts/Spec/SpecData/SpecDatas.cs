@@ -225,11 +225,13 @@ namespace CookApps.AutoBattler
         /// 치명타 피해량
         public CookApps.Obfuscator.ObfuscatorFloat crit_power;
         /// 공격 속도
-        public CookApps.Obfuscator.ObfuscatorFloat atkSpd;
+        public CookApps.Obfuscator.ObfuscatorFloat atk_speed;
+        /// 이동 속도
+        public CookApps.Obfuscator.ObfuscatorFloat move_speed;
         /// 공격 범위
-        public CookApps.Obfuscator.ObfuscatorInt atkRange;
+        public CookApps.Obfuscator.ObfuscatorInt atk_range;
         /// 공격 범위 형태
-        public global::CookApps.AutoBattler.AttackRangeShape atkRangeShape;
+        public global::CookApps.AutoBattler.AttackRangeShape atk_range_shape;
         /// 일반 스킬 id
         public CookApps.Obfuscator.ObfuscatorInt skill_id;
         /// 전용 장비 id

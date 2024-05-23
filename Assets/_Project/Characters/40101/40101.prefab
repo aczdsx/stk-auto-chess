@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 125309691991771040}
   _spriteRenderer: {fileID: 9052576703297259876}
+  _rootTranform: {fileID: 1587535477790974027}
 --- !u!1 &5302469551729676323
 GameObject:
   m_ObjectHideFlags: 0

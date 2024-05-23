@@ -4,6 +4,7 @@ using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
@@ -12,6 +13,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Transform _rootTranform;
         private AnimationEventListener _animationEventListener;
         public CharacterStatData GetStatData() => _statData;
         public float Height => 1.0f;
@@ -131,6 +133,15 @@ namespace CookApps.AutoBattler
         public void SetDeadSprite()
         {
             DoBurn().Forget();
+        }
+
+        public void SetHpBarView(HpBarView hpBarView)
+        {
+            hpBarView.transform.SetParent(_animator.transform);
+            hpBarView.CachedTr.position = CachedTr.position;
+            hpBarView.transform.localPosition = Vector3.zero;
+            hpBarView.transform.localRotation = Quaternion.identity;
+            hpBarView.transform.localScale = Vector3.one;
         }
 
         public async UniTask DoBurn()

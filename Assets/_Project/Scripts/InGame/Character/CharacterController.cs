@@ -121,8 +121,8 @@ namespace CookApps.BattleSystem
             var viewGo = await Addressables.InstantiateAsync($"Characters/{_statData.CharacterId}/{_statData.CharacterId}.prefab");
             view = viewGo.GetComponent<SpriteCharacterView>();
             _hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
-            _hpBarView.Initialize(statData);
-            FollowHpBar();
+            _hpBarView.Initialize(statData, allianceType);
+            view.SetHpBarView(_hpBarView);
 
             view.OnAnimationEvent += OnAnimationEvent;
             view.CachedTr.localPosition = position;

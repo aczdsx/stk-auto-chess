@@ -63,37 +63,37 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatHP))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHP);
-                HP = codes.CalculateHP(0);
+                HP = codes.CalculateHP(_spec.stat_hp);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatAD))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAD);
-                AD = codes.CalculateAD(0);
+                AD = codes.CalculateAD(_spec.stat_atk);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatAP))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAP);
-                AP = codes.CalculateAP(0);
+                AP = codes.CalculateAP(_spec.stat_atk);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatDEF))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
-                DEF = codes.CalculateDEF(0);
+                DEF = codes.CalculateDEF(_spec.stat_def);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatRES))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
-                RES = codes.CalculateRES(0);
+                RES = codes.CalculateRES(0); // [TODO] statRES 무엇인가유?
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatDEFPenetration))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
-                DEFPenetration = codes.CalculateDEFPenetration(0);
+                DEFPenetration = codes.CalculateDEFPenetration(_spec.stat_atk_pierce);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatRESPenetration))
@@ -111,19 +111,19 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatMoveSpeed))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatMoveSpeed);
-                MoveSpeed = codes.CalculateMoveSpeed(1 /*spec.move_speed*/);
+                MoveSpeed = codes.CalculateMoveSpeed(_spec.stat_atk_pierce);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatCriticalProb))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalProb);
-                CriticalProb = codes.CalculateCriticalProb(0);
+                CriticalProb = codes.CalculateCriticalProb(_spec.crit_rate);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatCriticalDamageRate))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
-                CriticalDamageRate = codes.CalculateCriticalDamageRate(1);
+                CriticalDamageRate = codes.CalculateCriticalDamageRate(_spec.crit_power);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatDoubleCriticalProb))
@@ -141,19 +141,19 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatAttackSpeed))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackSpeed);
-                AttackSpeed = codes.CalculateAttackSpeed(_spec.atkSpd);
+                AttackSpeed = codes.CalculateAttackSpeed(_spec.atk_speed);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatAttackRange))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
-                AttackRange = codes.CalculateAttackRange(_spec.atkRange);
+                AttackRange = codes.CalculateAttackRange(_spec.atk_range);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatAttackRangeShape))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
-                AttackRangeShape = codes.CalculateAttackRangeShape(_spec.atkRangeShape.ToInGameAttackRangeShape());
+                AttackRangeShape = codes.CalculateAttackRangeShape(_spec.atk_range_shape.ToInGameAttackRangeShape());
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatSkillDamageRate))

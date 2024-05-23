@@ -10,23 +10,31 @@ namespace CookApps.AutoBattler
 {
     public class HpBarView : CachedMonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _hpGauge;
+        [SerializeField] private SpriteRenderer _hpBaseGauge;
+        [SerializeField] private SpriteRenderer _hpFillGuage;
+        [SerializeField] private Color _playerColor;
+        [SerializeField] private Color _enemyColor;
 
         private Vector2 _defaultSize;
 
         private void Awake()
         {
-            _defaultSize = _hpGauge.size;
+            _defaultSize = _hpBaseGauge.size;
         }
 
-        public void Initialize(CharacterStatData statData)
+        public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
             if (statData == null)
             {
                 return;
             }
 
-            _hpGauge.size = _defaultSize;
+            if (allianceType == AllianceType.Player)
+                _hpFillGuage.color = _playerColor;
+            else if (allianceType == AllianceType.Enemy)
+                _hpFillGuage.color = _enemyColor;
+
+            _hpBaseGauge.size = _defaultSize;
         }
 
         public void SetHpValue(double current, double max)
@@ -39,7 +47,7 @@ namespace CookApps.AutoBattler
             float ratio = Mathf.Max(0f, (float) (current / max));
             Vector2 size = _defaultSize;
             size.x = _defaultSize.x * ratio;
-            _hpGauge.size = size;
+            _hpBaseGauge.size = size;
 
             /*
             if (null != _text)
