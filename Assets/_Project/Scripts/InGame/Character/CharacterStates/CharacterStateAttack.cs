@@ -10,7 +10,6 @@ public class CharacterStateAttack : CharacterStateBase
     public override void StateStart()
     {
         base.StateStart();
-        characCtrl.LookAtTarget();
         isAttackAnimRunning = false;
     }
 
@@ -40,7 +39,7 @@ public class CharacterStateAttack : CharacterStateBase
             }
 
             // Flip은 공격, 스킬(타겟 방향), 이동(다음 타일 방향)
-
+            characCtrl.LookAtTarget();
             Vector2 diff = characCtrl.Target.Position - characCtrl.Position;
             characCtrl.FlipX = diff.x > 0;
 

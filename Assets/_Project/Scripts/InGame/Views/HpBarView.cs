@@ -3,13 +3,15 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
     public class HpBarView : CachedMonoBehaviour
     {
         [SerializeField] private SpriteRenderer _hpBaseGauge;
-        [SerializeField] private SpriteRenderer _hpFillGuage;
+        [SerializeField] private SpriteRenderer _hpFillSmoothGuage;
+        [SerializeField] private SpriteRenderer _hpFillLeft;
         [SerializeField] private Color _playerColor;
         [SerializeField] private Color _enemyColor;
 
@@ -24,11 +26,11 @@ namespace CookApps.AutoBattler
             }
 
             if (allianceType == AllianceType.Player)
-                _hpFillGuage.color = _playerColor;
+                _hpFillLeft.color = _playerColor;
             else if (allianceType == AllianceType.Enemy)
-                _hpFillGuage.color = _enemyColor;
+                _hpFillLeft.color = _enemyColor;
 
-            _defaultSize = _hpFillGuage.size;
+            _defaultSize = _hpFillSmoothGuage.size;
         }
 
         public async void SetHpValue(double current, double max)
@@ -39,7 +41,8 @@ namespace CookApps.AutoBattler
             }
 
             float targetRatio = Mathf.Clamp01((float)(current / max));
-            float startRatio = 1 - _hpFillGuage.material.GetFloat("_ClipUvRight");
+            float startRatio = 1 - _hpFillSmoothGuage.material.GetFloat("_ClipUvRight");
+            _hpFillLeft.material.SetFloat("_ClipUvRight", 1 - targetRatio);
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
         }
 
@@ -53,14 +56,14 @@ namespace CookApps.AutoBattler
                 float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
                 float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1)); // 슬라이스 효과를 만듭니다.
 
-                _hpFillGuage.material.SetFloat("_ClipUvRight", 1 - ratio);
-                _hpFillGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
+                _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - ratio);
+                _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
 
                 await UniTask.Yield();
             }
 
-            _hpFillGuage.material.SetFloat("_ClipUvRight", 1 - targetRatio);
-            _hpFillGuage.material.SetFloat("_HitEffectBlend", 0); // 애니메이션이 끝난 후 히트 효과를 해제합니다.
+            _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - targetRatio);
+            _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0); // 애니메이션이 끝난 후 히트 효과를 해제합니다.
         }
 
         private void HideHpBar()

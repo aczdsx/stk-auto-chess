@@ -82,11 +82,31 @@ namespace CookApps.AutoBattler
 
         public void LookAt(InGameTile currentTile, InGameTile targetTile)
         {
-            int gapX = currentTile.X - targetTile.X;
-            int gapY = currentTile.Y - targetTile.Y;
+            float deltaX = targetTile.X - currentTile.X;
+            float deltaY = targetTile.Y - currentTile.Y;
 
-            _cachedFlipX = (gapX == -1 && gapY == 0) || (gapX == 0 && gapY == 1);
-            _cachedFront = (gapX == 1 && gapY == 0) || (gapX == 0 && gapY == 1);
+            float angle = Mathf.Atan2(deltaY, deltaX) * Mathf.Rad2Deg;
+
+            if (angle >= -45 && angle < 45)
+            {
+                _cachedFlipX = true;
+                _cachedFront = false;
+            }
+            else if (angle >= 45 && angle < 135)
+            {
+                _cachedFlipX = false;
+                _cachedFront = false;
+            }
+            else if (angle >= -135 && angle < -45)
+            {
+                _cachedFlipX = true;
+                _cachedFront = true;
+            }
+            else
+            {
+                _cachedFlipX = false;
+                _cachedFront = true;
+            }
 
             Vector3 scale = _animator.transform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);

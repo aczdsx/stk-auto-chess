@@ -15,13 +15,13 @@ public class FlowStateStageReady : StateBase
         {
             InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player,
                 typeof(CharacterStateIdle)),
-            InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(2, 1), AllianceType.Player,
+            InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(0, 1), AllianceType.Player,
                 typeof(CharacterStateIdle)),
             InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 2), AllianceType.Player,
                 typeof(CharacterStateIdle)),
             InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy,
                 typeof(CharacterStateIdle)),
-            InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 3), AllianceType.Enemy,
+            InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 4), AllianceType.Enemy,
                 typeof(CharacterStateIdle))
         });
     }

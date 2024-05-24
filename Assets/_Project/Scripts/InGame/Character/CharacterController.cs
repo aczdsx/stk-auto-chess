@@ -118,7 +118,7 @@ namespace CookApps.BattleSystem
             ChangeOccupiedTile(tile);
             _allianceType = allianceType;
 
-            var viewGo = await Addressables.InstantiateAsync($"Characters/{_statData.CharacterId}/{_statData.CharacterId}.prefab");
+            var viewGo = await Addressables.InstantiateAsync($"Characters/{_statData.CharacterId}/GenerateResources/CharacterView_{_statData.CharacterId}.prefab");
             view = viewGo.GetComponent<SpriteCharacterView>();
             _hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
             _hpBarView.Initialize(statData, allianceType);
