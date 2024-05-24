@@ -47,7 +47,7 @@ namespace CookApps.AutoBattler
             _chapterSpecData = data;
 
             // 기본 데이터 세팅
-            _chapterNumberText.text = string.Format("챕터-{0}", _chapterSpecData.chapter_id);
+            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _chapterSpecData.chapter_id, _chapterSpecData.difficulty);
             _chapterNameText.text = _chapterSpecData.name_token;
 
             // 진행 상태에 따른 처리
@@ -84,7 +84,7 @@ namespace CookApps.AutoBattler
             _selectedLayerObject.SetActive(_chapterSpecData.id == selectedChapterID);
         }
 
-        public void OnClickChapter()
+        private void OnClickChapter()
         {
             if (_chapterSpecData == null) return;
 

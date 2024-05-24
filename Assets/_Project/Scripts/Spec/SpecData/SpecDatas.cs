@@ -23,7 +23,7 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
         public CookApps.Obfuscator.ObfuscatorInt chest_id;
-        public global::CookApps.AutoBattler.RewardType type;
+        public global::CookApps.AutoBattler.ItemType type;
         public CookApps.Obfuscator.ObfuscatorInt key;
         public CookApps.Obfuscator.ObfuscatorInt value;
         public CookApps.Obfuscator.ObfuscatorDouble rate;
@@ -105,15 +105,15 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat hard_multiple;
         public CookApps.Obfuscator.ObfuscatorInt chest_id;
         public CookApps.Obfuscator.ObfuscatorInt hard_chest_id;
-        public global::CookApps.AutoBattler.RewardType star_reward_type_1;
+        public global::CookApps.AutoBattler.ItemType star_reward_type_1;
         /// ?
         public CookApps.Obfuscator.ObfuscatorInt star_reward_key_1;
         public CookApps.Obfuscator.ObfuscatorInt star_reward_count_1;
-        public global::CookApps.AutoBattler.RewardType star_reward_type_2;
+        public global::CookApps.AutoBattler.ItemType star_reward_type_2;
         /// ?
         public CookApps.Obfuscator.ObfuscatorInt star_reward_key_2;
         public CookApps.Obfuscator.ObfuscatorInt star_reward_count_2;
-        public global::CookApps.AutoBattler.RewardType star_reward_type_3;
+        public global::CookApps.AutoBattler.ItemType star_reward_type_3;
         /// ?
         public CookApps.Obfuscator.ObfuscatorInt star_reward_key_3;
         public CookApps.Obfuscator.ObfuscatorInt star_reward_count_3;
@@ -281,7 +281,7 @@ namespace CookApps.AutoBattler
         /// 캐릭터 맥스 레벨
         public CookApps.Obfuscator.ObfuscatorInt max_lv;
         /// 캐릭터 초월 아이템 필요 종류
-        public global::CookApps.AutoBattler.RewardType char_transcendence_item;
+        public global::CookApps.AutoBattler.ItemType char_transcendence_item;
         /// 캐릭터 초월 아이템 필요량
         public CookApps.Obfuscator.ObfuscatorDouble char_transcendence_count;
         /// 캐릭터 초월 아이템 누적 필요량
@@ -545,7 +545,7 @@ namespace CookApps.AutoBattler
         /// 보상 획득 빈도
         public global::CookApps.AutoBattler.FrequencyType frequency_type;
         /// 보상 타입
-        public global::CookApps.AutoBattler.RewardType reward_type;
+        public global::CookApps.AutoBattler.ItemType reward_item_type;
         /// 보상 타입_소분류
         public CookApps.Obfuscator.ObfuscatorInt sub_value;
         /// 보상 키 값
@@ -562,8 +562,8 @@ namespace CookApps.AutoBattler
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 보상 타입 이름
-        public global::CookApps.AutoBattler.RewardType reward_type;
+        /// 아이템 타입 이름
+        public global::CookApps.AutoBattler.ItemType item_type;
         /// 보상 등급
         public global::CookApps.AutoBattler.Grade grade;
         /// 보상 이름 토큰

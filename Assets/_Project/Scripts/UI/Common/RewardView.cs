@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
         {
             this.reward = reward;
 
-            var rewardType = (RewardType) reward.RewardType;
+            var rewardType = (ItemType) reward.RewardType;
             rewardIcon.gameObject.SetActive(true);
             // rewardIcon.sprite = AtlasManager.Instance.GetSprite("UI", type.GetIconName());
             if (frameSwapper != null)

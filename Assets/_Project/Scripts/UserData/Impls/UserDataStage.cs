@@ -1,4 +1,5 @@
 using Cookapps.Autobattleproject.V1;
+using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 
 namespace CookApps.AutoBattler
@@ -33,6 +34,24 @@ namespace CookApps.AutoBattler
             userStageGroup = null;
         }
 
+        public void SelectUserChapter(int chapterID)
+        {
+            userStageGroup.CurrentSelectedChapterId = chapterID;
+        }
+
+        public void SelectUserStage(int stageID, DifficultyType type)
+        {
+            switch (type)
+            {
+                case DifficultyType.NORMAL:
+                    userStageGroup.CurrentNormalStageId = stageID;
+                    break;
+                case DifficultyType.HARD:
+                    userStageGroup.CurrentHardStageId = stageID;
+                    break;
+            }
+        }
+
         public void SetUserStage(int stageID, int starCount)
         {
             if (userStageGroup.UserStages.TryGetValue(stageID, out UserStage userStage))
@@ -52,7 +71,7 @@ namespace CookApps.AutoBattler
                 return userStage;
             }
 
-            return new UserStage {StageId = stageId, StarCount = 0};
+            return null;
         }
 
         public int GetTotalChapterStarCount(int chapterID, DifficultyType type)
@@ -138,6 +157,11 @@ namespace CookApps.AutoBattler
             }
 
             return false;
+        }
+
+        public void SaveUserStage()
+        {
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserStageGroup.ToCategoryString(), userStageGroup);
         }
     }
 }
