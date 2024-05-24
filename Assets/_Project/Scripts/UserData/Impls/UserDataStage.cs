@@ -1,4 +1,5 @@
 using Cookapps.Autobattleproject.V1;
+using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 
 namespace CookApps.AutoBattler
@@ -70,7 +71,7 @@ namespace CookApps.AutoBattler
                 return userStage;
             }
 
-            return new UserStage {StageId = stageId, StarCount = 0};
+            return null;
         }
 
         public int GetTotalChapterStarCount(int chapterID, DifficultyType type)
@@ -156,6 +157,11 @@ namespace CookApps.AutoBattler
             }
 
             return false;
+        }
+
+        public void SaveUserStage()
+        {
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserStageGroup.ToCategoryString(), userStageGroup);
         }
     }
 }
