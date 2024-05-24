@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.Rendering;
@@ -36,6 +38,7 @@ public class GeneratePixelResources : Editor
         // 상위 폴더 내의 모든 하위 폴더 검색 (예: Front, Back)
         string[] subFolderPaths = Directory.GetDirectories(parentFolderPath);
         List<Sprite> allSprites = new List<Sprite>();
+        Sprite viewSprite = null;
 
         foreach (string subFolderPath in subFolderPaths)
         {
@@ -43,9 +46,14 @@ public class GeneratePixelResources : Editor
             string[] subSubFolderPaths = Directory.GetDirectories(subFolderPath);
             foreach (string subSubFolderPath in subSubFolderPaths)
             {
-                allSprites.AddRange(LoadSpritesFromFolder(subSubFolderPath));
+                List<Sprite> sprite = LoadSpritesFromFolder(subSubFolderPath);
+                allSprites.AddRange(sprite);
                 GenerateExtraFiles(subSubFolderPath, animationFolderPath, parentFolderName,
                     new DirectoryInfo(subFolderPath).Name);
+
+                if (subSubFolderPath.EndsWith("Front\\IDLE")) {
+                    viewSprite = sprite[0];
+                }
             }
         }
 
@@ -53,7 +61,10 @@ public class GeneratePixelResources : Editor
         CreateSingleSpriteAtlas(animationFolderPath, allSprites, parentFolderName);
 
         // 애니메이션 컨트롤러에 애니메이션 클립 추가
-        AddAnimationsToBaseController(animationFolderPath, parentFolderName);
+        var overrideController = AddAnimationsToBaseController(animationFolderPath, parentFolderName);
+
+        // 프리팹 생성
+        AddCharacterPrefab(animationFolderPath, parentFolderName, overrideController, viewSprite);
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -116,18 +127,22 @@ public class GeneratePixelResources : Editor
             keyFrames[i].value = sprites[i];
         }
 
+        AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
+
         // Animation Event 추가
+        List<AnimationEvent> animationEvents = new List<AnimationEvent>();
+
         AnimationEvent startEvent = new AnimationEvent();
         startEvent.functionName = "InvokeAnimationEvent";
         startEvent.time = 0f;
         startEvent.intParameter = (int)AnimationEventKey.Start;
-        animationClip.AddEvent(startEvent);
+        animationEvents.Add(startEvent);
 
         AnimationEvent endEvent = new AnimationEvent();
         endEvent.functionName = "InvokeAnimationEvent";
         endEvent.time = keyFrames.Length / animationClip.frameRate;
         endEvent.intParameter = (int)AnimationEventKey.End;
-        animationClip.AddEvent(endEvent);
+        animationEvents.Add(endEvent);
 
         if (folderName == "ATK")
         {
@@ -135,10 +150,11 @@ public class GeneratePixelResources : Editor
             attackEvent.functionName = "InvokeAnimationEvent";
             attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
             attackEvent.time = 4 / animationClip.frameRate;
-            animationClip.AddEvent(attackEvent);
+            animationEvents.Add(attackEvent);
         }
 
-        AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
+        // 애니메이션 이벤트를 클립에 설정
+        AnimationUtility.SetAnimationEvents(animationClip, animationEvents.ToArray());
 
         // 애니메이션 클립 저장
         string savePath = Path.Combine(animationFolderPath, $"{subFolderName}_{folderName}.anim");
@@ -147,7 +163,7 @@ public class GeneratePixelResources : Editor
         AssetDatabase.CreateAsset(animationClip, savePath);
     }
 
-    private static void AddAnimationsToBaseController(string parentFolderPath, string parentFolderName)
+    private static AnimatorOverrideController AddAnimationsToBaseController(string parentFolderPath, string parentFolderName)
     {
         // Animation 폴더 내의 애니메이션 클립 가져오기
         string[] animationClipPaths = Directory.GetFiles(parentFolderPath, "*.anim");
@@ -165,7 +181,7 @@ public class GeneratePixelResources : Editor
         if (guids.Length == 0)
         {
             Debug.LogError("Failed to find BaseAnimController.");
-            return;
+            return null;
         }
 
         string baseControllerPath = AssetDatabase.GUIDToAssetPath(guids[0]);
@@ -174,7 +190,7 @@ public class GeneratePixelResources : Editor
         if (baseController == null)
         {
             Debug.LogError("Failed to load BaseAnimController.");
-            return;
+            return null;
         }
 
         // AnimationOverrideController에 Animator Controller 할당
@@ -187,7 +203,62 @@ public class GeneratePixelResources : Editor
         }
 
         Debug.Log("Animations added to BaseAnimController successfully.");
+        return overrideController;
     }
+
+    private static void AddCharacterPrefab(string parentFolderPath, string parentFolderName, AnimatorOverrideController controller, Sprite sprite)
+    {
+        // BasePrefab 찾기
+        string basePrefabName = "BasePrefab";
+        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}");
+        if (guids.Length == 0)
+        {
+            Debug.LogError("Failed to find BasePrefab.");
+            return;
+        }
+
+        string basePrefabPath = AssetDatabase.GUIDToAssetPath(guids[0]);
+        GameObject source = AssetDatabase.LoadAssetAtPath<GameObject>(basePrefabPath);
+        GameObject objSource = (GameObject)PrefabUtility.InstantiatePrefab(source);
+
+        // 원하는 트랜스폼 찾기
+        Transform childTransform = objSource.transform.GetChild(0).GetChild(0);
+
+        // SpriteRenderer 업데이트
+        SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = sprite;
+        }
+        else
+        {
+            Debug.LogError("Failed to find SpriteRenderer.");
+            return;
+        }
+
+        // Animator 업데이트
+        Animator animator = childTransform.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.runtimeAnimatorController = controller;
+        }
+        else
+        {
+            Debug.LogError("Failed to find Animator.");
+            return;
+        }
+
+        // 프리팹 저장
+        string prefabFullPath = Path.Combine(parentFolderPath, $"CharacterView_{parentFolderName}.prefab");
+        prefabFullPath = prefabFullPath.Replace("\\", "/");
+        PrefabUtility.SaveAsPrefabAsset(objSource, prefabFullPath);
+
+        // 생성된 임시 오브젝트 삭제
+        Object.DestroyImmediate(objSource);
+
+        Debug.Log("Prefab created successfully at: " + prefabFullPath);
+    }
+
 
     private static void CreateSingleSpriteAtlas(string parentFolderPath, List<Sprite> allSprites,
         string parentFolderName)
