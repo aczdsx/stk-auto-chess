@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
         ANCIENT = 5,
     }
 
-    public enum RewardType
+    public enum ItemType
     {
         JEWEL = 1,
         GOLD = 2,

@@ -37,9 +37,29 @@ namespace CookApps.AutoBattler
             userWallet = null;
         }
 
-        public void AddEnergy(int amount)
+        public void IncreaseItem(ItemType type, int amount)
+        {
+            switch (type)
+            {
+                case ItemType.GOLD:
+                    break;
+                case ItemType.JEWEL:
+                    break;
+                case ItemType.AP:
+                    IncreaseEnergy(amount);
+                    break;
+            }
+        }
+
+        public void IncreaseEnergy(int amount)
         {
             userWallet.Energy += amount;
+            OnEnergyChanged?.Invoke(userWallet.Energy);
+        }
+
+        public void DecreaseEnergy(int amount)
+        {
+            userWallet.Energy -= amount;
             OnEnergyChanged?.Invoke(userWallet.Energy);
         }
     }

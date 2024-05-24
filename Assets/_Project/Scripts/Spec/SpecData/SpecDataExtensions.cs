@@ -8,7 +8,7 @@ namespace CookApps.AutoBattler
 {
     public class RewardItem
     {
-        public RewardType Type { get; init; }
+        public ItemType Type { get; init; }
         public int Key { get; init; }
         public int Count { get; init; }
         public double Probability { get; init; }
