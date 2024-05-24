@@ -37,6 +37,8 @@ namespace CookApps.AutoBattler
             SetChapterListUI();
 
             RefreshSelectedLayer(_selectedChapterData.id);
+
+            _chapterScrollRect.verticalNormalizedPosition = 1;
         }
 
         public void RefreshUI()

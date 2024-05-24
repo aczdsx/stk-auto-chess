@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
                 return userStage;
             }
 
-            return new UserStage {StageId = stageId, StarCount = 0};
+            return null;
         }
 
         public int GetTotalChapterStarCount(int chapterID, DifficultyType type)
