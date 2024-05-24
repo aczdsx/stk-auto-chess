@@ -1,5 +1,6 @@
 using System;
 using Cookapps.Autobattleproject.V1;
+using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 
 namespace CookApps.AutoBattler
@@ -42,25 +43,42 @@ namespace CookApps.AutoBattler
             switch (type)
             {
                 case ItemType.GOLD:
+                    userWallet.Gold += amount;
+                    OnGoldChanged?.Invoke(userWallet.Gold);
                     break;
                 case ItemType.JEWEL:
+                    userWallet.Jewel += amount;
+                    OnJewelChanged?.Invoke(userWallet.Jewel);
                     break;
                 case ItemType.AP:
-                    IncreaseEnergy(amount);
+                    userWallet.Energy += amount;
+                    OnEnergyChanged?.Invoke(userWallet.Energy);
                     break;
             }
         }
 
-        public void IncreaseEnergy(int amount)
+        public void DecreaseItem(ItemType type, int amount)
         {
-            userWallet.Energy += amount;
-            OnEnergyChanged?.Invoke(userWallet.Energy);
+            switch (type)
+            {
+                case ItemType.GOLD:
+                    userWallet.Gold -= amount;
+                    OnGoldChanged?.Invoke(userWallet.Gold);
+                    break;
+                case ItemType.JEWEL:
+                    userWallet.Jewel -= amount;
+                    OnJewelChanged?.Invoke(userWallet.Jewel);
+                    break;
+                case ItemType.AP:
+                    userWallet.Energy -= amount;
+                    OnEnergyChanged?.Invoke(userWallet.Energy);
+                    break;
+            }
         }
 
-        public void DecreaseEnergy(int amount)
+        public void SaveUserWallet()
         {
-            userWallet.Energy -= amount;
-            OnEnergyChanged?.Invoke(userWallet.Energy);
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserWallet.ToCategoryString(), userWallet);
         }
     }
 }
