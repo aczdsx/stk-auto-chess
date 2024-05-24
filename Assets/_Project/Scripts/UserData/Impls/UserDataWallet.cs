@@ -55,6 +55,8 @@ namespace CookApps.AutoBattler
                     OnEnergyChanged?.Invoke(userWallet.Energy);
                     break;
             }
+
+            SaveUserWallet();
         }
 
         public void DecreaseItem(ItemType type, int amount)
@@ -74,6 +76,8 @@ namespace CookApps.AutoBattler
                     OnEnergyChanged?.Invoke(userWallet.Energy);
                     break;
             }
+
+            SaveUserWallet();
         }
 
         public void SaveUserWallet()
