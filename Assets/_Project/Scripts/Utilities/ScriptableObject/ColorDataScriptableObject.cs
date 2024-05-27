@@ -17,6 +17,9 @@ namespace CookApps.AutoBattler
 
         [SerializedDictionary("Color Name", "Gradient")]
         public SerializedDictionary<string, Gradient> GaugeColorGradientDataDic;
+
+        [SerializedDictionaryAttribute("Color Name","Gradient")]
+        public SerializableDictionary<string, Gradient> ItemGradeColorGradientDataDic;
     }
 }
 
