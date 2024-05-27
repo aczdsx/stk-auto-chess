@@ -24,7 +24,7 @@ namespace CookApps.AutoBattler
             userBasicData = MessageUtility.FromBase64String<UserBasicData>(data);
         }
 
-        [ClearFunc]
+        [Clear]
         private void Clear_BasicData()
         {
             userBasicData = null;

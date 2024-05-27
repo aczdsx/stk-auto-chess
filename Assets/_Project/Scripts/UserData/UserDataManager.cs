@@ -33,15 +33,15 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 로 선언할 것!
+        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 으로 선언할 것!
         /// </summary>
         private class AfterInitializeAttribute : Attribute
         { }
 
         /// <summary>
-        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 로 선언할 것!
+        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 으로 선언할 것!
         /// </summary>
-        private class ClearFuncAttribute : Attribute
+        private class ClearAttribute : Attribute
         { }
 
         public async UniTask<bool> Initialize()
@@ -50,7 +50,6 @@ namespace CookApps.AutoBattler
             var allMethods = typeof(UserDataManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
             var methods = new List<(DataCategory category, int priority, MethodInfo methodInfo)>();
             var afterInitializeMethods = new List<MethodInfo>();
-            var getDefaultMethods = new Dictionary<DataCategory, MethodInfo>();
             foreach (var method in allMethods)
             {
                 var initializeAttribute = method.GetCustomAttribute<InitializeAttribute>(false);
@@ -118,12 +117,23 @@ namespace CookApps.AutoBattler
             {
                 if (category == DataCategory.None)
                 {
-                    method.Invoke(this, Array.Empty<object>());
+                    if (method.Invoke(this, Array.Empty<object>()) is UniTask task)
+                    {
+                        await task;
+                    }
                 }
                 else
                 {
-                    method.Invoke(this, new object[] {userDatas[category.ToCategoryString()]});
+                    if (method.Invoke(this, new object[] {userDatas[category.ToCategoryString()]}) is UniTask task)
+                    {
+                        await task;
+                    }
                 }
+            }
+
+            foreach (var method in afterInitializeMethods)
+            {
+                method.Invoke(this, null);
             }
 
             return true;
@@ -135,7 +145,7 @@ namespace CookApps.AutoBattler
             var methods = new List<MethodInfo>();
             foreach (var method in allMethods)
             {
-                var attributes = method.GetCustomAttributes(typeof(ClearFuncAttribute), false);
+                var attributes = method.GetCustomAttributes(typeof(ClearAttribute), false);
                 if (attributes.Length > 0)
                 {
                     methods.Add(method);

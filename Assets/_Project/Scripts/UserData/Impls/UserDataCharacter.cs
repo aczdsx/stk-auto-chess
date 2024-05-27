@@ -24,7 +24,7 @@ namespace CookApps.AutoBattler
             userCharacterGroup = MessageUtility.FromBase64String<UserCharacterGroup>(data);
         }
 
-        [ClearFunc]
+        [Clear]
         void Clear_CharacterGroup()
         {
             userCharacterGroup = null;

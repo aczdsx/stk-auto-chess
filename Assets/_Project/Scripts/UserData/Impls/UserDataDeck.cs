@@ -30,7 +30,7 @@ namespace CookApps.AutoBattler
             userDeck = MessageUtility.FromBase64String<UserDeck>(data);
         }
 
-        [ClearFunc]
+        [Clear]
         private void Clear_Deck()
         {
             userDeck = null;

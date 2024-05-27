@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             userStageGroup = MessageUtility.FromBase64String<UserStageGroup>(data);
         }
 
-        [ClearFunc]
+        [Clear]
         private void Clear_StageGroup()
         {
             userStageGroup = null;
