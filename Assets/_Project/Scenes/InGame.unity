@@ -1017,6 +1017,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7087940617675088464, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
+      propertyPath: m_Name
+      value: Playgrounda
+      objectReference: {fileID: 0}
     - target: {fileID: 7161503427072893171, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
       propertyPath: m_Color.a
       value: 0.8
@@ -1125,7 +1129,8 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.8113208
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8069623739096418309, guid: 6939006608c1d9147bc1e289f4d24528, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1816,7 +1821,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1725676578

@@ -1,8 +1,8 @@
 using System;
 using CookApps.TeamBattle;
-using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using PrimeTween;
 using TMPro;
 using UnityEngine;
 
@@ -10,40 +10,74 @@ namespace CookApps.AutoBattler
 {
     public class InGameTextView : CachedMonoBehaviour
     {
-        // [SerializeField] private TMP_Text txtDamage;
-        // private Sequence _damageTweener;
-        // [SerializeField] private Transform _root;
+        [SerializeField] private TMP_Text txtDamage;
+        [SerializeField] private Transform _root;
 
-        public UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
+        // [TODO] inGame 쪽 ui 관리 방법 필요
+        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
-            throw new NotImplementedException();
+            CachedGo.SetActive(true);
+            txtDamage.text = isDoubleCritical ? $"Double Critical! {damage}" : isCritical ? $"Critical! {damage}" : $"{damage}";
+
+            Vector3 worldPosition = position + Vector3.up * characterHeight;
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+            _root.position = screenPosition;
+
+            Vector3 initialPosition = _root.position;
+            Vector3 targetPosition = initialPosition + Vector3.up * 50;
+
+            Tween.Custom(
+                initialPosition,
+                targetPosition,
+                onValueChange: (Vector2 value) => { CachedGo.transform.position = value; },
+                duration: 1f,
+                ease: Ease.OutCubic
+            ).OnComplete(this, target => CachedGo.SetActive(false));
         }
 
-        public UniTask ShowHealText(Vector3 position, float characterHeight, double damage)
+        public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
         {
-            throw new NotImplementedException();
+            CachedGo.SetActive(true);
+            txtDamage.text = $"Heal Amount : {healAmount}";
+
+            Vector3 worldPosition = position + Vector3.up * characterHeight;
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+            _root.position = screenPosition;
+
+            Vector3 initialPosition = _root.position;
+            Vector3 targetPosition = initialPosition + Vector3.up * 50;
+
+            Tween.Custom(
+                initialPosition,
+                targetPosition,
+                onValueChange: (Vector2 value) => { CachedGo.transform.position = value; },
+                duration: 1f,
+                ease: Ease.OutCubic
+            ).OnComplete(this, target => CachedGo.SetActive(false));
         }
     }
 
     public class InGameTextViewPool : Singleton<InGameTextViewPool>
     {
-        private UnityPool<InGameTextView> textViewPool;
+        private UnityPool<InGameTextView> _textViewPool;
+        private GameObject _instance;
 
-        public async UniTask InitializePool()
+        public void InitializePool(GameObject instance)
         {
-            // TODO: load prefab from addressable
-            // textViewPool.Initialize(prefab);
+            _instance = instance;
+            _textViewPool = new UnityPool<InGameTextView>();
+            _textViewPool.Initialize(_instance);
         }
 
         public void ReleasePool()
         {
-            textViewPool.ClearPool();
-            textViewPool = null;
+            _textViewPool.ClearPool();
+            _textViewPool = null;
         }
 
         public InGameTextView GetDamageTextView()
         {
-            return textViewPool.Get(null);
+            return _textViewPool.Get(null);
         }
 
         public void ReturnDamageTextView(InGameTextView textView)
@@ -53,7 +87,7 @@ namespace CookApps.AutoBattler
                 throw new Exception("Can't return null textView");
             }
 
-            textViewPool.Return(textView);
+            _textViewPool.Return(textView);
         }
     }
 }
