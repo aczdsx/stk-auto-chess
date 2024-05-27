@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
             userWallet = MessageUtility.FromBase64String<UserWallet>(data);
         }
 
-        [ClearFunc]
+        [Clear]
         private void Clear_Wallet()
         {
             userWallet = null;
