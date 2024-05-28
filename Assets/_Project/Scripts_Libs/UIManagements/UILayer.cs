@@ -8,8 +8,8 @@ namespace CookApps.TeamBattle.UIManagements
     {
         [SerializeField] protected Animator baseAnimator;
 
-        protected Action<UILayer> EnterEndCallback;
-        protected internal Action<UILayer> ExitEndCallback;
+        protected event Action<UILayer> EnterEndCallback;
+        protected internal event Action<UILayer> ExitEndCallback;
 
         private bool hasEnterAnimation;
         private bool hasExitAnimation;
@@ -53,11 +53,11 @@ namespace CookApps.TeamBattle.UIManagements
             }
         }
 
-        public virtual void OnPreEnter(object param)
+        protected internal virtual void OnPreEnter(object param)
         {
         }
 
-        public virtual void StartEnterAnimation(Action<UILayer> endCallback)
+        protected internal virtual void StartEnterAnimation(Action<UILayer> endCallback)
         {
             if (hasEnterAnimation)
             {
@@ -69,15 +69,15 @@ namespace CookApps.TeamBattle.UIManagements
             CallAfterDelayFrame(1, endCallback).Forget();
         }
 
-        public virtual void OnPostEnter()
+        protected internal virtual void OnPostEnter()
         {
         }
 
-        public virtual void OnPreExit()
+        protected internal virtual void OnPreExit()
         {
         }
 
-        public virtual void StartExitAnimation(Action<UILayer> endCallback)
+        protected internal virtual void StartExitAnimation(Action<UILayer> endCallback)
         {
             if (hasExitAnimation)
             {
@@ -90,11 +90,11 @@ namespace CookApps.TeamBattle.UIManagements
             endCallback?.Invoke(this);
         }
 
-        public virtual void OnPostExit()
+        protected internal virtual void OnPostExit()
         {
         }
 
-        public virtual void OnBackButton(ref bool offPrevUI)
+        protected internal virtual void OnBackButton(ref bool offPrevUI)
         {
             SceneUILayerManager.Instance.PopUILayer(this);
         }

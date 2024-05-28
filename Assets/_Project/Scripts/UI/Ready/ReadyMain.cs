@@ -95,7 +95,7 @@ namespace CookApps.AutoBattler
             return ownCharacterIds.Count;
         }
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
@@ -108,7 +108,7 @@ namespace CookApps.AutoBattler
             RefreshEnemyDeck();
         }
 
-        public override void OnPreExit()
+        protected override void OnPreExit()
         {
             base.OnPreExit();
             UserDataManager.Instance.SaveUserDeck();

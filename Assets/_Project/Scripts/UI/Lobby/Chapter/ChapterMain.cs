@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
             return SpecDataManager.Instance.GetStageCount(currentChapter);
         }
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);

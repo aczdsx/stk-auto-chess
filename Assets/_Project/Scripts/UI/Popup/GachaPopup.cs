@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             _gacha10Button.onClick.RemoveListener(OnClickGacha10Button);
         }
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);

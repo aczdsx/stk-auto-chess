@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
         private UILayer targetUI;
         public UILayer TargetUI => targetUI;
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             (targetUI, usePanelTypes) = ((UILayer, TopPanelType[])) param;
@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.OnUITransitionEvent += OnUITransitionEvent;
         }
 
-        public override void OnPreExit()
+        protected override void OnPreExit()
         {
             base.OnPreExit();
             panelAnchoredPositions = null;
@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public override void OnBackButton(ref bool offPrevUI)
+        protected override void OnBackButton(ref bool offPrevUI)
         {
             offPrevUI = true;
         }

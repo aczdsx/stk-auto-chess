@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
         }
 
         [SerializeField] private CAButton _startButton;
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             InitializeInGame().Forget();

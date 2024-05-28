@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/Popup/CommanderSkillPopup.prefab")]
     public class CommanderSkillPopup : UILayer
     {
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);

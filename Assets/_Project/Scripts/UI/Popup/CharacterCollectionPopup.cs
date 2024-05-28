@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
 
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
