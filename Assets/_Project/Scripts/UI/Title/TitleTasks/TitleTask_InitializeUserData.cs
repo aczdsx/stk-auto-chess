@@ -45,7 +45,6 @@ namespace CookApps.AutoBattler
 
         public async UniTask HandleError()
         {
-            // SceneUIManager.Instance.RequestPushUI("Popup_Alert", new PopupAlertData("Popup_Alert_Title_ServerError", "Popup_Alert_Message_ServerError", true, "Common_Confirm", string.Empty, false), _ => Application.Quit());
             while (true)
             {
                 await UniTask.Yield();

@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
 
         private Chapter _selectedChapterData;
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
@@ -67,10 +67,10 @@ namespace CookApps.AutoBattler
             _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_selectedChapterData.id));
 
             // 로비 메인 하단 스테이지 UI 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer("LobbyMain");
+            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
             if (lobbyMain != null)
             {
-                lobbyMain.GetComponent<LobbyMain>()?.RefreshUI();
+                lobbyMain.RefreshUI();
             }
         }
 
