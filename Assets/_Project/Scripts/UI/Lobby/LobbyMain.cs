@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
         [SerializeField] private CAButton _shopButton;
+        [SerializeField] private CAButton _gachaButton;
 
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
@@ -30,6 +31,7 @@ namespace CookApps.AutoBattler
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
+            _gachaButton.onClick.AddListener(OnClickGachaButton);
 
             //SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
         }
@@ -40,6 +42,7 @@ namespace CookApps.AutoBattler
             _playButton.onClick.RemoveListener(OnClickStartButton);
             _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
             _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
+            _gachaButton.onClick.RemoveListener(OnClickGachaButton);
         }
 
         public override void OnPreEnter(object param)
@@ -166,6 +169,11 @@ namespace CookApps.AutoBattler
         {
             int currentStageId = UserDataManager.Instance.GetCurrentStageId();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterListPopup>(currentStageId).Forget();
+        }
+
+        private void OnClickGachaButton()
+        {
+            SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
         }
 
         private void OnClickCharacterCollectionButton()

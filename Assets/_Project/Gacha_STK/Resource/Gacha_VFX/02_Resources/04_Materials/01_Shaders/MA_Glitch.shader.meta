@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 9454777bb60c188488ab68da5700fb70
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - TEX_01: {fileID: 2800000, guid: fee6c60fbb37a374e80086220f6e83c4, type: 3}
+  - _Glitch_Noise_TEX: {fileID: 2800000, guid: 1be8ef47e281ced469bc3e1e46c55d68, type: 3}
+  - _Noise_TEX: {fileID: 2800000, guid: 3fa82b83e62af2a48a904a4c96ae2f57, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

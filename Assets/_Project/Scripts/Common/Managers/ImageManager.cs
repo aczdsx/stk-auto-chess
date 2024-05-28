@@ -7,6 +7,11 @@ namespace CookApps.AutoBattler
 {
     public class ImageManager : Singleton<ImageManager>
     {
+        public Sprite GetSprite(string atlasName, string spriteName)
+        {
+            return AtlasManager.Instance.GetSprite(atlasName, spriteName);
+        }
+
         public Sprite GetGradeSprite(Grade grade, bool isActive = true)
         {
             string spriteName = string.Empty;
