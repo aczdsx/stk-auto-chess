@@ -32,7 +32,7 @@ namespace CookApps.BattleSystem
 
         public virtual void Remove()
         {
-            InGameEffectManager.Instance.RemoveInGameEffect(this);
+            InGameVfxManager.Instance.RemoveInGameEffect(this);
         }
     }
 }

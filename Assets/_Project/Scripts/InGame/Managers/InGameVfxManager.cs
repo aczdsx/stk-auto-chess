@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
-    public class InGameEffectManager : Singleton<InGameEffectManager>
+    public class InGameVfxManager : Singleton<InGameVfxManager>
     {
         private List<InGameEffectView> runningEffects = new ();
         private Queue<InGameEffectView> addWaitingInGameEffects = new ();

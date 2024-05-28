@@ -434,7 +434,7 @@ namespace CookApps.BattleSystem
             _buffDebuffRefCountDict[type] += 1;
             if (_buffDebuffEffectViewDict.ContainsKey(type) == false)
             {
-                var effectView = InGameEffectManager.Instance.Get(type, view.CachedTr);
+                var effectView = InGameVfxManager.Instance.Get(type, view.CachedTr);
                 _buffDebuffEffectViewDict.Add(type, effectView);
             }
         }
@@ -454,7 +454,7 @@ namespace CookApps.BattleSystem
                 {
                     var effectView = _buffDebuffEffectViewDict[type];
                     _buffDebuffEffectViewDict.Remove(type);
-                    InGameEffectManager.Instance.RemoveInGameEffect(effectView);
+                    InGameVfxManager.Instance.RemoveInGameEffect(effectView);
                 }
             }
         }
