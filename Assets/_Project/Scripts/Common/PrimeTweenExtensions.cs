@@ -32,6 +32,28 @@ namespace CookApps.AutoBattler
 
             return result;
         }
-    }
 
+        // MoveTo 메서드 추가
+        public static Sequence MoveTo([NotNull] Transform target, Vector3 endValue, float duration, Ease ease = Ease.Linear)
+        {
+            Assert.IsTrue(duration > 0f, nameof(duration) + " should be > 0.");
+
+            var moveSequence = Sequence.Create();
+
+            if (!Mathf.Approximately(target.position.x, endValue.x))
+            {
+                moveSequence.Group(Tween.PositionX(target, endValue.x, duration, ease));
+            }
+            if (!Mathf.Approximately(target.position.y, endValue.y))
+            {
+                moveSequence.Group(Tween.PositionY(target, endValue.y, duration, ease));
+            }
+            if (!Mathf.Approximately(target.position.z, endValue.z))
+            {
+                moveSequence.Group(Tween.PositionZ(target, endValue.z, duration, ease));
+            }
+
+            return moveSequence;
+        }
+    }
 }

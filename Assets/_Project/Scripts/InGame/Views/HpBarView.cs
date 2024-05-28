@@ -48,10 +48,20 @@ namespace CookApps.AutoBattler
 
         private async UniTask AnimateHpBar(float startRatio, float targetRatio, float duration)
         {
+            if (_hpFillSmoothGuage == null)
+            {
+                return;
+            }
+
             float elapsed = 0f;
 
             while (elapsed < duration)
             {
+                if (_hpFillSmoothGuage == null)
+                {
+                    break;
+                }
+
                 elapsed += Time.deltaTime;
                 float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
                 float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1)); // 슬라이스 효과를 만듭니다.
@@ -62,8 +72,11 @@ namespace CookApps.AutoBattler
                 await UniTask.Yield();
             }
 
-            _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - targetRatio);
-            _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0); // 애니메이션이 끝난 후 히트 효과를 해제합니다.
+            if (_hpFillSmoothGuage != null)
+            {
+                _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - targetRatio);
+                _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0); // 애니메이션이 끝난 후 히트 효과를 해제합니다.
+            }
         }
 
         private void HideHpBar()

@@ -152,11 +152,12 @@ namespace CookApps.BattleSystem
 
             _currHp = HP;
             IsAlive = true;
-            IsForceIdle = false;
+            IsForceIdle = true;
         }
 
         public void Clear()
         {
+            InGameHpBarViewPool.Instance.ReturnHpBar(_hpBarView);
             Target = null;
             ecc.Clear();
             ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
@@ -164,7 +165,6 @@ namespace CookApps.BattleSystem
             view.OnAnimationEvent -= OnAnimationEvent;
             Addressables.ReleaseInstance(view.gameObject);
             view = null;
-            InGameHpBarViewPool.Instance.ReturnHpBar(_hpBarView);
             _hpBarView = null;
         }
 
@@ -349,7 +349,7 @@ namespace CookApps.BattleSystem
         public StateBase AddNextState(Type stateType, object stateData = null)
         {
 #if UNITY_EDITOR
-            // Debug.Log($"AddNextState >> {Time.frameCount}, {CharacId}, {CharacUId}, {stateType}");
+            Debug.Log($"AddNextState >> {Time.frameCount}, {stateType}");
 #endif
             StateBase state = StatePool.Instance.GetState(stateType);
             if (state != null)

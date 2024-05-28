@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
@@ -8,22 +9,19 @@ public class FlowStateStageReady : StateBase
     //[TODO] 캐릭터 배치 관련 로직 추가
     public override async void StateInit(object target)
     {
-        CharacterStatData statData1 = new CharacterStatData(40101, 10);
-        CharacterStatData statData2 = new CharacterStatData(30601, 10);
-        CharacterStatData statData3 = new CharacterStatData(40402, 10);
+        List<CharacterStatData> characterStats = new List<CharacterStatData>();
+        characterStats.Add(new CharacterStatData(40101, 10));
+        characterStats.Add(new CharacterStatData(30601, 10));
+        characterStats.Add(new CharacterStatData(40402, 10));
         await UniTask.WhenAll(new[]
         {
-            InGameObjectManager.Instance.AddCharacterToField(statData1, new int2(1, 1), AllianceType.Player,
+            InGameObjectManager.Instance.AddCharacterToField(characterStats[0], new int2(3, 3), AllianceType.Enemy,
                 typeof(CharacterStateIdle)),
-            InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(0, 1), AllianceType.Player,
-                typeof(CharacterStateIdle)),
-            InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 2), AllianceType.Player,
-                typeof(CharacterStateIdle)),
-            InGameObjectManager.Instance.AddCharacterToField(statData2, new int2(3, 3), AllianceType.Enemy,
-                typeof(CharacterStateIdle)),
-            InGameObjectManager.Instance.AddCharacterToField(statData3, new int2(5, 4), AllianceType.Enemy,
+            InGameObjectManager.Instance.AddCharacterToField(characterStats[1], new int2(5, 4), AllianceType.Enemy,
                 typeof(CharacterStateIdle))
         });
+
+        InGameMain.GetInGameMain().SetReadyUI(characterStats);
     }
 
     public override void StateStart()

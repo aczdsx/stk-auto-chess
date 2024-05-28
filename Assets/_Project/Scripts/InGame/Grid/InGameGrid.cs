@@ -34,6 +34,11 @@ namespace CookApps.BattleSystem
             return _tiles[index];
         }
 
+        public InGameTile GetEmptyTile()
+        {
+            return _tiles.FirstOrDefault(t => t.OccupiedCharacter == null);
+        }
+
         public InGameTile[] GetManhattanDistanceTiles(InGameTile centerTile, int distance)
         {
             List<InGameTile> resultTiles = new List<InGameTile>();
