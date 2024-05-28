@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -25,7 +27,6 @@ namespace CookApps.AutoBattler
             return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
         }
 
-        [SerializeField] private CAButton _startButton;
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
@@ -33,7 +34,7 @@ namespace CookApps.AutoBattler
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
         }
 
-        public override void OnPreExit()
+        protected override void OnPreExit()
         {
             base.OnPreExit();
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
