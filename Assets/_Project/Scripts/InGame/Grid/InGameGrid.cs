@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -11,12 +12,17 @@ namespace CookApps.BattleSystem
         public int Width { get; }
         public int Height { get; }
 
-        private InGameTile[] _tiles;
+        private readonly InGameTile[] _tiles;
+        private readonly HashSet<InGameTile> _recentlyVisitedTiles;
+        private const int HighVisitPenalty = 1000; // High penalty for revisiting a tile
+
         public InGameGrid(int2 gridSize, InGameTileView[] views)
         {
             Width = gridSize.x;
             Height = gridSize.y;
             _tiles = new InGameTile[Width * Height];
+            _recentlyVisitedTiles = new HashSet<InGameTile>();
+
             for (var i = 0; i < Width * Height; i++)
             {
                 _tiles[i] = new InGameTile(i % Width, i / Width, views[i]);
@@ -41,39 +47,24 @@ namespace CookApps.BattleSystem
 
         public InGameTile[] GetManhattanDistanceTiles(InGameTile centerTile, int distance)
         {
-            List<InGameTile> resultTiles = new List<InGameTile>();
-            foreach (var tile in _tiles)
-            {
-                int manhattanDistance = GetManhattanDistance(centerTile, tile);
-                if (manhattanDistance <= distance)
-                {
-                    resultTiles.Add(tile);
-                }
-            }
-
-            return resultTiles.ToArray();
+            return _tiles.Where(tile => GetManhattanDistance(centerTile, tile) <= distance).ToArray();
         }
 
-        public int GetManhattanDistance(InGameTile from, InGameTile dest)
+        public int GetManhattanDistance(InGameTile from, InGameTile to)
         {
-            return Mathf.Abs(from.X - dest.X) + Mathf.Abs(from.Y - dest.Y);
+            return Mathf.Abs(from.X - to.X) + Mathf.Abs(from.Y - to.Y);
         }
 
-        public bool IsInRange(InGameTile from, InGameTile dest, int range, AttackRangeShape shape)
+        public bool IsInRange(InGameTile from, InGameTile to, int range, AttackRangeShape shape)
         {
-            var distance = GetManhattanDistance(from, dest);
-            return distance <= range;
+            return GetManhattanDistance(from, to) <= range;
         }
-
 
         public void GetTilesInRange(InGameTile pivot, int range, AttackRangeShape shape, List<InGameTile> resTiles)
         {
-            for (var i = 0; i < Width * Height; i++)
+            foreach (var tile in _tiles)
             {
-                InGameTile tile = GetTile(i);
-                var distance = GetManhattanDistance(pivot, tile);
-                var allowDistance = range * 2 - (AttackRangeShape.Rectangle - shape);
-                if (distance <= allowDistance)
+                if (GetManhattanDistance(pivot, tile) <= range * 2 - (AttackRangeShape.Rectangle - shape))
                 {
                     resTiles.Add(tile);
                 }
@@ -82,36 +73,31 @@ namespace CookApps.BattleSystem
 
         public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest)
         {
-            Debug.Log($"GetNextMovableTile : ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
+            Debug.Log($"GetNextMovableTile: ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
 
             var priorityQueue = new PriorityQueue<InGameTile, int>();
             var closedList = new HashSet<InGameTile>();
+            var openList = new Dictionary<InGameTile, int>();
 
-            foreach (var tile in _tiles)
-            {
-                tile.G = int.MaxValue;
-                tile.H = int.MaxValue;
-                tile.cameFrom = null;
-            }
+            ResetTiles();
 
             src.G = 0;
-            src.H = GetManhattanDistance(src, dest);
+            src.H = CalculateHeuristic(src, dest);
             priorityQueue.Enqueue(src, src.H);
+            openList[src] = src.H;
 
             while (priorityQueue.Count > 0)
             {
                 var current = priorityQueue.Dequeue();
+                openList.Remove(current);
 
                 if (current == dest)
                 {
-                    while (current.cameFrom != src)
-                    {
-                        current = current.cameFrom;
-                    }
-                    return current;
+                    return TracePathToSource(src, current);
                 }
 
                 closedList.Add(current);
+                _recentlyVisitedTiles.Add(current);
 
                 foreach (var neighbor in GetNeighbors(current))
                 {
@@ -126,11 +112,12 @@ namespace CookApps.BattleSystem
                     {
                         neighbor.cameFrom = current;
                         neighbor.G = tentativeGCost;
-                        neighbor.H = tentativeGCost + GetManhattanDistance(neighbor, dest);
+                        neighbor.H = tentativeGCost + CalculateHeuristic(neighbor, dest);
 
-                        if (!priorityQueue.Contains(neighbor))
+                        if (!openList.ContainsKey(neighbor))
                         {
                             priorityQueue.Enqueue(neighbor, neighbor.H);
+                            openList[neighbor] = neighbor.H;
                         }
                     }
                 }
@@ -139,32 +126,47 @@ namespace CookApps.BattleSystem
             return FindBestTile(closedList, src);
         }
 
-        private InGameTile FindBestTile(HashSet<InGameTile> closedList, InGameTile src)
+        private void ResetTiles()
         {
-            InGameTile bestTile = null;
-            int bestFScore = int.MaxValue;
-
-            foreach (var tile in closedList)
+            foreach (var tile in _tiles)
             {
-                if (tile == src) continue;
-
-                if (tile.H < bestFScore)
-                {
-                    bestFScore = tile.H;
-                    bestTile = tile;
-                }
+                tile.G = int.MaxValue;
+                tile.H = int.MaxValue;
+                tile.cameFrom = null;
             }
-
-            return bestTile ?? src;
         }
 
+        private int CalculateHeuristic(InGameTile tile, InGameTile dest)
+        {
+            int heuristic = GetManhattanDistance(tile, dest);
+            if (_recentlyVisitedTiles.Contains(tile))
+            {
+                heuristic += HighVisitPenalty;
+            }
+            return heuristic;
+        }
+
+        private InGameTile TracePathToSource(InGameTile src, InGameTile current)
+        {
+            while (current.cameFrom != src)
+            {
+                current = current.cameFrom;
+            }
+            return current;
+        }
+
+        private InGameTile FindBestTile(HashSet<InGameTile> closedList, InGameTile src)
+        {
+            return closedList.Where(tile => tile != src)
+                             .OrderBy(tile => tile.H)
+                             .FirstOrDefault() ?? src;
+        }
 
         private IEnumerable<InGameTile> GetNeighbors(InGameTile tile)
         {
-            var directions = new int2[]
+            var directions = new[]
             {
                 new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
-                // new int2(1, 1), new int2(1, -1), new int2(-1, 1), new int2(-1, -1),
             };
 
             foreach (var dir in directions)
