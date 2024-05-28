@@ -1,4 +1,6 @@
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.UIManagements;
 
 public class FlowStateStageStart : StateBase
 {
@@ -6,9 +8,14 @@ public class FlowStateStageStart : StateBase
     {
     }
 
-    public override void StateStart()
+    public override async void StateStart()
     {
         // 스테이지 시작! UI 출력
+        // var uiLayer = await SceneUILayerManager.Instance.PushUILayerAsync<StageStartOverlay>();
+        // await uiLayer.WaitForExit();
+
+        // 캐릭터 선택 UI 없애기
+        // InGameMain.GetInGameMain().HideCharacterSelectUI();
 
         // 닫히면 내 캐릭터 등장
 
