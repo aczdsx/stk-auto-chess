@@ -394,7 +394,7 @@ namespace CookApps.AutoBattler
             }
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
-            fx = AddressablesUtil.Instantiate("GetNewCharacter");
+            fx = Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion();
             fx.GetComponent<GetNewCharacter>().SetChracater(skipDatas[skipCnt].id, ShowSkipCharacterFX);
             skipCnt++;
         }
@@ -502,7 +502,7 @@ namespace CookApps.AutoBattler
             {
                 if (idxCharcater.grade == Grade.LEGEND)
                 {
-                    fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
 
                     if (skipDatas.Contains(_datas[cnt]))
@@ -516,7 +516,7 @@ namespace CookApps.AutoBattler
                     // {
                     //     if (idxCharcater.Level == 0)
                     //     {
-                    //         fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    //         fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     //         fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
                     //         if (skipDatas.Contains(_datas[cnt]))
                     //         {
@@ -525,7 +525,7 @@ namespace CookApps.AutoBattler
                     //     }
                     //     else
                     //     {
-                    //         fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    //         fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     //         fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
                     //     }
                     // }
@@ -533,7 +533,7 @@ namespace CookApps.AutoBattler
                     // {
                     //     if (idxCharcater.IsShowFX == false)
                     //     {
-                    //         fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    //         fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     //         fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
                     //         if (skipDatas.Contains(_datas[cnt]))
                     //         {
@@ -542,13 +542,13 @@ namespace CookApps.AutoBattler
                     //     }
                     //     else
                     //     {
-                    //         fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    //         fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     //         fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
                     //     }
                     // }
                     // if (idxCharcater.IsShowFX == false)
                     // {
-                    //     fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    //     fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     //     fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
                     //     if (skipDatas.Contains(_datas[cnt]))
                     //     {
@@ -557,18 +557,18 @@ namespace CookApps.AutoBattler
                     // }
                     // else
                     // {
-                    //     fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    //     fx = Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion();
                     //     fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
                     // }
 
-                    fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
 
                 }
             }
             else
             {
-                fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                 fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].id, _datas[cnt].need_piece, ShowGetFX);
             }
 
