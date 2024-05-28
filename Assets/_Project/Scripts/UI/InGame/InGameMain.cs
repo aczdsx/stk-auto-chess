@@ -16,6 +16,11 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
+        public static InGameMain GetInGameMain()
+        {
+            return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
+        }
+
         [SerializeField] private CAButton _startButton;
         public override void OnPreEnter(object param)
         {
