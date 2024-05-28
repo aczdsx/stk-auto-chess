@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -26,7 +25,8 @@ namespace CookApps.AutoBattler
             return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
         }
 
-        public override void OnPreEnter(object param)
+        [SerializeField] private CAButton _startButton;
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             InitializeInGame().Forget();

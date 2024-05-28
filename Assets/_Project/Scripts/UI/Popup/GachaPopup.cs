@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
@@ -25,7 +26,7 @@ namespace CookApps.AutoBattler
             _gacha10Button.onClick.RemoveListener(OnClickGacha10Button);
         }
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
@@ -33,6 +34,12 @@ namespace CookApps.AutoBattler
 
         private void OnClickGacha1Button()
         {
+            Character result = SpecDataManager.Instance.Character.Get(40101);
+            List<Character> tempResultList = new List<Character>();
+            tempResultList.Add(result);
+
+            //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
+            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
 
         }
 

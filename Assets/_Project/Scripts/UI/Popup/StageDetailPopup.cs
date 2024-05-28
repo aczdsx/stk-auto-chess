@@ -89,7 +89,7 @@ namespace CookApps.AutoBattler
             return rewards.Count;
         }
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);

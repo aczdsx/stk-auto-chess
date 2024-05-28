@@ -88,10 +88,10 @@ namespace CookApps.AutoBattler
         {
             if (_chapterSpecData == null) return;
 
-            var chapterListPop = SceneUILayerManager.Instance.GetUILayer("ChapterListPopup");
+            var chapterListPop = SceneUILayerManager.Instance.GetUILayer<ChapterListPopup>();
             if (chapterListPop != null)
             {
-                chapterListPop.GetComponent<ChapterListPopup>()?.RefreshSelectedLayer(_chapterSpecData.id);
+                chapterListPop.RefreshSelectedLayer(_chapterSpecData.id);
             }
         }
     }

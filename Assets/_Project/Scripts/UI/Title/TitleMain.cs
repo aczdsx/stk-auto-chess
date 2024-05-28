@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject touchToStart;
 
-        public override void OnPreEnter(object param)
+        protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             SessionCount++;
@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
             // if (LocalUserDataManager.Instance.GetIsFirstGame() == true)
             // {
             //     LocalUserDataManager.Instance.SaveFirstGame();
-            //     SceneUIManager.Instance.ChangeScene("Intro", null);
+            //     SceneUILayerManager.Instance.ChangeScene("Intro", null);
             // }
             // else
             {

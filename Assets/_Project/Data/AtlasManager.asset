@@ -20,3 +20,45 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+  - assetRef:
+      m_AssetGUID: d8815f356089b4cbd8a10b185bf1098a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 1
+    sceneNames:
+    - Lobby
+  - assetRef:
+      m_AssetGUID: c7e43331a4807af4687ead39d29007c8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
+  - assetRef:
+      m_AssetGUID: 8c3525daf8dc12041b2a00abe0381be6
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
+  - assetRef:
+      m_AssetGUID: f846c6d770ba054459777f53eac2820d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
+  - assetRef:
+      m_AssetGUID: fd75ccb0d384c42649360699dfe6130e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
+  - assetRef:
+      m_AssetGUID: 2b4f9a52a4654744abd5683dbc97678e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
