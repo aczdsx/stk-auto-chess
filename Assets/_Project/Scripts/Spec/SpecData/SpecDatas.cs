@@ -218,8 +218,12 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
         /// 방어력
         public CookApps.Obfuscator.ObfuscatorInt stat_def;
+        /// 마법 방어력
+        public CookApps.Obfuscator.ObfuscatorInt stat_res;
         /// 관통력
         public CookApps.Obfuscator.ObfuscatorInt stat_atk_pierce;
+        /// 관통력
+        public CookApps.Obfuscator.ObfuscatorInt stat_res_pierce;
         /// 치명률
         public CookApps.Obfuscator.ObfuscatorFloat crit_rate;
         /// 치명타 피해량

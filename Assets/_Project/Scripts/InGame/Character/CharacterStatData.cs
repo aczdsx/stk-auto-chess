@@ -87,7 +87,7 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatRES))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
-                RES = codes.CalculateRES(0); // [TODO] statRES 무엇인가유?
+                RES = codes.CalculateRES(_spec.stat_res);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatDEFPenetration))
@@ -99,7 +99,7 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatRESPenetration))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
-                RESPenetration = codes.CalculateRESPenetration(0);
+                RESPenetration = codes.CalculateRESPenetration(_spec.stat_res_pierce);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatRecoveryHP))
