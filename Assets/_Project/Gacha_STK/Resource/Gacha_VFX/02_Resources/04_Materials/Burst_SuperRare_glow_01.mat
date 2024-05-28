@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Burst_SuperRare_glow_01
-  m_Shader: {fileID: 4800000, guid: 917d6aef0133d924bb3cc1f9dfdc2566, type: 3}
+  m_Shader: {fileID: 4800000, guid: e18d897b9e42fea4ba63e469c4deb23c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTex:
-        m_Texture: {fileID: 2800000, guid: 845f3cf623b9e5744929c511039143e1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 06a954205fe1fa5429b81701594cf26d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:

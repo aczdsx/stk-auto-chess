@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using CookApps.TeamBattle;
 
-public class CoroutineHelper : MonoBehaviour
+public class CoroutineHelper : SingletonMonoBehaviour<CoroutineHelper>
 {
     /////////////////////////////////////////////////////////////////
     // public
 
-    public static CoroutineHelper Instance { get => instance; }
+    //public static CoroutineHelper Instance { get => instance; }
 
     public int RunCount { get => runs.Count; }
 

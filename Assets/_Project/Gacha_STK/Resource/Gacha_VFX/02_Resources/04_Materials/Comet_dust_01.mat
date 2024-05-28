@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Comet_dust_01
-  m_Shader: {fileID: 4800000, guid: 917d6aef0133d924bb3cc1f9dfdc2566, type: 3}
+  m_Shader: {fileID: 4800000, guid: e18d897b9e42fea4ba63e469c4deb23c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

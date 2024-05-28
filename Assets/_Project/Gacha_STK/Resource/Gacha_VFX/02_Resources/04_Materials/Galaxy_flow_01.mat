@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Galaxy_flow_01
-  m_Shader: {fileID: 4800000, guid: 917d6aef0133d924bb3cc1f9dfdc2566, type: 3}
+  m_Shader: {fileID: 4800000, guid: e18d897b9e42fea4ba63e469c4deb23c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DisTex:
-        m_Texture: {fileID: 2800000, guid: 92a43e54012ad7d429b7ae50c8b7d10d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0452b864cac8ec74386f85d6625cd994, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
