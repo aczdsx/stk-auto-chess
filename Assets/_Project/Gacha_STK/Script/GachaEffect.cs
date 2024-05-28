@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
@@ -86,11 +87,11 @@ namespace CookApps.AutoBattler
             }
             if (resultGacha[cnt].need_piece == 20)
             {
-                AddressablesUtil.Instantiate("GetNewCharacter").GetComponent<GetNewCharacter>().SetChracater(resultGacha[cnt].id, ShowGetFX);
+                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetChracater(resultGacha[cnt].id, ShowGetFX);
             }
             else
             {
-                AddressablesUtil.Instantiate("GetNewCharacter").GetComponent<GetNewCharacter>().SetPiece(resultGacha[cnt].id,resultGacha[cnt].need_piece, ShowGetFX);
+                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetPiece(resultGacha[cnt].id,resultGacha[cnt].need_piece, ShowGetFX);
             }
 
             cnt++;

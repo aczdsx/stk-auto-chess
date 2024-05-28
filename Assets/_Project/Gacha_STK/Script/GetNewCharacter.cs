@@ -357,38 +357,30 @@ namespace CookApps.AutoBattler
         //             SoundManager.Instance.PlayVOX("VO_1001_"+characterID+"_0_JP");
         //         }).AddTo(this);
         // }
-        // public void OnClickClose()
-        // {
-        //     if (isPlayCharacterBGM)
-        //     {
-        //         SoundManager.Instance.StopAllSound();
-        //         if (GameSceneManager.CurrentScene == Scene.Lobby)
-        //         {
-        //             SoundManager.Instance.PlayBGM(BGMIndex.cash_shop_001);
-        //             SoundManager.Instance.PlaySFX(SFXIndex.gacha_result_ambient_001);
-        //         }
-        //
-        //         else if(GameSceneManager.CurrentScene == Scene.InGame)
-        //         {
-        //             CharacterData characterData = DataManager.Instance.Characters.Find(c => c.ID == InGameUI.Instance.GetMVP());
-        //             SoundManager.Instance.PlayVOXInGame("VO_1005_"+characterData.ID+"_0_JP");
-        //             SoundManager.Instance.PlaySFX(SFXIndex.ingame_result_victory_001);
-        //         }
-        //     }
-        //     playObj = null;
-        //     if (EndAction != null)
-        //         EndAction();
-        //
-        //     if (characterID == 100600)
-        //     {
-        //
-        //         AppEventManager.Instance.SendInitial_Launch_Funnel(70200);
-        //     }
-        //
-        //
-        //     Destroy(this.gameObject);
-        //
-        // }
+        public void OnClickClose()
+        {
+            // if (isPlayCharacterBGM)
+            // {
+            //     SoundManager.Instance.StopAllSound();
+            //     if (GameSceneManager.CurrentScene == Scene.Lobby)
+            //     {
+            //         SoundManager.Instance.PlayBGM(BGMIndex.cash_shop_001);
+            //         SoundManager.Instance.PlaySFX(SFXIndex.gacha_result_ambient_001);
+            //     }
+            //
+            //     else if(GameSceneManager.CurrentScene == Scene.InGame)
+            //     {
+            //         CharacterData characterData = DataManager.Instance.Characters.Find(c => c.ID == InGameUI.Instance.GetMVP());
+            //         SoundManager.Instance.PlayVOXInGame("VO_1005_"+characterData.ID+"_0_JP");
+            //         SoundManager.Instance.PlaySFX(SFXIndex.ingame_result_victory_001);
+            //     }
+            // }
+            playObj = null;
+            if (EndAction != null)
+                EndAction();
+
+            Destroy(this.gameObject);
+        }
 
         public void setCheatCharacter(int chID, Action actoin = null)
         {
