@@ -8,8 +8,8 @@ namespace CookApps.TeamBattle.UIManagements
     {
         [SerializeField] protected Animator baseAnimator;
 
-        protected Action<UILayer> enterEndCallback;
-        protected Action<UILayer> exitEndCallback;
+        protected Action<UILayer> EnterEndCallback;
+        protected internal Action<UILayer> ExitEndCallback;
 
         private bool hasEnterAnimation;
         private bool hasExitAnimation;
@@ -61,7 +61,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (hasEnterAnimation)
             {
-                enterEndCallback = endCallback;
+                EnterEndCallback = endCallback;
                 baseAnimator.Play("StartEnter");
                 return;
             }
@@ -81,7 +81,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (hasExitAnimation)
             {
-                exitEndCallback = endCallback;
+                ExitEndCallback = endCallback;
                 baseAnimator.Play("StartExit");
                 return;
             }
@@ -103,15 +103,15 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (name == "StartEnter")
             {
-                Action<UILayer> tempAction = enterEndCallback;
-                enterEndCallback = null;
+                Action<UILayer> tempAction = EnterEndCallback;
+                EnterEndCallback = null;
                 tempAction?.Invoke(this);
             }
 
             if (name == "StartExit")
             {
-                Action<UILayer> tempAction = exitEndCallback;
-                exitEndCallback = null;
+                Action<UILayer> tempAction = ExitEndCallback;
+                ExitEndCallback = null;
                 tempAction?.Invoke(this);
             }
         }
@@ -120,6 +120,11 @@ namespace CookApps.TeamBattle.UIManagements
         {
             await UniTask.DelayFrame(delayFrame);
             endCallback?.Invoke(this);
+        }
+
+        public UILayerExitTask WaitForExit()
+        {
+            return new UILayerExitTask(this);
         }
     }
 }
