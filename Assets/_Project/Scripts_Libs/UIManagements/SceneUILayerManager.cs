@@ -59,9 +59,9 @@ namespace CookApps.TeamBattle.UIManagements
             blockBackKeySources.Remove(srcKey);
         }
 
-        public bool isSceneChanging;
+        internal bool isSceneChanging;
 
-        public long uiIncAcc;
+        private long uiIncAcc;
 
         /// <summary>
         /// UIManagements 초기화
@@ -617,6 +617,19 @@ namespace CookApps.TeamBattle.UIManagements
                 if (uiLayerStacks[i].Key == uiKey)
                 {
                     return uiLayerStacks[i].Layer;
+                }
+            }
+
+            return null;
+        }
+
+        public T GetUILayer<T>() where T : UILayer
+        {
+            for (var i = 0; i < uiLayerStacks.Count; i++)
+            {
+                if (uiLayerStacks[i].Layer is T layer)
+                {
+                    return layer;
                 }
             }
 
