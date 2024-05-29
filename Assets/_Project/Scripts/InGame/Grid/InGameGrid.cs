@@ -13,8 +13,8 @@ namespace CookApps.BattleSystem
         public int Height { get; }
 
         private readonly InGameTile[] _tiles;
-        private const int RecentVisitLimit = 5;
-        private const int HighVisitPenalty = 1000; // High penalty for revisiting a tile
+        private const int RecentVisitLimit = 10;
+        private const int HighVisitPenalty = 10;
 
         public InGameGrid(int2 gridSize, InGameTileView[] views)
         {
@@ -81,7 +81,7 @@ namespace CookApps.BattleSystem
             ResetTiles();
 
             src.G = 0;
-            src.H = CalculateHeuristic(src, dest);
+            src.H = GetManhattanDistance(src, dest);
             priorityQueue.Enqueue(src, src.H);
             openList[src] = src.H;
 
@@ -116,7 +116,7 @@ namespace CookApps.BattleSystem
                     {
                         neighbor.cameFrom = current;
                         neighbor.G = tentativeGCost;
-                        neighbor.H = tentativeGCost + CalculateHeuristic(neighbor, dest);
+                        neighbor.H = tentativeGCost + GetManhattanDistance(neighbor, dest);
 
                         if (!openList.ContainsKey(neighbor))
                         {
@@ -140,19 +140,6 @@ namespace CookApps.BattleSystem
             }
         }
 
-        private int CalculateHeuristic(InGameTile tile, InGameTile dest)
-        {
-            int heuristic = GetManhattanDistance(tile, dest);
-            if (tile.OccupiedCharacter != null)
-            {
-                if (tile.OccupiedCharacter.RecentlyVisitedTiles.Contains(tile))
-                {
-                    heuristic += HighVisitPenalty;
-                }
-            }
-            return heuristic;
-        }
-
         private InGameTile TracePathToSource(InGameTile src, InGameTile current)
         {
             while (current.cameFrom != src)
@@ -164,10 +151,35 @@ namespace CookApps.BattleSystem
 
         private InGameTile FindBestTile(HashSet<InGameTile> closedList, InGameTile src)
         {
-            return closedList.Where(tile => tile != src && !src.OccupiedCharacter.RecentlyVisitedTiles.Contains(tile))
-                .OrderBy(tile => tile.H)
+            var recentlyVisitedTiles = src.OccupiedCharacter.RecentlyVisitedTiles;
+
+            return closedList
+                .Where(tile => tile != src)
+                .OrderBy(tile =>
+                {
+                    int visitPenalty = CalculateVisitPenalty(recentlyVisitedTiles, tile);
+                    return tile.H + visitPenalty;
+                })
                 .FirstOrDefault() ?? src;
         }
+
+        private int CalculateVisitPenalty(Queue<InGameTile> recentlyVisitedTiles, InGameTile tile)
+        {
+            int penalty = 0;
+            int count = recentlyVisitedTiles.Count;
+            int weight = HighVisitPenalty / RecentVisitLimit;
+
+            for (int i = 0; i < count; i++)
+            {
+                var visitedTile = recentlyVisitedTiles.ElementAt(i);
+                if (visitedTile == tile)
+                {
+                    penalty += weight * (RecentVisitLimit - i);
+                }
+            }
+            return penalty;
+        }
+
 
         private IEnumerable<InGameTile> GetNeighbors(InGameTile tile)
         {
