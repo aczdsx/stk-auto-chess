@@ -48,8 +48,8 @@ namespace CookApps.AutoBattler
         {
             var allChar = SpecDataManager.Instance.Character.All.ToList();
 
-            Character result = SpecDataManager.Instance.Character.Get(40101);
-            allChar.Add(result);
+            //Character result = SpecDataManager.Instance.Character.Get(40101);
+            //allChar.Add(result);
 
             //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(allChar);

@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
         {
             if (datas == null)
             {
-                //Destroy(this);
+                Destroy(this);
                 return;
             }
             isClickRetry = false;
@@ -361,7 +361,7 @@ namespace CookApps.AutoBattler
         {
             if (fx != null)
             {
-                //Destroy(fx);
+                Destroy(fx);
                 fx = null;
             }
 
@@ -458,11 +458,9 @@ namespace CookApps.AutoBattler
 
         private void ShowGetFX()
         {
-
-
             if (fx != null)
             {
-                //Destroy(fx);
+                Destroy(fx);
                 fx = null;
             }
             if(isSkipGet == true)
@@ -599,7 +597,7 @@ namespace CookApps.AutoBattler
             isSkip = true;
             if (fx != null)
             {
-                //Destroy(fx);
+                Destroy(fx);
                 fx = null;
             }
             //SoundManager.Instance.StopAllSound();
@@ -771,7 +769,7 @@ namespace CookApps.AutoBattler
             // }
             //
             //
-            // Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
 
         public void OnClickRegachaByPopup()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,11 @@ namespace CookApps.AutoBattler
         private void OnEnable()
         {
             StartCoroutine(WaitPlay());
+        }
+
+        private void OnDisable()
+        {
+            StopCoroutine(WaitPlay());
         }
 
         private IEnumerator WaitPlay()
