@@ -48,6 +48,7 @@ namespace CookApps.BattleSystem
 
         public void EndInGame()
         {
+            //[TODO] endingame이 불리는 타이밍에 pool을 지우는데, 남아있는 오브젝트가 있을 수 있음.
             IsInGamePlaying = false;
             InGameMainFlowManager.Instance.StopInGameMainLoop();
             InGameHpBarViewPool.Instance.ReleasePool();

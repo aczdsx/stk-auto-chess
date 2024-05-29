@@ -28,7 +28,11 @@ namespace CookApps.AutoBattler
             Tween.Custom(
                 initialPosition,
                 targetPosition,
-                onValueChange: (Vector3 value) => { _root.position = value; },
+                onValueChange: (value) =>
+                {
+                    if (_root)
+                        _root.position = value;
+                },
                 duration: 1f,
                 ease: Ease.OutCubic
             ).OnComplete(this, target => tcs.TrySetResult());
@@ -81,12 +85,8 @@ namespace CookApps.AutoBattler
 
         public void ReturnDamageTextView(InGameTextView textView)
         {
-            if (textView == null)
-            {
-                throw new Exception("Can't return null textView");
-            }
-
-            _textViewPool.Return(textView);
+            if (_textViewPool != null)
+                _textViewPool.Return(textView);
         }
     }
 }

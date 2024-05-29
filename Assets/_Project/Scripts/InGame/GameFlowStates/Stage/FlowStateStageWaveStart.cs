@@ -13,7 +13,7 @@ public class FlowStateStageWaveStart : StateBase
         // 적들 등장
 
         // 다 등장하면 CombatState으로 전환
-        InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
+        // InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
     }
 
     public override void StateRunning(float dt)

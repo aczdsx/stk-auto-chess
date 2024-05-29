@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -10,12 +11,8 @@ public class FlowStateStageClear : StateBase
 
     public override void StateStart()
     {
-        // Stage 클리어! UI 출력
-        // 보상 출력
-
-        // 로비로 이동
         InGameManager.Instance.EndInGame();
-        SceneLoading.GoToNextScene("Lobby").Forget();
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(true);
     }
 
     public override void StateRunning(float dt)

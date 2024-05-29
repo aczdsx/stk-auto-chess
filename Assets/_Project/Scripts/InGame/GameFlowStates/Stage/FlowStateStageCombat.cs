@@ -47,14 +47,14 @@ public class FlowStateStageCombat : StateBase
         if (characters.Count == 0)
         {
             // 패배!
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageWaveFail>();
+            InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();
         }
 
         InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
             // 승리!
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageWaveClear>();
+            InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();
         }
     }
 
