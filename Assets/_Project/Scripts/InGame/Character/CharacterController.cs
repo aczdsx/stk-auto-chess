@@ -44,6 +44,8 @@ namespace CookApps.BattleSystem
         public bool IsForceIdle { get; set; }
         public bool IsBlockChangeState { get; set; }
 
+        public Queue<InGameTile> RecentlyVisitedTiles = new Queue<InGameTile>();
+
         /// <summary>
         /// 논리적 위치
         /// </summary>

@@ -13,7 +13,7 @@ namespace CookApps.BattleSystem
         public int Height { get; }
 
         private readonly InGameTile[] _tiles;
-        private readonly HashSet<InGameTile> _recentlyVisitedTiles;
+        private const int RecentVisitLimit = 5;
         private const int HighVisitPenalty = 1000; // High penalty for revisiting a tile
 
         public InGameGrid(int2 gridSize, InGameTileView[] views)
@@ -21,7 +21,6 @@ namespace CookApps.BattleSystem
             Width = gridSize.x;
             Height = gridSize.y;
             _tiles = new InGameTile[Width * Height];
-            _recentlyVisitedTiles = new HashSet<InGameTile>();
 
             for (var i = 0; i < Width * Height; i++)
             {
@@ -86,6 +85,12 @@ namespace CookApps.BattleSystem
             priorityQueue.Enqueue(src, src.H);
             openList[src] = src.H;
 
+            src.OccupiedCharacter.RecentlyVisitedTiles.Enqueue(src);
+            if (src.OccupiedCharacter.RecentlyVisitedTiles.Count > RecentVisitLimit)
+            {
+                src.OccupiedCharacter.RecentlyVisitedTiles.Dequeue();
+            }
+
             while (priorityQueue.Count > 0)
             {
                 var current = priorityQueue.Dequeue();
@@ -97,7 +102,6 @@ namespace CookApps.BattleSystem
                 }
 
                 closedList.Add(current);
-                _recentlyVisitedTiles.Add(current);
 
                 foreach (var neighbor in GetNeighbors(current))
                 {
@@ -139,9 +143,12 @@ namespace CookApps.BattleSystem
         private int CalculateHeuristic(InGameTile tile, InGameTile dest)
         {
             int heuristic = GetManhattanDistance(tile, dest);
-            if (_recentlyVisitedTiles.Contains(tile))
+            if (tile.OccupiedCharacter != null)
             {
-                heuristic += HighVisitPenalty;
+                if (tile.OccupiedCharacter.RecentlyVisitedTiles.Contains(tile))
+                {
+                    heuristic += HighVisitPenalty;
+                }
             }
             return heuristic;
         }
@@ -157,9 +164,9 @@ namespace CookApps.BattleSystem
 
         private InGameTile FindBestTile(HashSet<InGameTile> closedList, InGameTile src)
         {
-            return closedList.Where(tile => tile != src)
-                             .OrderBy(tile => tile.H)
-                             .FirstOrDefault() ?? src;
+            return closedList.Where(tile => tile != src && !src.OccupiedCharacter.RecentlyVisitedTiles.Contains(tile))
+                .OrderBy(tile => tile.H)
+                .FirstOrDefault() ?? src;
         }
 
         private IEnumerable<InGameTile> GetNeighbors(InGameTile tile)
