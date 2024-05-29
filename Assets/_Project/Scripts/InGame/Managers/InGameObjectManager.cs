@@ -388,12 +388,11 @@ namespace CookApps.BattleSystem
             List<CharacterController> searchList = null;
             if (type == AllianceType.Player)
             {
-
-                searchList = enemiesInPlaygroundForUpdate;
+                searchList = charactersInPlaygroundForUpdate;
             }
             else if (type == AllianceType.Enemy)
             {
-                searchList = charactersInPlaygroundForUpdate;
+                searchList = enemiesInPlaygroundForUpdate;
             }
 
             if (searchList == null)
