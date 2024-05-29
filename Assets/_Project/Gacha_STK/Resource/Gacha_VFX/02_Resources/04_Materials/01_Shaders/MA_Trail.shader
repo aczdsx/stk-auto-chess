@@ -39,8 +39,10 @@ Shader "Custom/MA_Trail"
                 float4 color : COLOR;
             };
 
-            sampler2D _TEX;
-            sampler2D _T_Trail_01Copy;
+            TEXTURE2D(_TEX);
+            SAMPLER(sampler_TEX);
+            TEXTURE2D(_T_Trail_01Copy);
+            SAMPLER(sampler_T_Trail_01Copy);
             float4 _Color;
             float4 _Panner;
             float4 _TEX_ST;
@@ -49,24 +51,19 @@ Shader "Custom/MA_Trail"
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
-                OUT.positionHCS = TransformObjectToHClip(IN.positionOS);
+                OUT.positionHCS = mul(UNITY_MATRIX_MVP, IN.positionOS);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _TEX);
                 OUT.color = IN.color;
                 return OUT;
             }
 
-            half4 LightingUnlit(SurfaceDescriptionInputs surfaceData, half3 lightDir, half atten)
-            {
-                return half4(0, 0, 0, surfaceData.alpha);
-            }
-
             half4 frag(Varyings IN) : SV_Target
             {
-                float2 uv_TEX = IN.uv * _TEX_ST.xy + _TEX_ST.zw;
+                float2 uv_TEX = IN.uv;
                 float2 panner = uv_TEX + _Panner.xy * _Time.y;
                 float2 uv_T_Trail_01Copy = IN.uv * _T_Trail_01Copy_ST.xy + _T_Trail_01Copy_ST.zw;
 
-                float temp_output = tex2D(_TEX, panner).r * tex2D(_T_Trail_01Copy, uv_T_Trail_01Copy).r;
+                float temp_output = SAMPLE_TEXTURE2D(_TEX, sampler_TEX, panner).r * SAMPLE_TEXTURE2D(_T_Trail_01Copy, sampler_T_Trail_01Copy, uv_T_Trail_01Copy).r;
 
                 float4 finalColor = (_Color * IN.color) * temp_output;
                 finalColor.a = IN.color.a * temp_output;
@@ -79,3 +76,4 @@ Shader "Custom/MA_Trail"
 
     CustomEditor "ASEMaterialInspector"
 }
+
