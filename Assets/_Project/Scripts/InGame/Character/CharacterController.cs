@@ -567,7 +567,6 @@ namespace CookApps.BattleSystem
             }
 
             GetCharacterView().OnHit();
-            // [TODO] damage 작업 필요
             ShowDamageText(damageInfo.damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 
             _currHp -= damageInfo.damageAmount;
@@ -693,8 +692,6 @@ namespace CookApps.BattleSystem
         private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
         {
             InGameTextView textView = InGameTextViewPool.Instance.GetDamageTextView();
-
-            // Transform InGameMain.FloatingRootTransform;
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount, isCritical, isDoubleCritical);
             InGameTextViewPool.Instance.ReturnDamageTextView(textView);
         }
