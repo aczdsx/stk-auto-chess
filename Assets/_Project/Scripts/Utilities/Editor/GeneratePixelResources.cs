@@ -13,6 +13,7 @@ using UnityEngine.U2D;
 
 public class GeneratePixelResources : Editor
 {
+    private const int DEAD_FRAME_COUNT = 10;
     [MenuItem("Assets/Generate Pixel Resources", true)]
     private static bool ValidateCreateAnimation()
     {
@@ -74,7 +75,6 @@ public class GeneratePixelResources : Editor
 
     private static List<Sprite> LoadSpritesFromFolder(string folderPath)
     {
-        // 하위 폴더 내의 모든 스프라이트 로드
         string[] filePaths = Directory.GetFiles(folderPath, "*.png");
         List<Sprite> sprites = filePaths.Select(path =>
         {
@@ -118,7 +118,17 @@ public class GeneratePixelResources : Editor
         curveBinding.path = "";
         curveBinding.propertyName = "m_Sprite";
 
-        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[sprites.Count];
+        int frameCount = folderName == "DEAD" ? sprites.Count * DEAD_FRAME_COUNT : sprites.Count;
+        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[frameCount];
+
+        for (int i = 0; i < frameCount; i++)
+        {
+            keyFrames[i] = new ObjectReferenceKeyframe();
+            keyFrames[i].time = i / animationClip.frameRate;
+            keyFrames[i].value = sprites[i / (folderName == "DEAD" ? DEAD_FRAME_COUNT : 1)];
+        }
+
+        AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
 
         for (int i = 0; i < sprites.Count; i++)
         {
@@ -165,17 +175,14 @@ public class GeneratePixelResources : Editor
 
     private static AnimatorOverrideController AddAnimationsToBaseController(string parentFolderPath, string parentFolderName)
     {
-        // Animation 폴더 내의 애니메이션 클립 가져오기
         string[] animationClipPaths = Directory.GetFiles(parentFolderPath, "*.anim");
         AnimationClip[] animationClips = animationClipPaths
             .Select(path => AssetDatabase.LoadAssetAtPath<AnimationClip>(path)).ToArray();
 
-        // AnimationOverrideController 생성
         string overrideControllerPath = Path.Combine(parentFolderPath, $"{parentFolderName}_AnimationController.controller");
         AnimatorOverrideController overrideController = new AnimatorOverrideController();
         AssetDatabase.CreateAsset(overrideController, overrideControllerPath);
 
-        // BaseAnimController 가져오기
         string baseControllerName = "BaseCharacterAnimController";
         string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName);
         if (guids.Length == 0)
@@ -193,10 +200,8 @@ public class GeneratePixelResources : Editor
             return null;
         }
 
-        // AnimationOverrideController에 Animator Controller 할당
         overrideController.runtimeAnimatorController = baseController;
 
-        // 애니메이션 오버라이드 컨트롤러에 애니메이션 할당
         foreach (AnimationClip clip in animationClips)
         {
             overrideController[clip.name] = clip;
@@ -282,7 +287,6 @@ public class GeneratePixelResources : Editor
         packingSettings.padding = 2; // 이미지 간 거리를 최소화시킴
         spriteAtlas.SetPackingSettings(packingSettings);
 
-        // Texture settings
         SpriteAtlasTextureSettings textureSettings = new SpriteAtlasTextureSettings
         {
             sRGB = true,
@@ -292,7 +296,6 @@ public class GeneratePixelResources : Editor
         };
         spriteAtlas.SetTextureSettings(textureSettings);
 
-        // Add sprites to atlas
         spriteAtlas.Add(allSprites.ToArray());
 
         // Platform settings for Android
@@ -322,7 +325,7 @@ public class GeneratePixelResources : Editor
 
         // 아틀라스 저장
         string savePath = Path.Combine(parentFolderPath, $"{parentFolderName}.spriteatlas");
-        savePath = savePath.Replace("\\", "/"); // 경로가 유니티에서 인식될 수 있도록 슬래시 변경
+        savePath = savePath.Replace("\\", "/");
         AssetDatabase.CreateAsset(spriteAtlas, savePath);
 
         // Packing atlases
