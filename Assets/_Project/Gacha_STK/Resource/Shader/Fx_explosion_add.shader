@@ -1,109 +1,101 @@
-Shader "VFX_Klaus/fx_explosion_add"
+Shader "VFX_Klaus/fx_explosion_add_URP"
 {
-	Properties
-	{
-		_Main_Tex("Main_Tex", 2D) = "white" {}
-		[HideInInspector] _texcoord("", 2D) = "white" {}
-	}
+    Properties
+    {
+        _MainTex("Main Tex", 2D) = "white" {}
+    }
 
-		Category
-	{
-		SubShader
-		{
-		LOD 0
+    SubShader
+    {
+        Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+        Blend SrcAlpha One
+        ColorMask RGB
+        Cull Off
+        ZWrite Off
+        ZTest LEqual
 
-			Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "PreviewType" = "Plane" }
-			Blend SrcAlpha One
-			ColorMask RGB
-			Cull Off
-			Lighting Off
-			ZWrite Off
-			ZTest LEqual
+        Pass
+        {
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma target 2.0
+            #pragma multi_compile _ _ALPHATEST_ON _ALPHAPREMULTIPLY_ON
 
-			Pass {
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 
-				CGPROGRAM
+            struct Attributes
+            {
+                float4 vertex : POSITION;
+                float4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+                float4 k_texcoord1 : TEXCOORD1;
+            };
 
-				#pragma vertex vert
-				#pragma fragment frag
-				#pragma target 2.0
-				#pragma multi_compile_particles
-				#pragma multi_compile_fog
+            struct Varyings
+            {
+                float4 position : SV_POSITION;
+                float4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+                float4 k_texcoord3 : TEXCOORD3;
+                float3 worldPos : TEXCOORD1;
+                #ifdef SOFTPARTICLES_ON
+                float4 projPos : TEXCOORD2;
+                #endif
+            };
 
-				#include "UnityCG.cginc"
+            CBUFFER_START(UnityPerMaterial)
+            float4 _MainTex_ST;
+            TEXTURE2D(_MainTex);
+            SAMPLER(sampler_MainTex);
+            #ifdef SOFTPARTICLES_ON
+            TEXTURE2D(_CameraDepthTexture);
+            SAMPLER(sampler_CameraDepthTexture);
+            #endif
+            CBUFFER_END
 
-				struct appdata_t
-				{
-					float4 vertex : POSITION;
-					fixed4 color : COLOR;
-					float4 texcoord : TEXCOORD0;
-					UNITY_VERTEX_INPUT_INSTANCE_ID
-					float4 k_texcoord1 : TEXCOORD1;
-				};
+            Varyings vert(Attributes input)
+            {
+                Varyings output;
+                UNITY_SETUP_INSTANCE_ID(input);
 
-				struct v2f
-				{
-					float4 vertex : SV_POSITION;
-					fixed4 color : COLOR;
-					float4 texcoord : TEXCOORD0;
-					UNITY_FOG_COORDS(1)
-					#ifdef SOFTPARTICLES_ON
-					float4 projPos : TEXCOORD2;
-					#endif
-					UNITY_VERTEX_INPUT_INSTANCE_ID
-					UNITY_VERTEX_OUTPUT_STEREO
-					float4 k_texcoord3 : TEXCOORD3;
-				};
+                output.position = mul(UNITY_MATRIX_MVP, input.vertex);
+                output.color = input.color;
+                output.texcoord = TRANSFORM_TEX(input.texcoord, _MainTex);
+                output.k_texcoord3 = input.k_texcoord1;
+                output.worldPos = mul(unity_ObjectToWorld, input.vertex).xyz;
 
-				#if UNITY_VERSION >= 560
-				UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
-				#else
-				uniform sampler2D_float _CameraDepthTexture;
-				#endif
+                #ifdef SOFTPARTICLES_ON
+                output.projPos = ComputeScreenPos(output.position);
+                #endif
 
-				uniform sampler2D _Main_Tex;
-				uniform float4 _Main_Tex_ST;
+                return output;
+            }
 
-				v2f vert(appdata_t v)
-				{
-					v2f o;
-					UNITY_SETUP_INSTANCE_ID(v);
-					UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-					UNITY_TRANSFER_INSTANCE_ID(v, o);
-					o.k_texcoord3 = v.k_texcoord1;
+            half4 frag(Varyings input) : SV_Target
+            {
+                #ifdef SOFTPARTICLES_ON
+                float sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_CameraDepthTexture, input.projPos.xy));
+                float partZ = input.projPos.z;
+                float fade = saturate(input.k_texcoord3.w * (sceneZ - partZ));
+                input.color.a *= fade;
+                #endif
 
-					v.vertex.xyz += float3(0, 0, 0);
-					o.vertex = UnityObjectToClipPos(v.vertex);
-					#ifdef SOFTPARTICLES_ON
-						o.projPos = ComputeScreenPos(o.vertex);
-						COMPUTE_EYEDEPTH(o.projPos.z);
-					#endif
-					o.color = v.color;
-					o.texcoord = v.texcoord;
-					UNITY_TRANSFER_FOG(o,o.vertex);
-					return o;
-				}
+                float2 uv_MainTex = input.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                float4 tex2DResult = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv_MainTex);
+                float clampResult = clamp(((input.k_texcoord3.x * -1.0 * input.k_texcoord3.y) + ((tex2DResult.g + (1.0 - input.k_texcoord3.x)) - 0.0) * (1.0 - (input.k_texcoord3.x * -1.0 * input.k_texcoord3.y)) / (((input.k_texcoord3.x * 0.1) + 1.0) - 0.0)), 0.0, 1.0);
 
-				fixed4 frag(v2f i) : SV_Target
-				{
-					#ifdef SOFTPARTICLES_ON
-						float sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.projPos)));
-						float partZ = i.projPos.z;
-						float fade = saturate(i.k_texcoord3.w * (sceneZ - partZ));
-						i.color.a *= fade;
-					#endif
+                half4 col = (tex2DResult.r * input.color * clampResult);
+                return col;
+            }
 
-					float2 uv0_Main_Tex = i.texcoord.xy * _Main_Tex_ST.xy + _Main_Tex_ST.zw;
-					float2 uv_Main_Tex = i.texcoord.xy * _Main_Tex_ST.xy + _Main_Tex_ST.zw;
-					float4 tex2DResult = tex2D(_Main_Tex, (uv0_Main_Tex + (tex2D(_Main_Tex, uv_Main_Tex).b * i.k_texcoord3.z)));
-					float clampResult = clamp(((i.k_texcoord3.x * -1.0 * i.k_texcoord3.y) + ((tex2DResult.g + (1.0 - i.k_texcoord3.x)) - 0.0) * (1.0 - (i.k_texcoord3.x * -1.0 * i.k_texcoord3.y)) / (((i.k_texcoord3.x * 0.1) + 1.0) - 0.0)) , 0.0 , 1.0);
+            ENDHLSL
+        }
+    }
 
-					fixed4 col = (tex2DResult.r * i.color * clampResult);
-					UNITY_APPLY_FOG(i.fogCoord, col);
-					return col;
-				}
-				ENDCG
-			}
-		}
-	}
+    FallBack "Unlit/Texture"
 }
+
