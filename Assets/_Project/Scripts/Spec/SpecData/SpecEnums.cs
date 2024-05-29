@@ -187,4 +187,25 @@ namespace CookApps.AutoBattler
         normal = 2,
         weapon = 3,
     }
+
+    public enum GachaScenarioConditionKey
+    {
+        GUIDE_CLEAR = 1,
+        GACHA_ACC_COUNT = 2,
+    }
+
+    public enum QuotesType
+    {
+        GET_CHARACTER = 1,
+        INFORMATION = 2,
+        VICTORY = 3,
+        USE_SKILL = 4,
+        LEVEL_UP = 5,
+    }
+
+    public enum QuotesPlayType
+    {
+        ONLY = 1,
+        RANDOM = 2,
+    }
 }

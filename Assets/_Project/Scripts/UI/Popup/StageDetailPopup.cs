@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
-    public class StageReward
+    public class StageRewardData
     {
         public int targetStarCount { init; get; }
         public RewardItem rewardItem { init; get; }
@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
         private int chapter;
         private int stageIndex;
 
-        private List<StageReward> rewards = new ();
+        private List<StageRewardData> rewards = new ();
 
         private ObjectPool<StageRewardSlot> rewardSlotPool;
 
@@ -115,7 +115,7 @@ namespace CookApps.AutoBattler
                     continue;
                 }
 
-                var reward = new StageReward
+                var reward = new StageRewardData
                 {
                     targetStarCount = i + 1,
                     rewardItem = starReward[i],
@@ -127,7 +127,7 @@ namespace CookApps.AutoBattler
 
             foreach (RewardItem rewardItem in specChests)
             {
-                var reward = new StageReward
+                var reward = new StageRewardData
                 {
                     targetStarCount = 0,
                     rewardItem = rewardItem,

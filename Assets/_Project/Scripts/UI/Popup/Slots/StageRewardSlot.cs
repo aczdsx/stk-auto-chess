@@ -10,7 +10,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject[] starNodes;
         [SerializeField] private GameObject characterPieceNode;
 
-        public void SetReward(StageReward reward)
+        public void SetReward(StageRewardData reward)
         {
             rewardView.SetReward(reward.rewardItem.ToGrpcReward());
             var isSpecialReward = false;

@@ -222,7 +222,7 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt stat_res;
         /// 관통력
         public CookApps.Obfuscator.ObfuscatorInt stat_atk_pierce;
-        /// 관통력
+        /// 마법 관통력
         public CookApps.Obfuscator.ObfuscatorInt stat_res_pierce;
         /// 치명률
         public CookApps.Obfuscator.ObfuscatorFloat crit_rate;
@@ -309,6 +309,22 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class CharacterQuotes
+    {
+        /// index
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 유닛 ID
+        public CookApps.Obfuscator.ObfuscatorInt character_id;
+        /// 대사 재생 타입
+        public global::CookApps.AutoBattler.QuotesPlayType quotes_play_type;
+        /// 대사 타입
+        public global::CookApps.AutoBattler.QuotesType quotes_type;
+        public string dialog_token;
+        public string sound_token_kr;
+    }
+
+    [GeneratorSpecData]
     public partial class Dialogue
     {
         /// 유니크 ID
@@ -340,6 +356,24 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.ConfigValueType config_value_type;
         /// 값
         public string config_value;
+    }
+
+    [GeneratorSpecData]
+    public partial class GachaScenario
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 메인 조건
+        public global::CookApps.AutoBattler.GachaScenarioConditionKey main_condition_key;
+        /// 서브 조건 키값
+        public CookApps.Obfuscator.ObfuscatorInt sub_condition_value;
+        /// 보상 종류
+        public string reward_type;
+        /// 보상 세부 key
+        public CookApps.Obfuscator.ObfuscatorInt reward_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt reward_count;
     }
 
     [GeneratorSpecData]
@@ -453,6 +487,40 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class StageReward
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 컨텐츠 메인 분류
+        public global::CookApps.AutoBattler.ContentType content_type;
+        /// 컨텐츠 서브 분류
+        public global::CookApps.AutoBattler.ContentSubType content_sub_type;
+        /// 컨텐츠 추가 구분 값
+        public CookApps.Obfuscator.ObfuscatorInt content_key_value;
+        /// 보상 id
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 보상 공급 확률 유무
+        public string prob_type;
+        /// 보상 획득 빈도
+        public global::CookApps.AutoBattler.FrequencyType frequency_type;
+        /// 보상 타입
+        public global::CookApps.AutoBattler.ItemType reward_item_type;
+        /// 보상 타입_소분류
+        public CookApps.Obfuscator.ObfuscatorInt star_count;
+        /// 보상 키 값
+        public CookApps.Obfuscator.ObfuscatorInt reward_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt reward_value;
+        /// 보상 지급 확률
+        public CookApps.Obfuscator.ObfuscatorDouble rate;
+        /// 최소 획득 시간 (분)
+        public CookApps.Obfuscator.ObfuscatorInt reward_min_time;
+        /// 최소 획득 갯수
+        public CookApps.Obfuscator.ObfuscatorInt reward_min_count;
+    }
+
+    [GeneratorSpecData]
     public partial class StageMonster
     {
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -544,8 +612,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt content_key_value;
         /// 보상 id
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        /// 보상 공급 확률 유무
-        public string prob_type;
         /// 보상 획득 빈도
         public global::CookApps.AutoBattler.FrequencyType frequency_type;
         /// 보상 타입
