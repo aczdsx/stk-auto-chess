@@ -13,26 +13,27 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text txtDamage;
         [SerializeField] private Transform _root;
 
-        // [TODO] inGame 쪽 ui 관리 방법 필요
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
             CachedGo.SetActive(true);
             txtDamage.text = isDoubleCritical ? $"Double Critical! {damage}" : isCritical ? $"Critical! {damage}" : $"{damage}";
 
-            Vector3 worldPosition = position + Vector3.up * characterHeight;
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
-            _root.position = screenPosition;
+            Vector3 initialPosition = position + Vector3.up * characterHeight;
+            _root.position = initialPosition;
 
-            Vector3 initialPosition = _root.position;
-            Vector3 targetPosition = initialPosition + Vector3.up * 50;
+            Vector3 targetPosition = initialPosition + Vector3.up * 1.0f;
+
+            var tcs = new UniTaskCompletionSource();
 
             Tween.Custom(
                 initialPosition,
                 targetPosition,
-                onValueChange: (Vector2 value) => { CachedGo.transform.position = value; },
+                onValueChange: (Vector3 value) => { _root.position = value; },
                 duration: 1f,
                 ease: Ease.OutCubic
-            ).OnComplete(this, target => CachedGo.SetActive(false));
+            ).OnComplete(this, target => tcs.TrySetResult());
+
+            await tcs.Task;
         }
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
@@ -40,17 +41,15 @@ namespace CookApps.AutoBattler
             CachedGo.SetActive(true);
             txtDamage.text = $"Heal Amount : {healAmount}";
 
-            Vector3 worldPosition = position + Vector3.up * characterHeight;
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
-            _root.position = screenPosition;
+            Vector3 initialPosition = position + Vector3.up * characterHeight;
+            _root.position = initialPosition;
 
-            Vector3 initialPosition = _root.position;
-            Vector3 targetPosition = initialPosition + Vector3.up * 50;
+            Vector3 targetPosition = initialPosition + Vector3.up * 0.5f;
 
             Tween.Custom(
                 initialPosition,
                 targetPosition,
-                onValueChange: (Vector2 value) => { CachedGo.transform.position = value; },
+                onValueChange: (Vector3 value) => { _root.position = value; },
                 duration: 1f,
                 ease: Ease.OutCubic
             ).OnComplete(this, target => CachedGo.SetActive(false));
