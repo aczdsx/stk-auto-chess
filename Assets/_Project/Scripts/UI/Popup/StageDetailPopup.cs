@@ -99,43 +99,43 @@ namespace CookApps.AutoBattler
 
         private void SetPopupInfo()
         {
-            stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
-            SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
-            UserStage userStage = UserDataManager.Instance.GetUserStage(specStage.stage_id);
-            for (var i = 0; i < starObjs.Length; i++)
-            {
-                starObjs[i].SetActive(i < userStage.StarCount);
-            }
-
-            RewardItem[] starReward = specStage.GetStarRewards();
-            for (var i = 0; i < starReward.Length; i++)
-            {
-                if (i < userStage.StarCount)
-                {
-                    continue;
-                }
-
-                var reward = new StageRewardData
-                {
-                    targetStarCount = i + 1,
-                    rewardItem = starReward[i],
-                };
-                rewards.Add(reward);
-            }
-
-            List<RewardItem> specChests = SpecDataManager.Instance.GetChestList(specStage.chest_id);
-
-            foreach (RewardItem rewardItem in specChests)
-            {
-                var reward = new StageRewardData
-                {
-                    targetStarCount = 0,
-                    rewardItem = rewardItem,
-                };
-                rewards.Add(reward);
-            }
-
-            tableView.RefreshAll();
+            // stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
+            // SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
+            // UserStage userStage = UserDataManager.Instance.GetUserStage(specStage.stage_id);
+            // for (var i = 0; i < starObjs.Length; i++)
+            // {
+            //     starObjs[i].SetActive(i < userStage.StarCount);
+            // }
+            //
+            // RewardItem[] starReward = specStage.GetStarRewards();
+            // for (var i = 0; i < starReward.Length; i++)
+            // {
+            //     if (i < userStage.StarCount)
+            //     {
+            //         continue;
+            //     }
+            //
+            //     var reward = new StageRewardData
+            //     {
+            //         targetStarCount = i + 1,
+            //         rewardItem = starReward[i],
+            //     };
+            //     rewards.Add(reward);
+            // }
+            //
+            // List<RewardItem> specChests = SpecDataManager.Instance.GetChestList(specStage.chest_id);
+            //
+            // foreach (RewardItem rewardItem in specChests)
+            // {
+            //     var reward = new StageRewardData
+            //     {
+            //         targetStarCount = 0,
+            //         rewardItem = rewardItem,
+            //     };
+            //     rewards.Add(reward);
+            // }
+            //
+            // tableView.RefreshAll();
         }
 
         private void OnStartButtonClicked()

@@ -68,18 +68,19 @@ namespace CookApps.AutoBattler
         private int OnGetTotalTableViewCellItemCount()
         {
             // return specQuests.Count;
-            return SpecDataManager.Instance.GetStageCount(currentChapter);
+            //return SpecDataManager.Instance.GetStageCount(currentChapter);
+            return 0;
         }
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
-            var currentStageId = (int) param;
-            SpecStage specStage = SpecDataManager.Instance.SpecStage.Get(currentStageId);
-            currentChapter = specStage.chapter_id;
-            int focusIndex = SpecDataManager.Instance.GetStageIndex(currentChapter, currentStageId);
-            tableView.RefreshAll(true, focusIndex);
+            // var currentStageId = (int) param;
+            // SpecStage specStage = SpecDataManager.Instance.SpecStage.Get(currentStageId);
+            // currentChapter = specStage.chapter_id;
+            // int focusIndex = SpecDataManager.Instance.GetStageIndex(currentChapter, currentStageId);
+            // tableView.RefreshAll(true, focusIndex);
         }
     }
 }

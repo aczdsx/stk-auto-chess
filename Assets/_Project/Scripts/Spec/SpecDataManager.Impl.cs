@@ -52,28 +52,14 @@ namespace CookApps.AutoBattler
             CustomizeSpecData();
         }
 
-        private Dictionary<int, List<SpecStage>> specStageDic = new ();  // key : chapter, value : stage list
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
         private Dictionary<int, List<SpecChapter>> chapterDic = new (); // key : chapter_id, value : chapter list
-        private Dictionary<int, List<Stage>> stageChapterDic = new (); // key : chapter_id, value : stage list
+        private Dictionary<int, List<SpecStage>> stageChapterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
 
         private void CustomizeSpecData()
         {
-            // SpecStage
-            specStageDic.Clear();
-            foreach (SpecStage specStage in SpecStage.All)
-            {
-                if (!specStageDic.TryGetValue(specStage.chapter_id, out List<SpecStage> stageList))
-                {
-                    stageList = new List<SpecStage>();
-                    specStageDic.Add(specStage.chapter_id, stageList);
-                }
-
-                stageList.Add(specStage);
-            }
-
             // Chest
             chestDic.Clear();
             foreach (SpecChest chest in SpecChest.All)
@@ -102,11 +88,11 @@ namespace CookApps.AutoBattler
 
             // Stage
             stageChapterDic.Clear();
-            foreach (Stage stage in Stage.All)
+            foreach (SpecStage stage in SpecStage.All)
             {
-                if (!stageChapterDic.TryGetValue(stage.chapter_id, out List<Stage> stageList))
+                if (!stageChapterDic.TryGetValue(stage.chapter_id, out List<SpecStage> stageList))
                 {
-                    stageList = new List<Stage>();
+                    stageList = new List<SpecStage>();
                     stageChapterDic.Add(stage.chapter_id, stageList);
                 }
 
@@ -176,7 +162,7 @@ namespace CookApps.AutoBattler
 
             int stageStarCount = GetGameConfig<int>("max_stage_star_count");
 
-            if (stageChapterDic.TryGetValue(chapterID, out List<Stage> stageList))
+            if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
             {
                 return stageList.FindAll(stage => stage.difficulty == type).Count * stageStarCount;
             }
@@ -184,9 +170,9 @@ namespace CookApps.AutoBattler
             return totalStarCount;
         }
 
-        public Stage GetStageData(int chapterID, int stageNumber, DifficultyType type)
+        public SpecStage GetStageData(int chapterID, int stageNumber, DifficultyType type)
         {
-            if (stageChapterDic.TryGetValue(chapterID, out List<Stage> stageList))
+            if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
             {
                 return stageList.Find(stage => stage.stage_number == stageNumber && stage.difficulty == type);
             }
@@ -195,9 +181,9 @@ namespace CookApps.AutoBattler
         }
 
 
-        public List<Stage> GetStageList(int chapter)
+        public List<SpecStage> GetStageList(int chapter)
         {
-            if (stageChapterDic.TryGetValue(chapter, out List<Stage> stageList))
+            if (stageChapterDic.TryGetValue(chapter, out List<SpecStage> stageList))
             {
                 return stageList;
             }
@@ -205,9 +191,9 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public List<Stage> GetStageList(int chapter, DifficultyType difficulty)
+        public List<SpecStage> GetStageList(int chapter, DifficultyType difficulty)
         {
-            if (stageChapterDic.TryGetValue(chapter, out List<Stage> stageList))
+            if (stageChapterDic.TryGetValue(chapter, out List<SpecStage> stageList))
             {
                 return stageList.FindAll(stage => stage.difficulty == difficulty);
             }
@@ -217,7 +203,7 @@ namespace CookApps.AutoBattler
 
         public int GetStageCount(int chapter, DifficultyType difficulty)
         {
-            if (stageChapterDic.TryGetValue(chapter, out List<Stage> stageList))
+            if (stageChapterDic.TryGetValue(chapter, out List<SpecStage> stageList))
             {
                 return stageList.FindAll(stage => stage.difficulty == difficulty).Count;
             }
@@ -226,9 +212,9 @@ namespace CookApps.AutoBattler
         }
 
         // 해당 챕터의 마지막 스테이지 데이터 반환
-        public Stage GetLastStageData(int chapterID, DifficultyType difficulty)
+        public SpecStage GetLastStageData(int chapterID, DifficultyType difficulty)
         {
-            if (stageChapterDic.TryGetValue(chapterID, out List<Stage> stageList))
+            if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
             {
                 var targetStageList = stageList.FindAll(stage => stage.difficulty == difficulty);
 
@@ -242,46 +228,10 @@ namespace CookApps.AutoBattler
         // 해당 스테이지가 마지막 스테이지인지 체크
         public bool IsLastStage(int stageID)
         {
-            Stage stageSpecData = Stage.Get(stageID);
-            Stage nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty);
+            SpecStage stageSpecData = SpecStage.Get(stageID);
+            SpecStage nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty);
 
             return nextStageSpecData == null;
-        }
-
-        public int GetStageCount(int chapter)
-        {
-            if (specStageDic.TryGetValue(chapter, out List<SpecStage> stageList))
-            {
-                return stageList.Count;
-            }
-
-            return 0;
-        }
-
-        public SpecStage GetSpecStage(int chapter, int stageIdx)
-        {
-            if (specStageDic.TryGetValue(chapter, out List<SpecStage> stageList))
-            {
-                return stageList[stageIdx];
-            }
-
-            return null;
-        }
-
-        public int GetStageIndex(int chapter, int stageId)
-        {
-            if (specStageDic.TryGetValue(chapter, out List<SpecStage> stageList))
-            {
-                for (var i = 0; i < stageList.Count; i++)
-                {
-                    if (stageList[i].stage_id == stageId)
-                    {
-                        return i;
-                    }
-                }
-            }
-
-            return -1;
         }
 
         public List<RewardItem> GetChestList(int chestId)

@@ -70,56 +70,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecStage
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
-        public CookApps.Obfuscator.ObfuscatorInt dialogue_id;
-        public CookApps.Obfuscator.ObfuscatorInt attr;
-        public CookApps.Obfuscator.ObfuscatorInt stage_id;
-        public bool is_elite;
-        public CookApps.Obfuscator.ObfuscatorInt limit_count;
-        public CookApps.Obfuscator.ObfuscatorInt cost;
-        public CookApps.Obfuscator.ObfuscatorInt cost_hard;
-        public CookApps.Obfuscator.ObfuscatorInt front_1;
-        public CookApps.Obfuscator.ObfuscatorInt front_1Lv;
-        public CookApps.Obfuscator.ObfuscatorInt front_2;
-        public CookApps.Obfuscator.ObfuscatorInt front_2Lv;
-        public CookApps.Obfuscator.ObfuscatorInt front_3;
-        public CookApps.Obfuscator.ObfuscatorInt front_3Lv;
-        public CookApps.Obfuscator.ObfuscatorInt mid_1;
-        public CookApps.Obfuscator.ObfuscatorInt mid_1Lv;
-        public CookApps.Obfuscator.ObfuscatorInt mid_2;
-        public CookApps.Obfuscator.ObfuscatorInt mid_2Lv;
-        public CookApps.Obfuscator.ObfuscatorInt mid_3;
-        public CookApps.Obfuscator.ObfuscatorInt mid_3Lv;
-        public CookApps.Obfuscator.ObfuscatorInt back_1;
-        public CookApps.Obfuscator.ObfuscatorInt back_1Lv;
-        public CookApps.Obfuscator.ObfuscatorInt back_2;
-        public CookApps.Obfuscator.ObfuscatorInt back_2Lv;
-        public CookApps.Obfuscator.ObfuscatorInt back_3;
-        public CookApps.Obfuscator.ObfuscatorInt back_3Lv;
-        public CookApps.Obfuscator.ObfuscatorFloat multiple;
-        public CookApps.Obfuscator.ObfuscatorInt hard_add_lv;
-        public CookApps.Obfuscator.ObfuscatorFloat hard_multiple;
-        public CookApps.Obfuscator.ObfuscatorInt chest_id;
-        public CookApps.Obfuscator.ObfuscatorInt hard_chest_id;
-        public global::CookApps.AutoBattler.ItemType star_reward_type_1;
-        /// ?
-        public CookApps.Obfuscator.ObfuscatorInt star_reward_key_1;
-        public CookApps.Obfuscator.ObfuscatorInt star_reward_count_1;
-        public global::CookApps.AutoBattler.ItemType star_reward_type_2;
-        /// ?
-        public CookApps.Obfuscator.ObfuscatorInt star_reward_key_2;
-        public CookApps.Obfuscator.ObfuscatorInt star_reward_count_2;
-        public global::CookApps.AutoBattler.ItemType star_reward_type_3;
-        /// ?
-        public CookApps.Obfuscator.ObfuscatorInt star_reward_key_3;
-        public CookApps.Obfuscator.ObfuscatorInt star_reward_count_3;
-    }
-
-    [GeneratorSpecData]
     public partial class SpecCommanderSkill
     {
         /// Sp
@@ -498,7 +448,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Stage
+    public partial class SpecStage
     {
         /// 전체 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]

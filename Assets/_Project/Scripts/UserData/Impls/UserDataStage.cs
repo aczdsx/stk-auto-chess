@@ -80,7 +80,7 @@ namespace CookApps.AutoBattler
 
             foreach (var userStage in userStageGroup.UserStages.Values)
             {
-                var specStage = SpecDataManager.Instance.Stage.Get(userStage.StageId);
+                var specStage = SpecDataManager.Instance.SpecStage.Get(userStage.StageId);
                 if (specStage != null)
                 {
                     if (specStage.chapter_id == chapterID && specStage.difficulty == type)

@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
             int lastStageID = UserDataManager.Instance.GetLastStageId(_chapterSpecData.difficulty);
             if (lastStageID > 0)
             {
-                Stage lastStageSpecData = SpecDataManager.Instance.Stage.Get(lastStageID);
+                SpecStage lastStageSpecData = SpecDataManager.Instance.SpecStage.Get(lastStageID);
 
                 isPlayableChapter = _chapterSpecData.chapter_id <= lastStageSpecData.chapter_id;
             }

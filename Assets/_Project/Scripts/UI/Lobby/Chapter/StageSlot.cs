@@ -30,15 +30,15 @@ namespace CookApps.AutoBattler
 
         internal void SetStageData(int chapter, int stageIndex)
         {
-            this.chapter = chapter;
-            this.stageIndex = stageIndex;
-            SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
-            UserStage userStage = UserDataManager.Instance.GetUserStage(specStage.stage_id);
-            stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
-            for (var i = 0; i < starObjs.Length; i++)
-            {
-                starObjs[i].SetActive(i < userStage.StarCount);
-            }
+            // this.chapter = chapter;
+            // this.stageIndex = stageIndex;
+            // //SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
+            // UserStage userStage = UserDataManager.Instance.GetUserStage(specStage.stage_id);
+            // stageNameText.SetText("{0}-{1}", chapter, stageIndex + 1);
+            // for (var i = 0; i < starObjs.Length; i++)
+            // {
+            //     starObjs[i].SetActive(i < userStage.StarCount);
+            // }
         }
 
         private void OnClickEnter()

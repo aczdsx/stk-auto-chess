@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
             // 기본 데이터 갱신
             int currentStageId = UserDataManager.Instance.GetCurrentStageId();
 
-            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStageId);
+            var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStageId);
             var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(stageSpecData.chapter_id);
 
             //_chapterImage.sprite = specStage.chapter_image;
@@ -95,7 +95,7 @@ namespace CookApps.AutoBattler
             int currentStagdId = UserDataManager.Instance.GetCurrentStageId();
             int currentChapterId = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
 
-            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStagdId);
+            var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
             var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
 
             var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty);

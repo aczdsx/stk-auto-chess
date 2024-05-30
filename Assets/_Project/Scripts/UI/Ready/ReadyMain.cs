@@ -163,36 +163,36 @@ namespace CookApps.AutoBattler
 
             enemyCharacterSlots.Clear();
 
-            SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
-            foreach ((int id, int level) in specStage.GetFront())
-            {
-                CharacterSlot slot = characterSlotPool.Get();
-                slot.CachedTr.SetParent(enemyPositionParentTrs[0], false);
-                slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
-                slot.SetEnemyCharacterData(id, level);
-                slot.CachedTr.SetAsLastSibling();
-                enemyCharacterSlots.Add(slot);
-            }
-
-            foreach ((int id, int level) in specStage.GetMid())
-            {
-                CharacterSlot slot = characterSlotPool.Get();
-                slot.CachedTr.SetParent(enemyPositionParentTrs[1], false);
-                slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
-                slot.SetEnemyCharacterData(id, level);
-                slot.CachedTr.SetAsLastSibling();
-                enemyCharacterSlots.Add(slot);
-            }
-
-            foreach ((int id, int level) in specStage.GetBack())
-            {
-                CharacterSlot slot = characterSlotPool.Get();
-                slot.CachedTr.SetParent(enemyPositionParentTrs[2], false);
-                slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
-                slot.SetEnemyCharacterData(id, level);
-                slot.CachedTr.SetAsLastSibling();
-                enemyCharacterSlots.Add(slot);
-            }
+            // SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIndex);
+            // foreach ((int id, int level) in specStage.GetFront())
+            // {
+            //     CharacterSlot slot = characterSlotPool.Get();
+            //     slot.CachedTr.SetParent(enemyPositionParentTrs[0], false);
+            //     slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
+            //     slot.SetEnemyCharacterData(id, level);
+            //     slot.CachedTr.SetAsLastSibling();
+            //     enemyCharacterSlots.Add(slot);
+            // }
+            //
+            // foreach ((int id, int level) in specStage.GetMid())
+            // {
+            //     CharacterSlot slot = characterSlotPool.Get();
+            //     slot.CachedTr.SetParent(enemyPositionParentTrs[1], false);
+            //     slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
+            //     slot.SetEnemyCharacterData(id, level);
+            //     slot.CachedTr.SetAsLastSibling();
+            //     enemyCharacterSlots.Add(slot);
+            // }
+            //
+            // foreach ((int id, int level) in specStage.GetBack())
+            // {
+            //     CharacterSlot slot = characterSlotPool.Get();
+            //     slot.CachedTr.SetParent(enemyPositionParentTrs[2], false);
+            //     slot.CachedTr.localRotation = Quaternion.Euler(-30, 0, 0);
+            //     slot.SetEnemyCharacterData(id, level);
+            //     slot.CachedTr.SetAsLastSibling();
+            //     enemyCharacterSlots.Add(slot);
+            // }
         }
 
         private void OnClickCharacterSlot(CharacterSlot slot)
