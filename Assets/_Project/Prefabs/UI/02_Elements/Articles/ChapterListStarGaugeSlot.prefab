@@ -1329,7 +1329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3043391406049759348}
   m_Layer: 5
-  m_Name: Item_ChapterList_StarGauge_Step
+  m_Name: ChapterListStarGaugeSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

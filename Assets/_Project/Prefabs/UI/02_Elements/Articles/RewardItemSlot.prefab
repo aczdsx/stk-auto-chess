@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 2209036948035925625}
   - component: {fileID: 3653541926844693996}
   m_Layer: 5
-  m_Name: Item_Reward
+  m_Name: RewardItemSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

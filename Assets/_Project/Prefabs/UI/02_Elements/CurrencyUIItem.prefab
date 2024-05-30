@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2806612808008756931}
   m_Layer: 5
-  m_Name: Item_Curreny
+  m_Name: CurrencyUIItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

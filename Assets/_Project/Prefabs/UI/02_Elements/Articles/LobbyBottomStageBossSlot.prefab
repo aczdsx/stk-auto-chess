@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7993755904770107260}
   m_Layer: 5
-  m_Name: Item_Chapter_Boss
+  m_Name: LobbyBottomStageBossSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

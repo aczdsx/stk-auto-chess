@@ -23,7 +23,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _stageProgressText;
 
 
-        private List<LobbyBottomStageItemSlot> _stageSlotList = new();
+        private List<LobbyBottomStageSlot> _stageSlotList = new();
 
         protected override void Awake()
         {
@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < stageList.Count; i++)
             {
                 GameObject newSlotObject = Instantiate(_stageSelectSlotObject, _stageSelectScrollRect.content);
-                LobbyBottomStageItemSlot slot = newSlotObject.GetComponent<LobbyBottomStageItemSlot>();
+                LobbyBottomStageSlot slot = newSlotObject.GetComponent<LobbyBottomStageSlot>();
                 slot.SetStageItemSlot(stageList[i]);
 
                 _stageSlotList.Add(slot);

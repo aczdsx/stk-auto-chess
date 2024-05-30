@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/PopupGacha.prefab")]
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/GachaPopup.prefab")]
     public class GachaPopup : UILayer
     {
         [SerializeField] private CAButton _gacha1Button;

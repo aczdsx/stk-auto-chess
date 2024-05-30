@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class LobbyBottomStageItemSlot : CachedMonoBehaviour
+    public class LobbyBottomStageSlot : CachedMonoBehaviour
     {
         [FormerlySerializedAs("_noramlStateHeight")]
         [Header("[Stage - Common]")]

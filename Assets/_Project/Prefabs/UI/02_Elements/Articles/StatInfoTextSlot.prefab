@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2660864437922406204}
   - component: {fileID: 6540200120959713005}
   m_Layer: 5
-  m_Name: item_Text_infoList
+  m_Name: StatInfoTextSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2347,7 +2347,7 @@ GameObject:
   - component: {fileID: 4321453546002106220}
   - component: {fileID: 2788147042253690115}
   m_Layer: 5
-  m_Name: Item_Chapter
+  m_Name: LobbyBottomStageSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

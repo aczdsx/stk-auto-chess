@@ -93,7 +93,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 1.9999999, g: 1.9999999, b: 1.9999999, a: 1}
+    - _Color: {r: 1.32845, g: 1.6475472, b: 5.9921575, a: 1}
     - _DisUV: {r: 1, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainSp: {r: 0, g: 0, b: 0, a: 0}

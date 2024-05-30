@@ -1706,7 +1706,7 @@ GameObject:
   - component: {fileID: 3132254500446962540}
   - component: {fileID: 1804058663170957993}
   m_Layer: 5
-  m_Name: Item_ChapterList
+  m_Name: ChapterListItemSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

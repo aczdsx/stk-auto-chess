@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 1129443090912651963}
   - component: {fileID: 6436057124120577404}
   m_Layer: 5
-  m_Name: Pop_ChapterList
+  m_Name: ChapterListPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

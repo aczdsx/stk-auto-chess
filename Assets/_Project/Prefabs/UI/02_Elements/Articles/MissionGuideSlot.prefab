@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7518062370182445}
   - component: {fileID: 2190186430440021572}
   m_Layer: 5
-  m_Name: Item_MissionGuide
+  m_Name: MissionGuideSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1393,7 +1393,7 @@ GameObject:
   - component: {fileID: 1078707308649889360}
   - component: {fileID: 2209376420024090465}
   m_Layer: 5
-  m_Name: Item_CharacterCard
+  m_Name: CharacterCardSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

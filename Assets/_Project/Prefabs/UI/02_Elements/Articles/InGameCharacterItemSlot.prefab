@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6007327136383443882}
   - component: {fileID: 2258142017000243704}
   m_Layer: 5
-  m_Name: Item_Character
+  m_Name: InGameCharacterItemSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

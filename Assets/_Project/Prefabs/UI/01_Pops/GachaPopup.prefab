@@ -8972,7 +8972,7 @@ GameObject:
   - component: {fileID: 3062085271551997920}
   - component: {fileID: 2039025371989645973}
   m_Layer: 6
-  m_Name: PopupGacha
+  m_Name: GachaPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

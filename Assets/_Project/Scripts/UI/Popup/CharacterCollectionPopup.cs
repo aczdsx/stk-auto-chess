@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
         LIGHT = 6,
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/Pop_CharacterCollection.prefab")]
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/Pop_CharacterCollection/CharacterCollectionPopup.prefab")]
     public class CharacterCollectionPopup : UILayer
     {
         [SerializeField] private ScrollRect _characterScrollRect;

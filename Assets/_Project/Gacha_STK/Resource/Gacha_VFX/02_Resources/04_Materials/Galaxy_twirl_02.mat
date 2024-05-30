@@ -76,12 +76,12 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DisInt: 0.2
+    - _DisInt: 0.271
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _MainPow: 1
+    - _MainPow: 1.12
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -93,7 +93,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 2, g: 2, b: 2, a: 1}
+    - _Color: {r: 0, g: 0.29862756, b: 3.5648696, a: 1}
     - _DisUV: {r: 1, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainSp: {r: 0.2, g: 0, b: 0, a: 0}

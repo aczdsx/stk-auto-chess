@@ -87,7 +87,7 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.1
+    - _Speed: 1.24
     - _SrcBlend: 1
     - _Stencil: 0
     - _StencilComp: 8
