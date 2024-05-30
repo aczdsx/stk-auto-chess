@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
 
             bool isIncludeSSR = false;
 
-            if (datas.Exists(x => x.grade == Grade.LEGEND && x.need_piece== 20))
+            if (datas.Exists(x => x.grade == GradeType.LEGEND && x.need_piece== 20))
                 isIncludeSSR = true;
 
             if (isIncludeSSR == true)
@@ -136,7 +136,7 @@ namespace CookApps.AutoBattler
             Character idxCharcater = SpecDataManager.Instance.Character.Get( _datas[cnt].id);
             if (_datas[cnt].need_piece == 20)
             {
-                if (idxCharcater.grade == Grade.LEGEND)
+                if (idxCharcater.grade == GradeType.LEGEND)
                 {
                     fx = AddressablesUtil.Instantiate("GetNewCharacter");
                     fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);

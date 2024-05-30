@@ -13,7 +13,7 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat debuffDuration;
     private ObfuscatorInt range;
-    private AttackRangeShape rangeShape;
+    private AttackRangeShape _rangeShapeType;
     private ObfuscatorFloat debuffPower;
 
     private ObfuscatorFloat elapsedTime;
@@ -27,7 +27,7 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
         cooltime = codeInfo.GetCodeStatToFloat(0);
         debuffDuration = codeInfo.GetCodeStatToFloat(1);
         range = codeInfo.GetCodeStatToInt(2);
-        rangeShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        _rangeShapeType = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
         debuffPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
@@ -40,7 +40,7 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
         cooltime = codeInfo.GetCodeStatToFloat(0);
         debuffDuration = codeInfo.GetCodeStatToFloat(1);
         range = codeInfo.GetCodeStatToInt(2);
-        rangeShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        _rangeShapeType = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
         debuffPower = codeInfo.GetCodeStatToFloat(4);
     }
 
@@ -96,7 +96,7 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
 
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
-        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, range, rangeShape, enemies);
+        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, range, _rangeShapeType, enemies);
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)

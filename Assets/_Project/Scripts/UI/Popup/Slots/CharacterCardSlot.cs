@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
             bool haveCharacter = _userCharacterData != null;
 
             // 기본 데이터 관련 세팅
-            _gradeImage.sprite = ImageManager.Instance.GetGradeSprite(_characterData.grade, haveCharacter);
+            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_characterData.grade, haveCharacter);
 
             _synergyUI.SetSynergyUI(_characterData.element_type, haveCharacter);
             _positionSynergyUI.SetPositionSynergyUI(_characterData.class_type, haveCharacter);
@@ -65,11 +65,11 @@ namespace CookApps.AutoBattler
 
             // BG Layer 세팅
             _lockBGLayerObject.SetActive(!haveCharacter);
-            _normalBGLayerObject.SetActive(haveCharacter && _characterData.grade != Grade.LEGEND);
-            _SSRBGLayerObject.SetActive(haveCharacter && _characterData.grade == Grade.LEGEND);
+            _normalBGLayerObject.SetActive(haveCharacter && _characterData.grade != GradeType.LEGEND);
+            _SSRBGLayerObject.SetActive(haveCharacter && _characterData.grade == GradeType.LEGEND);
         }
 
-        private void SetStarObject(Grade gradeType)
+        private void SetStarObject(GradeType gradeType)
         {
             for (int i = 0; i < _starObjectList.Count; i++)
             {

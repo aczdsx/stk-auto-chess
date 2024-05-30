@@ -54,16 +54,16 @@ namespace CookApps.BattleSystem
             return Mathf.Abs(from.X - to.X) + Mathf.Abs(from.Y - to.Y);
         }
 
-        public bool IsInRange(InGameTile from, InGameTile to, int range, AttackRangeShape shape)
+        public bool IsInRange(InGameTile from, InGameTile to, int range, BattleSystem.AttackRangeShape shape)
         {
             return GetManhattanDistance(from, to) <= range;
         }
 
-        public void GetTilesInRange(InGameTile pivot, int range, AttackRangeShape shape, List<InGameTile> resTiles)
+        public void GetTilesInRange(InGameTile pivot, int range, BattleSystem.AttackRangeShape shape, List<InGameTile> resTiles)
         {
             foreach (var tile in _tiles)
             {
-                if (GetManhattanDistance(pivot, tile) <= range * 2 - (AttackRangeShape.Rectangle - shape))
+                if (GetManhattanDistance(pivot, tile) <= range * 2 - (BattleSystem.AttackRangeShape.Rectangle - shape))
                 {
                     resTiles.Add(tile);
                 }

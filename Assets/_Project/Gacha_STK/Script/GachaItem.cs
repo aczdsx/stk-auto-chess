@@ -95,26 +95,26 @@ namespace CookApps.AutoBattler
             // });
             if (pieceCount == 20)
             {
-                if (characterData.grade == Grade.COMMON)
+                if (characterData.grade == GradeType.COMMON)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Green");
                     KnightImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Green");
                     KnighBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_GreenOn_Bg");
 
                 }
-                else if (characterData.grade == Grade.RARE)
+                else if (characterData.grade == GradeType.RARE)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Blue");
                     KnightImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Blue");
                     KnighBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_BlueOn_Bg");
                 }
-                else if (characterData.grade == Grade.EPIC)
+                else if (characterData.grade == GradeType.EPIC)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Purple");
                     KnightImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Purple");
                     KnighBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_PurpleOn_Bg");
                 }
-                else if (characterData.grade == Grade.LEGEND)
+                else if (characterData.grade == GradeType.LEGEND)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Gold");
                     KnightImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Gold");
@@ -123,7 +123,7 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                if (characterData.grade == Grade.COMMON)
+                if (characterData.grade == GradeType.COMMON)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Green");
                     PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Green");
@@ -131,7 +131,7 @@ namespace CookApps.AutoBattler
 
                     PieceOnBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Piece_Green");
                 }
-                else if (characterData.grade == Grade.RARE)
+                else if (characterData.grade == GradeType.RARE)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Blue");
                     PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Blue");
@@ -139,7 +139,7 @@ namespace CookApps.AutoBattler
 
                     PieceOnBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Piece_Blue");
                 }
-                else if (characterData.grade == Grade.EPIC)
+                else if (characterData.grade == GradeType.EPIC)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Purple");
                     PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Purple");
@@ -147,7 +147,7 @@ namespace CookApps.AutoBattler
 
                     PieceOnBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Piece_Purple");
                 }
-                else if (characterData.grade == Grade.LEGEND)
+                else if (characterData.grade == GradeType.LEGEND)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Gold");
                     PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Gold");
@@ -169,7 +169,7 @@ namespace CookApps.AutoBattler
                 PieceOnObject.SetActive(false);
 
                 KnighImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(characterData.id);
-                KnighColorImage.color = ImageManager.Instance.GetGradeColor(characterData.grade);
+                KnighColorImage.color = ImageManager.Instance.GetGradeTypeColor(characterData.grade);
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {
                 //     // int tempPiece = 0;
@@ -223,14 +223,14 @@ namespace CookApps.AutoBattler
                     starObjects[i].SetActive(true);
                 }
 
-                if (characterData.grade == Grade.LEGEND)
+                if (characterData.grade == GradeType.LEGEND)
                 {
                     for (int i = 0; i < SSRFxObjects.Length; i++)
                     {
                         SSRFxObjects[i].SetActive(true);
                     }
                 }
-                else if (characterData.grade == Grade.EPIC)
+                else if (characterData.grade == GradeType.EPIC)
                 {
                     for (int i = 0; i < SRFxObjects.Length; i++)
                     {

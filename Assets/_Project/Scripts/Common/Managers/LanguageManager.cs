@@ -28,21 +28,21 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public string GetClassText(CharacterPosition type)
+        public string GetClassText(CharacterPositionType type)
         {
             switch (type)
             {
-                case CharacterPosition.TANK:
+                case CharacterPositionType.TANK:
                     return "탱커";
-                case CharacterPosition.WARRIOR:
+                case CharacterPositionType.WARRIOR:
                     return "전사";
-                case CharacterPosition.RANGER:
+                case CharacterPositionType.RANGER:
                     return "레인저";
-                case CharacterPosition.WIZARD:
+                case CharacterPositionType.WIZARD:
                     return "마법사";
-                case CharacterPosition.SUPPORTER:
+                case CharacterPositionType.SUPPORTER:
                     return "서포터";
-                case CharacterPosition.ASSASSIN:
+                case CharacterPositionType.ASSASSIN:
                     return "암살자";
                 default:
                     return string.Empty;

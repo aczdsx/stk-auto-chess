@@ -13,7 +13,7 @@ public class EffectCodeSkillAura : EffectCodeCharacterBase
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat power;
     private ObfuscatorInt splashRange;
-    private AttackRangeShape splashShape;
+    private AttackRangeShape _splashShapeType;
     private ObfuscatorFloat splashPower;
 
     private ObfuscatorFloat elapsedTime;
@@ -28,7 +28,7 @@ public class EffectCodeSkillAura : EffectCodeCharacterBase
         cooltime = codeInfo.GetCodeStatToFloat(0);
         power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         splashRange = codeInfo.GetCodeStatToInt(2);
-        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        _splashShapeType = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
         splashPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
@@ -41,7 +41,7 @@ public class EffectCodeSkillAura : EffectCodeCharacterBase
         cooltime = codeInfo.GetCodeStatToFloat(0);
         power = codeInfo.GetCodeStatToFloat(1);
         splashRange = codeInfo.GetCodeStatToInt(2);
-        splashShape = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
+        _splashShapeType = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
         splashPower = codeInfo.GetCodeStatToFloat(4);
     }
 
@@ -102,7 +102,7 @@ public class EffectCodeSkillAura : EffectCodeCharacterBase
 
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
-        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, splashRange, splashShape, enemies);
+        InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, splashRange, _splashShapeType, enemies);
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)

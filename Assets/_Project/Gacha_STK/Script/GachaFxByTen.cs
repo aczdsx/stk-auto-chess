@@ -133,7 +133,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                if (datas[i].grade == Grade.LEGEND && datas[i].need_piece == 20)
+                if (datas[i].grade == GradeType.LEGEND && datas[i].need_piece == 20)
                 {
                     ssrCount++;
                     isHaveSSR = true;
@@ -308,7 +308,7 @@ namespace CookApps.AutoBattler
                 if(_datas[i].need_piece < 20)
                     continue;
                 Character idxCharcater = SpecDataManager.Instance.Character.Get(_datas[i].id);
-                if (idxCharcater.grade == Grade.LEGEND)
+                if (idxCharcater.grade == GradeType.LEGEND)
                 {
                     skipDatas.Add(_datas[i]);
                 }
@@ -498,7 +498,7 @@ namespace CookApps.AutoBattler
             Character idxCharcater = SpecDataManager.Instance.Character.Get( _datas[cnt].id);
             if (_datas[cnt].need_piece == 20)
             {
-                if (idxCharcater.grade == Grade.LEGEND)
+                if (idxCharcater.grade == GradeType.LEGEND)
                 {
                     fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);

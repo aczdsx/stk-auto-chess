@@ -206,7 +206,7 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
-            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShape);
+            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShapeType);
         }
 
         /// <summary>
@@ -214,10 +214,10 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <param name="range"></param>
-        /// <param name="rangeShape"></param>
+        /// <param name="rangeShapeType"></param>
         /// <param name="includePivot"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestColleaguesInRange(CharacterController pivot, int range, AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
+        public void GetNearestColleaguesInRange(CharacterController pivot, int range, BattleSystem.AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -256,9 +256,9 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <param name="range"></param>
-        /// <param name="rangeShape"></param>
+        /// <param name="rangeShapeType"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShape, List<CharacterController> resTargets)
+        public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShapeType, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -281,7 +281,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
+                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShapeType))
                 {
                     resTargets.Add(other);
                 }

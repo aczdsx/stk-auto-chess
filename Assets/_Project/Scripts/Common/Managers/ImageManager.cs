@@ -12,21 +12,21 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(atlasName, spriteName);
         }
 
-        public Sprite GetGradeSprite(Grade grade, bool isActive = true)
+        public Sprite GetGradeTypeSprite(GradeType GradeType, bool isActive = true)
         {
             string spriteName = string.Empty;
 
-            switch (grade)
+            switch (GradeType)
             {
-                // case Grade.COMMON:
+                // case GradeType.COMMON:
                 //     return AtlasManager.Instance.GetSprite("UI_Main", "Icon_R");
-                case Grade.RARE:
+                case GradeType.RARE:
                     spriteName = isActive ? "Icon_R" : "Icon_R_Locked";
                     break;
-                case Grade.EPIC:
+                case GradeType.EPIC:
                     spriteName = isActive ? "Icon_SR" : "Icon_SR_Locked";
                     break;
-                case Grade.LEGEND:
+                case GradeType.LEGEND:
                     spriteName = isActive ? "Icon_SSR" : "Icon_SSR_Locked";
                     break;
             }
@@ -63,28 +63,28 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetClassSprite(CharacterPosition position, bool isActive = true)
+        public Sprite GetClassSprite(CharacterPositionType position, bool isActive = true)
         {
             string spriteName = string.Empty;
 
             switch (position)
             {
-                case CharacterPosition.TANK:
+                case CharacterPositionType.TANK:
                     spriteName = isActive ? "Icon_Position_Tank_Active" : "Icon_Position_Tank_Locked";
                     break;
-                case CharacterPosition.WARRIOR:
+                case CharacterPositionType.WARRIOR:
                     spriteName = isActive ? "Icon_Position_Warrior_Active" : "Icon_Position_Warrior_Locked";
                     break;
-                case CharacterPosition.RANGER:
+                case CharacterPositionType.RANGER:
                     spriteName = isActive ? "Icon_Position_Sniper_Active" : "Icon_Position_Sniper_Locked";
                     break;
-                case CharacterPosition.WIZARD:
+                case CharacterPositionType.WIZARD:
                     spriteName = isActive ? "Icon_Position_Wizard_Active" : "Icon_Position_Wizard_Locked";
                     break;
-                case CharacterPosition.SUPPORTER:
+                case CharacterPositionType.SUPPORTER:
                     spriteName = isActive ? "Icon_Position_Supporter_Active" : "Icon_Position_Supporter_Locked";
                     break;
-                case CharacterPosition.ASSASSIN:
+                case CharacterPositionType.ASSASSIN:
                     spriteName = isActive ? "Icon_Position_Assassin_Active" : "Icon_Position_Assassin_Locked";
                     break;
             }
@@ -107,21 +107,21 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterId}");
         }
 
-        public Color GetGradeColor(Grade grade)
+        public Color GetGradeTypeColor(GradeType GradeType)
         {
             Color color = Color.white;
-            switch (grade)
+            switch (GradeType)
             {
-                case Grade.COMMON:
+                case GradeType.COMMON:
                     ColorUtility.TryParseHtmlString("#4EA82E", out color);
                     break;
-                case Grade.RARE:
+                case GradeType.RARE:
                     ColorUtility.TryParseHtmlString("#0A9AE0", out color);
                     break;
-                case Grade.EPIC:
+                case GradeType.EPIC:
                     ColorUtility.TryParseHtmlString("#7C11DC", out color);
                     break;
-                case Grade.LEGEND:
+                case GradeType.LEGEND:
                     ColorUtility.TryParseHtmlString("#FFEA7E", out color);
                     break;
             }
