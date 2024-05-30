@@ -192,5 +192,23 @@ namespace CookApps.AutoBattler
             Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(this.transform.position, new Vector3(0.9f, 1f));
         }
+
+        public void SetFirstDirection(AllianceType type)
+        {
+            if (type == AllianceType.Enemy)
+            {
+                _cachedFlipX = true;
+                _cachedFront = true;
+            }
+            else
+            {
+                _cachedFlipX = false;
+                _cachedFront = false;
+            }
+
+            Vector3 scale = _rootTranform.localScale;
+            scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+            _rootTranform.localScale = scale;
+        }
     }
 }

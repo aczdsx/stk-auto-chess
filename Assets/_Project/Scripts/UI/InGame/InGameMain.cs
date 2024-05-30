@@ -21,6 +21,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _startButton;
         [SerializeField] private Transform _characterSelecteTransform;
         [SerializeField] private List<InGameCharacterItem> _characterItemList;
+        [SerializeField] private InGameTopUI _InGameTopUI;
+
+        private float _updateTimer = 0f;
+        private const float UpdateInterval = 0.5f;
 
         public static InGameMain GetInGameMain()
         {
@@ -44,16 +48,18 @@ namespace CookApps.AutoBattler
         {
             Vector3 startPos = _characterSelecteTransform.transform.position;
 
-            Vector3 endPos = new Vector3(startPos.x, startPos.y - 50, startPos.z);
+            Vector3 endPos = new Vector3(startPos.x, startPos.y - 300, startPos.z);
 
             PrimeTweenExtensions.MoveTo(_characterSelecteTransform, endPos, 0.5f, PrimeTween.Ease.Linear)
-                .OnComplete(() => continuation?.Invoke());
-
-            _characterSelecteTransform.gameObject.SetActive(false);
+                .OnComplete(() =>
+                {
+                    continuation?.Invoke();
+                });
         }
 
         public void SetReadyUI(List<CharacterStatData> statDatas)
         {
+            Debug.LogColor("SetReadyUI");
             for (int i = 0; i < _characterItemList.Count; i++)
             {
                 if (i < statDatas.Count)
@@ -65,13 +71,26 @@ namespace CookApps.AutoBattler
                     _characterItemList[i].SetData(null, null);
                 }
             }
+
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
         }
 
         // private CharacterController ct;
         private void ManagedUpdate(float dt)
         {
-            // [TODO] 체력 바 관리 Buff 관리
-            // ct.GetEffectCodeContainer().GetEffectCodesByType(EffectCodeType.Buff);
+            _updateTimer += dt;
+
+            if (_updateTimer >= UpdateInterval)
+            {
+                if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+                {
+                    _InGameTopUI.UpdateTopHpUI(AllianceType.Player);
+                    _InGameTopUI.UpdateTopHpUI(AllianceType.Enemy);
+                }
+
+                _updateTimer -= UpdateInterval;
+            }
         }
 
         protected override void Awake()
@@ -111,6 +130,8 @@ namespace CookApps.AutoBattler
                 InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
                     typeof(CharacterStateIdle)),
             });
+
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
         }
     }
 }

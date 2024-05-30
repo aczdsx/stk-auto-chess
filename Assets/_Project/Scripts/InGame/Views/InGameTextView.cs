@@ -13,6 +13,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text txtDamage;
         [SerializeField] private Transform _root;
 
+        private readonly float _duration = 0.7f;
+
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
             CachedGo.SetActive(true);
@@ -21,7 +23,7 @@ namespace CookApps.AutoBattler
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
 
-            Vector3 targetPosition = initialPosition + Vector3.up * 1.0f;
+            Vector3 targetPosition = initialPosition + Vector3.up * 0.8f;
 
             var tcs = new UniTaskCompletionSource();
 
@@ -33,7 +35,7 @@ namespace CookApps.AutoBattler
                     if (_root)
                         _root.position = value;
                 },
-                duration: 1f,
+                duration: _duration,
                 ease: Ease.OutCubic
             ).OnComplete(this, target => tcs.TrySetResult());
 
@@ -54,7 +56,7 @@ namespace CookApps.AutoBattler
                 initialPosition,
                 targetPosition,
                 onValueChange: (Vector3 value) => { _root.position = value; },
-                duration: 1f,
+                duration: _duration,
                 ease: Ease.OutCubic
             ).OnComplete(this, target => CachedGo.SetActive(false));
         }

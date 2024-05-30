@@ -13,6 +13,10 @@ public class FlowStateStageCombat : StateBase
     public override void StateInit(object target)
     {
         characters = ListPool<CharacterController>.Get();
+
+        // 최대 종합체력 업데이트
+        InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
+        InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
     }
 
     public override void StateStart()

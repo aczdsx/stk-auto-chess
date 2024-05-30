@@ -30,8 +30,8 @@ namespace CookApps.AutoBattler
 
         public static void UnloadResources()
         {
-            Addressables.Release(HpBarView);
-            Addressables.Release(InGameText);
+            Addressables.Release(HpBarView.gameObject);
+            Addressables.Release(InGameText.gameObject);
             // unload stage
             Addressables.Release(StagePrefab);
             StagePrefab = null;
