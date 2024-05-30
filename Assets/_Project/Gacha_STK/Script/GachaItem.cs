@@ -160,16 +160,16 @@ namespace CookApps.AutoBattler
 
         public void ShowItem()
         {
-            showParticle.SetActive(true);
-            showParticle.GetComponent<ParticleSystem>().Stop();
-            showParticle.GetComponent<ParticleSystem>().Play();
+            // showParticle.SetActive(true);
+            // showParticle.GetComponent<ParticleSystem>().Stop();
+            // showParticle.GetComponent<ParticleSystem>().Play();
             if (pieceCount == 20)
             {
                 KnightOnObject.SetActive(true);
                 PieceOnObject.SetActive(false);
 
-                KnighImage.sprite = ImageManager.Instance.GetSprite("Atlas_Character_Inventory", characterData.id.ToString());
-                //KnighColorImage.color = ColorUtil.GetGradeColor(characterData.MetaData.grade);
+                KnighImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(characterData.id);
+                KnighColorImage.color = ImageManager.Instance.GetGradeColor(characterData.grade);
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {
                 //     // int tempPiece = 0;
@@ -218,10 +218,11 @@ namespace CookApps.AutoBattler
                     star.SetActive(false);
                 }
 
-                // for (int i = 0; i < characterData.grade_value; i++)
-                // {
-                //     starObjects[i].SetActive(true);
-                // }
+                for (int i = 0; i < (int)characterData.grade; i++)
+                {
+                    starObjects[i].SetActive(true);
+                }
+
                 if (characterData.grade == Grade.LEGEND)
                 {
                     for (int i = 0; i < SSRFxObjects.Length; i++)

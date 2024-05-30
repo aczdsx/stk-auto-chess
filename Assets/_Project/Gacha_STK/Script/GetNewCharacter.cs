@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
@@ -299,10 +300,8 @@ namespace CookApps.AutoBattler
             // }
 
 
-            sigmaMat.sprite = ImageManager
-                .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
-            sigmaGlow.sprite = ImageManager
-                .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
+            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
+            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
             OpenText.text = idxCharcater.desc_token;
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
@@ -327,10 +326,21 @@ namespace CookApps.AutoBattler
                 Destroy(staticObj);
             if(idleObj!= null)
                 Destroy(idleObj);
-            //
-            lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
-            upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
+
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
+
+            //lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
+            //upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
+            LowBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
+            LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            UpperBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
+            UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+
             staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
+
+            CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
+            CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);
@@ -455,10 +465,8 @@ namespace CookApps.AutoBattler
             */
 
 
-            sigmaMat.sprite = ImageManager
-                .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
-            sigmaGlow.sprite = ImageManager
-                .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
+            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
+            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
             OpenText.text = idxCharcater.desc_token;
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
@@ -478,9 +486,21 @@ namespace CookApps.AutoBattler
             if(idleObj!= null)
                 Destroy(idleObj);
 
-            lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
-            upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
-            staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
+            // lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
+            // upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
+            // staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
+
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
+
+            LowBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
+            LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            UpperBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
+            UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+
+            CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
+            CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+
+            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);

@@ -91,5 +91,41 @@ namespace CookApps.AutoBattler
 
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
+
+        public Sprite GetCharacterIllustSprite(int characterId)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_ATLAS_ILLUST_NAME, $"Character_Illust_{characterId}");
+        }
+
+        public Sprite GetCharacterSubIllustSprite(int characterId)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"Character_Illust_Sub_{characterId}");
+        }
+
+        public Sprite GetCharacterStigmaSprite(int characterId)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterId}");
+        }
+
+        public Color GetGradeColor(Grade grade)
+        {
+            Color color = Color.white;
+            switch (grade)
+            {
+                case Grade.COMMON:
+                    ColorUtility.TryParseHtmlString("#4EA82E", out color);
+                    break;
+                case Grade.RARE:
+                    ColorUtility.TryParseHtmlString("#0A9AE0", out color);
+                    break;
+                case Grade.EPIC:
+                    ColorUtility.TryParseHtmlString("#7C11DC", out color);
+                    break;
+                case Grade.LEGEND:
+                    ColorUtility.TryParseHtmlString("#FFEA7E", out color);
+                    break;
+            }
+            return color;
+        }
     }
 }
