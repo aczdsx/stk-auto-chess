@@ -258,6 +258,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 if (character1 != null)
                 {
                     character1.Position3D = value;
+                    character1.GetCharacterView().CachedTr.localPosition = value;
                 }
             }).OnComplete(() =>
         {
@@ -275,6 +276,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             (Vector3 value) =>
             {
                 character2.Position3D = value;
+                character2.GetCharacterView().CachedTr.localPosition = value;
             }).OnComplete(() =>
         {
             completedTweens++;
