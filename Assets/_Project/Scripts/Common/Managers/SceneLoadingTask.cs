@@ -43,8 +43,8 @@ namespace CookApps.AutoBattler
 
         private static async UniTask LoadInGameResources(object defaultUIData)
         {
-            (int chapter, int stageIndex) = ((int, int)) defaultUIData;
-            await InGameResourceHolder.LoadResources(chapter, stageIndex);
+            (int chapter, int stageIndex, DifficultyType difficultyType) = ((int, int, DifficultyType)) defaultUIData;
+            await InGameResourceHolder.LoadResources(chapter, stageIndex, difficultyType);
         }
 
         private static async UniTask UnloadInGameResources()

@@ -162,7 +162,7 @@ namespace CookApps.AutoBattler
         }
         private void OnClickStartButton()
         {
-            SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
+            SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
         }
 
         private void OnClickChapterStageButton()

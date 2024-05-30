@@ -22,9 +22,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private Transform _characterSelecteTransform;
         [SerializeField] private List<InGameCharacterItem> _characterItemList;
         [SerializeField] private InGameTopUI _InGameTopUI;
+        [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
 
         private float _updateTimer = 0f;
+        private float _inGameTime = 0f;
         private const float UpdateInterval = 0.5f;
+        private const float InGameMaxTime = 60f;
+        private SpecStage _specStage;
 
         public static InGameMain GetInGameMain()
         {
@@ -57,14 +61,20 @@ namespace CookApps.AutoBattler
                 });
         }
 
-        public void SetReadyUI(List<CharacterStatData> statDatas)
+        public void SetReadyUI()
         {
+            //[TODO] 내가 보유한 캐릭터들 가져오도록 수정 필요
+            List<CharacterStatData> characterStats = new List<CharacterStatData>();
+            characterStats.Add(new CharacterStatData(40101, 10));
+            characterStats.Add(new CharacterStatData(30601, 10));
+            characterStats.Add(new CharacterStatData(40402, 10));
+
             Debug.LogColor("SetReadyUI");
             for (int i = 0; i < _characterItemList.Count; i++)
             {
-                if (i < statDatas.Count)
+                if (i < characterStats.Count)
                 {
-                    _characterItemList[i].SetData(statDatas[i], AddBoardCharacter);
+                    _characterItemList[i].SetData(characterStats[i], AddCharacterToTile);
                 }
                 else
                 {
@@ -74,22 +84,26 @@ namespace CookApps.AutoBattler
 
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
+
+            _inGameTime = InGameMaxTime;
         }
 
         // private CharacterController ct;
         private void ManagedUpdate(float dt)
         {
-            _updateTimer += dt;
-
-            if (_updateTimer >= UpdateInterval)
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
             {
-                if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+                _updateTimer += dt;
+                _inGameTime -= dt;
+
+                if (_updateTimer >= UpdateInterval)
                 {
                     _InGameTopUI.UpdateTopHpUI(AllianceType.Player);
                     _InGameTopUI.UpdateTopHpUI(AllianceType.Enemy);
-                }
+                    _InGameTopUI.UpdateTimeUI(_inGameTime);
 
-                _updateTimer -= UpdateInterval;
+                    _updateTimer -= UpdateInterval;
+                }
             }
         }
 
@@ -101,14 +115,9 @@ namespace CookApps.AutoBattler
 
         private async UniTask InitializeInGame()
         {
-            GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
-            if (!stageObj.TryGetComponent(out InGameStage stage))
-            {
-                Debug.LogError("InGameStage is not found");
-                return;
-            }
+            _specStage = InGameResourceHolder.SpecStage;
 
-            InGameManager.Instance.StartInGame<FlowStateStageReady>(stage);
+            InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
         }
 
         private void OnStartButtonClicked()
@@ -119,7 +128,7 @@ namespace CookApps.AutoBattler
             });
         }
 
-        private async void AddBoardCharacter(CharacterStatData statData)
+        private async void AddCharacterToTile(CharacterStatData statData)
         {
             Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
             var ingameTile = InGameObjectManager.Instance.InGameGrid.GetEmptyTile();

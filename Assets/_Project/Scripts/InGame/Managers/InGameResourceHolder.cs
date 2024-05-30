@@ -13,8 +13,9 @@ namespace CookApps.AutoBattler
         public static GameObject StagePrefab { get; private set; }
         public static HpBarView HpBarView = null;
         public static InGameTextView InGameText = null;
+        public static SpecStage SpecStage = null;
 
-        public static async UniTask LoadResources(int chapter, int stageIdx)
+        public static async UniTask LoadResources(int chapter, int stageIdx, DifficultyType difficultyType)
         {
             GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();
@@ -22,9 +23,7 @@ namespace CookApps.AutoBattler
             GameObject ingameTextPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/DamageText.prefab");
             InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
 
-            // SpecStage specStage = SpecDataManager.Instance.GetSpecStage(chapter, stageIdx);
-            // load stage
-
+            SpecStage = SpecDataManager.Instance.GetStageData(chapter, stageIdx, difficultyType);
             StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
         }
 
@@ -35,6 +34,7 @@ namespace CookApps.AutoBattler
             // unload stage
             Addressables.Release(StagePrefab);
             StagePrefab = null;
+            SpecStage = null;
         }
     }
 }

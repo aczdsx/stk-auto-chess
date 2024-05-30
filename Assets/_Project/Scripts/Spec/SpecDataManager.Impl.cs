@@ -55,6 +55,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
         private Dictionary<int, List<SpecChapter>> chapterDic = new (); // key : chapter_id, value : chapter list
         private Dictionary<int, List<SpecStage>> stageChapterDic = new (); // key : chapter_id, value : stage list
+        private Dictionary<int, List<SpecStageMonster>> stageMonsterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
 
@@ -97,6 +98,19 @@ namespace CookApps.AutoBattler
                 }
 
                 stageList.Add(stage);
+            }
+
+            // Stage
+            stageMonsterDic.Clear();
+            foreach (SpecStageMonster stage in SpecStageMonster.All)
+            {
+                if (!stageMonsterDic.TryGetValue(stage.chapter_id, out List<SpecStageMonster> specStageMonster))
+                {
+                    specStageMonster = new List<SpecStageMonster>();
+                    stageMonsterDic.Add(stage.chapter_id, specStageMonster);
+                }
+
+                specStageMonster.Add(stage);
             }
 
             // Game Config
@@ -232,6 +246,16 @@ namespace CookApps.AutoBattler
             SpecStage nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty);
 
             return nextStageSpecData == null;
+        }
+
+        public List<SpecStageMonster> GetStageMonsterList(int chapter, int stageNumber, DifficultyType difficulty)
+        {
+            if (stageMonsterDic.TryGetValue(chapter, out List<SpecStageMonster> stageMonster))
+            {
+                return stageMonster.FindAll(s => s.stage_number == stageNumber &&  s.difficulty == difficulty);
+            }
+
+            return null;
         }
 
         public List<RewardItem> GetChestList(int chestId)

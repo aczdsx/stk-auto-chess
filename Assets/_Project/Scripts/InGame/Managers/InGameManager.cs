@@ -35,13 +35,13 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region InGame Cycle
-        public void StartInGame<T>(InGameStage stage) where T : StateBase, new()
+        public void StartInGame<T>(SpecStage stage) where T : StateBase, new()
         {
             IsInGamePlaying = true;
             // 순서 중요!
             InGameHpBarViewPool.Instance.InitializePool(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
-            InGameObjectManager.Instance.Initialize(stage);
+            InGameObjectManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>();
             // IngameResourceManager.Instance.Initialize();
         }

@@ -25,12 +25,19 @@ namespace CookApps.BattleSystem
         public Transform Playground => playground;
         public InGameGrid InGameGrid => _grid;
 
-        public void Initialize(InGameStage stage)
+        public void Initialize()
         {
             InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
                 ManagedUpdate);
             InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
                 LateManagedUpdate);
+
+            GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
+            if (!stageObj.TryGetComponent(out InGameStage stage))
+            {
+                Debug.LogError("InGameStage is not found");
+                return;
+            }
 
             playground = GameObject.Find("Playground").GetComponent<Transform>();
 

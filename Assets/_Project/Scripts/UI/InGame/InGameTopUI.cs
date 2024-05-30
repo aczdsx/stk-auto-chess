@@ -35,9 +35,10 @@ public class InGameTopUI : MonoBehaviour
     private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
     private double beforeHpRate;
 
-    public void SetTime(float time)
+    public void UpdateTimeUI(float time)
     {
-        _timeText.text = time.ToString("F1");
+        TimeSpan timeSpan = TimeSpan.FromSeconds(time);
+        _timeText.text = timeSpan.ToString(@"mm\:ss");
     }
 
     public void UpdateSynergyUI(AllianceType type)
