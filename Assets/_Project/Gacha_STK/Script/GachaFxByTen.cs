@@ -14,7 +14,7 @@ using Random = UnityEngine.Random;
 
 namespace CookApps.AutoBattler
 {
-    public class GachaFxByTen : SingletonMonoBehaviour<GachaFxByTen>
+    public class GachaFxByTen : GameObjectSingleton<GachaFxByTen>
     {
         [SerializeField] private GameObject[] SSR10Objects;
         [SerializeField] private GameObject[] Normal10Objects;
