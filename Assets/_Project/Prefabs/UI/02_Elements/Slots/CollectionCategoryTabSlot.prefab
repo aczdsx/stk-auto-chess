@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 275272649917149726}
   - component: {fileID: 2216629143683471843}
   m_Layer: 5
-  m_Name: Item_CollectionCategory_v2
+  m_Name: CollectionCategoryTabSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1977,7 +1977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3674577746905964343}
   m_Layer: 5
-  m_Name: Popup_Default
+  m_Name: DefaultPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

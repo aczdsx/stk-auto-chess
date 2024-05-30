@@ -1403,7 +1403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3974169843735815645}
   m_Layer: 5
-  m_Name: Pop_CharacterDetail_MAIN
+  m_Name: CharacterDetail_Main_Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

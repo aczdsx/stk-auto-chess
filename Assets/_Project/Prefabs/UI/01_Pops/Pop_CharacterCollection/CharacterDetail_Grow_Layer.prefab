@@ -310,7 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2868138953371370824}
   m_Layer: 5
-  m_Name: Pop_CharacterDetail_GROW_STATE
+  m_Name: CharacterDetail_Grow_Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

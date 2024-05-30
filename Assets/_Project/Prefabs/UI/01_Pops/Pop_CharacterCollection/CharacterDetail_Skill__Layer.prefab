@@ -2919,7 +2919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5540150445166008803}
   m_Layer: 5
-  m_Name: Pop_CharacterDetail_SKILL_STATE
+  m_Name: CharacterDetail_Skill__Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

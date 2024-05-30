@@ -1282,7 +1282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1586785913575377014}
   m_Layer: 5
-  m_Name: Popup_IdleReward
+  m_Name: IdleRewardPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

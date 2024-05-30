@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7711648442805260689}
   m_Layer: 5
-  m_Name: Popup_CompletedMission
+  m_Name: CompletedMissionPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
