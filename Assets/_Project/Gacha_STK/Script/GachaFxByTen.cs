@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<GachaItem> Gach10Items;
         [SerializeField] private List<GachaItem> Gach1Items;
 
-        private List<Character> _datas = null;
+        private List<SpecCharacter> _datas = null;
         private bool isClick = false;
         private bool isSkip = false;
         [SerializeField] private GameObject SkipObject;
@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
         public Dictionary<int, int> TempDatas = null;
         private bool isClickRetry = false;
         public List<int> pieceTempNew = null;
-        public void SetItem(List<Character> datas, bool isOne = false)
+        public void SetItem(List<SpecCharacter> datas, bool isOne = false)
         {
             if (datas == null)
             {
@@ -279,7 +279,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                Character idxCharcater = SpecDataManager.Instance.Character.Get(datas[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(datas[i].id);
                 GachItems[i].InitItem(idxCharcater, datas[i].need_piece, i, datas);
             }
 
@@ -293,12 +293,12 @@ namespace CookApps.AutoBattler
 
         private IDisposable obj1 = null;
         private IDisposable obj2 = null;
-        private List<Character> skipDatas = null;
+        private List<SpecCharacter> skipDatas = null;
 
         private void SetSkipList()
         {
             if(skipDatas == null)
-                skipDatas = new List<Character>();
+                skipDatas = new List<SpecCharacter>();
             else
             {
                 skipDatas.Clear();
@@ -307,7 +307,7 @@ namespace CookApps.AutoBattler
             {
                 if(_datas[i].need_piece < 20)
                     continue;
-                Character idxCharcater = SpecDataManager.Instance.Character.Get(_datas[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(_datas[i].id);
                 if (idxCharcater.grade == GradeType.LEGEND)
                 {
                     skipDatas.Add(_datas[i]);
@@ -495,7 +495,7 @@ namespace CookApps.AutoBattler
 
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
-            Character idxCharcater = SpecDataManager.Instance.Character.Get( _datas[cnt].id);
+            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( _datas[cnt].id);
             if (_datas[cnt].need_piece == 20)
             {
                 if (idxCharcater.grade == GradeType.LEGEND)
@@ -742,7 +742,7 @@ namespace CookApps.AutoBattler
             // CloseProcess();
         }
 
-        private void ChangeRewardDataAndSave(List<Character> result)
+        private void ChangeRewardDataAndSave(List<SpecCharacter> result)
         {
             // List<RewardInfo> rewardDatas = new List<RewardInfo>();
             // for (int i = 0; i < result.Count; i++)

@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
         LIGHT = 6,
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/Pop_CharacterCollection/CharacterCollectionPopup.prefab")]
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/CharacterCollectionPopup.prefab")]
     public class CharacterCollectionPopup : UILayer
     {
         [SerializeField] private ScrollRect _characterScrollRect;
@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
 
         private CharacterCollectionTabType _currentTabType = CharacterCollectionTabType.All;
 
-        private ISpecData<ObfuscatorInt, Character> _totalCharacterList;      // 전체 캐릭터 리스트
+        private ISpecData<ObfuscatorInt, SpecCharacter> _totalCharacterList;      // 전체 캐릭터 리스트
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
 
 
@@ -53,7 +53,7 @@ namespace CookApps.AutoBattler
         {
             ClearList();
 
-            _totalCharacterList = SpecDataManager.Instance.Character;
+            _totalCharacterList = SpecDataManager.Instance.SpecCharacter;
 
             foreach (var characterData in _totalCharacterList.All)
             {

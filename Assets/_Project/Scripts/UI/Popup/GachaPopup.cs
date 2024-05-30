@@ -35,8 +35,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickGacha1Button()
         {
-            Character result = SpecDataManager.Instance.Character.Get(40101);
-            List<Character> tempResultList = new List<Character>();
+            SpecCharacter result = SpecDataManager.Instance.SpecCharacter.Get(40101);
+            List<SpecCharacter> tempResultList = new List<SpecCharacter>();
             tempResultList.Add(result);
 
             //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickGacha10Button()
         {
-            var allChar = SpecDataManager.Instance.Character.All.ToList();
+            var allChar = SpecDataManager.Instance.SpecCharacter.All.ToList();
 
             //Character result = SpecDataManager.Instance.Character.Get(40101);
             //allChar.Add(result);

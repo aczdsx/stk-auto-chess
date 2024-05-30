@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
 
         public void AddCharacter(int characterId)
         {
-            SpecCharacter specCharacter = SpecDataManager.Instance.SpecCharacter.Get(characterId);
+            TestSpecCharacter specCharacter = SpecDataManager.Instance.TestSpecCharacter.Get(characterId);
             UserCharacter userCharacter = null;
             foreach (UserCharacter user in userCharacterGroup.UserCharacters)
             {

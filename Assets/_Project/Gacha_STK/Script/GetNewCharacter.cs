@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
             {
                 GradeImage[i].SetActive(false);
             }
-            Character idxCharcater = SpecDataManager.Instance.Character.Get(chID);
+            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(chID);
 
             //_curEnhanceMetaData = SpecDataManager.Instance.GetCurrentCharacterEnhanceMetaData((int)idxCharcater.MetaData.grade_value, idxCharcater.Star);
             // if (idxCharcater.IsShowFX == false)
@@ -163,7 +163,7 @@ namespace CookApps.AutoBattler
                 TimeLineObject[i].SetActive(false);
             }
 
-            Character idxCharcater = SpecDataManager.Instance.Character.Get(chID);
+            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(chID);
             // if (idxCharcater.IsShowFX == false)
             // {
             //     // if (dataManager.UserData.isFirstGacha == false)
@@ -398,7 +398,7 @@ namespace CookApps.AutoBattler
                 TimeLineObject[i].SetActive(false);
             }
 
-            Character idxCharcater = SpecDataManager.Instance.Character.Get(chID);
+            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(chID);
 
             switch (idxCharcater.grade)
             {

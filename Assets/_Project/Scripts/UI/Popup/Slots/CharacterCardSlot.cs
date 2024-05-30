@@ -29,12 +29,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<GameObject> _starObjectList;
 
 
-        private Character _characterData;
+        private SpecCharacter _characterData;
         private UserCharacter _userCharacterData;
 
-        public Character CharacterData => _characterData;
+        public SpecCharacter CharacterData => _characterData;
 
-        public void SetCharcacterSlot(Character characterData)
+        public void SetCharcacterSlot(SpecCharacter characterData)
         {
             if (characterData == null) return;
 

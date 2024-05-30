@@ -43,11 +43,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject[] SRFxObjects;
 
         private int pieceCount = 0;
-        private Character characterData;
+        private SpecCharacter characterData;
         // private CharacterEnhanceMetaData _curEnhanceMetaData;
         private int _idx = 0;
-        private List<Character> _datas;
-        public void InitItem(Character _characterData, int _pieceCount, int idx, List<Character> datas)
+        private List<SpecCharacter> _datas;
+        public void InitItem(SpecCharacter _characterData, int _pieceCount, int idx, List<SpecCharacter> datas)
         {
             _idx = idx;
             _datas = datas;

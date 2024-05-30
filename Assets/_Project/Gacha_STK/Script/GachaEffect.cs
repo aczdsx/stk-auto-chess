@@ -26,8 +26,8 @@ namespace CookApps.AutoBattler
         private bool isClick = false;
 
         private string gachaAtlasString = "Atlas_Gacha";
-        private List<Character> resultGacha;
-        public void InitGacha(List<Character> result)
+        private List<SpecCharacter> resultGacha;
+        public void InitGacha(List<SpecCharacter> result)
         {
             isClick = true;
             cnt = 0;
@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < result.Count; i++)
             {
-                Character idxCharcater = SpecDataManager.Instance.Character.Get( result[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( result[i].id);
                 // GachItems[i].InitItem(idxCharcater, result[i].piece, i);
             }
 

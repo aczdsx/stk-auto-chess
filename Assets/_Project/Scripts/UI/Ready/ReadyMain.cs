@@ -197,7 +197,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCharacterSlot(CharacterSlot slot)
         {
-            SpecCharacter specCharacter = SpecDataManager.Instance.SpecCharacter.Get(slot.CharacterId);
+            TestSpecCharacter specCharacter = SpecDataManager.Instance.TestSpecCharacter.Get(slot.CharacterId);
             if (specCharacter.seq <= 0)
             {
                 return;

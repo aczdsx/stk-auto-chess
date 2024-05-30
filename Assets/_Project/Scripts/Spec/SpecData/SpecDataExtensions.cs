@@ -83,7 +83,7 @@ namespace CookApps.AutoBattler
         }
     }
 
-    public partial class SpecCharacter
+    public partial class TestSpecCharacter
     {
         public int GetLineIndex()
         {
