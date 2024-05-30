@@ -8,8 +8,8 @@ namespace CookApps.AutoBattler
     [RequireComponent(typeof(ParticleSystem))]
     public class ParticleCallback : MonoBehaviour
     {
-
         [SerializeField] private int idx;
+
         private void OnEnable()
         {
             StartCoroutine(WaitPlay());

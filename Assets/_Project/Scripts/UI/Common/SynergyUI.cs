@@ -19,7 +19,7 @@ namespace CookApps.AutoBattler
         // 캐릭터 직업 속성 시너지 세팅
         public void SetPositionSynergyUI(CharacterPosition type, bool isActive = true)
         {
-            _iconImage.sprite = ImageManager.Instance.GetPositionSprite(type, isActive);
+            _iconImage.sprite = ImageManager.Instance.GetClassSprite(type, isActive);
         }
     }
 }

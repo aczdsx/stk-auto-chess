@@ -115,7 +115,7 @@ namespace CookApps.AutoBattler
             PieceImageBG.sprite = ImageManager.Instance.GetSprite(Defines.STELLA_ICON_ATLAS_NAME,
                 $"Common_ChaPiece_{idxCharcater.grade.ToString()}");
             PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"{chID}");
-            //PieceCharNameText.text = Localization.GetLocalizedString($"HEROES_NAME_{chID}");
+            PieceCharNameText.text = idxCharcater.name_token;
             PieceAmountText.text = "x" + amount.ToString();
             // if (dataManager.UserData.isFirstGacha == true)
             // {
@@ -303,25 +303,21 @@ namespace CookApps.AutoBattler
                 .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
             sigmaGlow.sprite = ImageManager
                 .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
-            // OpenText.text = Localization.GetLocalizedString($"Character_Dialog_Appearance_{characterID}");
+            OpenText.text = idxCharcater.desc_token;
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
             playObj.Play();
-            // NameText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_NAME_{characterID}");
+            NameText[timeLineIdx].text = idxCharcater.name_token;
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
-            // DescText[timeLineIdx].text = Localization.GetLocalizedString($"Character_Dialog_Archieve_{characterID}");
+            DescText[timeLineIdx].text = idxCharcater.desc_token;
 
-            // SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
-            //     $"Icon_{dataManager.GetCharacterSynergy(characterID)}");
+            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(idxCharcater.element_type);
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
-            // SynergyText[timeLineIdx].text =
-            //     Localization.GetLocalizedString($"SYNERGY_NAME_{dataManager.GetCharacterSynergyUpper(characterID)}");
-            // ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
-            //     $"Icon_{dataManager.GetCharacterClass(characterID)}");
-            // ClassText[timeLineIdx].text =
-            //     Localization.GetLocalizedString($"SYNERGY_NAME_{dataManager.GetCharacterClassUpper(characterID)}");
+            SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(idxCharcater.element_type);
+            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetClassSprite(idxCharcater.class_type);
+            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(idxCharcater.class_type);
 
             if(lowObj!= null)
                 Destroy(lowObj);
@@ -463,14 +459,15 @@ namespace CookApps.AutoBattler
                 .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
             sigmaGlow.sprite = ImageManager
                 .Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterID}");
-            // OpenText.text = Localization.GetLocalizedString($"Character_Dialog_Appearance_{characterID}");
+            OpenText.text = idxCharcater.desc_token;
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
             playObj.Play();
-            // NameText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_NAME_{characterID}");
+
+            NameText[timeLineIdx].text = idxCharcater.name_token;
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
-            // DescText[timeLineIdx].text = Localization.GetLocalizedString($"Character_Dialog_Archieve_{characterID}");
+            DescText[timeLineIdx].text = idxCharcater.desc_token;
 
             if(lowObj!= null)
                 Destroy(lowObj);
