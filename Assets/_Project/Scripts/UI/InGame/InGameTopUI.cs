@@ -61,7 +61,7 @@ public class InGameTopUI : MonoBehaviour
             synergyUI.gameObject.SetActive(false);
         }
 
-        foreach (CharacterPosition characterPosition in Enum.GetValues(typeof(CharacterPosition)))
+        foreach (CharacterPositionType characterPosition in Enum.GetValues(typeof(CharacterPositionType)))
         {
             int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, characterPosition);
             if (synergyCount > 0)

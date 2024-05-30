@@ -44,7 +44,7 @@ namespace CookApps.BattleSystem
 
         private ObfuscatorInt postAttackRange;
 
-        private AttackRangeShape postAttackRangeShape;
+        private AttackRangeShape _postAttackRangeShapeType;
 
         private CrowdControlType postCCImmune;
 
@@ -232,7 +232,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public AttackRangeShape AttackRangeShape
+        public AttackRangeShape AttackRangeShapeType
         {
             get
             {
@@ -242,10 +242,10 @@ namespace CookApps.BattleSystem
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackRangeShape);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackRangeShape);
                     List<EffectCodeStatBase> effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRangeShape);
-                    postAttackRangeShape = effectCodes.CalculateAttackRangeShape(GetCharacterStat().AttackRangeShape);
+                    _postAttackRangeShapeType = effectCodes.CalculateAttackRangeShape(GetCharacterStat().AttackRangeShape);
                 }
 
-                return postAttackRangeShape;
+                return _postAttackRangeShapeType;
             }
         }
 

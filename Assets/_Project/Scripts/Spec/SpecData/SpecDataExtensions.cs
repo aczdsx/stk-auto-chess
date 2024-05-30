@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
 
     public static class SpecDataExtensions
     {
-        public static SimpleSwapType ToSimpleSwapType(this Grade grade)
+        public static SimpleSwapType ToSimpleSwapType(this GradeType grade)
         {
             return SimpleSwapType.Grade_0 + ((int) grade - 1);
         }
@@ -36,35 +36,35 @@ namespace CookApps.AutoBattler
             return SimpleSwapType.Custom_0 + ((int) type - 1);
         }
 
-        public static SimpleSwapType ToSimpleSwapType(this CharacterPosition pos)
+        public static SimpleSwapType ToSimpleSwapType(this CharacterPositionType pos)
         {
             return SimpleSwapType.Custom_0 + ((int) pos - 1);
         }
 
-        public static BattleSystem.AttackRangeShape ToInGameAttackRangeShape(this AttackRangeShape type)
+        public static BattleSystem.AttackRangeShape ToInGameAttackRangeShape(this BattleSystem.AttackRangeShape type)
         {
             return type switch
             {
-                AttackRangeShape.Rectangle => BattleSystem.AttackRangeShape.Rectangle,
-                AttackRangeShape.RectangleCut1Edge => BattleSystem.AttackRangeShape.RectangleCut1Edge,
-                AttackRangeShape.RectangleCut2Edge => BattleSystem.AttackRangeShape.RectangleCut2Edge,
-                AttackRangeShape.RectangleCut3Edge => BattleSystem.AttackRangeShape.RectangleCut3Edge,
-                AttackRangeShape.RectangleCut4Edge => BattleSystem.AttackRangeShape.RectangleCut4Edge,
-                AttackRangeShape.RectangleCut5Edge => BattleSystem.AttackRangeShape.RectangleCut5Edge,
+                BattleSystem.AttackRangeShape.Rectangle => BattleSystem.AttackRangeShape.Rectangle,
+                BattleSystem.AttackRangeShape.RectangleCut1Edge => BattleSystem.AttackRangeShape.RectangleCut1Edge,
+                BattleSystem.AttackRangeShape.RectangleCut2Edge => BattleSystem.AttackRangeShape.RectangleCut2Edge,
+                BattleSystem.AttackRangeShape.RectangleCut3Edge => BattleSystem.AttackRangeShape.RectangleCut3Edge,
+                BattleSystem.AttackRangeShape.RectangleCut4Edge => BattleSystem.AttackRangeShape.RectangleCut4Edge,
+                BattleSystem.AttackRangeShape.RectangleCut5Edge => BattleSystem.AttackRangeShape.RectangleCut5Edge,
                 _ => BattleSystem.AttackRangeShape.Rectangle,
             };
         }
-        public static AttackRangeShape ToSpecAttackRangeShape(this BattleSystem.AttackRangeShape type)
+        public static BattleSystem.AttackRangeShape ToSpecAttackRangeShape(this BattleSystem.AttackRangeShape type)
         {
             return type switch
             {
-                BattleSystem.AttackRangeShape.Rectangle => AttackRangeShape.Rectangle,
-                BattleSystem.AttackRangeShape.RectangleCut1Edge => AttackRangeShape.RectangleCut1Edge,
-                BattleSystem.AttackRangeShape.RectangleCut2Edge => AttackRangeShape.RectangleCut2Edge,
-                BattleSystem.AttackRangeShape.RectangleCut3Edge => AttackRangeShape.RectangleCut3Edge,
-                BattleSystem.AttackRangeShape.RectangleCut4Edge => AttackRangeShape.RectangleCut4Edge,
-                BattleSystem.AttackRangeShape.RectangleCut5Edge => AttackRangeShape.RectangleCut5Edge,
-                _ => AttackRangeShape.Rectangle,
+                BattleSystem.AttackRangeShape.Rectangle => BattleSystem.AttackRangeShape.Rectangle,
+                BattleSystem.AttackRangeShape.RectangleCut1Edge => BattleSystem.AttackRangeShape.RectangleCut1Edge,
+                BattleSystem.AttackRangeShape.RectangleCut2Edge => BattleSystem.AttackRangeShape.RectangleCut2Edge,
+                BattleSystem.AttackRangeShape.RectangleCut3Edge => BattleSystem.AttackRangeShape.RectangleCut3Edge,
+                BattleSystem.AttackRangeShape.RectangleCut4Edge => BattleSystem.AttackRangeShape.RectangleCut4Edge,
+                BattleSystem.AttackRangeShape.RectangleCut5Edge => BattleSystem.AttackRangeShape.RectangleCut5Edge,
+                _ => BattleSystem.AttackRangeShape.Rectangle,
             };
         }
     }
@@ -203,12 +203,12 @@ namespace CookApps.AutoBattler
         {
             return position switch
             {
-                CharacterPosition.WARRIOR => 0,
-                CharacterPosition.TANK => 0,
-                CharacterPosition.RANGER => 1,
-                CharacterPosition.WIZARD => 1,
-                CharacterPosition.ASSASSIN => 2,
-                CharacterPosition.SUPPORTER => 2,
+                CharacterPositionType.WARRIOR => 0,
+                CharacterPositionType.TANK => 0,
+                CharacterPositionType.RANGER => 1,
+                CharacterPositionType.WIZARD => 1,
+                CharacterPositionType.ASSASSIN => 2,
+                CharacterPositionType.SUPPORTER => 2,
                 _ => 0,
             };
         }

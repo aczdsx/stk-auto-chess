@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
         private Reward reward;
         public Reward Reward => reward;
 
-        public virtual void SetOnlyGrade(Grade grade)
+        public virtual void SetOnlyGrade(GradeType grade)
         {
             if (frameSwapper != null)
             {
