@@ -70,7 +70,7 @@ public class GeneratePixelResources : Editor
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        Debug.Log("Animations created in selected folder group.");
+        Debug.Log("[Success]");
     }
 
     private static List<Sprite> LoadSpritesFromFolder(string folderPath)
@@ -105,13 +105,13 @@ public class GeneratePixelResources : Editor
 
         if (sprites.Count == 0)
         {
-            Debug.LogWarning($"No sprites found in the folder: {folderPath}");
+            Debug.Log("[Fail] No Sprite");
             return;
         }
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = 12f; // 프레임 레이트를 원하는 값으로 설정
+        animationClip.frameRate = 12f;
 
         EditorCurveBinding curveBinding = new EditorCurveBinding();
         curveBinding.type = typeof(SpriteRenderer);
@@ -139,7 +139,6 @@ public class GeneratePixelResources : Editor
 
         AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
 
-        // Animation Event 추가
         List<AnimationEvent> animationEvents = new List<AnimationEvent>();
 
         AnimationEvent startEvent = new AnimationEvent();
@@ -168,7 +167,7 @@ public class GeneratePixelResources : Editor
 
         // 애니메이션 클립 저장
         string savePath = Path.Combine(animationFolderPath, $"{subFolderName}_{folderName}.anim");
-        savePath = savePath.Replace("\\", "/"); // 경로가 유니티에서 인식될 수 있도록 슬래시 변경
+        savePath = savePath.Replace("\\", "/");
 
         AssetDatabase.CreateAsset(animationClip, savePath);
     }
@@ -187,7 +186,7 @@ public class GeneratePixelResources : Editor
         string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName);
         if (guids.Length == 0)
         {
-            Debug.LogError("Failed to find BaseAnimController.");
+            Debug.Log("[Fail] Base Anim Controller");
             return null;
         }
 
@@ -196,7 +195,7 @@ public class GeneratePixelResources : Editor
 
         if (baseController == null)
         {
-            Debug.LogError("Failed to load BaseAnimController.");
+            Debug.Log("[Fail] Base Anim Controller");
             return null;
         }
 
@@ -207,7 +206,7 @@ public class GeneratePixelResources : Editor
             overrideController[clip.name] = clip;
         }
 
-        Debug.Log("Animations added to BaseAnimController successfully.");
+        Debug.Log("[Success] AddAnimationsToBaseController");
         return overrideController;
     }
 
@@ -218,7 +217,7 @@ public class GeneratePixelResources : Editor
         string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}");
         if (guids.Length == 0)
         {
-            Debug.LogError("Failed to find BasePrefab.");
+            Debug.Log("[Fail] Find BasePrefab");
             return;
         }
 
@@ -227,7 +226,7 @@ public class GeneratePixelResources : Editor
         GameObject objSource = (GameObject)PrefabUtility.InstantiatePrefab(source);
 
         // 원하는 트랜스폼 찾기
-        Transform childTransform = objSource.transform.GetChild(0).GetChild(0);
+        Transform childTransform = objSource.transform.GetChild(0).GetChild(0).GetChild(0);
 
         // SpriteRenderer 업데이트
         SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
@@ -237,7 +236,7 @@ public class GeneratePixelResources : Editor
         }
         else
         {
-            Debug.LogError("Failed to find SpriteRenderer.");
+            Debug.Log("[Fail] SpriteRenderer");
             return;
         }
 
@@ -249,7 +248,7 @@ public class GeneratePixelResources : Editor
         }
         else
         {
-            Debug.LogError("Failed to find Animator.");
+            Debug.Log("[Fail] Animator");
             return;
         }
 
@@ -261,7 +260,7 @@ public class GeneratePixelResources : Editor
         // 생성된 임시 오브젝트 삭제
         Object.DestroyImmediate(objSource);
 
-        Debug.Log("Prefab created successfully at: " + prefabFullPath);
+        Debug.Log("[Success] Prefab");
     }
 
 
@@ -270,7 +269,7 @@ public class GeneratePixelResources : Editor
     {
         if (allSprites.Count == 0)
         {
-            Debug.LogWarning("No sprites found to add to the atlas.");
+            Debug.Log("[Fail] Sprite Atlas");
             return;
         }
 
@@ -331,7 +330,7 @@ public class GeneratePixelResources : Editor
         // Packing atlases
         UnityEditor.U2D.SpriteAtlasUtility.PackAtlases(new[] {spriteAtlas}, EditorUserBuildSettings.activeBuildTarget);
 
-        Debug.Log("Single SpriteAtlas created with all sprites.");
+        Debug.Log("[Success] Sprite Atlas");
     }
 }
 

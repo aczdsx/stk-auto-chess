@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
             {
                 Transform child = topUIOriginTr.GetChild(i);
                 var panel = child.GetComponent<TopPanelBase>();
-                panels.Add(panel.PanelType, panel);
+                panels.TryAdd(panel.PanelType, panel);
             }
 
             topUIOrigin.SetActive(false);

@@ -29,6 +29,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     protected void Update()
     {
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageReady))
+            return;
+
         if (_mainCamera == null)
             _mainCamera = Camera.main;
 

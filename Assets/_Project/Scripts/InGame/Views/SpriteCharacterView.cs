@@ -14,9 +14,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Transform _rootTranform;
+        [SerializeField] private Transform _rotateionRootTransform;
         private AnimationEventListener _animationEventListener;
         public CharacterStatData GetStatData() => _statData;
-        public float Height => 1.0f;
+        public float Height => 2.0f;
         public event Action<AnimationKey, AnimationEventKey> OnAnimationEvent;
 
         private AnimationKey _currentAnimationKey;
@@ -38,18 +39,6 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
             // AddressableInstantiateHelper.ReleaseGameObject(_instance);
             _animationEventListener.OnAnimationEvent -= OnFiredAnimationEvent;
-        }
-
-        public async UniTask Initialize(CharacterStatData statData)
-        {
-            Debug.LogColor($"CharView Initialize : {statData}");
-            this._statData = statData;
-            // _instance = await AddressableInstantiateHelper.InstantiateAsync($"Characters/{statData.CharacterId}/{statData.CharacterId}.prefab", CachedTr);
-            var hpBar = InGameHpBarViewPool.Instance.GetHpBar();
-            hpBar.CachedTr.SetParent(_animator.transform);
-            hpBar.CachedTr.localPosition = Vector3.zero;
-            hpBar.CachedTr.localRotation = Quaternion.identity;
-            hpBar.CachedTr.localScale = Vector3.one;
         }
 
         /// <summary>
@@ -108,9 +97,9 @@ namespace CookApps.AutoBattler
                 _cachedFront = true;
             }
 
-            Vector3 scale = _animator.transform.localScale;
+            Vector3 scale = _rootTranform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-            _animator.transform.localScale = scale;
+            _rootTranform.localScale = scale;
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
@@ -157,11 +146,11 @@ namespace CookApps.AutoBattler
 
         public void SetHpBarView(HpBarView hpBarView)
         {
-            hpBarView.transform.SetParent(_animator.transform);
+            hpBarView.transform.SetParent(_rotateionRootTransform);
             hpBarView.CachedTr.position = CachedTr.position;
-            hpBarView.transform.localPosition = Vector3.zero;
+            hpBarView.transform.localPosition = new Vector3(0, Height, 0);
             hpBarView.transform.localRotation = Quaternion.identity;
-            hpBarView.transform.localScale = Vector3.one;
+            hpBarView.transform.localScale = new Vector3(3, 3, 3);
         }
 
         public async UniTask DoDeadAction()
