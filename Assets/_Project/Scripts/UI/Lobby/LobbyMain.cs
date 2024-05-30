@@ -33,7 +33,7 @@ namespace CookApps.AutoBattler
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
 
-            SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
+            //SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
         }
 
         protected override void OnDestroy()
@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
             int currentStageId = UserDataManager.Instance.GetCurrentStageId();
 
             var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStageId);
-            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(stageSpecData.chapter_id);
+            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(stageSpecData.chapter_id);
 
             //_chapterImage.sprite = specStage.chapter_image;
             _chapterNameText.SetText(chapterSpecData.name_token);
@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
             int currentChapterId = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
 
             var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStagdId);
-            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(currentChapterId);
+            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
 
             var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty);
 

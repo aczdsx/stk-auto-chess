@@ -120,8 +120,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class CommanderSkill
+    public partial class SpecCommanderSkill
     {
+        /// Sp
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
         public CookApps.Obfuscator.ObfuscatorInt skill_id;
@@ -130,7 +131,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class CommanderSkillUpgrade
+    public partial class SpecCommanderSkillUpgrade
     {
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
@@ -141,7 +142,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class AccountLevelExp
+    public partial class SpecAccountLevelExp
     {
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -163,7 +164,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Chapter
+    public partial class SpecChapter
     {
         /// ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -235,7 +236,7 @@ namespace CookApps.AutoBattler
         /// 공격 범위
         public CookApps.Obfuscator.ObfuscatorInt atk_range;
         /// 공격 범위 형태
-        public global::CookApps.BattleSystem.AttackRangeShape atk_range_shape;
+        public global::CookApps.AutoBattler.AttackRangeShape atk_range_shape;
         /// 일반 스킬 id
         public CookApps.Obfuscator.ObfuscatorInt skill_id;
         /// 전용 장비 id
@@ -247,7 +248,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class CharacterLevelExp
+    public partial class SpecCharacterLevelExp
     {
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -271,7 +272,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class CharacterTranscendence
+    public partial class SpecCharacterTranscendence
     {
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -293,7 +294,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class CharacterEnhance
+    public partial class SpecCharacterEnhance
     {
         /// 유니크id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -309,7 +310,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class CharacterQuotes
+    public partial class SpecCharacterQuotes
     {
         /// index
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -325,7 +326,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Dialogue
+    public partial class SpecDialogue
     {
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -345,7 +346,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Language
+    public partial class SpecLanguage
     {
         /// 아이디
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -357,7 +358,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class GameConfig
+    public partial class SpecGameConfig
     {
         /// 아이디
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -371,7 +372,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class GachaScenario
+    public partial class SpecGachaScenario
     {
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -389,7 +390,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class GuideMission
+    public partial class SpecGuideMission
     {
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -417,7 +418,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Monster
+    public partial class SpecMonster
     {
         /// 몬스터 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -465,7 +466,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Skill
+    public partial class SpecSkill
     {
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -527,7 +528,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class StageReward
+    public partial class SpecStageReward
     {
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -557,7 +558,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class StageMonster
+    public partial class SpecStageMonster
     {
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
@@ -580,7 +581,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Synergy
+    public partial class SpecSynergy
     {
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -606,7 +607,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Tutorial
+    public partial class SpecTutorial
     {
         /// 유니크 id
         [GeneratorId(nameof(ID), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -635,7 +636,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Item
+    public partial class SpecItem
     {
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -661,7 +662,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class IdleReward
+    public partial class SpecIdleReward
     {
         /// 유니크 아이디
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -679,7 +680,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class RewardInfo
+    public partial class SpecRewardInfo
     {
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]

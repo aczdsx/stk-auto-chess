@@ -41,30 +41,30 @@ namespace CookApps.AutoBattler
             return SimpleSwapType.Custom_0 + ((int) pos - 1);
         }
 
-        public static BattleSystem.AttackRangeShape ToInGameAttackRangeShape(this BattleSystem.AttackRangeShape type)
+        public static BattleSystem.AttackRangeShape ToInGameAttackRangeShape(this AttackRangeShape type)
         {
             return type switch
             {
-                BattleSystem.AttackRangeShape.Rectangle => BattleSystem.AttackRangeShape.Rectangle,
-                BattleSystem.AttackRangeShape.RectangleCut1Edge => BattleSystem.AttackRangeShape.RectangleCut1Edge,
-                BattleSystem.AttackRangeShape.RectangleCut2Edge => BattleSystem.AttackRangeShape.RectangleCut2Edge,
-                BattleSystem.AttackRangeShape.RectangleCut3Edge => BattleSystem.AttackRangeShape.RectangleCut3Edge,
-                BattleSystem.AttackRangeShape.RectangleCut4Edge => BattleSystem.AttackRangeShape.RectangleCut4Edge,
-                BattleSystem.AttackRangeShape.RectangleCut5Edge => BattleSystem.AttackRangeShape.RectangleCut5Edge,
+                AttackRangeShape.Rectangle => BattleSystem.AttackRangeShape.Rectangle,
+                AttackRangeShape.RectangleCut1Edge => BattleSystem.AttackRangeShape.RectangleCut1Edge,
+                AttackRangeShape.RectangleCut2Edge => BattleSystem.AttackRangeShape.RectangleCut2Edge,
+                AttackRangeShape.RectangleCut3Edge => BattleSystem.AttackRangeShape.RectangleCut3Edge,
+                AttackRangeShape.RectangleCut4Edge => BattleSystem.AttackRangeShape.RectangleCut4Edge,
+                AttackRangeShape.RectangleCut5Edge => BattleSystem.AttackRangeShape.RectangleCut5Edge,
                 _ => BattleSystem.AttackRangeShape.Rectangle,
             };
         }
-        public static BattleSystem.AttackRangeShape ToSpecAttackRangeShape(this BattleSystem.AttackRangeShape type)
+        public static AttackRangeShape ToSpecAttackRangeShape(this BattleSystem.AttackRangeShape type)
         {
             return type switch
             {
-                BattleSystem.AttackRangeShape.Rectangle => BattleSystem.AttackRangeShape.Rectangle,
-                BattleSystem.AttackRangeShape.RectangleCut1Edge => BattleSystem.AttackRangeShape.RectangleCut1Edge,
-                BattleSystem.AttackRangeShape.RectangleCut2Edge => BattleSystem.AttackRangeShape.RectangleCut2Edge,
-                BattleSystem.AttackRangeShape.RectangleCut3Edge => BattleSystem.AttackRangeShape.RectangleCut3Edge,
-                BattleSystem.AttackRangeShape.RectangleCut4Edge => BattleSystem.AttackRangeShape.RectangleCut4Edge,
-                BattleSystem.AttackRangeShape.RectangleCut5Edge => BattleSystem.AttackRangeShape.RectangleCut5Edge,
-                _ => BattleSystem.AttackRangeShape.Rectangle,
+                BattleSystem.AttackRangeShape.Rectangle => AttackRangeShape.Rectangle,
+                BattleSystem.AttackRangeShape.RectangleCut1Edge => AttackRangeShape.RectangleCut1Edge,
+                BattleSystem.AttackRangeShape.RectangleCut2Edge => AttackRangeShape.RectangleCut2Edge,
+                BattleSystem.AttackRangeShape.RectangleCut3Edge => AttackRangeShape.RectangleCut3Edge,
+                BattleSystem.AttackRangeShape.RectangleCut4Edge => AttackRangeShape.RectangleCut4Edge,
+                BattleSystem.AttackRangeShape.RectangleCut5Edge => AttackRangeShape.RectangleCut5Edge,
+                _ => AttackRangeShape.Rectangle,
             };
         }
     }

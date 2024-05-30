@@ -24,9 +24,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _chapterStarCountText;
 
-        private Chapter _chapterSpecData;
+        private SpecChapter _chapterSpecData;
 
-        public Chapter ChapterData => _chapterSpecData;
+        public SpecChapter ChapterData => _chapterSpecData;
 
         private void Awake()
         {
@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
             _chapterButton.onClick.RemoveListener(OnClickChapter);
         }
 
-        public void SetChapterItemSlot(Chapter data)
+        public void SetChapterItemSlot(SpecChapter data)
         {
             if (data == null) return;
 
