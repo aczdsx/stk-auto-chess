@@ -394,7 +394,7 @@ namespace CookApps.AutoBattler
             }
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
-            fx = Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion();
+            fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
             fx.GetComponent<GetNewCharacter>().SetChracater(skipDatas[skipCnt].id, ShowSkipCharacterFX);
             skipCnt++;
         }
