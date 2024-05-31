@@ -351,7 +351,7 @@ namespace CookApps.AutoBattler
             // dataManager.AddKnightPieceByGacha(characterID,20, true, EventLocation.GACHA_CHRACTER,null);
             Run.After(System.TimeSpan.FromSeconds(aniTime).Seconds, () =>
             {
-                TouchObject.SetActive(true);
+                TouchObject?.SetActive(true);
             });
         }
 

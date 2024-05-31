@@ -6,94 +6,76 @@ using CookApps.SpecData;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.TeamBattle.UIManagements;
+using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
-    public enum CharacterCollectionTabType
+    public enum CharacterCollectionPopupTabType
     {
-        All,
-        EARTH = 1,
-        WIND = 2,
-        WATER = 3,
-        FIRE = 4,
-        DARK = 5,
-        LIGHT = 6,
+        MAIN,
+        GROW,
+        SKILL,
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/CharacterCollectionPopup.prefab")]
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab")]
     public class CharacterCollectionPopup : UILayer
     {
-        [SerializeField] private ScrollRect _characterScrollRect;
-        [SerializeField] private GameObject _characterCardSlotObject;
+        [Header("BG Layer")]
+        [SerializeField] private GameObject _detailBGLayerObject;
+        [SerializeField] private GameObject _detailMainBGLayerObject;
 
-        private CharacterCollectionTabType _currentTabType = CharacterCollectionTabType.All;
+        [Header("Layer")]
+        [SerializeField] private CharacterCollectionMainLayer _collectionMainLayer;
+        [SerializeField] private CharacterDetailGrowLayer _detailGrowLayer;
+        [SerializeField] private CharacterDetailSkillLayer _detailSkillLayer;
 
-        private ISpecData<ObfuscatorInt, SpecCharacter> _totalCharacterList;      // 전체 캐릭터 리스트
-        private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
-
+        private CharacterCollectionPopupTabType _currentTabType = CharacterCollectionPopupTabType.MAIN;
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
-            _currentTabType = CharacterCollectionTabType.All;
+            _currentTabType = CharacterCollectionPopupTabType.MAIN;
 
-            SetCharacterCollectionUI();
+            ChangeTabType(_currentTabType, true);
         }
 
-        public void OnClickTabToggleButton(int tabIndex)
+        public void ChangeTabType(CharacterCollectionPopupTabType tabType, bool isFirstInit = false)
         {
-            _currentTabType = (CharacterCollectionTabType)tabIndex;
+            if (_currentTabType == tabType && isFirstInit == false) return;
 
-            FilterCharacterList(_currentTabType);
-        }
+            ClearLayer();
 
-        private void SetCharacterCollectionUI()
-        {
-            ClearList();
+            _currentTabType = tabType;
 
-            _totalCharacterList = SpecDataManager.Instance.SpecCharacter;
-
-            foreach (var characterData in _totalCharacterList.All)
+            switch (_currentTabType)
             {
-                GameObject newCardObject = Instantiate(_characterCardSlotObject, _characterScrollRect.content);
-                CharacterCardSlot slot = newCardObject.GetComponent<CharacterCardSlot>();
-                slot.SetCharcacterSlot(characterData);
+                case CharacterCollectionPopupTabType.MAIN:
+                    _collectionMainLayer.gameObject.SetActive(true);
+                    _collectionMainLayer.InitLayer();
+                    break;
+                case CharacterCollectionPopupTabType.GROW:
+                    _detailMainBGLayerObject.SetActive(true);
 
-                _characterCardSlotList.Add(slot);
+                    _detailGrowLayer.gameObject.SetActive(true);
+                    break;
+                case CharacterCollectionPopupTabType.SKILL:
+                    _detailMainBGLayerObject.SetActive(true);
+
+                    _detailSkillLayer.gameObject.SetActive(true);
+                    break;
             }
-
-            _characterScrollRect.verticalNormalizedPosition = 1;
         }
 
-        private void FilterCharacterList(CharacterCollectionTabType targetType)
+        private void ClearLayer()
         {
-            _characterCardSlotList.ForEach(slot =>
-            {
-                if (targetType == CharacterCollectionTabType.All)
-                {
-                    slot.gameObject.SetActive(true);
-                }
-                else
-                {
-                    slot.gameObject.SetActive((int)slot.CharacterData.element_type == (int)targetType);
-                }
-            });
+            _detailBGLayerObject.SetActive(true);
+            _detailMainBGLayerObject.SetActive(false);
 
-            _characterScrollRect.verticalNormalizedPosition = 1;
-        }
-
-        private void RefreshUI()
-        {
-
-        }
-
-        private void ClearList()
-        {
-            _characterCardSlotList.Clear();
-
-            BMUtil.RemoveChildObjects(_characterScrollRect.content);
+            _collectionMainLayer.gameObject.SetActive(false);
+            _detailGrowLayer.gameObject.SetActive(false);
+            _detailSkillLayer.gameObject.SetActive(false);
         }
     }
 }
