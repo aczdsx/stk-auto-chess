@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Transform _characterSelecteTransform;
         [SerializeField] private List<InGameCharacterItem> _characterItemList;
         [SerializeField] private InGameTopUI _InGameTopUI;
-        [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
+        //[SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
