@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
     {
         [Header("BG Layer")]
         [SerializeField] private GameObject _detailBGLayerObject;
-        [SerializeField] private GameObject _detailMainBGLayerObject;
+        [SerializeField] private CharacterDetailMainLayer _detailMainBGLayer;
 
         [Header("Layer")]
         [SerializeField] private CharacterCollectionMainLayer _collectionMainLayer;
@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CharacterDetailSkillLayer _detailSkillLayer;
 
         private CharacterCollectionPopupTabType _currentTabType = CharacterCollectionPopupTabType.MAIN;
+        private int _currentCharacterID;
 
         protected override void OnPreEnter(object param)
         {
@@ -37,8 +38,16 @@ namespace CookApps.AutoBattler
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             _currentTabType = CharacterCollectionPopupTabType.MAIN;
+            _currentCharacterID = 0;
 
             ChangeTabType(_currentTabType, true);
+        }
+
+        public void SelectCharacterCard(int characterID)
+        {
+            _currentCharacterID = characterID;
+
+            ChangeTabType(CharacterCollectionPopupTabType.GROW);
         }
 
         public void ChangeTabType(CharacterCollectionPopupTabType tabType, bool isFirstInit = false)
@@ -53,15 +62,17 @@ namespace CookApps.AutoBattler
             {
                 case CharacterCollectionPopupTabType.MAIN:
                     _collectionMainLayer.gameObject.SetActive(true);
-                    _collectionMainLayer.InitLayer();
+                    _collectionMainLayer.InitLayer(this);
                     break;
                 case CharacterCollectionPopupTabType.GROW:
-                    _detailMainBGLayerObject.SetActive(true);
+                    _detailMainBGLayer.gameObject.SetActive(true);
+                    _detailMainBGLayer.InitLayer(_currentCharacterID);
 
                     _detailGrowLayer.gameObject.SetActive(true);
                     break;
                 case CharacterCollectionPopupTabType.SKILL:
-                    _detailMainBGLayerObject.SetActive(true);
+                    _detailMainBGLayer.gameObject.SetActive(true);
+                    _detailMainBGLayer.InitLayer(_currentCharacterID);
 
                     _detailSkillLayer.gameObject.SetActive(true);
                     break;
@@ -71,7 +82,7 @@ namespace CookApps.AutoBattler
         private void ClearLayer()
         {
             _detailBGLayerObject.SetActive(true);
-            _detailMainBGLayerObject.SetActive(false);
+            _detailMainBGLayer.gameObject.SetActive(false);
 
             _collectionMainLayer.gameObject.SetActive(false);
             _detailGrowLayer.gameObject.SetActive(false);

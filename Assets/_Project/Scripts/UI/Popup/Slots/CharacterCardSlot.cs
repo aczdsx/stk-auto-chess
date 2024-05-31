@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +12,8 @@ namespace CookApps.AutoBattler
 {
     public class CharacterCardSlot : CachedMonoBehaviour
     {
+        [SerializeField] private CAButton _characterCardButton;
+
         [Header("BG Layer")]
         [SerializeField] private GameObject _lockBGLayerObject;
         [SerializeField] private GameObject _normalBGLayerObject;
@@ -32,13 +36,29 @@ namespace CookApps.AutoBattler
         private SpecCharacter _characterData;
         private UserCharacter _userCharacterData;
 
+        private CharacterCollectionPopup _parentCollectionPopup;
+
         public SpecCharacter CharacterData => _characterData;
 
-        public void SetCharcacterSlot(SpecCharacter characterData)
+        private void Awake()
+        {
+            _characterCardButton.onClick.AddListener(OnClickCardSlot);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _characterCardButton.onClick.RemoveListener(OnClickCardSlot);
+        }
+
+        public void SetCharcacterSlot(SpecCharacter characterData, CharacterCollectionPopup _parentPopup)
         {
             if (characterData == null) return;
 
             ClearCardSlot();
+
+            _parentCollectionPopup = _parentPopup;
 
             _characterData = characterData;
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.id);
@@ -75,6 +95,13 @@ namespace CookApps.AutoBattler
             {
                 _starObjectList[i].SetActive(i <= (int)gradeType);
             }
+        }
+
+        private void OnClickCardSlot()
+        {
+            if (_parentCollectionPopup == null) return;
+
+            _parentCollectionPopup.SelectCharacterCard(_characterData.id);
         }
 
         private void ClearCardSlot()

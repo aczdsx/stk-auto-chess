@@ -1444,6 +1444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123e4c39e7fe4424e9c0451105193021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterCardButton: {fileID: 2209376420024090465}
   _lockBGLayerObject: {fileID: 4148385798364129275}
   _normalBGLayerObject: {fileID: 2401059792589424745}
   _SSRBGLayerObject: {fileID: 1096239293079922928}

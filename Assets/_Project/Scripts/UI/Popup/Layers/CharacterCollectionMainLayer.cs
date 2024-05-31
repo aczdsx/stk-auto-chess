@@ -29,8 +29,12 @@ namespace CookApps.AutoBattler
         private ISpecData<ObfuscatorInt, SpecCharacter> _totalCharacterList;      // 전체 캐릭터 리스트
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
 
-        public void InitLayer()
+        private CharacterCollectionPopup _parentCollectionPopup;
+
+        public void InitLayer(CharacterCollectionPopup _parentPopup)
         {
+            _parentCollectionPopup = _parentPopup;
+
             _currentMainLayerTabType = CharacterCollectionMainLayerTabType.All;
 
             SetCharacterCollectionUI();
@@ -58,7 +62,7 @@ namespace CookApps.AutoBattler
             {
                 GameObject newCardObject = Instantiate(_characterCardSlotObject, _characterScrollRect.content);
                 CharacterCardSlot slot = newCardObject.GetComponent<CharacterCardSlot>();
-                slot.SetCharcacterSlot(characterData);
+                slot.SetCharcacterSlot(characterData, _parentCollectionPopup);
 
                 _characterCardSlotList.Add(slot);
             }

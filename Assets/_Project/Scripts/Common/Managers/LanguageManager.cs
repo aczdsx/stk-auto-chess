@@ -48,5 +48,22 @@ namespace CookApps.AutoBattler
                     return string.Empty;
             }
         }
+
+        public string GetGradeText(GradeType type)
+        {
+            switch (type)
+            {
+                case GradeType.COMMON:
+                    return "N";
+                case GradeType.RARE:
+                    return "R";
+                case GradeType.EPIC:
+                    return "SR";
+                case GradeType.LEGEND:
+                    return "SSR";
+                default:
+                    return string.Empty;
+            }
+        }
     }
 }
