@@ -10,8 +10,13 @@ namespace CookApps.AutoBattler
     public class CharacterDetailMainLayer : CachedMonoBehaviour
     {
         [SerializeField] private Image _characterIllustImage;
+        [SerializeField] private SynergyUI _elementSynergyUI;
+        [SerializeField] private SynergyUI _classSynergyUI;
         [SerializeField] private TextMeshProUGUI _characterNameText;
         [SerializeField] private TextMeshProUGUI _characterGradeText;
+
+        [Space(10)]
+        [SerializeField] private List<GameObject> _starObjectList;
 
         private SpecCharacter _specCharacterData;
 
@@ -26,9 +31,25 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null) return;
 
-            _characterIllustImage.sprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacterData.id);
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacterData.id);
+            _characterIllustImage.sprite = targetSprite;
+            _characterIllustImage.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+
             _characterNameText.text = _specCharacterData.name_token;
             _characterGradeText.text = LanguageManager.Instance.GetGradeText(_specCharacterData.grade);
+
+            _elementSynergyUI.SetSynergyUI(_specCharacterData.element_type);
+            _classSynergyUI.SetPositionSynergyUI(_specCharacterData.class_type);
+
+            SetStarObject(_specCharacterData.grade);
+        }
+
+        private void SetStarObject(GradeType gradeType)
+        {
+            for (int i = 0; i < _starObjectList.Count; i++)
+            {
+                _starObjectList[i].SetActive(i <= (int)gradeType);
+            }
         }
     }
 }
