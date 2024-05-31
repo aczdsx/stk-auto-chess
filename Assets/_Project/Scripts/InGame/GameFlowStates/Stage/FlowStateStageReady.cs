@@ -7,13 +7,18 @@ using Unity.Mathematics;
 
 public class FlowStateStageReady : StateBase
 {
+    private SpecStage specStage;
+
+    public override void SetStateData(object data)
+    {
+        base.SetStateData(data);
+        specStage = data as SpecStage;
+    }
+
     public override async void StateInit(object target)
     {;
-        //[TODO] target에 아래 들어오게 하고 싶은데...
-        //SpecStage specStage = (SpecStage) target;
+        //[TODO] target에 아래 들어오게 하고 싶은데... 태우: SetStateData 사용하는 걸로!
         var addCharacterTasks = new List<UniTask>();
-
-        SpecStage specStage = InGameResourceHolder.SpecStage;
         List<SpecStageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(specStage.chapter_id, specStage.stage_number,
                 specStage.difficulty);

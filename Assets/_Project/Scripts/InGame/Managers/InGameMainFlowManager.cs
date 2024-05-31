@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
 using PrimeTween;
@@ -22,7 +23,7 @@ namespace CookApps.BattleSystem
         public float FastForwardRate => fastForwardRate;
 
         public void Clear()
-        { 
+        {
             isPaused = false;
             fastForwardRate = 1f;
             updateHandlers.Clear();
@@ -31,7 +32,7 @@ namespace CookApps.BattleSystem
             nextStates.Clear();
         }
 
-        public void StartInGameMainLoop<T>() where T : StateBase, new()
+        public void StartInGameMainLoop<T>(object stateData) where T : StateBase, new()
         {
             OneTick = 1f / Application.targetFrameRate;
             prevProcessingTime = Time.time;
@@ -42,11 +43,7 @@ namespace CookApps.BattleSystem
             fastForwardRate = 1f;
             AddUpdateListener(UpdatePriority_TopTier, ManagedUpdate);
 
-            flowState = StatePool.Instance.GetState<T>();
-            // CADebug.Assert(flowState != null, "시작 Flow State를 생성하지 못했다!");
-
-            flowState.StateInit(this);
-            flowState.StateStart();
+            AddNextState<T>(stateData);
             Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
         }
 
@@ -302,16 +299,18 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public T AddNextState<T>() where T : StateBase, new()
+        public T AddNextState<T>(object stateData = null) where T : StateBase, new()
         {
             var state = StatePool.Instance.GetState<T>();
+            state.SetStateData(stateData);
             nextStates.Enqueue(state);
             return state;
         }
 
-        public StateBase AddNextState(Type type)
+        public StateBase AddNextState(Type type, object stateData = null)
         {
             StateBase state = StatePool.Instance.GetState(type);
+            state.SetStateData(stateData);
             nextStates.Enqueue(state);
             return state;
         }

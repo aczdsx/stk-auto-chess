@@ -116,8 +116,7 @@ namespace CookApps.AutoBattler
 
         public void ReturnHpBar(HpBarView hpBarView)
         {
-            if (_hpBarViewPool != null)
-                _hpBarViewPool.Return(hpBarView);
+            _hpBarViewPool?.Return(hpBarView);
         }
     }
 }
