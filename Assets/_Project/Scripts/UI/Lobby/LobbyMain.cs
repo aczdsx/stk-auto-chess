@@ -23,7 +23,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _stageProgressText;
 
 
-        private List<LobbyBottomStageItemSlot> _stageSlotList = new();
+        private List<LobbyBottomStageSlot> _stageSlotList = new();
 
         protected override void Awake()
         {
@@ -66,8 +66,8 @@ namespace CookApps.AutoBattler
             // 기본 데이터 갱신
             int currentStageId = UserDataManager.Instance.GetCurrentStageId();
 
-            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStageId);
-            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(stageSpecData.chapter_id);
+            var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStageId);
+            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(stageSpecData.chapter_id);
 
             //_chapterImage.sprite = specStage.chapter_image;
             _chapterNameText.SetText(chapterSpecData.name_token);
@@ -95,8 +95,8 @@ namespace CookApps.AutoBattler
             int currentStagdId = UserDataManager.Instance.GetCurrentStageId();
             int currentChapterId = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
 
-            var stageSpecData = SpecDataManager.Instance.Stage.Get(currentStagdId);
-            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(currentChapterId);
+            var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
+            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
 
             var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty);
 
@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < stageList.Count; i++)
             {
                 GameObject newSlotObject = Instantiate(_stageSelectSlotObject, _stageSelectScrollRect.content);
-                LobbyBottomStageItemSlot slot = newSlotObject.GetComponent<LobbyBottomStageItemSlot>();
+                LobbyBottomStageSlot slot = newSlotObject.GetComponent<LobbyBottomStageSlot>();
                 slot.SetStageItemSlot(stageList[i]);
 
                 _stageSlotList.Add(slot);
@@ -162,7 +162,7 @@ namespace CookApps.AutoBattler
         }
         private void OnClickStartButton()
         {
-            SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
+            SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
         }
 
         private void OnClickChapterStageButton()

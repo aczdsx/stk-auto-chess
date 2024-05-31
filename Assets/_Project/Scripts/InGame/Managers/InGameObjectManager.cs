@@ -14,17 +14,30 @@ namespace CookApps.BattleSystem
     public class InGameObjectManager : SingletonMonoBehaviour<InGameObjectManager>
     {
         private InGameGrid _grid;
-        private List<CharacterController> enemiesInPlaygroundForUpdate = new ();
-        private List<CharacterController> charactersInPlaygroundForUpdate = new ();
+        private List<CharacterController> enemiesInPlaygroundForUpdate = new();
+        private List<CharacterController> charactersInPlaygroundForUpdate = new();
+
+        private double _playerSumMaxHp;
+        private double _enemySumMaxHp;
+        private float _lastRate;
 
         private Transform playground;
         public Transform Playground => playground;
         public InGameGrid InGameGrid => _grid;
 
-        public void Initialize(InGameStage stage)
+        public void Initialize()
         {
-            InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, ManagedUpdate);
-            InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects, LateManagedUpdate);
+            InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
+                ManagedUpdate);
+            InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
+                LateManagedUpdate);
+
+            GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
+            if (!stageObj.TryGetComponent(out InGameStage stage))
+            {
+                Debug.LogError("InGameStage is not found");
+                return;
+            }
 
             playground = GameObject.Find("Playground").GetComponent<Transform>();
 
@@ -41,7 +54,7 @@ namespace CookApps.BattleSystem
             ClearAllEnemiesInField();
         }
 
-        public List<CharacterController> GetCharacterAll()
+        public List<CharacterController> GetCharacterList()
         {
             return charactersInPlaygroundForUpdate;
         }
@@ -59,7 +72,39 @@ namespace CookApps.BattleSystem
             return null;
         }
 
-        public async UniTask<CharacterController> AddCharacterToField(CharacterStatData statData, int2 initPos, AllianceType allianceType, Type startStateType)
+        public int GetCharacterSynergyCount(AllianceType allianceType, CharacterType type)
+        {
+            int value = 0;
+
+            List<CharacterController> targetList = (allianceType == AllianceType.Player)
+                ? charactersInPlaygroundForUpdate
+                : enemiesInPlaygroundForUpdate;
+            foreach (var character in targetList)
+            {
+                value += character.GetCharacterStat().Spec.element_type == type ? 1 : 0;
+            }
+
+            return value;
+        }
+
+        public int GetCharacterSynergyCount(AllianceType allianceType, CharacterPositionType type)
+        {
+            int value = 0;
+
+            List<CharacterController> targetList = (allianceType == AllianceType.Player)
+                ? charactersInPlaygroundForUpdate
+                : enemiesInPlaygroundForUpdate;
+
+            foreach (var character in targetList)
+            {
+                value += character.GetCharacterStat().Spec.class_type == type ? 1 : 0;
+            }
+
+            return value;
+        }
+
+        public async UniTask<CharacterController> AddCharacterToField(CharacterStatData statData, int2 initPos,
+            AllianceType allianceType, Type startStateType)
         {
             var characCtrl = new CharacterController();
             var tile = _grid.GetTile(initPos);
@@ -162,6 +207,7 @@ namespace CookApps.BattleSystem
                 CharacterController other = enemiesInPlaygroundForUpdate[i];
                 other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
             }
+
             characCtrl.CurrentTile.SetUnoccupied();
             characCtrl.Clear();
             enemiesInPlaygroundForUpdate.Remove(characCtrl);
@@ -177,7 +223,8 @@ namespace CookApps.BattleSystem
             return _grid.GetNextMovableTile(src, dest);
         }
 
-        public void ChangeTileCharacterToCharacter(CharacterController selectedCharacter, CharacterController occupiedCharacter)
+        public void ChangeTileCharacterToCharacter(CharacterController selectedCharacter,
+            CharacterController occupiedCharacter)
         {
             // 임시 변수를 사용하여 타일을 교환
             InGameTile selectedCharacterTile = selectedCharacter.CurrentTile;
@@ -206,7 +253,7 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
-            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShape);
+            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShapeType);
         }
 
         /// <summary>
@@ -214,10 +261,10 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <param name="range"></param>
-        /// <param name="rangeShape"></param>
+        /// <param name="rangeShapeType"></param>
         /// <param name="includePivot"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestColleaguesInRange(CharacterController pivot, int range, AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
+        public void GetNearestColleaguesInRange(CharacterController pivot, int range, BattleSystem.AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -256,9 +303,9 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <param name="range"></param>
-        /// <param name="rangeShape"></param>
+        /// <param name="rangeShapeType"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShape, List<CharacterController> resTargets)
+        public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShapeType, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -281,7 +328,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
+                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShapeType))
                 {
                     resTargets.Add(other);
                 }
@@ -388,12 +435,11 @@ namespace CookApps.BattleSystem
             List<CharacterController> searchList = null;
             if (type == AllianceType.Player)
             {
-
-                searchList = enemiesInPlaygroundForUpdate;
+                searchList = charactersInPlaygroundForUpdate;
             }
             else if (type == AllianceType.Enemy)
             {
-                searchList = charactersInPlaygroundForUpdate;
+                searchList = enemiesInPlaygroundForUpdate;
             }
 
             if (searchList == null)
@@ -436,7 +482,35 @@ namespace CookApps.BattleSystem
             return res;
         }
 
+        public float GetHpRate(AllianceType type)
+        {
+            List<CharacterController> targetList = (type == AllianceType.Player)
+                ? charactersInPlaygroundForUpdate
+                : enemiesInPlaygroundForUpdate;
+            double maxHp = (type == AllianceType.Player) ? _playerSumMaxHp : _enemySumMaxHp;
+            double currentHp = targetList.Sum(character => character.CurrentHp);
+
+            return (float) (currentHp / maxHp);
+        }
+
+        public void UpdateSumMaxHp(AllianceType type)
+        {
+            if (type == AllianceType.Player)
+            {
+                _playerSumMaxHp = 0;
+                foreach (var t in charactersInPlaygroundForUpdate)
+                    _playerSumMaxHp += t.CurrentHp;
+            }
+            else
+            {
+                _enemySumMaxHp = 0;
+                foreach (var t in enemiesInPlaygroundForUpdate)
+                    _enemySumMaxHp += t.CurrentHp;
+            }
+        }
+
         // TODO: 부채꼴 검색, 직선 검색등 검색 기능이 많이 필요할텐데.. 모듈 내에 이 코드가 있는게 맞을지 고민해보자.
+
         #endregion
 
         private void ManagedUpdate(float dt)

@@ -22,7 +22,7 @@ public class CharacterStateSkill : CharacterStateBase
         isSkillEnd = false;
 
         var characId = characCtrl.GetCharacterStat().CharacterId;
-        var specCharac = SpecDataManager.Instance.SpecCharacter.Get(characId);
+        var specCharac = SpecDataManager.Instance.TestSpecCharacter.Get(characId);
         skillIndex = 0;
         var skillIds = specCharac.skill_ids;
         for (int i = 0; i < skillIds.Length; i++)

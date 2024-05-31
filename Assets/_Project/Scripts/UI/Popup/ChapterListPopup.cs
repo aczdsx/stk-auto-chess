@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/Pop_ChapterList.prefab")]
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ChapterListPopup.prefab")]
     public class ChapterListPopup : UILayer
     {
         [Header("Chapter List Layer")]
@@ -24,7 +24,7 @@ namespace CookApps.AutoBattler
 
         private List<ChapterListItemSlot> _chapterSlotList = new();
 
-        private Chapter _selectedChapterData;
+        private SpecChapter _selectedChapterData;
 
         protected override void OnPreEnter(object param)
         {
@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             var currentChapterId = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
-            _selectedChapterData = SpecDataManager.Instance.Chapter.Get(currentChapterId);
+            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
 
             SetChapterListUI();
 
@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.SelectUserChapter(targetID);
 
             // 팝업 관련 처리
-            _selectedChapterData = SpecDataManager.Instance.Chapter.Get(targetID);;
+            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(targetID);;
 
             _chapterNumberText.text = string.Format("챕터-{0}-{1}", _selectedChapterData.chapter_id, _selectedChapterData.difficulty);
             _chapterNameText.text = _selectedChapterData.name_token;
@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
         {
             ClearList();
 
-            foreach (var chapterData in SpecDataManager.Instance.Chapter.All)
+            foreach (var chapterData in SpecDataManager.Instance.SpecChapter.All)
             {
                 GameObject newChapterObject = Instantiate(_chapterSlotObject, _chapterScrollRect.content);
                 ChapterListItemSlot chapterSlot = newChapterObject.GetComponent<ChapterListItemSlot>();

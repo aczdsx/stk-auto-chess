@@ -29,6 +29,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     protected void Update()
     {
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageReady))
+            return;
+
         if (_mainCamera == null)
             _mainCamera = Camera.main;
 
@@ -161,7 +164,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                         (Vector3 value) =>
                         {
                             if (_selectedCharacterController != null)
+                            {
+                                Debug.LogColor($"position : {_selectedCharacterController.Position3D} / target : {targetPosition}");
                                 _selectedCharacterController.Position3D = value;
+                                //[TODO] 이거 localPosition 깡으로 건들여도 되나요??
+                                _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
+                            }
                         });
                 }
             }
@@ -251,7 +259,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             (Vector3 value) =>
             {
                 if (character1 != null)
+                {
                     character1.Position3D = value;
+                    character1.GetCharacterView().CachedTr.localPosition = value;
+                }
             }).OnComplete(() =>
         {
             completedTweens++;
@@ -265,7 +276,11 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             startPosition2,
             targetPosition2,
             duration,
-            (Vector3 value) => character2.Position3D = value).OnComplete(() =>
+            (Vector3 value) =>
+            {
+                character2.Position3D = value;
+                character2.GetCharacterView().CachedTr.localPosition = value;
+            }).OnComplete(() =>
         {
             completedTweens++;
             if (completedTweens >= 2)
@@ -292,7 +307,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             startPosition,
             targetPosition,
             duration,
-            (Vector3 value) => character.Position3D = value).OnComplete(onComplete);
+            (Vector3 value) =>
+            {
+                character.Position3D = value;
+            }).OnComplete(onComplete);
     }
 
     private void SetSelectedCharacter(CharacterController character)

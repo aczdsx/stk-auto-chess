@@ -80,7 +80,7 @@ namespace CookApps.AutoBattler
 
             foreach (var userStage in userStageGroup.UserStages.Values)
             {
-                var specStage = SpecDataManager.Instance.Stage.Get(userStage.StageId);
+                var specStage = SpecDataManager.Instance.SpecStage.Get(userStage.StageId);
                 if (specStage != null)
                 {
                     if (specStage.chapter_id == chapterID && specStage.difficulty == type)
@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
         // 현재 진행 중인 스테이지 ID 반환 (현재 선택중인 챕터 기반)
         public int GetCurrentStageId()
         {
-            var chapterSpecData = SpecDataManager.Instance.Chapter.Get(userStageGroup.CurrentSelectedChapterId);
+            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(userStageGroup.CurrentSelectedChapterId);
 
             if (chapterSpecData != null)
             {

@@ -125,6 +125,7 @@ namespace CookApps.BattleSystem
             _hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
             _hpBarView.Initialize(statData, allianceType);
             view.SetHpBarView(_hpBarView);
+            view.SetFirstDirection(allianceType);
 
             view.OnAnimationEvent += OnAnimationEvent;
             view.CachedTr.localPosition = position;

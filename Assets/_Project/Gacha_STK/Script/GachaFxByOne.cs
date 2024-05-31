@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
          [SerializeField] private GameObject[] SSRObjects;
         [SerializeField] private GameObject[] NormalObjects;
         [SerializeField] private List<GachaItem> GachItems;
-        private List<Character> _datas = null;
+        private List<SpecCharacter> _datas = null;
         [SerializeField] private PlayableDirector pd;
         private bool isClick = false;
         private bool isSkip = false;
@@ -21,7 +21,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject BlockerObject;
         [SerializeField] private GameObject[] SkipParticleObjects;
 
-        public void SetItem(List<Character> datas)
+        public void SetItem(List<SpecCharacter> datas)
         {
             if (datas == null)
             {
@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
 
             bool isIncludeSSR = false;
 
-            if (datas.Exists(x => x.grade == Grade.LEGEND && x.need_piece== 20))
+            if (datas.Exists(x => x.grade == GradeType.LEGEND && x.need_piece== 20))
                 isIncludeSSR = true;
 
             if (isIncludeSSR == true)
@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                Character idxCharcater = SpecDataManager.Instance.Character.Get(datas[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(datas[i].id);
                 // GachItems[i].InitItem(idxCharcater, datas[i].piece, i);
             }
 
@@ -133,10 +133,10 @@ namespace CookApps.AutoBattler
                 return;
             }
             BlockerObject.SetActive(false);
-            Character idxCharcater = SpecDataManager.Instance.Character.Get( _datas[cnt].id);
+            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( _datas[cnt].id);
             if (_datas[cnt].need_piece == 20)
             {
-                if (idxCharcater.grade == Grade.LEGEND)
+                if (idxCharcater.grade == GradeType.LEGEND)
                 {
                     fx = AddressablesUtil.Instantiate("GetNewCharacter");
                     fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);

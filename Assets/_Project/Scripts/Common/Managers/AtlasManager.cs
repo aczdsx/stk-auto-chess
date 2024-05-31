@@ -56,8 +56,8 @@ namespace CookApps.AutoBattler
 
                 {
                     var atlas = await Addressables.LoadAssetAsync<SpriteAtlas>(assetRef);
-                    assetRefToAtlasNameDict.Add(assetRef, atlas.name);
-                    loadedAtlasDict.Add(atlas.name, atlas);
+                    assetRefToAtlasNameDict.TryAdd(assetRef, atlas.name);
+                    loadedAtlasDict.TryAdd(atlas.name, atlas);
                 }
             }
         }

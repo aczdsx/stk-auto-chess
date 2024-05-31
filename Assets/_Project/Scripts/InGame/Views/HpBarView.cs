@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
 
                 elapsed += Time.deltaTime;
                 float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
-                float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1)); // 슬라이스 효과를 만듭니다.
+                float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1));
 
                 _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - ratio);
                 _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
@@ -75,7 +75,7 @@ namespace CookApps.AutoBattler
             if (_hpFillSmoothGuage != null)
             {
                 _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - targetRatio);
-                _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0); // 애니메이션이 끝난 후 히트 효과를 해제합니다.
+                _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0);
             }
         }
 
@@ -116,7 +116,7 @@ namespace CookApps.AutoBattler
 
         public void ReturnHpBar(HpBarView hpBarView)
         {
-            _hpBarViewPool.Return(hpBarView);
+            _hpBarViewPool?.Return(hpBarView);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SpecCharacter specCharacter = SpecDataManager.Instance.SpecCharacter.Get(characterId);
+            TestSpecCharacter specCharacter = SpecDataManager.Instance.TestSpecCharacter.Get(characterId);
             if (userDeck.LineCharacters[specCharacter.GetLineIndex()].CharacterIds.Count >= SpecOptionCache.DeckLineMaxSize)
             {
                 return;
@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
 
         public void RemoveCharacterInTeam(int characterId)
         {
-            int lineIndex = SpecDataManager.Instance.SpecCharacter.Get(characterId).GetLineIndex();
+            int lineIndex = SpecDataManager.Instance.TestSpecCharacter.Get(characterId).GetLineIndex();
             userDeck.LineCharacters[lineIndex].CharacterIds.Remove(characterId);
         }
 

@@ -7,7 +7,7 @@
 namespace CookApps.AutoBattler
 {
 
-    public enum CharacterEffect
+    public enum CharacterEffectType
     {
         NONE = 0,
         AD_UP = 1,
@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
         MOVESPEED_PERCENT_UP = 16,
     }
 
-    public enum Grade
+    public enum GradeType
     {
         COMMON = 1,
         RARE = 2,
@@ -82,7 +82,7 @@ namespace CookApps.AutoBattler
         MACHINE = 7,
     }
 
-    public enum CharacterPosition
+    public enum CharacterPositionType
     {
         NONE = 0,
         WARRIOR = 1,
@@ -183,12 +183,12 @@ namespace CookApps.AutoBattler
 
     public enum SkillType
     {
-        none = 1,
-        normal = 2,
-        weapon = 3,
+        NONE = 1,
+        NORMAL = 2,
+        WEAPON = 3,
     }
 
-    public enum GachaScenarioConditionKey
+    public enum GachaScenarioConditionKeyType
     {
         GUIDE_CLEAR = 1,
         GACHA_ACC_COUNT = 2,
@@ -207,5 +207,16 @@ namespace CookApps.AutoBattler
     {
         ONLY = 1,
         RANDOM = 2,
+    }
+
+    public enum GuideMissionType
+    {
+        CLEAR_STAGE = 1,
+        USE_BUILDING = 2,
+        OPEN_IDLECHEST = 3,
+        SET_CHARACTER = 4,
+        LEVELUP_CHARACTER = 5,
+        OPEN_CHEST = 6,
+        SUMMON_CHARCTER = 7,
     }
 }

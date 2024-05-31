@@ -13,6 +13,7 @@ using UnityEngine.U2D;
 
 public class GeneratePixelResources : Editor
 {
+    private const int DEAD_FRAME_COUNT = 10;
     [MenuItem("Assets/Generate Pixel Resources", true)]
     private static bool ValidateCreateAnimation()
     {
@@ -69,12 +70,11 @@ public class GeneratePixelResources : Editor
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        Debug.Log("Animations created in selected folder group.");
+        Debug.Log("[Success]");
     }
 
     private static List<Sprite> LoadSpritesFromFolder(string folderPath)
     {
-        // 하위 폴더 내의 모든 스프라이트 로드
         string[] filePaths = Directory.GetFiles(folderPath, "*.png");
         List<Sprite> sprites = filePaths.Select(path =>
         {
@@ -105,20 +105,30 @@ public class GeneratePixelResources : Editor
 
         if (sprites.Count == 0)
         {
-            Debug.LogWarning($"No sprites found in the folder: {folderPath}");
+            Debug.Log("[Fail] No Sprite");
             return;
         }
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = 12f; // 프레임 레이트를 원하는 값으로 설정
+        animationClip.frameRate = 12f;
 
         EditorCurveBinding curveBinding = new EditorCurveBinding();
         curveBinding.type = typeof(SpriteRenderer);
         curveBinding.path = "";
         curveBinding.propertyName = "m_Sprite";
 
-        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[sprites.Count];
+        int frameCount = folderName == "DEAD" ? sprites.Count * DEAD_FRAME_COUNT : sprites.Count;
+        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[frameCount];
+
+        for (int i = 0; i < frameCount; i++)
+        {
+            keyFrames[i] = new ObjectReferenceKeyframe();
+            keyFrames[i].time = i / animationClip.frameRate;
+            keyFrames[i].value = sprites[i / (folderName == "DEAD" ? DEAD_FRAME_COUNT : 1)];
+        }
+
+        AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
 
         for (int i = 0; i < sprites.Count; i++)
         {
@@ -129,7 +139,6 @@ public class GeneratePixelResources : Editor
 
         AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
 
-        // Animation Event 추가
         List<AnimationEvent> animationEvents = new List<AnimationEvent>();
 
         AnimationEvent startEvent = new AnimationEvent();
@@ -158,29 +167,26 @@ public class GeneratePixelResources : Editor
 
         // 애니메이션 클립 저장
         string savePath = Path.Combine(animationFolderPath, $"{subFolderName}_{folderName}.anim");
-        savePath = savePath.Replace("\\", "/"); // 경로가 유니티에서 인식될 수 있도록 슬래시 변경
+        savePath = savePath.Replace("\\", "/");
 
         AssetDatabase.CreateAsset(animationClip, savePath);
     }
 
     private static AnimatorOverrideController AddAnimationsToBaseController(string parentFolderPath, string parentFolderName)
     {
-        // Animation 폴더 내의 애니메이션 클립 가져오기
         string[] animationClipPaths = Directory.GetFiles(parentFolderPath, "*.anim");
         AnimationClip[] animationClips = animationClipPaths
             .Select(path => AssetDatabase.LoadAssetAtPath<AnimationClip>(path)).ToArray();
 
-        // AnimationOverrideController 생성
         string overrideControllerPath = Path.Combine(parentFolderPath, $"{parentFolderName}_AnimationController.controller");
         AnimatorOverrideController overrideController = new AnimatorOverrideController();
         AssetDatabase.CreateAsset(overrideController, overrideControllerPath);
 
-        // BaseAnimController 가져오기
         string baseControllerName = "BaseCharacterAnimController";
         string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName);
         if (guids.Length == 0)
         {
-            Debug.LogError("Failed to find BaseAnimController.");
+            Debug.Log("[Fail] Base Anim Controller");
             return null;
         }
 
@@ -189,20 +195,18 @@ public class GeneratePixelResources : Editor
 
         if (baseController == null)
         {
-            Debug.LogError("Failed to load BaseAnimController.");
+            Debug.Log("[Fail] Base Anim Controller");
             return null;
         }
 
-        // AnimationOverrideController에 Animator Controller 할당
         overrideController.runtimeAnimatorController = baseController;
 
-        // 애니메이션 오버라이드 컨트롤러에 애니메이션 할당
         foreach (AnimationClip clip in animationClips)
         {
             overrideController[clip.name] = clip;
         }
 
-        Debug.Log("Animations added to BaseAnimController successfully.");
+        Debug.Log("[Success] AddAnimationsToBaseController");
         return overrideController;
     }
 
@@ -213,7 +217,7 @@ public class GeneratePixelResources : Editor
         string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}");
         if (guids.Length == 0)
         {
-            Debug.LogError("Failed to find BasePrefab.");
+            Debug.Log("[Fail] Find BasePrefab");
             return;
         }
 
@@ -222,7 +226,7 @@ public class GeneratePixelResources : Editor
         GameObject objSource = (GameObject)PrefabUtility.InstantiatePrefab(source);
 
         // 원하는 트랜스폼 찾기
-        Transform childTransform = objSource.transform.GetChild(0).GetChild(0);
+        Transform childTransform = objSource.transform.GetChild(0).GetChild(0).GetChild(0);
 
         // SpriteRenderer 업데이트
         SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
@@ -232,7 +236,7 @@ public class GeneratePixelResources : Editor
         }
         else
         {
-            Debug.LogError("Failed to find SpriteRenderer.");
+            Debug.Log("[Fail] SpriteRenderer");
             return;
         }
 
@@ -244,7 +248,7 @@ public class GeneratePixelResources : Editor
         }
         else
         {
-            Debug.LogError("Failed to find Animator.");
+            Debug.Log("[Fail] Animator");
             return;
         }
 
@@ -256,7 +260,7 @@ public class GeneratePixelResources : Editor
         // 생성된 임시 오브젝트 삭제
         Object.DestroyImmediate(objSource);
 
-        Debug.Log("Prefab created successfully at: " + prefabFullPath);
+        Debug.Log("[Success] Prefab");
     }
 
 
@@ -265,7 +269,7 @@ public class GeneratePixelResources : Editor
     {
         if (allSprites.Count == 0)
         {
-            Debug.LogWarning("No sprites found to add to the atlas.");
+            Debug.Log("[Fail] Sprite Atlas");
             return;
         }
 
@@ -282,7 +286,6 @@ public class GeneratePixelResources : Editor
         packingSettings.padding = 2; // 이미지 간 거리를 최소화시킴
         spriteAtlas.SetPackingSettings(packingSettings);
 
-        // Texture settings
         SpriteAtlasTextureSettings textureSettings = new SpriteAtlasTextureSettings
         {
             sRGB = true,
@@ -292,7 +295,6 @@ public class GeneratePixelResources : Editor
         };
         spriteAtlas.SetTextureSettings(textureSettings);
 
-        // Add sprites to atlas
         spriteAtlas.Add(allSprites.ToArray());
 
         // Platform settings for Android
@@ -322,13 +324,13 @@ public class GeneratePixelResources : Editor
 
         // 아틀라스 저장
         string savePath = Path.Combine(parentFolderPath, $"{parentFolderName}.spriteatlas");
-        savePath = savePath.Replace("\\", "/"); // 경로가 유니티에서 인식될 수 있도록 슬래시 변경
+        savePath = savePath.Replace("\\", "/");
         AssetDatabase.CreateAsset(spriteAtlas, savePath);
 
         // Packing atlases
         UnityEditor.U2D.SpriteAtlasUtility.PackAtlases(new[] {spriteAtlas}, EditorUserBuildSettings.activeBuildTarget);
 
-        Debug.Log("Single SpriteAtlas created with all sprites.");
+        Debug.Log("[Success] Sprite Atlas");
     }
 }
 

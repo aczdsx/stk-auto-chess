@@ -15,7 +15,7 @@ public class FlowStateStageStart : StateBase
         // await uiLayer.WaitForExit();
 
         // 캐릭터 선택 UI 없애기
-        InGameMainFlowManager.Instance.AddNextState<FlowStateStageWaveStart>();
+        InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
     }
 
     public override void StateRunning(float dt)

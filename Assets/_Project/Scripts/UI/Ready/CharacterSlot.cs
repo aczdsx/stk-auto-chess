@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
 
         private void SetDefaultCharacterData(int characterId)
         {
-            SpecCharacter specCharacter = SpecDataManager.Instance.SpecCharacter.Get(characterId);
+            TestSpecCharacter specCharacter = SpecDataManager.Instance.TestSpecCharacter.Get(characterId);
             thumbnail.sprite = AtlasManager.Instance.GetSprite("CharacterIcon", ZString.Format("CharIcon_{0}", specCharacter.prefab_id));
             gradeColorSwapper.Swap(SimpleSwapType.Grade_0 + (int) specCharacter.grade - 1);
 
