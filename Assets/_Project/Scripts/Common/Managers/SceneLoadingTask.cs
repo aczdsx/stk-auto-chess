@@ -50,7 +50,6 @@ namespace CookApps.AutoBattler
         private static async UniTask UnloadInGameResources()
         {
             InGameResourceHolder.UnloadResources();
-            InGameHpBarViewPool.Instance.ReleasePool();
             await UniTask.Yield();
         }
     }

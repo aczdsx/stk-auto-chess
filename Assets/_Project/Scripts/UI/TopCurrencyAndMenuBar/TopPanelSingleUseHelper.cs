@@ -46,6 +46,7 @@ namespace CookApps.AutoBattler
             {
                 ui.CachedRectTr.SetParent(topUIOriginTr);
             }
+            panels.Clear();
 
             Addressables.ReleaseInstance(topUIOriginTr.gameObject);
             Destroy(topUIOriginTr.gameObject);
