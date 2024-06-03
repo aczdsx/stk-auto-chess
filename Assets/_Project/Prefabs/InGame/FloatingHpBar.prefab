@@ -222,7 +222,7 @@ MonoBehaviour:
   _playerColor: {r: 1, g: 1, b: 1, a: 1}
   _enemyColor: {r: 1, g: 1, b: 1, a: 1}
   _playerSmoothColor: {r: 1, g: 0.4117647, b: 0.23921569, a: 1}
-  _enermySmoothColor: {r: 1, g: 0.8987109, b: 0.5424528, a: 1}
+  _enermySmoothColor: {r: 1, g: 0.25882354, b: 0.3019608, a: 1}
 --- !u!1 &8459947657532445918
 GameObject:
   m_ObjectHideFlags: 0
