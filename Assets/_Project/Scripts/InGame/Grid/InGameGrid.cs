@@ -56,7 +56,7 @@ namespace CookApps.BattleSystem
             return Mathf.Abs(from.X - to.X) + Mathf.Abs(from.Y - to.Y);
         }
 
-        public bool IsInRange(InGameTile from, InGameTile to, int range, BattleSystem.AttackRangeShape shape)
+        public bool IsInRange(InGameTile from, InGameTile to, int range)
         {
             return GetManhattanDistance(from, to) <= range;
         }
@@ -107,11 +107,14 @@ namespace CookApps.BattleSystem
                     if (IsValidPosition(newPos))
                     {
                         var neighbor = GetTile(newPos);
-                        var distance = GetManhattanDistance(neighbor, dest);
-                        if (distance < shortestDistance)
+                        if (neighbor.OccupiedCharacter == null)
                         {
-                            shortestDistance = distance;
-                            bestTile = neighbor;
+                            var distance = GetManhattanDistance(neighbor, dest);
+                            if (distance < shortestDistance)
+                            {
+                                shortestDistance = distance;
+                                bestTile = neighbor;
+                            }
                         }
                     }
                 }

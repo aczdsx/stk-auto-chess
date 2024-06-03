@@ -59,9 +59,18 @@ public class CharacterStateIdle : CharacterStateBase
                 // 4-2. 공격 범위 밖에 있다면 이동 상태로 전환
                 InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(characCtrl.CurrentTile,
                     characCtrl.Target.CurrentTile);
-                characCtrl.GetCharacterView().LookAt(characCtrl.CurrentTile, bestTile);
-                characCtrl.ChangeOccupiedTile(bestTile);
-                characCtrl.AddNextState<CharacterStateMove>();
+                if (bestTile == characCtrl.CurrentTile)
+                {
+                    characCtrl.GetCharacterView().LookAt(characCtrl.CurrentTile, characCtrl.Target.CurrentTile);
+                    characCtrl.AddNextState<CharacterStateIdle>();
+                }
+                else
+                {
+                    characCtrl.GetCharacterView().LookAt(characCtrl.CurrentTile, bestTile);
+                    characCtrl.ChangeOccupiedTile(bestTile);
+                    characCtrl.AddNextState<CharacterStateMove>();
+                }
+
                 return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
             }
         }

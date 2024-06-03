@@ -253,7 +253,7 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
-            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange, pivot.AttackRangeShapeType);
+            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShape))
+                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range))
                 {
                     resTargets.Add(other);
                 }
@@ -328,7 +328,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range, rangeShapeType))
+                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range))
                 {
                     resTargets.Add(other);
                 }
