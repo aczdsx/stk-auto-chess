@@ -9,16 +9,15 @@ namespace CookApps.AutoBattler
 {
     public class HpBarView : CachedMonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _hpBaseGauge;
         [SerializeField] private SpriteRenderer _hpFillSmoothGuage;
-        [SerializeField] private SpriteRenderer _hpFillLeft;
-        [SerializeField] private Color _playerColor;
-        [SerializeField] private Color _enemyColor;
+        [SerializeField] private SpriteRenderer _hpPlayerFillLeft;
+        [SerializeField] private SpriteRenderer _hpEnemyFillLeft;
         [SerializeField] private Color _playerSmoothColor;
         [SerializeField] private Color _enermySmoothColor;
 
-        private Vector2 _defaultSize;
-        private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
+        private SpriteRenderer _selectedFillLeft;
+        private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
+        private Vector2 _defalutSize;
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
@@ -27,12 +26,12 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            if (allianceType == AllianceType.Player)
-                _hpFillLeft.color = _playerColor;
-            else if (allianceType == AllianceType.Enemy)
-                _hpFillLeft.color = _enemyColor;
+            _hpPlayerFillLeft.gameObject.SetActive(allianceType == AllianceType.Player);
+            _hpEnemyFillLeft.gameObject.SetActive(!_hpPlayerFillLeft.gameObject.activeSelf);
+            _selectedFillLeft = (allianceType == AllianceType.Player) ? _hpPlayerFillLeft : _hpEnemyFillLeft;
+            _hpFillSmoothGuage.color = (allianceType == AllianceType.Player) ? _playerSmoothColor : _enermySmoothColor;
 
-            _defaultSize = _hpFillSmoothGuage.size;
+            _defalutSize = _selectedFillLeft.size;
         }
 
         public async void SetHpValue(double current, double max)
@@ -43,8 +42,9 @@ namespace CookApps.AutoBattler
             }
 
             float targetRatio = Mathf.Clamp01((float)(current / max));
-            float startRatio = 1 - _hpFillSmoothGuage.material.GetFloat("_ClipUvRight");
-            _hpFillLeft.material.SetFloat("_ClipUvRight", 1 - targetRatio);
+            float startRatio = _selectedFillLeft.size.x / _defalutSize.x;
+            _selectedFillLeft.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
+
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
         }
 
@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
                 float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
                 float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1));
 
-                _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - ratio);
+                _hpFillSmoothGuage.size = new Vector2(_defalutSize.x * ratio, _defalutSize.y);
                 _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
 
                 await UniTask.Yield();
@@ -76,7 +76,7 @@ namespace CookApps.AutoBattler
 
             if (_hpFillSmoothGuage != null)
             {
-                _hpFillSmoothGuage.material.SetFloat("_ClipUvRight", 1 - targetRatio);
+                _hpFillSmoothGuage.size = new Vector2(0, _defalutSize.y);
                 _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0);
             }
         }
