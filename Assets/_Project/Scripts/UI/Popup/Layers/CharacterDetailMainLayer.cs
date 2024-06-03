@@ -18,13 +18,31 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private List<GameObject> _starObjectList;
 
+        private CharacterCollectionPopup _parentCollectionPopup;
+
         private SpecCharacter _specCharacterData;
 
-        public void InitLayer(int characterID)
+        public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
         {
+            _parentCollectionPopup = _parentPopup;
+
             _specCharacterData = SpecDataManager.Instance.SpecCharacter.Get(characterID);
 
             SetCharacterInfo();
+        }
+
+        public void OnClickGrowLayerTabButton()
+        {
+            if (_parentCollectionPopup == null) return;
+
+            _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.GROW);
+        }
+
+        public void OnClickSkillLayerTabButton()
+        {
+            if (_parentCollectionPopup == null) return;
+
+            _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.SKILL);
         }
 
         private void SetCharacterInfo()

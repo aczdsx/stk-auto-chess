@@ -66,13 +66,13 @@ namespace CookApps.AutoBattler
                     break;
                 case CharacterCollectionPopupTabType.GROW:
                     _detailMainBGLayer.gameObject.SetActive(true);
-                    _detailMainBGLayer.InitLayer(_currentCharacterID);
+                    _detailMainBGLayer.InitLayer(_currentCharacterID, this);
 
                     _detailGrowLayer.gameObject.SetActive(true);
                     break;
                 case CharacterCollectionPopupTabType.SKILL:
                     _detailMainBGLayer.gameObject.SetActive(true);
-                    _detailMainBGLayer.InitLayer(_currentCharacterID);
+                    _detailMainBGLayer.InitLayer(_currentCharacterID, this);
 
                     _detailSkillLayer.gameObject.SetActive(true);
                     break;
