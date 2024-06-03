@@ -122,6 +122,7 @@ namespace CookApps.AutoBattler
         NORMAL = 1,
         ELITE = 2,
         BOSS = 3,
+        CHARACTER = 4,
     }
 
     public enum ContentType

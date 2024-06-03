@@ -151,6 +151,8 @@ namespace CookApps.AutoBattler
         public string desc_token;
         /// 해금 필요 조각
         public CookApps.Obfuscator.ObfuscatorInt need_piece;
+        /// 개체 타입
+        public global::CookApps.AutoBattler.MonsterType object_type;
         /// 속성 시너지
         public global::CookApps.AutoBattler.CharacterType element_type;
         /// 포지션 시너지
@@ -340,6 +342,29 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecStageMonster
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 챕터 id
+        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
+        /// 난이도
+        public global::CookApps.AutoBattler.DifficultyType difficulty;
+        /// 스테이지 번호
+        public CookApps.Obfuscator.ObfuscatorInt stage_number;
+        /// 좌표값 (x,y)
+        public string coordinate;
+        /// 몬스터 id
+        public CookApps.Obfuscator.ObfuscatorInt monster_id;
+        /// 몬스터 레벨
+        public CookApps.Obfuscator.ObfuscatorInt monster_lv;
+        /// 공격력 멀티플
+        public CookApps.Obfuscator.ObfuscatorInt multiple_atk;
+        /// 체력 멀티플
+        public CookApps.Obfuscator.ObfuscatorInt multiple_hp;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecGuideMission
     {
         /// 유니크 ID
@@ -357,62 +382,14 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt dialogue;
         /// 타겟 id
         public CookApps.Obfuscator.ObfuscatorInt value;
-        /// 필요 실행 횟수
+        /// 필요 행위 횟수
         public CookApps.Obfuscator.ObfuscatorInt action_count;
-        /// 논의 필요
+        /// 보상 종류
         public global::CookApps.AutoBattler.ItemType reward_type;
-        /// 논의 필요
+        /// 보상 키 값
         public CookApps.Obfuscator.ObfuscatorInt reward_key;
-        /// 논의 필요
+        /// 보상 수량
         public CookApps.Obfuscator.ObfuscatorInt reward_amount;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecMonster
-    {
-        /// 몬스터 ID
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 몬스터 등급
-        public global::CookApps.AutoBattler.GradeType grade;
-        /// 몬스터 이름 토큰
-        public string name_token;
-        /// 몬스터 설명 토큰
-        public string desc_token;
-        /// 몬스터 타입
-        public global::CookApps.AutoBattler.MonsterType monster_type;
-        /// 속성 시너지 타입
-        public global::CookApps.AutoBattler.CharacterType type;
-        /// 포지션 시너지 타입
-        public global::CookApps.AutoBattler.CharacterPositionType position;
-        /// 태생 등급
-        public CookApps.Obfuscator.ObfuscatorInt init_star;
-        /// 최대 등급
-        public CookApps.Obfuscator.ObfuscatorInt max_star;
-        /// 승급 성장율
-        public CookApps.Obfuscator.ObfuscatorFloat inc_star;
-        /// 체력 스탯
-        public CookApps.Obfuscator.ObfuscatorInt stat_hp;
-        /// 공격력 스탯
-        public CookApps.Obfuscator.ObfuscatorInt stat_atk;
-        /// 체력, 공격력 성장율
-        public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
-        /// 방어력
-        public CookApps.Obfuscator.ObfuscatorInt stat_def;
-        /// 관통력
-        public CookApps.Obfuscator.ObfuscatorInt stat_atk_pierce;
-        /// 치명률
-        public CookApps.Obfuscator.ObfuscatorFloat crit_rate;
-        /// 치명타 피해량
-        public CookApps.Obfuscator.ObfuscatorFloat crit_power;
-        /// 공격속도
-        public CookApps.Obfuscator.ObfuscatorFloat atk_spd;
-        /// 공격 범위
-        public CookApps.Obfuscator.ObfuscatorInt atk_range;
-        /// 공격 범위 형태
-        public global::CookApps.AutoBattler.AttackRangeShape atk_range_shape;
-        /// 일반 스킬 ID
-        public CookApps.Obfuscator.ObfuscatorInt skill_id;
     }
 
     [GeneratorSpecData]
@@ -505,29 +482,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt reward_value;
         /// 보상 지급 확률
         public CookApps.Obfuscator.ObfuscatorDouble rate;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecStageMonster
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 챕터 id
-        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
-        /// 난이도
-        public global::CookApps.AutoBattler.DifficultyType difficulty;
-        /// 스테이지 번호
-        public CookApps.Obfuscator.ObfuscatorInt stage_number;
-        /// 좌표값 (x,y)
-        public string coordinate;
-        /// 몬스터 id
-        public CookApps.Obfuscator.ObfuscatorInt monster_id;
-        /// 몬스터 레벨
-        public CookApps.Obfuscator.ObfuscatorInt monster_lv;
-        /// 공격력 멀티플
-        public CookApps.Obfuscator.ObfuscatorInt multiple_atk;
-        /// 체력 멀티플
-        public CookApps.Obfuscator.ObfuscatorInt multiple_hp;
     }
 
     [GeneratorSpecData]

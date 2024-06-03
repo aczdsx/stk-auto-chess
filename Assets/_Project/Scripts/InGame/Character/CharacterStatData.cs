@@ -111,7 +111,7 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatMoveSpeed))
             {
                 List<EffectCodeStatBase> codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatMoveSpeed);
-                MoveSpeed = codes.CalculateMoveSpeed(_spec.stat_atk_pierce);
+                MoveSpeed = codes.CalculateMoveSpeed(_spec.move_speed);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatCriticalProb))

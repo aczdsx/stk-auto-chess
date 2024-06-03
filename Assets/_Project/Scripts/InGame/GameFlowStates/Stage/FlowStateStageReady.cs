@@ -33,9 +33,6 @@ public class FlowStateStageReady : StateBase
             int y = int.Parse(coordinates[1]);
             int2 coordinate = new int2(x, y);
 
-            InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
-                typeof(CharacterStateIdle));
-
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
                 typeof(CharacterStateIdle)));
         }
