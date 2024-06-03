@@ -475,7 +475,7 @@ namespace CookApps.BattleSystem
 
         private bool CriticalTest()
         {
-            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < CriticalProb; // OK
+            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < CriticalProb * 100; // OK
         }
 
         private bool DoubleCriticalTest()

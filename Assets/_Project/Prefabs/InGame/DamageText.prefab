@@ -240,7 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3096e87e7a83440781189b2d3f4e514c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtDamage: {fileID: 7259707319273919424}
+  _txtDamage: {fileID: 0}
+  _textCritDamage: {fileID: 0}
+  _damageObj: {fileID: 0}
+  _critDamageObj: {fileID: 0}
   _root: {fileID: 499639397505849135}
 --- !u!23 &3088303049362895818
 MeshRenderer:
@@ -343,8 +346,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3096e87e7a83440781189b2d3f4e514c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtDamage: {fileID: 6364900939099001491}
-  _root: {fileID: 5022929028321057971}
+  _txtDamage: {fileID: 6364900939099001491}
+  _textCritDamage: {fileID: 7259707319273919424}
+  _damageObj: {fileID: 5489735239309609743}
+  _critDamageObj: {fileID: 1973799211093809851}
+  _root: {fileID: 5851131040658997946}
 --- !u!1 &5489735239309609743
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3096e87e7a83440781189b2d3f4e514c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtDamage: {fileID: 6364900939099001491}
+  _txtDamage: {fileID: 0}
+  _textCritDamage: {fileID: 0}
+  _damageObj: {fileID: 0}
+  _critDamageObj: {fileID: 0}
   _root: {fileID: 5022929028321057971}
 --- !u!23 &1394675291190371963
 MeshRenderer:

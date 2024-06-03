@@ -5,20 +5,30 @@ using Cysharp.Threading.Tasks;
 using PrimeTween;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
     public class InGameTextView : CachedMonoBehaviour
     {
-        [SerializeField] private TMP_Text txtDamage;
+        [SerializeField] private TMP_Text _txtDamage;
+        [SerializeField] private TMP_Text _textCritDamage;
+
+        [SerializeField] private GameObject _damageObj;
+        [SerializeField] private GameObject _critDamageObj;
+
         [SerializeField] private Transform _root;
 
+        private TMP_Text _damageText;
         private readonly float _duration = 0.7f;
 
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
             CachedGo.SetActive(true);
-            txtDamage.text = isDoubleCritical ? $"Double Critical! {damage}" : isCritical ? $"Critical! {damage}" : $"{damage}";
+
+            _damageObj.SetActive(!isCritical);
+            _critDamageObj.SetActive(isCritical);
+            _damageText = (isCritical) ? _textCritDamage : _txtDamage;
 
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
@@ -45,7 +55,7 @@ namespace CookApps.AutoBattler
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
         {
             CachedGo.SetActive(true);
-            txtDamage.text = $"Heal Amount : {healAmount}";
+            _damageText.text = $"Heal Amount : {healAmount}";
 
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
