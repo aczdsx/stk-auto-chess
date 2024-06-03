@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3140673202993913047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -100,7 +100,6 @@ GameObject:
   - component: {fileID: 499639397505849135}
   - component: {fileID: 7183475728773926256}
   - component: {fileID: 7259707319273919424}
-  - component: {fileID: 566656083716155762}
   - component: {fileID: 3088303049362895818}
   m_Layer: 5
   m_Name: DamageText
@@ -228,23 +227,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3088303049362895818}
   m_maskType: 0
---- !u!114 &566656083716155762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2889619721416335587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3096e87e7a83440781189b2d3f4e514c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _txtDamage: {fileID: 0}
-  _textCritDamage: {fileID: 0}
-  _damageObj: {fileID: 0}
-  _critDamageObj: {fileID: 0}
-  _root: {fileID: 499639397505849135}
 --- !u!23 &3088303049362895818
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -349,7 +331,7 @@ MonoBehaviour:
   _txtDamage: {fileID: 6364900939099001491}
   _textCritDamage: {fileID: 7259707319273919424}
   _damageObj: {fileID: 5489735239309609743}
-  _critDamageObj: {fileID: 1973799211093809851}
+  _critDamageSpriteRenderer: {fileID: 7343325407435149577}
   _root: {fileID: 5851131040658997946}
 --- !u!1 &5489735239309609743
 GameObject:
@@ -370,7 +352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5022929028321057971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -505,7 +487,7 @@ MonoBehaviour:
   _txtDamage: {fileID: 0}
   _textCritDamage: {fileID: 0}
   _damageObj: {fileID: 0}
-  _critDamageObj: {fileID: 0}
+  _critDamageSpriteRenderer: {fileID: 0}
   _root: {fileID: 5022929028321057971}
 --- !u!23 &1394675291190371963
 MeshRenderer:

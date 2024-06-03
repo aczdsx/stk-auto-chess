@@ -15,20 +15,30 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text _textCritDamage;
 
         [SerializeField] private GameObject _damageObj;
-        [SerializeField] private GameObject _critDamageObj;
+        [SerializeField] private SpriteRenderer _critDamageSpriteRenderer;
 
         [SerializeField] private Transform _root;
 
+        [SerializeField] private float _normalDuration = 1.3f;
+        [SerializeField] private Ease _normalEase;
+
+        [SerializeField] private float _critDuration = 1.3f;
+        [SerializeField] private Ease _critEase;
+
         private TMP_Text _damageText;
-        private readonly float _duration = 0.7f;
+        private Ease _ease;
+        private float _duration;
 
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
             CachedGo.SetActive(true);
 
             _damageObj.SetActive(!isCritical);
-            _critDamageObj.SetActive(isCritical);
+            _critDamageSpriteRenderer.gameObject.SetActive(isCritical);
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
+            _duration = (isCritical) ? _critDuration : _normalDuration;
+            _ease = (isCritical) ? _critEase : _normalEase;
+            _damageText.text = $"{damage}";
 
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
@@ -43,10 +53,28 @@ namespace CookApps.AutoBattler
                 onValueChange: (value) =>
                 {
                     if (_root)
+                    {
                         _root.position = value;
+                        if (isCritical)
+                        {
+                            var color = _textCritDamage.color;
+                            color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
+                            _textCritDamage.color = color;
+
+                            var color1 = _critDamageSpriteRenderer.color;
+                            color1.a = color.a;
+                            _critDamageSpriteRenderer.color = color1;
+                        }
+                        else
+                        {
+                            var color = _txtDamage.color;
+                            color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
+                            _txtDamage.color = color;
+                        }
+                    }
                 },
                 duration: _duration,
-                ease: Ease.OutCubic
+                ease: _ease
             ).OnComplete(this, target => tcs.TrySetResult());
 
             await tcs.Task;
@@ -67,7 +95,7 @@ namespace CookApps.AutoBattler
                 targetPosition,
                 onValueChange: (Vector3 value) => { _root.position = value; },
                 duration: _duration,
-                ease: Ease.OutCubic
+                ease: _ease
             ).OnComplete(this, target => CachedGo.SetActive(false));
         }
     }
