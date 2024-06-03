@@ -14,6 +14,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteRenderer _hpFillLeft;
         [SerializeField] private Color _playerColor;
         [SerializeField] private Color _enemyColor;
+        [SerializeField] private Color _playerSmoothColor;
+        [SerializeField] private Color _enermySmoothColor;
 
         private Vector2 _defaultSize;
         private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
