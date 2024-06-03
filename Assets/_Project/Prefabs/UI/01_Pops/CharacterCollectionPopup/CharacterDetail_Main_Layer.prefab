@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 8511609759749356287}
   - component: {fileID: 7714020236757995778}
   m_Layer: 5
-  m_Name: Item_CollectionCategory_v2 (1)
+  m_Name: Item_CollectionCategory_Skill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -935,7 +935,7 @@ MonoBehaviour:
   activateGraphics: []
   inactivateGraphics: []
   activateCanvasGroup: {fileID: 8030799182440879586}
-  inactivateCanvasGroup: {fileID: 0}
+  inactivateCanvasGroup: {fileID: 1524411955896349070}
   m_Group: {fileID: 139603860831674887}
   onValueChanged:
     m_PersistentCalls:
@@ -946,11 +946,11 @@ MonoBehaviour:
   onToggleOn:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterCollectionPopup,
+      - m_Target: {fileID: 9026974594056803421}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterDetailMainLayer,
           Assembly-CSharp
-        m_MethodName: OnClickTabToggleButton
-        m_Mode: 3
+        m_MethodName: OnClickSkillLayerTabButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -959,8 +959,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
-  useDefaultClickSound: 1
+  m_IsOn: 0
+  useDefaultClickSound: 0
 --- !u!1 &1852868411114862885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,9 +1180,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 136, y: -42}
   m_SizeDelta: {x: 84, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9144612027347818814
@@ -2690,9 +2690,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 89, y: -42}
   m_SizeDelta: {x: 84, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6020647857500901645
@@ -3388,9 +3388,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 183, y: -42}
   m_SizeDelta: {x: 84, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7101080373097643347
@@ -3463,9 +3463,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 42, y: -42}
   m_SizeDelta: {x: 84, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &667719515473875802
@@ -3875,7 +3875,7 @@ GameObject:
   - component: {fileID: 4476894203684884730}
   - component: {fileID: 2536622790503414535}
   m_Layer: 5
-  m_Name: Item_CollectionCategory_v2
+  m_Name: Item_CollectionCategory_Grow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3971,7 +3971,7 @@ MonoBehaviour:
   activateGraphics: []
   inactivateGraphics: []
   activateCanvasGroup: {fileID: 2832044240326754279}
-  inactivateCanvasGroup: {fileID: 0}
+  inactivateCanvasGroup: {fileID: 6708565661761690507}
   m_Group: {fileID: 139603860831674887}
   onValueChanged:
     m_PersistentCalls:
@@ -3982,11 +3982,11 @@ MonoBehaviour:
   onToggleOn:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterCollectionPopup,
+      - m_Target: {fileID: 9026974594056803421}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterDetailMainLayer,
           Assembly-CSharp
-        m_MethodName: OnClickTabToggleButton
-        m_Mode: 3
+        m_MethodName: OnClickGrowLayerTabButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3996,7 +3996,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
-  useDefaultClickSound: 1
+  useDefaultClickSound: 0
 --- !u!1 &6783992731946790970
 GameObject:
   m_ObjectHideFlags: 0
@@ -4397,9 +4397,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 230, y: -42}
   m_SizeDelta: {x: 84, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8039162607021411560
@@ -4636,7 +4636,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7100451510251856665}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -4992,7 +4992,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7728878371906348446}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
