@@ -361,19 +361,18 @@ namespace CookApps.BattleSystem
             }
 
             var minDistance = float.MaxValue;
-            for (var idx = 0; idx < targets.Count; ++idx)
+            foreach (var enemy in targets)
             {
-                if (targets[idx].IsAlive == false)
+                if (enemy.IsAlive == false)
                 {
                     continue;
                 }
 
-                var distance = Vector3.SqrMagnitude(pivot.Position - targets[idx].Position);
+                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
                 if (minDistance > distance)
                 {
                     minDistance = distance;
-
-                    target = targets[idx];
+                    target = enemy;
                 }
             }
 

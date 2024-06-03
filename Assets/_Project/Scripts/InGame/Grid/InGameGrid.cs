@@ -13,7 +13,6 @@ namespace CookApps.BattleSystem
         public int Height { get; }
 
         private readonly InGameTile[] _tiles;
-
         private static readonly int2[] Directions =
         {
             new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
@@ -77,6 +76,7 @@ namespace CookApps.BattleSystem
         {
             Debug.Log($"GetNextMovableTile: ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
 
+
             InGameTile bestTile = src;
             int shortestDistance = int.MaxValue;
 
@@ -88,7 +88,7 @@ namespace CookApps.BattleSystem
                     var neighbor = GetTile(newPos);
                     if (neighbor.OccupiedCharacter == null)
                     {
-                        var distance = GetManhattanDistance(neighbor, dest);
+                        var distance = BFS(neighbor, dest);
                         if (distance < shortestDistance)
                         {
                             shortestDistance = distance;
@@ -120,30 +120,39 @@ namespace CookApps.BattleSystem
             return bestTile;
         }
 
-        private bool IsValidPosition(int2 pos)
-        {
-            return pos.x >= 0 && pos.x < Width && pos.y >= 0 && pos.y < Height;
-        }
-
         private int BFS(InGameTile start, InGameTile dest)
         {
             var queue = new Queue<(InGameTile tile, int distance)>();
-            var visited = new HashSet<InGameTile> { start };
+            var visited = new HashSet<InGameTile>();
+
+
+            var targetPositions = new List<InGameTile>();
+            foreach (var direction in Directions)
+            {
+                int2 neighborPos = new int2(dest.X + direction.x, dest.Y + direction.y);
+                if (IsValidPosition(neighborPos))
+                {
+                    var neighbor = GetTile(neighborPos);
+                    targetPositions.Add(neighbor);
+                }
+            }
 
             queue.Enqueue((start, 0));
+            visited.Add(start);
 
             while (queue.Count > 0)
             {
                 var (current, distance) = queue.Dequeue();
 
+                if (targetPositions.Contains(current))
+                {
+                    return distance;
+                }
+
                 foreach (var neighbor in GetNeighbors(current))
                 {
                     if (!visited.Contains(neighbor) && neighbor.OccupiedCharacter == null)
                     {
-                        if (neighbor == dest)
-                        {
-                            return distance + 1;
-                        }
                         queue.Enqueue((neighbor, distance + 1));
                         visited.Add(neighbor);
                     }
@@ -163,6 +172,11 @@ namespace CookApps.BattleSystem
                     yield return GetTile(newPos);
                 }
             }
+        }
+
+        private bool IsValidPosition(int2 pos)
+        {
+            return pos.x >= 0 && pos.x < Width && pos.y >= 0 && pos.y < Height;
         }
     }
 }
