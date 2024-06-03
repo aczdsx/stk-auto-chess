@@ -13,8 +13,11 @@ namespace CookApps.BattleSystem
         public int Height { get; }
 
         private readonly InGameTile[] _tiles;
-        private const int RecentVisitLimit = 10;
-        private const int HighVisitPenalty = 10;
+
+        private static readonly int2[] Directions =
+        {
+            new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
+        };
 
         public InGameGrid(int2 gridSize, InGameTileView[] views)
         {
@@ -74,124 +77,88 @@ namespace CookApps.BattleSystem
         {
             Debug.Log($"GetNextMovableTile: ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
 
-            var priorityQueue = new PriorityQueue<InGameTile, int>();
-            var closedList = new HashSet<InGameTile>();
-            var openList = new Dictionary<InGameTile, int>();
+            InGameTile bestTile = src;
+            int shortestDistance = int.MaxValue;
 
-            ResetTiles();
-
-            src.G = 0;
-            src.H = GetManhattanDistance(src, dest);
-            priorityQueue.Enqueue(src, src.H);
-            openList[src] = src.H;
-
-            src.OccupiedCharacter.RecentlyVisitedTiles.Enqueue(src);
-            if (src.OccupiedCharacter.RecentlyVisitedTiles.Count > RecentVisitLimit)
+            foreach (var direction in Directions)
             {
-                src.OccupiedCharacter.RecentlyVisitedTiles.Dequeue();
-            }
-
-            while (priorityQueue.Count > 0)
-            {
-                var current = priorityQueue.Dequeue();
-                openList.Remove(current);
-
-                if (current == dest)
+                int2 newPos = new int2(src.X + direction.x, src.Y + direction.y);
+                if (IsValidPosition(newPos))
                 {
-                    return TracePathToSource(src, current);
-                }
-
-                closedList.Add(current);
-
-                foreach (var neighbor in GetNeighbors(current))
-                {
-                    if (closedList.Contains(neighbor) || neighbor.OccupiedCharacter != null)
+                    var neighbor = GetTile(newPos);
+                    if (neighbor.OccupiedCharacter == null)
                     {
-                        continue;
-                    }
-
-                    int tentativeGCost = current.G + GetManhattanDistance(current, neighbor);
-
-                    if (tentativeGCost < neighbor.G)
-                    {
-                        neighbor.cameFrom = current;
-                        neighbor.G = tentativeGCost;
-                        neighbor.H = tentativeGCost + GetManhattanDistance(neighbor, dest);
-
-                        if (!openList.ContainsKey(neighbor))
+                        var distance = GetManhattanDistance(neighbor, dest);
+                        if (distance < shortestDistance)
                         {
-                            priorityQueue.Enqueue(neighbor, neighbor.H);
-                            openList[neighbor] = neighbor.H;
+                            shortestDistance = distance;
+                            bestTile = neighbor;
                         }
                     }
                 }
             }
 
-            return FindBestTile(closedList, src);
-        }
-
-        private void ResetTiles()
-        {
-            foreach (var tile in _tiles)
+            // 다 막혀 있어서 갱신이 안됐으면 상하좌우 중 그나마 가장 가까운 타일을 찾는다.
+            if (bestTile == src)
             {
-                tile.G = int.MaxValue;
-                tile.H = int.MaxValue;
-                tile.cameFrom = null;
-            }
-        }
-
-        private InGameTile TracePathToSource(InGameTile src, InGameTile current)
-        {
-            while (current.cameFrom != src)
-            {
-                current = current.cameFrom;
-            }
-            return current;
-        }
-
-        private InGameTile FindBestTile(HashSet<InGameTile> closedList, InGameTile src)
-        {
-            var recentlyVisitedTiles = src.OccupiedCharacter.RecentlyVisitedTiles;
-
-            return closedList
-                .Where(tile => tile != src)
-                .OrderBy(tile =>
+                foreach (var direction in Directions)
                 {
-                    int visitPenalty = CalculateVisitPenalty(recentlyVisitedTiles, tile);
-                    return tile.H + visitPenalty;
-                })
-                .FirstOrDefault() ?? src;
-        }
-
-        private int CalculateVisitPenalty(Queue<InGameTile> recentlyVisitedTiles, InGameTile tile)
-        {
-            int penalty = 0;
-            int count = recentlyVisitedTiles.Count;
-            int weight = HighVisitPenalty / RecentVisitLimit;
-
-            for (int i = 0; i < count; i++)
-            {
-                var visitedTile = recentlyVisitedTiles.ElementAt(i);
-                if (visitedTile == tile)
-                {
-                    penalty += weight * (RecentVisitLimit - i);
+                    int2 newPos = new int2(src.X + direction.x, src.Y + direction.y);
+                    if (IsValidPosition(newPos))
+                    {
+                        var neighbor = GetTile(newPos);
+                        var distance = GetManhattanDistance(neighbor, dest);
+                        if (distance < shortestDistance)
+                        {
+                            shortestDistance = distance;
+                            bestTile = neighbor;
+                        }
+                    }
                 }
             }
-            return penalty;
+
+            return bestTile;
         }
 
+        private bool IsValidPosition(int2 pos)
+        {
+            return pos.x >= 0 && pos.x < Width && pos.y >= 0 && pos.y < Height;
+        }
+
+        private int BFS(InGameTile start, InGameTile dest)
+        {
+            var queue = new Queue<(InGameTile tile, int distance)>();
+            var visited = new HashSet<InGameTile> { start };
+
+            queue.Enqueue((start, 0));
+
+            while (queue.Count > 0)
+            {
+                var (current, distance) = queue.Dequeue();
+
+                foreach (var neighbor in GetNeighbors(current))
+                {
+                    if (!visited.Contains(neighbor) && neighbor.OccupiedCharacter == null)
+                    {
+                        if (neighbor == dest)
+                        {
+                            return distance + 1;
+                        }
+                        queue.Enqueue((neighbor, distance + 1));
+                        visited.Add(neighbor);
+                    }
+                }
+            }
+
+            return int.MaxValue; // 경로를 찾지 못한 경우
+        }
 
         private IEnumerable<InGameTile> GetNeighbors(InGameTile tile)
         {
-            var directions = new[]
-            {
-                new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
-            };
-
-            foreach (var dir in directions)
+            foreach (var dir in Directions)
             {
                 int2 newPos = new int2(tile.X + dir.x, tile.Y + dir.y);
-                if (newPos.x >= 0 && newPos.x < Width && newPos.y >= 0 && newPos.y < Height)
+                if (IsValidPosition(newPos))
                 {
                     yield return GetTile(newPos);
                 }
