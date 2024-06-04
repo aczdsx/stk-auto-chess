@@ -58,61 +58,60 @@ namespace CookApps.AutoBattler
             return resultData;
         }
 
+        public void SaveUserMissionData()
+        {
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserMissionData.ToCategoryString(), userMissionData);
+        }
+
         // 현재 가이드 미션 상태 갱신 (행동 횟수)
-        public void UpdateCurrentGuideMissionState(int actionValue)
+        public void SetGuideMissionActionValue(GuideMissionType missionType, int actionValue)
         {
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
             {
-                var userData = UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder];
-                var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userData.MissionId);
+                var targetUserData = UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder];
+                if (targetUserData == null) return;
 
-                UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder].ActionCount += actionValue;
+                var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
+                if (specMissionData == null || specMissionData.type != missionType) return;
+
+                targetUserData.ActionCount += actionValue;
 
                 // 클리어 여부 체크
-                if (specMissionData.action_count <= UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder].ActionCount)
+                if (specMissionData.action_count <= targetUserData.ActionCount)
                 {
-                    UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder].MissionStateType = (int)MissionStateType.REWARD;
+                    targetUserData.MissionStateType = (int)MissionStateType.REWARD;
                 }
+
+                UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder] = targetUserData;
 
                 SaveUserMissionData();
             }
         }
 
         // 현재 가이드 미션 상태 갱신 (미션 상태)
-        public void UpdateCurrentGuideMissionState(MissionStateType type)
+        public void SetGuideMissionState(GuideMissionType missionType, MissionStateType stateType)
         {
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
             {
-                UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder].MissionStateType = (int)type;
+                var targetUserData = UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder];
+                if (targetUserData == null) return;
+
+                var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
+                if (specMissionData == null || specMissionData.type != missionType) return;
+
+                targetUserData.MissionStateType = (int)stateType;
+
+                UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder] = targetUserData;
+
+                // 클리어한 경우 다음 가이드 미션으로 변경
+                if (stateType == MissionStateType.CLEAR &&
+                    userMissionData.GuideMissionCurrentOrder < SpecDataManager.Instance.GetGuideMissionMaxOrder())
+                {
+                    UserMissionData.GuideMissionCurrentOrder++;
+                }
 
                 SaveUserMissionData();
             }
-        }
-
-        public void UpdateGuideMissionState(GuideMissionType type, int value)
-        {
-            switch (type)
-            {
-                case GuideMissionType.CLEAR_STAGE:
-                    break;
-                case GuideMissionType.USE_BUILDING:
-                    break;
-                case GuideMissionType.OPEN_IDLECHEST:
-                    break;
-                case GuideMissionType.SET_CHARACTER:
-                    break;
-                case GuideMissionType.LEVELUP_CHARACTER:
-                    break;
-                case GuideMissionType.OPEN_CHEST:
-                    break;
-                case GuideMissionType.SUMMON_CHARCTER:
-                    break;
-            }
-        }
-
-        public void SaveUserMissionData()
-        {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserMissionData.ToCategoryString(), userMissionData);
         }
     }
 }

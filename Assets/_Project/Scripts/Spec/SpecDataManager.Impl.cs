@@ -267,5 +267,11 @@ namespace CookApps.AutoBattler
         {
             return skillDic.GetValueOrDefault(skillID);
         }
+
+        // 가이드 미션 order 최대치 반환
+        public int GetGuideMissionMaxOrder()
+        {
+            return SpecGuideMission.All.Max(guide => guide.order);
+        }
     }
 }

@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
             var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
             if (lobbyMain != null)
             {
-                lobbyMain.RefreshUI();
+                lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
             }
         }
 

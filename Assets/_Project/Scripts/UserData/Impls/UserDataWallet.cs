@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
@@ -38,7 +39,7 @@ namespace CookApps.AutoBattler
             userWallet = null;
         }
 
-        public void IncreaseItem(ItemType type, int amount)
+        public void IncreaseItem(ItemType type, int amount, bool isSave)
         {
             switch (type)
             {
@@ -56,10 +57,29 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            SaveUserWallet();
+            if (isSave)
+            {
+                SaveUserWallet();
+            }
         }
 
-        public void DecreaseItem(ItemType type, int amount)
+        public void IncreaseRewardItemList(List<RewardItem> rewardList, bool isSave)
+        {
+            if (rewardList == null || rewardList.Count == 0) return;
+
+            // 리워드 적용
+            foreach (var reward in rewardList)
+            {
+                IncreaseItem(reward.Type, reward.Count, false);
+            }
+
+            if (isSave)
+            {
+                SaveUserWallet();
+            }
+        }
+
+        public void DecreaseItem(ItemType type, int amount, bool isSave)
         {
             switch (type)
             {
@@ -77,7 +97,10 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            SaveUserWallet();
+            if (isSave)
+            {
+                SaveUserWallet();
+            }
         }
 
         public void SaveUserWallet()
