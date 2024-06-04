@@ -7,6 +7,8 @@ namespace CookApps.AutoBattler
     {
         private UserBasicData userBasicData;
 
+        public UserBasicData UserBasicData => userBasicData;
+
         [Initialize(DataCategory.UserData)]
         private void Initialize_BasicData(string data)
         {
