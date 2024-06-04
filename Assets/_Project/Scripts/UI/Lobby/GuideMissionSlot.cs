@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -69,9 +70,39 @@ namespace CookApps.AutoBattler
             _activateLayerObject.SetActive(_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD);
         }
 
+        private void GetGuideMissionReward()
+        {
+            if (_userGuideMissionData == null) return;
+            if (_specGuideMissionData == null) return;
+
+
+        }
+
         private void OnClickMissionSlotButton()
         {
+            if (_userGuideMissionData == null) return;
+            if (_specGuideMissionData == null) return;
 
+            // 보상 수령 처리
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            rewardItemList.Add(new RewardItem(_specGuideMissionData.reward_type, _specGuideMissionData.reward_key, _specGuideMissionData.reward_amount));
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+
+            // 다음 가이드 미션 요청
+            GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.type, MissionStateType.CLEAR);
+
+            // // 보상을 받을 수 있는 경우
+            // if (_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD)
+            // {
+            //     List<RewardItem> rewardItemList = new List<RewardItem>();
+            //     rewardItemList.Add(new RewardItem(_specGuideMissionData.reward_type, _specGuideMissionData.reward_key, _specGuideMissionData.reward_amount));
+            //
+            //     SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+            // }
+            // else
+            // {
+            //
+            // }
         }
     }
 }

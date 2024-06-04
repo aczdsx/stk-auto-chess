@@ -6,7 +6,6 @@ using CookApps.SpecData;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.TeamBattle.UIManagements;
-using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {

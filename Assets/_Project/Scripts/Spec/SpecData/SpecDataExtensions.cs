@@ -11,7 +11,15 @@ namespace CookApps.AutoBattler
         public ItemType Type { get; init; }
         public int Key { get; init; }
         public int Count { get; init; }
-        public double Probability { get; init; }
+
+        public RewardItem() {}
+
+        public RewardItem(ItemType typeValue, int keyValue, int countValue)
+        {
+            Type = typeValue;
+            Key = keyValue;
+            Count = countValue;
+        }
 
         public Reward ToGrpcReward()
         {
@@ -78,7 +86,6 @@ namespace CookApps.AutoBattler
                 Type = type,
                 Key = key,
                 Count = value,
-                Probability = rate,
             };
         }
     }

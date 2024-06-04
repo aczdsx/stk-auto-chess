@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 5122785375377239989}
   - component: {fileID: 1785095067748150429}
   m_Layer: 5
-  m_Name: Text (TMP)_LvTitle
+  m_Name: Text (TMP)_Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,6 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2209036948035925625}
   - component: {fileID: 3653541926844693996}
+  - component: {fileID: 8214434148149955497}
   m_Layer: 5
   m_Name: RewardItemSlot
   m_TagString: Untagged
@@ -377,6 +378,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6431695464060537184}
   m_CullTransparentMesh: 1
+--- !u!114 &8214434148149955497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431695464060537184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968a9c217f4890d4894600f780817ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rewardItemImage: {fileID: 246091238394257768}
+  _rewardItemCountText: {fileID: 1785095067748150429}
 --- !u!1 &6580504140384689869
 GameObject:
   m_ObjectHideFlags: 0

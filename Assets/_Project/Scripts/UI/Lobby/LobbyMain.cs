@@ -7,6 +7,13 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
+    public enum LobbyMainRefreshType
+    {
+        ALL,
+        STAGE,
+        GUIDE_MISSION,
+    }
+
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
     public class LobbyMain : UILayer
     {
@@ -35,7 +42,7 @@ namespace CookApps.AutoBattler
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
 
-            SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
+            //SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
         }
 
         protected override void OnDestroy()
@@ -56,13 +63,29 @@ namespace CookApps.AutoBattler
             _guideMissionSlot?.InitGuideMissionSlot();
         }
 
-        public void RefreshUI()
+        [ContextMenu("Guide Mission Test")]
+        public void TestGuideMission()
         {
-            // 하단 스테이지 UI 갱신
-            SetBottomStageUI();
+            var currentGuideMission = SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
 
-            // 가이드 미션 갱신
-            _guideMissionSlot?.RefreshGuideMissionSlot();
+            GuideMissionManager.Instance.AddGuideMissionActionValue(currentGuideMission.type, 1);
+        }
+
+        public void RefreshUI(LobbyMainRefreshType refreshType)
+        {
+            switch (refreshType)
+            {
+                case LobbyMainRefreshType.ALL:
+                    SetBottomStageUI();     // 하단 스테이지 UI 갱신
+                    _guideMissionSlot?.RefreshGuideMissionSlot();   // 가이드 미션 갱신
+                    break;
+                case LobbyMainRefreshType.STAGE:
+                    SetBottomStageUI();
+                    break;
+                case LobbyMainRefreshType.GUIDE_MISSION:
+                    _guideMissionSlot?.RefreshGuideMissionSlot();
+                    break;
+            }
         }
 
         public void RefreshBottomStageUI()
