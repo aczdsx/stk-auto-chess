@@ -100,11 +100,11 @@ namespace CookApps.AutoBattler
         /// 계정 레벨
         public CookApps.Obfuscator.ObfuscatorInt lv;
         /// 시작 경험치
-        public CookApps.Obfuscator.ObfuscatorDouble exp_start;
+        public CookApps.Obfuscator.ObfuscatorInt exp_start;
         /// 마지막 경험치
-        public CookApps.Obfuscator.ObfuscatorDouble exp_last;
+        public CookApps.Obfuscator.ObfuscatorInt exp_last;
         /// 레벨 당 필요 경험치
-        public CookApps.Obfuscator.ObfuscatorDouble exp_need;
+        public CookApps.Obfuscator.ObfuscatorInt exp_need;
         /// 행동력 보유 가능 최대량
         public CookApps.Obfuscator.ObfuscatorInt ap_max;
         /// 리워드 id
@@ -208,17 +208,17 @@ namespace CookApps.AutoBattler
         /// 캐릭터 레벨
         public CookApps.Obfuscator.ObfuscatorInt lv;
         /// 경험치 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble exp_item;
+        public CookApps.Obfuscator.ObfuscatorInt exp_item;
         /// 경험치 아이템 누적 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble exp_item_sum;
+        public CookApps.Obfuscator.ObfuscatorInt exp_item_sum;
         /// 골드 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble gold;
+        public CookApps.Obfuscator.ObfuscatorInt gold;
         /// 골드 누적 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble gold_sum;
+        public CookApps.Obfuscator.ObfuscatorInt gold_sum;
         /// 2차 재화 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble exp_item_2;
+        public CookApps.Obfuscator.ObfuscatorInt exp_item_2;
         /// 2차 재화 누적 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble exp_item_2_sum;
+        public CookApps.Obfuscator.ObfuscatorInt exp_item_2_sum;
         /// 초월 가능 여부
         public bool is_transcendence;
     }
@@ -240,9 +240,9 @@ namespace CookApps.AutoBattler
         /// 캐릭터 초월 아이템 필요 종류
         public global::CookApps.AutoBattler.ItemType char_transcendence_item;
         /// 캐릭터 초월 아이템 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble char_transcendence_count;
+        public CookApps.Obfuscator.ObfuscatorInt char_transcendence_count;
         /// 캐릭터 초월 아이템 누적 필요량
-        public CookApps.Obfuscator.ObfuscatorDouble char_transcendence_item_sum;
+        public CookApps.Obfuscator.ObfuscatorInt char_transcendence_item_sum;
     }
 
     [GeneratorSpecData]
@@ -342,29 +342,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecStageMonster
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 챕터 id
-        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
-        /// 난이도
-        public global::CookApps.AutoBattler.DifficultyType difficulty;
-        /// 스테이지 번호
-        public CookApps.Obfuscator.ObfuscatorInt stage_number;
-        /// 좌표값 (x,y)
-        public string coordinate;
-        /// 몬스터 id
-        public CookApps.Obfuscator.ObfuscatorInt monster_id;
-        /// 몬스터 레벨
-        public CookApps.Obfuscator.ObfuscatorInt monster_lv;
-        /// 공격력 멀티플
-        public CookApps.Obfuscator.ObfuscatorInt multiple_atk;
-        /// 체력 멀티플
-        public CookApps.Obfuscator.ObfuscatorInt multiple_hp;
-    }
-
-    [GeneratorSpecData]
     public partial class SpecGuideMission
     {
         /// 유니크 ID
@@ -381,9 +358,9 @@ namespace CookApps.AutoBattler
         /// 출력 다이얼로그 id
         public CookApps.Obfuscator.ObfuscatorInt dialogue;
         /// 타겟 id
-        public CookApps.Obfuscator.ObfuscatorInt value;
+        public CookApps.Obfuscator.ObfuscatorInt sub_key;
         /// 필요 행위 횟수
-        public CookApps.Obfuscator.ObfuscatorInt action_count;
+        public CookApps.Obfuscator.ObfuscatorInt need_count;
         /// 보상 종류
         public global::CookApps.AutoBattler.ItemType reward_type;
         /// 보상 키 값
@@ -452,6 +429,29 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 어려움 클리어 보상 id
         public CookApps.Obfuscator.ObfuscatorInt reward_HARD_id;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecStageMonster
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 챕터 id
+        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
+        /// 난이도
+        public global::CookApps.AutoBattler.DifficultyType difficulty;
+        /// 스테이지 번호
+        public CookApps.Obfuscator.ObfuscatorInt stage_number;
+        /// 좌표값 (x,y)
+        public string coordinate;
+        /// 몬스터 id
+        public CookApps.Obfuscator.ObfuscatorInt monster_id;
+        /// 몬스터 레벨
+        public CookApps.Obfuscator.ObfuscatorInt monster_lv;
+        /// 공격력 멀티플
+        public CookApps.Obfuscator.ObfuscatorInt multiple_atk;
+        /// 체력 멀티플
+        public CookApps.Obfuscator.ObfuscatorInt multiple_hp;
     }
 
     [GeneratorSpecData]

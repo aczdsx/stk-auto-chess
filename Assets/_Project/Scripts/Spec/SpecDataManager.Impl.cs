@@ -268,6 +268,37 @@ namespace CookApps.AutoBattler
             return skillDic.GetValueOrDefault(skillID);
         }
 
+        public SpecAccountLevelExp GetAccountLevelExpDataByLevel(int level)
+        {
+            return SpecAccountLevelExp.All.ToList().Find(data => data.lv == level);
+        }
+
+        public int GetAccountMaxLevel()
+        {
+            return SpecAccountLevelExp.All.Max(data => data.lv);
+        }
+
+        public int GetAccountLevelByExp(long exp)
+        {
+            // 최대 레벨 체크
+            int maxLevel = GetAccountMaxLevel();
+            if (exp >= SpecAccountLevelExp.Get(maxLevel).exp_last)
+            {
+                return maxLevel;
+            }
+
+            // 나머지 레벨 체크
+            foreach (var accountData in SpecAccountLevelExp.All)
+            {
+                if (accountData.exp_start > exp)
+                {
+                    return accountData.lv == 1 ? accountData.lv : accountData.lv - 1;
+                }
+            }
+
+            return 1;
+        }
+
         // 가이드 미션 order 최대치 반환
         public int GetGuideMissionMaxOrder()
         {
