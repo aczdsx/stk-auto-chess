@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class InGameCharacterItem : MonoBehaviour
 {
     [SerializeField] private Image _image;
+    [SerializeField] private Image _SynergyImage;
+    [SerializeField] private Image _SynergyClassImage;
     [SerializeField] private TextMeshProUGUI _lvText;
     [SerializeField] private GameObject _body;
     private Action<CharacterStatData> _onSelected;
@@ -16,6 +18,13 @@ public class InGameCharacterItem : MonoBehaviour
     {
         _statData = characterStat;
         _body.SetActive(_statData != null);
+        if (_body.activeSelf)
+        {
+            _image.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(_statData.CharacterId);
+            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.element_type);
+            _SynergyClassImage.sprite = ImageManager.Instance.GetClassSprite(_statData.Spec.class_type);
+            _lvText.text = $"{_statData.Level}";
+        }
         _onSelected = onSelected;
     }
 

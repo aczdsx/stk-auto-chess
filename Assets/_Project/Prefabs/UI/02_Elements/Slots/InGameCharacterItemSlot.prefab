@@ -160,8 +160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f1333c97c4d544bb02f86c8318feda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _lvText: {fileID: 0}
+  _image: {fileID: 5643441958574008579}
+  _SynergyImage: {fileID: 1083035387710848597}
+  _SynergyClassImage: {fileID: 7255070656595467219}
+  _lvText: {fileID: 3390028407743059545}
   _body: {fileID: 3052446370037572043}
 --- !u!114 &2258142017000243704
 MonoBehaviour:
@@ -1046,7 +1048,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 30475ebccd48f9241879b0ebdf18de4f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2122af6784082347a14325d66fd265e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

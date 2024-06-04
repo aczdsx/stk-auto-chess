@@ -8,15 +8,18 @@ namespace CookApps.AutoBattler
     {
         public EffectCodeContainer EffectCodeContainer { get; }
         public SpecCharacter Spec => _spec;
+        public int Level => _level;
 
         private int characterId;
         private SpecCharacter _spec;
+        private int _level;
 
         public CharacterStatData(int characterId, int level, List<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             this.characterId = characterId;
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.SpecCharacter.Get(characterId);
+            _level = level;
             // TODO: level에 따른 스탯 증가 적용! 이펙트 코드로 적용되어야 함
 
             if (globalEffectCodeInfos != null)

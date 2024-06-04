@@ -14,6 +14,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Transform _rootTranform;
+        [SerializeField] private Transform _skillRootTranform;
         [SerializeField] private Transform _rotateionRootTransform;
         private AnimationEventListener _animationEventListener;
         public CharacterStatData GetStatData() => _statData;
@@ -100,6 +101,11 @@ namespace CookApps.AutoBattler
             Vector3 scale = _rootTranform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
             _rootTranform.localScale = scale;
+
+
+            Vector3 skillScale = _skillRootTranform.localScale;
+            skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
+            _skillRootTranform.localScale = skillScale;
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
@@ -209,6 +215,10 @@ namespace CookApps.AutoBattler
             Vector3 scale = _rootTranform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
             _rootTranform.localScale = scale;
+
+            Vector3 skillScale = _skillRootTranform.localScale;
+            skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
+            _skillRootTranform.localScale = skillScale;
         }
     }
 }
