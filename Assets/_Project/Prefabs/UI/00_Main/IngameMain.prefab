@@ -5722,7 +5722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startButton: {fileID: 7644025051443437561}
-  _characterSelectedTransform: {fileID: 0}
+  _characterSelectedTransform: {fileID: 5269434938709260472}
   _rightTransform: {fileID: 1663410777891265943}
   _returnCharacterObj: {fileID: 6059675084963823496}
   _characterItemList:

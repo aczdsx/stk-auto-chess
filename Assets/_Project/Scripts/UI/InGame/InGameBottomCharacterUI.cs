@@ -72,8 +72,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         Vector3 startPos = _characterSelectedTransform.transform.position;
         Vector3 endPos = new Vector3(startPos.x, startPos.y - 300, startPos.z);
 
-        Vector3 rightStartPos = _characterSelectedTransform.transform.position;
-        Vector3 rightEndPos = new Vector3(rightStartPos.x, rightStartPos.y - 200, rightStartPos.z);
+        Vector3 rightStartPos = _rightTransform.transform.position;
+        Vector3 rightEndPos = new Vector3(rightStartPos.x, rightStartPos.y - 150, rightStartPos.z);
 
         int completedAnimations = 0;
 
