@@ -51,6 +51,8 @@ MonoBehaviour:
   _rootTranform: {fileID: 2760988830492105374}
   _skillRootTranform: {fileID: 4993383732212085696}
   _rotateionRootTransform: {fileID: 6888232810305479873}
+  _defaultMaterial: {fileID: 2100000, guid: b8c3b65e57b672d469e665b3892ce214, type: 2}
+  _disorveMaterial: {fileID: -876546973899608171, guid: 97c6dd483b7624141b388ba8d0a4290a, type: 3}
 --- !u!1 &4683004968830859785
 GameObject:
   m_ObjectHideFlags: 0
