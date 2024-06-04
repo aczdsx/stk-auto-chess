@@ -372,6 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2714459869255774626}
   - component: {fileID: 6149573307127895880}
+  - component: {fileID: 1685494174864135138}
   - component: {fileID: 7518062370182445}
   - component: {fileID: 2190186430440021572}
   m_Layer: 5
@@ -412,6 +413,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2574546041016748149}
   m_CullTransparentMesh: 1
+--- !u!114 &1685494174864135138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2574546041016748149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d942ceda68a7c542b3b94deca5a79ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activateLayerObject: {fileID: 7475620333698445651}
+  _guideMissionButton: {fileID: 2190186430440021572}
+  _missionTitleText: {fileID: 3514256403068726953}
+  _missionDescText: {fileID: 1618645643540446225}
+  _missionRewardItemImage: {fileID: 3263473594171821742}
+  _missionRewardAmountText: {fileID: 3789564916552148273}
 --- !u!114 &7518062370182445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,7 +633,7 @@ GameObject:
   - component: {fileID: 2974634258226952727}
   - component: {fileID: 3514256403068726953}
   m_Layer: 5
-  m_Name: Text (TMP)_MissionName
+  m_Name: Text (TMP)_MissionTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -978,7 +997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6328342735887594258
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1190,7 +1209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1194084136820662706
 RectTransform:
   m_ObjectHideFlags: 0

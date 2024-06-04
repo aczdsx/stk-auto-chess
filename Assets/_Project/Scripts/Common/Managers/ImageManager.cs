@@ -12,6 +12,13 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(atlasName, spriteName);
         }
 
+        public Sprite GetItemSprite(ItemType itemType)
+        {
+            string resultString = string.Concat("ST_RewardItem_", itemType.ToString());
+
+            return AtlasManager.Instance.GetSprite(Defines.STELLA_ICON_ATLAS_NAME, resultString);
+        }
+
         public Sprite GetGradeTypeSprite(GradeType GradeType, bool isActive = true)
         {
             string spriteName = string.Empty;

@@ -1646,6 +1646,7 @@ MonoBehaviour:
   _chapterImage: {fileID: 0}
   _chapterNameText: {fileID: 3068792382781633696}
   _stageProgressText: {fileID: 8886537977826015559}
+  _guideMissionSlot: {fileID: 7435231065593282572}
 --- !u!1001 &63409249374894145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3839,3 +3840,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
   m_PrefabInstance: {fileID: 8091608740188869614}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7435231065593282572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1685494174864135138, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
+  m_PrefabInstance: {fileID: 8091608740188869614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d942ceda68a7c542b3b94deca5a79ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -22,6 +22,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
 
+        [Header("Guide Mission")]
+        [SerializeField] private GuideMissionSlot _guideMissionSlot;
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -51,12 +53,16 @@ namespace CookApps.AutoBattler
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.Jewel, TopPanelType.Menu);
 
             SetLobbyMainUI();
+            _guideMissionSlot?.InitGuideMissionSlot();
         }
 
         public void RefreshUI()
         {
             // 하단 스테이지 UI 갱신
             SetBottomStageUI();
+
+            // 가이드 미션 갱신
+            _guideMissionSlot?.RefreshGuideMissionSlot();
         }
 
         public void RefreshBottomStageUI()
