@@ -1,5 +1,16 @@
 using System;
 
+namespace CookApps.AutoBattler
+{
+    public enum MissionStateType
+    {
+        NONE,       // 진행중 아님
+        WAIT,       // 진행중 (대기 상태)
+        REWARD,     // 보상 수령 가능
+        CLEAR,      // 보상 수령 후 클리어
+    }
+}
+
 namespace CookApps.BattleSystem
 {
     [Flags]
