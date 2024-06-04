@@ -1,4 +1,5 @@
 using Cookapps.Autobattleproject.V1;
+using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 
 namespace CookApps.AutoBattler
@@ -34,6 +35,24 @@ namespace CookApps.AutoBattler
         private void Clear_BasicData()
         {
             userBasicData = null;
+        }
+
+        public void AddUserLevelExp(int exp)
+        {
+            UserBasicData.Exp += exp;
+
+            SaveUserBasic();
+        }
+
+        public void SaveUserBasic()
+        {
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
+        }
+
+        public void CheatResetUserLevelData()
+        {
+            UserBasicData.Level = 1;
+            UserBasicData.Exp = 0;
         }
     }
 }

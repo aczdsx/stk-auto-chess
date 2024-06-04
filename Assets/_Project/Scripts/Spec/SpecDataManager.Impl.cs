@@ -290,7 +290,7 @@ namespace CookApps.AutoBattler
             // 나머지 레벨 체크
             foreach (var accountData in SpecAccountLevelExp.All)
             {
-                if (accountData.exp_last >= exp)
+                if (accountData.exp_start > exp)
                 {
                     return accountData.lv == 1 ? accountData.lv : accountData.lv - 1;
                 }

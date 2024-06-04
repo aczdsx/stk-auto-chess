@@ -12,6 +12,7 @@ namespace CookApps.AutoBattler
         ALL,
         STAGE,
         GUIDE_MISSION,
+        CHARACTER_LAYER,
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
@@ -70,14 +71,6 @@ namespace CookApps.AutoBattler
             _guideMissionSlot?.InitGuideMissionSlot();
         }
 
-        [ContextMenu("Guide Mission Test")]
-        public void TestGuideMission()
-        {
-            var currentGuideMission = SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
-
-            GuideMissionManager.Instance.AddGuideMissionActionValue(currentGuideMission.type, 1);
-        }
-
         public void RefreshUI(LobbyMainRefreshType refreshType)
         {
             switch (refreshType)
@@ -85,12 +78,16 @@ namespace CookApps.AutoBattler
                 case LobbyMainRefreshType.ALL:
                     SetBottomStageUI();     // 하단 스테이지 UI 갱신
                     _guideMissionSlot?.RefreshGuideMissionSlot();   // 가이드 미션 갱신
+                    SetUserInfoLayer();     // 유저 정보 갱신
                     break;
                 case LobbyMainRefreshType.STAGE:
                     SetBottomStageUI();
                     break;
                 case LobbyMainRefreshType.GUIDE_MISSION:
                     _guideMissionSlot?.RefreshGuideMissionSlot();
+                    break;
+                case LobbyMainRefreshType.CHARACTER_LAYER:
+                    SetUserInfoLayer();
                     break;
             }
         }
@@ -127,9 +124,23 @@ namespace CookApps.AutoBattler
 
         private void SetUserInfoLayer()
         {
-            _userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(UserDataManager.Instance.UserBasicData.UserIconId);
-            _userNameText.text = UserDataManager.Instance.UserBasicData.Nickname;
-            _userLevelText.text = $"Lv.{UserDataManager.Instance.UserBasicData.Level}";
+            var userBasicData = UserDataManager.Instance.UserBasicData;
+
+            _userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
+            _userNameText.text = userBasicData.Nickname;
+
+            int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
+            _userLevelText.text = $"Lv.{userLevel}";
+
+            var specLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(userLevel);
+            if (specLevelData != null)
+            {
+                long leftExp = userBasicData.Exp - specLevelData.exp_start;
+                float resultValue = leftExp / (float) specLevelData.exp_need;
+
+                _userExpSlider.value = resultValue;
+                _userExpText.text = string.Format("{0:N2}%", resultValue * 100);
+            }
         }
 
         private void SetBottomStageUI()
