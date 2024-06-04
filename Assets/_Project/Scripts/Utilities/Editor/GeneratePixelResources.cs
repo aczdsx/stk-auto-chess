@@ -27,7 +27,11 @@ public class GeneratePixelResources : Editor
             string folderName = new DirectoryInfo(subFolderPath).Name;
             if (int.TryParse(folderName, out _))
             {
-                CreateAnimationsFromPath(subFolderPath);
+                string generateResourcesPath = Path.Combine(subFolderPath, "GenerateResources");
+                if (!Directory.Exists(generateResourcesPath))
+                {
+                    CreateAnimationsFromPath(subFolderPath);
+                }
             }
         }
     }

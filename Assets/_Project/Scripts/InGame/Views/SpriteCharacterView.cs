@@ -16,9 +16,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private Transform _rootTranform;
         [SerializeField] private Transform _skillRootTranform;
         [SerializeField] private Transform _rotateionRootTransform;
+
+        [SerializeField] private Material _defaultMaterial;
+        [SerializeField] private Material _disorveMaterial;
         private AnimationEventListener _animationEventListener;
         public CharacterStatData GetStatData() => _statData;
         public float Height => 2.0f;
+        private readonly float _hitDurationTime = 0.2f;
         public event Action<AnimationKey, AnimationEventKey> OnAnimationEvent;
 
         private AnimationKey _currentAnimationKey;
@@ -161,6 +165,7 @@ namespace CookApps.AutoBattler
 
         public async UniTask DoDeadAction(AnimationClip clip)
         {
+            _spriteRenderer.material = _disorveMaterial;
             float temp = 0;
             float duration = clip.length;
 
@@ -179,19 +184,23 @@ namespace CookApps.AutoBattler
 
         public async UniTask DoHitAction()
         {
-            float temp = 0;
+            float duration = _hitDurationTime;
+            float elapsedTime = 0;
+            Color initialColor = _spriteRenderer.color;
 
-            while (true)
+            while (elapsedTime < duration)
             {
-                temp += Time.deltaTime * 0.4f;
+                elapsedTime += Time.deltaTime;
 
-                // GetComponent<Renderer>().material.SetFloat("_FadeAmount", temp);
+                float t = Mathf.PingPong(elapsedTime * 2 / duration, 1.0f);
+                float gAndBValue = Mathf.Lerp(255, 130, t) / 255f;
 
-                if (temp >= 1.0f)
-                    return;
-                else
-                    await UniTask.Yield();
+                _spriteRenderer.color = new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a);
+
+                await UniTask.Yield();
             }
+
+            _spriteRenderer.color = initialColor;
         }
 
         protected void OnDrawGizmos()
