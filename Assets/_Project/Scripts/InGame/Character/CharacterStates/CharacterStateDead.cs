@@ -1,13 +1,14 @@
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class CharacterStateDead : CharacterStateBase
 {
     public override void StateStart()
     {
         base.StateStart();
-        characCtrl.GetCharacterView().PlayAnimation(AnimationKey.DEAD);
-        characCtrl.GetCharacterView().SetDeadSprite();
+        AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.DEAD);
+        characCtrl.GetCharacterView().SetDeadSprite(clip);
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
