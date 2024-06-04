@@ -145,9 +145,9 @@ namespace CookApps.AutoBattler
             DoHitAction().Forget();
         }
 
-        public void SetDeadSprite()
+        public void SetDeadSprite(AnimationClip clip)
         {
-            DoDeadAction().Forget();
+            DoDeadAction(clip).Forget();
         }
 
         public void SetHpBarView(HpBarView hpBarView)
@@ -159,20 +159,21 @@ namespace CookApps.AutoBattler
             hpBarView.transform.localScale = new Vector3(3, 3, 3);
         }
 
-        public async UniTask DoDeadAction()
+        public async UniTask DoDeadAction(AnimationClip clip)
         {
             float temp = 0;
+            float duration = clip.length;
 
-            while (true)
+            while (temp < 1.0f)
             {
-                temp += Time.deltaTime * 0.4f;
-
-                // GetComponent<Renderer>().material.SetFloat("_FadeAmount", temp);
-
-                if (temp >= 1.0f)
+                if (_spriteRenderer == null)
                     return;
-                else
-                    await UniTask.Yield();
+
+                temp += Time.deltaTime / duration;
+
+                _spriteRenderer.material.SetFloat("_Dissolve", temp);
+
+                await UniTask.Yield();
             }
         }
 
