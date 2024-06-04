@@ -97,7 +97,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 CancelMoveCharacter();
                 break;
             case TouchPhase.Ended:
-                EndedMoveCharacter(touchPosition);
+                EndedMoveCharacter(touchPosition, isPointerOverUI);
                 break;
             case TouchPhase.Moved:
                 MoveCharacter(touchPosition);
@@ -186,7 +186,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
     }
 
-    private void EndedMoveCharacter(Vector3 touchPosition)
+    private void EndedMoveCharacter(Vector3 touchPosition, bool isPointerOverUI)
     {
         if (_selectedCharacterController != null)
         {
@@ -194,6 +194,28 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             RaycastHit[] hits = Physics.RaycastAll(ray);
 
             InGameTileView ingameTileView = _selectedTileView;
+
+            if (isPointerOverUI)
+            {
+                PointerEventData pointerData = new PointerEventData(EventSystem.current)
+                {
+                    position = Input.mousePosition
+                };
+
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerData, results);
+
+                if (results.Count > 0)
+                {
+                    GameObject topUIObject = results[0].gameObject;
+                    if (topUIObject != null && topUIObject.tag == "ReturnObj")
+                    {
+                        CharacterController deleteCharacterController = _selectedCharacterController;
+                        ReleaseSelectedHero();
+                        InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
+                    }
+                }
+            }
 
             foreach (RaycastHit hit in hits)
             {
@@ -318,11 +340,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         _selectedCharacterController = character;
         _selectedTileView.SetActiveObj(true);
         _selectedCharacterController.SetSelectedCharacter(true);
+        InGameMain.GetInGameMain().ReturnObjectActive(true);
     }
 
     private void ReleaseSelectedHero()
     {
         _selectedCharacterController.SetSelectedCharacter(false);
+        InGameMain.GetInGameMain().ReturnObjectActive(false);
         _selectedTileView.SetActiveObj(false);
         _selectedCharacterController = null;
     }

@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
 
-            //SceneLoading.GoToNextScene("InGame", (1, 1)).Forget();
+            SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
         }
 
         protected override void OnDestroy()

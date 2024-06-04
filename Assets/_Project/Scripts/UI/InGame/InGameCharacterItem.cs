@@ -21,7 +21,7 @@ public class InGameCharacterItem : MonoBehaviour
 
     public void OnClickItem()
     {
-        _onSelected.Invoke(_statData);
-        Debug.Log("OnClickItem");
+        if (_statData != null)
+            _onSelected.Invoke(_statData);
     }
 }

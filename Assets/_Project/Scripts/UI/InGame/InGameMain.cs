@@ -6,6 +6,7 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
@@ -18,11 +19,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
-        [SerializeField] private CAButton _startButton;
-        [SerializeField] private Transform _characterSelecteTransform;
-        [SerializeField] private List<InGameCharacterItem> _characterItemList;
         [SerializeField] private InGameTopUI _InGameTopUI;
-        //[SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
+        [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
@@ -33,6 +31,17 @@ namespace CookApps.AutoBattler
         public static InGameMain GetInGameMain()
         {
             return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
+        }
+
+        public void ReturnObjectActive(bool active)
+        {
+            _inGameBottomCharacterUI.ReturnObjectActive(active);
+        }
+
+        public void ReturnCharacter(CharacterController characterController)
+        {
+            InGameObjectManager.Instance.RemoveCharacterFromField(characterController);
+            _inGameBottomCharacterUI.ReturnCharacter(characterController);
         }
 
         protected override void OnPreEnter(object param)
@@ -48,39 +57,12 @@ namespace CookApps.AutoBattler
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
         }
 
-        public void HideCharacterSelectUI(Action continuation)
-        {
-            Vector3 startPos = _characterSelecteTransform.transform.position;
-
-            Vector3 endPos = new Vector3(startPos.x, startPos.y - 300, startPos.z);
-
-            PrimeTweenExtensions.MoveTo(_characterSelecteTransform, endPos, 0.5f, PrimeTween.Ease.Linear)
-                .OnComplete(() =>
-                {
-                    continuation?.Invoke();
-                });
-        }
-
         public void SetReadyUI()
         {
-            //[TODO] 내가 보유한 캐릭터들 가져오도록 수정 필요
-            List<CharacterStatData> characterStats = new List<CharacterStatData>();
-            characterStats.Add(new CharacterStatData(40101, 10));
-            characterStats.Add(new CharacterStatData(30601, 10));
-            characterStats.Add(new CharacterStatData(40402, 10));
-
-            Debug.LogColor("SetReadyUI");
-            for (int i = 0; i < _characterItemList.Count; i++)
+            _inGameBottomCharacterUI.InitData(() =>
             {
-                if (i < characterStats.Count)
-                {
-                    _characterItemList[i].SetData(characterStats[i], AddCharacterToTile);
-                }
-                else
-                {
-                    _characterItemList[i].SetData(null, null);
-                }
-            }
+                _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
+            });
 
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
@@ -88,7 +70,6 @@ namespace CookApps.AutoBattler
             _inGameTime = InGameMaxTime;
         }
 
-        // private CharacterController ct;
         private void ManagedUpdate(float dt)
         {
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
@@ -107,40 +88,11 @@ namespace CookApps.AutoBattler
             }
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-            _startButton?.onClick.AddListener(OnStartButtonClicked);
-        }
-
         private async UniTask InitializeInGame()
         {
             _specStage = InGameResourceHolder.SpecStage;
 
             InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
-        }
-
-        private void OnStartButtonClicked()
-        {
-            HideCharacterSelectUI(() =>
-            {
-                InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
-            });
-        }
-
-        private async void AddCharacterToTile(CharacterStatData statData)
-        {
-            Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
-            var ingameTile = InGameObjectManager.Instance.InGameGrid.GetEmptyTile();
-            int2 pos = new int2(ingameTile.X, ingameTile.Y);
-
-            await UniTask.WhenAll(new[]
-            {
-                InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
-                    typeof(CharacterStateReady)),
-            });
-
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
         }
     }
 }
