@@ -83,26 +83,21 @@ namespace CookApps.AutoBattler
             if (_userGuideMissionData == null) return;
             if (_specGuideMissionData == null) return;
 
-            // 보상 수령 처리
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-            rewardItemList.Add(new RewardItem(_specGuideMissionData.reward_type, _specGuideMissionData.reward_key, _specGuideMissionData.reward_amount));
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+            // 보상을 받을 수 있는 경우
+            if (_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD)
+            {
+                // 보상 수령 처리
+                List<RewardItem> rewardItemList = new List<RewardItem>();
+                rewardItemList.Add(new RewardItem(_specGuideMissionData.reward_type, _specGuideMissionData.reward_key, _specGuideMissionData.reward_amount));
+                SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
 
-            // 다음 가이드 미션 요청
-            GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.type, MissionStateType.CLEAR);
-
-            // // 보상을 받을 수 있는 경우
-            // if (_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD)
-            // {
-            //     List<RewardItem> rewardItemList = new List<RewardItem>();
-            //     rewardItemList.Add(new RewardItem(_specGuideMissionData.reward_type, _specGuideMissionData.reward_key, _specGuideMissionData.reward_amount));
-            //
-            //     SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
-            // }
-            // else
-            // {
-            //
-            // }
+                // 다음 가이드 미션 요청
+                GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.type, MissionStateType.CLEAR);
+            }
+            else
+            {
+                // todo.. 별도 가이드미션 안내 처리
+            }
         }
     }
 }

@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
 
         private void ClearRewardSlotList()
         {
-            BMUtil.RemoveChildObjects(_rewardItemSlotObject.transform);
+            BMUtil.RemoveChildObjects(_rewardSlotListLayerObject.transform);
         }
     }
 }
