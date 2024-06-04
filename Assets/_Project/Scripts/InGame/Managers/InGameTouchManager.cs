@@ -90,7 +90,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         {
             case TouchPhase.Began:
                 // case TouchPhase.Stationary:
-                CheckSelectedCharacter(touchPosition);
+                CheckSelectedCharacter(touchPosition, isPointerOverUI);
                 break;
             case TouchPhase.Canceled:
                 Debug.LogColor("Canceled");
@@ -100,7 +100,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 EndedMoveCharacter(touchPosition, isPointerOverUI);
                 break;
             case TouchPhase.Moved:
-                MoveCharacter(touchPosition);
+                MoveCharacter(touchPosition, isPointerOverUI);
                 break;
         }
     }
@@ -114,10 +114,32 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         return results.Count > 0;
     }
 
-    private void CheckSelectedCharacter(Vector3 touchPosition)
+    private void CheckSelectedCharacter(Vector3 touchPosition, bool isPointerOverUI)
     {
         if (_selectedCharacterController != null)
             return;
+
+        if (isPointerOverUI)
+        {
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            if (results.Count > 0)
+            {
+                GameObject topUIObject = results[0].gameObject;
+                if (topUIObject != null && topUIObject.CompareTag("ReturnObj"))
+                {
+                    CharacterController deleteCharacterController = _selectedCharacterController;
+                    ReleaseSelectedHero();
+                    InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
+                }
+            }
+        }
 
         Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
         RaycastHit hit;
@@ -131,17 +153,39 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 _selectedTileView = inGameTileView;
                 SetSelectedCharacter(tile.OccupiedCharacter);
-                // _offset = hit.transform.position -
-                //           _mainCamera.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y,
-                //               _mainCamera.nearClipPlane));
             }
         }
     }
 
-    private void MoveCharacter(Vector3 touchPosition)
+    private void MoveCharacter(Vector3 touchPosition, bool isPointerOverUI)
     {
         if (_selectedCharacterController != null)
         {
+            if (isPointerOverUI)
+            {
+                PointerEventData pointerData = new PointerEventData(EventSystem.current)
+                {
+                    position = Input.mousePosition
+                };
+
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerData, results);
+
+                if (results.Count > 0)
+                {
+                    GameObject topUIObject = results[0].gameObject;
+                    InGameMain.GetInGameMain().ReturnObjectColorChange(topUIObject != null && topUIObject.tag == "ReturnObj");
+                }
+                else
+                {
+                    InGameMain.GetInGameMain().ReturnObjectColorChange(false);
+                }
+            }
+            else
+            {
+                InGameMain.GetInGameMain().ReturnObjectColorChange(false);
+            }
+
             Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
@@ -167,8 +211,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                             {
                                 Debug.LogColor($"position : {_selectedCharacterController.Position3D} / target : {targetPosition}");
                                 _selectedCharacterController.Position3D = value;
-                                //[TODO] 이거 localPosition 깡으로 건들여도 되나요??
-                                // _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
                             }
                         });
                 }

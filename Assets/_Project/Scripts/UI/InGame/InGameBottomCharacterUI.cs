@@ -6,8 +6,8 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameBottomCharacterUI : MonoBehaviour
@@ -15,7 +15,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField] private CAButton _startButton;
     [SerializeField] private Transform _characterSelectedTransform;
     [SerializeField] private Transform _rightTransform;
-    [SerializeField] private GameObject _returnCharacterObj;
+    [SerializeField] private Image _returnImage;
     [SerializeField] private List<InGameCharacterItem> _characterItemList;
 
     private List<CharacterStatData> _characterStats;
@@ -96,7 +96,12 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     public void ReturnObjectActive(bool active)
     {
-        _returnCharacterObj.SetActive(active);
+        _returnImage.gameObject.SetActive(active);
+    }
+
+    public void ReturnObjectColorChange(bool active)
+    {
+        _returnImage.color = (active) ? Color.green : Color.white;
     }
 
     public void ReturnCharacter(CharacterController controller)

@@ -38,6 +38,11 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.ReturnObjectActive(active);
         }
 
+        public void ReturnObjectColorChange(bool active)
+        {
+            _inGameBottomCharacterUI.ReturnObjectColorChange(active);
+        }
+
         public void ReturnCharacter(CharacterController characterController)
         {
             InGameObjectManager.Instance.RemoveCharacterFromField(characterController);
