@@ -77,7 +77,7 @@ namespace CookApps.AutoBattler
                 targetUserData.ActionCount += actionValue;
 
                 // 클리어 여부 체크
-                if (specMissionData.action_count <= targetUserData.ActionCount)
+                if (specMissionData.need_count <= targetUserData.ActionCount)
                 {
                     targetUserData.MissionStateType = (int)MissionStateType.REWARD;
                 }
