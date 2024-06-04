@@ -3747,7 +3747,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2574546041016748149, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_Name
-      value: MissionGuideSlot
+      value: GuideMissionSlot
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_Pivot.x
