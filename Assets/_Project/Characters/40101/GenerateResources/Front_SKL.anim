@@ -22,34 +22,34 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: aaa660b57cf994543bbdd5a68de2d540, type: 3}
-    - time: 0.083333336
+    - time: 0.03125
       value: {fileID: 21300000, guid: d906051f6097fb541a6474b5b5442c01, type: 3}
-    - time: 0.16666667
+    - time: 0.0625
       value: {fileID: 21300000, guid: b1aa19003d7a678499ce014d922bc699, type: 3}
-    - time: 0.25
+    - time: 0.09375
       value: {fileID: 21300000, guid: 57eefa94a03121444b1b823f73f90102, type: 3}
-    - time: 0.33333334
+    - time: 0.125
       value: {fileID: 21300000, guid: a2965253919cd0a44adf5eb1fecd875f, type: 3}
-    - time: 0.41666666
+    - time: 0.15625
       value: {fileID: 21300000, guid: 73fa40a1c7e1c094e8e8b0fb42f33f7b, type: 3}
-    - time: 0.5
+    - time: 0.1875
       value: {fileID: 21300000, guid: 5f6f1d1e267530544a031c246c1d9e69, type: 3}
-    - time: 0.5833333
+    - time: 0.21875
       value: {fileID: 21300000, guid: ac7d01bdb121ffb4d9b071aecccf4720, type: 3}
-    - time: 0.6666667
+    - time: 0.25
       value: {fileID: 21300000, guid: 3c6eb96457f566f40be06508e4d00724, type: 3}
-    - time: 0.75
+    - time: 0.28125
       value: {fileID: 21300000, guid: 50b3193e22b971b42a07528434d31604, type: 3}
-    - time: 0.8333333
+    - time: 0.3125
       value: {fileID: 21300000, guid: 5d6443c0ee49aa447aea82bde1bb1599, type: 3}
-    - time: 0.9166667
+    - time: 0.34375
       value: {fileID: 21300000, guid: b4c5079e3acfcc849a628cf2a95c3e85, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 12
+  m_SampleRate: 32
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -83,7 +83,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.375
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -110,7 +110,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1
+  - time: 0.1875
+    functionName: InvokeAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1001
+    messageOptions: 0
+  - time: 0.375
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}
