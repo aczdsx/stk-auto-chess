@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Slot
+  - TutorialGachaButton
+  - ReturnObj
   layers:
   - Default
   - TransparentFX
