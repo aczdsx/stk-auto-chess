@@ -137,7 +137,7 @@ public class GeneratePixelResources : Editor
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = 12f;
+        animationClip.frameRate = 32f;
 
         EditorCurveBinding curveBinding = new EditorCurveBinding();
         curveBinding.type = typeof(SpriteRenderer);
@@ -185,6 +185,15 @@ public class GeneratePixelResources : Editor
             attackEvent.functionName = "InvokeAnimationEvent";
             attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
             attackEvent.time = 4 / animationClip.frameRate;
+            animationEvents.Add(attackEvent);
+        }
+
+        if (folderName == "SKL")
+        {
+            AnimationEvent attackEvent = new AnimationEvent();
+            attackEvent.functionName = "InvokeAnimationEvent";
+            attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
+            attackEvent.time = 6 / animationClip.frameRate;
             animationEvents.Add(attackEvent);
         }
 
