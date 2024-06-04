@@ -168,7 +168,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                                 Debug.LogColor($"position : {_selectedCharacterController.Position3D} / target : {targetPosition}");
                                 _selectedCharacterController.Position3D = value;
                                 //[TODO] 이거 localPosition 깡으로 건들여도 되나요??
-                                _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
+                                // _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
                             }
                         });
                 }

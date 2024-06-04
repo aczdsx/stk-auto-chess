@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
             await UniTask.WhenAll(new[]
             {
                 InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
-                    typeof(CharacterStateIdle)),
+                    typeof(CharacterStateReady)),
             });
 
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);

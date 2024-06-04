@@ -18,7 +18,7 @@ public class FlowStateStageReady : StateBase
     public override async void StateInit(object target)
     {;
         //[TODO] target에 아래 들어오게 하고 싶은데... 태우: SetStateData 사용하는 걸로!
-        var addCharacterTasks = new List<UniTask>();
+        var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(specStage.chapter_id, specStage.stage_number,
                 specStage.difficulty);
@@ -34,7 +34,7 @@ public class FlowStateStageReady : StateBase
             int2 coordinate = new int2(x, y);
 
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
-                typeof(CharacterStateIdle)));
+                typeof(CharacterStateReady)));
         }
 
         await UniTask.WhenAll(addCharacterTasks);

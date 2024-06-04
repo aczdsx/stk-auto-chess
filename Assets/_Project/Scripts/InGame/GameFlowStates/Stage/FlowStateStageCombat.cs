@@ -33,15 +33,13 @@ public class FlowStateStageCombat : StateBase
         InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
-            charac.IsForceIdle = false;
+            charac.AddNextState<CharacterStateIdle>();
         }
-        characters.Clear();
         InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
-            charac.IsForceIdle = false;
+            charac.AddNextState<CharacterStateIdle>();
         }
-        characters.Clear();
     }
 
     public override void StateRunning(float dt)
@@ -64,5 +62,7 @@ public class FlowStateStageCombat : StateBase
 
     public override void StateEnd(bool isForced)
     {
+        ListPool<CharacterController>.Release(characters);
+        characters = null;
     }
 }
