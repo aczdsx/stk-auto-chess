@@ -70,14 +70,6 @@ namespace CookApps.AutoBattler
             _activateLayerObject.SetActive(_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD);
         }
 
-        private void GetGuideMissionReward()
-        {
-            if (_userGuideMissionData == null) return;
-            if (_specGuideMissionData == null) return;
-
-
-        }
-
         private void OnClickMissionSlotButton()
         {
             if (_userGuideMissionData == null) return;

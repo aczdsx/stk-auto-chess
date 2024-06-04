@@ -22,6 +22,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _shopButton;
         [SerializeField] private CAButton _gachaButton;
 
+        [Header("User Info Layer")]
+        [SerializeField] private Image _userIconImage;
+        [SerializeField] private TextMeshProUGUI _userNameText;
+        [SerializeField] private TextMeshProUGUI _userLevelText;
+        [SerializeField] private TextMeshProUGUI _userExpText;
+        [SerializeField] private Slider _userExpSlider;
+
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
         [SerializeField] private GameObject _stageSelectSlotObject;
@@ -110,11 +117,19 @@ namespace CookApps.AutoBattler
 
         private void SetLobbyMainUI()
         {
+            SetUserInfoLayer();
             SetBottomStageUI();
 
             //TEST
             TestAddCharacter();
             TestAddStage();
+        }
+
+        private void SetUserInfoLayer()
+        {
+            _userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(UserDataManager.Instance.UserBasicData.UserIconId);
+            _userNameText.text = UserDataManager.Instance.UserBasicData.Nickname;
+            _userLevelText.text = $"Lv.{UserDataManager.Instance.UserBasicData.Level}";
         }
 
         private void SetBottomStageUI()

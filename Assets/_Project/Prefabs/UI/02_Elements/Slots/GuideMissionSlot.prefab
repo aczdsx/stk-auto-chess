@@ -188,7 +188,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 101.57471, y: -17}
-  m_SizeDelta: {x: 226, y: 36}
+  m_SizeDelta: {x: 256, y: 36}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6611486833018417639
 CanvasRenderer:
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB9C8\uC2A4\uD130 \uD0A4 \uD68D\uB4DD"
+  m_text: GUIDE_MISSION_DESC_1GUIDE_MISSION_DESC_1GUIDE_MISSION_DESC_1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   m_sharedMaterial: {fileID: -2439792414735106144, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
@@ -245,11 +245,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
+  m_fontSize: 16
   m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 16
   m_fontSizeMax: 26
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: -4
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -656,7 +656,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 103, y: 25}
-  m_SizeDelta: {x: 280, y: 26}
+  m_SizeDelta: {x: 258, y: 26}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2974634258226952727
 CanvasRenderer:
@@ -686,7 +686,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "4-13 \uD074\uB9AC\uC5B4"
+  m_text: GUIDE_MISSION_NAME_1GUIDE_MISSION_NAME_1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   m_sharedMaterial: {fileID: -2439792414735106144, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
@@ -713,19 +713,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 24
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 4
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -997,7 +997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6328342735887594258
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1209,7 +1209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1194084136820662706
 RectTransform:
   m_ObjectHideFlags: 0

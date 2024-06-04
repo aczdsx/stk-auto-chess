@@ -19,6 +19,8 @@ namespace CookApps.AutoBattler
                     Uid = 0,
                     Level = 1,
                     Exp = 0,
+                    Nickname = "New User",
+                    UserIconId = 40101,
 
                     TotalGachaCount = 0,
                 };
