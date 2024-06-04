@@ -14,36 +14,62 @@ using UnityEngine.U2D;
 public class GeneratePixelResources : Editor
 {
     private const int DEAD_FRAME_COUNT = 10;
+
+    [MenuItem("CookApps/Generate Pixel Resources For All Subfolders")]
+    private static void CreateAnimationsForAllSubfolders()
+    {
+        string specificFolderPath = "Assets/_Project/Characters";
+
+        string[] subFolderPaths = Directory.GetDirectories(specificFolderPath);
+
+        foreach (string subFolderPath in subFolderPaths)
+        {
+            string folderName = new DirectoryInfo(subFolderPath).Name;
+            if (int.TryParse(folderName, out _))
+            {
+                CreateAnimationsFromPath(subFolderPath);
+            }
+        }
+    }
+
     [MenuItem("Assets/Generate Pixel Resources", true)]
     private static bool ValidateCreateAnimation()
     {
-        // 메뉴가 활성화될 조건: 선택한 것이 폴더여야 함
         return Selection.activeObject != null &&
                AssetDatabase.IsValidFolder(AssetDatabase.GetAssetPath(Selection.activeObject));
     }
 
+
     [MenuItem("Assets/Generate Pixel Resources")]
     private static void CreateAnimations()
     {
-        // 선택된 상위 폴더의 경로
         string parentFolderPath = AssetDatabase.GetAssetPath(Selection.activeObject);
-        string parentFolderName = new DirectoryInfo(parentFolderPath).Name;
         string animationFolderPath = Path.Combine(parentFolderPath, "GenerateResources");
 
-        // Animation 폴더 생성
         if (!AssetDatabase.IsValidFolder(animationFolderPath))
         {
             AssetDatabase.CreateFolder(parentFolderPath, "GenerateResources");
         }
 
-        // 상위 폴더 내의 모든 하위 폴더 검색 (예: Front, Back)
+        CreateAnimationsFromPath(parentFolderPath);
+    }
+
+    private static void CreateAnimationsFromPath(string parentFolderPath)
+    {
+        string parentFolderName = new DirectoryInfo(parentFolderPath).Name;
+        string animationFolderPath = Path.Combine(parentFolderPath, "GenerateResources");
+
+        if (!AssetDatabase.IsValidFolder(animationFolderPath))
+        {
+            AssetDatabase.CreateFolder(parentFolderPath, "GenerateResources");
+        }
+
         string[] subFolderPaths = Directory.GetDirectories(parentFolderPath);
         List<Sprite> allSprites = new List<Sprite>();
         Sprite viewSprite = null;
 
         foreach (string subFolderPath in subFolderPaths)
         {
-            // 각 하위 폴더 내의 모든 폴더 검색 (예: ATK, DEAD, IDLE)
             string[] subSubFolderPaths = Directory.GetDirectories(subFolderPath);
             foreach (string subSubFolderPath in subSubFolderPaths)
             {
@@ -58,13 +84,10 @@ public class GeneratePixelResources : Editor
             }
         }
 
-        // 상위 폴더에 단일 스프라이트 아틀라스 생성
         CreateSingleSpriteAtlas(animationFolderPath, allSprites, parentFolderName);
 
-        // 애니메이션 컨트롤러에 애니메이션 클립 추가
         var overrideController = AddAnimationsToBaseController(animationFolderPath, parentFolderName);
 
-        // 프리팹 생성
         AddCharacterPrefab(animationFolderPath, parentFolderName, overrideController, viewSprite);
 
         AssetDatabase.SaveAssets();
@@ -81,7 +104,6 @@ public class GeneratePixelResources : Editor
             Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
             if (sprite != null)
             {
-                // 스프라이트의 텍스처를 로드하고 필터 모드를 Point로 설정
                 string texturePath = AssetDatabase.GetAssetPath(sprite.texture);
                 TextureImporter textureImporter = AssetImporter.GetAtPath(texturePath) as TextureImporter;
                 if (textureImporter != null)
@@ -212,7 +234,6 @@ public class GeneratePixelResources : Editor
 
     private static void AddCharacterPrefab(string parentFolderPath, string parentFolderName, AnimatorOverrideController controller, Sprite sprite)
     {
-        // BasePrefab 찾기
         string basePrefabName = "BasePrefab";
         string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}");
         if (guids.Length == 0)
@@ -225,10 +246,8 @@ public class GeneratePixelResources : Editor
         GameObject source = AssetDatabase.LoadAssetAtPath<GameObject>(basePrefabPath);
         GameObject objSource = (GameObject)PrefabUtility.InstantiatePrefab(source);
 
-        // 원하는 트랜스폼 찾기
         Transform childTransform = objSource.transform.GetChild(0).GetChild(0).GetChild(0);
 
-        // SpriteRenderer 업데이트
         SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
@@ -240,7 +259,6 @@ public class GeneratePixelResources : Editor
             return;
         }
 
-        // Animator 업데이트
         Animator animator = childTransform.GetComponent<Animator>();
         if (animator != null)
         {
@@ -252,12 +270,10 @@ public class GeneratePixelResources : Editor
             return;
         }
 
-        // 프리팹 저장
         string prefabFullPath = Path.Combine(parentFolderPath, $"CharacterView_{parentFolderName}.prefab");
         prefabFullPath = prefabFullPath.Replace("\\", "/");
         PrefabUtility.SaveAsPrefabAsset(objSource, prefabFullPath);
 
-        // 생성된 임시 오브젝트 삭제
         Object.DestroyImmediate(objSource);
 
         Debug.Log("[Success] Prefab");
@@ -273,7 +289,6 @@ public class GeneratePixelResources : Editor
             return;
         }
 
-        // 스프라이트 아틀라스 생성
         SpriteAtlas spriteAtlas = new SpriteAtlas();
 
         spriteAtlas.SetIncludeInBuild(true);
@@ -283,7 +298,7 @@ public class GeneratePixelResources : Editor
         SpriteAtlasPackingSettings packingSettings = spriteAtlas.GetPackingSettings();
         packingSettings.enableRotation = false;
         packingSettings.enableTightPacking = false;
-        packingSettings.padding = 2; // 이미지 간 거리를 최소화시킴
+        packingSettings.padding = 2;
         spriteAtlas.SetPackingSettings(packingSettings);
 
         SpriteAtlasTextureSettings textureSettings = new SpriteAtlasTextureSettings
@@ -297,7 +312,6 @@ public class GeneratePixelResources : Editor
 
         spriteAtlas.Add(allSprites.ToArray());
 
-        // Platform settings for Android
         TextureImporterPlatformSettings androidSettings = new TextureImporterPlatformSettings
         {
             name = "Android",
@@ -322,7 +336,6 @@ public class GeneratePixelResources : Editor
         };
         spriteAtlas.SetPlatformSettings(iosSettings);
 
-        // 아틀라스 저장
         string savePath = Path.Combine(parentFolderPath, $"{parentFolderName}.spriteatlas");
         savePath = savePath.Replace("\\", "/");
         AssetDatabase.CreateAsset(spriteAtlas, savePath);
