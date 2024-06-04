@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
+using Cysharp.Text;
 using UnityEngine;
 
 namespace CookApps.BattleSystem
@@ -221,7 +222,7 @@ namespace CookApps.BattleSystem
             }
     #endif
 
-            var path = Path.Combine(folderPath, "battlelog_", DateTime.Now.ToShortDateString(), "_", DateTime.Now.ToShortTimeString(), ".log");
+            var path = Path.Combine(folderPath, ZString.Format("battlelog_{0}_{1}.log", DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss")));
             return File.CreateText(path);
         }
 
