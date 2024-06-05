@@ -7,15 +7,17 @@ namespace CookApps.BattleSystem
 {
     public class InGameVfx : CachedMonoBehaviour
     {
+        [Flags]
         public enum CollisionType
         {
-            None,
-            Enter,
-            Exit,
-            Stay
+            None = 0,
+            Enter = 0x001,
+            Exit = 0x010,
+            Stay = 0x100,
         }
 
         public event Action<CollisionType, InGameTile> OnCollisionWithTile;
+        public CollisionType CollisionMask { get; set; } = CollisionType.Enter | CollisionType.Exit;
 
         public string VfxName { get; internal set; }
         protected InGameVfxMovementBase movement;
@@ -59,32 +61,44 @@ namespace CookApps.BattleSystem
             }
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (!other.transform.CompareTag("Slot"))
+            if (!CollisionMask.HasFlag(CollisionType.Enter))
                 return;
 
-            var tileView = other.transform.GetComponent<InGameTileView>();
+            if (!other.CompareTag("Slot"))
+                return;
+
+            var tileView = other.GetComponent<InGameTileView>();
+            // UnityEngine.Debug.Log("OnCollisionEnter: " + tileView.name);
             var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
             OnCollisionWithTile?.Invoke(CollisionType.Enter, tile);
         }
 
-        protected virtual void OnCollisionExit2D(Collision2D other)
+        private void OnTriggerExit(Collider other)
         {
-            if (!other.transform.CompareTag("Slot"))
+            if (!CollisionMask.HasFlag(CollisionType.Exit))
                 return;
 
-            var tileView = other.transform.GetComponent<InGameTileView>();
+            if (!other.CompareTag("Slot"))
+                return;
+
+            var tileView = other.GetComponent<InGameTileView>();
+            // UnityEngine.Debug.Log("OnCollisionExit: " + tileView.name);
             var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
             OnCollisionWithTile?.Invoke(CollisionType.Exit, tile);
         }
 
-        protected virtual void OnCollisionStay2D(Collision2D other)
+        private void OnTriggerStay(Collider other)
         {
-            if (!other.transform.CompareTag("Slot"))
+            if (!CollisionMask.HasFlag(CollisionType.Stay))
                 return;
 
-            var tileView = other.transform.GetComponent<InGameTileView>();
+            if (!other.CompareTag("Slot"))
+                return;
+
+            var tileView = other.GetComponent<InGameTileView>();
+            // UnityEngine.Debug.Log("OnCollisionStay: " + tileView.ID);
             var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
             OnCollisionWithTile?.Invoke(CollisionType.Stay, tile);
         }
