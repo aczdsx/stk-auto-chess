@@ -1372,6 +1372,7 @@ MonoBehaviour:
   _lockBGLayerObject: {fileID: 4148385798364129275}
   _normalBGLayerObject: {fileID: 2401059792589424745}
   _SSRBGLayerObject: {fileID: 1096239293079922928}
+  _characterImageParentObject: {fileID: 608698865287244055}
   _chracterLevelText: {fileID: 1962317474202989515}
   _gradeImage: {fileID: 2059757146688642251}
   _synergyUI: {fileID: 1657964940298068092}
