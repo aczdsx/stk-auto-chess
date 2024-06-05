@@ -39,11 +39,11 @@ namespace CookApps.BattleSystem
         {
             IsInGamePlaying = true;
             // 순서 중요!
+            InGameVfxManager.Instance.Initialize();
             InGameHpBarViewPool.Instance.InitializePool(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
-            // IngameResourceManager.Instance.Initialize();
         }
 
         public void EndInGame()
@@ -51,9 +51,10 @@ namespace CookApps.BattleSystem
             //[TODO] endingame이 불리는 타이밍에 pool을 지우는데, 남아있는 오브젝트가 있을 수 있음. 태우: 오브젝트들이 씬에 남아있어도 문제는 없음!
             IsInGamePlaying = false;
             InGameMainFlowManager.Instance.StopInGameMainLoop();
-            InGameHpBarViewPool.Instance.ReleasePool();
-            InGameTextViewPool.Instance.ReleasePool();
             InGameObjectManager.Instance.Clear();
+            InGameTextViewPool.Instance.ReleasePool();
+            InGameHpBarViewPool.Instance.ReleasePool();
+            InGameVfxManager.Instance.Clear();
         }
         #endregion
 

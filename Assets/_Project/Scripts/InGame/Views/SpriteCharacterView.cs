@@ -4,8 +4,6 @@ using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -13,8 +11,8 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Transform _rootTranform;
-        [SerializeField] private Transform _skillRootTranform;
+        [SerializeField] private Transform _rootTransform;
+        [SerializeField] private Transform _skillRootTransform;
         [SerializeField] private Transform _rotateionRootTransform;
 
         [SerializeField] private Material _defaultMaterial;
@@ -31,6 +29,8 @@ namespace CookApps.AutoBattler
         private bool _cachedFront;
         private CharacterStatData _statData;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
+
+        public Transform SkillRootTransform => _skillRootTransform;
 
         private void Awake()
         {
@@ -53,7 +53,7 @@ namespace CookApps.AutoBattler
         /// <param name="viewPosition">에어본이나 점프등을 하기 위해 필드 위치와의 offset이 필요할 경우 사용</param>
         public void UpdatePosition(Vector3 position, Vector3 viewPosition)
         {
-            CachedTr.localPosition = (Vector3)position + viewPosition;
+            CachedTr.localPosition = (Vector3) position + viewPosition;
         }
 
         public void SetSelected(bool isSetSelected)
@@ -102,14 +102,13 @@ namespace CookApps.AutoBattler
                 _cachedFront = true;
             }
 
-            Vector3 scale = _rootTranform.localScale;
+            Vector3 scale = _rootTransform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-            _rootTranform.localScale = scale;
+            _rootTransform.localScale = scale;
 
-
-            Vector3 skillScale = _skillRootTranform.localScale;
+            Vector3 skillScale = _skillRootTransform.localScale;
             skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
-            _skillRootTranform.localScale = skillScale;
+            _skillRootTransform.localScale = skillScale;
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
@@ -195,12 +194,14 @@ namespace CookApps.AutoBattler
                 float t = Mathf.PingPong(elapsedTime * 2 / duration, 1.0f);
                 float gAndBValue = Mathf.Lerp(255, 130, t) / 255f;
 
-                _spriteRenderer.color = new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a);
+                if (_spriteRenderer)
+                    _spriteRenderer.color = new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a);
 
                 await UniTask.Yield();
             }
 
-            _spriteRenderer.color = initialColor;
+            if (_spriteRenderer)
+                _spriteRenderer.color = initialColor;
         }
 
         protected void OnDrawGizmos()
@@ -222,13 +223,13 @@ namespace CookApps.AutoBattler
                 _cachedFront = false;
             }
 
-            Vector3 scale = _rootTranform.localScale;
+            Vector3 scale = _rootTransform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-            _rootTranform.localScale = scale;
+            _rootTransform.localScale = scale;
 
-            Vector3 skillScale = _skillRootTranform.localScale;
+            Vector3 skillScale = _skillRootTransform.localScale;
             skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
-            _skillRootTranform.localScale = skillScale;
+            _skillRootTransform.localScale = skillScale;
         }
     }
 }

@@ -19,6 +19,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
+        public SpecStage SpecStage=> _specStage;
+        public float InGameTime => _inGameTime;
         [SerializeField] private InGameTopUI _InGameTopUI;
         [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
 

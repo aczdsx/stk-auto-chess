@@ -12,7 +12,13 @@ public class FlowStateStageClear : StateBase
     public override void StateStart()
     {
         InGameManager.Instance.EndInGame();
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(true);
+        int star = 1;
+        if (InGameMain.GetInGameMain().InGameTime >= 30)
+            star++;
+        if (InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive())
+            star++;
+
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star));
     }
 
     public override void StateRunning(float dt)

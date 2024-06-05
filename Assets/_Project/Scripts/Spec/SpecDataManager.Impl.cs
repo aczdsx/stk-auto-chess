@@ -56,6 +56,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<SpecChapter>> chapterDic = new (); // key : chapter_id, value : chapter list
         private Dictionary<int, List<SpecStage>> stageChapterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<int, List<SpecStageMonster>> stageMonsterDic = new (); // key : chapter_id, value : stage list
+        private Dictionary<int, List<SpecStageReward>> stageRewardDic = new (); // key : reward_id, value : stage list
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
 
@@ -111,6 +112,19 @@ namespace CookApps.AutoBattler
                 }
 
                 specStageMonster.Add(stage);
+            }
+
+            // Stage
+            stageRewardDic.Clear();
+            foreach (SpecStageReward stage in SpecStageReward.All)
+            {
+                if (!stageRewardDic.TryGetValue(stage.reward_id, out List<SpecStageReward> specStageReward))
+                {
+                    specStageReward = new List<SpecStageReward>();
+                    stageRewardDic.Add(stage.reward_id, specStageReward);
+                }
+
+                specStageReward.Add(stage);
             }
 
             // Game Config
@@ -303,6 +317,16 @@ namespace CookApps.AutoBattler
         public int GetGuideMissionMaxOrder()
         {
             return SpecGuideMission.All.Max(guide => guide.order);
+        }
+
+        public List<SpecStageReward> GetSpecStageReward(int rewardID)
+        {
+            if (stageRewardDic.TryGetValue(rewardID, out List<SpecStageReward> stageRewardList))
+            {
+                return stageRewardList;
+            }
+
+            return null;
         }
     }
 }

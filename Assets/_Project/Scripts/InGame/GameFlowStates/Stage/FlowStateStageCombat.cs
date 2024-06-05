@@ -15,8 +15,11 @@ public class FlowStateStageCombat : StateBase
         characters = ListPool<CharacterController>.Get();
 
         // 최대 종합체력 업데이트
+        InGameObjectManager.Instance.SaveStartingPlayerCharacter();
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
+
+        InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
     }
 
     public override void StateStart()
