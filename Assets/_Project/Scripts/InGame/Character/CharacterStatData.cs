@@ -33,6 +33,13 @@ namespace CookApps.AutoBattler
             UpdateStats(EffectCodeInheritFlag.StatAll);
         }
 
+        public CharacterStatData(SpecStageMonster monster)
+        {
+            this.characterId = monster.monster_id;
+            EffectCodeContainer = new EffectCodeContainer(this);
+            _spec = SpecDataManager.Instance.SpecCharacter.Get(monster.monster_id);
+        }
+
         public void AddOrUpdateEffectCode(EffectCodeInfo codeInfo)
         {
             EffectCodeBase effectCode = EffectCodeContainer.AddOrMergeEffectCode(codeInfo, this);

@@ -4,7 +4,7 @@ using Random = System.Random;
 
 namespace CookApps.BattleSystem
 {
-    public class InGameEffectViewProjectile : InGameEffectViewWithParticle
+    public class InGameVfxProjectile : InGameVfxWithParticle
     {
 //         protected CharacterController target;
 //         protected Vector2 targetPos;
