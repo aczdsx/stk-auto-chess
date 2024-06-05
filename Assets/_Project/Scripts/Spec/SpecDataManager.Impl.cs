@@ -178,7 +178,7 @@ namespace CookApps.AutoBattler
         {
             if (chapterDic.TryGetValue(chapter, out List<SpecChapter> chapterList))
             {
-                return chapterList.FindAll(stage => stage.difficulty == difficulty);
+                return chapterList.FindAll(stage => stage.difficulty_type == difficulty);
             }
 
             return null;
@@ -192,7 +192,7 @@ namespace CookApps.AutoBattler
 
             if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
             {
-                return stageList.FindAll(stage => stage.difficulty == type).Count * stageStarCount;
+                return stageList.FindAll(stage => stage.difficulty_type == type).Count * stageStarCount;
             }
 
             return totalStarCount;
@@ -202,7 +202,7 @@ namespace CookApps.AutoBattler
         {
             if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
             {
-                return stageList.Find(stage => stage.stage_number == stageNumber && stage.difficulty == type);
+                return stageList.Find(stage => stage.stage_number == stageNumber && stage.difficulty_type == type);
             }
 
             return null;
@@ -223,7 +223,7 @@ namespace CookApps.AutoBattler
         {
             if (stageChapterDic.TryGetValue(chapter, out List<SpecStage> stageList))
             {
-                return stageList.FindAll(stage => stage.difficulty == difficulty);
+                return stageList.FindAll(stage => stage.difficulty_type == difficulty);
             }
 
             return null;
@@ -233,7 +233,7 @@ namespace CookApps.AutoBattler
         {
             if (stageChapterDic.TryGetValue(chapter, out List<SpecStage> stageList))
             {
-                return stageList.FindAll(stage => stage.difficulty == difficulty).Count;
+                return stageList.FindAll(stage => stage.difficulty_type == difficulty).Count;
             }
 
             return 0;
@@ -244,7 +244,7 @@ namespace CookApps.AutoBattler
         {
             if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
             {
-                var targetStageList = stageList.FindAll(stage => stage.difficulty == difficulty);
+                var targetStageList = stageList.FindAll(stage => stage.difficulty_type == difficulty);
 
                 int maxStageNumber = targetStageList.Max(stage => stage.stage_number);
                 return targetStageList.Find(stage => stage.stage_number == maxStageNumber);
@@ -257,7 +257,7 @@ namespace CookApps.AutoBattler
         public bool IsLastStage(int stageID)
         {
             SpecStage stageSpecData = SpecStage.Get(stageID);
-            SpecStage nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty);
+            SpecStage nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty_type);
 
             return nextStageSpecData == null;
         }
@@ -266,7 +266,7 @@ namespace CookApps.AutoBattler
         {
             if (stageMonsterDic.TryGetValue(chapter, out List<SpecStageMonster> stageMonster))
             {
-                return stageMonster.FindAll(s => s.stage_number == stageNumber &&  s.difficulty == difficulty);
+                return stageMonster.FindAll(s => s.stage_number == stageNumber &&  s.difficulty_type == difficulty);
             }
 
             return null;

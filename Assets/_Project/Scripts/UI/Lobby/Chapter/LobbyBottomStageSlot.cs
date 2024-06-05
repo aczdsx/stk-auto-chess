@@ -142,7 +142,7 @@ namespace CookApps.AutoBattler
         private void OnClickBottomStageSlot()
         {
             // 유저 데이터 갱신
-            UserDataManager.Instance.SelectUserStage(_specStageData.id, _specStageData.difficulty);
+            UserDataManager.Instance.SelectUserStage(_specStageData.id, _specStageData.difficulty_type);
 
             // 로비 메인 하단 스테이지 UI 갱신
             var lobbyMain = SceneUILayerManager.Instance.GetUILayer("LobbyMain");

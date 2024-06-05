@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
         USER_EXP = 29,
     }
 
-    public enum CharacterType
+    public enum ElementType
     {
         NONE = 0,
         EARTH = 1,
@@ -107,6 +107,7 @@ namespace CookApps.AutoBattler
     {
         NORMAL = 1,
         HARD = 2,
+        NONE = 3,
     }
 
     public enum StageType
@@ -117,7 +118,7 @@ namespace CookApps.AutoBattler
         CHEST = 4,
     }
 
-    public enum MonsterType
+    public enum CharacterType
     {
         NORMAL = 1,
         ELITE = 2,
@@ -132,13 +133,6 @@ namespace CookApps.AutoBattler
         DUNGEON = 3,
         ACCOUNT_LV_EXP = 4,
         STAGE_STAR = 5,
-    }
-
-    public enum ContentSubType
-    {
-        NONE = 0,
-        NORMAL = 1,
-        HARD = 2,
     }
 
     public enum TutorialEventType
@@ -189,12 +183,6 @@ namespace CookApps.AutoBattler
         WEAPON = 3,
     }
 
-    public enum GachaScenarioConditionKeyType
-    {
-        GUIDE_CLEAR = 1,
-        GACHA_ACC_COUNT = 2,
-    }
-
     public enum QuotesType
     {
         GET_CHARACTER = 1,
@@ -219,5 +207,12 @@ namespace CookApps.AutoBattler
         LEVELUP_CHARACTER = 5,
         OPEN_CHEST = 6,
         SUMMON_CHARCTER = 7,
+    }
+
+    public enum DialogueEventType
+    {
+        STAGE_CLEAR = 1,
+        POPUP_OPEN = 2,
+        FIRST_IN = 3,
     }
 }

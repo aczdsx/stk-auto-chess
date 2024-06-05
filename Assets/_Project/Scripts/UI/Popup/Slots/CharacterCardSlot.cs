@@ -70,10 +70,10 @@ namespace CookApps.AutoBattler
             string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.id);
             AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
 
-            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_characterData.grade, haveCharacter);
+            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_characterData.grade_type, haveCharacter);
 
             _synergyUI.SetSynergyUI(_characterData.element_type, haveCharacter);
-            _positionSynergyUI.SetPositionSynergyUI(_characterData.class_type, haveCharacter);
+            _positionSynergyUI.SetPositionSynergyUI(_characterData.character_position_type, haveCharacter);
 
             _chracterLevelText.gameObject.SetActive(haveCharacter);
             if (haveCharacter)
@@ -81,7 +81,7 @@ namespace CookApps.AutoBattler
                 _chracterLevelText.text = _userCharacterData.Level.ToString();
             }
 
-            SetStarObject(_characterData.grade);
+            SetStarObject(_characterData.grade_type);
 
             // 캐릭터 보유 여부 관련 처리
             _outlineActiveObject.SetActive(haveCharacter);
@@ -89,8 +89,8 @@ namespace CookApps.AutoBattler
 
             // BG Layer 세팅
             _lockBGLayerObject.SetActive(!haveCharacter);
-            _normalBGLayerObject.SetActive(haveCharacter && _characterData.grade != GradeType.LEGEND);
-            _SSRBGLayerObject.SetActive(haveCharacter && _characterData.grade == GradeType.LEGEND);
+            _normalBGLayerObject.SetActive(haveCharacter && _characterData.grade_type != GradeType.LEGEND);
+            _SSRBGLayerObject.SetActive(haveCharacter && _characterData.grade_type == GradeType.LEGEND);
         }
 
         private void SetStarObject(GradeType gradeType)

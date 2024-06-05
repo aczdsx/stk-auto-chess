@@ -69,7 +69,7 @@ namespace CookApps.AutoBattler
             var inGameMain = InGameMain.GetInGameMain();
             var userStage = UserDataManager.Instance.GetUserStage(inGameMain.SpecStage.id);
             var rewardList = SpecDataManager.Instance.GetSpecStageReward(inGameMain.SpecStage.reward_id)
-                .FindAll(l => l.content_sub_type == inGameMain.SpecStage.reward_content_type);
+                .FindAll(l => l.difficulty_type == inGameMain.SpecStage.difficulty_type);
 
             foreach (var rewardItem in rewardList)
             {
@@ -90,7 +90,7 @@ namespace CookApps.AutoBattler
                 if (shouldCreateRewardItemSlot)
                 {
                     var rewardItemSlot = Instantiate(_rewardItemSlotObj, _rewardsTransform).GetComponent<RewardItemSlot>();
-                    rewardItemSlot.SetRewardItem(new RewardItem(rewardItem.reward_item_type, rewardItem.reward_key, rewardItem.reward_value));
+                    rewardItemSlot.SetRewardItem(new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count));
                 }
             }
 

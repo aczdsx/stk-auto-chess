@@ -76,7 +76,7 @@ namespace CookApps.BattleSystem
             return null;
         }
 
-        public int GetCharacterSynergyCount(AllianceType allianceType, CharacterType type)
+        public int GetCharacterSynergyCount(AllianceType allianceType, ElementType type)
         {
             int value = 0;
 
@@ -101,7 +101,7 @@ namespace CookApps.BattleSystem
 
             foreach (var character in targetList)
             {
-                value += character.GetCharacterStat().Spec.class_type == type ? 1 : 0;
+                value += character.GetCharacterStat().Spec.character_position_type == type ? 1 : 0;
             }
 
             return value;

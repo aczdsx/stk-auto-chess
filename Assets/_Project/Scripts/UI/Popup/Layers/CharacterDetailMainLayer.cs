@@ -54,12 +54,12 @@ namespace CookApps.AutoBattler
             _characterIllustImage.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
             _characterNameText.text = _specCharacterData.name_token;
-            _characterGradeText.text = LanguageManager.Instance.GetGradeText(_specCharacterData.grade);
+            _characterGradeText.text = LanguageManager.Instance.GetGradeText(_specCharacterData.grade_type);
 
             _elementSynergyUI.SetSynergyUI(_specCharacterData.element_type);
-            _classSynergyUI.SetPositionSynergyUI(_specCharacterData.class_type);
+            _classSynergyUI.SetPositionSynergyUI(_specCharacterData.character_position_type);
 
-            SetStarObject(_specCharacterData.grade);
+            SetStarObject(_specCharacterData.grade_type);
         }
 
         private void SetStarObject(GradeType gradeType)

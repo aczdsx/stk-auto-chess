@@ -83,7 +83,7 @@ namespace CookApps.AutoBattler
                 var specStage = SpecDataManager.Instance.SpecStage.Get(userStage.StageId);
                 if (specStage != null)
                 {
-                    if (specStage.chapter_id == chapterID && specStage.difficulty == type)
+                    if (specStage.chapter_id == chapterID && specStage.difficulty_type == type)
                     {
                         totalStarCount += userStage.StarCount;
                     }
@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler
 
             if (chapterSpecData != null)
             {
-                switch (chapterSpecData.difficulty)
+                switch (chapterSpecData.difficulty_type)
                 {
                     case DifficultyType.NORMAL:
                         return userStageGroup.CurrentNormalStageId;

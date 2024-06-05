@@ -7,21 +7,21 @@ namespace CookApps.AutoBattler
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
-        public string GetSynergyText(CharacterType type)
+        public string GetSynergyText(ElementType type)
         {
             switch (type)
             {
-                case CharacterType.FIRE:
+                case ElementType.FIRE:
                     return "불";
-                case CharacterType.WATER:
+                case ElementType.WATER:
                     return "물";
-                case CharacterType.EARTH:
+                case ElementType.EARTH:
                     return "대지";
-                case CharacterType.WIND:
+                case ElementType.WIND:
                     return "바람";
-                case CharacterType.LIGHT:
+                case ElementType.LIGHT:
                     return "빛";
-                case CharacterType.DARK:
+                case ElementType.DARK:
                     return "어둠";
                 default:
                     return string.Empty;

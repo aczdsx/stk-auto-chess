@@ -64,8 +64,8 @@ namespace CookApps.AutoBattler
             _missionTitleText.text = _specGuideMissionData.name_token;
             _missionDescText.text = _specGuideMissionData.desc_token;
 
-            _missionRewardItemImage.sprite = ImageManager.Instance.GetItemSprite(_specGuideMissionData.reward_type);
-            _missionRewardAmountText.text = $"x{_specGuideMissionData.reward_amount}";
+            _missionRewardItemImage.sprite = ImageManager.Instance.GetItemSprite(_specGuideMissionData.item_type);
+            _missionRewardAmountText.text = $"x{_specGuideMissionData.item_count}";
 
             _activateLayerObject.SetActive(_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD);
         }
@@ -80,11 +80,11 @@ namespace CookApps.AutoBattler
             {
                 // 보상 수령 처리
                 List<RewardItem> rewardItemList = new List<RewardItem>();
-                rewardItemList.Add(new RewardItem(_specGuideMissionData.reward_type, _specGuideMissionData.reward_key, _specGuideMissionData.reward_amount));
+                rewardItemList.Add(new RewardItem(_specGuideMissionData.item_type, _specGuideMissionData.item_key, _specGuideMissionData.item_count));
                 SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
 
                 // 다음 가이드 미션 요청
-                GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.type, MissionStateType.CLEAR);
+                GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.guide_mission_type, MissionStateType.CLEAR);
             }
             else
             {

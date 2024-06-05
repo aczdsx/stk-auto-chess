@@ -153,7 +153,7 @@ namespace CookApps.AutoBattler
             var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
             var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
 
-            var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty);
+            var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty_type);
 
             //_chapterImage.sprite = specStage.chapter_image;
             _chapterNameText.SetText(chapterSpecData.name_token);

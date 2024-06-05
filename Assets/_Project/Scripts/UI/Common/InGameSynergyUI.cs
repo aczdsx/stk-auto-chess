@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _countText;
 
         // 캐릭터 속성 시너지 세팅
-        public void SetSynergy(CharacterType type, int count, bool isActive = true)
+        public void SetSynergy(ElementType type, int count, bool isActive = true)
         {
             _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
             _countText.text = count.ToString();

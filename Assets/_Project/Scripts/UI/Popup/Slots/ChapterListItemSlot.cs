@@ -47,13 +47,13 @@ namespace CookApps.AutoBattler
             _chapterSpecData = data;
 
             // 기본 데이터 세팅
-            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _chapterSpecData.chapter_id, _chapterSpecData.difficulty);
+            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _chapterSpecData.chapter_id, _chapterSpecData.difficulty_type);
             _chapterNameText.text = _chapterSpecData.name_token;
 
             // 진행 상태에 따른 처리
             bool isPlayableChapter = false;
 
-            int lastStageID = UserDataManager.Instance.GetLastStageId(_chapterSpecData.difficulty);
+            int lastStageID = UserDataManager.Instance.GetLastStageId(_chapterSpecData.difficulty_type);
             if (lastStageID > 0)
             {
                 SpecStage lastStageSpecData = SpecDataManager.Instance.SpecStage.Get(lastStageID);
@@ -64,8 +64,8 @@ namespace CookApps.AutoBattler
             _chapterStarLayerObject.SetActive(isPlayableChapter);
             _dimmedLayerObject.SetActive(!isPlayableChapter);
 
-            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_chapterSpecData.chapter_id, _chapterSpecData.difficulty);
-            int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_chapterSpecData.chapter_id, _chapterSpecData.difficulty);
+            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_chapterSpecData.chapter_id, _chapterSpecData.difficulty_type);
+            int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_chapterSpecData.chapter_id, _chapterSpecData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
 

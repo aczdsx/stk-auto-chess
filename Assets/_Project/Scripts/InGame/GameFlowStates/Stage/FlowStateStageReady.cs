@@ -21,7 +21,7 @@ public class FlowStateStageReady : StateBase
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(specStage.chapter_id, specStage.stage_number,
-                specStage.difficulty);
+                specStage.difficulty_type);
 
         foreach (var monster in monsters)
         {

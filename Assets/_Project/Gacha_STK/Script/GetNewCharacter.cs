@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
             // }
             NewObject.SetActive(false);
 
-            switch (idxCharcater.grade)
+            switch (idxCharcater.grade_type)
             {
                 case GradeType.LEGEND:
                     GradeImage[3].SetActive(true);
@@ -114,7 +114,7 @@ namespace CookApps.AutoBattler
             playObj = TimeLineObject[10].GetComponent<PlayableDirector>();
             playObj.Play();
             PieceImageBG.sprite = ImageManager.Instance.GetSprite(Defines.STELLA_ICON_ATLAS_NAME,
-                $"Common_ChaPiece_{idxCharcater.grade.ToString()}");
+                $"Common_ChaPiece_{idxCharcater.grade_type.ToString()}");
             PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"{chID}");
             PieceCharNameText.text = idxCharcater.name_token;
             PieceAmountText.text = "x" + amount.ToString();
@@ -231,7 +231,7 @@ namespace CookApps.AutoBattler
             //     }
             //     NewObjects[timeLineIdx].SetActive(false);
             // }
-            switch (idxCharcater.grade)
+            switch (idxCharcater.grade_type)
             {
                 case GradeType.LEGEND:
                     timeLineIdx = 0;
@@ -315,8 +315,8 @@ namespace CookApps.AutoBattler
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
             SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(idxCharcater.element_type);
-            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetClassSprite(idxCharcater.class_type);
-            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(idxCharcater.class_type);
+            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetClassSprite(idxCharcater.character_position_type);
+            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(idxCharcater.character_position_type);
 
             if(lowObj!= null)
                 Destroy(lowObj);
@@ -400,7 +400,7 @@ namespace CookApps.AutoBattler
 
             SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(chID);
 
-            switch (idxCharcater.grade)
+            switch (idxCharcater.grade_type)
             {
                 case GradeType.LEGEND:
                     timeLineIdx = 0;

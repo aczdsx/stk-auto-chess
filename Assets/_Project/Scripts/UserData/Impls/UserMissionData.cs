@@ -72,7 +72,7 @@ namespace CookApps.AutoBattler
                 if (targetUserData == null) return;
 
                 var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
-                if (specMissionData == null || specMissionData.type != missionType) return;
+                if (specMissionData == null || specMissionData.guide_mission_type != missionType) return;
 
                 targetUserData.ActionCount += actionValue;
 
@@ -97,7 +97,7 @@ namespace CookApps.AutoBattler
                 if (targetUserData == null) return;
 
                 var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
-                if (specMissionData == null || specMissionData.type != missionType) return;
+                if (specMissionData == null || specMissionData.guide_mission_type != missionType) return;
 
                 targetUserData.MissionStateType = (int)stateType;
 

@@ -73,7 +73,7 @@ public partial class SROptions
     {
         var currentGuideMission = SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
 
-        GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.type, MissionStateType.REWARD);
+        GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type, MissionStateType.REWARD);
     }
 
     #endregion

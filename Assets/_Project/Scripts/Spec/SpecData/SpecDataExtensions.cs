@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
             return SimpleSwapType.Grade_0 + ((int) grade - 1);
         }
 
-        public static SimpleSwapType ToSimpleSwapType(this CharacterType type)
+        public static SimpleSwapType ToSimpleSwapType(this ElementType type)
         {
             return SimpleSwapType.Custom_0 + ((int) type - 1);
         }
