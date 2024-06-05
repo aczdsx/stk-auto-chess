@@ -142,8 +142,9 @@ namespace CookApps.BattleSystem
                 var skillDataList = SpecDataManager.Instance.GetSkillDataList(statData.Spec.skill_id);
                 if (skillDataList != null && skillDataList.Count > 0)
                 {
-                    double* d = stackalloc double[skillDataList.Count];
-                    for (int i = 0; i < skillDataList.Count; i++)
+                    double* d = stackalloc double[8];
+                    d[0] = skillDataList[0].cool;
+                    for (int i = 1; i < skillDataList.Count; i++)
                     {
                         d[i] = skillDataList[i].base_rate;
                     }
@@ -578,7 +579,7 @@ namespace CookApps.BattleSystem
 
             _currHp -= damageInfo.damageAmount;
 
-            // [TODO] statics 에러 납니답...
+            // [TODO] statics 에러 납니답... ??
             InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
 
             UpdateHp();
