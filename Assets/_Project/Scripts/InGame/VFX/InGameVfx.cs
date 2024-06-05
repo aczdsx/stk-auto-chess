@@ -7,6 +7,15 @@ namespace CookApps.BattleSystem
 {
     public class InGameVfx : CachedMonoBehaviour
     {
+        private abstract class GenericDataContainerBase { }
+
+        private class GenericDataContainer<T> : GenericDataContainerBase
+        {
+            private T data;
+            public GenericDataContainer(T data) => this.data = data;
+            public T GetData() => data;
+        }
+
         [Flags]
         public enum CollisionType
         {
@@ -16,7 +25,7 @@ namespace CookApps.BattleSystem
             Stay = 0x100,
         }
 
-        public event Action<CollisionType, InGameTile> OnCollisionWithTile;
+        public event Action<CollisionType, InGameTile, InGameVfx> OnCollisionWithTile;
         public CollisionType CollisionMask { get; set; } = CollisionType.Enter | CollisionType.Exit;
 
         public string VfxName { get; internal set; }
@@ -72,7 +81,7 @@ namespace CookApps.BattleSystem
             var tileView = other.GetComponent<InGameTileView>();
             // UnityEngine.Debug.Log("OnCollisionEnter: " + tileView.name);
             var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
-            OnCollisionWithTile?.Invoke(CollisionType.Enter, tile);
+            OnCollisionWithTile?.Invoke(CollisionType.Enter, tile, this);
         }
 
         private void OnTriggerExit(Collider other)
@@ -86,7 +95,7 @@ namespace CookApps.BattleSystem
             var tileView = other.GetComponent<InGameTileView>();
             // UnityEngine.Debug.Log("OnCollisionExit: " + tileView.name);
             var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
-            OnCollisionWithTile?.Invoke(CollisionType.Exit, tile);
+            OnCollisionWithTile?.Invoke(CollisionType.Exit, tile, this);
         }
 
         private void OnTriggerStay(Collider other)
@@ -100,7 +109,24 @@ namespace CookApps.BattleSystem
             var tileView = other.GetComponent<InGameTileView>();
             // UnityEngine.Debug.Log("OnCollisionStay: " + tileView.ID);
             var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
-            OnCollisionWithTile?.Invoke(CollisionType.Stay, tile);
+            OnCollisionWithTile?.Invoke(CollisionType.Stay, tile, this);
         }
+
+        #region CustomData
+        private GenericDataContainerBase container;
+        public void SetCustomData<T>(T data)
+        {
+            container = new GenericDataContainer<T>(data);
+        }
+
+        public T GetCustomData<T>()
+        {
+            if (this.container is GenericDataContainer<T> container)
+            {
+                return container.GetData();
+            }
+            return default;
+        }
+        #endregion
     }
 }
