@@ -9727,8 +9727,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
-  _gacha1Button: {fileID: 2305795385390744744}
-  _gacha10Button: {fileID: 5356383635985874532}
+  _gacha1Button: {fileID: 867604230840064932}
+  _gacha10Button: {fileID: 7972183021802121014}
 --- !u!1 &3072315667496967844
 GameObject:
   m_ObjectHideFlags: 0
@@ -30490,6 +30490,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1453928123374969074, guid: 8b448a8342762044a975b3aef392d795, type: 3}
   m_PrefabInstance: {fileID: 6148685127540186448}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7972183021802121014 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4320753813979462246, guid: 8b448a8342762044a975b3aef392d795, type: 3}
+  m_PrefabInstance: {fileID: 6148685127540186448}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6164162439617544160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30697,6 +30708,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dce9723216b6e841ae8cf651279091f, type: 3}
+--- !u!114 &867604230840064932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6611985527104569471, guid: 1dce9723216b6e841ae8cf651279091f, type: 3}
+  m_PrefabInstance: {fileID: 6325346073423289307}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7524032261686909311 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4585403051013292708, guid: 1dce9723216b6e841ae8cf651279091f, type: 3}
