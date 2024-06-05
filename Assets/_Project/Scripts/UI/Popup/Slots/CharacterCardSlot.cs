@@ -20,6 +20,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _SSRBGLayerObject;
 
         [Header("Character Info")]
+        [SerializeField] private GameObject _characterImageParentObject;
         [SerializeField] private TextMeshProUGUI _chracterLevelText;
         [SerializeField] private Image _gradeImage;
         [SerializeField] private SynergyUI _synergyUI;
@@ -66,6 +67,9 @@ namespace CookApps.AutoBattler
             bool haveCharacter = _userCharacterData != null;
 
             // 기본 데이터 관련 세팅
+            string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.id);
+            AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
+
             _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_characterData.grade, haveCharacter);
 
             _synergyUI.SetSynergyUI(_characterData.element_type, haveCharacter);
@@ -107,6 +111,8 @@ namespace CookApps.AutoBattler
         private void ClearCardSlot()
         {
             //_starObjectList?.ForEach(star => star.SetActive(false));
+
+            BMUtil.RemoveChildObjects(_characterImageParentObject.transform);
         }
     }
 }
