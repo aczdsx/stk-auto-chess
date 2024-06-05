@@ -103,7 +103,19 @@ public class GeneratePixelResources : Editor
     private static List<Sprite> LoadSpritesFromFolder(string folderPath)
     {
         string[] filePaths = Directory.GetFiles(folderPath, "*.png");
-        List<Sprite> sprites = filePaths.Select(path =>
+
+        // 파일명을 숫자로 변환하는 함수
+        int ExtractNumberFromFileName(string filePath)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+            string numberStr = new string(fileName.Where(char.IsDigit).ToArray());
+            return int.TryParse(numberStr, out int number) ? number : int.MaxValue;
+        }
+
+        // 파일 경로를 숫자로 정렬
+        var sortedFilePaths = filePaths.OrderBy(ExtractNumberFromFileName).ToList();
+
+        List<Sprite> sprites = sortedFilePaths.Select(path =>
         {
             Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
             if (sprite != null)
@@ -123,6 +135,7 @@ public class GeneratePixelResources : Editor
     }
 
 
+
     private static void GenerateExtraFiles(string folderPath, string animationFolderPath,
         string parentFolderName, string subFolderName)
     {
@@ -137,7 +150,7 @@ public class GeneratePixelResources : Editor
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = 32f;
+        animationClip.frameRate = sprites.Count > 12 ? sprites.Count : 12f;
 
         EditorCurveBinding curveBinding = new EditorCurveBinding();
         curveBinding.type = typeof(SpriteRenderer);
