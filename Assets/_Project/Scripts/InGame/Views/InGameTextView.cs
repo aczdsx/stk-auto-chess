@@ -118,12 +118,12 @@ namespace CookApps.AutoBattler
             _textViewPool = null;
         }
 
-        public InGameTextView GetDamageTextView()
+        public InGameTextView Get()
         {
             return _textViewPool.Get(null);
         }
 
-        public void ReturnDamageTextView(InGameTextView textView)
+        public void Return(InGameTextView textView)
         {
             if (_textViewPool != null)
                 _textViewPool.Return(textView);

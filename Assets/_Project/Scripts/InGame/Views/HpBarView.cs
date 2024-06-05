@@ -97,7 +97,7 @@ namespace CookApps.AutoBattler
         private UnityPool<HpBarView> _hpBarViewPool;
         private GameObject _instance;
 
-        public void InitializePool(GameObject instance)
+        public void Initialize(GameObject instance)
         {
             // TODO: load hp bar prefab from addressable
             _instance = instance;
@@ -105,18 +105,18 @@ namespace CookApps.AutoBattler
             _hpBarViewPool.Initialize(_instance);
         }
 
-        public void ReleasePool()
+        public void Clear()
         {
             _hpBarViewPool.ClearPool();
             _hpBarViewPool = null;
         }
 
-        public HpBarView GetHpBar()
+        public HpBarView Get()
         {
             return _hpBarViewPool.Get(null);
         }
 
-        public void ReturnHpBar(HpBarView hpBarView)
+        public void Return(HpBarView hpBarView)
         {
             _hpBarViewPool?.Return(hpBarView);
         }

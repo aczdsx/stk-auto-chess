@@ -40,7 +40,7 @@ namespace CookApps.BattleSystem
             IsInGamePlaying = true;
             // 순서 중요!
             InGameVfxManager.Instance.Initialize();
-            InGameHpBarViewPool.Instance.InitializePool(InGameResourceHolder.HpBarView.CachedGo);
+            InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
@@ -53,7 +53,7 @@ namespace CookApps.BattleSystem
             InGameMainFlowManager.Instance.StopInGameMainLoop();
             InGameObjectManager.Instance.Clear();
             InGameTextViewPool.Instance.ReleasePool();
-            InGameHpBarViewPool.Instance.ReleasePool();
+            InGameHpBarViewPool.Instance.Clear();
             InGameVfxManager.Instance.Clear();
         }
         #endregion

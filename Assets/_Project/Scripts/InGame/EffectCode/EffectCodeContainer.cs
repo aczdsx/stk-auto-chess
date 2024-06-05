@@ -31,7 +31,7 @@ namespace CookApps.BattleSystem
             for (var i = 0; i < effectCodes.Count; i++)
             {
                 effectCodes[i].OnPreRemoved();
-                EffectCodePoolManager.Instance.Push(effectCodes[i]);
+                EffectCodePoolManager.Instance.Return(effectCodes[i]);
             }
 
             owner = null;
@@ -79,7 +79,7 @@ namespace CookApps.BattleSystem
             // 없으면 생성
             if (effectCode == null)
             {
-                effectCode = EffectCodePoolManager.Instance.GetEffectCodeBase(codeInfo.CodeId);
+                effectCode = EffectCodePoolManager.Instance.Get(codeInfo.CodeId);
                 if (effectCode == null)
                 {
                     return null;
@@ -177,7 +177,7 @@ namespace CookApps.BattleSystem
             }
 
             effectCodes.Remove(effectCode);
-            EffectCodePoolManager.Instance.Push(effectCode);
+            EffectCodePoolManager.Instance.Return(effectCode);
             return true;
         }
 
@@ -258,7 +258,7 @@ namespace CookApps.BattleSystem
                     }
 
                     effectCodes[i].OnPreRemoved();
-                    EffectCodePoolManager.Instance.Push(effectCodes[i]);
+                    EffectCodePoolManager.Instance.Return(effectCodes[i]);
                     effectCodes[i] = null;
                 }
             }

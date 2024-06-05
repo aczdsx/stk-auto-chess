@@ -285,13 +285,13 @@ namespace CookApps.BattleSystem
             while (nextStates.Count > 1)
             {
                 StateBase nextState = nextStates.Dequeue();
-                StatePool.Instance.Push(nextState);
+                StatePool.Instance.Return(nextState);
             }
 
             if (nextStates.Count > 0)
             {
                 flowState.StateEnd(false);
-                StatePool.Instance.Push(flowState);
+                StatePool.Instance.Return(flowState);
                 flowState = nextStates.Dequeue();
                 flowState.StateInit(this);
                 flowState.StateStart();
@@ -301,7 +301,7 @@ namespace CookApps.BattleSystem
 
         public T AddNextState<T>(object stateData = null) where T : StateBase, new()
         {
-            var state = StatePool.Instance.GetState<T>();
+            var state = StatePool.Instance.Get<T>();
             state.SetStateData(stateData);
             nextStates.Enqueue(state);
             return state;
@@ -309,7 +309,7 @@ namespace CookApps.BattleSystem
 
         public StateBase AddNextState(Type type, object stateData = null)
         {
-            StateBase state = StatePool.Instance.GetState(type);
+            StateBase state = StatePool.Instance.Get(type);
             state.SetStateData(stateData);
             nextStates.Enqueue(state);
             return state;

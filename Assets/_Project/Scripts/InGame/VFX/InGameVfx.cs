@@ -1,3 +1,5 @@
+using System;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using UnityEngine;
 
@@ -5,6 +7,16 @@ namespace CookApps.BattleSystem
 {
     public class InGameVfx : CachedMonoBehaviour
     {
+        public enum CollisionType
+        {
+            None,
+            Enter,
+            Exit,
+            Stay
+        }
+
+        public event Action<CollisionType, InGameTile> OnCollisionWithTile;
+
         public string VfxName { get; internal set; }
         protected InGameVfxMovementBase movement;
         protected bool cachedFlipX = false;
@@ -43,8 +55,38 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.RemoveInGameVfx(this);
             if (movement != null)
             {
-                InGameVfxMovementPool.Release(movement);
+                InGameVfxMovementPool.Return(movement);
             }
+        }
+
+        protected virtual void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!other.transform.CompareTag("Slot"))
+                return;
+
+            var tileView = other.transform.GetComponent<InGameTileView>();
+            var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+            OnCollisionWithTile?.Invoke(CollisionType.Enter, tile);
+        }
+
+        protected virtual void OnCollisionExit2D(Collision2D other)
+        {
+            if (!other.transform.CompareTag("Slot"))
+                return;
+
+            var tileView = other.transform.GetComponent<InGameTileView>();
+            var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+            OnCollisionWithTile?.Invoke(CollisionType.Exit, tile);
+        }
+
+        protected virtual void OnCollisionStay2D(Collision2D other)
+        {
+            if (!other.transform.CompareTag("Slot"))
+                return;
+
+            var tileView = other.transform.GetComponent<InGameTileView>();
+            var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+            OnCollisionWithTile?.Invoke(CollisionType.Stay, tile);
         }
     }
 }
