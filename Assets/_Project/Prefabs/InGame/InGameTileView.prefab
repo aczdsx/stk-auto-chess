@@ -217,6 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeObj: {fileID: 4000069818481049035}
   _allianceType: 1
+  _boardSprite: {fileID: 1497983088874606}
 --- !u!65 &5130178215013057319
 BoxCollider:
   m_ObjectHideFlags: 0

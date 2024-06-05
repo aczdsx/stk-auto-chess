@@ -13,7 +13,7 @@ public class FlowStateStageFail : StateBase
     public override void StateStart()
     {
         InGameManager.Instance.EndInGame();
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(false);
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((false, 0));
     }
 
     public override void StateRunning(float dt)

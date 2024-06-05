@@ -5309,7 +5309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01ef0ff40a7ed994db80070db364b42f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6b43dedc8c35cd49af370671d5cfa3b, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5724,7 +5724,7 @@ MonoBehaviour:
   _startButton: {fileID: 7644025051443437561}
   _characterSelectedTransform: {fileID: 5269434938709260472}
   _rightTransform: {fileID: 1663410777891265943}
-  _returnCharacterObj: {fileID: 6059675084963823496}
+  _returnImage: {fileID: 3162217385287495917}
   _characterItemList:
   - {fileID: 1318617327490749710}
   - {fileID: 1373163537786849158}

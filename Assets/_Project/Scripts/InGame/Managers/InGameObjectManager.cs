@@ -13,17 +13,20 @@ namespace CookApps.BattleSystem
 {
     public class InGameObjectManager : SingletonMonoBehaviour<InGameObjectManager>
     {
-        private InGameGrid _grid;
-        private List<CharacterController> enemiesInPlaygroundForUpdate = new();
-        private List<CharacterController> charactersInPlaygroundForUpdate = new();
-
-        private double _playerSumMaxHp;
-        private double _enemySumMaxHp;
-        private float _lastRate;
-
         private Transform playground;
         public Transform Playground => playground;
         public InGameGrid InGameGrid => _grid;
+        public InGameStage InGameStage => _stage;
+
+        private InGameGrid _grid;
+        private InGameStage _stage;
+        private List<CharacterController> enemiesInPlaygroundForUpdate = new();
+        private List<CharacterController> charactersInPlaygroundForUpdate = new();
+
+        private List<CharacterController> startingPlayerCharacters = new();
+        private double _playerSumMaxHp;
+        private double _enemySumMaxHp;
+        private float _lastRate;
 
         public void Initialize()
         {
@@ -41,7 +44,8 @@ namespace CookApps.BattleSystem
 
             playground = GameObject.Find("Playground").GetComponent<Transform>();
 
-            InGameGrid grid = new InGameGrid(stage.GridSize, stage.TileViews);
+            _stage = stage;
+            InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
             _grid = grid;
         }
 
@@ -238,6 +242,23 @@ namespace CookApps.BattleSystem
         public void ChangeTile(CharacterController selectedCharacter, InGameTile newTile)
         {
             selectedCharacter.ChangeOccupiedTile(newTile);
+        }
+
+        public void SaveStartingPlayerCharacter()
+        {
+            startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
+        }
+
+        public bool IsCheckAllPlayerCharacterAlive()
+        {
+            for (var i = 0; i < startingPlayerCharacters.Count; i++)
+            {
+                if (startingPlayerCharacters[i].IsAlive == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         #region 탐색
