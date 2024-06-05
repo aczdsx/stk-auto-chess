@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < result.Count; i++)
             {
-                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( result[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( result[i].character_id);
                 // GachItems[i].InitItem(idxCharcater, result[i].piece, i);
             }
 
@@ -87,11 +87,11 @@ namespace CookApps.AutoBattler
             }
             if (resultGacha[cnt].need_piece == 20)
             {
-                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetChracater(resultGacha[cnt].id, ShowGetFX);
+                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetChracater(resultGacha[cnt].character_id, ShowGetFX);
             }
             else
             {
-                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetPiece(resultGacha[cnt].id,resultGacha[cnt].need_piece, ShowGetFX);
+                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetPiece(resultGacha[cnt].character_id,resultGacha[cnt].need_piece, ShowGetFX);
             }
 
             cnt++;

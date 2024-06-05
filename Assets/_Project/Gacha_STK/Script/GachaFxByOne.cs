@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(datas[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(datas[i].character_id);
                 // GachItems[i].InitItem(idxCharcater, datas[i].piece, i);
             }
 
@@ -133,25 +133,25 @@ namespace CookApps.AutoBattler
                 return;
             }
             BlockerObject.SetActive(false);
-            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( _datas[cnt].id);
+            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( _datas[cnt].character_id);
             if (_datas[cnt].need_piece == 20)
             {
                 if (idxCharcater.grade_type == GradeType.LEGEND)
                 {
                     fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
+                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].character_id, ShowGetFX);
                 }
                 else
                 {
                     if (idxCharcater.need_piece == 0 /*&& idxCharcater.Level == 1*/)
                     {
                         fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                        fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
+                        fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].character_id, ShowGetFX);
                     }
                     else
                     {
                         fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                        fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].id,_datas[cnt].need_piece, ShowGetFX);
+                        fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].character_id,_datas[cnt].need_piece, ShowGetFX);
 
                     }
                 }
@@ -160,7 +160,7 @@ namespace CookApps.AutoBattler
             else
             {
                 fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].id,_datas[cnt].need_piece, ShowGetFX);
+                fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].character_id,_datas[cnt].need_piece, ShowGetFX);
 
             }
 

@@ -138,9 +138,10 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class SpecCharacter
     {
-        /// 캐릭터_id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 캐릭터_id
+        public CookApps.Obfuscator.ObfuscatorInt character_id;
         /// 프리팹id
         public CookApps.Obfuscator.ObfuscatorInt prefab_id;
         /// 캐릭터 등급
