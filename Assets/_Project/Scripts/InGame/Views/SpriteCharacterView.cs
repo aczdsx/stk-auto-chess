@@ -32,7 +32,6 @@ namespace CookApps.AutoBattler
 
         public Transform SkillRootTransform => _skillRootTransform;
 
-
         private void Awake()
         {
             _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
@@ -54,7 +53,7 @@ namespace CookApps.AutoBattler
         /// <param name="viewPosition">에어본이나 점프등을 하기 위해 필드 위치와의 offset이 필요할 경우 사용</param>
         public void UpdatePosition(Vector3 position, Vector3 viewPosition)
         {
-            CachedTr.localPosition = (Vector3)position + viewPosition;
+            CachedTr.localPosition = (Vector3) position + viewPosition;
         }
 
         public void SetSelected(bool isSetSelected)
@@ -106,7 +105,6 @@ namespace CookApps.AutoBattler
             Vector3 scale = _rootTransform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
             _rootTransform.localScale = scale;
-
 
             Vector3 skillScale = _skillRootTransform.localScale;
             skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
@@ -196,12 +194,14 @@ namespace CookApps.AutoBattler
                 float t = Mathf.PingPong(elapsedTime * 2 / duration, 1.0f);
                 float gAndBValue = Mathf.Lerp(255, 130, t) / 255f;
 
-                _spriteRenderer.color = new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a);
+                if (_spriteRenderer)
+                    _spriteRenderer.color = new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a);
 
                 await UniTask.Yield();
             }
 
-            _spriteRenderer.color = initialColor;
+            if (_spriteRenderer)
+                _spriteRenderer.color = initialColor;
         }
 
         protected void OnDrawGizmos()

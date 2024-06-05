@@ -24,6 +24,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Transform _rewardsTransform;
         [SerializeField] private GameObject _rewardItemSlotObj;
 
+        [SerializeField] private List<GameObject> _starList;
+
         private bool _isVictory = false;
         private int _star = 0;
 
@@ -41,6 +43,11 @@ namespace CookApps.AutoBattler
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
+
+            for (int i = 0; i < _starList.Count; i++)
+            {
+                _starList[i].SetActive(_star > i);
+            }
 
             CreateRewardItems();
         }
