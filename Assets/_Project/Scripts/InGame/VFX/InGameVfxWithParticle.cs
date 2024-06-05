@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
-    public class InGameEffectViewWithParticle : InGameEffectView
+    public class InGameVfxWithParticle : InGameVfx
     {
         [SerializeField] private ParticleSystem particle;
 
         protected ObfuscatorFloat Duration;
 
-        protected virtual bool IsAutoRemove => false;
+        protected bool IsAutoRemove;
 
         private void Awake()
         {
@@ -19,14 +19,15 @@ namespace CookApps.BattleSystem
             }
 
             Duration = particle.main.duration;
+            IsAutoRemove = !particle.main.loop;
         }
 
         private float elapsedTime;
         protected bool isRemoved;
 
-        public override void Initialize(Vector3 position /*, int soringOrder*/, bool isFlipX)
+        public override void Initialize(bool isFlipX, InGameVfxMovementBase movementBase = null)
         {
-            base.Initialize(position /*, soringOrder*/, isFlipX);
+            base.Initialize(isFlipX, movementBase);
 
             if (particle != null)
             {

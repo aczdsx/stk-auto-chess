@@ -4,8 +4,6 @@ using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -13,8 +11,8 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Transform _rootTranform;
-        [SerializeField] private Transform _skillRootTranform;
+        [SerializeField] private Transform _rootTransform;
+        [SerializeField] private Transform _skillRootTransform;
         [SerializeField] private Transform _rotateionRootTransform;
 
         [SerializeField] private Material _defaultMaterial;
@@ -31,6 +29,9 @@ namespace CookApps.AutoBattler
         private bool _cachedFront;
         private CharacterStatData _statData;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
+
+        public Transform SkillRootTransform => _skillRootTransform;
+
 
         private void Awake()
         {
@@ -102,14 +103,14 @@ namespace CookApps.AutoBattler
                 _cachedFront = true;
             }
 
-            Vector3 scale = _rootTranform.localScale;
+            Vector3 scale = _rootTransform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-            _rootTranform.localScale = scale;
+            _rootTransform.localScale = scale;
 
 
-            Vector3 skillScale = _skillRootTranform.localScale;
+            Vector3 skillScale = _skillRootTransform.localScale;
             skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
-            _skillRootTranform.localScale = skillScale;
+            _skillRootTransform.localScale = skillScale;
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
@@ -222,13 +223,13 @@ namespace CookApps.AutoBattler
                 _cachedFront = false;
             }
 
-            Vector3 scale = _rootTranform.localScale;
+            Vector3 scale = _rootTransform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-            _rootTranform.localScale = scale;
+            _rootTransform.localScale = scale;
 
-            Vector3 skillScale = _skillRootTranform.localScale;
+            Vector3 skillScale = _skillRootTransform.localScale;
             skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
-            _skillRootTranform.localScale = skillScale;
+            _skillRootTransform.localScale = skillScale;
         }
     }
 }

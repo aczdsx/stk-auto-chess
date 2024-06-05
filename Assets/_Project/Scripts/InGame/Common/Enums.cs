@@ -88,10 +88,7 @@ namespace CookApps.BattleSystem
         Stun,
         Provocation,
         Sleep,
-        DeathGoldUp, // 나에겐 버프 너에겐 디버프라 디버프로 처리
-
         Invincibility,
-        Paint,
         MAX,
     }
 
@@ -153,7 +150,7 @@ namespace CookApps.BattleSystem
         ExecuteEnd,
     }
 
-    public enum InGameEffectAnimationKey
+    public enum InGameVfxAnimationKey
     {
         Spawn,
         Idle,

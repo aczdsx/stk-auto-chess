@@ -106,7 +106,7 @@ namespace CookApps.BattleSystem
         private ObfuscatorFloat _atkCoolTime;
 
         private Dictionary<BuffDebuffType, ObfuscatorInt> _buffDebuffRefCountDict;
-        private Dictionary<BuffDebuffType, InGameEffectView> _buffDebuffEffectViewDict;
+        private Dictionary<BuffDebuffType, InGameVfx> _buffDebuffEffectViewDict;
 
         private static int characUIdInc;
         private int _characterUId;
@@ -130,7 +130,7 @@ namespace CookApps.BattleSystem
             view.OnAnimationEvent += OnAnimationEvent;
             view.CachedTr.localPosition = position;
             _buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
-            _buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameEffectView>();
+            _buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameVfx>();
 
             // add EffectCodes
             ecc = new EffectCodeContainer(this);
@@ -161,6 +161,11 @@ namespace CookApps.BattleSystem
         {
             InGameHpBarViewPool.Instance.ReturnHpBar(_hpBarView);
             Target = null;
+            foreach (var pair in _buffDebuffEffectViewDict)
+            {
+                InGameVfxManager.Instance.RemoveInGameVfx(pair.Value);
+            }
+            _buffDebuffEffectViewDict.Clear();
             ecc.Clear();
             ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
             ClearAllState();
@@ -433,10 +438,12 @@ namespace CookApps.BattleSystem
                 return;
             }
 
+            InGameVfxManager.Instance.AddInGameVfx(type.GetOneShotVfxName(), view.SkillRootTransform);
+
             _buffDebuffRefCountDict[type] += 1;
             if (_buffDebuffEffectViewDict.ContainsKey(type) == false)
             {
-                var effectView = InGameVfxManager.Instance.Get(type, view.CachedTr);
+                var effectView = InGameVfxManager.Instance.AddInGameVfx(type.GetLoopVfxName(), view.SkillRootTransform);
                 _buffDebuffEffectViewDict.Add(type, effectView);
             }
         }
@@ -456,7 +463,7 @@ namespace CookApps.BattleSystem
                 {
                     var effectView = _buffDebuffEffectViewDict[type];
                     _buffDebuffEffectViewDict.Remove(type);
-                    InGameVfxManager.Instance.RemoveInGameEffect(effectView);
+                    InGameVfxManager.Instance.RemoveInGameVfx(effectView);
                 }
             }
         }
