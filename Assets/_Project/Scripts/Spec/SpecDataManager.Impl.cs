@@ -60,6 +60,8 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<SpecCharacter>> characterDic = new (); // key : character_id, value : stage list
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
+        private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new (); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
+
         private void CustomizeSpecData()
         {
             // Chest
@@ -150,6 +152,21 @@ namespace CookApps.AutoBattler
                 skillList.Add(skill);
             }
 
+            // Dialogue History
+            dialogueHistoryDic.Clear();
+            foreach (SpecDialogue dialogue in SpecDialogue.All)
+            {
+                if (!dialogueHistoryDic.TryGetValue(dialogue.dialogue_event_type, out Dictionary<string, int> dialogueHistory))
+                {
+                    dialogueHistory = new Dictionary<string, int>();
+                    dialogueHistoryDic.Add(dialogue.dialogue_event_type, dialogueHistory);
+                }
+                else if (dialogueHistory.ContainsKey(dialogue.sub_key_value) == false)
+                {
+                    dialogueHistory.Add(dialogue.sub_key_value, dialogue.dialouge_group_id);
+                }
+            }
+
             // Character
             characterDic.Clear();
             foreach (SpecCharacter character in SpecCharacter.All)
@@ -214,6 +231,23 @@ namespace CookApps.AutoBattler
             }
 
             return totalStarCount;
+        }
+
+        public List<SpecDialogue> GetDialogueListByGroupID(int groupID)
+        {
+            return SpecDialogue.All.ToList().FindAll(data => data.dialouge_group_id == groupID);
+        }
+
+        public int GetDialgueGroupIDByEventType(DialogueEventType eventType, string subKeyValue)
+        {
+            int result = 0;
+
+            if (dialogueHistoryDic.TryGetValue(eventType, out Dictionary<string, int> dialogueHistory))
+            {
+                dialogueHistory.TryGetValue(subKeyValue, out result);
+            }
+
+            return result;
         }
 
         public SpecStage GetStageData(int chapterID, int stageNumber, DifficultyType type)
@@ -302,9 +336,8 @@ namespace CookApps.AutoBattler
 
         public SpecCharacter GetSpecCharacter(int characterID)
         {
-            return SpecCharacter.All.ToList().Find(data => data.character_id == characterID);
+            return SpecCharacter.All.FirstOrDefault(data => data.character_id == characterID);
         }
-
         public SpecAccountLevelExp GetAccountLevelExpDataByLevel(int level)
         {
             return SpecAccountLevelExp.All.ToList().Find(data => data.lv == level);

@@ -113,5 +113,21 @@ namespace CookApps.AutoBattler
                 SaveUserMissionData();
             }
         }
+
+        // 다이얼로그 히스토리 데이터 추가
+        public void AddDialogHistory(int dialogueGroupID)
+        {
+            if (!UserMissionData.UserDialogueGroupIds.Contains(dialogueGroupID))
+            {
+                UserMissionData.UserDialogueGroupIds.Add(dialogueGroupID);
+                SaveUserMissionData();
+            }
+        }
+
+        // 다이얼로그 히스토리 데이터 확인
+        public bool CheckDialogHistory(int dialogueGroupID)
+        {
+            return UserMissionData.UserDialogueGroupIds.Contains(dialogueGroupID);
+        }
     }
 }
