@@ -20,9 +20,7 @@ public class CharacterStateSkill : CharacterStateBase
         base.StateInit(target);
 
         isSkillEnd = false;
-
-        var characId = characCtrl.GetCharacterStat().CharacterId;
-        var specCharac = SpecDataManager.Instance.TestSpecCharacter.Get(characId);
+        var specCharac = characCtrl.GetCharacterStat().Spec;
         skillIndex = 0;
         var skillIds = specCharac.skill_ids;
         for (int i = 0; i < skillIds.Length; i++)

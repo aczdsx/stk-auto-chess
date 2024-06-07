@@ -139,18 +139,21 @@ namespace CookApps.BattleSystem
 
             unsafe
             {
-                var skillDataList = SpecDataManager.Instance.GetSkillDataList(statData.Spec.skill_id);
-                if (skillDataList != null && skillDataList.Count > 0)
+                foreach (var skillID in statData.Spec.skill_ids)
                 {
-                    double* d = stackalloc double[8];
-                    d[0] = skillDataList[0].cool;
-                    for (int i = 1; i < skillDataList.Count; i++)
+                    var skillDataList = SpecDataManager.Instance.GetSkillDataList(skillID);
+                    if (skillDataList != null && skillDataList.Count > 0)
                     {
-                        d[i] = skillDataList[i].base_rate;
-                    }
+                        double* d = stackalloc double[8];
+                        d[0] = skillDataList[0].base_rate; // cool time
+                        for (int i = 1; i < skillDataList.Count; i++)
+                        {
+                            d[i] = skillDataList[i].base_rate;
+                        }
 
-                    var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, skillDataList.Count, d);
-                    ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                        var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, skillDataList.Count, d);
+                        ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                    }
                 }
             }
 

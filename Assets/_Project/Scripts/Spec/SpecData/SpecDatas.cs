@@ -193,7 +193,7 @@ namespace CookApps.AutoBattler
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.AttackRangeShape atk_range_shape;
         /// 일반 스킬 id
-        public CookApps.Obfuscator.ObfuscatorInt skill_id;
+        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
         /// 전용 장비 id
         public CookApps.Obfuscator.ObfuscatorInt equipment_id;
         /// 전용 스킬 id
@@ -405,8 +405,6 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 스킬 계수
         public CookApps.Obfuscator.ObfuscatorFloat base_rate;
-        /// 스킬 쿨타임
-        public CookApps.Obfuscator.ObfuscatorFloat cool;
     }
 
     [GeneratorSpecData]
