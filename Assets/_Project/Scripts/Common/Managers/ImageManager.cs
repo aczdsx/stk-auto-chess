@@ -99,19 +99,24 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetCharacterIllustSprite(int characterId)
+        public Sprite GetCharacterIllustSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_ATLAS_ILLUST_NAME, $"Character_Illust_{characterId}");
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_ATLAS_ILLUST_NAME, $"Character_Illust_{prefabID}");
         }
 
-        public Sprite GetCharacterSubIllustSprite(int characterId)
+        public Sprite GetCharacterSubIllustSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"Character_Illust_Sub_{characterId}");
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"Character_Illust_Sub_{prefabID}");
         }
 
-        public Sprite GetCharacterStigmaSprite(int characterId)
+        public Sprite GetCharacterInGamePortraitSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{characterId}");
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"IngameChaPortrait_{prefabID}");
+        }
+
+        public Sprite GetCharacterStigmaSprite(int prefabID)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{prefabID}");
         }
 
         public Color GetGradeTypeColor(GradeType GradeType)

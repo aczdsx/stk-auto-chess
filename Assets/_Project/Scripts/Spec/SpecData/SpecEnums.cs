@@ -215,4 +215,19 @@ namespace CookApps.AutoBattler
         POPUP_OPEN = 2,
         FIRST_IN = 3,
     }
+
+    public enum SkillVfxName
+    {
+        Skill_40101 = 1,
+        Skill_40101_1 = 2,
+        fx_common_buff_atkup_01 = 3,
+        fx_common_buff_atkup_02 = 4,
+        fx_common_buff_ctdown_01 = 5,
+        fx_common_buff_ctdown_02 = 6,
+        fx_common_buff_heal = 7,
+        fx_common_buff_shield_01 = 8,
+        fx_common_buff_shield_02 = 9,
+        fx_common_buff_spdup_01 = 10,
+        fx_common_buff_spdup_02 = 11,
+    }
 }

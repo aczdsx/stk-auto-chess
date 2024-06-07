@@ -39,9 +39,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         // [TODO] 더미 요소 나중에 제거 필요
         _characterStats = new List<CharacterStatData>();
-        _characterStats.Add(new CharacterStatData(40101, 10));
-        _characterStats.Add(new CharacterStatData(30601, 10));
-        _characterStats.Add(new CharacterStatData(40402, 10));
+        _characterStats.Add(new CharacterStatData(140101, 10));
+        _characterStats.Add(new CharacterStatData(130601, 10));
+        _characterStats.Add(new CharacterStatData(140402, 10));
 
         var userCharacters = UserDataManager.Instance.GetAllUserCharacters();
         foreach (var character in userCharacters)

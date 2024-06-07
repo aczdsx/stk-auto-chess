@@ -57,9 +57,9 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<SpecStage>> stageChapterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<int, List<SpecStageMonster>> stageMonsterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<int, List<SpecStageReward>> stageRewardDic = new (); // key : reward_id, value : stage list
+        private Dictionary<int, List<SpecCharacter>> characterDic = new (); // key : character_id, value : stage list
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
-
         private void CustomizeSpecData()
         {
             // Chest
@@ -148,6 +148,19 @@ namespace CookApps.AutoBattler
                 }
 
                 skillList.Add(skill);
+            }
+
+            // Character
+            characterDic.Clear();
+            foreach (SpecCharacter character in SpecCharacter.All)
+            {
+                if (!characterDic.TryGetValue(character.character_id, out List<SpecCharacter> specCharacter))
+                {
+                    specCharacter = new List<SpecCharacter>();
+                    characterDic.Add(character.character_id, specCharacter);
+                }
+
+                specCharacter.Add(character);
             }
         }
 
@@ -285,6 +298,11 @@ namespace CookApps.AutoBattler
         public List<SpecSkill> GetSkillDataList(int skillID)
         {
             return skillDic.GetValueOrDefault(skillID);
+        }
+
+        public SpecCharacter GetSpecCharacter(int characterID)
+        {
+            return SpecCharacter.All.ToList().Find(data => data.character_id == characterID);
         }
 
         public SpecAccountLevelExp GetAccountLevelExpDataByLevel(int level)
