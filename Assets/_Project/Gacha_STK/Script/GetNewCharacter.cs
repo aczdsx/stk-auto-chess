@@ -63,8 +63,11 @@ namespace CookApps.AutoBattler
         private GameObject staticObj;
         private PlayableDirector playObj;
         private Action EndAction;
+
+        private SpecCharacter _specCharacter;
         //private CharacterEnhanceMetaData _curEnhanceMetaData;
-        public void SetPiece(int chID, int amount, Action actoin = null)
+
+        public void SetPiece(SpecCharacter specCharacter, int amount, Action actoin = null)
         {
             EndAction = actoin;
             TouchObject.SetActive(false);
@@ -78,15 +81,16 @@ namespace CookApps.AutoBattler
             {
                 GradeImage[i].SetActive(false);
             }
-            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(chID);
 
-            //_curEnhanceMetaData = SpecDataManager.Instance.GetCurrentCharacterEnhanceMetaData((int)idxCharcater.MetaData.grade_value, idxCharcater.Star);
-            // if (idxCharcater.IsShowFX == false)
+            _specCharacter = specCharacter;
+
+            //_curEnhanceMetaData = SpecDataManager.Instance.GetCurrentCharacterEnhanceMetaData((int)_specCharacter.MetaData.grade_value, _specCharacter.Star);
+            // if (_specCharacter.IsShowFX == false)
             // {
             //     NewObject.SetActive(true);
-            //     if(GachaFxByTen.Instance.pieceTempNew.Contains(idxCharcater.ID))
+            //     if(GachaFxByTen.Instance.pieceTempNew.Contains(_specCharacter.ID))
             //         NewObject.SetActive(false);
-            //     GachaFxByTen.Instance.pieceTempNew.Add(idxCharcater.ID);
+            //     GachaFxByTen.Instance.pieceTempNew.Add(_specCharacter.ID);
             // }
             // else
             // {
@@ -94,7 +98,7 @@ namespace CookApps.AutoBattler
             // }
             NewObject.SetActive(false);
 
-            switch (idxCharcater.grade_type)
+            switch (_specCharacter.grade_type)
             {
                 case GradeType.LEGEND:
                     GradeImage[3].SetActive(true);
@@ -114,17 +118,17 @@ namespace CookApps.AutoBattler
             playObj = TimeLineObject[10].GetComponent<PlayableDirector>();
             playObj.Play();
             PieceImageBG.sprite = ImageManager.Instance.GetSprite(Defines.STELLA_ICON_ATLAS_NAME,
-                $"Common_ChaPiece_{idxCharcater.grade_type.ToString()}");
-            PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"{chID}");
-            PieceCharNameText.text = idxCharcater.name_token;
+                $"Common_ChaPiece_{_specCharacter.grade_type.ToString()}");
+            PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"{_specCharacter.prefab_id}");
+            PieceCharNameText.text = _specCharacter.name_token;
             PieceAmountText.text = "x" + amount.ToString();
             // if (dataManager.UserData.isFirstGacha == true)
             // {
-            //     int temp = GachaFxByTen.Instance.TempDatas[idxCharcater.ID];
-            //     if (idxCharcater.Level == 0)
+            //     int temp = GachaFxByTen.Instance.TempDatas[_specCharacter.ID];
+            //     if (_specCharacter.Level == 0)
             //     {
             //         if (temp > 20)
-            //             temp = GachaFxByTen.Instance.TempDatas[idxCharcater.ID] - 20;
+            //             temp = GachaFxByTen.Instance.TempDatas[_specCharacter.ID] - 20;
             //     }
             //
             //     PieceAllText.text =  (temp ).ToString() + "/" + _curEnhanceMetaData.piece;
@@ -135,8 +139,8 @@ namespace CookApps.AutoBattler
             // }
             // else
             // {
-            //     PieceAllText.text =  (idxCharcater.Piece ).ToString() + "/" + _curEnhanceMetaData.piece;
-            //     float rate = (float)(idxCharcater.Piece ) / (float)_curEnhanceMetaData.piece;
+            //     PieceAllText.text =  (_specCharacter.Piece ).ToString() + "/" + _curEnhanceMetaData.piece;
+            //     float rate = (float)(_specCharacter.Piece ) / (float)_curEnhanceMetaData.piece;
             //     if (rate > 1)
             //         rate = 1;
             //     pieceSlider.fillAmount = rate;
@@ -152,26 +156,25 @@ namespace CookApps.AutoBattler
         }
 
         private bool isPlayCharacterBGM = false;
-        public void SetChracater(int chID, Action actoin = null, bool isTutorial = false)
+        public void SetChracater(SpecCharacter specCharacter, Action actoin = null, bool isTutorial = false)
         {
             EndAction = actoin;
             TouchObject.SetActive(false);
-            characterID = chID;
             isPlayCharacterBGM = false;
             for (int i = 0; i < TimeLineObject.Length; i++)
             {
                 TimeLineObject[i].SetActive(false);
             }
 
-            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(chID);
-            // if (idxCharcater.IsShowFX == false)
+            _specCharacter = specCharacter;
+            // if (_specCharacter.IsShowFX == false)
             // {
             //     // if (dataManager.UserData.isFirstGacha == false)
             //     // {
-            //     //     idxCharcater.IsShowFX = true;
+            //     //     _specCharacter.IsShowFX = true;
             //     // }
             //
-            //     switch (idxCharcater.grade)
+            //     switch (_specCharacter.grade)
             //     {
             //         case Grade.LEGEND:
             //             timeLineIdx = 0;
@@ -202,7 +205,7 @@ namespace CookApps.AutoBattler
             // }
             // else
             // {
-            //     switch (idxCharcater.grade)
+            //     switch (_specCharacter.grade)
             //     {
             //         case Grade.LEGEND:
             //             timeLineIdx = 0;
@@ -231,7 +234,7 @@ namespace CookApps.AutoBattler
             //     }
             //     NewObjects[timeLineIdx].SetActive(false);
             // }
-            switch (idxCharcater.grade_type)
+            switch (_specCharacter.grade_type)
             {
                 case GradeType.LEGEND:
                     timeLineIdx = 0;
@@ -300,23 +303,23 @@ namespace CookApps.AutoBattler
             // }
 
 
-            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
-            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
-            OpenText.text = idxCharcater.desc_token;
+            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
+            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
+            OpenText.text = _specCharacter.desc_token;
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
             playObj.Play();
-            NameText[timeLineIdx].text = idxCharcater.name_token;
+            NameText[timeLineIdx].text = _specCharacter.name_token;
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
-            DescText[timeLineIdx].text = idxCharcater.desc_token;
+            DescText[timeLineIdx].text = _specCharacter.desc_token;
 
-            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(idxCharcater.element_type);
+            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.element_type);
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
-            SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(idxCharcater.element_type);
-            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetClassSprite(idxCharcater.character_position_type);
-            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(idxCharcater.character_position_type);
+            SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(_specCharacter.element_type);
+            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetClassSprite(_specCharacter.character_position_type);
+            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(_specCharacter.character_position_type);
 
             if(lowObj!= null)
                 Destroy(lowObj);
@@ -327,7 +330,7 @@ namespace CookApps.AutoBattler
             if(idleObj!= null)
                 Destroy(idleObj);
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
             //lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
             //upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
@@ -340,7 +343,7 @@ namespace CookApps.AutoBattler
 
             CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
             CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
+            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);
@@ -398,9 +401,9 @@ namespace CookApps.AutoBattler
                 TimeLineObject[i].SetActive(false);
             }
 
-            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(chID);
+            SpecCharacter _specCharacter = SpecDataManager.Instance.SpecCharacter.Get(chID);
 
-            switch (idxCharcater.grade_type)
+            switch (_specCharacter.grade_type)
             {
                 case GradeType.LEGEND:
                     timeLineIdx = 0;
@@ -420,9 +423,9 @@ namespace CookApps.AutoBattler
                     break;
             }
             /*
-            if (idxCharcater.Have == false)
+            if (_specCharacter.Have == false)
             {
-                switch (idxCharcater.MetaData.grade)
+                switch (_specCharacter.MetaData.grade)
                 {
                     case Grade.LEGEND:
                         timeLineIdx = 0;
@@ -445,7 +448,7 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                switch (idxCharcater.MetaData.grade)
+                switch (_specCharacter.MetaData.grade)
                 {
                     case Grade.LEGEND:
                         timeLineIdx = 4;
@@ -465,17 +468,17 @@ namespace CookApps.AutoBattler
             */
 
 
-            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
-            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(characterID);
-            OpenText.text = idxCharcater.desc_token;
+            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
+            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
+            OpenText.text = _specCharacter.desc_token;
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
             playObj.Play();
 
-            NameText[timeLineIdx].text = idxCharcater.name_token;
+            NameText[timeLineIdx].text = _specCharacter.name_token;
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
-            DescText[timeLineIdx].text = idxCharcater.desc_token;
+            DescText[timeLineIdx].text = _specCharacter.desc_token;
 
             if(lowObj!= null)
                 Destroy(lowObj);
@@ -490,7 +493,7 @@ namespace CookApps.AutoBattler
             // upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
             // staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
             LowBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
             LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
@@ -500,7 +503,7 @@ namespace CookApps.AutoBattler
             CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
             CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
-            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
+            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.character_id);
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);

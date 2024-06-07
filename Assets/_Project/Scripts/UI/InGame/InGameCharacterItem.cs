@@ -20,7 +20,7 @@ public class InGameCharacterItem : MonoBehaviour
         _body.SetActive(_statData != null);
         if (_body.activeSelf)
         {
-            _image.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(_statData.CharacterId);
+            _image.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(_statData.Spec.prefab_id);
             _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.element_type);
             _SynergyClassImage.sprite = ImageManager.Instance.GetClassSprite(_statData.Spec.character_position_type);
             _lvText.text = $"{_statData.Level}";

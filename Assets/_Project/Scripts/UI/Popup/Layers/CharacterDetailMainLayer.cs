@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null) return;
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacterData.character_id);
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacterData.prefab_id);
             _characterIllustImage.sprite = targetSprite;
             _characterIllustImage.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 

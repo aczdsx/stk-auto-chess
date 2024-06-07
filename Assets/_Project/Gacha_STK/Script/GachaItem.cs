@@ -168,7 +168,7 @@ namespace CookApps.AutoBattler
                 KnightOnObject.SetActive(true);
                 PieceOnObject.SetActive(false);
 
-                KnighImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(characterData.character_id);
+                KnighImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(characterData.prefab_id);
                 KnighColorImage.color = ImageManager.Instance.GetGradeTypeColor(characterData.grade_type);
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {

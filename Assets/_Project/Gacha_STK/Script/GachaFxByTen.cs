@@ -395,7 +395,7 @@ namespace CookApps.AutoBattler
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
             fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-            fx.GetComponent<GetNewCharacter>().SetChracater(skipDatas[skipCnt].character_id, ShowSkipCharacterFX);
+            fx.GetComponent<GetNewCharacter>().SetChracater(skipDatas[skipCnt], ShowSkipCharacterFX);
             skipCnt++;
         }
         private int[] generatorRandomNumber(int count)
@@ -501,7 +501,7 @@ namespace CookApps.AutoBattler
                 if (idxCharcater.grade_type == GradeType.LEGEND)
                 {
                     fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].character_id, ShowGetFX);
+                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt], ShowGetFX);
 
                     if (skipDatas.Contains(_datas[cnt]))
                     {
@@ -560,14 +560,14 @@ namespace CookApps.AutoBattler
                     // }
 
                     fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].character_id, ShowGetFX);
+                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt], ShowGetFX);
 
                 }
             }
             else
             {
                 fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-                fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].character_id, _datas[cnt].need_piece, ShowGetFX);
+                fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt], _datas[cnt].need_piece, ShowGetFX);
             }
 
             cnt++;

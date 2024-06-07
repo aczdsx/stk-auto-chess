@@ -15,6 +15,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     private bool isReadyToActivate;
     private bool isSkillActivated;
 
+    private InGameVfx _vfx;
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -78,16 +80,16 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var vfx = InGameVfxManager.Instance.AddInGameVfx("Skill_40101", InGameObjectManager.Instance.Playground);
-        vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+        _vfx = InGameVfxManager.Instance.AddInGameVfx("Skill_40101", InGameObjectManager.Instance.Playground);
+        _vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-        vfx.Initialize(false, movement);
-        movement.SetData(vfx.CachedTr.position, owner.Target.GetCharacterView().CachedTr.position, 1);
-        //vfx.OnCollision2D ;
+        _vfx.Initialize(false, movement);
+        movement.SetData(_vfx.CachedTr.position, owner.Target.GetCharacterView().CachedTr.position, 1);
+        _vfx.OnCollisionWithTile += OnCollision2DEnter;
         isSkillActivated = false;
     }
 
-    private void OnCollision2DEnter(InGameVfx vfx, InGameTile tile)
+    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
         if (tile.OccupiedCharacter == null)
             return;
@@ -102,6 +104,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
+        _vfx.OnCollisionWithTile -= OnCollision2DEnter;
         isSkillActivated = false;
     }
 }

@@ -87,11 +87,11 @@ namespace CookApps.AutoBattler
             }
             if (resultGacha[cnt].need_piece == 20)
             {
-                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetChracater(resultGacha[cnt].character_id, ShowGetFX);
+                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetChracater(resultGacha[cnt], ShowGetFX);
             }
             else
             {
-                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetPiece(resultGacha[cnt].character_id,resultGacha[cnt].need_piece, ShowGetFX);
+                Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion().GetComponent<GetNewCharacter>().SetPiece(resultGacha[cnt],resultGacha[cnt].need_piece, ShowGetFX);
             }
 
             cnt++;
