@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3495874154512368744
+--- !u!1001 &851228119423622926
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 125309691991771040, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 9adad125c05f3e740b2af665449c64d3, type: 2}
+      objectReference: {fileID: 22100000, guid: 21ffb61a74eb7884884bc9a720e0344d, type: 2}
     - target: {fileID: 1758468053598742516, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Name
       value: CharacterView_40402

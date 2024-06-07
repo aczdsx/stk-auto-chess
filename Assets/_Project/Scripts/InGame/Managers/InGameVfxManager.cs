@@ -69,6 +69,14 @@ namespace CookApps.BattleSystem
             return effect;
         }
 
+        public InGameVfx AddInGameVfx(int prefabID, int num, Transform parent)
+        {
+            string vfxName = num > 0 ? $"Skill_{prefabID}_{num}" : $"Skill_{prefabID}";
+            var effect = InGameVfxPool.Get(vfxName, parent);
+            addWaitingInGameVfxs.Enqueue(effect);
+            return effect;
+        }
+
         public void RemoveInGameVfx(InGameVfx view)
         {
             InGameVfxPool.Return(view);

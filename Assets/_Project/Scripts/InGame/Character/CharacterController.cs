@@ -13,6 +13,7 @@ namespace CookApps.BattleSystem
         public static Type DefaultDeadState;
         public int CharacterUId => _characterUId;
         public int CharacterId => _statData.CharacterId;
+        public SpecCharacter SpecCharacter => _statData.Spec;
 
         private EffectCodeContainer ecc;
 

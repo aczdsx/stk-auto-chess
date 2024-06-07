@@ -151,6 +151,15 @@ public class GeneratePixelResources : Editor
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
         animationClip.frameRate = sprites.Count > 12 ? sprites.Count : 12f;
+        if (folderName == "IDLE" || folderName == "MOVE")
+        {
+            animationClip.wrapMode = WrapMode.Loop;
+            var clipSettings = AnimationUtility.GetAnimationClipSettings(animationClip);
+            clipSettings.loopTime = true;
+            AnimationUtility.SetAnimationClipSettings(animationClip, clipSettings);
+        }
+        else
+            animationClip.wrapMode = WrapMode.Once;
 
         EditorCurveBinding curveBinding = new EditorCurveBinding();
         curveBinding.type = typeof(SpriteRenderer);
@@ -226,6 +235,13 @@ public class GeneratePixelResources : Editor
         AnimationClip[] animationClips = animationClipPaths
             .Select(path => AssetDatabase.LoadAssetAtPath<AnimationClip>(path)).ToArray();
 
+        // Check if animation clips are loaded properly
+        if (animationClips == null || animationClips.Length == 0)
+        {
+            Debug.LogError("[Fail] Animation Clips are not loaded properly");
+            return null;
+        }
+
         string overrideControllerPath = Path.Combine(parentFolderPath, $"{parentFolderName}_AnimationController.controller");
         AnimatorOverrideController overrideController = new AnimatorOverrideController();
         AssetDatabase.CreateAsset(overrideController, overrideControllerPath);
@@ -234,7 +250,7 @@ public class GeneratePixelResources : Editor
         string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName);
         if (guids.Length == 0)
         {
-            Debug.Log("[Fail] Base Anim Controller");
+            Debug.LogError("[Fail] Base Anim Controller not found");
             return null;
         }
 
@@ -243,7 +259,7 @@ public class GeneratePixelResources : Editor
 
         if (baseController == null)
         {
-            Debug.Log("[Fail] Base Anim Controller");
+            Debug.LogError("[Fail] Base Anim Controller not loaded");
             return null;
         }
 
@@ -251,7 +267,14 @@ public class GeneratePixelResources : Editor
 
         foreach (AnimationClip clip in animationClips)
         {
-            overrideController[clip.name] = clip;
+            if (overrideController[clip.name] != null)
+            {
+                overrideController[clip.name] = clip;
+            }
+            else
+            {
+                Debug.LogError($"[Fail] Clip {clip.name} not added to the overrideController");
+            }
         }
 
         Debug.Log("[Success] AddAnimationsToBaseController");
