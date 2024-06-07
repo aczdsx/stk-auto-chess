@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Coffee.UIEffects;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -62,13 +63,13 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             _characterData = characterData;
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.character_id);
+            _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.prefab_id);
 
             bool haveCharacter = _userCharacterData != null;
 
             // 기본 데이터 관련 세팅
-            string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.character_id);
-            AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
+            string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.prefab_id);
+            var newObject = AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
 
             _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_characterData.grade_type, haveCharacter);
 
@@ -79,6 +80,12 @@ namespace CookApps.AutoBattler
             if (haveCharacter)
             {
                 _chracterLevelText.text = _userCharacterData.Level.ToString();
+            }
+
+            if (newObject != null)
+            {
+                // newObject.GetComponent<UIEffectController>()?.SetUIEffectMode(haveCharacter ? EffectMode.None : EffectMode.Grayscale);
+                newObject.GetComponentInChildren<UIEffect>().effectMode = haveCharacter ? EffectMode.None : EffectMode.Grayscale;
             }
 
             SetStarObject(_characterData.grade_type);
