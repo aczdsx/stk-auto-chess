@@ -69,6 +69,9 @@ namespace CookApps.AutoBattler
 
             SetLobbyMainUI();
             _guideMissionSlot?.InitGuideMissionSlot();
+
+            // test
+            //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)

@@ -296,7 +296,7 @@ namespace CookApps.AutoBattler
         /// 순서
         public CookApps.Obfuscator.ObfuscatorInt order;
         /// 발화자 ID
-        public CookApps.Obfuscator.ObfuscatorInt character_id;
+        public CookApps.Obfuscator.ObfuscatorInt prefab_id;
         /// 발화자 이름 토큰
         public string character_name_token;
         /// 다이얼로그 토큰
@@ -590,9 +590,9 @@ namespace CookApps.AutoBattler
     {
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        public string effect_name;
+        public global::CookApps.AutoBattler.SkillVfxName effect_name;
         public string addressable_path;
-        public string tile_effect;
+        public CookApps.Obfuscator.ObfuscatorInt tile_effect;
         public bool always;
         public CookApps.Obfuscator.ObfuscatorInt[] character;
         public CookApps.Obfuscator.ObfuscatorInt[] count;
