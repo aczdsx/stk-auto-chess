@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
 
         private CharacterCollectionMainLayerTabType _currentMainLayerTabType = CharacterCollectionMainLayerTabType.All;
 
-        private ISpecData<ObfuscatorInt, SpecCharacter> _totalCharacterList;      // 전체 캐릭터 리스트
+        private List<SpecCharacter> _totalCharacterList;      // 전체 캐릭터 리스트
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
 
         private CharacterCollectionPopup _parentCollectionPopup;
@@ -56,9 +56,9 @@ namespace CookApps.AutoBattler
         {
             ClearList();
 
-            _totalCharacterList = SpecDataManager.Instance.SpecCharacter;
+            _totalCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
 
-            foreach (var characterData in _totalCharacterList.All)
+            foreach (var characterData in _totalCharacterList)
             {
                 GameObject newCardObject = Instantiate(_characterCardSlotObject, _characterScrollRect.content);
                 CharacterCardSlot slot = newCardObject.GetComponent<CharacterCardSlot>();

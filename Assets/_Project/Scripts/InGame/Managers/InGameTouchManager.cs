@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 using PrimeTween;
+using UnityEngine.Pool;
 
 public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 {
-    private Camera _mainCamera = null;
     private bool _touchLocked = false;
 
     private CharacterController _selectedCharacterController = null;
@@ -22,18 +23,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     /////////////////////////////////////////////////////////////
     // protected
 
-    protected void Start()
-    {
-        _mainCamera = Camera.main;
-    }
-
     protected void Update()
     {
         if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageReady))
             return;
-
-        if (_mainCamera == null)
-            _mainCamera = Camera.main;
 
         bool isPointerOverUI = false;
         if (Application.isEditor)
@@ -109,7 +102,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        List<RaycastResult> results = new List<RaycastResult>();
+        _ = ListPool<RaycastResult>.Get(out var results);
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         return results.Count > 0;
     }
@@ -126,7 +119,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 position = Input.mousePosition
             };
 
-            List<RaycastResult> results = new List<RaycastResult>();
+            _ = ListPool<RaycastResult>.Get(out var results);
             EventSystem.current.RaycastAll(pointerData, results);
 
             if (results.Count > 0)
@@ -141,7 +134,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             }
         }
 
-        Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
+        Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
@@ -168,13 +161,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     position = Input.mousePosition
                 };
 
-                List<RaycastResult> results = new List<RaycastResult>();
+                _ = ListPool<RaycastResult>.Get(out var results);
                 EventSystem.current.RaycastAll(pointerData, results);
 
                 if (results.Count > 0)
                 {
                     GameObject topUIObject = results[0].gameObject;
-                    InGameMain.GetInGameMain().ReturnObjectColorChange(topUIObject != null && topUIObject.tag == "ReturnObj");
+                    InGameMain.GetInGameMain().ReturnObjectColorChange(topUIObject != null && topUIObject.CompareTag("ReturnObj"));
                 }
                 else
                 {
@@ -186,7 +179,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 InGameMain.GetInGameMain().ReturnObjectColorChange(false);
             }
 
-            Ray ray = _mainCamera.ScreenPointToRay(touchPosition);
+            Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
             {
@@ -232,7 +225,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (_selectedCharacterController != null)
         {
-            Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+            Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
             RaycastHit[] hits = Physics.RaycastAll(ray);
 
             InGameTileView ingameTileView = _selectedTileView;
@@ -244,13 +237,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     position = Input.mousePosition
                 };
 
-                List<RaycastResult> results = new List<RaycastResult>();
+                _ = ListPool<RaycastResult>.Get(out var results);
                 EventSystem.current.RaycastAll(pointerData, results);
 
                 if (results.Count > 0)
                 {
                     GameObject topUIObject = results[0].gameObject;
-                    if (topUIObject != null && topUIObject.tag == "ReturnObj")
+                    if (topUIObject != null && topUIObject.CompareTag("ReturnObj"))
                     {
                         CharacterController deleteCharacterController = _selectedCharacterController;
                         ReleaseSelectedHero();

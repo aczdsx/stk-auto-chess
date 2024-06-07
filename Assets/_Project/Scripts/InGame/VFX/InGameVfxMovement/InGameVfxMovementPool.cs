@@ -8,7 +8,7 @@ namespace CookApps.BattleSystem
     {
         private static Dictionary<Type, LinkedPool<InGameVfxMovementBase>> pools = new ();
 
-        public static T Create<T>() where T : InGameVfxMovementBase
+        public static T Get<T>() where T : InGameVfxMovementBase
         {
             Type type = typeof(T);
 
@@ -23,7 +23,7 @@ namespace CookApps.BattleSystem
             return pool.Get() as T;
         }
 
-        public static void Release<T>(T movement) where T : InGameVfxMovementBase
+        public static void Return<T>(T movement) where T : InGameVfxMovementBase
         {
             Type type = typeof(T);
 

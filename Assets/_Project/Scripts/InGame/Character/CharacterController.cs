@@ -122,7 +122,7 @@ namespace CookApps.BattleSystem
 
             var viewGo = await Addressables.InstantiateAsync($"Characters/{_statData.CharacterId}/GenerateResources/CharacterView_{_statData.CharacterId}.prefab");
             view = viewGo.GetComponent<SpriteCharacterView>();
-            _hpBarView = InGameHpBarViewPool.Instance.GetHpBar();
+            _hpBarView = InGameHpBarViewPool.Instance.Get();
             _hpBarView.Initialize(statData, allianceType);
             view.SetHpBarView(_hpBarView);
             view.SetFirstDirection(allianceType);
@@ -160,7 +160,7 @@ namespace CookApps.BattleSystem
 
         public void Clear()
         {
-            InGameHpBarViewPool.Instance.ReturnHpBar(_hpBarView);
+            InGameHpBarViewPool.Instance.Return(_hpBarView);
             Target = null;
             foreach (var pair in _buffDebuffEffectViewDict)
             {
@@ -314,7 +314,7 @@ namespace CookApps.BattleSystem
                 }
 
                 _currState.StateEnd(false);
-                StatePool.Instance.Push(_currState);
+                StatePool.Instance.Return(_currState);
                 _currState = _nextStates.Dequeue();
                 _currState.StateInit(this);
                 _currState.StateStart();
@@ -359,7 +359,7 @@ namespace CookApps.BattleSystem
 #if UNITY_EDITOR
             Debug.Log($"AddNextState >> {Time.frameCount}, {stateType}");
 #endif
-            StateBase state = StatePool.Instance.GetState(stateType);
+            StateBase state = StatePool.Instance.Get(stateType);
             if (state != null)
             {
                 state.SetStateData(stateData);
@@ -374,7 +374,7 @@ namespace CookApps.BattleSystem
 #if UNITY_EDITOR
             // Debug.Log($"AddNextState >> {Time.frameCount}, {CharacId}, {CharacUId}, {typeof(T).ToString()}");
 #endif
-            var state = StatePool.Instance.GetState<T>();
+            var state = StatePool.Instance.Get<T>();
             state.SetStateData(stateData);
             _nextStates.Enqueue(state);
             return state;
@@ -383,7 +383,7 @@ namespace CookApps.BattleSystem
         public void ForceSetNextState<T>(object stateData = null) where T : CharacterStateBase, new()
         {
             ClearAllState();
-            var state = StatePool.Instance.GetState<T>();
+            var state = StatePool.Instance.Get<T>();
             _currState = state;
             _currState.SetStateData(stateData);
             _currState.StateInit(this);
@@ -400,11 +400,11 @@ namespace CookApps.BattleSystem
             if (_currState != null)
             {
                 _currState.StateEnd(true);
-                StatePool.Instance.Push(_currState);
+                StatePool.Instance.Return(_currState);
                 while (_nextStates.Count > 0)
                 {
                     CharacterStateBase nextState = _nextStates.Dequeue();
-                    StatePool.Instance.Push(nextState);
+                    StatePool.Instance.Return(nextState);
                 }
             }
         }
@@ -699,16 +699,16 @@ namespace CookApps.BattleSystem
 
         private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
         {
-            InGameTextView textView = InGameTextViewPool.Instance.GetDamageTextView();
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount, isCritical, isDoubleCritical);
-            InGameTextViewPool.Instance.ReturnDamageTextView(textView);
+            InGameTextViewPool.Instance.Return(textView);
         }
 
         private async UniTask ShowHealText(double amount)
         {
-            InGameTextView textView = InGameTextViewPool.Instance.GetDamageTextView();
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowHealText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount);
-            InGameTextViewPool.Instance.ReturnDamageTextView(textView);
+            InGameTextViewPool.Instance.Return(textView);
         }
     }
 }

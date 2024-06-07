@@ -89,7 +89,7 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region EffectCodeBase class Pooling
-        public EffectCodeBase GetEffectCodeBase(int codeId)
+        public EffectCodeBase Get(int codeId)
         {
             if (!effectCodeCreators.ContainsKey(codeId))
             {
@@ -111,7 +111,7 @@ namespace CookApps.BattleSystem
             return codeBase;
         }
 
-        public T GetEffectCodeBase<T>(int codeId) where T : EffectCodeBase
+        public T Get<T>(int codeId) where T : EffectCodeBase
         {
             if (!effectCodeCreators.ContainsKey(codeId))
             {
@@ -135,11 +135,11 @@ namespace CookApps.BattleSystem
                 return res;
             }
 
-            Push(effectCode);
+            Return(effectCode);
             throw new Exception($"{codeId} is not {typeof(T).Name}");
         }
 
-        public void Push(EffectCodeBase effectCode)
+        public void Return(EffectCodeBase effectCode)
         {
             if (pools.TryGetValue(effectCode.CodeId, out Queue<EffectCodeBase> pool))
             {

@@ -1,3 +1,5 @@
+using System;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using UnityEngine;
 
@@ -5,6 +7,27 @@ namespace CookApps.BattleSystem
 {
     public class InGameVfx : CachedMonoBehaviour
     {
+        private abstract class GenericDataContainerBase { }
+
+        private class GenericDataContainer<T> : GenericDataContainerBase
+        {
+            private T data;
+            public GenericDataContainer(T data) => this.data = data;
+            public T GetData() => data;
+        }
+
+        [Flags]
+        public enum CollisionType
+        {
+            None = 0,
+            Enter = 0x001,
+            Exit = 0x010,
+            Stay = 0x100,
+        }
+
+        public event Action<CollisionType, InGameTile, InGameVfx> OnCollisionWithTile;
+        public CollisionType CollisionMask { get; set; } = CollisionType.Enter | CollisionType.Exit;
+
         public string VfxName { get; internal set; }
         protected InGameVfxMovementBase movement;
         protected bool cachedFlipX = false;
@@ -43,8 +66,67 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.RemoveInGameVfx(this);
             if (movement != null)
             {
-                InGameVfxMovementPool.Release(movement);
+                InGameVfxMovementPool.Return(movement);
             }
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!CollisionMask.HasFlag(CollisionType.Enter))
+                return;
+
+            if (!other.CompareTag("Slot"))
+                return;
+
+            var tileView = other.GetComponent<InGameTileView>();
+            // UnityEngine.Debug.Log("OnCollisionEnter: " + tileView.name);
+            var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+            OnCollisionWithTile?.Invoke(CollisionType.Enter, tile, this);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (!CollisionMask.HasFlag(CollisionType.Exit))
+                return;
+
+            if (!other.CompareTag("Slot"))
+                return;
+
+            var tileView = other.GetComponent<InGameTileView>();
+            // UnityEngine.Debug.Log("OnCollisionExit: " + tileView.name);
+            var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+            OnCollisionWithTile?.Invoke(CollisionType.Exit, tile, this);
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (!CollisionMask.HasFlag(CollisionType.Stay))
+                return;
+
+            if (!other.CompareTag("Slot"))
+                return;
+
+            var tileView = other.GetComponent<InGameTileView>();
+            // UnityEngine.Debug.Log("OnCollisionStay: " + tileView.ID);
+            var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+            OnCollisionWithTile?.Invoke(CollisionType.Stay, tile, this);
+        }
+
+        #region CustomData
+        private GenericDataContainerBase container;
+        public void SetCustomData<T>(T data)
+        {
+            container = new GenericDataContainer<T>(data);
+        }
+
+        public T GetCustomData<T>()
+        {
+            if (this.container is GenericDataContainer<T> container)
+            {
+                return container.GetData();
+            }
+            return default;
+        }
+        #endregion
     }
 }

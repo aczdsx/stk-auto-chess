@@ -62,12 +62,12 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             _characterData = characterData;
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.id);
+            _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.character_id);
 
             bool haveCharacter = _userCharacterData != null;
 
             // 기본 데이터 관련 세팅
-            string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.id);
+            string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.character_id);
             AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
 
             _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_characterData.grade_type, haveCharacter);
@@ -105,7 +105,7 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            _parentCollectionPopup.SelectCharacterCard(_characterData.id);
+            _parentCollectionPopup.SelectCharacterCard(_characterData.character_id);
         }
 
         private void ClearCardSlot()

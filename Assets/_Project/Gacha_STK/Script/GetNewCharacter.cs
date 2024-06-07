@@ -327,7 +327,7 @@ namespace CookApps.AutoBattler
             if(idleObj!= null)
                 Destroy(idleObj);
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
 
             //lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
             //upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
@@ -340,7 +340,7 @@ namespace CookApps.AutoBattler
 
             CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
             CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
+            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);
@@ -490,7 +490,7 @@ namespace CookApps.AutoBattler
             // upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
             // staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
+            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
 
             LowBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
             LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
@@ -500,7 +500,7 @@ namespace CookApps.AutoBattler
             CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
             CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
-            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.id);
+            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(idxCharcater.character_id);
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);

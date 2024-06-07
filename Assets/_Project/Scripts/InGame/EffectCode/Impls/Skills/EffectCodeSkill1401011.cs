@@ -80,7 +80,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
         var vfx = InGameVfxManager.Instance.AddInGameVfx("Skill_40101", InGameObjectManager.Instance.Playground);
         vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
-        var movement = InGameVfxMovementPool.Create<InGameVfxMovementLinear>();
+        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         vfx.Initialize(false, movement);
         movement.SetData(vfx.CachedTr.position, owner.Target.GetCharacterView().CachedTr.position, 1);
         //vfx.OnCollision2D ;

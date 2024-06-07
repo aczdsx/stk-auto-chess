@@ -164,6 +164,11 @@ namespace CookApps.AutoBattler
             return configData.config_value.ConvertTo<T>();
         }
 
+        public List<SpecCharacter> GetCharacterListByCharacterType(CharacterType type)
+        {
+            return SpecCharacter.All.ToList().FindAll(character => character.character_type == type);
+        }
+
         public List<SpecChapter> GetChapterList(int chapter)
         {
             if (chapterDic.TryGetValue(chapter, out List<SpecChapter> chapterList))

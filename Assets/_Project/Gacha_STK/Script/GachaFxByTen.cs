@@ -87,11 +87,11 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                if (TempDatas.ContainsKey(datas[i].id))
-                    TempDatas[datas[i].id] += datas[i].need_piece;
+                if (TempDatas.ContainsKey(datas[i].character_id))
+                    TempDatas[datas[i].character_id] += datas[i].need_piece;
                 else
                 {
-                    TempDatas.Add(datas[i].id, datas[i].need_piece);
+                    TempDatas.Add(datas[i].character_id, datas[i].need_piece);
                 }
             }
 
@@ -279,7 +279,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(datas[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(datas[i].character_id);
                 GachItems[i].InitItem(idxCharcater, datas[i].need_piece, i, datas);
             }
 
@@ -307,7 +307,7 @@ namespace CookApps.AutoBattler
             {
                 if(_datas[i].need_piece < 20)
                     continue;
-                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(_datas[i].id);
+                SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get(_datas[i].character_id);
                 if (idxCharcater.grade_type == GradeType.LEGEND)
                 {
                     skipDatas.Add(_datas[i]);
@@ -395,7 +395,7 @@ namespace CookApps.AutoBattler
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
             fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-            fx.GetComponent<GetNewCharacter>().SetChracater(skipDatas[skipCnt].id, ShowSkipCharacterFX);
+            fx.GetComponent<GetNewCharacter>().SetChracater(skipDatas[skipCnt].character_id, ShowSkipCharacterFX);
             skipCnt++;
         }
         private int[] generatorRandomNumber(int count)
@@ -495,13 +495,13 @@ namespace CookApps.AutoBattler
 
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
-            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( _datas[cnt].id);
+            SpecCharacter idxCharcater = SpecDataManager.Instance.SpecCharacter.Get( _datas[cnt].character_id);
             if (_datas[cnt].need_piece == 20)
             {
                 if (idxCharcater.grade_type == GradeType.LEGEND)
                 {
                     fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
+                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].character_id, ShowGetFX);
 
                     if (skipDatas.Contains(_datas[cnt]))
                     {
@@ -560,14 +560,14 @@ namespace CookApps.AutoBattler
                     // }
 
                     fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].id, ShowGetFX);
+                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt].character_id, ShowGetFX);
 
                 }
             }
             else
             {
                 fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-                fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].id, _datas[cnt].need_piece, ShowGetFX);
+                fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt].character_id, _datas[cnt].need_piece, ShowGetFX);
             }
 
             cnt++;

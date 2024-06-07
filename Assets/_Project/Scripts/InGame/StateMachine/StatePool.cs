@@ -19,7 +19,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public T GetState<T>() where T : StateBase, new()
+        public T Get<T>() where T : StateBase, new()
         {
             T state;
             Type type = typeof(T);
@@ -36,7 +36,7 @@ namespace CookApps.BattleSystem
             return state;
         }
 
-        public StateBase GetState(Type stateType)
+        public StateBase Get(Type stateType)
         {
             StateBase state;
             if (pools.ContainsKey(stateType) && pools[stateType].Count > 0)
@@ -52,7 +52,7 @@ namespace CookApps.BattleSystem
             return state;
         }
 
-        public void Push<T>(T state) where T : StateBase
+        public void Return<T>(T state) where T : StateBase
         {
             Type type = typeof(T);
             if (pools.ContainsKey(type))
