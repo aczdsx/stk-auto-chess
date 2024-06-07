@@ -41,9 +41,54 @@ namespace CookApps.BattleSystem
             return _tiles[index];
         }
 
-        public InGameTile GetEmptyTile()
+        public InGameTile GetRandomEmptyTile(AllianceType allianceType)
         {
-            return _tiles.FirstOrDefault(t => t.OccupiedCharacter == null);
+            var emptyTiles = _tiles.Where(t => t.View.AllianceType == allianceType && t.OccupiedCharacter == null)
+                .ToList();
+            if (emptyTiles.Count == 0)
+            {
+                return null;
+            }
+
+            var random = new System.Random();
+            int randomIndex = random.Next(emptyTiles.Count);
+            return emptyTiles[randomIndex];
+        }
+
+        public InGameTile GetRecommandedTile(SpecCharacter spec)
+        {
+            int midPoint = Width / 2;
+            int[] xOrder = Enumerable.Range(0, Width)
+                .Select(i => midPoint - i >= 0 ? midPoint - i : i - midPoint)
+                .ToArray();
+            int yPosition = 0;
+
+            if (spec.character_position_type == CharacterPositionType.TANK ||
+                spec.character_position_type == CharacterPositionType.WARRIOR)
+            {
+                yPosition = 2;
+            }
+            else if (spec.character_position_type == CharacterPositionType.WIZARD ||
+                     spec.character_position_type == CharacterPositionType.SUPPORTER)
+            {
+                yPosition = 1;
+            }
+            else if (spec.character_position_type == CharacterPositionType.RANGER ||
+                     spec.character_position_type == CharacterPositionType.ASSASSIN)
+            {
+                yPosition = 0;
+            }
+
+            foreach (int x in xOrder)
+            {
+                var tile = _tiles.FirstOrDefault(t =>  t.X == x && t.Y == yPosition && t.OccupiedCharacter == null);
+                if (tile != null)
+                {
+                    return tile;
+                }
+            }
+
+            return GetRandomEmptyTile(AllianceType.Player);
         }
 
         public InGameTile[] GetManhattanDistanceTiles(InGameTile centerTile, int distance)

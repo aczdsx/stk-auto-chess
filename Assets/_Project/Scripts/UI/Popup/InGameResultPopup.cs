@@ -26,6 +26,8 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private List<GameObject> _starList;
 
+        [SerializeField] private Image _illustImage;
+
         private bool _isVictory = false;
         private int _star = 0;
 
@@ -43,6 +45,7 @@ namespace CookApps.AutoBattler
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
+            _illustImage.sprite = ImageManager.Instance.GetCharacterIllustSprite(40101); // [TODO] MVP 관리 필요
 
             for (int i = 0; i < _starList.Count; i++)
             {

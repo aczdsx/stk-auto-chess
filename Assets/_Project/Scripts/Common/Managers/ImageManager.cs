@@ -111,7 +111,7 @@ namespace CookApps.AutoBattler
 
         public Sprite GetCharacterInGamePortraitSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"IngameChaPortrait_{prefabID}");
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_INGAME_PORTRAIT_ATLAS_NAME, $"IngameChaPortrait_{prefabID}");
         }
 
         public Sprite GetCharacterStigmaSprite(int prefabID)

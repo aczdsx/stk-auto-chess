@@ -113,7 +113,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private async void AddCharacterToTile(CharacterStatData statData)
     {
         Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
-        var ingameTile = InGameObjectManager.Instance.InGameGrid.GetEmptyTile();
+        var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
         int2 pos = new int2(ingameTile.X, ingameTile.Y);
 
         await UniTask.WhenAll(new[]
