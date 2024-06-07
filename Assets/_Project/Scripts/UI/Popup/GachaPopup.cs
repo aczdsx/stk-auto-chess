@@ -31,6 +31,9 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
+
+            // test
+            //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));
         }
 
         private void OnClickGacha1Button()

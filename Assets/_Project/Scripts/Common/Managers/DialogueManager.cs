@@ -18,19 +18,40 @@ namespace CookApps.AutoBattler
             // 다이얼로그 재생 여부 확인
             if (IsWatchedDialogueEvent(eventType, subKeyValue)) return;
 
+            bool needSave = false;
+
+            // 다이얼로그 팝업 생성
             switch (eventType)
             {
                 case DialogueEventType.FIRST_IN:
                     SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                    needSave = true;
+
                     break;
                 case DialogueEventType.POPUP_OPEN:
+                    if (SceneUILayerManager.Instance.GetUILayer(subKeyValue) != null)
+                    {
+                        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                        needSave = true;
+                    }
+
                     break;
                 case DialogueEventType.STAGE_CLEAR:
+                    int stageID = int.Parse(subKeyValue);
+                    if (UserDataManager.Instance.IsClearStage(stageID))
+                    {
+                        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                        needSave = true;
+                    }
+
                     break;
             }
 
             // 다이얼로그 히스토리 데이터 추가 및 저장
-            UserDataManager.Instance.AddDialogHistory(dialogueGroupID);
+            if (needSave)
+            {
+                UserDataManager.Instance.AddDialogHistory(dialogueGroupID);
+            }
         }
 
         // 다이얼로그 재생 여부 확인

@@ -343,12 +343,13 @@ namespace CookApps.TeamBattle.UIManagements
 
         private void PushUILayerInternal(UILayerStackData uiLayerStackData, object data)
         {
+            uiLayerStacks.Add(uiLayerStackData);
+            uiLayerStacks.Sort(UILayerStackData.SortByInc);
+
             uiLayerStackData.Layer.CachedGo.SetActive(true);
             uiLayerStackData.Layer.OnPreEnter(data);
             uiLayerStackData.SetState(UILayerState.Entering);
             OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerStackData.Key, uiLayerStackData.Layer);
-            uiLayerStacks.Add(uiLayerStackData);
-            uiLayerStacks.Sort(UILayerStackData.SortByInc);
 
             // managing z order
             isDimLayerOn = false;
