@@ -1,6 +1,8 @@
 
+using System;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using UnityEditor.Rendering;
 using UnityEngine.Pool;
 
 /// <summary>
@@ -97,20 +99,19 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
         InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, range, _rangeShapeType, enemies);
+
+        Span<double> debuffStats = stackalloc double[2];
+        debuffStats.Clear();
+        debuffStats[0] = debuffDuration;
+        debuffStats[1] = debuffPower;
+
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
 
-            unsafe
-            {
-                double* debuffStats = stackalloc double[2];
-                debuffStats[0] = debuffDuration;
-                debuffStats[1] = debuffPower;
-
-                var debuffCodeInfo = new EffectCodeInfo(codeId*10+1, 0, 2, debuffStats);
-                enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
-            }
+            var debuffCodeInfo = new EffectCodeInfo(codeId*10+1, 0, 2, debuffStats);
+            enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
         }
     }
 

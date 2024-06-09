@@ -24,7 +24,7 @@ namespace CookApps.BattleSystem
         private ObfuscatorDouble stat8;
         private int statsLength;
 
-        public unsafe EffectCodeInfo(int codeId, int priority, int statsLength, double* stats)
+        public EffectCodeInfo(int codeId, int priority, int statsLength, ReadOnlySpan<double> stats)
         {
             this.codeId = codeId;
             this.priority = priority;

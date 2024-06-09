@@ -138,25 +138,7 @@ namespace CookApps.BattleSystem
             needUpdateFlag = EffectCodeInheritFlagExtensions.AllFlags();
             ecc.OnChangedDirtyFlag += EffectCodeOnChangedDirtyFlagHandler;
 
-            unsafe
-            {
-                foreach (var skillID in statData.Spec.skill_ids)
-                {
-                    var skillDataList = SpecDataManager.Instance.GetSkillDataList(skillID);
-                    if (skillDataList != null && skillDataList.Count > 0)
-                    {
-                        double* d = stackalloc double[8];
-                        d[0] = skillDataList[0].base_rate; // cool time
-                        for (int i = 1; i < skillDataList.Count; i++)
-                        {
-                            d[i] = skillDataList[i].base_rate;
-                        }
-
-                        var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, skillDataList.Count, d);
-                        ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-                    }
-                }
-            }
+            AddSkillEffectCodes();
 
             _currHp = HP;
             IsAlive = true;
@@ -178,6 +160,27 @@ namespace CookApps.BattleSystem
             Addressables.ReleaseInstance(view.gameObject);
             view = null;
             _hpBarView = null;
+        }
+
+        private void AddSkillEffectCodes()
+        {
+            Span<double> stats = stackalloc double[8];
+            foreach (var skillID in _statData.Spec.skill_ids)
+            {
+                var skillDataList = SpecDataManager.Instance.GetSkillDataList(skillID);
+                if (skillDataList != null && skillDataList.Count > 0)
+                {
+                    stats.Clear();
+                    stats[0] = skillDataList[0].base_rate; // cool time
+                    for (int i = 1; i < skillDataList.Count; i++)
+                    {
+                        stats[i] = skillDataList[i].base_rate;
+                    }
+
+                    var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, skillDataList.Count + 1, stats);
+                    ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                }
+            }
         }
 
         public void SetSelectedCharacter(bool isSetSelected)
