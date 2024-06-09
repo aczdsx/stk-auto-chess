@@ -24,7 +24,7 @@ namespace CookApps.BattleSystem
         private ObfuscatorDouble stat8;
         private int statsLength;
 
-        public EffectCodeInfo(int codeId, int priority, int statsLength, ReadOnlySpan<double> stats)
+        public EffectCodeInfo(int codeId, int priority, int statsLength, in ReadOnlySpan<double> stats)
         {
             this.codeId = codeId;
             this.priority = priority;
