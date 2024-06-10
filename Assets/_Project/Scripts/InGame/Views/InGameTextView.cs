@@ -2,10 +2,8 @@ using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
@@ -14,42 +12,40 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text _txtDamage;
         [SerializeField] private TMP_Text _textCritDamage;
 
-        [SerializeField] private GameObject _damageObj;
-        [SerializeField] private SpriteRenderer _critDamageSpriteRenderer;
-
         [SerializeField] private Transform _root;
-
         [SerializeField] private Animator _animator;
 
         private TMP_Text _damageText;
-        private Ease _ease;
-        private float _duration;
-        private static readonly int IsCritical = Animator.StringToHash("IsCritical");
+        private static readonly int Critical = Animator.StringToHash("Critical");
+        private static readonly int Normal = Animator.StringToHash("Normal");
 
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
-            CachedGo.SetActive(true);
-
-            _damageObj.SetActive(!isCritical);
-            _critDamageSpriteRenderer.gameObject.SetActive(isCritical);
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
             _damageText.text = $"{damage}";
 
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
+            _animator.SetTrigger(isCritical ? Critical : Normal);
 
-            _animator.SetBool(IsCritical, isCritical);
+            await WaitForAnimationEnd();
         }
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
         {
-            CachedGo.SetActive(true);
-            _damageText.text = $"Heal Amount : {healAmount}";
+            _damageText.text = $"{healAmount}";
 
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
+            _animator.SetTrigger(Normal);
+            
+            await WaitForAnimationEnd();
+        }
 
-            _animator.SetBool(IsCritical, false);
+        private async UniTask WaitForAnimationEnd()
+        {
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            await UniTask.WaitUntil(() => stateInfo.normalizedTime >= 1f);
         }
     }
 

@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
 
-            //SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
+            SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
         }
 
         protected override void OnDestroy()
@@ -176,11 +176,11 @@ namespace CookApps.AutoBattler
 
         private void TestAddCharacter()
         {
-            UserDataManager.Instance.AddCharacter(40101);
-            UserDataManager.Instance.AddCharacter(30201);
-            UserDataManager.Instance.AddCharacter(40201);
-            UserDataManager.Instance.AddCharacter(40301);
-            UserDataManager.Instance.AddCharacter(30401);
+            // UserDataManager.Instance.AddCharacter(40101);
+            // UserDataManager.Instance.AddCharacter(30201);
+            // UserDataManager.Instance.AddCharacter(40201);
+            // UserDataManager.Instance.AddCharacter(40301);
+            // UserDataManager.Instance.AddCharacter(30401);
         }
 
         private void TestAddStage()

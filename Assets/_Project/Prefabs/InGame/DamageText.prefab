@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3140673202993913047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -331,8 +331,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtDamage: {fileID: 6364900939099001491}
   _textCritDamage: {fileID: 7259707319273919424}
-  _damageObj: {fileID: 5489735239309609743}
-  _critDamageSpriteRenderer: {fileID: 7343325407435149577}
   _root: {fileID: 5851131040658997946}
   _animator: {fileID: 4378550466312692077}
 --- !u!95 &4378550466312692077
@@ -432,7 +430,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2966876927
+    rgba: 4292276991
   m_fontColor: {r: 1, g: 0.9494737, b: 0.84000003, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -509,8 +507,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtDamage: {fileID: 0}
   _textCritDamage: {fileID: 0}
-  _damageObj: {fileID: 0}
-  _critDamageSpriteRenderer: {fileID: 0}
   _root: {fileID: 5022929028321057971}
   _animator: {fileID: 0}
 --- !u!23 &1394675291190371963
