@@ -39,9 +39,9 @@ namespace CookApps.AutoBattler
             _victoryObj.SetActive(_isVictory);
 
             if (_isVictory)
-                _victoryStageText.text = StringUtil.GetStageString(InGameMain.GetInGameMain().SpecStage);
+                _victoryStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
             else
-                _failStageText.text =  StringUtil.GetStageString(InGameMain.GetInGameMain().SpecStage);
+                _failStageText.text =  StringUtil.GetStageString(InGameManager.Instance.SpecStage);
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
@@ -69,10 +69,9 @@ namespace CookApps.AutoBattler
 
         private void CreateRewardItems()
         {
-            var inGameMain = InGameMain.GetInGameMain();
-            var userStage = UserDataManager.Instance.GetUserStage(inGameMain.SpecStage.id);
-            var rewardList = SpecDataManager.Instance.GetSpecStageReward(inGameMain.SpecStage.reward_id)
-                .FindAll(l => l.difficulty_type == inGameMain.SpecStage.difficulty_type);
+            var userStage = UserDataManager.Instance.GetUserStage(InGameManager.Instance.SpecStage.id);
+            var rewardList = SpecDataManager.Instance.GetSpecStageReward(InGameManager.Instance.SpecStage.reward_id)
+                .FindAll(l => l.difficulty_type == InGameManager.Instance.SpecStage.difficulty_type);
 
             foreach (var rewardItem in rewardList)
             {

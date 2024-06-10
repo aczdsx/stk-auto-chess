@@ -19,7 +19,6 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
-        public SpecStage SpecStage=> _specStage;
         public float InGameTime => _inGameTime;
         [SerializeField] private InGameTopUI _InGameTopUI;
         [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
@@ -28,7 +27,6 @@ namespace CookApps.AutoBattler
         private float _inGameTime = 0f;
         private const float UpdateInterval = 0.5f;
         private const float InGameMaxTime = 60f;
-        private SpecStage _specStage;
 
         public static InGameMain GetInGameMain()
         {
@@ -54,7 +52,9 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            InitializeInGame().Forget();
+            (int chapter, int stageIndex, DifficultyType difficultyType) = ((int, int, DifficultyType)) param;
+            var specStage = SpecDataManager.Instance.GetStageData(chapter, stageIndex, difficultyType);
+            InGameManager.Instance.StartInGame<FlowStateStageReady>(specStage, specStage);
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
         }
 
@@ -93,13 +93,6 @@ namespace CookApps.AutoBattler
                     _updateTimer -= UpdateInterval;
                 }
             }
-        }
-
-        private async UniTask InitializeInGame()
-        {
-            _specStage = InGameResourceHolder.SpecStage;
-
-            InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
         }
     }
 }

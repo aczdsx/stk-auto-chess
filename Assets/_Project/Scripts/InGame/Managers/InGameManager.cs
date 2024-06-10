@@ -14,6 +14,7 @@ namespace CookApps.BattleSystem
     public class InGameManager : SingletonMonoBehaviour<InGameManager>
     {
         #region GameInfo
+        public SpecStage SpecStage { get; private set; }
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
@@ -35,8 +36,9 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region InGame Cycle
-        public void StartInGame<T>(object stateData) where T : StateBase, new()
+        public void StartInGame<T>(SpecStage specStage, object stateData) where T : StateBase, new()
         {
+            SpecStage = specStage;
             IsInGamePlaying = true;
             // 순서 중요!
             InGameVfxManager.Instance.Initialize();
