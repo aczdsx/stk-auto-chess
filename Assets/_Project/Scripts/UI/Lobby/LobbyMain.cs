@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
 
-            SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
+            //SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
         }
 
         protected override void OnDestroy()
@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler
             if (_stageSlotList == null || _stageSlotList.Count <= 0) return;
 
             // 기본 데이터 갱신
-            int currentStageId = UserDataManager.Instance.GetCurrentStageId();
+            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
 
             var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStageId);
             var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(stageSpecData.chapter_id);
@@ -121,8 +121,8 @@ namespace CookApps.AutoBattler
             SetBottomStageUI();
 
             //TEST
-            TestAddCharacter();
-            TestAddStage();
+            //TestAddCharacter();
+            //TestAddStage();
         }
 
         private void SetUserInfoLayer()
@@ -150,11 +150,11 @@ namespace CookApps.AutoBattler
         {
             ClearBottomSlotLayer();
 
-            int currentStagdId = UserDataManager.Instance.GetCurrentStageId();
-            int currentChapterId = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
+            int currentStagdId = UserDataManager.Instance.GetLastPlayStageID();
+            SpecStage stageSpec = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
 
             var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
-            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
+            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(stageSpec.chapter_id);
 
             var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty_type);
 
@@ -225,7 +225,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickChapterStageButton()
         {
-            int currentStageId = UserDataManager.Instance.GetCurrentStageId();
+            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterListPopup>(currentStageId).Forget();
         }
 

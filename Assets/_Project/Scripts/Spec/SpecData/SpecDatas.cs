@@ -138,6 +138,7 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class SpecCharacter
     {
+        /// 유니크ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 캐릭터_id

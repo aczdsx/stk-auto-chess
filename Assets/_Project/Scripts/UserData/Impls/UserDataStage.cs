@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
@@ -10,6 +11,9 @@ namespace CookApps.AutoBattler
 
         public UserStageGroup UserStageGroup => userStageGroup;
 
+        // Cached Data
+        private Dictionary<int, Dictionary<int, List<UserStage>>> _cachedUserStageDic = new(); // ChapterID -> DifficultyType -> UserStage List
+
         [Initialize(DataCategory.UserStageGroup, 1)]
         private void Initialize_StageGroup(string data)
         {
@@ -17,14 +21,11 @@ namespace CookApps.AutoBattler
             {
                 userStageGroup = new UserStageGroup
                 {
-                    CurrentSelectedChapterId = 1,
-                    CurrentNormalStageId = 4,
-                    CurrentHardStageId = 7,
-                    LastNormalStageId = 17,
-                    LastHardStageId = 9,
+                    LastPlayStageId = 1,
                 };
                 return;
             }
+
             userStageGroup = MessageUtility.FromBase64String<UserStageGroup>(data);
         }
 
@@ -34,22 +35,19 @@ namespace CookApps.AutoBattler
             userStageGroup = null;
         }
 
-        public void SelectUserChapter(int chapterID)
+        public void SetLastPlayStageID(int stageID, bool needSave)
         {
-            userStageGroup.CurrentSelectedChapterId = chapterID;
+            userStageGroup.LastPlayStageId = stageID;
+
+            if (needSave)
+            {
+                SaveUserStage();
+            }
         }
 
-        public void SelectUserStage(int stageID, DifficultyType type)
+        public int GetLastPlayStageID()
         {
-            switch (type)
-            {
-                case DifficultyType.NORMAL:
-                    userStageGroup.CurrentNormalStageId = stageID;
-                    break;
-                case DifficultyType.HARD:
-                    userStageGroup.CurrentHardStageId = stageID;
-                    break;
-            }
+            return userStageGroup.LastPlayStageId;
         }
 
         public void SetUserStage(int stageID, int starCount)
@@ -91,39 +89,6 @@ namespace CookApps.AutoBattler
             }
 
             return totalStarCount;
-        }
-
-        // 현재 진행 중인 스테이지 ID 반환 (현재 선택중인 챕터 기반)
-        public int GetCurrentStageId()
-        {
-            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(userStageGroup.CurrentSelectedChapterId);
-
-            if (chapterSpecData != null)
-            {
-                switch (chapterSpecData.difficulty_type)
-                {
-                    case DifficultyType.NORMAL:
-                        return userStageGroup.CurrentNormalStageId;
-                    case DifficultyType.HARD:
-                        return userStageGroup.CurrentHardStageId;
-                }
-            }
-
-            return 0;
-        }
-
-        // 진행 가능한 최대 스테이지 ID 반환
-        public int GetLastStageId(DifficultyType type)
-        {
-            switch (type)
-            {
-                case DifficultyType.NORMAL:
-                    return userStageGroup.LastNormalStageId;
-                case DifficultyType.HARD:
-                    return userStageGroup.LastHardStageId;
-            }
-
-            return 0;
         }
 
         // 챕터 개방 여부 확인

@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
             _userStageData = UserDataManager.Instance.GetUserStage(_specStageData.id);
 
             _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.id);
-            _isCurrentStage = UserDataManager.Instance.GetCurrentStageId() == _specStageData.id;
+            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.id;
 
             SetStageState();
         }
@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
         public void RefershSlot()
         {
             _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.id);
-            _isCurrentStage = UserDataManager.Instance.GetCurrentStageId() == _specStageData.id;
+            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.id;
 
             SetStageState();
         }
@@ -142,7 +142,7 @@ namespace CookApps.AutoBattler
         private void OnClickBottomStageSlot()
         {
             // 유저 데이터 갱신
-            UserDataManager.Instance.SelectUserStage(_specStageData.id, _specStageData.difficulty_type);
+            //UserDataManager.Instance.SelectUserStage(_specStageData.id, _specStageData.difficulty_type);
 
             // 로비 메인 하단 스테이지 UI 갱신
             var lobbyMain = SceneUILayerManager.Instance.GetUILayer("LobbyMain");

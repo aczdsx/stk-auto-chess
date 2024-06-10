@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
-            var currentChapterId = UserDataManager.Instance.UserStageGroup.CurrentSelectedChapterId;
+            var currentChapterId = UserDataManager.Instance.GetLastPlayStageID();
             _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
 
             SetChapterListUI();
@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
             if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
 
             // 유저 데이터 처리
-            UserDataManager.Instance.SelectUserChapter(targetID);
+            UserDataManager.Instance.SetLastPlayStageID(targetID, true);
 
             // 팝업 관련 처리
             _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(targetID);;
