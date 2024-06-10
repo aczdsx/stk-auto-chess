@@ -47,35 +47,35 @@ namespace CookApps.AutoBattler
 
             var tcs = new UniTaskCompletionSource();
 
-            Tween.Custom(
-                initialPosition,
-                targetPosition,
-                onValueChange: (value) =>
-                {
-                    if (_root)
-                    {
-                        _root.position = value;
-                        if (isCritical)
-                        {
-                            var color = _textCritDamage.color;
-                            color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
-                            _textCritDamage.color = color;
-
-                            var color1 = _critDamageSpriteRenderer.color;
-                            color1.a = color.a;
-                            _critDamageSpriteRenderer.color = color1;
-                        }
-                        else
-                        {
-                            var color = _txtDamage.color;
-                            color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
-                            _txtDamage.color = color;
-                        }
-                    }
-                },
-                duration: _duration,
-                ease: _ease
-            ).OnComplete(this, target => tcs.TrySetResult());
+            // Tween.Custom(
+            //     initialPosition,
+            //     targetPosition,
+            //     onValueChange: (value) =>
+            //     {
+            //         if (_root)
+            //         {
+            //             _root.position = value;
+            //             if (isCritical)
+            //             {
+            //                 var color = _textCritDamage.color;
+            //                 color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
+            //                 _textCritDamage.color = color;
+            //
+            //                 var color1 = _critDamageSpriteRenderer.color;
+            //                 color1.a = color.a;
+            //                 _critDamageSpriteRenderer.color = color1;
+            //             }
+            //             else
+            //             {
+            //                 var color = _txtDamage.color;
+            //                 color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
+            //                 _txtDamage.color = color;
+            //             }
+            //         }
+            //     },
+            //     duration: _duration,
+            //     ease: _ease
+            // ).OnComplete(this, target => tcs.TrySetResult());
 
             await tcs.Task;
         }
