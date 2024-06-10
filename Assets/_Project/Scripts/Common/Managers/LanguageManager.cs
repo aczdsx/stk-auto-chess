@@ -7,6 +7,11 @@ namespace CookApps.AutoBattler
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
+        public string GetLanguageText(string tokenKey)
+        {
+            return SpecDataManager.Instance.GetLanguageText(tokenKey);
+        }
+        
         public string GetSynergyText(ElementType type)
         {
             switch (type)

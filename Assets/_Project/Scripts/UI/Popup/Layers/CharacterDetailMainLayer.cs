@@ -90,7 +90,7 @@ namespace CookApps.AutoBattler
             string sdPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
             AddressablesUtil.Instantiate(sdPrefabName, _characterSDParentObject.transform);
 
-            _characterNameText.text = _specCharacterData.name_token;
+            _characterNameText.text = LanguageManager.Instance.GetLanguageText(_specCharacterData.name_token);
             _characterGradeText.text = LanguageManager.Instance.GetGradeText(_specCharacterData.grade_type);
 
             _elementSynergyUI.SetSynergyUI(_specCharacterData.element_type);

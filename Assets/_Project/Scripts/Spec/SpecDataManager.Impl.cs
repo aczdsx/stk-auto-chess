@@ -52,6 +52,7 @@ namespace CookApps.AutoBattler
             CustomizeSpecData();
         }
 
+        private Dictionary<string, SpecLanguage> languageDic = new (); // key : token_key, value : language data
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
         private Dictionary<int, List<SpecChapter>> chapterDic = new (); // key : chapter_id, value : chapter list
         private Dictionary<int, List<SpecStage>> stageChapterDic = new (); // key : chapter_id, value : stage list
@@ -65,6 +66,16 @@ namespace CookApps.AutoBattler
 
         private void CustomizeSpecData()
         {
+            // Language
+            languageDic.Clear();
+            foreach (SpecLanguage language in SpecLanguage.All)
+            {
+                if (!languageDic.ContainsKey(language.token_key))
+                {
+                    languageDic.Add(language.token_key, language);
+                }
+            }
+
             // Chest
             chestDic.Clear();
             foreach (SpecChest chest in SpecChest.All)
@@ -190,6 +201,16 @@ namespace CookApps.AutoBattler
                     inGameVfxDic.Add(inGameVfx.vfx_name_type, inGameVfx);
                 }
             }
+        }
+
+        public string GetLanguageText(string tokenKey)
+        {
+            if (languageDic.TryGetValue(tokenKey, out SpecLanguage languageData))
+            {
+                return languageData.language_kr;
+            }
+
+            return string.Empty;
         }
 
         public T GetGameConfig<T>(string key)
