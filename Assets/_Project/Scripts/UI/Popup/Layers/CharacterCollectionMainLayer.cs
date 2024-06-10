@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.SpecData;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,9 @@ namespace CookApps.AutoBattler
 
     public class CharacterCollectionMainLayer : CachedMonoBehaviour
     {
+        [SerializeField] private CAButton _backButton;
+
+        [Space(10)]
         [SerializeField] private ScrollRect _characterScrollRect;
         [SerializeField] private GameObject _characterCardSlotObject;
 
@@ -30,6 +34,18 @@ namespace CookApps.AutoBattler
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
 
         private CharacterCollectionPopup _parentCollectionPopup;
+
+        private void Awake()
+        {
+            _backButton.onClick.AddListener(OnClickBackButton);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _backButton.onClick.RemoveListener(OnClickBackButton);
+        }
 
         public void InitLayer(CharacterCollectionPopup _parentPopup)
         {
@@ -92,6 +108,11 @@ namespace CookApps.AutoBattler
             _characterCardSlotList.Clear();
 
             BMUtil.RemoveChildObjects(_characterScrollRect.content);
+        }
+
+        private void OnClickBackButton()
+        {
+            SceneUILayerManager.Instance.PopUILayer("CharacterCollectionPopup");
         }
     }
 }

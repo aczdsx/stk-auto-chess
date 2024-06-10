@@ -47,12 +47,16 @@ public partial class SROptions
     [Category("아이템 관련")]
     public void 아이템추가()
     {
+        if (원하는아이템갯수 <= 0) return;
+
         UserDataManager.Instance.IncreaseItem(원하는아이템타입, 원하는아이템갯수, true);
     }
 
     [Category("아이템 관련")]
     public void 아이템제거()
     {
+        if (원하는아이템갯수 <= 0) return;
+
         UserDataManager.Instance.DecreaseItem(원하는아이템타입, 원하는아이템갯수, true);
     }
 
@@ -60,6 +64,35 @@ public partial class SROptions
     public ItemType 원하는아이템타입 { get; set; } = ItemType.GOLD;
     [Category("아이템 관련")]
     public int 원하는아이템갯수 { get; set; } = 0;
+
+    #endregion
+
+    //////////////////////////////////////////////////////////////////////////////////
+
+    #region 캐릭터 관련
+
+    [Category("캐릭터 관련")]
+    public void 캐릭터획득()
+    {
+        if (원하는캐릭터ID <= 0) return;
+
+        UserDataManager.Instance.AddNewCharacter(원하는캐릭터ID);
+    }
+
+    [Category("캐릭터 관련")]
+    public void 캐릭터조각추가()
+    {
+        if (원하는캐릭터ID <= 0) return;
+        if (원하는캐릭터조각갯수 <= 0) return;
+
+        UserDataManager.Instance.IncreaseKnightPieceCount(원하는캐릭터ID, 원하는캐릭터조각갯수);
+    }
+
+    [Category("캐릭터 관련")]
+    public int 원하는캐릭터ID { get; set; } = 0;
+
+    [Category("캐릭터 관련")]
+    public int 원하는캐릭터조각갯수 { get; set; } = 0;
 
     #endregion
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
@@ -12,12 +13,29 @@ namespace CookApps.AutoBattler
         private UserCharacterGroup userCharacterGroup;
         public static event Action<UserCharacter> OnUserCharacterChanged;
 
+        public MapField<int, UserCharacter> UserCharacterDic => userCharacterGroup.UserCharacters;
+
         [Initialize(DataCategory.UserCharacterGroup)]
         void Initialize_CharacterGroup(string data)
         {
             if (string.IsNullOrEmpty(data))
             {
                 userCharacterGroup = new UserCharacterGroup();
+
+                // 전체 캐릭터 리스트 생성
+                var allCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
+                foreach (var character in allCharacterList)
+                {
+                    userCharacterGroup.UserCharacters.Add(character.prefab_id, new UserCharacter
+                    {
+                        CharacterId = character.prefab_id,
+                        Level = 0, // 0: 미획득, 1 이상: 획득
+                        Exp = 0,
+                        StarLevel = character.init_star,
+                        CharacterPiece = 0,
+                    });
+                }
+
                 return;
             }
 
@@ -32,54 +50,53 @@ namespace CookApps.AutoBattler
 
         public int[] GetAllCharacterIds()
         {
-            return userCharacterGroup.UserCharacters.Select(x => x.CharacterId).ToArray();
+            return userCharacterGroup.UserCharacters.Keys.ToArray();
         }
 
-        public void AddCharacter(int characterId)
+        public void IncreaseKnightPieceCount(int prefabID, int pieceCount)
         {
-            TestSpecCharacter specCharacter = SpecDataManager.Instance.TestSpecCharacter.Get(characterId);
-            UserCharacter userCharacter = null;
-            foreach (UserCharacter user in userCharacterGroup.UserCharacters)
+            if (UserCharacterDic.ContainsKey(prefabID))
             {
-                if (user.CharacterId == characterId)
-                {
-                    userCharacter = user;
-                    break;
-                }
-            }
+                UserCharacterDic[prefabID].CharacterPiece += pieceCount;
 
-            if (userCharacter == null)
-            {
-                userCharacter = new UserCharacter
-                {
-                    CharacterId = characterId,
-                    Level = 1,
-                    Exp = 0,
-                    StarLevel = specCharacter.init_star,
-                };
-                userCharacterGroup.UserCharacters.Add(userCharacter);
+                SaveCharacterGroup();
             }
-            else
-            {
-                //userCharacter.StarExp += cardCount;
-            }
-
-            OnUserCharacterChanged?.Invoke(userCharacter);
         }
 
-        public RepeatedField<UserCharacter> GetAllUserCharacters()
+        public void DecreaseKnightPieceCount(int prefabID, int pieceCount)
         {
-            return userCharacterGroup.UserCharacters;
+            if (UserCharacterDic.ContainsKey(prefabID))
+            {
+                UserCharacterDic[prefabID].CharacterPiece -= pieceCount;
+
+                SaveCharacterGroup();
+            }
         }
 
-        public UserCharacter GetUserCharacter(int characterId)
+        // 캐릭터 획득 (조각으로 인한 획득 처리x)
+        public void AddNewCharacter(int prefabID)
         {
-            foreach (UserCharacter user in userCharacterGroup.UserCharacters)
+            if (UserCharacterDic.ContainsKey(prefabID))
             {
-                if (user.CharacterId == characterId)
-                {
-                    return user;
-                }
+                UserCharacterDic[prefabID].Level = 1;   // 0: 미획득, 1 이상: 획득
+
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[prefabID]);
+
+                SaveCharacterGroup();
+            }
+        }
+
+        public List<UserCharacter> GetAllUserCharacters()
+        {
+            return userCharacterGroup.UserCharacters.Values.ToList();
+        }
+
+        public UserCharacter GetUserCharacter(int prefabID)
+        {
+            UserCharacter resultData = null;
+            if (userCharacterGroup.UserCharacters.TryGetValue(prefabID, out resultData))
+            {
+                return resultData;
             }
 
             return null;
