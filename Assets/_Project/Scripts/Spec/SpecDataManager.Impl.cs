@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new (); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
-        private Dictionary<InGameVfxName, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
+        private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
 
         private void CustomizeSpecData()
         {
@@ -185,9 +185,9 @@ namespace CookApps.AutoBattler
             inGameVfxDic.Clear();
             foreach (SpecInGameVfx inGameVfx in SpecInGameVfx.All)
             {
-                if (!inGameVfxDic.ContainsKey(inGameVfx.vfx_name))
+                if (!inGameVfxDic.ContainsKey(inGameVfx.vfx_name_type))
                 {
-                    inGameVfxDic.Add(inGameVfx.vfx_name, inGameVfx);
+                    inGameVfxDic.Add(inGameVfx.vfx_name_type, inGameVfx);
                 }
             }
         }
@@ -401,9 +401,9 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public SpecInGameVfx GetInGameVfxData(InGameVfxName vfxName)
+        public SpecInGameVfx GetInGameVfxData(InGameVfxNameType vfxNameType)
         {
-            return inGameVfxDic.GetValueOrDefault(vfxName);
+            return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
     }
 }

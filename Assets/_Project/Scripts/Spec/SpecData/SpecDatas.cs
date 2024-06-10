@@ -290,6 +290,7 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 대화 발생 이벤트 타입
         public global::CookApps.AutoBattler.DialogueEventType dialogue_event_type;
+        /// 세부 타겟
         public string sub_key_value;
         /// 그룹  ID
         public CookApps.Obfuscator.ObfuscatorInt dialouge_group_id;
@@ -402,7 +403,7 @@ namespace CookApps.AutoBattler
         /// #스킬 설명
         public string skill_desc;
         /// # 사용 이펙트
-        public global::CookApps.AutoBattler.InGameVfxName[] skill_vfxs;
+        public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs;
         /// #변수 의미
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 스킬 계수
@@ -590,7 +591,7 @@ namespace CookApps.AutoBattler
     {
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        public global::CookApps.AutoBattler.InGameVfxName vfx_name;
+        public global::CookApps.AutoBattler.InGameVfxNameType vfx_name_type;
         public string addressable_path;
         public CookApps.Obfuscator.ObfuscatorInt tile_effect;
         public bool always;

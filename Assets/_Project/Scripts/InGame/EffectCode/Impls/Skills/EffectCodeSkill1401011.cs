@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
@@ -19,6 +20,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private InGameVfx _vfx;
     private InGameVfx _vfxProjectile;
+
+    private List<CharacterController> _hitCharacters;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -107,14 +110,17 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        if (tile.OccupiedCharacter == null)
+        var tileFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_darkness, InGameObjectManager.Instance.Playground);
+        tileFx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+
+        if (tile.OccupiedCharacter == null || _hitCharacters.Contains(tile.OccupiedCharacter))
             return;
 
         var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0, tile.OccupiedCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
         tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-        // var vfx = InGameVfxManager.Instance.AddInGameVfx("Skill_40101", tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+        _hitCharacters.Add(tile.OccupiedCharacter);
     }
 
     public override void OnSkillAnimationEnd()

@@ -218,7 +218,7 @@ namespace CookApps.AutoBattler
         FIRST_IN = 3,
     }
 
-    public enum InGameVfxName
+    public enum InGameVfxNameType
     {
         Skill_140101 = 1,
         Skill_140101_1 = 2,
@@ -231,5 +231,10 @@ namespace CookApps.AutoBattler
         fx_common_buff_shield_02 = 9,
         fx_common_buff_spdup_01 = 10,
         fx_common_buff_spdup_02 = 11,
+        fx_common_area_darkness = 12,
+        fx_common_area_earth = 13,
+        fx_common_area_fire = 14,
+        fx_common_area_light = 15,
+        fx_common_area_water = 16,
     }
 }

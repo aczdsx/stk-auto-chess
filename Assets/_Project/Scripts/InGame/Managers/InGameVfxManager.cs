@@ -62,14 +62,47 @@ namespace CookApps.BattleSystem
         }
 
         #region Ingame Effect
-        public void WarmUpInGameVfx(InGameVfxName vfxName, int warmUpCount = 1)
+        public void WarmUpInGameVfx(InGameVfxNameType vfxNameType, int warmUpCount = 1)
         {
-            InGameVfxPool.WarmUp(vfxName, warmUpCount);
+            InGameVfxPool.WarmUp(vfxNameType, warmUpCount);
         }
 
-        public InGameVfx AddInGameVfx(InGameVfxName vfxName, Transform parent)
+        public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, Transform parent)
         {
-            var effect = InGameVfxPool.Get(vfxName, parent);
+            var effect = InGameVfxPool.Get(vfxNameType, parent);
+            addWaitingInGameVfxs.Enqueue(effect);
+            return effect;
+        }
+
+        public InGameVfx AddInGameTIleFx(ElementType type, Transform parent)
+        {
+            InGameVfxNameType vfxNameType = (InGameVfxNameType) 0;
+            if (type == ElementType.DARK)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_area_darkness;
+            }
+            else if (type == ElementType.FIRE)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_area_fire;
+            }
+            else if (type == ElementType.WIND)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_area_water; // [TODO] wind 필요
+            }
+            else if (type == ElementType.LIGHT)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_area_light;
+            }
+            else if (type == ElementType.EARTH)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_area_earth;
+            }
+            else if (type == ElementType.WATER)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_area_water;
+            }
+
+            var effect = InGameVfxPool.Get(vfxNameType, parent);
             addWaitingInGameVfxs.Enqueue(effect);
             return effect;
         }
@@ -82,20 +115,20 @@ namespace CookApps.BattleSystem
 
         private class InGameVfxPool
         {
-            private static Dictionary<InGameVfxName, ObjectPool<InGameVfx>> pools = new ();
+            private static Dictionary<InGameVfxNameType, ObjectPool<InGameVfx>> pools = new ();
 #if CHECK_POOL_LEAKING
             private static HashSet<InGameVfx> allRunningVfxs = new ();
 #endif
 
-            internal static void WarmUp(InGameVfxName vfxName, int warmUpCount)
+            internal static void WarmUp(InGameVfxNameType vfxNameType, int warmUpCount)
             {
-                if (pools.ContainsKey(vfxName))
+                if (pools.ContainsKey(vfxNameType))
                     return;
 
                 var pool = new ObjectPool<InGameVfx>(
                     () =>
                     {
-                        var go = Addressables.InstantiateAsync(GetAddressablePath(vfxName)).WaitForCompletion();
+                        var go = Addressables.InstantiateAsync(GetAddressablePath(vfxNameType)).WaitForCompletion();
                         return go.GetComponent<InGameVfx>();
                     },
                     actionOnDestroy: vfx => Addressables.ReleaseInstance(vfx.CachedGo)
@@ -107,20 +140,20 @@ namespace CookApps.BattleSystem
                     pool.Release(vfx);
                 }
 
-                pools.Add(vfxName, pool);
+                pools.Add(vfxNameType, pool);
             }
 
-            internal static InGameVfx Get(InGameVfxName vfxName, Transform parent)
+            internal static InGameVfx Get(InGameVfxNameType vfxNameType, Transform parent)
             {
-                if (!pools.TryGetValue(vfxName, out var pool))
+                if (!pools.TryGetValue(vfxNameType, out var pool))
                 {
 
                     pool = new ObjectPool<InGameVfx>(
                         () =>
                         {
-                            var go = Addressables.InstantiateAsync(GetAddressablePath(vfxName)).WaitForCompletion();
+                            var go = Addressables.InstantiateAsync(GetAddressablePath(vfxNameType)).WaitForCompletion();
                             var vfx = go.GetComponent<InGameVfx>();
-                            vfx.VfxName = vfxName;
+                            vfx.VfxNameType = vfxNameType;
                             return vfx;
                         },
 #if CHECK_POOL_LEAKING
@@ -129,7 +162,7 @@ namespace CookApps.BattleSystem
 #endif
                         actionOnDestroy: vfx => Addressables.ReleaseInstance(vfx.CachedGo)
                     );
-                    pools.Add(vfxName, pool);
+                    pools.Add(vfxNameType, pool);
                 }
 
                 var vfx = pool.Get();
@@ -141,7 +174,7 @@ namespace CookApps.BattleSystem
             internal static void Return(InGameVfx vfx)
             {
                 vfx.CachedGo.SetActive(false);
-                if (pools.TryGetValue(vfx.VfxName, out var pool))
+                if (pools.TryGetValue(vfx.VfxNameType, out var pool))
                 {
                     pool.Release(vfx);
                 }
@@ -161,9 +194,9 @@ namespace CookApps.BattleSystem
                 pools.Clear();
             }
 
-            private static string GetAddressablePath(InGameVfxName vfxName)
+            private static string GetAddressablePath(InGameVfxNameType vfxNameType)
             {
-                return SpecDataManager.Instance.GetInGameVfxData(vfxName).addressable_path;
+                return SpecDataManager.Instance.GetInGameVfxData(vfxNameType).addressable_path;
             }
         }
         #endregion

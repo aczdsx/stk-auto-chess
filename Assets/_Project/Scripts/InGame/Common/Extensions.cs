@@ -43,7 +43,7 @@ namespace CookApps.BattleSystem
             return cachedInGameVfxAnimKeyStringMap[index];
         }
 
-        public static InGameVfxName GetOneShotVfxName(this BuffDebuffType type)
+        public static InGameVfxNameType GetOneShotVfxName(this BuffDebuffType type)
         {
             return type switch
             {
@@ -52,7 +52,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Bleeding => "",
                 // BuffDebuffType.Poison => "",
                 // BuffDebuffType.Burn => "",
-                BuffDebuffType.AttackUp => InGameVfxName.fx_common_buff_atkup_01,
+                BuffDebuffType.AttackUp => InGameVfxNameType.fx_common_buff_atkup_01,
                 // BuffDebuffType.DefenceUp => "",
                 // BuffDebuffType.ResistanceUp => "",
                 // BuffDebuffType.AttackDown => "",
@@ -73,7 +73,7 @@ namespace CookApps.BattleSystem
             };
         }
 
-        public static InGameVfxName GetLoopVfxName(this BuffDebuffType type)
+        public static InGameVfxNameType GetLoopVfxName(this BuffDebuffType type)
         {
             return type switch
             {
@@ -82,7 +82,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Bleeding => "",
                 // BuffDebuffType.Poison => "",
                 // BuffDebuffType.Burn => "",
-                BuffDebuffType.AttackUp => InGameVfxName.fx_common_buff_atkup_02,
+                BuffDebuffType.AttackUp => InGameVfxNameType.fx_common_buff_atkup_02,
                 // BuffDebuffType.DefenceUp => "",
                 // BuffDebuffType.ResistanceUp => "",
                 // BuffDebuffType.AttackDown => "",
