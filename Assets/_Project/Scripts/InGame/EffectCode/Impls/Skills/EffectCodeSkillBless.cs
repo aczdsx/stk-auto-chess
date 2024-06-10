@@ -1,4 +1,5 @@
 
+using System;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using UnityEngine.Pool;
@@ -97,20 +98,19 @@ public class EffectCodeSkillBless : EffectCodeCharacterBase
         // 주변 적에게 데미지를 입힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
         InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, range, _rangeShapeType, enemies);
+
+        Span<double> debuffStats = stackalloc double[2];
+        debuffStats.Clear();
+        debuffStats[0] = buffDuration;
+        debuffStats[1] = buffPower;
+
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
 
-            unsafe
-            {
-                double* debuffStats = stackalloc double[2];
-                debuffStats[0] = buffDuration;
-                debuffStats[1] = buffPower;
-
-                var debuffCodeInfo = new EffectCodeInfo(codeId * 10 + 1, 0, 2, debuffStats);
-                enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
-            }
+            var debuffCodeInfo = new EffectCodeInfo(codeId * 10 + 1, 0, 2, debuffStats);
+            enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
         }
     }
 
