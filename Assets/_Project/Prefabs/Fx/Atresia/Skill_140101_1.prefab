@@ -4902,6 +4902,7 @@ GameObject:
   - component: {fileID: 1466199019738714316}
   - component: {fileID: 4740677429996779697}
   - component: {fileID: 6919915148954573190}
+  - component: {fileID: -6205987323484610950}
   m_Layer: 0
   m_Name: Skill_140101_1
   m_TagString: Untagged
@@ -9791,6 +9792,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.50344723, y: 0.2, z: 4.4747605}
   m_Center: {x: 1.2904593, y: 0, z: -0.014507771}
+--- !u!114 &-6205987323484610950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953615991184124113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bec246eb56b9f44acb4ba0cb0d781a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &3432325217327312830
 GameObject:
   m_ObjectHideFlags: 0

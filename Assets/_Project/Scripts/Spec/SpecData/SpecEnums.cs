@@ -168,6 +168,7 @@ namespace CookApps.AutoBattler
         AD = 1,
         AP = 2,
         ALL = 3,
+        NONE = 4,
     }
 
     public enum SkillValueType
@@ -219,8 +220,8 @@ namespace CookApps.AutoBattler
 
     public enum InGameVfxName
     {
-        Skill_40101 = 1,
-        Skill_40101_1 = 2,
+        Skill_140101 = 1,
+        Skill_140101_1 = 2,
         fx_common_buff_atkup_01 = 3,
         fx_common_buff_atkup_02 = 4,
         fx_common_buff_ctdown_01 = 5,

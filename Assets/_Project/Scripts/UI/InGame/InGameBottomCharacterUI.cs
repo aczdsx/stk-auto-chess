@@ -43,11 +43,11 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _characterStats.Add(new CharacterStatData(130601, 10));
         _characterStats.Add(new CharacterStatData(140402, 10));
 
-        var userCharacters = UserDataManager.Instance.GetAllUserCharacters();
-        foreach (var character in userCharacters)
-        {
-            _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level));
-        }
+        // var userCharacters = UserDataManager.Instance.GetAllUserCharacters();
+        // foreach (var character in userCharacters)
+        // {
+        //     _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level));
+        // }
 
         UpdateData();
     }

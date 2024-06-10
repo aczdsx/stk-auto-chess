@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -19,6 +20,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Material _disorveMaterial;
         private AnimationEventListener _animationEventListener;
         public CharacterStatData GetStatData() => _statData;
+        public bool CachedFlipX => _cachedFlipX;
+        public bool CachedFront => _cachedFront;
         public float Height => 2.0f;
         private readonly float _hitDurationTime = 0.2f;
         public event Action<AnimationKey, AnimationEventKey> OnAnimationEvent;

@@ -43,6 +43,7 @@ namespace CookApps.BattleSystem
 
         public virtual void Initialize(bool isFlipX, InGameVfxMovementBase movementBase = null)
         {
+            movement = movementBase;
             CachedTr.localPosition = movementBase?.CurrentPosition ?? Vector3.zero;
             SetFlipX(isFlipX);
         }

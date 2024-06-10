@@ -19,15 +19,12 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Transform _root;
 
-        [SerializeField] private float _normalDuration = 1.3f;
-        [SerializeField] private Ease _normalEase;
-
-        [SerializeField] private float _critDuration = 1.3f;
-        [SerializeField] private Ease _critEase;
+        [SerializeField] private Animator _animator;
 
         private TMP_Text _damageText;
         private Ease _ease;
         private float _duration;
+        private static readonly int IsCritical = Animator.StringToHash("IsCritical");
 
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
@@ -36,48 +33,12 @@ namespace CookApps.AutoBattler
             _damageObj.SetActive(!isCritical);
             _critDamageSpriteRenderer.gameObject.SetActive(isCritical);
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
-            _duration = (isCritical) ? _critDuration : _normalDuration;
-            _ease = (isCritical) ? _critEase : _normalEase;
             _damageText.text = $"{damage}";
 
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
 
-            Vector3 targetPosition = initialPosition + Vector3.up * 0.8f;
-
-            var tcs = new UniTaskCompletionSource();
-
-            // Tween.Custom(
-            //     initialPosition,
-            //     targetPosition,
-            //     onValueChange: (value) =>
-            //     {
-            //         if (_root)
-            //         {
-            //             _root.position = value;
-            //             if (isCritical)
-            //             {
-            //                 var color = _textCritDamage.color;
-            //                 color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
-            //                 _textCritDamage.color = color;
-            //
-            //                 var color1 = _critDamageSpriteRenderer.color;
-            //                 color1.a = color.a;
-            //                 _critDamageSpriteRenderer.color = color1;
-            //             }
-            //             else
-            //             {
-            //                 var color = _txtDamage.color;
-            //                 color.a = 1 - (value.y - initialPosition.y) / (targetPosition.y - initialPosition.y);
-            //                 _txtDamage.color = color;
-            //             }
-            //         }
-            //     },
-            //     duration: _duration,
-            //     ease: _ease
-            // ).OnComplete(this, target => tcs.TrySetResult());
-
-            await tcs.Task;
+            _animator.SetBool(IsCritical, isCritical);
         }
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
@@ -88,15 +49,7 @@ namespace CookApps.AutoBattler
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
 
-            Vector3 targetPosition = initialPosition + Vector3.up * 0.5f;
-
-            Tween.Custom(
-                initialPosition,
-                targetPosition,
-                onValueChange: (Vector3 value) => { _root.position = value; },
-                duration: _duration,
-                ease: _ease
-            ).OnComplete(this, target => CachedGo.SetActive(false));
+            _animator.SetBool(IsCritical, false);
         }
     }
 

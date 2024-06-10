@@ -63,9 +63,9 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat atkSpd;
         public CookApps.Obfuscator.ObfuscatorInt atkRange;
         public global::CookApps.AutoBattler.AttackRangeShape atkRangeShape;
-        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
+        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
         public CookApps.Obfuscator.ObfuscatorInt equipment_id;
-        public CookApps.Obfuscator.ObfuscatorInt[] upgrade_skill_ids = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
+        public CookApps.Obfuscator.ObfuscatorInt[] upgrade_skill_ids;
         public CookApps.Obfuscator.ObfuscatorFloat scale;
     }
 
@@ -193,7 +193,7 @@ namespace CookApps.AutoBattler
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.AttackRangeShape atk_range_shape;
         /// 일반 스킬 id
-        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
+        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
         /// 전용 장비 id
         public CookApps.Obfuscator.ObfuscatorInt equipment_id;
         /// 전용 스킬 id
@@ -388,7 +388,7 @@ namespace CookApps.AutoBattler
         /// 스킬 타입
         public global::CookApps.AutoBattler.SkillType skill_type;
         /// 캐릭터 ID
-        public CookApps.Obfuscator.ObfuscatorInt character_id;
+        public CookApps.Obfuscator.ObfuscatorInt prefab_id;
         /// 전용 무기 id
         public CookApps.Obfuscator.ObfuscatorInt weapon_id;
         /// #스킬 사용자
@@ -402,7 +402,7 @@ namespace CookApps.AutoBattler
         /// #스킬 설명
         public string skill_desc;
         /// # 사용 이펙트
-        public global::CookApps.AutoBattler.InGameVfxName[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxName>();
+        public global::CookApps.AutoBattler.InGameVfxName[] skill_vfxs;
         /// #변수 의미
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 스킬 계수
@@ -594,8 +594,8 @@ namespace CookApps.AutoBattler
         public string addressable_path;
         public CookApps.Obfuscator.ObfuscatorInt tile_effect;
         public bool always;
-        public CookApps.Obfuscator.ObfuscatorInt[] character = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
-        public CookApps.Obfuscator.ObfuscatorInt[] count = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
+        public CookApps.Obfuscator.ObfuscatorInt[] character;
+        public CookApps.Obfuscator.ObfuscatorInt[] count;
     }
 
     [GeneratorSpecData]

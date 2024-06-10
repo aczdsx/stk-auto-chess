@@ -226,5 +226,33 @@ namespace CookApps.BattleSystem
         {
             return pos.x >= 0 && pos.x < Width && pos.y >= 0 && pos.y < Height;
         }
+
+        public InGameTile GetDirectionalTile(CharacterController characterController)
+        {
+            bool isFront = characterController.GetCharacterView().CachedFront;
+            bool isFlip = characterController.GetCharacterView().CachedFlipX;
+
+            int directionX = characterController.CurrentTile.X;
+            int directionY = characterController.CurrentTile.Y;
+
+            if (!isFront && isFlip)
+            {
+                directionX += 1;
+            }
+            else if (!isFront && !isFlip)
+            {
+                directionY += 1;
+            }
+            else if (isFront && isFlip)
+            {
+                directionY -= 1;
+            }
+            else
+            {
+                directionX -= 1;
+            }
+
+            return _tiles.FirstOrDefault(t => t.X == directionX && t.Y == directionY);
+        }
     }
 }

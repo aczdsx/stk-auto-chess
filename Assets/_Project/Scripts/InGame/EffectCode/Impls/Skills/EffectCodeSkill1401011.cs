@@ -1,3 +1,4 @@
+using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
@@ -17,6 +18,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     private bool isSkillActivated;
 
     private InGameVfx _vfx;
+    private InGameVfx _vfxProjectile;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -81,13 +83,25 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var specSkill = SpecDataManager.Instance.SpecSkill.Get(codeId);
+        var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+
+        // 검기 VFX
         _vfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
         _vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+
+        // 발사체 VFX
+        _vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], InGameObjectManager.Instance.Playground);
+        _vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-        _vfx.Initialize(false, movement);
-        movement.SetData(_vfx.CachedTr.position, owner.Target.GetCharacterView().CachedTr.position, 1);
-        _vfx.OnCollisionWithTile += OnCollision2DEnter;
+
+        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetDirectionalTile(owner);
+        if (inGameTile != null)
+        {
+            movement.SetData(_vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
+            _vfxProjectile.Initialize(false, movement);
+            _vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+        }
+
         isSkillActivated = false;
     }
 

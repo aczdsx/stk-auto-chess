@@ -185,10 +185,10 @@ namespace CookApps.AutoBattler
             inGameVfxDic.Clear();
             foreach (SpecInGameVfx inGameVfx in SpecInGameVfx.All)
             {
-                // if (!inGameVfxDic.ContainsKey(inGameVfx.vfxName))
-                // {
-                //     inGameVfxDic.Add(inGameVfx.vfxName, inGameVfx);
-                // }
+                if (!inGameVfxDic.ContainsKey(inGameVfx.vfx_name))
+                {
+                    inGameVfxDic.Add(inGameVfx.vfx_name, inGameVfx);
+                }
             }
         }
 

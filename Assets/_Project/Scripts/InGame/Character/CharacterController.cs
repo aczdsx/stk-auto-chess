@@ -36,6 +36,11 @@ namespace CookApps.BattleSystem
             return view;
         }
 
+        // public InGameTileView GetCharacterDirectionTileView()
+        // {
+        //     return InGameObjectManager.Instance.InGameGrid.GetDirectionalTile(view);
+        // }
+
         public event Action<CharacterStateBase> OnStateChanged;
 
         public CharacterController Target { get; set; }
