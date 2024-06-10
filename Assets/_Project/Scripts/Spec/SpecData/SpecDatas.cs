@@ -401,6 +401,8 @@ namespace CookApps.AutoBattler
         public string skill_desc_token;
         /// #스킬 설명
         public string skill_desc;
+        /// # 사용 이펙트
+        public global::CookApps.AutoBattler.InGameVfxName[] skill_vfxs;
         /// 스킬 계수 타입
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 스킬 계수
@@ -588,7 +590,7 @@ namespace CookApps.AutoBattler
     {
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        public global::CookApps.AutoBattler.SkillVfxName effect_name;
+        public global::CookApps.AutoBattler.InGameVfxName vfx_name;
         public string addressable_path;
         public CookApps.Obfuscator.ObfuscatorInt tile_effect;
         public bool always;

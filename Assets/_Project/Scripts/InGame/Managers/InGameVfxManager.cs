@@ -62,16 +62,13 @@ namespace CookApps.BattleSystem
         }
 
         #region Ingame Effect
-        public InGameVfx AddInGameVfx(string vfxName, Transform parent)
+        public void WarmUpInGameVfx(InGameVfxName vfxName, int warmUpCount = 1)
         {
-            var effect = InGameVfxPool.Get(vfxName, parent);
-            addWaitingInGameVfxs.Enqueue(effect);
-            return effect;
+            InGameVfxPool.WarmUp(vfxName, warmUpCount);
         }
 
-        public InGameVfx AddInGameVfx(int prefabID, int num, Transform parent)
+        public InGameVfx AddInGameVfx(InGameVfxName vfxName, Transform parent)
         {
-            string vfxName = num > 0 ? $"Skill_{prefabID}_{num}" : $"Skill_{prefabID}";
             var effect = InGameVfxPool.Get(vfxName, parent);
             addWaitingInGameVfxs.Enqueue(effect);
             return effect;
@@ -85,12 +82,12 @@ namespace CookApps.BattleSystem
 
         private class InGameVfxPool
         {
-            private static Dictionary<string, ObjectPool<InGameVfx>> pools = new ();
+            private static Dictionary<InGameVfxName, ObjectPool<InGameVfx>> pools = new ();
 #if CHECK_POOL_LEAKING
             private static HashSet<InGameVfx> allRunningVfxs = new ();
 #endif
 
-            internal static void WarmUp(string vfxName)
+            internal static void WarmUp(InGameVfxName vfxName, int warmUpCount)
             {
                 if (pools.ContainsKey(vfxName))
                     return;
@@ -104,13 +101,16 @@ namespace CookApps.BattleSystem
                     actionOnDestroy: vfx => Addressables.ReleaseInstance(vfx.CachedGo)
                 );
 
-                var vfx = pool.Get();
-                pool.Release(vfx);
+                for (var i = 0; i < warmUpCount; i++)
+                {
+                    var vfx = pool.Get();
+                    pool.Release(vfx);
+                }
 
                 pools.Add(vfxName, pool);
             }
 
-            internal static InGameVfx Get(string vfxName, Transform parent)
+            internal static InGameVfx Get(InGameVfxName vfxName, Transform parent)
             {
                 if (!pools.TryGetValue(vfxName, out var pool))
                 {
@@ -119,7 +119,9 @@ namespace CookApps.BattleSystem
                         () =>
                         {
                             var go = Addressables.InstantiateAsync(GetAddressablePath(vfxName)).WaitForCompletion();
-                            return go.GetComponent<InGameVfx>();
+                            var vfx = go.GetComponent<InGameVfx>();
+                            vfx.VfxName = vfxName;
+                            return vfx;
                         },
 #if CHECK_POOL_LEAKING
                         actionOnGet: vfx => allRunningVfxs.Add(vfx),
@@ -159,10 +161,9 @@ namespace CookApps.BattleSystem
                 pools.Clear();
             }
 
-            internal static string GetAddressablePath(string vfxName)
+            private static string GetAddressablePath(InGameVfxName vfxName)
             {
-                // return SpecDataManager.Instance.spec
-                return string.Empty;
+                return SpecDataManager.Instance.GetInGameVfxData(vfxName).addressable_path;
             }
         }
         #endregion

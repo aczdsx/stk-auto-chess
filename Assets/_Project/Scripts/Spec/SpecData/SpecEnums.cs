@@ -216,7 +216,7 @@ namespace CookApps.AutoBattler
         FIRST_IN = 3,
     }
 
-    public enum SkillVfxName
+    public enum InGameVfxName
     {
         Skill_40101 = 1,
         Skill_40101_1 = 2,

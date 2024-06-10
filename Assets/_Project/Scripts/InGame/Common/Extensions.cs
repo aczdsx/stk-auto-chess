@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 
 namespace CookApps.BattleSystem
 {
@@ -42,62 +43,62 @@ namespace CookApps.BattleSystem
             return cachedInGameVfxAnimKeyStringMap[index];
         }
 
-        public static string GetOneShotVfxName(this BuffDebuffType type)
+        public static InGameVfxName GetOneShotVfxName(this BuffDebuffType type)
         {
             return type switch
             {
-                BuffDebuffType.Meditation => "",
-                BuffDebuffType.Shield => "",
-                BuffDebuffType.Bleeding => "",
-                BuffDebuffType.Poison => "",
-                BuffDebuffType.Burn => "",
-                BuffDebuffType.AttackUp => "fx_common_buff_atkup_01",
-                BuffDebuffType.DefenceUp => "",
-                BuffDebuffType.ResistanceUp => "",
-                BuffDebuffType.AttackDown => "",
-                BuffDebuffType.DefenceDown => "",
-                BuffDebuffType.ResistanceDown => "",
-                BuffDebuffType.AttackSpeedUp => "",
-                BuffDebuffType.AttackSpeedDown => "",
-                BuffDebuffType.CriticalProbUp => "",
-                BuffDebuffType.CriticalProbDown => "",
-                BuffDebuffType.Slow => "",
-                BuffDebuffType.Entangle => "",
-                BuffDebuffType.Freezing => "",
-                BuffDebuffType.Stun => "",
-                BuffDebuffType.Provocation => "",
-                BuffDebuffType.Sleep => "",
-                BuffDebuffType.Invincibility => "",
+                // BuffDebuffType.Meditation => "",
+                // BuffDebuffType.Shield => "",
+                // BuffDebuffType.Bleeding => "",
+                // BuffDebuffType.Poison => "",
+                // BuffDebuffType.Burn => "",
+                BuffDebuffType.AttackUp => InGameVfxName.fx_common_buff_atkup_01,
+                // BuffDebuffType.DefenceUp => "",
+                // BuffDebuffType.ResistanceUp => "",
+                // BuffDebuffType.AttackDown => "",
+                // BuffDebuffType.DefenceDown => "",
+                // BuffDebuffType.ResistanceDown => "",
+                // BuffDebuffType.AttackSpeedUp => "",
+                // BuffDebuffType.AttackSpeedDown => "",
+                // BuffDebuffType.CriticalProbUp => "",
+                // BuffDebuffType.CriticalProbDown => "",
+                // BuffDebuffType.Slow => "",
+                // BuffDebuffType.Entangle => "",
+                // BuffDebuffType.Freezing => "",
+                // BuffDebuffType.Stun => "",
+                // BuffDebuffType.Provocation => "",
+                // BuffDebuffType.Sleep => "",
+                // BuffDebuffType.Invincibility => "",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
 
-        public static string GetLoopVfxName(this BuffDebuffType type)
+        public static InGameVfxName GetLoopVfxName(this BuffDebuffType type)
         {
             return type switch
             {
-                BuffDebuffType.Meditation => "",
-                BuffDebuffType.Shield => "",
-                BuffDebuffType.Bleeding => "",
-                BuffDebuffType.Poison => "",
-                BuffDebuffType.Burn => "",
-                BuffDebuffType.AttackUp => "fx_common_buff_atkup_02",
-                BuffDebuffType.DefenceUp => "",
-                BuffDebuffType.ResistanceUp => "",
-                BuffDebuffType.AttackDown => "",
-                BuffDebuffType.DefenceDown => "",
-                BuffDebuffType.ResistanceDown => "",
-                BuffDebuffType.AttackSpeedUp => "",
-                BuffDebuffType.AttackSpeedDown => "",
-                BuffDebuffType.CriticalProbUp => "",
-                BuffDebuffType.CriticalProbDown => "",
-                BuffDebuffType.Slow => "",
-                BuffDebuffType.Entangle => "",
-                BuffDebuffType.Freezing => "",
-                BuffDebuffType.Stun => "",
-                BuffDebuffType.Provocation => "",
-                BuffDebuffType.Sleep => "",
-                BuffDebuffType.Invincibility => "",
+                // BuffDebuffType.Meditation => "",
+                // BuffDebuffType.Shield => "",
+                // BuffDebuffType.Bleeding => "",
+                // BuffDebuffType.Poison => "",
+                // BuffDebuffType.Burn => "",
+                BuffDebuffType.AttackUp => InGameVfxName.fx_common_buff_atkup_02,
+                // BuffDebuffType.DefenceUp => "",
+                // BuffDebuffType.ResistanceUp => "",
+                // BuffDebuffType.AttackDown => "",
+                // BuffDebuffType.DefenceDown => "",
+                // BuffDebuffType.ResistanceDown => "",
+                // BuffDebuffType.AttackSpeedUp => "",
+                // BuffDebuffType.AttackSpeedDown => "",
+                // BuffDebuffType.CriticalProbUp => "",
+                // BuffDebuffType.CriticalProbDown => "",
+                // BuffDebuffType.Slow => "",
+                // BuffDebuffType.Entangle => "",
+                // BuffDebuffType.Freezing => "",
+                // BuffDebuffType.Stun => "",
+                // BuffDebuffType.Provocation => "",
+                // BuffDebuffType.Sleep => "",
+                // BuffDebuffType.Invincibility => "",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }

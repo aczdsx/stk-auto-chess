@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
@@ -80,7 +81,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        _vfx = InGameVfxManager.Instance.AddInGameVfx(owner.SpecCharacter.prefab_id, 0, InGameObjectManager.Instance.Playground);
+        var specSkill = SpecDataManager.Instance.SpecSkill.Get(codeId);
+        _vfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
         _vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         _vfx.Initialize(false, movement);

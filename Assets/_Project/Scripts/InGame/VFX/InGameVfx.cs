@@ -28,7 +28,7 @@ namespace CookApps.BattleSystem
         public event Action<CollisionType, InGameTile, InGameVfx> OnCollisionWithTile;
         public CollisionType CollisionMask { get; set; } = CollisionType.Enter | CollisionType.Exit;
 
-        public string VfxName { get; internal set; }
+        public InGameVfxName VfxName { get; internal set; }
         protected InGameVfxMovementBase movement;
         protected bool cachedFlipX = false;
 
