@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +11,9 @@ namespace CookApps.AutoBattler
 {
     public class CharacterDetailMainLayer : CachedMonoBehaviour
     {
+        [SerializeField] private CAButton _backButton;
+
+        [Space(10)]
         [SerializeField] private Image _characterIllustImage;
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
@@ -21,6 +26,18 @@ namespace CookApps.AutoBattler
         private CharacterCollectionPopup _parentCollectionPopup;
 
         private SpecCharacter _specCharacterData;
+
+        private void Awake()
+        {
+            _backButton.onClick.AddListener(OnClickBackButton);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _backButton.onClick.RemoveListener(OnClickBackButton);
+        }
 
         public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
         {
@@ -68,6 +85,13 @@ namespace CookApps.AutoBattler
             {
                 _starObjectList[i].SetActive(i <= (int)gradeType);
             }
+        }
+
+        private void OnClickBackButton()
+        {
+            if (_parentCollectionPopup == null) return;
+
+            _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.MAIN);
         }
     }
 }

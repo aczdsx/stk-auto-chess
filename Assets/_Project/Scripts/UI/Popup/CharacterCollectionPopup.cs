@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
+            //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             _currentTabType = CharacterCollectionPopupTabType.MAIN;
             _currentCharacterID = 0;
