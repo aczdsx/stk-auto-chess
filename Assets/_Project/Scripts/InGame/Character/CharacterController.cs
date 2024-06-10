@@ -584,7 +584,7 @@ namespace CookApps.BattleSystem
             _currHp -= damageInfo.damageAmount;
 
             // [TODO] statics 에러 납니답... ??
-            InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
+            // InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
 
             UpdateHp();
 

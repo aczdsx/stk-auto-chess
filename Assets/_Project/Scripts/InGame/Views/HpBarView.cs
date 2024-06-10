@@ -26,10 +26,13 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            _hpPlayerFillLeft.gameObject.SetActive(allianceType == AllianceType.Player);
-            _hpEnemyFillLeft.gameObject.SetActive(!_hpPlayerFillLeft.gameObject.activeSelf);
-            _selectedFillLeft = (allianceType == AllianceType.Player) ? _hpPlayerFillLeft : _hpEnemyFillLeft;
-            _hpFillSmoothGuage.color = (allianceType == AllianceType.Player) ? _playerSmoothColor : _enermySmoothColor;
+            bool isPlayer = allianceType == AllianceType.Player;
+
+            _hpPlayerFillLeft.gameObject.SetActive(isPlayer);
+            _hpEnemyFillLeft.gameObject.SetActive(!isPlayer);
+
+            _selectedFillLeft = isPlayer ? _hpPlayerFillLeft : _hpEnemyFillLeft;
+            _hpFillSmoothGuage.color = isPlayer ? _playerSmoothColor : _enermySmoothColor;
 
             _defalutSize = _selectedFillLeft.size;
         }
