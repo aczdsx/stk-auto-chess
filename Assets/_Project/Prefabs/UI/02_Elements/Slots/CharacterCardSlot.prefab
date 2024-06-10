@@ -1526,6 +1526,8 @@ MonoBehaviour:
   - {fileID: 3123738239943215801}
   - {fileID: 4745011027552450749}
   - {fileID: 4561192024793349012}
+  _characterSliderImage: {fileID: 5144593224637611278}
+  _characterSliderText: {fileID: 1131480714714275120}
 --- !u!114 &1078707308649889360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3043,7 +3045,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.33
+  m_FillAmount: 0.231
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

@@ -34,6 +34,10 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private List<GameObject> _starObjectList;
 
+        [Header("Character Info - Slider")]
+        [SerializeField] private Image _characterSliderImage;
+        [SerializeField] private TextMeshProUGUI _characterSliderText;
+
 
         private SpecCharacter _characterData;
         private UserCharacter _userCharacterData;
@@ -65,7 +69,7 @@ namespace CookApps.AutoBattler
             _characterData = characterData;
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.prefab_id);
 
-            bool haveCharacter = _userCharacterData != null;
+            bool haveCharacter = (_userCharacterData != null && _userCharacterData.Level > 0);
 
             // 기본 데이터 관련 세팅
             string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.prefab_id);
@@ -89,6 +93,10 @@ namespace CookApps.AutoBattler
             }
 
             SetStarObject(_characterData.grade_type);
+
+            // 캐릭터 조각 슬라이더 관련 처리
+            _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{_characterData.need_piece}";
+            _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / _characterData.need_piece;
 
             // 캐릭터 보유 여부 관련 처리
             _outlineActiveObject.SetActive(haveCharacter);
