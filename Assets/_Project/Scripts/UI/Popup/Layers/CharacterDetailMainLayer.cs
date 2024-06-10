@@ -14,7 +14,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _backButton;
 
         [Space(10)]
-        [SerializeField] private Image _characterIllustImage;
+        [SerializeField] private GameObject _characterIllustParentObject;
+        [SerializeField] private GameObject _characterSDParentObject;
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
         [SerializeField] private TextMeshProUGUI _characterNameText;
@@ -22,6 +23,10 @@ namespace CookApps.AutoBattler
 
         [Space(10)]
         [SerializeField] private List<GameObject> _starObjectList;
+
+        [Header("Category Toggle")]
+        [SerializeField] private CAToggle _growLayerTabButton;
+        [SerializeField] private CAToggle _skillLayerTabButton;
 
         private CharacterCollectionPopup _parentCollectionPopup;
 
@@ -39,12 +44,15 @@ namespace CookApps.AutoBattler
             _backButton.onClick.RemoveListener(OnClickBackButton);
         }
 
-        public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
+        public void InitLayer(int prefabID, CharacterCollectionPopup _parentPopup)
         {
             _parentCollectionPopup = _parentPopup;
 
-            _specCharacterData = SpecDataManager.Instance.SpecCharacter.Get(characterID);
+            _specCharacterData = SpecDataManager.Instance.GetCharacterData(prefabID);
 
+            ClearLayer();
+
+            SetTabState();
             SetCharacterInfo();
         }
 
@@ -62,13 +70,25 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.SKILL);
         }
 
+        private void SetTabState()
+        {
+            if (_parentCollectionPopup == null) return;
+
+            _growLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.GROW;
+            _skillLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.SKILL;
+        }
+
         private void SetCharacterInfo()
         {
             if (_specCharacterData == null) return;
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacterData.prefab_id);
-            _characterIllustImage.sprite = targetSprite;
-            _characterIllustImage.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            // 캐릭터 일러스트 생성
+            string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
+            AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+
+            // 캐릭터 SD 캐릭터 생성
+            string sdPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
+            AddressablesUtil.Instantiate(sdPrefabName, _characterSDParentObject.transform);
 
             _characterNameText.text = _specCharacterData.name_token;
             _characterGradeText.text = LanguageManager.Instance.GetGradeText(_specCharacterData.grade_type);
@@ -92,6 +112,12 @@ namespace CookApps.AutoBattler
             if (_parentCollectionPopup == null) return;
 
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.MAIN);
+        }
+
+        private void ClearLayer()
+        {
+            BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
+            BMUtil.RemoveChildObjects(_characterSDParentObject.transform);
         }
     }
 }

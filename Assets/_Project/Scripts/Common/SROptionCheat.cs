@@ -1,4 +1,4 @@
-#if !RELEASE || UNITY_EDITOR
+#if !RELEASE || UNITY_EDITOR || ENABLE_CHEAT
 using System;
 using System.ComponentModel;
 using CookApps.AutoBattler;

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UI_IllustCharacter
+  m_EditorClassIdentifier: 
+  m_GroupName: UI_IllustCharacter
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 75b355c893b081841a0c80583111e819
+  m_SerializeEntries:
+  - m_GUID: 2956a4e23f6086f4e8f2de41dce87ffa
+    m_Address: Illust_Cha_30601
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ceab8fe119968a8429503d9db9ecde12
+    m_Address: Illust_Cha_40103
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa74010772263af47a5c097643f88006
+    m_Address: Illust_Cha_40201
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f9c173b3883d424e82657217ce36cb8
+    m_Address: Illust_Cha_30401
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17d7a2adfd3264242b9f02847c117483
+    m_Address: Illust_Cha_40301
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca3e727f7c4b36f4f80961df4a613c21
+    m_Address: Illust_Cha_30201
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f9ecac29d67789546add8420ba3b224f
+    m_Address: Illust_Cha_40402
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20d593b4d3973b949870fc3d19861b37
+    m_Address: Illust_Cha_40601
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04a03de799aff6646b9d1292356d671e
+    m_Address: Illust_Cha_30301
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0246ba69934deb469cead1c8c01cf01
+    m_Address: Illust_Cha_40101
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 25713989118ce284d8115ed0c5bdfe99, type: 2}
+    - {fileID: 11400000, guid: 79aea5c5431ef1140b4452134178f347, type: 2}

@@ -86,6 +86,12 @@ namespace CookApps.AutoBattler
             }
         }
 
+        // 보유한 캐릭터 인지 확인용
+        public bool IsHaveCharacter(int prefabID)
+        {
+            return UserCharacterDic.ContainsKey(prefabID) && UserCharacterDic[prefabID].Level > 0;
+        }
+
         public List<UserCharacter> GetAllUserCharacters()
         {
             return userCharacterGroup.UserCharacters.Values.ToList();

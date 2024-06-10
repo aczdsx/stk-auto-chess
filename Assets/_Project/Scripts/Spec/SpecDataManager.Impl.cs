@@ -205,6 +205,11 @@ namespace CookApps.AutoBattler
             return configData.config_value.ConvertTo<T>();
         }
 
+        public SpecCharacter GetCharacterData(int prefabID)
+        {
+            return SpecCharacter.All.ToList().Find(character => character.prefab_id == prefabID);
+        }
+
         public List<SpecCharacter> GetCharacterListByCharacterType(CharacterType type)
         {
             return SpecCharacter.All.ToList().FindAll(character => character.character_type == type);

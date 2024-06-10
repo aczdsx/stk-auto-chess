@@ -31,6 +31,9 @@ namespace CookApps.AutoBattler
         private CharacterCollectionPopupTabType _currentTabType = CharacterCollectionPopupTabType.MAIN;
         private int _currentCharacterID;
 
+
+        public CharacterCollectionPopupTabType CurrentTabType => _currentTabType;
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
@@ -42,9 +45,9 @@ namespace CookApps.AutoBattler
             ChangeTabType(_currentTabType, true);
         }
 
-        public void SelectCharacterCard(int characterID)
+        public void SelectCharacterCard(int prefabID)
         {
-            _currentCharacterID = characterID;
+            _currentCharacterID = prefabID;
 
             ChangeTabType(CharacterCollectionPopupTabType.GROW);
         }
