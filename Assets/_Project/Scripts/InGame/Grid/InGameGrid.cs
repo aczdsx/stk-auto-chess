@@ -64,7 +64,7 @@ namespace CookApps.BattleSystem
             int yPosition = 0;
 
             if (spec.character_position_type == CharacterPositionType.TANK ||
-                spec.character_position_type == CharacterPositionType.WARRIOR)
+                spec.character_position_type == CharacterPositionType.GUARDIAN)
             {
                 yPosition = 2;
             }

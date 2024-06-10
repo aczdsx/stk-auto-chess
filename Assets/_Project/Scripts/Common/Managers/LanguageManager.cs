@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
             {
                 case CharacterPositionType.TANK:
                     return "탱커";
-                case CharacterPositionType.WARRIOR:
+                case CharacterPositionType.GUARDIAN:
                     return "전사";
                 case CharacterPositionType.RANGER:
                     return "레인저";

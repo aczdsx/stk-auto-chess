@@ -21,7 +21,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     private InGameVfx _vfx;
     private InGameVfx _vfxProjectile;
 
-    private List<CharacterController> _hitCharacters;
+    private List<CharacterController> _hitCharacters = new List<CharacterController>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -110,10 +110,13 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_darkness, InGameObjectManager.Instance.Playground);
-        tileFx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+        var tileFx = InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, InGameObjectManager.Instance.Playground);
+        tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-        if (tile.OccupiedCharacter == null || _hitCharacters.Contains(tile.OccupiedCharacter))
+        if (tile.OccupiedCharacter == null)
+            return;
+
+        if (_hitCharacters.Contains(tile.OccupiedCharacter))
             return;
 
         var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0, tile.OccupiedCharacter, codeId, true);

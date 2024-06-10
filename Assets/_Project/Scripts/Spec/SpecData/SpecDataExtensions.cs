@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
         {
             return position switch
             {
-                CharacterPositionType.WARRIOR => 0,
+                CharacterPositionType.GUARDIAN => 0,
                 CharacterPositionType.TANK => 0,
                 CharacterPositionType.RANGER => 1,
                 CharacterPositionType.WIZARD => 1,

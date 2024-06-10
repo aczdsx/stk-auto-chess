@@ -14747,6 +14747,7 @@ GameObject:
   - component: {fileID: 2576753558815927124}
   - component: {fileID: 8116472005544377937}
   - component: {fileID: 1121494989424638893}
+  - component: {fileID: -7981156840538509871}
   m_Layer: 0
   m_Name: fx_common_area_fire
   m_TagString: Untagged
@@ -19629,6 +19630,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-7981156840538509871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5089775935115836239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &5963986285393151122
 GameObject:
   m_ObjectHideFlags: 0

@@ -79,7 +79,7 @@ namespace CookApps.AutoBattler
                 case CharacterPositionType.TANK:
                     spriteName = isActive ? "Icon_Position_Tank_Active" : "Icon_Position_Tank_Locked";
                     break;
-                case CharacterPositionType.WARRIOR:
+                case CharacterPositionType.GUARDIAN:
                     spriteName = isActive ? "Icon_Position_Warrior_Active" : "Icon_Position_Warrior_Locked";
                     break;
                 case CharacterPositionType.RANGER:

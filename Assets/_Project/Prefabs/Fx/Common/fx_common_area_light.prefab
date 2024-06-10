@@ -9859,6 +9859,7 @@ GameObject:
   - component: {fileID: 5802262732744105533}
   - component: {fileID: 639977006285391096}
   - component: {fileID: 3660800016422892714}
+  - component: {fileID: -715741424709929394}
   m_Layer: 0
   m_Name: fx_common_area_light
   m_TagString: Untagged
@@ -14741,6 +14742,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-715741424709929394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535146379649804494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &4586435396994388399
 GameObject:
   m_ObjectHideFlags: 0

@@ -85,7 +85,7 @@ namespace CookApps.AutoBattler
     public enum CharacterPositionType
     {
         NONE = 0,
-        WARRIOR = 1,
+        GUARDIAN = 1,
         TANK = 2,
         WIZARD = 3,
         RANGER = 4,
