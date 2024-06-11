@@ -1265,6 +1265,7 @@ GameObject:
   - component: {fileID: 5217167247751755426}
   - component: {fileID: 6744790268615707002}
   - component: {fileID: 9043696379158507076}
+  - component: {fileID: 855843136436846277}
   m_Layer: 5
   m_Name: Ratio
   m_TagString: Untagged
@@ -1282,7 +1283,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2583310878414098235}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1388,6 +1389,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &855843136436846277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666990224139435604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040a308b071ff3499da3f2cc9ed890f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRatio: {fileID: 9043696379158507076}
+  defaultColor: {r: 0.99607843, g: 1, b: 0.9019608, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1748827382743172033
 GameObject:
   m_ObjectHideFlags: 0
@@ -4835,6 +4851,7 @@ GameObject:
   - component: {fileID: 7720376448546617994}
   - component: {fileID: 7456404822748484843}
   - component: {fileID: 8126812866209379399}
+  - component: {fileID: 8655547921947743591}
   m_Layer: 5
   m_Name: Ratio
   m_TagString: Untagged
@@ -4958,6 +4975,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8655547921947743591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971435780120050384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9040a308b071ff3499da3f2cc9ed890f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRatio: {fileID: 8126812866209379399}
+  defaultColor: {r: 0.99607843, g: 1, b: 0.9019608, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &5980439018123391763
 GameObject:
   m_ObjectHideFlags: 0
