@@ -3,12 +3,19 @@ using System;
 using System.ComponentModel;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UIManagements;
-using UnityEngine.Tilemaps;
 
 [Serializable]
 public partial class SROptions
 {
     #region 유저 정보 관련
+
+    [Category("유저 정보 관련")]
+    public void 유저가챠횟수초기화()
+    {
+        UserDataManager.Instance.UserBasicData.TotalGachaCount = 0;
+
+        UserDataManager.Instance.SaveUserBasic();
+    }
 
     [Category("유저 정보 관련")]
     public void 유저레벨데이터초기화()
