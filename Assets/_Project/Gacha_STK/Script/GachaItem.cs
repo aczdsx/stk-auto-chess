@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject PieceOnObject;
         [SerializeField] private Image PieceOnBackImage;
         [SerializeField] private Image PieceOnImage;
+        [SerializeField] private TextMeshProUGUI amountText;
 
         [SerializeField] private Slider piece2Slider;
         [SerializeField] private TextMeshProUGUI count2Text;
@@ -187,6 +188,9 @@ namespace CookApps.AutoBattler
 
                 KnighImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(characterData.prefab_id);
                 KnighColorImage.color = ImageManager.Instance.GetGradeTypeColor(characterData.grade_type);
+
+                amountText.text = $"x{_rewardItemData.Count}";
+
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {
                 //     // int tempPiece = 0;
@@ -271,6 +275,9 @@ namespace CookApps.AutoBattler
                 {
                     PieceOnImage.sprite = ImageManager.Instance.GetItemSprite(_rewardItemData.Type);
                 }
+
+                amountText.text = $"x{_rewardItemData.Count}";
+
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {
                 //
