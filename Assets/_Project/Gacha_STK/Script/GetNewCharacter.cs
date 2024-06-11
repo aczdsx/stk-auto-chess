@@ -117,9 +117,8 @@ namespace CookApps.AutoBattler
             TimeLineObject[10].SetActive(true);
             playObj = TimeLineObject[10].GetComponent<PlayableDirector>();
             playObj.Play();
-            PieceImageBG.sprite = ImageManager.Instance.GetSprite(Defines.STELLA_ICON_ATLAS_NAME,
-                $"Common_ChaPiece_{_specCharacter.grade_type.ToString()}");
-            PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"{_specCharacter.prefab_id}");
+            //PieceImageBG.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacter.prefab_id);
+            PieceImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacter.prefab_id);
             PieceCharNameText.text = _specCharacter.name_token;
             PieceAmountText.text = "x" + amount.ToString();
             // if (dataManager.UserData.isFirstGacha == true)
@@ -151,7 +150,10 @@ namespace CookApps.AutoBattler
             // dataManager.AddKnightPieceByGacha(chID,amount, false, EventLocation.GACHA_CHRACTER,null);
             Run.After(System.TimeSpan.FromSeconds(aniTime).Seconds, () =>
             {
-                TouchObject.SetActive(true);
+                if (this != null)
+                {
+                    TouchObject?.SetActive(true);
+                }
             });
         }
 
@@ -354,7 +356,10 @@ namespace CookApps.AutoBattler
             // dataManager.AddKnightPieceByGacha(characterID,20, true, EventLocation.GACHA_CHRACTER,null);
             Run.After(System.TimeSpan.FromSeconds(aniTime).Seconds, () =>
             {
-                TouchObject?.SetActive(true);
+                if (this != null)
+                {
+                    TouchObject?.SetActive(true);
+                }
             });
         }
 

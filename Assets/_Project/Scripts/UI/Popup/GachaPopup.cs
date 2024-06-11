@@ -43,12 +43,12 @@ namespace CookApps.AutoBattler
 
         private void OnClickGacha1Button()
         {
-            SpecCharacter result = SpecDataManager.Instance.GetCharacterData(40101);
-            List<SpecCharacter> tempResultList = new List<SpecCharacter>();
-            tempResultList.Add(result);
-
-            //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
-            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
+            // SpecCharacter result = SpecDataManager.Instance.GetCharacterData(40101);
+            // List<SpecCharacter> tempResultList = new List<SpecCharacter>();
+            // tempResultList.Add(result);
+            //
+            // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
+            // Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
 
         }
 
@@ -59,8 +59,16 @@ namespace CookApps.AutoBattler
             //Character result = SpecDataManager.Instance.Character.Get(40101);
             //allChar.Add(result);
 
+            var gacahaScenarios = SpecDataManager.Instance.SpecGachaScenario.All.ToList();
+            List<RewardItem> tempResultList = new List<RewardItem>();
+            for (int i = 0; i < 10; ++i)
+            {
+                RewardItem newItem = new RewardItem(gacahaScenarios[i].item_type, gacahaScenarios[i].item_key, gacahaScenarios[i].item_count);
+                tempResultList.Add(newItem);
+            }
+
             //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
-            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(allChar);
+            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(tempResultList);
         }
 
         private void OnClickCloseButton()

@@ -76,3 +76,10 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+  - assetRef:
+      m_AssetGUID: 2a08188687e084940a69dcce1fb15d79
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
