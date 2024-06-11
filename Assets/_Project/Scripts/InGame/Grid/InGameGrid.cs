@@ -13,6 +13,7 @@ namespace CookApps.BattleSystem
         public int Height { get; }
 
         private readonly InGameTile[] _tiles;
+
         private static readonly int2[] Directions =
         {
             new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
@@ -81,7 +82,7 @@ namespace CookApps.BattleSystem
 
             foreach (int x in xOrder)
             {
-                var tile = _tiles.FirstOrDefault(t =>  t.X == x && t.Y == yPosition && t.OccupiedCharacter == null);
+                var tile = _tiles.FirstOrDefault(t => t.X == x && t.Y == yPosition && t.OccupiedCharacter == null);
                 if (tile != null)
                 {
                     return tile;
@@ -106,7 +107,8 @@ namespace CookApps.BattleSystem
             return GetManhattanDistance(from, to) <= range;
         }
 
-        public void GetTilesInRange(InGameTile pivot, int range, BattleSystem.AttackRangeShape shape, List<InGameTile> resTiles)
+        public void GetTilesInRange(InGameTile pivot, int range, BattleSystem.AttackRangeShape shape,
+            List<InGameTile> resTiles)
         {
             foreach (var tile in _tiles)
             {
@@ -257,7 +259,8 @@ namespace CookApps.BattleSystem
 
         public List<InGameTile> GetTilesByCount(AllianceType type, int count)
         {
-            var tiles = _tiles.Where(t => t.OccupiedCharacter != null && t.OccupiedCharacter.AllianceType == type).ToList();
+            var tiles = _tiles.Where(t => t.OccupiedCharacter != null && t.OccupiedCharacter.AllianceType == type)
+                .ToList();
             if (tiles.Count == 0)
             {
                 return null;
@@ -272,9 +275,14 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public List<InGameTile> GetTilesByRow()
+        public List<InGameTile> GetTilesByRow(InGameTile tile)
         {
-            return _tiles.Where(t => t.X == x).ToList();
+            return _tiles.Where(t => t.X == tile.X).ToList();
+        }
+
+        public List<InGameTile> GetTilesByNearest(InGameTile tile)
+        {
+            return _tiles.OrderBy(t => GetManhattanDistance(tile, t)).ToList();
         }
     }
 }
