@@ -78,7 +78,9 @@ namespace CookApps.AutoBattler
         {
             ClearList();
 
-            foreach (var chapterData in SpecDataManager.Instance.SpecChapter.All)
+            var chapterList = SpecDataManager.Instance.GetChapterList(DifficultyType.NORMAL);
+
+            foreach (var chapterData in chapterList)
             {
                 GameObject newChapterObject = Instantiate(_chapterSlotObject, _chapterScrollRect.content);
                 ChapterListItemSlot chapterSlot = newChapterObject.GetComponent<ChapterListItemSlot>();

@@ -55,7 +55,9 @@ namespace CookApps.AutoBattler
         private Dictionary<string, SpecLanguage> languageDic = new (); // key : token_key, value : language data
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
         private Dictionary<int, List<SpecChapter>> chapterDic = new (); // key : chapter_id, value : chapter list
+        private Dictionary<DifficultyType, List<SpecChapter>> chapterDifficultDic = new (); // key : DifficultyType, value : chapter list
         private Dictionary<int, List<SpecStage>> stageChapterDic = new (); // key : chapter_id, value : stage list
+        private Dictionary<DifficultyType, List<SpecStage>> stageDifficultDic = new (); // key : DifficultyType, value : stage list
         private Dictionary<int, List<SpecStageMonster>> stageMonsterDic = new (); // key : chapter_id, value : stage list
         private Dictionary<int, List<SpecStageReward>> stageRewardDic = new (); // key : reward_id, value : stage list
         private Dictionary<int, List<SpecCharacter>> characterDic = new (); // key : character_id, value : stage list
@@ -91,6 +93,7 @@ namespace CookApps.AutoBattler
 
             // Chapter
             chapterDic.Clear();
+            chapterDifficultDic.Clear();
             foreach (SpecChapter chapter in SpecChapter.All)
             {
                 if (!chapterDic.TryGetValue(chapter.chapter_id, out List<SpecChapter> chapterList))
@@ -98,24 +101,37 @@ namespace CookApps.AutoBattler
                     chapterList = new List<SpecChapter>();
                     chapterDic.Add(chapter.chapter_id, chapterList);
                 }
-
                 chapterList.Add(chapter);
+
+                if (!chapterDifficultDic.TryGetValue(chapter.difficulty_type, out List<SpecChapter> chapterDifficultList))
+                {
+                    chapterDifficultList = new List<SpecChapter>();
+                    chapterDifficultDic.Add(chapter.difficulty_type, chapterDifficultList);
+                }
+                chapterDifficultList.Add(chapter);
             }
 
             // Stage
             stageChapterDic.Clear();
+            stageDifficultDic.Clear();
             foreach (SpecStage stage in SpecStage.All)
             {
-                if (!stageChapterDic.TryGetValue(stage.chapter_id, out List<SpecStage> stageList))
+                if (!stageChapterDic.TryGetValue(stage.chapter_id, out List<SpecStage> stageChapterList))
                 {
-                    stageList = new List<SpecStage>();
-                    stageChapterDic.Add(stage.chapter_id, stageList);
+                    stageChapterList = new List<SpecStage>();
+                    stageChapterDic.Add(stage.chapter_id, stageChapterList);
                 }
+                stageChapterList.Add(stage);
 
-                stageList.Add(stage);
+                if (!stageDifficultDic.TryGetValue(stage.difficulty_type, out List<SpecStage> stageDiffcultList))
+                {
+                    stageDiffcultList = new List<SpecStage>();
+                    stageDifficultDic.Add(stage.difficulty_type, stageDiffcultList);
+                }
+                stageDiffcultList.Add(stage);
             }
 
-            // Stage
+            // Stage Monster
             stageMonsterDic.Clear();
             foreach (SpecStageMonster stage in SpecStageMonster.All)
             {
@@ -128,7 +144,7 @@ namespace CookApps.AutoBattler
                 specStageMonster.Add(stage);
             }
 
-            // Stage
+            // Stage Reward
             stageRewardDic.Clear();
             foreach (SpecStageReward stage in SpecStageReward.All)
             {
@@ -246,11 +262,11 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public List<SpecChapter> GetChapterList(int chapter, DifficultyType difficulty)
+        public List<SpecChapter> GetChapterList(DifficultyType difficulty)
         {
-            if (chapterDic.TryGetValue(chapter, out List<SpecChapter> chapterList))
+            if (chapterDifficultDic.TryGetValue(difficulty, out List<SpecChapter> chapterList))
             {
-                return chapterList.FindAll(stage => stage.difficulty_type == difficulty);
+                return chapterList;
             }
 
             return null;
