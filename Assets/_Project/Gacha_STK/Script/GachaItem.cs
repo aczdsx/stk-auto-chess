@@ -84,7 +84,7 @@ namespace CookApps.AutoBattler
                 PieceBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Piece_Gray");
                 PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Gray");
             }
-            SigmaImage.sprite = ImageManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{_characterData.character_id}");
+            SigmaImage.sprite = ImageManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{_characterData.prefab_id}");
         }
 
         public void ChangeItem()
@@ -246,7 +246,7 @@ namespace CookApps.AutoBattler
                 KnightOnObject.SetActive(false);
                 PieceOnObject.SetActive(true);
 
-                PieceOnImage.sprite = ImageManager.Instance.GetSprite("Atlas_Character_Inventory", characterData.character_id.ToString());
+                PieceOnImage.sprite = ImageManager.Instance.GetSprite("Atlas_Character_Inventory", characterData.prefab_id.ToString());
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {
                 //

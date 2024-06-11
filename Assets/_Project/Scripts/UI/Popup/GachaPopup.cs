@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickGacha1Button()
         {
-            SpecCharacter result = SpecDataManager.Instance.SpecCharacter.Get(40101);
+            SpecCharacter result = SpecDataManager.Instance.GetCharacterData(40101);
             List<SpecCharacter> tempResultList = new List<SpecCharacter>();
             tempResultList.Add(result);
 
