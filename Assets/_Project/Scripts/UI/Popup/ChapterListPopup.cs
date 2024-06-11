@@ -10,6 +10,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ChapterListPopup.prefab")]
     public class ChapterListPopup : UILayer
     {
+        [SerializeField] private CAButton _closeButton;
+
         [Header("Chapter List Layer")]
         [SerializeField] private ScrollRect _chapterScrollRect;
         [SerializeField] private GameObject _chapterSlotObject;
@@ -26,10 +28,24 @@ namespace CookApps.AutoBattler
 
         private SpecChapter _selectedChapterData;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _closeButton.onClick.AddListener(OnClickCloseButton);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _closeButton.onClick.RemoveListener(OnClickCloseButton);
+        }
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
+            //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             var currentChapterId = UserDataManager.Instance.GetLastPlayStageID();
             _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
@@ -95,6 +111,11 @@ namespace CookApps.AutoBattler
             _chapterSlotList.Clear();
 
             BMUtil.RemoveChildObjects(_chapterScrollRect.content);
+        }
+
+        private void OnClickCloseButton()
+        {
+            SceneUILayerManager.Instance.PopUILayer(this);
         }
     }
 }
