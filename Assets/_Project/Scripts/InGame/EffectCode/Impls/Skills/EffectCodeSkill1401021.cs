@@ -12,8 +12,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 대미지 : 낫을 크게 휘둘러, 적에게 공격력 {0}%의 대미지를 준다.
 //     특수 효과 : 피격된 적은 {1}동안 공격력이 {2}% 감소한다.
 /// </summary>
-[UseEffectCodeIds(1401021)]
-public class EffectCodeSkill1401021 : EffectCodeCharacterBase
+[UseEffectCodeIds(1401031)]
+public class EffectCodeSkill1401031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _cooltime;
     private ObfuscatorFloat _power;

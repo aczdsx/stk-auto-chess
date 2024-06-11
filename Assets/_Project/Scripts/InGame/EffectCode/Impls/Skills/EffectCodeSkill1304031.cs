@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : 스킬로 적을 사망 시켰을 시, 스킬 쿨타임이 즉시 초기화된다.
 /// </summary>
 [UseEffectCodeIds(1304021)]
-public class EffectCodeSkill1304021 : EffectCodeCharacterBase
+public class EffectCodeSkill1304031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _cooltime;
     private ObfuscatorFloat _powerRate;
