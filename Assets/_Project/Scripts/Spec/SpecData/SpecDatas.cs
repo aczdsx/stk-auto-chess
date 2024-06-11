@@ -173,11 +173,11 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt stat_atk;
         /// 체력, 공격력 레벨 당 성장율
         public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
-        /// 방어력
+        /// 물리 방어력
         public CookApps.Obfuscator.ObfuscatorInt stat_def;
         /// 마법 방어력
         public CookApps.Obfuscator.ObfuscatorInt stat_res;
-        /// 관통력
+        /// 물리 관통력
         public CookApps.Obfuscator.ObfuscatorInt stat_atk_pierce;
         /// 마법 관통력
         public CookApps.Obfuscator.ObfuscatorInt stat_res_pierce;
@@ -395,6 +395,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt weapon_id;
         /// #스킬 사용자
         public string character_name;
+        /// #클래스 구분
+        public string 클래스;
         /// AP AD 판정 유무
         public global::CookApps.AutoBattler.AtkType atk_type;
         /// 스킬 이름 토큰

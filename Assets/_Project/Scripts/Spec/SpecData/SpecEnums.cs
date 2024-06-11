@@ -236,5 +236,13 @@ namespace CookApps.AutoBattler
         fx_common_area_fire = 14,
         fx_common_area_light = 15,
         fx_common_area_water = 16,
+        Skill_140402 = 17,
+        Skill_140402_1 = 18,
+        Skill_140402_2 = 19,
+        Skill_140402_3 = 20,
+        Skill_130201 = 21,
+        Skill_130601 = 22,
+        Skill_130601_1 = 23,
+        fx_common_hit_01 = 24,
     }
 }

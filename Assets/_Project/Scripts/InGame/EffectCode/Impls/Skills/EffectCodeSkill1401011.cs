@@ -124,6 +124,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (_hitCharacters.Contains(tile.OccupiedCharacter))
             return;
 
+        // var hitFx = InGameVfxManager.Instance.AddInGameVfx(vfxtypefx, tile.OccupiedCharacter);
+
         var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0, tile.OccupiedCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
         tile.OccupiedCharacter.GetDamaged(damage, owner);

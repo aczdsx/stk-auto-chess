@@ -254,5 +254,22 @@ namespace CookApps.BattleSystem
 
             return _tiles.FirstOrDefault(t => t.X == directionX && t.Y == directionY);
         }
+
+        public List<InGameTile> GetTileByCount(AllianceType type, int count)
+        {
+            var tiles = _tiles.Where(t => t.OccupiedCharacter != null && t.OccupiedCharacter.AllianceType == type).ToList();
+            if (tiles.Count == 0)
+            {
+                return null;
+            }
+            else if (tiles.Count < count)
+            {
+                return tiles;
+            }
+            else
+            {
+                return tiles.Take(count).ToList();
+            }
+        }
     }
 }

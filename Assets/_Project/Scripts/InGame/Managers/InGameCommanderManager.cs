@@ -34,6 +34,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         _dragStartPosition = eventData.position;
 
         // [TODO] CommanderSkill UI 제작 후 변경 필요.
+        InGameMainFlowManager.Instance.SetPlaySpeed(0.1f);
         _selectedImage = eventData.pointerCurrentRaycast.gameObject?.GetComponent<Image>();
     }
 
@@ -95,6 +96,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         {
 
         }
+        InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
     }
 
     Vector3 HandleRuntimeDrag(PointerEventData eventData)
