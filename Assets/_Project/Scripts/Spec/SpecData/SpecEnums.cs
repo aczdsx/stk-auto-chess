@@ -244,5 +244,7 @@ namespace CookApps.AutoBattler
         Skill_130601 = 22,
         Skill_130601_1 = 23,
         fx_common_hit_01 = 24,
+        fx_common_skill_hit_01 = 25,
+        Skill_130402 = 26,
     }
 }
