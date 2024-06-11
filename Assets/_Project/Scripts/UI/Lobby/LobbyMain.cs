@@ -151,10 +151,9 @@ namespace CookApps.AutoBattler
             ClearBottomSlotLayer();
 
             int currentStagdId = UserDataManager.Instance.GetLastPlayStageID();
-            SpecStage stageSpec = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
 
-            var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
-            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(stageSpec.chapter_id);
+            SpecStage stageSpec = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
+            var chapterSpecData = SpecDataManager.Instance.GetChapterDataByStageID(currentStagdId);
 
             var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty_type);
 
@@ -162,7 +161,7 @@ namespace CookApps.AutoBattler
             _chapterNameText.SetText(chapterSpecData.name_token);
 
             int totalStageCount = stageList.Count;
-            _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
+            _stageProgressText.SetText("{0}/{1}", stageSpec.stage_number, totalStageCount);
 
             for (int i = 0; i < stageList.Count; i++)
             {

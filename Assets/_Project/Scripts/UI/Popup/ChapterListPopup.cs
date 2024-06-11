@@ -47,12 +47,12 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
-            var currentChapterId = UserDataManager.Instance.GetLastPlayStageID();
-            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(currentChapterId);
+            var currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            _selectedChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStageId);
 
             SetChapterListUI();
 
-            RefreshSelectedLayer(_selectedChapterData.id);
+            RefreshSelectedLayer(_selectedChapterData.id, true);
 
             _chapterScrollRect.verticalNormalizedPosition = 1;
         }
@@ -62,16 +62,20 @@ namespace CookApps.AutoBattler
             SetChapterListUI();
         }
 
-        public void RefreshSelectedLayer(int targetID)
+        public void RefreshSelectedLayer(int targetChapterID, bool isFirstInit)
         {
             if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
 
-            // 유저 데이터 처리
-            UserDataManager.Instance.SetLastPlayStageID(targetID, true);
+            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(targetChapterID);
+
+            // 유저 데이터 처리 (현재는 챕터 이동 시 무조건 첫번째 스테이지만 저장)
+            if (isFirstInit == false)
+            {
+                var firstSpecStage = SpecDataManager.Instance.GetStageData(_selectedChapterData.chapter_id, 1, _selectedChapterData.difficulty_type);
+                UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.id, true);
+            }
 
             // 팝업 관련 처리
-            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(targetID);;
-
             _chapterNumberText.text = string.Format("챕터-{0}-{1}", _selectedChapterData.chapter_id, _selectedChapterData.difficulty_type);
             _chapterNameText.text = _selectedChapterData.name_token;
 

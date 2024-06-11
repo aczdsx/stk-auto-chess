@@ -252,6 +252,30 @@ namespace CookApps.AutoBattler
             return SpecCharacter.All.ToList().FindAll(character => character.character_type == type);
         }
 
+        public SpecChapter GetChapterData(int chapterID, DifficultyType type)
+        {
+            if (chapterDic.TryGetValue(chapterID, out List<SpecChapter> chapterList))
+            {
+                return chapterList.Find(data => data.difficulty_type == type);
+            }
+
+            return null;
+        }
+
+        public SpecChapter GetChapterDataByStageID(int stageID)
+        {
+            var specStage = SpecStage.Get(stageID);
+            if (specStage != null)
+            {
+                if (chapterDic.TryGetValue(specStage.chapter_id, out List<SpecChapter> chapterList))
+                {
+                    return chapterList.Find(data => data.difficulty_type == specStage.difficulty_type);
+                }
+            }
+
+            return null;
+        }
+
         public List<SpecChapter> GetChapterList(int chapter)
         {
             if (chapterDic.TryGetValue(chapter, out List<SpecChapter> chapterList))

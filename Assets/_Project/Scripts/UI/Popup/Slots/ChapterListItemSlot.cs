@@ -51,15 +51,7 @@ namespace CookApps.AutoBattler
             _chapterNameText.text = _specChapterData.name_token;
 
             // 진행 상태에 따른 처리
-            bool isPlayableChapter = false;
-
-            int lastStageID = UserDataManager.Instance.GetLastPlayStageID();
-            if (lastStageID > 0)
-            {
-                SpecStage lastStageSpecData = SpecDataManager.Instance.SpecStage.Get(lastStageID);
-
-                isPlayableChapter = _specChapterData.chapter_id <= lastStageSpecData.chapter_id;
-            }
+            bool isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             _chapterStarLayerObject.SetActive(isPlayableChapter);
             _dimmedLayerObject.SetActive(!isPlayableChapter);
@@ -68,13 +60,6 @@ namespace CookApps.AutoBattler
             int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
-
-            // var lastStageData = SpecDataManager.Instance.GetLastStageData(_chapterSpecData.chapter_id, _chapterSpecData.difficulty);
-            // var userStageData = UserDataManager.Instance.GetUserStage(lastStageData.id);
-            //
-
-            //
-            // userStageData.StarCount > 0
         }
 
         public void SetSelectedLayer(int selectedChapterID)
@@ -94,7 +79,7 @@ namespace CookApps.AutoBattler
             var chapterListPop = SceneUILayerManager.Instance.GetUILayer<ChapterListPopup>();
             if (chapterListPop != null)
             {
-                chapterListPop.RefreshSelectedLayer(_specChapterData.id);
+                chapterListPop.RefreshSelectedLayer(_specChapterData.id, false);
             }
         }
     }

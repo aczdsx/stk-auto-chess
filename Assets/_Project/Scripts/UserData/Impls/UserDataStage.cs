@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
@@ -78,6 +79,16 @@ namespace CookApps.AutoBattler
             if (userStageGroup.UserStages.TryGetValue(stageId, out UserStage userStage))
             {
                 return userStage;
+            }
+
+            return null;
+        }
+
+        public UserStage GetLastUserStageByChapter(int chapterID)
+        {
+            if (_chapterUserStageDic.TryGetValue(chapterID, out Dictionary<int, UserStage> stageDic))
+            {
+                return stageDic.Values.Last();
             }
 
             return null;
