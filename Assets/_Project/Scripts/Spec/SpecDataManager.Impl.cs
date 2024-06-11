@@ -401,6 +401,27 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        // 시나리오 가챠 데이터 반환
+        public List<SpecGachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
+        {
+            int maxCount = SpecGachaScenario.All.Count;
+            int resultCount = currentCount + gachaCount > maxCount ? maxCount - currentCount : gachaCount;
+
+            return SpecGachaScenario.All.ToList().GetRange(currentCount, resultCount);
+        }
+
+        // 시나리오 가챠 데이터를 RewardItem 리스트로 변환
+        public List<RewardItem> GetRewardItemListByGachaScenarioList(List<SpecGachaScenario> gachaScenarioList)
+        {
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            foreach (var gachaScenario in gachaScenarioList)
+            {
+                rewardItemList.Add(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count));
+            }
+
+            return rewardItemList;
+        }
+
         public List<RewardItem> GetChestList(int chestId)
         {
             return chestDic.GetValueOrDefault(chestId);
