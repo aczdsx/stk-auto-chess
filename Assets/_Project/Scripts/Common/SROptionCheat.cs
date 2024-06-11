@@ -56,7 +56,7 @@ public partial class SROptions
     {
         if (원하는아이템갯수 <= 0) return;
 
-        UserDataManager.Instance.IncreaseItem(원하는아이템타입, 원하는아이템갯수, true);
+        UserDataManager.Instance.IncreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true);
     }
 
     [Category("아이템 관련")]
@@ -64,7 +64,7 @@ public partial class SROptions
     {
         if (원하는아이템갯수 <= 0) return;
 
-        UserDataManager.Instance.DecreaseItem(원하는아이템타입, 원하는아이템갯수, true);
+        UserDataManager.Instance.DecreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true);
     }
 
     [Category("아이템 관련")]
