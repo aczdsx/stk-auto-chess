@@ -284,5 +284,38 @@ namespace CookApps.BattleSystem
         {
             return _tiles.OrderBy(t => GetManhattanDistance(tile, t)).ToList();
         }
+
+        public InGameTile GetDirectionTile(InGameTile attackerTile, InGameTile targetTile, int count)
+        {
+            int2 direction = new int2(targetTile.X - attackerTile.X, targetTile.Y - attackerTile.Y);
+
+            direction.x = direction.x != 0 ? direction.x / Math.Abs(direction.x) : 0;
+            direction.y = direction.y != 0 ? direction.y / Math.Abs(direction.y) : 0;
+
+            InGameTile lastValidTile = targetTile;
+
+            for (int i = 1; i <= count; i++)
+            {
+                int2 newPos = new int2(targetTile.X + direction.x * i, targetTile.Y + direction.y * i);
+                if (IsValidPosition(newPos))
+                {
+                    InGameTile tile = GetTile(newPos);
+                    if (tile.OccupiedCharacter == null)
+                    {
+                        lastValidTile = tile;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return lastValidTile;
+        }
     }
 }
