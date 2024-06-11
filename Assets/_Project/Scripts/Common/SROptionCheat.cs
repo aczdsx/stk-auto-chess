@@ -99,6 +99,28 @@ public partial class SROptions
 
     //////////////////////////////////////////////////////////////////////////////////
 
+    #region 스테이지 관련
+
+    [Category("스테이지 관련")]
+    public void 스테이지클리어()
+    {
+        if (원하는스테이지ID <= 0) return;
+        if (스테이지클리어별갯수 <= 0) return;
+
+        UserDataManager.Instance.SetUserStage(원하는스테이지ID, 스테이지클리어별갯수);
+    }
+
+    [Category("스테이지 관련")]
+    public int 원하는스테이지ID { get; set; } = 0;
+
+    [Category("스테이지 관련")]
+    public int 스테이지클리어별갯수 { get; set; } = 0;
+
+    #endregion
+
+
+    //////////////////////////////////////////////////////////////////////////////////
+
     #region 미션 관련
 
     [Category("미션 관련")]

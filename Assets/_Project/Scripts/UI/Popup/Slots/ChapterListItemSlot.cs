@@ -24,9 +24,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _chapterStarCountText;
 
-        private SpecChapter _chapterSpecData;
+        private SpecChapter _specChapterData;
 
-        public SpecChapter ChapterData => _chapterSpecData;
+        public SpecChapter SpecChapterData => _specChapterData;
 
         private void Awake()
         {
@@ -44,54 +44,42 @@ namespace CookApps.AutoBattler
         {
             if (data == null) return;
 
-            _chapterSpecData = data;
+            _specChapterData = data;
 
             // 기본 데이터 세팅
-            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _chapterSpecData.chapter_id, _chapterSpecData.difficulty_type);
-            _chapterNameText.text = _chapterSpecData.name_token;
+            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _specChapterData.chapter_id, _specChapterData.difficulty_type);
+            _chapterNameText.text = _specChapterData.name_token;
 
             // 진행 상태에 따른 처리
-            bool isPlayableChapter = false;
-
-            int lastStageID = UserDataManager.Instance.GetLastStageId(_chapterSpecData.difficulty_type);
-            if (lastStageID > 0)
-            {
-                SpecStage lastStageSpecData = SpecDataManager.Instance.SpecStage.Get(lastStageID);
-
-                isPlayableChapter = _chapterSpecData.chapter_id <= lastStageSpecData.chapter_id;
-            }
+            bool isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             _chapterStarLayerObject.SetActive(isPlayableChapter);
             _dimmedLayerObject.SetActive(!isPlayableChapter);
 
-            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_chapterSpecData.chapter_id, _chapterSpecData.difficulty_type);
-            int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_chapterSpecData.chapter_id, _chapterSpecData.difficulty_type);
+            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+            int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
-
-            // var lastStageData = SpecDataManager.Instance.GetLastStageData(_chapterSpecData.chapter_id, _chapterSpecData.difficulty);
-            // var userStageData = UserDataManager.Instance.GetUserStage(lastStageData.id);
-            //
-
-            //
-            // userStageData.StarCount > 0
         }
 
         public void SetSelectedLayer(int selectedChapterID)
         {
-            if (_chapterSpecData == null) return;
+            if (_specChapterData == null) return;
 
-            _selectedLayerObject.SetActive(_chapterSpecData.id == selectedChapterID);
+            _selectedLayerObject.SetActive(_specChapterData.id == selectedChapterID);
         }
 
         private void OnClickChapter()
         {
-            if (_chapterSpecData == null) return;
+            if (_specChapterData == null) return;
+
+            bool isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+            if (isPlayableChapter == false) return;
 
             var chapterListPop = SceneUILayerManager.Instance.GetUILayer<ChapterListPopup>();
             if (chapterListPop != null)
             {
-                chapterListPop.RefreshSelectedLayer(_chapterSpecData.id);
+                chapterListPop.RefreshSelectedLayer(_specChapterData.id, false);
             }
         }
     }

@@ -3,6 +3,8 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using UnityEngine;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 ///
@@ -100,6 +102,9 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetDirectionalTile(owner);
         if (inGameTile != null)
         {
+            Vector3 direction = (inGameTile.View.CachedTr.position - _vfxProjectile.CachedTr.position).normalized;
+            _vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
             movement.SetData(_vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
             _vfxProjectile.Initialize(false, movement);
             _vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
@@ -110,7 +115,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, InGameObjectManager.Instance.Playground);
+        var tileFx = InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type,tile.View.CachedTr);
         tileFx.CachedTr.position = tile.View.CachedTr.position;
 
         if (tile.OccupiedCharacter == null)

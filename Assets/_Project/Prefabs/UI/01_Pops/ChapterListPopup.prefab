@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
+  _closeButton: {fileID: 2677214984507588867}
   _chapterScrollRect: {fileID: 6921724964673088453}
   _chapterSlotObject: {fileID: 9091990053998303902}
   _chapterNumberText: {fileID: 4870378523750798119}
