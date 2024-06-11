@@ -90,12 +90,12 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         ClearAndSetActive(null);
 
         // [TODO] _hitTileView 해당 위치에 지휘자 스킬 액션
-        var characters = ListPool<CharacterController>.Get();
-        InGameObjectManager.Instance.GetNearestEnemiesInRange(default, 0, AttackRangeShape.Rectangle, characters);
-        foreach (CharacterController characterController in characters)
-        {
-
-        }
+        // var characters = ListPool<CharacterController>.Get();
+        // InGameObjectManager.Instance.GetNearestEnemiesInRange(default, 0, AttackRangeShape.Rectangle, characters);
+        // foreach (CharacterController characterController in characters)
+        // {
+        //
+        // }
         InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
     }
 

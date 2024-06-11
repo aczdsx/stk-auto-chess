@@ -1354,6 +1354,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_EmptySlot
       objectReference: {fileID: 0}
+    - target: {fileID: 720352194954403032, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 720352194954403032, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
+      propertyPath: m_TagString
+      value: ReturnObj
+      objectReference: {fileID: 0}
     - target: {fileID: 2477770515909416435, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1433,6 +1441,18 @@ PrefabInstance:
     - target: {fileID: 2477770515909416435, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580921296115814466, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568672965492706633, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568672965492706633, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

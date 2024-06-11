@@ -13,7 +13,6 @@ namespace CookApps.AutoBattler
         public static GameObject StagePrefab { get; private set; }
         public static HpBarView HpBarView = null;
         public static InGameTextView InGameText = null;
-        // [TODO] specStage 관리 어디서 할까요? 태우 : InGameManager에서 관리하는게 좋을 것 같아요.
         // public static SpecStage SpecStage = null;
 
         public static async UniTask LoadResources(int chapter, int stageIdx, DifficultyType difficultyType)

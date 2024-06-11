@@ -50,7 +50,6 @@ namespace CookApps.BattleSystem
 
         public void EndInGame()
         {
-            //[TODO] endingame이 불리는 타이밍에 pool을 지우는데, 남아있는 오브젝트가 있을 수 있음. 태우: 오브젝트들이 씬에 남아있어도 문제는 없음!
             IsInGamePlaying = false;
             InGameMainFlowManager.Instance.StopInGameMainLoop();
             InGameObjectManager.Instance.Clear();

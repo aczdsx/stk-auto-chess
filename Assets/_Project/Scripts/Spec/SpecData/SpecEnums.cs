@@ -248,6 +248,6 @@ namespace CookApps.AutoBattler
         Skill_130402 = 26,
         fx_common_debuff_atkdown_01 = 27,
         fx_common_debuff_atkdown_02 = 28,
-        Skill_140102 = 29,
+        Skill_140103 = 29,
     }
 }

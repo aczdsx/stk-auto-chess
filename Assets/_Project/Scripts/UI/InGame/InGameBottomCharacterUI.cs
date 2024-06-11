@@ -16,8 +16,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField] private Transform _characterSelectedTransform;
     [SerializeField] private Transform _rightTransform;
     [SerializeField] private Image _returnImage;
-    [SerializeField] private List<InGameCharacterItem> _characterItemList;
+    [SerializeField] private InGameCharacterItem _ingameCharacterItemPrefab;
+    [SerializeField] private Transform _inGameCharacterItemTransform;
 
+    private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private Action _onNewCharacter;
     protected void Awake()
@@ -48,6 +50,12 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // {
         //     _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level));
         // }
+
+        foreach (var characterStat in _characterStats)
+        {
+            var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
+            _characterItemList.Add(characterItem);
+        }
 
         UpdateData();
     }

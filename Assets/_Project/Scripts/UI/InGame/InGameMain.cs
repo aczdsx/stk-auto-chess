@@ -35,12 +35,12 @@ namespace CookApps.AutoBattler
 
         public void ReturnObjectActive(bool active)
         {
-            _inGameBottomCharacterUI.ReturnObjectActive(active);
+            // _inGameBottomCharacterUI.ReturnObjectActive(active);
         }
 
         public void ReturnObjectColorChange(bool active)
         {
-            _inGameBottomCharacterUI.ReturnObjectColorChange(active);
+            // _inGameBottomCharacterUI.ReturnObjectColorChange(active);
         }
 
         public void ReturnCharacter(CharacterController characterController)
