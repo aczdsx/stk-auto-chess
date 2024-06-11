@@ -7,39 +7,49 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-///
+/// 하티
+// 대상 : 공격력이 가장 높은 적 1명
+// 대미지 : 공격력 {0}%의 대미지를 가한다.
+// 특수 효과 : 피격된 적은 두 칸 거리만큼 넉백된다.
 /// </summary>
-[UseEffectCodeIds(1401011)]
-public class EffectCodeSkill1401011 : EffectCodeCharacterBase
+[UseEffectCodeIds(1404021)]
+public class EffectCodeSkill1404021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat power;
-
     private ObfuscatorFloat elapsedTime;
 
     private bool isReadyToActivate;
     private bool isSkillActivated;
 
-    private InGameVfx _vfx;
-    private InGameVfx _vfxProjectile;
+    private SpecSkill _specSkill;
 
-    private List<CharacterController> _hitCharacters = new List<CharacterController>();
+    private CharacterController _targetCharacter;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1);
+        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
+
+        _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        _targetCharacter = owner.Target;
+
+        var ownVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().CachedTr);
+        ownVfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+
+        var targetVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], _targetCharacter.GetCharacterView().CachedTr);
+        targetVfx.CachedTr.position = _targetCharacter.GetCharacterView().SkillRootTransform.position;
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1);
+        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -85,52 +95,20 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        if (owner.Target == null)
+        //[TODO] target이 죽었다면? 쿨타임 다시 돌리고 다시 쓸 수 있게 끔
+        if (_targetCharacter == null)
             return;
 
-        var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        var hitVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2], _targetCharacter.GetCharacterView().CachedTr);
+        hitVfx.CachedTr.position = _targetCharacter.GetCharacterView().SkillRootTransform.position;
 
-        // 검기 VFX
-        _vfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
-        _vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+        var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0,_targetCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage,_targetCharacter);
+       _targetCharacter.GetDamaged(damage, owner);
 
-        // 발사체 VFX
-        _vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], InGameObjectManager.Instance.Playground);
-        _vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-
-        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetDirectionalTile(owner);
-        if (inGameTile != null)
-        {
-            Vector3 direction = (inGameTile.View.CachedTr.position - _vfxProjectile.CachedTr.position).normalized;
-            _vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-
-            movement.SetData(_vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
-            _vfxProjectile.Initialize(false, movement);
-            _vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
-        }
+       //[TODO] target은 두 칸 넉백 할 수 있도록
 
         isSkillActivated = false;
-    }
-
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        var tileFx = InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type,tile.View.CachedTr);
-        tileFx.CachedTr.position = tile.View.CachedTr.position;
-
-        if (tile.OccupiedCharacter == null)
-            return;
-
-        if (_hitCharacters.Contains(tile.OccupiedCharacter))
-            return;
-
-        // var hitFx = InGameVfxManager.Instance.AddInGameVfx(vfxtypefx, tile.OccupiedCharacter);
-
-        var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0, tile.OccupiedCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-        tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-        _hitCharacters.Add(tile.OccupiedCharacter);
     }
 
     public override void OnSkillAnimationEnd()

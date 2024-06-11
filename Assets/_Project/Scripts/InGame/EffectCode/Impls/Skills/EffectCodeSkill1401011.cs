@@ -7,7 +7,10 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-///
+/// 아트레시아
+///범위 : 전방 X축 2칸
+// 대미지 : 검기를 날려, 적에게 공격력 {0}%의 대미지를 준다.
+//     특수 효과 : 검기는 맵 끝까지 지속된다.
 /// </summary>
 [UseEffectCodeIds(1401011)]
 public class EffectCodeSkill1401011 : EffectCodeCharacterBase
@@ -29,7 +32,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1);
+        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -39,7 +42,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1);
+        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)

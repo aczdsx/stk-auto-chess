@@ -7,7 +7,9 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-///
+/// 유니
+// 대상 : 공격력이 가장 높은 아군 2명
+// 효과 : 공격력을 {0}초 동안 {1}% 증가시킨다.
 /// </summary>
 [UseEffectCodeIds(1306011)]
 public class EffectCodeSkill1306011 : EffectCodeCharacterBase
@@ -29,7 +31,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
         duration = codeInfo.GetCodeStatToFloat(1);
-        atkUpRate = codeInfo.GetCodeStatToFloat(2);
+        atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -40,7 +42,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
         duration = codeInfo.GetCodeStatToFloat(1);
-        atkUpRate = codeInfo.GetCodeStatToFloat(2);
+        atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;;
     }
 
     public override void OnUpdate(float dt)
@@ -96,7 +98,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         _ownVfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
 
         // Target 2명 찾기 + 2명의 위치에 _otherVfx 생성
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCount(owner.AllianceType, 2);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByCount(owner.AllianceType, 2);
         if (inGameTiles != null)
         {
             foreach (var tile in inGameTiles)

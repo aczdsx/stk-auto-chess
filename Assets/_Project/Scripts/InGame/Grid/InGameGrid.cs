@@ -255,7 +255,7 @@ namespace CookApps.BattleSystem
             return _tiles.FirstOrDefault(t => t.X == directionX && t.Y == directionY);
         }
 
-        public List<InGameTile> GetTileByCount(AllianceType type, int count)
+        public List<InGameTile> GetTilesByCount(AllianceType type, int count)
         {
             var tiles = _tiles.Where(t => t.OccupiedCharacter != null && t.OccupiedCharacter.AllianceType == type).ToList();
             if (tiles.Count == 0)
@@ -270,6 +270,11 @@ namespace CookApps.BattleSystem
             {
                 return tiles.Take(count).ToList();
             }
+        }
+
+        public List<InGameTile> GetTilesByRow()
+        {
+            return _tiles.Where(t => t.X == x).ToList();
         }
     }
 }

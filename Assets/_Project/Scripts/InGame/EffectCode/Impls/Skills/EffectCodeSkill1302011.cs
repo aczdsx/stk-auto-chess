@@ -7,14 +7,16 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-///
+/// 멘샤
+// 범위 : 멘샤와 동일한 열
+// 효과 : 아군에게 {0}초 동안 멘샤 공격력 {1}%의 실드를 부여한다.
 /// </summary>
-[UseEffectCodeIds(1306011)]
-public class EffectCodeSkill1306011 : EffectCodeCharacterBase
+[UseEffectCodeIds(1302011)]
+public class EffectCodeSkill1302011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat duration;
-    private ObfuscatorFloat atkUpRate;
+    private ObfuscatorFloat shieldRate;
 
     private ObfuscatorFloat elapsedTime;
 
@@ -29,7 +31,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
         duration = codeInfo.GetCodeStatToFloat(1);
-        atkUpRate = codeInfo.GetCodeStatToFloat(2);
+        shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -40,7 +42,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
         duration = codeInfo.GetCodeStatToFloat(1);
-        atkUpRate = codeInfo.GetCodeStatToFloat(2);
+        shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -91,25 +93,23 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
 
         var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
 
-        // 나한테 붙은 vfx
-        _ownVfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
-        _ownVfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
-
-        // Target 2명 찾기 + 2명의 위치에 _otherVfx 생성
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCount(owner.AllianceType, 2);
-        if (inGameTiles != null)
-        {
-            foreach (var tile in inGameTiles)
-            {
-                InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
-
-                _otherVfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1],
-                    tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
-
-                //[TODO] 해당 캐릭터에게 버프 생성
-                // _otherVfx.CachedTr.position =tile.OccupiedCharacter.GetCharacterView().SkillRootTransform.position;
-            }
-        }
+        // 범위 : 멘샤와 동일한 열
+        // 효과 : 아군에게 {0}초 동안 멘샤 공격력 {1}%의 실드를 부여한다.
+        // var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByRow(owner.CurrentTile.X);
+        // if (inGameTiles != null)
+        // {
+        //     foreach (var tile in inGameTiles)
+        //     {
+        //         InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
+        //         if (tile.OccupiedCharacter != null)
+        //         {
+        //             _otherVfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0],
+        //                 tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+        //
+        //             //[TODO] 해당 캐릭터에게 쉴드 생성
+        //         }
+        //     }
+        // }
 
         isSkillActivated = false;
     }

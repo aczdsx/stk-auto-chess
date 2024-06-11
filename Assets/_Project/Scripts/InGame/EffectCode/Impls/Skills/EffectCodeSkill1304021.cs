@@ -8,41 +8,40 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 멘샤
-// 범위 : 멘샤와 동일한 열
-// 효과 : 아군에게 {0}초 동안 멘샤 공격력 {1}%의 실드를 부여한다.
+// 대상 : 가장 가까운 적
+// 대미지 : 샷건을 발사해 필리아 공격력 {0}%의 대미지를 가한다.
+//     특수 효과 : 스킬로 적을 사망 시켰을 시, 스킬 쿨타임이 즉시 초기화된다.
 /// </summary>
-[UseEffectCodeIds(1302011)]
-public class EffectCodeSkill1302011 : EffectCodeCharacterBase
+[UseEffectCodeIds(1304021)]
+public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
-    private ObfuscatorFloat duration;
-    private ObfuscatorFloat shieldRate;
+    private ObfuscatorFloat powerRate;
 
     private ObfuscatorFloat elapsedTime;
 
     private bool isReadyToActivate;
     private bool isSkillActivated;
 
-    private InGameVfx _ownVfx;
-    private InGameVfx _otherVfx;
+    private SpecSkill _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        duration = codeInfo.GetCodeStatToFloat(1);
-        shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        powerRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
+
+        _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        duration = codeInfo.GetCodeStatToFloat(1);
-        shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        powerRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -91,10 +90,6 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
-
-        // 범위 : 멘샤와 동일한 열
-        // 효과 : 아군에게 {0}초 동안 멘샤 공격력 {1}%의 실드를 부여한다.
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByRow(owner.CurrentTile.X);
         if (inGameTiles != null)
         {
@@ -103,7 +98,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
                 if (tile.OccupiedCharacter != null)
                 {
-                    _otherVfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0],
+                    var _otherVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                         tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
                     //[TODO] 해당 캐릭터에게 쉴드 생성
