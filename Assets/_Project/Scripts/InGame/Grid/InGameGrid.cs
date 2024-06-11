@@ -123,7 +123,6 @@ namespace CookApps.BattleSystem
         {
             Debug.Log($"GetNextMovableTile: ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
 
-
             InGameTile bestTile = src;
             int shortestDistance = int.MaxValue;
 
@@ -174,7 +173,6 @@ namespace CookApps.BattleSystem
         {
             var queue = new Queue<(InGameTile tile, int distance)>();
             var visited = new HashSet<InGameTile>();
-
 
             var targetPositions = new List<InGameTile>();
             foreach (var direction in Directions)
@@ -229,7 +227,7 @@ namespace CookApps.BattleSystem
             return pos.x >= 0 && pos.x < Width && pos.y >= 0 && pos.y < Height;
         }
 
-        public InGameTile GetDirectionalTile(CharacterController characterController)
+        public InGameTile GetTileByDirection(CharacterController characterController)
         {
             bool isFront = characterController.GetCharacterView().CachedFront;
             bool isFlip = characterController.GetCharacterView().CachedFlipX;
@@ -255,6 +253,58 @@ namespace CookApps.BattleSystem
             }
 
             return _tiles.FirstOrDefault(t => t.X == directionX && t.Y == directionY);
+        }
+
+        public List<InGameTile> GetTilesByDirection(CharacterController characterController)
+        {
+            bool isFront = characterController.GetCharacterView().CachedFront;
+            bool isFlip = characterController.GetCharacterView().CachedFlipX;
+
+            int directionX = characterController.CurrentTile.X;
+            int directionY = characterController.CurrentTile.Y;
+
+            List<InGameTile> tiles = new List<InGameTile>();
+
+            int2 primaryDirection;
+            int2[] secondaryDirections;
+
+            if (!isFront && isFlip)
+            {
+                primaryDirection = new int2(1, 0);
+                secondaryDirections = new int2[] {new int2(0, -1), new int2(0, 1)};
+            }
+            else if (!isFront && !isFlip)
+            {
+                primaryDirection = new int2(0, 1);
+                secondaryDirections = new int2[] {new int2(-1, 0), new int2(1, 0)};
+            }
+            else if (isFront && isFlip)
+            {
+                primaryDirection = new int2(0, -1);
+                secondaryDirections = new int2[] {new int2(-1, 0), new int2(1, 0)};
+            }
+            else
+            {
+                primaryDirection = new int2(-1, 0);
+                secondaryDirections = new int2[] {new int2(0, -1), new int2(0, 1)};
+            }
+
+            int2 primaryPos = new int2(directionX, directionY) + primaryDirection;
+            if (IsValidPosition(primaryPos))
+            {
+                tiles.Add(GetTile(primaryPos));
+            }
+
+            foreach (var offset in secondaryDirections)
+            {
+                int2 secondaryPos = primaryPos + offset;
+                if (IsValidPosition(secondaryPos))
+                {
+                    tiles.Add(GetTile(secondaryPos));
+                }
+            }
+
+            return tiles;
         }
 
         public List<InGameTile> GetTilesByCount(AllianceType type, int count)

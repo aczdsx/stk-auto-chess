@@ -99,7 +99,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
 
-        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetDirectionalTile(owner);
+        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByDirection(owner);
         if (inGameTile != null)
         {
             Vector3 direction = (inGameTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;

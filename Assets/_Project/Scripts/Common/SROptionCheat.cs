@@ -3,12 +3,19 @@ using System;
 using System.ComponentModel;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UIManagements;
-using UnityEngine.Tilemaps;
 
 [Serializable]
 public partial class SROptions
 {
     #region 유저 정보 관련
+
+    [Category("유저 정보 관련")]
+    public void 유저가챠횟수초기화()
+    {
+        UserDataManager.Instance.UserBasicData.TotalGachaCount = 0;
+
+        UserDataManager.Instance.SaveUserBasic();
+    }
 
     [Category("유저 정보 관련")]
     public void 유저레벨데이터초기화()
@@ -49,7 +56,7 @@ public partial class SROptions
     {
         if (원하는아이템갯수 <= 0) return;
 
-        UserDataManager.Instance.IncreaseItem(원하는아이템타입, 원하는아이템갯수, true);
+        UserDataManager.Instance.IncreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true);
     }
 
     [Category("아이템 관련")]
@@ -57,7 +64,7 @@ public partial class SROptions
     {
         if (원하는아이템갯수 <= 0) return;
 
-        UserDataManager.Instance.DecreaseItem(원하는아이템타입, 원하는아이템갯수, true);
+        UserDataManager.Instance.DecreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true);
     }
 
     [Category("아이템 관련")]

@@ -44,6 +44,13 @@ namespace CookApps.AutoBattler
             SaveUserBasic();
         }
 
+        public void AddUserGachaCount(int count)
+        {
+            UserBasicData.TotalGachaCount += count;
+
+            SaveUserBasic();
+        }
+
         public void SaveUserBasic()
         {
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
