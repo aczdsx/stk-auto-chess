@@ -7,14 +7,16 @@ TagManager:
   - Slot
   - TutorialGachaButton
   - ReturnObj
+  - Knight
+  - TutorialLevelUp
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Character
   - Water
   - UI
-  - 
+  - Effect
   - 
   - 
   - 

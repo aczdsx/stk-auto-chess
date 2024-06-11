@@ -39,21 +39,33 @@ namespace CookApps.AutoBattler
             userWallet = null;
         }
 
-        public void IncreaseItem(ItemType type, int amount, bool isSave)
+        public void IncreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave)
         {
-            switch (type)
+            switch (itemType)
             {
                 case ItemType.GOLD:
-                    userWallet.Gold += amount;
+                    userWallet.Gold += itemAmount;
                     OnGoldChanged?.Invoke(userWallet.Gold);
                     break;
                 case ItemType.JEWEL:
-                    userWallet.Jewel += amount;
+                    userWallet.Jewel += itemAmount;
                     OnJewelChanged?.Invoke(userWallet.Jewel);
                     break;
                 case ItemType.AP:
-                    userWallet.Energy += amount;
+                    userWallet.Energy += itemAmount;
                     OnEnergyChanged?.Invoke(userWallet.Energy);
+                    break;
+                case ItemType.CHARACTER_PIECE:
+                    // 최초 완성형 캐릭터 획득 처리 (20조각)
+                    if (IsHaveCharacter(itemKey) == false && itemAmount >= 20)
+                    {
+                        AddNewCharacter(itemKey);
+                    }
+                    else
+                    {
+                        IncreaseKnightPieceCount(itemKey, itemAmount);
+                    }
+
                     break;
             }
 
@@ -70,7 +82,7 @@ namespace CookApps.AutoBattler
             // 리워드 적용
             foreach (var reward in rewardList)
             {
-                IncreaseItem(reward.Type, reward.Count, false);
+                IncreaseItem(reward.Type, reward.Key, reward.Count, false);
             }
 
             if (isSave)
@@ -79,21 +91,24 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void DecreaseItem(ItemType type, int amount, bool isSave)
+        public void DecreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave)
         {
-            switch (type)
+            switch (itemType)
             {
                 case ItemType.GOLD:
-                    userWallet.Gold -= amount;
+                    userWallet.Gold -= itemAmount;
                     OnGoldChanged?.Invoke(userWallet.Gold);
                     break;
                 case ItemType.JEWEL:
-                    userWallet.Jewel -= amount;
+                    userWallet.Jewel -= itemAmount;
                     OnJewelChanged?.Invoke(userWallet.Jewel);
                     break;
                 case ItemType.AP:
-                    userWallet.Energy -= amount;
+                    userWallet.Energy -= itemAmount;
                     OnEnergyChanged?.Invoke(userWallet.Energy);
+                    break;
+                case ItemType.CHARACTER_PIECE:
+                    DecreaseKnightPieceCount(itemKey, itemAmount);
                     break;
             }
 

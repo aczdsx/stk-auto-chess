@@ -63,12 +63,13 @@ namespace CookApps.AutoBattler
             // }
 
             var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, Defines.GACHA_1_TIME_COUNT);
-
             var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
-
 
             // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList, true);
+
+            // 가챠 결과 아이템 저장
+            UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
 
             // 가챠 진행횟수 유저 데이터 저장
             UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_1_TIME_COUNT);
@@ -100,11 +101,13 @@ namespace CookApps.AutoBattler
             // }
 
             var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, Defines.GACHA_10_TIME_COUNT);
-
             var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
 
             //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList);
+
+            // 가챠 결과 아이템 저장
+            UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
 
             // 가챠 진행횟수 유저 데이터 저장
             UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_10_TIME_COUNT);
