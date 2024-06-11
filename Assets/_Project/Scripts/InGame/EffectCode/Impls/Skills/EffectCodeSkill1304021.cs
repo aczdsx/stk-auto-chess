@@ -91,20 +91,20 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
             return;
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByNearest(owner.CurrentTile);
-        if (inGameTiles != null)
+        if (inGameTiles != null && inGameTiles.Count > 0)
         {
-            foreach (var tile in inGameTiles)
+            var tile = inGameTiles[0];
+            if (tile.OccupiedCharacter != null)
             {
                 InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
-                if (tile.OccupiedCharacter != null)
-                {
-                    var _otherVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-                        tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+                var _otherVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                    tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
-                }
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                //[TODO] 적을 잡았을 시 쿨타임 초기화
             }
         }
 

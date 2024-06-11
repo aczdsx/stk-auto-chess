@@ -15,39 +15,36 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1401011)]
 public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat cooltime;
-    private ObfuscatorFloat power;
+    private ObfuscatorFloat _cooltime;
+    private ObfuscatorFloat _power;
 
-    private ObfuscatorFloat elapsedTime;
+    private ObfuscatorFloat _elapsedTime;
 
-    private bool isReadyToActivate;
-    private bool isSkillActivated;
-
-    private InGameVfx _vfx;
-    private InGameVfx _vfxProjectile;
+    private bool _isReadyToActivate;
+    private bool _isSkillActivated;
 
     private List<CharacterController> _hitCharacters = new List<CharacterController>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        elapsedTime = 0f;
-        isReadyToActivate = false;
-        isSkillActivated = false;
+        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _elapsedTime = 0f;
+        _isReadyToActivate = false;
+        _isSkillActivated = false;
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
     {
-        if (!isSkillActivated)
+        if (!_isSkillActivated)
         {
             return;
         }
@@ -56,32 +53,32 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            elapsedTime = cooltime;
+            _elapsedTime = _cooltime;
         }
     }
 
     public override void OnCooltime(float dt)
     {
-        if (isReadyToActivate || isSkillActivated)
+        if (_isReadyToActivate || _isSkillActivated)
             return;
-        elapsedTime += dt;
-        if (elapsedTime >= cooltime)
+        _elapsedTime += dt;
+        if (_elapsedTime >= _cooltime)
         {
-            isReadyToActivate = true;
+            _isReadyToActivate = true;
         }
     }
 
     public override bool IsReadyToActivate()
     {
-        return isReadyToActivate;
+        return _isReadyToActivate;
     }
 
     public override void Activate()
     {
         base.Activate();
         // TODO: Target Check
-        isReadyToActivate = false;
-        isSkillActivated = true;
+        _isReadyToActivate = false;
+        _isSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
     }
 
@@ -94,26 +91,26 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
 
         // 검기 VFX
-        _vfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
-        _vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
+        vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
 
         // 발사체 VFX
-        _vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], InGameObjectManager.Instance.Playground);
-        _vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
+        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], InGameObjectManager.Instance.Playground);
+        vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
 
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetDirectionalTile(owner);
         if (inGameTile != null)
         {
-            Vector3 direction = (inGameTile.View.CachedTr.position - _vfxProjectile.CachedTr.position).normalized;
-            _vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+            Vector3 direction = (inGameTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
+            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-            movement.SetData(_vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
-            _vfxProjectile.Initialize(false, movement);
-            _vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+            movement.SetData(vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
+            vfxProjectile.Initialize(false, movement);
+            vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
         }
 
-        isSkillActivated = false;
+        _isSkillActivated = false;
     }
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
@@ -129,7 +126,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
         // var hitFx = InGameVfxManager.Instance.AddInGameVfx(vfxtypefx, tile.OccupiedCharacter);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0, tile.OccupiedCharacter, codeId, true);
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _power, 0, tile.OccupiedCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
         tile.OccupiedCharacter.GetDamaged(damage, owner);
 
@@ -140,6 +137,6 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     {
         base.OnSkillAnimationEnd();
         // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
-        isSkillActivated = false;
+        _isSkillActivated = false;
     }
 }

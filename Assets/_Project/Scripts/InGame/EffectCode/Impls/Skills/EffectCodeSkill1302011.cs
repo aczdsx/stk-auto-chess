@@ -14,40 +14,41 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1302011)]
 public class EffectCodeSkill1302011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat cooltime;
-    private ObfuscatorFloat duration;
-    private ObfuscatorFloat shieldRate;
+    private ObfuscatorFloat _cooltime;
+    private ObfuscatorFloat _duration;
+    private ObfuscatorFloat _shieldRate;
 
-    private ObfuscatorFloat elapsedTime;
+    private ObfuscatorFloat _elapsedTime;
 
-    private bool isReadyToActivate;
-    private bool isSkillActivated;
+    private bool _isReadyToActivate;
+    private bool _isSkillActivated;
 
-    private InGameVfx _ownVfx;
-    private InGameVfx _otherVfx;
+    private SpecSkill _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        cooltime = codeInfo.GetCodeStatToFloat(0);
-        duration = codeInfo.GetCodeStatToFloat(1);
-        shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        elapsedTime = 0f;
-        isReadyToActivate = false;
-        isSkillActivated = false;
+        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _duration = codeInfo.GetCodeStatToFloat(1);
+        _shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _elapsedTime = 0f;
+        _isReadyToActivate = false;
+        _isSkillActivated = false;
+
+        _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        cooltime = codeInfo.GetCodeStatToFloat(0);
-        duration = codeInfo.GetCodeStatToFloat(1);
-        shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _duration = codeInfo.GetCodeStatToFloat(1);
+        _shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
     {
-        if (!isSkillActivated)
+        if (!_isSkillActivated)
         {
             return;
         }
@@ -56,32 +57,32 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            elapsedTime = cooltime;
+            _elapsedTime = _cooltime;
         }
     }
 
     public override void OnCooltime(float dt)
     {
-        if (isReadyToActivate || isSkillActivated)
+        if (_isReadyToActivate || _isSkillActivated)
             return;
-        elapsedTime += dt;
-        if (elapsedTime >= cooltime)
+        _elapsedTime += dt;
+        if (_elapsedTime >= _cooltime)
         {
-            isReadyToActivate = true;
+            _isReadyToActivate = true;
         }
     }
 
     public override bool IsReadyToActivate()
     {
-        return isReadyToActivate;
+        return _isReadyToActivate;
     }
 
     public override void Activate()
     {
         base.Activate();
         // TODO: Target Check
-        isReadyToActivate = false;
-        isSkillActivated = true;
+        _isReadyToActivate = false;
+        _isSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
     }
 
@@ -91,33 +92,29 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByRow(owner.CurrentTile);
+        if (inGameTiles != null)
+        {
+            foreach (var tile in inGameTiles)
+            {
+                InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
+                if (tile.OccupiedCharacter != null)
+                {
+                    var _shieldVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                        tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
-        // 범위 : 멘샤와 동일한 열
-        // 효과 : 아군에게 {0}초 동안 멘샤 공격력 {1}%의 실드를 부여한다.
-        // var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByRow(owner.CurrentTile.X);
-        // if (inGameTiles != null)
-        // {
-        //     foreach (var tile in inGameTiles)
-        //     {
-        //         InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
-        //         if (tile.OccupiedCharacter != null)
-        //         {
-        //             _otherVfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0],
-        //                 tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
-        //
-        //             //[TODO] 해당 캐릭터에게 쉴드 생성
-        //         }
-        //     }
-        // }
+                    //[TODO] 해당 캐릭터에게 쉴드 생성
+                }
+            }
+        }
 
-        isSkillActivated = false;
+        _isSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
         // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
-        isSkillActivated = false;
+        _isSkillActivated = false;
     }
 }
