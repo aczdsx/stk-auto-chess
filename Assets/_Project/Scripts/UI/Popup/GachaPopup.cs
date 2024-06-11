@@ -10,6 +10,9 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/GachaPopup.prefab")]
     public class GachaPopup : UILayer
     {
+        [SerializeField] private CAButton _backButton;
+
+        [Space(10)]
         [SerializeField] private CAButton _gacha1Button;
         [SerializeField] private CAButton _gacha10Button;
 
@@ -17,6 +20,7 @@ namespace CookApps.AutoBattler
         {
             _gacha1Button.onClick.AddListener(OnClickGacha1Button);
             _gacha10Button.onClick.AddListener(OnClickGacha10Button);
+            _backButton.onClick.AddListener(OnClickCloseButton);
         }
 
         protected override void OnDestroy()
@@ -25,12 +29,13 @@ namespace CookApps.AutoBattler
 
             _gacha1Button.onClick.RemoveListener(OnClickGacha1Button);
             _gacha10Button.onClick.RemoveListener(OnClickGacha10Button);
+            _backButton.onClick.RemoveListener(OnClickCloseButton);
         }
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
+            //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             // test
             //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));
@@ -56,6 +61,11 @@ namespace CookApps.AutoBattler
 
             //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(allChar);
+        }
+
+        private void OnClickCloseButton()
+        {
+            SceneUILayerManager.Instance.PopUILayer(this);
         }
     }
 }
