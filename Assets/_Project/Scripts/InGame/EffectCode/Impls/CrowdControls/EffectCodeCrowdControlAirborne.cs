@@ -44,6 +44,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         elapsedTime = 0;
         _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
+        InGameObjectManager.Instance.ChangeTile(owner, _inGameTile);
         Tween.Custom(
             owner.Position3D,
             _inGameTile.View.Position,
@@ -55,7 +56,6 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
             }).OnComplete(this, target =>
             {
                 owner.AddNextState<CharacterStateIdle>();
-                InGameObjectManager.Instance.ChangeTile(owner, _inGameTile);
             }
         );
     }
