@@ -132,6 +132,14 @@ public partial class SROptions
         if (스테이지클리어별갯수 <= 0) return;
 
         UserDataManager.Instance.SetUserStage(원하는스테이지ID, 스테이지클리어별갯수);
+        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,1);
+
+        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+        if (lobbyMain != null)
+        {
+            lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+            lobbyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
+        }
     }
 
     [Category("스테이지 관련")]

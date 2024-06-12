@@ -93,10 +93,8 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
             return;
 
         // 나한테 붙은 vfx
-        var ownVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
-        ownVfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().SkillRootTransform);
 
-        // Target 2명 찾기 + 2명의 위치에 _otherVfx 생성
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByCount(owner.AllianceType, 2);
         if (inGameTiles != null)
         {
@@ -108,6 +106,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                     tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
                 //[TODO] 해당 캐릭터에게 버프 생성
+
             }
         }
 

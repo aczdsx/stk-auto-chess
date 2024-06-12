@@ -571,6 +571,11 @@ namespace CookApps.BattleSystem
 
             // 최소 대미지량 적용
             damageInfo.damageAmount = Math.Floor(Math.Max(minDamageAmount, damageInfo.damageAmount));
+
+            {
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageAmount);
+                damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda, damageInfo.damageAmount.Value);
+            }
         }
 
         /// <summary>
@@ -595,10 +600,18 @@ namespace CookApps.BattleSystem
                 return DamageReturnType.AlreadyDead;
             }
 
-            GetCharacterView().OnHit();
-            ShowDamageText(damageInfo.damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
+            var originDamageAmount = damageInfo.damageAmount.Value;
+            var damageAmount = damageInfo.damageAmount.Value;
+            // effectCode에게 이벤트 전달
+            {
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDamaged);
+                damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageAmount, this, isFirstDamage);
+            }
 
-            _currHp -= damageInfo.damageAmount;
+            GetCharacterView().OnHit();
+            ShowDamageText(damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
+
+            _currHp -= damageAmount;
 
             // [TODO] statics 에러 납니답... ??
             // InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
@@ -664,11 +677,16 @@ namespace CookApps.BattleSystem
         /// <param name="recoveryAmount"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public int PostCalculateHealAmount(int recoveryAmount, CharacterController target)
+        public double PostCalculateHealAmount(double recoveryAmount, CharacterController target)
         {
             // 주는/받는 회복량 계수로 회복량 계산
-            recoveryAmount = Mathf.RoundToInt(recoveryAmount * GivenHealRate * target.TakenHealRate);
+            recoveryAmount = Math.Round(recoveryAmount * GivenHealRate * target.TakenHealRate);
             // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
+
+            {
+                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
+                recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
+            }
 
             return recoveryAmount;
         }
@@ -685,7 +703,7 @@ namespace CookApps.BattleSystem
         /// 이를 막기위해 첫번째 힐인 것을 명시하여 이후의 힐은 스킬 효과를 적용하지 않도록 한다.
         /// </param>
         /// <returns>회복 됬는지 유무</returns>
-        public bool GetHealed(int amount, CharacterController healer, int source, bool isFirstHeal = true)
+        public bool GetHealed(double amount, CharacterController healer, int source, bool isFirstHeal = true)
         {
             // 죽어있으면 안준다.
             if (_currHp <= 0 || !IsAlive)
@@ -694,16 +712,11 @@ namespace CookApps.BattleSystem
             }
 
             {
-                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
-                amount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, amount);
-            }
-            {
                 // effectCode에게 이벤트 전달
                 List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHealed);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnHealedLambda, amount, isFirstHeal);
                 _currHp += amount;
             }
-
 
             ShowHealText(amount).Forget();
 
@@ -720,6 +733,10 @@ namespace CookApps.BattleSystem
 
         private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
         {
+            if (amount == 0)
+            {
+                return;
+            }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount, isCritical, isDoubleCritical);
             InGameTextViewPool.Instance.Return(textView);
@@ -727,6 +744,10 @@ namespace CookApps.BattleSystem
 
         private async UniTask ShowHealText(double amount)
         {
+            if (amount == 0)
+            {
+                return;
+            }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowHealText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount);
             InGameTextViewPool.Instance.Return(textView);

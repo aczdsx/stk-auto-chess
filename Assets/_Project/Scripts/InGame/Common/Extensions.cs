@@ -48,7 +48,7 @@ namespace CookApps.BattleSystem
             return type switch
             {
                 // BuffDebuffType.Meditation => "",
-                // BuffDebuffType.Shield => "",
+                BuffDebuffType.Shield =>InGameVfxNameType.fx_common_buff_shield_01,
                 // BuffDebuffType.Bleeding => "",
                 // BuffDebuffType.Poison => "",
                 // BuffDebuffType.Burn => "",
@@ -78,7 +78,7 @@ namespace CookApps.BattleSystem
             return type switch
             {
                 // BuffDebuffType.Meditation => "",
-                // BuffDebuffType.Shield => "",
+                BuffDebuffType.Shield =>  InGameVfxNameType.fx_common_buff_shield_02,
                 // BuffDebuffType.Bleeding => "",
                 // BuffDebuffType.Poison => "",
                 // BuffDebuffType.Burn => "",

@@ -114,7 +114,7 @@ namespace CookApps.BattleSystem
         /// <param name="healAmount"></param>
         /// <param name="isPure"></param>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnHealed)]
-        public virtual void OnHealed(int healAmount, bool isPure)
+        public virtual void OnHealed(double healAmount, bool isPure)
         {
         }
 
@@ -131,7 +131,7 @@ namespace CookApps.BattleSystem
         /// <param name="isPure"></param>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnDamaged)]
-        public virtual int OnDamaged(int damageAmount, [CanBeNull] CharacterController attacker, bool isPure)
+        public virtual double OnDamaged(double damageAmount, [CanBeNull] CharacterController attacker, bool isPure)
         {
             return damageAmount;
         }
@@ -168,7 +168,7 @@ namespace CookApps.BattleSystem
         /// <param name="damageAmount"></param>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseModifyDamageAmount)]
-        public virtual int ModifyDamageAmount(int damageAmount)
+        public virtual double ModifyDamageAmount(double damageAmount)
         {
             return damageAmount;
         }
@@ -180,7 +180,7 @@ namespace CookApps.BattleSystem
         /// <param name="healAmount"></param>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseModifyHealAmount)]
-        public virtual int ModifyHealAmount(int healAmount)
+        public virtual double ModifyHealAmount(double healAmount)
         {
             return healAmount;
         }
@@ -189,10 +189,10 @@ namespace CookApps.BattleSystem
         /// 쉴드량을 수정할 때 호출 된다.
         /// <see cref="ModifyDamageAmount"/> 와 마찬가지로 특수한 케이스에서만 사용할 것.
         /// </summary>
-        /// <param name="healAmount"></param>
+        /// <param name="shieldAmount"></param>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseModifyShieldAmount)]
-        public virtual int ModifyShieldAmount(int shieldAmount)
+        public virtual double ModifyShieldAmount(double shieldAmount)
         {
             return shieldAmount;
         }
@@ -316,7 +316,7 @@ namespace CookApps.BattleSystem
             }
         };
 
-        public static Func<EffectCodeStatBase, int, int> CallModifyDamageAmountLambda = (x, damageAmount) =>
+        public static Func<EffectCodeStatBase, double, double> CallModifyDamageAmountLambda = (x, damageAmount) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -326,7 +326,7 @@ namespace CookApps.BattleSystem
             return damageAmount;
         };
 
-        public static Func<EffectCodeStatBase, int, int> CallModifyHealAmountLambda = (x, healAmount) =>
+        public static Func<EffectCodeStatBase, double, double> CallModifyHealAmountLambda = (x, healAmount) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -336,7 +336,7 @@ namespace CookApps.BattleSystem
             return healAmount;
         };
 
-        public static Func<EffectCodeStatBase, int, int> CallModifyShieldAmountLambda = (x, shieldAmount) =>
+        public static Func<EffectCodeStatBase, double, double> CallModifyShieldAmountLambda = (x, shieldAmount) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -346,7 +346,7 @@ namespace CookApps.BattleSystem
             return shieldAmount;
         };
 
-        public static Action<EffectCodeStatBase, int, bool> CallOnHealedLambda = (x, healAmount, isPure) =>
+        public static Action<EffectCodeStatBase, double, bool> CallOnHealedLambda = (x, healAmount, isPure) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
@@ -354,7 +354,7 @@ namespace CookApps.BattleSystem
             }
         };
 
-        public static Func<EffectCodeStatBase, int, CharacterController, bool, int> CallOnDamagedLambda = (x, damageAmount, attacker, isPure) =>
+        public static Func<EffectCodeStatBase, double, CharacterController, bool, double> CallOnDamagedLambda = (x, damageAmount, attacker, isPure) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
