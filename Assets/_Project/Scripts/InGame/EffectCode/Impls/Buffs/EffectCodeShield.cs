@@ -11,7 +11,7 @@ public class EffectCodeBuffShield : EffectCodeCharacterBase
     {
         public ObfuscatorFloat elapsedTime;
         public ObfuscatorFloat buffDuration;
-        public ObfuscatorFloat shieldAmount;
+        public ObfuscatorDouble shieldAmount;
 
         public bool AddDeltaTime(float dt)
         {
@@ -27,7 +27,7 @@ public class EffectCodeBuffShield : EffectCodeCharacterBase
         base.Initialize(codeInfo, container, source);
         shields = ListPool<ShieldData>.Get();
         var effectCodes = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyShieldAmount);
-        var shieldAmount = (int)codeInfo.GetCodeStat(1);
+        var shieldAmount = codeInfo.GetCodeStat(1);
         shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
 
         var shieldData = GenericPool<ShieldData>.Get();
@@ -43,7 +43,7 @@ public class EffectCodeBuffShield : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         var effectCodes = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyShieldAmount);
-        var shieldAmount = (int)codeInfo.GetCodeStat(1);
+        var shieldAmount = codeInfo.GetCodeStat(1);
 
         shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
 
@@ -90,9 +90,9 @@ public class EffectCodeBuffShield : EffectCodeCharacterBase
         }
     }
 
-    public override int OnDamaged(int damageAmount, CharacterController attacker, bool isPure)
+    public override double OnDamaged(double damageAmount, CharacterController attacker, bool isPure)
     {
-        int originDamageAmount = damageAmount;
+        double originDamageAmount = damageAmount;
         bool hasShield = false;
         for (int i = 0; i < shields.Count; i++)
         {
