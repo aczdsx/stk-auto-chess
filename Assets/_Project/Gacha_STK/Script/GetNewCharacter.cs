@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
             playObj.Play();
             //PieceImageBG.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacter.prefab_id);
             PieceImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacter.prefab_id);
-            PieceCharNameText.text = _specCharacter.name_token;
+            PieceCharNameText.text = LanguageManager.Instance.GetLanguageText(_specCharacter.name_token);
             PieceAmountText.text = "x" + amount.ToString();
             // if (dataManager.UserData.isFirstGacha == true)
             // {
@@ -307,14 +307,14 @@ namespace CookApps.AutoBattler
 
             sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
             sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
-            OpenText.text = _specCharacter.desc_token;
+            OpenText.text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
             playObj.Play();
-            NameText[timeLineIdx].text = _specCharacter.name_token;
+            NameText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.name_token);
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
-            DescText[timeLineIdx].text = _specCharacter.desc_token;
+            DescText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
 
             SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.element_type);
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
@@ -476,15 +476,15 @@ namespace CookApps.AutoBattler
 
             sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
             sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
-            OpenText.text = _specCharacter.desc_token;
+            OpenText.text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
             playObj.Play();
 
-            NameText[timeLineIdx].text = _specCharacter.name_token;
+            NameText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.name_token);
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
-            DescText[timeLineIdx].text = _specCharacter.desc_token;
+            DescText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
 
             if(lowObj!= null)
                 Destroy(lowObj);
