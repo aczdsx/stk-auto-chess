@@ -108,6 +108,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                     tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
                 //[TODO] 해당 캐릭터에게 버프 생성
+
             }
         }
 

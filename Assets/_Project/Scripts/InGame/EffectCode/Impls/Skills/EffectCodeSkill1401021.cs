@@ -46,6 +46,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         _cooltime = codeInfo.GetCodeStatToFloat(0);
         _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _debuffTime = codeInfo.GetCodeStatToFloat(2);
+        _atkDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -106,7 +108,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                //[TODO] 공격력 디버프
+                //[TODO] 공격속도 디버프
             }
         }
 

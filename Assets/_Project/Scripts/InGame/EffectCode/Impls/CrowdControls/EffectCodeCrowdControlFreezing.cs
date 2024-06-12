@@ -42,7 +42,6 @@ public class EffectCodeCrowdControlFreezing : EffectCodeCharacterBase
         if (duration < elapsedTime)
         {
             RemoveFromContainer();
-            owner.RemoveCrowdControl(CrowdControlType.Freezing);
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 멘샤
+/// 필리아
 // 대상 : 가장 가까운 적
 // 대미지 : 샷건을 발사해 필리아 공격력 {0}%의 대미지를 가한다.
 //     특수 효과 : 스킬로 적을 사망 시켰을 시, 스킬 쿨타임이 즉시 초기화된다.
@@ -29,7 +29,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
@@ -41,7 +41,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -104,7 +104,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                //[TODO] 적을 잡았을 시 쿨타임 초기화
+                _elapsedTime = _cooltime;
             }
         }
 
