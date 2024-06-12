@@ -343,6 +343,7 @@ namespace CookApps.AutoBattler
 
             staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
+            CharaterIdleObjects[timeLineIdx].gameObject.SetActive(true);
             CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
             CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
             CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
@@ -505,6 +506,7 @@ namespace CookApps.AutoBattler
             UpperBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
             UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
+            CharaterIdleObjects[timeLineIdx].gameObject.SetActive(true);
             CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
             CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
