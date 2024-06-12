@@ -67,8 +67,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.Jewel, TopPanelType.Menu);
 
-            SetLobbyMainUI();
-            _guideMissionSlot?.InitGuideMissionSlot();
+            RefreshUI(LobbyMainRefreshType.ALL);
 
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
         }

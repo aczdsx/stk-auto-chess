@@ -3,6 +3,7 @@ using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
+using Google.Protobuf.Collections;
 
 namespace CookApps.AutoBattler
 {
@@ -82,6 +83,40 @@ namespace CookApps.AutoBattler
             }
 
             return null;
+        }
+
+        // 스테이지 별 누적 보상 상태 데이터 저장
+        public void SetStageAccRewardState(int chapterID, DifficultyType difficultyType, int targetAccCount)
+        {
+            if (userStageGroup.UserStageAccRewards.ContainsKey(chapterID) == false)
+            {
+                userStageGroup.UserStageAccRewards.Add(chapterID, new UserStageAccRewardDic());
+
+                if (userStageGroup.UserStageAccRewards[chapterID].StageAccRewardDic.ContainsKey((int) difficultyType) == false)
+                {
+                    userStageGroup.UserStageAccRewards[chapterID].StageAccRewardDic.Add((int)difficultyType, new UserStageAccRewardList());
+                }
+            }
+
+            userStageGroup.UserStageAccRewards[chapterID].StageAccRewardDic[(int)difficultyType].StageAccRewardList.Add(targetAccCount);
+
+            SaveUserStage();
+        }
+
+        // 스테이지 별 누적 보상 획득 여부 체크
+        public bool IsGetStageAccReward(int chapterID, DifficultyType difficultyType, int targetAccCount)
+        {
+            if (userStageGroup.UserStageAccRewards.ContainsKey(chapterID) == false)
+            {
+                return false;
+            }
+
+            if (userStageGroup.UserStageAccRewards[chapterID].StageAccRewardDic.ContainsKey((int) difficultyType) == false)
+            {
+                return false;
+            }
+
+            return userStageGroup.UserStageAccRewards[chapterID].StageAccRewardDic[(int)difficultyType].StageAccRewardList.Contains(targetAccCount);
         }
 
         public UserStage GetLastUserStageByChapter(int chapterID)

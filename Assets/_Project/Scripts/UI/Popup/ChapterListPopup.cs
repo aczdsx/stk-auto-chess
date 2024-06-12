@@ -17,12 +17,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _chapterSlotObject;
 
         [Header("Chapter Progress Layer")]
+        [SerializeField] private Slider _chapterProgressSlider;
         [SerializeField] private TextMeshProUGUI _chapterNumberText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _chapterStarCountText;
 
-        [Space(10)]
-        [SerializeField] private Slider _chapterProgressSlider;
+        [Header("Chapter Star Reward Layer")]
+        [SerializeField] private List<ChapterListStarGaugeSlot> _chapterStarRewardSlotList;
 
         private List<ChapterListItemSlot> _chapterSlotList = new();
 
@@ -59,7 +60,19 @@ namespace CookApps.AutoBattler
 
         public void RefreshUI()
         {
-            SetChapterListUI();
+
+        }
+
+        public void RefreshRewardLayer()
+        {
+            var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _selectedChapterData.chapter_id, _selectedChapterData.difficulty_type);
+            if (rewardInfoList != null)
+            {
+                for (int i = 0; i < _chapterStarRewardSlotList.Count; ++i)
+                {
+                    _chapterStarRewardSlotList[i].SetStarGaugeSlot(rewardInfoList[i]);
+                }
+            }
         }
 
         public void RefreshSelectedLayer(int targetChapterID, bool isFirstInit)
@@ -75,7 +88,7 @@ namespace CookApps.AutoBattler
                 UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.id, true);
             }
 
-            // 팝업 관련 처리
+            // 팝업 관련 처리 (하단 정보, 슬라이더)
             _chapterNumberText.text = string.Format("챕터-{0}-{1}", _selectedChapterData.chapter_id, _selectedChapterData.difficulty_type);
             _chapterNameText.text = _selectedChapterData.name_token;
 
@@ -84,6 +97,13 @@ namespace CookApps.AutoBattler
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
 
+            _chapterProgressSlider.maxValue = totalChapterStarCount;
+            _chapterProgressSlider.value = currentChapterStarCount;
+
+            // 보상 슬롯 관련 처리
+            RefreshRewardLayer();
+
+            // 슬롯 레이어 갱신 처리
             _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_selectedChapterData.id));
 
             // 로비 메인 하단 스테이지 UI 갱신

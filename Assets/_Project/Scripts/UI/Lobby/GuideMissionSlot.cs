@@ -52,6 +52,10 @@ namespace CookApps.AutoBattler
 
         public void RefreshGuideMissionSlot()
         {
+            // 가이드 미션 상태 갱신
+            UserDataManager.Instance.RefreshCurrentGuideMissionData();
+
+            // 가이드 미션 슬롯 데이터 세팅
             int currentOrder = UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder;
             _specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(currentOrder);
 

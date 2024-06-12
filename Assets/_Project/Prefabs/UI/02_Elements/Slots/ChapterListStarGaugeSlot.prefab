@@ -1328,6 +1328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3043391406049759348}
+  - component: {fileID: 6153634330639468175}
   m_Layer: 5
   m_Name: ChapterListStarGaugeSlot
   m_TagString: Untagged
@@ -1357,6 +1358,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6153634330639468175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2768390549291716566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959213efda273d44c98047728121f47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _getRewardButton: {fileID: 5990485823583926304}
+  _rewardIconImage: {fileID: 7332208900535386544}
+  _rewardIconUIShiny: {fileID: 2961381004150643473}
+  _starAmountText: {fileID: 6637049584625135900}
+  _rewardAmountText: {fileID: 623811040812660180}
+  _activeFrameObject: {fileID: 4179306000107133227}
+  _completeSymbolObject: {fileID: 2861797285879672624}
+  _completeLayerImage_1: {fileID: 3123293961709981833}
+  _completeLayerImage_2: {fileID: 1068348113579110560}
+  _completedColor: {r: 0.99607843, g: 0.9529412, b: 0.64705884, a: 1}
 --- !u!1 &2791184285922258952
 GameObject:
   m_ObjectHideFlags: 0

@@ -401,6 +401,14 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        // 보상 데이터 리스트 반환
+        public List<SpecRewardInfo> GetSpecRewardInfoList(ContentType contentType, int contentKey, DifficultyType difficultyType)
+        {
+            return SpecRewardInfo.All.ToList().FindAll(data => data.content_type == contentType
+                                                    && data.content_key_value == contentKey
+                                                    && data.difficulty_type == difficultyType);
+        }
+
         // 시나리오 가챠 데이터 반환
         public List<SpecGachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
         {
@@ -465,6 +473,11 @@ namespace CookApps.AutoBattler
             }
 
             return 1;
+        }
+
+        public SpecGuideMission GetGuideMissionDataByOrder(int order)
+        {
+            return SpecGuideMission.All.ToList().Find(data => data.order == order);
         }
 
         // 가이드 미션 order 최대치 반환

@@ -12,4 +12,9 @@ public static class BMUtil
             UnityEngine.Object.Destroy(targetTransform.GetChild(i).gameObject);
         }
     }
+
+    public static Color ChangeColorAlpha(Color color, float alpha)
+    {
+        return new Color(color.r, color.g, color.b, alpha);
+    }
 }

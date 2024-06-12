@@ -63,7 +63,7 @@ namespace CookApps.AutoBattler
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserMissionData.ToCategoryString(), userMissionData);
         }
 
-        // 현재 가이드 미션 상태 갱신 (행동 횟수)
+        // 현재 가이드 미션 상태 세팅 (행동 횟수)
         public void SetGuideMissionActionValue(GuideMissionType missionType, int actionValue)
         {
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
@@ -88,7 +88,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        // 현재 가이드 미션 상태 갱신 (미션 상태)
+        // 현재 가이드 미션 상태 세팅 (미션 상태)
         public void SetGuideMissionState(GuideMissionType missionType, MissionStateType stateType)
         {
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
@@ -111,6 +111,29 @@ namespace CookApps.AutoBattler
                 }
 
                 SaveUserMissionData();
+            }
+        }
+
+        // 현재 가이드 미션 상태 갱신
+        public void RefreshCurrentGuideMissionData()
+        {
+            var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(UserMissionData.GuideMissionCurrentOrder);
+            if (specGuideMissionData == null) return;
+
+            switch (specGuideMissionData.guide_mission_type)
+            {
+                case GuideMissionType.END_DIALOGUE:
+                    if (CheckDialogHistory(specGuideMissionData.dialogue))
+                    {
+                        SetGuideMissionState(GuideMissionType.END_DIALOGUE, MissionStateType.REWARD);
+                    }
+                    break;
+                case GuideMissionType.CLEAR_STAGE:
+                    if (IsClearStage(specGuideMissionData.sub_key))
+                    {
+                        SetGuideMissionState(GuideMissionType.CLEAR_STAGE, MissionStateType.REWARD);
+                    }
+                    break;
             }
         }
 
