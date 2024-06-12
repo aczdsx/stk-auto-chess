@@ -460,6 +460,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
+            //[TODO] 이부분 CC 일 경우에도 불리는게 맞을까요?
             InGameVfxManager.Instance.AddInGameVfx(type.GetOneShotVfxName(), view.SkillRootTransform);
 
 

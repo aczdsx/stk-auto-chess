@@ -5,8 +5,10 @@ using PrimeTween;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
+[UseEffectCodeIds(CodeId)]
 public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 {
+    public const int CodeId = 229;
     public override bool IsRemoveWithSource => false;
     public override EffectCodeType Type => EffectCodeType.CrowdControl;
 
@@ -136,6 +138,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
     public override void OnPreRemoved()
     {
         base.OnPreRemoved();
+        // [TODO] State DEAD 상황에서 발생,  NullReferenceException: Object reference not set to an instance of an object
         owner.RemoveCrowdControl(CrowdControlType.Airborne);
     }
 }
