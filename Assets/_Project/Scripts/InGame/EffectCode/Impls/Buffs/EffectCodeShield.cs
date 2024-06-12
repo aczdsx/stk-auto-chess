@@ -59,6 +59,7 @@ public class EffectCodeBuffShield : EffectCodeCharacterBase
     {
         base.OnPreRemoved();
         ListPool<ShieldData>.Release(shields);
+        //[TODO] NullReferenceException: Object reference not set to an instance of an object
         owner.RemoveBuffDebuffType(BuffDebuffType.Shield);
     }
 

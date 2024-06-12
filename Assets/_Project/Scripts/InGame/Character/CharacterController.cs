@@ -462,7 +462,13 @@ namespace CookApps.BattleSystem
 
             InGameVfxManager.Instance.AddInGameVfx(type.GetOneShotVfxName(), view.SkillRootTransform);
 
-            _buffDebuffRefCountDict[type] += 1;
+
+            //[TODO] CountDict 관련 수정 괜찮나요?
+            if (!_buffDebuffRefCountDict.TryAdd(type, 1))
+            {
+                _buffDebuffRefCountDict[type] += 1;
+            }
+
             if (_buffDebuffEffectViewDict.ContainsKey(type) == false)
             {
                 var effectView = InGameVfxManager.Instance.AddInGameVfx(type.GetLoopVfxName(), view.SkillRootTransform);
@@ -608,6 +614,8 @@ namespace CookApps.BattleSystem
                 damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageAmount, this, isFirstDamage);
             }
 
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01,
+                GetCharacterView().SkillRootTransform);
             GetCharacterView().OnHit();
             ShowDamageText(damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 

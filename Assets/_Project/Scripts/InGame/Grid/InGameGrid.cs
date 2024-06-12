@@ -327,7 +327,7 @@ namespace CookApps.BattleSystem
 
         public List<InGameTile> GetTilesByRow(InGameTile tile)
         {
-            return _tiles.Where(t => t.X == tile.X).ToList();
+            return _tiles.Where(t => t.Y == tile.Y).ToList();
         }
 
         public List<InGameTile> GetTilesByNearest(InGameTile tile)
