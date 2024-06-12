@@ -100,14 +100,17 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
                 if (tile.OccupiedCharacter != null)
                 {
-                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-                        tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+                    if (tile.OccupiedCharacter.AllianceType == owner.AllianceType)
+                    {
+                        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                            tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
-                    var shieldAmount = owner.PrecalculateDamageAmount(owner.AD * _shieldRate, 0, tile.OccupiedCharacter,
-                        codeId, true);
-                    var effectCodeInfo = new EffectCodeInfo(EffectCodeBuffShield.CodeId, 0, 2, _duration,
-                        shieldAmount.damageAmount);
-                    tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                        var shieldAmount = owner.PrecalculateDamageAmount(owner.AD * _shieldRate, 0, tile.OccupiedCharacter,
+                            codeId, true);
+                        var effectCodeInfo = new EffectCodeInfo(EffectCodeBuffShield.CodeId, 0, 2, _duration,
+                            shieldAmount.damageAmount);
+                        tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                    }
                 }
             }
         }
@@ -119,6 +122,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
     {
         base.OnSkillAnimationEnd();
         // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
+        _elapsedTime = 0;
         _isSkillActivated = false;
     }
 }

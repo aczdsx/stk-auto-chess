@@ -15,9 +15,9 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1404021)]
 public class EffectCodeSkill1404021 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat cooltime;
-    private ObfuscatorFloat power;
-    private ObfuscatorFloat elapsedTime;
+    private ObfuscatorFloat _cooltime;
+    private ObfuscatorFloat _power;
+    private ObfuscatorFloat _elapsedTime;
 
     private bool isReadyToActivate;
     private bool isSkillActivated;
@@ -29,9 +29,9 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        elapsedTime = 0f;
+        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
 
@@ -41,8 +41,8 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        cooltime = codeInfo.GetCodeStatToFloat(0);
-        power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -56,7 +56,7 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            elapsedTime = cooltime;
+            _elapsedTime = _cooltime;
         }
     }
 
@@ -64,8 +64,8 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
     {
         if (isReadyToActivate || isSkillActivated)
             return;
-        elapsedTime += dt;
-        if (elapsedTime >= cooltime)
+        _elapsedTime += dt;
+        if (_elapsedTime >= _cooltime)
         {
             isReadyToActivate = true;
         }
@@ -97,14 +97,23 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         if (_targetCharacter == null)
             return;
 
+        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+            _targetCharacter.GetCharacterView().SkillRootTransform);
+
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
             _targetCharacter.GetCharacterView().SkillRootTransform);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0, _targetCharacter, codeId, true);
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _power, 0, _targetCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
         _targetCharacter.GetDamaged(damage, owner);
 
-       //[TODO] target은 두 칸 넉백 할 수 있도록
+        var inGameTile =
+            InGameObjectManager.Instance.InGameGrid.GetDirectionTile(owner.CurrentTile, _targetCharacter.CurrentTile,
+                2);
+        //[TODO] airbone effect codeID 및 적용 방법 확인 필요
+        int effectCodeID = 0;
+        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, 1.0f, 2.0f, inGameTile.View.ID);
+        _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
 
         isSkillActivated = false;
     }
@@ -112,7 +121,7 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
-        // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
+        _elapsedTime = 0;
         isSkillActivated = false;
     }
 }

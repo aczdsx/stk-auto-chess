@@ -105,8 +105,11 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                 var buffVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
                     tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
-                //[TODO] 해당 캐릭터에게 버프 생성
-
+                //[TODO] airbone effect codeID 및 적용 방법 확인 필요 + 공격력 증가 버프
+                int effectCodeID = 0;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, _duration,
+                    _atkUpRate);
+                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }
         }
 
@@ -116,7 +119,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
-        // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
+        _elapsedTime = 0;
         _isSkillActivated = false;
     }
 }

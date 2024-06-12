@@ -14756,6 +14756,7 @@ GameObject:
   - component: {fileID: 9034157820847114888}
   - component: {fileID: 99254997853716326}
   - component: {fileID: 768270849984681235}
+  - component: {fileID: 2199293892113979930}
   m_Layer: 6
   m_Name: fx_common_skill_hit_01
   m_TagString: Untagged
@@ -19580,6 +19581,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2199293892113979930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002643853335408807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &7819264887376752689
 GameObject:
   m_ObjectHideFlags: 0

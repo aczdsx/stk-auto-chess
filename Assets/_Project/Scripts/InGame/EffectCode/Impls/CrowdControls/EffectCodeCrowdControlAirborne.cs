@@ -1,6 +1,7 @@
 using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using PrimeTween;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -13,12 +14,15 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
     private ObfuscatorFloat duration;
     private ObfuscatorFloat height;
     private ObfuscatorFloat startY;
+    private ObfuscatorInt tileID;
 
     // runtime data
     private ObfuscatorFloat elapsedTime;
     private bool isGoingUp;
     private ObfuscatorFloat upFactor;
     private ObfuscatorFloat downFactor;
+
+    private InGameTile _inGameTile;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -28,6 +32,8 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
         duration = codeInfo.GetCodeStatToFloat(0);
         height = codeInfo.GetCodeStatToFloat(1);
+        tileID = codeInfo.GetCodeStatToInt(2);
+
         startY = owner.ViewPosition3D.y;
 
         var halfDuration = duration * 0.5f;
@@ -36,6 +42,22 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
         owner.AddCrowdControl(CrowdControlType.Airborne);
         elapsedTime = 0;
+        _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+
+        Tween.Custom(
+            owner.Position3D,
+            _inGameTile.View.Position,
+            duration,
+            (Vector3 value) =>
+            {
+                if (owner != null)
+                    owner.Position3D = value;
+            }).OnComplete(this, target =>
+            {
+                owner.AddNextState<CharacterStateIdle>();
+                InGameObjectManager.Instance.ChangeTile(owner, _inGameTile);
+            }
+        );
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

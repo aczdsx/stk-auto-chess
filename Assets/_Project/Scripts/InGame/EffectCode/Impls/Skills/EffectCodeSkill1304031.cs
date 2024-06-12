@@ -99,6 +99,8 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                     tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
                 var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
@@ -115,6 +117,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     {
         base.OnSkillAnimationEnd();
         // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
+        _elapsedTime = 0;
         _isSkillActivated = false;
     }
 }

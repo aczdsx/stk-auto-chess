@@ -9805,6 +9805,7 @@ GameObject:
   - component: {fileID: 1387604536800909700}
   - component: {fileID: 5616496156877035784}
   - component: {fileID: 6074173766842355439}
+  - component: {fileID: 8710624025102210342}
   m_Layer: 6
   m_Name: fx_common_hit_01
   m_TagString: Untagged
@@ -14627,6 +14628,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8710624025102210342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003239456752447729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &5791029260527531259
 GameObject:
   m_ObjectHideFlags: 0

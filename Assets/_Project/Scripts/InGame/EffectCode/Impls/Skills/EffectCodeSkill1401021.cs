@@ -108,7 +108,11 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                //[TODO] 공격속도 디버프
+                //[TODO] airbone effect codeID 및 적용 방법 확인 필요 + 공격속도 디버프
+                int effectCodeID = 0;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, _debuffTime,
+                    _atkDownRate);
+                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
 
             }
         }
@@ -120,7 +124,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
-        // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
+        _elapsedTime = 0;
         _isSkillActivated = false;
     }
 }
