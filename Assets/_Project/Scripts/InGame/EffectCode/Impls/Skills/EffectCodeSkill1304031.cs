@@ -97,7 +97,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
             if (tile.OccupiedCharacter != null)
             {
                 InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
-                var _otherVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                     tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
                 var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);

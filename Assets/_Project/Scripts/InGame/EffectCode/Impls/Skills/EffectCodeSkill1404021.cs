@@ -36,13 +36,6 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         isSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
-        _targetCharacter = owner.Target;
-
-        var ownVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().CachedTr);
-        ownVfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
-
-        var targetVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], _targetCharacter.GetCharacterView().CachedTr);
-        targetVfx.CachedTr.position = _targetCharacter.GetCharacterView().SkillRootTransform.position;
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -90,6 +83,11 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         isReadyToActivate = false;
         isSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
+
+        _targetCharacter = owner.Target;
+
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().SkillRootTransform);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], _targetCharacter.GetCharacterView().SkillRootTransform);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -99,12 +97,12 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         if (_targetCharacter == null)
             return;
 
-        var hitVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2], _targetCharacter.GetCharacterView().CachedTr);
-        hitVfx.CachedTr.position = _targetCharacter.GetCharacterView().SkillRootTransform.position;
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
+            _targetCharacter.GetCharacterView().SkillRootTransform);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0,_targetCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage,_targetCharacter);
-       _targetCharacter.GetDamaged(damage, owner);
+        var damage = owner.PrecalculateDamageAmount(owner.AD * power, 0, _targetCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+        _targetCharacter.GetDamaged(damage, owner);
 
        //[TODO] target은 두 칸 넉백 할 수 있도록
 

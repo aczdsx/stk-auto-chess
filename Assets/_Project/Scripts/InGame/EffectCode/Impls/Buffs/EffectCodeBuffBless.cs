@@ -1,7 +1,7 @@
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
-[UseEffectCodeIds(101021)]
+[UseEffectCodeIds(14010310)]
 public class EffectCodeBuffBless : EffectCodeCharacterBase
 {
     private ObfuscatorFloat duration;

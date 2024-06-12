@@ -99,8 +99,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByDirection(owner);
         foreach (var tile in inGameTiles)
         {
-            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr);
-            vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+            InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr);
 
             if (tile.OccupiedCharacter != null)
             {
@@ -109,6 +109,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                 //[TODO] 공격속도 디버프
+
             }
         }
 

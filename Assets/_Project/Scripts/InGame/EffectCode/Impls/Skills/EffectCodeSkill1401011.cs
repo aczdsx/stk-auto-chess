@@ -90,15 +90,12 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
         var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
 
-        // 검기 VFX
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], InGameObjectManager.Instance.Playground);
-        vfx.CachedTr.position = owner.GetCharacterView().SkillRootTransform.position;
+        InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], owner.GetCharacterView().SkillRootTransform);
 
-        // 발사체 VFX
         var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], InGameObjectManager.Instance.Playground);
         vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
 
+        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByDirection(owner);
         if (inGameTile != null)
         {

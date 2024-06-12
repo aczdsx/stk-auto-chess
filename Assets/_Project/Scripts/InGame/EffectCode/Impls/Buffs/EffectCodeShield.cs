@@ -4,9 +4,10 @@ using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
-[UseEffectCodeIds()]
+[UseEffectCodeIds(CodeId)]
 public class EffectCodeBuffShield : EffectCodeCharacterBase
 {
+    public const int CodeId = 119;
     private class ShieldData
     {
         public ObfuscatorFloat elapsedTime;

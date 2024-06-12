@@ -100,10 +100,14 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
                 if (tile.OccupiedCharacter != null)
                 {
-                    var _shieldVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                         tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
-                    //[TODO] 해당 캐릭터에게 쉴드 생성
+                    var shieldAmount = owner.PrecalculateDamageAmount(owner.AD * _shieldRate, 0, tile.OccupiedCharacter,
+                        codeId, true);
+                    var effectCodeInfo = new EffectCodeInfo(EffectCodeBuffShield.CodeId, 0, 2, _duration,
+                        shieldAmount.damageAmount);
+                    tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
                 }
             }
         }

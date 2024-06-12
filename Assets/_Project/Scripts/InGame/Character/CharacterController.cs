@@ -733,6 +733,10 @@ namespace CookApps.BattleSystem
 
         private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
         {
+            if (amount == 0)
+            {
+                return;
+            }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount, isCritical, isDoubleCritical);
             InGameTextViewPool.Instance.Return(textView);
@@ -740,6 +744,10 @@ namespace CookApps.BattleSystem
 
         private async UniTask ShowHealText(double amount)
         {
+            if (amount == 0)
+            {
+                return;
+            }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowHealText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount);
             InGameTextViewPool.Instance.Return(textView);
