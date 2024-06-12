@@ -57,9 +57,9 @@ namespace CookApps.AutoBattler
 
             string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, currentDialougeData.prefab_id);
             AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
-            _characterNameText.text = currentDialougeData.character_name_token;
 
-            _dialogueText.text = currentDialougeData.text_desc_token;
+            _characterNameText.text = LanguageManager.Instance.GetLanguageText(currentDialougeData.character_name_token);
+            _dialogueText.text = LanguageManager.Instance.GetLanguageText(currentDialougeData.text_desc_token);
         }
 
         // 다음 대화로 넘어가기
@@ -67,8 +67,12 @@ namespace CookApps.AutoBattler
         {
             currentDialogueSeq++;
 
+            // 다이얼로그 종료 체크
             if (currentDialogueSeq >= _dialogueList.Count)
             {
+                // 가이드 미션 완료 체크
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.END_DIALOGUE, 1);
+
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;
             }
