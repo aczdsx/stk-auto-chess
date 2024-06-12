@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2088214698108629032}
   - component: {fileID: 3874006524311224275}
   - component: {fileID: 6452676335493741337}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_shine_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4971,7 +4971,7 @@ GameObject:
   - component: {fileID: 8650618592936272813}
   - component: {fileID: 1086134807230204099}
   - component: {fileID: 5937583218248552400}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9801,7 +9801,7 @@ GameObject:
   - component: {fileID: 1448886590934331268}
   - component: {fileID: 6539848544915457564}
   - component: {fileID: 5983974602822506328}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_decal_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14703,7 +14703,7 @@ GameObject:
   - component: {fileID: 4574888350878020500}
   - component: {fileID: 8658227962483463235}
   - component: {fileID: 4441671892431523262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_shine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19663,7 +19663,7 @@ GameObject:
   - component: {fileID: 4630274833908951076}
   - component: {fileID: 4708998891789132124}
   - component: {fileID: 2345755603023348663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_buff_heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

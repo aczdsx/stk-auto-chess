@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1910290680125147247}
   - component: {fileID: 5480720779707002561}
   - component: {fileID: 6646815276319955615}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_fire_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 521799443901184328}
   - component: {fileID: 3608791179656366518}
   - component: {fileID: 4810181337587445977}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9903,7 +9903,7 @@ GameObject:
   - component: {fileID: 888462131807003821}
   - component: {fileID: 6586758519066670097}
   - component: {fileID: 4168167145277001013}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_smoke_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14791,7 +14791,7 @@ GameObject:
   - component: {fileID: 4834255787327049332}
   - component: {fileID: 763552780673981862}
   - component: {fileID: 1541881714703356790}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19679,7 +19679,7 @@ GameObject:
   - component: {fileID: 2989802389418411220}
   - component: {fileID: 1281435695588830467}
   - component: {fileID: 640455861678521946}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24567,7 +24567,7 @@ GameObject:
   - component: {fileID: 3577788910730804464}
   - component: {fileID: 6770360736472608763}
   - component: {fileID: 1004940500137127485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skill_130601_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29403,7 +29403,7 @@ GameObject:
   - component: {fileID: 5642062701273090314}
   - component: {fileID: 3541489971767391521}
   - component: {fileID: 3871769016091775884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

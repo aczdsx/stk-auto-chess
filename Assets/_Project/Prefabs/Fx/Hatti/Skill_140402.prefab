@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3353457227374369745}
   - component: {fileID: 170967652390309835}
   - component: {fileID: 7807997902202292720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5016,7 +5016,7 @@ GameObject:
   - component: {fileID: 5924297205502243729}
   - component: {fileID: 2984778397251509320}
   - component: {fileID: 2935562044741113313}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skill_140402
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9862,7 +9862,7 @@ GameObject:
   - component: {fileID: 455705593587673121}
   - component: {fileID: 4968006169264575961}
   - component: {fileID: 97678930321806546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14866,7 +14866,7 @@ GameObject:
   - component: {fileID: 220836299691945029}
   - component: {fileID: 5406732755790652109}
   - component: {fileID: 2252489958566260807}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

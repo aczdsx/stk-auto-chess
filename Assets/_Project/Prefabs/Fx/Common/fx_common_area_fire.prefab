@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 21079113782317104}
   - component: {fileID: 7169386802024041046}
   - component: {fileID: 8035361107540027082}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_fire_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4971,7 +4971,7 @@ GameObject:
   - component: {fileID: 1190665139589688592}
   - component: {fileID: 6637370129679940353}
   - component: {fileID: 6253047350808951050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9859,7 +9859,7 @@ GameObject:
   - component: {fileID: 4330494658025495826}
   - component: {fileID: 1617379394884695358}
   - component: {fileID: 9169860153994825550}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14748,7 +14748,7 @@ GameObject:
   - component: {fileID: 8116472005544377937}
   - component: {fileID: 1121494989424638893}
   - component: {fileID: -7981156840538509871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_area_fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19654,7 +19654,7 @@ GameObject:
   - component: {fileID: 2304173187809252687}
   - component: {fileID: 1748186743688221850}
   - component: {fileID: 948673921077297888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24542,7 +24542,7 @@ GameObject:
   - component: {fileID: 4050875985497392840}
   - component: {fileID: 7488915629626682325}
   - component: {fileID: 6099674414887416842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}

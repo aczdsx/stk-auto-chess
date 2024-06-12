@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1608005826375266305}
   - component: {fileID: 7536807533771319179}
   - component: {fileID: 4533863003818614917}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_debuff_atkdown_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: 7251505814499843058}
   - component: {fileID: 2160177627523314824}
   - component: {fileID: 2028622490367749077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9735,7 +9735,7 @@ GameObject:
   - component: {fileID: 7322313688620413311}
   - component: {fileID: 8029857614318959762}
   - component: {fileID: 6905507246388293644}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9751,7 +9751,7 @@ Transform:
   m_GameObject: {fileID: 4801038868792234378}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6601024, y: -0.2665903, z: -0.27174973, w: 0.6475697}
-  m_LocalPosition: {x: 0.17, y: 0.16, z: -2.18}
+  m_LocalPosition: {x: 0.17, y: 0.16, z: -1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11273,7 +11273,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -14614,7 +14614,7 @@ GameObject:
   - component: {fileID: 5436166086021007423}
   - component: {fileID: 3749686656315724040}
   - component: {fileID: 8226370609022615857}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_decal_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19444,7 +19444,7 @@ GameObject:
   - component: {fileID: 6798896002064182710}
   - component: {fileID: 4483353488806623649}
   - component: {fileID: 881697517872251220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24341,7 +24341,7 @@ GameObject:
   - component: {fileID: 1352974797696310341}
   - component: {fileID: 6202450202089220578}
   - component: {fileID: 8009958028415595383}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29171,7 +29171,7 @@ GameObject:
   - component: {fileID: 6005779928342845233}
   - component: {fileID: 599091787516762957}
   - component: {fileID: 7750525032236815724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8245644740902559479}
   - component: {fileID: 1021340985217722031}
   - component: {fileID: 8921010873132352183}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 1225276339418158982}
   - component: {fileID: 3721459293323130271}
   - component: {fileID: 104474926686586155}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_fire_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9787,7 +9787,7 @@ GameObject:
   - component: {fileID: 7304181711060362912}
   - component: {fileID: 5463110446845791673}
   - component: {fileID: 4069336606627187932}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_fire_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14675,7 +14675,7 @@ GameObject:
   - component: {fileID: 6640046983970206051}
   - component: {fileID: 7022431247086254113}
   - component: {fileID: 3106055677355604103}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_etc_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19563,7 +19563,7 @@ GameObject:
   - component: {fileID: 5988246485827411322}
   - component: {fileID: 6503286686704762515}
   - component: {fileID: 2791754358843315948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_commander_skill_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24402,7 +24402,7 @@ GameObject:
   - component: {fileID: 944385157669415244}
   - component: {fileID: 7705988996016047093}
   - component: {fileID: 4241913849643012917}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29290,7 +29290,7 @@ GameObject:
   - component: {fileID: 4533240577523778841}
   - component: {fileID: 7977006903598308319}
   - component: {fileID: 4593495604493946057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34178,7 +34178,7 @@ GameObject:
   - component: {fileID: 4306592766913196675}
   - component: {fileID: 2612206795912138425}
   - component: {fileID: 4418413097174192846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_fire_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39066,7 +39066,7 @@ GameObject:
   - component: {fileID: 8160210279434679977}
   - component: {fileID: 795301786644680439}
   - component: {fileID: 7217141886888531676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43954,7 +43954,7 @@ GameObject:
   - component: {fileID: 5512269323520126685}
   - component: {fileID: 6781890218377745575}
   - component: {fileID: 884978120921317499}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_fire_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}

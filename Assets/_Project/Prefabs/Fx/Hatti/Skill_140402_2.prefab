@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1872534163029460684}
   - component: {fileID: 7620169739826370617}
   - component: {fileID: 4257819943305359589}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4908,7 +4908,7 @@ GameObject:
   - component: {fileID: 1616893800076712811}
   - component: {fileID: 2547570242414835228}
   - component: {fileID: 6916387424174078176}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_shine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9805,7 +9805,7 @@ GameObject:
   - component: {fileID: 6562990455488987580}
   - component: {fileID: 6088198981359366604}
   - component: {fileID: 9031283472504357056}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14703,7 +14703,7 @@ GameObject:
   - component: {fileID: 5967571210401628752}
   - component: {fileID: 1446549836996332865}
   - component: {fileID: 8360774113719640704}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skill_140402_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19552,7 +19552,7 @@ GameObject:
   - component: {fileID: 7719972064131491020}
   - component: {fileID: 624491454335251649}
   - component: {fileID: 4177593012109950978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24449,7 +24449,7 @@ GameObject:
   - component: {fileID: 5397080403952426358}
   - component: {fileID: 4848647809644780576}
   - component: {fileID: 2775618129376454064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29337,7 +29337,7 @@ GameObject:
   - component: {fileID: 3674007326339111913}
   - component: {fileID: 3107422311316374220}
   - component: {fileID: 1015727708320279425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
