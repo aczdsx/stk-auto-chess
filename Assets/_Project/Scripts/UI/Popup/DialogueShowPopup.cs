@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler
     public class DialogueShowPopup : UILayer
     {
         [Header("Chracter Layer")]
-        [SerializeField] private Image _characterImage;
+        [SerializeField] private GameObject _characeterIllustParentObject;
         [SerializeField] private TextMeshProUGUI _characterNameText;
 
         [Header("Dialogue Layer")]
@@ -55,7 +55,8 @@ namespace CookApps.AutoBattler
 
             var currentDialougeData = _dialogueList[seq];
 
-            _characterImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(currentDialougeData.prefab_id);
+            string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, currentDialougeData.prefab_id);
+            AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
             _characterNameText.text = currentDialougeData.character_name_token;
 
             _dialogueText.text = currentDialougeData.text_desc_token;
@@ -78,6 +79,8 @@ namespace CookApps.AutoBattler
         private void ClearPopup()
         {
             currentDialogueSeq = 0;
+
+            BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
         }
     }
 }

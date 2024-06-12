@@ -10,6 +10,23 @@ public partial class SROptions
     #region 유저 정보 관련
 
     [Category("유저 정보 관련")]
+    public void 가이드미션진행상태초기화()
+    {
+        UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder = 1;
+        UserDataManager.Instance.UserMissionData.UserGuideMissions.Clear();
+
+        UserDataManager.Instance.SaveUserMissionData();
+    }
+
+    [Category("유저 정보 관련")]
+    public void 다이얼로그히스토리초기화()
+    {
+        UserDataManager.Instance.UserMissionData.UserDialogueGroupIds.Clear();
+
+        UserDataManager.Instance.SaveUserMissionData();
+    }
+
+    [Category("유저 정보 관련")]
     public void 유저가챠횟수초기화()
     {
         UserDataManager.Instance.UserBasicData.TotalGachaCount = 0;

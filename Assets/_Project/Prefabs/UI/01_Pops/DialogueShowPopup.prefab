@@ -1199,6 +1199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
+  _characeterIllustParentObject: {fileID: 4903118801287385762}
   _characterImage: {fileID: 8650580463207244522}
   _characterNameText: {fileID: 8372786935888460644}
   _blockLayerButton: {fileID: 6084146551450346301}
@@ -1519,7 +1520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2562289447391475007
 RectTransform:
   m_ObjectHideFlags: 0
