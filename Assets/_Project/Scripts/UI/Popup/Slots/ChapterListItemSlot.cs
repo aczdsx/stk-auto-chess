@@ -48,7 +48,7 @@ namespace CookApps.AutoBattler
 
             // 기본 데이터 세팅
             _chapterNumberText.text = string.Format("챕터-{0}-{1}", _specChapterData.chapter_id, _specChapterData.difficulty_type);
-            _chapterNameText.text = _specChapterData.name_token;
+            _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_specChapterData.name_token);
 
             // 진행 상태에 따른 처리
             bool isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
