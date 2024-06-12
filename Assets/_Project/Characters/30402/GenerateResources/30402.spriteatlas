@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 30401
+  m_Name: 30402
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -346,5 +346,5 @@ SpriteAtlas:
   - SR_PHILIA_F_skl2
   - SR_PHILIA_F_idle8
   m_RenderDataMap: {}
-  m_Tag: 30401
+  m_Tag: 30402
   m_IsVariant: 0
