@@ -45,6 +45,9 @@ namespace CookApps.AutoBattler
             _userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
 
             SetGuideMissionSlot();
+
+            // 다이얼로그 팝업 체크
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString());
         }
 
         public void RefreshGuideMissionSlot()
@@ -55,14 +58,17 @@ namespace CookApps.AutoBattler
             _userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
 
             SetGuideMissionSlot();
+
+            // 다이얼로그 팝업 체크
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString());
         }
 
         private void SetGuideMissionSlot()
         {
             if (_specGuideMissionData == null || _userGuideMissionData == null) return;
 
-            _missionTitleText.text = _specGuideMissionData.name_token;
-            _missionDescText.text = _specGuideMissionData.desc_token;
+            _missionTitleText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.name_token);
+            _missionDescText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.desc_token);
 
             _missionRewardItemImage.sprite = ImageManager.Instance.GetItemSprite(_specGuideMissionData.item_type);
             _missionRewardAmountText.text = $"x{_specGuideMissionData.item_count}";
@@ -82,6 +88,9 @@ namespace CookApps.AutoBattler
                 List<RewardItem> rewardItemList = new List<RewardItem>();
                 rewardItemList.Add(new RewardItem(_specGuideMissionData.item_type, _specGuideMissionData.item_key, _specGuideMissionData.item_count));
                 SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+
+                // 보상 데이터 저장
+                UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
 
                 // 다음 가이드 미션 요청
                 GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.guide_mission_type, MissionStateType.CLEAR);
