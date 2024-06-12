@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2463251905771393495}
   - component: {fileID: 802545461754902115}
   - component: {fileID: 4008214835042264429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_buff_atkup_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4842,7 +4842,7 @@ GameObject:
   - component: {fileID: 4485176094133833475}
   - component: {fileID: 1692036079001455809}
   - component: {fileID: 1633976594349775631}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

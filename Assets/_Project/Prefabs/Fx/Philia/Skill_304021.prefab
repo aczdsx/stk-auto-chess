@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4120499520508887256}
   - component: {fileID: 8996123148429884671}
   - component: {fileID: 5158693682505653240}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 6649067003438269706}
   - component: {fileID: 5331541375885005494}
   - component: {fileID: 6601785393462645626}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5017,7 +5017,7 @@ GameObject:
   - component: {fileID: 5735606793565894158}
   - component: {fileID: 7705004811534428506}
   - component: {fileID: 2918409237308487973}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9905,7 +9905,7 @@ GameObject:
   - component: {fileID: 3707306755040023822}
   - component: {fileID: 4715448737966616961}
   - component: {fileID: 7149695911826195073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14793,7 +14793,7 @@ GameObject:
   - component: {fileID: 3570955914650086214}
   - component: {fileID: 4236032826667478706}
   - component: {fileID: 6307551820074756890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_shine_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19690,7 +19690,7 @@ GameObject:
   - component: {fileID: 1417092574876683044}
   - component: {fileID: 9190384303607549280}
   - component: {fileID: 1298737556432647394}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24579,7 +24579,7 @@ GameObject:
   - component: {fileID: 4176588885050706047}
   - component: {fileID: 5844579883917641069}
   - component: {fileID: 2179721152988371384}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skill_130402
   m_TagString: Untagged
   m_Icon: {fileID: 0}

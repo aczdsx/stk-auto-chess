@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2606795960208749484}
   - component: {fileID: 4767180851751105740}
   - component: {fileID: 7913772461558982426}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 7807200677787677732}
   - component: {fileID: 1566976204111789504}
   - component: {fileID: 1774015675711262456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9788,7 +9788,7 @@ GameObject:
   - component: {fileID: 8089254380244619260}
   - component: {fileID: 6325169494041395863}
   - component: {fileID: 1904698143100566515}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skill_140402_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14639,7 +14639,7 @@ GameObject:
   - component: {fileID: 426990261066890858}
   - component: {fileID: 6854278024381925643}
   - component: {fileID: 5857170985493495703}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_decal_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19527,7 +19527,7 @@ GameObject:
   - component: {fileID: 9102135177570183267}
   - component: {fileID: 726893229084924107}
   - component: {fileID: 1235885512414864996}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_etc_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24415,7 +24415,7 @@ GameObject:
   - component: {fileID: 545284391345355292}
   - component: {fileID: 5072995889847960076}
   - component: {fileID: 5121390223621235490}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_etc_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29303,7 +29303,7 @@ GameObject:
   - component: {fileID: 6682926561714250425}
   - component: {fileID: 8697242117366244708}
   - component: {fileID: 1984409219096769929}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34191,7 +34191,7 @@ GameObject:
   - component: {fileID: 439023842129267034}
   - component: {fileID: 2487330572102370422}
   - component: {fileID: 3369605565929710323}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39079,7 +39079,7 @@ GameObject:
   - component: {fileID: 8906381311477264323}
   - component: {fileID: 6759770930640149090}
   - component: {fileID: 1038496151244731654}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

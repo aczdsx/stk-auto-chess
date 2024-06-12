@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3918066041753642211}
   - component: {fileID: 8132511214038508184}
   - component: {fileID: 3787708665974261435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4924,7 +4924,7 @@ GameObject:
   - component: {fileID: 3602518995264796965}
   - component: {fileID: 1768223590459780055}
   - component: {fileID: 8383251741224863604}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9826,7 +9826,7 @@ GameObject:
   - component: {fileID: 4621993690392800671}
   - component: {fileID: 3841356877689799860}
   - component: {fileID: 3639517634704433307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14724,7 +14724,7 @@ GameObject:
   - component: {fileID: 524735746172125542}
   - component: {fileID: 1725651591166229908}
   - component: {fileID: 8638314137110694491}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19635,7 +19635,7 @@ GameObject:
   - component: {fileID: 3818073216135434931}
   - component: {fileID: 748346455964601813}
   - component: {fileID: 6104627623187403861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_buff_shield_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

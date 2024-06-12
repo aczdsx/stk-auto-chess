@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 898644582593783909}
   - component: {fileID: 2306650299365247034}
   - component: {fileID: 3135894369985408389}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_buff_spdup_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4844,7 +4844,7 @@ GameObject:
   - component: {fileID: 1585599896881376432}
   - component: {fileID: 9000642416846101062}
   - component: {fileID: 2956374224952158221}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9790,7 +9790,7 @@ GameObject:
   - component: {fileID: 6079155349392445842}
   - component: {fileID: 5121401037567966006}
   - component: {fileID: 4868491166908116045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14736,7 +14736,7 @@ GameObject:
   - component: {fileID: 8517484643772393697}
   - component: {fileID: 8023697204589528706}
   - component: {fileID: 8593088720203580480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

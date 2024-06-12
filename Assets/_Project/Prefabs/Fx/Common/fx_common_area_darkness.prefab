@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2737278680036042969}
   - component: {fileID: 8805411656556448054}
   - component: {fileID: 9150178130147903637}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_area_darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4918,7 +4918,7 @@ GameObject:
   - component: {fileID: 2878572570776727407}
   - component: {fileID: 3779514415127381685}
   - component: {fileID: 5410619407081619637}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9806,7 +9806,7 @@ GameObject:
   - component: {fileID: 2516725969035735791}
   - component: {fileID: 4792504572860921505}
   - component: {fileID: 2508079736568005831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14694,7 +14694,7 @@ GameObject:
   - component: {fileID: 5779773029323302815}
   - component: {fileID: 4337589930298109259}
   - component: {fileID: 2303489908837822880}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19582,7 +19582,7 @@ GameObject:
   - component: {fileID: 8402775473549938285}
   - component: {fileID: 6554398023955515887}
   - component: {fileID: 4564171077557644424}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24542,7 +24542,7 @@ GameObject:
   - component: {fileID: 1058931295544169662}
   - component: {fileID: 2950676774322022054}
   - component: {fileID: 755066945969712438}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

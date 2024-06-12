@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2783199365217419215}
   - component: {fileID: 8281760479331947894}
   - component: {fileID: 2629447675438608893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 7509181268722190894}
   - component: {fileID: 580827688166603314}
   - component: {fileID: 4275917580718179420}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9788,7 +9788,7 @@ GameObject:
   - component: {fileID: 698556537286206132}
   - component: {fileID: 8588027440123315048}
   - component: {fileID: 3508604047486109520}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_area_water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14694,7 +14694,7 @@ GameObject:
   - component: {fileID: 7934874918856640730}
   - component: {fileID: 363135674065792762}
   - component: {fileID: 2684660708841194842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19582,7 +19582,7 @@ GameObject:
   - component: {fileID: 1310862707234972749}
   - component: {fileID: 639328500665280821}
   - component: {fileID: 5346126671409851046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24470,7 +24470,7 @@ GameObject:
   - component: {fileID: 116681707088101871}
   - component: {fileID: 4951404293138586088}
   - component: {fileID: 8862790353765042391}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

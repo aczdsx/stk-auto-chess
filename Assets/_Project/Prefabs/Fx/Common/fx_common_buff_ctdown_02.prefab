@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1195366152726623976}
   - component: {fileID: 7085137705809254097}
   - component: {fileID: 5590637483316046983}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_buff_ctdown_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4842,7 +4842,7 @@ GameObject:
   - component: {fileID: 4130322571731854471}
   - component: {fileID: 6440340798630067618}
   - component: {fileID: 5330390795118666059}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

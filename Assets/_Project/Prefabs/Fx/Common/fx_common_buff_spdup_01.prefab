@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8491968288524646728}
   - component: {fileID: 6220570926496801494}
   - component: {fileID: 925406824799003313}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4957,7 +4957,7 @@ GameObject:
   - component: {fileID: 5207359434712612566}
   - component: {fileID: 6175632468312512114}
   - component: {fileID: 8863734185250667199}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9787,7 +9787,7 @@ GameObject:
   - component: {fileID: 3760046141642470308}
   - component: {fileID: 5908361777409251492}
   - component: {fileID: 6080302561152854925}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14675,7 +14675,7 @@ GameObject:
   - component: {fileID: 5919360797857444823}
   - component: {fileID: 6887702655216055210}
   - component: {fileID: 9090822872390952933}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19563,7 +19563,7 @@ GameObject:
   - component: {fileID: 5620188278150282320}
   - component: {fileID: 6827265105324367677}
   - component: {fileID: 7266763435977477807}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24451,7 +24451,7 @@ GameObject:
   - component: {fileID: 2203966527899648334}
   - component: {fileID: 3934068819724724427}
   - component: {fileID: 6333759932773525402}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29339,7 +29339,7 @@ GameObject:
   - component: {fileID: 8824026367644639483}
   - component: {fileID: 6459508578828477934}
   - component: {fileID: 5469506488136553171}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_buff_spdup_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
