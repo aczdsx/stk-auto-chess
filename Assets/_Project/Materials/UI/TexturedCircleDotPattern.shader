@@ -1,6 +1,7 @@
-Shader "Custom/UI_HexTransition"{
+Shader "Custom/TexturedCircleDotPattern"{
     Properties
     {
+        _MainTex ("Texture", 2D) = "white" {}
         _CircleRadius ("Circle Radius", Float) = 0.5
         _EdgeSoftness ("Edge Softness", Float) = 0.05
         _DotMinScale ("Dot Min Scale", Float) = 0.01
@@ -37,6 +38,7 @@ Shader "Custom/UI_HexTransition"{
                 float4 pos : SV_POSITION;
             };
 
+            sampler2D _MainTex;
             float _CircleRadius;
             float _EdgeSoftness;
             float _DotMinScale;
@@ -58,9 +60,10 @@ Shader "Custom/UI_HexTransition"{
             {
                 // Normalize and center the UV coordinates around the middle of the viewport
                 float2 uv = (i.uv - 0.5) * 2.0;
+                float2 spacingUV = uv * _Spacing;
 
                 // Calculate the distance from the center
-                float dist = length(uv);
+                float dist = length(spacingUV);
 
                 // Generate the soft edge circle
                 float circle = 1.0 - smoothstep(_CircleRadius - _EdgeSoftness, _CircleRadius, dist);
@@ -68,17 +71,20 @@ Shader "Custom/UI_HexTransition"{
                 // Optionally invert the circle effect
                 if (_Invert > 0.5) circle = 1.0 - circle;
 
-                // Calculate the dot size based on the circle value
-                float dotSize = lerp(_DotMaxScale, _DotMinScale, circle);
+                // Calculate the dot size based on the circle grayscale value
+                float dotSize = lerp(_DotMinScale, _DotMaxScale, circle);
 
                 // Apply the dot pattern
-                float2 gridPos = floor(uv * _Tiling);
-                float2 gridUV = frac(uv * _Tiling);
+                float2 gridPos = floor(spacingUV * _Tiling);
+                float2 gridUV = frac(spacingUV * _Tiling);
                 float dotPattern = smoothstep(dotSize, dotSize - 0.01, length(gridUV - 0.5));
 
-                // Set the dot color
-                float4 color = _DotColor * dotPattern;
-                color.a = dotPattern * _DotColor.a; // Apply the pattern and use _DotColor's alpha
+                // Texture sampling
+                float4 texColor = tex2D(_MainTex, i.uv);
+
+                // Combine texture color with dot color
+                float4 color = texColor * _DotColor;
+                color.a = dotPattern * circle; // Apply the pattern and circle alpha
 
                 return color;
             }
