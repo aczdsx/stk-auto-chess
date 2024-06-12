@@ -17,7 +17,7 @@ namespace CookApps.TeamBattle.Utility
         }
     }
 
-    public static class NullChecker<T>
+    public static class NullChecker<T> where T : class
     {
         public static Predicate<T> NullCheck = x => x == null;
     }
