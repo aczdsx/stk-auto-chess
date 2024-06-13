@@ -15,6 +15,8 @@ namespace CookApps.AutoBattler
         public static event Action<int> OnEnergyChanged;
         public static event Action<int> OnGoldChanged;
         public static event Action<int> OnJewelChanged;
+        public static event Action<int> OnCharUserExpItemChanged;
+        public static event Action<int> OnCharUserExpItem2Changed;
 
         [Initialize(DataCategory.UserWallet)]
         private void Initialize_Wallet(string data)
@@ -54,6 +56,14 @@ namespace CookApps.AutoBattler
                 case ItemType.AP:
                     userWallet.Energy += itemAmount;
                     OnEnergyChanged?.Invoke(userWallet.Energy);
+                    break;
+                case ItemType.CHAR_USER_EXP_ITEM:
+                    userWallet.CharUserExpItem += itemAmount;
+                    OnCharUserExpItemChanged?.Invoke(userWallet.CharUserExpItem);
+                    break;
+                case ItemType.CHAR_USER_EXP_ITEM_2:
+                    userWallet.CharUserExpItem2 += itemAmount;
+                    OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
                     break;
                 case ItemType.CHARACTER:
                     // 최초 완성형 캐릭터 획득 처리 (20조각)
@@ -119,9 +129,33 @@ namespace CookApps.AutoBattler
                     userWallet.Energy -= itemAmount;
                     OnEnergyChanged?.Invoke(userWallet.Energy);
                     break;
+                case ItemType.CHAR_USER_EXP_ITEM:
+                    userWallet.CharUserExpItem -= itemAmount;
+                    OnCharUserExpItemChanged?.Invoke(userWallet.CharUserExpItem);
+                    break;
+                case ItemType.CHAR_USER_EXP_ITEM_2:
+                    userWallet.CharUserExpItem2 -= itemAmount;
+                    OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
+                    break;
                 case ItemType.CHARACTER_PIECE:
                     DecreaseKnightPieceCount(itemKey, itemAmount);
                     break;
+            }
+
+            if (isSave)
+            {
+                SaveUserWallet();
+            }
+        }
+
+        public void DecreaseRewardItemList(List<RewardItem> rewardList, bool isSave)
+        {
+            if (rewardList == null || rewardList.Count == 0) return;
+
+            // 리워드 적용
+            foreach (var reward in rewardList)
+            {
+                DecreaseItem(reward.Type, reward.Key, reward.Count, false);
             }
 
             if (isSave)

@@ -53,6 +53,18 @@ namespace CookApps.AutoBattler
             return userCharacterGroup.UserCharacters.Keys.ToArray();
         }
 
+        public void IncreaseCharacterLevel(int prefabID, int level)
+        {
+            if (UserCharacterDic.ContainsKey(prefabID))
+            {
+                UserCharacterDic[prefabID].Level += level;
+
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[prefabID]);
+
+                SaveCharacterGroup();
+            }
+        }
+
         public void IncreaseKnightPieceCount(int prefabID, int pieceCount)
         {
             if (UserCharacterDic.ContainsKey(prefabID))

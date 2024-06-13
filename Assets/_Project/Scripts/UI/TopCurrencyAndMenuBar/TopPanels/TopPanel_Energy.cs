@@ -19,9 +19,9 @@ namespace CookApps.AutoBattler
             UserDataManager.OnEnergyChanged -= EnergyChanged;
         }
 
-        private void EnergyChanged(int bread)
+        private void EnergyChanged(int energy)
         {
-            currencyText.SetText(bread);
+            currencyText.SetText(energy.ToString("N0"));
         }
     }
 }

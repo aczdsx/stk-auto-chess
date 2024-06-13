@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
             _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(prefabID);
 
             // test 임시 처리
-            SetDefaultStatInfo();
+            SetUserStatInfo();
 
             // 레벨업 기능 관련 처리
             SetLevelupLayer();
@@ -79,6 +79,12 @@ namespace CookApps.AutoBattler
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             // todo.. 추후 스탯 관련 계산식 및 데이터 구조 필요
+            _levelText.text = $"Lv.{_userCharacterData.Level}";
+            _battlePointText.text = "-";
+            _attackValueText.text = _specCharacterData.stat_atk.ToString("N0");
+            _hpValueText.text = _specCharacterData.stat_hp.ToString("N0");
+            _apDefText.text = _specCharacterData.stat_res.ToString("N0");
+            _adDefText.text = _specCharacterData.stat_def.ToString("N0");
 
         }
 
@@ -123,7 +129,14 @@ namespace CookApps.AutoBattler
 
         private void RefreshLayer()
         {
+            SetUserStatInfo();
+        }
 
+        private bool CheckEnoughRecipeItem()
+        {
+            return (_specCharacterLevelExpData.base_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem
+                    || _specCharacterLevelExpData.sec_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem2
+                    || _specCharacterLevelExpData.need_gold <= UserDataManager.Instance.UserWallet.Gold);
         }
 
         private void OnClickDetailStatButton()
@@ -137,13 +150,34 @@ namespace CookApps.AutoBattler
             if (_specCharacterLevelExpData == null) return;
 
             // 레벨업 가능 여부 검사
-
+            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+            bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
+            if (isAvailLevelup == false)
+            {
+                return;
+            }
 
             // 재료 검사
+            if (CheckEnoughRecipeItem() == false)
+            {
+                return;
+            }
 
+            // 재료 아이템 소진
+            List<RewardItem> recipeItemList = new List<RewardItem>();
+            recipeItemList.Add(new RewardItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count));
+            recipeItemList.Add(new RewardItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold));
+            if (_specCharacterLevelExpData.sec_levelup_item_count > 0)
+            {
+                recipeItemList.Add(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, 0, _specCharacterLevelExpData.sec_levelup_item_count));
+            }
+
+            UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
 
             // 레벨업 진행
+            UserDataManager.Instance.IncreaseCharacterLevel(_specCharacterData.prefab_id, 1);
 
+            RefreshLayer();
         }
     }
 }
