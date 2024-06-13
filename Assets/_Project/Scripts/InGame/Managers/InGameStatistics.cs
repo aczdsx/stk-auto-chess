@@ -206,24 +206,25 @@ namespace CookApps.BattleSystem
         private StreamWriter CreateBattleLogWriter()
         {
 #if UNITY_EDITOR
-            var dataPath = Application.dataPath;
-            var index = dataPath.LastIndexOf(Path.DirectorySeparatorChar);
-            var projectRootPath = dataPath[..index];
-            string folderPath = Path.Combine(projectRootPath, "Logs");
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
+            // var dataPath = Application.dataPath;
+            // var index = dataPath.LastIndexOf(Path.DirectorySeparatorChar);
+            // var projectRootPath = dataPath[..index];
+            // string folderPath = Path.Combine(projectRootPath, "Logs");
+            // if (!Directory.Exists(folderPath))
+            // {
+            //     Directory.CreateDirectory(folderPath);
+            // }
     #else
-            string folderPath = Path.Combine(Application.persistentDataPath, "Logs");
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
+            // string folderPath = Path.Combine(Application.persistentDataPath, "Logs");
+            // if (!Directory.Exists(folderPath))
+            // {
+            //     Directory.CreateDirectory(folderPath);
+            // }
     #endif
 
-            var path = Path.Combine(folderPath, ZString.Format("battlelog_{0}_{1}.log", DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss")));
-            return File.CreateText(path);
+            // var path = Path.Combine(folderPath, ZString.Format("battlelog_{0}_{1}.log", DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss")));
+            // return File.CreateText(path);
+            return null;
         }
 
         private StringBuilder builder = new ();
@@ -270,9 +271,9 @@ namespace CookApps.BattleSystem
                 builder.Append(source);
             }
 
-            logFileWriter.WriteLine(builder.ToString());
+            logFileWriter?.WriteLine(builder.ToString());
             builder.Clear();
-            logFileWriter.Flush();
+            logFileWriter?.Flush();
         }
 
         private void WriteBattleHealLog(CharacterController giverCtrl, CharacterController receiverCtrl, double healAmount, double currHp, double maxHp, int source)
@@ -320,9 +321,9 @@ namespace CookApps.BattleSystem
                 builder.Append(source);
             }
 
-            logFileWriter.WriteLine(builder.ToString());
+            logFileWriter?.WriteLine(builder.ToString());
             builder.Clear();
-            logFileWriter.Flush();
+            logFileWriter?.Flush();
         }
 
         private void CloseBattleLog()

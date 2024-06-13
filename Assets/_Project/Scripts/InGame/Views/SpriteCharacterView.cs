@@ -61,7 +61,6 @@ namespace CookApps.AutoBattler
 
         public void SetSelected(bool isSetSelected)
         {
-            //[TODO] sortingOrder ingame에서 위치에 따라 관리 해야할듯.
             if (isSetSelected)
             {
                 _spriteRenderer.sortingOrder = 10;

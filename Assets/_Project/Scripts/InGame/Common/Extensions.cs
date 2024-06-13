@@ -69,7 +69,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Provocation => "",
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+                _ => InGameVfxNameType.NONE
             };
         }
 
@@ -99,7 +99,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Provocation => "",
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+                _ => InGameVfxNameType.NONE
             };
         }
     }

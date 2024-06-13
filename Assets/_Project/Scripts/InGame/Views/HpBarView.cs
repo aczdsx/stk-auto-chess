@@ -93,6 +93,11 @@ namespace CookApps.AutoBattler
         {
             CachedGo.SetActive(true);
         }
+
+        public void OnCoolTimeUpdated(int index, float curr, float max)
+        {
+
+        }
     }
 
     public class InGameHpBarViewPool : Singleton<InGameHpBarViewPool>

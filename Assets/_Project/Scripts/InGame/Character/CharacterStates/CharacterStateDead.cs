@@ -11,12 +11,12 @@ public class CharacterStateDead : CharacterStateBase
         characCtrl.GetCharacterView().SetDeadSprite(clip);
 
         // [TODO] 죽었을 떄 붙어있는 이펙트들 처리 어떻게 할까요?
-        Transform skillRootTransform = characCtrl.GetCharacterView().SkillRootTransform;
-        Transform playgroundTransform = InGameObjectManager.Instance.Playground;
-        for (int i = skillRootTransform.childCount - 1; i >= 0; i--)
-        {
-            skillRootTransform.GetChild(i).parent = playgroundTransform;
-        }
+        // Transform skillRootTransform = characCtrl.GetCharacterView().SkillRootTransform;
+        // Transform playgroundTransform = InGameObjectManager.Instance.Playground;
+        // for (int i = skillRootTransform.childCount - 1; i >= 0; i--)
+        // {
+        //     skillRootTransform.GetChild(i).parent = playgroundTransform;
+        // }
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)

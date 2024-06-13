@@ -24,8 +24,8 @@ public class EffectCodeCrowdControlEntangle : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        base.OnPreRemoved();
         owner.RemoveCrowdControl(CrowdControlType.Entangle);
+        base.OnPreRemoved();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

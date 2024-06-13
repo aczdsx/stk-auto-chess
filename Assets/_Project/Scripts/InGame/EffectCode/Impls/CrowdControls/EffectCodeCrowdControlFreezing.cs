@@ -24,8 +24,8 @@ public class EffectCodeCrowdControlFreezing : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        base.OnPreRemoved();
         owner.RemoveCrowdControl(CrowdControlType.Freezing);
+        base.OnPreRemoved();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

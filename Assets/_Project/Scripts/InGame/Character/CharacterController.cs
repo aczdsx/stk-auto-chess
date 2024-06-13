@@ -36,6 +36,11 @@ namespace CookApps.BattleSystem
             return view;
         }
 
+        public HpBarView GetHpBarView()
+        {
+            return _hpBarView;
+        }
+
         // public InGameTileView GetCharacterDirectionTileView()
         // {
         //     return InGameObjectManager.Instance.InGameGrid.GetDirectionalTile(view);
@@ -460,11 +465,11 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            //[TODO] 이부분 CC(ex> airbone) 일 경우에도 불리는게 맞나욥?
-            InGameVfxManager.Instance.AddInGameVfx(type.GetOneShotVfxName(), view.SkillRootTransform);
+            var vfxName = type.GetOneShotVfxName();
+            if (vfxName != InGameVfxNameType.NONE)
+                InGameVfxManager.Instance.AddInGameVfx(vfxName, view.SkillRootTransform);
 
 
-            //[TODO] CountDict 관련 수정 괜찮나요?
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {
                 _buffDebuffRefCountDict[type] += 1;
@@ -472,8 +477,12 @@ namespace CookApps.BattleSystem
 
             if (_buffDebuffEffectViewDict.ContainsKey(type) == false)
             {
-                var effectView = InGameVfxManager.Instance.AddInGameVfx(type.GetLoopVfxName(), view.SkillRootTransform);
-                _buffDebuffEffectViewDict.Add(type, effectView);
+                var loopVfxName = type.GetLoopVfxName();
+                if (loopVfxName != InGameVfxNameType.NONE)
+                {
+                    var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName, view.SkillRootTransform);
+                    _buffDebuffEffectViewDict.Add(type, effectView);
+                }
             }
         }
 
@@ -623,7 +632,7 @@ namespace CookApps.BattleSystem
             _currHp -= damageAmount;
 
             // [TODO] statics 에러 납니답... ??
-            // InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
+            InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
 
             UpdateHp();
 

@@ -25,7 +25,6 @@ public class EffectCodeCrowdControlProvocation : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        base.OnPreRemoved();
         // 도발이 끝나면 때리던 적 다시 때리자.
         if (prevTarget is {IsAlive: true})
         {
@@ -33,6 +32,7 @@ public class EffectCodeCrowdControlProvocation : EffectCodeCharacterBase
         }
 
         owner.RemoveCrowdControl(CrowdControlType.Provocation);
+        base.OnPreRemoved();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

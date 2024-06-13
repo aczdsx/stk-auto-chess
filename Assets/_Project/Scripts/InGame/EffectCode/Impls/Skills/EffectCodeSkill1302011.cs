@@ -70,6 +70,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         {
             _isReadyToActivate = true;
         }
+        owner.GetCharacterView().
     }
 
     public override bool IsReadyToActivate()

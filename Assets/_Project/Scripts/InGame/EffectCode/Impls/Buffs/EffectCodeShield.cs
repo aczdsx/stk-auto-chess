@@ -57,10 +57,9 @@ public class EffectCodeBuffShield : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
+        owner.RemoveBuffDebuffType(BuffDebuffType.Shield);
         base.OnPreRemoved();
         ListPool<ShieldData>.Release(shields);
-        //[TODO] NullReferenceException: Object reference not set to an instance of an object
-        owner.RemoveBuffDebuffType(BuffDebuffType.Shield);
     }
 
     public override void OnUpdate(float dt)

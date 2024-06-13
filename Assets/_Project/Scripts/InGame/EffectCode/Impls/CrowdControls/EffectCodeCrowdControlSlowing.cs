@@ -20,8 +20,8 @@ public class EffectCodeCrowdControlSlowing : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        base.OnPreRemoved();
         owner.RemoveCrowdControl(CrowdControlType.Slowing);
+        base.OnPreRemoved();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

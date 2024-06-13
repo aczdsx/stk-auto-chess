@@ -110,10 +110,10 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         elapsedTime += dt;
         if (elapsedTime > duration)
         {
-            RemoveFromContainer();
             var pos = owner.ViewPosition3D;
             pos.y = 0;
             owner.ViewPosition3D = pos;
+            RemoveFromContainer();
             return;
         }
 
@@ -137,8 +137,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        base.OnPreRemoved();
-        // [TODO] State DEAD 상황에서 발생,  NullReferenceException: Object reference not set to an instance of an object
         owner.RemoveCrowdControl(CrowdControlType.Airborne);
+        base.OnPreRemoved();
     }
 }
