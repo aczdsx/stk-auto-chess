@@ -255,5 +255,7 @@ namespace CookApps.AutoBattler
         Skill_401031 = 30,
         fx_common_summon_awful = 31,
         fx_common_summon_enemy = 32,
+        Skill_101011 = 33,
+        Skill_102011 = 34,
     }
 }

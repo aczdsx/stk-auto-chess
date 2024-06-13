@@ -496,6 +496,7 @@ namespace CookApps.BattleSystem
             if (_buffDebuffRefCountDict.ContainsKey(type))
                 _buffDebuffRefCountDict[type] -= 1;
 
+            // [TODO] KeyNotFoundException: The given key 'Stun' was not present in the dictionary.
             if (_buffDebuffRefCountDict[type] <= 0)
             {
                 _buffDebuffRefCountDict[type] = 0;
@@ -635,7 +636,6 @@ namespace CookApps.BattleSystem
 
             // [TODO] statics 에러 납니답... ??
             InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
-
             UpdateHp();
 
             if (_currHp <= 0)
