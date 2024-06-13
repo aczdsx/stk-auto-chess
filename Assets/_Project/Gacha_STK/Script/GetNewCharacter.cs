@@ -307,7 +307,9 @@ namespace CookApps.AutoBattler
 
             sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
             sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
-            OpenText.text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
+
+            var quoteData = SpecDataManager.Instance.GetCharacterQuotesDataByPrefabID(_specCharacter.prefab_id);
+            OpenText.text = LanguageManager.Instance.GetLanguageText(quoteData.dialog_token);
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
@@ -476,7 +478,9 @@ namespace CookApps.AutoBattler
 
             sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
             sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
-            OpenText.text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
+
+            var quoteData = SpecDataManager.Instance.GetCharacterQuotesDataByPrefabID(_specCharacter.prefab_id);
+            OpenText.text = LanguageManager.Instance.GetLanguageText(quoteData.dialog_token);
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
