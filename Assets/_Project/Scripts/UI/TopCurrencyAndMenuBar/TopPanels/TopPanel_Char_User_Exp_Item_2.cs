@@ -21,9 +21,9 @@ namespace CookApps.AutoBattler
             UserDataManager.OnCharUserExpItem2Changed -= CharUserExpItem2Changed;
         }
 
-        private void CharUserExpItem2Changed(int gold)
+        private void CharUserExpItem2Changed(int expItem2)
         {
-            currencyText.SetText(gold);
+            currencyText.SetText(expItem2.ToString("N0"));
         }
     }
 }

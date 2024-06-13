@@ -23,7 +23,7 @@ namespace CookApps.AutoBattler
 
         private void GoldChanged(int gold)
         {
-            currencyText.SetText(gold);
+            currencyText.SetText(gold.ToString("N0"));
         }
     }
 }
