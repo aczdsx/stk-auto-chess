@@ -4905,7 +4905,7 @@ GameObject:
   - component: {fileID: 3868499840264921882}
   - component: {fileID: -6205987323484610950}
   m_Layer: 6
-  m_Name: Skill_140101_1
+  m_Name: Skill_401011_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9791,7 +9791,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.50344723, y: 5, z: 4.4747605}
+  m_Size: {x: 0.50344723, y: 5, z: 3.98}
   m_Center: {x: 1.2904593, y: 0, z: -0.014507771}
 --- !u!54 &3868499840264921882
 Rigidbody:
