@@ -78,8 +78,10 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
+            int userLevel = Mathf.Max(1, _userCharacterData.Level);
+
             // todo.. 추후 스탯 관련 계산식 및 데이터 구조 필요
-            _levelText.text = $"Lv.{_userCharacterData.Level}";
+            _levelText.text = $"Lv.{userLevel}";
             _battlePointText.text = "-";
             _attackValueText.text = _specCharacterData.stat_atk.ToString("N0");
             _hpValueText.text = _specCharacterData.stat_hp.ToString("N0");
@@ -108,8 +110,10 @@ namespace CookApps.AutoBattler
             int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
             bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
 
+            int userLevel = Mathf.Max(1, _userCharacterData.Level);
+
             // 레벨업에 필요한 자원 정보 세팅
-            _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(_userCharacterData.Level);
+            _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
             if (_specCharacterLevelExpData != null)
             {
                 _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_type, _specCharacterLevelExpData.base_levelup_item_count);

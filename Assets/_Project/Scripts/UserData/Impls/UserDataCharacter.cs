@@ -104,9 +104,9 @@ namespace CookApps.AutoBattler
             return UserCharacterDic.ContainsKey(prefabID) && UserCharacterDic[prefabID].Level > 0;
         }
 
-        public List<UserCharacter> GetAllUserCharacters()
+        public List<UserCharacter> GetAllUserCharacterList()
         {
-            return userCharacterGroup.UserCharacters.Values.ToList();
+            return UserCharacterDic.Values.ToList().FindAll(data => data.Level > 0);
         }
 
         public UserCharacter GetUserCharacter(int prefabID)
