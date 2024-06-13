@@ -60,6 +60,8 @@ namespace CookApps.AutoBattler
 
             var currentDialougeData = _dialogueList[seq];
 
+            BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
+
             string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, currentDialougeData.prefab_id);
             AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
 
