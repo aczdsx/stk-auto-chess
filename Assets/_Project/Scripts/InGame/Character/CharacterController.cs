@@ -494,17 +494,18 @@ namespace CookApps.BattleSystem
             }
 
             if (_buffDebuffRefCountDict.ContainsKey(type))
+            {
                 _buffDebuffRefCountDict[type] -= 1;
 
-            // [TODO] KeyNotFoundException: The given key 'Stun' was not present in the dictionary.
-            if (_buffDebuffRefCountDict[type] <= 0)
-            {
-                _buffDebuffRefCountDict[type] = 0;
-                if (_buffDebuffEffectViewDict.ContainsKey(type))
+                if (_buffDebuffRefCountDict[type] <= 0)
                 {
-                    var effectView = _buffDebuffEffectViewDict[type];
-                    _buffDebuffEffectViewDict.Remove(type);
-                    InGameVfxManager.Instance.RemoveInGameVfx(effectView);
+                    _buffDebuffRefCountDict[type] = 0;
+                    if (_buffDebuffEffectViewDict.ContainsKey(type))
+                    {
+                        var effectView = _buffDebuffEffectViewDict[type];
+                        _buffDebuffEffectViewDict.Remove(type);
+                        InGameVfxManager.Instance.RemoveInGameVfx(effectView);
+                    }
                 }
             }
         }
