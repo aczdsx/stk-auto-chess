@@ -112,6 +112,8 @@ namespace CookApps.AutoBattler
             if (_star > userStage.StarCount)
             {
                 UserDataManager.Instance.SetUserStage(InGameManager.Instance.SpecStage.id, _star);
+                
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,1);
             }
         }
 
