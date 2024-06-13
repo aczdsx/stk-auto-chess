@@ -39,20 +39,19 @@ public class InGameBottomCharacterUI : MonoBehaviour
     {
         _onNewCharacter = onNewCharacter;
 
-        // [TODO] 더미 요소 나중에 제거 필요
-        _characterStats = new List<CharacterStatData>();
-        _characterStats.Add(new CharacterStatData(130201, 10));
-        _characterStats.Add(new CharacterStatData(130601, 10));
-        _characterStats.Add(new CharacterStatData(130402, 10));
-        _characterStats.Add(new CharacterStatData(140101, 10));
-        _characterStats.Add(new CharacterStatData(140402, 10));
-        _characterStats.Add(new CharacterStatData(140103, 10));
+        // _characterStats = new List<CharacterStatData>();
+        // _characterStats.Add(new CharacterStatData(130201, 10));
+        // _characterStats.Add(new CharacterStatData(130601, 10));
+        // _characterStats.Add(new CharacterStatData(130402, 10));
+        // _characterStats.Add(new CharacterStatData(140101, 10));
+        // _characterStats.Add(new CharacterStatData(140402, 10));
+        // _characterStats.Add(new CharacterStatData(140103, 10));
 
-        // var userCharacters = UserDataManager.Instance.GetAllUserCharacters();
-        // foreach (var character in userCharacters)
-        // {
-        //     _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level));
-        // }
+        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
+        foreach (var character in userCharacters)
+        {
+            _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level));
+        }
 
         foreach (var characterStat in _characterStats)
         {

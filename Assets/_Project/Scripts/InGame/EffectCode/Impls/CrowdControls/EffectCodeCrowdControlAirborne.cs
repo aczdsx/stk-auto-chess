@@ -55,7 +55,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
             {
                 if (owner != null)
                     owner.Position3D = value;
-            }, ease : Ease.InBack).OnComplete(this, target =>
+            }, ease : Ease.InCirc).OnComplete(this, target =>
             {
                 if (owner != null)
                     owner.AddNextState<CharacterStateIdle>();
