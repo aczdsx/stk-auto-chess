@@ -264,7 +264,7 @@ namespace CookApps.AutoBattler
 
         public SpecCharacterQuotes GetCharacterQuotesDataByPrefabID(int prefabID)
         {
-            return SpecCharacterQuotes.All.ToList().Find(data => data.character_id == prefabID);
+            return SpecCharacterQuotes.All.ToList().Find(data => data.prefab_id == prefabID);
         }
 
         public SpecChapter GetChapterData(int chapterID, DifficultyType type)

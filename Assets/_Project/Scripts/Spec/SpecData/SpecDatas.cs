@@ -278,7 +278,7 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 유닛 ID
-        public CookApps.Obfuscator.ObfuscatorInt character_id;
+        public CookApps.Obfuscator.ObfuscatorInt prefab_id;
         /// #캐릭터 이름
         public string character_name;
         /// 대사 재생 타입
