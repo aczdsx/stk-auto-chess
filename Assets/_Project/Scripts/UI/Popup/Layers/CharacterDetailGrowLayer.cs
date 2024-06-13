@@ -50,12 +50,12 @@ namespace CookApps.AutoBattler
             _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
         }
 
-        public void InitLayer(int prefabID)
+        public void InitLayer(int characterID)
         {
-            _specCharacterData = SpecDataManager.Instance.GetCharacterData(prefabID);
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(prefabID);
+            _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
+            _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
 
-            _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(prefabID);
+            _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(characterID);
 
             // test 임시 처리
             SetUserStatInfo();
@@ -179,7 +179,7 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
 
             // 레벨업 진행
-            UserDataManager.Instance.IncreaseCharacterLevel(_specCharacterData.prefab_id, 1);
+            UserDataManager.Instance.IncreaseCharacterLevel(_specCharacterData.character_id, 1);
 
             RefreshLayer();
         }

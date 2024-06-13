@@ -26,9 +26,9 @@ namespace CookApps.AutoBattler
                 var allCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
                 foreach (var character in allCharacterList)
                 {
-                    userCharacterGroup.UserCharacters.Add(character.prefab_id, new UserCharacter
+                    userCharacterGroup.UserCharacters.Add(character.character_id, new UserCharacter
                     {
-                        CharacterId = character.prefab_id,
+                        CharacterId = character.character_id,
                         Level = 0, // 0: 미획득, 1 이상: 획득
                         Exp = 0,
                         StarLevel = character.init_star,
@@ -53,55 +53,55 @@ namespace CookApps.AutoBattler
             return userCharacterGroup.UserCharacters.Keys.ToArray();
         }
 
-        public void IncreaseCharacterLevel(int prefabID, int level)
+        public void IncreaseCharacterLevel(int characterID, int level)
         {
-            if (UserCharacterDic.ContainsKey(prefabID))
+            if (UserCharacterDic.ContainsKey(characterID))
             {
-                UserCharacterDic[prefabID].Level += level;
+                UserCharacterDic[characterID].Level += level;
 
-                OnUserCharacterChanged?.Invoke(UserCharacterDic[prefabID]);
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[characterID]);
 
                 SaveCharacterGroup();
             }
         }
 
-        public void IncreaseKnightPieceCount(int prefabID, int pieceCount)
+        public void IncreaseKnightPieceCount(int characterID, int pieceCount)
         {
-            if (UserCharacterDic.ContainsKey(prefabID))
+            if (UserCharacterDic.ContainsKey(characterID))
             {
-                UserCharacterDic[prefabID].CharacterPiece += pieceCount;
+                UserCharacterDic[characterID].CharacterPiece += pieceCount;
 
                 SaveCharacterGroup();
             }
         }
 
-        public void DecreaseKnightPieceCount(int prefabID, int pieceCount)
+        public void DecreaseKnightPieceCount(int characterID, int pieceCount)
         {
-            if (UserCharacterDic.ContainsKey(prefabID))
+            if (UserCharacterDic.ContainsKey(characterID))
             {
-                UserCharacterDic[prefabID].CharacterPiece -= pieceCount;
+                UserCharacterDic[characterID].CharacterPiece -= pieceCount;
 
                 SaveCharacterGroup();
             }
         }
 
         // 캐릭터 획득 (조각으로 인한 획득 처리x)
-        public void AddNewCharacter(int prefabID)
+        public void AddNewCharacter(int characterID)
         {
-            if (UserCharacterDic.ContainsKey(prefabID))
+            if (UserCharacterDic.ContainsKey(characterID))
             {
-                UserCharacterDic[prefabID].Level = 1;   // 0: 미획득, 1 이상: 획득
+                UserCharacterDic[characterID].Level = 1;   // 0: 미획득, 1 이상: 획득
 
-                OnUserCharacterChanged?.Invoke(UserCharacterDic[prefabID]);
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[characterID]);
 
                 SaveCharacterGroup();
             }
         }
 
         // 보유한 캐릭터 인지 확인용
-        public bool IsHaveCharacter(int prefabID)
+        public bool IsHaveCharacter(int characterID)
         {
-            return UserCharacterDic.ContainsKey(prefabID) && UserCharacterDic[prefabID].Level > 0;
+            return UserCharacterDic.ContainsKey(characterID) && UserCharacterDic[characterID].Level > 0;
         }
 
         public List<UserCharacter> GetAllUserCharacterList()
@@ -109,10 +109,10 @@ namespace CookApps.AutoBattler
             return UserCharacterDic.Values.ToList().FindAll(data => data.Level > 0);
         }
 
-        public UserCharacter GetUserCharacter(int prefabID)
+        public UserCharacter GetUserCharacter(int characterID)
         {
             UserCharacter resultData = null;
-            if (userCharacterGroup.UserCharacters.TryGetValue(prefabID, out resultData))
+            if (userCharacterGroup.UserCharacters.TryGetValue(characterID, out resultData))
             {
                 return resultData;
             }

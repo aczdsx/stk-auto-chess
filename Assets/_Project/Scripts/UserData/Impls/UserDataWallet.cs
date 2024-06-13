@@ -68,24 +68,25 @@ namespace CookApps.AutoBattler
                 case ItemType.CHARACTER:
                     // 최초 완성형 캐릭터 획득 처리 (20조각)
                     var specCharacter = SpecDataManager.Instance.GetCharacterData(itemKey);
-                    if (IsHaveCharacter(itemKey) == false)
+                    if (IsHaveCharacter(specCharacter.character_id) == false)
                     {
-                        AddNewCharacter(itemKey);
+                        AddNewCharacter(specCharacter.character_id);
                     }
                     else
                     {
-                        IncreaseKnightPieceCount(itemKey, specCharacter.need_piece);
+                        IncreaseKnightPieceCount(specCharacter.character_id, specCharacter.need_piece);
                     }
                     break;
                 case ItemType.CHARACTER_PIECE:
                     // 최초 완성형 캐릭터 획득 처리 (20조각)
-                    if (IsHaveCharacter(itemKey) == false && itemAmount >= 20)
+                    var specCharacterPiece = SpecDataManager.Instance.GetCharacterData(itemKey);
+                    if (IsHaveCharacter(specCharacterPiece.character_id) == false && itemAmount >= 20)
                     {
-                        AddNewCharacter(itemKey);
+                        AddNewCharacter(specCharacterPiece.character_id);
                     }
                     else
                     {
-                        IncreaseKnightPieceCount(itemKey, itemAmount);
+                        IncreaseKnightPieceCount(specCharacterPiece.character_id, itemAmount);
                     }
 
                     break;
@@ -138,7 +139,8 @@ namespace CookApps.AutoBattler
                     OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
                     break;
                 case ItemType.CHARACTER_PIECE:
-                    DecreaseKnightPieceCount(itemKey, itemAmount);
+                    var specCharacter = SpecDataManager.Instance.GetCharacterData(itemKey);
+                    DecreaseKnightPieceCount(specCharacter.character_id, itemAmount);
                     break;
             }
 

@@ -12,10 +12,10 @@ namespace CookApps.AutoBattler
         private SpecCharacter _specCharacterData;
         private UserCharacter _userCharacterData;
 
-        public void InitLayer(int prefabID)
+        public void InitLayer(int characterID)
         {
-            _specCharacterData = SpecDataManager.Instance.GetCharacterData(prefabID);
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(prefabID);
+            _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
+            _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
 
 
         }

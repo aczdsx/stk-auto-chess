@@ -44,11 +44,11 @@ namespace CookApps.AutoBattler
             _backButton.onClick.RemoveListener(OnClickBackButton);
         }
 
-        public void InitLayer(int prefabID, CharacterCollectionPopup _parentPopup)
+        public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
         {
             _parentCollectionPopup = _parentPopup;
 
-            _specCharacterData = SpecDataManager.Instance.GetCharacterData(prefabID);
+            _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
 
             ClearLayer();
 
