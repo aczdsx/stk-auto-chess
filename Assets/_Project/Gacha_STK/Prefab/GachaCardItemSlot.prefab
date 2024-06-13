@@ -245,6 +245,7 @@ MonoBehaviour:
   PieceOnObject: {fileID: 5444664289133937355}
   PieceOnBackImage: {fileID: 2123964939299550243}
   PieceOnImage: {fileID: 5675785374610214994}
+  ItemOnImage: {fileID: 8246596931642476365}
   amountText: {fileID: 7518221300816011221}
   piece2Slider: {fileID: 1095604898064524361}
   count2Text: {fileID: 6138168375467675839}
