@@ -493,7 +493,9 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            _buffDebuffRefCountDict[type] -= 1;
+            if (_buffDebuffRefCountDict.ContainsKey(type))
+                _buffDebuffRefCountDict[type] -= 1;
+
             if (_buffDebuffRefCountDict[type] <= 0)
             {
                 _buffDebuffRefCountDict[type] = 0;
