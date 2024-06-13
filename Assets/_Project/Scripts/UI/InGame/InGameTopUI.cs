@@ -67,9 +67,12 @@ public class InGameTopUI : MonoBehaviour
             int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, characterPosition);
             if (synergyCount > 0)
             {
-                TrySetSynergyUI(() =>
-                    _synergyUIList[uiIndex].SetPositionSynergy(characterPosition, synergyCount)
-                );
+                if (characterPosition != CharacterPositionType.NONE)
+                {
+                    TrySetSynergyUI(() =>
+                        _synergyUIList[uiIndex].SetPositionSynergy(characterPosition, synergyCount)
+                    );
+                }
             }
         }
 
@@ -78,9 +81,12 @@ public class InGameTopUI : MonoBehaviour
             int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, characterType);
             if (synergyCount > 0)
             {
-                TrySetSynergyUI(() =>
-                    _synergyUIList[uiIndex].SetSynergy(characterType, synergyCount)
-                );
+                if (characterType != ElementType.NONE)
+                {
+                    TrySetSynergyUI(() =>
+                        _synergyUIList[uiIndex].SetSynergy(characterType, synergyCount)
+                    );
+                }
             }
         }
     }

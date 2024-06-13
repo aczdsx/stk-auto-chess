@@ -52,7 +52,8 @@ namespace CookApps.AutoBattler
                 _starList[i].SetActive(_star > i);
             }
 
-            CreateRewardItems();
+            if (_isVictory)
+                CreateRewardItems();
         }
 
         private void OnExitButtonClicked()
