@@ -127,9 +127,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 GameObject topUIObject = results[0].gameObject;
                 if (topUIObject != null && topUIObject.CompareTag("ReturnObj"))
                 {
-                    CharacterController deleteCharacterController = _selectedCharacterController;
-                    ReleaseSelectedHero();
-                    InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
+                    if (_selectedCharacterController != null)
+                    {
+                        CharacterController deleteCharacterController = _selectedCharacterController;
+                        ReleaseSelectedHero();
+                        InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
+                    }
                 }
             }
         }
@@ -380,9 +383,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void ReleaseSelectedHero()
     {
-        _selectedCharacterController.SetSelectedCharacter(false);
-        InGameMain.GetInGameMain().ReturnObjectActive(false);
-        _selectedTileView.SetActiveObj(false);
-        _selectedCharacterController = null;
+        if (_selectedCharacterController != null)
+        {
+            _selectedCharacterController.SetSelectedCharacter(false);
+            InGameMain.GetInGameMain().ReturnObjectActive(false);
+            _selectedTileView.SetActiveObj(false);
+            _selectedCharacterController = null;
+        }
     }
 }

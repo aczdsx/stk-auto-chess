@@ -165,6 +165,7 @@ MonoBehaviour:
   _SynergyClassImage: {fileID: 7255070656595467219}
   _lvText: {fileID: 3390028407743059545}
   _body: {fileID: 3052446370037572043}
+  _emptySlotObj: {fileID: 4679146988832549458}
 --- !u!114 &2258142017000243704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1459,6 +1460,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
+--- !u!1 &4679146988832549458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 720352194954403032, guid: ba55cfb66904239458ecdddc64b088de, type: 3}
+  m_PrefabInstance: {fileID: 5264883766473389706}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7742339546908091257 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2477770515909416435, guid: ba55cfb66904239458ecdddc64b088de, type: 3}

@@ -11,13 +11,17 @@ public class InGameCharacterItem : MonoBehaviour
     [SerializeField] private Image _SynergyClassImage;
     [SerializeField] private TextMeshProUGUI _lvText;
     [SerializeField] private GameObject _body;
+    [SerializeField] private GameObject _emptySlotObj;
     private Action<CharacterStatData> _onSelected;
     private CharacterStatData _statData;
 
     public void SetData(CharacterStatData characterStat, Action<CharacterStatData> onSelected)
     {
         _statData = characterStat;
-        _body.SetActive(_statData != null);
+        bool isExsist = _statData != null;
+
+        _body.SetActive(isExsist);
+        _emptySlotObj.SetActive(!isExsist);
         if (_body.activeSelf)
         {
             _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
