@@ -73,6 +73,8 @@ namespace CookApps.AutoBattler
             var rewardList = SpecDataManager.Instance.GetSpecStageReward(InGameManager.Instance.SpecStage.reward_id)
                 .FindAll(l => l.difficulty_type == InGameManager.Instance.SpecStage.difficulty_type);
 
+            List<RewardItem> resultItemList = new List<RewardItem>();   // 보상 지급용 리워드 리스트
+
             foreach (var rewardItem in rewardList)
             {
                 bool shouldCreateRewardItemSlot = false;
@@ -91,14 +93,25 @@ namespace CookApps.AutoBattler
 
                 if (shouldCreateRewardItemSlot)
                 {
+                    RewardItem newItem = new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count);
+
                     var rewardItemSlot = Instantiate(_rewardItemSlotObj, _rewardsTransform).GetComponent<RewardItemSlot>();
-                    rewardItemSlot.SetRewardItem(new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count));
+                    rewardItemSlot.SetRewardItem(newItem);
+
+                    resultItemList.Add(newItem);
                 }
             }
 
-            if (userStage.StarCount > _star)
+            // 보상 데이터 저장
+            if (resultItemList.Count > 0)
             {
-                UserDataManager.Instance.SaveUserStage();
+                UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
+            }
+
+            // 별 최고기록일 경우 스테이지 클리어 데이터 저장
+            if (_star > userStage.StarCount)
+            {
+                UserDataManager.Instance.SetUserStage(InGameManager.Instance.SpecStage.id, _star);
             }
         }
 
