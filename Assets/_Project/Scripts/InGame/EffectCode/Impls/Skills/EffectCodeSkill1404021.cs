@@ -16,7 +16,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class EffectCodeSkill1404021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _cooltime;
-    private ObfuscatorFloat _power;
+    private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _elapsedTime;
 
     private bool isReadyToActivate;
@@ -30,7 +30,7 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -42,7 +42,7 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -103,7 +103,7 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
             _targetCharacter.GetCharacterView().SkillRootTransform);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _power, 0, _targetCharacter, codeId, true);
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
         _targetCharacter.GetDamaged(damage, owner);
 

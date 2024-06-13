@@ -15,6 +15,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _playerSmoothColor;
         [SerializeField] private Color _enermySmoothColor;
 
+        [SerializeField] private SpriteRenderer _coolTimeGuage;
+
         private SpriteRenderer _selectedFillLeft;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
         private Vector2 _defalutSize;
@@ -94,9 +96,10 @@ namespace CookApps.AutoBattler
             CachedGo.SetActive(true);
         }
 
-        public void OnCoolTimeUpdated(int index, float curr, float max)
+        public void OnCoolTimeUpdated(int index, float current, float max)
         {
-
+            float targetRatio = Mathf.Clamp01((float)(current / max));
+            _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
         }
     }
 

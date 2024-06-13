@@ -115,13 +115,24 @@ namespace CookApps.BattleSystem
             await characCtrl.Initialize(statData, tile, allianceType);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 
+            InGameVfxNameType summonVfxType = InGameVfxNameType.NONE;
             if (allianceType == AllianceType.Player)
             {
                 charactersInPlaygroundForUpdate.Add(characCtrl);
+                summonVfxType = InGameVfxNameType.fx_common_summon_awful;
             }
             else if (allianceType == AllianceType.Enemy)
             {
                 enemiesInPlaygroundForUpdate.Add(characCtrl);
+                summonVfxType = InGameVfxNameType.fx_common_summon_enemy;
+            }
+
+            if (summonVfxType != InGameVfxNameType.NONE)
+            {
+                InGameVfxWithParticle vfx = InGameVfxManager.Instance.AddInGameVfx(summonVfxType,
+                    tile.View.CachedTr) as InGameVfxWithParticle;
+                vfx.CachedTr.position = tile.View.CachedTr.position;
+                vfx?.Particle.Play();
             }
 
             characCtrl.AddNextState(startStateType);

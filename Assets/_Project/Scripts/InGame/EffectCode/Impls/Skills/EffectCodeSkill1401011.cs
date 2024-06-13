@@ -15,8 +15,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1401011)]
 public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _cooltime;
-    private ObfuscatorFloat _power;
+    private ObfuscatorFloat _coolTime;
+    private ObfuscatorFloat _powerRate;
 
     private ObfuscatorFloat _elapsedTime;
 
@@ -28,8 +28,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
@@ -38,8 +38,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -53,7 +53,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            _elapsedTime = _cooltime;
+            _elapsedTime = _coolTime;
         }
     }
 
@@ -62,7 +62,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (_isReadyToActivate || _isSkillActivated)
             return;
         _elapsedTime += dt;
-        if (_elapsedTime >= _cooltime)
+        if (_elapsedTime >= _coolTime)
         {
             _isReadyToActivate = true;
         }
@@ -124,7 +124,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
             tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _power, 0, tile.OccupiedCharacter, codeId, true);
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
         tile.OccupiedCharacter.GetDamaged(damage, owner);
 

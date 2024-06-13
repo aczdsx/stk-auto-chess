@@ -24532,6 +24532,7 @@ GameObject:
   - component: {fileID: 7086891857595113569}
   - component: {fileID: 6916197614423051054}
   - component: {fileID: 1978683627899624161}
+  - component: {fileID: 4758907024626199006}
   m_Layer: 6
   m_Name: fx_common_summon_awful
   m_TagString: Untagged
@@ -29359,6 +29360,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4758907024626199006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536272732843928069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &5567873127526388193
 GameObject:
   m_ObjectHideFlags: 0

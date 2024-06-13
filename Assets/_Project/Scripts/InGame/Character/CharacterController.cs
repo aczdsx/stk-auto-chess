@@ -132,9 +132,9 @@ namespace CookApps.BattleSystem
             _allianceType = allianceType;
 
             GameObject viewGo = null;
-            // if (allianceType == AllianceType.Enemy)
-            //     viewGo = await Addressables.InstantiateAsync(
-            //         $"<Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+            if (allianceType == AllianceType.Enemy)
+                viewGo = await Addressables.InstantiateAsync(
+                    $"Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
 
             if (viewGo == null)
                 viewGo = await Addressables.InstantiateAsync(

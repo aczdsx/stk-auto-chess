@@ -5,6 +5,7 @@ namespace CookApps.BattleSystem
 {
     public class InGameVfxWithParticle : InGameVfx
     {
+        public ParticleSystem Particle => particle;
         [SerializeField] private ParticleSystem particle;
 
         protected ObfuscatorFloat Duration;

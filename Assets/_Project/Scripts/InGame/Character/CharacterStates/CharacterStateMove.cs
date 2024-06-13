@@ -30,7 +30,12 @@ public class CharacterStateMove : CharacterStateBase
             {
                 if (characCtrl != null)
                     characCtrl.Position3D = value;
-            }).OnComplete(this, target => target.ChangeToIdleState());
+            },
+            ease: Ease.Linear).OnComplete(this, target =>
+        {
+            if (target != null)
+                target.ChangeToIdleState();
+        });
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -40,6 +45,9 @@ public class CharacterStateMove : CharacterStateBase
 
     private void ChangeToIdleState()
     {
+        if (characCtrl == null)
+            return;
+
         characCtrl.AddNextState<CharacterStateIdle>();
     }
 }

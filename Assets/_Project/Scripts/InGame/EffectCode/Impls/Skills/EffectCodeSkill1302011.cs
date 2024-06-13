@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1302011)]
 public class EffectCodeSkill1302011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _cooltime;
+    private ObfuscatorFloat _coolTime;
     private ObfuscatorFloat _duration;
     private ObfuscatorFloat _shieldRate;
 
@@ -28,7 +28,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _coolTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
         _shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         _elapsedTime = 0f;
@@ -41,7 +41,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        _coolTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
         _shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
     }
@@ -57,7 +57,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            _elapsedTime = _cooltime;
+            _elapsedTime = _coolTime;
         }
     }
 
@@ -66,11 +66,11 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         if (_isReadyToActivate || _isSkillActivated)
             return;
         _elapsedTime += dt;
-        if (_elapsedTime >= _cooltime)
+        if (_elapsedTime >= _coolTime)
         {
             _isReadyToActivate = true;
         }
-        // owner.GetHpBarView().OnCoolTimeUpdated();
+        owner.GetHpBarView().OnCoolTimeUpdated(0, _elapsedTime, _coolTime);
     }
 
     public override bool IsReadyToActivate()

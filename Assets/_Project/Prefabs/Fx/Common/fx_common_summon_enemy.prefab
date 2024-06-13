@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8865830885020494733}
   - component: {fileID: 705510981675920596}
   - component: {fileID: 4774748422879924898}
+  - component: {fileID: 7513414442987083022}
   m_Layer: 6
   m_Name: fx_common_summon_enemy
   m_TagString: Untagged
@@ -4838,6 +4839,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7513414442987083022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94175973073909023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &972667111220709705
 GameObject:
   m_ObjectHideFlags: 0

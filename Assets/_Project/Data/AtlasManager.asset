@@ -20,6 +20,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: d8815f356089b4cbd8a10b185bf1098a
       m_SubObjectName: 
@@ -69,6 +70,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: db8a809bfec51ea408dafb36de49bc67
       m_SubObjectName: 
@@ -76,6 +78,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: 2a08188687e084940a69dcce1fb15d79
       m_SubObjectName: 

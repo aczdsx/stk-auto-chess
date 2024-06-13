@@ -15,8 +15,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1401031)]
 public class EffectCodeSkill1401031 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _cooltime;
-    private ObfuscatorFloat _power;
+    private ObfuscatorFloat _coolTime;
+    private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _debuffTime;
     private ObfuscatorFloat _atkDownRate;
 
@@ -30,8 +30,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _debuffTime = codeInfo.GetCodeStatToFloat(2);
         _atkDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _elapsedTime = 0f;
@@ -44,8 +44,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
-        _power = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _debuffTime = codeInfo.GetCodeStatToFloat(2);
         _atkDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
@@ -61,7 +61,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            _elapsedTime = _cooltime;
+            _elapsedTime = _coolTime;
         }
     }
 
@@ -70,7 +70,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         if (_isReadyToActivate || _isSkillActivated)
             return;
         _elapsedTime += dt;
-        if (_elapsedTime >= _cooltime)
+        if (_elapsedTime >= _coolTime)
         {
             _isReadyToActivate = true;
         }
@@ -104,7 +104,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
 
             if (tile.OccupiedCharacter != null)
             {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _power, 0, tile.OccupiedCharacter, codeId, true);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 

@@ -57,7 +57,8 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
                     owner.Position3D = value;
             }).OnComplete(this, target =>
             {
-                owner.AddNextState<CharacterStateIdle>();
+                if (owner != null)
+                    owner.AddNextState<CharacterStateIdle>();
             }
         );
     }
