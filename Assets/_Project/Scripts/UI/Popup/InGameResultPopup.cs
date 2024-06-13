@@ -81,7 +81,7 @@ namespace CookApps.AutoBattler
 
                 if (rewardItem.frequency_type == FrequencyType.ONCE)
                 {
-                    if (rewardItem.star_count > _star && userStage.StarCount > _star)
+                    if (rewardItem.star_count > _star && (userStage == null || userStage.StarCount > _star))
                     {
                         shouldCreateRewardItemSlot = true;
                     }
@@ -109,10 +109,10 @@ namespace CookApps.AutoBattler
             }
 
             // 별 최고기록일 경우 스테이지 클리어 데이터 저장
-            if (_star > userStage.StarCount)
+            if (userStage == null || _star > userStage.StarCount)
             {
                 UserDataManager.Instance.SetUserStage(InGameManager.Instance.SpecStage.id, _star);
-                
+
                 GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,1);
             }
         }

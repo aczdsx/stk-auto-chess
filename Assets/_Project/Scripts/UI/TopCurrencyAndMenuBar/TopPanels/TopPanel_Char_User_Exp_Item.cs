@@ -23,6 +23,8 @@ namespace CookApps.AutoBattler
 
         private void CharUserExpItemChanged(int expItem)
         {
+            if (gameObject == null) return;
+
             currencyText.SetText(expItem.ToString("N0"));
         }
     }
