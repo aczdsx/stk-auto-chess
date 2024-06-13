@@ -14,9 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Assets:
   - rid: 9161305264687939584
+  - rid: 7388922950105694208
   references:
     version: 2
     RefIds:
+    - rid: 7388922950105694208
+      type: {class: BuildPlatformAndroid, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
+      data:
+        Name: aos-dev
+        Target: 13
+        Identifier: com.cookapps.tech.sampleteambattle
+        Version: 1.0.0
+        UseAutoVersionCode: 1
+        BaseVersionCode: 0
+        VersionCode: 767
+        Scenes:
+        - Guid: 16b82d33cb9ba43b99ade802db2c034c
+        - Guid: 82d3b55c0d6944acd81604cfdc57e37e
+        - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
+        - Guid: 61e7bd672efcc4045915939216d08afd
+        - Guid: 8029178524cba4055adeed793914bebd
+        AddDefine:
+        - ENABLE_CHEAT
+        RemoveDefine: []
+        BuildOptions: 0
+        TargetSdkVersion: 0
+        CreateSymbols: 0
+        IsAAB: 0
+        SplitApplicationBinary: 0
+        IsMono: 0
+        Architecture: 2
+        CodeGeneration: 0
+        ManagedStrippingLevel: 4
+        KeyStore:
+          keystoreName: 
+          keystorePass: 
+          keyaliasName: 
+          keyaliasPass: 
+        AppIcon: 
+        AppIconForeground: 
+        AppIconBackground: 
     - rid: 9161305264687939584
       type: {class: BuildPlatformIOS, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
       data:
@@ -26,7 +63,7 @@ MonoBehaviour:
         Version: 1.0.0
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 76
+        VersionCode: 767
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e

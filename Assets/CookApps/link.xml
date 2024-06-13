@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--CookApps 패키지 자동 생성 (수정하지 마세요!!)-->
+<linker>
+  <!--CookApps 내부 패키지-->
+  <assembly fullname="CookApps.AnalyticsLite" preserve="all" />
+  <assembly fullname="CookApps.Build" preserve="all" />
+  <assembly fullname="CookApps.gRPC" preserve="all" />
+  <assembly fullname="CookApps.gRPC.Hatchery" preserve="all" />
+  <assembly fullname="CookApps.Iap" preserve="all" />
+  <assembly fullname="CookApps.SpecData" preserve="all" />
+  <assembly fullname="CookApps.UnitySettings" preserve="all" />
+  <assembly fullname="CookApps.TechDebug" preserve="all" />
+  <assembly fullname="CookApps.Utility" preserve="all" />
+  <assembly fullname="CookApps.Local.Data" preserve="all" />
+  <assembly fullname="CookApps.Obfuscator" preserve="all" />
+  <assembly fullname="CookApps.Code.Obfuscator" preserve="all" />
+  <assembly fullname="CookApps.Inspector" preserve="all" />
+</linker>
