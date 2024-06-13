@@ -356,6 +356,11 @@ MonoBehaviour:
   _hpValueText: {fileID: 8531214056250195429}
   _apDefText: {fileID: 1240461993025769676}
   _adDefText: {fileID: 507397342094708883}
+  _activeLevelUpButton: {fileID: 366438474249397153}
+  _inactiveLevelUpButton: {fileID: 597076811668666103}
+  _baseExpItemCurrencyUIItem: {fileID: 8750656550208893263}
+  _secondExpItemCurrencyUIItem: {fileID: 4311674732682630737}
+  _goldCurrencyUIItem: {fileID: 5823581103576128085}
 --- !u!1 &5137742633380292226
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +813,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_LevelUp_Disable
       objectReference: {fileID: 0}
+    - target: {fileID: 4795063902834857348, guid: b1e5d5439ac48514999ec28d5a7fb776, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8736302091719934342, guid: b1e5d5439ac48514999ec28d5a7fb776, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -893,6 +902,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e5d5439ac48514999ec28d5a7fb776, type: 3}
+--- !u!114 &366438474249397153 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 87988575701765750, guid: b1e5d5439ac48514999ec28d5a7fb776, type: 3}
+  m_PrefabInstance: {fileID: 300968207208213975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9011936544816950353 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8736302091719934342, guid: b1e5d5439ac48514999ec28d5a7fb776, type: 3}
@@ -1422,7 +1442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1975919827346404763, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
       propertyPath: m_Name
-      value: Item_Curreny
+      value: BaseExpItem
       objectReference: {fileID: 0}
     - target: {fileID: 2806612808008756931, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
       propertyPath: m_Pivot.x
@@ -1518,6 +1538,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2806612808008756931, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
   m_PrefabInstance: {fileID: 2007373852378562701}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8750656550208893263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7109789797854212546, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
+  m_PrefabInstance: {fileID: 2007373852378562701}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da422941bf67ddd42b74912a50da3ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2071527529980516001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1631,6 +1662,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
+--- !u!114 &597076811668666103 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1510594159584239702, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
+  m_PrefabInstance: {fileID: 2071527529980516001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8715732048665714044 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7226882460588133341, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
@@ -1873,7 +1915,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1975919827346404763, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
       propertyPath: m_Name
-      value: Item_Curreny (2)
+      value: GoldItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975919827346404763, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2806612808008756931, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
       propertyPath: m_Pivot.x
@@ -1973,6 +2019,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2806612808008756931, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
   m_PrefabInstance: {fileID: 3637369244236049303}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5823581103576128085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7109789797854212546, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
+  m_PrefabInstance: {fileID: 3637369244236049303}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da422941bf67ddd42b74912a50da3ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3767989767554705691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2854,7 +2911,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1975919827346404763, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
       propertyPath: m_Name
-      value: Item_Curreny (1)
+      value: SecondExpItem
       objectReference: {fileID: 0}
     - target: {fileID: 2806612808008756931, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
       propertyPath: m_Pivot.x
@@ -2949,6 +3006,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
+--- !u!114 &4311674732682630737 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7109789797854212546, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}
+  m_PrefabInstance: {fileID: 6448355827649128339}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da422941bf67ddd42b74912a50da3ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9191352124984052048 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2806612808008756931, guid: 436157aa0448c8a44bd9772a7a1861a8, type: 3}

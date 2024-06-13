@@ -21,12 +21,25 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _apDefText;
         [SerializeField] private TextMeshProUGUI _adDefText;
 
-        private SpecCharacter _specCharacterData;
+        [Header("LevelUp Layer")]
+        [SerializeField] private CAButton _activeLevelUpButton;
+        [SerializeField] private CAButton _inactiveLevelUpButton;
+
+        [Space(10)]
+        [SerializeField] private CurrencyUIItem _baseExpItemCurrencyUIItem;
+        [SerializeField] private CurrencyUIItem _secondExpItemCurrencyUIItem;
+        [SerializeField] private CurrencyUIItem _goldCurrencyUIItem;
+
         private UserCharacter _userCharacterData;
+        private SpecCharacter _specCharacterData;
+        private SpecCharacterLevelExp _specCharacterLevelExpData;
+
+        private bool _isHaveCharacter = false;
 
         private void Awake()
         {
             _detailStatButton.onClick.AddListener(OnClickDetailStatButton);
+            _activeLevelUpButton.onClick.AddListener(OnClickLevelupButton);
         }
 
         protected override void OnDestroy()
@@ -34,6 +47,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _detailStatButton.onClick.RemoveListener(OnClickDetailStatButton);
+            _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
         }
 
         public void InitLayer(int prefabID)
@@ -41,8 +55,13 @@ namespace CookApps.AutoBattler
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(prefabID);
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(prefabID);
 
+            _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(prefabID);
+
             // test 임시 처리
             SetDefaultStatInfo();
+
+            // 레벨업 기능 관련 처리
+            SetLevelupLayer();
 
             // // 캐릭터 보유 상태에 따른 분기처리
             // if (UserDataManager.Instance.IsHaveCharacter(prefabID))
@@ -75,8 +94,55 @@ namespace CookApps.AutoBattler
             _adDefText.text = _specCharacterData.stat_def.ToString("N0");
         }
 
+        private void SetLevelupLayer()
+        {
+            if (_specCharacterData == null || _userCharacterData == null) return;
+
+            // 레벨업 가능 여부 체크
+            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+            bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
+
+            // 레벨업에 필요한 자원 정보 세팅
+            _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(_userCharacterData.Level);
+            if (_specCharacterLevelExpData != null)
+            {
+                _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_type, _specCharacterLevelExpData.base_levelup_item_count);
+                _goldCurrencyUIItem.SetUIItem(ItemType.GOLD, _specCharacterLevelExpData.need_gold);
+
+                bool isNeedSecondExpItem = _specCharacterLevelExpData.sec_levelup_item_count > 0;
+                if (isNeedSecondExpItem)
+                {
+                    _secondExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterLevelExpData.sec_levelup_item_count);
+                }
+                _secondExpItemCurrencyUIItem.gameObject.SetActive(isNeedSecondExpItem);
+            }
+
+            _activeLevelUpButton.gameObject.SetActive(isAvailLevelup);
+            _inactiveLevelUpButton.gameObject.SetActive(!isAvailLevelup);
+        }
+
+        private void RefreshLayer()
+        {
+
+        }
+
         private void OnClickDetailStatButton()
         {
+
+        }
+
+        private void OnClickLevelupButton()
+        {
+            if (_userCharacterData == null) return;
+            if (_specCharacterLevelExpData == null) return;
+
+            // 레벨업 가능 여부 검사
+
+
+            // 재료 검사
+
+
+            // 레벨업 진행
 
         }
     }

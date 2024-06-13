@@ -171,8 +171,10 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt stat_hp;
         /// 공격력
         public CookApps.Obfuscator.ObfuscatorInt stat_atk;
-        /// 체력, 공격력 레벨 당 성장율
-        public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
+        /// 체력, 공격력 1레벨 당 성장율
+        public CookApps.Obfuscator.ObfuscatorFloat inc_lv_rate;
+        /// 체력, 공격력 10레벨 당 성장율
+        public CookApps.Obfuscator.ObfuscatorFloat inc_lv_bonus_rate;
         /// 물리 방어력
         public CookApps.Obfuscator.ObfuscatorInt stat_def;
         /// 마법 방어력
@@ -210,19 +212,23 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 캐릭터 레벨
-        public CookApps.Obfuscator.ObfuscatorInt lv;
+        public CookApps.Obfuscator.ObfuscatorInt level;
+        /// 기본 레벨업 필요 아이템
+        public global::CookApps.AutoBattler.ItemType base_levelup_item_type;
         /// 경험치 필요량
-        public CookApps.Obfuscator.ObfuscatorInt exp_item;
+        public CookApps.Obfuscator.ObfuscatorInt base_levelup_item_count;
         /// 경험치 아이템 누적 필요량
-        public CookApps.Obfuscator.ObfuscatorInt exp_item_sum;
+        public CookApps.Obfuscator.ObfuscatorInt base_levelup_item_sum;
         /// 골드 필요량
-        public CookApps.Obfuscator.ObfuscatorInt gold;
+        public CookApps.Obfuscator.ObfuscatorInt need_gold;
         /// 골드 누적 필요량
-        public CookApps.Obfuscator.ObfuscatorInt gold_sum;
+        public CookApps.Obfuscator.ObfuscatorInt need_gold_sum;
+        /// 2차 레벨업 필요 아이템
+        public global::CookApps.AutoBattler.ItemType sec_levelup_item_type;
         /// 2차 재화 필요량
-        public CookApps.Obfuscator.ObfuscatorInt exp_item_2;
+        public CookApps.Obfuscator.ObfuscatorInt sec_levelup_item_count;
         /// 2차 재화 누적 필요량
-        public CookApps.Obfuscator.ObfuscatorInt exp_item_2_sum;
+        public CookApps.Obfuscator.ObfuscatorInt sec_levelup_item_sum;
         /// 초월 가능 여부
         public bool is_transcendence;
     }
@@ -273,6 +279,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 유닛 ID
         public CookApps.Obfuscator.ObfuscatorInt character_id;
+        /// #캐릭터 이름
+        public string character_name;
         /// 대사 재생 타입
         public global::CookApps.AutoBattler.QuotesPlayType quotes_play_type;
         /// 대사 타입
