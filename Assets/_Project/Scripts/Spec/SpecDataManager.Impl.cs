@@ -252,6 +252,16 @@ namespace CookApps.AutoBattler
             return SpecCharacter.All.ToList().FindAll(character => character.character_type == type);
         }
 
+        public int GetCharacterMaxLevel()
+        {
+            return SpecCharacterLevelExp.All.Max(data => data.level);
+        }
+
+        public SpecCharacterLevelExp GetCharacterLevelExpData(int level)
+        {
+            return SpecCharacterLevelExp.All.ToList().Find(data => data.level == level);
+        }
+
         public SpecChapter GetChapterData(int chapterID, DifficultyType type)
         {
             if (chapterDic.TryGetValue(chapterID, out List<SpecChapter> chapterList))

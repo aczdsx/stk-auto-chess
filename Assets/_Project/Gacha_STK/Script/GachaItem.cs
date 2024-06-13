@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject PieceOnObject;
         [SerializeField] private Image PieceOnBackImage;
         [SerializeField] private Image PieceOnImage;
+        [SerializeField] private Image ItemOnImage;
         [SerializeField] private TextMeshProUGUI amountText;
 
         [SerializeField] private Slider piece2Slider;
@@ -267,13 +268,18 @@ namespace CookApps.AutoBattler
                 KnightOnObject.SetActive(false);
                 PieceOnObject.SetActive(true);
 
-                if (characterData != null)
+                bool isCharacter = characterData != null;
+
+                PieceOnImage.gameObject.SetActive(isCharacter);
+                ItemOnImage.gameObject.SetActive(!isCharacter);
+
+                if (isCharacter)
                 {
                     PieceOnImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(characterData.prefab_id);
                 }
                 else
                 {
-                    PieceOnImage.sprite = ImageManager.Instance.GetItemSprite(_rewardItemData.Type);
+                    ItemOnImage.sprite = ImageManager.Instance.GetItemSprite(_rewardItemData.Type);
                 }
 
                 amountText.text = $"x{_rewardItemData.Count}";
