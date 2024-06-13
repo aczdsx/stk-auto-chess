@@ -39,7 +39,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     {
         _onNewCharacter = onNewCharacter;
 
-        // _characterStats = new List<CharacterStatData>();
+        _characterStats = new List<CharacterStatData>();
         // _characterStats.Add(new CharacterStatData(130201, 10));
         // _characterStats.Add(new CharacterStatData(130601, 10));
         // _characterStats.Add(new CharacterStatData(130402, 10));
