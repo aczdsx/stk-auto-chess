@@ -4,6 +4,7 @@ using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace CookApps.AutoBattler
 {
@@ -17,6 +18,8 @@ namespace CookApps.AutoBattler
         [Header("Dialogue Layer")]
         [SerializeField] private CAButton _blockLayerButton;
         [SerializeField] private TextMeshProUGUI _dialogueText;
+        [SerializeField] private RectTransform _dialogueTextRect;
+        private Vector2 _tweenVector = new Vector2(1550f, 192f);
 
         private List<SpecDialogue> _dialogueList = new List<SpecDialogue>();
 
@@ -27,6 +30,7 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _blockLayerButton.onClick.AddListener(OnClickNextDialogue);
+            _blockLayerButton.onClick.AddListener(OnClickRefreshTextTween);
         }
 
         protected override void OnDestroy()
@@ -34,6 +38,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _blockLayerButton.onClick.RemoveListener(OnClickNextDialogue);
+            _blockLayerButton.onClick.RemoveListener(OnClickRefreshTextTween);
         }
 
         protected override void OnPreEnter(object param)
@@ -86,5 +91,13 @@ namespace CookApps.AutoBattler
 
             BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
         }
+
+        public void OnClickRefreshTextTween()
+        {
+            _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
+            _dialogueTextRect.DOSizeDelta(_tweenVector,0.3f).SetEase(Ease.OutQuad).From();
+        }
+
+
     }
 }
