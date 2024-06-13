@@ -28,6 +28,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 1
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: c7e43331a4807af4687ead39d29007c8
       m_SubObjectName: 
@@ -35,6 +36,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: 8c3525daf8dc12041b2a00abe0381be6
       m_SubObjectName: 
@@ -42,6 +44,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: f846c6d770ba054459777f53eac2820d
       m_SubObjectName: 
@@ -49,6 +52,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: fd75ccb0d384c42649360699dfe6130e
       m_SubObjectName: 
@@ -64,6 +68,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
   - assetRef:
       m_AssetGUID: e46048157f103ef429313284e0fcaef0
       m_SubObjectName: 
@@ -87,3 +92,4 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
+    - InGame
