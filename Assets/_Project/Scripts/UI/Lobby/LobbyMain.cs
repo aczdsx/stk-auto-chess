@@ -215,7 +215,11 @@ namespace CookApps.AutoBattler
         }
         private void OnClickStartButton()
         {
-            SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
+            var currentStageData = SpecDataManager.Instance.SpecStage.Get(UserDataManager.Instance.GetLastPlayStageID());
+            if (currentStageData != null)
+            {
+                SceneLoading.GoToNextScene("InGame", (currentStageData.chapter_id, currentStageData.stage_number, currentStageData.difficulty_type)).Forget();
+            }
         }
 
         private void OnClickChapterStageButton()
