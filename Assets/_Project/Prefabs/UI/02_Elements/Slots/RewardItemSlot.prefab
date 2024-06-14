@@ -716,6 +716,7 @@ GameObject:
   - component: {fileID: 8288243347539253714}
   - component: {fileID: 1389709816289870892}
   - component: {fileID: 6451199030387498365}
+  - component: {fileID: 2153025350270066487}
   m_Layer: 5
   m_Name: Img_Synergy
   m_TagString: Untagged
@@ -780,6 +781,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2153025350270066487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673439731484617091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34b89724fe50b1469c8d0f83e380965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _iconImage: {fileID: 6451199030387498365}
 --- !u!1 &797544049776082630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,6 +1906,7 @@ GameObject:
   - component: {fileID: 1062926040350035338}
   - component: {fileID: 2668683784376805660}
   - component: {fileID: 3854965972032926680}
+  - component: {fileID: 3647369306045974274}
   m_Layer: 5
   m_Name: Img_PosSynergy
   m_TagString: Untagged
@@ -1956,6 +1971,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3647369306045974274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722226836289496728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34b89724fe50b1469c8d0f83e380965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _iconImage: {fileID: 3854965972032926680}
 --- !u!1 &6431695464060537184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,8 +2042,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968a9c217f4890d4894600f780817ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rewardItemLayerObject: {fileID: 7805482167736214752}
   _rewardItemImage: {fileID: 246091238394257768}
   _rewardItemCountText: {fileID: 1785095067748150429}
+  _rewardPieceLayerObject: {fileID: 7658858752766862999}
+  _rewardPieceImage: {fileID: 6278573381775429225}
+  _rewardPieceSliderImage: {fileID: 2593990762542989193}
+  _rewardPieceCountText: {fileID: 3743644501668603881}
+  _rewardCharacterLayerObject: {fileID: 3774298217450990795}
+  _rewardCharacterImage: {fileID: 4045107062911333907}
+  _rewardCharacterNameText: {fileID: 4924646239980119689}
+  _rewardElementSynergyUI: {fileID: 2153025350270066487}
+  _rewardClassSynergyUI: {fileID: 3647369306045974274}
 --- !u!1 &6580504140384689869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2293,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.39999962}
-  m_SizeDelta: {x: 93, y: 26.783998}
+  m_SizeDelta: {x: 93, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4456467965405268757
 CanvasRenderer:
@@ -2739,7 +2777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6009161961336722335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2943,7 +2981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3900810176919399886
 RectTransform:
   m_ObjectHideFlags: 0

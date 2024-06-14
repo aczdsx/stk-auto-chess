@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
                     RewardItem newItem = new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count);
 
                     var rewardItemSlot = Instantiate(_rewardItemSlotObj, _rewardsTransform).GetComponent<RewardItemSlot>();
-                    rewardItemSlot.SetRewardItem(newItem);
+                    rewardItemSlot.SetRewardSlot(newItem);
 
                     resultItemList.Add(newItem);
                 }
