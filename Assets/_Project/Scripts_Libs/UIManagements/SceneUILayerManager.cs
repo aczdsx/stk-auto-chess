@@ -728,7 +728,10 @@ namespace CookApps.TeamBattle.UIManagements
                 mainNodeGo = mainNode.gameObject;
             }
 
-            mainNodeCanvas = mainNodeGo.AddComponent<Canvas>();
+            if ((mainNodeCanvas = mainNodeGo.GetComponent<Canvas>()) == null)
+            {
+                mainNodeCanvas = mainNodeGo.AddComponent<Canvas>();
+            }
             if (mainNodeGo.GetComponent<GraphicRaycaster>() == null)
             {
                 mainNodeGo.AddComponent<GraphicRaycaster>();
@@ -752,7 +755,10 @@ namespace CookApps.TeamBattle.UIManagements
                 floatingNodeGo = floatingNode.gameObject;
             }
 
-            floatingNodeCanvas = floatingNodeGo.AddComponent<Canvas>();
+            if ((floatingNodeCanvas = mainNodeGo.GetComponent<Canvas>()) == null)
+            {
+                floatingNodeCanvas = mainNodeGo.AddComponent<Canvas>();
+            }
             if (floatingNodeGo.GetComponent<GraphicRaycaster>() == null)
             {
                 floatingNodeGo.AddComponent<GraphicRaycaster>();
