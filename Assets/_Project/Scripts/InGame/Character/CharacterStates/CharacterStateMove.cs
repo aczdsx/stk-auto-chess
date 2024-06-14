@@ -22,6 +22,9 @@ public class CharacterStateMove : CharacterStateBase
         // PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)
         //     .OnComplete(this, target => target.ChangeToIdleState());
 
+        var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
+        Ease ease = (isInRange) ? Ease.InQuad  : Ease.Linear;
+
         Tween.Custom(
             characCtrl.Position3D,
             characCtrl.CurrentTile.View.Position,
@@ -31,23 +34,20 @@ public class CharacterStateMove : CharacterStateBase
                 if (characCtrl != null)
                     characCtrl.Position3D = value;
             },
-            ease: Ease.Linear).OnComplete(this, target =>
+            ease: ease).OnComplete(this, target =>
         {
             if (target != null)
-                target.ChangeToIdleState();
+            {
+                if (characCtrl == null)
+                    return;
+
+                characCtrl.MoveCharacter(isInRange);
+            }
         });
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
         return CharacterStateRunningResult.CanCallAllWithoutActivate;
-    }
-
-    private void ChangeToIdleState()
-    {
-        if (characCtrl == null)
-            return;
-
-        characCtrl.AddNextState<CharacterStateIdle>();
     }
 }

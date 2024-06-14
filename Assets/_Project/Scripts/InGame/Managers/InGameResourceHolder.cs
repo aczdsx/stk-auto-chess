@@ -24,6 +24,8 @@ namespace CookApps.AutoBattler
             InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
 
             // SpecStage = SpecDataManager.Instance.GetStageData(chapter, stageIdx, difficultyType);
+            if (chapter == 0)
+                chapter = 999;
             StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
         }
 

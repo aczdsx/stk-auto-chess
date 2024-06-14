@@ -773,5 +773,30 @@ namespace CookApps.BattleSystem
             await textView.ShowHealText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount);
             InGameTextViewPool.Instance.Return(textView);
         }
+
+        public void MoveCharacter(bool isInRange)
+        {
+            // 4-2. 공격 범위 밖에 있다면 이동 상태로 전환
+            InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile,
+                Target.CurrentTile);
+            if (bestTile == CurrentTile)
+            {
+                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                AddNextState<CharacterStateIdle>();
+            }
+            else
+            {
+                if (isInRange)
+                {
+                    AddNextState<CharacterStateIdle>();
+                }
+                else
+                {
+                    GetCharacterView().LookAt(CurrentTile, bestTile);
+                    ChangeOccupiedTile(bestTile);
+                    AddNextState<CharacterStateMove>();
+                }
+            }
+        }
     }
 }
