@@ -95,8 +95,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
         InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1]);
-        vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
+        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
 
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByDirection(owner);

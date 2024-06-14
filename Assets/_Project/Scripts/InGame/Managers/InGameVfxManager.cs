@@ -68,7 +68,7 @@ namespace CookApps.BattleSystem
             InGameVfxPool.WarmUp(vfxNameType, warmUpCount);
         }
 
-        public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, IFollowable parent = null)
+        public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, IFollowable parent)
         {
             var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
             addWaitingInGameVfxs.Enqueue(effect);
