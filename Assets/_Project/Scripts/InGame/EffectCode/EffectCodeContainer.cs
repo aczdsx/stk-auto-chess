@@ -348,5 +348,38 @@ namespace CookApps.BattleSystem
 
             return null;
         }
+
+        public void SetDirtyFlag(EffectCodeBase effectCode)
+        {
+            if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
+            {
+                isEffectCodesDividedByTypeDirty[effectCode.Type] = true;
+            }
+            else
+            {
+                effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
+            }
+
+            OnChangeDirtyType?.Invoke(effectCode.Type);
+
+            if (effectCode is EffectCodeStatBase statEffectCode)
+            {
+                IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                foreach (EffectCodeInheritFlag flag in allFlagTypes)
+                {
+                    if (!statEffectCode.GetFlag().HasFlag(flag))
+                    {
+                        continue;
+                    }
+
+                    if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
+                    {
+                        isEffectCodesDividedByFlagDirty[flag] = true;
+                    }
+
+                    OnChangedDirtyFlag?.Invoke(flag);
+                }
+            }
+        }
     }
 }
