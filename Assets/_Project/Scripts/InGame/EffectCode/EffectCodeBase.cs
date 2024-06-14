@@ -84,6 +84,14 @@ namespace CookApps.BattleSystem
             this.source = source;
         }
 
+        public virtual bool TryRemoveWithSource(IEffectCodeSource source)
+        {
+            if (!IsRemoveWithSource)
+                return false;
+
+            return this.source == source;
+        }
+
         /// <summary>
         /// 컨테이너에서 제거해야할 때 호출됩니다.
         /// </summary>
