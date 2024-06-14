@@ -29,12 +29,12 @@ namespace CookApps.BattleSystem
                 InGameVfxPool.Return(inGameVfx);
             }
             addWaitingInGameVfxs.Clear();
+            removeWaitingInGameVfxs.Clear(); // 여기에 든거는 runningEffects에도 들어있음.
             foreach (var effect in runningEffects)
             {
                 InGameVfxPool.Return(effect);
             }
             runningEffects.Clear();
-            removeWaitingInGameVfxs.Clear();
             InGameVfxPool.Clear();
         }
 
@@ -57,6 +57,7 @@ namespace CookApps.BattleSystem
             while (removeWaitingInGameVfxs.Count > 0)
             {
                 InGameVfx effect = removeWaitingInGameVfxs.Dequeue();
+                InGameVfxPool.Return(effect);
                 runningEffects.Remove(effect);
             }
         }
@@ -67,14 +68,23 @@ namespace CookApps.BattleSystem
             InGameVfxPool.WarmUp(vfxNameType, warmUpCount);
         }
 
-        public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, Transform parent)
+        public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, IFollowable parent = null)
         {
-            var effect = InGameVfxPool.Get(vfxNameType, parent);
+            var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
             addWaitingInGameVfxs.Enqueue(effect);
+            effect.SetFollowable(parent);
             return effect;
         }
 
-        public InGameVfx AddInGameTIleFx(ElementType type, Transform parent)
+        public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, Vector3 worldPosition)
+        {
+            var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
+            addWaitingInGameVfxs.Enqueue(effect);
+            effect.CachedTr.position = worldPosition;
+            return effect;
+        }
+
+        public InGameVfx AddInGameTileFx(ElementType type, Vector3 worldPosition)
         {
             InGameVfxNameType vfxNameType = (InGameVfxNameType) 0;
             if (type == ElementType.DARK)
@@ -102,14 +112,15 @@ namespace CookApps.BattleSystem
                 vfxNameType = InGameVfxNameType.fx_common_area_water;
             }
 
-            var effect = InGameVfxPool.Get(vfxNameType, parent);
+            var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
             addWaitingInGameVfxs.Enqueue(effect);
+            effect.CachedTr.position = worldPosition;
             return effect;
         }
 
         public void RemoveInGameVfx(InGameVfx view)
         {
-            InGameVfxPool.Return(view);
+            view.CachedGo.SetActive(false);
             removeWaitingInGameVfxs.Enqueue(view);
         }
 
@@ -117,7 +128,7 @@ namespace CookApps.BattleSystem
         {
             private static Dictionary<InGameVfxNameType, ObjectPool<InGameVfx>> pools = new ();
 #if CHECK_POOL_LEAKING
-            private static HashSet<InGameVfx> allRunningVfxs = new ();
+            private static HashSet<InGameVfx> allActivatedVfxs = new ();
 #endif
 
             internal static void WarmUp(InGameVfxNameType vfxNameType, int warmUpCount)
@@ -143,6 +154,7 @@ namespace CookApps.BattleSystem
                 pools.Add(vfxNameType, pool);
             }
 
+            private static int inc = 0;
             internal static InGameVfx Get(InGameVfxNameType vfxNameType, Transform parent)
             {
                 if (!pools.TryGetValue(vfxNameType, out var pool))
@@ -152,13 +164,14 @@ namespace CookApps.BattleSystem
                         () =>
                         {
                             var go = Addressables.InstantiateAsync(GetAddressablePath(vfxNameType)).WaitForCompletion();
+                            go.name = $"{vfxNameType}_{inc++}";
                             var vfx = go.GetComponent<InGameVfx>();
                             vfx.VfxNameType = vfxNameType;
                             return vfx;
                         },
 #if CHECK_POOL_LEAKING
-                        actionOnGet: vfx => allRunningVfxs.Add(vfx),
-                        actionOnRelease: vfx => allRunningVfxs.Remove(vfx),
+                        actionOnGet: vfx => allActivatedVfxs.Add(vfx),
+                        actionOnRelease: vfx => allActivatedVfxs.Remove(vfx),
 #endif
                         actionOnDestroy: vfx => Addressables.ReleaseInstance(vfx.CachedGo)
                     );
@@ -173,6 +186,7 @@ namespace CookApps.BattleSystem
 
             internal static void Return(InGameVfx vfx)
             {
+                vfx.Clear();
                 vfx.CachedGo.SetActive(false);
                 if (pools.TryGetValue(vfx.VfxNameType, out var pool))
                 {
@@ -183,7 +197,7 @@ namespace CookApps.BattleSystem
             internal static void Clear()
             {
 #if CHECK_POOL_LEAKING
-                if (allRunningVfxs.Count > 0)
+                if (allActivatedVfxs.Count > 0)
                     Debug.LogError("!!! 인게임 이펙트 풀 누수 !!!");
 #endif
 

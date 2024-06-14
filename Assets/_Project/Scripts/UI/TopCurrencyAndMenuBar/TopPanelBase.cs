@@ -9,6 +9,7 @@ namespace CookApps.AutoBattler
         Gold = 0,
         Energy,
         Jewel,
+        C_Ticket,
 
         Char_User_Exp_Item,
         Char_User_Exp_Item_2,

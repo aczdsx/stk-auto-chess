@@ -129,10 +129,8 @@ namespace CookApps.BattleSystem
 
             if (summonVfxType != InGameVfxNameType.NONE)
             {
-                InGameVfxWithParticle vfx = InGameVfxManager.Instance.AddInGameVfx(summonVfxType,
-                    tile.View.CachedTr) as InGameVfxWithParticle;
-                vfx.CachedTr.position = tile.View.CachedTr.position;
-                vfx?.Particle.Play();
+                var vfx = InGameVfxManager.Instance.AddInGameVfx(summonVfxType, tile.View.CachedTr.position);
+                vfx.Initialize(false);
             }
 
             characCtrl.AddNextState(startStateType);

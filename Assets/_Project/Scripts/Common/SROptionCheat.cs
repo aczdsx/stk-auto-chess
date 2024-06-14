@@ -132,7 +132,7 @@ public partial class SROptions
         if (스테이지클리어별갯수 <= 0) return;
 
         UserDataManager.Instance.SetUserStage(원하는스테이지ID, 스테이지클리어별갯수);
-        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,1);
+        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,원하는스테이지ID, 1);
 
         var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
         if (lobbyMain != null)
@@ -160,7 +160,7 @@ public partial class SROptions
     {
         var currentGuideMission = SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
 
-        GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type, MissionStateType.REWARD);
+        GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type, currentGuideMission.sub_key, MissionStateType.REWARD);
     }
 
     #endregion

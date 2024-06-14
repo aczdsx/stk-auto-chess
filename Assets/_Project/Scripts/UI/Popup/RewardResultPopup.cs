@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
             foreach (var rewardItem in _rewardItemList)
             {
                 var rewardItemSlot = Instantiate(_rewardItemSlotObject, _rewardSlotListLayerObject.transform);
-                rewardItemSlot.GetComponent<RewardItemSlot>().SetRewardItem(rewardItem);
+                rewardItemSlot.GetComponent<RewardItemSlot>().SetRewardSlot(rewardItem);
             }
         }
 

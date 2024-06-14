@@ -39,13 +39,22 @@ namespace CookApps.BattleSystem
                 movement.ManagedUpdate(dt);
                 CachedTr.localPosition = movement.CurrentPosition;
             }
+            else
+            {
+                Follow();
+            }
         }
 
         public virtual void Initialize(bool isFlipX, InGameVfxMovementBase movementBase = null)
         {
-            movement = movementBase;
-            CachedTr.localPosition = movementBase?.CurrentPosition ?? Vector3.zero;
+            if ((movement = movementBase) != null)
+                CachedTr.localPosition = movement.CurrentPosition;
             SetFlipX(isFlipX);
+        }
+
+        public virtual void Clear()
+        {
+
         }
 
         public virtual void Restart() { }
@@ -127,6 +136,33 @@ namespace CookApps.BattleSystem
                 return container.GetData();
             }
             return default;
+        }
+        #endregion
+
+        #region Follow
+        private IFollowable followee = null;
+        private Vector3 offset;
+        public void SetFollowable(IFollowable followee)
+        {
+            SetFollowable(followee, Vector3.zero);
+        }
+
+        public void SetFollowable(IFollowable followee, in Vector3 offset)
+        {
+            this.followee = followee;
+            this.offset = offset;
+            Follow();
+        }
+
+        private void Follow()
+        {
+            var hasFollowee = followee is { IsAlive: true };
+
+            if (!hasFollowee)
+                return;
+
+            var position = followee.GetPosition() + offset;
+            CachedTr.position = position;
         }
         #endregion
     }

@@ -9,17 +9,17 @@ namespace CookApps.AutoBattler
     public class GuideMissionManager : Singleton<GuideMissionManager>
     {
         // 가이드 미션 수치 증가
-        public void AddGuideMissionActionValue(GuideMissionType missonType, int actionValue)
+        public void AddGuideMissionActionValue(GuideMissionType missonType, int subKey, int actionValue)
         {
-            UserDataManager.Instance.SetGuideMissionActionValue(missonType, actionValue);
+            UserDataManager.Instance.SetGuideMissionActionValue(missonType, subKey, actionValue);
 
             RefreshGuideMissionUI();
         }
 
         // 가이드 미션 상태 변경
-        public void ChangeGuideMissionState(GuideMissionType missonType, MissionStateType stateType)
+        public void ChangeGuideMissionState(GuideMissionType missonType, int subKey, MissionStateType stateType)
         {
-            UserDataManager.Instance.SetGuideMissionState(missonType, stateType);
+            UserDataManager.Instance.SetGuideMissionState(missonType, subKey, stateType);
 
             RefreshGuideMissionUI();
         }

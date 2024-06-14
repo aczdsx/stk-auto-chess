@@ -15,6 +15,7 @@ namespace CookApps.AutoBattler
         public static event Action<int> OnEnergyChanged;
         public static event Action<int> OnGoldChanged;
         public static event Action<int> OnJewelChanged;
+        public static event Action<int> OnCTicketChanged;
         public static event Action<int> OnCharUserExpItemChanged;
         public static event Action<int> OnCharUserExpItem2Changed;
 
@@ -56,6 +57,10 @@ namespace CookApps.AutoBattler
                 case ItemType.AP:
                     userWallet.Energy += itemAmount;
                     OnEnergyChanged?.Invoke(userWallet.Energy);
+                    break;
+                case ItemType.C_TICKET:
+                    userWallet.CTicket += itemAmount;
+                    OnCTicketChanged?.Invoke(userWallet.CTicket);
                     break;
                 case ItemType.CHAR_USER_EXP_ITEM:
                     userWallet.CharUserExpItem += itemAmount;
@@ -129,6 +134,10 @@ namespace CookApps.AutoBattler
                 case ItemType.AP:
                     userWallet.Energy -= itemAmount;
                     OnEnergyChanged?.Invoke(userWallet.Energy);
+                    break;
+                case ItemType.C_TICKET:
+                    userWallet.CTicket -= itemAmount;
+                    OnCTicketChanged?.Invoke(userWallet.CTicket);
                     break;
                 case ItemType.CHAR_USER_EXP_ITEM:
                     userWallet.CharUserExpItem -= itemAmount;

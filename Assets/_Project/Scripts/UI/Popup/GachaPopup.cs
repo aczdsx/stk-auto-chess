@@ -36,7 +36,9 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.C_Ticket);
+
+
 
             // test
             //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));

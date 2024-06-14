@@ -86,8 +86,8 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
 
         _targetCharacter = owner.Target;
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().SkillRootTransform);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], _targetCharacter.GetCharacterView().SkillRootTransform);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], _targetCharacter.SkillRootTransformFollowable);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -98,10 +98,10 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            _targetCharacter.GetCharacterView().SkillRootTransform);
+            _targetCharacter.SkillRootTransformFollowable);
 
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
-            _targetCharacter.GetCharacterView().SkillRootTransform);
+            _targetCharacter.SkillRootTransformFollowable);
 
         var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
