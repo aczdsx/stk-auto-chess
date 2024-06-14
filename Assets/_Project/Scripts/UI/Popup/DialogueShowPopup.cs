@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
 
         [Header("Dialogue Layer")]
         [SerializeField] private CAButton _blockLayerButton;
+        [SerializeField] private Image _extraBGImage;
         [SerializeField] private TextMeshProUGUI _dialogueText;
         [SerializeField] private RectTransform _dialogueTextRect;
         private Vector2 _tweenVector = new Vector2(1550f, 192f);
@@ -62,8 +63,17 @@ namespace CookApps.AutoBattler
 
             BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
 
-            string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, currentDialougeData.prefab_id);
-            AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
+            // 추가 배경 설정
+            if (string.IsNullOrWhiteSpace(currentDialougeData.bg_image) == false)
+            {
+                // todo.. bg 스플라이트 로드 처리
+            }
+
+            if (currentDialougeData.prefab_id > 0)
+            {
+                string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, currentDialougeData.prefab_id);
+                AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
+            }
 
             _characterNameText.text = LanguageManager.Instance.GetLanguageText(currentDialougeData.character_name_token);
             _dialogueText.text = LanguageManager.Instance.GetLanguageText(currentDialougeData.text_desc_token);
