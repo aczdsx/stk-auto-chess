@@ -95,10 +95,10 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            _targetCharacter.GetCharacterView().SkillRootTransform);
+            _targetCharacter.SkillRootTransformFollowable);
 
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            _targetCharacter.GetCharacterView().SkillRootTransform);
+            _targetCharacter.SkillRootTransformFollowable);
 
         var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);

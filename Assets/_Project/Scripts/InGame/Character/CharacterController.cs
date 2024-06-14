@@ -8,7 +8,7 @@ using UnityEngine.AddressableAssets;
 
 namespace CookApps.BattleSystem
 {
-    public partial class CharacterController : IEffectCodeSource, IFollowable
+    public partial class CharacterController : IEffectCodeSource
     {
         public static Type DefaultDeadState;
         public int CharacterUId => _characterUId;
@@ -56,6 +56,8 @@ namespace CookApps.BattleSystem
         public bool IsBlockChangeState { get; set; }
 
         public Queue<InGameTile> RecentlyVisitedTiles = new Queue<InGameTile>();
+
+        public IFollowable SkillRootTransformFollowable => new SimpleSkillTransformFollowable(this);
 
         /// <summary>
         /// 논리적 위치
@@ -167,13 +169,13 @@ namespace CookApps.BattleSystem
         {
             InGameHpBarViewPool.Instance.Return(_hpBarView);
             Target = null;
+            ecc.Clear();
+            ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
             foreach (var pair in _buffDebuffEffectViewDict)
             {
                 InGameVfxManager.Instance.RemoveInGameVfx(pair.Value);
             }
             _buffDebuffEffectViewDict.Clear();
-            ecc.Clear();
-            ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
             ClearAllState();
             view.OnAnimationEvent -= OnAnimationEvent;
             Addressables.ReleaseInstance(view.gameObject);
@@ -435,18 +437,6 @@ namespace CookApps.BattleSystem
             }
         }
 
-        #region IFollowable
-        public Vector3 GetPosition()
-        {
-            return Vector3.zero;
-        }
-
-        public int GetSortingLayerOrder()
-        {
-            return 0;
-        }
-        #endregion
-
         #region Buff Debuff Effect View Control
         /// <summary>
         /// BuffDebuffType의 레퍼런스카운트를 관리
@@ -467,7 +457,7 @@ namespace CookApps.BattleSystem
 
             var vfxName = type.GetOneShotVfxName();
             if (vfxName != InGameVfxNameType.NONE)
-                InGameVfxManager.Instance.AddInGameVfx(vfxName, view.SkillRootTransform);
+                InGameVfxManager.Instance.AddInGameVfx(vfxName, SkillRootTransformFollowable);
 
 
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
@@ -480,7 +470,7 @@ namespace CookApps.BattleSystem
                 var loopVfxName = type.GetLoopVfxName();
                 if (loopVfxName != InGameVfxNameType.NONE)
                 {
-                    var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName, view.SkillRootTransform);
+                    var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName, SkillRootTransformFollowable);
                     _buffDebuffEffectViewDict.Add(type, effectView);
                 }
             }
@@ -628,8 +618,7 @@ namespace CookApps.BattleSystem
                 damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageAmount, this, isFirstDamage);
             }
 
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01,
-                GetCharacterView().SkillRootTransform);
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
             ShowDamageText(damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 

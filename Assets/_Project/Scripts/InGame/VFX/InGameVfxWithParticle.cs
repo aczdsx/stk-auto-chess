@@ -52,7 +52,7 @@ namespace CookApps.BattleSystem
             Clear();
         }
 
-        public virtual void Clear()
+        public override void Clear()
         {
             elapsedTime = 0;
             isRemoved = false;

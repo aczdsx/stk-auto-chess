@@ -98,13 +98,13 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         {
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
                 if (tile.OccupiedCharacter != null)
                 {
                     if (tile.OccupiedCharacter.AllianceType == owner.AllianceType)
                     {
                         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-                            tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+                            tile.OccupiedCharacter.SkillRootTransformFollowable);
 
                         var shieldAmount = owner.PrecalculateDamageAmount(owner.AD * _shieldRate, 0, tile.OccupiedCharacter,
                             codeId, true);

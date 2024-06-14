@@ -93,17 +93,17 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
             return;
 
         // 나한테 붙은 vfx
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().SkillRootTransform);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByCount(owner.AllianceType, 2);
         if (inGameTiles != null)
         {
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
 
                 var buffVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
-                    tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
 
                 //[TODO] airbone effect codeID 및 적용 방법 확인 필요 + 공격력 증가 버프
                 int effectCodeID = 0;

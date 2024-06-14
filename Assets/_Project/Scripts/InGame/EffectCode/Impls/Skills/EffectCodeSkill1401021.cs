@@ -99,8 +99,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByDirection(owner);
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type, tile.View.CachedTr);
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
             if (tile.OccupiedCharacter != null)
             {

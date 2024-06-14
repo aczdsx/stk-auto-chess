@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -24,6 +25,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     private bool _isSkillActivated;
 
     private List<CharacterController> _hitCharacters = new List<CharacterController>();
+
+    private WeakReference<InGameVfx> _vfx;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -90,9 +93,9 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
         var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
 
-        InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], owner.GetCharacterView().SkillRootTransform);
+        InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], InGameObjectManager.Instance.Playground);
+        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1]);
         vfxProjectile.CachedTr.position = owner.CurrentTile.View.CachedTr.position;
 
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
@@ -112,7 +115,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameTIleFx(owner.SpecCharacter.element_type,tile.View.CachedTr);
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,tile.View.CachedTr.position);
         tileFx.CachedTr.position = tile.View.CachedTr.position;
 
         if (tile.OccupiedCharacter == null)
@@ -122,7 +125,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            tile.OccupiedCharacter.GetCharacterView().SkillRootTransform);
+            tile.OccupiedCharacter.SkillRootTransformFollowable);
 
         var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
