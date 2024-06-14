@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
         }
 
         // 현재 가이드 미션 상태 세팅 (행동 횟수)
-        public void SetGuideMissionActionValue(GuideMissionType missionType, int actionValue)
+        public void SetGuideMissionActionValue(GuideMissionType missionType, int subKey, int actionValue)
         {
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
             {
@@ -72,7 +72,9 @@ namespace CookApps.AutoBattler
                 if (targetUserData == null) return;
 
                 var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
-                if (specMissionData == null || specMissionData.guide_mission_type != missionType) return;
+                if (specMissionData == null
+                    || specMissionData.guide_mission_type != missionType
+                    || specMissionData.sub_key != subKey) return;
 
                 targetUserData.ActionCount += actionValue;
 
@@ -89,7 +91,7 @@ namespace CookApps.AutoBattler
         }
 
         // 현재 가이드 미션 상태 세팅 (미션 상태)
-        public void SetGuideMissionState(GuideMissionType missionType, MissionStateType stateType)
+        public void SetGuideMissionState(GuideMissionType missionType, int subKey, MissionStateType stateType)
         {
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
             {
@@ -97,7 +99,9 @@ namespace CookApps.AutoBattler
                 if (targetUserData == null) return;
 
                 var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
-                if (specMissionData == null || specMissionData.guide_mission_type != missionType) return;
+                if (specMissionData == null
+                    || specMissionData.guide_mission_type != missionType
+                    || specMissionData.sub_key != subKey) return;
 
                 targetUserData.MissionStateType = (int)stateType;
 
@@ -125,13 +129,13 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.END_DIALOGUE:
                     if (CheckDialogHistory(specGuideMissionData.dialogue))
                     {
-                        SetGuideMissionState(GuideMissionType.END_DIALOGUE, MissionStateType.REWARD);
+                        SetGuideMissionState(GuideMissionType.END_DIALOGUE, specGuideMissionData.sub_key, MissionStateType.REWARD);
                     }
                     break;
                 case GuideMissionType.CLEAR_STAGE:
                     if (IsClearStage(specGuideMissionData.sub_key))
                     {
-                        SetGuideMissionState(GuideMissionType.CLEAR_STAGE, MissionStateType.REWARD);
+                        SetGuideMissionState(GuideMissionType.CLEAR_STAGE, specGuideMissionData.sub_key, MissionStateType.REWARD);
                     }
                     break;
             }

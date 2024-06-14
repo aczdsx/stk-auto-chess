@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
                 SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList, callback =>
                 {
                     // 다음 가이드 미션 요청
-                    GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.guide_mission_type, MissionStateType.CLEAR);
+                    GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.guide_mission_type, _specGuideMissionData.sub_key, MissionStateType.CLEAR);
                 }).Forget();
 
                 // 보상 데이터 저장

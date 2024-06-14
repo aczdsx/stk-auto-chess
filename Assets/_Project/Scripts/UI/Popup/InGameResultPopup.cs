@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
@@ -9,6 +10,13 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
+    [Serializable]
+    public class InGameResultStarCondition
+    {
+        public GameObject _starObject;
+        public TextMeshProUGUI _conditionText;
+    }
+
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/InGameResultPopup.prefab")]
     public class InGameResultPopup : UILayer
     {
@@ -25,6 +33,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _rewardItemSlotObj;
 
         [SerializeField] private List<GameObject> _starList;
+        [SerializeField] private List<InGameResultStarCondition> _starConditionList;
 
         [SerializeField] private Image _illustImage;
 
@@ -47,10 +56,23 @@ namespace CookApps.AutoBattler
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
             _illustImage.sprite = ImageManager.Instance.GetCharacterIllustSprite(40101); // [TODO] MVP 관리 필요
 
+            // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
             {
                 _starList[i].SetActive(_star > i);
             }
+
+            // 하단 별+조건 상태 갱신
+            for (int i = 0; i < _starConditionList.Count; i++)
+            {
+                _starConditionList[i]._starObject.SetActive(_star > i);
+
+                string resultToken = string.Format("STAGE_STAR_CONDITON_DESC_{0}", i + 1);
+                _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
+            }
+
+            // 가이드 미션 상태에 따른 버튼 분기처리
+
 
             if (_isVictory)
                 CreateRewardItems();
@@ -112,9 +134,11 @@ namespace CookApps.AutoBattler
             // 별 최고기록일 경우 스테이지 클리어 데이터 저장
             if (userStage == null || _star > userStage.StarCount)
             {
-                UserDataManager.Instance.SetUserStage(InGameManager.Instance.SpecStage.id, _star);
+                int currentStageID = InGameManager.Instance.SpecStage.id;
 
-                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,1);
+                UserDataManager.Instance.SetUserStage(currentStageID, _star);
+
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,currentStageID, 1);
             }
         }
 

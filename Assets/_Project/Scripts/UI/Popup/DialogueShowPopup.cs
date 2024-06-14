@@ -88,7 +88,7 @@ namespace CookApps.AutoBattler
             if (currentDialogueSeq >= _dialogueList.Count)
             {
                 // 가이드 미션 완료 체크
-                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.END_DIALOGUE, 1);
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.END_DIALOGUE, 0, 1);
 
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;
