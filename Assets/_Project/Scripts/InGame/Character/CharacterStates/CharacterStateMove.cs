@@ -24,6 +24,8 @@ public class CharacterStateMove : CharacterStateBase
 
         var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
         Ease ease = (isInRange) ? Ease.InQuad  : Ease.Linear;
+        if (isInRange)
+            moveDuration *= 0.7f;
 
         Tween.Custom(
             characCtrl.Position3D,

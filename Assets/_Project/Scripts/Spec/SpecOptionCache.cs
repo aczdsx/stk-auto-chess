@@ -37,6 +37,9 @@ namespace CookApps.AutoBattler
         private static ObfuscatorFloat? minDamageRate;
         public static float MinDamageRate => minDamageRate ??= GetOptionFromSpec_Float("MIN_DAMAGE_RATE", 0.5f);
 
+        private static ObfuscatorFloat? defaultAssassinFirstMoveSpeed;
+        public static float DefaultAssassinFirstMoveSpeed => defaultAssassinFirstMoveSpeed ??= GetOptionFromSpec_Float("DEFAULT_ASSASSIN_FIRST_MOVE_SPEED", 0.1f);
+
         #region Getters
         private static int GetOptionFromSpec_Int(string optionName, int defaultData)
         {

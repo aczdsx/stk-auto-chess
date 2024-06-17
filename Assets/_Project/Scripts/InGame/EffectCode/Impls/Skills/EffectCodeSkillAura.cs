@@ -77,7 +77,7 @@ public class EffectCodeSkillAura : EffectCodeCharacterBase
         if (owner.Target is not {IsAlive: true}) // owner.Target == null || !owner.Target.IsAlive
         {
             // 검색 방식에 따라 타겟을 찾음
-            owner.Target = InGameObjectManager.Instance.GetNearestEnemy(owner);
+            owner.Target = InGameObjectManager.Instance.GetNearestTarget(owner);
             if (owner.Target == null)
             {
                 return;

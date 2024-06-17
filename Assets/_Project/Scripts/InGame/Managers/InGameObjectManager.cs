@@ -23,7 +23,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> enemiesInPlaygroundForUpdate = new();
         private List<CharacterController> charactersInPlaygroundForUpdate = new();
 
-        private List<CharacterController> startingPlayerCharacters = new();
+        private List<CharacterController> startingPlayerCharacters = new(); // [TODO] 유저 데이터에 저장 필요
         private double _playerSumMaxHp;
         private double _enemySumMaxHp;
         private float _lastRate;
@@ -273,9 +273,9 @@ namespace CookApps.BattleSystem
 
         #region 탐색
 
-        public List<CharacterController> GetEnemiesList()
+        public List<CharacterController> GetAllCharacterList()
         {
-            return enemiesInPlaygroundForUpdate;
+            return enemiesInPlaygroundForUpdate.Concat(charactersInPlaygroundForUpdate).ToList();
         }
 
         public bool IsInRange(CharacterController pivot, CharacterController target)
@@ -375,7 +375,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <returns></returns>
-        public CharacterController GetNearestEnemy(CharacterController pivot)
+        public CharacterController GetNearestTarget(CharacterController pivot)
         {
             CharacterController target = null;
 
@@ -414,7 +414,7 @@ namespace CookApps.BattleSystem
             return target;
         }
 
-        public CharacterController GetFarthestEnemy(CharacterController pivot)
+        public CharacterController GetFarthestTarget(CharacterController pivot)
         {
             CharacterController target = null;
 
@@ -438,6 +438,84 @@ namespace CookApps.BattleSystem
             foreach (var enemy in targets)
             {
                 if (enemy.IsAlive == false)
+                {
+                    continue;
+                }
+
+                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
+                if (maxDistance < distance)
+                {
+                    maxDistance = distance;
+                    target = enemy;
+                }
+            }
+
+            return target;
+        }
+
+        public CharacterController GetNearestTargetOnce(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            List<CharacterController> targets = null;
+
+            if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                targets = charactersInPlaygroundForUpdate;
+            }
+            else if (pivot.AllianceType == AllianceType.Player)
+            {
+                targets = enemiesInPlaygroundForUpdate;
+            }
+
+            if (targets == null || targets.Count == 0)
+            {
+                return null;
+            }
+
+            var minDistance = float.MaxValue;
+            foreach (var enemy in targets)
+            {
+                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
+                {
+                    continue;
+                }
+
+                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
+                if (minDistance > distance)
+                {
+                    minDistance = distance;
+                    target = enemy;
+                }
+            }
+
+            return target;
+        }
+
+        public CharacterController GetFarthestTargetByOnce(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            List<CharacterController> targets = null;
+
+            if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                targets = charactersInPlaygroundForUpdate;
+            }
+            else if (pivot.AllianceType == AllianceType.Player)
+            {
+                targets = enemiesInPlaygroundForUpdate;
+            }
+
+            if (targets == null || targets.Count == 0)
+            {
+                return null;
+            }
+
+            var maxDistance = float.MinValue;
+            foreach (var enemy in targets)
+            {
+                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
                 {
                     continue;
                 }

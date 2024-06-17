@@ -102,6 +102,21 @@ namespace CookApps.BattleSystem
             return Mathf.Abs(from.X - to.X) + Mathf.Abs(from.Y - to.Y);
         }
 
+        public List<InGameTile> GetTileListByManhattanDistance(InGameTile pivotTile, int distance)
+        {
+            List<InGameTile> tilesAtDistance = new List<InGameTile>();
+
+            foreach (var tile in _tiles)
+            {
+                if (GetManhattanDistance(pivotTile, tile) == distance)
+                {
+                    tilesAtDistance.Add(tile);
+                }
+            }
+
+            return tilesAtDistance;
+        }
+
         public bool IsInRange(InGameTile from, InGameTile to, int range)
         {
             return GetManhattanDistance(from, to) <= range;
@@ -368,27 +383,40 @@ namespace CookApps.BattleSystem
             return lastValidTile;
         }
 
-        public InGameTile GetTileForAssassin(InGameTile targetTile)
+        public InGameTile GetTileForAssassin(CharacterController characterController)
         {
-            InGameTile nearestEmptyTile = null;
-            int minDistance = int.MaxValue;
+            InGameTile farthestEmptyTile = null;
 
-            foreach (var tile in _tiles)
+            for (int i = 1; i <= 10; i++)
             {
-                if (tile.OccupiedCharacter != null)
+                int maxDistance = int.MinValue;
+
+                List<InGameTile> InGameTileList = GetTileListByManhattanDistance(characterController.Target.CurrentTile, i);
+                foreach (var tile in InGameTileList)
                 {
-                    continue;
+                    if (tile.OccupiedCharacter != null)
+                    {
+                        continue;
+                    }
+
+                    int distance = GetManhattanDistance(characterController.CurrentTile, tile);
+                    if (distance > maxDistance ||
+                        (distance == maxDistance &&
+                         ((characterController.AllianceType == AllianceType.Player && tile.Y > farthestEmptyTile.Y) ||
+                          (characterController.AllianceType == AllianceType.Enemy && tile.Y < farthestEmptyTile.Y))))
+                    {
+                        maxDistance = distance;
+                        farthestEmptyTile = tile;
+                    }
                 }
 
-                int distance = GetManhattanDistance(targetTile, tile);
-                if (distance < minDistance)
+                if (farthestEmptyTile != null)
                 {
-                    minDistance = distance;
-                    nearestEmptyTile = tile;
+                    break;
                 }
             }
 
-            return nearestEmptyTile;
+            return farthestEmptyTile;
         }
     }
 }

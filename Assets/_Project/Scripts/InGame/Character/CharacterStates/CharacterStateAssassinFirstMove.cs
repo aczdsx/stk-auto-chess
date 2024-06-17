@@ -1,5 +1,7 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using PrimeTween;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterStateAssassinFirstMove : CharacterStateBase
@@ -12,20 +14,52 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
         base.StateStart();
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.IDLE);
         scanTargetTime = ScanTargetInterval;
+
+        var moveDuration = SpecOptionCache.DefaultAssassinFirstMoveSpeed;
+
+        characCtrl.Target = InGameObjectManager.Instance.GetFarthestTargetByOnce(characCtrl);
+        InGameTile tile = InGameObjectManager.Instance.InGameGrid.GetTileForAssassin(characCtrl);
+
+        if (tile != null)
+        {
+            Tween.Custom(
+                characCtrl.Position3D,
+                characCtrl.CurrentTile.View.Position,
+                moveDuration,
+                (Vector3 value) =>
+                {
+                    if (characCtrl != null)
+                        characCtrl.Position3D = value;
+                },
+                ease: Ease.Linear).OnComplete(this, target =>
+            {
+                if (target != null)
+                {
+                    if (characCtrl == null)
+                        return;
+
+                    characCtrl.GetCharacterView().LookAt(tile, characCtrl.Target.CurrentTile);
+                    characCtrl.ChangeOccupiedTile(tile);
+                    characCtrl.Position3D = tile.View.Position;
+                    characCtrl.GetCharacterView().CachedTr.localPosition = tile.View.Position;
+
+                    if (characCtrl.AllianceType == AllianceType.Player)
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_summon_awful,
+                            tile.View.CachedTr.position);
+                    else if (characCtrl.AllianceType == AllianceType.Enemy)
+                    {
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_summon_enemy,
+                            tile.View.CachedTr.position);
+                    }
+
+                    characCtrl.AddNextState<CharacterStateIdle>();
+                }
+            });
+        }
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
-        characCtrl.Target = InGameObjectManager.Instance.GetFarthestEnemy(characCtrl);
-
-        InGameTile tile = InGameObjectManager.Instance.InGameGrid.GetTileForAssassin(characCtrl.Target.CurrentTile);
-        if (tile != null)
-        {
-            characCtrl.GetCharacterView().LookAt(tile, characCtrl.Target.CurrentTile);
-            characCtrl.ChangeOccupiedTile(tile);
-            characCtrl.Position3D = tile.View.Position;
-        }
-
         return CharacterStateRunningResult.CanCallAllWithoutMove;
     }
 }

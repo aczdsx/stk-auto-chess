@@ -31,11 +31,11 @@ public class CharacterStateIdle : CharacterStateBase
         // 2. 적을 찾아서 타겟으로 설정 (찾을 필요 없다면 스킵)
         if (characCtrl.GetCharacterStat().ScanType == ScanType.Nearest)
         {
-            characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
+            characCtrl.Target = InGameObjectManager.Instance.GetNearestTarget(characCtrl);
         }
         else
         {
-            characCtrl.Target = InGameObjectManager.Instance.GetNearestEnemy(characCtrl);
+            characCtrl.Target = InGameObjectManager.Instance.GetNearestTarget(characCtrl);
         }
 
         if (characCtrl.Target is {IsAlive: false})

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -36,12 +37,22 @@ public class FlowStateStageCombat : StateBase
         InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
-            charac.AddNextState<CharacterStateIdle>();
+            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
+                charac.AddNextState<CharacterStateAssassinFirstMove>();
+            else
+                charac.AddNextState<CharacterStateIdle>();
+
+            charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
         }
         InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
-            charac.AddNextState<CharacterStateIdle>();
+            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
+                charac.AddNextState<CharacterStateAssassinFirstMove>();
+            else
+                charac.AddNextState<CharacterStateIdle>();
+
+            charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
         }
     }
 
