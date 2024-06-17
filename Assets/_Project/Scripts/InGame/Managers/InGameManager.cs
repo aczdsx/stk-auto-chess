@@ -18,6 +18,9 @@ namespace CookApps.BattleSystem
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
+        private EffectCodeContainer ecc;
+        public EffectCodeContainer EffectCodeContainer => ecc;
+
         public void ResetRandomGeneratorSeed()
         {
             randomGeneratorSeed = InGameRandomManager.GetUniversalRandomValue();
@@ -40,6 +43,7 @@ namespace CookApps.BattleSystem
         {
             SpecStage = specStage;
             IsInGamePlaying = true;
+            ecc = new EffectCodeContainer(this);
             // 순서 중요!
             InGameVfxManager.Instance.Initialize();
             InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
@@ -56,6 +60,8 @@ namespace CookApps.BattleSystem
             InGameTextViewPool.Instance.ReleasePool();
             InGameHpBarViewPool.Instance.Clear();
             InGameVfxManager.Instance.Clear();
+            ecc.Clear();
+            ecc = null;
         }
         #endregion
 

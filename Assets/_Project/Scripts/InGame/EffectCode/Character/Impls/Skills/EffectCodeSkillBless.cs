@@ -2,21 +2,20 @@
 using System;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEditor.Rendering;
 using UnityEngine.Pool;
 
 /// <summary>
 /// 예시 스킬 코드
-/// {0}초마다 크게 소리쳐 {1}초간 {2} {3} 범위의 적들의 방어력을 {4}% 감소시킵니다.
+/// {0}초마다 {1}초간 {2} {3} 범위에 있는 동료의 공격력을 {4}% 증가시킵니다.
 /// </summary>
-[UseEffectCodeIds(10102)]
-public class EffectCodeSkillHowling : EffectCodeCharacterBase
+[UseEffectCodeIds(10103)]
+public class EffectCodeSkillBless : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
-    private ObfuscatorFloat debuffDuration;
+    private ObfuscatorFloat buffDuration;
     private ObfuscatorInt range;
     private AttackRangeShape _rangeShapeType;
-    private ObfuscatorFloat debuffPower;
+    private ObfuscatorFloat buffPower;
 
     private ObfuscatorFloat elapsedTime;
 
@@ -27,10 +26,10 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        debuffDuration = codeInfo.GetCodeStatToFloat(1);
+        buffDuration = codeInfo.GetCodeStatToFloat(1);
         range = codeInfo.GetCodeStatToInt(2);
         _rangeShapeType = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
-        debuffPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
+        buffPower = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -40,10 +39,10 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         cooltime = codeInfo.GetCodeStatToFloat(0);
-        debuffDuration = codeInfo.GetCodeStatToFloat(1);
+        buffDuration = codeInfo.GetCodeStatToFloat(1);
         range = codeInfo.GetCodeStatToInt(2);
         _rangeShapeType = (AttackRangeShape)codeInfo.GetCodeStatToInt(3);
-        debuffPower = codeInfo.GetCodeStatToFloat(4);
+        buffPower = codeInfo.GetCodeStatToFloat(4);
     }
 
     public override void OnUpdate(float dt)
@@ -102,15 +101,15 @@ public class EffectCodeSkillHowling : EffectCodeCharacterBase
 
         Span<double> debuffStats = stackalloc double[2];
         debuffStats.Clear();
-        debuffStats[0] = debuffDuration;
-        debuffStats[1] = debuffPower;
+        debuffStats[0] = buffDuration;
+        debuffStats[1] = buffPower;
 
         foreach (var enemy in enemies)
         {
             if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
 
-            var debuffCodeInfo = new EffectCodeInfo(codeId*10+1, 0, 2, debuffStats);
+            var debuffCodeInfo = new EffectCodeInfo(codeId * 10 + 1, 0, debuffStats);
             enemy.GetEffectCodeContainer().AddOrMergeEffectCode(debuffCodeInfo, owner);
         }
     }

@@ -15,7 +15,7 @@ namespace CookApps.BattleSystem
         public InGameTileView View { get; private set; }
 
         // 점유 여부
-        public CharacterController OccupiedCharacter { get; set; }
+        public CharacterController OccupiedCharacter { get; private set; }
 
         public InGameTile(int x, int y, InGameTileView view)
         {
@@ -32,11 +32,15 @@ namespace CookApps.BattleSystem
         public void SetOccupied(CharacterController character)
         {
             OccupiedCharacter = character;
+            var effectCodeGames = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            EffectCodeForLoopHelper.CallWithArgs(effectCodeGames, EffectCodeGameLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
         }
 
         public void SetUnoccupied()
         {
             OccupiedCharacter = null;
+            var effectCodeGames = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            EffectCodeForLoopHelper.CallWithArgs(effectCodeGames, EffectCodeGameLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
         }
     }
 }

@@ -207,6 +207,31 @@ namespace CookApps.BattleSystem
             return true;
         }
 
+
+        /// <summary>
+        /// codeId로 이펙트코드 제거
+        /// </summary>
+        public bool RemoveEffectCode(int effectCodeId)
+        {
+            EffectCodeBase effectCode = null;;
+            foreach (EffectCodeBase effectCodeItem in effectCodes)
+            {
+                if (effectCodeItem.CodeId == effectCodeId)
+                {
+                    effectCode = effectCodeItem;
+                    break;
+                }
+            }
+
+            if (effectCode == null)
+            {
+                return false;
+            }
+
+            RemoveEffectCode(effectCode);
+            return true;
+        }
+
         /// <summary>
         /// source가 같은 이펙트 코드를 제거
         /// 사용 예시.

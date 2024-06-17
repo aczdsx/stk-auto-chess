@@ -198,7 +198,7 @@ namespace CookApps.BattleSystem
                         stats[i] = skillDataList[i].base_rate;
                     }
 
-                    var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, skillDataList.Count + 1, stats);
+                    var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, stats);
                     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
                 }
             }
