@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _stageSelectButton;
         [SerializeField] private CAButton _shopButton;
         [SerializeField] private CAButton _gachaButton;
+        [SerializeField] private CAButton _idleRewardButton;
 
         [Header("User Info Layer")]
         [SerializeField] private Image _userIconImage;
@@ -45,10 +46,12 @@ namespace CookApps.AutoBattler
         protected override void Awake()
         {
             base.Awake();
+
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
+            _idleRewardButton.onClick.AddListener(OnClickIdleRewardButton);
         }
 
         protected override void OnDestroy()
@@ -58,6 +61,7 @@ namespace CookApps.AutoBattler
             _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
             _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.RemoveListener(OnClickGachaButton);
+            _idleRewardButton.onClick.RemoveListener(OnClickIdleRewardButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -236,6 +240,11 @@ namespace CookApps.AutoBattler
         private void OnClickCharacterCollectionButton()
         {
             SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
+        }
+
+        private void OnClickIdleRewardButton()
+        {
+            SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
         }
 
         private void ClearBottomSlotLayer()

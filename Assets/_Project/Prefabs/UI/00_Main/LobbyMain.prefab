@@ -1642,6 +1642,7 @@ MonoBehaviour:
   _stageSelectButton: {fileID: 6692724837655265189}
   _shopButton: {fileID: 8875471266541138312}
   _gachaButton: {fileID: 593947708553966226}
+  _idleRewardButton: {fileID: 5085768673705005770}
   _userIconImage: {fileID: 4806808742740487857}
   _userNameText: {fileID: 1804400419255090806}
   _userLevelText: {fileID: 5241043022816834879}
@@ -1887,6 +1888,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfa6154700bc29a4fb986797af5f5968, type: 3}
+--- !u!114 &5085768673705005770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5630270572824908149, guid: dfa6154700bc29a4fb986797af5f5968, type: 3}
+  m_PrefabInstance: {fileID: 627965075347424191}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9032795349096742188 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8497190149214011027, guid: dfa6154700bc29a4fb986797af5f5968, type: 3}

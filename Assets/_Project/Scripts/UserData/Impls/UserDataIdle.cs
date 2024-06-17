@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
@@ -20,7 +21,7 @@ namespace CookApps.AutoBattler
             {
                 userIdleData = new UserIdleData
                 {
-                    LastRewardGetTimestamp = 0,
+                    LastRewardGetTimestamp = 1718593200,
                 };
                 return;
             }
@@ -34,6 +35,53 @@ namespace CookApps.AutoBattler
         private void Clear_IdleData()
         {
             userStageGroup = null;
+        }
+
+        // 현재 시간을 기준으로 보상 수령 시간 갱신
+        public void RefreshLastRewardGetTime()
+        {
+            UserIdleData.LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStamp();
+
+            SaveUserIdle();
+        }
+
+        // 현재 마지막 보상 수령 타임 스탬프 기준 현재 누적 방치 보상 리스트 반환
+        public List<RewardItem> GetCurrentIdleRewardItemList()
+        {
+            List<RewardItem> resultItemList = new List<RewardItem>();
+
+            int lastStageID = GetLastUserStageID();
+            var lastStageData = SpecDataManager.Instance.SpecStage.Get(lastStageID);
+
+            int totalStageClearCount = GetAllClearUserStageList().Count;
+            var specIdleRewardList = SpecDataManager.Instance.GetAllIdleRewardList(lastStageData.chapter_id);
+
+            TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserIdleData.LastRewardGetTimestamp);
+
+            int diffMinute = (int)currentRewardTimeSpan.TotalMinutes;
+
+            // 보상 데이터 생성
+            foreach (var idleReward in specIdleRewardList)
+            {
+                double baseAmount = idleReward.min_count;
+                double addAmount = idleReward.add_count * (double)totalStageClearCount;
+                double totalAmount = baseAmount + addAmount;    // 기본 지급 갯수 + 스테이지 클리어 보너스
+
+                int timeCount = diffMinute / idleReward.supply_time_m; // 누적 시간 기반 보상 갯수
+
+                int resultAmount = (int) Math.Truncate(totalAmount * timeCount);
+
+                RewardItem rewardItem = new RewardItem
+                {
+                    Type = idleReward.item_type,
+                    Key = 0,
+                    Count = resultAmount,
+                };
+
+                resultItemList.Add(rewardItem);
+            }
+
+            return resultItemList;
         }
 
         public void SaveUserIdle()

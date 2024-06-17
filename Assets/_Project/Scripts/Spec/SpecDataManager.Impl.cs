@@ -416,6 +416,12 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        // 해당 챕터에서 받을 수 있는 Idle 보상 리스트 반환 (해당 챕터 이하 리스트 모두 반환)
+        public List<SpecIdleReward> GetAllIdleRewardList(int chapterID)
+        {
+            return SpecIdleReward.All.ToList().FindAll(data => data.chapter_id <= chapterID);
+        }
+
         // 보상 데이터 리스트 반환
         public List<SpecRewardInfo> GetSpecRewardInfoList(ContentType contentType, int contentKey, DifficultyType difficultyType)
         {

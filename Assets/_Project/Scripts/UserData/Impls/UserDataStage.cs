@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
@@ -83,6 +84,18 @@ namespace CookApps.AutoBattler
             }
 
             return null;
+        }
+
+        // 가장 마지막 스테이지 ID 반환
+        public int GetLastUserStageID()
+        {
+            var clearStageList = GetAllClearUserStageList();
+            return clearStageList.Max(data => data.StageId);
+        }
+
+        public List<UserStage> GetAllClearUserStageList()
+        {
+            return userStageGroup.UserStages.Values.Where(data => data.StarCount > 0).ToList();
         }
 
         // 스테이지 별 누적 보상 상태 데이터 저장
