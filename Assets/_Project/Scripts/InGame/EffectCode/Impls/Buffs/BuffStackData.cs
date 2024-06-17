@@ -4,16 +4,18 @@ namespace CookApps.BattleSystem
 {
     public class BuffStackData
     {
-        public ObfuscatorInt sourceId;
+        public ObfuscatorInt sourceCodeId;
         public ObfuscatorDouble value;
         public ObfuscatorFloat elapsedTime;
         public ObfuscatorFloat duration;
+        public IEffectCodeSource source;
 
-        public void SetData(int sourceId, float duration, double value)
+        public void SetData(int sourceCodeId, float duration, double value, IEffectCodeSource source)
         {
-            this.sourceId = sourceId;
+            this.sourceCodeId = sourceCodeId;
             this.value = value;
             this.duration = duration;
+            this.source = source;
             this.elapsedTime = 0;
         }
 

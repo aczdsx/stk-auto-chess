@@ -218,49 +218,46 @@ namespace CookApps.BattleSystem
         {
             for (var i = 0; i < effectCodes.Count; i++)
             {
-                if (effectCodes[i].Source == source)
+                EffectCodeBase effectCode = effectCodes[i];
+
+                if (!effectCode.TryRemoveWithSource(source))
                 {
-                    EffectCodeBase effectCode = effectCodes[i];
-
-                    if (!effectCode.IsRemoveWithSource)
-                    {
-                        continue;
-                    }
-
-                    if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
-                    {
-                        isEffectCodesDividedByTypeDirty[effectCode.Type] = true;
-                    }
-                    else
-                    {
-                        effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
-                    }
-
-                    OnChangeDirtyType?.Invoke(effectCode.Type);
-
-                    if (effectCode is EffectCodeStatBase statEffectCode)
-                    {
-                        IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
-                        foreach (EffectCodeInheritFlag flag in allFlagTypes)
-                        {
-                            if (!statEffectCode.GetFlag().HasFlag(flag))
-                            {
-                                continue;
-                            }
-
-                            if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
-                            {
-                                isEffectCodesDividedByFlagDirty[flag] = true;
-                            }
-
-                            OnChangedDirtyFlag?.Invoke(flag);
-                        }
-                    }
-
-                    effectCodes[i].OnPreRemoved();
-                    EffectCodePoolManager.Instance.Return(effectCodes[i]);
-                    effectCodes[i] = null;
+                    continue;
                 }
+
+                if (!isEffectCodesDividedByTypeDirty.TryAdd(effectCode.Type, true))
+                {
+                    isEffectCodesDividedByTypeDirty[effectCode.Type] = true;
+                }
+                else
+                {
+                    effectCodesDividedByType.Add(effectCode.Type, ListPool<EffectCodeBase>.Get());
+                }
+
+                OnChangeDirtyType?.Invoke(effectCode.Type);
+
+                if (effectCode is EffectCodeStatBase statEffectCode)
+                {
+                    IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = EffectCodeInheritFlagExtensions.GetAllFlagTypes();
+                    foreach (EffectCodeInheritFlag flag in allFlagTypes)
+                    {
+                        if (!statEffectCode.GetFlag().HasFlag(flag))
+                        {
+                            continue;
+                        }
+
+                        if (isEffectCodesDividedByFlagDirty.ContainsKey(flag))
+                        {
+                            isEffectCodesDividedByFlagDirty[flag] = true;
+                        }
+
+                        OnChangedDirtyFlag?.Invoke(flag);
+                    }
+                }
+
+                effectCodes[i].OnPreRemoved();
+                EffectCodePoolManager.Instance.Return(effectCodes[i]);
+                effectCodes[i] = null;
             }
 
             effectCodes.RemoveAll(NullChecker<EffectCodeBase>.NullCheck);

@@ -15,9 +15,10 @@ public class EffectCodeBuffAtkUp : EffectCodeCharacterBase
         stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
-            sourceId: codeInfo.GetCodeStatToInt(0),
+            sourceCodeId: codeInfo.GetCodeStatToInt(0),
             duration: codeInfo.GetCodeStatToFloat(1),
-            value: codeInfo.GetCodeStat(2)
+            value: codeInfo.GetCodeStat(2),
+            source: source
         );
         stackDatas.Add(buffStackData);
         owner.AddBuffDebuffType(BuffDebuffType.AttackUp);
@@ -30,7 +31,7 @@ public class EffectCodeBuffAtkUp : EffectCodeCharacterBase
         var hasSameSource = false;
         foreach (var stackData in stackDatas)
         {
-            if (stackData.sourceId == codeInfo.GetCodeStatToInt(0))
+            if (stackData.sourceCodeId == codeInfo.GetCodeStatToInt(0))
             {
                 hasSameSource = true;
                 // 덮어 씌울 경우
@@ -49,11 +50,31 @@ public class EffectCodeBuffAtkUp : EffectCodeCharacterBase
 
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
-            sourceId: codeInfo.GetCodeStatToInt(0),
+            sourceCodeId: codeInfo.GetCodeStatToInt(0),
             duration: codeInfo.GetCodeStatToFloat(1),
-            value: codeInfo.GetCodeStat(2)
+            value: codeInfo.GetCodeStat(2),
+            source: source
         );
         stackDatas.Add(buffStackData);
+    }
+
+    public override bool TryRemoveWithSource(IEffectCodeSource source)
+    {
+        var isRemoved = false;
+        for (int i = 0; i < stackDatas.Count; i++)
+        {
+            if (stackDatas[i].source == source)
+            {
+                GenericPool<BuffStackData>.Release(stackDatas[i]);
+                stackDatas[i] = null;
+                isRemoved = true;
+            }
+        }
+
+        if (isRemoved)
+            container.SetDirtyFlag(this);
+
+        return false;
     }
 
     public override void OnUpdate(float dt)
