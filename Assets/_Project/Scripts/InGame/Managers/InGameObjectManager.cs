@@ -231,6 +231,11 @@ namespace CookApps.BattleSystem
             return _grid.GetTile(id);
         }
 
+        public InGameTile[] GetAllInGameTiles()
+        {
+            return _grid.GetAllTiles();
+        }
+
         public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest)
         {
             return _grid.GetNextMovableTile(src, dest);

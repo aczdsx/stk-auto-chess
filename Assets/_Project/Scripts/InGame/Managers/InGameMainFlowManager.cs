@@ -262,7 +262,7 @@ namespace CookApps.BattleSystem
 
         public delegate void GameFlowChangedCallback(StateBase flowState);
 
-        public static event GameFlowChangedCallback flowEventHandler;
+        public static event GameFlowChangedCallback OnFlowStateChanged;
 
         private void ManagedUpdate(float dt)
         {
@@ -273,7 +273,7 @@ namespace CookApps.BattleSystem
                     flowState = nextStates.Dequeue();
                     flowState.StateInit(this);
                     flowState.StateStart();
-                    flowEventHandler?.Invoke(flowState);
+                    OnFlowStateChanged?.Invoke(flowState);
                 }
 
                 return;
@@ -295,7 +295,7 @@ namespace CookApps.BattleSystem
                 flowState = nextStates.Dequeue();
                 flowState.StateInit(this);
                 flowState.StateStart();
-                flowEventHandler?.Invoke(flowState);
+                OnFlowStateChanged?.Invoke(flowState);
             }
         }
 

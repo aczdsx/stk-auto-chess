@@ -42,6 +42,11 @@ namespace CookApps.BattleSystem
             return _tiles[index];
         }
 
+        public InGameTile[] GetAllTiles()
+        {
+            return _tiles;
+        }
+
         public InGameTile GetRandomEmptyTile(AllianceType allianceType)
         {
             var emptyTiles = _tiles.Where(t => t.View.AllianceType == allianceType && t.OccupiedCharacter == null)
