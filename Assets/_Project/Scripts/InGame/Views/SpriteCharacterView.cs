@@ -38,6 +38,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
+            _spriteRenderer.material = _defaultMaterial;
             _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
             _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
         }

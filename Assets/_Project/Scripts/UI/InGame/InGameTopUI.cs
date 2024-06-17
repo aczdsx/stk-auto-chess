@@ -26,6 +26,8 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private Slider _playerSlider;
     [SerializeField] private Slider _enemyDelayedSlider;
     [SerializeField] private Slider _playerDelayedSlider;
+    [SerializeField] private InGameRatioTween _playerSynergyRationTween;
+    [SerializeField] private InGameRatioTween _enemySynergyRationTween;
 
     [Space]
     [SerializeField] private List<InGameSynergyUI> _playerSynergyUIList;
@@ -33,7 +35,8 @@ public class InGameTopUI : MonoBehaviour
 
 
     private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
-    private double beforeHpRate;
+    private float beforePlayerHpRate = 1.0f;
+    private float beforeEnemyHpRate = 1.0f;
 
     public void UpdateTimeUI(float time)
     {
@@ -97,15 +100,25 @@ public class InGameTopUI : MonoBehaviour
         float rate = InGameObjectManager.Instance.GetHpRate(type);
         if (type == AllianceType.Player)
         {
+            if (!Mathf.Approximately(beforePlayerHpRate, rate))
+                _playerSynergyRationTween.DamageFXTween();
+
             _playerHpRate.text = rate.ToString("P0");
             _playerSlider.value = rate;
             AnimateHpBar(_playerDelayedSlider, _playerDelayedSlider.value, rate);
+
+            beforePlayerHpRate = rate;
         }
         else
         {
+            if (!Mathf.Approximately(beforeEnemyHpRate, rate))
+                _enemySynergyRationTween.DamageFXTween();
+
             _enemyHpRate.text = rate.ToString("P0");
             _enemySlider.value = rate;
             AnimateHpBar(_enemyDelayedSlider, _enemyDelayedSlider.value, rate);
+
+            beforeEnemyHpRate = rate;
         }
     }
 

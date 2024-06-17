@@ -3238,6 +3238,8 @@ MonoBehaviour:
   _playerSlider: {fileID: 3995012985814685242}
   _enemyDelayedSlider: {fileID: 7686624384255151428}
   _playerDelayedSlider: {fileID: 5423546361853407908}
+  _playerSynergyRationTween: {fileID: 8655547921947743591}
+  _enemySynergyRationTween: {fileID: 855843136436846277}
   _playerSynergyUIList:
   - {fileID: 7916426181928830858}
   - {fileID: 3994888603880023086}

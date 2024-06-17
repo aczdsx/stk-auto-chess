@@ -71,10 +71,10 @@ namespace CookApps.AutoBattler
 
                 elapsed += Time.deltaTime;
                 float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
-                float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1));
+                // float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1));
 
                 _hpFillSmoothGuage.size = new Vector2(_defalutSize.x * ratio, _defalutSize.y);
-                _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
+                // _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
 
                 await UniTask.Yield();
             }
@@ -82,7 +82,7 @@ namespace CookApps.AutoBattler
             if (_hpFillSmoothGuage != null)
             {
                 _hpFillSmoothGuage.size = new Vector2(0, _defalutSize.y);
-                _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0);
+                // _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0);
             }
         }
 
