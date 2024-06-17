@@ -21,14 +21,13 @@ namespace CookApps.AutoBattler
             {
                 userIdleData = new UserIdleData
                 {
+                    //LastRewardGetTimestamp = 1718582400,
                     LastRewardGetTimestamp = 1718593200,
                 };
                 return;
             }
 
             userIdleData = MessageUtility.FromBase64String<UserIdleData>(data);
-
-            UpdateAllCacheData();
         }
 
         [Clear]
@@ -58,7 +57,8 @@ namespace CookApps.AutoBattler
 
             TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserIdleData.LastRewardGetTimestamp);
 
-            int diffMinute = (int)currentRewardTimeSpan.TotalMinutes;
+            int maxMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
+            int diffMinute = Mathf.Min((int)currentRewardTimeSpan.TotalMinutes, maxMinute);
 
             // 보상 데이터 생성
             foreach (var idleReward in specIdleRewardList)
@@ -71,14 +71,17 @@ namespace CookApps.AutoBattler
 
                 int resultAmount = (int) Math.Truncate(totalAmount * timeCount);
 
-                RewardItem rewardItem = new RewardItem
+                if (resultAmount > 0)
                 {
-                    Type = idleReward.item_type,
-                    Key = 0,
-                    Count = resultAmount,
-                };
+                    RewardItem rewardItem = new RewardItem
+                    {
+                        Type = idleReward.item_type,
+                        Key = 0,
+                        Count = resultAmount,
+                    };
 
-                resultItemList.Add(rewardItem);
+                    resultItemList.Add(rewardItem);
+                }
             }
 
             return resultItemList;

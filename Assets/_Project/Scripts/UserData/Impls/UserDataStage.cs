@@ -90,7 +90,8 @@ namespace CookApps.AutoBattler
         public int GetLastUserStageID()
         {
             var clearStageList = GetAllClearUserStageList();
-            return clearStageList.Max(data => data.StageId);
+
+            return clearStageList.Count > 0 ? clearStageList.Max(data => data.StageId) : 1;
         }
 
         public List<UserStage> GetAllClearUserStageList()
