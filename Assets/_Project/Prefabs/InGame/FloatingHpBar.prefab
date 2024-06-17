@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 984619623319561915}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.048, y: -0.002, z: 0}
+  m_LocalPosition: {x: -1.048, y: -0.002, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4326257875655412336}
   - component: {fileID: 4627783478265718294}
   m_Layer: 5
-  m_Name: FillSmoothGuage
+  m_Name: CoolTimeGuage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 4160562670056723580}
   - component: {fileID: 9152901164981225817}
   m_Layer: 5
-  m_Name: Bg
+  m_Name: HpBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 8532144952080661929}
   - component: {fileID: 5116184679496645776}
   m_Layer: 5
-  m_Name: Bg (1)
+  m_Name: CoolTimeBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,8 +333,8 @@ Transform:
   m_GameObject: {fileID: 7587371875822995077}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0356, z: 0}
-  m_LocalScale: {x: 0.13, y: 0.16, z: 0.18}
+  m_LocalPosition: {x: 0, y: -0.0256, z: 0}
+  m_LocalScale: {x: 0.13, y: 0.079743676, z: 0.18}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4326257875655412336}
@@ -418,7 +418,7 @@ Transform:
   m_GameObject: {fileID: 8459947657532445918}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.048, y: -0.002, z: 0}
+  m_LocalPosition: {x: -1.048, y: -0.002, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
