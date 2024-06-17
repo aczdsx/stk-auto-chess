@@ -108,7 +108,7 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         _targetCharacter.GetDamaged(damage, owner);
 
         var inGameTile =
-            InGameObjectManager.Instance.InGameGrid.GetDirectionTile(owner.CurrentTile, _targetCharacter.CurrentTile,
+            InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
                 2);
         //[TODO] airbone effect codeID 및 적용 방법 확인 필요
         int effectCodeID = EffectCodeCrowdControlAirborne.CodeId;

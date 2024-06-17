@@ -93,7 +93,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByRow(owner.CurrentTile);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByRow(owner.CurrentTile);
         if (inGameTiles != null)
         {
             foreach (var tile in inGameTiles)

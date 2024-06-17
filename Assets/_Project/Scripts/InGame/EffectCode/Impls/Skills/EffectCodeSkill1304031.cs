@@ -90,7 +90,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByNearest(owner.CurrentTile);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByNearest(owner.CurrentTile);
         if (inGameTiles != null && inGameTiles.Count > 0)
         {
             var tile = inGameTiles[0];

@@ -267,10 +267,12 @@ namespace CookApps.BattleSystem
                     return false;
                 }
             }
+
             return true;
         }
 
         #region 탐색
+
         public List<CharacterController> GetEnemiesList()
         {
             return enemiesInPlaygroundForUpdate;
@@ -294,7 +296,8 @@ namespace CookApps.BattleSystem
         /// <param name="rangeShapeType"></param>
         /// <param name="includePivot"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestColleaguesInRange(CharacterController pivot, int range, BattleSystem.AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
+        public void GetNearestColleaguesInRange(CharacterController pivot, int range,
+            BattleSystem.AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -316,6 +319,7 @@ namespace CookApps.BattleSystem
                 {
                     continue;
                 }
+
                 if (other is not {IsAlive: true})
                 {
                     continue;
@@ -335,7 +339,8 @@ namespace CookApps.BattleSystem
         /// <param name="range"></param>
         /// <param name="rangeShapeType"></param>
         /// <param name="resTargets"></param>
-        public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShapeType, List<CharacterController> resTargets)
+        public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShapeType,
+            List<CharacterController> resTargets)
         {
             List<CharacterController> searchList = null;
             if (pivot.AllianceType == AllianceType.Player)
@@ -409,11 +414,6 @@ namespace CookApps.BattleSystem
             return target;
         }
 
-        /// <summary>
-        /// pivot을 기준으로 가장 먼 적을 반환
-        /// </summary>
-        /// <param name="pivot"></param>
-        /// <returns></returns>
         public CharacterController GetFarthestEnemy(CharacterController pivot)
         {
             CharacterController target = null;
@@ -434,20 +434,19 @@ namespace CookApps.BattleSystem
                 return null;
             }
 
-            var maxDistance = 0f;
-            for (var idx = 0; idx < targets.Count; ++idx)
+            var maxDistance = float.MinValue;
+            foreach (var enemy in targets)
             {
-                if (targets[idx].IsAlive == false)
+                if (enemy.IsAlive == false)
                 {
                     continue;
                 }
 
-                var distance = Vector3.SqrMagnitude(pivot.Position - targets[idx].Position);
+                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
                 if (maxDistance < distance)
                 {
                     maxDistance = distance;
-
-                    target = targets[idx];
+                    target = enemy;
                 }
             }
 

@@ -227,7 +227,7 @@ namespace CookApps.BattleSystem
             return pos.x >= 0 && pos.x < Width && pos.y >= 0 && pos.y < Height;
         }
 
-        public InGameTile GetTileByDirection(CharacterController characterController)
+        public InGameTile GetTileByCharacterDirection(CharacterController characterController)
         {
             bool isFront = characterController.GetCharacterView().CachedFront;
             bool isFlip = characterController.GetCharacterView().CachedFlipX;
@@ -255,7 +255,7 @@ namespace CookApps.BattleSystem
             return _tiles.FirstOrDefault(t => t.X == directionX && t.Y == directionY);
         }
 
-        public List<InGameTile> GetTilesByDirection(CharacterController characterController)
+        public List<InGameTile> GetTileListByCharacterDirection(CharacterController characterController)
         {
             bool isFront = characterController.GetCharacterView().CachedFront;
             bool isFlip = characterController.GetCharacterView().CachedFlipX;
@@ -307,7 +307,7 @@ namespace CookApps.BattleSystem
             return tiles;
         }
 
-        public List<InGameTile> GetTilesByCount(AllianceType type, int count)
+        public List<InGameTile> GetTileListByAllianceType(AllianceType type, int count)
         {
             var tiles = _tiles.Where(t => t.OccupiedCharacter != null && t.OccupiedCharacter.AllianceType == type)
                 .ToList();
@@ -325,17 +325,17 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public List<InGameTile> GetTilesByRow(InGameTile tile)
+        public List<InGameTile> GetTileListByRow(InGameTile tile)
         {
             return _tiles.Where(t => t.Y == tile.Y).ToList();
         }
 
-        public List<InGameTile> GetTilesByNearest(InGameTile tile)
+        public List<InGameTile> GetTileListByNearest(InGameTile tile)
         {
             return _tiles.OrderBy(t => GetManhattanDistance(tile, t)).ToList();
         }
 
-        public InGameTile GetDirectionTile(InGameTile attackerTile, InGameTile targetTile, int count)
+        public InGameTile GetTileForKnockBack(InGameTile attackerTile, InGameTile targetTile, int count)
         {
             int2 direction = new int2(targetTile.X - attackerTile.X, targetTile.Y - attackerTile.Y);
 
@@ -366,6 +366,29 @@ namespace CookApps.BattleSystem
             }
 
             return lastValidTile;
+        }
+
+        public InGameTile GetTileForAssassin(InGameTile targetTile)
+        {
+            InGameTile nearestEmptyTile = null;
+            int minDistance = int.MaxValue;
+
+            foreach (var tile in _tiles)
+            {
+                if (tile.OccupiedCharacter != null)
+                {
+                    continue;
+                }
+
+                int distance = GetManhattanDistance(targetTile, tile);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestEmptyTile = tile;
+                }
+            }
+
+            return nearestEmptyTile;
         }
     }
 }

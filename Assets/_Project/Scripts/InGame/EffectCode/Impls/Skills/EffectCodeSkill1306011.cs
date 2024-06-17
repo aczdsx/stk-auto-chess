@@ -95,7 +95,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         // 나한테 붙은 vfx
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTilesByCount(owner.AllianceType, 2);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 2);
         if (inGameTiles != null)
         {
             foreach (var tile in inGameTiles)
