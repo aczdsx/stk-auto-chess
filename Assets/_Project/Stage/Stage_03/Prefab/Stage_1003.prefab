@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: eea3fa8fb1fb55743b326aa2e39386ba, type: 2}
+    - target: {fileID: -7023974396876390944, guid: ea703ac68af9f004b866d04c28841a16, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6682129c9ef87d04e88e2b9cad3d8319, type: 2}
     - target: {fileID: -6902573867230041995, guid: ea703ac68af9f004b866d04c28841a16, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -358,6 +362,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fb7bc61eadfede14f80cf4322d0bb1ee, type: 2}
+    - target: {fileID: 882129737928793925, guid: ea703ac68af9f004b866d04c28841a16, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6682129c9ef87d04e88e2b9cad3d8319, type: 2}
     - target: {fileID: 919132149155446097, guid: ea703ac68af9f004b866d04c28841a16, type: 3}
       propertyPath: m_Name
       value: Stage_1003
@@ -374,6 +382,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c5a784400617c9e49b2e83777a88598d, type: 2}
+    - target: {fileID: 2786534777698132407, guid: ea703ac68af9f004b866d04c28841a16, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6682129c9ef87d04e88e2b9cad3d8319, type: 2}
     - target: {fileID: 3131714877318316272, guid: ea703ac68af9f004b866d04c28841a16, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
