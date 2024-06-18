@@ -6580,8 +6580,8 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 5
-  m_Spacing: -14
-  m_ChildForceExpandWidth: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
@@ -30270,6 +30270,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_Summon_Ad
       objectReference: {fileID: 0}
+    - target: {fileID: 3739650166777010397, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -30284,7 +30288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_AnchorMin.x
@@ -30292,7 +30296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -30332,11 +30336,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -66.02325
       objectReference: {fileID: 0}
     - target: {fileID: 7186498877408129682, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -30352,7 +30356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8208265425399225433, guid: 76c70b0dcc8f18d499082b0ef349e8c4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 32.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
