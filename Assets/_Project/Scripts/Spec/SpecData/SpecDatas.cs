@@ -83,9 +83,10 @@ namespace CookApps.AutoBattler
         public string name_token;
         /// 지휘자 스킬 설명 토큰
         public string desc_token;
+        /// 스킬 벨류 타입
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
+        /// 실제 계수
         public CookApps.Obfuscator.ObfuscatorFloat base_rate;
-        /// 지휘자 스킬 쿨타임
-        public CookApps.Obfuscator.ObfuscatorInt cool;
     }
 
     [GeneratorSpecData]

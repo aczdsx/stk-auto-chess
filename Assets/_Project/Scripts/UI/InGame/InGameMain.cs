@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
-        private const float UpdateInterval = 0.5f;
+        private const float UpdateInterval = 0.3f;
         private const float InGameMaxTime = 60f;
 
         public static InGameMain GetInGameMain()

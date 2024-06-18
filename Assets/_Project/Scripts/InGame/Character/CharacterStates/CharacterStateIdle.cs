@@ -28,15 +28,9 @@ public class CharacterStateIdle : CharacterStateBase
         }
         scanTargetTime = ScanTargetInterval;
 
-        // 2. 적을 찾아서 타겟으로 설정 (찾을 필요 없다면 스킵)
-        if (characCtrl.GetCharacterStat().ScanType == ScanType.Nearest)
-        {
+        // 2. 타겟 찾기
+        if (characCtrl.Target == null)
             characCtrl.Target = InGameObjectManager.Instance.GetNearestTarget(characCtrl);
-        }
-        else
-        {
-            characCtrl.Target = InGameObjectManager.Instance.GetNearestTarget(characCtrl);
-        }
 
         if (characCtrl.Target is {IsAlive: false})
         {
