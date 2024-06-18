@@ -15,6 +15,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _chapterStarLayerObject;
         [SerializeField] private GameObject _dimmedLayerObject;
         [SerializeField] private CAButton _chapterButton;
+        [SerializeField] private CAButton _dimmedButton;
 
         [Space(10)]
         [SerializeField] private Image _chapterImage;
@@ -31,6 +32,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _chapterButton.onClick.AddListener(OnClickChapter);
+            _dimmedButton.onClick.AddListener(OnClickDimmedLayerButton);
         }
 
         protected override void OnDestroy()
@@ -38,6 +40,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _chapterButton.onClick.RemoveListener(OnClickChapter);
+            _dimmedButton.onClick.RemoveListener(OnClickDimmedLayerButton);
         }
 
         public void SetChapterItemSlot(SpecChapter data)
@@ -81,6 +84,11 @@ namespace CookApps.AutoBattler
             {
                 chapterListPop.RefreshSelectedLayer(_specChapterData.id, false);
             }
+        }
+
+        private void OnClickDimmedLayerButton()
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_LOCK_CHAPTER");
         }
     }
 }

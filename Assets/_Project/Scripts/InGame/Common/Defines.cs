@@ -18,4 +18,6 @@ public static class Defines
 
     public const int GACHA_1_TIME_COUNT = 1;
     public const int GACHA_10_TIME_COUNT = 10;
+
+    public const int TOAST_POPUP_DURATION = 2000;
 }

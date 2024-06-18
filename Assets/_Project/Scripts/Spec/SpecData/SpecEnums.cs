@@ -275,6 +275,11 @@ namespace CookApps.AutoBattler
         fx_common_summon_enemy = 32,
         Skill_101011 = 33,
         Skill_102011 = 34,
+        Skill_303011 = 35,
+        Skill_403011 = 36,
+        Skill_406011 = 37,
+        Skill_405021 = 38,
+        Skill_305011 = 39,
     }
 
     public enum GlobalStatProviderType
