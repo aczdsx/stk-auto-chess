@@ -108,7 +108,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     {
         foreach (var tile in _activeTiles)
         {
-            tile.View.SetActiveObj(false);
+            tile.View.SetNavigateObj(false);
         }
         _activeTiles.Clear();
 
@@ -116,7 +116,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         {
             foreach (var tile in newTiles)
             {
-                tile.View.SetActiveObj(true);
+                tile.View.SetNavigateObj(true);
                 _activeTiles.Add(tile);
             }
         }
