@@ -287,6 +287,7 @@ namespace CookApps.AutoBattler
         fx_common_cast_fire = 42,
         fx_common_cast_light = 43,
         fx_common_cast_water = 44,
+        fx_common_assassin = 45,
     }
 
     public enum GlobalStatProviderType

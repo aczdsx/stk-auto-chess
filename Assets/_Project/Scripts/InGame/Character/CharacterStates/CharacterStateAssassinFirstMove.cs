@@ -18,7 +18,12 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
         var moveDuration = SpecOptionCache.DefaultAssassinFirstMoveSpeed;
 
         characCtrl.Target = InGameObjectManager.Instance.GetFarthestTargetByOnce(characCtrl);
+
         InGameTile tile = InGameObjectManager.Instance.InGameGrid.GetTileForAssassin(characCtrl);
+
+        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_assassin,
+            characCtrl.GetCharacterView().CachedTr.position);
+
 
         if (tile != null)
         {
@@ -48,7 +53,7 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
                             tile.View.CachedTr.position);
                     else if (characCtrl.AllianceType == AllianceType.Enemy)
                     {
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_summon_enemy,
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_assassin,
                             tile.View.CachedTr.position);
                     }
 

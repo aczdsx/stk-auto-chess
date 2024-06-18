@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Material _defaultMaterial;
         [SerializeField] private Material _disorveMaterial;
+        [SerializeField] private Material _hologramMaterial;
         private AnimationEventListener _animationEventListener;
         public CharacterStatData GetStatData() => _statData;
         public bool CachedFlipX => _cachedFlipX;
@@ -163,6 +164,11 @@ namespace CookApps.AutoBattler
             hpBarView.transform.localPosition = new Vector3(0, Height, 0);
             hpBarView.transform.localRotation = Quaternion.identity;
             hpBarView.transform.localScale = new Vector3(3, 3, 3);
+        }
+
+        public void SetHologramShader()
+        {
+            _spriteRenderer.material = _hologramMaterial;
         }
 
         public async UniTask DoDeadAction(AnimationClip clip)

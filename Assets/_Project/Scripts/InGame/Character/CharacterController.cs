@@ -148,6 +148,9 @@ namespace CookApps.BattleSystem
             _hpBarView.Initialize(statData, allianceType);
             view.SetHpBarView(_hpBarView);
             view.SetFirstDirection(allianceType);
+            if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 ||
+                _statData.Spec.prefab_id == 10401)
+                view.SetHologramShader();
 
             view.OnAnimationEvent += OnAnimationEvent;
             view.CachedTr.localPosition = position;
