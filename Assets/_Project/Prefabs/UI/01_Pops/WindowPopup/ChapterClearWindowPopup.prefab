@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5512896046269216307}
   - component: {fileID: 3176276068123170450}
   - component: {fileID: 2063630218408687817}
+  - component: {fileID: 6501436402545764749}
   - component: {fileID: 3823254664170273447}
   m_Layer: 5
   m_Name: backDeco_Front
@@ -76,6 +77,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6501436402545764749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53668129059845791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 40306178, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preset: 0
+  onEnableBehaviour: 2
+  onDisableBehaviour: 0
 --- !u!114 &3823254664170273447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +170,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
@@ -487,7 +503,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4260881882
+    rgba: 4294436314
   m_fontColor: {r: 0.85490197, g: 0.8980392, b: 0.96862745, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 2
@@ -1079,7 +1095,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -42, y: -41.521126}
+  m_SizeDelta: {x: -42, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3665997059007125691
 CanvasRenderer:
@@ -2804,6 +2820,7 @@ GameObject:
   - component: {fileID: 8182312301940421991}
   - component: {fileID: 2517201797169644940}
   - component: {fileID: 4476367723674736275}
+  - component: {fileID: 266797564575280549}
   - component: {fileID: 7003217604485318386}
   m_Layer: 5
   m_Name: backDeco_Back
@@ -2869,6 +2886,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &266797564575280549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8561421764526082490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 40306178, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preset: 0
+  onEnableBehaviour: 2
+  onDisableBehaviour: 0
 --- !u!114 &7003217604485318386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2947,7 +2979,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
