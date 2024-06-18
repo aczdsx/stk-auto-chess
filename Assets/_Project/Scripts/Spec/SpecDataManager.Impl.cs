@@ -479,6 +479,18 @@ namespace CookApps.AutoBattler
             return rewardItemList;
         }
 
+        // 리워드 인포 데이터를 RewardItem 리스트로 변환
+        public List<RewardItem> GetRewardItemListByRewadInfoList(List<SpecRewardInfo> rewardInfoList)
+        {
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            foreach (var rewardInfo in rewardInfoList)
+            {
+                rewardItemList.Add(new RewardItem(rewardInfo.item_type, rewardInfo.item_key, rewardInfo.item_count));
+            }
+
+            return rewardItemList;
+        }
+
         public List<RewardItem> GetChestList(int chestId)
         {
             return chestDic.GetValueOrDefault(chestId);
