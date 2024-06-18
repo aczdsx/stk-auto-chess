@@ -10,7 +10,6 @@ public class CharacterStateDead : CharacterStateBase
         AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.DEAD);
         characCtrl.GetCharacterView().SetDeadSprite(clip);
 
-        // [TODO] 죽었을 떄 붙어있는 이펙트들 처리 어떻게 할까요?
         Transform skillRootTransform = characCtrl.GetCharacterView().SkillRootTransform;
         Transform playgroundTransform = InGameObjectManager.Instance.Playground;
         for (int i = skillRootTransform.childCount - 1; i >= 0; i--)

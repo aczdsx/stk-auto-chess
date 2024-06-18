@@ -91,7 +91,7 @@ public class EffectCodeSkill1104011 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        //[TODO] target이 죽었다면? 쿨타임 다시 돌리고 다시 쓸 수 있게 끔
+
         if (_targetCharacter == null)
             return;
 

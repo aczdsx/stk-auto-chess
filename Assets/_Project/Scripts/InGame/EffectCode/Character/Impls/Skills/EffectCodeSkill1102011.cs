@@ -92,7 +92,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        //[TODO] target이 죽었다면? 쿨타임 다시 돌리고 다시 쓸 수 있게 끔
+
         if (_targetCharacter == null)
             return;
 
@@ -109,7 +109,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
         var inGameTile =
             InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
                 1);
-        //[TODO] airbone effect codeID 및 적용 방법 확인 필요
+
         int effectCodeID = EffectCodeCrowdControlAirborne.CodeId;
         var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, inGameTile.View.ID);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);

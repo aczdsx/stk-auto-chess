@@ -107,7 +107,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                 var buffVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                //[TODO] airbone effect codeID 및 적용 방법 확인 필요 + 공격력 증가 버프
+                //[TODO] 버프 이렇게 하는 거 맞나요??
                 int effectCodeID = 0;
                 var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, _duration,
                     _atkUpRate);

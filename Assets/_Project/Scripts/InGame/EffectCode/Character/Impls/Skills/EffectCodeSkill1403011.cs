@@ -105,7 +105,6 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         }
 
-        //[TODO] 0번 vfx가 사라진 후 진행
         foreach (var tile in inGameTiles)
         {
             if (tile.OccupiedCharacter != null)

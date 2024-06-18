@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -102,7 +104,20 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         }
 
-        //[TODO] 0번 vfx가 사라진 후 진행
+        AfterAction(inGameTiles, 1).Forget();
+    }
+
+    public override void OnSkillAnimationEnd()
+    {
+        base.OnSkillAnimationEnd();
+        _elapsedTime = 0;
+        _isSkillActivated = false;
+    }
+
+    private async UniTask AfterAction(InGameTile[] inGameTiles, int second)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(second));
+
         foreach (var tile in inGameTiles)
         {
             if (tile.OccupiedCharacter != null)
@@ -117,13 +132,6 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
             }
         }
 
-        _isSkillActivated = false;
-    }
-
-    public override void OnSkillAnimationEnd()
-    {
-        base.OnSkillAnimationEnd();
-        _elapsedTime = 0;
         _isSkillActivated = false;
     }
 }

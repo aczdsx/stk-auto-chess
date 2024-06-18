@@ -23,7 +23,7 @@ namespace CookApps.AutoBattler
         public bool CachedFlipX => _cachedFlipX;
         public bool CachedFront => _cachedFront;
         public float Height => 2.0f;
-        private readonly float _hitDurationTime = 0.2f;
+        private readonly float _hitDurationTime = 0.15f;
         public event Action<AnimationKey, AnimationEventKey> OnAnimationEvent;
 
         private AnimationKey _currentAnimationKey;

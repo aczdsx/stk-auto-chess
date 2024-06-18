@@ -24,7 +24,6 @@ public class FlowStateStageReady : StateBase
 
         foreach (var monster in monsters)
         {
-            //[TODO] multiple 값 적용 방법 고민 필요.
             Debug.LogColor($"monster 추가 : {monster.monster_id}");
             var statData = new CharacterStatData(monster.monster_id, monster.monster_lv);
 

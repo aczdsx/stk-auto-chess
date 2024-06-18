@@ -111,7 +111,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                //[TODO] Atk Speed Down Debuff
+                //[TODO] 디버프 이렇게 하는 거 맞나요??
                 Span<double> debuffStats = stackalloc double[2];
                 debuffStats.Clear();
                 debuffStats[0] = _debuffTime;
