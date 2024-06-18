@@ -82,9 +82,11 @@ namespace CookApps.AutoBattler
                     SetBottomStageUI();     // 하단 스테이지 UI 갱신
                     _guideMissionSlot?.RefreshGuideMissionSlot();   // 가이드 미션 갱신
                     SetUserInfoLayer();     // 유저 정보 갱신
+                    CheckNewChapterClear();
                     break;
                 case LobbyMainRefreshType.STAGE:
                     SetBottomStageUI();
+                    CheckNewChapterClear();
                     break;
                 case LobbyMainRefreshType.GUIDE_MISSION:
                     _guideMissionSlot?.RefreshGuideMissionSlot();
@@ -173,40 +175,13 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void TestAddCharacter()
+        private void CheckNewChapterClear()
         {
-            // UserDataManager.Instance.AddCharacter(40101);
-            // UserDataManager.Instance.AddCharacter(30201);
-            // UserDataManager.Instance.AddCharacter(40201);
-            // UserDataManager.Instance.AddCharacter(40301);
-            // UserDataManager.Instance.AddCharacter(30401);
-        }
+            if (UserDataManager.Instance.NewChapterOpenAlert == false) return;
 
-        private void TestAddStage()
-        {
-            var stageList1 = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL);
-            foreach (var stageData in stageList1)
-            {
-                int random = Random.Range(1, 4);
+            SceneUILayerManager.Instance.PushUILayerAsync<ChapterClearWindowPopup>().Forget();
 
-                UserDataManager.Instance.SetUserStage(stageData.id, random);
-            }
-
-            var stageList3 = SpecDataManager.Instance.GetStageList(1, DifficultyType.HARD);
-            foreach (var stageData in stageList3)
-            {
-                int random = Random.Range(1, 4);
-
-                UserDataManager.Instance.SetUserStage(stageData.id, random);
-            }
-
-            var stageList2 = SpecDataManager.Instance.GetStageList(2, DifficultyType.NORMAL);
-            foreach (var stageData in stageList2)
-            {
-                int random = Random.Range(1, 4);
-
-                UserDataManager.Instance.SetUserStage(stageData.id, random);
-            }
+            UserDataManager.Instance.NewChapterOpenAlert = false;
         }
 
         private void OnClickCommanderSkillButton()

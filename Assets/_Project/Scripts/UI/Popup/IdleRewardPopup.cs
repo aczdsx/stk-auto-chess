@@ -39,8 +39,8 @@ namespace CookApps.AutoBattler
         {
             base.OnDestroy();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _getRewardButton.onClick.AddListener(OnClickGetRewardButton);
+            _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _getRewardButton.onClick.RemoveListener(OnClickGetRewardButton);
         }
 
         protected override void OnPreEnter(object param)

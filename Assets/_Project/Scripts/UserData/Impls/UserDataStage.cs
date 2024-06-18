@@ -14,6 +14,8 @@ namespace CookApps.AutoBattler
 
         public UserStageGroup UserStageGroup => userStageGroup;
 
+        public bool NewChapterOpenAlert { get; set; } = false;      // 새로운 챕터 개방 알림용
+
         // Cached Data
         private Dictionary<int, Dictionary<int, UserStage>> _chapterUserStageDic = new(); // chapter_id, stage_id, UserStage
         private Dictionary<DifficultyType, Dictionary<int, UserStage>> _difficultyUserStageDic = new(); // difficulty_type, stage_id, UserStage
@@ -68,6 +70,9 @@ namespace CookApps.AutoBattler
             else
             {
                 userStageGroup.UserStages.Add(stageID, new UserStage {StageId = stageID, StarCount = starCount});
+
+                // 새로운 챕터 개방 확인 및 데이터 업데이트
+                UpdateNewChapterOpen(stageID);
             }
 
             // 캐시 데이터 업데이트
@@ -182,6 +187,32 @@ namespace CookApps.AutoBattler
             }
 
             return false;
+        }
+
+        // 새로운 챕터 개방 여부 체크
+        public void UpdateNewChapterOpen(int targetStageID)
+        {
+            int lastClearStageID = GetLastUserStageID();
+
+            var targetStageData = SpecDataManager.Instance.SpecStage.Get(targetStageID);
+            var lastTargetStageData = SpecDataManager.Instance.GetLastStageData(targetStageData.chapter_id, targetStageData.difficulty_type);
+
+            NewChapterOpenAlert = lastClearStageID == lastTargetStageData.id;
+
+            // 지휘자 스킬 추가
+            if (NewChapterOpenAlert)
+            {
+                var commanderList = SpecDataManager.Instance.GetCommanderSkillList(lastTargetStageData.chapter_id + 1);
+
+                foreach (var commander in commanderList)
+                {
+                    if (commander.skill_value_type == SkillValueType.COOL) continue;
+
+                    AddCommanderSkillData(commander.commander_skill_id, false);
+                }
+
+                SaveUserCommanderSKillData();
+            }
         }
 
         // 스테이지 개방 여부 확인
