@@ -67,6 +67,7 @@ namespace CookApps.AutoBattler
                     _collectionMainLayer.InitLayer(this);
                     break;
                 case CharacterCollectionPopupTabType.GROW:
+                    _detailBGLayerObject.SetActive(true);
                     _detailMainBGLayer.gameObject.SetActive(true);
                     _detailMainBGLayer.InitLayer(_currentCharacterID, this);
 
@@ -74,6 +75,7 @@ namespace CookApps.AutoBattler
                     _detailGrowLayer.InitLayer(_currentCharacterID);
                     break;
                 case CharacterCollectionPopupTabType.SKILL:
+                    _detailBGLayerObject.SetActive(true);
                     _detailMainBGLayer.gameObject.SetActive(true);
                     _detailMainBGLayer.InitLayer(_currentCharacterID, this);
 
@@ -85,7 +87,7 @@ namespace CookApps.AutoBattler
 
         private void ClearLayer()
         {
-            _detailBGLayerObject.SetActive(true);
+            _detailBGLayerObject.SetActive(false);
             _detailMainBGLayer.gameObject.SetActive(false);
 
             _collectionMainLayer.gameObject.SetActive(false);
