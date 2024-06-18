@@ -42,6 +42,61 @@ namespace CookApps.AutoBattler
             userWallet = null;
         }
 
+        public bool CheckEnoughItem(ItemType itemType, int itemKey, int itemAmount, bool isShowToast)
+        {
+            switch (itemType)
+            {
+                case ItemType.GOLD:
+                    if (userWallet.Gold < itemAmount && isShowToast)
+                    {
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GOLD");
+                    }
+                    return userWallet.Gold >= itemAmount;
+                case ItemType.JEWEL:
+                    if (userWallet.Jewel < itemAmount && isShowToast)
+                    {
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_JEWEL");
+                    }
+                    return userWallet.Jewel >= itemAmount;
+                case ItemType.AP:
+                    if (userWallet.Energy < itemAmount && isShowToast)
+                    {
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
+                    }
+                    return userWallet.Energy >= itemAmount;
+                case ItemType.C_TICKET:
+                    if (userWallet.CTicket < itemAmount && isShowToast)
+                    {
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GOLD");
+                    }
+                    return userWallet.CTicket >= itemAmount;
+                case ItemType.CHAR_USER_EXP_ITEM:
+                    if (userWallet.CharUserExpItem < itemAmount && isShowToast)
+                    {
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP");
+                    }
+                    return userWallet.CharUserExpItem >= itemAmount;
+                case ItemType.CHAR_USER_EXP_ITEM_2:
+                    if (userWallet.CharUserExpItem2 < itemAmount && isShowToast)
+                    {
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP");
+                    }
+                    return userWallet.CharUserExpItem2 >= itemAmount;
+                case ItemType.CHARACTER_PIECE:
+                    var userCharacter = GetUserCharacter(itemKey);
+                    if (userCharacter != null)
+                    {
+                        if (userCharacter.CharacterPiece < itemAmount && isShowToast)
+                        {
+                            ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_PIECE");
+                        }
+                    }
+                    return userCharacter != null && userCharacter.CharacterPiece >= itemAmount;
+            }
+
+            return false;
+        }
+
         public void IncreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave)
         {
             switch (itemType)

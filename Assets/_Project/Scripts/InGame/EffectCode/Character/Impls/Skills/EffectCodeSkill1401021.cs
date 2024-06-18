@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -10,7 +11,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 오데트
 // 범위 : 전방 X축 3칸
 // 대미지 : 낫을 크게 휘둘러, 적에게 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 피격된 적은 {1}동안 공격력이 {2}% 감소한다.
+//     특수 효과 : 피격된 적은 {1}동안 공격속도가 {2}% 감소한다.
 /// </summary>
 [UseEffectCodeIds(1401031)]
 public class EffectCodeSkill1401031 : EffectCodeCharacterBase
@@ -18,7 +19,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     private ObfuscatorFloat _coolTime;
     private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _debuffTime;
-    private ObfuscatorFloat _atkDownRate;
+    private ObfuscatorFloat _atkSpeedDownRate;
 
     private ObfuscatorFloat _elapsedTime;
 
@@ -33,12 +34,14 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         _coolTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _debuffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -47,7 +50,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         _coolTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _debuffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -108,12 +111,13 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                //[TODO] airbone effect codeID 및 적용 방법 확인 필요 + 공격속도 디버프
-                int effectCodeID = 0;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, _debuffTime,
-                    _atkDownRate);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
-
+                //[TODO] Atk Speed Down Debuff
+                Span<double> debuffStats = stackalloc double[2];
+                debuffStats.Clear();
+                debuffStats[0] = _debuffTime;
+                debuffStats[1] = _atkSpeedDownRate;
+                var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.BUFF_ATK_SPEED_DOWN * 10 + 1, 0, debuffStats);
+                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
             }
         }
 

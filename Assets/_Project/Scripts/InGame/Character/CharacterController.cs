@@ -509,6 +509,20 @@ namespace CookApps.BattleSystem
 
             return false;
         }
+
+        public bool HasDebuffType()
+        {
+            foreach (var pair in _buffDebuffRefCountDict)
+            {
+                // 디버프 유형을 나타내는 열거형의 값이 1000 이상인지 확인합니다.
+                if ((int)pair.Key >= 1000 && pair.Value > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         #endregion
 
         private bool CriticalTest()
@@ -713,7 +727,7 @@ namespace CookApps.BattleSystem
         /// 이를 막기위해 첫번째 힐인 것을 명시하여 이후의 힐은 스킬 효과를 적용하지 않도록 한다.
         /// </param>
         /// <returns>회복 됬는지 유무</returns>
-        public bool GetHealed(double amount, CharacterController healer, int source, bool isFirstHeal = true)
+        public bool GetHealed(double amount, CharacterController healer, long source, bool isFirstHeal = true)
         {
             // 죽어있으면 안준다.
             if (_currHp <= 0 || !IsAlive)

@@ -136,13 +136,6 @@ namespace CookApps.AutoBattler
             SetUserStatInfo();
         }
 
-        private bool CheckEnoughRecipeItem()
-        {
-            return (_specCharacterLevelExpData.base_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem
-                    || _specCharacterLevelExpData.sec_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem2
-                    || _specCharacterLevelExpData.need_gold <= UserDataManager.Instance.UserWallet.Gold);
-        }
-
         private void OnClickDetailStatButton()
         {
 
@@ -162,7 +155,9 @@ namespace CookApps.AutoBattler
             }
 
             // 재료 검사
-            if (CheckEnoughRecipeItem() == false)
+            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count, true)
+                || !UserDataManager.Instance.CheckEnoughItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold, true)
+                || !UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.sec_levelup_item_type, 0, _specCharacterLevelExpData.sec_levelup_item_count, true))
             {
                 return;
             }

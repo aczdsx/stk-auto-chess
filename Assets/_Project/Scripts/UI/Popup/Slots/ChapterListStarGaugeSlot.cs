@@ -30,7 +30,8 @@ namespace CookApps.AutoBattler
 
         private SpecRewardInfo _specRewardInfo;
 
-        private bool _checkAvailGetReward; // 보상 수령 가능 여부 체크
+        private bool _isAvailGetReward;
+        private bool _isAlreadyGetReweard;
 
         private void Awake()
         {
@@ -57,18 +58,16 @@ namespace CookApps.AutoBattler
 
             // 보상 수령 상태에 따른 분기처리
             int totalStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type);
-            bool isAvailGetReward = totalStarCount >= _specRewardInfo.sub_value;
+            _isAvailGetReward = totalStarCount >= _specRewardInfo.sub_value;
 
-            bool isAlreadyGetReweard = UserDataManager.Instance.IsGetStageAccReward(_specRewardInfo.content_key_value,
+            _isAlreadyGetReweard = UserDataManager.Instance.IsGetStageAccReward(_specRewardInfo.content_key_value,
                 _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
 
-            _checkAvailGetReward = isAvailGetReward && !isAlreadyGetReweard;
+            _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReweard);
+            _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReweard);
 
-            _rewardIconUIShiny.Play(isAvailGetReward && !isAlreadyGetReweard);
-            _activeFrameObject.SetActive(isAvailGetReward && !isAlreadyGetReweard);
-
-            _completeSymbolObject.SetActive(isAlreadyGetReweard);
-            if (isAlreadyGetReweard)
+            _completeSymbolObject.SetActive(_isAlreadyGetReweard);
+            if (_isAlreadyGetReweard)
             {
                 _rewardIconImage.color = BMUtil.ChangeColorAlpha(_rewardIconImage.color, 60);
 
@@ -80,7 +79,17 @@ namespace CookApps.AutoBattler
         private void OnClickGetRewardButton()
         {
             // 보상 수령 가능 여부 체크
-            if (_checkAvailGetReward == false) return;
+            if (_isAvailGetReward == false)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_LOCK_STAGE_MILESTONE_REWARD");
+                return;
+            }
+
+            // 이미 수령한 보상 체크
+            if (_isAlreadyGetReweard == false)
+            {
+                return;
+            }
 
             // 리워드 팝업 생성
             List<RewardItem> rewardItemList = new List<RewardItem>();

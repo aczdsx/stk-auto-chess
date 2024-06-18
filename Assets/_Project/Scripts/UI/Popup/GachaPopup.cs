@@ -47,10 +47,10 @@ namespace CookApps.AutoBattler
         private void OnClickGacha1Button()
         {
             // 재화 검사
-            // if (SpecDataManager.Instance.GetGameConfig<int>("gacha_jewel_cost_1") > UserDataManager.Instance.UserWallet.Jewel)
-            // {
-            //     return;
-            // }
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.C_TICKET, 0, Defines.GACHA_1_TIME_COUNT, true))
+            {
+                return;
+            }
 
             // SpecCharacter result = SpecDataManager.Instance.GetCharacterData(40101);
             // List<SpecCharacter> tempResultList = new List<SpecCharacter>();
@@ -81,10 +81,10 @@ namespace CookApps.AutoBattler
         private void OnClickGacha10Button()
         {
             // 재화 검사
-            // if (SpecDataManager.Instance.GetGameConfig<int>("gacha_jewel_cost_10") > UserDataManager.Instance.UserWallet.Jewel)
-            // {
-            //     return;
-            // }
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.C_TICKET, 0, Defines.GACHA_10_TIME_COUNT, true))
+            {
+                return;
+            }
 
             // var gacahaScenarios = SpecDataManager.Instance.SpecGachaScenario.All.ToList();
             // List<RewardItem> tempResultList = new List<RewardItem>();

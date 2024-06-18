@@ -28,6 +28,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private WeakReference<InGameVfx> _vfx;
 
+    private SpecSkill _specSkill;
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -36,6 +38,10 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
+
+        _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -91,11 +97,9 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
-        InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
-
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
+        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
 
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
