@@ -29,6 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _GlobalAlpha: 1
     - _LeftAlpha: 0
     - _LeftX: 0.438
     - _RightAlpha: 0
