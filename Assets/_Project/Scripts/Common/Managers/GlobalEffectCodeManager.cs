@@ -12,13 +12,10 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
 {
     public void Initialize()
     {
-        eccForGame = new EffectCodeContainer(this);
     }
 
     public void Clear()
     {
-        eccForGame.Clear();
-        eccForGame = null;
     }
 
     /// <summary>
@@ -32,41 +29,18 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
     private Dictionary<(GlobalEffectCodeSource src, long codeId), EffectCodeInfo> globalEffectCodes = new ();
 
     /// <summary>
-    /// 인게임 안에서 사용되는 Type이 EffectCodeType.Game인 특수한 effectCode들
-    /// </summary>
-    private EffectCodeContainer eccForGame;
-
-    public List<EffectCodeBase> GetGameEffectCodes()
-    {
-        return eccForGame.GetEffectCodesByType(EffectCodeType.Game);
-    }
-
-    /// <summary>
     /// 전역으로 동작하는 effectCode를 추가하거나 업데이트한다.
     /// </summary>
     /// <param name="source"></param>
     /// <param name="codeInfo"></param>
     public void AddOrUpdateEffectCode(GlobalEffectCodeSource source, EffectCodeInfo codeInfo)
     {
-        var effectCode = eccForGame.AddOrMergeEffectCode(codeInfo, this);
-        if (effectCode.Type == EffectCodeType.Game)
-        {
-            return;
-        }
-
-        eccForGame.RemoveEffectCode(effectCode);
         globalEffectCodes[(source, codeInfo.CodeId)] = codeInfo;
         OnEffectCodeChanged?.Invoke(source, codeInfo.CodeId);
     }
 
     public void RemoveEffectCode(GlobalEffectCodeSource source, int codeId)
     {
-        if (!eccForGame.RemoveEffectCode(codeId, out var effectCode))
-            return;
-
-        if (effectCode?.Type == EffectCodeType.Game)
-            return;
-
         if (!globalEffectCodes.Remove((source, codeId)))
             return;
 
