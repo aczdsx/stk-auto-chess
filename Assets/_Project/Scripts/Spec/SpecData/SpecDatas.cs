@@ -72,23 +72,20 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class SpecCommanderSkill
     {
-        /// Sp
+        /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        public CookApps.Obfuscator.ObfuscatorInt skill_id;
+        /// 지휘자 스킬 id
+        public CookApps.Obfuscator.ObfuscatorInt commander_skill_id;
+        /// 개방 챕터 id
+        public CookApps.Obfuscator.ObfuscatorInt open_key_chapter_id;
+        /// 지휘자 스킬 이름 토큰
         public string name_token;
+        /// 지휘자 스킬 설명 토큰
         public string desc_token;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecCommanderSkillUpgrade
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        public CookApps.Obfuscator.ObfuscatorInt skill_group_id;
-        public CookApps.Obfuscator.ObfuscatorInt level;
-        public CookApps.Obfuscator.ObfuscatorInt recipe_item_id;
-        public CookApps.Obfuscator.ObfuscatorInt recipe_item_amount;
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate;
+        /// 지휘자 스킬 쿨타임
+        public CookApps.Obfuscator.ObfuscatorInt cool;
     }
 
     [GeneratorSpecData]
