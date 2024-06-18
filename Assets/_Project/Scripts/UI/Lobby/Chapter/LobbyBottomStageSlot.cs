@@ -142,7 +142,11 @@ namespace CookApps.AutoBattler
         private void OnClickBottomStageSlot()
         {
             // 스테이지 개방 여부 확인
-            if (UserDataManager.Instance.IsStageOpen(_specStageData.id) == false) return;
+            if (UserDataManager.Instance.IsStageOpen(_specStageData.id) == false)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_LOCK_STAGE");
+                return;
+            }
 
             // 유저 데이터 갱신
             UserDataManager.Instance.SetLastPlayStageID(_specStageData.id, true);
