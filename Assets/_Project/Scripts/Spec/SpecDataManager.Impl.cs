@@ -4,9 +4,10 @@
 using CookApps.gRPC.Universal;
 using CookApps.LocalData;
 #endif
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cookapps.Autobattleproject.V1;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
@@ -18,8 +19,15 @@ namespace CookApps.AutoBattler
     {
         public static long GetStatCode(CharacterEffectType statType, GlobalStatProviderType globalStatProviderType, int subId)
         {
-            return (long)globalStatProviderType * 1000000000 + (long)subId * 1000 + (long)statType;
+            var codeId = (long)globalStatProviderType * 1000000000 + (long)subId * 1000 + (long)statType;
+            if (addedEffectCodeIds.Add(codeId))
+            {
+                EffectCodePoolManager.Instance.RegisterCodeIdWithBaseCodeId(codeId, (long)statType);
+            }
+            return codeId;
         }
+
+        private static HashSet<long> addedEffectCodeIds = new ();
     }
 
     public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>

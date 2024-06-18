@@ -46,6 +46,16 @@ namespace CookApps.BattleSystem
             AddEffectCodeCreator(codeId, createHeadersFunc);
         }
 
+        public void RegisterCodeIdWithBaseCodeId(long codeId, long baseCodeId)
+        {
+            if (!effectCodeCreators.TryGetValue(baseCodeId, out var lambda))
+            {
+                CADebug.LogError($"EffectCodePoolManager.RegisterCodeIdWithBaseCodeId - Not found baseCodeId {baseCodeId}");
+                return;
+            }
+            AddEffectCodeCreator(codeId, lambda);
+        }
+
         public void RegisterAttributedCodeIds()
         {
             IEnumerable<Type> allEffectCodeImpls = InheritHelper.GetAllImplementations<EffectCodeBase>();
