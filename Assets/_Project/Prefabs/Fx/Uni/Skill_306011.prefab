@@ -39,7 +39,7 @@ Transform:
   - {fileID: 393818176230836775}
   - {fileID: 7988360623160616698}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1748925273872324036
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4957,7 +4957,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 0
+  scalingMode: 1
   randomSeed: 1188
   InitialModule:
     serializedVersion: 3
@@ -19563,7 +19563,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 0
+  scalingMode: 1
   randomSeed: 1188
   InitialModule:
     serializedVersion: 3
