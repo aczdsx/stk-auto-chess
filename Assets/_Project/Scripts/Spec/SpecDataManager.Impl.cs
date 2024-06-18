@@ -478,6 +478,11 @@ namespace CookApps.AutoBattler
             return skillPrefabIDDic.GetValueOrDefault(prefabID);
         }
 
+        public List<SpecCommanderSkill> GetCommanderSkillList(int chapterID)
+        {
+            return SpecCommanderSkill.All.ToList().FindAll(data => data.open_key_chapter_id <= chapterID);
+        }
+
         public SpecCharacter GetSpecCharacter(int characterID)
         {
             return SpecCharacter.All.FirstOrDefault(data => data.character_id == characterID);
