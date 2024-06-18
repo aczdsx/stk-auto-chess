@@ -39,6 +39,8 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
         _isSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

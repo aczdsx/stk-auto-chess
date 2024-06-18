@@ -44,11 +44,8 @@ namespace CookApps.AutoBattler
         BUFF_HP_RECOVERY_PERCENT_UP = 2100000014,
         BUFF_MOVESPEED_UP = 2100000015,
         BUFF_MOVESPEED_PERCENT_UP = 2100000016,
-        BUFF_ATK_SPEED_UP = 2100000017,
-        BUFF_ATK_SPEED_PERCENT_UP = 2100000018,
-        BUFF_ATK_SPEED_DOWN = 2100000017,
-        BUFF_ATK_SPEED_PERCENT_DOWN = 2100000018,
         BUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000017,
+        BUFF_ATK_SPEED_DOWN = 2100000018,
     }
 
     public enum GradeType
@@ -285,6 +282,11 @@ namespace CookApps.AutoBattler
         Skill_406011 = 37,
         Skill_405021 = 38,
         Skill_305011 = 39,
+        fx_common_cast_darkness = 40,
+        fx_common_cast_earth = 41,
+        fx_common_cast_fire = 42,
+        fx_common_cast_light = 43,
+        fx_common_cast_water = 44,
     }
 
     public enum GlobalStatProviderType

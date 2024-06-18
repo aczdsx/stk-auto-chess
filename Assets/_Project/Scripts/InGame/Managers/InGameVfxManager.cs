@@ -118,6 +118,40 @@ namespace CookApps.BattleSystem
             return effect;
         }
 
+        public InGameVfx AddInGamePreSkillActionFx(ElementType type, Vector3 worldPosition)
+        {
+            InGameVfxNameType vfxNameType = (InGameVfxNameType) 0;
+            if (type == ElementType.DARK)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_cast_darkness;
+            }
+            else if (type == ElementType.FIRE)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_cast_fire;
+            }
+            else if (type == ElementType.WIND)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_area_water; // [TODO] wind 필요
+            }
+            else if (type == ElementType.LIGHT)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_cast_light;
+            }
+            else if (type == ElementType.EARTH)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_cast_earth;
+            }
+            else if (type == ElementType.WATER)
+            {
+                vfxNameType = InGameVfxNameType.fx_common_cast_water;
+            }
+
+            var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
+            addWaitingInGameVfxs.Enqueue(effect);
+            effect.CachedTr.position = worldPosition;
+            return effect;
+        }
+
         public void RemoveInGameVfx(InGameVfx view)
         {
             view.CachedGo.SetActive(false);
