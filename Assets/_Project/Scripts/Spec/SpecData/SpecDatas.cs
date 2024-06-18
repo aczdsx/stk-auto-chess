@@ -504,16 +504,12 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt weapon_id;
         /// #스킬 사용자
         public string character_name;
-        /// #클래스 구분
-        public string 클래스;
         /// AP AD 판정 유무
         public global::CookApps.AutoBattler.AtkType atk_type;
         /// 스킬 이름 토큰
         public string skill_name_token;
         /// 스킬 설명 토큰
         public string skill_desc_token;
-        /// #스킬 설명
-        public string skill_desc;
         /// # 사용 이펙트
         public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs;
         /// #변수 의미

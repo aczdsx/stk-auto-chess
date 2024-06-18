@@ -85,7 +85,7 @@ namespace CookApps.BattleSystem
     #endif
         }
 
-        public void AddCombatHeal(CharacterController giver, CharacterController receiver, double healAmount, double currHp, double maxHp, int source)
+        public void AddCombatHeal(CharacterController giver, CharacterController receiver, double healAmount, double currHp, double maxHp, long source)
         {
             // var nextHp = currHp + healAmount;
             // if (nextHp > maxHp)

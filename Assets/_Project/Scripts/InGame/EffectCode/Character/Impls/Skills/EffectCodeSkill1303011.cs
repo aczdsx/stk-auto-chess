@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -8,18 +7,17 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 오데트
-// 범위 : 전방 X축 3칸
-// 대미지 : 낫을 크게 휘둘러, 적에게 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 피격된 적은 {1}동안 공격속도가 {2}% 감소한다.
+/// 앨리스
+// 대상 : 가장 가까운 적
+// 대미지 : 공격력 {0}%의 마법 대미지를 준다.
+//     특수 효과 : 적이 디버프 상태인 경우, 공격력 {1}%의 추가 대미지를 준다.
 /// </summary>
-[UseEffectCodeIds(1401031)]
-public class EffectCodeSkill1401031 : EffectCodeCharacterBase
+[UseEffectCodeIds(1303011)]
+public class EffectCodeSkill1303011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _coolTime;
-    private ObfuscatorFloat _powerRate;
-    private ObfuscatorFloat _debuffTime;
-    private ObfuscatorFloat _atkSpeedDownRate;
+    private ObfuscatorFloat _damageRate;
+    private ObfuscatorFloat _additionalDamageRate;
 
     private ObfuscatorFloat _elapsedTime;
 
@@ -32,9 +30,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         _coolTime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _debuffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _additionalDamageRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
@@ -46,9 +43,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         _coolTime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _debuffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _additionalDamageRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -97,28 +93,27 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(owner.Target.CurrentTile, 1);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
-            if (tile.OccupiedCharacter != null)
-            {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-                //[TODO] Atk Speed Down Debuff
-                Span<double> debuffStats = stackalloc double[2];
-                debuffStats.Clear();
-                debuffStats[0] = _debuffTime;
-                debuffStats[1] = _atkSpeedDownRate;
-                var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.BUFF_ATK_SPEED_DOWN * 10 + 1, 0, debuffStats);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
-            }
         }
 
+        //[TODO] 0번 vfx가 사라진 후 진행
+        foreach (var tile in inGameTiles)
+        {
+            if (tile.OccupiedCharacter != null)
+            {
+                float calculatedDamageRate = _damageRate;
+                if (tile.OccupiedCharacter.HasDebuffType())
+                    calculatedDamageRate += _additionalDamageRate;
+
+                var damage = owner.PrecalculateDamageAmount(owner.AD * 0, calculatedDamageRate, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+            }
+        }
 
         _isSkillActivated = false;
     }

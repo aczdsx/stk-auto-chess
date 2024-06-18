@@ -327,6 +327,26 @@ namespace CookApps.BattleSystem
             return tiles;
         }
 
+        public List<InGameTile> GetTileListByNarrowSquare(CharacterController characterController, int size)
+        {
+            List<InGameTile> tiles = new List<InGameTile>();
+            InGameTile centerTile = characterController.CurrentTile;
+
+            // 주어진 타일을 중심으로 하는 3x3 그리드의 모든 타일을 반환합니다.
+            for (int x = centerTile.X - size; x <= centerTile.X + size; x++)
+            {
+                for (int y = centerTile.Y - size; y <= centerTile.Y + size; y++)
+                {
+                    if (IsValidPosition(new int2(x, y)))
+                    {
+                        tiles.Add(GetTile(new int2(x, y)));
+                    }
+                }
+            }
+
+            return tiles;
+        }
+
         public List<InGameTile> GetTileListByAllianceType(AllianceType type, int count)
         {
             var tiles = _tiles.Where(t => t.OccupiedCharacter != null && t.OccupiedCharacter.AllianceType == type)

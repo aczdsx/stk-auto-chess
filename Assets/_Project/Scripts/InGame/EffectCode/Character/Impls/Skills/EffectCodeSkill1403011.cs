@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -8,18 +7,18 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 오데트
-// 범위 : 전방 X축 3칸
-// 대미지 : 낫을 크게 휘둘러, 적에게 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 피격된 적은 {1}동안 공격속도가 {2}% 감소한다.
+/// 블린
+// 범위 : 가장 가까운 적 중심 3x3
+// 대미지 : 화염 빔을 소환해, 공격력 {0}%의 대미지를 준다.
+//     특수 효과 : 공격 범위에 잔열이 남아, {1}초 동안 초당 {2}%의 대미지를 준다.
 /// </summary>
-[UseEffectCodeIds(1401031)]
-public class EffectCodeSkill1401031 : EffectCodeCharacterBase
+[UseEffectCodeIds(1403011)]
+public class EffectCodeSkill1403011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _coolTime;
-    private ObfuscatorFloat _powerRate;
-    private ObfuscatorFloat _debuffTime;
-    private ObfuscatorFloat _atkSpeedDownRate;
+    private ObfuscatorFloat _damageRate;
+    private ObfuscatorFloat _durationTime;
+    private ObfuscatorFloat _dotDamageRate;
 
     private ObfuscatorFloat _elapsedTime;
 
@@ -32,9 +31,9 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         _coolTime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _debuffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _durationTime = codeInfo.GetCodeStatToFloat(2);
+        _dotDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
@@ -46,9 +45,9 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         _coolTime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _debuffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _durationTime = codeInfo.GetCodeStatToFloat(2);
+        _dotDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -97,28 +96,29 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByNarrowSquare(owner.Target, 1);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+        }
 
+        //[TODO] 0번 vfx가 사라진 후 진행
+        foreach (var tile in inGameTiles)
+        {
             if (tile.OccupiedCharacter != null)
             {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                //[TODO] Atk Speed Down Debuff
-                Span<double> debuffStats = stackalloc double[2];
-                debuffStats.Clear();
-                debuffStats[0] = _debuffTime;
-                debuffStats[1] = _atkSpeedDownRate;
-                var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.BUFF_ATK_SPEED_DOWN * 10 + 1, 0, debuffStats);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+                //[TODO] 타일 바닥에 잔 불 생성해야 함.
+                // int effectCodeID = 0;
+                // var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, _debuffTime,
+                //     _atkDownRate);
+                // tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }
         }
-
 
         _isSkillActivated = false;
     }
