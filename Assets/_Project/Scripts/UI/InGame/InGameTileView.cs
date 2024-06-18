@@ -9,6 +9,7 @@ namespace CookApps.AutoBattler
     public class InGameTileView : CachedMonoBehaviour
     {
         [SerializeField] private GameObject _activeObj;
+        [SerializeField] private GameObject _commanderSkillNavigateObj;
         [SerializeField] private AllianceType _allianceType;
         [SerializeField] private SpriteRenderer _boardSprite;
         public int ID { get; set; }
@@ -18,6 +19,11 @@ namespace CookApps.AutoBattler
         public void SetActiveObj(bool isActive)
         {
             _activeObj.SetActive(isActive);
+        }
+
+        public void SetNavigateObj(bool isActive)
+        {
+            _commanderSkillNavigateObj.SetActive(isActive);
         }
 
         public void ChangeColor(Color color)
