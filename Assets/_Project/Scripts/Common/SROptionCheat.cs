@@ -1,6 +1,7 @@
 #if !RELEASE || UNITY_EDITOR || ENABLE_CHEAT
 using System;
 using System.ComponentModel;
+using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UIManagements;
 
@@ -165,6 +166,25 @@ public partial class SROptions
 
     #endregion
 
+    ////////////////////////////////////////////////////////////////////////////////////////
 
+    #region 스킬 관련
+
+    [Category("스킬 관련")]
+    public void 지휘자스킬전체획득()
+    {
+        var allCommanderSkillList = SpecDataManager.Instance.SpecCommanderSkill.All;
+
+        allCommanderSkillList.GroupBy(data => data.commander_skill_id);
+
+        foreach (var skill in allCommanderSkillList)
+        {
+            UserDataManager.Instance.AddCommanderSkillData(skill.commander_skill_id, false);
+        }
+
+        UserDataManager.Instance.SaveUserCommanderSKillData();
+    }
+
+    #endregion
 }
 #endif

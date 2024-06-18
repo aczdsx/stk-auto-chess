@@ -5002,7 +5002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2262297471829318975
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5824,6 +5824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startButton: {fileID: 7644025051443437561}
+  _CommanderSkillButton: {fileID: 5488920506724665257}
   _characterSelectedTransform: {fileID: 5269434938709260472}
   _rightTransform: {fileID: 1663410777891265943}
   _returnImage: {fileID: 3162217385287495917}

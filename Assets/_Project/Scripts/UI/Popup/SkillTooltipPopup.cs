@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
+using CookApps.TeamBattle.UIManagements;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace CookApps.AutoBattler
+{
+    [RegisterUILayer(UILayerType.Modal, "Prefabs/UI/01_Pops/CharacterCollectionPopup/SkillTooltipPopup.prefab")]
+    public class SkillTooltipPopup : UILayer
+    {
+        [SerializeField] private CAButton _closeButton;
+
+        [Space(10)]
+        [SerializeField] private Image _skillIconImage;
+        [SerializeField] private GameObject _skillDamageTypeObject;
+        [SerializeField] private GameObject _skillDamageAPTypeObject;
+        [SerializeField] private GameObject _skillDamageADTypeObject;
+
+        [Space(10)]
+        [SerializeField] private TextMeshProUGUI _skillNameText;
+        [SerializeField] private TextMeshProUGUI _skillDescText;
+        [SerializeField] private TextMeshProUGUI _skillCoolTimeText;
+        [SerializeField] private TextMeshProUGUI _skillTypeText;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _closeButton.onClick.AddListener(OnClickCloseButton);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            _closeButton.onClick.RemoveListener(OnClickCloseButton);
+        }
+
+        protected override void OnPreEnter(object param)
+        {
+            base.OnPreEnter(param);
+            //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
+
+        }
+
+        public void SetSkillToolTipPopup(SpecSkill skillData)
+        {
+            if (skillData == null) return;
+
+            _skillIconImage.sprite = ImageManager.Instance.GetCharacterSkillSprite(skillData.skill_id);
+
+            _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_name_token);
+            _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_desc_token);
+
+            _skillDamageTypeObject.SetActive(true);
+            _skillDamageAPTypeObject.SetActive(skillData.atk_type == AtkType.AP);
+            _skillDamageADTypeObject.SetActive(skillData.atk_type == AtkType.AD);
+
+            _skillTypeText.text = LanguageManager.Instance.GetAtkTypeText(skillData.atk_type);
+
+            var extraSkillData = SpecDataManager.Instance.GetSkillData(skillData.skill_id, SkillValueType.COOL);
+            if (extraSkillData != null)
+            {
+                _skillCoolTimeText.text = $"{extraSkillData.base_rate}초";
+            }
+        }
+
+        public void SetCommanderSkillToolTipPopup(SpecCommanderSkill skillData)
+        {
+            if (skillData == null) return;
+
+            _skillIconImage.sprite = ImageManager.Instance.GetCommanderSkillSprite(skillData.commander_skill_id);
+
+            _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.name_token);
+            _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.desc_token);
+
+            // 커맨더 스킬은 타입 off
+            _skillDamageTypeObject.SetActive(false);
+
+            var extraSkillData = SpecDataManager.Instance.GetCommanderSkillData(skillData.commander_skill_id, SkillValueType.COOL);
+            if (extraSkillData != null)
+            {
+                _skillCoolTimeText.text = $"{extraSkillData.base_rate}초";
+            }
+        }
+
+        private void OnClickCloseButton()
+        {
+            gameObject.SetActive(false);
+        }
+    }
+}

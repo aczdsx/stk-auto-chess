@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler
         {
             return SpecDataManager.Instance.GetLanguageText(tokenKey);
         }
-        
+
         public string GetSynergyText(ElementType type)
         {
             switch (type)
@@ -66,6 +66,19 @@ namespace CookApps.AutoBattler
                     return "SR";
                 case GradeType.LEGEND:
                     return "SSR";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public string GetAtkTypeText(AtkType type)
+        {
+            switch (type)
+            {
+                case AtkType.AP:
+                    return "마법";
+                case AtkType.AD:
+                    return "물리";
                 default:
                     return string.Empty;
             }

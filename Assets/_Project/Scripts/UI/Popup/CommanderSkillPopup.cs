@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
@@ -9,10 +10,11 @@ using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/Popup/CommanderSkillPopup.prefab")]
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/CommanderSkillPopup.prefab")]
     public class CommanderSkillPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;
+        [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
 
         [Space(10)]
         [SerializeField] private GameObject _skillListParentObject;
@@ -35,7 +37,6 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             InitSkillPopup();
         }
@@ -47,6 +48,13 @@ namespace CookApps.AutoBattler
             _commanderSkillSlotList.ForEach(slot => slot.RefreshSlot());
         }
 
+        public void OpenSkillToolTipPopup(SpecCommanderSkill skillData)
+        {
+            _skillTooltipPopup.SetCommanderSkillToolTipPopup(skillData);
+
+            _skillTooltipPopup.gameObject.SetActive(true);
+        }
+
         private void InitSkillPopup()
         {
             SetSkillList();
@@ -56,10 +64,7 @@ namespace CookApps.AutoBattler
         {
             ClearList();
 
-            int lastStageID = UserDataManager.Instance.GetLastUserStageID();
-            var lastStageData = SpecDataManager.Instance.SpecStage.Get(lastStageID);
-
-            var commanderSkillList = SpecDataManager.Instance.GetCommanderSkillList(lastStageData.chapter_id);
+            var commanderSkillList = SpecDataManager.Instance.SpecCommanderSkill.All;
 
             foreach (var commanderSkill in commanderSkillList)
             {

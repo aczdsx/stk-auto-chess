@@ -13,6 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class InGameBottomCharacterUI : MonoBehaviour
 {
     [SerializeField] private CAButton _startButton;
+    [SerializeField] private CAButton _CommanderSkillButton;
     [SerializeField] private Transform _characterSelectedTransform;
     [SerializeField] private Transform _rightTransform;
     [SerializeField] private Image _returnImage;
@@ -25,6 +26,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnStartButtonClicked);
+        _CommanderSkillButton?.onClick.AddListener(OnClickCommanderSkillButton);
     }
 
     private void OnStartButtonClicked()
@@ -33,6 +35,11 @@ public class InGameBottomCharacterUI : MonoBehaviour
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         });
+    }
+
+    private void OnClickCommanderSkillButton()
+    {
+        SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
     }
 
     public void InitData(Action onNewCharacter)

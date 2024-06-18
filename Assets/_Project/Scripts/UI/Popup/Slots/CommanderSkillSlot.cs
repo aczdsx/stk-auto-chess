@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _equipButton.onClick.AddListener(OnClickEquipButton);
+            _skillInfoButton.onClick.AddListener(OnClickSkillInfoButton);
         }
 
         protected override void OnDestroy()
@@ -35,6 +36,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _equipButton.onClick.RemoveListener(OnClickEquipButton);
+            _skillInfoButton.onClick.RemoveListener(OnClickSkillInfoButton);
         }
 
         public void SetCommanderSkillSlot(CommanderSkillPopup parent, SpecCommanderSkill skillData)
@@ -53,7 +55,7 @@ namespace CookApps.AutoBattler
 
         public void RefreshSlot()
         {
-            bool isOpenSkill = UserDataManager.Instance.IsChapterOpen(_specCommanderSkillData.open_key_chapter_id, DifficultyType.NORMAL);
+            bool isOpenSkill = UserDataManager.Instance.IsOpenedCommanderSkill(_specCommanderSkillData.commander_skill_id);
             bool isEquippedSkill = UserDataManager.Instance.GetEquippedCommanderSkill() == _specCommanderSkillData.commander_skill_id;
 
             _disabledLayerObject.SetActive(!isOpenSkill);
@@ -68,6 +70,13 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.SetEquippedCommanderSkill(_specCommanderSkillData.commander_skill_id);
 
             _parentPopup.RefreshSkillSlot();
+        }
+
+        private void OnClickSkillInfoButton()
+        {
+            if (_parentPopup == null) return;
+
+            _parentPopup.OpenSkillToolTipPopup(_specCommanderSkillData);
         }
     }
 }
