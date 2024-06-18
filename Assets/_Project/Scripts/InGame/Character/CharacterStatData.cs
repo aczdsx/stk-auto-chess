@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
 
         public CharacterStatData(int characterId, int level, float multiAd, float multiHp, List<EffectCodeInfo> globalEffectCodeInfos = null)
         {
+            Debug.LogColor("characterID : " + characterId);
             this.characterId = characterId;
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);

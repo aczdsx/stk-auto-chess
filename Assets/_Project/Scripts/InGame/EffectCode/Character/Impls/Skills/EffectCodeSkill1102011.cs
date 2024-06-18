@@ -36,8 +36,6 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
         isSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -87,6 +85,8 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
         owner.AddNextState<CharacterStateSkill>(this);
 
         _targetCharacter = owner.Target;
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -111,7 +111,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
                 1);
         //[TODO] airbone effect codeID 및 적용 방법 확인 필요
         int effectCodeID = EffectCodeCrowdControlAirborne.CodeId;
-        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, 0.1f, inGameTile.View.ID);
+        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, inGameTile.View.ID);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
 
         isSkillActivated = false;

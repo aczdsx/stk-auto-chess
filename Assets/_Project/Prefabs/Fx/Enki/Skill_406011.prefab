@@ -34241,6 +34241,7 @@ GameObject:
   - component: {fileID: 6405617807642781874}
   - component: {fileID: 6649311316005617766}
   - component: {fileID: 9046768584112455779}
+  - component: {fileID: 7776472390926918680}
   m_Layer: 6
   m_Name: Skill_406011
   m_TagString: Untagged
@@ -39067,3 +39068,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7776472390926918680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7544214416475299345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}

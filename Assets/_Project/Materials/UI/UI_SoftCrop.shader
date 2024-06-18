@@ -14,6 +14,10 @@ Shader "Custom/UI_SoftCrop"
         _RightX ("Right X", Range(-1, 1)) = 1.0
         _SoftnessRight ("Softness Right", Range(-1, 1)) = 0.1
         _RightAlpha ("Right Alpha", Range(0, 1)) = 1.0
+        [Space(10)]
+        [Header(Global Alpha)]
+        [Space(10)]
+        _GlobalAlpha ("Global Alpha", Range(0, 1)) = 1.0
     }
     SubShader
     {
@@ -47,6 +51,7 @@ Shader "Custom/UI_SoftCrop"
             float _SoftnessRight;
             float _LeftAlpha;
             float _RightAlpha;
+            float _GlobalAlpha;
 
             v2f vert (appdata_t v)
             {
@@ -66,6 +71,7 @@ Shader "Custom/UI_SoftCrop"
                 float softnessRight = _SoftnessRight * 0.5;
                 float leftAlpha = _LeftAlpha;
                 float rightAlpha = _RightAlpha;
+                float globalAlpha = _GlobalAlpha;
 
                 float alpha = 1.0;
                 if (i.uv.x < leftEdge)
@@ -77,7 +83,7 @@ Shader "Custom/UI_SoftCrop"
                     alpha = lerp(rightAlpha, 1.0, smoothstep(rightEdge + softnessRight, rightEdge, i.uv.x));
                 }
 
-                color.a *= alpha;
+                color.a *= alpha * globalAlpha;
 
                 return color;
             }

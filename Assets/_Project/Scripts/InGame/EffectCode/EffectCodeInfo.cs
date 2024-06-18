@@ -28,23 +28,31 @@ namespace CookApps.BattleSystem
         {
             this.codeId = codeId;
             this.priority = priority;
-            statsLength = 8;
-            this.stat8 = stats[7];
-            if (stat8 == 0) statsLength = 7;
-            this.stat7 = stats[6];
-            if (stat7 == 0) statsLength = 6;
-            this.stat6 = stats[5];
-            if (stat6 == 0) statsLength = 5;
-            this.stat5 = stats[4];
-            if (stat5 == 0) statsLength = 4;
-            this.stat4 = stats[3];
-            if (stat4 == 0) statsLength = 3;
-            this.stat3 = stats[2];
-            if (stat3 == 0) statsLength = 2;
-            this.stat2 = stats[1];
-            if (stat2 == 0) statsLength = 1;
-            this.stat1 = stats[0];
-            if (stat1 == 0) statsLength = 0;
+            statsLength = stats.Length; // stats 배열의 실제 길이를 사용합니다.
+
+            this.stat8 = statsLength > 7 ? stats[7] : 0;
+            if (stat8 == 0 && statsLength > 7) statsLength = 7;
+
+            this.stat7 = statsLength > 6 ? stats[6] : 0;
+            if (stat7 == 0 && statsLength > 6) statsLength = 6;
+
+            this.stat6 = statsLength > 5 ? stats[5] : 0;
+            if (stat6 == 0 && statsLength > 5) statsLength = 5;
+
+            this.stat5 = statsLength > 4 ? stats[4] : 0;
+            if (stat5 == 0 && statsLength > 4) statsLength = 4;
+
+            this.stat4 = statsLength > 3 ? stats[3] : 0;
+            if (stat4 == 0 && statsLength > 3) statsLength = 3;
+
+            this.stat3 = statsLength > 2 ? stats[2] : 0;
+            if (stat3 == 0 && statsLength > 2) statsLength = 2;
+
+            this.stat2 = statsLength > 1 ? stats[1] : 0;
+            if (stat2 == 0 && statsLength > 1) statsLength = 1;
+
+            this.stat1 = statsLength > 0 ? stats[0] : 0;
+            if (stat1 == 0 && statsLength > 0) statsLength = 0;
         }
 
         public EffectCodeInfo(long codeId, int priority, double stat1, double stat2 = 0, double stat3 = 0, double stat4 = 0, double stat5 = 0, double stat6 = 0, double stat7 = 0, double stat8 = 0)
