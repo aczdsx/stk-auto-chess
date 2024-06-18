@@ -93,3 +93,11 @@ MonoBehaviour:
     sceneNames:
     - Lobby
     - InGame
+  - assetRef:
+      m_AssetGUID: 8ac4a9ad6c5f1004e9699ca03f5679ad
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    sceneNames:
+    - Lobby
+    - InGame
