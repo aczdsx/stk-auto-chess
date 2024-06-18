@@ -13,10 +13,10 @@ public class EffectCodeStatIncreaseAD : EffectCodeStatBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        increment = codeInfo.GetCodeStat(1);
-        if (codeInfo.HasCodeStat(2))
+        increment = codeInfo.GetCodeStat(0);
+        if (codeInfo.HasCodeStat(1))
         {
-            calcOrder = codeInfo.GetCodeStatToInt(2);
+            calcOrder = codeInfo.GetCodeStatToInt(1);
         }
         else
         {
@@ -28,10 +28,10 @@ public class EffectCodeStatIncreaseAD : EffectCodeStatBase
     {
         base.Merge(codeInfo, source);
         // 덮어 씌우고 싶을 때
-        increment = codeInfo.GetCodeStat(1);
-        if (codeInfo.HasCodeStat(2))
+        increment = codeInfo.GetCodeStat(0);
+        if (codeInfo.HasCodeStat(1))
         {
-            calcOrder = codeInfo.GetCodeStatToInt(2);
+            calcOrder = codeInfo.GetCodeStatToInt(1);
         }
         else
         {
