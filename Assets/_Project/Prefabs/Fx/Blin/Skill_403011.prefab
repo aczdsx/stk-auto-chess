@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4631841106358932075}
   - component: {fileID: 2682887574229751303}
   - component: {fileID: 4479556296205294035}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4841,7 +4841,7 @@ GameObject:
   - component: {fileID: 8656307984329713178}
   - component: {fileID: 5048082361966120748}
   - component: {fileID: 9125546518553064589}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_beam_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9671,7 +9671,7 @@ GameObject:
   - component: {fileID: 6615111326864057055}
   - component: {fileID: 4001214316802412735}
   - component: {fileID: 8108793617813970881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14617,7 +14617,7 @@ GameObject:
   - component: {fileID: 8523187922560122914}
   - component: {fileID: 8480497304015359078}
   - component: {fileID: 8724024236612678466}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skill_403011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
