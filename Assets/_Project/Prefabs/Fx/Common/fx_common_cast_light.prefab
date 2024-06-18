@@ -4841,6 +4841,7 @@ GameObject:
   - component: {fileID: 887012396639404220}
   - component: {fileID: 2340152854222017985}
   - component: {fileID: 4203246617930318801}
+  - component: {fileID: 646043721647661206}
   m_Layer: 6
   m_Name: fx_common_cast_light
   m_TagString: Untagged
@@ -9663,6 +9664,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &646043721647661206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884401833983428020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &6669093188960684868
 GameObject:
   m_ObjectHideFlags: 0

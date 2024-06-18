@@ -35,8 +35,6 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
         _isSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -84,6 +82,8 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         _isSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -93,7 +93,8 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
             return;
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByNarrowSquare(owner, 1);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
+
         foreach (var tile in inGameTiles)
         {
             if (tile.OccupiedCharacter != owner)
