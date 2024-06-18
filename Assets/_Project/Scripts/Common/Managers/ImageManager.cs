@@ -124,6 +124,16 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{prefabID}");
         }
 
+        public Sprite GetCharacterSkillSprite(int skillID)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_SKILL_ATLAS_NAME, $"Skill_{skillID}");
+        }
+
+        public Sprite GetCommanderSkillSprite(int commanderSkillID)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.COMMANDER_SKILL_ATLAS_NAME, $"CommanderSkill_{commanderSkillID}");
+        }
+
         public Color GetGradeTypeColor(GradeType GradeType)
         {
             Color color = Color.white;

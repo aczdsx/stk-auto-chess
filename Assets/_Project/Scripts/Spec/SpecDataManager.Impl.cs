@@ -63,6 +63,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<SpecCharacter>> characterDic = new (); // key : character_id, value : stage list
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
         private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
+        private Dictionary<int, List<SpecSkill>> skillPrefabIDDic = new (); // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new (); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
 
@@ -169,15 +170,26 @@ namespace CookApps.AutoBattler
 
             // Skill
             skillDic.Clear();
+            skillPrefabIDDic.Clear();
             foreach (SpecSkill skill in SpecSkill.All)
             {
-                if (!skillDic.TryGetValue(skill.skill_id, out List<SpecSkill> skillList))
+                // skillDic
+                if (!skillDic.TryGetValue(skill.skill_id, out List<SpecSkill> skillList1))
                 {
-                    skillList = new List<SpecSkill>();
-                    skillDic.Add(skill.skill_id, skillList);
+                    skillList1 = new List<SpecSkill>();
+                    skillDic.Add(skill.skill_id, skillList1);
                 }
 
-                skillList.Add(skill);
+                skillList1.Add(skill);
+
+                // skillPrefabIDDic
+                if (!skillPrefabIDDic.TryGetValue(skill.prefab_id, out List<SpecSkill> skillList2))
+                {
+                    skillList2 = new List<SpecSkill>();
+                    skillPrefabIDDic.Add(skill.prefab_id, skillList2);
+                }
+
+                skillList2.Add(skill);
             }
 
             // Dialogue History
@@ -459,6 +471,11 @@ namespace CookApps.AutoBattler
         public List<SpecSkill> GetSkillDataList(int skillID)
         {
             return skillDic.GetValueOrDefault(skillID);
+        }
+
+        public List<SpecSkill> GetSkillDataListByPrefabID(int prefabID)
+        {
+            return skillPrefabIDDic.GetValueOrDefault(prefabID);
         }
 
         public SpecCharacter GetSpecCharacter(int characterID)
