@@ -526,7 +526,7 @@ namespace CookApps.BattleSystem
             public ObfuscatorDouble damageAmount;
             public bool isCritical;
             public bool isDoubleCritical;
-            public ObfuscatorInt source;
+            public long source;
         }
 
         /// <summary>
@@ -539,7 +539,7 @@ namespace CookApps.BattleSystem
         /// <param name="source">기본 공격일 경우 0, 스킬일 경우 effectCodeId</param>
         /// <param name="isSkill">스킬로 입히는 대미지인지</param>
         /// <returns></returns>
-        public DamageInfo PrecalculateDamageAmount(double ad, double ap, CharacterController target, int source, bool isSkill)
+        public DamageInfo PrecalculateDamageAmount(double ad, double ap, CharacterController target, long source, bool isSkill)
         {
             double damage = InGameCalculator.CalculateDefaultDamage(ad, ap, this, target);
 

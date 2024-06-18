@@ -60,7 +60,7 @@ namespace CookApps.BattleSystem
     #endif
         }
 
-        public void AddCombatDamage(CharacterController attacker, CharacterController receiver, double damageAmount, double currHp, int source)
+        public void AddCombatDamage(CharacterController attacker, CharacterController receiver, double damageAmount, double currHp, long source)
         {
             // var realDamageAmount = damageAmount + (currHp > 0 ? 0 : currHp);
             if (attacker != null)
@@ -228,7 +228,7 @@ namespace CookApps.BattleSystem
         }
 
         private StringBuilder builder = new ();
-        private void WriteBattleDamageLog(CharacterController attackerCtrl, CharacterController receiverCtrl, double damageAmount, double currHp, int source)
+        private void WriteBattleDamageLog(CharacterController attackerCtrl, CharacterController receiverCtrl, double damageAmount, double currHp, long source)
         {
             logFileWriter ??= CreateBattleLogWriter();
 
@@ -276,7 +276,7 @@ namespace CookApps.BattleSystem
             logFileWriter?.Flush();
         }
 
-        private void WriteBattleHealLog(CharacterController giverCtrl, CharacterController receiverCtrl, double healAmount, double currHp, double maxHp, int source)
+        private void WriteBattleHealLog(CharacterController giverCtrl, CharacterController receiverCtrl, double healAmount, double currHp, double maxHp, long source)
         {
             logFileWriter ??= CreateBattleLogWriter();
 

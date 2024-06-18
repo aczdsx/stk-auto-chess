@@ -25,10 +25,10 @@ namespace CookApps.BattleSystem
     public class EffectCodePoolManager : Singleton<EffectCodePoolManager>
     {
         #region Effect Code Datas
-        private Dictionary<int, Func<EffectCodeBase>> effectCodeCreators = new ();
-        private Dictionary<int, EffectCodeType> effectCodeTypeMap = new ();
-        private Dictionary<int, EffectCodeLifeType> effectCodeLifeTypeMap = new ();
-        private Dictionary<int, Queue<EffectCodeBase>> pools = new ();
+        private Dictionary<long, Func<EffectCodeBase>> effectCodeCreators = new ();
+        private Dictionary<long, EffectCodeType> effectCodeTypeMap = new ();
+        private Dictionary<long, EffectCodeLifeType> effectCodeLifeTypeMap = new ();
+        private Dictionary<long, Queue<EffectCodeBase>> pools = new ();
 
         public void Clear()
         {
@@ -38,7 +38,7 @@ namespace CookApps.BattleSystem
             pools.Clear();
         }
 
-        public void RegisterCodeId(int codeId, Type effectCodeImpl)
+        public void RegisterCodeId(long codeId, Type effectCodeImpl)
         {
             NewExpression constructorExpression = Expression.New(effectCodeImpl);
             Expression<Func<EffectCodeBase>> lambdaExpression = Expression.Lambda<Func<EffectCodeBase>>(constructorExpression);
@@ -62,7 +62,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        private void AddEffectCodeCreator(int codeId, Func<EffectCodeBase> lambda)
+        private void AddEffectCodeCreator(long codeId, Func<EffectCodeBase> lambda)
         {
             if (!effectCodeCreators.TryAdd(codeId, lambda))
             {
@@ -75,13 +75,13 @@ namespace CookApps.BattleSystem
             effectCodeLifeTypeMap.Add(codeId, temp.LifeType);
         }
 
-        public EffectCodeType GetEffectCodeType(int codeId)
+        public EffectCodeType GetEffectCodeType(long codeId)
         {
             effectCodeTypeMap.TryGetValue(codeId, out EffectCodeType type);
             return type;
         }
 
-        public EffectCodeLifeType GetEffectCodeLifeType(int codeId)
+        public EffectCodeLifeType GetEffectCodeLifeType(long codeId)
         {
             effectCodeLifeTypeMap.TryGetValue(codeId, out EffectCodeLifeType type);
             return type;
@@ -89,7 +89,7 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region EffectCodeBase class Pooling
-        public EffectCodeBase Get(int codeId)
+        public EffectCodeBase Get(long codeId)
         {
             if (!effectCodeCreators.ContainsKey(codeId))
             {

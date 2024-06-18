@@ -70,8 +70,8 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<SpecStageReward>> stageRewardDic = new (); // key : reward_id, value : stage list
         private Dictionary<int, List<SpecCharacter>> characterDic = new (); // key : character_id, value : stage list
         private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
-        private Dictionary<int, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
-        private Dictionary<int, List<SpecSkill>> skillPrefabIDDic = new (); // key : prefab_id, value : skill list
+        private Dictionary<long, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
+        private Dictionary<long, List<SpecSkill>> skillPrefabIDDic = new (); // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new (); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
 
@@ -476,7 +476,7 @@ namespace CookApps.AutoBattler
             return chestDic.GetValueOrDefault(chestId);
         }
 
-        public List<SpecSkill> GetSkillDataList(int skillID)
+        public List<SpecSkill> GetSkillDataList(long skillID)
         {
             return skillDic.GetValueOrDefault(skillID);
         }

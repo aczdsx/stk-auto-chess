@@ -39,9 +39,9 @@ namespace CookApps.BattleSystem
 
     public abstract class EffectCodeBase
     {
-        protected ObfuscatorInt codeId;
+        protected long codeId;
 
-        public int CodeId
+        public long CodeId
         {
             get => codeId;
             set => codeId = value;
@@ -122,7 +122,7 @@ namespace CookApps.BattleSystem
                 return y.CodeInfo.Priority - x.CodeInfo.Priority;
             }
 
-            return y.CodeId - x.CodeId;
+            return (int)(y.CodeId - x.CodeId);
         }
     }
 

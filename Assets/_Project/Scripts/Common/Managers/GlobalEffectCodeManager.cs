@@ -24,12 +24,12 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
     /// <summary>
     /// Action의 두번째 인자는 effectCodeId
     /// </summary>
-    public static event Action<GlobalEffectCodeSource, int> OnEffectCodeChanged;
+    public static event Action<GlobalEffectCodeSource, long> OnEffectCodeChanged;
 
     /// <summary>
     /// 전역으로 등록되는 EffectCode들
     /// </summary>
-    private Dictionary<(GlobalEffectCodeSource src, int codeId), EffectCodeInfo> globalEffectCodes = new ();
+    private Dictionary<(GlobalEffectCodeSource src, long codeId), EffectCodeInfo> globalEffectCodes = new ();
 
     /// <summary>
     /// 인게임 안에서 사용되는 Type이 EffectCodeType.Game인 특수한 effectCode들

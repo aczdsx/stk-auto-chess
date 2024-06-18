@@ -35,7 +35,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         _isSkillActivated = false;
 
-        _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        _specSkill = SpecDataManager.Instance.GetSkillDataList((int)codeId).First();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
