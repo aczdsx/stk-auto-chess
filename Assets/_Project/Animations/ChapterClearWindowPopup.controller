@@ -9,7 +9,7 @@ AnimatorTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: _DescOnly
+    m_ConditionEvent: _rewardOnly
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4186735683469816197}
@@ -26,11 +26,11 @@ AnimatorController:
   m_Name: ChapterClearWindowPopup
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: _DescOnly
+  - m_Name: _rewardOnly
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
@@ -82,7 +82,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 4186735683469816197}
-    m_Position: {x: 150, y: 120, z: 0}
+    m_Position: {x: 140, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7216345835847809119}
     m_Position: {x: -170, y: 120, z: 0}
@@ -92,7 +92,7 @@ AnimatorStateMachine:
   - {fileID: -4425581705373339285}
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 380, y: 0, z: 0}
+  m_AnyStatePosition: {x: 510, y: -140, z: 0}
   m_EntryPosition: {x: 0, y: 20, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
