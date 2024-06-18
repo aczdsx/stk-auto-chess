@@ -14,6 +14,14 @@ using Unity.VisualScripting;
 
 namespace CookApps.AutoBattler
 {
+    public static class EffectCodeIdGenerator
+    {
+        public static long GetStatCode(CharacterEffectType statType, GlobalStatProviderType globalStatProviderType, int subId)
+        {
+            return (long)globalStatProviderType * 1000000000 + (long)subId * 1000 + (long)statType;
+        }
+    }
+
     public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
     {
         public async UniTask Initialize()

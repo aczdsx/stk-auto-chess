@@ -10,9 +10,9 @@ namespace CookApps.BattleSystem
 {
     public struct EffectCodeInfo
     {
-        private ObfuscatorInt codeId;
-        public int CodeId => codeId;
-        private ObfuscatorInt priority;
+        private ObfuscatorLong codeId;
+        public long CodeId => codeId;
+        private int priority;
         public int Priority => priority;
         private ObfuscatorDouble stat1;
         private ObfuscatorDouble stat2;
@@ -24,7 +24,7 @@ namespace CookApps.BattleSystem
         private ObfuscatorDouble stat8;
         private int statsLength;
 
-        public EffectCodeInfo(int codeId, int priority, in ReadOnlySpan<double> stats)
+        public EffectCodeInfo(long codeId, int priority, in ReadOnlySpan<double> stats)
         {
             this.codeId = codeId;
             this.priority = priority;
@@ -47,7 +47,7 @@ namespace CookApps.BattleSystem
             if (stat1 == 0) statsLength = 0;
         }
 
-        public EffectCodeInfo(int codeId, int priority, double stat1, double stat2 = 0, double stat3 = 0, double stat4 = 0, double stat5 = 0, double stat6 = 0, double stat7 = 0, double stat8 = 0)
+        public EffectCodeInfo(long codeId, int priority, double stat1, double stat2 = 0, double stat3 = 0, double stat4 = 0, double stat5 = 0, double stat6 = 0, double stat7 = 0, double stat8 = 0)
         {
             this.codeId = codeId;
             this.priority = priority;

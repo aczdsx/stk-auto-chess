@@ -38,9 +38,9 @@ namespace CookApps.BattleSystem
 
         public void SetUnoccupied()
         {
-            OccupiedCharacter = null;
             var effectCodeGames = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
             EffectCodeForLoopHelper.CallWithArgs(effectCodeGames, EffectCodeGameLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
+            OccupiedCharacter = null;
         }
     }
 }

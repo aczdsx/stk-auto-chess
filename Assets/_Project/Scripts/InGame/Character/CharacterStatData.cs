@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -14,13 +16,46 @@ namespace CookApps.AutoBattler
         private SpecCharacter _spec;
         private int _level;
 
-        public CharacterStatData(int characterId, int level, List<EffectCodeInfo> globalEffectCodeInfos = null)
+        public CharacterStatData(int characterId, int level, List<EffectCodeInfo> globalEffectCodeInfos = null) : this(characterId, level, 1, 1, globalEffectCodeInfos)
+        { }
+
+        public CharacterStatData(int characterId, int level, float multiAd, float multiHp, List<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             this.characterId = characterId;
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
             _level = level;
             // TODO: level에 따른 스탯 증가 적용! 이펙트 코드로 적용되어야 함
+            var levelBonusRate = 0f;
+            for (var i = 1; i <= level; i++)
+            {
+                if (i % 10 == 0)
+                    levelBonusRate += _spec.inc_lv_bonus_rate;
+                else
+                    levelBonusRate += _spec.inc_lv_rate;
+            }
+
+            {
+                var adBonusCodeInfo = new EffectCodeInfo((long)CharacterEffectType.AD_PERCENT_UP, 0, levelBonusRate, 0);
+                var hpBonusCodeInfo = new EffectCodeInfo((long)CharacterEffectType.HP_PERCENT_UP, 0, levelBonusRate, 0);
+                EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
+                EffectCodeContainer.AddOrMergeEffectCode(hpBonusCodeInfo, this);
+            }
+
+            if (!Mathf.Approximately(multiAd, 1f))
+            {
+                var codeId = EffectCodeIdGenerator.GetStatCode(CharacterEffectType.AD_PERCENT_UP,
+                    GlobalStatProviderType.MONSTER_MULTIPLE, 0);
+                var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
+                EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
+            }
+            if (!Mathf.Approximately(multiHp, 1f))
+            {
+                var codeId = EffectCodeIdGenerator.GetStatCode(CharacterEffectType.HP_PERCENT_UP,
+                    GlobalStatProviderType.MONSTER_MULTIPLE, 0);
+                var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
+                EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
+            }
 
             if (globalEffectCodeInfos != null)
             {
@@ -31,13 +66,6 @@ namespace CookApps.AutoBattler
             }
 
             UpdateStats(EffectCodeInheritFlag.StatAll);
-        }
-
-        public CharacterStatData(SpecStageMonster monster)
-        {
-            this.characterId = monster.monster_id;
-            EffectCodeContainer = new EffectCodeContainer(this);
-            _spec = SpecDataManager.Instance.SpecCharacter.Get(monster.monster_id);
         }
 
         public void AddOrUpdateEffectCode(EffectCodeInfo codeInfo)
