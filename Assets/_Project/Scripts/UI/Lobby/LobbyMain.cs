@@ -197,6 +197,13 @@ namespace CookApps.AutoBattler
             var currentStageData = SpecDataManager.Instance.SpecStage.Get(UserDataManager.Instance.GetLastPlayStageID());
             if (currentStageData != null)
             {
+                // 행동력 검사
+                if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, currentStageData.need_ap, true))
+                {
+                    return;
+                }
+
+                // 스테이지 진입
                 SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type)).Forget();
             }
         }
