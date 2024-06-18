@@ -649,5 +649,20 @@ namespace CookApps.BattleSystem
                 enemiesInPlaygroundForUpdate[i].LateUpdate(dt);
             }
         }
+
+        public string GetAttrText(AllianceType type)
+        {
+            double attrValue = 0;
+            List<CharacterController> characterList = (type == AllianceType.Player)
+                ? charactersInPlaygroundForUpdate
+                : enemiesInPlaygroundForUpdate;
+
+            foreach (var character in characterList)
+            {
+                attrValue += character.GetCharacterStat().GetAttrValue();
+            }
+
+            return attrValue.ToString();
+        }
     }
 }

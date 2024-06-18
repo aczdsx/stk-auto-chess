@@ -19,6 +19,22 @@ namespace CookApps.AutoBattler
         public CharacterStatData(int characterId, int level, List<EffectCodeInfo> globalEffectCodeInfos = null) : this(characterId, level, 1, 1, globalEffectCodeInfos)
         { }
 
+        public double GetAttrValue()
+        {
+            double physicalPenetration = DEFPenetration; // 물리관통
+            double magicPenetration = RESPenetration; // 마법관통
+            double physicalDefense = DEF; // 물리방어
+            double magicDefense = RES; // 마법방어
+            double hpWeight = 1; // 체력 가중치, 이 값은 게임의 규칙에 따라 변경될 수 있습니다.
+
+            double CP = (AD * AttackSpeed * (1 + CriticalProb * CriticalDamageRate)) *
+                        (1 + ((physicalPenetration + magicPenetration) / (physicalPenetration + magicPenetration + 100) +
+                              (physicalDefense + magicDefense) / (physicalDefense + magicDefense + 100))) +
+                        hpWeight * Math.Sqrt(HP);
+
+            return CP;
+        }
+
         public CharacterStatData(int characterId, int level, float multiAd, float multiHp, List<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             this.characterId = characterId;

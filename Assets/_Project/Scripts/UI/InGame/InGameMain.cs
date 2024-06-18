@@ -69,10 +69,14 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.InitData(() =>
             {
                 _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
+                _InGameTopUI.UpdateAttrUI(AllianceType.Player);
             });
 
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
+
+            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
+            _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
 
             _inGameTime = InGameMaxTime;
         }

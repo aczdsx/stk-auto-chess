@@ -94,6 +94,18 @@ public class InGameTopUI : MonoBehaviour
         }
     }
 
+    public void UpdateAttrUI(AllianceType type)
+    {
+        string attrText = InGameObjectManager.Instance.GetAttrText(type);
+        if (type == AllianceType.Player)
+        {
+            _playerAttrText.text = attrText;
+        }
+        else
+        {
+            _enemyAttrText.text = attrText;
+        }
+    }
 
     public void UpdateTopHpUI(AllianceType type)
     {
