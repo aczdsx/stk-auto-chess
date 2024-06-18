@@ -379,18 +379,19 @@ namespace CookApps.TeamBattle.UIManagements
                     }
                 }
 
-                if (isDimLayerOn || uiLayerStacks[i].Layer.UILayerType is not (UILayerType.Popup or UILayerType.Modal))
-                {
-                    continue;
-                }
-
-                if (dimLayer == null)
-                {
-                    dimLayer = CreateDimLayer("DimLayer");
-                }
-
-                dimLayer.transform.SetAsFirstSibling();
-                isDimLayerOn = true;
+                // 24.06.18 - 자체 딤레이어 사용하지 않음
+                // if (isDimLayerOn || uiLayerStacks[i].Layer.UILayerType is not (UILayerType.Popup or UILayerType.Modal))
+                // {
+                //     continue;
+                // }
+                //
+                // if (dimLayer == null)
+                // {
+                //     dimLayer = CreateDimLayer("DimLayer");
+                // }
+                //
+                // dimLayer.transform.SetAsFirstSibling();
+                // isDimLayerOn = true;
             }
 
             Canvas.ForceUpdateCanvases();
