@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<GameObject> _starList;
         [SerializeField] private List<InGameResultStarCondition> _starConditionList;
 
-        [SerializeField] private Image _illustImage;
+        [SerializeField] private RawImage _illustImage;
 
         private bool _isVictory = false;
         private int _star = 0;
@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
-            _illustImage.sprite = ImageManager.Instance.GetCharacterIllustSprite(40101); // [TODO] MVP 관리 필요
+            _illustImage.texture = ImageManager.Instance.GetCharacterIllustSprite(40101).texture; // [TODO] MVP 관리 필요
 
             // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
@@ -81,13 +81,13 @@ namespace CookApps.AutoBattler
         private void OnExitButtonClicked()
         {
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby", null, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby", InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
         }
 
         private void OnNextStageButtonClicked()
         {
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby", null, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby", InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
         }
 
         private void CreateRewardItems()
