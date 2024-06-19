@@ -57,21 +57,11 @@ namespace CookApps.AutoBattler
 
             _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(characterID);
 
-            // test 임시 처리
+            // 스탯 표시
             SetUserStatInfo();
 
             // 레벨업 기능 관련 처리
             SetLevelupLayer();
-
-            // // 캐릭터 보유 상태에 따른 분기처리
-            // if (UserDataManager.Instance.IsHaveCharacter(prefabID))
-            // {
-            //     SetUserStatInfo();
-            // }
-            // else
-            // {
-            //     SetDefaultStatInfo();
-            // }
         }
 
         private void SetUserStatInfo()
@@ -80,26 +70,15 @@ namespace CookApps.AutoBattler
 
             int userLevel = Mathf.Max(1, _userCharacterData.Level);
 
-            // todo.. 추후 스탯 관련 계산식 및 데이터 구조 필요
+            CharacterStatData statData = new CharacterStatData(_userCharacterData.CharacterId, userLevel);
+
             _levelText.text = $"Lv.{userLevel}";
-            _battlePointText.text = "-";
+            _battlePointText.text = statData.GetAttrValue().ToString("N0");
             _attackValueText.text = _specCharacterData.stat_atk.ToString("N0");
-            _hpValueText.text = _specCharacterData.stat_hp.ToString("N0");
-            _apDefText.text = _specCharacterData.stat_res.ToString("N0");
-            _adDefText.text = _specCharacterData.stat_def.ToString("N0");
+            _hpValueText.text = statData.HP.ToString("N0");
+            _apDefText.text = statData.RES.ToString("N0");
+            _adDefText.text = statData.DEF.ToString("N0");
 
-        }
-
-        private void SetDefaultStatInfo()
-        {
-            if (_specCharacterData == null || _userCharacterData == null) return;
-
-            _levelText.text = "Lv.1";
-            _battlePointText.text = "-";
-            _attackValueText.text = _specCharacterData.stat_atk.ToString("N0");
-            _hpValueText.text = _specCharacterData.stat_hp.ToString("N0");
-            _apDefText.text = _specCharacterData.stat_res.ToString("N0");
-            _adDefText.text = _specCharacterData.stat_def.ToString("N0");
         }
 
         private void SetLevelupLayer()
@@ -157,7 +136,7 @@ namespace CookApps.AutoBattler
             // 재료 검사
             if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count, true)
                 || !UserDataManager.Instance.CheckEnoughItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold, true)
-                || !UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.sec_levelup_item_type, 0, _specCharacterLevelExpData.sec_levelup_item_count, true))
+                || !UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count, true))
             {
                 return;
             }

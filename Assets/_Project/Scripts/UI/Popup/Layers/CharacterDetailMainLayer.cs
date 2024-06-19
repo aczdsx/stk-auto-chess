@@ -19,7 +19,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
         [SerializeField] private TextMeshProUGUI _characterNameText;
-        [SerializeField] private TextMeshProUGUI _characterGradeText;
+        [SerializeField] private Image _characterGradeImage;
 
         [Space(10)]
         [SerializeField] private List<GameObject> _starObjectList;
@@ -91,7 +91,7 @@ namespace CookApps.AutoBattler
             AddressablesUtil.Instantiate(sdPrefabName, _characterSDParentObject.transform);
 
             _characterNameText.text = LanguageManager.Instance.GetLanguageText(_specCharacterData.name_token);
-            _characterGradeText.text = LanguageManager.Instance.GetGradeText(_specCharacterData.grade_type);
+            _characterGradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_specCharacterData.grade_type, true);
 
             _elementSynergyUI.SetSynergyUI(_specCharacterData.element_type);
             _classSynergyUI.SetPositionSynergyUI(_specCharacterData.character_position_type);

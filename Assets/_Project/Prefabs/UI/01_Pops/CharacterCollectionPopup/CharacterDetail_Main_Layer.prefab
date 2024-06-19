@@ -1459,7 +1459,7 @@ MonoBehaviour:
   _elementSynergyUI: {fileID: 1873847877183615232}
   _classSynergyUI: {fileID: 8087948482515040161}
   _characterNameText: {fileID: 5616445896062645701}
-  _characterGradeText: {fileID: 0}
+  _characterGradeImage: {fileID: 1704856486836801889}
   _starObjectList:
   - {fileID: 5419483937542050126}
   - {fileID: 4193504200266189444}
@@ -2300,7 +2300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5071,7 +5071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2682200434467880353
 RectTransform:
   m_ObjectHideFlags: 0
