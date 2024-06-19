@@ -18,6 +18,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _debuffRate;
+    private ObfuscatorFloat _debuffTime;
 
     private bool isReadyToActivate;
     private bool isSkillActivated;
@@ -33,6 +34,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _debuffTime = codeInfo.GetCodeStatToFloat(1);
         _debuffRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         isReadyToActivate = false;
         isSkillActivated = false;
@@ -114,7 +116,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         Span<double> debuffStats = stackalloc double[3];
         debuffStats.Clear();
         debuffStats[0] = codeId;
-        debuffStats[1] = CoolTimeElapsedTime;
+        debuffStats[1] = _debuffTime;
         debuffStats[2] = _debuffRate;
         var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);

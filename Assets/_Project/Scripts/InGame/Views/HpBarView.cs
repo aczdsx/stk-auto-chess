@@ -51,7 +51,11 @@ namespace CookApps.AutoBattler
 
             float targetRatio = Mathf.Clamp01((float)(current / max));
             float startRatio = _selectedFillLeft.size.x / _defalutSize.x;
-            _selectedFillLeft.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
+
+
+            float defaultX = _defalutSize.x * targetRatio;
+            if (!float.IsNaN(defaultX))
+                _selectedFillLeft.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
 
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
         }
@@ -76,7 +80,10 @@ namespace CookApps.AutoBattler
                 float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
                 // float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1));
 
-                _hpFillSmoothGuage.size = new Vector2(_defalutSize.x * ratio, _defalutSize.y);
+                float defaultX = _defalutSize.x* ratio;
+                if (!float.IsNaN(defaultX))
+                    _hpFillSmoothGuage.size = new Vector2(defaultX, _defalutSize.y);
+
                 // _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
 
                 await UniTask.Yield();

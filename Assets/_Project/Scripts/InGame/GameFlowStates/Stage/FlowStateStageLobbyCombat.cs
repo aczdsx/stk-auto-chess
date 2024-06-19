@@ -3,17 +3,21 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using Random = Unity.Mathematics.Random;
 
 public class FlowStateStageLobbyCombat : StateBase
 {
-    private List<CharacterController> characters;
+    private List<CharacterController> _playerCharacters;
+    private List<CharacterController> _enemyCharacters;
 
     public override void StateInit(object target)
     {
-        characters = ListPool<CharacterController>.Get();
+        _playerCharacters = ListPool<CharacterController>.Get();
+        _enemyCharacters = ListPool<CharacterController>.Get();
     }
 
     public override void StateStart()
@@ -23,25 +27,69 @@ public class FlowStateStageLobbyCombat : StateBase
 
     private async UniTask StartAsync()
     {
+        var addCharacterTasks = new List<UniTask<CharacterController>>();
+        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
+        foreach (var character in userCharacters)
+        {
+            var characterStat = new CharacterStatData(character.CharacterId, character.Level);
+            InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
+            int2 coordinate = new int2(ingameTile.X, ingameTile.Y);
+
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate, AllianceType.Player,
+                typeof(CharacterStateIdle), false));
+        }
+
         // 전투 시작 후 1초는 대기
         await UniTask.Delay(1000);
-
-        // 모든 캐릭터 락 해제
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
-        foreach (CharacterController charac in characters)
-        {
-            charac.AddNextState<CharacterStateIdle>();
-        }
     }
+
+    private float elapsedTime = 0f;
+    private float interval = 1f;
 
     public override void StateRunning(float dt)
     {
-        // loop
+        elapsedTime += dt;
+
+        if (elapsedTime >= interval)
+        {
+            elapsedTime = 0f;
+
+
+            SpawnEnemy().Forget();
+
+            interval = UnityEngine.Random.Range(1f, 4f);
+        }
+    }
+
+    private async UniTask SpawnEnemy()
+    {
+        var addCharacterTasks = new List<UniTask<CharacterController>>();
+        List<SpecStageMonster> monsters =
+            SpecDataManager.Instance.GetStageMonsterList(InGameResourceHolder.Chapter, 1,
+                DifficultyType.NORMAL);
+
+        System.Random random = new System.Random();
+        SpecStageMonster randomMonster = monsters[random.Next(monsters.Count)];
+
+        if (randomMonster != null)
+        {
+            Debug.LogColor($"monster 추가 : {randomMonster.monster_id}");
+            var statData = new CharacterStatData(randomMonster.monster_id, randomMonster.monster_lv);
+
+            InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Enemy);
+            if (ingameTile != null)
+            {
+                int2 coordinate = new int2(ingameTile.X, ingameTile.Y);
+
+                addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
+                    typeof(CharacterStateIdle), false));
+            }
+        }
     }
 
     public override void StateEnd(bool isForced)
     {
-        ListPool<CharacterController>.Release(characters);
-        characters = null;
+        ListPool<CharacterController>.Release(_playerCharacters);
+        ListPool<CharacterController>.Release(_enemyCharacters);
     }
 }

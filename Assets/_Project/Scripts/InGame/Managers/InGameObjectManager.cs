@@ -108,11 +108,11 @@ namespace CookApps.BattleSystem
         }
 
         public async UniTask<CharacterController> AddCharacterToField(CharacterStatData statData, int2 initPos,
-            AllianceType allianceType, Type startStateType)
+            AllianceType allianceType, Type startStateType, bool hasSkill = true)
         {
             var characCtrl = new CharacterController();
             var tile = _grid.GetTile(initPos);
-            await characCtrl.Initialize(statData, tile, allianceType);
+            await characCtrl.Initialize(statData, tile, allianceType, hasSkill);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 
             InGameVfxNameType summonVfxType = InGameVfxNameType.NONE;

@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
             {
                 userStageGroup = new UserStageGroup
                 {
-                    LastPlayStageId = 1,
+                    LastPlayStageId = 10001,
                 };
                 return;
             }
@@ -154,7 +154,7 @@ namespace CookApps.AutoBattler
 
             foreach (var userStage in userStageGroup.UserStages.Values)
             {
-                var specStage = SpecDataManager.Instance.SpecStage.Get(userStage.StageId);
+                var specStage = SpecDataManager.Instance.GetStageData(userStage.StageId);
                 if (specStage != null)
                 {
                     if (specStage.chapter_id == chapterID && specStage.difficulty_type == type)
@@ -179,9 +179,9 @@ namespace CookApps.AutoBattler
             {
                 if (_chapterUserStageDic.ContainsKey(lastStageData.chapter_id))
                 {
-                    if (_chapterUserStageDic[lastStageData.chapter_id].ContainsKey(lastStageData.id))
+                    if (_chapterUserStageDic[lastStageData.chapter_id].ContainsKey(lastStageData.stage_id))
                     {
-                        return _chapterUserStageDic[lastStageData.chapter_id][lastStageData.id].StarCount > 0;
+                        return _chapterUserStageDic[lastStageData.chapter_id][lastStageData.stage_id].StarCount > 0;
                     }
                 }
             }
@@ -194,10 +194,10 @@ namespace CookApps.AutoBattler
         {
             int lastClearStageID = GetLastUserStageID();
 
-            var targetStageData = SpecDataManager.Instance.SpecStage.Get(targetStageID);
+            var targetStageData = SpecDataManager.Instance.GetStageData(targetStageID);
             var lastTargetStageData = SpecDataManager.Instance.GetLastStageData(targetStageData.chapter_id, targetStageData.difficulty_type);
 
-            NewChapterOpenAlert = lastClearStageID == lastTargetStageData.id;
+            NewChapterOpenAlert = lastClearStageID == lastTargetStageData.stage_id;
 
             // 지휘자 스킬 추가
             if (NewChapterOpenAlert)
@@ -218,7 +218,7 @@ namespace CookApps.AutoBattler
         // 스테이지 개방 여부 확인
         public bool IsStageOpen(int stageID)
         {
-            var specData = SpecDataManager.Instance.SpecStage.Get(stageID);
+            var specData = SpecDataManager.Instance.GetStageData(stageID);
             if (specData == null) return false;
 
             if (specData.stage_number == 1) return true;    // 1스테이지는 무조건 개방
@@ -229,9 +229,9 @@ namespace CookApps.AutoBattler
             {
                 if (_chapterUserStageDic.ContainsKey(prevSpecData.chapter_id))
                 {
-                    if (_chapterUserStageDic[prevSpecData.chapter_id].ContainsKey(prevSpecData.id))
+                    if (_chapterUserStageDic[prevSpecData.chapter_id].ContainsKey(prevSpecData.stage_id))
                     {
-                        return _chapterUserStageDic[prevSpecData.chapter_id][prevSpecData.id].StarCount > 0;
+                        return _chapterUserStageDic[prevSpecData.chapter_id][prevSpecData.stage_id].StarCount > 0;
                     }
                 }
             }
@@ -263,7 +263,7 @@ namespace CookApps.AutoBattler
         {
             foreach (var stageDic in UserStageGroup.UserStages)
             {
-                var specData = SpecDataManager.Instance.SpecStage.Get(stageDic.Value.StageId);
+                var specData = SpecDataManager.Instance.GetStageData(stageDic.Value.StageId);
                 if (specData == null) continue;
 
                 // 챕터 캐시 데이터 업데이트
@@ -272,13 +272,13 @@ namespace CookApps.AutoBattler
                     _chapterUserStageDic.Add(specData.chapter_id, new Dictionary<int, UserStage>());
                 }
 
-                if (_chapterUserStageDic[specData.chapter_id].ContainsKey(specData.id) == false)
+                if (_chapterUserStageDic[specData.chapter_id].ContainsKey(specData.stage_id) == false)
                 {
-                    _chapterUserStageDic[specData.chapter_id].Add(specData.id, stageDic.Value);
+                    _chapterUserStageDic[specData.chapter_id].Add(specData.stage_id, stageDic.Value);
                 }
                 else
                 {
-                    _chapterUserStageDic[specData.chapter_id][specData.id] = stageDic.Value;
+                    _chapterUserStageDic[specData.chapter_id][specData.stage_id] = stageDic.Value;
                 }
 
                 // 난이도 캐시 데이터 업데이트
@@ -287,13 +287,13 @@ namespace CookApps.AutoBattler
                     _difficultyUserStageDic.Add(specData.difficulty_type, new Dictionary<int, UserStage>());
                 }
 
-                if (_difficultyUserStageDic[specData.difficulty_type].ContainsKey(specData.id) == false)
+                if (_difficultyUserStageDic[specData.difficulty_type].ContainsKey(specData.stage_id) == false)
                 {
-                    _difficultyUserStageDic[specData.difficulty_type].Add(specData.id, stageDic.Value);
+                    _difficultyUserStageDic[specData.difficulty_type].Add(specData.stage_id, stageDic.Value);
                 }
                 else
                 {
-                    _difficultyUserStageDic[specData.difficulty_type][specData.id] = stageDic.Value;
+                    _difficultyUserStageDic[specData.difficulty_type][specData.stage_id] = stageDic.Value;
                 }
             }
         }
@@ -301,7 +301,7 @@ namespace CookApps.AutoBattler
         // 특정 캐시 데이터 업데이트
         private void UpdateTargetCacheData(int targetStageID, int targetStarCount)
         {
-            var specData = SpecDataManager.Instance.SpecStage.Get(targetStageID);
+            var specData = SpecDataManager.Instance.GetStageData(targetStageID);
             if (specData == null) return;
 
             UserStage newStageData = new UserStage();
@@ -314,13 +314,13 @@ namespace CookApps.AutoBattler
                 _chapterUserStageDic.Add(specData.chapter_id, new Dictionary<int, UserStage>());
             }
 
-            if (_chapterUserStageDic[specData.chapter_id].ContainsKey(specData.id) == false)
+            if (_chapterUserStageDic[specData.chapter_id].ContainsKey(specData.stage_id) == false)
             {
-                _chapterUserStageDic[specData.chapter_id].Add(specData.id, newStageData);
+                _chapterUserStageDic[specData.chapter_id].Add(specData.stage_id, newStageData);
             }
             else
             {
-                _chapterUserStageDic[specData.chapter_id][specData.id] = newStageData;
+                _chapterUserStageDic[specData.chapter_id][specData.stage_id] = newStageData;
             }
 
             // 난이도 캐시 데이터 업데이트
@@ -329,13 +329,13 @@ namespace CookApps.AutoBattler
                 _difficultyUserStageDic.Add(specData.difficulty_type, new Dictionary<int, UserStage>());
             }
 
-            if (_difficultyUserStageDic[specData.difficulty_type].ContainsKey(specData.id) == false)
+            if (_difficultyUserStageDic[specData.difficulty_type].ContainsKey(specData.stage_id) == false)
             {
-                _difficultyUserStageDic[specData.difficulty_type].Add(specData.id, newStageData);
+                _difficultyUserStageDic[specData.difficulty_type].Add(specData.stage_id, newStageData);
             }
             else
             {
-                _difficultyUserStageDic[specData.difficulty_type][specData.id] = newStageData;
+                _difficultyUserStageDic[specData.difficulty_type][specData.stage_id] = newStageData;
             }
         }
     }

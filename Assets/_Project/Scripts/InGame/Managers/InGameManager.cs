@@ -52,6 +52,17 @@ namespace CookApps.BattleSystem
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
         }
 
+        public void StartInGame<T>(object stateData) where T : StateBase, new()
+        {
+            IsInGamePlaying = true;
+            ecc = new EffectCodeContainer(this);
+            InGameVfxManager.Instance.Initialize();
+            InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
+            InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
+            InGameObjectManager.Instance.Initialize();
+            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
+        }
+
         public void EndInGame()
         {
             IsInGamePlaying = false;

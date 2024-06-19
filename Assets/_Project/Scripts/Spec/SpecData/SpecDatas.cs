@@ -192,7 +192,7 @@ namespace CookApps.AutoBattler
         /// 공격 범위
         public CookApps.Obfuscator.ObfuscatorInt atk_range;
         /// 공격 범위 형태
-        public global::CookApps.AutoBattler.AttackRangeShape atk_range_shape;
+        public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id
         public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
         /// 전용 장비 id
@@ -391,6 +391,8 @@ namespace CookApps.AutoBattler
         /// 전체 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 스테이지 ID
+        public CookApps.Obfuscator.ObfuscatorInt stage_id;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 챕터

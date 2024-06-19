@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<GameObject> _starList;
         [SerializeField] private List<InGameResultStarCondition> _starConditionList;
 
-        [SerializeField] private Image _illustImage;
+        [SerializeField] private RawImage _illustImage;
 
         private bool _isVictory = false;
         private int _star = 0;
@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
-            _illustImage.sprite = ImageManager.Instance.GetCharacterIllustSprite(40101); // [TODO] MVP 관리 필요
+            _illustImage.texture = ImageManager.Instance.GetCharacterIllustSprite(40101).texture; // [TODO] MVP 관리 필요
 
             // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
@@ -81,18 +81,18 @@ namespace CookApps.AutoBattler
         private void OnExitButtonClicked()
         {
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby", null, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby",  (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
         }
 
         private void OnNextStageButtonClicked()
         {
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby", null, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
         }
 
         private void CreateRewardItems()
         {
-            var userStage = UserDataManager.Instance.GetUserStage(InGameManager.Instance.SpecStage.id);
+            var userStage = UserDataManager.Instance.GetUserStage(InGameManager.Instance.SpecStage.stage_id);
             var rewardList = SpecDataManager.Instance.GetSpecStageReward(InGameManager.Instance.SpecStage.reward_id)
                 .FindAll(l => l.difficulty_type == InGameManager.Instance.SpecStage.difficulty_type);
 
@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
             // 별 최고기록일 경우 스테이지 클리어 데이터 저장
             if (userStage == null || _star > userStage.StarCount)
             {
-                int currentStageID = InGameManager.Instance.SpecStage.id;
+                int currentStageID = InGameManager.Instance.SpecStage.stage_id;
 
                 UserDataManager.Instance.SetUserStage(currentStageID, _star);
 

@@ -124,7 +124,7 @@ namespace CookApps.BattleSystem
         private static int characUIdInc;
         private int _characterUId;
 
-        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType)
+        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType, bool hasSkill)
         {
             Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
             _characterUId = characUIdInc++;
@@ -162,7 +162,8 @@ namespace CookApps.BattleSystem
             needUpdateFlag = EffectCodeInheritFlagExtensions.AllFlags();
             ecc.OnChangedDirtyFlag += EffectCodeOnChangedDirtyFlagHandler;
 
-            AddSkillEffectCodes();
+            if (hasSkill)
+                AddSkillEffectCodes();
 
             _currHp = HP;
             IsAlive = true;

@@ -519,7 +519,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.706
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageRatio: {fileID: 9043696379158507076}
   defaultColor: {r: 0.99607843, g: 1, b: 0.9019608, a: 1}
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageColor: {r: 1, g: 0.25882354, b: 0.3019608, a: 1}
 --- !u!1 &1748827382743172033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,7 +1507,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a1a055a2ffa6fb5409b522080defd0a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99b0c8b0c9d9ce34b90a261ef7227b41, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5092,7 +5092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageRatio: {fileID: 8126812866209379399}
   defaultColor: {r: 0.99607843, g: 1, b: 0.9019608, a: 1}
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageColor: {r: 1, g: 0.25882354, b: 0.3019608, a: 1}
 --- !u!1 &5980439018123391763
 GameObject:
   m_ObjectHideFlags: 0
@@ -5384,7 +5384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1986917, g: 0.4433962, b: 0.3998932, a: 1}
+  m_Color: {r: 1, g: 0.25882354, b: 0.3019608, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5874,7 +5874,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.8
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6209,7 +6209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4069372, g: 0.372864, b: 0.5943396, a: 1}
+  m_Color: {r: 1, g: 0.25882354, b: 0.3019608, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

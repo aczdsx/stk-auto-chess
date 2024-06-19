@@ -9,19 +9,20 @@ namespace CookApps.AutoBattler
         public static async UniTask HandleLoading(string prevSceneName, string sceneName, object defaultUIData)
         {
             Debug.LogColor($"Scene Change : {prevSceneName} -> {sceneName}", "blue");
+
             if (prevSceneName == "Lobby")
             {
                 await UnloadLobbyResources();
             }
 
-            if (sceneName == "Lobby")
-            {
-                await LoadLobbyResources();
-            }
-
             if (prevSceneName == "InGame")
             {
                 await UnloadInGameResources();
+            }
+
+            if (sceneName == "Lobby")
+            {
+                await LoadLobbyResources(defaultUIData);
             }
 
             if (sceneName == "InGame")
@@ -30,8 +31,11 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private static async UniTask LoadLobbyResources()
+        private static async UniTask LoadLobbyResources(object defaultUIData)
         {
+            int chapter = (int) defaultUIData;
+            await InGameResourceHolder.LoadLobbyResources(chapter);
+
             await TopPanelSingleUseHelper.Instance.Initialize();
         }
 

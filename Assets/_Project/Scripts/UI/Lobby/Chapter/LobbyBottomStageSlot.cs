@@ -59,18 +59,18 @@ namespace CookApps.AutoBattler
             if (data == null) return;
 
             _specStageData = data;
-            _userStageData = UserDataManager.Instance.GetUserStage(_specStageData.id);
+            _userStageData = UserDataManager.Instance.GetUserStage(_specStageData.stage_id);
 
-            _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.id);
-            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.id;
+            _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.stage_id);
+            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.stage_id;
 
             SetStageState();
         }
 
         public void RefershSlot()
         {
-            _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.id);
-            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.id;
+            _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.stage_id);
+            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.stage_id;
 
             SetStageState();
         }
@@ -142,14 +142,14 @@ namespace CookApps.AutoBattler
         private void OnClickBottomStageSlot()
         {
             // 스테이지 개방 여부 확인
-            if (UserDataManager.Instance.IsStageOpen(_specStageData.id) == false)
+            if (UserDataManager.Instance.IsStageOpen(_specStageData.stage_id) == false)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_LOCK_STAGE");
                 return;
             }
 
             // 유저 데이터 갱신
-            UserDataManager.Instance.SetLastPlayStageID(_specStageData.id, true);
+            UserDataManager.Instance.SetLastPlayStageID(_specStageData.stage_id, true);
 
             // 로비 메인 하단 스테이지 UI 갱신
             var lobbyMain = SceneUILayerManager.Instance.GetUILayer("LobbyMain");

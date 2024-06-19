@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ namespace CookApps.AutoBattler
     public class CharacterDetailMainLayer : CachedMonoBehaviour
     {
         [SerializeField] private CAButton _backButton;
+        [SerializeField] private CAButton _elementSynergyButton;
+        [SerializeField] private CAButton _classSynergyButton;
 
         [Space(10)]
         [SerializeField] private GameObject _characterIllustParentObject;
@@ -32,9 +35,13 @@ namespace CookApps.AutoBattler
 
         private SpecCharacter _specCharacterData;
 
+        private Material _illustMaterial;
+
         private void Awake()
         {
             _backButton.onClick.AddListener(OnClickBackButton);
+            _elementSynergyButton.onClick.AddListener(OnClickElementSynergyButton);
+            _classSynergyButton.onClick.AddListener(OnClickClassSynergyButton);
         }
 
         protected override void OnDestroy()
@@ -42,6 +49,8 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _backButton.onClick.RemoveListener(OnClickBackButton);
+            _elementSynergyButton.onClick.RemoveListener(OnClickElementSynergyButton);
+            _classSynergyButton.onClick.RemoveListener(OnClickClassSynergyButton);
         }
 
         public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
@@ -54,6 +63,14 @@ namespace CookApps.AutoBattler
 
             SetTabState();
             SetCharacterInfo();
+        }
+
+        public void SetMaterialGlobalAlpha(int alphaValue)
+        {
+            if (_illustMaterial != null)
+            {
+                _illustMaterial.SetFloat("Global Alpha", alphaValue);
+            }
         }
 
         public void OnClickGrowLayerTabButton()
@@ -84,7 +101,9 @@ namespace CookApps.AutoBattler
 
             // 캐릭터 일러스트 생성
             string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
-            AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+            var newObject = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+
+            _illustMaterial = newObject.GetComponentInChildren<RawImage>().material;
 
             // 캐릭터 SD 캐릭터 생성
             string sdPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
@@ -112,6 +131,24 @@ namespace CookApps.AutoBattler
             if (_parentCollectionPopup == null) return;
 
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.MAIN);
+        }
+
+        private void OnClickElementSynergyButton()
+        {
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.element_type);
+            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+            }
+        }
+
+        private void OnClickClassSynergyButton()
+        {
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_position_type);
+            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+            }
         }
 
         private void ClearLayer()

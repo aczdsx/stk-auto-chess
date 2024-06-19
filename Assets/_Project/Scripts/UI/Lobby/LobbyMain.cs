@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -74,6 +75,9 @@ namespace CookApps.AutoBattler
             RefreshUI(LobbyMainRefreshType.ALL);
 
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
+
+            // 전투 진행
+            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(null);
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)
@@ -106,8 +110,8 @@ namespace CookApps.AutoBattler
             // 기본 데이터 갱신
             int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
 
-            var stageSpecData = SpecDataManager.Instance.SpecStage.Get(currentStageId);
-            var chapterSpecData = SpecDataManager.Instance.SpecChapter.Get(stageSpecData.chapter_id);
+            var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
+            var chapterSpecData = SpecDataManager.Instance.GetChapterData(stageSpecData.chapter_id, stageSpecData.difficulty_type);
 
             //_chapterImage.sprite = specStage.chapter_image;
             _chapterNameText.SetText(chapterSpecData.name_token);
@@ -156,7 +160,7 @@ namespace CookApps.AutoBattler
 
             int currentStagdId = UserDataManager.Instance.GetLastPlayStageID();
 
-            SpecStage specStageData = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
+            SpecStage specStageData = SpecDataManager.Instance.GetStageData(currentStagdId);
             var specChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStagdId);
 
             var stageList = SpecDataManager.Instance.GetStageList(specChapterData.chapter_id, specChapterData.difficulty_type);
@@ -206,7 +210,7 @@ namespace CookApps.AutoBattler
         }
         private void OnClickStartButton()
         {
-            var currentStageData = SpecDataManager.Instance.SpecStage.Get(UserDataManager.Instance.GetLastPlayStageID());
+            var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
             if (currentStageData != null)
             {
                 // 행동력 검사
@@ -216,6 +220,7 @@ namespace CookApps.AutoBattler
                 }
 
                 // 스테이지 진입
+                InGameManager.Instance.EndInGame();
                 SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type)).Forget();
             }
         }

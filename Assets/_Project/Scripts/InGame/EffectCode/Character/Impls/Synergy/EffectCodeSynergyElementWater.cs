@@ -17,17 +17,7 @@ public class EffectCodeSynergyElementWater : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
-    }
 
-    public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
-    {
-        base.Merge(codeInfo, source);
-        _statValue = codeInfo.GetCodeStatToFloat(0);
-    }
-
-    public override void Activate()
-    {
-        base.Activate();
 
         double averageAD = 0;
         var list = InGameObjectManager.Instance.GetCharacterList(owner.AllianceType);
@@ -48,5 +38,11 @@ public class EffectCodeSynergyElementWater : EffectCodeCharacterBase
 
         var effectCodeInfo = new EffectCodeInfo((long)CharacterEffectType.SHIELD, 0, eccStats);
         owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+    }
+
+    public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
+    {
+        base.Merge(codeInfo, source);
+        _statValue = codeInfo.GetCodeStatToFloat(0);
     }
 }
