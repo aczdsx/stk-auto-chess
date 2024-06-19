@@ -38,6 +38,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _bossStageText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
+        [SerializeField] private TextMeshProUGUI _apCostText;
 
         [Header("Guide Mission")]
         [SerializeField] private GuideMissionSlot _guideMissionSlot;
@@ -165,6 +166,8 @@ namespace CookApps.AutoBattler
 
             int totalStageCount = stageList.Count;
             _stageProgressText.SetText("{0}/{1}", specStageData.stage_number, totalStageCount);
+
+            _apCostText.text = $"x{specStageData.need_ap}";
 
             for (int i = 0; i < stageList.Count; i++)
             {
