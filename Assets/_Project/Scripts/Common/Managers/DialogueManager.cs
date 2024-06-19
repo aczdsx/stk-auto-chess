@@ -56,6 +56,10 @@ namespace CookApps.AutoBattler
                     }
 
                     break;
+                case DialogueEventType.STAGE_START:
+                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                    needSave = true;
+                    break;
             }
 
             // 다이얼로그 히스토리 데이터 추가 및 저장
