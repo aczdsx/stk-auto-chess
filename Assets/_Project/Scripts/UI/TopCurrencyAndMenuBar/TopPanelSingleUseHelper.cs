@@ -44,6 +44,8 @@ namespace CookApps.AutoBattler
         {
             foreach ((_, TopPanelBase ui) in panels)
             {
+                if (ui == null) continue;
+
                 ui.CachedRectTr.SetParent(topUIOriginTr);
             }
             panels.Clear();
