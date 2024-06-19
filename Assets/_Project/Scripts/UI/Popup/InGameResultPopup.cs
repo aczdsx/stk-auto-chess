@@ -92,7 +92,7 @@ namespace CookApps.AutoBattler
 
         private void CreateRewardItems()
         {
-            var userStage = UserDataManager.Instance.GetUserStage(InGameManager.Instance.SpecStage.id);
+            var userStage = UserDataManager.Instance.GetUserStage(InGameManager.Instance.SpecStage.stage_id);
             var rewardList = SpecDataManager.Instance.GetSpecStageReward(InGameManager.Instance.SpecStage.reward_id)
                 .FindAll(l => l.difficulty_type == InGameManager.Instance.SpecStage.difficulty_type);
 
@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
             // 별 최고기록일 경우 스테이지 클리어 데이터 저장
             if (userStage == null || _star > userStage.StarCount)
             {
-                int currentStageID = InGameManager.Instance.SpecStage.id;
+                int currentStageID = InGameManager.Instance.SpecStage.stage_id;
 
                 UserDataManager.Instance.SetUserStage(currentStageID, _star);
 

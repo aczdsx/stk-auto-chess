@@ -391,6 +391,8 @@ namespace CookApps.AutoBattler
         /// 전체 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 스테이지 ID
+        public CookApps.Obfuscator.ObfuscatorInt stage_id;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 챕터

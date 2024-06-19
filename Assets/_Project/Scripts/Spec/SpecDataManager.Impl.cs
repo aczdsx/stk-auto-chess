@@ -335,7 +335,7 @@ namespace CookApps.AutoBattler
 
         public SpecChapter GetChapterDataByStageID(int stageID)
         {
-            var specStage = SpecStage.Get(stageID);
+            var specStage = GetStageData(stageID);
             if (specStage != null)
             {
                 if (chapterDic.TryGetValue(specStage.chapter_id, out List<SpecChapter> chapterList))
@@ -396,6 +396,11 @@ namespace CookApps.AutoBattler
             }
 
             return result;
+        }
+
+        public SpecStage GetStageData(int stageID)
+        {
+            return SpecStage.All.ToList().Find(data => data.stage_id == stageID);
         }
 
         public SpecStage GetStageData(int chapterID, int stageNumber, DifficultyType type)
@@ -466,7 +471,7 @@ namespace CookApps.AutoBattler
         // 해당 스테이지가 마지막 스테이지인지 체크
         public bool IsLastStage(int stageID)
         {
-            SpecStage stageSpecData = SpecStage.Get(stageID);
+            SpecStage stageSpecData = GetStageData(stageID);
             SpecStage nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty_type);
 
             return nextStageSpecData == null;
