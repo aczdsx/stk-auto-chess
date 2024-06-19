@@ -77,10 +77,13 @@ public class FlowStateStageLobbyCombat : StateBase
             var statData = new CharacterStatData(randomMonster.monster_id, randomMonster.monster_lv);
 
             InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Enemy);
-            int2 coordinate = new int2(ingameTile.X, ingameTile.Y);
+            if (ingameTile != null)
+            {
+                int2 coordinate = new int2(ingameTile.X, ingameTile.Y);
 
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
-                typeof(CharacterStateIdle), false));
+                addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
+                    typeof(CharacterStateIdle), false));
+            }
         }
     }
 

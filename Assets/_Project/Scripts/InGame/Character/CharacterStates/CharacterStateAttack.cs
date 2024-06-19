@@ -117,7 +117,7 @@ public class CharacterStateAttack : CharacterStateBase
                     return;
                 }
 
-                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile, characCtrl.GetCharacterView().CachedTr.position);
+                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile, characCtrl.GetCharacterView().ProjectileTransform.position);
 
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
                 var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(characCtrl);
@@ -126,7 +126,7 @@ public class CharacterStateAttack : CharacterStateBase
                     Vector3 direction = (inGameTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
                     vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-                    movement.SetData(vfxProjectile.CachedTr.position, characCtrl.Target.GetCharacterView().CachedTr.position, 30);
+                    movement.SetData(vfxProjectile.CachedTr.position, characCtrl.Target.GetCharacterView().CachedTr.position, 50);
                     vfxProjectile.Initialize(false, movement);
 
                     void OnReachedTargetHandler()
