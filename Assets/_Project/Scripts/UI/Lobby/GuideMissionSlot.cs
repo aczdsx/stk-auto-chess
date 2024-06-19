@@ -74,10 +74,28 @@ namespace CookApps.AutoBattler
             _missionTitleText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.name_token);
             _missionDescText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.desc_token);
 
-            _missionRewardItemImage.sprite = ImageManager.Instance.GetItemSprite(_specGuideMissionData.item_type);
+            SetGuideMissionRewardImage();
             _missionRewardAmountText.text = $"x{_specGuideMissionData.item_count}";
 
             _activateLayerObject.SetActive(_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD);
+        }
+
+        private void SetGuideMissionRewardImage()
+        {
+            switch (_specGuideMissionData.item_type)
+            {
+                case ItemType.CHARACTER:
+                    var characterData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
+                    _missionRewardItemImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(characterData.prefab_id);
+                    break;
+                case ItemType.CHARACTER_PIECE:
+                    var characterPieceData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
+                    _missionRewardItemImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(characterPieceData.prefab_id);
+                    break;
+                default:
+                    _missionRewardItemImage.sprite = ImageManager.Instance.GetItemSprite(_specGuideMissionData.item_type);
+                    break;
+            }
         }
 
         private void OnClickMissionSlotButton()

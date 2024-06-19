@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
 
         public UserWallet UserWallet => userWallet;
 
-        public static event Action<int> OnEnergyChanged;
+        public static event Action<int> OnAPChanged;
         public static event Action<int> OnGoldChanged;
         public static event Action<int> OnJewelChanged;
         public static event Action<int> OnCTicketChanged;
@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
                 {
                     Gold = 0,
                     Jewel = 0,
-                    Energy = 100,
+                    Ap = 100,
                 };
                 return;
             }
@@ -59,11 +59,11 @@ namespace CookApps.AutoBattler
                     }
                     return userWallet.Jewel >= itemAmount;
                 case ItemType.AP:
-                    if (userWallet.Energy < itemAmount && isShowToast)
+                    if (userWallet.Ap < itemAmount && isShowToast)
                     {
                         ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
                     }
-                    return userWallet.Energy >= itemAmount;
+                    return userWallet.Ap >= itemAmount;
                 case ItemType.C_TICKET:
                     if (userWallet.CTicket < itemAmount && isShowToast)
                     {
@@ -110,8 +110,8 @@ namespace CookApps.AutoBattler
                     OnJewelChanged?.Invoke(userWallet.Jewel);
                     break;
                 case ItemType.AP:
-                    userWallet.Energy += itemAmount;
-                    OnEnergyChanged?.Invoke(userWallet.Energy);
+                    userWallet.Ap += itemAmount;
+                    OnAPChanged?.Invoke(userWallet.Ap);
                     break;
                 case ItemType.C_TICKET:
                     userWallet.CTicket += itemAmount;
@@ -187,8 +187,8 @@ namespace CookApps.AutoBattler
                     OnJewelChanged?.Invoke(userWallet.Jewel);
                     break;
                 case ItemType.AP:
-                    userWallet.Energy -= itemAmount;
-                    OnEnergyChanged?.Invoke(userWallet.Energy);
+                    userWallet.Ap -= itemAmount;
+                    OnAPChanged?.Invoke(userWallet.Ap);
                     break;
                 case ItemType.C_TICKET:
                     userWallet.CTicket -= itemAmount;
