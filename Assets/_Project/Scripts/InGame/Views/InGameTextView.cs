@@ -15,6 +15,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Transform _root;
         [SerializeField] private Animator _animator;
 
+        [SerializeField] private float _heightOffset = 0.3f;
+
         private TMP_Text _damageText;
         private static readonly int Critical = Animator.StringToHash("Critical");
         private static readonly int Normal = Animator.StringToHash("Normal");
@@ -24,7 +26,7 @@ namespace CookApps.AutoBattler
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
             _damageText.text = $"{damage}";
 
-            Vector3 initialPosition = position + Vector3.up * characterHeight;
+            Vector3 initialPosition = position + Vector3.up * (characterHeight  + _heightOffset);
             _root.position = initialPosition;
             _animator.SetTrigger(isCritical ? Critical : Normal);
 
@@ -38,7 +40,7 @@ namespace CookApps.AutoBattler
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             _root.position = initialPosition;
             _animator.SetTrigger(Normal);
-            
+
             await WaitForAnimationEnd();
         }
 
