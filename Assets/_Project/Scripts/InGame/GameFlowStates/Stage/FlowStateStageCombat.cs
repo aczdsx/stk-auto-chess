@@ -10,6 +10,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class FlowStateStageCombat : StateBase
 {
     private List<CharacterController> characters;
+    private bool isEndCombat;
+    private bool isWin;
 
     public override void StateInit(object target)
     {
@@ -68,20 +70,25 @@ public class FlowStateStageCombat : StateBase
 
     public override void StateRunning(float dt)
     {
-        // 전투가 끝났는지 확인
+        if (isEndCombat)
+            return;
+
         InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
         if (characters.Count == 0)
         {
-            // 패배!
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();
+            isEndCombat = true;
+            isWin = false;
         }
 
         InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
-            // 승리!
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();
+            isEndCombat = true;
+            isWin = true;
         }
+
+        if (isEndCombat)
+            ChangeNextState(isWin).Forget();
     }
 
     public override void StateEnd(bool isForced)
@@ -98,5 +105,20 @@ public class FlowStateStageCombat : StateBase
 
         ListPool<CharacterController>.Release(characters);
         characters = null;
+    }
+
+    private async UniTask ChangeNextState(bool isWin)
+    {
+        InGameMainFlowManager.Instance.SetPlaySpeed(0.3f);
+        await UniTask.Delay(1500);
+        InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
+        if (isWin)
+        {
+            InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();
+        }
+        else
+        {
+            InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();
+        }
     }
 }
