@@ -79,6 +79,9 @@ namespace CookApps.AutoBattler
             _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
 
             _inGameTime = InGameMaxTime;
+
+            // 다이얼로그 체크
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.id.ToString());
         }
 
         private void ManagedUpdate(float dt)
