@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9207379317330349810}
   - component: {fileID: 1097973138258259033}
-  - component: {fileID: 7164457841006128781}
+  - component: {fileID: 8128043122318971812}
   m_Layer: 5
   m_Name: Popup
   m_TagString: Untagged
@@ -56,8 +56,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preset: 0
   onEnableBehaviour: 2
-  onDisableBehaviour: 0
---- !u!114 &7164457841006128781
+  onDisableBehaviour: 2
+--- !u!114 &8128043122318971812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 0.3
+  duration: 0.25
   easeType: 6
   easeCurve:
     serializedVersion: 2
@@ -145,7 +145,7 @@ MonoBehaviour:
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
-  endValueFloat: 0.8
+  endValueFloat: 0.88
   endValueV3: {x: 0, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}

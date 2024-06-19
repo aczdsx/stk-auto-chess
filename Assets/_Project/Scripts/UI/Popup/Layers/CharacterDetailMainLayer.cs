@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ namespace CookApps.AutoBattler
     public class CharacterDetailMainLayer : CachedMonoBehaviour
     {
         [SerializeField] private CAButton _backButton;
+        [SerializeField] private CAButton _elementSynergyButton;
+        [SerializeField] private CAButton _classSynergyButton;
 
         [Space(10)]
         [SerializeField] private GameObject _characterIllustParentObject;
@@ -35,6 +38,8 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _backButton.onClick.AddListener(OnClickBackButton);
+            _elementSynergyButton.onClick.AddListener(OnClickElementSynergyButton);
+            _classSynergyButton.onClick.AddListener(OnClickClassSynergyButton);
         }
 
         protected override void OnDestroy()
@@ -42,6 +47,8 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _backButton.onClick.RemoveListener(OnClickBackButton);
+            _elementSynergyButton.onClick.RemoveListener(OnClickElementSynergyButton);
+            _classSynergyButton.onClick.RemoveListener(OnClickClassSynergyButton);
         }
 
         public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
@@ -112,6 +119,24 @@ namespace CookApps.AutoBattler
             if (_parentCollectionPopup == null) return;
 
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.MAIN);
+        }
+
+        private void OnClickElementSynergyButton()
+        {
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.element_type);
+            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+            }
+        }
+
+        private void OnClickClassSynergyButton()
+        {
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_position_type);
+            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+            }
         }
 
         private void ClearLayer()

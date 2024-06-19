@@ -12,10 +12,10 @@ public class InGameRatioTween : MonoBehaviour
 
     public void DamageFXTween()
     {
-            damageRatio.DOColor(damageColor, 0.2f).SetEase(Ease.OutQuad);
-            damageRatio.DOColor(defaultColor, 0.2f).SetEase(Ease.OutQuad).SetDelay(0.2f);
-            damageRatio.transform.DOScale(1.4f, 0.2f).SetEase(Ease.OutQuad);
-            damageRatio.transform.DOScale(1f, 0.2f).SetEase(Ease.OutQuad).SetDelay(0.2f);
+            damageRatio.DOColor(damageColor, 0.1f).SetEase(Ease.OutQuad);
+            damageRatio.DOColor(defaultColor, 0.1f).SetEase(Ease.InQuad).SetDelay(0.08f);
+            damageRatio.transform.DOScale(1.3f, 0.08f).SetEase(Ease.OutQuad);
+            damageRatio.transform.DOScale(1f, 0.08f).SetEase(Ease.InQuad).SetDelay(0.08f);
     }
     
 
