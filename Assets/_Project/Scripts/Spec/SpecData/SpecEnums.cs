@@ -299,6 +299,12 @@ namespace CookApps.AutoBattler
         fx_common_cast_water = 44,
         fx_common_assassin_awful = 45,
         fx_common_assassin_enemy = 46,
+        Projectile_303011 = 47,
+        Projectile_403011 = 48,
+        Projectile_406011 = 49,
+        Projectile_404021 = 50,
+        Projectile_304021 = 51,
+        Projectile_306011 = 52,
     }
 
     public enum GlobalEffectProviderType

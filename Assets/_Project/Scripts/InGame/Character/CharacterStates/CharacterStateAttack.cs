@@ -108,17 +108,16 @@ public class CharacterStateAttack : CharacterStateBase
                 damageInfo.damageAmount /= hitCount;
             }
 
-            // var hitId = 0;
-            if (characCtrl.GetCharacterStat().AttackType == AttackType.Projectile)
+            InGameVfxNameType projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
+
+            if (projectile != InGameVfxNameType.NONE)
             {
                 if (characCtrl == null || characCtrl.IsAlive == false)
                 {
                     return;
                 }
 
-                // [TODO] projectile 관리는 어떻게 할까요?
-                InGameVfxNameType projectile = InGameVfxNameType.NONE;
-                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile, characCtrl.Target.GetCharacterView().CachedTr.position);
+                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile, characCtrl.GetCharacterView().CachedTr.position);
 
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
                 var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(characCtrl);
@@ -127,12 +126,13 @@ public class CharacterStateAttack : CharacterStateBase
                     Vector3 direction = (inGameTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
                     vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-                    movement.SetData(vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
+                    movement.SetData(vfxProjectile.CachedTr.position, characCtrl.Target.GetCharacterView().CachedTr.position, 30);
                     vfxProjectile.Initialize(false, movement);
 
                     void OnReachedTargetHandler()
                     {
                         characCtrl.Target.GetDamaged(damageInfo, characCtrl);
+                        vfxProjectile.Remove();
                     }
                     movement.OnReachedTarget += OnReachedTargetHandler;
                 }

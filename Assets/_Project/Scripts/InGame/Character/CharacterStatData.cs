@@ -205,12 +205,6 @@ namespace CookApps.AutoBattler
                 AttackRange = codes.CalculateAttackRange(_spec.atk_range);
             }
 
-            if (flags.HasFlag(EffectCodeInheritFlag.StatAttackRangeShape))
-            {
-                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
-                AttackRangeShape = codes.CalculateAttackRangeShape(_spec.atk_range_shape.ToInGameAttackRangeShape());
-            }
-
             if (flags.HasFlag(EffectCodeInheritFlag.StatSkillDamageRate))
             {
                 var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillDamageRate);
@@ -293,8 +287,6 @@ namespace CookApps.AutoBattler
         public ObfuscatorFloat GivenHealRate { get; private set; }
 
         public ObfuscatorFloat TakenHealRate { get; private set; }
-
-        public AttackType AttackType { get; private set; }
 
         public ScanType ScanType { get; private set; }
     }
