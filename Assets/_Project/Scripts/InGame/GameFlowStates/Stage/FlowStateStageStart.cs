@@ -14,16 +14,6 @@ public class FlowStateStageStart : StateBase
         // var uiLayer = await SceneUILayerManager.Instance.PushUILayerAsync<StageStartOverlay>();
         // await uiLayer.WaitForExit();
 
-        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
-        {
-            character.AddSynergyEffectCode();
-        }
-
-        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
-        {
-            character.AddSynergyEffectCode();
-        }
-
         // 캐릭터 선택 UI 없애기
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
     }

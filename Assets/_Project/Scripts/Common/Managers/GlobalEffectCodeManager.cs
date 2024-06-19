@@ -12,6 +12,7 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
 
     public void Clear()
     {
+        globalEffectCodes = new();
     }
 
     /// <summary>

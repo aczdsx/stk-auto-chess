@@ -108,7 +108,8 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
             {
                 if (tile.OccupiedCharacter != owner)
                 {
-                    // [TODO] 쉴드 깨는 로직 필요
+                    // [TODO] 쉴드 깨는 로직 필요 -> 이거 날리면 됩니다.
+                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode(EffectCodeBuffShield.CodeId);
                     var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage, owner);

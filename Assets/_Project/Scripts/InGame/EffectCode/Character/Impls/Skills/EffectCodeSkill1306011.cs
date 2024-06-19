@@ -107,9 +107,8 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                 var buffVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                //[TODO] 버프 이렇게 하는 거 맞나요??
-                int effectCodeID = 0;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, _duration,
+                int effectCodeID = (int)CharacterEffectType.BUFF_AD_PERCENT_UP;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, _duration,
                     _atkUpRate);
                 tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }

@@ -50,7 +50,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _characterStats.Add(new CharacterStatData(130201, 10));
         _characterStats.Add(new CharacterStatData(130601, 10));
         _characterStats.Add(new CharacterStatData(130402, 10));
-        _characterStats.Add(new CharacterStatData(140101, 10));
+        _characterStats.Add(new CharacterStatData(140101, 10, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         _characterStats.Add(new CharacterStatData(140402, 10));
         _characterStats.Add(new CharacterStatData(140103, 10));
 

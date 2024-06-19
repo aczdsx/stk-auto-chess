@@ -11,7 +11,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
-
+using UnityEditor.Rendering;
 
 namespace CookApps.AutoBattler
 {
@@ -82,8 +82,8 @@ namespace CookApps.AutoBattler
         private Dictionary<long, List<SpecSkill>> skillPrefabIDDic = new (); // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new (); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<CharacterPositionType, SpecSynergy> positionSynergyDic = new (); // key : CharacterPositionType, value : SpecSynergy
-        private Dictionary<ElementType, SpecSynergy> elementSynergyDic = new (); // key : ElementType, value : SpecSynergy
+        private Dictionary<CharacterPositionType, List<SpecSynergy>> positionSynergyDic = new (); // key : CharacterPositionType, value : SpecSynergy
+        private Dictionary<ElementType, List<SpecSynergy>> elementSynergyDic = new (); // key : ElementType, value : SpecSynergy
 
         private void CustomizeSpecData()
         {
@@ -252,20 +252,26 @@ namespace CookApps.AutoBattler
             elementSynergyDic.Clear();
             foreach (SpecSynergy synergy in SpecSynergy.All)
             {
-                if (!elementSynergyDic.ContainsKey(synergy.element_type))
+                if (!elementSynergyDic.TryGetValue(synergy.element_type, out var list))
                 {
-                    elementSynergyDic.Add(synergy.element_type, synergy);
+                    list = new List<SpecSynergy>();
+                    elementSynergyDic.Add(synergy.element_type, list);
                 }
+
+                list.Add(synergy);
             }
 
             // Position Synergy Dic
             positionSynergyDic.Clear();
             foreach (SpecSynergy synergy in SpecSynergy.All)
             {
-                if (!positionSynergyDic.ContainsKey(synergy.character_position_type))
+                if (!positionSynergyDic.TryGetValue(synergy.character_position_type, out var list))
                 {
-                    positionSynergyDic.Add(synergy.character_position_type, synergy);
+                    list = new List<SpecSynergy>();
+                    positionSynergyDic.Add(synergy.character_position_type, list);
                 }
+
+                list.Add(synergy);
             }
         }
 
@@ -602,6 +608,26 @@ namespace CookApps.AutoBattler
         public SpecInGameVfx GetInGameVfxData(InGameVfxNameType vfxNameType)
         {
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
+        }
+
+        public List<SpecSynergy> GetSpecSynergyList(ElementType elementType)
+        {
+            if (elementSynergyDic.TryGetValue(elementType, out List<SpecSynergy> synergyList))
+            {
+                return synergyList;
+            }
+
+            return null;
+        }
+
+        public List<SpecSynergy> GetSpecSynergyList(CharacterPositionType positionType)
+        {
+            if (positionSynergyDic.TryGetValue(positionType, out List<SpecSynergy> synergyList))
+            {
+                return synergyList;
+            }
+
+            return null;
         }
 
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)

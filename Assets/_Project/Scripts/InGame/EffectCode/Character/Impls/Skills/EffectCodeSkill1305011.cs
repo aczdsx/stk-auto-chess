@@ -112,12 +112,11 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
         _targetCharacter.GetDamaged(damage, owner);
 
-        //[TODO] 디버프 이렇게 하는 거 맞나요??
         Span<double> debuffStats = stackalloc double[2];
         debuffStats.Clear();
         debuffStats[0] = _elapsedTime;
         debuffStats[1] = _debuffRate;
-        var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.BUFF_COOL_DOWN_SPEED_PERCENT_DOWN * 10 + 1, 0, debuffStats);
+        var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.BUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
 
         isSkillActivated = false;

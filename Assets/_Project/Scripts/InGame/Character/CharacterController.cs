@@ -209,23 +209,43 @@ namespace CookApps.BattleSystem
 
         public void AddSynergyEffectCode()
         {
-            // foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
-            // {
-            //     Span<double> stats = stackalloc double[8];
-            //
-            //     SpecDataManager.Instance()
-            //
-            //     var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, stats);
-            //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-            // }
-            //
-            // foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
-            // {
-            //     int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
-            //
-            //     var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, stats);
-            //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-            // }
+            void ProcessSynergyAndAddEffectCode<T>(T enumType) where T : Enum
+            {
+                Span<double> stats = stackalloc double[1];
+
+                int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, (ElementType)(object)enumType);
+                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)(object)enumType);
+                var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                stats[0] = data.stat_value;
+
+                var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
+                ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+            }
+
+            foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
+            {
+                ProcessSynergyAndAddEffectCode(elementType);
+            }
+
+            foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
+            {
+                ProcessSynergyAndAddEffectCode(positionType);
+            }
+        }
+
+        public void RemoveSynergyEffectCode()
+        {
+            foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
+            {
+                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)elementType);
+                ecc.RemoveEffectCode(list[0].id);
+            }
+
+            foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
+            {
+                var list = SpecDataManager.Instance.GetSpecSynergyList((CharacterPositionType)positionType);
+                ecc.RemoveEffectCode(list[0].id);
+            }
         }
 
         public void SetSelectedCharacter(bool isSetSelected)

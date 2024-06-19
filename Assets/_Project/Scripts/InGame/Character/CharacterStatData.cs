@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
         private SpecCharacter _spec;
         private int _level;
 
-        public CharacterStatData(int characterId, int level, List<EffectCodeInfo> globalEffectCodeInfos = null) : this(characterId, level, 1, 1, globalEffectCodeInfos)
+        public CharacterStatData(int characterId, int level, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null) : this(characterId, level, 1, 1, globalEffectCodeInfos)
         { }
 
         public double GetAttrValue()
@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
             return CP;
         }
 
-        public CharacterStatData(int characterId, int level, float multiAd, float multiHp, List<EffectCodeInfo> globalEffectCodeInfos = null)
+        public CharacterStatData(int characterId, int level, float multiAd, float multiHp, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             Debug.LogColor("characterID : " + characterId);
             this.characterId = characterId;

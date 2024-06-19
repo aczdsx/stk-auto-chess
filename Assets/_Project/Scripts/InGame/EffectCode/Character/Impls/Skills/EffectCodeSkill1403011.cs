@@ -113,7 +113,7 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                //[TODO] 타일 바닥에 잔 불 생성해야 함.
+                //[TODO] 타일 바닥에 잔 불 생성해야 함. -> ingamemanager ecc에서 관리
                 // int effectCodeID = 0;
                 // var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 2, _debuffTime,
                 //     _atkDownRate);

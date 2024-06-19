@@ -12,6 +12,10 @@ namespace CookApps.BattleSystem
 
         public override int CalcOrder => 1;
 
+        private ObfuscatorInt _skillIndex = -1;
+        private ObfuscatorFloat _coolTimeDuration;
+        private ObfuscatorFloat _coolTimeElapsedTime;
+
         public virtual bool ForceReadyToActivate()
         {
             return false;
@@ -30,6 +34,7 @@ namespace CookApps.BattleSystem
         public override void OnPreRemoved()
         {
             base.OnPreRemoved();
+            _skillIndex = -1;
             owner = null;
         }
 
@@ -76,7 +81,7 @@ namespace CookApps.BattleSystem
 
         public virtual (int skillIndex, float elapsedTime, float coolTime) GetCoolTimeData()
         {
-            return (-1, 0, 0);
+            return (_skillIndex, _coolTimeElapsedTime, _coolTimeDuration);
         }
 
         /// <summary>

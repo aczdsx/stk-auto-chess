@@ -25,6 +25,16 @@ public class FlowStateStageCombat : StateBase
 
     public override void StateStart()
     {
+        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
+        {
+            character.AddSynergyEffectCode();
+        }
+
+        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
+        {
+            character.AddSynergyEffectCode();
+        }
+
         StartAsync().Forget();
     }
 
@@ -76,6 +86,16 @@ public class FlowStateStageCombat : StateBase
 
     public override void StateEnd(bool isForced)
     {
+        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
+        {
+            character.RemoveSynergyEffectCode();
+        }
+
+        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
+        {
+            character.RemoveSynergyEffectCode();
+        }
+
         ListPool<CharacterController>.Release(characters);
         characters = null;
     }

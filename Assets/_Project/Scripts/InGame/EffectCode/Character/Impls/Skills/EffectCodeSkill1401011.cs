@@ -111,6 +111,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
             movement.SetData(vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
             vfxProjectile.Initialize(false, movement);
             vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+            // movement.OnReachedTarget +=
         }
 
         _isSkillActivated = false;
