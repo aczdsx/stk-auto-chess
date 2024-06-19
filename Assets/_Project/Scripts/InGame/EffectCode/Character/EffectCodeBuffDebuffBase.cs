@@ -30,7 +30,7 @@ namespace CookApps.BattleSystem
         //     if (src != null)
         //     {
         //         var specCharacter = SpecDataManager.Instance.GetCharacterData(src.CharacterId);
-        //         // [TODO] : 상건님 여기서 아이콘 이름을 반환하도록 구현해주세요~
+        //         // 상건님 여기서 아이콘 이름을 반환하도록 구현해주세요~
         //
         //         return string.Empty;
         //     }

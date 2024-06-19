@@ -2,7 +2,8 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
 /// <summary>
-///마법사 타입 캐릭터 스킬 쿨타임 감소 속도 증가
+/// 불 속성 캐릭터 추가 타격 발동
+///공격력 {0}% 추가 타격
 /// </summary>
 [UseEffectCodeIds(CodeId)]
 public class EffectCodeSynergyElementFire : EffectCodeCharacterBase
@@ -22,5 +23,16 @@ public class EffectCodeSynergyElementFire : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // [TODO] 스킬 쿨타임 감소 속도 증가
+    public override void OnAttack()
+    {
+        base.OnAttack();
+
+        if (owner.Target != null)
+        {
+            // [TODO] 불 이펙트 필요 + 어떻게 관리할까요?
+            var damage = owner.PrecalculateDamageAmount(owner.AD * statValue, 0, owner.Target, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, owner.Target);
+            owner.Target.GetDamaged(damage, owner);
+        }
+    }
 }

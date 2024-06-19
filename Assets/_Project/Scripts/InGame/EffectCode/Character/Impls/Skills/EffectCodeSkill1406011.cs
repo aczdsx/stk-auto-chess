@@ -106,7 +106,6 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
             {
                 if (tile.OccupiedCharacter != owner)
                 {
-                    // [TODO] 힐 계산 이렇게만 하면 되나요?
                     double damage = owner.PostCalculateHealAmount(_damageRate, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
                 }

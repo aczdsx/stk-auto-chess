@@ -408,6 +408,16 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        public SpecStage GetStageData(int chapterID, DifficultyType difficultyType, StageType stageType)
+        {
+            if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
+            {
+                return stageList.Find(stage => stage.difficulty_type == difficultyType && stage.stage_type == stageType);
+            }
+
+            return null;
+        }
+
 
         public List<SpecStage> GetStageList(int chapter)
         {
