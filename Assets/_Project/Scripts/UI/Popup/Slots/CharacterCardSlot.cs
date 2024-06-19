@@ -5,6 +5,7 @@ using Coffee.UIEffects;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,12 +40,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _characterSliderText;
 
 
-        private SpecCharacter _characterData;
+        private SpecCharacter _specCharacterData;
         private UserCharacter _userCharacterData;
 
         private CharacterCollectionPopup _parentCollectionPopup;
 
-        public SpecCharacter CharacterData => _characterData;
+        public SpecCharacter SpecCharacterData => _specCharacterData;
 
         private void Awake()
         {
@@ -66,19 +67,19 @@ namespace CookApps.AutoBattler
 
             _parentCollectionPopup = _parentPopup;
 
-            _characterData = characterData;
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(_characterData.character_id);
+            _specCharacterData = characterData;
+            _userCharacterData = UserDataManager.Instance.GetUserCharacter(_specCharacterData.character_id);
 
-            bool haveCharacter = UserDataManager.Instance.IsHaveCharacter(_characterData.character_id);
+            bool haveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
 
             // 기본 데이터 관련 세팅
-            string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _characterData.prefab_id);
+            string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
             var newObject = AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
 
-            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_characterData.grade_type, haveCharacter);
+            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_specCharacterData.grade_type, haveCharacter);
 
-            _synergyUI.SetSynergyUI(_characterData.element_type, haveCharacter);
-            _positionSynergyUI.SetPositionSynergyUI(_characterData.character_position_type, haveCharacter);
+            _synergyUI.SetSynergyUI(_specCharacterData.element_type, haveCharacter);
+            _positionSynergyUI.SetPositionSynergyUI(_specCharacterData.character_position_type, haveCharacter);
 
             _chracterLevelText.gameObject.SetActive(haveCharacter);
             if (haveCharacter)
@@ -92,11 +93,11 @@ namespace CookApps.AutoBattler
                 newObject.GetComponentInChildren<UIEffect>().effectMode = haveCharacter ? EffectMode.None : EffectMode.Grayscale;
             }
 
-            SetStarObject(_characterData.grade_type);
+            SetStarObject(_specCharacterData.grade_type);
 
             // 캐릭터 조각 슬라이더 관련 처리
-            _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{_characterData.need_piece}";
-            _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / _characterData.need_piece;
+            _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterData.need_piece}";
+            _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / _specCharacterData.need_piece;
 
             // 캐릭터 보유 여부 관련 처리
             _outlineActiveObject.SetActive(haveCharacter);
@@ -104,8 +105,8 @@ namespace CookApps.AutoBattler
 
             // BG Layer 세팅
             _lockBGLayerObject.SetActive(!haveCharacter);
-            _normalBGLayerObject.SetActive(haveCharacter && _characterData.grade_type != GradeType.LEGEND);
-            _SSRBGLayerObject.SetActive(haveCharacter && _characterData.grade_type == GradeType.LEGEND);
+            _normalBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type != GradeType.LEGEND);
+            _SSRBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type == GradeType.LEGEND);
         }
 
         private void SetStarObject(GradeType gradeType)
@@ -120,7 +121,27 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            _parentCollectionPopup.SelectCharacterCard(_characterData.character_id);
+            // 캐릭터 조각 20개 이상 보유 하여 최초 획득 시 처리
+            if (UserDataManager.Instance.IsHaveCharacter(_userCharacterData.CharacterId) == false)
+            {
+                if (_userCharacterData.CharacterPiece >= _specCharacterData.need_piece)
+                {
+                    RewardItem newCharacter = new RewardItem(ItemType.CHARACTER, _userCharacterData.CharacterId, 1);
+                    List<RewardItem> rewardList = new List<RewardItem> { newCharacter };
+
+                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardList).Forget();
+
+                    UserDataManager.Instance.AddNewCharacter(_userCharacterData.CharacterId);
+                    UserDataManager.Instance.DecreaseKnightPieceCount(_userCharacterData.CharacterId, _specCharacterData.need_piece);
+
+                    _parentCollectionPopup.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN);
+
+                    return;
+                }
+            }
+
+            // 상세정보창 진입
+            _parentCollectionPopup.SelectCharacterCard(_specCharacterData.character_id);
         }
 
         private void ClearCardSlot()

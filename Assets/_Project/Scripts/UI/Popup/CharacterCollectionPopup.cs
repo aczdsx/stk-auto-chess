@@ -96,6 +96,22 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void RefreshTabLayer(CharacterCollectionPopupTabType tabType)
+        {
+            switch (_currentTabType)
+            {
+                case CharacterCollectionPopupTabType.MAIN:
+                    _collectionMainLayer.RefreshLayer();
+                    break;
+                case CharacterCollectionPopupTabType.GROW:
+                    _detailGrowLayer.RefreshLayer();
+                    break;
+                case CharacterCollectionPopupTabType.SKILL:
+                    _detailSkillLayer.RefreshLayer();
+                    break;
+            }
+        }
+
         private void ClearLayer()
         {
             _detailBGLayerObject.SetActive(false);

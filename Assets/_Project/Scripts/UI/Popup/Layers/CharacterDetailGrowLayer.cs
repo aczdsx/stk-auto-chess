@@ -66,6 +66,11 @@ namespace CookApps.AutoBattler
             SetLevelupLayer();
         }
 
+        public void RefreshLayer()
+        {
+            SetUserStatInfo();
+        }
+
         private void SetUserStatInfo()
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
@@ -112,10 +117,6 @@ namespace CookApps.AutoBattler
             _inactiveLevelUpButton.gameObject.SetActive(!isAvailLevelup);
         }
 
-        private void RefreshLayer()
-        {
-            SetUserStatInfo();
-        }
 
         private void OnClickDetailStatButton()
         {
