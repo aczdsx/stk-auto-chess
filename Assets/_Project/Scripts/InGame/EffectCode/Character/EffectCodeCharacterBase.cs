@@ -74,6 +74,11 @@ namespace CookApps.BattleSystem
         {
         }
 
+        public virtual (int skillIndex, float elapsedTime, float coolTime) GetCoolTimeData()
+        {
+            return (-1, 0, 0);
+        }
+
         /// <summary>
         /// 전투 시작 시 호출 된다.
         /// </summary>

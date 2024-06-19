@@ -7,7 +7,7 @@ namespace CookApps.BattleSystem
     public class EffectCodeContainer
     {
         private List<EffectCodeBase> effectCodes = ListPool<EffectCodeBase>.Get();
-        public List<EffectCodeBase> EffectCodes => effectCodes;
+        public IReadOnlyList<EffectCodeBase> EffectCodes => effectCodes;
         private object owner;
         public object Owner => owner;
 
@@ -292,7 +292,7 @@ namespace CookApps.BattleSystem
         private Dictionary<EffectCodeInheritFlag, List<EffectCodeStatBase>> effectCodesDividedByFlag = new ();
         private Dictionary<EffectCodeInheritFlag, bool> isEffectCodesDividedByFlagDirty = new ();
 
-        public List<EffectCodeStatBase> GetCharacterEffectCodesByFlag(EffectCodeInheritFlag flag)
+        public IReadOnlyList<EffectCodeStatBase> GetCharacterEffectCodesByFlag(EffectCodeInheritFlag flag)
         {
             if (isEffectCodesDividedByFlagDirty.TryAdd(flag, false))
             {
@@ -329,7 +329,7 @@ namespace CookApps.BattleSystem
         private Dictionary<EffectCodeType, List<EffectCodeBase>> effectCodesDividedByType = new ();
         private Dictionary<EffectCodeType, bool> isEffectCodesDividedByTypeDirty = new ();
 
-        public List<EffectCodeBase> GetEffectCodesByType(EffectCodeType type)
+        public IReadOnlyList<EffectCodeBase> GetEffectCodesByType(EffectCodeType type)
         {
             if (isEffectCodesDividedByTypeDirty.TryAdd(type, false))
             {

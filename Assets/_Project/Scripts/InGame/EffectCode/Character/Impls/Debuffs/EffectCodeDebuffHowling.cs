@@ -2,7 +2,7 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
 [UseEffectCodeIds(101021)]
-public class EffectCodeDebuffHowling : EffectCodeCharacterBase
+public class EffectCodeDebuffHowling : EffectCodeDebuffBase
 {
     private ObfuscatorFloat duration;
     private ObfuscatorFloat decreaseRate;
