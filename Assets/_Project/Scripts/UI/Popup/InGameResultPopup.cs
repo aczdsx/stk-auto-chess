@@ -81,13 +81,13 @@ namespace CookApps.AutoBattler
         private void OnExitButtonClicked()
         {
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby", InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby",  (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
         }
 
         private void OnNextStageButtonClicked()
         {
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby", InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
         }
 
         private void CreateRewardItems()
