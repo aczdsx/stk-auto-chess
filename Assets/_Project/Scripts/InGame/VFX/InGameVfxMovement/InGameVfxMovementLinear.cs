@@ -1,13 +1,10 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace CookApps.BattleSystem
 {
     public class InGameVfxMovementLinear : InGameVfxMovementBase
     {
         private Vector3 direction;
-
-
         public override void SetData(Vector3 srcPos, Vector3 destPos, float speed)
         {
             base.SetData(srcPos, destPos, speed);
@@ -19,6 +16,11 @@ namespace CookApps.BattleSystem
             Vector3 move = direction.normalized * dt * speed;
             prevPos = currPos;
             currPos += move;
+            // check reached target
+            if (Vector3.Dot(direction, currPos - srcPos) >= Vector3.Dot(direction, destPos - srcPos))
+            {
+                InvokeReachedTarget();
+            }
         }
     }
 }

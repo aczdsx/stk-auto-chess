@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 4740677429996779697}
   - component: {fileID: 6919915148954573190}
   - component: {fileID: 3868499840264921882}
-  - component: {fileID: -6205987323484610950}
+  - component: {fileID: 1680695566008378668}
   m_Layer: 6
   m_Name: Skill_401011_1
   m_TagString: Untagged
@@ -9820,7 +9820,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6205987323484610950
+--- !u!114 &1680695566008378668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9829,7 +9829,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 953615991184124113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41bec246eb56b9f44acb4ba0cb0d781a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 0}

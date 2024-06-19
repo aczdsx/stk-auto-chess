@@ -6,7 +6,7 @@ namespace CookApps.BattleSystem
 {
     public abstract class InGameVfxMovementBase
     {
-        public event Action OnReachedTarget = delegate { };
+        public event Action OnReachedTarget = null;
 
         protected Vector3 srcPos;
         protected Vector3 destPos;
@@ -26,13 +26,18 @@ namespace CookApps.BattleSystem
             this.speed = speed;
         }
 
+        public virtual void Clear()
+        {
+            OnReachedTarget = null;
+        }
+
         public abstract void ManagedUpdate(float dt);
 
         public virtual void InvokeReachedTarget()
         {
             // onetime event
             OnReachedTarget?.Invoke();
-            OnReachedTarget = delegate { };
+            OnReachedTarget = null;
         }
 
         public static InGameVfxMovementBase Create<T>() where T : InGameVfxMovementBase
