@@ -3655,6 +3655,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 486290022507990887}
     m_Modifications:
+    - target: {fileID: 1349521558864533609, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349521558864533609, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349521558864533609, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637744375681794717, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b19ced2efc8e89140b6f9a587940fd97, type: 3}
     - target: {fileID: 3637744375681794717, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Color.b
       value: 0.9450981
@@ -3666,6 +3682,10 @@ PrefabInstance:
     - target: {fileID: 3637744375681794717, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Color.r
       value: 0.89019614
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748072903309281631, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: m_Name
+      value: Text_Character
       objectReference: {fileID: 0}
     - target: {fileID: 5619251713337702699, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Pivot.x
@@ -3748,6 +3768,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6620932656108400832, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: m_text
+      value: "\uCE90\uB9AD\uD130"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620932656108400832, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_fontSize
       value: 25
       objectReference: {fileID: 0}
@@ -3777,7 +3801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8076199433163748970, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Name
-      value: Btn_Shop
+      value: Btn_CharacterCollection
       objectReference: {fileID: 0}
     - target: {fileID: 9072320445479520389, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_AnchorMax.x
