@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preset: 0
   onEnableBehaviour: 2
-  onDisableBehaviour: 0
+  onDisableBehaviour: 2
 --- !u!114 &141001807674263402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 0.3
+  duration: 0.25
   easeType: 6
   easeCurve:
     serializedVersion: 2
@@ -181,7 +181,7 @@ MonoBehaviour:
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
-  endValueFloat: 0.8
+  endValueFloat: 0.88
   endValueV3: {x: 0, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
