@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private SpriteRenderer _coolTimeGuage;
 
-        [SerializeField] private List<SpriteRenderer> _buffDebuffSpriteRenderers;
+        [SerializeField] private List<InGameBuffDebuff> _buffDebuffList;
 
         private SpriteRenderer _selectedFillLeft;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
@@ -107,22 +107,17 @@ namespace CookApps.AutoBattler
 
         public void AddBuffIcon(long codeID)
         {
-            CharacterEffectType type = (CharacterEffectType)codeID;
-            _buffDebuffSpriteRenderers.ForEach(renderer =>
-            {
-                if (renderer.sprite == null)
-                {
-                    renderer.sprite = ImageManager.Instance.GetBuffDebuffSprite(type.ToString());
-                    renderer.gameObject.SetActive(true);
-                    return;
-                }
-            });
-        }
-
-        public void AddDebuffIcon(long codeID)
-        {
-            CharacterEffectType type = (CharacterEffectType)codeID;
-            throw new System.NotImplementedException();
+            // [TODO] buff, debuff icon 고민 좀만 더...
+            // CharacterEffectType type = (CharacterEffectType)codeID;
+            // _buffDebuffList.ForEach(renderer =>
+            // {
+            //     if (renderer.sprite == null)
+            //     {
+            //         renderer.sprite = ImageManager.Instance.GetBuffDebuffSprite(type.ToString());
+            //         renderer.gameObject.SetActive(true);
+            //         return;
+            //     }
+            // });
         }
     }
 

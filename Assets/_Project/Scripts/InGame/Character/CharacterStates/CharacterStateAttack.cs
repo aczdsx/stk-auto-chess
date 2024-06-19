@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -115,7 +116,28 @@ public class CharacterStateAttack : CharacterStateBase
                     return;
                 }
 
-                // TODO: throw projectile Effect
+                // [TODO] projectile 관리는 어떻게 할까요?
+                InGameVfxNameType projectile = InGameVfxNameType.NONE;
+                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile, characCtrl.Target.GetCharacterView().CachedTr.position);
+
+                var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+                var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(characCtrl);
+                if (inGameTile != null)
+                {
+                    Vector3 direction = (inGameTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
+                    vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
+                    movement.SetData(vfxProjectile.CachedTr.position, inGameTile.View.CachedTr.position, 15);
+                    vfxProjectile.Initialize(false, movement);
+
+                    void OnReachedTargetHandler()
+                    {
+                        characCtrl.Target.GetDamaged(damageInfo, characCtrl);
+                    }
+                    movement.OnReachedTarget += OnReachedTargetHandler;
+                }
+
+
                 characCtrl.Target.GetDamaged(damageInfo, characCtrl);
             }
             else

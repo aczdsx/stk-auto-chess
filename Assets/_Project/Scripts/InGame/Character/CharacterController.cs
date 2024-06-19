@@ -258,14 +258,28 @@ namespace CookApps.BattleSystem
         {
             foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
             {
-                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)elementType);
-                ecc.RemoveEffectCode(list[0].id);
+                int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
+                if (synergyCount > 0)
+                {
+                    var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
+                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+
+                    if (data.grade > 0)
+                        ecc.RemoveEffectCode(list[0].id);
+                }
             }
 
             foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
             {
-                var list = SpecDataManager.Instance.GetSpecSynergyList((CharacterPositionType)positionType);
-                ecc.RemoveEffectCode(list[0].id);
+                int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
+                if (synergyCount > 0)
+                {
+                    var list = SpecDataManager.Instance.GetSpecSynergyList(positionType);
+                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+
+                    if (data.grade > 0)
+                        ecc.RemoveEffectCode(list[0].id);
+                }
             }
         }
 
@@ -425,14 +439,7 @@ namespace CookApps.BattleSystem
                         var buffCodeID = effectCode.CodeId;
                         if (buffCodeID == 0)
                             continue;
-                        if (buffDebuffTypes[i] == EffectCodeType.Buff)
-                        {
-                            GetHpBarView().AddBuffIcon(buffCodeID);
-                        }
-                        else
-                        {
-                            GetHpBarView().AddDebuffIcon(buffCodeID);
-                        }
+                        GetHpBarView().AddBuffIcon(buffCodeID);
                     }
                 }
             }
