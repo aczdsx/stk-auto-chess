@@ -4915,7 +4915,7 @@ Transform:
   m_GameObject: {fileID: 276951174355658586}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13, y: 0.611, z: 0.28}
+  m_LocalPosition: {x: 0.69, y: 0.611, z: 0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5111,7 +5111,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.98244536, g: 0.6556604, b: 1, a: 1}
+      maxColor: {r: 0.654902, g: 0.96181244, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9860,7 +9860,7 @@ GameObject:
   - component: {fileID: 3285405206949032249}
   - component: {fileID: 8675319711928924116}
   m_Layer: 6
-  m_Name: Skill_10401
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14709,7 +14709,7 @@ Transform:
   m_GameObject: {fileID: 4855216525331385769}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13, y: 0.611, z: 0.28}
+  m_LocalPosition: {x: 0.69000137, y: 0.611, z: 0.12000054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14905,7 +14905,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.98244536, g: 0.6556604, b: 1, a: 0.49019608}
+      maxColor: {r: 0.654902, g: 0.96608293, b: 1, a: 0.49019608}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19669,7 +19669,7 @@ Transform:
   m_GameObject: {fileID: 5005572078361282876}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13, y: 0.611, z: 0.28}
+  m_LocalPosition: {x: 0.69000137, y: 0.611, z: 0.12000054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19865,7 +19865,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.98244536, g: 0.6556604, b: 1, a: 1}
+      maxColor: {r: 0.654902, g: 0.98919934, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
