@@ -1308,8 +1308,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.57416534, b: 1, a: 1}
-        key1: {r: 0.057278175, g: 0, b: 0.1882353, a: 0}
+        key0: {r: 0, g: 0.9999995, b: 1, a: 1}
+        key1: {r: 0, g: 0.18227862, b: 0.1882353, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4841,7 +4841,6 @@ GameObject:
   - component: {fileID: 834943454803712122}
   - component: {fileID: 6193647001153775292}
   - component: {fileID: 7945853447096732966}
-  - component: {fileID: -9019507177867004902}
   m_Layer: 6
   m_Name: Skill_101011
   m_TagString: Untagged
@@ -9662,19 +9661,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-9019507177867004902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569042333811301447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particle: {fileID: 0}
 --- !u!1 &4914928548816545517
 GameObject:
   m_ObjectHideFlags: 0
@@ -9899,7 +9885,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.3448279, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.8781085, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

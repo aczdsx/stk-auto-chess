@@ -8450,9 +8450,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2811037718125807568, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811037718125807568, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811037718125807568, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8156863
+      objectReference: {fileID: 0}
     - target: {fileID: 3661636047501903098, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
       propertyPath: m_Name
       value: Text (TMP)_subject_Upgrade
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352775448345347264, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352775448345347264, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352775448345347264, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 7711770586928599495, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 7711770586928599495, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 7711770586928599495, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8156863
       objectReference: {fileID: 0}
     - target: {fileID: 8221432746205751607, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
       propertyPath: m_text
@@ -8460,7 +8496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8221432746205751607, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 8221432746205751607, guid: f502786f801d34741a8156c14dbb7cf8, type: 3}
       propertyPath: m_fontSizeBase

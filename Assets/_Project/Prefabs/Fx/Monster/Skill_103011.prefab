@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8666729117403844744}
   - component: {fileID: 7493790755326689803}
   - component: {fileID: 2752561536515561871}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Skill_103011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4858,7 +4858,7 @@ GameObject:
   - component: {fileID: 5306626297156498789}
   - component: {fileID: 7260587658134040841}
   - component: {fileID: 5837802633374147720}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: pt_fire_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9755,7 +9755,7 @@ GameObject:
   - component: {fileID: 7651459150584381894}
   - component: {fileID: 6173441679396144564}
   - component: {fileID: 6110610106840413290}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: pt_fire_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14643,7 +14643,7 @@ GameObject:
   - component: {fileID: 5338731602066779829}
   - component: {fileID: 4226618044247004189}
   - component: {fileID: 5013228978282544432}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
