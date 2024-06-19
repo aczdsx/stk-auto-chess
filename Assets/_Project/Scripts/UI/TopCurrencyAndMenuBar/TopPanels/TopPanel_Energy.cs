@@ -11,15 +11,15 @@ namespace CookApps.AutoBattler
 
         private void OnEnable()
         {
-            UserDataManager.OnEnergyChanged += EnergyChanged;
+            UserDataManager.OnApChanged += ApChanged;
         }
 
         private void OnDisable()
         {
-            UserDataManager.OnEnergyChanged -= EnergyChanged;
+            UserDataManager.OnApChanged -= ApChanged;
         }
 
-        private void EnergyChanged(int energy)
+        private void ApChanged(int energy)
         {
             currencyText.SetText(energy.ToString("N0"));
         }
