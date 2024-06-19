@@ -82,6 +82,8 @@ namespace CookApps.AutoBattler
         private Dictionary<long, List<SpecSkill>> skillPrefabIDDic = new (); // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new (); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
+        private Dictionary<CharacterPositionType, SpecSynergy> positionSynergyDic = new (); // key : CharacterPositionType, value : SpecSynergy
+        private Dictionary<ElementType, SpecSynergy> elementSynergyDic = new (); // key : ElementType, value : SpecSynergy
 
         private void CustomizeSpecData()
         {
@@ -243,6 +245,26 @@ namespace CookApps.AutoBattler
                 if (!inGameVfxDic.ContainsKey(inGameVfx.vfx_name_type))
                 {
                     inGameVfxDic.Add(inGameVfx.vfx_name_type, inGameVfx);
+                }
+            }
+
+            // Element Synergy Dic
+            elementSynergyDic.Clear();
+            foreach (SpecSynergy synergy in SpecSynergy.All)
+            {
+                if (!elementSynergyDic.ContainsKey(synergy.element_type))
+                {
+                    elementSynergyDic.Add(synergy.element_type, synergy);
+                }
+            }
+
+            // Position Synergy Dic
+            positionSynergyDic.Clear();
+            foreach (SpecSynergy synergy in SpecSynergy.All)
+            {
+                if (!positionSynergyDic.ContainsKey(synergy.character_position_type))
+                {
+                    positionSynergyDic.Add(synergy.character_position_type, synergy);
                 }
             }
         }
@@ -581,5 +603,15 @@ namespace CookApps.AutoBattler
         {
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
+
+        // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
+        // {
+        //     return inGameVfxDic.GetValueOrDefault(vfxNameType);
+        // }
+        //
+        // public SpecInGameVfx GetInGameVfxData(InGameVfxNameType vfxNameType)
+        // {
+        //     return inGameVfxDic.GetValueOrDefault(vfxNameType);
+        // }
     }
 }

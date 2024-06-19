@@ -1,5 +1,6 @@
 using CookApps.BattleSystem;
 
+// 현재는 사용 x -> 웨이브 개념 들어갈 때 사용 예정.
 public class FlowStateStageWaveStart : StateBase
 {
     public override void StateInit(object target)

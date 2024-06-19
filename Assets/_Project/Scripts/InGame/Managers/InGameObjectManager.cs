@@ -58,9 +58,9 @@ namespace CookApps.BattleSystem
             ClearAllEnemiesInField();
         }
 
-        public List<CharacterController> GetCharacterList()
+        public List<CharacterController> GetCharacterList(AllianceType allianceType)
         {
-            return charactersInPlaygroundForUpdate;
+            return allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
         }
 
         public CharacterController GetCharacterInField(int characUId)

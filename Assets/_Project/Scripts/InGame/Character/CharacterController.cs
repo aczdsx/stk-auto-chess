@@ -207,6 +207,27 @@ namespace CookApps.BattleSystem
             }
         }
 
+        public void AddSynergyEffectCode()
+        {
+            // foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
+            // {
+            //     Span<double> stats = stackalloc double[8];
+            //
+            //     SpecDataManager.Instance()
+            //
+            //     var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, stats);
+            //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+            // }
+            //
+            // foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
+            // {
+            //     int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
+            //
+            //     var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, stats);
+            //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+            // }
+        }
+
         public void SetSelectedCharacter(bool isSetSelected)
         {
             view.SetSelected(isSetSelected);
