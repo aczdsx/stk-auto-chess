@@ -209,27 +209,48 @@ namespace CookApps.BattleSystem
 
         public void AddSynergyEffectCode()
         {
-            void ProcessSynergyAndAddEffectCode<T>(T enumType) where T : Enum
-            {
-                Span<double> stats = stackalloc double[1];
-
-                int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, (ElementType)(object)enumType);
-                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)(object)enumType);
-                var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
-                stats[0] = data.stat_value;
-
-                var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
-                ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-            }
-
             foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
             {
-                ProcessSynergyAndAddEffectCode(elementType);
+                if (elementType != ElementType.NONE)
+                {
+                    Span<double> stats = stackalloc double[1];
+
+                    int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
+                    if (synergyCount > 0)
+                    {
+                        var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
+                        var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                        if (data.grade > 0)
+                        {
+                            stats[0] = data.stat_value;
+
+                            var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
+                            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                        }
+                    }
+                }
             }
 
             foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
             {
-                ProcessSynergyAndAddEffectCode(positionType);
+                if (positionType != CharacterPositionType.NONE)
+                {
+                    Span<double> stats = stackalloc double[1];
+
+                    int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
+                    if (synergyCount > 0)
+                    {
+                        var list = SpecDataManager.Instance.GetSpecSynergyList(positionType);
+                        var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                        if (data.grade > 0)
+                        {
+                            stats[0] = data.stat_value;
+
+                            var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
+                            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                        }
+                    }
+                }
             }
         }
 
