@@ -2,7 +2,7 @@ using Cysharp.Text;
 
 namespace CookApps.AutoBattler
 {
-    public class TopPanel_CTicket : TopPanelBase
+    public class TopPanel_C_Ticket : TopPanelBase
     {
         public override TopPanelType PanelType => TopPanelType.C_Ticket;
 
