@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ namespace CookApps.AutoBattler
         private UserCharacter _userCharacterData;
         private SpecCharacter _specCharacterData;
         private SpecCharacterLevelExp _specCharacterLevelExpData;
+        private CharacterStatData _userStatData;
 
         private bool _isHaveCharacter = false;
 
@@ -70,14 +72,14 @@ namespace CookApps.AutoBattler
 
             int userLevel = Mathf.Max(1, _userCharacterData.Level);
 
-            CharacterStatData statData = new CharacterStatData(_userCharacterData.CharacterId, userLevel);
+            _userStatData = new CharacterStatData(_userCharacterData.CharacterId, userLevel);
 
             _levelText.text = $"Lv.{userLevel}";
-            _battlePointText.text = statData.GetAttrValue().ToString("N0");
-            _attackValueText.text = _specCharacterData.stat_atk.ToString("N0");
-            _hpValueText.text = statData.HP.ToString("N0");
-            _apDefText.text = statData.RES.ToString("N0");
-            _adDefText.text = statData.DEF.ToString("N0");
+            _battlePointText.text = _userStatData.GetAttrValue().ToString("N0");
+            _attackValueText.text = _userStatData.AD.ToString("N0");
+            _hpValueText.text = _userStatData.HP.ToString("N0");
+            _apDefText.text = _userStatData.RES.ToString("N0");
+            _adDefText.text = _userStatData.DEF.ToString("N0");
 
         }
 
@@ -117,7 +119,9 @@ namespace CookApps.AutoBattler
 
         private void OnClickDetailStatButton()
         {
+            if (_userStatData == null) return;
 
+            SceneUILayerManager.Instance.PushUILayerAsync<InfoDetailTooltipPopup>(_userStatData).Forget();
         }
 
         private void OnClickLevelupButton()
