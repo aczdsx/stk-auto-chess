@@ -290,7 +290,7 @@ namespace CookApps.AutoBattler
         fx_common_assassin = 45,
     }
 
-    public enum GlobalStatProviderType
+    public enum GlobalEffectProviderType
     {
         EQIUP = 1,
         MONSTER_MULTIPLE = 99,

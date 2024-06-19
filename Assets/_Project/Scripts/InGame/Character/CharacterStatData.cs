@@ -62,14 +62,14 @@ namespace CookApps.AutoBattler
             if (!Mathf.Approximately(multiAd, 1f))
             {
                 var codeId = EffectCodeIdGenerator.GetStatCode(CharacterEffectType.AD_PERCENT_UP,
-                    GlobalStatProviderType.MONSTER_MULTIPLE, 0);
+                    GlobalEffectProviderType.MONSTER_MULTIPLE, 0);
                 var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
             }
             if (!Mathf.Approximately(multiHp, 1f))
             {
                 var codeId = EffectCodeIdGenerator.GetStatCode(CharacterEffectType.HP_PERCENT_UP,
-                    GlobalStatProviderType.MONSTER_MULTIPLE, 0);
+                    GlobalEffectProviderType.MONSTER_MULTIPLE, 0);
                 var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
             }

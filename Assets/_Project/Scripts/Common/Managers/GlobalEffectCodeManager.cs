@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
-using UnityEngine.Pool;
-
-public enum GlobalEffectCodeSource
-{
-}
 
 public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffectCodeSource
 {
@@ -21,25 +17,25 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
     /// <summary>
     /// Action의 두번째 인자는 effectCodeId
     /// </summary>
-    public static event Action<GlobalEffectCodeSource, long> OnEffectCodeChanged;
+    public static event Action<GlobalEffectProviderType, long> OnEffectCodeChanged;
 
     /// <summary>
     /// 전역으로 등록되는 EffectCode들
     /// </summary>
-    private Dictionary<(GlobalEffectCodeSource src, long codeId), EffectCodeInfo> globalEffectCodes = new ();
+    private Dictionary<(GlobalEffectProviderType src, long codeId), EffectCodeInfo> globalEffectCodes = new ();
 
     /// <summary>
     /// 전역으로 동작하는 effectCode를 추가하거나 업데이트한다.
     /// </summary>
     /// <param name="source"></param>
     /// <param name="codeInfo"></param>
-    public void AddOrUpdateEffectCode(GlobalEffectCodeSource source, EffectCodeInfo codeInfo)
+    public void AddOrUpdateEffectCode(GlobalEffectProviderType source, EffectCodeInfo codeInfo)
     {
         globalEffectCodes[(source, codeInfo.CodeId)] = codeInfo;
         OnEffectCodeChanged?.Invoke(source, codeInfo.CodeId);
     }
 
-    public void RemoveEffectCode(GlobalEffectCodeSource source, int codeId)
+    public void RemoveEffectCode(GlobalEffectProviderType source, int codeId)
     {
         if (!globalEffectCodes.Remove((source, codeId)))
             return;
@@ -49,7 +45,7 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
 
     public IEnumerable<EffectCodeInfo> GetAllGlobalEffectCodes() => globalEffectCodes.Values;
 
-    public IEnumerable<EffectCodeInfo> GetAllGlobalEffectCodes(GlobalEffectCodeSource source)
+    public IEnumerable<EffectCodeInfo> GetAllGlobalEffectCodes(GlobalEffectProviderType source)
     {
         foreach (var code in globalEffectCodes)
         {
@@ -58,7 +54,7 @@ public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffe
         }
     }
 
-    public EffectCodeInfo GetGlobalEffectCode(GlobalEffectCodeSource source, int codeId)
+    public EffectCodeInfo GetGlobalEffectCode(GlobalEffectProviderType source, int codeId)
     {
         return globalEffectCodes.GetValueOrDefault((source, codeId));
     }
