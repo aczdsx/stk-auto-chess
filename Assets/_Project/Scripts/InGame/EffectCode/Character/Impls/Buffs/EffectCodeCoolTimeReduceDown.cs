@@ -5,9 +5,10 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeAtkSpeedDeBuff : EffectCodeBuffBase
+public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
 {
-    public const int CodeId = (int)CharacterEffectType.DEBUFF_ATK_SPEED_DOWN;
+    public const int CodeId = (int)CharacterEffectType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.CoolTimeDown;
     private List<BuffStackData> stackDatas = new List<BuffStackData>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -22,7 +23,7 @@ public class EffectCodeAtkSpeedDeBuff : EffectCodeBuffBase
             source: source
         );
         stackDatas.Add(buffStackData);
-        owner.AddBuffDebuffType(BuffDebuffType.AttackUp);
+        owner.AddBuffDebuffType(buffDebuffType);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -111,19 +112,19 @@ public class EffectCodeAtkSpeedDeBuff : EffectCodeBuffBase
 
     public override void OnPreRemoved()
     {
-        owner.RemoveBuffDebuffType(BuffDebuffType.AttackUp);
+        owner.RemoveBuffDebuffType(buffDebuffType);
         base.OnPreRemoved();
         ListPool<BuffStackData>.Release(stackDatas);
     }
 
-    public override float GetIncrementPercentAttackSpeed()
+    public override float GetIncrementFixedSkillCooltimeRate()
     {
         float increaseRate = 0;
         for (int i = 0; i < stackDatas.Count; i++)
         {
             if (stackDatas[i] != null)
             {
-                increaseRate += (float)stackDatas[i].value;
+                increaseRate -= (float)stackDatas[i].value;
             }
         }
         return increaseRate;

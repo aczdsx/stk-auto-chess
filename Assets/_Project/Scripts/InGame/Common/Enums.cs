@@ -77,6 +77,7 @@ namespace CookApps.BattleSystem
         Invincibility,
         AttackDown = 1000,
         DefenceDown,
+        CoolTimeDown,
         ResistanceDown,
         AttackSpeedDown,
         CriticalProbDown,

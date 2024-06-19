@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -15,9 +16,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1102011)]
 public class EffectCodeSkill1102011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _cooltime;
     private ObfuscatorFloat _powerRate;
-    private ObfuscatorFloat _elapsedTime;
 
     private bool isReadyToActivate;
     private bool isSkillActivated;
@@ -29,9 +28,10 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        SkillIndex = 1;
+        CoolTimeElapsedTime = 0f;
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _elapsedTime = 0f;
         isReadyToActivate = false;
         isSkillActivated = false;
 
@@ -41,7 +41,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _cooltime = codeInfo.GetCodeStatToFloat(0);
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
@@ -56,7 +56,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            _elapsedTime = _cooltime;
+            CoolTimeElapsedTime = CoolTimeDurationTime;
         }
     }
 
@@ -64,8 +64,8 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
     {
         if (isReadyToActivate || isSkillActivated)
             return;
-        _elapsedTime += dt;
-        if (_elapsedTime >= _cooltime)
+        CoolTimeElapsedTime += dt;
+        if (CoolTimeElapsedTime >= CoolTimeDurationTime)
         {
             isReadyToActivate = true;
         }
@@ -110,8 +110,14 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
             InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
                 1);
 
-        int effectCodeID = EffectCodeCrowdControlAirborne.CodeId;
-        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, inGameTile.View.ID);
+        Span<double> eccStats = stackalloc double[3];
+        eccStats.Clear();
+        eccStats[0] = 0.5f;
+        eccStats[1] = 0.3f;
+        eccStats[2] = inGameTile.View.ID;
+
+        long effectCodeID = (long)CharacterEffectType.BOUND;
+        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
 
         isSkillActivated = false;
@@ -120,7 +126,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
-        _elapsedTime = 0;
+        CoolTimeElapsedTime = 0;
         isSkillActivated = false;
     }
 }

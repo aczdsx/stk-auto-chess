@@ -211,7 +211,7 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// codeId로 이펙트코드 제거
         /// </summary>
-        public bool RemoveEffectCode(int effectCodeId)
+        public bool RemoveEffectCode(long effectCodeId)
         {
             EffectCodeBase effectCode = null;;
             foreach (EffectCodeBase effectCodeItem in effectCodes)
