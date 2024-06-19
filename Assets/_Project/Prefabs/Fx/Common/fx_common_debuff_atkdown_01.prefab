@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1608005826375266305}
   - component: {fileID: 7536807533771319179}
   - component: {fileID: 4533863003818614917}
+  - component: {fileID: 4427659882194447833}
   m_Layer: 6
   m_Name: fx_common_debuff_atkdown_01
   m_TagString: Untagged
@@ -4836,6 +4837,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4427659882194447833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048901601523763146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &3274656913210810219
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,6 +70,7 @@ namespace CookApps.BattleSystem
 
         public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, IFollowable parent)
         {
+            Debug.LogColor($"vfxName : {vfxNameType}");
             var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
             addWaitingInGameVfxs.Enqueue(effect);
             effect.SetFollowable(parent);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -14,11 +15,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1306011)]
 public class EffectCodeSkill1306011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _coolTime;
     private ObfuscatorFloat _duration;
     private ObfuscatorFloat _atkUpRate;
-
-    private ObfuscatorFloat _elapsedTime;
 
     private bool _isReadyToActivate;
     private bool _isSkillActivated;
@@ -28,10 +26,11 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        SkillIndex = 1;
+        CoolTimeElapsedTime = 0f;
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
         _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;;
-        _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
 
@@ -41,7 +40,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
         _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;;
     }
@@ -57,7 +56,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            _elapsedTime = _coolTime;
+            CoolTimeElapsedTime = CoolTimeDurationTime;
         }
     }
 
@@ -65,8 +64,8 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
     {
         if (_isReadyToActivate || _isSkillActivated)
             return;
-        _elapsedTime += dt;
-        if (_elapsedTime >= _coolTime)
+        CoolTimeElapsedTime += dt;
+        if (CoolTimeElapsedTime >= CoolTimeDurationTime)
         {
             _isReadyToActivate = true;
         }
@@ -103,13 +102,16 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
             foreach (var tile in inGameTiles)
             {
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var buffVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                Span<double> eccStats = stackalloc double[3];
+                eccStats.Clear();
+                eccStats[0] = codeId;
+                eccStats[1] = _duration;
+                eccStats[2] = _atkUpRate;
 
-                int effectCodeID = (int)CharacterEffectType.BUFF_AD_PERCENT_UP;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, _duration,
-                    _atkUpRate);
+                long effectCodeID = (long)CharacterEffectType.BUFF_AD_PERCENT_UP;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
                 tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }
         }
@@ -120,7 +122,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
-        _elapsedTime = 0;
+        CoolTimeElapsedTime = 0;
         _isSkillActivated = false;
     }
 }

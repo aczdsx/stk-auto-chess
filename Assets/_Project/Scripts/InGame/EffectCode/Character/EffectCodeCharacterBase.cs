@@ -10,11 +10,11 @@ namespace CookApps.BattleSystem
         public override EffectCodeType Type => EffectCodeType.Character;
         protected CharacterController owner;
 
-        public override int CalcOrder => 1;
+        protected ObfuscatorInt SkillIndex = -1;
+        protected ObfuscatorFloat CoolTimeDurationTime;
+        protected ObfuscatorFloat CoolTimeElapsedTime;
 
-        private ObfuscatorInt _skillIndex = -1;
-        private ObfuscatorFloat _coolTimeDuration;
-        private ObfuscatorFloat _coolTimeElapsedTime;
+        public override int CalcOrder => 1;
 
         public virtual bool ForceReadyToActivate()
         {
@@ -34,7 +34,7 @@ namespace CookApps.BattleSystem
         public override void OnPreRemoved()
         {
             base.OnPreRemoved();
-            _skillIndex = -1;
+            SkillIndex = -1;
             owner = null;
         }
 
@@ -81,7 +81,7 @@ namespace CookApps.BattleSystem
 
         public virtual (int skillIndex, float elapsedTime, float coolTime) GetCoolTimeData()
         {
-            return (_skillIndex, _coolTimeElapsedTime, _coolTimeDuration);
+            return (SkillIndex, CoolTimeElapsedTime, CoolTimeDurationTime);
         }
 
         /// <summary>

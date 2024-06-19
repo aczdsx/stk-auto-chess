@@ -15,10 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1304021)]
 public class EffectCodeSkill1304031 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _coolTime;
     private ObfuscatorFloat _powerRate;
-
-    private ObfuscatorFloat _elapsedTime;
 
     private bool _isReadyToActivate;
     private bool _isSkillActivated;
@@ -28,9 +25,10 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        SkillIndex = 1;
+        CoolTimeElapsedTime = 0f;
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _elapsedTime = 0f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
 
@@ -40,7 +38,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _coolTime = codeInfo.GetCodeStatToFloat(0);
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
@@ -55,7 +53,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
         if (false)
         {
             owner.AddNextState<CharacterStateIdle>();
-            _elapsedTime = _coolTime;
+            CoolTimeElapsedTime = CoolTimeDurationTime;
         }
     }
 
@@ -63,8 +61,8 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     {
         if (_isReadyToActivate || _isSkillActivated)
             return;
-        _elapsedTime += dt;
-        if (_elapsedTime >= _coolTime)
+        CoolTimeElapsedTime += dt;
+        if (CoolTimeElapsedTime >= CoolTimeDurationTime)
         {
             _isReadyToActivate = true;
         }
@@ -108,7 +106,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                _elapsedTime = _coolTime;
+                CoolTimeElapsedTime = CoolTimeDurationTime;
             }
         }
 
@@ -119,7 +117,7 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     {
         base.OnSkillAnimationEnd();
         // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
-        _elapsedTime = 0;
+        CoolTimeElapsedTime = 0;
         _isSkillActivated = false;
     }
 }

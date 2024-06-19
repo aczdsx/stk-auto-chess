@@ -8,6 +8,7 @@ using UnityEngine.Pool;
 public class EffectCodeBuffAtkUp : EffectCodeBuffBase
 {
     private const int CodeId = (int)CharacterEffectType.BUFF_AD_PERCENT_UP;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.AttackUp;
     private List<BuffStackData> stackDatas = new List<BuffStackData>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -22,7 +23,7 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
             source: source
         );
         stackDatas.Add(buffStackData);
-        owner.AddBuffDebuffType(BuffDebuffType.AttackUp);
+        owner.AddBuffDebuffType(buffDebuffType);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -111,7 +112,7 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
 
     public override void OnPreRemoved()
     {
-        owner.RemoveBuffDebuffType(BuffDebuffType.AttackUp);
+        owner.RemoveBuffDebuffType(buffDebuffType);
         base.OnPreRemoved();
         ListPool<BuffStackData>.Release(stackDatas);
     }

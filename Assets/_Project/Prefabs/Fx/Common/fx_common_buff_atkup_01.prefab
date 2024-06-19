@@ -29299,6 +29299,7 @@ GameObject:
   - component: {fileID: 5082846793768358625}
   - component: {fileID: 4790777851777641350}
   - component: {fileID: 6643512221175804567}
+  - component: {fileID: -2646550665395476275}
   m_Layer: 6
   m_Name: fx_common_buff_atkup_01
   m_TagString: Untagged
@@ -34125,6 +34126,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-2646550665395476275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6440622846760505491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &8252030613790614146
 GameObject:
   m_ObjectHideFlags: 0
