@@ -65,6 +65,13 @@ namespace CookApps.AutoBattler
                 case CharacterCollectionPopupTabType.MAIN:
                     _collectionMainLayer.gameObject.SetActive(true);
                     _collectionMainLayer.InitLayer(this);
+
+                    //baseAnimator.SetBool("_onCollectionMain", true);
+                    if (isFirstInit == false)
+                    {
+                        baseAnimator.SetTrigger("OnCollectionMain");
+                    }
+
                     break;
                 case CharacterCollectionPopupTabType.GROW:
                     _detailBGLayerObject.SetActive(true);
@@ -73,6 +80,10 @@ namespace CookApps.AutoBattler
 
                     _detailGrowLayer.gameObject.SetActive(true);
                     _detailGrowLayer.InitLayer(_currentCharacterID);
+
+                    //baseAnimator.SetBool("_onCollectionDetailGrow", true);
+                    baseAnimator.SetTrigger("OnCollectionDetailGrow");
+
                     break;
                 case CharacterCollectionPopupTabType.SKILL:
                     _detailBGLayerObject.SetActive(true);
