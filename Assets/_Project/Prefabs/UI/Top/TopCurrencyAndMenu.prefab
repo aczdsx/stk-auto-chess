@@ -11442,7 +11442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_Name
-      value: CharUserExpItem
+      value: Char_User_Exp_Item
       objectReference: {fileID: 0}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_IsActive
@@ -11681,7 +11681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_Name
-      value: CharUserExpItem2
+      value: Char_User_Exp_Item_2
       objectReference: {fileID: 0}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_IsActive
@@ -11920,7 +11920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_Name
-      value: CTicket
+      value: C_Ticket
       objectReference: {fileID: 0}
     - target: {fileID: 7727261233298371851, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_IsActive

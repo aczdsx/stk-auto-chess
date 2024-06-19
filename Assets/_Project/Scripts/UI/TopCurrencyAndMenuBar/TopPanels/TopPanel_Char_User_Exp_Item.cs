@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
 
         private void OnDisable()
         {
-            //UserDataManager.OnCharUserExpItemChanged -= CharUserExpItemChanged;
+            UserDataManager.OnCharUserExpItemChanged -= CharUserExpItemChanged;
         }
 
         private void CharUserExpItemChanged(int expItem)
