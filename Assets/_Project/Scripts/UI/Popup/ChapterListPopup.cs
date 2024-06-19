@@ -85,7 +85,7 @@ namespace CookApps.AutoBattler
             if (isFirstInit == false)
             {
                 var firstSpecStage = SpecDataManager.Instance.GetStageData(_selectedChapterData.chapter_id, 1, _selectedChapterData.difficulty_type);
-                UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.id, true);
+                UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.stage_id, true);
             }
 
             // 팝업 관련 처리 (하단 정보, 슬라이더)
