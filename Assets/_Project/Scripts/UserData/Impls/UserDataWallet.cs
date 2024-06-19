@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
 
         public UserWallet UserWallet => userWallet;
 
-        public static event Action<int> OnApChanged;
+        public static event Action<int> OnAPChanged;
         public static event Action<int> OnGoldChanged;
         public static event Action<int> OnJewelChanged;
         public static event Action<int> OnCTicketChanged;
@@ -111,7 +111,7 @@ namespace CookApps.AutoBattler
                     break;
                 case ItemType.AP:
                     userWallet.Ap += itemAmount;
-                    OnApChanged?.Invoke(userWallet.Ap);
+                    OnAPChanged?.Invoke(userWallet.Ap);
                     break;
                 case ItemType.C_TICKET:
                     userWallet.CTicket += itemAmount;
@@ -188,7 +188,7 @@ namespace CookApps.AutoBattler
                     break;
                 case ItemType.AP:
                     userWallet.Ap -= itemAmount;
-                    OnApChanged?.Invoke(userWallet.Ap);
+                    OnAPChanged?.Invoke(userWallet.Ap);
                     break;
                 case ItemType.C_TICKET:
                     userWallet.CTicket -= itemAmount;
