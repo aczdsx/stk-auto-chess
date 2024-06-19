@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -74,6 +75,9 @@ namespace CookApps.AutoBattler
             RefreshUI(LobbyMainRefreshType.ALL);
 
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
+
+            // 전투 진행
+            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(null);
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)
@@ -216,6 +220,7 @@ namespace CookApps.AutoBattler
                 }
 
                 // 스테이지 진입
+                InGameManager.Instance.EndInGame();
                 SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type)).Forget();
             }
         }

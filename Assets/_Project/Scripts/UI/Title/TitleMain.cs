@@ -99,7 +99,9 @@ namespace CookApps.AutoBattler
             // else
             {
                 var transition = SceneTransition_FadeInOut.Create();
-                SceneLoading.GoToNextScene("Lobby", null, transition).Forget();
+                // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.
+                int lastChapter = 1;
+                SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
             }
         }
     }

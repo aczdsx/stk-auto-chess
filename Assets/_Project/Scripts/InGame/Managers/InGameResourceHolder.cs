@@ -14,18 +14,33 @@ namespace CookApps.AutoBattler
         public static HpBarView HpBarView = null;
         public static InGameTextView InGameText = null;
         // public static SpecStage SpecStage = null;
+        public static int Chapter { get; private set; }
 
         public static async UniTask LoadResources(int chapter, int stageIdx, DifficultyType difficultyType)
         {
+            Chapter = chapter;
             GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();
 
             GameObject ingameTextPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/DamageText.prefab");
             InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
 
-            // SpecStage = SpecDataManager.Instance.GetStageData(chapter, stageIdx, difficultyType);
-            if (chapter == 0)
+            if (chapter == 1)
                 chapter = 999;
+            StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
+        }
+
+        public static async UniTask LoadLobbyResources(int chapter)
+        {
+            Chapter = chapter;
+
+            GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
+            HpBarView = hpBarPrefab.GetComponent<HpBarView>();
+
+            GameObject ingameTextPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/DamageText.prefab");
+            InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
+
+            //[TODO] 아웃게임 챕터 불러오기
             StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Stage{chapter}.prefab");
         }
 

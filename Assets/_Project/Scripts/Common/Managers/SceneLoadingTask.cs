@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
 
             if (sceneName == "Lobby")
             {
-                await LoadLobbyResources();
+                await LoadLobbyResources(defaultUIData);
             }
 
             if (prevSceneName == "InGame")
@@ -30,8 +30,11 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private static async UniTask LoadLobbyResources()
+        private static async UniTask LoadLobbyResources(object defaultUIData)
         {
+            int chapter = (int) defaultUIData;
+            await InGameResourceHolder.LoadLobbyResources(chapter);
+
             await TopPanelSingleUseHelper.Instance.Initialize();
         }
 
