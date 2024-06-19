@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.Obfuscator;
 using CookApps.SpecData;
 using CookApps.TeamBattle;
@@ -73,6 +74,10 @@ namespace CookApps.AutoBattler
             ClearList();
 
             _totalCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
+
+            // 정렬 (획득 여부-> id 값 -> 조각 획득 여부)
+            _totalCharacterList = _totalCharacterList.OrderByDescending(data => UserDataManager.Instance.IsHaveCharacter(data.character_id))
+                .ThenByDescending(data => data.character_id).ToList();
 
             foreach (var characterData in _totalCharacterList)
             {
