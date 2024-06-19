@@ -21,8 +21,11 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
 
         InGameTile tile = InGameObjectManager.Instance.InGameGrid.GetTileForAssassin(characCtrl);
 
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_assassin,
-            characCtrl.GetCharacterView().CachedTr.position);
+        InGameVfxNameType assassinFxType = (characCtrl.AllianceType == AllianceType.Player)
+            ? InGameVfxNameType.fx_common_assassin_awful
+            : InGameVfxNameType.fx_common_assassin_enemy;
+
+        InGameVfxManager.Instance.AddInGameVfx(assassinFxType, characCtrl.GetCharacterView().CachedTr.position);
 
 
         if (tile != null)
@@ -53,8 +56,7 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
                             tile.View.CachedTr.position);
                     else if (characCtrl.AllianceType == AllianceType.Enemy)
                     {
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_assassin,
-                            tile.View.CachedTr.position);
+                        InGameVfxManager.Instance.AddInGameVfx(assassinFxType, tile.View.CachedTr.position);
                     }
 
                     characCtrl.AddNextState<CharacterStateIdle>();
