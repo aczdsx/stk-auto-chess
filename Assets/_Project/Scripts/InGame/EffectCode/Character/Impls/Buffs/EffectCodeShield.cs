@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeBuffShield : EffectCodeCharacterBase
+public class EffectCodeBuffShield : EffectCodeBuffBase
 {
     public const int CodeId = 119;
     private class ShieldData
@@ -122,5 +122,10 @@ public class EffectCodeBuffShield : EffectCodeCharacterBase
         // [TODO]: show shield damage text
 
         return damageAmount;
+    }
+
+    public override bool IsNeedToShowIcon()
+    {
+        return false;
     }
 }

@@ -70,7 +70,6 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         {
             _isReadyToActivate = true;
         }
-        owner.GetHpBarView().OnCoolTimeUpdated(0, _elapsedTime, _coolTime);
     }
 
     public override bool IsReadyToActivate()

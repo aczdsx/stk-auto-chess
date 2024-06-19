@@ -280,6 +280,8 @@ namespace CookApps.BattleSystem
             _currState.AnimationEventCallback(animName, eventKey);
         }
 
+
+        static EffectCodeType[] buffDebuffTypes = { EffectCodeType.Buff, EffectCodeType.Debuff };
         // Update is called once per frame
         public void ManagedUpdate(float dt)
         {
@@ -329,7 +331,7 @@ namespace CookApps.BattleSystem
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnUpdate))
             {
-                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnUpdate);
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnUpdate);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnUpdateLambda, dt);
             }
 
@@ -338,20 +340,59 @@ namespace CookApps.BattleSystem
                 view.UpdatePosition(position, ViewPosition3D);
             }
 
-            if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
             {
-                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
-                float skillCooltimeRate = InGameCalculator.CalculateCooltimeRate(SkillCooltimeRate);
-                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
+                if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
+                {
+                    float skillCooltimeRate = InGameCalculator.CalculateCooltimeRate(SkillCooltimeRate);
+                    EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
+                }
+                for (var i = 0; i < effectCodes.Count; i++)
+                {
+                    if (effectCodes[i] is EffectCodeCharacterBase characterEffectCode)
+                    {
+                        var coolTimeData = characterEffectCode.GetCoolTimeData();
+                        if (coolTimeData.skillIndex < 0)
+                            continue;
+                        GetHpBarView().OnCoolTimeUpdated(coolTimeData.skillIndex, coolTimeData.elapsedTime, coolTimeData.coolTime);
+                    }
+                }
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeActivate))
             {
-                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
                 EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
                 if (effectCode is EffectCodeCharacterBase runEffectCode)
                 {
                     runEffectCode.Activate();
+                }
+            }
+
+            // buff debuff 표시
+            {
+                // GetHpBarView().ResetBuffIcons();
+                for (var i = 0; i < buffDebuffTypes.Length; i++)
+                {
+                    var effectCodes = ecc.GetEffectCodesByType(buffDebuffTypes[i]);
+                    foreach (var effectCode in effectCodes)
+                    {
+                        if (!(effectCode is EffectCodeBuffDebuffBase buffDebuffEffectCode))
+                            continue;
+                        if (!buffDebuffEffectCode.IsNeedToShowIcon())
+                            continue;
+                        var buffIconName = buffDebuffEffectCode.GetBuffIconName();
+                        if (string.IsNullOrEmpty(buffIconName))
+                            continue;
+                        if (buffDebuffTypes[i] == EffectCodeType.Buff)
+                        {
+                            // GetHpBarView().AddBuffIcon(buffIconName);
+                        }
+                        else
+                        {
+                            // GetHpBarView().AddDebuffIcon(buffIconName);
+                        }
+                    }
                 }
             }
 
@@ -675,7 +716,7 @@ namespace CookApps.BattleSystem
                 }
 
                 var deathInfo = new DeathInfo {attacker = attacker};
-                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
                 deathInfo = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
 
                 if (!deathInfo.isUseCustomState && DefaultDeadState != null)
@@ -714,7 +755,7 @@ namespace CookApps.BattleSystem
 
         private void IncreaseKillCount(CharacterController deadCharacter)
         {
-            List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
+            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
         }
 
@@ -731,7 +772,7 @@ namespace CookApps.BattleSystem
             // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
 
             {
-                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
                 recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
             }
 
@@ -760,7 +801,7 @@ namespace CookApps.BattleSystem
 
             {
                 // effectCode에게 이벤트 전달
-                List<EffectCodeStatBase> effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHealed);
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHealed);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnHealedLambda, amount, isFirstHeal);
                 _currHp += amount;
             }

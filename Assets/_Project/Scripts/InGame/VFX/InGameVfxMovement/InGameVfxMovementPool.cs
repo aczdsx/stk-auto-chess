@@ -26,7 +26,7 @@ namespace CookApps.BattleSystem
         public static void Return<T>(T movement) where T : InGameVfxMovementBase
         {
             Type type = typeof(T);
-
+            movement.Clear();
             if (pools.TryGetValue(type, out var pool))
             {
                 pool.Release(movement);

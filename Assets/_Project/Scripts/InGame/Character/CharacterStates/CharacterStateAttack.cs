@@ -48,7 +48,7 @@ public class CharacterStateAttack : CharacterStateBase
                 characCtrl.ResetAttackCoolTime();
 
                 // 이펙트 코드에게 공격 횟수 전달
-                List<EffectCodeStatBase> characEffectCodes = characCtrl.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttack);
+                var characEffectCodes = characCtrl.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttack);
                 EffectCodeForLoopHelper.Call(characEffectCodes, EffectCodeCharacterLambda.CallOnAttackLambda);
 
                 RunAttackAnimation();
