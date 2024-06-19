@@ -34,7 +34,8 @@ namespace CookApps.AutoBattler
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
         [SerializeField] private GameObject _stageSelectSlotObject;
-        [SerializeField] private Image _chapterImage;
+        [SerializeField] private Image _bossStageImage;
+        [SerializeField] private TextMeshProUGUI _bossStageText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
 
@@ -154,16 +155,16 @@ namespace CookApps.AutoBattler
 
             int currentStagdId = UserDataManager.Instance.GetLastPlayStageID();
 
-            SpecStage stageSpec = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
-            var chapterSpecData = SpecDataManager.Instance.GetChapterDataByStageID(currentStagdId);
+            SpecStage specStageData = SpecDataManager.Instance.SpecStage.Get(currentStagdId);
+            var specChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStagdId);
 
-            var stageList = SpecDataManager.Instance.GetStageList(chapterSpecData.chapter_id, chapterSpecData.difficulty_type);
+            var stageList = SpecDataManager.Instance.GetStageList(specChapterData.chapter_id, specChapterData.difficulty_type);
 
             //_chapterImage.sprite = specStage.chapter_image;
-            _chapterNameText.SetText(chapterSpecData.name_token);
+            _chapterNameText.SetText(specChapterData.name_token);
 
             int totalStageCount = stageList.Count;
-            _stageProgressText.SetText("{0}/{1}", stageSpec.stage_number, totalStageCount);
+            _stageProgressText.SetText("{0}/{1}", specStageData.stage_number, totalStageCount);
 
             for (int i = 0; i < stageList.Count; i++)
             {
@@ -172,6 +173,14 @@ namespace CookApps.AutoBattler
                 slot.SetStageItemSlot(stageList[i]);
 
                 _stageSlotList.Add(slot);
+            }
+
+            // 보스 스테이지 관련
+            SpecStage bossStageData = SpecDataManager.Instance.GetStageData(specStageData.chapter_id, specStageData.difficulty_type, StageType.BATTLE_BOSS);
+            if (bossStageData != null)
+            {
+                //_bossStageImage.sprite = ImageManager.Instance.GetStageImage(bossStageData.stage_id);
+                _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }
         }
 
