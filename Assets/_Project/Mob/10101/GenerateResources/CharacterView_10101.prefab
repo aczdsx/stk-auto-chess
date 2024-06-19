@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterView_10101
       objectReference: {fileID: 0}
+    - target: {fileID: 1758468053598742516, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683004968830859785, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5225200624478126835, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507360050226466860, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7066975744640795765, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60,6 +76,10 @@ PrefabInstance:
       propertyPath: _hologramMaterial
       value: 
       objectReference: {fileID: -876546973899608171, guid: 3cd374d8c82053146bdb2d3f2352c464, type: 3}
+    - target: {fileID: 8197889284388215339, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -360,9 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b285765218555244a9321ec1c68b26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAnimator: {fileID: 0}
+  baseAnimator: {fileID: 9069680493758840629}
   _detailBGLayerObject: {fileID: 4972471346295014224}
-  _detailMainBGLayer: {fileID: 0}
+  _detailMainBGLayer: {fileID: 6331557183476723124}
   _collectionMainLayer: {fileID: 4928659314064489471}
   _detailGrowLayer: {fileID: 7750261063664464353}
   _detailSkillLayer: {fileID: 1652406965229473105}
@@ -867,6 +867,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3974169843735815645, guid: 78d5075143cd3b94192850120fb77963, type: 3}
   m_PrefabInstance: {fileID: 3069330855412939241}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6331557183476723124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9026974594056803421, guid: 78d5075143cd3b94192850120fb77963, type: 3}
+  m_PrefabInstance: {fileID: 3069330855412939241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f953d1905fac30040a99d488d44110f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4439111262797020922
 PrefabInstance:
   m_ObjectHideFlags: 0
