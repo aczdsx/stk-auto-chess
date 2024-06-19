@@ -14896,7 +14896,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.654902, g: 0.99696183, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.6721698, b: 0.3443396, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24604,7 +24604,6 @@ GameObject:
   - component: {fileID: 796686381521706882}
   - component: {fileID: 3585867286531636110}
   - component: {fileID: 1850838295276314919}
-  - component: {fileID: -5233320500000917300}
   m_Layer: 3
   m_Name: Skill_104021
   m_TagString: Untagged
@@ -24620,7 +24619,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7121761994419046498}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -24633,7 +24632,7 @@ Transform:
   - {fileID: 5964558825779567549}
   - {fileID: 1317338970916485323}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3585867286531636110
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -29431,19 +29430,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-5233320500000917300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7121761994419046498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particle: {fileID: 0}
 --- !u!1 &7523727661255264445
 GameObject:
   m_ObjectHideFlags: 0
@@ -29667,7 +29653,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6839622, g: 1, b: 0.98125994, a: 1}
+      maxColor: {r: 1, g: 0.7583084, b: 0.4764151, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
