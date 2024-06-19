@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
@@ -7,7 +8,7 @@ using UnityEngine.Pool;
 [UseEffectCodeIds(CodeId)]
 public class EffectCodeBuffShield : EffectCodeBuffBase
 {
-    public const int CodeId = 119;
+    public const int CodeId = (int)CharacterEffectType.SHIELD;
     private class ShieldData
     {
         public ObfuscatorFloat elapsedTime;

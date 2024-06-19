@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using UnityEngine;
 
@@ -132,6 +133,11 @@ namespace CookApps.AutoBattler
         public Sprite GetCommanderSkillSprite(int commanderSkillID)
         {
             return AtlasManager.Instance.GetSprite(Defines.COMMANDER_SKILL_ATLAS_NAME, $"CommanderSkill_{commanderSkillID}");
+        }
+
+        public Sprite GetBuffDebuffSprite(string type)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_BUFF_DEBUFF_ICON_NAME, $"BuffDebuffIcon_{type}");
         }
 
         public Color GetGradeTypeColor(GradeType GradeType)

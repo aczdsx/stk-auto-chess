@@ -4,9 +4,10 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
-[UseEffectCodeIds((int)CharacterEffectType.BUFF_AD_PERCENT_UP)]
+[UseEffectCodeIds(CodeId)]
 public class EffectCodeBuffAtkUp : EffectCodeBuffBase
 {
+    private const int CodeId = (int)CharacterEffectType.BUFF_AD_PERCENT_UP;
     private List<BuffStackData> stackDatas = new List<BuffStackData>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

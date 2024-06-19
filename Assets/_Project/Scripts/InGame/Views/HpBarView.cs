@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
@@ -16,6 +17,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _enermySmoothColor;
 
         [SerializeField] private SpriteRenderer _coolTimeGuage;
+
+        [SerializeField] private List<SpriteRenderer> _buffDebuffSpriteRenderers;
 
         private SpriteRenderer _selectedFillLeft;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
@@ -100,6 +103,26 @@ namespace CookApps.AutoBattler
         {
             float targetRatio = Mathf.Clamp01((float)(current / max));
             _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
+        }
+
+        public void AddBuffIcon(long codeID)
+        {
+            CharacterEffectType type = (CharacterEffectType)codeID;
+            _buffDebuffSpriteRenderers.ForEach(renderer =>
+            {
+                if (renderer.sprite == null)
+                {
+                    renderer.sprite = ImageManager.Instance.GetBuffDebuffSprite(type.ToString());
+                    renderer.gameObject.SetActive(true);
+                    return;
+                }
+            });
+        }
+
+        public void AddDebuffIcon(long codeID)
+        {
+            CharacterEffectType type = (CharacterEffectType)codeID;
+            throw new System.NotImplementedException();
         }
     }
 

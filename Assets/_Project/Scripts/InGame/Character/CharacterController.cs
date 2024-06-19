@@ -401,16 +401,16 @@ namespace CookApps.BattleSystem
                             continue;
                         if (!buffDebuffEffectCode.IsNeedToShowIcon())
                             continue;
-                        var buffIconName = buffDebuffEffectCode.GetBuffIconName();
-                        if (string.IsNullOrEmpty(buffIconName))
+                        var buffCodeID = effectCode.CodeId;
+                        if (buffCodeID == 0)
                             continue;
                         if (buffDebuffTypes[i] == EffectCodeType.Buff)
                         {
-                            // GetHpBarView().AddBuffIcon(buffIconName);
+                            GetHpBarView().AddBuffIcon(buffCodeID);
                         }
                         else
                         {
-                            // GetHpBarView().AddDebuffIcon(buffIconName);
+                            GetHpBarView().AddDebuffIcon(buffCodeID);
                         }
                     }
                 }

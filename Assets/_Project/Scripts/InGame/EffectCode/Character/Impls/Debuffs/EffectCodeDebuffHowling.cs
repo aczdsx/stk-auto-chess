@@ -8,7 +8,6 @@ public class EffectCodeDebuffHowling : EffectCodeDebuffBase
     private ObfuscatorFloat decreaseRate;
 
     private float elapsedTime;
-
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
