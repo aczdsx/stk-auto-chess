@@ -2,12 +2,12 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
 /// <summary>
-///저격수 타입 캐릭터 공격 시 스킬 쿨타임 감소
+///마법사 타입 캐릭터 스킬 쿨타임 감소 속도 증가
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyRanger : EffectCodeCharacterBase
+public class EffectCodeSynergyPositionWizard : EffectCodeCharacterBase
 {
-    public const int CodeId = 210301;
+    public const int CodeId = 210201;
     private ObfuscatorFloat statValue;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -22,10 +22,5 @@ public class EffectCodeSynergyRanger : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // [TODO] 공격 시 스킬 쿨타임 감소
-    public override void OnAttack()
-    {
-        base.OnAttack();
-
-    }
+    // [TODO] 스킬 쿨타임 감소 속도 증가
 }

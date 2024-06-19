@@ -2,12 +2,12 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
 /// <summary>
-///탱커 타입 캐릭터 피격 시 스킬 쿨타임 감소
+///저격수 타입 캐릭터 공격 시 스킬 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyTank : EffectCodeCharacterBase
+public class EffectCodeSynergyPositionRanger : EffectCodeCharacterBase
 {
-    public const int CodeId = 210101;
+    public const int CodeId = 210301;
     private ObfuscatorFloat statValue;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -22,5 +22,10 @@ public class EffectCodeSynergyTank : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // [TODO] 피격 당했을 시
+    // [TODO] 공격 시 스킬 쿨타임 감소
+    public override void OnAttack()
+    {
+        base.OnAttack();
+
+    }
 }
