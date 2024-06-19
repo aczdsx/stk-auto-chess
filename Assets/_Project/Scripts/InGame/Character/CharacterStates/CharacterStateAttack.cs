@@ -131,7 +131,8 @@ public class CharacterStateAttack : CharacterStateBase
 
                     void OnReachedTargetHandler()
                     {
-                        characCtrl.Target.GetDamaged(damageInfo, characCtrl);
+                        if (characCtrl != null && characCtrl.Target != null)
+                            characCtrl.Target.GetDamaged(damageInfo, characCtrl);
                         vfxProjectile.Remove();
                     }
                     movement.OnReachedTarget += OnReachedTargetHandler;

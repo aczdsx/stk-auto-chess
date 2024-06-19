@@ -30,6 +30,9 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+            return;
+
         _isDragging = true;
         _dragStartPosition = eventData.position;
 
