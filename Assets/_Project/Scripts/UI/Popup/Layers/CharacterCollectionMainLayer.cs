@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
 
         public void RefreshLayer()
         {
-
+            SetCharacterCollectionUI();
         }
 
         public void OnClickTabToggleButton(int tabIndex)
@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    slot.gameObject.SetActive((int)slot.CharacterData.element_type == (int)targetType);
+                    slot.gameObject.SetActive((int)slot.SpecCharacterData.element_type == (int)targetType);
                 }
             });
 

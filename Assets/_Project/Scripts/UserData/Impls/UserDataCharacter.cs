@@ -79,6 +79,8 @@ namespace CookApps.AutoBattler
         {
             if (UserCharacterDic.ContainsKey(characterID))
             {
+                if (UserCharacterDic[characterID].CharacterPiece < pieceCount) return;
+
                 UserCharacterDic[characterID].CharacterPiece -= pieceCount;
 
                 SaveCharacterGroup();

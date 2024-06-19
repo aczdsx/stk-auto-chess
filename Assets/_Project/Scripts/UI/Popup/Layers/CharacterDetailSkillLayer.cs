@@ -24,6 +24,11 @@ namespace CookApps.AutoBattler
             SetSkillLayer();
         }
 
+        public void RefreshLayer()
+        {
+
+        }
+
         private void SetSkillLayer()
         {
             if (_specCharacterData == null) return;
