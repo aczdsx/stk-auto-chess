@@ -35,6 +35,8 @@ namespace CookApps.AutoBattler
 
         private SpecCharacter _specCharacterData;
 
+        private Material _illustMaterial;
+
         private void Awake()
         {
             _backButton.onClick.AddListener(OnClickBackButton);
@@ -61,6 +63,14 @@ namespace CookApps.AutoBattler
 
             SetTabState();
             SetCharacterInfo();
+        }
+
+        public void SetMaterialGlobalAlpha(int alphaValue)
+        {
+            if (_illustMaterial != null)
+            {
+                _illustMaterial.SetFloat("Global Alpha", alphaValue);
+            }
         }
 
         public void OnClickGrowLayerTabButton()
@@ -91,7 +101,9 @@ namespace CookApps.AutoBattler
 
             // 캐릭터 일러스트 생성
             string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
-            AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+            var newObject = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+
+            _illustMaterial = newObject.GetComponentInChildren<RawImage>().material;
 
             // 캐릭터 SD 캐릭터 생성
             string sdPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
