@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
                 case ItemType.C_TICKET:
                     if (userWallet.CTicket < itemAmount && isShowToast)
                     {
-                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GOLD");
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
                     }
                     return userWallet.CTicket >= itemAmount;
                 case ItemType.CHAR_USER_EXP_ITEM:
