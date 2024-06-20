@@ -2,6 +2,7 @@
 public static class Defines
 {
     public const string UI_ATLAS_NAME = "UI_Main";
+    public const string UI_BANNER_ATLAS_NAME = "UI_Banner";
     public const string UI_ATLAS_CHARACTER_PIECE = "UI_Character_Piece";
     public const string GACHA_ATLAS_NAME = "Atlas_Gacha";
     public const string STIGMA_ATLAS_NAME = "Atlas_Icon_Stigma";

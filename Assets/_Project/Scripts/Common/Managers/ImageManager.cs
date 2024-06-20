@@ -100,6 +100,11 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
+        public Sprite GetBossBannerSprite(int bannerID)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.UI_BANNER_ATLAS_NAME, $"BossBanner_{bannerID}");
+        }
+
         public Sprite GetCharacterIllustSprite(int prefabID)
         {
             return AtlasManager.Instance.GetSprite(Defines.CHAR_ATLAS_ILLUST_NAME, $"Character_Illust_{prefabID}");

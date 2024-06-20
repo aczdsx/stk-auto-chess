@@ -6,12 +6,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.TextCore.Text;
 
 namespace CookApps.AutoBattler
 {
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/DialogueShowPopup.prefab")]
     public class DialogueShowPopup : UILayer
     {
+        [SerializeField]
+        private TMP_FontAsset temTMPFontAsset;
+
         [Header("Chracter Layer")]
         [SerializeField] private GameObject _characeterIllustParentObject;
         [SerializeField] private TextMeshProUGUI _characterNameText;
@@ -51,6 +55,9 @@ namespace CookApps.AutoBattler
 
             int dialogueGroupID = (int)param;
             _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(dialogueGroupID);
+
+            _characterNameText.font = temTMPFontAsset;
+            _dialogueText.font = temTMPFontAsset;
 
             ClearPopup();
 
