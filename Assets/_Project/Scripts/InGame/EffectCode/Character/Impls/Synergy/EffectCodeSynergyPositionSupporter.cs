@@ -1,3 +1,4 @@
+using System;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
@@ -20,5 +21,21 @@ public class EffectCodeSynergyPositionSupporter : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         statValue = codeInfo.GetCodeStatToFloat(0);
+    }
+
+    public virtual void OnCombatStart()
+    {
+        base.OnCombatStart();
+
+        var list = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
+        foreach (var ec in list)
+        {
+            EffectCodeCharacterBase eccBase = ((EffectCodeCharacterBase) ec);
+            float durationTime = eccBase.GetDurationTime();
+            float elapsedTime = eccBase.GetDurationTime();
+            float decreasedTime = durationTime * statValue;
+            float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+            eccBase.SetElapsedTime(newElapsedTime);
+        }
     }
 }

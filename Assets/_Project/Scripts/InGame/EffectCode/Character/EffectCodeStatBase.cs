@@ -149,8 +149,6 @@ namespace CookApps.BattleSystem
     public abstract class EffectCodeStatBase : EffectCodeBase
     {
         public override EffectCodeType Type => EffectCodeType.Stat;
-
-        public override EffectCodeLifeType LifeType => EffectCodeLifeType.Permanent;
         public virtual int CalcOrder => 0;
 
         /// <summary>

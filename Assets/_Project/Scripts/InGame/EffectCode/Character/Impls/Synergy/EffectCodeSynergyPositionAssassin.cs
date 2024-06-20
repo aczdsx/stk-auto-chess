@@ -1,3 +1,4 @@
+using System;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
@@ -22,5 +23,19 @@ public class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // [TODO] 스킬 쿨타임 감소 속도 증가
+    public override void OnKill(CharacterController deadCharacter)
+    {
+        base.OnKill(deadCharacter);
+
+        var list = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
+        foreach (var ec in list)
+        {
+            EffectCodeCharacterBase eccBase = ((EffectCodeCharacterBase) ec);
+            float durationTime = eccBase.GetDurationTime();
+            float elapsedTime = eccBase.GetDurationTime();
+            float decreasedTime = durationTime * statValue;
+            float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+            eccBase.SetElapsedTime(newElapsedTime);
+        }
+    }
 }

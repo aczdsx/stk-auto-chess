@@ -49,12 +49,12 @@ namespace CookApps.AutoBattler
         {
             _currentCharacterID = characterID;
 
-            ChangeTabType(CharacterCollectionPopupTabType.GROW);
+            ChangeTabType(CharacterCollectionPopupTabType.GROW, true);
         }
 
-        public void ChangeTabType(CharacterCollectionPopupTabType tabType, bool isFirstInit = false)
+        public void ChangeTabType(CharacterCollectionPopupTabType tabType, bool isFirstEnter = false)
         {
-            if (_currentTabType == tabType && isFirstInit == false) return;
+            if (_currentTabType == tabType && isFirstEnter == false) return;
 
             ClearLayer();
 
@@ -66,8 +66,7 @@ namespace CookApps.AutoBattler
                     _collectionMainLayer.gameObject.SetActive(true);
                     _collectionMainLayer.InitLayer(this);
 
-                    //baseAnimator.SetBool("_onCollectionMain", true);
-                    if (isFirstInit == false)
+                    if (isFirstEnter == false)
                     {
                         baseAnimator.SetTrigger("OnCollectionMain");
                     }
@@ -82,7 +81,14 @@ namespace CookApps.AutoBattler
                     _detailGrowLayer.InitLayer(_currentCharacterID);
 
                     //baseAnimator.SetBool("_onCollectionDetailGrow", true);
-                    baseAnimator.SetTrigger("OnCollectionDetailGrow");
+                    if (isFirstEnter)
+                    {
+                        baseAnimator.SetTrigger("OnCollectionDetailEntry");
+                    }
+                    else
+                    {
+                        baseAnimator.SetTrigger("OnCollectionDetailGrow");
+                    }
 
                     break;
                 case CharacterCollectionPopupTabType.SKILL:
@@ -92,6 +98,9 @@ namespace CookApps.AutoBattler
 
                     _detailSkillLayer.gameObject.SetActive(true);
                     _detailSkillLayer.InitLayer(_currentCharacterID);
+
+                    baseAnimator.SetTrigger("OnCollectionDetailSkill");
+
                     break;
             }
         }

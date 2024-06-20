@@ -27,14 +27,12 @@ namespace CookApps.BattleSystem
         #region Effect Code Datas
         private Dictionary<long, Func<EffectCodeBase>> effectCodeCreators = new ();
         private Dictionary<long, EffectCodeType> effectCodeTypeMap = new ();
-        private Dictionary<long, EffectCodeLifeType> effectCodeLifeTypeMap = new ();
         private Dictionary<long, Queue<EffectCodeBase>> pools = new ();
 
         public void Clear()
         {
             effectCodeCreators.Clear();
             effectCodeTypeMap.Clear();
-            effectCodeLifeTypeMap.Clear();
             pools.Clear();
         }
 
@@ -82,18 +80,11 @@ namespace CookApps.BattleSystem
 
             EffectCodeBase temp = lambda.Invoke();
             effectCodeTypeMap.Add(codeId, temp.Type);
-            effectCodeLifeTypeMap.Add(codeId, temp.LifeType);
         }
 
         public EffectCodeType GetEffectCodeType(long codeId)
         {
             effectCodeTypeMap.TryGetValue(codeId, out EffectCodeType type);
-            return type;
-        }
-
-        public EffectCodeLifeType GetEffectCodeLifeType(long codeId)
-        {
-            effectCodeLifeTypeMap.TryGetValue(codeId, out EffectCodeLifeType type);
             return type;
         }
         #endregion
