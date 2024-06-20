@@ -98,23 +98,33 @@ namespace CookApps.AutoBattler
             int maxTimeLimitMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
 
             int refreshMinute = currentRewardTimeSpan.Minutes;  // 분 단위로 갱신
-            while (maxTimeLimitMinute > currentRewardTimeSpan.TotalMinutes)
+            try
             {
-                _accTimeGuideText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
-
-                await UniTask.Delay(1000, cancellationToken:token);
-
-                currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
-
-                if (refreshMinute != currentRewardTimeSpan.Minutes)
+                while (maxTimeLimitMinute > currentRewardTimeSpan.TotalMinutes)
                 {
-                    RefreshIdleRewardData();
-                    refreshMinute = currentRewardTimeSpan.Minutes;
+                    _accTimeGuideText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
+
+                    await UniTask.Delay(1000, cancellationToken:token);
+
+                    currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
+
+                    if (refreshMinute != currentRewardTimeSpan.Minutes)
+                    {
+                        RefreshIdleRewardData();
+                        refreshMinute = currentRewardTimeSpan.Minutes;
+                    }
+                }
+
+                // 최대 시간 도달 처리
+                if (maxTimeLimitMinute <= currentRewardTimeSpan.TotalMinutes)
+                {
+                    _accTimeGuideText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00";
                 }
             }
-
-            // 최대 시간 도달 처리
-            _accTimeGuideText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00";
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
 
         private void OnClickGetRewardButton()
