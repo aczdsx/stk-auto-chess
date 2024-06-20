@@ -21,6 +21,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
+        public InGameBottomCharacterUI InGameBottomCharacterUI => _inGameBottomCharacterUI;
+
         public float InGameTime => _inGameTime;
         [SerializeField] private InGameTopUI _InGameTopUI;
         [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
@@ -69,13 +71,18 @@ namespace CookApps.AutoBattler
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
         }
 
-        public void SetReadyUI()
+        public void SetInGameBottomUI()
         {
             _inGameBottomCharacterUI.InitData(() =>
             {
                 _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
                 _InGameTopUI.UpdateAttrUI(AllianceType.Player);
             });
+        }
+
+        public void SetReadyUI()
+        {
+            SetInGameBottomUI();
 
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
