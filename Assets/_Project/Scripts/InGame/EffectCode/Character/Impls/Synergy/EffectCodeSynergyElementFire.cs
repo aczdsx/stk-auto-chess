@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
@@ -29,7 +30,8 @@ public class EffectCodeSynergyElementFire : EffectCodeCharacterBase
 
         if (owner.Target != null)
         {
-            // [TODO] 불 이펙트 필요 + 어떻게 관리할까요?
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_02, owner.SkillRootTransformFollowable);
+
             var damage = owner.PrecalculateDamageAmount(owner.AD * statValue, 0, owner.Target, codeId, true);
             owner.PostCalculateDamageAmount(ref damage, owner.Target);
             owner.Target.GetDamaged(damage, owner);
