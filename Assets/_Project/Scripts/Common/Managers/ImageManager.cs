@@ -120,6 +120,11 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.CHAR_INGAME_PORTRAIT_ATLAS_NAME, $"IngameChaPortrait_{prefabID}");
         }
 
+        public Sprite GetCharacterSmallItemSprite(int prefabID)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, $"Icon_CharacterSmallItem_{prefabID}");
+        }
+
         public Sprite GetCharacterStigmaSprite(int prefabID)
         {
             return AtlasManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{prefabID}");
