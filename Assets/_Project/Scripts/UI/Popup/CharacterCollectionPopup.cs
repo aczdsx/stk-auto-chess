@@ -20,6 +20,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab")]
     public class CharacterCollectionPopup : UILayer
     {
+        [SerializeField] private GameObject _dimmedBGLayerObject;
+
         [Header("BG Layer")]
         [SerializeField] private GameObject _detailBGLayerObject;
         [SerializeField] private CharacterDetailMainLayer _detailMainBGLayer;
@@ -88,6 +90,8 @@ namespace CookApps.AutoBattler
                     _detailGrowLayer.gameObject.SetActive(true);
                     _detailGrowLayer.InitLayer(_currentCharacterID);
 
+                    RefreshDimmedLayer();
+
                     //baseAnimator.SetBool("_onCollectionDetailGrow", true);
                     if (isFirstEnter)
                     {
@@ -107,6 +111,8 @@ namespace CookApps.AutoBattler
                     _detailSkillLayer.gameObject.SetActive(true);
                     _detailSkillLayer.InitLayer(_currentCharacterID);
 
+                    RefreshDimmedLayer();
+
                     baseAnimator.SetTrigger("OnCollectionDetailSkill");
 
                     break;
@@ -122,15 +128,29 @@ namespace CookApps.AutoBattler
                     break;
                 case CharacterCollectionPopupTabType.GROW:
                     _detailGrowLayer.RefreshLayer();
+
+                    RefreshDimmedLayer();
                     break;
                 case CharacterCollectionPopupTabType.SKILL:
                     _detailSkillLayer.RefreshLayer();
+
+                    RefreshDimmedLayer();
                     break;
             }
         }
 
+        private void RefreshDimmedLayer()
+        {
+            // 딤드 레이어 설정
+            bool isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(_currentCharacterID);
+
+            _dimmedBGLayerObject.SetActive(!isHaveCharacter);
+        }
+
         private void ClearLayer()
         {
+            _dimmedBGLayerObject.SetActive(false);
+
             _detailBGLayerObject.SetActive(false);
             _detailMainBGLayer.gameObject.SetActive(false);
 
