@@ -8,7 +8,7 @@ using UnityEngine.Pool;
 [UseEffectCodeIds(CodeId)]
 public class EffectCodeBuffShield : EffectCodeBuffBase
 {
-    public const int CodeId = (int)CharacterEffectType.SHIELD;
+    public const int CodeId = (int)EffectCodeNameType.SHIELD;
     private class ShieldData
     {
         public ObfuscatorFloat elapsedTime;

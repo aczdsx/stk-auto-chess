@@ -106,7 +106,7 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
             {
                 if (tile.OccupiedCharacter != owner)
                 {
-                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long)CharacterEffectType.SHIELD);
+                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long)EffectCodeNameType.SHIELD);
 
                     var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);

@@ -118,7 +118,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         debuffStats[0] = codeId;
         debuffStats[1] = _debuffTime;
         debuffStats[2] = _debuffRate;
-        var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
+        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
 
         isSkillActivated = false;

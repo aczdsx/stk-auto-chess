@@ -2,7 +2,7 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-[UseEffectCodeIds((int)CharacterEffectType.AD_UP)]
+[UseEffectCodeIds((int)EffectCodeNameType.AD_UP)]
 public class EffectCodeStatIncreaseAD : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }

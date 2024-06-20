@@ -7,7 +7,7 @@
 namespace CookApps.AutoBattler
 {
 
-    public enum CharacterEffectType
+    public enum EffectCodeNameType
     {
         NONE = 0,
         AD_UP = 1,
@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
         HP_RECOVERY_PERCENT_UP = 16,
         MOVESPEED_UP = 17,
         MOVESPEED_PERCENT_UP = 18,
+        TILE_BURN = 1000000001,
         STUN = 1100000001,
         SHIELD = 1100000002,
         BOUND = 1100000003,

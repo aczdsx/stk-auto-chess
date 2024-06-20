@@ -114,7 +114,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                 debuffStats[0] = codeId;
                 debuffStats[1] = _debuffTime;
                 debuffStats[2] = _atkSpeedDownRate;
-                var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.DEBUFF_ATK_SPEED_DOWN, 0, debuffStats);
+                var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, 0, debuffStats);
                 tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
             }
         }

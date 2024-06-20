@@ -119,7 +119,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
         eccStats[1] = 0.3f;
         eccStats[2] = inGameTile.View.ID;
 
-        long effectCodeID = (long)CharacterEffectType.BOUND;
+        long effectCodeID = (long)EffectCodeNameType.BOUND;
         var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
 

@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
 {
     public static class EffectCodeIdGenerator
     {
-        public static long GetStatCode(CharacterEffectType statType, GlobalEffectProviderType globalEffectProviderType, int subId)
+        public static long GetStatCode(EffectCodeNameType statType, GlobalEffectProviderType globalEffectProviderType, int subId)
         {
             var codeId = (long)globalEffectProviderType * 1000000000 + (long)subId * 1000 + (long)statType;
             if (addedEffectCodeIds.Add(codeId))

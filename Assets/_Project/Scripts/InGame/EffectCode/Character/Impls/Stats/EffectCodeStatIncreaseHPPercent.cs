@@ -2,7 +2,7 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-[UseEffectCodeIds((int)CharacterEffectType.HP_PERCENT_UP)]
+[UseEffectCodeIds((int)EffectCodeNameType.HP_PERCENT_UP)]
 public class EffectCodeStatIncreaseHPPercent : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }

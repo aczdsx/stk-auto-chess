@@ -8,7 +8,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(CodeId)]
 public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 {
-    public const int CodeId = (int)CharacterEffectType.BOUND;
+    public const int CodeId = (int)EffectCodeNameType.BOUND;
     public override bool IsRemoveWithSource => false;
     public override EffectCodeType Type => EffectCodeType.CrowdControl;
 
