@@ -10,7 +10,7 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 0챕터 보스 탱커
+/// 1챕터 보스 탱커
 // 범위 : 자신 중심 십자가 전범위
 // 대미지 : 공격력 {0}%의 대미지를 가한다.
 //     특수 효과 : 피격된 적을 {1}초 동안 스턴시킨다.
