@@ -313,6 +313,8 @@ namespace CookApps.AutoBattler
         public string bg_image;
         /// 이미지 크기
         public CookApps.Obfuscator.ObfuscatorFloat bg_image_scale;
+        /// 대화 종료 시 reward_id
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
     }
 
     [GeneratorSpecData]
@@ -600,10 +602,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         public global::CookApps.AutoBattler.InGameVfxNameType vfx_name_type;
         public string addressable_path;
-        public CookApps.Obfuscator.ObfuscatorInt tile_effect;
-        public bool always;
-        public CookApps.Obfuscator.ObfuscatorInt[] character;
-        public CookApps.Obfuscator.ObfuscatorInt[] count;
     }
 
     [GeneratorSpecData]
@@ -612,6 +610,8 @@ namespace CookApps.AutoBattler
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 보상 id
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 컨텐츠 메인 분류
         public global::CookApps.AutoBattler.ContentType content_type;
         /// 난이도
@@ -620,8 +620,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt content_key_value;
         /// 보상 타입_소분류
         public CookApps.Obfuscator.ObfuscatorInt sub_value;
-        /// 보상 id
-        public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 보상 타입
         public global::CookApps.AutoBattler.ItemType item_type;
         /// 보상 키 값
