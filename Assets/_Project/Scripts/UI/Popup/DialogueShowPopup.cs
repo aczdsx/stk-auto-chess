@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Google.Apis.Drive.v3.Data;
 
 namespace CookApps.AutoBattler
 {
@@ -22,6 +24,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private RectTransform _dialogueTextRect;
         private Vector2 _tweenVector = new Vector2(1550f, 192f);
 
+        private SpecDialogue _currentSpecDialogueData;
         private List<SpecDialogue> _dialogueList = new List<SpecDialogue>();
 
         private int currentDialogueSeq = 0;
@@ -59,24 +62,24 @@ namespace CookApps.AutoBattler
         {
             if (_dialogueList == null || _dialogueList.Count == 0) return;
 
-            var currentDialougeData = _dialogueList[seq];
+            _currentSpecDialogueData = _dialogueList[seq];
 
             BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
 
             // 추가 배경 설정
-            if (string.IsNullOrWhiteSpace(currentDialougeData.bg_image) == false)
+            if (string.IsNullOrWhiteSpace(_currentSpecDialogueData.bg_image) == false)
             {
-                // todo.. bg 스플라이트 로드 처리
+                // todo.. bg 스프라이트 로드 처리
             }
 
-            if (currentDialougeData.prefab_id > 0)
+            if (_currentSpecDialogueData.prefab_id > 0)
             {
-                string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, currentDialougeData.prefab_id);
+                string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _currentSpecDialogueData.prefab_id);
                 AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
             }
 
-            _characterNameText.text = LanguageManager.Instance.GetLanguageText(currentDialougeData.character_name_token);
-            _dialogueText.text = LanguageManager.Instance.GetLanguageText(currentDialougeData.text_desc_token);
+            _characterNameText.text = LanguageManager.Instance.GetLanguageText(_currentSpecDialogueData.character_name_token);
+            _dialogueText.text = LanguageManager.Instance.GetLanguageText(_currentSpecDialogueData.text_desc_token);
         }
 
         // 다음 대화로 넘어가기
@@ -84,11 +87,22 @@ namespace CookApps.AutoBattler
         {
             currentDialogueSeq++;
 
-            // 다이얼로그 종료 체크
+            // 다이얼로그 종료 처리
             if (currentDialogueSeq >= _dialogueList.Count)
             {
                 // 가이드 미션 완료 체크
                 GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.END_DIALOGUE, 0, 1);
+
+                // 보상 지급 여부 체크
+                if (_currentSpecDialogueData.reward_id > 0)
+                {
+                    var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(_currentSpecDialogueData.reward_id);
+                    var rewardItemList = SpecDataManager.Instance.GetRewardItemListByRewadInfoList(rewardInfoList);
+
+                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+
+                    UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
+                }
 
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;

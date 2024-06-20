@@ -48,12 +48,8 @@ namespace CookApps.AutoBattler
                     break;
 
                 case DialogueEventType.STAGE_CLEAR:
-                    int stageID = int.Parse(subKeyValue);
-                    if (UserDataManager.Instance.IsClearStage(stageID))
-                    {
-                        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
-                        needSave = true;
-                    }
+                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                    needSave = true;
 
                     break;
                 case DialogueEventType.STAGE_START:

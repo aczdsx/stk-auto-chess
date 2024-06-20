@@ -493,6 +493,11 @@ namespace CookApps.AutoBattler
             return SpecIdleReward.All.ToList().FindAll(data => data.chapter_id <= chapterID);
         }
 
+        public List<SpecRewardInfo> GetSpecRewardInfoList(int rewardID)
+        {
+            return SpecRewardInfo.All.ToList().FindAll(dataa => dataa.reward_id == rewardID);
+        }
+
         // 보상 데이터 리스트 반환
         public List<SpecRewardInfo> GetSpecRewardInfoList(ContentType contentType, int contentKey, DifficultyType difficultyType)
         {
