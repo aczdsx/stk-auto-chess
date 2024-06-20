@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -110,13 +111,19 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
                 var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-                //[TODO] 타일 바닥에 잔 불 생성해야 함. 이거 어떻게 해야한다고 했죠...?
-                int effectCodeID = 0;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, _durationTime, _dotDamageRate);
-
-                InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, owner);
             }
+
+            int effectCodeID = (int)EffectCodeNameType.TILE_BURN;
+            Span<double> eccStats = stackalloc double[3];
+            eccStats.Clear();
+            eccStats[0] = owner.CharacterUId;
+            eccStats[1] = _dotDamageRate;
+            eccStats[2] = _durationTime;
+
+            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+            tile.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, owner);
+
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
         }
 
         _isSkillActivated = false;

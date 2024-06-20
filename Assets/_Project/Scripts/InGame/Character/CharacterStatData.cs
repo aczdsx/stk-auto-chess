@@ -53,22 +53,22 @@ namespace CookApps.AutoBattler
             }
 
             {
-                var adBonusCodeInfo = new EffectCodeInfo((long)CharacterEffectType.AD_PERCENT_UP, 0, levelBonusRate, 0);
-                var hpBonusCodeInfo = new EffectCodeInfo((long)CharacterEffectType.HP_PERCENT_UP, 0, levelBonusRate, 0);
+                var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
+                var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
                 EffectCodeContainer.AddOrMergeEffectCode(hpBonusCodeInfo, this);
             }
 
             if (!Mathf.Approximately(multiAd, 1f))
             {
-                var codeId = EffectCodeIdGenerator.GetStatCode(CharacterEffectType.AD_PERCENT_UP,
+                var codeId = EffectCodeIdGenerator.GetStatCode(EffectCodeNameType.AD_PERCENT_UP,
                     GlobalEffectProviderType.MONSTER_MULTIPLE, 0);
                 var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
             }
             if (!Mathf.Approximately(multiHp, 1f))
             {
-                var codeId = EffectCodeIdGenerator.GetStatCode(CharacterEffectType.HP_PERCENT_UP,
+                var codeId = EffectCodeIdGenerator.GetStatCode(EffectCodeNameType.HP_PERCENT_UP,
                     GlobalEffectProviderType.MONSTER_MULTIPLE, 0);
                 var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);

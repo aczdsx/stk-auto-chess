@@ -5,20 +5,27 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
+public class EffectCodeDebuffFire : EffectCodeBuffBase
 {
-    public const int CodeId = (int)EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.CoolTimeDown;
+    public const int CodeId = (int) EffectCodeNameType.DEBUFF_FIRE;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.Burn;
     private List<BuffStackData> stackDatas = new List<BuffStackData>();
+
+    private float elapsedTime = 0f;
+    private float updateInterval = 1f;
+    private CharacterController _characterController;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
+        int ownerUID = codeInfo.GetCodeStatToInt(1);
+        _characterController = InGameObjectManager.Instance.GetCharacterInField(ownerUID);
+
         base.Initialize(codeInfo, container, source);
         stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             sourceCodeId: codeInfo.GetCodeStatToInt(0),
-            duration: codeInfo.GetCodeStatToFloat(1),
+            duration: codeInfo.GetCodeStatToInt(3),
             value: codeInfo.GetCodeStat(2),
             source: source
         );
@@ -37,7 +44,7 @@ public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
             {
                 hasSameSource = true;
                 // 덮어 씌울 경우
-                stackData.duration = codeInfo.GetCodeStatToFloat(1);
+                stackData.duration = codeInfo.GetCodeStatToInt(3);
                 stackData.value = codeInfo.GetCodeStat(2);
                 stackData.elapsedTime = 0f;
                 // 더할 경우
@@ -50,10 +57,11 @@ public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
         if (hasSameSource)
             return;
 
+        stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             sourceCodeId: codeInfo.GetCodeStatToInt(0),
-            duration: codeInfo.GetCodeStatToFloat(1),
+            duration: codeInfo.GetCodeStatToInt(3),
             value: codeInfo.GetCodeStat(2),
             source: source
         );
@@ -81,6 +89,20 @@ public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
 
     public override void OnUpdate(float dt)
     {
+        elapsedTime += dt;
+
+        if (elapsedTime >= updateInterval)
+        {
+            elapsedTime = 0f;
+
+            foreach (var data in stackDatas)
+            {
+                var damage = owner.PrecalculateDamageAmount(_characterController.AD * data.value, 0, owner, codeId, true);
+                _characterController.PostCalculateDamageAmount(ref damage, owner);
+                owner.GetDamaged(damage, _characterController);
+            }
+        }
+
         bool needRemove = false;
         for (int i = 0; i < stackDatas.Count; i++)
         {

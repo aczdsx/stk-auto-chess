@@ -5,7 +5,8 @@ namespace CookApps.BattleSystem
 {
     public class InGameTile
     {
-        private EffectCodeContainer ecc;
+        public EffectCodeContainer EffectCodeContainer => _ecc;
+        private EffectCodeContainer _ecc;
         public int X { get; }
         public int Y { get; }
         public int G { set; get; } = -1;
@@ -23,13 +24,13 @@ namespace CookApps.BattleSystem
             X = x;
             Y = y;
             View = view;
-            ecc = new EffectCodeContainer(this);
+            _ecc = new EffectCodeContainer(this);
         }
 
         ~InGameTile()
         {
-            ecc.Clear();
-            ecc = null;
+            _ecc.Clear();
+            _ecc = null;
         }
 
         public bool IsOccupied()
@@ -40,13 +41,13 @@ namespace CookApps.BattleSystem
         public void SetOccupied(CharacterController character)
         {
             OccupiedCharacter = character;
-            var effectCodes = ecc.GetEffectCodesByType(EffectCodeType.Tile);
+            var effectCodes = _ecc.GetEffectCodesByType(EffectCodeType.Tile);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeTileLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
         }
 
         public void SetUnoccupied()
         {
-            var effectCodes = ecc.GetEffectCodesByType(EffectCodeType.Tile);
+            var effectCodes = _ecc.GetEffectCodesByType(EffectCodeType.Tile);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeTileLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
             OccupiedCharacter = null;
         }

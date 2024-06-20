@@ -73,6 +73,14 @@ namespace CookApps.BattleSystem
                 }
             }
 
+            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
+            {
+                if (enemiesInPlaygroundForUpdate[i].CharacterUId == characUId)
+                {
+                    return enemiesInPlaygroundForUpdate[i];
+                }
+            }
+
             return null;
         }
 

@@ -36,7 +36,7 @@ public class EffectCodeSynergyElementWater : EffectCodeCharacterBase
         eccStats[0] = 10.0f;
         eccStats[1] = shieldAmount.damageAmount;
 
-        var effectCodeInfo = new EffectCodeInfo((long)CharacterEffectType.SHIELD, 0, eccStats);
+        var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.SHIELD, 0, eccStats);
         owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
     }
 
