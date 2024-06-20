@@ -7,12 +7,12 @@
   <assembly fullname="CookApps.gRPC" preserve="all" />
   <assembly fullname="CookApps.gRPC.Hatchery" preserve="all" />
   <assembly fullname="CookApps.Iap" preserve="all" />
+  <assembly fullname="CookApps.Local.Data" preserve="all" />
   <assembly fullname="CookApps.SpecData" preserve="all" />
   <assembly fullname="CookApps.UnitySettings" preserve="all" />
   <assembly fullname="CookApps.TechDebug" preserve="all" />
+  <assembly fullname="CookApps.Inspector" preserve="all" />
   <assembly fullname="CookApps.Utility" preserve="all" />
-  <assembly fullname="CookApps.Local.Data" preserve="all" />
   <assembly fullname="CookApps.Obfuscator" preserve="all" />
   <assembly fullname="CookApps.Code.Obfuscator" preserve="all" />
-  <assembly fullname="CookApps.Inspector" preserve="all" />
 </linker>

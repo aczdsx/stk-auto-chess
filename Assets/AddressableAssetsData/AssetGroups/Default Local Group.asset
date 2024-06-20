@@ -57,43 +57,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2b4f9a52a4654744abd5683dbc97678e
-    m_Address: Atlas_Character_Inventory
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f846c6d770ba054459777f53eac2820d
-    m_Address: Atlas_Icon_Stigma
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd75ccb0d384c42649360699dfe6130e
-    m_Address: Atlas_Stella_Icon
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8c3525daf8dc12041b2a00abe0381be6
-    m_Address: Atlas_Icon_Skill
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c7e43331a4807af4687ead39d29007c8
-    m_Address: Atlas_Icon
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d8815f356089b4cbd8a10b185bf1098a
-    m_Address: Atlas_Gacha
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e5767d31317d9ac4e99017232c96c6ad
     m_Address: GetNewCharacter
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e46048157f103ef429313284e0fcaef0
-    m_Address: Atlas_Character_Illust
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
