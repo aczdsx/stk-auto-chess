@@ -6,6 +6,7 @@ using CookApps.SpecData;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.TeamBattle.UIManagements;
+using DG.Tweening;
 
 namespace CookApps.AutoBattler
 {
@@ -45,16 +46,23 @@ namespace CookApps.AutoBattler
             ChangeTabType(_currentTabType, true);
         }
 
+        // 외부 애니메이션 연출용 함수
+        public void SetMaterialGlobalAlpha(float startValue, float endValue, float duration)
+        {
+            _detailMainBGLayer?.IllustMaterial?.SetFloat("Global Alpha", startValue);
+            _detailMainBGLayer?.IllustMaterial?.DOFloat(endValue, "Global Alpha", duration);
+        }
+
         public void SelectCharacterCard(int characterID)
         {
             _currentCharacterID = characterID;
 
-            ChangeTabType(CharacterCollectionPopupTabType.GROW);
+            ChangeTabType(CharacterCollectionPopupTabType.GROW, true);
         }
 
-        public void ChangeTabType(CharacterCollectionPopupTabType tabType, bool isFirstInit = false)
+        public void ChangeTabType(CharacterCollectionPopupTabType tabType, bool isFirstEnter = false)
         {
-            if (_currentTabType == tabType && isFirstInit == false) return;
+            if (_currentTabType == tabType && isFirstEnter == false) return;
 
             ClearLayer();
 
@@ -66,8 +74,7 @@ namespace CookApps.AutoBattler
                     _collectionMainLayer.gameObject.SetActive(true);
                     _collectionMainLayer.InitLayer(this);
 
-                    //baseAnimator.SetBool("_onCollectionMain", true);
-                    if (isFirstInit == false)
+                    if (isFirstEnter == false)
                     {
                         baseAnimator.SetTrigger("OnCollectionMain");
                     }
@@ -82,7 +89,14 @@ namespace CookApps.AutoBattler
                     _detailGrowLayer.InitLayer(_currentCharacterID);
 
                     //baseAnimator.SetBool("_onCollectionDetailGrow", true);
-                    baseAnimator.SetTrigger("OnCollectionDetailGrow");
+                    if (isFirstEnter)
+                    {
+                        baseAnimator.SetTrigger("OnCollectionDetailEntry");
+                    }
+                    else
+                    {
+                        baseAnimator.SetTrigger("OnCollectionDetailGrow");
+                    }
 
                     break;
                 case CharacterCollectionPopupTabType.SKILL:
@@ -92,6 +106,9 @@ namespace CookApps.AutoBattler
 
                     _detailSkillLayer.gameObject.SetActive(true);
                     _detailSkillLayer.InitLayer(_currentCharacterID);
+
+                    baseAnimator.SetTrigger("OnCollectionDetailSkill");
+
                     break;
             }
         }
