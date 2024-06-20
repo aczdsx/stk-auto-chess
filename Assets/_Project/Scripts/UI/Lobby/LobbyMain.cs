@@ -205,7 +205,10 @@ namespace CookApps.AutoBattler
             SpecStage bossStageData = SpecDataManager.Instance.GetStageData(specStageData.chapter_id, specStageData.difficulty_type, StageType.BATTLE_BOSS);
             if (bossStageData != null)
             {
-                //_bossStageImage.sprite = ImageManager.Instance.GetStageImage(bossStageData.stage_id);
+                var stageMonsterData = SpecDataManager.Instance.GetStageMonsterData(bossStageData.chapter_id, bossStageData.stage_number, bossStageData.difficulty_type);
+                var specMonsterData = SpecDataManager.Instance.GetCharacterData(stageMonsterData.monster_id);
+
+                _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specMonsterData.prefab_id);
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }
         }
