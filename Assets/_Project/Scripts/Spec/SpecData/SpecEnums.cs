@@ -335,6 +335,7 @@ namespace CookApps.AutoBattler
         Skill_204021 = 77,
         Skill_205011 = 78,
         fx_common_chapter1 = 79,
+        fx_common_commander_skill_01 = 80,
     }
 
     public enum GlobalEffectProviderType

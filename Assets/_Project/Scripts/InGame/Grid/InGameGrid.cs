@@ -345,6 +345,11 @@ namespace CookApps.BattleSystem
             return tiles;
         }
 
+        public List<InGameTile> GetTileListByShapeX(InGameTile ingameTile)
+        {
+            return _tiles.Where(t => t.X == ingameTile.X ||  t.Y == ingameTile.Y).ToList();
+        }
+
         public List<InGameTile> GetTileListByNarrowSquare(CharacterController characterController, int size)
         {
             List<InGameTile> tiles = new List<InGameTile>();

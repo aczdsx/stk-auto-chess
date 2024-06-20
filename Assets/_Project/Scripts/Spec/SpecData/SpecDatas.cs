@@ -413,8 +413,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt ap_HARD;
         /// 클리어 보상 id
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        /// 어려움 클리어 보상 id
-        public CookApps.Obfuscator.ObfuscatorInt reward_HARD_id;
         /// 장애물
         public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id;
     }

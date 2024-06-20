@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Pool;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using AttackRangeShape = CookApps.BattleSystem.AttackRangeShape;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -70,9 +67,9 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
                     if (_hitTileView != null)
                     {
                         InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
-                        var tiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(centerTile, 2);
+                        var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile); // [TODO] 데이터에서 이것도 처리 필요
                         ClearAndSetActive(tiles);
-                        if (centerTile.OccupiedCharacter != null)
+                        if (centerTile.OccupiedCharacter != null && centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
                         {
                             Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
                         }
@@ -88,17 +85,24 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+            return;
+
         switchObj.SetActive(false);
         _isDragging = false;
         ClearAndSetActive(null);
 
-        // [TODO] _hitTileView 해당 위치에 지휘자 스킬 액션
-        // var characters = ListPool<CharacterController>.Get();
-        // InGameObjectManager.Instance.GetNearestEnemiesInRange(default, 0, AttackRangeShape.Rectangle, characters);
-        // foreach (CharacterController characterController in characters)
-        // {
-        //
-        // }
+        int commanderSkillID = 300001;
+        var damageRate = SpecDataManager.Instance.GetCommanderSkillData(commanderSkillID, SkillValueType.PERCENT).skill_value_type;
+
+        double[] eccStat = new double[2];
+        eccStat[0] = _hitTileView.ID;
+        eccStat[1] = (double)damageRate;
+        var effectCodeInfo = new EffectCodeInfo(commanderSkillID, 0, eccStat);
+
+        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
+
+
         InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
     }
 
