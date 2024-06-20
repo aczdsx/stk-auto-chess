@@ -1896,7 +1896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6870974650581510635
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2977,6 +2977,7 @@ MonoBehaviour:
   _bossStarLayerObject: {fileID: 4683381418125733119}
   _bossCharacterLayerObject: {fileID: 169692580762517364}
   _bossStageNumberText: {fileID: 3080203489569191421}
+  _bossStageTitleText: {fileID: 3002912626998437809}
   _bossStarObjectList:
   - {fileID: 8233267823176278147}
   - {fileID: 7097723297934141350}

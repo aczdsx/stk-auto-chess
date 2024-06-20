@@ -26,11 +26,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _normalStageNumberText;
         [SerializeField] private List<GameObject> _normalStarObjectList;
 
-        [Header("[State - Boss]")]
+        [Header("[State - Elite/Boss]")]
         [SerializeField] private GameObject _bossLayerObject;
         [SerializeField] private GameObject _bossStarLayerObject;
         [SerializeField] private GameObject _bossCharacterLayerObject;
         [SerializeField] private TextMeshProUGUI _bossStageNumberText;
+        [SerializeField] private TextMeshProUGUI _bossStageTitleText;
         [SerializeField] private List<GameObject> _bossStarObjectList;
 
         private SpecStage _specStageData;
@@ -88,14 +89,14 @@ namespace CookApps.AutoBattler
                     SetNormalLayerState();
                     break;
                 case StageType.BATTLE_ELITE:
-                    SetBossLayerState();    // temp..임시처리
+                    SetBossLayerState();
                     break;
                 case StageType.BATTLE_BOSS:
                     SetBossLayerState();
                     break;
-                case StageType.CHEST:
-                    SetNormalLayerState();  // temp..임시처리
-                    break;
+                // case StageType.CHEST:
+                //     SetNormalLayerState();  // temp..임시처리
+                //     break;
             }
         }
 
@@ -121,6 +122,7 @@ namespace CookApps.AutoBattler
 
         private void SetBossLayerState()
         {
+            _bossStageTitleText.text = _specStageData.stage_type == StageType.BATTLE_BOSS ? "BOSS" : "ELITE";
             _bossStageNumberText.text = _specStageData.stage_number.ToString();
 
             var originBossSizeDelta = _bossLayerObject.GetComponent<RectTransform>().sizeDelta;

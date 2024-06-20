@@ -91,6 +91,8 @@ namespace CookApps.AutoBattler
 
         private async UniTask CalculateIdleRewardTime()
         {
+            var token = this.GetCancellationTokenOnDestroy();
+
             TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
 
             int maxTimeLimitMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
@@ -100,7 +102,7 @@ namespace CookApps.AutoBattler
             {
                 _accTimeGuideText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
 
-                await UniTask.Delay(1000);
+                await UniTask.Delay(1000, cancellationToken:token);
 
                 currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
 
@@ -135,6 +137,13 @@ namespace CookApps.AutoBattler
 
             // temp - 일단은 off
             OnClickCloseButton();
+
+            // 메인 로비 갱신
+            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+            if (lobbyMain != null)
+            {
+                lobbyMain.RefreshUI(LobbyMainRefreshType.IDLE_REWARD);
+            }
         }
 
         private void OnClickCloseButton()
