@@ -1,3 +1,4 @@
+using System;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
@@ -22,10 +23,19 @@ public class EffectCodeSynergyPositionRanger : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // [TODO] 공격 시 스킬 쿨타임 감소
-    public override void OnAttack()
+    public override void OnCritical()
     {
-        base.OnAttack();
+        base.OnCritical();
 
+        var list = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
+        foreach (var ec in list)
+        {
+            EffectCodeCharacterBase eccBase = ((EffectCodeCharacterBase) ec);
+            float durationTime = eccBase.GetDurationTime();
+            float elapsedTime = eccBase.GetDurationTime();
+            float decreasedTime = durationTime * statValue;
+            float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+            eccBase.SetElapsedTime(newElapsedTime);
+        }
     }
 }

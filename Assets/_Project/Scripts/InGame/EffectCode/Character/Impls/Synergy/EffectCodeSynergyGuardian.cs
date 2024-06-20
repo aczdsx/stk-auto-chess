@@ -1,3 +1,4 @@
+using System;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
@@ -28,7 +29,12 @@ public class EffectCodeSynergyGuardian : EffectCodeCharacterBase
         var list = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
         foreach (var ec in list)
         {
-            // ec.CoolTimeElapsedTime -= statValue;
+            EffectCodeCharacterBase eccBase = ((EffectCodeCharacterBase) ec);
+            float durationTime = eccBase.GetDurationTime();
+            float elapsedTime = eccBase.GetDurationTime();
+            float decreasedTime = durationTime * statValue;
+            float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+            eccBase.SetElapsedTime(newElapsedTime);
         }
     }
 }

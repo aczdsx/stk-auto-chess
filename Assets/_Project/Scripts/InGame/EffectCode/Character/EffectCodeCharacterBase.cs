@@ -14,6 +14,8 @@ namespace CookApps.BattleSystem
         protected ObfuscatorFloat CoolTimeDurationTime;
         protected ObfuscatorFloat CoolTimeElapsedTime;
         public void SetElapsedTime(float elapsedTime) => CoolTimeElapsedTime = elapsedTime;
+        public float GetElapsedTime() => CoolTimeElapsedTime;
+        public float GetDurationTime() => CoolTimeDurationTime;
 
         public override int CalcOrder => 1;
 
