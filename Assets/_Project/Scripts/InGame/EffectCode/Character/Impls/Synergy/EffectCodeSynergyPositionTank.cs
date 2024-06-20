@@ -23,7 +23,6 @@ public class EffectCodeSynergyPositionTank : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // [TODO] 피격 당했을 시
     public override double OnDamaged(double damageAmount,  CharacterController attacker, bool isPure)
     {
         base.OnDamaged(damageAmount, attacker, isPure);

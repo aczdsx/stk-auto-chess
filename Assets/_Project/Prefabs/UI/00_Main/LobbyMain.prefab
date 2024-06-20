@@ -2689,6 +2689,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4205906596295758856, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b48aac7563c2e2a4390c1b97cf1e1e2b, type: 3}
+    - target: {fileID: 4205906596295758856, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5155805048566286368, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_Name
       value: BossBanner

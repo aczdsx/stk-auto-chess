@@ -230,7 +230,7 @@ MonoBehaviour:
   baseAnimator: {fileID: 1765230210626122500}
   _exitButton: {fileID: 1133784922207137927}
   _nextStageButton: {fileID: 8265233737781702274}
-  _retryStageButton: {fileID: 0}
+  _retryStageButton: {fileID: 549382436818197749}
   _failObj: {fileID: 9149646413532632150}
   _victoryObj: {fileID: 5920014162662489162}
   _victoryStageText: {fileID: 2926333815981152251}
