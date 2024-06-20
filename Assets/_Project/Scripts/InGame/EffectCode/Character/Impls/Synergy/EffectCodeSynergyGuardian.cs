@@ -25,6 +25,10 @@ public class EffectCodeSynergyGuardian : EffectCodeCharacterBase
     public override void OnAttack()
     {
         base.OnAttack();
-        // [TODO] 즉시 쿨타임 감소
+        var list = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
+        foreach (var ec in list)
+        {
+            // ec.CoolTimeElapsedTime -= statValue;
+        }
     }
 }

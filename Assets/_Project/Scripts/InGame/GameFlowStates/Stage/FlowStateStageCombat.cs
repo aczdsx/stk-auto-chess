@@ -37,6 +37,9 @@ public class FlowStateStageCombat : StateBase
             character.AddSynergyEffectCode();
         }
 
+        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
+        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
+
         StartAsync().Forget();
     }
 

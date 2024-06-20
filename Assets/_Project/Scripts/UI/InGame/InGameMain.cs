@@ -6,6 +6,8 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
@@ -22,6 +24,8 @@ namespace CookApps.AutoBattler
         public float InGameTime => _inGameTime;
         [SerializeField] private InGameTopUI _InGameTopUI;
         [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
+        [SerializeField] private List<Color> _stageVignetteColorList;
+        [SerializeField] private RawImage _vignetteImage;
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
@@ -56,6 +60,7 @@ namespace CookApps.AutoBattler
             var specStage = SpecDataManager.Instance.GetStageData(chapter, stageIndex, difficultyType);
             InGameManager.Instance.StartInGame<FlowStateStageReady>(specStage, specStage);
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
+            _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[chapter]);
         }
 
         protected override void OnPreExit()

@@ -12,7 +12,7 @@ AnimatorStateTransition:
     m_ConditionEvent: IsFront
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: SKILL
+    m_ConditionEvent: SKL
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2008053891227589070}
@@ -252,7 +252,7 @@ AnimatorStateTransition:
     m_ConditionEvent: IsFront
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: SKILL
+    m_ConditionEvent: SKL
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -885837479047318783}
@@ -315,7 +315,7 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: DEAD
     m_Type: 9
@@ -335,7 +335,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: SKILL
+  - m_Name: SKL
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0

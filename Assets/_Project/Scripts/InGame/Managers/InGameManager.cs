@@ -76,6 +76,26 @@ namespace CookApps.BattleSystem
         }
         #endregion
 
+        public void AddSynergyEffectCode(AllianceType type)
+        {
+            ElementType elementType = ElementType.DARK;
+            Span<double> stats = stackalloc double[1];
+
+            int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, elementType);
+            if (synergyCount > 0)
+            {
+                var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
+                var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                if (data.grade > 0)
+                {
+                    stats[0] = data.stat_value;
+                    stats[1] = (double) type;
+
+                    var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
+                    ecc.AddOrMergeEffectCode(effectCodeInfo, null);
+                }
+            }
+        }
         public void RegenerateGlobalRandomSeeds()
         {
             InGameRandomManager.Instance.ResetRandomSeedGenerator(randomGeneratorSeed);

@@ -56,6 +56,7 @@ namespace CookApps.AutoBattler
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
+        DEBUFF_FIRE = 2100000004,
     }
 
     public enum GradeType
@@ -163,6 +164,7 @@ namespace CookApps.AutoBattler
         DUNGEON = 3,
         ACCOUNT_LV_EXP = 4,
         STAGE_STAR = 5,
+        END_DIALOGUE = 6,
     }
 
     public enum TutorialEventType
@@ -305,6 +307,7 @@ namespace CookApps.AutoBattler
         Projectile_404021 = 50,
         Projectile_304021 = 51,
         Projectile_306011 = 52,
+        Skill_403011_1 = 53,
     }
 
     public enum GlobalEffectProviderType

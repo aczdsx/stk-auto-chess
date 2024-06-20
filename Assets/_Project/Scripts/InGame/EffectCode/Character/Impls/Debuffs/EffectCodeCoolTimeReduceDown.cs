@@ -116,17 +116,4 @@ public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
         base.OnPreRemoved();
         ListPool<BuffStackData>.Release(stackDatas);
     }
-
-    public override float GetIncrementFixedSkillCooltimeRate()
-    {
-        float increaseRate = 0;
-        for (int i = 0; i < stackDatas.Count; i++)
-        {
-            if (stackDatas[i] != null)
-            {
-                increaseRate -= (float)stackDatas[i].value;
-            }
-        }
-        return increaseRate;
-    }
 }
