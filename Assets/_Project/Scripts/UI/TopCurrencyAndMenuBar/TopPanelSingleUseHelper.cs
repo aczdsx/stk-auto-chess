@@ -93,7 +93,7 @@ namespace CookApps.AutoBattler
 
                 if (!isOccupied)
                 {
-                    topUI.CachedTr.SetParent(topUIOriginTr, false);
+                    panel.CachedTr.SetParent(topUIOriginTr, false);
                     panel.attachedTopBar = null;
                 }
             }
