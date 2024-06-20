@@ -33,6 +33,7 @@ namespace CookApps.AutoBattler
         SHIELD = 1100000002,
         BOUND = 1100000003,
         SILENCE = 1100000004,
+        CHAPTER_FIRE = 1200000001,
         BUFF_AD_UP = 2000000001,
         BUFF_AD_PERCENT_UP = 2000000002,
         BUFF_AP_UP = 2000000003,
@@ -333,6 +334,7 @@ namespace CookApps.AutoBattler
         Skill_203011 = 76,
         Skill_204021 = 77,
         Skill_205011 = 78,
+        fx_common_chapter1 = 79,
     }
 
     public enum GlobalEffectProviderType

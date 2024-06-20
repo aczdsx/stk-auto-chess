@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 
 namespace CookApps.BattleSystem
 {
+    [UseEffectCodeIds(CodeId)]
     public class EffectCodeGimmickTileDebuff : EffectCodeGameBase
     {
+        private const int CodeId = (int)EffectCodeNameType.CHAPTER_FIRE;
 
         private ObfuscatorInt gimmickTileCount;
         List<InGameTile> gimmickTiles = new List<InGameTile>();
@@ -44,6 +47,9 @@ namespace CookApps.BattleSystem
                         continue;
                     }
                     gimmickTiles.Add(tile);
+
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_chapter1,
+                        tile.View.CachedTr.position);
                 }
             }
         }
@@ -57,8 +63,13 @@ namespace CookApps.BattleSystem
 
             if (gimmickTiles.Contains(tile))
             {
-                var someCodeId = 0;
-                var debuff = new EffectCodeInfo(someCodeId, 0, 4, 0, 0, 0, 0);
+                var someCodeId = (int)EffectCodeNameType.DEBUFF_FIRE;
+                Span<double> debuffStats = stackalloc double[3];
+                debuffStats.Clear();
+                debuffStats[0] = codeId;
+                debuffStats[1] = 1.0f;
+
+                var debuff = new EffectCodeInfo(someCodeId, 0, debuffStats);
                 character.GetEffectCodeContainer().AddOrMergeEffectCode(debuff, null);
             }
         }

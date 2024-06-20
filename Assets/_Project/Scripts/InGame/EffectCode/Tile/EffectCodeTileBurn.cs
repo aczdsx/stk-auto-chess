@@ -36,7 +36,7 @@ namespace CookApps.BattleSystem
             }
 
             var someCodeId = (int)EffectCodeNameType.DEBUFF_FIRE;
-            Span<double> debuffStats = stackalloc double[3];
+            Span<double> debuffStats = stackalloc double[4];
             debuffStats.Clear();
             debuffStats[0] = codeId;
             debuffStats[1] = _ownerUID;

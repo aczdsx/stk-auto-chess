@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Resources;
 using CookApps.AutoBattler;
@@ -43,8 +44,12 @@ public class FlowStateStageReady : StateBase
 
     public override void StateStart()
     {
-        // 캐릭터 배치
-        // UI에서 Start 버튼을 눌렀을 때 Start로 이동
+        //[TODO] 나중에 데이터로 뺄 부분
+        Span<double> debuffStats = stackalloc double[1];
+        debuffStats.Clear();
+        debuffStats[0] = 5;
+        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.CHAPTER_FIRE, 0, debuffStats);
+        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
     }
 
     public override void StateRunning(float dt)
