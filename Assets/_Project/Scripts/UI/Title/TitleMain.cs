@@ -98,10 +98,24 @@ namespace CookApps.AutoBattler
             // }
             // else
             {
-                var transition = SceneTransition_FadeInOut.Create();
+                //var transition = SceneTransition_FadeInOut.Create();
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.
-                int lastChapter = 1;
-                SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
+
+                // 초반 플로우 체크 및 진행
+                if (UserDataManager.Instance.IsClearStage(10001) == false)
+                {
+                    SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
+                }
+                else
+                {
+                    var transition = SceneTransition_FadeInOut.Create();
+
+                    int lastChapter = 1;
+                    SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
+                }
+
+                // int lastChapter = 1;
+                // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
             }
         }
     }
