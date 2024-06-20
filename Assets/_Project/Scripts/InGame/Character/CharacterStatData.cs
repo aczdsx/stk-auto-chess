@@ -35,6 +35,11 @@ namespace CookApps.AutoBattler
             return CP;
         }
 
+        public CharacterStatData(int characterId)
+        {
+            this.characterId = characterId;
+        }
+
         public CharacterStatData(int characterId, int level, float multiAd, float multiHp, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             Debug.LogColor("characterID : " + characterId);

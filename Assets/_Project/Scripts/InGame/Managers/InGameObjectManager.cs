@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
+using CookApps.Obfuscator;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
@@ -161,6 +162,16 @@ namespace CookApps.BattleSystem
 
             characCtrl.CurrentTile.SetUnoccupied();
             characCtrl.Clear();
+        }
+
+        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID)
+        {
+            var characCtrl = new CharacterController();
+            var tile = InGameGrid.GetTile(gridID);
+            if (tile.OccupiedCharacter == null)
+                characCtrl.Initialize(tile, Playground, 10101);
+
+            return characCtrl;
         }
 
         public bool IsCharacterAllIsAlive()

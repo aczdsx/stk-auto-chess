@@ -29,11 +29,11 @@ namespace CookApps.BattleSystem
             return _statData;
         }
 
-        private SpriteCharacterView view = null;
+        private SpriteCharacterView _view = null;
 
         public SpriteCharacterView GetCharacterView()
         {
-            return view;
+            return _view;
         }
 
         public HpBarView GetHpBarView()
@@ -124,9 +124,21 @@ namespace CookApps.BattleSystem
         private static int characUIdInc;
         private int _characterUId;
 
+        public async UniTask Initialize(InGameTile tile, Transform Playground, int id)
+        {
+            ChangeOccupiedTile(tile);
+            _allianceType = AllianceType.None;
+            position = tile.View.Position;
+
+            GameObject viewGo = await Addressables.InstantiateAsync(
+                $"Obstacle/{id}/GenerateResources/CharacterView_{id}.prefab");
+            _view = viewGo.GetComponent<SpriteCharacterView>();
+            _view.CachedTr.SetParent(Playground, false);
+            _view.CachedTr.localPosition = position;
+        }
+
         public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType, bool hasSkill)
         {
-            Debug.LogColor("CharacterController Initialize : " + statData.CharacterId);
             _characterUId = characUIdInc++;
             _statData = statData;
             position = tile.View.Position;
@@ -134,6 +146,7 @@ namespace CookApps.BattleSystem
             _allianceType = allianceType;
 
             GameObject viewGo = null;
+
             if (allianceType == AllianceType.Enemy)
                 viewGo = await Addressables.InstantiateAsync(
                     $"Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
@@ -142,31 +155,33 @@ namespace CookApps.BattleSystem
                 viewGo = await Addressables.InstantiateAsync(
                     $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
 
+            _view = viewGo.GetComponent<SpriteCharacterView>();
+            if (_statData.Spec != null)
+            {
+                _hpBarView = InGameHpBarViewPool.Instance.Get();
+                _hpBarView.Initialize(statData, allianceType);
+                _view.SetHpBarView(_hpBarView);
+                _view.SetFirstDirection(allianceType);
+                if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 ||
+                    _statData.Spec.prefab_id == 10401)
+                    _view.SetHologramShader();
 
-            view = viewGo.GetComponent<SpriteCharacterView>();
-            _hpBarView = InGameHpBarViewPool.Instance.Get();
-            _hpBarView.Initialize(statData, allianceType);
-            view.SetHpBarView(_hpBarView);
-            view.SetFirstDirection(allianceType);
-            if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 ||
-                _statData.Spec.prefab_id == 10401)
-                view.SetHologramShader();
+                _view.OnAnimationEvent += OnAnimationEvent;
+                _view.CachedTr.localPosition = position;
+                _buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
+                _buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameVfx>();
 
-            view.OnAnimationEvent += OnAnimationEvent;
-            view.CachedTr.localPosition = position;
-            _buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
-            _buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameVfx>();
+                // add EffectCodes
+                ecc = new EffectCodeContainer(this);
+                needUpdateFlag = EffectCodeInheritFlagExtensions.AllFlags();
+                ecc.OnChangedDirtyFlag += EffectCodeOnChangedDirtyFlagHandler;
 
-            // add EffectCodes
-            ecc = new EffectCodeContainer(this);
-            needUpdateFlag = EffectCodeInheritFlagExtensions.AllFlags();
-            ecc.OnChangedDirtyFlag += EffectCodeOnChangedDirtyFlagHandler;
+                if (hasSkill)
+                    AddSkillEffectCodes();
 
-            if (hasSkill)
-                AddSkillEffectCodes();
-
-            _currHp = HP;
-            IsAlive = true;
+                _currHp = HP;
+                IsAlive = true;
+            }
         }
 
         public void Clear()
@@ -181,9 +196,9 @@ namespace CookApps.BattleSystem
             }
             _buffDebuffEffectViewDict.Clear();
             ClearAllState();
-            view.OnAnimationEvent -= OnAnimationEvent;
-            Addressables.ReleaseInstance(view.gameObject);
-            view = null;
+            _view.OnAnimationEvent -= OnAnimationEvent;
+            Addressables.ReleaseInstance(_view.gameObject);
+            _view = null;
             _hpBarView = null;
         }
 
@@ -286,7 +301,7 @@ namespace CookApps.BattleSystem
 
         public void SetSelectedCharacter(bool isSetSelected)
         {
-            view.SetSelected(isSetSelected);
+            _view.SetSelected(isSetSelected);
         }
 
         public void ChangeOccupiedTile(InGameTile newTile)
@@ -298,7 +313,8 @@ namespace CookApps.BattleSystem
             }
 
             // 새로운 타일을 현재 타일로 설정하고, 새로운 타일에 캐릭터를 설정
-            Debug.LogColor($"[Set Tile] {CharacterId} : ({newTile.X}, {newTile.Y})");
+            if (_statData != null)
+                Debug.LogColor($"[Set Tile] {_statData.CharacterId} : ({newTile.X}, {newTile.Y})");
             CurrentTile = newTile;
             newTile.SetOccupied(this);
 
@@ -328,7 +344,7 @@ namespace CookApps.BattleSystem
 
         public void LookAtTarget()
         {
-            view.LookAt(CurrentTile, Target.CurrentTile);
+            _view.LookAt(CurrentTile, Target.CurrentTile);
         }
 
         private void OnAnimationEvent(AnimationKey animName, AnimationEventKey eventKey)
@@ -382,7 +398,7 @@ namespace CookApps.BattleSystem
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
             {
-                view.UpdatePosition(position, ViewPosition3D);
+                _view.UpdatePosition(position, ViewPosition3D);
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnUpdate))
@@ -393,7 +409,7 @@ namespace CookApps.BattleSystem
 
             if (isAirborne || isKnockBack)
             {
-                view.UpdatePosition(position, ViewPosition3D);
+                _view.UpdatePosition(position, ViewPosition3D);
             }
 
             {
@@ -733,7 +749,7 @@ namespace CookApps.BattleSystem
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker, bool isFirstDamage = true)
         {
             // 같은 틱에 대미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
-            if (_currHp <= 0 || view == null)
+            if (_currHp <= 0 || _view == null)
             {
                 return DamageReturnType.AlreadyDead;
             }

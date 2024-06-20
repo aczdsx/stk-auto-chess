@@ -37,6 +37,12 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateReady)));
         }
 
+        // 그리드 설치
+        foreach (var gridID in specStage.obstacle_grid_id)
+        {
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID));
+        }
+
         await UniTask.WhenAll(addCharacterTasks);
 
         InGameMain.GetInGameMain().SetReadyUI();

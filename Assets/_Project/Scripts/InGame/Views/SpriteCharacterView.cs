@@ -40,17 +40,23 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
-            _spriteRenderer.material = _disorveMaterial;
-            _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
-            _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
+            if (_animator != null)
+            {
+                _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
+                _spriteRenderer.material = _disorveMaterial;
+                _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
+                _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
+            }
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
             // AddressableInstantiateHelper.ReleaseGameObject(_instance);
-            _animationEventListener.OnAnimationEvent -= OnFiredAnimationEvent;
+            if (_animator != null)
+            {
+                _animationEventListener.OnAnimationEvent -= OnFiredAnimationEvent;
+            }
         }
 
         /// <summary>
@@ -77,7 +83,8 @@ namespace CookApps.AutoBattler
 
         public void SetAnimationSpeed(float speed)
         {
-            _animator.speed = speed;
+            if (_animator != null)
+                _animator.speed = speed;
         }
 
         public void LookAt(InGameTile currentTile, InGameTile targetTile)
@@ -119,6 +126,9 @@ namespace CookApps.AutoBattler
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
         {
+            if (_animator == null)
+                return null;
+
             string animationTrigger = animationKey.ToString();
             _animator.SetBool(IsFront, _cachedFront);
             _animator.SetTrigger(animationTrigger);
