@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cookapps.Autobattleproject.V1;
-using CookApps.Obfuscator;
-using CookApps.SpecData;
-using UnityEngine;
-using UnityEngine.UI;
 using CookApps.TeamBattle.UIManagements;
 using DG.Tweening;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

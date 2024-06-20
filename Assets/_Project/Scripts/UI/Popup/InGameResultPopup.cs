@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private CAButton _exitButton;
         [SerializeField] private CAButton _nextStageButton;
+        [SerializeField] private CAButton _retryStageButton;
 
         [SerializeField] private GameObject _failObj;
         [SerializeField] private GameObject _victoryObj;
@@ -35,10 +36,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<GameObject> _starList;
         [SerializeField] private List<InGameResultStarCondition> _starConditionList;
 
-        [SerializeField] private RawImage _illustImage;
+        [SerializeField] private GameObject _characterIllustParentObject;
 
         private bool _isVictory = false;
         private int _star = 0;
+
+        private bool _isPlayingTutorialStage = false;
+        private bool _isPlayingLastStage = false;
 
         protected override void OnPreEnter(object param)
         {
@@ -54,7 +58,18 @@ namespace CookApps.AutoBattler
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
-            _illustImage.texture = ImageManager.Instance.GetCharacterIllustSprite(40101).texture; // [TODO] MVP 관리 필요
+            _retryStageButton?.onClick.AddListener(OnClickRetryStageButton);
+
+            var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+            if (playerCharacterList != null && playerCharacterList.Count > 0)
+            {
+                BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
+
+                var _specCharacterData = SpecDataManager.Instance.GetCharacterData(playerCharacterList[0].CharacterId);
+
+                string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
+                AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+            }
 
             // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
@@ -71,11 +86,25 @@ namespace CookApps.AutoBattler
                 _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
             }
 
-            // 가이드 미션 상태에 따른 버튼 분기처리
+            // 챕터 1 (튜토리얼 스테이지) 관련 처리
+            if (InGameManager.Instance.SpecStage.chapter_id == 1 && !UserDataManager.Instance.IsClearStage(InGameManager.Instance.SpecStage.stage_id))
+            {
+                _isPlayingTutorialStage = true;
+            }
 
+            var lastSpecStage = SpecDataManager.Instance.GetLastStageData(InGameManager.Instance.SpecStage.chapter_id, InGameManager.Instance.SpecStage.difficulty_type);
+            _isPlayingLastStage = lastSpecStage != null && lastSpecStage.stage_id == InGameManager.Instance.SpecStage.stage_id;
+
+            _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage);
+            _nextStageButton.gameObject.SetActive(!_isPlayingLastStage);
+            _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isPlayingLastStage);
 
             if (_isVictory)
                 CreateRewardItems();
+
+            // 애니메이션 연출 적용
+            string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
+            baseAnimator.SetTrigger(animKey);
         }
 
         private void OnExitButtonClicked()
@@ -86,8 +115,23 @@ namespace CookApps.AutoBattler
 
         private void OnNextStageButtonClicked()
         {
-            var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
+            // var transition = SceneTransition_FadeInOut.Create();
+            // SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
+
+            //InGameManager.Instance.EndInGame();
+
+            int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
+            if (_isPlayingLastStage == false)
+            {
+                targetStageNumber++;
+            }
+
+            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
+        }
+
+        private void OnClickRetryStageButton()
+        {
+            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }
 
         private void CreateRewardItems()
