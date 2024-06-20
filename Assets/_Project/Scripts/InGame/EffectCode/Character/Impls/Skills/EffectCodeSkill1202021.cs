@@ -11,11 +11,12 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 0챕터 보스 탱커
-// 범위 : 자신의 전방 직선 범위
+// 범위 : 자신 중심 십자가 전범위
 // 대미지 : 공격력 {0}%의 대미지를 가한다.
+//     특수 효과 : 피격된 적을 {1}초 동안 스턴시킨다.
 /// </summary>
-[UseEffectCodeIds(1202011)]
-public class EffectCodeSkill1202011 : EffectCodeCharacterBase
+[UseEffectCodeIds(1202021)]
+public class EffectCodeSkill1202021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 
@@ -92,7 +93,9 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 10);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile);
+        inGameTiles.RemoveAll(l => l.OccupiedCharacter == owner);
+
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
 
