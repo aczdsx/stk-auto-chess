@@ -13,6 +13,7 @@ namespace CookApps.BattleSystem
         protected ObfuscatorInt SkillIndex = -1;
         protected ObfuscatorFloat CoolTimeDurationTime;
         protected ObfuscatorFloat CoolTimeElapsedTime;
+        public void SetElapsedTime(float elapsedTime) => CoolTimeElapsedTime = elapsedTime;
 
         public override int CalcOrder => 1;
 

@@ -12,18 +12,31 @@ public class EffectCodeSynergyElementDark : EffectCodeCharacterBase
 {
     public const int CodeId = 220401;
     private ObfuscatorFloat _statValue;
+    private ObfuscatorInt _enemyType;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
+        _enemyType = codeInfo.GetCodeStatToInt(1);
+
+        var characterList = InGameObjectManager.Instance.GetCharacterList((AllianceType)(int)_enemyType);
+        foreach (var character in characterList)
+        {
+            Span<double> debuffStats = stackalloc double[3];
+            debuffStats.Clear();
+            debuffStats[0] = codeId;
+            debuffStats[1] = 10.0f;
+            debuffStats[2] = _statValue;
+            var effectCodeID = new EffectCodeInfo((long)CharacterEffectType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
+            character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+        }
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
+        _enemyType = codeInfo.GetCodeStatToInt(1);
     }
-
-    // [TODO] 적군감소????
 }
