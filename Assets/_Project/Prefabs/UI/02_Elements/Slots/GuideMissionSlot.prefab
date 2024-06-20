@@ -523,6 +523,8 @@ MonoBehaviour:
   _missionTitleText: {fileID: 3514256403068726953}
   _missionDescText: {fileID: 1618645643540446225}
   _missionRewardItemImage: {fileID: 3263473594171821742}
+  _rewardCharacterBGImage: {fileID: 6326870061276751633}
+  _missionRewardCharacterImage: {fileID: 8489099042409360403}
   _missionRewardAmountText: {fileID: 3789564916552148273}
 --- !u!114 &7518062370182445
 MonoBehaviour:

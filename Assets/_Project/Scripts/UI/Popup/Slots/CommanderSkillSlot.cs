@@ -59,6 +59,8 @@ namespace CookApps.AutoBattler
             bool isEquippedSkill = UserDataManager.Instance.GetEquippedCommanderSkill() == _specCommanderSkillData.commander_skill_id;
 
             _disabledLayerObject.SetActive(!isOpenSkill);
+
+            _equipButton.gameObject.SetActive(isOpenSkill);
             _equipLayerObject.SetActive(isOpenSkill && !isEquippedSkill);
             _equippedLayerObject.SetActive(isOpenSkill && isEquippedSkill);
         }

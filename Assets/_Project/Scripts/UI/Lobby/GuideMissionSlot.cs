@@ -20,6 +20,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _missionDescText;
 
         [SerializeField] private Image _missionRewardItemImage;
+        [SerializeField] private Image _rewardCharacterBGImage;
+        [SerializeField] private Image _missionRewardCharacterImage;
         [SerializeField] private TextMeshProUGUI _missionRewardAmountText;
 
         private UserGuideMission _userGuideMissionData;
@@ -86,7 +88,7 @@ namespace CookApps.AutoBattler
             {
                 case ItemType.CHARACTER:
                     var characterData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
-                    _missionRewardItemImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(characterData.prefab_id);
+                    _missionRewardCharacterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(characterData.prefab_id);
                     break;
                 case ItemType.CHARACTER_PIECE:
                     var characterPieceData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
@@ -96,6 +98,10 @@ namespace CookApps.AutoBattler
                     _missionRewardItemImage.sprite = ImageManager.Instance.GetItemSprite(_specGuideMissionData.item_type);
                     break;
             }
+
+            _missionRewardItemImage.gameObject.SetActive(_specGuideMissionData.item_type != ItemType.CHARACTER);
+            _rewardCharacterBGImage.gameObject.SetActive(_specGuideMissionData.item_type == ItemType.CHARACTER);
+            _missionRewardCharacterImage.gameObject.SetActive(_specGuideMissionData.item_type == ItemType.CHARACTER);
         }
 
         private void OnClickMissionSlotButton()
