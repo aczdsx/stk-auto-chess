@@ -22,5 +22,4 @@ public class EffectCodeSynergyElementLight : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // [TODO] 스킬 쿨타임 감소 속도 증가
 }
