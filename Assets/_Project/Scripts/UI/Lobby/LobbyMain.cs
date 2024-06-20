@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -14,6 +16,7 @@ namespace CookApps.AutoBattler
         STAGE,
         GUIDE_MISSION,
         CHARACTER_LAYER,
+        IDLE_REWARD,
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
@@ -44,7 +47,12 @@ namespace CookApps.AutoBattler
         [Header("Guide Mission")]
         [SerializeField] private GuideMissionSlot _guideMissionSlot;
 
+        [Header("Idle Reward Layer")]
+        [SerializeField] private TextMeshProUGUI _idleRewardStateText;
+
         private List<LobbyBottomStageSlot> _stageSlotList = new();
+
+        private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
 
         protected override void Awake()
         {
@@ -78,6 +86,9 @@ namespace CookApps.AutoBattler
 
             // 전투 진행
             InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(null);
+
+            // 방치 보상 갱신
+            SetIdleRewardLayer();
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)
@@ -100,6 +111,12 @@ namespace CookApps.AutoBattler
                 case LobbyMainRefreshType.CHARACTER_LAYER:
                     SetUserInfoLayer();
                     break;
+                case LobbyMainRefreshType.IDLE_REWARD:
+                    _unitaskCancelToken.Cancel();
+                    _unitaskCancelToken = new CancellationTokenSource();
+                    SetIdleRewardLayer();
+                    break;
+
             }
         }
 
@@ -188,6 +205,39 @@ namespace CookApps.AutoBattler
             {
                 //_bossStageImage.sprite = ImageManager.Instance.GetStageImage(bossStageData.stage_id);
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
+            }
+        }
+
+        private async void SetIdleRewardLayer()
+        {
+            await CalculateIdleRewardState(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+        }
+
+        private async UniTask CalculateIdleRewardState(CancellationToken cancelToken)
+        {
+            TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
+            int maxTimeLimitMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
+            try
+            {
+                while (maxTimeLimitMinute > currentRewardTimeSpan.TotalMinutes)
+                {
+                    float resultPercent = (currentRewardTimeSpan.Minutes / (float)maxTimeLimitMinute) * 100;
+                    _idleRewardStateText.text = $"{Mathf.Ceil(resultPercent)}%";
+
+                    await UniTask.Delay(1000, cancellationToken: cancelToken);
+
+                    currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
+                }
+
+                // 꽉 찼을경우 처리
+                if (maxTimeLimitMinute <= currentRewardTimeSpan.TotalMinutes)
+                {
+                    _idleRewardStateText.text = "100%";
+                }
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.Log(e);
             }
         }
 
