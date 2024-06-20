@@ -76,6 +76,7 @@ namespace CookApps.BattleSystem
         AttackSpeedUp,
         CriticalProbUp,
         Invincibility,
+        CoolTimeUp,
         AttackDown = 1000,
         DefenceDown,
         CoolTimeDown,
@@ -91,6 +92,7 @@ namespace CookApps.BattleSystem
         Stun,
         Sleep,
         Provocation,
+        Trap,
         MAX,
     }
 
