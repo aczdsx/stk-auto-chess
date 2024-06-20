@@ -2478,6 +2478,7 @@ GameObject:
   - component: {fileID: 4235564038207941678}
   - component: {fileID: 5965116516274153360}
   - component: {fileID: 8656241571726813909}
+  - component: {fileID: 5682130688358810599}
   m_Layer: 5
   m_Name: Btns
   m_TagString: Untagged
@@ -2498,14 +2499,14 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1958457442828844258}
-  - {fileID: 5104156483514116102}
   - {fileID: 2736870967921613254}
+  - {fileID: 5104156483514116102}
   m_Father: {fileID: 6822067700421264745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -27, y: 68}
-  m_SizeDelta: {x: 628, y: 86}
+  m_AnchoredPosition: {x: -25, y: 68}
+  m_SizeDelta: {x: 0, y: 86}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &5965116516274153360
 MonoBehaviour:
@@ -2545,6 +2546,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &5682130688358810599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3262833742692650072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &3319470289215660984
 GameObject:
   m_ObjectHideFlags: 0
