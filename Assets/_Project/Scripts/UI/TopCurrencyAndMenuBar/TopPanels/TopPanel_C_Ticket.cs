@@ -6,14 +6,11 @@ namespace CookApps.AutoBattler
     {
         public override TopPanelType PanelType => TopPanelType.C_Ticket;
 
-        private void Awake()
-        {
-            CTicketChanged(UserDataManager.Instance.UserWallet.CTicket);
-        }
-
         private void OnEnable()
         {
             UserDataManager.OnCTicketChanged += CTicketChanged;
+
+            CTicketChanged(UserDataManager.Instance.UserWallet.CTicket);
         }
 
         private void OnDisable()

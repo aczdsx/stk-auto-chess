@@ -6,14 +6,11 @@ namespace CookApps.AutoBattler
     {
         public override TopPanelType PanelType => TopPanelType.Char_User_Exp_Item_2;
 
-        private void Awake()
-        {
-            CharUserExpItem2Changed(UserDataManager.Instance.UserWallet.CharUserExpItem2);
-        }
-
         private void OnEnable()
         {
             UserDataManager.OnCharUserExpItem2Changed += CharUserExpItem2Changed;
+
+            CharUserExpItem2Changed(UserDataManager.Instance.UserWallet.CharUserExpItem2);
         }
 
         private void OnDisable()

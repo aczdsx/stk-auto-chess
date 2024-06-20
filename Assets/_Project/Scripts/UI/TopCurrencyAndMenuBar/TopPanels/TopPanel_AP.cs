@@ -9,14 +9,11 @@ namespace CookApps.AutoBattler
     {
         public override TopPanelType PanelType => TopPanelType.AP;
 
-        private void Awake()
-        {
-            APChanged(UserDataManager.Instance.UserWallet.Ap);
-        }
-
         private void OnEnable()
         {
             UserDataManager.OnAPChanged += APChanged;
+
+            APChanged(UserDataManager.Instance.UserWallet.Ap);
         }
 
         private void OnDisable()
