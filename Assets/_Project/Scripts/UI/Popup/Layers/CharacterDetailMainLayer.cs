@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +12,8 @@ namespace CookApps.AutoBattler
 {
     public class CharacterDetailMainLayer : CachedMonoBehaviour
     {
+        public Material IllustMaterial => _illustMaterial;
+
         [SerializeField] private CAButton _backButton;
         [SerializeField] private CAButton _elementSynergyButton;
         [SerializeField] private CAButton _classSynergyButton;
@@ -64,12 +65,6 @@ namespace CookApps.AutoBattler
 
             SetTabState();
             SetCharacterInfo();
-        }
-
-        public void SetMaterialGlobalAlpha(float startValue, float endValue, float duration)
-        {
-            _illustMaterial.SetFloat("Global Alpha", startValue);
-            _illustMaterial.DOFloat(endValue, "Global Alpha", duration);
         }
 
         public void OnClickGrowLayerTabButton()

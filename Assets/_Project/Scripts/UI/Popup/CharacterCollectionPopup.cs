@@ -6,6 +6,7 @@ using CookApps.SpecData;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.TeamBattle.UIManagements;
+using DG.Tweening;
 
 namespace CookApps.AutoBattler
 {
@@ -43,6 +44,13 @@ namespace CookApps.AutoBattler
             _currentCharacterID = 0;
 
             ChangeTabType(_currentTabType, true);
+        }
+
+        // 외부 애니메이션 연출용 함수
+        public void SetMaterialGlobalAlpha(float startValue, float endValue, float duration)
+        {
+            _detailMainBGLayer?.IllustMaterial?.SetFloat("Global Alpha", startValue);
+            _detailMainBGLayer?.IllustMaterial?.DOFloat(endValue, "Global Alpha", duration);
         }
 
         public void SelectCharacterCard(int characterID)
