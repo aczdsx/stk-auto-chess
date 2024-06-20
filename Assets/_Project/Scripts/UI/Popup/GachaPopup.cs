@@ -76,6 +76,8 @@ namespace CookApps.AutoBattler
             // 가챠 진행횟수 유저 데이터 저장
             UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_1_TIME_COUNT);
 
+            // 가이드 미션 체크
+            UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
         }
 
         private void OnClickGacha10Button()
@@ -113,6 +115,9 @@ namespace CookApps.AutoBattler
 
             // 가챠 진행횟수 유저 데이터 저장
             UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_10_TIME_COUNT);
+
+            // 가이드 미션 체크
+            UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
         }
 
         private void OnClickCloseButton()
