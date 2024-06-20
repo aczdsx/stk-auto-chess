@@ -106,7 +106,8 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
                 RemoveFromContainer();
             }
 
-            container.SetDirtyFlag(this);
+            if (container != null)
+                container.SetDirtyFlag(this);
         }
     }
 

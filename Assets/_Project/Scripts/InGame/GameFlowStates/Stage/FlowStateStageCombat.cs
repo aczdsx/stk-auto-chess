@@ -112,8 +112,8 @@ public class FlowStateStageCombat : StateBase
 
     private async UniTask ChangeNextState(bool isWin)
     {
-        InGameMainFlowManager.Instance.SetPlaySpeed(0.3f);
-        await UniTask.Delay(1500);
+        InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
+        await UniTask.Delay(1200);
         InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
         if (isWin)
         {

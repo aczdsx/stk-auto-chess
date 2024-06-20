@@ -13,7 +13,7 @@ public class FlowStateStageClear : StateBase
     {
         InGameManager.Instance.EndInGame();
         int star = 1;
-        if (InGameMain.GetInGameMain().InGameTime >= 30)
+        if (InGameMain.GetInGameMain().InGameTime >= 40)
             star++;
         if (InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive())
             star++;

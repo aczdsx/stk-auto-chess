@@ -101,8 +101,6 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         {
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.OccupiedCharacter.SkillRootTransformFollowable);
 

@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 필리아
@@ -13,7 +10,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : 스킬로 적을 사망 시켰을 시, 스킬 쿨타임이 즉시 초기화된다.
 /// </summary>
 [UseEffectCodeIds(1304021)]
-public class EffectCodeSkill1304031 : EffectCodeCharacterBase
+public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 
@@ -87,28 +84,23 @@ public class EffectCodeSkill1304031 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
+
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByNearest(owner.CurrentTile);
-        if (inGameTiles != null && inGameTiles.Count > 0)
-        {
-            var tile = inGameTiles[0];
-            if (tile.OccupiedCharacter != null)
-            {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+        var tile = owner.Target.CurrentTile;
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+            tile.OccupiedCharacter.SkillRootTransformFollowable);
+        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+            tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+        var type = tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                CoolTimeElapsedTime = CoolTimeDurationTime;
-            }
-        }
+        if (type == DamageReturnType.Killed)
+            CoolTimeElapsedTime = CoolTimeDurationTime;
 
         _isSkillActivated = false;
     }

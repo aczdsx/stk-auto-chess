@@ -30,7 +30,7 @@ public class EffectCodeSynergyElementFire : EffectCodeCharacterBase
 
         if (owner.Target != null)
         {
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_02, owner.SkillRootTransformFollowable);
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_02, owner.Target.SkillRootTransformFollowable);
 
             var damage = owner.PrecalculateDamageAmount(owner.AD * statValue, 0, owner.Target, codeId, true);
             owner.PostCalculateDamageAmount(ref damage, owner.Target);

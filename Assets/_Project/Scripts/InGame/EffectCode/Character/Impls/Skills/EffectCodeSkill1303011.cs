@@ -124,7 +124,8 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
                 if (tile.OccupiedCharacter.HasDebuffType())
                     calculatedDamageRate += _additionalDamageRate;
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * 0, calculatedDamageRate, tile.OccupiedCharacter, codeId, true);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                    tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
             }

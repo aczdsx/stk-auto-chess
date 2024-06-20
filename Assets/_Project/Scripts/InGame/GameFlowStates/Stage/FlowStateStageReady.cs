@@ -8,20 +8,20 @@ using Unity.Mathematics;
 
 public class FlowStateStageReady : StateBase
 {
-    private SpecStage specStage;
+    private SpecStage _specStage;
 
     public override void SetStateData(object data)
     {
         base.SetStateData(data);
-        specStage = data as SpecStage;
+        _specStage = data as SpecStage;
     }
 
     public override async void StateInit(object target)
     {;
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
-            SpecDataManager.Instance.GetStageMonsterList(specStage.chapter_id, specStage.stage_number,
-                specStage.difficulty_type);
+            SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,
+                _specStage.difficulty_type);
 
         foreach (var monster in monsters)
         {
@@ -38,7 +38,7 @@ public class FlowStateStageReady : StateBase
         }
 
         // 그리드 설치
-        foreach (var gridID in specStage.obstacle_grid_id)
+        foreach (var gridID in _specStage.obstacle_grid_id)
         {
             addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID));
         }
@@ -51,11 +51,14 @@ public class FlowStateStageReady : StateBase
     public override void StateStart()
     {
         //[TODO] 나중에 데이터로 뺄 부분
-        Span<double> debuffStats = stackalloc double[1];
-        debuffStats.Clear();
-        debuffStats[0] = 5;
-        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.CHAPTER_FIRE, 0, debuffStats);
-        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+        if (_specStage.chapter_id == 2)
+        {
+            Span<double> debuffStats = stackalloc double[1];
+            debuffStats.Clear();
+            debuffStats[0] = 5;
+            var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.CHAPTER_FIRE, 0, debuffStats);
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+        }
     }
 
     public override void StateRunning(float dt)
