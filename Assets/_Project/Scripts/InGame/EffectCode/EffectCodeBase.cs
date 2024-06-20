@@ -48,7 +48,6 @@ namespace CookApps.BattleSystem
         }
 
         public virtual EffectCodeType Type => EffectCodeType.Base;
-        public virtual EffectCodeLifeType LifeType => EffectCodeLifeType.Instant;
 
         protected IEffectCodeSource source;
         public IEffectCodeSource Source => source;
@@ -178,9 +177,7 @@ namespace CookApps.BattleSystem
         {
             for (var i = 0; i < effectCodes.Count; i++)
             {
-                Profiler.BeginSample("CallWithArgs");
                 lambda(effectCodes[i], data);
-                Profiler.EndSample();
             }
         }
 

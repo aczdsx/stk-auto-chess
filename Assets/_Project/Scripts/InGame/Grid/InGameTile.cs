@@ -5,6 +5,7 @@ namespace CookApps.BattleSystem
 {
     public class InGameTile
     {
+        private EffectCodeContainer ecc;
         public int X { get; }
         public int Y { get; }
         public int G { set; get; } = -1;
@@ -22,6 +23,13 @@ namespace CookApps.BattleSystem
             X = x;
             Y = y;
             View = view;
+            ecc = new EffectCodeContainer(this);
+        }
+
+        ~InGameTile()
+        {
+            ecc.Clear();
+            ecc = null;
         }
 
         public bool IsOccupied()
@@ -32,14 +40,14 @@ namespace CookApps.BattleSystem
         public void SetOccupied(CharacterController character)
         {
             OccupiedCharacter = character;
-            var effectCodeGames = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
-            EffectCodeForLoopHelper.CallWithArgs(effectCodeGames, EffectCodeGameLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
+            var effectCodes = ecc.GetEffectCodesByType(EffectCodeType.Tile);
+            EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeTileLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
         }
 
         public void SetUnoccupied()
         {
-            var effectCodeGames = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
-            EffectCodeForLoopHelper.CallWithArgs(effectCodeGames, EffectCodeGameLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
+            var effectCodes = ecc.GetEffectCodesByType(EffectCodeType.Tile);
+            EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeTileLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
             OccupiedCharacter = null;
         }
     }

@@ -3,9 +3,9 @@ using System;
 
 namespace CookApps.BattleSystem
 {
-    public abstract class EffectCodeGameBase : EffectCodeBase
+    public abstract class EffectCodeTileBase : EffectCodeBase
     {
-        public override EffectCodeType Type => EffectCodeType.Game;
+        public override EffectCodeType Type => EffectCodeType.Tile;
 
         public virtual void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
@@ -16,20 +16,20 @@ namespace CookApps.BattleSystem
         }
     }
 
-    public static class EffectCodeGameLambda
+    public static class EffectCodeTileLambda
     {
         public static Action<EffectCodeBase, InGameTile, CharacterController> OnTileCharacterEnterLambda = (effectCode, tile, character) =>
         {
-            if (effectCode is EffectCodeGameBase effectCodeGame)
+            if (effectCode is EffectCodeTileBase effectCodeTile)
             {
-                effectCodeGame.OnTileCharacterEnter(tile, character);
+                effectCodeTile.OnTileCharacterEnter(tile, character);
             }
         };
         public static Action<EffectCodeBase, InGameTile, CharacterController> OnTileCharacterExitLambda = (effectCode, tile, character) =>
         {
-            if (effectCode is EffectCodeGameBase effectCodeGame)
+            if (effectCode is EffectCodeTileBase effectCodeTile)
             {
-                effectCodeGame.OnTileCharacterExit(tile, character);
+                effectCodeTile.OnTileCharacterExit(tile, character);
             }
         };
     }
