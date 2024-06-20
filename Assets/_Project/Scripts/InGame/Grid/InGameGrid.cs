@@ -247,7 +247,7 @@ namespace CookApps.BattleSystem
             return pos.x >= 0 && pos.x < Width && pos.y >= 0 && pos.y < Height;
         }
 
-        public InGameTile GetTileByCharacterDirection(CharacterController characterController)
+        public List<InGameTile> GetTileByCharacterDirection(CharacterController characterController, int count = 1)
         {
             bool isFront = characterController.GetCharacterView().CachedFront;
             bool isFlip = characterController.GetCharacterView().CachedFlipX;
@@ -255,24 +255,42 @@ namespace CookApps.BattleSystem
             int directionX = characterController.CurrentTile.X;
             int directionY = characterController.CurrentTile.Y;
 
+            int dx = 0, dy = 0;
+
             if (!isFront && isFlip)
             {
-                directionX += 1;
+                dx = 1;
             }
             else if (!isFront && !isFlip)
             {
-                directionY += 1;
+                dy = 1;
             }
             else if (isFront && isFlip)
             {
-                directionY -= 1;
+                dy = -1;
             }
             else
             {
-                directionX -= 1;
+                dx = -1;
             }
 
-            return _tiles.FirstOrDefault(t => t.X == directionX && t.Y == directionY);
+            List<InGameTile> tiles = new List<InGameTile>();
+            for (int i = 0; i < count; i++)
+            {
+                directionX += dx;
+                directionY += dy;
+                var tile = _tiles.FirstOrDefault(t => t.X == directionX && t.Y == directionY);
+                if (tile != null)
+                {
+                    tiles.Add(tile);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return tiles;
         }
 
         public List<InGameTile> GetTileListByCharacterDirection(CharacterController characterController)

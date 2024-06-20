@@ -106,7 +106,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
 
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        Vector3 direction = (inGameTile.View.CachedTr.position - vfx.CachedTr.position).normalized;
+        Vector3 direction = (inGameTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
         vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
         var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);

@@ -8,22 +8,20 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 아트레시아
-///범위 : 전방 X축 2칸
-// 대미지 : 검기를 날려, 적에게 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 검기는 맵 끝까지 지속된다.
+/// 오데트
+// 범위 : 전방 X축 3칸
+// 대미지 : 낫을 크게 휘둘러, 적에게 공격력 {0}%의 대미지를 준다.
+//     특수 효과 : 피격된 적은 {1}동안 공격속도가 {2}% 감소한다.
 /// </summary>
-[UseEffectCodeIds(1401011)]
-public class EffectCodeSkill1401011 : EffectCodeCharacterBase
+[UseEffectCodeIds(1401031)]
+public class EffectCodeSkill1401031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
+    private ObfuscatorFloat _debuffTime;
+    private ObfuscatorFloat _atkSpeedDownRate;
 
     private bool _isReadyToActivate;
     private bool _isSkillActivated;
-
-    private List<CharacterController> _hitCharacters = new List<CharacterController>();
-
-    private WeakReference<InGameVfx> _vfx;
 
     private SpecSkill _specSkill;
 
@@ -34,6 +32,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _debuffTime = codeInfo.GetCodeStatToFloat(2);
+        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
 
@@ -45,6 +45,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _debuffTime = codeInfo.GetCodeStatToFloat(2);
+        _atkSpeedDownRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -95,45 +97,30 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
-
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
-
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        if (inGameTile != null)
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner);
+        foreach (var tile in inGameTiles)
         {
-            Vector3 direction = (inGameTile[0].View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
-            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
-            movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
-            vfxProjectile.Initialize(false, movement);
-            vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
-            // movement.OnReachedTarget +=
+            if (tile.OccupiedCharacter != null)
+            {
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                Span<double> debuffStats = stackalloc double[3];
+                debuffStats.Clear();
+                debuffStats[0] = codeId;
+                debuffStats[1] = _debuffTime;
+                debuffStats[2] = _atkSpeedDownRate;
+                var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, 0, debuffStats);
+                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+            }
         }
 
+
         _isSkillActivated = false;
-    }
-
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,tile.View.CachedTr.position);
-        tileFx.CachedTr.position = tile.View.CachedTr.position;
-
-        if (tile.OccupiedCharacter == null)
-            return;
-
-        if (_hitCharacters.Contains(tile.OccupiedCharacter))
-            return;
-
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-        tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-        _hitCharacters.Add(tile.OccupiedCharacter);
     }
 
     public override void OnSkillAnimationEnd()

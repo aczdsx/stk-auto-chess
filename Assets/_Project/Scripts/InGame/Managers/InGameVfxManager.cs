@@ -87,7 +87,7 @@ namespace CookApps.BattleSystem
 
         public InGameVfx AddInGameTileFx(ElementType type, Vector3 worldPosition)
         {
-            InGameVfxNameType vfxNameType = (InGameVfxNameType) 0;
+            InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
             if (type == ElementType.DARK)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_darkness;
@@ -113,10 +113,14 @@ namespace CookApps.BattleSystem
                 vfxNameType = InGameVfxNameType.fx_common_area_water;
             }
 
-            var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
-            addWaitingInGameVfxs.Enqueue(effect);
-            effect.CachedTr.position = worldPosition;
-            return effect;
+            if (vfxNameType != InGameVfxNameType.NONE)
+            {
+                var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
+                addWaitingInGameVfxs.Enqueue(effect);
+                effect.CachedTr.position = worldPosition;
+                return effect;
+            }
+            return null;
         }
 
         public InGameVfx AddInGamePreSkillActionFx(ElementType type, Vector3 worldPosition)
@@ -249,6 +253,7 @@ namespace CookApps.BattleSystem
 
             private static string GetAddressablePath(InGameVfxNameType vfxNameType)
             {
+                Debug.LogColor($"vfxNameType : {vfxNameType}");
                 return SpecDataManager.Instance.GetInGameVfxData(vfxNameType).addressable_path;
             }
         }

@@ -54,7 +54,7 @@ MonoBehaviour:
   _projectileTransform: {fileID: 383865152857005477}
   _defaultMaterial: {fileID: 2100000, guid: b8c3b65e57b672d469e665b3892ce214, type: 2}
   _disorveMaterial: {fileID: -876546973899608171, guid: 97c6dd483b7624141b388ba8d0a4290a, type: 3}
-  _hologramMaterial: {fileID: 0}
+  _hologramMaterial: {fileID: -876546973899608171, guid: 3cd374d8c82053146bdb2d3f2352c464, type: 3}
 --- !u!1 &4683004968830859785
 GameObject:
   m_ObjectHideFlags: 0
