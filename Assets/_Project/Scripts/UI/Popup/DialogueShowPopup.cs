@@ -108,7 +108,8 @@ namespace CookApps.AutoBattler
                     SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
 
                     UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
-                    InGameMain.GetInGameMain().SetInGameBottomUI();
+
+                    InGameMain.GetInGameMain()?.SetInGameBottomUI();
                 }
 
                 SceneUILayerManager.Instance.PopUILayer(this);
