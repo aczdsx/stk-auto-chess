@@ -48,6 +48,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private GuideMissionSlot _guideMissionSlot;
 
         [Header("Idle Reward Layer")]
+        [SerializeField] private GameObject _normalRewardStateObject;
+        [SerializeField] private Image _normalRewardFillImage;
+        [SerializeField] private GameObject _fullRewardStateObject;
         [SerializeField] private TextMeshProUGUI _idleRewardStateText;
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
@@ -116,7 +119,6 @@ namespace CookApps.AutoBattler
                     _unitaskCancelToken = new CancellationTokenSource();
                     SetIdleRewardLayer();
                     break;
-
             }
         }
 
@@ -221,8 +223,14 @@ namespace CookApps.AutoBattler
             {
                 while (maxTimeLimitMinute > currentRewardTimeSpan.TotalMinutes)
                 {
-                    float resultPercent = (currentRewardTimeSpan.Minutes / (float)maxTimeLimitMinute) * 100;
+                    _normalRewardStateObject.gameObject.SetActive(true);
+                    _fullRewardStateObject.gameObject.SetActive(false);
+
+                    float resultValue = (currentRewardTimeSpan.Minutes / (float) maxTimeLimitMinute);
+                    float resultPercent = resultValue * 100;
                     _idleRewardStateText.text = $"{Mathf.Ceil(resultPercent)}%";
+
+                    _normalRewardFillImage.fillAmount = resultValue;
 
                     await UniTask.Delay(1000, cancellationToken: cancelToken);
 
@@ -232,6 +240,9 @@ namespace CookApps.AutoBattler
                 // 꽉 찼을경우 처리
                 if (maxTimeLimitMinute <= currentRewardTimeSpan.TotalMinutes)
                 {
+                    _normalRewardStateObject.gameObject.SetActive(false);
+                    _fullRewardStateObject.gameObject.SetActive(true);
+
                     _idleRewardStateText.text = "100%";
                 }
             }
