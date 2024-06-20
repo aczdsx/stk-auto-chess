@@ -47,18 +47,18 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _onNewCharacter = onNewCharacter;
 
         _characterStats = new List<CharacterStatData>();
-        _characterStats.Add(new CharacterStatData(130201, 10));
-        _characterStats.Add(new CharacterStatData(130601, 10));
-        _characterStats.Add(new CharacterStatData(130402, 10));
-        _characterStats.Add(new CharacterStatData(140101, 10, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
-        _characterStats.Add(new CharacterStatData(140402, 10));
-        _characterStats.Add(new CharacterStatData(140103, 10));
+        _characterStats.Add(new CharacterStatData(130201, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(130601, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(130402, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(140101, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(140402, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(140103, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
 
-        _characterStats.Add(new CharacterStatData(130301, 10));
-        _characterStats.Add(new CharacterStatData(140301, 10));
-        _characterStats.Add(new CharacterStatData(140601, 10));
-        _characterStats.Add(new CharacterStatData(140502, 10));
-        _characterStats.Add(new CharacterStatData(130501, 10));
+        _characterStats.Add(new CharacterStatData(130301, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(140301, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(140601, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(140502, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        _characterStats.Add(new CharacterStatData(130501, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
 
         // var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         // foreach (var character in userCharacters)
