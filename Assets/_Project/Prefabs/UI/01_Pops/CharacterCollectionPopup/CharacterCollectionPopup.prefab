@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 9069680493758840629}
+  _dimmedBGLayerObject: {fileID: 3739038364236461082}
   _detailBGLayerObject: {fileID: 4972471346295014224}
   _detailMainBGLayer: {fileID: 6331557183476723124}
   _collectionMainLayer: {fileID: 4928659314064489471}
@@ -3449,6 +3450,11 @@ PrefabInstance:
 --- !u!224 &2925061462367915756 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8430378634762597665, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
+  m_PrefabInstance: {fileID: 6658958341740362701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3739038364236461082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8037487999225810903, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
   m_PrefabInstance: {fileID: 6658958341740362701}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7458443148646256797

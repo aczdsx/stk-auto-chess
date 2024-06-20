@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Coffee.UIEffects;
 using Cookapps.Autobattleproject.V1;

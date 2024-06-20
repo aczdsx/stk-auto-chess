@@ -1459,6 +1459,7 @@ MonoBehaviour:
   _classSynergyButton: {fileID: 5812121265961647136}
   _characterIllustParentObject: {fileID: 7282219569805538715}
   _characterSDParentObject: {fileID: 7419105263243773269}
+  _unOwnedDimmedLayerObject: {fileID: 3161826990085163586}
   _elementSynergyUI: {fileID: 1873847877183615232}
   _classSynergyUI: {fileID: 8087948482515040161}
   _characterNameText: {fileID: 5616445896062645701}

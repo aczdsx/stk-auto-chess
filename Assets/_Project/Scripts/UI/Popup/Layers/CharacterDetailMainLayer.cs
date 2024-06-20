@@ -21,6 +21,7 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private GameObject _characterIllustParentObject;
         [SerializeField] private GameObject _characterSDParentObject;
+        [SerializeField] private GameObject _unOwnedDimmedLayerObject;
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
         [SerializeField] private TextMeshProUGUI _characterNameText;
@@ -93,6 +94,8 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null) return;
 
+            bool isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
+
             // 캐릭터 일러스트 생성
             string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
             var newObject = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
@@ -110,6 +113,9 @@ namespace CookApps.AutoBattler
             _classSynergyUI.SetPositionSynergyUI(_specCharacterData.character_position_type);
 
             SetStarObject(_specCharacterData.grade_type);
+
+            // 딤드 상태 설정
+            _unOwnedDimmedLayerObject.SetActive(!isHaveCharacter);
         }
 
         private void SetStarObject(GradeType gradeType)
