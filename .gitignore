@@ -78,3 +78,6 @@ crashlytics-build.properties
 
 # DocFX Builds
 /[Aa]ssets/Package/Runtime/obj
+
+# Custom
+Thumbs.db
