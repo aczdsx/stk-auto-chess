@@ -131,7 +131,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickRetryStageButton()
         {
-            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
+            //InGameManager.Instance.EndInGame();
+            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, (int)InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }
 
         private void CreateRewardItems()
