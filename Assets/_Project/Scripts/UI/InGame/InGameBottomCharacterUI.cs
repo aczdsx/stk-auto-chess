@@ -20,6 +20,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField] private InGameCharacterItem _ingameCharacterItemPrefab;
     [SerializeField] private Transform _inGameCharacterItemTransform;
 
+    [SerializeField] private GameObject _readyUIObj;
+
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private Action _onNewCharacter;
@@ -31,6 +33,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnStartButtonClicked()
     {
+        _readyUIObj.SetActive(false);
         HideCharacterSelectUI(() =>
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();

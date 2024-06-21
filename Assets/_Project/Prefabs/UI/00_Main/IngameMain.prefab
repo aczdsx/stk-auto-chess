@@ -5603,6 +5603,7 @@ MonoBehaviour:
   _returnImage: {fileID: 3162217385287495917}
   _ingameCharacterItemPrefab: {fileID: 1318617327490749710}
   _inGameCharacterItemTransform: {fileID: 5269434938709260472}
+  _readyUIObj: {fileID: 5213092355249420699}
 --- !u!1 &8299327059419720588
 GameObject:
   m_ObjectHideFlags: 0
@@ -6687,6 +6688,10 @@ PrefabInstance:
     - target: {fileID: 4682345783713381724, guid: 1cdf7ec8654c9234bbda7492e69a744c, type: 3}
       propertyPath: m_Name
       value: Btn_IngameBattle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682345783713381724, guid: 1cdf7ec8654c9234bbda7492e69a744c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7422678620674318270, guid: 1cdf7ec8654c9234bbda7492e69a744c, type: 3}
       propertyPath: m_Pivot.x
