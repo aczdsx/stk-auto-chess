@@ -72,22 +72,28 @@ public class InGameTopUI : MonoBehaviour
             {
                 if (characterPosition != CharacterPositionType.NONE)
                 {
+                    var list = SpecDataManager.Instance.GetSpecSynergyList(characterPosition);
+                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+
                     TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetPositionSynergy(characterPosition, synergyCount)
+                        _synergyUIList[uiIndex].SetPositionSynergy(characterPosition, synergyCount, data.grade)
                     );
                 }
             }
         }
 
-        foreach (ElementType characterType in Enum.GetValues(typeof(ElementType)))
+        foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
         {
-            int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, characterType);
+            int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, elementType);
             if (synergyCount > 0)
             {
-                if (characterType != ElementType.NONE)
+                if (elementType != ElementType.NONE)
                 {
+                    var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
+                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+
                     TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetSynergy(characterType, synergyCount)
+                        _synergyUIList[uiIndex].SetSynergy(elementType, synergyCount, data.grade)
                     );
                 }
             }
