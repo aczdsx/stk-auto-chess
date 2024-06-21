@@ -931,18 +931,17 @@ namespace CookApps.BattleSystem
 
         public void MoveCharacter(bool isInRange)
         {
-            // 4-2. 공격 범위 밖에 있다면 이동 상태로 전환
-            InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile,
-                Target.CurrentTile);
-            if (bestTile == CurrentTile)
+            if (isInRange)
             {
-                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
                 AddNextState<CharacterStateIdle>();
             }
             else
             {
-                if (isInRange)
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile,
+                    Target.CurrentTile);
+                if (bestTile == CurrentTile)
                 {
+                    GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
                     AddNextState<CharacterStateIdle>();
                 }
                 else

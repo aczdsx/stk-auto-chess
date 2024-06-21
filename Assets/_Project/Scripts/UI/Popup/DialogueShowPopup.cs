@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
 
         [Header("Dialogue Layer")]
         [SerializeField] private CAButton _blockLayerButton;
+        [SerializeField] private GameObject _extraBGObj;
         [SerializeField] private Image _extraBGImage;
         [SerializeField] private TextMeshProUGUI _dialogueText;
         [SerializeField] private RectTransform _dialogueTextRect;
@@ -74,7 +75,7 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
 
             // 추가 배경 설정
-            _extraBGImage.gameObject.SetActive(false);
+            _extraBGObj.SetActive(false);
             if (_currentSpecDialogueData.bg_image != "none")
             {
                 var targetSprite = ImageManager.Instance.GetCutSceneSprite(_currentSpecDialogueData.bg_image);
@@ -82,7 +83,7 @@ namespace CookApps.AutoBattler
                 {
                     _extraBGImage.sprite = targetSprite;
 
-                    _extraBGImage.gameObject.SetActive(true);
+                    _extraBGObj.SetActive(true);
                 }
             }
 

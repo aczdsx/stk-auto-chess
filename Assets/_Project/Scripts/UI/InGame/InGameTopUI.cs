@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
@@ -65,39 +66,61 @@ public class InGameTopUI : MonoBehaviour
             synergyUI.gameObject.SetActive(false);
         }
 
-        foreach (CharacterPositionType characterPosition in Enum.GetValues(typeof(CharacterPositionType)))
-        {
-            int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, characterPosition);
-            if (synergyCount > 0)
-            {
-                if (characterPosition != CharacterPositionType.NONE)
-                {
-                    var list = SpecDataManager.Instance.GetSpecSynergyList(characterPosition);
-                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+        bool isDescending = type == AllianceType.Enemy;
 
-                    TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetPositionSynergy(characterPosition, synergyCount, data.grade)
-                    );
-                }
+        var characterPositionCounts = Enum.GetValues(typeof(CharacterPositionType))
+            .Cast<CharacterPositionType>()
+            .Where(characterPosition => characterPosition != CharacterPositionType.NONE)
+            .Select(characterPosition => new
+            {
+                Type = (object)characterPosition,
+                Count = InGameObjectManager.Instance.GetCharacterSynergyCount(type, characterPosition),
+                IsCharacterPosition = true
+            });
+
+        var elementTypeCounts = Enum.GetValues(typeof(ElementType))
+            .Cast<ElementType>()
+            .Where(elementType => elementType != ElementType.NONE)
+            .Select(elementType => new
+            {
+                Type = (object)elementType,
+                Count = InGameObjectManager.Instance.GetCharacterSynergyCount(type, elementType),
+                IsCharacterPosition = false
+            });
+
+        var synergyCounts = characterPositionCounts
+            .Concat(elementTypeCounts)
+            .Where(x => x.Count > 0);
+
+        synergyCounts = isDescending
+            ? synergyCounts.OrderByDescending(x => x.Count)
+            : synergyCounts.OrderBy(x => x.Count);
+
+        var synergyCountList = synergyCounts.ToList();
+
+        foreach (var synergyCount in synergyCountList)
+        {
+            if (synergyCount.IsCharacterPosition)
+            {
+                var list = SpecDataManager.Instance.GetSpecSynergyList((CharacterPositionType)synergyCount.Type);
+                var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
+
+                TrySetSynergyUI(() =>
+                    _synergyUIList[uiIndex].SetPositionSynergy((CharacterPositionType)synergyCount.Type, synergyCount.Count, data.grade)
+                );
+            }
+            else
+            {
+                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)synergyCount.Type);
+                var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
+
+                TrySetSynergyUI(() =>
+                    _synergyUIList[uiIndex].SetSynergy((ElementType)synergyCount.Type, synergyCount.Count, data.grade)
+                );
             }
         }
 
-        foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
-        {
-            int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, elementType);
-            if (synergyCount > 0)
-            {
-                if (elementType != ElementType.NONE)
-                {
-                    var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
-                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
 
-                    TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetSynergy(elementType, synergyCount, data.grade)
-                    );
-                }
-            }
-        }
     }
 
     public void UpdateAttrUI(AllianceType type)

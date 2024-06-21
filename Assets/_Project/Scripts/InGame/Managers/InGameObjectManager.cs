@@ -280,6 +280,9 @@ namespace CookApps.BattleSystem
         public void SaveStartingPlayerCharacter()
         {
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
+
+            charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate.OrderBy(character => character.SpecCharacter.atk_range).ToList();
+            enemiesInPlaygroundForUpdate = enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
         }
 
         public bool IsCheckAllPlayerCharacterAlive()

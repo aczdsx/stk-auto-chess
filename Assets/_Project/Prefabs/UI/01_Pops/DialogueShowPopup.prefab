@@ -350,7 +350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6229638749598272338
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1306,7 +1306,8 @@ MonoBehaviour:
   _characeterIllustParentObject: {fileID: 4903118801287385762}
   _characterNameText: {fileID: 8372786935888460644}
   _blockLayerButton: {fileID: 6084146551450346301}
-  _extraBGImage: {fileID: 4476244671170516613}
+  _extraBGObj: {fileID: 2315300281005419803}
+  _extraBGImage: {fileID: 3400282460205663120}
   _dialogueText: {fileID: 5716887584218562092}
   _dialogueTextRect: {fileID: 5809640002538323639}
 --- !u!95 &5913895176186469053
