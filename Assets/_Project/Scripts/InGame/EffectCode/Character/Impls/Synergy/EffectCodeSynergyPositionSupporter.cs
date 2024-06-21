@@ -27,10 +27,10 @@ public class EffectCodeSynergyPositionSupporter : EffectCodeCharacterBase
     {
         base.OnCombatStart();
 
-        var list = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
-        foreach (var ec in list)
+        foreach (var skillID in owner.SpecCharacter.skill_ids)
         {
-            EffectCodeCharacterBase eccBase = ((EffectCodeCharacterBase) ec);
+            EffectCodeCharacterBase eccBase =
+                (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
             float durationTime = eccBase.GetDurationTime();
             float elapsedTime = eccBase.GetDurationTime();
             float decreasedTime = durationTime * statValue;

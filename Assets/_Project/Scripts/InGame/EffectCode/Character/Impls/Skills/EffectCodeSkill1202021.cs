@@ -99,21 +99,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
 
-        OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
 
-
-        _isSkillActivated = false;
-    }
-
-    public override void OnSkillAnimationEnd()
-    {
-        base.OnSkillAnimationEnd();
-        CoolTimeElapsedTime = 0;
-        _isSkillActivated = false;
-    }
-
-    public async UniTask OnSkillExecuteAsync(float second, List<InGameTile> inGameTiles)
-    {
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
@@ -124,10 +110,15 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
             }
-
-            await UniTask.Delay(TimeSpan.FromSeconds(second));
         }
 
+        _isSkillActivated = false;
+    }
+
+    public override void OnSkillAnimationEnd()
+    {
+        base.OnSkillAnimationEnd();
+        CoolTimeElapsedTime = 0;
         _isSkillActivated = false;
     }
 }

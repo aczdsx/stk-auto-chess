@@ -655,6 +655,9 @@ namespace CookApps.BattleSystem
 
         public bool HasDebuffType()
         {
+            if (_buffDebuffRefCountDict == null)
+                return false;
+
             foreach (var pair in _buffDebuffRefCountDict)
             {
                 // 디버프 유형을 나타내는 열거형의 값이 1000 이상인지 확인합니다.
