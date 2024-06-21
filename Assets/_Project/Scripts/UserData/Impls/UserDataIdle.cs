@@ -24,6 +24,9 @@ namespace CookApps.AutoBattler
                     //LastRewardGetTimestamp = 1718582400,
                     LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStamp(),
                 };
+
+                SaveUserIdle();
+
                 return;
             }
 
