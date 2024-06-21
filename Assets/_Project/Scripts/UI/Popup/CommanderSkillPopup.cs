@@ -38,6 +38,8 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
+            _skillTooltipPopup.gameObject.SetActive(false);
+
             InitSkillPopup();
         }
 

@@ -11,6 +11,7 @@ namespace CookApps.AutoBattler
     public class SkillTooltipPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;
+        [SerializeField] private CAButton _dimButton;
 
         [Space(10)]
         [SerializeField] private Image _skillIconImage;
@@ -29,6 +30,7 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _closeButton.onClick.AddListener(OnClickCloseButton);
+            _dimButton.onClick.AddListener(OnClickCloseButton);
         }
 
         protected override void OnDestroy()
@@ -36,6 +38,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _dimButton.onClick.RemoveListener(OnClickCloseButton);
         }
 
         protected override void OnPreEnter(object param)
