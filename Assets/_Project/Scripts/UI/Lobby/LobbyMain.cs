@@ -219,10 +219,26 @@ namespace CookApps.AutoBattler
             SpecStage bossStageData = SpecDataManager.Instance.GetStageData(specStageData.chapter_id, specStageData.difficulty_type, StageType.BATTLE_BOSS);
             if (bossStageData != null)
             {
-                var stageMonsterData = SpecDataManager.Instance.GetStageMonsterData(bossStageData.chapter_id, bossStageData.stage_number, bossStageData.difficulty_type);
-                var specMonsterData = SpecDataManager.Instance.GetCharacterData(stageMonsterData.monster_id);
+                // var stageMonsterData = SpecDataManager.Instance.GetStageMonsterData(bossStageData.chapter_id, bossStageData.stage_number, bossStageData.difficulty_type);
+                // var specMonsterData = SpecDataManager.Instance.GetCharacterData(stageMonsterData.monster_id);
 
-                _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specMonsterData.prefab_id);
+                // _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specMonsterData.prefab_id);
+                // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
+
+                // 임시처리
+                switch (specStageData.chapter_id)
+                {
+                    case 1:
+                        _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(20201);
+                        break;
+                    case 2:
+                        _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(20202);
+                        break;
+                    case 3:
+                        _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(20203);
+                        break;
+                }
+
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }
         }
