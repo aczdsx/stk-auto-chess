@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
         public bool CachedFlipX => _cachedFlipX;
         public bool CachedFront => _cachedFront;
         public float Height => 2.0f;
-        private readonly float _hitDurationTime = 0.15f;
+        private readonly float _hitDurationTime = 0.25f;
         public event Action<AnimationKey, AnimationEventKey> OnAnimationEvent;
 
         private AnimationKey _currentAnimationKey;
@@ -216,13 +216,15 @@ namespace CookApps.AutoBattler
                 float gAndBValue = Mathf.Lerp(255, 130, t) / 255f;
 
                 if (_spriteRenderer)
-                    _spriteRenderer.color = new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a);
+                    _spriteRenderer.material.SetColor("_TintColor",
+                        new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a));
 
                 await UniTask.Yield();
             }
 
             if (_spriteRenderer)
-                _spriteRenderer.color = initialColor;
+                _spriteRenderer.material.SetColor("_TintColor",
+                    new Color(1, 1, 1,1));
         }
 
         protected void OnDrawGizmos()

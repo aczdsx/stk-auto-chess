@@ -137,7 +137,7 @@ namespace CookApps.BattleSystem
             _view.CachedTr.localPosition = position;
         }
 
-        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType, bool hasSkill)
+        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType, bool hasSkill, HpBarType type = HpBarType.None)
         {
             _characterUId = characUIdInc++;
             _statData = statData;
@@ -172,6 +172,7 @@ namespace CookApps.BattleSystem
             {
                 _hpBarView = InGameHpBarViewPool.Instance.Get();
                 _hpBarView.Initialize(statData, allianceType);
+                _hpBarView.SetHpBarType(type);
                 _view.SetHpBarView(_hpBarView);
                 _view.SetFirstDirection(allianceType);
                 if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 ||
