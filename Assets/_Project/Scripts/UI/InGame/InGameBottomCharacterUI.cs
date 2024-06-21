@@ -63,7 +63,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
-            _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level));
+            _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
 
         foreach (var characterStat in _characterStats)

@@ -26,7 +26,8 @@ public class FlowStateStageReady : StateBase
         foreach (var monster in monsters)
         {
             Debug.LogColor($"monster 추가 : {monster.monster_id}");
-            var statData = new CharacterStatData(monster.monster_id, monster.monster_lv);
+            var statData = new CharacterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
+                monster.multiple_hp);
 
             string[] coordinates = monster.coordinate.Split(',');
             int x = int.Parse(coordinates[0]);
