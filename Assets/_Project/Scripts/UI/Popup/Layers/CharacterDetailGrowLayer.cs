@@ -160,6 +160,9 @@ namespace CookApps.AutoBattler
             // 레벨업 진행
             UserDataManager.Instance.IncreaseCharacterLevel(_specCharacterData.character_id, 1);
 
+            // 가이드 미션 체크
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
+
             RefreshLayer();
         }
     }
