@@ -86,7 +86,7 @@ namespace CookApps.AutoBattler
             }
 
             // 이미 수령한 보상 체크
-            if (_isAlreadyGetReward == false)
+            if (_isAlreadyGetReward)
             {
                 return;
             }
