@@ -1,21 +1,26 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 루키다
-// 범위 : 루키다 중심 3x3
-// 대미지 : 불길을 소환해 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 피격된 적에게 보호막이 있을 경우, 보호막이 즉시 파괴된다.
+/// 2챕터 보스 탱커
+// 범위 : 자신의 테두리 범위 (3*3)
+// 대미지 : 공격력 {0}%의 대미지를 가한다.
+//     특수 효과 : {1}초 동안 피격된 적의 공격속도를 {2}% 감소시킨다.
 /// </summary>
-[UseEffectCodeIds(1405021)]
-public class EffectCodeSkill1405021 : EffectCodeCharacterBase
+[UseEffectCodeIds(1202031)]
+public class EffectCodeSkill1202031 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _damageRate;
+    private ObfuscatorFloat _powerRate;
+    private ObfuscatorFloat _durationTime;
+    private ObfuscatorFloat _debuffRate;
 
     private bool _isReadyToActivate;
     private bool _isSkillActivated;
@@ -28,7 +33,9 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _durationTime = codeInfo.GetCodeStatToFloat(1);
+        _debuffRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
 
@@ -39,7 +46,9 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _durationTime = codeInfo.GetCodeStatToFloat(1);
+        _debuffRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -91,27 +100,21 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
             return;
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner, 1);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
+        inGameTiles.RemoveAll(l => l.OccupiedCharacter == owner);
+
+        foreach (var tile in inGameTiles)
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+
 
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != owner)
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                    tile.View.CachedTr.position);
-        }
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
-        foreach (var tile in inGameTiles)
-        {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter != owner)
-                {
-                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long)EffectCodeNameType.SHIELD);
-
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
-                }
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
             }
         }
 

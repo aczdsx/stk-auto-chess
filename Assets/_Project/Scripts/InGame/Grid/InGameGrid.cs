@@ -350,12 +350,11 @@ namespace CookApps.BattleSystem
             return _tiles.Where(t => t.X == ingameTile.X ||  t.Y == ingameTile.Y).ToList();
         }
 
-        public List<InGameTile> GetTileListByNarrowSquare(CharacterController characterController, int size)
+        public List<InGameTile> GetTileListByShapeSquare(CharacterController characterController, int size)
         {
             List<InGameTile> tiles = new List<InGameTile>();
             InGameTile centerTile = characterController.CurrentTile;
 
-            // 주어진 타일을 중심으로 하는 3x3 그리드의 모든 타일을 반환합니다.
             for (int x = centerTile.X - size; x <= centerTile.X + size; x++)
             {
                 for (int y = centerTile.Y - size; y <= centerTile.Y + size; y++)
