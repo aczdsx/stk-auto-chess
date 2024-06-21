@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
         private SpecRewardInfo _specRewardInfo;
 
         private bool _isAvailGetReward;
-        private bool _isAlreadyGetReweard;
+        private bool _isAlreadyGetReward;
 
         private void Awake()
         {
@@ -60,14 +60,14 @@ namespace CookApps.AutoBattler
             int totalStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type);
             _isAvailGetReward = totalStarCount >= _specRewardInfo.sub_value;
 
-            _isAlreadyGetReweard = UserDataManager.Instance.IsGetStageAccReward(_specRewardInfo.content_key_value,
+            _isAlreadyGetReward = UserDataManager.Instance.IsGetStageAccReward(_specRewardInfo.content_key_value,
                 _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
 
-            _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReweard);
-            _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReweard);
+            _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
+            _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);
 
-            _completeSymbolObject.SetActive(_isAlreadyGetReweard);
-            if (_isAlreadyGetReweard)
+            _completeSymbolObject.SetActive(_isAlreadyGetReward);
+            if (_isAlreadyGetReward)
             {
                 _rewardIconImage.color = BMUtil.ChangeColorAlpha(_rewardIconImage.color, 60);
 
@@ -86,7 +86,7 @@ namespace CookApps.AutoBattler
             }
 
             // 이미 수령한 보상 체크
-            if (_isAlreadyGetReweard == false)
+            if (_isAlreadyGetReward == false)
             {
                 return;
             }

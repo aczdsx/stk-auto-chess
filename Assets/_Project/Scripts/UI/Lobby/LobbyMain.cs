@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
         GUIDE_MISSION,
         CHARACTER_LAYER,
         IDLE_REWARD,
+        REDDOT,
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
@@ -53,9 +54,17 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _fullRewardStateObject;
         [SerializeField] private TextMeshProUGUI _idleRewardStateText;
 
+        [Header("Red dot")]
+        [SerializeField] private GameObject _characterReddotObject;
+        [SerializeField] private GameObject _gachaReddotObject;
+        [SerializeField] private GameObject _idleRewardReddotObject;
+        [SerializeField] private GameObject _chapterSelectReddotObject;
+
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
         private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
+
+        private bool _isIdleRewardFullState = false;
 
         protected override void Awake()
         {
@@ -83,8 +92,6 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
-            RefreshUI(LobbyMainRefreshType.ALL);
-
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
 
             // 전투 진행
@@ -92,6 +99,9 @@ namespace CookApps.AutoBattler
 
             // 방치 보상 갱신
             SetIdleRewardLayer();
+
+            // 레이어 갱신
+            RefreshUI(LobbyMainRefreshType.ALL);
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)
@@ -103,6 +113,7 @@ namespace CookApps.AutoBattler
                     _guideMissionSlot?.RefreshGuideMissionSlot();   // 가이드 미션 갱신
                     SetUserInfoLayer();     // 유저 정보 갱신
                     CheckNewChapterClear();
+                    UpdateReddotState();
                     break;
                 case LobbyMainRefreshType.STAGE:
                     SetBottomStageUI();
@@ -118,6 +129,9 @@ namespace CookApps.AutoBattler
                     _unitaskCancelToken.Cancel();
                     _unitaskCancelToken = new CancellationTokenSource();
                     SetIdleRewardLayer();
+                    break;
+                case LobbyMainRefreshType.REDDOT:
+                    UpdateReddotState();
                     break;
             }
         }
@@ -220,6 +234,8 @@ namespace CookApps.AutoBattler
 
         private async UniTask CalculateIdleRewardState(CancellationToken cancelToken)
         {
+            _isIdleRewardFullState = false;
+
             TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
             int maxTimeLimitMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
             try
@@ -246,6 +262,8 @@ namespace CookApps.AutoBattler
                     _normalRewardStateObject.gameObject.SetActive(false);
                     _fullRewardStateObject.gameObject.SetActive(true);
 
+                    _isIdleRewardFullState = true;
+
                     _idleRewardStateText.text = "100%";
                 }
             }
@@ -262,6 +280,63 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterClearWindowPopup>().Forget();
 
             UserDataManager.Instance.NewChapterOpenAlert = false;
+        }
+
+        private void UpdateReddotState()
+        {
+            // 캐릭터 버튼 레드닷
+            bool isReadyNewCharacter = false;
+            var notHaveUserCharacterList = UserDataManager.Instance.GetAllNotHaveUserCharacterList();
+            foreach (var userCharacter in notHaveUserCharacterList)
+            {
+                var specCharacterData = SpecDataManager.Instance.GetCharacterData(userCharacter.CharacterId);
+                if (userCharacter.CharacterPiece >= specCharacterData.need_piece)
+                {
+                    isReadyNewCharacter = true;
+                    break;
+                }
+            }
+
+            _characterReddotObject.SetActive(isReadyNewCharacter);
+
+            // 가챠 버튼 레드닷 (티켓이 1장 이상일 경우)
+            bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket > 0;
+            _gachaReddotObject.SetActive(isHaveGachaTicket);
+
+            // 방치 보상 레드닷 (가득 찼을 경우)
+            _idleRewardReddotObject.SetActive(_isIdleRewardFullState);
+
+            // 챕터 선택 레드닷
+            bool isAvailGetChapterReward = false;
+            var allChapterList = SpecDataManager.Instance.GetChapterList(DifficultyType.NORMAL);
+            foreach (var chapterData in allChapterList)
+            {
+                if (isAvailGetChapterReward) break;
+
+                int totalChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(chapterData.chapter_id, chapterData.difficulty_type);
+                if (totalChapterStarCount <= 0) continue;
+
+                var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, chapterData.chapter_id, chapterData.difficulty_type);
+                foreach (var rewardInfoData in rewardInfoList)
+                {
+                    bool checkGetReward = totalChapterStarCount >= rewardInfoData.sub_value;
+
+                    bool checkAlreadyGetReward = UserDataManager.Instance.IsGetStageAccReward(rewardInfoData.content_key_value,
+                        rewardInfoData.difficulty_type, rewardInfoData.sub_value);
+
+                    if (checkGetReward && !checkAlreadyGetReward)
+                    {
+                        isAvailGetChapterReward = true;
+                        break;
+                    }
+                }
+            }
+
+            _chapterSelectReddotObject.SetActive(isAvailGetChapterReward);
+
+
+            // int totalStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type);
+            // _isAvailGetReward = totalStarCount >= _specRewardInfo.sub_value;
         }
 
         private void OnClickCommanderSkillButton()
