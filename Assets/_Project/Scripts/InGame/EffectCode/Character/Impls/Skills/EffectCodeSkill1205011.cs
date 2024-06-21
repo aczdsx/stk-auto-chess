@@ -1,29 +1,27 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 1챕터 보스 탱커
-// 범위 : 자신 중심 십자가 전범위
-// 대미지 : 공격력 {0}%의 대미지를 가한다.
-//     특수 효과 : 피격된 적을 {1}초 동안 스턴시킨다.
+/// 2챕터 레어 암살자
+// "대상 : 가장 가까운 적
+// 대미지 : 강한 일격을 가해 공격력 {0}%의 대미지를 준다."
 /// </summary>
-[UseEffectCodeIds(1202021)]
-public class EffectCodeSkill1202021 : EffectCodeCharacterBase
+[UseEffectCodeIds(1205011)]
+public class EffectCodeSkill1205011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 
-    private bool _isReadyToActivate;
-    private bool _isSkillActivated;
+    private bool isReadyToActivate;
+    private bool isSkillActivated;
 
     private SpecSkill _specSkill;
+
+    private CharacterController _targetCharacter;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -32,8 +30,8 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _isReadyToActivate = false;
-        _isSkillActivated = false;
+        isReadyToActivate = false;
+        isSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
@@ -47,7 +45,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        if (!_isSkillActivated)
+        if (!isSkillActivated)
         {
             return;
         }
@@ -62,27 +60,29 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
 
     public override void OnCooltime(float dt)
     {
-        if (_isReadyToActivate || _isSkillActivated)
+        if (isReadyToActivate || isSkillActivated)
             return;
         CoolTimeElapsedTime += dt;
         if (CoolTimeElapsedTime >= CoolTimeDurationTime)
         {
-            _isReadyToActivate = true;
+            isReadyToActivate = true;
         }
     }
 
     public override bool IsReadyToActivate()
     {
-        return _isReadyToActivate;
+        return isReadyToActivate;
     }
 
     public override void Activate()
     {
         base.Activate();
         // TODO: Target Check
-        _isReadyToActivate = false;
-        _isSkillActivated = true;
+        isReadyToActivate = false;
+        isSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
+
+        _targetCharacter = owner.Target;
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);
     }
@@ -90,44 +90,31 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        if (owner.Target == null)
+
+        if (_targetCharacter == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile);
-        inGameTiles.RemoveAll(l => l.OccupiedCharacter == owner);
+        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+            _targetCharacter.SkillRootTransformFollowable);
 
-        foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+            _targetCharacter.SkillRootTransformFollowable);
+        var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-        OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
 
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+        _targetCharacter.GetDamaged(damage, owner);
 
-        _isSkillActivated = false;
+        isSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
         CoolTimeElapsedTime = 0;
-        _isSkillActivated = false;
-    }
-
-    public async UniTask OnSkillExecuteAsync(float second, List<InGameTile> inGameTiles)
-    {
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
-            if (tile.OccupiedCharacter != null)
-            {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-            }
-
-            await UniTask.Delay(TimeSpan.FromSeconds(second));
-        }
-
-        _isSkillActivated = false;
+        isSkillActivated = false;
     }
 }

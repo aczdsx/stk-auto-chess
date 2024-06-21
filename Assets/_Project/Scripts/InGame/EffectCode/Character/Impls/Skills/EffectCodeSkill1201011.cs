@@ -1,27 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 1챕터 보스 탱커
-// 범위 : 자신 중심 십자가 전범위
-// 대미지 : 공격력 {0}%의 대미지를 가한다.
-//     특수 효과 : 피격된 적을 {1}초 동안 스턴시킨다.
+/// 2챕터 레어 가디언
+// 범위 : 자신의 전방 1x2
+// 대미지 : 검기를 날려 범위 내 적들에게 공격력 {0}%의 대미지를 준다.
 /// </summary>
-[UseEffectCodeIds(1202021)]
-public class EffectCodeSkill1202021 : EffectCodeCharacterBase
+[UseEffectCodeIds(1201011)]
+public class EffectCodeSkill1201011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 
     private bool _isReadyToActivate;
     private bool _isSkillActivated;
+
+    private List<CharacterController> _hitCharacters = new List<CharacterController>();
+
+    private WeakReference<InGameVfx> _vfx;
 
     private SpecSkill _specSkill;
 
@@ -93,41 +94,54 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile);
-        inGameTiles.RemoveAll(l => l.OccupiedCharacter == owner);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
-        foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
 
-        OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
+        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+        if (inGameTile != null)
+        {
+            Vector3 direction = (inGameTile[0].View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
+            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
+            movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
+            vfxProjectile.Initialize(false, movement);
+            vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+            // movement.OnReachedTarget +=
+        }
 
         _isSkillActivated = false;
+    }
+
+    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    {
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,tile.View.CachedTr.position);
+        tileFx.CachedTr.position = tile.View.CachedTr.position;
+
+        if (tile.OccupiedCharacter == null)
+            return;
+
+        if (tile.OccupiedCharacter.AllianceType == AllianceType.None)
+            return;
+
+        if (_hitCharacters.Contains(tile.OccupiedCharacter))
+            return;
+
+        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+            tile.OccupiedCharacter.SkillRootTransformFollowable);
+
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+        tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+        _hitCharacters.Add(tile.OccupiedCharacter);
     }
 
     public override void OnSkillAnimationEnd()
     {
         base.OnSkillAnimationEnd();
         CoolTimeElapsedTime = 0;
-        _isSkillActivated = false;
-    }
-
-    public async UniTask OnSkillExecuteAsync(float second, List<InGameTile> inGameTiles)
-    {
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
-            if (tile.OccupiedCharacter != null)
-            {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-            }
-
-            await UniTask.Delay(TimeSpan.FromSeconds(second));
-        }
-
         _isSkillActivated = false;
     }
 }

@@ -11,8 +11,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// <summary>
 /// 1챕터 마법사
 // 대상 : 가장 가까운 적
-// 대미지 : 공격력 {0}%의 마법 대미지를 준다.
-//     특수 효과 : 적이 디버프 상태인 경우, 공격력 {1}%의 추가 대미지를 준다.
+// 범위 : 적이 위치한 칸 중심 십자가 범위
+// 대미지 : 불을 소환해 공격력 {0}%의 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(1103011)]
 public class EffectCodeSkill1103011 : EffectCodeCharacterBase

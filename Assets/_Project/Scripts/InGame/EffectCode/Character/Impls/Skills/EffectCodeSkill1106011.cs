@@ -1,24 +1,20 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 1챕터 보스 탱커
-// 범위 : 자신 중심 십자가 전범위
-// 대미지 : 공격력 {0}%의 대미지를 가한다.
-//     특수 효과 : 피격된 적을 {1}초 동안 스턴시킨다.
+/// 2챕터 서포터
+// 대상 : 아군 전체
+// 효과 : 체력을 공격력 {0}%만큼 회복시킨다.
 /// </summary>
-[UseEffectCodeIds(1202021)]
-public class EffectCodeSkill1202021 : EffectCodeCharacterBase
+[UseEffectCodeIds(1106011)]
+public class EffectCodeSkill1106011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _powerRate;
+    private ObfuscatorFloat _damageRate;
 
     private bool _isReadyToActivate;
     private bool _isSkillActivated;
@@ -31,9 +27,11 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _isReadyToActivate = false;
         _isSkillActivated = false;
+
+        SkillIndex = 0;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
@@ -42,7 +40,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -93,14 +91,23 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile);
-        inGameTiles.RemoveAll(l => l.OccupiedCharacter == owner);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 10);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
+        foreach (var tile in inGameTiles)
+        {
+            if (tile.OccupiedCharacter != owner)
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+                    tile.View.CachedTr.position);
+        }
 
         foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-
-        OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
-
+        {
+            if (tile.OccupiedCharacter != null)
+            {
+                double damage = owner.PostCalculateHealAmount(_damageRate, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
+            }
+        }
 
         _isSkillActivated = false;
     }
@@ -109,25 +116,6 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
     {
         base.OnSkillAnimationEnd();
         CoolTimeElapsedTime = 0;
-        _isSkillActivated = false;
-    }
-
-    public async UniTask OnSkillExecuteAsync(float second, List<InGameTile> inGameTiles)
-    {
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
-            if (tile.OccupiedCharacter != null)
-            {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-            }
-
-            await UniTask.Delay(TimeSpan.FromSeconds(second));
-        }
-
         _isSkillActivated = false;
     }
 }
