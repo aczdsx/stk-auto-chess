@@ -3802,6 +3802,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8161824179440491813, guid: 2bc3aaccd81916043b64054f0ba878a7, type: 3}
+      propertyPath: _skillTooltipPopup
+      value: 
+      objectReference: {fileID: 2301845198824537340}
     - target: {fileID: 8598562727145143155, guid: 2bc3aaccd81916043b64054f0ba878a7, type: 3}
       propertyPath: m_SizeDelta.y
       value: 48.676056
@@ -3921,7 +3925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6197693918348077705, guid: a66a95f60bb10d341a75019f311c7b1e, type: 3}
       propertyPath: targetType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6385095295153808282, guid: a66a95f60bb10d341a75019f311c7b1e, type: 3}
       propertyPath: m_Pivot.x
@@ -4035,6 +4039,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 87.00004
       objectReference: {fileID: 0}
+    - target: {fileID: 8752911445439106639, guid: a66a95f60bb10d341a75019f311c7b1e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9021842455872619086, guid: a66a95f60bb10d341a75019f311c7b1e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4056,6 +4064,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a66a95f60bb10d341a75019f311c7b1e, type: 3}
+--- !u!114 &2301845198824537340 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7244365879343596592, guid: a66a95f60bb10d341a75019f311c7b1e, type: 3}
+  m_PrefabInstance: {fileID: 8897112172201752780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57406ec0d58251c43a7bf63f1a6178e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2586348452527643478 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385095295153808282, guid: a66a95f60bb10d341a75019f311c7b1e, type: 3}
