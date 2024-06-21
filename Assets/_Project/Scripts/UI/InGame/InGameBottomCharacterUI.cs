@@ -141,6 +141,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private async void AddCharacterToTile(CharacterStatData statData)
     {
+        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+        UpdateData();
+
         Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
         var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
         int2 pos = new int2(ingameTile.X, ingameTile.Y);
@@ -150,10 +153,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
             InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
                 typeof(CharacterStateReady), true, HpBarType.Synergy),
         });
-
-        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
-
-        UpdateData();
         _onNewCharacter.Invoke();
     }
 }
