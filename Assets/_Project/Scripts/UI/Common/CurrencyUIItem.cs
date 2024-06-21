@@ -12,9 +12,17 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _itemIconImage;
         [SerializeField] private TextMeshProUGUI itemAmountText;
 
-        public void SetUIItem(ItemType type, int amount)
+        public void SetUIItem(ItemType type, int key, int amount)
         {
-            _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(type);
+            if (type == ItemType.CHARACTER_PIECE)
+            {
+                _itemIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(key);
+            }
+            else
+            {
+                _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(type);
+            }
+
             itemAmountText.text = amount.ToString("N0");
         }
     }
