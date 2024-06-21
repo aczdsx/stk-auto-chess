@@ -109,8 +109,8 @@ public class EffectCodeSkill1104011 : EffectCodeCharacterBase
 
     public override void OnSkillAnimationEnd()
     {
-        base.OnSkillAnimationEnd();
         CoolTimeElapsedTime = 0;
         isSkillActivated = false;
+        base.OnSkillAnimationEnd();
     }
 }

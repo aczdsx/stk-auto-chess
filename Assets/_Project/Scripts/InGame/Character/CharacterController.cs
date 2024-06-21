@@ -137,7 +137,7 @@ namespace CookApps.BattleSystem
             _view.CachedTr.localPosition = position;
         }
 
-        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType, bool hasSkill)
+        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType, bool hasSkill, HpBarType type = HpBarType.None)
         {
             _characterUId = characUIdInc++;
             _statData = statData;
@@ -172,6 +172,7 @@ namespace CookApps.BattleSystem
             {
                 _hpBarView = InGameHpBarViewPool.Instance.Get();
                 _hpBarView.Initialize(statData, allianceType);
+                _hpBarView.SetHpBarType(type);
                 _view.SetHpBarView(_hpBarView);
                 _view.SetFirstDirection(allianceType);
                 if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 ||
@@ -654,6 +655,9 @@ namespace CookApps.BattleSystem
 
         public bool HasDebuffType()
         {
+            if (_buffDebuffRefCountDict == null)
+                return false;
+
             foreach (var pair in _buffDebuffRefCountDict)
             {
                 // 디버프 유형을 나타내는 열거형의 값이 1000 이상인지 확인합니다.
@@ -772,6 +776,13 @@ namespace CookApps.BattleSystem
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDamaged);
                 damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageAmount, this, isFirstDamage);
+            }
+
+            // effectCode에게 이벤트 전달
+            if (damageInfo.isCritical)
+            {
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCritical);
+                EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda);
             }
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);

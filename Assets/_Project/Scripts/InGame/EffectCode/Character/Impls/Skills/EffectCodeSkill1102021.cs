@@ -8,13 +8,13 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 0챕터 일반 탱커
+/// 1챕터 일반 탱커
 // 대상 : 가장 가까운 적
 // 대미지 : 강한 일격을 가해 공격력 {0}%의 대미지를 준다.
 // 특수 효과 : 뒤로 1칸 넉백 시킨다.
 /// </summary>
-[UseEffectCodeIds(1102011)]
-public class EffectCodeSkill1102011 : EffectCodeCharacterBase
+[UseEffectCodeIds(1102021)]
+public class EffectCodeSkill1102021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 

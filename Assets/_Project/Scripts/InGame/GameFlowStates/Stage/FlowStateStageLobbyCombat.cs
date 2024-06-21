@@ -31,7 +31,7 @@ public class FlowStateStageLobbyCombat : StateBase
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
-            var characterStat = new CharacterStatData(character.CharacterId, character.Level);
+            var characterStat = new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
             InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
             int2 coordinate = new int2(ingameTile.X, ingameTile.Y);
 
@@ -74,7 +74,8 @@ public class FlowStateStageLobbyCombat : StateBase
         if (randomMonster != null)
         {
             Debug.LogColor($"monster 추가 : {randomMonster.monster_id}");
-            var statData = new CharacterStatData(randomMonster.monster_id, randomMonster.monster_lv);
+            var statData = new CharacterStatData(randomMonster.monster_id, randomMonster.monster_lv,
+                0, randomMonster.multiple_hp);
 
             InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Enemy);
             if (ingameTile != null)

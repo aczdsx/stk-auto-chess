@@ -47,7 +47,7 @@ namespace CookApps.AutoBattler
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
             _level = level;
-            // TODO: level에 따른 스탯 증가 적용! 이펙트 코드로 적용되어야 함
+
             var levelBonusRate = 0f;
             for (var i = 1; i <= level; i++)
             {
@@ -68,14 +68,14 @@ namespace CookApps.AutoBattler
             {
                 var codeId = EffectCodeIdGenerator.GetStatCode(EffectCodeNameType.AD_PERCENT_UP,
                     GlobalEffectProviderType.MONSTER_MULTIPLE, 0);
-                var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
+                var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, multiAd, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
             }
             if (!Mathf.Approximately(multiHp, 1f))
             {
                 var codeId = EffectCodeIdGenerator.GetStatCode(EffectCodeNameType.HP_PERCENT_UP,
                     GlobalEffectProviderType.MONSTER_MULTIPLE, 0);
-                var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, levelBonusRate, 0);
+                var adBonusCodeInfo = new EffectCodeInfo(codeId, 0, multiHp, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
             }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
@@ -8,17 +9,34 @@ using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
+    [Flags]
+    public enum HpBarType
+    {
+        None = 0,
+        HpBar = 1 << 0,
+        Buff = 1 << 1,
+        Synergy = 1 << 2,
+    }
+
     public class HpBarView : CachedMonoBehaviour
     {
+        [Space]
+        [SerializeField] private GameObject _hpBarObj;
         [SerializeField] private SpriteRenderer _hpFillSmoothGuage;
         [SerializeField] private SpriteRenderer _hpPlayerFillLeft;
         [SerializeField] private SpriteRenderer _hpEnemyFillLeft;
         [SerializeField] private Color _playerSmoothColor;
         [SerializeField] private Color _enermySmoothColor;
-
         [SerializeField] private SpriteRenderer _coolTimeGuage;
 
+        [Space]
+        [SerializeField] private GameObject _buffObj;
         [SerializeField] private List<InGameBuffDebuff> _buffDebuffList;
+
+        [Space]
+        [SerializeField] private GameObject _synergyObj;
+        [SerializeField] private SpriteRenderer _elementSynergySprite;
+        [SerializeField] private SpriteRenderer _positionSynergySprite;
 
         private SpriteRenderer _selectedFillLeft;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
@@ -40,6 +58,16 @@ namespace CookApps.AutoBattler
             _hpFillSmoothGuage.color = isPlayer ? _playerSmoothColor : _enermySmoothColor;
 
             _defalutSize = _selectedFillLeft.size;
+
+            _elementSynergySprite.sprite = ImageManager.Instance.GetSynergySprite(statData.Spec.element_type);
+            _positionSynergySprite.sprite = ImageManager.Instance.GetPositionSprite(statData.Spec.character_position_type);
+        }
+
+        public void SetHpBarType(HpBarType type = HpBarType.None)
+        {
+            _hpBarObj.SetActive(type.HasFlag(HpBarType.HpBar));
+            _buffObj.SetActive(type.HasFlag(HpBarType.Buff));
+            _synergyObj.SetActive(type.HasFlag(HpBarType.Synergy));
         }
 
         public async void SetHpValue(double current, double max)

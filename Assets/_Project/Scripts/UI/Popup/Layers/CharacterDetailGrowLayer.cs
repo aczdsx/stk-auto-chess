@@ -22,6 +22,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _apDefText;
         [SerializeField] private TextMeshProUGUI _adDefText;
 
+        [Header("Piece Layer")]
+        [SerializeField] private Image _pieceIconImage;
+        [SerializeField] private TextMeshProUGUI _pieceAmountText;
+        [SerializeField] private Slider _pieceSlider;
+
         [Header("LevelUp Layer")]
         [SerializeField] private CAButton _activeLevelUpButton;
         [SerializeField] private CAButton _inactiveLevelUpButton;
@@ -59,8 +64,11 @@ namespace CookApps.AutoBattler
 
             _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(characterID);
 
-            // 스탯 표시
-            SetUserStatInfo();
+            // 스탯 표시 처리
+            SetUserStatLayer();
+
+            // 조각 관련 처리
+            SetPieceLayer();
 
             // 레벨업 기능 관련 처리
             SetLevelupLayer();
@@ -68,17 +76,18 @@ namespace CookApps.AutoBattler
 
         public void RefreshLayer()
         {
-            SetUserStatInfo();
+            SetUserStatLayer();
+            SetPieceLayer();
             SetLevelupLayer();
         }
 
-        private void SetUserStatInfo()
+        private void SetUserStatLayer()
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             int userLevel = Mathf.Max(1, _userCharacterData.Level);
 
-            _userStatData = new CharacterStatData(_userCharacterData.CharacterId, userLevel);
+            _userStatData = new CharacterStatData(_userCharacterData.CharacterId, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             _levelText.text = $"Lv.{userLevel}";
             _battlePointText.text = _userStatData.GetAttrValue().ToString("N0");
@@ -86,6 +95,17 @@ namespace CookApps.AutoBattler
             _hpValueText.text = _userStatData.HP.ToString("N0");
             _apDefText.text = _userStatData.RES.ToString("N0");
             _adDefText.text = _userStatData.DEF.ToString("N0");
+        }
+
+        private void SetPieceLayer()
+        {
+            if (_specCharacterData == null || _userCharacterData == null) return;
+
+            _pieceIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
+            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterData.need_piece}";
+
+            _pieceSlider.maxValue = _specCharacterData.need_piece;
+            _pieceSlider.value = _userCharacterData.CharacterPiece;
         }
 
         private void SetLevelupLayer()

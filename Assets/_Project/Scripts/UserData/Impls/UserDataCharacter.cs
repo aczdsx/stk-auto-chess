@@ -111,6 +111,11 @@ namespace CookApps.AutoBattler
             return UserCharacterDic.Values.ToList().FindAll(data => data.Level > 0);
         }
 
+        public List<UserCharacter> GetAllNotHaveUserCharacterList()
+        {
+            return UserCharacterDic.Values.ToList().FindAll(data => data.Level == 0);
+        }
+
         public UserCharacter GetUserCharacter(int characterID)
         {
             UserCharacter resultData = null;

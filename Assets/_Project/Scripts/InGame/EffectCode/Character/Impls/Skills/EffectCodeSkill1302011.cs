@@ -124,9 +124,9 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
 
     public override void OnSkillAnimationEnd()
     {
-        base.OnSkillAnimationEnd();
-        // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
         CoolTimeElapsedTime = 0;
         _isSkillActivated = false;
+        base.OnSkillAnimationEnd();
+        // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
     }
 }
