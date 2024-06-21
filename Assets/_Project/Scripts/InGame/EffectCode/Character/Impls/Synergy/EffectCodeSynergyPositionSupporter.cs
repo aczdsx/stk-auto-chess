@@ -23,7 +23,7 @@ public class EffectCodeSynergyPositionSupporter : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    public virtual void OnCombatStart()
+    public override void OnCombatStart()
     {
         base.OnCombatStart();
 

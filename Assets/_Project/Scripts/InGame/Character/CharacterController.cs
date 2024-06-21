@@ -778,6 +778,13 @@ namespace CookApps.BattleSystem
                 damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageAmount, this, isFirstDamage);
             }
 
+            // effectCode에게 이벤트 전달
+            if (damageInfo.isCritical)
+            {
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCritical);
+                EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda);
+            }
+
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
             ShowDamageText(damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();

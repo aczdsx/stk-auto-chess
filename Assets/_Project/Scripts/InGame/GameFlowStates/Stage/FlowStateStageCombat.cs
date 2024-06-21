@@ -42,6 +42,11 @@ public class FlowStateStageCombat : StateBase
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
+        var effectCodes =
+            InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(
+                EffectCodeInheritFlag.UseOnCombatStart);
+        EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
+
         StartAsync().Forget();
     }
 
