@@ -31,6 +31,7 @@ namespace CookApps.AutoBattler
         private List<SpecDialogue> _dialogueList = new List<SpecDialogue>();
 
         private int currentDialogueSeq = 0;
+        private int _dialogueGroupID = 0;
 
         protected override void Awake()
         {
@@ -53,8 +54,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
-            int dialogueGroupID = (int)param;
-            _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(dialogueGroupID);
+            _dialogueGroupID = (int)param;
+            _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(_dialogueGroupID);
 
             _characterNameText.font = temTMPFontAsset;
             _dialogueText.font = temTMPFontAsset;
@@ -118,6 +119,9 @@ namespace CookApps.AutoBattler
 
                     InGameMain.GetInGameMain()?.SetInGameBottomUI();
                 }
+
+                // 다이얼로그 히스토리 데이터 추가 및 저장
+                UserDataManager.Instance.AddDialogHistory(_dialogueGroupID);
 
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;

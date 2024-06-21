@@ -56,6 +56,15 @@ namespace CookApps.AutoBattler
             // 진행 상태에 따른 처리
             bool isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
+            if (isPlayableChapter)
+            {
+                _chapterImage.sprite = ImageManager.Instance.GetChapterIconSprite(_specChapterData.chapter_id);
+            }
+            else
+            {
+                _chapterImage.sprite = ImageManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Chapter_Locked");
+            }
+
             _chapterStarLayerObject.SetActive(isPlayableChapter);
             _dimmedLayerObject.SetActive(!isPlayableChapter);
 

@@ -182,9 +182,9 @@ namespace CookApps.AutoBattler
 
                 UserDataManager.Instance.SetUserStage(currentStageID, _star);
 
+                // 가이드 미션 체크
                 GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,currentStageID, 1);
             }
         }
-
     }
 }
