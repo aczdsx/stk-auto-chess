@@ -322,7 +322,7 @@ namespace CookApps.AutoBattler
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
             SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(_specCharacter.element_type);
-            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetClassSprite(_specCharacter.character_position_type);
+            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetPositionSprite(_specCharacter.character_position_type);
             ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(_specCharacter.character_position_type);
 
             if(lowObj!= null)

@@ -73,10 +73,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
+                characterItem.SetData(characterStat, AddCharacterToTile);
             }
         }
-
-        UpdateData();
     }
 
     public void UpdateData()
@@ -146,7 +145,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         await UniTask.WhenAll(new[]
         {
             InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
-                typeof(CharacterStateReady)),
+                typeof(CharacterStateReady), true, HpBarType.Synergy),
         });
 
         _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);

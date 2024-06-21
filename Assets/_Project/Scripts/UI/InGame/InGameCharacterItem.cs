@@ -27,7 +27,7 @@ public class InGameCharacterItem : MonoBehaviour
         {
             _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
             _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.element_type);
-            _SynergyClassImage.sprite = ImageManager.Instance.GetClassSprite(_statData.Spec.character_position_type);
+            _SynergyClassImage.sprite = ImageManager.Instance.GetPositionSprite(_statData.Spec.character_position_type);
             _lvText.text = $"{_statData.Level}";
         }
         _onSelected = onSelected;

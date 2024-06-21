@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetClassSprite(CharacterPositionType position, bool isActive = true)
+        public Sprite GetPositionSprite(CharacterPositionType position, bool isActive = true)
         {
             string spriteName = string.Empty;
 

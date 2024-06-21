@@ -30,11 +30,13 @@ public class FlowStateStageCombat : StateBase
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.AddSynergyEffectCode();
+            character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
             character.AddSynergyEffectCode();
+            character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);

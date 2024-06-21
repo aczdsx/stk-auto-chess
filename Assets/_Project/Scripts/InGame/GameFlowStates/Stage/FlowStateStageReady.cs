@@ -34,7 +34,7 @@ public class FlowStateStageReady : StateBase
             int2 coordinate = new int2(x, y);
 
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
-                typeof(CharacterStateReady)));
+                typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
         // 그리드 설치
