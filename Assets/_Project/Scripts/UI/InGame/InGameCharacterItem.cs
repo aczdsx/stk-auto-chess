@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InGameCharacterItem : MonoBehaviour
 {
+    public CharacterStatData StatData => _statData;
     [SerializeField] private Image _image;
     [SerializeField] private Image _SynergyImage;
     [SerializeField] private Image _SynergyClassImage;

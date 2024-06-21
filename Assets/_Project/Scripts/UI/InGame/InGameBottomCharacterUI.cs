@@ -68,8 +68,12 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         foreach (var characterStat in _characterStats)
         {
-            var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
-            _characterItemList.Add(characterItem);
+            bool isExist = _characterItemList.Exists(l => l.StatData.CharacterId == characterStat.CharacterId);
+            if (!isExist)
+            {
+                var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
+                _characterItemList.Add(characterItem);
+            }
         }
 
         UpdateData();
