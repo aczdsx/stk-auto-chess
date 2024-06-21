@@ -31,11 +31,14 @@ public class EffectCodeSynergyPositionTank : EffectCodeCharacterBase
         {
             EffectCodeCharacterBase eccBase =
                 (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
-            float durationTime = eccBase.GetDurationTime();
-            float elapsedTime = eccBase.GetDurationTime();
-            float decreasedTime = durationTime * statValue;
-            float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
-            eccBase.SetElapsedTime(newElapsedTime);
+            if (eccBase != null)
+            {
+                float durationTime = eccBase.GetDurationTime();
+                float elapsedTime = eccBase.GetDurationTime();
+                float decreasedTime = durationTime * statValue;
+                float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+                eccBase.SetElapsedTime(newElapsedTime);
+            }
         }
 
         return damageAmount;
