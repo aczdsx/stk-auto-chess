@@ -59,6 +59,7 @@ public class CharacterStateSkill : CharacterStateBase
         {
             effectCode.OnSkillAnimationEnd();
             characCtrl.AddNextState<CharacterStateIdle>();
+
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
 

@@ -107,9 +107,9 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
 
     public override void OnSkillAnimationEnd()
     {
-        base.OnSkillAnimationEnd();
         CoolTimeElapsedTime = 0;
         _isSkillActivated = false;
+        base.OnSkillAnimationEnd();
     }
 
     private async UniTask AfterAction(InGameTile[] inGameTiles, int second)

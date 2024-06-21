@@ -19,6 +19,8 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 
     private SpecSkill _specSkill;
 
+    private bool isKilled;
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -100,16 +102,24 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
         var type = tile.OccupiedCharacter.GetDamaged(damage, owner);
 
         if (type == DamageReturnType.Killed)
-            CoolTimeElapsedTime = CoolTimeDurationTime;
+            isKilled = true;
 
         _isSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
     {
+        if (isKilled)
+        {
+            CoolTimeElapsedTime = CoolTimeDurationTime;
+            isKilled = false;
+        }
+        else
+        {
+            CoolTimeElapsedTime = 0;
+        }
+        _isSkillActivated = false;
         base.OnSkillAnimationEnd();
         // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
-        CoolTimeElapsedTime = 0;
-        _isSkillActivated = false;
     }
 }

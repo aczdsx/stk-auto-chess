@@ -273,6 +273,9 @@ namespace CookApps.BattleSystem
         /// </summary>
         public virtual void OnSkillAnimationEnd()
         {
+            // 이펙트 코드에게 스킬 사용 전달
+            var characEffectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnSkill);
+            EffectCodeForLoopHelper.CallWithArgs(characEffectCodes, EffectCodeCharacterLambda.CallOnSkillLambda, this);
         }
         #endregion
     }
