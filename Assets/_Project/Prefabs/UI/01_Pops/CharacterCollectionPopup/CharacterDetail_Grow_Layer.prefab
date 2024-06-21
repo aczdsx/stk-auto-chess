@@ -1033,6 +1033,9 @@ MonoBehaviour:
   _hpValueText: {fileID: 8531214056250195429}
   _apDefText: {fileID: 1240461993025769676}
   _adDefText: {fileID: 507397342094708883}
+  _pieceIconImage: {fileID: 5171209563572631313}
+  _pieceAmountText: {fileID: 226682705828106483}
+  _pieceSlider: {fileID: 4701482468506332315}
   _activeLevelUpButton: {fileID: 597076811668666103}
   _inactiveLevelUpButton: {fileID: 366438474249397153}
   _baseExpItemCurrencyUIItem: {fileID: 8750656550208893263}
@@ -4379,15 +4382,15 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 6298494073976252971}
   m_FillRect: {fileID: 8031933384116579248}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.23
+  m_WholeNumbers: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
