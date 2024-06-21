@@ -73,9 +73,16 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
 
             // 추가 배경 설정
-            if (string.IsNullOrWhiteSpace(_currentSpecDialogueData.bg_image) == false)
+            _extraBGImage.gameObject.SetActive(false);
+            if (_currentSpecDialogueData.bg_image != "none")
             {
-                // todo.. bg 스프라이트 로드 처리
+                var targetSprite = ImageManager.Instance.GetCutSceneSprite(_currentSpecDialogueData.bg_image);
+                if (targetSprite != null)
+                {
+                    _extraBGImage.sprite = targetSprite;
+
+                    _extraBGImage.gameObject.SetActive(true);
+                }
             }
 
             if (_currentSpecDialogueData.prefab_id > 0)
