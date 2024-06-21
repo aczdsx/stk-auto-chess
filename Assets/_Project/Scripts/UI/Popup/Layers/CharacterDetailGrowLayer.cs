@@ -69,6 +69,7 @@ namespace CookApps.AutoBattler
         public void RefreshLayer()
         {
             SetUserStatInfo();
+            SetLevelupLayer();
         }
 
         private void SetUserStatInfo()
@@ -85,7 +86,6 @@ namespace CookApps.AutoBattler
             _hpValueText.text = _userStatData.HP.ToString("N0");
             _apDefText.text = _userStatData.RES.ToString("N0");
             _adDefText.text = _userStatData.DEF.ToString("N0");
-
         }
 
         private void SetLevelupLayer()
@@ -102,13 +102,13 @@ namespace CookApps.AutoBattler
             _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
             if (_specCharacterLevelExpData != null)
             {
-                _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_type, _specCharacterLevelExpData.base_levelup_item_count);
-                _goldCurrencyUIItem.SetUIItem(ItemType.GOLD, _specCharacterLevelExpData.need_gold);
+                _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count);
+                _goldCurrencyUIItem.SetUIItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold);
 
                 bool isNeedSecondExpItem = _specCharacterLevelExpData.sec_levelup_item_count > 0;
                 if (isNeedSecondExpItem)
                 {
-                    _secondExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterLevelExpData.sec_levelup_item_count);
+                    _secondExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count);
                 }
                 _secondExpItemCurrencyUIItem.gameObject.SetActive(isNeedSecondExpItem);
             }
@@ -130,10 +130,15 @@ namespace CookApps.AutoBattler
             if (_userCharacterData == null) return;
             if (_specCharacterLevelExpData == null) return;
 
-            // 레벨업 가능 여부 검사
+            // 캐릭터 보유 상태 검사
+            if (_isHaveCharacter == false)
+            {
+                return;
+            }
+
+            // 최대 레벨 검사
             int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
-            bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
-            if (isAvailLevelup == false)
+            if (_userCharacterData.Level >= maxLevel)
             {
                 return;
             }
@@ -152,7 +157,7 @@ namespace CookApps.AutoBattler
             recipeItemList.Add(new RewardItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold));
             if (_specCharacterLevelExpData.sec_levelup_item_count > 0)
             {
-                recipeItemList.Add(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, 0, _specCharacterLevelExpData.sec_levelup_item_count));
+                recipeItemList.Add(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count));
             }
 
             UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
