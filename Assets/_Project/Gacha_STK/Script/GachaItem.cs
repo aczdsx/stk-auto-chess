@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cookapps.Autobattleproject.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -191,6 +192,14 @@ namespace CookApps.AutoBattler
                 KnighColorImage.color = ImageManager.Instance.GetGradeTypeColor(characterData.grade_type);
 
                 amountText.text = $"x{_rewardItemData.Count}";
+
+                // 슬라이더 처리
+                UserCharacter userCharacterData = UserDataManager.Instance.GetUserCharacter(characterData.character_id);
+
+                pieceSlider.maxValue = characterData.need_piece;
+                pieceSlider.value = userCharacterData.CharacterPiece;
+
+                countText.text = $"{userCharacterData.CharacterPiece}/{characterData.need_piece}";
 
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {
