@@ -66,6 +66,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickSkillInfoButton()
         {
+            if (_skillTooltipPopup == null) return;
             if (_specSkillBaseData == null) return;
 
             _skillTooltipPopup.SetSkillToolTipPopup(_specSkillBaseData);
