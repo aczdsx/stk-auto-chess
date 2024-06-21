@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.6, g: 0.7882353, b: 0.8784314, a: 0.38431373}
+  m_Color: {r: 0.5176471, g: 0.6745098, b: 0.7529412, a: 0.078431375}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -329,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7568721039106038296
 RectTransform:
   m_ObjectHideFlags: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   _zoom: 0.5
   _effectGradient:
     serializedVersion: 2
-    key0: {r: 0.6000801, g: 0.7875203, b: 0.8773585, a: 1}
+    key0: {r: 0.5516643, g: 0.6698057, b: 0.7264151, a: 0.14509805}
     key1: {r: 0.6, g: 0.7882353, b: 0.8784314, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
