@@ -57,14 +57,17 @@ public class FlowStateStageReady : StateBase
 
     public override void StateStart()
     {
-        Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length];
-        debuffStats.Clear();
-        for (int i = 0; i < _specStage.chapter_rule_tile.Length; i++)
+        if (_specStage.chapter_rule_tile.Length > 0)
         {
-            debuffStats[i] = _specStage.chapter_rule_tile[i];
+            Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length];
+            debuffStats.Clear();
+            for (int i = 0; i < _specStage.chapter_rule_tile.Length; i++)
+            {
+                debuffStats[i] = _specStage.chapter_rule_tile[i];
+            }
+            var effectCodeID = new EffectCodeInfo((long)_specStage.effect_code_name, 0, debuffStats);
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
         }
-        var effectCodeID = new EffectCodeInfo((long)_specStage.effect_code_name, 0, debuffStats);
-        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
     }
 
     public override void StateRunning(float dt)
