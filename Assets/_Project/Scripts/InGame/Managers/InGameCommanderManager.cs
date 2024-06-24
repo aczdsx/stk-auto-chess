@@ -8,9 +8,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public struct CommanderSkillData
+public class CommanderSkillData
 {
     public SpecCommanderSkill Spec => _spec;
+
     public float ElapsedTime
     {
         get => _elapsedTime;
@@ -34,7 +35,8 @@ public struct CommanderSkillData
     }
 }
 
-public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
+    IEndDragHandler
 {
     public GameObject switchObj;
     public float switchThreshold = 40f;
@@ -47,9 +49,12 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     private List<InGameTile> _activeTiles = new List<InGameTile>();
     private CommanderSkillData _commanderSkillData;
 
-    void Start()
+    public void Initialize()
     {
         _mainCamera = Camera.main;
+
+        InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
+            ManagedUpdate);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -59,6 +64,9 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
         var isCommanderSkillTouch = eventData.pointerCurrentRaycast.gameObject.CompareTag("CommanderSkill");
         if (!isCommanderSkillTouch)
+            return;
+
+        if (_commanderSkillData == null)
             return;
 
         if (_commanderSkillData.DurationTime > _commanderSkillData.ElapsedTime)
@@ -97,15 +105,18 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
                         var tiles = new List<InGameTile>();
 
                         // [TODO] 나중에는 데이터에서 처리 필요
-                        if(_commanderSkillData.Spec.commander_skill_id == 300001)
-                            tiles.AddRange( InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
+                        if (_commanderSkillData.Spec.commander_skill_id == 300001)
+                            tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
                         else
-                            tiles.AddRange( InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(centerTile, 1));
+                            tiles.AddRange(
+                                InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(centerTile, 1));
 
                         ClearAndSetActive(tiles);
-                        if (centerTile.OccupiedCharacter != null && centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
+                        if (centerTile.OccupiedCharacter != null &&
+                            centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
                         {
-                            Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
+                            Debug.LogColor(
+                                $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
                         }
                         else
                         {
@@ -139,7 +150,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
         double[] eccStat = new double[2];
         eccStat[0] = _hitTileView.ID;
-        eccStat[1] = (double)_commanderSkillData.StatValue;
+        eccStat[1] = (double) _commanderSkillData.StatValue;
         var effectCodeInfo = new EffectCodeInfo(_commanderSkillData.Spec.commander_skill_id, 0, eccStat);
 
         InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
@@ -148,16 +159,21 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
     public void ManagedUpdate(float dt)
     {
+        if (_commanderSkillData == null)
+            return;
+
         if (_commanderSkillData.ElapsedTime < _commanderSkillData.DurationTime)
         {
             _commanderSkillData.ElapsedTime += dt;
-            InGameMain.GetInGameMain().SetCommanderSkillUI(_commanderSkillData.ElapsedTime / _commanderSkillData.DurationTime);
+            InGameMain.GetInGameMain()
+                .SetCommanderSkillUI(_commanderSkillData.ElapsedTime / _commanderSkillData.DurationTime);
         }
     }
 
     Vector3 HandleRuntimeDrag(PointerEventData eventData)
     {
-        return _mainCamera.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, _mainCamera.nearClipPlane));
+        return _mainCamera.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y,
+            _mainCamera.nearClipPlane));
     }
 
     private void ClearAndSetActive(IEnumerable<InGameTile> newTiles)
@@ -166,6 +182,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         {
             tile.View.SetNavigateObj(false);
         }
+
         _activeTiles.Clear();
 
         if (newTiles != null)
@@ -181,11 +198,15 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     public void SetCommanderSkillData(SpecCommanderSkill data)
     {
         var coolTimeData = SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.COOL);
-        var statValueData = SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
+        var statValueData =
+            SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
 
         _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
+    }
 
-        InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
-            ManagedUpdate);
+    public void Clear()
+    {
+        InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
+        _commanderSkillData = null;
     }
 }

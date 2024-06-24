@@ -45,6 +45,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnClickCommanderSkillButton()
     {
+        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+            return;
+
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
     }
 

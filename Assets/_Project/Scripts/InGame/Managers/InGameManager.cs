@@ -49,6 +49,7 @@ namespace CookApps.BattleSystem
             InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
+            InGameCommanderManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
         }
 
@@ -60,6 +61,7 @@ namespace CookApps.BattleSystem
             InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
+            InGameCommanderManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
         }
 
@@ -70,6 +72,7 @@ namespace CookApps.BattleSystem
             InGameObjectManager.Instance.Clear();
             InGameTextViewPool.Instance.ReleasePool();
             InGameHpBarViewPool.Instance.Clear();
+            InGameCommanderManager.Instance.Clear();
             InGameVfxManager.Instance.Clear();
             ecc.Clear();
             ecc = null;
