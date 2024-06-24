@@ -19,7 +19,11 @@ namespace CookApps.BattleSystem
             for (int i = 0; i < codeInfo.StatsLength; i++)
             {
                 int tileID = codeInfo.GetCodeStatToInt(i);
-                gimmickTiles.Add(InGameObjectManager.Instance.GetInGameTile(tileID));
+                InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+                gimmickTiles.Add(inGameTile);
+
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_chapter1,
+                    inGameTile.View.CachedTr.position);
             }
         }
 
@@ -29,7 +33,11 @@ namespace CookApps.BattleSystem
             for (int i = 0; i < codeInfo.StatsLength; i++)
             {
                 int tileID = codeInfo.GetCodeStatToInt(i);
-                gimmickTiles.Add(InGameObjectManager.Instance.GetInGameTile(tileID));
+                InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+                gimmickTiles.Add(inGameTile);
+
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_chapter1,
+                    inGameTile.View.CachedTr.position);
             }
         }
 
