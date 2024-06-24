@@ -129,7 +129,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 1001
     messageOptions: 0
-  - time: 1
+  - time: 1.3333334
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}

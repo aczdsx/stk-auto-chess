@@ -164,12 +164,12 @@ namespace CookApps.BattleSystem
             characCtrl.Clear();
         }
 
-        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID)
+        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID)
         {
             var characCtrl = new CharacterController();
             var tile = InGameGrid.GetTile(gridID);
             if (tile.OccupiedCharacter == null)
-                characCtrl.Initialize(tile, Playground, 10101);
+                characCtrl.Initialize(tile, Playground, chapterID);
 
             return characCtrl;
         }
@@ -280,6 +280,9 @@ namespace CookApps.BattleSystem
         public void SaveStartingPlayerCharacter()
         {
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
+
+            charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate.OrderBy(character => character.SpecCharacter.atk_range).ToList();
+            enemiesInPlaygroundForUpdate = enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
         }
 
         public bool IsCheckAllPlayerCharacterAlive()

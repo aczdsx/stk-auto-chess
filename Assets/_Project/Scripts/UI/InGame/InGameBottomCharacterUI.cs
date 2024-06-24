@@ -20,6 +20,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField] private InGameCharacterItem _ingameCharacterItemPrefab;
     [SerializeField] private Transform _inGameCharacterItemTransform;
 
+    [SerializeField] private GameObject _readyUIObj;
+
+    [SerializeField] private CommanderSkillUI _commanderSkillUI;
+
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private Action _onNewCharacter;
@@ -31,14 +35,19 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnStartButtonClicked()
     {
+        _readyUIObj.SetActive(false);
         HideCharacterSelectUI(() =>
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
+            SetCommanderSkill();
         });
     }
 
     private void OnClickCommanderSkillButton()
     {
+        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+            return;
+
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
     }
 
@@ -75,6 +84,16 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 _characterItemList.Add(characterItem);
                 characterItem.SetData(characterStat, AddCharacterToTile);
             }
+        }
+    }
+
+    public void SetCommanderSkill()
+    {
+        int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
+        if (equippedCommanderSkill != 0)
+        {
+            var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
+            InGameCommanderManager.Instance.SetCommanderSkillData(data);
         }
     }
 
@@ -138,6 +157,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private async void AddCharacterToTile(CharacterStatData statData)
     {
+        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+        UpdateData();
+
         Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
         var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
         int2 pos = new int2(ingameTile.X, ingameTile.Y);
@@ -147,10 +169,16 @@ public class InGameBottomCharacterUI : MonoBehaviour
             InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
                 typeof(CharacterStateReady), true, HpBarType.Synergy),
         });
-
-        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
-
-        UpdateData();
         _onNewCharacter.Invoke();
+    }
+
+    public void SetCommanderSkillUI(float durationTime)
+    {
+        _commanderSkillUI.UpdateCommanderSkillCoolTime(durationTime);
+    }
+
+    public void SetIconColor(float fadeAlpha)
+    {
+        _commanderSkillUI.SetIconColor(fadeAlpha);
     }
 }

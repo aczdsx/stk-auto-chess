@@ -574,6 +574,11 @@ namespace CookApps.AutoBattler
             return SpecCommanderSkill.All.ToList().FindAll(data => data.open_key_chapter_id <= chapterID);
         }
 
+        public SpecCommanderSkill GetCommanderSkillData(int skillID)
+        {
+            return SpecCommanderSkill.All.FirstOrDefault(data => data.commander_skill_id == skillID);
+        }
+
         public SpecCommanderSkill GetCommanderSkillData(int commanderSkillID, SkillValueType type)
         {
             return SpecCommanderSkill.All.ToList().Find(data => data.commander_skill_id == commanderSkillID && data.skill_value_type == type);

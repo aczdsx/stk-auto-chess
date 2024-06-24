@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 
@@ -44,10 +45,16 @@ namespace CookApps.BattleSystem
                 {
                     if(tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
                     {
-                        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                        damageInfo.damageAmount = 100;
+                        var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+                        if (playerCharacterList != null && playerCharacterList.Count > 0)
+                        {
+                            var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
 
-                        tile.OccupiedCharacter.GetDamaged(damageInfo, null);
+                            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+                            damageInfo.damageAmount = strongestCharacter.AD * _damageRate;
+
+                            tile.OccupiedCharacter.GetDamaged(damageInfo, null);
+                        }
                     }
                 }
             }

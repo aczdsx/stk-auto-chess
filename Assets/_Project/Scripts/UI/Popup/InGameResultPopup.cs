@@ -41,8 +41,10 @@ namespace CookApps.AutoBattler
         private bool _isVictory = false;
         private int _star = 0;
 
-        private bool _isPlayingTutorialStage = false;
-        private bool _isPlayingLastStage = false;
+        private bool _isPlayingTutorialStage = false;   // 튜토리얼 진행 여부 체크
+        private bool _isClearTutorialStage = false;     // 튜토리얼 스테이지 클리어 여부 체크
+        private bool _isPlayingLastStage = false;   // 챕터의 마지막 스테이지 체크용
+        private bool _isEndChapter = false;         // 게임의 마지막 챕터인지 확인용
 
         protected override void OnPreEnter(object param)
         {
@@ -92,12 +94,22 @@ namespace CookApps.AutoBattler
                 _isPlayingTutorialStage = true;
             }
 
+            // 마지막 스테이지 체크
             var lastSpecStage = SpecDataManager.Instance.GetLastStageData(InGameManager.Instance.SpecStage.chapter_id, InGameManager.Instance.SpecStage.difficulty_type);
             _isPlayingLastStage = lastSpecStage != null && lastSpecStage.stage_id == InGameManager.Instance.SpecStage.stage_id;
+            if (_isPlayingLastStage)
+            {
+                int nextChpaterID = lastSpecStage.chapter_id + 1;
+                // 다음 챕터 존재 여부 확인
+                var nextChapterData = SpecDataManager.Instance.GetStageData(nextChpaterID, 1, lastSpecStage.difficulty_type);
+                _isEndChapter = nextChapterData == null;    // 다음 챕터 데이터 없음 (게임의 마지막 챕터)
+            }
+
+            _isClearTutorialStage = _isPlayingTutorialStage && _isPlayingLastStage && _isVictory;
 
             _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage);
-            _nextStageButton.gameObject.SetActive(!_isPlayingLastStage);
-            _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isPlayingLastStage);
+            _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage);
+            _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
 
             if (_isVictory)
                 CreateRewardItems();
@@ -120,18 +132,28 @@ namespace CookApps.AutoBattler
 
             //InGameManager.Instance.EndInGame();
 
+            // 최종 챕터/스테이지 여부 체크
+            if (_isEndChapter) return;
+
+            int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
             int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
-            if (_isPlayingLastStage == false)
+            if (_isPlayingLastStage)
+            {
+                targetChapterID++;
+                targetStageNumber = 1;
+            }
+            else
             {
                 targetStageNumber++;
             }
 
-            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
+            SceneLoading.GoToNextScene("InGame", (targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }
 
         private void OnClickRetryStageButton()
         {
-            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
+            //InGameManager.Instance.EndInGame();
+            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, (int)InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }
 
         private void CreateRewardItems()
@@ -182,9 +204,9 @@ namespace CookApps.AutoBattler
 
                 UserDataManager.Instance.SetUserStage(currentStageID, _star);
 
+                // 가이드 미션 체크
                 GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,currentStageID, 1);
             }
         }
-
     }
 }

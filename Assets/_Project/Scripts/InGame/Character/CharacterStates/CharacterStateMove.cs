@@ -22,7 +22,6 @@ public class CharacterStateMove : CharacterStateBase
         // PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)
         //     .OnComplete(this, target => target.ChangeToIdleState());
 
-        var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
         Ease ease = Ease.Linear;
         // if (characCtrl.SpecCharacter.atk_range == 1)
         // {
@@ -47,6 +46,7 @@ public class CharacterStateMove : CharacterStateBase
                 if (characCtrl == null)
                     return;
 
+                var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
                 characCtrl.MoveCharacter(isInRange);
             }
         });

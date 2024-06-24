@@ -113,5 +113,15 @@ namespace CookApps.AutoBattler
                 }
             }
         }
+
+        public void SetCommanderSkillUI(float durationTime)
+        {
+            _inGameBottomCharacterUI.SetCommanderSkillUI(durationTime);
+        }
+
+        public void SetIconColor(float fadeAlpha)
+        {
+            _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
+        }
     }
 }

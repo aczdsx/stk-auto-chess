@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
 
         [Header("Dialogue Layer")]
         [SerializeField] private CAButton _blockLayerButton;
+        [SerializeField] private GameObject _extraBGObj;
         [SerializeField] private Image _extraBGImage;
         [SerializeField] private TextMeshProUGUI _dialogueText;
         [SerializeField] private RectTransform _dialogueTextRect;
@@ -31,6 +32,7 @@ namespace CookApps.AutoBattler
         private List<SpecDialogue> _dialogueList = new List<SpecDialogue>();
 
         private int currentDialogueSeq = 0;
+        private int _dialogueGroupID = 0;
 
         protected override void Awake()
         {
@@ -53,8 +55,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
-            int dialogueGroupID = (int)param;
-            _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(dialogueGroupID);
+            _dialogueGroupID = (int)param;
+            _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(_dialogueGroupID);
 
             _characterNameText.font = temTMPFontAsset;
             _dialogueText.font = temTMPFontAsset;
@@ -73,7 +75,7 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
 
             // 추가 배경 설정
-            _extraBGImage.gameObject.SetActive(false);
+            _extraBGObj.SetActive(false);
             if (_currentSpecDialogueData.bg_image != "none")
             {
                 var targetSprite = ImageManager.Instance.GetCutSceneSprite(_currentSpecDialogueData.bg_image);
@@ -81,7 +83,7 @@ namespace CookApps.AutoBattler
                 {
                     _extraBGImage.sprite = targetSprite;
 
-                    _extraBGImage.gameObject.SetActive(true);
+                    _extraBGObj.SetActive(true);
                 }
             }
 
@@ -118,6 +120,9 @@ namespace CookApps.AutoBattler
 
                     InGameMain.GetInGameMain()?.SetInGameBottomUI();
                 }
+
+                // 다이얼로그 히스토리 데이터 추가 및 저장
+                UserDataManager.Instance.AddDialogHistory(_dialogueGroupID);
 
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;

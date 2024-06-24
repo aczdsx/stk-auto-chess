@@ -100,6 +100,11 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
+        public Sprite GetChapterIconSprite(int chapterID)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, $"Icon_Chapter_{chapterID}");
+        }
+
         public Sprite GetCutSceneSprite(string spriteName)
         {
             return AtlasManager.Instance.GetSprite(Defines.UI_CUT_SCENE_ATLAS, spriteName);

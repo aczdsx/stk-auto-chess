@@ -41,6 +41,10 @@ namespace CookApps.AutoBattler
         {
             UserBasicData.Exp += exp;
 
+            int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
+
+            UserBasicData.Level = userLevel;
+
             SaveUserBasic();
         }
 

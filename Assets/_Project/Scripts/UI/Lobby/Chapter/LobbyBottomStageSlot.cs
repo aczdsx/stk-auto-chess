@@ -23,6 +23,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _normalLayerObject;
         [SerializeField] private GameObject _normalStarLayerObject;
         [SerializeField] private GameObject _normalCharacterLayerObject;
+        [SerializeField] private GameObject _normalClearCheckObject;
+        [SerializeField] private GameObject _normalNextStageCheckObject;
         [SerializeField] private TextMeshProUGUI _normalStageNumberText;
         [SerializeField] private List<GameObject> _normalStarObjectList;
 
@@ -30,6 +32,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _bossLayerObject;
         [SerializeField] private GameObject _bossStarLayerObject;
         [SerializeField] private GameObject _bossCharacterLayerObject;
+        [SerializeField] private GameObject _bossClearCheckObject;
+        [SerializeField] private GameObject _bossNextStageCheckObject;
         [SerializeField] private TextMeshProUGUI _bossStageNumberText;
         [SerializeField] private TextMeshProUGUI _bossStageTitleText;
         [SerializeField] private List<GameObject> _bossStarObjectList;
@@ -40,6 +44,7 @@ namespace CookApps.AutoBattler
         private bool _isClearStage;     // 클리어 한 스테이지 여부 체크용
         private bool _isCurrentStage;   // 현재 스테이지 여부 체크용
         private bool _isValidStage;     // 유효한 스테이지 여부 체크용
+        private bool _isLatestPlayableStage;      // 플레이 가능한 다음 스테이지 체크용
 
         private int _resultCustomHeight;    // 스테이지 상태에 따른 최종 높이 값
 
@@ -64,6 +69,10 @@ namespace CookApps.AutoBattler
 
             _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.stage_id);
             _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.stage_id;
+
+            int lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+            var nextStageData = UserDataManager.Instance.GetNextStageData(lastestStageID);
+            _isLatestPlayableStage = nextStageData != null && (nextStageData.stage_id == _specStageData.stage_id);
 
             SetStageState();
         }
@@ -118,6 +127,8 @@ namespace CookApps.AutoBattler
             }
 
             _normalCharacterLayerObject.SetActive(_isCurrentStage);
+            _normalClearCheckObject.SetActive(_isClearStage);
+            _normalNextStageCheckObject.SetActive(_isLatestPlayableStage);
         }
 
         private void SetBossLayerState()
@@ -139,6 +150,8 @@ namespace CookApps.AutoBattler
             }
 
             _bossCharacterLayerObject.SetActive(_isCurrentStage);
+            _bossClearCheckObject.SetActive(_isClearStage);
+            _bossNextStageCheckObject.SetActive(_isLatestPlayableStage);
         }
 
         private void OnClickBottomStageSlot()

@@ -2920,6 +2920,8 @@ MonoBehaviour:
   _normalLayerObject: {fileID: 2182816886791349820}
   _normalStarLayerObject: {fileID: 5695158504729234489}
   _normalCharacterLayerObject: {fileID: 2381502591995212563}
+  _normalClearCheckObject: {fileID: 3202367529892377897}
+  _normalNextStageCheckObject: {fileID: 7842730145351110037}
   _normalStageNumberText: {fileID: 3339064926332664268}
   _normalStarObjectList:
   - {fileID: 5323051238889655165}
@@ -2928,6 +2930,8 @@ MonoBehaviour:
   _bossLayerObject: {fileID: 2939125539184974049}
   _bossStarLayerObject: {fileID: 4683381418125733119}
   _bossCharacterLayerObject: {fileID: 169692580762517364}
+  _bossClearCheckObject: {fileID: 2180328690230541928}
+  _bossNextStageCheckObject: {fileID: 5854809677463191137}
   _bossStageNumberText: {fileID: 3080203489569191421}
   _bossStageTitleText: {fileID: 3002912626998437809}
   _bossStarObjectList:

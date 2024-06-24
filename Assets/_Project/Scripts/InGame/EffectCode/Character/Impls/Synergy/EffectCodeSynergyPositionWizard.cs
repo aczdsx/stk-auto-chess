@@ -34,9 +34,7 @@ public class EffectCodeSynergyPositionWizard : EffectCodeCharacterBase
             if (eccBase != null)
             {
                 float durationTime = eccBase.GetDurationTime();
-                float elapsedTime = eccBase.GetDurationTime();
-                float decreasedTime = durationTime * statValue;
-                float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+                float newElapsedTime =  durationTime * statValue;
                 eccBase.SetElapsedTime(newElapsedTime);
             }
         }
