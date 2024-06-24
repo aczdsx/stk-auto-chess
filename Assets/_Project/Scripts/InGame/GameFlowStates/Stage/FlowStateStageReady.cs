@@ -46,6 +46,12 @@ public class FlowStateStageReady : StateBase
 
         await UniTask.WhenAll(addCharacterTasks);
 
+        // [TODO] 전판 배치 정보 저장 대응
+        // foreach (var character in characters)
+        // {
+        //
+        // }
+
         InGameMain.GetInGameMain().SetReadyUI();
     }
 
