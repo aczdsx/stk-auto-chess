@@ -57,7 +57,7 @@ namespace CookApps.AutoBattler
             _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_name_token);
             _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_desc_token);
 
-            _skillDamageTypeObject.SetActive(true);
+            _skillDamageTypeObject.SetActive(skillData.atk_type != AtkType.NONE);
             _skillDamageAPTypeObject.SetActive(skillData.atk_type == AtkType.AP);
             _skillDamageADTypeObject.SetActive(skillData.atk_type == AtkType.AD);
 
