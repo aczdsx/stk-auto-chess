@@ -67,8 +67,7 @@ namespace CookApps.AutoBattler
             {
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
-                var _specCharacterData = SpecDataManager.Instance.GetCharacterData(playerCharacterList[0].CharacterId);
-
+                var _specCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
                 string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
                 AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             }
