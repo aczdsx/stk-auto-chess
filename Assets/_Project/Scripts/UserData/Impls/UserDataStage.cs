@@ -91,8 +91,8 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        // 가장 마지막 스테이지 ID 반환
-        public int GetLastUserStageID()
+        // 클리어한 스테이지 중 가장 마지막 스테이지 ID 반환
+        public int GetLatestClearUserStageID()
         {
             var clearStageList = GetAllClearUserStageList();
 
@@ -136,16 +136,6 @@ namespace CookApps.AutoBattler
             }
 
             return userStageGroup.UserStageAccRewards[chapterID].StageAccRewardDic[(int)difficultyType].StageAccRewardList.Contains(targetAccCount);
-        }
-
-        public UserStage GetLastUserStageByChapter(int chapterID)
-        {
-            if (_chapterUserStageDic.TryGetValue(chapterID, out Dictionary<int, UserStage> stageDic))
-            {
-                return stageDic.Values.Last();
-            }
-
-            return null;
         }
 
         public int GetTotalChapterStarCount(int chapterID, DifficultyType type)
@@ -192,7 +182,7 @@ namespace CookApps.AutoBattler
         // 새로운 챕터 개방 여부 체크
         public void UpdateNewChapterOpen(int targetStageID)
         {
-            int lastClearStageID = GetLastUserStageID();
+            int lastClearStageID = GetLatestClearUserStageID();
 
             var targetStageData = SpecDataManager.Instance.GetStageData(targetStageID);
             var lastTargetStageData = SpecDataManager.Instance.GetLastStageData(targetStageData.chapter_id, targetStageData.difficulty_type);
@@ -213,6 +203,32 @@ namespace CookApps.AutoBattler
 
                 SaveUserCommanderSKillData();
             }
+        }
+
+        // 해당 스테이지 데이터 기준 다음 스테이지 정보 반환
+        public SpecStage GetNextStageData(int targetStageID)
+        {
+            SpecStage resultData = null;
+
+            var targetStageData = SpecDataManager.Instance.GetStageData(targetStageID);
+            if (targetStageData == null) return resultData;
+
+            var lastSpecStage = SpecDataManager.Instance.GetLastStageData(targetStageData.chapter_id, targetStageData.difficulty_type);
+            bool isPlayingLastStage = lastSpecStage != null && lastSpecStage.stage_id == targetStageData.stage_id;
+            if (isPlayingLastStage)
+            {
+                // 다음 챕터 존재 여부 확인 (챕터 데이터가 없을 경우 null을 리턴함)
+                int nextChpaterID = lastSpecStage.chapter_id + 1;
+                resultData = SpecDataManager.Instance.GetStageData(nextChpaterID, 1, lastSpecStage.difficulty_type);
+            }
+            else
+            {
+                // 다음 스테이지 데이터 확인
+                int nextStageNumber = targetStageData.stage_number + 1;
+                resultData = SpecDataManager.Instance.GetStageData(targetStageData.chapter_id, nextStageNumber, targetStageData.difficulty_type);
+            }
+
+            return resultData;
         }
 
         // 스테이지 개방 여부 확인

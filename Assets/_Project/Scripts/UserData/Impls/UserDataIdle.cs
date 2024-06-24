@@ -52,7 +52,7 @@ namespace CookApps.AutoBattler
         {
             List<RewardItem> resultItemList = new List<RewardItem>();
 
-            int lastStageID = GetLastUserStageID();
+            int lastStageID = GetLatestClearUserStageID();
             var lastStageData = SpecDataManager.Instance.GetStageData(lastStageID);
 
             int totalStageClearCount = GetAllClearUserStageList().Count;

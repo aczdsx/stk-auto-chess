@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
         private void UpdateCommanderSkillState()
         {
             // 지휘자 스킬 상태 갱신
-            int lastStageID = GetLastUserStageID();
+            int lastStageID = GetLatestClearUserStageID();
             var lastStageData = SpecDataManager.Instance.GetStageData(lastStageID);
             if (lastStageData != null)
             {

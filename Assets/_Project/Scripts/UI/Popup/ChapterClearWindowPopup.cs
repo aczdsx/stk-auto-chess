@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
         {
             ClearPopup();
 
-            int lastClearStageID = UserDataManager.Instance.GetLastUserStageID();
+            int lastClearStageID = UserDataManager.Instance.GetLatestClearUserStageID();
             var lastClearStageData = SpecDataManager.Instance.GetStageData(lastClearStageID);
 
             _chapterClearTitleText.text = $"챕터 {lastClearStageData.chapter_id} 클리어";
