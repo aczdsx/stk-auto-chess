@@ -5,6 +5,7 @@ using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 using Google.Protobuf.Collections;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -51,6 +52,30 @@ namespace CookApps.AutoBattler
         public int[] GetAllCharacterIds()
         {
             return userCharacterGroup.UserCharacters.Keys.ToArray();
+        }
+
+        public void SetUserCharaceterBattleDeckList(List<CookApps.BattleSystem.CharacterController> characterList)
+        {
+            if (characterList == null || characterList.Count <= 0) return;
+
+            userCharacterGroup.UserCharacterBattleDecks.Clear();
+
+            foreach (var character in characterList)
+            {
+                userCharacterGroup.UserCharacterBattleDecks.Add(new UserCharacterBattleDeck
+                {
+                    CharacterId = character.CharacterId,
+                    PositionTileX = character.CurrentTile.X,
+                    PositionTileY = character.CurrentTile.Y,
+                });
+            }
+
+            SaveCharacterGroup();
+        }
+
+        public List<UserCharacterBattleDeck> GetUserCharacterBattleDeckList()
+        {
+            return userCharacterGroup.UserCharacterBattleDecks.ToList();
         }
 
         public void IncreaseCharacterLevel(int characterID, int level)
