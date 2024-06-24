@@ -26,7 +26,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
-    private Action _onNewCharacter;
+    private Action<CharacterStatData> _onNewCharacter;
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnStartButtonClicked);
@@ -51,7 +51,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
     }
 
-    public void InitData(Action onNewCharacter)
+    public void InitData(Action<CharacterStatData> onNewCharacter)
     {
         _onNewCharacter = onNewCharacter;
 
@@ -160,16 +160,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
         UpdateData();
 
-        Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
-        var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
-        int2 pos = new int2(ingameTile.X, ingameTile.Y);
-
-        await UniTask.WhenAll(new[]
-        {
-            InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
-                typeof(CharacterStateReady), true, HpBarType.Synergy),
-        });
-        _onNewCharacter.Invoke();
+        _onNewCharacter.Invoke(statData);
     }
 
     public void SetCommanderSkillUI(float durationTime)

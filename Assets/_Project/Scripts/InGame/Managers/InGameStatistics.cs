@@ -159,6 +159,32 @@ namespace CookApps.BattleSystem
             return healAmount;
         }
 
+        public int GetMvpID()
+        {
+            int mvpID = 0;
+            float attackDamageWeight = 3.0f;
+            float takenDamageWeight = 1.0f;
+            float givenHealWeight = 1.0f;
+            double maxScore = double.MinValue;
+
+            foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
+            {
+                double attackDamageAmount = GetAttackDamageAmount(character.CharacterId);
+                double takenDamageAmount = GetTakenDamageAmount(character.CharacterId);
+                double givenHealAmount = GetGivenHealAmount(character.CharacterId);
+
+                double score = attackDamageAmount * attackDamageWeight - takenDamageAmount * takenDamageWeight + givenHealAmount * givenHealWeight;
+
+                if (score > maxScore)
+                {
+                    maxScore = score;
+                    mvpID = character.CharacterId;
+                }
+            }
+
+            return mvpID;
+        }
+
         private void ClearStatisticsData()
         {
             statisticsData.combatLogs.Clear();

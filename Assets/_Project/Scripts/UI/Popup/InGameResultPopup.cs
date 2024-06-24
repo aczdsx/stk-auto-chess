@@ -67,8 +67,7 @@ namespace CookApps.AutoBattler
             {
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
-                var _specCharacterData = SpecDataManager.Instance.GetCharacterData(playerCharacterList[0].CharacterId);
-
+                var _specCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
                 string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
                 AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             }
@@ -107,8 +106,8 @@ namespace CookApps.AutoBattler
 
             _isClearTutorialStage = _isPlayingTutorialStage && _isPlayingLastStage && _isVictory;
 
-            _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage);
-            _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage);
+            _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage || !_isVictory);
+            _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _isVictory);
             _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
 
             if (_isVictory)
@@ -147,6 +146,7 @@ namespace CookApps.AutoBattler
                 targetStageNumber++;
             }
 
+            //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame", (targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }
 

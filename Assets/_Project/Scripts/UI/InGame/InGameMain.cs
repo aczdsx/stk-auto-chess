@@ -63,6 +63,9 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.StartInGame<FlowStateStageReady>(specStage, specStage);
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
             _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[chapter]);
+
+            // 최근 플레이 스테이지 저장
+            UserDataManager.Instance.SetLastPlayStageID(specStage.stage_id, true);
         }
 
         protected override void OnPreExit()
@@ -73,11 +76,7 @@ namespace CookApps.AutoBattler
 
         public void SetInGameBottomUI()
         {
-            _inGameBottomCharacterUI.InitData(() =>
-            {
-                _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
-                _InGameTopUI.UpdateAttrUI(AllianceType.Player);
-            });
+            _inGameBottomCharacterUI.InitData(AddCharacterToTile);
         }
 
         public void SetReadyUI()
@@ -122,6 +121,21 @@ namespace CookApps.AutoBattler
         public void SetIconColor(float fadeAlpha)
         {
             _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
+        }
+
+        private async void AddCharacterToTile(CharacterStatData statData)
+        {
+            Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
+            var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
+            int2 pos = new int2(ingameTile.X, ingameTile.Y);
+
+            await UniTask.WhenAll(new[]
+            {
+                InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
+                    typeof(CharacterStateReady), true, HpBarType.Synergy),
+            });
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
+            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
         }
     }
 }

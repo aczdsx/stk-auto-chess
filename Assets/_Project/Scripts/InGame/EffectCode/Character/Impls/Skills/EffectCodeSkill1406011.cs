@@ -9,7 +9,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// <summary>
 /// 엔키
 // 대상 : 아군 전체
-// 효과 : 체력을 공격력 {0}%만큼 회복시킨다.
+// 효과 : 아군 전체의 공격 속도를 {0}% 만큼 증가시킨다.
 /// </summary>
 [UseEffectCodeIds(1406011)]
 public class EffectCodeSkill1406011 : EffectCodeCharacterBase
@@ -93,7 +93,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 10);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            owner.Target.CurrentTile.View.CachedTr.position);
+            owner.GetCharacterView().CachedTr.position);
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
