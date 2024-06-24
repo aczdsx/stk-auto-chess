@@ -125,6 +125,9 @@ namespace CookApps.AutoBattler
                     userWallet.CharUserExpItem2 += itemAmount;
                     OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
                     break;
+                case ItemType.USER_EXP:
+                    AddUserLevelExp(itemAmount);
+                    break;
                 case ItemType.CHARACTER:
                     // 최초 완성형 캐릭터 획득 처리 (20조각)
                     var specCharacter = SpecDataManager.Instance.GetCharacterData(itemKey);
