@@ -51,8 +51,8 @@ namespace CookApps.BattleSystem
             InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
-            InGameCommanderManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
+            InGameCommanderManager.Instance.Initialize();
 
             _ingameCamera = Camera.main.GetComponent<inGameCamera>();
         }
@@ -65,8 +65,8 @@ namespace CookApps.BattleSystem
             InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
-            InGameCommanderManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
+            InGameCommanderManager.Instance.Initialize();
 
             _ingameCamera = Camera.main.GetComponent<inGameCamera>();
         }
@@ -74,11 +74,11 @@ namespace CookApps.BattleSystem
         public void EndInGame()
         {
             IsInGamePlaying = false;
+            InGameCommanderManager.Instance.Clear();
             InGameMainFlowManager.Instance.StopInGameMainLoop();
             InGameObjectManager.Instance.Clear();
             InGameTextViewPool.Instance.ReleasePool();
             InGameHpBarViewPool.Instance.Clear();
-            InGameCommanderManager.Instance.Clear();
             InGameVfxManager.Instance.Clear();
             ecc.Clear();
             ecc = null;
