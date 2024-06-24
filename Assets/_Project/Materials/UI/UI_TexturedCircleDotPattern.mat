@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CircleRadius: 0
+    - _CircleRadius: 10
     - _CircleScale: 2
     - _CircleSoftness: 0.5
     - _DotMaxScale: 0.8
@@ -39,7 +39,7 @@ Material:
     - _Invert: 1
     - _Scale: 2.09
     - _Spacing: 4.7
-    - _Tiling: 7.5
+    - _Tiling: 10
     m_Colors:
     - _BackgroundColor: {r: 0.8301887, g: 0.254539, b: 0.254539, a: 1}
     - _CircleColor: {r: 0, g: 0, b: 0, a: 1}
