@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 
 [Serializable]
 public partial class SROptions
@@ -140,6 +141,17 @@ public partial class SROptions
         {
             lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
             lobbyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
+        }
+    }
+
+    [Category("스테이지 관련")]
+    public void 튜토리얼스테이지클리어()
+    {
+        var tutoStageDataList = SpecDataManager.Instance.GetStageList(1);
+        foreach (var stageData in tutoStageDataList)
+        {
+            UserDataManager.Instance.SetUserStage(stageData.stage_id, 3);
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,stageData.stage_id, 1);
         }
     }
 

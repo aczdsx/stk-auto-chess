@@ -63,6 +63,9 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.StartInGame<FlowStateStageReady>(specStage, specStage);
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
             _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[chapter]);
+
+            // 최근 플레이 스테이지 저장
+            UserDataManager.Instance.SetLastPlayStageID(specStage.stage_id, true);
         }
 
         protected override void OnPreExit()
