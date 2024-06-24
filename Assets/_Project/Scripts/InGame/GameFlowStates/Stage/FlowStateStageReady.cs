@@ -61,7 +61,9 @@ public class FlowStateStageReady : StateBase
         {
             Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length];
             debuffStats.Clear();
-            for (int i = 0; i < _specStage.chapter_rule_tile.Length; i++)
+
+            debuffStats[0] = _specStage.effect_code_stat;
+            for (int i = 1; i < _specStage.chapter_rule_tile.Length; i++)
             {
                 debuffStats[i] = _specStage.chapter_rule_tile[i];
             }

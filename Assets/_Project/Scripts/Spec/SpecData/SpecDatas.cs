@@ -419,6 +419,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt[] chapter_rule_tile;
         /// 이펙트 코드
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
+        /// 이텍트 코드 스텟
+        public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat;
     }
 
     [GeneratorSpecData]
