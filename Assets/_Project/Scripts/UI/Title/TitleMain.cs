@@ -102,16 +102,25 @@ namespace CookApps.AutoBattler
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.
 
                 // 초반 플로우 체크 및 진행
-                if (UserDataManager.Instance.IsClearStage(10001) == false)
+                var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
+                if (UserDataManager.Instance.IsClearStage(lastTutoStageData.stage_id) == false)
                 {
-                    SceneLoading.GoToNextScene("InGame", (1, 1, DifficultyType.NORMAL)).Forget();
+                    int lastStageID = UserDataManager.Instance.GetLastPlayStageID();
+                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+                    if (UserDataManager.Instance.IsClearStage(lastStageID))
+                    {
+                        specStageData = UserDataManager.Instance.GetNextStageData(lastStageID);
+                    }
+
+                    SceneLoading.GoToNextScene("InGame", ((int)specStageData.chapter_id, (int)specStageData.stage_number, DifficultyType.NORMAL)).Forget();
                 }
                 else
                 {
                     var transition = SceneTransition_FadeInOut.Create();
 
-                    int lastChapter = 1;
-                    SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
+                    int lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
+                    var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
+                    SceneLoading.GoToNextScene("Lobby", (int)specStageData.chapter_id, transition).Forget();
                 }
 
                 // int lastChapter = 1;
