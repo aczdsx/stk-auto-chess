@@ -36,12 +36,17 @@ namespace CookApps.AutoBattler
         [SerializeField] private CurrencyUIItem _secondExpItemCurrencyUIItem;
         [SerializeField] private CurrencyUIItem _goldCurrencyUIItem;
 
+        [Space(10)]
+        [SerializeField] private List<ParticleSystem> _levelupEffectObjectList_1;
+        [SerializeField] private List<ParticleSystem> _levelupEffectObjectList_2;
+
         private UserCharacter _userCharacterData;
         private SpecCharacter _specCharacterData;
         private SpecCharacterLevelExp _specCharacterLevelExpData;
         private CharacterStatData _userStatData;
 
         private bool _isHaveCharacter = false;
+        private bool _isPlayingLevelupEffect = false;
 
         private void Awake()
         {
@@ -59,6 +64,8 @@ namespace CookApps.AutoBattler
 
         public void InitLayer(int characterID)
         {
+            ClearLayer();
+
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
 
@@ -137,6 +144,28 @@ namespace CookApps.AutoBattler
             _inactiveLevelUpButton.gameObject.SetActive(!isAvailLevelup);
         }
 
+        private void PlayLevelUpEffect()
+        {
+            _isPlayingLevelupEffect = true;
+
+            _levelupEffectObjectList_1.ForEach(effect =>
+            {
+                effect.gameObject.SetActive(true);
+
+                effect.Stop();
+                effect.Play();
+            });
+
+            _levelupEffectObjectList_2.ForEach(effect =>
+            {
+                effect.gameObject.SetActive(true);
+
+                effect.Stop();
+                effect.Play();
+            });
+
+            _isPlayingLevelupEffect = false;
+        }
 
         private void OnClickDetailStatButton()
         {
@@ -188,7 +217,16 @@ namespace CookApps.AutoBattler
             // 가이드 미션 체크
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
 
+            // 이펙트 실행
+            PlayLevelUpEffect();
+
             RefreshLayer();
+        }
+
+        private void ClearLayer()
+        {
+            _levelupEffectObjectList_1.ForEach(effect => effect.gameObject.SetActive(false));
+            _levelupEffectObjectList_2.ForEach(effect => effect.gameObject.SetActive(false));
         }
     }
 }
