@@ -8,49 +8,28 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeGimmickTileDebuff : EffectCodeGameBase
     {
-        private const int CodeId = (int)EffectCodeNameType.CHAPTER_FIRE;
+        private const int CodeId = (int) EffectCodeNameType.CHAPTER_FIRE;
 
-        private ObfuscatorInt gimmickTileCount;
         List<InGameTile> gimmickTiles = new List<InGameTile>();
 
-        public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
+        public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
+            IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            gimmickTileCount = codeInfo.GetCodeStatToInt(0);
-            InGameMainFlowManager.OnFlowStateChanged += OnStateChanged;
+            for (int i = 0; i < codeInfo.StatsLength; i++)
+            {
+                int tileID = codeInfo.GetCodeStatToInt(i);
+                gimmickTiles.Add(InGameObjectManager.Instance.GetInGameTile(tileID));
+            }
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            gimmickTileCount = codeInfo.GetCodeStatToInt(0);
-        }
-
-        public override void OnPreRemoved()
-        {
-            base.OnPreRemoved();
-            InGameMainFlowManager.OnFlowStateChanged -= OnStateChanged;
-        }
-
-        private void OnStateChanged(StateBase flowState)
-        {
-            if (flowState is FlowStateStageReady)
+            for (int i = 0; i < codeInfo.StatsLength; i++)
             {
-                gimmickTiles.Clear();
-                var tiles = InGameObjectManager.Instance.GetAllInGameTiles();
-                // random gimmick tiles
-                while (gimmickTiles.Count < gimmickTileCount)
-                {
-                    var tile = tiles[InGameRandomManager.GetUniversalRandomValue(0, tiles.Length)];
-                    if (gimmickTiles.Contains(tile))
-                    {
-                        continue;
-                    }
-                    gimmickTiles.Add(tile);
-
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_chapter1,
-                        tile.View.CachedTr.position);
-                }
+                int tileID = codeInfo.GetCodeStatToInt(i);
+                gimmickTiles.Add(InGameObjectManager.Instance.GetInGameTile(tileID));
             }
         }
 
@@ -63,7 +42,7 @@ namespace CookApps.BattleSystem
 
             if (gimmickTiles.Contains(tile))
             {
-                var someCodeId = (int)EffectCodeNameType.DEBUFF_FIRE;
+                var someCodeId = (int) EffectCodeNameType.DEBUFF_FIRE;
                 Span<double> debuffStats = stackalloc double[3];
                 debuffStats.Clear();
                 debuffStats[0] = codeId;

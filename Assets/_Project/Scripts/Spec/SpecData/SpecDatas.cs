@@ -415,6 +415,10 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 장애물
         public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id;
+        /// 챕터 룰
+        public CookApps.Obfuscator.ObfuscatorInt[] chapter_rule_tile;
+        /// 이펙트 코드
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
     }
 
     [GeneratorSpecData]
@@ -441,32 +445,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecStageReward
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 스테이지 난이도
-        public global::CookApps.AutoBattler.DifficultyType difficulty_type;
-        /// 스테이지 보상 id
-        public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        /// 보상 확률 유무
-        public bool prob_type;
-        /// 별 단계 구분
-        public CookApps.Obfuscator.ObfuscatorInt star_count;
-        /// 보상 획득 빈도
-        public global::CookApps.AutoBattler.FrequencyType frequency_type;
-        /// 보상 타입
-        public global::CookApps.AutoBattler.ItemType item_type;
-        /// 보상 키 값
-        public CookApps.Obfuscator.ObfuscatorInt item_key;
-        /// 보상 수량
-        public CookApps.Obfuscator.ObfuscatorInt item_count;
-        /// 보상 지급 확률
-        public CookApps.Obfuscator.ObfuscatorDouble rate;
-    }
-
-    [GeneratorSpecData]
     public partial class SpecSynergy
     {
         /// 유니크 id
@@ -490,6 +468,32 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 계수
         public CookApps.Obfuscator.ObfuscatorFloat stat_value;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecStageReward
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 스테이지 난이도
+        public global::CookApps.AutoBattler.DifficultyType difficulty_type;
+        /// 스테이지 보상 id
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 보상 확률 유무
+        public bool prob_type;
+        /// 별 단계 구분
+        public CookApps.Obfuscator.ObfuscatorInt star_count;
+        /// 보상 획득 빈도
+        public global::CookApps.AutoBattler.FrequencyType frequency_type;
+        /// 보상 타입
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 키 값
+        public CookApps.Obfuscator.ObfuscatorInt item_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt item_count;
+        /// 보상 지급 확률
+        public CookApps.Obfuscator.ObfuscatorDouble rate;
     }
 
     [GeneratorSpecData]
