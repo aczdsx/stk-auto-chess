@@ -73,11 +73,7 @@ namespace CookApps.AutoBattler
 
         public void SetInGameBottomUI()
         {
-            _inGameBottomCharacterUI.InitData(() =>
-            {
-                _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
-                _InGameTopUI.UpdateAttrUI(AllianceType.Player);
-            });
+            _inGameBottomCharacterUI.InitData(AddCharacterToTile);
         }
 
         public void SetReadyUI()
@@ -122,6 +118,21 @@ namespace CookApps.AutoBattler
         public void SetIconColor(float fadeAlpha)
         {
             _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
+        }
+
+        private async void AddCharacterToTile(CharacterStatData statData)
+        {
+            Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
+            var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
+            int2 pos = new int2(ingameTile.X, ingameTile.Y);
+
+            await UniTask.WhenAll(new[]
+            {
+                InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
+                    typeof(CharacterStateReady), true, HpBarType.Synergy),
+            });
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
+            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
         }
     }
 }
