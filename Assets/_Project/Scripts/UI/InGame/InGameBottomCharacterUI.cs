@@ -22,6 +22,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     [SerializeField] private GameObject _readyUIObj;
 
+    [SerializeField] private CommanderSkillUI _commanderSkillUI;
+
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private Action _onNewCharacter;
@@ -37,6 +39,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         HideCharacterSelectUI(() =>
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
+            SetCommanderSkill();
         });
     }
 
@@ -78,6 +81,16 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 _characterItemList.Add(characterItem);
                 characterItem.SetData(characterStat, AddCharacterToTile);
             }
+        }
+    }
+
+    public void SetCommanderSkill()
+    {
+        int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
+        if (equippedCommanderSkill != 0)
+        {
+            var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
+            InGameCommanderManager.Instance.SetCommanderSkillData(data);
         }
     }
 
@@ -154,5 +167,15 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 typeof(CharacterStateReady), true, HpBarType.Synergy),
         });
         _onNewCharacter.Invoke();
+    }
+
+    public void SetCommanderSkillUI(float durationTime)
+    {
+        _commanderSkillUI.UpdateCommanderSkillCoolTime(durationTime);
+    }
+
+    public void SetIconColor(float fadeAlpha)
+    {
+        _commanderSkillUI.SetIconColor(fadeAlpha);
     }
 }

@@ -143,7 +143,7 @@ namespace CookApps.AutoBattler
         public void AddBuffIcon(long codeID)
         {
             // [TODO] buff, debuff icon 고민 좀만 더...
-            // CharacterEffectType type = (CharacterEffectType)codeID;
+            // EffectCodeType type = (EffectCodeType)codeID;
             // _buffDebuffList.ForEach(renderer =>
             // {
             //     if (renderer.sprite == null)

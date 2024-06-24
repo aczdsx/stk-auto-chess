@@ -9,6 +9,7 @@ TagManager:
   - ReturnObj
   - Knight
   - TutorialLevelUp
+  - CommanderSkill
   layers:
   - Default
   - TransparentFX

@@ -6,8 +6,8 @@ using CookApps.Obfuscator;
 
 namespace CookApps.BattleSystem
 {
-    [UseEffectCodeIds(300001)]
-    public class EffectCodeCommanderSkill300001 : EffectCodeGameBase
+    [UseEffectCodeIds(300002)]
+    public class EffectCodeCommanderSkill300002 : EffectCodeGameBase
     {
         private ObfuscatorInt _tileID;
         private ObfuscatorFloat _damageRate;
@@ -53,7 +53,7 @@ namespace CookApps.BattleSystem
                             CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
                             damageInfo.damageAmount = strongestCharacter.AD * _damageRate;
 
-                            tile.OccupiedCharacter.GetDamaged(damageInfo, null);
+                            tile.OccupiedCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
                         }
                     }
                 }
