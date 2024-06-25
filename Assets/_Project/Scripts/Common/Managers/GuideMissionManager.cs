@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
     public class GuideMissionManager : Singleton<GuideMissionManager>
     {
+        public Action OnGuideAlertUpdated;  // 가이드 미션 안내용 알림 갱신
+
         // 가이드 미션 수치 증가
         public void AddGuideMissionActionValue(GuideMissionType missonType, int subKey, int actionValue)
         {
@@ -32,6 +32,12 @@ namespace CookApps.AutoBattler
             {
                 lobbyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
             }
+        }
+
+        // 가이드 미션 안내 알림 갱신
+        public void UpdateGuideMissionAlert()
+        {
+            OnGuideAlertUpdated?.Invoke();
         }
     }
 }

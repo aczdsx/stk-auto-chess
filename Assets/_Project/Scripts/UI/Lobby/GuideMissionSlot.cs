@@ -129,7 +129,7 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                // todo.. 별도 가이드미션 안내 처리
+                GuideMissionManager.Instance.UpdateGuideMissionAlert();
             }
         }
     }
