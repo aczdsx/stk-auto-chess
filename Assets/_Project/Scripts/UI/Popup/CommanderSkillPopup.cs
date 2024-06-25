@@ -83,6 +83,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
+            InGameMain.GetInGameMain().SetCommanderSkillUI(UserDataManager.Instance.UserCommanderSkillData.EquippedCommanderSkillId);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 

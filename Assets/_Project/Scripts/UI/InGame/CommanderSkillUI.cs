@@ -18,8 +18,8 @@ public class CommanderSkillUI : MonoBehaviour
     public void UpdateCommanderSkillCoolTime(float elapsedTime, float durationTime)
     {
         float rate = elapsedTime / durationTime;
-        _coolTimeText.text = $"{durationTime - elapsedTime:F1}";
-        _coolTimeImage.fillAmount = rate;
+        _coolTimeText.text = elapsedTime >= durationTime ? "" : $"{durationTime - elapsedTime:F1}";
+        _coolTimeImage.fillAmount = 1 - rate;
     }
 
     public void SetIconColor(float fadeAlpha)

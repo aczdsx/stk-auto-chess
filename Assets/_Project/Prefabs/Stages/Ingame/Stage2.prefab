@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2727176103808659478}
   - component: {fileID: 8069623739096418309}
-  - component: {fileID: 5479332245343458984}
   m_Layer: 0
   m_Name: Stage2
   m_TagString: Untagged
@@ -87,21 +86,6 @@ MonoBehaviour:
   - {fileID: 2963252572996226827}
   - {fileID: 5888524910798090524}
   - {fileID: 5559212270125879094}
---- !u!114 &5479332245343458984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5254030051998982296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78b8b459ed578764ea11a6e9730bc0a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  switchObj: {fileID: 0}
-  switchThreshold: 40
-  maxFadeAlpha: 0.5
 --- !u!1 &7001103598152936705
 GameObject:
   m_ObjectHideFlags: 0

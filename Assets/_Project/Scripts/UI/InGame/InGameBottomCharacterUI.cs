@@ -132,6 +132,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
+    public void SetCommanderSkillUI(int id)
+    {
+        var image = ImageManager.Instance.GetCommanderSkillSprite(id);
+        if (image != null)
+            _commanderSkillUI.SetIcon(image);
+    }
+
     public void InitData()
     {
         _characterItemList.Clear();
@@ -150,11 +157,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // _characterStats.Add(new CharacterStatData(140502, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         // _characterStats.Add(new CharacterStatData(130501, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
 
-        var image = ImageManager.Instance.GetCommanderSkillSprite(UserDataManager.Instance.UserCommanderSkillData
-            .EquippedCommanderSkillId);
-        if (image != null)
-            _commanderSkillUI.SetIcon(image);
-
+        SetCommanderSkillUI(UserDataManager.Instance.UserCommanderSkillData.EquippedCommanderSkillId);
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {

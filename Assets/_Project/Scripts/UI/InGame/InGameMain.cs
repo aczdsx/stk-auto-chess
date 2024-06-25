@@ -142,5 +142,10 @@ namespace CookApps.AutoBattler
         {
             _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
         }
+
+        public void SetCommanderSkillUI(int equippedCommanderSkillId)
+        {
+            _inGameBottomCharacterUI.SetCommanderSkillUI(equippedCommanderSkillId);
+        }
     }
 }
