@@ -117,10 +117,11 @@ public class EffectCodeSkill1103011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                float calculatedDamageRate = _damageRate;
-
-                if (owner != null)
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
                 {
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+                    float calculatedDamageRate = _damageRate;
+
                     var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
                         tile.OccupiedCharacter, codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);

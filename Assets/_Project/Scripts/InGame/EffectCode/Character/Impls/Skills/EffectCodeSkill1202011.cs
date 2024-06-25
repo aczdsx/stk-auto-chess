@@ -118,19 +118,20 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
 
             if (tile.OccupiedCharacter != null)
             {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                {
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
 
+                    var inGameTile =
+                        InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
+                            1);
 
-
-                var inGameTile =
-                    InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
-                        1);
-
-                long effectCodeID = (long)EffectCodeNameType.BOUND;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, inGameTile.View.ID);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                    long effectCodeID = (long)EffectCodeNameType.BOUND;
+                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, inGameTile.View.ID);
+                    tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                }
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기

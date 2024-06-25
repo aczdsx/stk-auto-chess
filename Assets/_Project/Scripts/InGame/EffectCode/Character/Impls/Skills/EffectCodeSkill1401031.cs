@@ -105,17 +105,22 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
 
             if (tile.OccupiedCharacter != null)
             {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                {
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
+                        codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                Span<double> debuffStats = stackalloc double[3];
-                debuffStats.Clear();
-                debuffStats[0] = codeId;
-                debuffStats[1] = _debuffTime;
-                debuffStats[2] = _atkSpeedDownRate;
-                var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, 0, debuffStats);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+                    Span<double> debuffStats = stackalloc double[3];
+                    debuffStats.Clear();
+                    debuffStats[0] = codeId;
+                    debuffStats[1] = _debuffTime;
+                    debuffStats[2] = _atkSpeedDownRate;
+                    var effectCodeID =
+                        new EffectCodeInfo((long) EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, 0, debuffStats);
+                    tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+                }
             }
         }
 

@@ -112,9 +112,13 @@ public class EffectCodeSkill1202031 : EffectCodeCharacterBase
 
             if (tile.OccupiedCharacter != null)
             {
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                {
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
+                        codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                }
             }
         }
 
