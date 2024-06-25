@@ -78,11 +78,11 @@ namespace CookApps.AutoBattler
             {
                 _commanderSkillIconImage.sprite = ImageManager.Instance.GetCommanderSkillSprite(commanderSkillDataList[0].commander_skill_id);
 
-                baseAnimator.SetBool("_rewardOnly", false);
+                baseAnimator.SetTrigger("SetCommanderSkill");
             }
             else
             {
-                baseAnimator.SetBool("_rewardOnly", true);
+                baseAnimator.SetTrigger("SetRewardOnly");
             }
 
             // 보상 수령 처리 (지휘자 스킬은 UserData에서 이미 획득 처리)
