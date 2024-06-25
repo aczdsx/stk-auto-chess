@@ -75,7 +75,7 @@ public class FlowStateStageLobbyCombat : StateBase
         {
             Debug.LogColor($"monster 추가 : {randomMonster.monster_id}");
             var statData = new CharacterStatData(randomMonster.monster_id, randomMonster.monster_lv,
-                0, randomMonster.multiple_hp);
+                0.0001f, randomMonster.multiple_hp);
 
             InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Enemy);
             if (ingameTile != null)

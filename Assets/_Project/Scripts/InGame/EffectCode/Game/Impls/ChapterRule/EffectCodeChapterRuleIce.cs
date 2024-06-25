@@ -46,6 +46,9 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+                return;
+
             Debug.LogColor("[TEST] OnTileCharacterEnter", "blue");
             if (tile == null || character == null)
             {
