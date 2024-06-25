@@ -657,6 +657,9 @@ namespace CookApps.BattleSystem
             {
                 enemiesInPlaygroundForUpdate[i].ManagedUpdate(dt);
             }
+
+            var effectCodes = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeGameLambda.CallOnUpdateLambda, dt);
         }
 
         private void LateManagedUpdate(float dt)

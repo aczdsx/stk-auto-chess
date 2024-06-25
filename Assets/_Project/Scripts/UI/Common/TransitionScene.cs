@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
         [Header("DotColor")]
         public string _colorPropertyName = "_DotColor";
         public Color _targetColor = Color.red;
-  
+
         private CancellationTokenSource cts;
 
         private void OnEnable()
@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
                 //Radius Value
                 if (_mat.HasProperty(_radiusPropertyName)){
                     _mat.SetFloat(_radiusPropertyName, _radiusValue);
-                    Debug.Log($"Shader property {_radiusPropertyName} set to: {_radiusValue}");
+                    // Debug.Log($"Shader property {_radiusPropertyName} set to: {_radiusValue}");
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
                 if (_mat.HasProperty(_colorPropertyName))
                 {
                     _mat.SetColor(_colorPropertyName, _targetColor);
-                    Debug.Log($"Shader property {_colorPropertyName} set to: {_targetColor}");
+                    // Debug.Log($"Shader property {_colorPropertyName} set to: {_targetColor}");
                 }
                 else
                 {

@@ -294,6 +294,7 @@ MonoBehaviour:
   - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
   - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
   _vignetteImage: {fileID: 8688012833653517036}
+  _sceneAnimator: {fileID: 641470604556226063}
 --- !u!95 &641470604556226063
 Animator:
   serializedVersion: 5

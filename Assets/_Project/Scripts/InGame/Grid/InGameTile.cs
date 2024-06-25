@@ -43,12 +43,19 @@ namespace CookApps.BattleSystem
             OccupiedCharacter = character;
             var effectCodes = _ecc.GetEffectCodesByType(EffectCodeType.Tile);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeTileLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
+
+            var inGameEffectCodes = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            EffectCodeForLoopHelper.CallWithArgs(inGameEffectCodes, EffectCodeGameLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
         }
 
         public void SetUnoccupied()
         {
             var effectCodes = _ecc.GetEffectCodesByType(EffectCodeType.Tile);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeTileLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
+
+            var inGameEffectCodes = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            EffectCodeForLoopHelper.CallWithArgs(inGameEffectCodes, EffectCodeGameLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
+
             OccupiedCharacter = null;
         }
     }

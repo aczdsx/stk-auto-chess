@@ -322,7 +322,7 @@ namespace CookApps.BattleSystem
             if (CurrentTile != null)
             {
                 if (CurrentTile.OccupiedCharacter != null && CurrentTile.OccupiedCharacter == this)
-                    CurrentTile.SetOccupied(null);
+                    CurrentTile.SetUnoccupied();
             }
 
             // 새로운 타일을 현재 타일로 설정하고, 새로운 타일에 캐릭터를 설정

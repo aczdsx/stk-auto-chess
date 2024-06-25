@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
         [SerializeField] private List<Color> _stageVignetteColorList;
         [SerializeField] private RawImage _vignetteImage;
+        [SerializeField] private Animator _sceneAnimator;
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
@@ -80,6 +81,11 @@ namespace CookApps.AutoBattler
         public void SetInGameBottomUI()
         {
             _inGameBottomCharacterUI.InitData(AddCharacterToTile);
+        }
+
+        public void PlaySceneAnimation(string name)
+        {
+            _sceneAnimator.SetTrigger(name);
         }
 
         public void SetReadyUI()

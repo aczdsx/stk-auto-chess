@@ -711,6 +711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IngameMain
       objectReference: {fileID: 0}
+    - target: {fileID: 633794178064894314, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 939510957610448932, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -718,6 +722,14 @@ PrefabInstance:
     - target: {fileID: 939510957610448932, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 939510957610448932, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772568530410583562, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1920249098981403197, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -820,6 +832,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7525333084038406762, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525333084038406762, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7964939652553626783, guid: 55020f2bdaa5cf14bb3f39eb8bd6dfe3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
