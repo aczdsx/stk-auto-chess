@@ -5,6 +5,8 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 namespace CookApps.AutoBattler
 {
@@ -16,6 +18,10 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject _statisticsListParentObject;
         [SerializeField] private GameObject _statisticsListSlotObject;
+        [SerializeField] private Image _dimImg;
+        [SerializeField] private GameObject _popup;
+        [SerializeField] private CanvasGroup _canvasGroup;
+
 
         private List<BattleStatSlot> _battleStatSlotList = new List<BattleStatSlot>();
 
@@ -50,12 +56,21 @@ namespace CookApps.AutoBattler
 
         public void PlayPopupOpenAnimation()
         {
-
+            _dimImg.DOFade(0f, 0f);
+            _canvasGroup.DOFade(0f, 0f);
+            _dimImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
+            _canvasGroup.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
+            _popup.transform.DOLocalMoveX(-100f, 0.3f).SetEase(Ease.OutQuad).From();
+         
         }
 
         public void PlayPopupCloseAnimation()
         {
-
+            _dimImg.DOFade(1f, 0f);
+            _canvasGroup.DOFade(1f, 0f);
+            _dimImg.DOFade(0f, 0.3f).SetEase(Ease.OutQuad);
+            _canvasGroup.DOFade(0f, 0.3f).SetEase(Ease.OutQuad);
+            _popup.transform.DOLocalMoveX(-100f, 0.3f).SetEase(Ease.OutQuad);
         }
 
         private void SetBattleStatisticsPopup()
