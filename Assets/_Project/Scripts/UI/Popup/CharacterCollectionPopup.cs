@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
         public void SetMaterialGlobalAlpha(float duration)
         {
             _detailMainBGLayer?.IllustMaterial?.SetFloat("_GlobalAlpha", 0);
-            _detailMainBGLayer?.IllustMaterial?.DOFloat(1, "_GlobalAlpha", duration);
+            _detailMainBGLayer?.IllustMaterial?.DOFloat(1, "_GlobalAlpha", duration).SetEase(Ease.InQuad).SetDelay(0.24f);
         }
 
         public void SelectCharacterCard(int characterID)
