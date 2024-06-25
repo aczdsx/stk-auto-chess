@@ -53,6 +53,12 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnStartButtonClicked()
     {
+        if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == 0)
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
+            return;
+        }
+
         _readyUIObj.SetActive(false);
 
         InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
