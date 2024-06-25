@@ -25,7 +25,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> enemiesInPlaygroundForUpdate = new();
         private List<CharacterController> charactersInPlaygroundForUpdate = new();
 
-        private List<CharacterController> startingPlayerCharacters = new(); // [TODO] 유저 데이터에 저장 필요
+        private List<CharacterController> startingPlayerCharacters = new();
         private double _playerSumMaxHp;
         private double _enemySumMaxHp;
         private float _lastRate;
@@ -283,6 +283,7 @@ namespace CookApps.BattleSystem
         {
             startingPlayerCharacters.Clear();
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
+            UserDataManager.Instance.SetUserCharaceterBattleDeckList(startingPlayerCharacters);
 
             charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate.OrderBy(character => character.SpecCharacter.atk_range).ToList();
             enemiesInPlaygroundForUpdate = enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
@@ -290,12 +291,8 @@ namespace CookApps.BattleSystem
 
         public bool IsCheckAllPlayerCharacterAlive()
         {
-            if (startingPlayerCharacters == null) return false;
-
             for (var i = 0; i < startingPlayerCharacters.Count; i++)
             {
-                if (startingPlayerCharacters[i] == null) continue;
-
                 if (startingPlayerCharacters[i].IsAlive == false)
                 {
                     return false;

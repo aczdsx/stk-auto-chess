@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cookapps.Autobattleproject.V1;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -81,6 +82,11 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.InitData();
         }
 
+        public void SetInGameBottomUIInGuide()
+        {
+            _inGameBottomCharacterUI.CheckNewCharacter();
+        }
+
         public void PlaySceneAnimation(string name)
         {
             _sceneAnimator.SetTrigger(name);
@@ -96,6 +102,10 @@ namespace CookApps.AutoBattler
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());
         }
 
+        public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
+        {
+            _inGameBottomCharacterUI.AddCharacter(battleDeckList);
+        }
         public void SetInGameTopUI()
         {
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
@@ -123,9 +133,9 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetCommanderSkillUI(float durationTime)
+        public void SetCommanderSkillUI(float elapsedTime, float durationTime)
         {
-            _inGameBottomCharacterUI.SetCommanderSkillUI(durationTime);
+            _inGameBottomCharacterUI.SetCommanderSkillUI(elapsedTime, durationTime);
         }
 
         public void SetIconColor(float fadeAlpha)

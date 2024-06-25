@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CommanderSkillUI : MonoBehaviour
 {
     [SerializeField] private Image _iconImage;
-    [SerializeField] private Slider _coolTimeSlider;
+    [SerializeField] private Image _coolTimeImage;
+    [SerializeField] private TextMeshProUGUI _coolTimeText;
 
-    public void UpdateCommanderSkillCoolTime(float rate)
+    public void UpdateCommanderSkillCoolTime(float elapsedTime, float durationTime)
     {
-        _coolTimeSlider.value = rate;
+        float rate = elapsedTime / durationTime;
+        _coolTimeText.text = $"{durationTime - elapsedTime:F1}";
+        _coolTimeImage.fillAmount = rate;
     }
 
     public void SetIconColor(float fadeAlpha)

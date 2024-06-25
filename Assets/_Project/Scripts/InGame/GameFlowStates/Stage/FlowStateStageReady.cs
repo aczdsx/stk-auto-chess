@@ -38,6 +38,23 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
+        InGameMain.GetInGameMain().SetReadyUI();
+
+        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList();
+        foreach (var character in battleDeckList)
+        {
+            var characterData = UserDataManager.Instance.GetUserCharacter(character.CharacterId);
+            Debug.LogColor($"기존 배치 캐릭터 추가 : {character.CharacterId}");
+            var characterStat = new CharacterStatData(characterData.CharacterId, characterData.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+
+            int x = character.PositionTileX;
+            int y = character.PositionTileY;
+            int2 coordinate = new int2(x, y);
+
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate, AllianceType.Player,
+                typeof(CharacterStateReady), true, HpBarType.Synergy));
+        }
+
         // 그리드 설치
         foreach (var gridID in _specStage.obstacle_grid_id)
         {
@@ -45,14 +62,7 @@ public class FlowStateStageReady : StateBase
         }
 
         await UniTask.WhenAll(addCharacterTasks);
-
-        // [TODO] 전판 배치 정보 저장 대응
-        // foreach (var character in characters)
-        // {
-        //
-        // }
-
-        InGameMain.GetInGameMain().SetReadyUI();
+        InGameMain.GetInGameMain().AddCharacter(battleDeckList);
     }
 
     public override void StateStart()

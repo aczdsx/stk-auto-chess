@@ -171,7 +171,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         {
             _commanderSkillData.ElapsedTime += dt;
             InGameMain.GetInGameMain()
-                .SetCommanderSkillUI(_commanderSkillData.ElapsedTime / _commanderSkillData.DurationTime);
+                .SetCommanderSkillUI(_commanderSkillData.ElapsedTime, _commanderSkillData.DurationTime);
         }
     }
 

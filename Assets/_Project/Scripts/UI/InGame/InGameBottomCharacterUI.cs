@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Cookapps.Autobattleproject.V1;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -59,7 +61,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         // 통계 팝업 on
         SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>().Forget();
-
         // HideCharacterSelectUI(() =>
         // {
         // });
@@ -73,8 +74,50 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
     }
 
+    public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
+    {
+        foreach (var battleDeck in battleDeckList)
+            _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);
+        UpdateData();
+        InGameMain.GetInGameMain().SetInGameTopUI();
+    }
+
+    public void CheckNewCharacter()
+    {
+        List<CharacterStatData> priorUserCharacters = _characterStats.ToList();
+        List<CharacterStatData> userCharacters = new List<CharacterStatData>();
+        foreach (var character in UserDataManager.Instance.GetAllUserCharacterList())
+        {
+            userCharacters.Add(new CharacterStatData(character.CharacterId, character.Level,
+                GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+        }
+
+        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
+        {
+            priorUserCharacters.Add(character.GetCharacterStat());
+        }
+
+        List<CharacterStatData> uniqueCharacters = userCharacters
+            .Where(uc => priorUserCharacters.All(cs => cs.CharacterId != uc.CharacterId))
+            .ToList();
+
+        foreach (var characterStat in uniqueCharacters)
+        {
+            bool isExist = _characterItemList.Exists(l => l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
+            if (!isExist)
+            {
+                var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
+                _characterItemList.Add(characterItem);
+                characterItem.SetData(characterStat, AddCharacterToTile);
+                _characterStats.Add(characterStat);
+            }
+        }
+    }
+
     public void InitData()
     {
+        _characterItemList.Clear();
+        BMUtil.RemoveChildObjects(_inGameCharacterItemTransform);
         _characterStats = new List<CharacterStatData>();
         // _characterStats.Add(new CharacterStatData(130201, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         // _characterStats.Add(new CharacterStatData(130601, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
@@ -98,7 +141,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         foreach (var characterStat in _characterStats)
         {
-            bool isExist = _characterItemList.Exists(l => l.StatData.CharacterId == characterStat.CharacterId);
+            bool isExist = _characterItemList.Exists(l => l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
             if (!isExist)
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
@@ -210,9 +253,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
         isRunningAddCharacter = false;
     }
 
-    public void SetCommanderSkillUI(float durationTime)
+    public void SetCommanderSkillUI(float elapsedTime, float durationTime)
     {
-        _commanderSkillUI.UpdateCommanderSkillCoolTime(durationTime);
+        _commanderSkillUI.UpdateCommanderSkillCoolTime(elapsedTime, durationTime);
     }
 
     public void SetIconColor(float fadeAlpha)
