@@ -315,6 +315,8 @@ namespace CookApps.BattleSystem
         public void SetSelectedCharacter(bool isSetSelected)
         {
             _view.SetSelected(isSetSelected);
+            Color color = isSetSelected ? Color.gray : Color.white;
+            _view.SetColor(color);
         }
 
         public void ChangeOccupiedTile(InGameTile newTile)

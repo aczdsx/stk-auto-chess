@@ -10,16 +10,33 @@ namespace CookApps.AutoBattler
 {
     public class SpriteCharacterView : CachedMonoBehaviour
     {
-        [SerializeField] private Animator _animator;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Transform _rootTransform;
-        [SerializeField] private Transform _skillRootTransform;
-        [SerializeField] private Transform _rotateionRootTransform;
-        [SerializeField] private Transform _projectileTransform;
+        [SerializeField]
+        private Animator _animator;
 
-        [SerializeField] private Material _defaultMaterial;
-        [SerializeField] private Material _disorveMaterial;
-        [SerializeField] private Material _hologramMaterial;
+        [SerializeField]
+        private SpriteRenderer _spriteRenderer;
+
+        [SerializeField]
+        private Transform _rootTransform;
+
+        [SerializeField]
+        private Transform _skillRootTransform;
+
+        [SerializeField]
+        private Transform _rotateionRootTransform;
+
+        [SerializeField]
+        private Transform _projectileTransform;
+
+        [SerializeField]
+        private Material _defaultMaterial;
+
+        [SerializeField]
+        private Material _disorveMaterial;
+
+        [SerializeField]
+        private Material _hologramMaterial;
+
         private AnimationEventListener _animationEventListener;
         public bool CachedFlipX => _cachedFlipX;
         public bool CachedFront => _cachedFront;
@@ -221,7 +238,13 @@ namespace CookApps.AutoBattler
 
             if (_spriteRenderer)
                 _spriteRenderer.material.SetColor("_TintColor",
-                    new Color(1, 1, 1,1));
+                    new Color(1, 1, 1, 1));
+        }
+
+        public void SetColor(Color color)
+        {
+            if (_spriteRenderer)
+                _spriteRenderer.material.SetColor("_TintColor", color);
         }
 
         protected void OnDrawGizmos()
