@@ -40,6 +40,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
         InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         SetCommanderSkill();
+
+        // 통계 팝업 on
+        SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>().Forget();
+
         // HideCharacterSelectUI(() =>
         // {
         // });

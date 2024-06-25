@@ -77,6 +77,15 @@ namespace CookApps.BattleSystem
             return effect;
         }
 
+        public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, IFollowable parent, Vector3 offset)
+        {
+            Debug.LogColor($"vfxName : {vfxNameType}");
+            var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
+            addWaitingInGameVfxs.Enqueue(effect);
+            effect.SetFollowable(parent, offset);
+            return effect;
+        }
+
         public InGameVfx AddInGameVfx(InGameVfxNameType vfxNameType, Vector3 worldPosition)
         {
             var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);

@@ -173,7 +173,7 @@ namespace CookApps.BattleSystem
                 _hpBarView = InGameHpBarViewPool.Instance.Get();
                 _hpBarView.Initialize(statData, allianceType);
                 _hpBarView.SetHpBarType(type);
-                _view.SetHpBarView(_hpBarView);
+                _view.SetHpBarView(_hpBarView, _statData.Spec.height);
                 _view.SetFirstDirection(allianceType);
                 if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 ||
                     _statData.Spec.prefab_id == 10401)
@@ -613,8 +613,18 @@ namespace CookApps.BattleSystem
                 var loopVfxName = type.GetLoopVfxName();
                 if (loopVfxName != InGameVfxNameType.NONE)
                 {
-                    var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName, SkillRootTransformFollowable);
-                    _buffDebuffEffectViewDict.Add(type, effectView);
+                    bool isUseOffset = loopVfxName == InGameVfxNameType.fx_common_debuff_stun;
+                    if (isUseOffset)
+                    {
+                        var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName,
+                            SkillRootTransformFollowable, new Vector3(0, SpecCharacter.height, 0));
+                        _buffDebuffEffectViewDict.Add(type, effectView);
+                    }
+                    else
+                    {
+                        var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName, SkillRootTransformFollowable);
+                        _buffDebuffEffectViewDict.Add(type, effectView);
+                    }
                 }
             }
         }
@@ -914,7 +924,7 @@ namespace CookApps.BattleSystem
                 return;
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowDamageText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount, isCritical, isDoubleCritical);
+            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, isDoubleCritical);
             InGameTextViewPool.Instance.Return(textView);
         }
 
@@ -925,7 +935,7 @@ namespace CookApps.BattleSystem
                 return;
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowHealText(GetCharacterView().CachedTr.position, GetCharacterView().Height, amount);
+            await textView.ShowHealText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
             InGameTextViewPool.Instance.Return(textView);
         }
 

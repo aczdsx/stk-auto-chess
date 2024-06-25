@@ -191,6 +191,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat move_speed;
         /// 공격 범위
         public CookApps.Obfuscator.ObfuscatorInt atk_range;
+        /// 높이
+        public CookApps.Obfuscator.ObfuscatorFloat height;
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id

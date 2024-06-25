@@ -80,6 +80,7 @@ namespace CookApps.BattleSystem
             InGameTextViewPool.Instance.ReleasePool();
             InGameHpBarViewPool.Instance.Clear();
             InGameVfxManager.Instance.Clear();
+            InGameStatistics.Instance.Clear();
             ecc.Clear();
             ecc = null;
             _ingameCamera = null;

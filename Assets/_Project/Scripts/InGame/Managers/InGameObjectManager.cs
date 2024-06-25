@@ -18,6 +18,7 @@ namespace CookApps.BattleSystem
         public Transform Playground => playground;
         public InGameGrid InGameGrid => _grid;
         public InGameStage InGameStage => _stage;
+        public List<CharacterController> StartingPlayerCharacters => startingPlayerCharacters;
 
         private InGameGrid _grid;
         private InGameStage _stage;
@@ -45,7 +46,6 @@ namespace CookApps.BattleSystem
 
             playground = GameObject.Find("Playground").GetComponent<Transform>();
             startingPlayerCharacters = new();
-            ;
 
             _stage = stage;
             InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
@@ -57,7 +57,6 @@ namespace CookApps.BattleSystem
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
             InGameMainFlowManager.Instance.RemoveLateUpdateListener(LateManagedUpdate);
             playground = null;
-            startingPlayerCharacters = null;
             ClearAllCharactersInField();
             ClearAllEnemiesInField();
         }
@@ -291,8 +290,12 @@ namespace CookApps.BattleSystem
 
         public bool IsCheckAllPlayerCharacterAlive()
         {
+            if (startingPlayerCharacters == null) return false;
+
             for (var i = 0; i < startingPlayerCharacters.Count; i++)
             {
+                if (startingPlayerCharacters[i] == null) continue;
+
                 if (startingPlayerCharacters[i].IsAlive == false)
                 {
                     return false;
