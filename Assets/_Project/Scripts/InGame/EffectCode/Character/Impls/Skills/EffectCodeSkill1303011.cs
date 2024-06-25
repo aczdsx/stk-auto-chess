@@ -96,7 +96,6 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
             return;
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(owner.Target.CurrentTile, 1);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
@@ -120,14 +119,18 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                float calculatedDamageRate = _damageRate;
-                if (tile.OccupiedCharacter.HasDebuffType())
-                    calculatedDamageRate += _additionalDamageRate;
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+                    float calculatedDamageRate = _damageRate;
+                    if (tile.OccupiedCharacter.HasDebuffType())
+                        calculatedDamageRate += _additionalDamageRate;
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                    tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                        tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                }
             }
         }
 

@@ -90,7 +90,7 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
 
         foreach (var tile in inGameTiles)

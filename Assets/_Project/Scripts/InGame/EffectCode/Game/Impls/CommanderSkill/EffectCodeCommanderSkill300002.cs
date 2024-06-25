@@ -38,7 +38,7 @@ namespace CookApps.BattleSystem
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile);
             foreach (var tile in tileList)
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_01,
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_02,
                     tile.View.CachedTr.position);
 
                 if (tile.OccupiedCharacter != null)

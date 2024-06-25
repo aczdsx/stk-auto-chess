@@ -99,7 +99,7 @@ public class EffectCodeSkill1202031 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
         inGameTiles.RemoveAll(l => l.OccupiedCharacter == owner);
 
         foreach (var tile in inGameTiles)

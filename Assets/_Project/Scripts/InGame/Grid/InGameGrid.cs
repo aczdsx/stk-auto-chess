@@ -355,10 +355,10 @@ namespace CookApps.BattleSystem
             return _tiles.Where(t => t.X == ingameTile.X ||  t.Y == ingameTile.Y).ToList();
         }
 
-        public List<InGameTile> GetTileListByShapeSquare(CharacterController characterController, int size)
+        public List<InGameTile> GetTileListByShapeSquare(InGameTile pivot, int size)
         {
             List<InGameTile> tiles = new List<InGameTile>();
-            InGameTile centerTile = characterController.CurrentTile;
+            InGameTile centerTile = pivot;
 
             for (int x = centerTile.X - size; x <= centerTile.X + size; x++)
             {

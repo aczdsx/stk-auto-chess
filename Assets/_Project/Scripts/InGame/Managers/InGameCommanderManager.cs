@@ -113,7 +113,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
                             tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
                         else
                             tiles.AddRange(
-                                InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(centerTile, 1));
+                                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
 
                         ClearAndSetActive(tiles);
                         if (centerTile.OccupiedCharacter != null &&
