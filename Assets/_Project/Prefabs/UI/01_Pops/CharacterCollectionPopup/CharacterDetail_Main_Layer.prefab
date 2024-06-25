@@ -1538,7 +1538,9 @@ MonoBehaviour:
   _elementSynergyUI: {fileID: 1873847877183615232}
   _classSynergyUI: {fileID: 8087948482515040161}
   _characterNameText: {fileID: 5616445896062645701}
-  _characterGradeImage: {fileID: 1704856486836801889}
+  _characterGradeImageObject_R: {fileID: 739463009843898103}
+  _characterGradeImageObject_SR: {fileID: 7623932967679644082}
+  _characterGradeImageObject_SSR: {fileID: 3462582261833943307}
   _starObjectList:
   - {fileID: 5419483937542050126}
   - {fileID: 4193504200266189444}
