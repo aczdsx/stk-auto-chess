@@ -26,15 +26,15 @@ namespace CookApps.AutoBattler
             double def = target.DEF * (1f - defPenetration);
             double res = target.RES * (1f - resPenetration);
 
-            double damage = ad;
+            double damage = 0;
             if (def >= 0)
             {
-                damage = ad * 50f / (50f + def);
+                damage += ad * 50f / (50f + def);
             }
 
             if (res >= 0)
             {
-                damage = ap * 50f / (50f + res);
+                damage += ap * 50f / (50f + res);
             }
 
             Debug.LogColor($"[{target.SpecCharacter.prefab_id}] {damage} : {ad} : {ap} : {def} : {res}", "cyan");
