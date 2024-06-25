@@ -45,6 +45,7 @@ namespace CookApps.AutoBattler
         private bool _isClearTutorialStage = false;     // 튜토리얼 스테이지 클리어 여부 체크
         private bool _isPlayingLastStage = false;   // 챕터의 마지막 스테이지 체크용
         private bool _isEndChapter = false;         // 게임의 마지막 챕터인지 확인용
+        private bool _isWaitGuideMissionReward = false;         // 현재 가이드 미션을 클리어한 상태인지 체크
 
         protected override void OnPreEnter(object param)
         {
@@ -62,8 +63,8 @@ namespace CookApps.AutoBattler
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
             _retryStageButton?.onClick.AddListener(OnClickRetryStageButton);
 
-            var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-            if (playerCharacterList != null && playerCharacterList.Count > 0)
+            var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
+            if (_mvpCharacterData != null)
             {
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
@@ -106,16 +107,34 @@ namespace CookApps.AutoBattler
 
             _isClearTutorialStage = _isPlayingTutorialStage && _isPlayingLastStage && _isVictory;
 
-            _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage || !_isVictory);
-            _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _isVictory);
-            _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
-
+            // 승리 시 보상 및 각종 데이터 처리
             if (_isVictory)
                 CreateRewardItems();
+
+            var currentMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            if (currentMissionData != null)
+            {
+                // 가이드 미션이 완료되어 보상 수령 대기상태일 경우 처리
+                _isWaitGuideMissionReward = currentMissionData.MissionStateType == (int)MissionStateType.REWARD;
+            }
 
             // 애니메이션 연출 적용
             string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
             baseAnimator.SetTrigger(animKey);
+
+            // 버튼 상태 처리
+            if (_isWaitGuideMissionReward)
+            {
+                _retryStageButton.gameObject.SetActive(false);
+                _nextStageButton.gameObject.SetActive(false);
+                _exitButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage || !_isVictory);
+                _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _isVictory);
+                _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
+            }
         }
 
         private void OnExitButtonClicked()

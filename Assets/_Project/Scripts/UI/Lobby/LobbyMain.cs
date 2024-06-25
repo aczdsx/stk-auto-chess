@@ -305,6 +305,8 @@ namespace CookApps.AutoBattler
             if (specAccountLevelData != null)
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<AccountLevelUpWindowPopup>(specAccountLevelData).Forget();
+
+                UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
             }
         }
 
