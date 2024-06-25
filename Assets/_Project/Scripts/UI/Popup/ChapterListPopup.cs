@@ -32,6 +32,8 @@ namespace CookApps.AutoBattler
         private SpecChapter _selectedChapterData;
         public SpecChapter SelectedChapterData => _selectedChapterData;
 
+        private int _targetChapterID;
+
         protected override void Awake()
         {
             base.Awake();
@@ -88,18 +90,20 @@ namespace CookApps.AutoBattler
 
         public void SetSelectedChapterData(int targetChapterID)
         {
-            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(targetChapterID);
+            _targetChapterID = targetChapterID;
 
-            _moveChapterButton.gameObject.SetActive(_selectedChapterData != null);
+            _moveChapterButton.gameObject.SetActive(_selectedChapterData != null && _selectedChapterData.id != _targetChapterID);
 
             // 슬롯 레이어 갱신 처리
-            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_selectedChapterData.id));
+            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_targetChapterID));
         }
 
         public void RefreshSelectedLayer(bool isFirstInit)
         {
-            if (_selectedChapterData == null) return;
             if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
+
+            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(_targetChapterID);
+            if (_selectedChapterData == null) return;
 
             // 유저 데이터 처리 (현재는 챕터 이동 시 무조건 첫번째 스테이지만 저장)
             if (isFirstInit == false)
@@ -162,6 +166,8 @@ namespace CookApps.AutoBattler
             if (_selectedChapterData == null) return;
 
             RefreshSelectedLayer(false);
+
+            OnClickCloseButton();
         }
 
         private void OnClickCloseButton()

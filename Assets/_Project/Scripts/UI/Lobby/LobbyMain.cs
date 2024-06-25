@@ -150,7 +150,7 @@ namespace CookApps.AutoBattler
             var chapterSpecData = SpecDataManager.Instance.GetChapterData(stageSpecData.chapter_id, stageSpecData.difficulty_type);
 
             //_chapterImage.sprite = specStage.chapter_image;
-            _chapterNameText.SetText(chapterSpecData.name_token);
+            _chapterNameText.text = LanguageManager.Instance.GetLanguageText(chapterSpecData.name_token);
 
             int totalStageCount = SpecDataManager.Instance.GetStageCount(stageSpecData.chapter_id, DifficultyType.NORMAL);
             _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
@@ -198,7 +198,7 @@ namespace CookApps.AutoBattler
             var stageList = SpecDataManager.Instance.GetStageList(specChapterData.chapter_id, specChapterData.difficulty_type);
 
             //_chapterImage.sprite = specStage.chapter_image;
-            _chapterNameText.SetText(specChapterData.name_token);
+            _chapterNameText.text = LanguageManager.Instance.GetLanguageText(specChapterData.name_token);
 
             int totalStageCount = stageList.Count;
             _stageProgressText.SetText("{0}/{1}", specStageData.stage_number, totalStageCount);

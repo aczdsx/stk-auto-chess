@@ -1518,6 +1518,8 @@ MonoBehaviour:
   _gradeImage: {fileID: 2059757146688642251}
   _synergyUI: {fileID: 1657964940298068092}
   _positionSynergyUI: {fileID: 8270213376677612465}
+  _shadowObject: {fileID: 1898000421976819456}
+  _outlineObject: {fileID: 6665281667852903684}
   _outlineActiveObject: {fileID: 3217428687912921810}
   _outlineInactiveObject: {fileID: 118267022626184590}
   _starObjectList:
@@ -3587,6 +3589,10 @@ PrefabInstance:
     - target: {fileID: 7858098186719436169, guid: 160516f092020c24289ad4a961df7d82, type: 3}
       propertyPath: m_Name
       value: CharacterGradeStar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420305609017516969, guid: 160516f092020c24289ad4a961df7d82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

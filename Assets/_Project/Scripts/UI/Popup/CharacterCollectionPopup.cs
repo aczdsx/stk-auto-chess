@@ -45,8 +45,8 @@ namespace CookApps.AutoBattler
         // 외부 애니메이션 연출용 함수
         public void SetMaterialGlobalAlpha(float duration)
         {
-            _detailMainBGLayer?.IllustMaterial?.SetFloat("Global Alpha", 0);
-            _detailMainBGLayer?.IllustMaterial?.DOFloat(1, "Global Alpha", duration);
+            _detailMainBGLayer?.IllustMaterial?.SetFloat("_GlobalAlpha", 0);
+            _detailMainBGLayer?.IllustMaterial?.DOFloat(1, "_GlobalAlpha", duration).SetEase(Ease.InQuad).SetDelay(0.24f);
         }
 
         public void SelectCharacterCard(int characterID)

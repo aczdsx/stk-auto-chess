@@ -27,6 +27,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _positionSynergyUI;
 
         [Space(10)]
+        [SerializeField] private GameObject _shadowObject;
+        [SerializeField] private GameObject _outlineObject;
         [SerializeField] private GameObject _outlineActiveObject;
         [SerializeField] private GameObject _outlineInactiveObject;
 
@@ -89,15 +91,24 @@ namespace CookApps.AutoBattler
             {
                 // newObject.GetComponent<UIEffectController>()?.SetUIEffectMode(haveCharacter ? EffectMode.None : EffectMode.Grayscale);
                 newObject.GetComponentInChildren<UIEffect>().effectMode = haveCharacter ? EffectMode.None : EffectMode.Grayscale;
+
+                if (!haveCharacter)
+                {
+                    var newColor = BMUtil.ChangeColorAlpha(newObject.GetComponentInChildren<Image>().color, 0.46f);
+                    newObject.GetComponentInChildren<Image>().color = newColor;
+                }
             }
 
-            SetStarObject(_specCharacterData.grade_type);
+            SetStarObject(_specCharacterData.grade_type, haveCharacter);
 
             // 캐릭터 조각 슬라이더 관련 처리
             _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterData.need_piece}";
             _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / _specCharacterData.need_piece;
 
             // 캐릭터 보유 여부 관련 처리
+            _shadowObject.SetActive(!haveCharacter);
+
+            _outlineObject.SetActive(haveCharacter);
             _outlineActiveObject.SetActive(haveCharacter);
             _outlineInactiveObject.SetActive(!haveCharacter);
 
@@ -107,11 +118,12 @@ namespace CookApps.AutoBattler
             _SSRBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type == GradeType.LEGEND);
         }
 
-        private void SetStarObject(GradeType gradeType)
+        private void SetStarObject(GradeType gradeType, bool isHaveCharacter)
         {
             for (int i = 0; i < _starObjectList.Count; i++)
             {
                 _starObjectList[i].SetActive(i <= (int)gradeType);
+                _starObjectList[i].GetComponent<CharacterGradeStar>().SetStar(isHaveCharacter);
             }
         }
 

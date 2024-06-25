@@ -84,6 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4261015120809649071}
+  - component: {fileID: 3524843200159272187}
   m_Layer: 5
   m_Name: CharacterGradeStar
   m_TagString: Untagged
@@ -112,6 +113,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3524843200159272187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7858098186719436169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e909a6ec0d72146b1b4f372a8a1e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onObject: {fileID: 7222532178438725677}
+  _offObject: {fileID: 8420305609017516969}
 --- !u!1 &8420305609017516969
 GameObject:
   m_ObjectHideFlags: 0
