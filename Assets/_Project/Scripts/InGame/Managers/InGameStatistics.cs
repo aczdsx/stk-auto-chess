@@ -120,6 +120,16 @@ namespace CookApps.BattleSystem
             return damageAmount;
         }
 
+        public double GetTotalAttackDamageAmount()
+        {
+            var damageAmount = 0d;
+            foreach (var log in statisticsData.combatLogs)
+            {
+                damageAmount += log.value;
+            }
+            return damageAmount;
+        }
+
         public double GetTakenDamageAmount(int id)
         {
             var damageAmount = 0d;
