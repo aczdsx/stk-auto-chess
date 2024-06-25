@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using ClockStone;
+using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -221,6 +222,12 @@ namespace CookApps.AutoBattler
             //     PopupManager.Instance.DeleteAllPopup();
             //     GameSceneManager.MoveScene(Scene.Lobby);
             // }
+
+            var gachaPopup = SceneUILayerManager.Instance.GetUILayer<GachaPopup>();
+            if (gachaPopup != null)
+            {
+                gachaPopup.SetCanvasTargetDisplay(0);
+            }
 
             Destroy(this.gameObject);
         }
