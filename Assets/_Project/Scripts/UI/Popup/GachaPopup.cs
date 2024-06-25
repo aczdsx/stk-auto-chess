@@ -13,6 +13,8 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private CAButton _backButton;
 
+        private Canvas cc;
+
         [Space(10)]
         [SerializeField] private CAButton _gacha1Button;
         [SerializeField] private CAButton _gacha10Button;
@@ -38,10 +40,13 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.C_Ticket);
 
-
-
             // test
             //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));
+        }
+
+        public void SetCanvasTargetDisplay(int targetDisplay)
+        {
+            GameObject.Find("MainCanvas").GetComponent<Canvas>().targetDisplay = targetDisplay;
         }
 
         private void OnClickGacha1Button()
@@ -78,6 +83,8 @@ namespace CookApps.AutoBattler
 
             // 가이드 미션 체크
             UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
+
+            SetCanvasTargetDisplay(1);
         }
 
         private void OnClickGacha10Button()
@@ -118,6 +125,8 @@ namespace CookApps.AutoBattler
 
             // 가이드 미션 체크
             UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
+
+            SetCanvasTargetDisplay(1);
         }
 
         private void OnClickCloseButton()

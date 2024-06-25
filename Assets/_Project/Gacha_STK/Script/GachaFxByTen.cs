@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using PrimeTween;
@@ -794,6 +795,13 @@ namespace CookApps.AutoBattler
             // }
             //
             //
+
+            var gachaPopup = SceneUILayerManager.Instance.GetUILayer<GachaPopup>();
+            if (gachaPopup != null)
+            {
+                gachaPopup.SetCanvasTargetDisplay(0);
+            }
+
             Destroy(this.gameObject);
         }
 
