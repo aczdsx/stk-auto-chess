@@ -468,6 +468,32 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        // 해당 스테이지 데이터 기준 다음 스테이지 정보 반환
+        public SpecStage GetNextStageData(int targetStageID)
+        {
+            SpecStage resultData = null;
+
+            var targetStageData = GetStageData(targetStageID);
+            if (targetStageData == null) return resultData;
+
+            var lastSpecStage = GetLastStageData(targetStageData.chapter_id, targetStageData.difficulty_type);
+            bool isPlayingLastStage = lastSpecStage != null && lastSpecStage.stage_id == targetStageData.stage_id;
+            if (isPlayingLastStage)
+            {
+                // 다음 챕터 존재 여부 확인 (챕터 데이터가 없을 경우 null을 리턴함)
+                int nextChpaterID = lastSpecStage.chapter_id + 1;
+                resultData = GetStageData(nextChpaterID, 1, lastSpecStage.difficulty_type);
+            }
+            else
+            {
+                // 다음 스테이지 데이터 확인
+                int nextStageNumber = targetStageData.stage_number + 1;
+                resultData = GetStageData(targetStageData.chapter_id, nextStageNumber, targetStageData.difficulty_type);
+            }
+
+            return resultData;
+        }
+
         // 해당 스테이지가 마지막 스테이지인지 체크
         public bool IsLastStage(int stageID)
         {
