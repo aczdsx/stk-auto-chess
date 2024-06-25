@@ -38,6 +38,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _readyUIObj.SetActive(false);
         HideCharacterSelectUI(() =>
         {
+            InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
             SetCommanderSkill();
         });

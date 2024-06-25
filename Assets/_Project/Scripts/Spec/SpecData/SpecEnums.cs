@@ -34,6 +34,7 @@ namespace CookApps.AutoBattler
         BOUND = 1100000003,
         SILENCE = 1100000004,
         CHAPTER_FIRE = 1200000001,
+        CHAPTER_ICE = 1200000002,
         BUFF_AD_UP = 2000000001,
         BUFF_AD_PERCENT_UP = 2000000002,
         BUFF_AP_UP = 2000000003,
@@ -59,6 +60,7 @@ namespace CookApps.AutoBattler
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
         DEBUFF_FIRE = 2100000004,
+        DEBUFF_ICE = 2100000005,
     }
 
     public enum GradeType
@@ -320,6 +322,10 @@ namespace CookApps.AutoBattler
         fx_common_chapter1 = 79,
         fx_common_commander_skill_01 = 80,
         Skill_102021 = 81,
+        fx_common_commander_skill_02 = 82,
+        fx_common_trap_fire = 83,
+        fx_common_trap_ice_01 = 84,
+        fx_common_trap_ice_02 = 85,
     }
 
     public enum GlobalEffectProviderType

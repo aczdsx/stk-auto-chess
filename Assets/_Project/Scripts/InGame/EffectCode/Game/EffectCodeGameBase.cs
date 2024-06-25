@@ -14,6 +14,10 @@ namespace CookApps.BattleSystem
         public virtual void OnTileCharacterExit(InGameTile tile, CharacterController character)
         {
         }
+
+        public virtual void OnUpdate(float dt)
+        {
+        }
     }
 
     public static class EffectCodeGameLambda
@@ -30,6 +34,14 @@ namespace CookApps.BattleSystem
             if (effectCode is EffectCodeGameBase effectCodeGame)
             {
                 effectCodeGame.OnTileCharacterExit(tile, character);
+            }
+        };
+
+        public static Action<EffectCodeBase, float> CallOnUpdateLambda = (effectCode, dt) =>
+        {
+            if (effectCode is EffectCodeGameBase effectCodeGame)
+            {
+                effectCodeGame.OnUpdate(dt);
             }
         };
     }
