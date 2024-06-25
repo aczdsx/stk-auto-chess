@@ -11,6 +11,7 @@ namespace CookApps.AutoBattler
     public class ChapterListPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;
+        [SerializeField] private CAButton _dimCloseButton;
 
         [Header("Chapter List Layer")]
         [SerializeField] private ScrollRect _chapterScrollRect;
@@ -34,6 +35,7 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _closeButton.onClick.AddListener(OnClickCloseButton);
+            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
         }
 
         protected override void OnDestroy()
@@ -41,6 +43,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -56,6 +59,9 @@ namespace CookApps.AutoBattler
             RefreshSelectedLayer(_selectedChapterData.id, true);
 
             _chapterScrollRect.verticalNormalizedPosition = 1;
+
+            // 연출 적용
+            baseAnimator.SetTrigger("SetEntry");
         }
 
         public void RefreshUI()
@@ -86,6 +92,9 @@ namespace CookApps.AutoBattler
             {
                 var firstSpecStage = SpecDataManager.Instance.GetStageData(_selectedChapterData.chapter_id, 1, _selectedChapterData.difficulty_type);
                 UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.stage_id, true);
+
+                // 연출 적용
+                baseAnimator.SetTrigger("SetSelect");
             }
 
             // 팝업 관련 처리 (하단 정보, 슬라이더)
