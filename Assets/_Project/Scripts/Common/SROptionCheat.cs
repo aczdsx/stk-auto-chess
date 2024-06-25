@@ -51,6 +51,8 @@ public partial class SROptions
     [Category("유저 정보 관련")]
     public void 유저경험치증가()
     {
+        UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
+
         UserDataManager.Instance.AddUserLevelExp(추가유저경험치);
 
         var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
