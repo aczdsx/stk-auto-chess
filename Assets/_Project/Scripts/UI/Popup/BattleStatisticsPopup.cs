@@ -35,6 +35,8 @@ namespace CookApps.AutoBattler
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             SetBattleStatisticsPopup();
+
+            PlayPopupOpenAnimation();
         }
 
         protected override void OnPreExit()
@@ -42,6 +44,18 @@ namespace CookApps.AutoBattler
             base.OnPreExit();
 
             ClearPopup();
+
+            PlayPopupCloseAnimation();
+        }
+
+        public void PlayPopupOpenAnimation()
+        {
+
+        }
+
+        public void PlayPopupCloseAnimation()
+        {
+
         }
 
         private void SetBattleStatisticsPopup()
