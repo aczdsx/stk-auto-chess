@@ -10,6 +10,11 @@ public class CommanderSkillUI : MonoBehaviour
     [SerializeField] private Image _coolTimeImage;
     [SerializeField] private TextMeshProUGUI _coolTimeText;
 
+    public void SetIcon(Sprite sprite)
+    {
+        _iconImage.sprite = sprite;
+    }
+
     public void UpdateCommanderSkillCoolTime(float elapsedTime, float durationTime)
     {
         float rate = elapsedTime / durationTime;

@@ -150,6 +150,11 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // _characterStats.Add(new CharacterStatData(140502, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         // _characterStats.Add(new CharacterStatData(130501, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
 
+        var image = ImageManager.Instance.GetCommanderSkillSprite(UserDataManager.Instance.UserCommanderSkillData
+            .EquippedCommanderSkillId);
+        if (image != null)
+            _commanderSkillUI.SetIcon(image);
+
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
@@ -271,7 +276,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         isRunningAddCharacter = false;
     }
 
-    public void SetCommanderSkillUI(float elapsedTime, float durationTime)
+    public void SetCommanderSkillCoolTime(float elapsedTime, float durationTime)
     {
         _commanderSkillUI.UpdateCommanderSkillCoolTime(elapsedTime, durationTime);
     }

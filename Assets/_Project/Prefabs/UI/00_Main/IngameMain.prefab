@@ -11621,9 +11621,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_MasterSkill
       objectReference: {fileID: 0}
+    - target: {fileID: 4314205316992832440, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4821035711983739333, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7645300314230458462, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_AnchorMax.y

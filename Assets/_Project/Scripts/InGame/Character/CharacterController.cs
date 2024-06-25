@@ -236,25 +236,51 @@ namespace CookApps.BattleSystem
             }
         }
 
+        //[TODO] 나중에 리펙토링 필요
         public void AddSynergyEffectCode()
         {
             foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
             {
                 if (elementType != ElementType.NONE)
                 {
-                    Span<double> stats = stackalloc double[1];
-
-                    int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
-                    if (synergyCount > 0)
+                    bool isEffectAllCharacter = elementType == ElementType.WATER || elementType == ElementType.LIGHT;
+                    if (isEffectAllCharacter)
                     {
-                        var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
-                        var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
-                        if (data.grade > 0)
-                        {
-                            stats[0] = data.stat_value;
+                        Span<double> stats = stackalloc double[1];
 
-                            var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
-                            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                        int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
+                        if (synergyCount > 0)
+                        {
+                            var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
+                            var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                            if (data.grade > 0)
+                            {
+                                stats[0] = data.stat_value;
+
+                                var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
+                                ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (elementType == _statData.Spec.element_type)
+                        {
+                            Span<double> stats = stackalloc double[1];
+
+                            int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
+                            if (synergyCount > 0)
+                            {
+                                var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
+                                var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                                if (data.grade > 0)
+                                {
+                                    stats[0] = data.stat_value;
+
+                                    var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
+                                    ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+                                }
+                            }
                         }
                     }
                 }
@@ -262,11 +288,12 @@ namespace CookApps.BattleSystem
 
             foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
             {
-                if (positionType != CharacterPositionType.NONE)
+                if (positionType == _statData.Spec.character_position_type)
                 {
                     Span<double> stats = stackalloc double[1];
 
-                    int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
+                    int synergyCount =
+                        InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
                     if (synergyCount > 0)
                     {
                         var list = SpecDataManager.Instance.GetSpecSynergyList(positionType);
