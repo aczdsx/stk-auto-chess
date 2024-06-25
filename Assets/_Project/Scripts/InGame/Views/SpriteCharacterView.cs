@@ -21,10 +21,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Material _disorveMaterial;
         [SerializeField] private Material _hologramMaterial;
         private AnimationEventListener _animationEventListener;
-        public CharacterStatData GetStatData() => _statData;
         public bool CachedFlipX => _cachedFlipX;
         public bool CachedFront => _cachedFront;
-        public float Height => 2.0f;
         private readonly float _hitDurationTime = 0.25f;
         public event Action<AnimationKey, AnimationEventKey> OnAnimationEvent;
 
@@ -32,7 +30,6 @@ namespace CookApps.AutoBattler
         private GameObject _instance;
         private bool _cachedFlipX;
         private bool _cachedFront;
-        private CharacterStatData _statData;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
 
         public Transform SkillRootTransform => _skillRootTransform;
@@ -169,11 +166,11 @@ namespace CookApps.AutoBattler
             DoDeadAction(clip).Forget();
         }
 
-        public void SetHpBarView(HpBarView hpBarView)
+        public void SetHpBarView(HpBarView hpBarView, float height)
         {
             hpBarView.transform.SetParent(_rotateionRootTransform);
             hpBarView.CachedTr.position = CachedTr.position;
-            hpBarView.transform.localPosition = new Vector3(0, Height, 0);
+            hpBarView.transform.localPosition = new Vector3(0, height, 0);
             hpBarView.transform.localRotation = Quaternion.identity;
             hpBarView.transform.localScale = new Vector3(3, 3, 3);
         }

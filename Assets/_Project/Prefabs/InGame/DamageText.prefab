@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &348241353450162570
 RectTransform:
   m_ObjectHideFlags: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4390833
+    rgba: 4292276991
   m_fontColor: {r: 1, g: 0.9494737, b: 0.84000003, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtDamage: {fileID: 0}
   _textCritDamage: {fileID: 0}
+  _healDamage: {fileID: 0}
   _root: {fileID: 348241353450162570}
   _animator: {fileID: 0}
   _heightOffset: 0.3
@@ -531,6 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtDamage: {fileID: 6364900939099001491}
   _textCritDamage: {fileID: 7259707319273919424}
+  _healDamage: {fileID: 0}
   _root: {fileID: 5851131040658997946}
   _animator: {fileID: 4378550466312692077}
   _heightOffset: 0.3
@@ -709,6 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtDamage: {fileID: 0}
   _textCritDamage: {fileID: 0}
+  _healDamage: {fileID: 0}
   _root: {fileID: 5022929028321057971}
   _animator: {fileID: 0}
   _heightOffset: 0.3

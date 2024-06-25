@@ -12,6 +12,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private TMP_Text _txtDamage;
         [SerializeField] private TMP_Text _textCritDamage;
+        [SerializeField] private TMP_Text _healDamage;
 
         [SerializeField] private Transform _root;
         [SerializeField] private Animator _animator;
@@ -41,8 +42,8 @@ namespace CookApps.AutoBattler
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
         {
-            _damageText = _txtDamage;
-            _damageText.text = $"{healAmount}";
+            _damageText = _healDamage;
+            _damageText.text = $"+{healAmount}";
 
             _xOffset = Random.Range(-0.5f, 0.5f);
 
