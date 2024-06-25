@@ -937,18 +937,26 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile,
-                    Target.CurrentTile);
-                if (bestTile == CurrentTile)
+                Target = InGameObjectManager.Instance.GetNearestTarget(this);
+                if (Target == null)
                 {
-                    GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
                     AddNextState<CharacterStateIdle>();
                 }
                 else
                 {
-                    GetCharacterView().LookAt(CurrentTile, bestTile);
-                    ChangeOccupiedTile(bestTile);
-                    AddNextState<CharacterStateMove>();
+                    InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile,
+                        Target.CurrentTile);
+                    if (bestTile == CurrentTile)
+                    {
+                        GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                        AddNextState<CharacterStateIdle>();
+                    }
+                    else
+                    {
+                        GetCharacterView().LookAt(CurrentTile, bestTile);
+                        ChangeOccupiedTile(bestTile);
+                        AddNextState<CharacterStateMove>();
+                    }
                 }
             }
         }

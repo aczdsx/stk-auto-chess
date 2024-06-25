@@ -46,6 +46,7 @@ public class CharacterStateMove : CharacterStateBase
                 if (characCtrl == null)
                     return;
 
+
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
                 characCtrl.MoveCharacter(isInRange);
             }
