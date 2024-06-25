@@ -21,8 +21,6 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
-        public InGameBottomCharacterUI InGameBottomCharacterUI => _inGameBottomCharacterUI;
-
         public float InGameTime => _inGameTime;
         [SerializeField] private InGameTopUI _InGameTopUI;
         [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
@@ -80,7 +78,7 @@ namespace CookApps.AutoBattler
 
         public void SetInGameBottomUI()
         {
-            _inGameBottomCharacterUI.InitData(AddCharacterToTile);
+            _inGameBottomCharacterUI.InitData();
         }
 
         public void PlaySceneAnimation(string name)
@@ -91,17 +89,20 @@ namespace CookApps.AutoBattler
         public void SetReadyUI()
         {
             SetInGameBottomUI();
+            SetInGameTopUI();
+            _inGameTime = InGameMaxTime;
 
+            // 다이얼로그 체크
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());
+        }
+
+        public void SetInGameTopUI()
+        {
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
 
             _InGameTopUI.UpdateAttrUI(AllianceType.Player);
             _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
-
-            _inGameTime = InGameMaxTime;
-
-            // 다이얼로그 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());
         }
 
         private void ManagedUpdate(float dt)
@@ -130,21 +131,6 @@ namespace CookApps.AutoBattler
         public void SetIconColor(float fadeAlpha)
         {
             _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
-        }
-
-        private async void AddCharacterToTile(CharacterStatData statData)
-        {
-            Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
-            var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
-            int2 pos = new int2(ingameTile.X, ingameTile.Y);
-
-            await UniTask.WhenAll(new[]
-            {
-                InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
-                    typeof(CharacterStateReady), true, HpBarType.Synergy),
-            });
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
-            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
         }
     }
 }

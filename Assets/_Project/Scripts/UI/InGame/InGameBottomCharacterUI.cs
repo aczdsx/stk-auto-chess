@@ -12,21 +12,37 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameBottomCharacterUI : MonoBehaviour
 {
-    [SerializeField] private CAButton _startButton;
-    [SerializeField] private CAButton _CommanderSkillButton;
-    [SerializeField] private Transform _characterSelectedTransform;
-    [SerializeField] private Transform _rightTransform;
-    [SerializeField] private Image _returnImage;
-    [SerializeField] private InGameCharacterItem _ingameCharacterItemPrefab;
-    [SerializeField] private Transform _inGameCharacterItemTransform;
+    [SerializeField]
+    private CAButton _startButton;
 
-    [SerializeField] private GameObject _readyUIObj;
+    [SerializeField]
+    private CAButton _CommanderSkillButton;
 
-    [SerializeField] private CommanderSkillUI _commanderSkillUI;
+    [SerializeField]
+    private Transform _characterSelectedTransform;
+
+    [SerializeField]
+    private Transform _rightTransform;
+
+    [SerializeField]
+    private Image _returnImage;
+
+    [SerializeField]
+    private InGameCharacterItem _ingameCharacterItemPrefab;
+
+    [SerializeField]
+    private Transform _inGameCharacterItemTransform;
+
+    [SerializeField]
+    private GameObject _readyUIObj;
+
+    [SerializeField]
+    private CommanderSkillUI _commanderSkillUI;
 
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
-    private Action<CharacterStatData> _onNewCharacter;
+    private bool isRunningAddCharacter;
+
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnStartButtonClicked);
@@ -57,10 +73,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
     }
 
-    public void InitData(Action<CharacterStatData> onNewCharacter)
+    public void InitData()
     {
-        _onNewCharacter = onNewCharacter;
-
         _characterStats = new List<CharacterStatData>();
         // _characterStats.Add(new CharacterStatData(130201, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         // _characterStats.Add(new CharacterStatData(130601, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
@@ -78,7 +92,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
-            _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
+            _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level,
+                GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
 
         foreach (var characterStat in _characterStats)
@@ -163,10 +178,36 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private async void AddCharacterToTile(CharacterStatData statData)
     {
-        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
-        UpdateData();
+        if (isRunningAddCharacter)
+            return;
 
-        _onNewCharacter.Invoke(statData);
+        isRunningAddCharacter = true;
+        var userLevelData =
+            SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
+
+        if (userLevelData.squad_count < InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
+        }
+        else
+        {
+            _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+            UpdateData();
+
+            Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
+            var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
+            int2 pos = new int2(ingameTile.X, ingameTile.Y);
+
+            await UniTask.WhenAll(new[]
+            {
+                InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
+                    typeof(CharacterStateReady), true, HpBarType.Synergy),
+            });
+
+            InGameMain.GetInGameMain().SetInGameTopUI();
+        }
+
+        isRunningAddCharacter = false;
     }
 
     public void SetCommanderSkillUI(float durationTime)
