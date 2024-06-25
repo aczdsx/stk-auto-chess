@@ -85,6 +85,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -94,7 +95,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
             return;
 
         // 나한테 붙은 vfx
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 2);
         if (inGameTiles != null)
@@ -102,7 +103,6 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
             foreach (var tile in inGameTiles)
             {
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.OccupiedCharacter.SkillRootTransformFollowable);
 
                 Span<double> eccStats = stackalloc double[3];
                 eccStats.Clear();
