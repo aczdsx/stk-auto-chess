@@ -16,23 +16,29 @@ namespace CookApps.AutoBattler
     {
         private const int STATISTICS_UPDATE_TIME = 500; // 밀리 세컨즈
 
+        [SerializeField] private CAButton _closeButton;
         [SerializeField] private GameObject _statisticsListParentObject;
         [SerializeField] private GameObject _statisticsListSlotObject;
         [SerializeField] private Image _dimImg;
         [SerializeField] private GameObject _popup;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-
         private List<BattleStatSlot> _battleStatSlotList = new List<BattleStatSlot>();
+
+        private InGameBottomCharacterUI _parentUI;
 
         protected override void Awake()
         {
             base.Awake();
+
+            _closeButton.onClick.AddListener(OnClickCloseButton);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
+
+            _closeButton.onClick.RemoveListener(OnClickCloseButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -40,9 +46,13 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
+            _parentUI = param as InGameBottomCharacterUI;
+
             SetBattleStatisticsPopup();
 
             PlayPopupOpenAnimation();
+
+            _parentUI?.ChangeStatisticsButtonActiveState(false);
         }
 
         protected override void OnPreExit()
@@ -52,6 +62,8 @@ namespace CookApps.AutoBattler
             ClearPopup();
 
             PlayPopupCloseAnimation();
+
+            _parentUI?.ChangeStatisticsButtonActiveState(true);
         }
 
         public void PlayPopupOpenAnimation()
@@ -61,7 +73,7 @@ namespace CookApps.AutoBattler
             _dimImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
             _canvasGroup.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
             _popup.transform.DOLocalMoveX(-100f, 0.3f).SetEase(Ease.OutQuad).From();
-         
+
         }
 
         public void PlayPopupCloseAnimation()
@@ -105,6 +117,11 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_statisticsListParentObject.transform);
 
             _battleStatSlotList.Clear();
+        }
+
+        private void OnClickCloseButton()
+        {
+            SceneUILayerManager.Instance.PopUILayer(this);
         }
     }
 }

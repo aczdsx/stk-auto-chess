@@ -21,6 +21,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private CAButton _CommanderSkillButton;
 
     [SerializeField]
+    private CAButton _statisticButton;
+
+    [SerializeField]
     private Transform _characterSelectedTransform;
 
     [SerializeField]
@@ -49,6 +52,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     {
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         _CommanderSkillButton?.onClick.AddListener(OnClickCommanderSkillButton);
+        _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
 
     private void OnStartButtonClicked()
@@ -65,11 +69,14 @@ public class InGameBottomCharacterUI : MonoBehaviour
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         SetCommanderSkill();
 
-        // 통계 팝업 on
-        SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>().Forget();
         // HideCharacterSelectUI(() =>
         // {
         // });
+    }
+
+    private void OnClickStatisticButton()
+    {
+        SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
     }
 
     private void OnClickCommanderSkillButton()
@@ -78,6 +85,11 @@ public class InGameBottomCharacterUI : MonoBehaviour
             return;
 
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
+    }
+
+    public void ChangeStatisticsButtonActiveState(bool isOn)
+    {
+        _statisticButton.gameObject.SetActive(isOn);
     }
 
     public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)

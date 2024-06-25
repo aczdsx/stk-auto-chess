@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
+  _closeButton: {fileID: 7784640342093919605}
   _statisticsListParentObject: {fileID: 1391949885790292899}
   _statisticsListSlotObject: {fileID: 778229258920041243}
   _dimImg: {fileID: 5547279661320057692}
@@ -856,7 +857,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4274122195046036543}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
