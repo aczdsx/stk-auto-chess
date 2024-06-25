@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
 
             //[TODO] 아웃게임 챕터 불러오기
-            StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Outgame_Stage_{chapter}.prefab");
+            StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Outgame/Outgame_Stage_{chapter}.prefab");
         }
 
         public static void UnloadResources()
