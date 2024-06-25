@@ -34,8 +34,10 @@ namespace CookApps.BattleSystem
 
         private void SkillAction()
         {
+            InGameManager.Instance.IngameCamera.ShakeCamera(0.5f, 0.5f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile);
+
             foreach (var tile in tileList)
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_01,

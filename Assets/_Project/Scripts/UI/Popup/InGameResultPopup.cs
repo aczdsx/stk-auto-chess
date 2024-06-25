@@ -106,8 +106,8 @@ namespace CookApps.AutoBattler
 
             _isClearTutorialStage = _isPlayingTutorialStage && _isPlayingLastStage && _isVictory;
 
-            _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage);
-            _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage);
+            _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage || !_isVictory);
+            _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _isVictory);
             _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
 
             if (_isVictory)
@@ -146,6 +146,7 @@ namespace CookApps.AutoBattler
                 targetStageNumber++;
             }
 
+            //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame", (targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }
 

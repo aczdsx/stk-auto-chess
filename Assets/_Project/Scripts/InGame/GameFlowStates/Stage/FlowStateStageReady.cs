@@ -46,18 +46,28 @@ public class FlowStateStageReady : StateBase
 
         await UniTask.WhenAll(addCharacterTasks);
 
+        // [TODO] 전판 배치 정보 저장 대응
+        // foreach (var character in characters)
+        // {
+        //
+        // }
+
         InGameMain.GetInGameMain().SetReadyUI();
     }
 
     public override void StateStart()
     {
-        //[TODO] 나중에 데이터로 뺄 부분
-        if (_specStage.chapter_id == 2)
+        if (_specStage.chapter_rule_tile.Length > 0)
         {
-            Span<double> debuffStats = stackalloc double[1];
+            Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length];
             debuffStats.Clear();
-            debuffStats[0] = 5;
-            var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.CHAPTER_FIRE, 0, debuffStats);
+
+            debuffStats[0] = _specStage.effect_code_stat;
+            for (int i = 1; i < _specStage.chapter_rule_tile.Length; i++)
+            {
+                debuffStats[i] = _specStage.chapter_rule_tile[i];
+            }
+            var effectCodeID = new EffectCodeInfo((long)_specStage.effect_code_name, 0, debuffStats);
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
         }
     }

@@ -10,6 +10,8 @@ namespace CookApps.AutoBattler
 
         public UserBasicData UserBasicData => userBasicData;
 
+        public int PrevAccountLevel { get; set; } = 1;      // 유저 계정 레벨업 체크용 이전 레벨 데이터
+
         [Initialize(DataCategory.UserData)]
         private void Initialize_BasicData(string data)
         {
@@ -25,10 +27,14 @@ namespace CookApps.AutoBattler
 
                     TotalGachaCount = 0,
                 };
+                PrevAccountLevel = userBasicData.Level;
+
                 return;
             }
 
             userBasicData = MessageUtility.FromBase64String<UserBasicData>(data);
+
+            PrevAccountLevel = userBasicData.Level;
         }
 
         [Clear]

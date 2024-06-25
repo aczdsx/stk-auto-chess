@@ -12,6 +12,7 @@ namespace CookApps.BattleSystem
     {
         private ObfuscatorLong codeId;
         public long CodeId => codeId;
+        public int StatsLength => statsLength;
         private int priority;
         public int Priority => priority;
         private ObfuscatorDouble stat1;

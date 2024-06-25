@@ -38,6 +38,7 @@ public class CommanderSkillData
 public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
     IEndDragHandler
 {
+    // [TODO] switchObj 추가 필요
     public GameObject switchObj;
     public float switchThreshold = 40f;
     public float maxFadeAlpha = 0.5f;
@@ -93,8 +94,11 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
             else
             {
                 Vector3 worldPos = HandleRuntimeDrag(eventData);
-                switchObj.SetActive(true);
-                switchObj.transform.position = worldPos;
+                if (switchObj != null)
+                {
+                    switchObj.SetActive(true);
+                    switchObj.transform.position = worldPos;
+                }
 
                 if (Physics.Raycast(_mainCamera.ScreenPointToRay(eventData.position), out RaycastHit hit))
                 {
@@ -144,7 +148,8 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
             return;
         }
 
-        switchObj.SetActive(false);
+        if (switchObj)
+            switchObj.SetActive(false);
         _isDragging = false;
         ClearAndSetActive(null);
 

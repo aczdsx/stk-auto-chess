@@ -113,17 +113,20 @@ namespace CookApps.AutoBattler
                     _guideMissionSlot?.RefreshGuideMissionSlot();   // 가이드 미션 갱신
                     SetUserInfoLayer();     // 유저 정보 갱신
                     CheckNewChapterClear();
+                    CheckUserAccountLevelUp();
                     UpdateReddotState();
                     break;
                 case LobbyMainRefreshType.STAGE:
                     SetBottomStageUI();
                     CheckNewChapterClear();
+                    CheckUserAccountLevelUp();
                     break;
                 case LobbyMainRefreshType.GUIDE_MISSION:
                     _guideMissionSlot?.RefreshGuideMissionSlot();
                     break;
                 case LobbyMainRefreshType.CHARACTER_LAYER:
                     SetUserInfoLayer();
+                    CheckUserAccountLevelUp();
                     break;
                 case LobbyMainRefreshType.IDLE_REWARD:
                     _unitaskCancelToken.Cancel();
@@ -160,10 +163,6 @@ namespace CookApps.AutoBattler
         {
             SetUserInfoLayer();
             SetBottomStageUI();
-
-            //TEST
-            //TestAddCharacter();
-            //TestAddStage();
         }
 
         private void SetUserInfoLayer()
@@ -296,6 +295,17 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterClearWindowPopup>().Forget();
 
             UserDataManager.Instance.NewChapterOpenAlert = false;
+        }
+
+        private void CheckUserAccountLevelUp()
+        {
+            if (UserDataManager.Instance.UserBasicData.Level <= UserDataManager.Instance.PrevAccountLevel) return;
+
+            var specAccountLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(UserDataManager.Instance.UserBasicData.Level);
+            if (specAccountLevelData != null)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<AccountLevelUpWindowPopup>(specAccountLevelData).Forget();
+            }
         }
 
         private void UpdateReddotState()
