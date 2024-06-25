@@ -106,7 +106,7 @@ namespace CookApps.AutoBattler
             _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / _specCharacterData.need_piece;
 
             // 캐릭터 보유 여부 관련 처리
-            _shadowObject.SetActive(!haveCharacter);
+            _shadowObject.SetActive(haveCharacter);
 
             _outlineObject.SetActive(haveCharacter);
             _outlineActiveObject.SetActive(haveCharacter);
