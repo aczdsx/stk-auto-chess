@@ -109,7 +109,10 @@ namespace CookApps.AutoBattler
 
             // 승리 시 보상 및 각종 데이터 처리
             if (_isVictory)
+            {
+                CheckLatestStageClear();
                 CreateRewardItems();
+            }
 
             var currentMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
             if (currentMissionData != null)
@@ -173,6 +176,29 @@ namespace CookApps.AutoBattler
         {
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, (int)InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
+        }
+
+        // 가장 높은 스테이지 클리어 여부 체크
+        private void CheckLatestStageClear()
+        {
+            var latestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+            var latestStageData = SpecDataManager.Instance.GetStageData(latestStageID);
+
+            if (InGameManager.Instance.SpecStage.chapter_id == latestStageData.chapter_id)
+            {
+                if (InGameManager.Instance.SpecStage.stage_number > latestStageData.stage_number)
+                {
+                    var nextStageData = SpecDataManager.Instance.GetNextStageData(InGameManager.Instance.SpecStage.stage_id);
+
+                    UserDataManager.Instance.SetLastPlayStageID(nextStageData.stage_id, true);
+                }
+            }
+            else if (InGameManager.Instance.SpecStage.chapter_id > latestStageData.chapter_id)
+            {
+                var nextStageData = SpecDataManager.Instance.GetNextStageData(InGameManager.Instance.SpecStage.stage_id);
+
+                UserDataManager.Instance.SetLastPlayStageID(nextStageData.stage_id, true);
+            }
         }
 
         private void CreateRewardItems()

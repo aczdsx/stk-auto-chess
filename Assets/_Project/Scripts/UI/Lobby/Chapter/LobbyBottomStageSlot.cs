@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
             _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.stage_id;
 
             int lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
-            var nextStageData = UserDataManager.Instance.GetNextStageData(lastestStageID);
+            var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
             _isLatestPlayableStage = nextStageData != null && (nextStageData.stage_id == _specStageData.stage_id);
 
             SetStageState();

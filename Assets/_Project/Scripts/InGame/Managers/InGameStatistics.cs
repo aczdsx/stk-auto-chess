@@ -177,7 +177,7 @@ namespace CookApps.BattleSystem
             float givenHealWeight = 1.0f;
             double maxScore = double.MinValue;
 
-            foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
+            foreach (var character in InGameObjectManager.Instance.StartingPlayerCharacters)
             {
                 double attackDamageAmount = GetAttackDamageAmount(character.CharacterId);
                 double takenDamageAmount = GetTakenDamageAmount(character.CharacterId);
