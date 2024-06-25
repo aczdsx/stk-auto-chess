@@ -4,6 +4,7 @@ using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CookApps.AutoBattler
 {
@@ -16,6 +17,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Animator _animator;
 
         [SerializeField] private float _heightOffset = 0.3f;
+        [SerializeField] private float _xOffset = 0.0f;
 
         private TMP_Text _damageText;
         private static readonly int Critical = Animator.StringToHash("Critical");
@@ -26,7 +28,10 @@ namespace CookApps.AutoBattler
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
             _damageText.text = $"{damage}";
 
+            _xOffset = Random.Range(-0.5f, 0.5f);
+
             Vector3 initialPosition = position + Vector3.up * (characterHeight  + _heightOffset);
+            initialPosition.x += _xOffset;
             _root.position = initialPosition;
             _animator.SetTrigger(isCritical ? Critical : Normal);
 
@@ -35,9 +40,13 @@ namespace CookApps.AutoBattler
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
         {
+            _damageText = _txtDamage;
             _damageText.text = $"{healAmount}";
 
+            _xOffset = Random.Range(-0.5f, 0.5f);
+
             Vector3 initialPosition = position + Vector3.up * characterHeight;
+            initialPosition.x += _xOffset;
             _root.position = initialPosition;
             _animator.SetTrigger(Normal);
 

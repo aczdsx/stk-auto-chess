@@ -45,8 +45,22 @@ namespace CookApps.BattleSystem
             }
         }
 
+        public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
+        {
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+                return;
+
+            CharacterController.DamageInfo damage = new CharacterController.DamageInfo();
+            damage.damageAmount = _effectCodeStat;
+
+            character.GetDamaged(damage, null);
+        }
+
         public override void OnUpdate(float dt)
         {
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+                return;
+
             elapsedTime += dt;
             if (elapsedTime >= 1f)
             {
