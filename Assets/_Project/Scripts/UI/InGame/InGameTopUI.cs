@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mime;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,9 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameTopUI : MonoBehaviour
 {
+    [Header("Button")]
+    [SerializeField] private CAButton _pauseButton;
+
     [Space]
     [SerializeField] private TextMeshProUGUI _timeText;
 
@@ -38,6 +42,16 @@ public class InGameTopUI : MonoBehaviour
     private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
     private float beforeEnemyHpRate = 1.0f;
+
+    private void Awake()
+    {
+        _pauseButton.onClick.AddListener(OnClickPauseButton);
+    }
+
+    private void OnDestroy()
+    {
+        _pauseButton.onClick.RemoveListener(OnClickPauseButton);
+    }
 
     public void UpdateTimeUI(float time)
     {
@@ -176,5 +190,10 @@ public class InGameTopUI : MonoBehaviour
         }
 
         slider.value = Mathf.Lerp(startRatio, targetRatio, elapsed / AnimationDuration);
+    }
+
+    private void OnClickPauseButton()
+    {
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameExitPopup>().Forget();
     }
 }
