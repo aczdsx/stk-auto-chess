@@ -12,6 +12,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimCloseButton;
+        [SerializeField] private CAButton _moveChapterButton;
 
         [Header("Chapter List Layer")]
         [SerializeField] private ScrollRect _chapterScrollRect;
@@ -29,6 +30,7 @@ namespace CookApps.AutoBattler
         private List<ChapterListItemSlot> _chapterSlotList = new();
 
         private SpecChapter _selectedChapterData;
+        public SpecChapter SelectedChapterData => _selectedChapterData;
 
         protected override void Awake()
         {
@@ -36,6 +38,7 @@ namespace CookApps.AutoBattler
 
             _closeButton.onClick.AddListener(OnClickCloseButton);
             _dimCloseButton.onClick.AddListener(OnClickCloseButton);
+            _moveChapterButton.onClick.AddListener(OnClickMoveChapterButton);
         }
 
         protected override void OnDestroy()
@@ -44,6 +47,7 @@ namespace CookApps.AutoBattler
 
             _closeButton.onClick.RemoveListener(OnClickCloseButton);
             _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
+            _moveChapterButton.onClick.RemoveListener(OnClickMoveChapterButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -56,7 +60,8 @@ namespace CookApps.AutoBattler
 
             SetChapterListUI();
 
-            RefreshSelectedLayer(_selectedChapterData.id, true);
+            SetSelectedChapterData(_selectedChapterData.chapter_id);
+            RefreshSelectedLayer(true);
 
             _chapterScrollRect.verticalNormalizedPosition = 1;
 
@@ -81,11 +86,20 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void RefreshSelectedLayer(int targetChapterID, bool isFirstInit)
+        public void SetSelectedChapterData(int targetChapterID)
         {
-            if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
-
             _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(targetChapterID);
+
+            _moveChapterButton.gameObject.SetActive(_selectedChapterData != null);
+
+            // 슬롯 레이어 갱신 처리
+            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_selectedChapterData.id));
+        }
+
+        public void RefreshSelectedLayer(bool isFirstInit)
+        {
+            if (_selectedChapterData == null) return;
+            if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
 
             // 유저 데이터 처리 (현재는 챕터 이동 시 무조건 첫번째 스테이지만 저장)
             if (isFirstInit == false)
@@ -112,9 +126,6 @@ namespace CookApps.AutoBattler
             // 보상 슬롯 관련 처리
             RefreshRewardLayer();
 
-            // 슬롯 레이어 갱신 처리
-            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_selectedChapterData.id));
-
             // 로비 메인 하단 스테이지 UI 갱신
             var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
             if (lobbyMain != null)
@@ -133,7 +144,7 @@ namespace CookApps.AutoBattler
             {
                 GameObject newChapterObject = Instantiate(_chapterSlotObject, _chapterScrollRect.content);
                 ChapterListItemSlot chapterSlot = newChapterObject.GetComponent<ChapterListItemSlot>();
-                chapterSlot.SetChapterItemSlot(chapterData);
+                chapterSlot.SetChapterItemSlot(chapterData, this);
 
                 _chapterSlotList.Add(chapterSlot);
             }
@@ -144,6 +155,13 @@ namespace CookApps.AutoBattler
             _chapterSlotList.Clear();
 
             BMUtil.RemoveChildObjects(_chapterScrollRect.content);
+        }
+
+        private void OnClickMoveChapterButton()
+        {
+            if (_selectedChapterData == null) return;
+
+            RefreshSelectedLayer(false);
         }
 
         private void OnClickCloseButton()

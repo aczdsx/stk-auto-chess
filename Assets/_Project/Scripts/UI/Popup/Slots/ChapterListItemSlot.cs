@@ -11,6 +11,7 @@ namespace CookApps.AutoBattler
 {
     public class ChapterListItemSlot : CachedMonoBehaviour
     {
+        [SerializeField] private Animator _baseAnimator;
         [SerializeField] private GameObject _selectedLayerObject;
         [SerializeField] private GameObject _chapterStarLayerObject;
         [SerializeField] private GameObject _dimmedLayerObject;
@@ -26,8 +27,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _chapterStarCountText;
 
         private SpecChapter _specChapterData;
-
         public SpecChapter SpecChapterData => _specChapterData;
+
+        private ChapterListPopup _parentPopup;
+        private bool _isPlayableChapter = false;
 
         private void Awake()
         {
@@ -43,30 +46,33 @@ namespace CookApps.AutoBattler
             _dimmedButton.onClick.RemoveListener(OnClickDimmedLayerButton);
         }
 
-        public void SetChapterItemSlot(SpecChapter data)
+        public void SetChapterItemSlot(SpecChapter data, ChapterListPopup parent)
         {
             if (data == null) return;
 
             _specChapterData = data;
+            _parentPopup = parent;
 
             // 기본 데이터 세팅
             _chapterNumberText.text = string.Format("챕터-{0}-{1}", _specChapterData.chapter_id, _specChapterData.difficulty_type);
             _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_specChapterData.name_token);
 
-            // 진행 상태에 따른 처리
-            bool isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+            _chapterImage.sprite = ImageManager.Instance.GetChapterIconSprite(_specChapterData.chapter_id);
 
-            if (isPlayableChapter)
+            // 진행 상태에 따른 처리
+            _isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+
+            if (_isPlayableChapter == false)
             {
-                _chapterImage.sprite = ImageManager.Instance.GetChapterIconSprite(_specChapterData.chapter_id);
+                _baseAnimator.SetTrigger("SetLock");
             }
             else
             {
-                _chapterImage.sprite = ImageManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, "Icon_Chapter_Locked");
+                SetSelectedLayer(_parentPopup.SelectedChapterData.id);
             }
 
-            _chapterStarLayerObject.SetActive(isPlayableChapter);
-            _dimmedLayerObject.SetActive(!isPlayableChapter);
+            //_chapterStarLayerObject.SetActive(_isPlayableChapter);
+            //_dimmedLayerObject.SetActive(!_isPlayableChapter);
 
             int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
             int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
@@ -78,20 +84,28 @@ namespace CookApps.AutoBattler
         {
             if (_specChapterData == null) return;
 
-            _selectedLayerObject.SetActive(_specChapterData.id == selectedChapterID);
+            if (_isPlayableChapter == false)
+            {
+                _baseAnimator.SetTrigger("SetLock");
+            }
+            else if (_specChapterData.id == selectedChapterID)
+            {
+                _baseAnimator.SetTrigger("SetActive");
+            }
+            else
+            {
+                _baseAnimator.SetTrigger("SetDefault");
+            }
         }
 
         private void OnClickChapter()
         {
             if (_specChapterData == null) return;
+            if (_isPlayableChapter == false) return;
 
-            bool isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
-            if (isPlayableChapter == false) return;
-
-            var chapterListPop = SceneUILayerManager.Instance.GetUILayer<ChapterListPopup>();
-            if (chapterListPop != null)
+            if (_parentPopup != null)
             {
-                chapterListPop.RefreshSelectedLayer(_specChapterData.id, false);
+                _parentPopup.SetSelectedChapterData(_specChapterData.id);
             }
         }
 

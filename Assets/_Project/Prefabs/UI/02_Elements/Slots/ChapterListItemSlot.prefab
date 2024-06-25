@@ -1875,6 +1875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856cee8a965ef8b4fbf9027197b0746c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseAnimator: {fileID: 764350724387214106}
   _selectedLayerObject: {fileID: 4187355942386337727}
   _chapterStarLayerObject: {fileID: 7576079201863709927}
   _dimmedLayerObject: {fileID: 2403116927099444260}
