@@ -36,12 +36,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private void OnStartButtonClicked()
     {
         _readyUIObj.SetActive(false);
-        HideCharacterSelectUI(() =>
-        {
-            InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
-            SetCommanderSkill();
-        });
+
+        InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
+        InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
+        SetCommanderSkill();
+        // HideCharacterSelectUI(() =>
+        // {
+        // });
     }
 
     private void OnClickCommanderSkillButton()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CookApps.BattleSystem
@@ -152,7 +153,11 @@ namespace CookApps.BattleSystem
                 if (IsValidPosition(newPos))
                 {
                     var neighbor = GetTile(newPos);
-                    if (neighbor.OccupiedCharacter == null)
+
+                    bool isDying = (neighbor.OccupiedCharacter != null) &&
+                                    neighbor.OccupiedCharacter.GetCurrentState() is CharacterStateDead;
+
+                    if (neighbor.OccupiedCharacter == null || isDying)
                     {
                         var distance = BFS(neighbor, dest);
                         if (distance < shortestDistance)

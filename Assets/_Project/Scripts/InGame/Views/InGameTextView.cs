@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
         private TMP_Text _damageText;
         private static readonly int Critical = Animator.StringToHash("Critical");
         private static readonly int Normal = Animator.StringToHash("Normal");
+        private static readonly int Heal = Animator.StringToHash("Heal");
 
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
         {
@@ -48,7 +49,7 @@ namespace CookApps.AutoBattler
             Vector3 initialPosition = position + Vector3.up * characterHeight;
             initialPosition.x += _xOffset;
             _root.position = initialPosition;
-            _animator.SetTrigger(Normal);
+            _animator.SetTrigger(Heal);
 
             await WaitForAnimationEnd();
         }
