@@ -44,6 +44,8 @@ namespace CookApps.BattleSystem
             }
 
             playground = GameObject.Find("Playground").GetComponent<Transform>();
+            startingPlayerCharacters = new();
+            ;
 
             _stage = stage;
             InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
@@ -55,6 +57,7 @@ namespace CookApps.BattleSystem
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
             InGameMainFlowManager.Instance.RemoveLateUpdateListener(LateManagedUpdate);
             playground = null;
+            startingPlayerCharacters = null;
             ClearAllCharactersInField();
             ClearAllEnemiesInField();
         }
@@ -279,6 +282,7 @@ namespace CookApps.BattleSystem
 
         public void SaveStartingPlayerCharacter()
         {
+            startingPlayerCharacters.Clear();
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
 
             charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate.OrderBy(character => character.SpecCharacter.atk_range).ToList();
