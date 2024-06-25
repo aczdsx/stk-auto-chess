@@ -13,6 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 0챕터 보스 탱커
 // 범위 : 자신의 전방 직선 범위
 // 대미지 : 공격력 {0}%의 대미지를 가한다.
+// 넉백 포함
 /// </summary>
 [UseEffectCodeIds(1202011)]
 public class EffectCodeSkill1202011 : EffectCodeCharacterBase
@@ -120,6 +121,16 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
                 var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+
+
+                var inGameTile =
+                    InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
+                        1);
+
+                long effectCodeID = (long)EffectCodeNameType.BOUND;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, inGameTile.View.ID);
+                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기
