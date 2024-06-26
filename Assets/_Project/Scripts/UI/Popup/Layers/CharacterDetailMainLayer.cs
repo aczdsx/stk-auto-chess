@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
         [SerializeField] private TextMeshProUGUI _characterNameText;
+        [SerializeField] private TextMeshProUGUI _characterLevelText;
 
         [Space(10)]
         [SerializeField] private GameObject _characterGradeImageObject_R;
@@ -70,6 +72,12 @@ namespace CookApps.AutoBattler
 
             SetTabState();
             SetCharacterInfo();
+            SetUserCharacterInfo();
+        }
+
+        public void RefreshLayer()
+        {
+            SetUserCharacterInfo();
         }
 
         public void OnClickGrowLayerTabButton()
@@ -123,6 +131,18 @@ namespace CookApps.AutoBattler
 
             // 딤드 상태 설정
             _unOwnedDimmedLayerObject.SetActive(!isHaveCharacter);
+        }
+
+        private void SetUserCharacterInfo()
+        {
+            if (_specCharacterData == null) return;
+
+            UserCharacter userCharacterData = UserDataManager.Instance.GetUserCharacter(_specCharacterData.character_id);
+
+            if (userCharacterData != null)
+            {
+                _characterLevelText.text = $"Lv.{userCharacterData.Level}";
+            }
         }
 
         private void SetStarObject(GradeType gradeType)

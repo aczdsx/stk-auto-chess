@@ -16,7 +16,9 @@ namespace CookApps.AutoBattler
         {
             if (type == ItemType.CHARACTER_PIECE)
             {
-                _itemIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(key);
+                var specCharacterData = SpecDataManager.Instance.GetCharacterData(key);
+
+                _itemIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(specCharacterData.prefab_id);
             }
             else
             {

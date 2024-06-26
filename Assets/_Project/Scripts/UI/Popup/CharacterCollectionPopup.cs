@@ -7,6 +7,7 @@ namespace CookApps.AutoBattler
     public enum CharacterCollectionPopupTabType
     {
         MAIN,
+        MAIN_DETAIL,
         GROW,
         SKILL,
     }
@@ -82,7 +83,7 @@ namespace CookApps.AutoBattler
                     _detailMainBGLayer.InitLayer(_currentCharacterID, this);
 
                     _detailGrowLayer.gameObject.SetActive(true);
-                    _detailGrowLayer.InitLayer(_currentCharacterID);
+                    _detailGrowLayer.InitLayer(this, _currentCharacterID);
 
                     RefreshDimmedLayer();
 
@@ -115,10 +116,13 @@ namespace CookApps.AutoBattler
 
         public void RefreshTabLayer(CharacterCollectionPopupTabType tabType)
         {
-            switch (_currentTabType)
+            switch (tabType)
             {
                 case CharacterCollectionPopupTabType.MAIN:
                     _collectionMainLayer.RefreshLayer();
+                    break;
+                case CharacterCollectionPopupTabType.MAIN_DETAIL:
+                    _detailMainBGLayer.RefreshLayer();
                     break;
                 case CharacterCollectionPopupTabType.GROW:
                     _detailGrowLayer.RefreshLayer();
