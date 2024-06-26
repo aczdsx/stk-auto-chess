@@ -53,8 +53,10 @@ namespace CookApps.AutoBattler
 
         public void ReturnCharacter(CharacterController characterController)
         {
+            InGameObjectManager.Instance.ClearSynergyFx();
             InGameObjectManager.Instance.RemoveCharacterFromField(characterController);
             _inGameBottomCharacterUI.ReturnCharacter(characterController);
+            SetInGameTopUI();
         }
 
         protected override void OnPreEnter(object param)
