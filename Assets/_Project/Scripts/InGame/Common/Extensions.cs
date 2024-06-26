@@ -77,6 +77,40 @@ namespace CookApps.BattleSystem
             };
         }
 
+        public static SoundFX GetSoundFx(this BuffDebuffType type)
+        {
+            return type switch
+            {
+                // BuffDebuffType.Meditation => "",
+                BuffDebuffType.Shield =>SoundFX.snd_sfx_ingame_shield,
+                // BuffDebuffType.Bleeding => "",
+                // BuffDebuffType.Poison => "",
+                // BuffDebuffType.Burn => "",
+                BuffDebuffType.AttackUp => SoundFX.snd_sfx_ingame_atkup,
+                BuffDebuffType.AttackDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.AttackSpeedUp => SoundFX.snd_sfx_ingame_spdup,
+                BuffDebuffType.CoolTimeUp => SoundFX.snd_sfx_ingame_spdup,
+                // BuffDebuffType.DefenceUp => "",
+                // BuffDebuffType.ResistanceUp => "",
+                // BuffDebuffType.AttackDown => "",
+                // BuffDebuffType.DefenceDown => "",
+                // BuffDebuffType.ResistanceDown => "",
+                // BuffDebuffType.AttackSpeedUp => "",
+                BuffDebuffType.AttackSpeedDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Trap => SoundFX.snd_sfx_ingame_debuff,
+                // BuffDebuffType.CriticalProbUp => "",
+                // BuffDebuffType.CriticalProbDown => "",
+                // BuffDebuffType.Slow => "",
+                // BuffDebuffType.Entangle => "",
+                // BuffDebuffType.Freezing => "",
+                // BuffDebuffType.Stun => "",
+                // BuffDebuffType.Provocation => "",
+                // BuffDebuffType.Sleep => "",
+                // BuffDebuffType.Invincibility => "",
+                _ => SoundFX.NONE
+            };
+        }
+
         public static InGameVfxNameType GetLoopVfxName(this BuffDebuffType type)
         {
             return type switch

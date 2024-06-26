@@ -637,6 +637,9 @@ namespace CookApps.BattleSystem
             if (vfxName != InGameVfxNameType.NONE)
                 InGameVfxManager.Instance.AddInGameVfx(vfxName, SkillRootTransformFollowable);
 
+            var sfxName = type.GetSoundFx();
+            if (sfxName != SoundFX.NONE)
+                SoundManager.Instance.PlaySFX(sfxName);
 
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {

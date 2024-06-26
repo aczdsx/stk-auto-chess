@@ -63,6 +63,7 @@ public enum SoundFX
     snd_sfx_ingame_shield,
     snd_sfx_ingame_debuff,
     snd_sfx_ingame_stun,
+    snd_sfx_hit_critical1,
 
     // Character Skill
     snd_sfx_skill_401011 = 401,

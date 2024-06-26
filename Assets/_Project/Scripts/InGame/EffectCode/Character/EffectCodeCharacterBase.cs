@@ -25,6 +25,13 @@ namespace CookApps.BattleSystem
             return false;
         }
 
+        public string GetSoundFxName()
+        {
+            string codeIdStr = codeInfo.CodeId.ToString();
+            string modifiedCodeIdStr = codeIdStr.Length > 1 ? codeIdStr.Substring(1) : "0";
+            return "snd_sfx_skill_" + modifiedCodeIdStr;
+        }
+
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
@@ -229,6 +236,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         public virtual void Activate()
         {
+            SoundManager.Instance.PlaySFX(GetSoundFxName());
         }
         #endregion
 
