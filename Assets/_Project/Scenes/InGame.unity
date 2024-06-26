@@ -610,6 +610,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootObj: {fileID: 1070652109}
+  _mainCamera: {fileID: 1070652112}
+  _characterCamera: {fileID: 207165438}
 --- !u!1001 &1527212429
 PrefabInstance:
   m_ObjectHideFlags: 0
