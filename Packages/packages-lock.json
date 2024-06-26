@@ -220,13 +220,6 @@
       "dependencies": {},
       "hash": "fbe0bf85155f42f8832205f7b3ac3df571ada33e"
     },
-    "com.febucci.custom-hierarchy": {
-      "version": "https://github.com/febucci/unitypackage-custom-hierarchy.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "093baf4e09c2cd21c284303a977ec112a43041a7"
-    },
     "com.google.external-dependency-manager": {
       "version": "file:./GooglePackages/com.google.external-dependency-manager-1.2.177.tgz",
       "depth": 0,
