@@ -24,9 +24,10 @@ public class InGameCamera : MonoBehaviour
         Shake(durationTime, magnitude, _cancellationTokenSource.Token).Forget();
     }
 
-    public async UniTask SetCameraSize(float targetSize, float duration)
+    public async UniTask SetCameraSize(float targetSize, float targetPosY, float duration)
     {
         float startSize = _mainCamera.orthographicSize;
+        float startPosY = _mainCamera.transform.position.y;
 
         Tween.Custom(startSize, targetSize, duration,
             (float newSize) =>
@@ -34,13 +35,26 @@ public class InGameCamera : MonoBehaviour
                 _characterCamera.orthographicSize = newSize;
                 _mainCamera.orthographicSize = newSize;
             },
+            ease: Ease.OutQuad);
+
+        Tween.Custom(startPosY, targetPosY, duration,
+            (float newPosY) =>
+            {
+                Vector3 position = _mainCamera.transform.position;
+                position.y = newPosY;
+                _mainCamera.transform.position = position;
+            },
             ease: Ease.OutQuad).OnComplete(this, _ =>
         {
             _characterCamera.orthographicSize = targetSize;
             _mainCamera.orthographicSize = targetSize;
+
+            Vector3 position = _mainCamera.transform.position;
+            position.y = targetPosY;
+            _mainCamera.transform.position = position;
         });
 
-        await UniTask.WaitUntil(() => Mathf.Approximately(_mainCamera.orthographicSize, targetSize));
+        await UniTask.WaitUntil(() => Mathf.Approximately(_mainCamera.orthographicSize, targetSize) && Mathf.Approximately(_mainCamera.transform.position.y, targetPosY));
     }
 
     private async UniTaskVoid Shake(float duration, float magnitude, CancellationToken cancellationToken)
