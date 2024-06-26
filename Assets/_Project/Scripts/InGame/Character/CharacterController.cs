@@ -344,9 +344,12 @@ namespace CookApps.BattleSystem
         public void SetSelectedCharacter(bool isSetSelected)
         {
             if (isSetSelected)
-                SelectedOffSet += Vector3.up * 0.5f;
+                SelectedOffSet += Vector3.up * 0.3f;
             else
-                SelectedOffSet -= Vector3.up * 0.5f;
+            {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_landing, CurrentTile.View.CachedTr.position);
+                SelectedOffSet -= Vector3.up * 0.3f;
+            }
             _view.SetSelected(isSetSelected);
             Color color = isSetSelected ? Color.gray : Color.white;
             _view.SetColor(color);
