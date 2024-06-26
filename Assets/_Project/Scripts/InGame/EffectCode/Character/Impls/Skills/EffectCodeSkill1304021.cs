@@ -74,7 +74,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // TODO: Target Check
+        owner.Target = InGameObjectManager.Instance.GetNearestTarget(owner);
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -109,12 +109,12 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     {
         if (isKilled)
         {
-            CoolTimeElapsedTime = CoolTimeDurationTime;
+            CoolTimeElapsedTime = CoolTimeDurationTime - 0.5f;
             isKilled = false;
         }
         else
         {
-            CoolTimeElapsedTime = 0.5f;
+            CoolTimeElapsedTime = 0.0f;
         }
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
