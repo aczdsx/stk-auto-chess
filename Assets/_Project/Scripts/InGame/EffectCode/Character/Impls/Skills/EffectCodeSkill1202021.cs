@@ -104,7 +104,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
         }
 
-        OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
+        OnSkillExecuteAsync(0.25f, inGameTiles).Forget();
 
         IsSkillActivated = false;
     }
