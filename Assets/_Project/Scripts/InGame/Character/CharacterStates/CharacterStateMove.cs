@@ -46,6 +46,19 @@ public class CharacterStateMove : CharacterStateBase
                 if (characCtrl == null)
                     return;
 
+                if (characCtrl.IsAlive == false)
+                {
+                    Debug.LogColor($"[TEST] : {characCtrl.SpecCharacter.prefab_id} 캐릭터가 죽어서 이동 중단");
+                    if (characCtrl.AllianceType == AllianceType.Enemy)
+                    {
+                        InGameObjectManager.Instance.RemoveEnemyFromField(characCtrl);
+                    }
+                    else
+                    {
+                        InGameObjectManager.Instance.RemoveCharacterFromField(characCtrl);
+                    }
+                    return;
+                }
 
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
                 characCtrl.MoveCharacter(isInRange);

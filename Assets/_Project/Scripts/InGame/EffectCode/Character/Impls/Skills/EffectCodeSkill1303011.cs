@@ -129,7 +129,7 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.None)
                 {
                     float calculatedDamageRate = _damageRate;
                     if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == ElementType.FIRE)
