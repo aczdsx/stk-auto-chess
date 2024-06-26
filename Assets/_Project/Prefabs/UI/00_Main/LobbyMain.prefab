@@ -1717,7 +1717,7 @@ MonoBehaviour:
   _vignetteImage: {fileID: 5632547169323492497}
   _stageVignetteColorList:
   - {r: 0.039215688, g: 0.04705883, b: 0.054901965, a: 1}
-  - {r: 1, g: 0.4117647, b: 0.15686275, a: 1}
+  - {r: 0.69803923, g: 0.28235295, b: 0.10980392, a: 1}
   - {r: 0.8745098, g: 0.9137255, b: 0.9411765, a: 1}
   - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
   _chapter1VignetteMaterial: {fileID: 2100000, guid: cb66fc5cd88444d44a2942a2244f553a, type: 2}
