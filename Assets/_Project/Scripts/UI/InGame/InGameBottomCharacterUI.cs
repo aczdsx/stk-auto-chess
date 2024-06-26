@@ -267,7 +267,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         var userLevelData =
             SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
 
-        if (userLevelData.squad_count < InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        if (userLevelData.squad_count <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
         }
