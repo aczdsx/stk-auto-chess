@@ -289,7 +289,7 @@ MonoBehaviour:
   _InGameTopUI: {fileID: 7910040394018925990}
   _inGameBottomCharacterUI: {fileID: 1141943340696498700}
   _stageVignetteColorList:
-  - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
+  - {r: 0.039215688, g: 0.047058824, b: 0.05490196, a: 1}
   - {r: 0.16981128, g: 0.03594473, b: 0.016820932, a: 1}
   - {r: 0.8745098, g: 0.9137255, b: 0.9411765, a: 1}
   - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
@@ -5450,8 +5450,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54
-  m_fontSizeBase: 54
+  m_fontSize: 46
+  m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
