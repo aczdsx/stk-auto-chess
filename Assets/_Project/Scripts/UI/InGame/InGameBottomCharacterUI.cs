@@ -83,6 +83,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnClickStatisticButton()
     {
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
         SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
     }
 
@@ -90,6 +92,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
     {
         if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
             return;
+
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
     }

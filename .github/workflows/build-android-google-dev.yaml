@@ -52,7 +52,7 @@ jobs:
           androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
           androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
           customParameters: >
-            -buildName android-google-dev
+            -buildName aos-dev
             -EnableCacheServer
             -cacheServerEndpoint ${{ vars.UNITY_ACCELERATOR_ENDPOINT }}
             -cacheServerNamespacePrefix ${{ github.repository }}

@@ -148,6 +148,8 @@ namespace CookApps.AutoBattler
 
         private void OnExitButtonClicked()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             var transition = SceneTransition_FadeInOut.Create();
             SceneLoading.GoToNextScene("Lobby",  (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
         }
@@ -161,6 +163,8 @@ namespace CookApps.AutoBattler
 
             // 최종 챕터/스테이지 여부 체크
             if (_isEndChapter) return;
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
             int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
@@ -180,6 +184,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickRetryStageButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, (int)InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }

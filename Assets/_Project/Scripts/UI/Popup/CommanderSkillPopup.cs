@@ -38,6 +38,8 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+
             _skillTooltipPopup.gameObject.SetActive(false);
 
             InitSkillPopup();
@@ -84,6 +86,8 @@ namespace CookApps.AutoBattler
         private void OnClickCloseButton()
         {
             InGameMain.GetInGameMain().SetCommanderSkillUI(UserDataManager.Instance.UserCommanderSkillData.EquippedCommanderSkillId);
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneUILayerManager.Instance.PopUILayer(this);
         }

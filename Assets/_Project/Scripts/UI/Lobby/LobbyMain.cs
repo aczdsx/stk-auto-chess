@@ -393,27 +393,37 @@ namespace CookApps.AutoBattler
                 InGameManager.Instance.EndInGame();
                 SceneTransition_Animator transition = SceneTransition_Animator.Create();
                 SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type), transition).Forget();
+
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             }
         }
 
         private void OnClickChapterStageButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterListPopup>(currentStageId).Forget();
         }
 
         private void OnClickGachaButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
         }
 
         private void OnClickCharacterCollectionButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
         }
 
         private void OnClickIdleRewardButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
         }
 
