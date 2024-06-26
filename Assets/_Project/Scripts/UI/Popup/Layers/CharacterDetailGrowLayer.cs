@@ -83,6 +83,8 @@ namespace CookApps.AutoBattler
 
             // 레벨업 기능 관련 처리
             SetLevelupLayer();
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
         public void RefreshLayer()

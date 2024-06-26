@@ -46,6 +46,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
         public void SetSkillToolTipPopup(SpecSkill skillData)
@@ -91,6 +92,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             gameObject.SetActive(false);
         }
     }
