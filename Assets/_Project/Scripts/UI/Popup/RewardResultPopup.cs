@@ -57,9 +57,9 @@ namespace CookApps.AutoBattler
 
         private void OnClickOkButton()
         {
-            SceneUILayerManager.Instance.PopUILayer(this);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            SceneUILayerManager.Instance.PopUILayer(this);
         }
 
         private void ClearRewardSlotList()
