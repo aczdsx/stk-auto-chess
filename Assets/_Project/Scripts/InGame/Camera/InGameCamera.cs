@@ -2,7 +2,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public class inGameCamera : MonoBehaviour
+public class InGameCamera : MonoBehaviour
 {
     [SerializeField]
     private GameObject _rootObj;

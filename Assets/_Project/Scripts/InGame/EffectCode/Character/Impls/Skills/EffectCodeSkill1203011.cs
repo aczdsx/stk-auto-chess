@@ -98,7 +98,7 @@ public class EffectCodeSkill1203011 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         }
 
-        AfterAction(inGameTiles, 1).Forget();
+        AfterAction(inGameTiles, 0.2f).Forget();
     }
 
     public override void OnSkillAnimationEnd()
@@ -108,8 +108,19 @@ public class EffectCodeSkill1203011 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    private async UniTask AfterAction(InGameTile[] inGameTiles, int second)
+    private async UniTask AfterAction(InGameTile[] inGameTiles, float second)
     {
+        foreach (var tile in inGameTiles)
+        {
+            if (tile.OccupiedCharacter != null)
+            {
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+                }
+            }
+        }
+
         await UniTask.Delay(TimeSpan.FromSeconds(second));
 
         foreach (var tile in inGameTiles)

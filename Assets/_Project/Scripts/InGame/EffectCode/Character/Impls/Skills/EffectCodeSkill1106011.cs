@@ -103,7 +103,7 @@ public class EffectCodeSkill1106011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                double damage = owner.PostCalculateHealAmount(_damageRate, tile.OccupiedCharacter);
+                double damage = owner.PostCalculateHealAmount(owner.AP * _damageRate, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
             }
         }

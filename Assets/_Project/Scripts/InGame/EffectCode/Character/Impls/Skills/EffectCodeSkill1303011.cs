@@ -112,6 +112,17 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
 
     private async UniTask AfterAction(InGameTile[] inGameTiles, int second)
     {
+        foreach (var tile in inGameTiles)
+        {
+            if (tile.OccupiedCharacter != null)
+            {
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+                }
+            }
+        }
+
         await UniTask.Delay(TimeSpan.FromSeconds(second));
 
         foreach (var tile in inGameTiles)
@@ -120,9 +131,8 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
             {
                 if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
                 {
-                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
                     float calculatedDamageRate = _damageRate;
-                    if (tile.OccupiedCharacter.HasDebuffType())
+                    if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == ElementType.FIRE)
                         calculatedDamageRate += _additionalDamageRate;
 
                     var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
