@@ -9,6 +9,7 @@ Shader "Custom/UI_SoftCrop"
         _SoftnessRight ("Softness Right", Range(0, 1)) = 0.1
         _LeftAlpha ("Left Alpha", Range(0, 1)) = 1.0
         _RightAlpha ("Right Alpha", Range(0, 1)) = 1.0
+        _GlobalAlpha ("Global Alpha", Range(0, 1)) = 1.0
     }
     SubShader
     {
@@ -45,6 +46,7 @@ Shader "Custom/UI_SoftCrop"
             float _SoftnessRight;
             float _LeftAlpha;
             float _RightAlpha;
+            float _GlobalAlpha;
             v2f vert (appdata_t v)
             {
                 v2f o;
@@ -71,7 +73,7 @@ Shader "Custom/UI_SoftCrop"
                 {
                     alpha = lerp(rightAlpha, 1.0, smoothstep(rightEdge + softnessRight, rightEdge, i.uv.x));
                 }
-                color.a *= alpha;
+                color.a *= alpha * _GlobalAlpha;
                 // Apply clipping for UI
                 #ifdef UNITY_UI_CLIP
                 color.a *= UnityGet2DClipping(i.uv);

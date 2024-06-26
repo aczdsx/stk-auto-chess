@@ -150,8 +150,11 @@ namespace CookApps.AutoBattler
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
+            int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+            var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby",  (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
         }
 
         private void OnNextStageButtonClicked()
