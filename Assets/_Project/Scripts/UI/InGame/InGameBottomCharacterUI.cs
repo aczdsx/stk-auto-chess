@@ -306,6 +306,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
             .Get(UserDataManager.Instance.UserBasicData.Level).squad_count;
 
         string colorCode = characterCount == 0 ? "#CA6E71" : "#9EAEC3";
-        _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
+        _characterCountText.text = $"{maximumCount}/<color={colorCode}>{characterCount}</color>";
     }
 }

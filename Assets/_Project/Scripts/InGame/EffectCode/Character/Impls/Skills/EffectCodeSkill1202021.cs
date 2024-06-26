@@ -19,6 +19,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class EffectCodeSkill1202021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
+    private ObfuscatorFloat _stunTime;
 
     private bool _isReadyToActivate;
 
@@ -31,6 +32,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(2);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -42,6 +44,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(2);
     }
 
     public override void OnUpdate(float dt)
@@ -96,13 +99,23 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         inGameTiles.RemoveAll(l => l.OccupiedCharacter == owner);
 
         foreach (var tile in inGameTiles)
+        {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+        }
 
+        OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
 
+        IsSkillActivated = false;
+    }
+
+    public async UniTask OnSkillExecuteAsync(float second, List<InGameTile> inGameTiles)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기
+
+        InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.2f, 0.25f);
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
             if (tile.OccupiedCharacter != null)
             {
                 if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
@@ -111,6 +124,8 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
                         codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                    StunCharacter(tile);
                 }
             }
         }
@@ -123,5 +138,16 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+    }
+
+    private void StunCharacter(InGameTile tile)
+    {
+        Span<double> eccStats = stackalloc double[1];
+        eccStats.Clear();
+        eccStats[0] = _stunTime;
+
+        long effectCodeID = (long)EffectCodeNameType.STUN;
+        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+        tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
     }
 }
