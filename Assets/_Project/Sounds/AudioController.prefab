@@ -63,7 +63,7 @@ MonoBehaviour:
     AudioObjectPrefab: {fileID: 0}
     AudioItems:
     - Name: snd_bgm_lobby
-      Loop: 0
+      Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
       loopSequenceRandomDelay: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
         RandomStartPosition: 0
         individualSettings: []
     - Name: snd_bgm_chapter0
-      Loop: 0
+      Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
       loopSequenceRandomDelay: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
         RandomStartPosition: 0
         individualSettings: []
     - Name: snd_bgm_chapter2
-      Loop: 0
+      Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
       loopSequenceRandomDelay: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
         RandomStartPosition: 0
         individualSettings: []
     - Name: snd_bgm_chapter1
-      Loop: 0
+      Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
       loopSequenceRandomDelay: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
         RandomStartPosition: 0
         individualSettings: []
     - Name: snd_bgm_splash_001
-      Loop: 0
+      Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
       loopSequenceRandomDelay: 0
@@ -2466,8 +2466,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 2
-    currentItemIndex: 11
+    currentCategoryIndex: 0
+    currentItemIndex: 0
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
