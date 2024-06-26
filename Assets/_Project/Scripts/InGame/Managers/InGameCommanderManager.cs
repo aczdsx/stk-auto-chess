@@ -210,7 +210,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         var statValueData =
             SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
 
-        _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate * 0.01f);
+        _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
     }
 
     public void Clear()

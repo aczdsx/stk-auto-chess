@@ -114,7 +114,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
         }
         else
         {
-            CoolTimeElapsedTime = 0;
+            CoolTimeElapsedTime = 0.5f;
         }
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();

@@ -17,7 +17,7 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1);
+            _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
 
             SkillAction();
         }
