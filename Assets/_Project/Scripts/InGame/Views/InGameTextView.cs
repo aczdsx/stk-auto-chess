@@ -37,6 +37,15 @@ namespace CookApps.AutoBattler
             _root.position = initialPosition;
             _animator.SetTrigger(isCritical ? Critical : Normal);
 
+            if (isCritical)
+            {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_normal1);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_critical1);
+            }
+
             // await WaitForAnimationEnd();
         }
 
