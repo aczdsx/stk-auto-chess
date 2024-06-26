@@ -100,7 +100,7 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         }
 
-        AfterAction(inGameTiles, 1).Forget();
+        AfterAction(inGameTiles, 0.8f).Forget();
     }
 
     public override void OnSkillAnimationEnd()
@@ -110,7 +110,7 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    private async UniTask AfterAction(InGameTile[] inGameTiles, int second)
+    private async UniTask AfterAction(InGameTile[] inGameTiles, float second)
     {
         foreach (var tile in inGameTiles)
         {
