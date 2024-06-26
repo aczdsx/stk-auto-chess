@@ -1,24 +1,26 @@
+using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using UnityEngine;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 필리아
-// 대상 : 가장 가까운 적
-// 대미지 : 샷건을 발사해 필리아 공격력 {0}%의 대미지를 가한다.
-//     특수 효과 : 스킬로 적을 사망 시켰을 시, 스킬 쿨타임이 즉시 초기화된다.
+/// 1챕터 일반 가디언
+// "대상 : 가장 가까운 적
+// 대미지 : 강한 일격을 가해 공격력 {0}%의 대미지를 준다."
 /// </summary>
-[UseEffectCodeIds(1304021)]
-public class EffectCodeSkill1304021 : EffectCodeCharacterBase
+[UseEffectCodeIds(1101021)]
+public class EffectCodeSkill1101021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 
-    private bool _isReadyToActivate;
+    private bool isReadyToActivate;
 
     private SpecSkill _specSkill;
 
-    private bool isKilled;
+    private CharacterController _targetCharacter;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -27,7 +29,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _isReadyToActivate = false;
+        isReadyToActivate = false;
         IsSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
@@ -57,27 +59,29 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 
     public override void OnCooltime(float dt)
     {
-        if (_isReadyToActivate || IsSkillActivated)
+        if (isReadyToActivate || IsSkillActivated)
             return;
         CoolTimeElapsedTime += dt;
         if (CoolTimeElapsedTime >= CoolTimeDurationTime)
         {
-            _isReadyToActivate = true;
+            isReadyToActivate = true;
         }
     }
 
     public override bool IsReadyToActivate()
     {
-        return _isReadyToActivate;
+        return isReadyToActivate;
     }
 
     public override void Activate()
     {
         base.Activate();
         // TODO: Target Check
-        _isReadyToActivate = false;
+        isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
+
+        _targetCharacter = owner.Target;
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);
     }
@@ -86,38 +90,30 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
 
-        if (owner.Target == null)
+        if (_targetCharacter == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, owner.Target.CurrentTile.View.CachedTr.position);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            owner.Target.SkillRootTransformFollowable);
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            owner.Target.SkillRootTransformFollowable);
+            _targetCharacter.SkillRootTransformFollowable);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, owner.Target);
-        var type = owner.Target.GetDamaged(damage, owner);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+            _targetCharacter.SkillRootTransformFollowable);
+        var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-        if (type == DamageReturnType.Killed)
-            isKilled = true;
+
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+        _targetCharacter.GetDamaged(damage, owner);
 
         IsSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
     {
-        if (isKilled)
-        {
-            CoolTimeElapsedTime = CoolTimeDurationTime;
-            isKilled = false;
-        }
-        else
-        {
-            CoolTimeElapsedTime = 0.5f;
-        }
+        CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
-        // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
     }
 }

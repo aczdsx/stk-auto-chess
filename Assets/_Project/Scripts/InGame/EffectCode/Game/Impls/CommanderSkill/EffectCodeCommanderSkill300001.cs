@@ -17,7 +17,7 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1);
+            _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
 
             SkillAction();
         }
@@ -34,7 +34,7 @@ namespace CookApps.BattleSystem
 
         private void SkillAction()
         {
-            InGameManager.Instance.IngameCamera.ShakeCamera(0.5f, 0.5f);
+            InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.3f, 0.3f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile);
 

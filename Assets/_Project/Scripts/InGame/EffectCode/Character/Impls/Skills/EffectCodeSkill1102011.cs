@@ -99,7 +99,7 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
             _targetCharacter.SkillRootTransformFollowable);
 
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            _targetCharacter.SkillRootTransformFollowable);
+            owner.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
         vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
