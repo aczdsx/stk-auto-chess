@@ -44,7 +44,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.13238695, g: 0.53725386, b: 0.8018868, a: 1}
+  m_Color: {r: 0.8066038, g: 0.9076973, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -19592,7 +19592,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6394059293335737987, guid: 8a4dde54756eda24d8e3bc1d27fa1b35, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 567469436609821070, guid: 8a4dde54756eda24d8e3bc1d27fa1b35, type: 3}
       insertIndex: -1
