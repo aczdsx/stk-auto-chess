@@ -28,6 +28,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<Color> _stageVignetteColorList;
         [SerializeField] private RawImage _vignetteImage;
         [SerializeField] private Animator _sceneAnimator;
+        [SerializeField] private Material _chapter1VignetteMaterial; // [TODO] 임시 작업
+        [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
@@ -62,6 +64,7 @@ namespace CookApps.AutoBattler
             var specStage = SpecDataManager.Instance.GetStageData(chapter, stageIndex, difficultyType);
             InGameManager.Instance.StartInGame<FlowStateStageReady>(specStage, specStage);
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
+            _vignetteImage.material = (chapter == 1) ? _chapter1VignetteMaterial : _defaultVignetteMaterial;
             _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[chapter - 1]);
 
             // 최근 플레이 스테이지 저장
