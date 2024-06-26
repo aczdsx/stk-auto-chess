@@ -57,6 +57,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+
             var currentStageId = UserDataManager.Instance.GetLastPlayStageID();
             _selectedChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStageId);
 
@@ -168,10 +170,14 @@ namespace CookApps.AutoBattler
             RefreshSelectedLayer(false);
 
             OnClickCloseButton();
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
 
         private void OnClickCloseButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }

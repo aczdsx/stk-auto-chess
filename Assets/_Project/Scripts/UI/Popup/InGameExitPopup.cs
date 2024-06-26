@@ -36,6 +36,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+
             InGameMainFlowManager.Instance.SetPlaySpeed(0);
         }
 
@@ -48,11 +50,15 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 
         private void OnClickExitButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer(this);
 
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();

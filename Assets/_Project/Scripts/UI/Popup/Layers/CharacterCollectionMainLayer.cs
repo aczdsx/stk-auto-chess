@@ -117,6 +117,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickBackButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer("CharacterCollectionPopup");
         }
     }
