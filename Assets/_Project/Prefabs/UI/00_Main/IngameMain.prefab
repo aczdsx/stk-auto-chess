@@ -291,7 +291,7 @@ MonoBehaviour:
   _stageVignetteColorList:
   - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
   - {r: 0.16981128, g: 0.03594473, b: 0.016820932, a: 1}
-  - {r: 0.8503916, g: 0.8931587, b: 0.9245283, a: 1}
+  - {r: 0.8745098, g: 0.9137255, b: 0.9411765, a: 1}
   - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
   _vignetteImage: {fileID: 8688012833653517036}
   _sceneAnimator: {fileID: 641470604556226063}
@@ -2462,7 +2462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44103774, g: 0.45010886, b: 0.5, a: 1}
+  m_Color: {r: 0.7882353, g: 0.8039216, b: 0.85882354, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4826,8 +4826,8 @@ MonoBehaviour:
   _zoom: 1
   _effectGradient:
     serializedVersion: 2
-    key0: {r: 0.3042453, g: 0.3987862, b: 0.5, a: 0.1254902}
-    key1: {r: 0.098967604, g: 0.12124295, b: 0.1509434, a: 0.101960786}
+    key0: {r: 0.3042453, g: 0.3987862, b: 0.5, a: 0.9098039}
+    key1: {r: 0.098967604, g: 0.12124295, b: 0.1509434, a: 0.47058824}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4843,7 +4843,7 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 193
-    atime1: 33153
+    atime1: 34502
     atime2: 65535
     atime3: 0
     atime4: 0

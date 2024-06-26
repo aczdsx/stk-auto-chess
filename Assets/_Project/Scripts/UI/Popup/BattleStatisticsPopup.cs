@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _dimImg;
         [SerializeField] private GameObject _popup;
         [SerializeField] private CanvasGroup _canvasGroup;
+        /*
         [Space(10)]
         [Header("Exit Button")]
         [SerializeField] private RectTransform _line;
@@ -30,6 +31,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _lineImg;
         [SerializeField] private Image _circleImg;
         [SerializeField] private Image _arrowImg;
+        */
 
         private List<BattleStatSlot> _battleStatSlotList = new List<BattleStatSlot>();
 
@@ -85,14 +87,14 @@ namespace CookApps.AutoBattler
             _canvasGroup.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
             _popup.transform.DOLocalMoveX(-100f, 0f).SetUpdate(true);
             _popup.transform.DOLocalMoveX(20f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
-
+            /*
             //Exit 버튼
             _circleImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
             _lineImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.1f);
             _arrowImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.2f);
             _circle.DOScale(1f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
             _line.DOScale(1f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.1f);
-            _arrow.DOScale(1f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.2f);
+            _arrow.DOScale(1f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.2f);*/
         }
 
         public void PlayPopupCloseAnimation()
@@ -103,7 +105,7 @@ namespace CookApps.AutoBattler
             _canvasGroup.DOFade(0f, 0.3f).SetEase(Ease.OutQuad);
             _popup.transform.DOLocalMoveX(-100f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
             _popup.transform.DOLocalMoveX(20f, 0f).SetUpdate(true);
-
+            /*
             //Exit 버튼
             _circleImg.DOFade(0f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
             _lineImg.DOFade(0f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.1f);
@@ -111,6 +113,7 @@ namespace CookApps.AutoBattler
             _circle.DOScale(0f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
             _line.DOScale(0f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.1f);
             _arrow.DOScale(0f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.2f);
+            */
         }
 
         private void SetBattleStatisticsPopup()
