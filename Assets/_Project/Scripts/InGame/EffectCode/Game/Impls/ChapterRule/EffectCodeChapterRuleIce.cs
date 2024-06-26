@@ -18,6 +18,7 @@ namespace CookApps.BattleSystem
         {
             base.Initialize(codeInfo, container, source);
             _effectCodeStat = codeInfo.GetCodeStatToInt(0);
+            _chapterRuleTiles.Clear();
             for (int i = 1; i < codeInfo.StatsLength; i++)
             {
                 int tileID = codeInfo.GetCodeStatToInt(i);
