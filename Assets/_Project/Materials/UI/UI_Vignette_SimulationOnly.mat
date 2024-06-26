@@ -29,12 +29,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CircleRadius: 9.51
+    - _CircleRadius: 9
     - _CircleScale: 2
     - _CircleSoftness: 0.5
     - _DotMaxScale: 1
     - _DotMinScale: 1
-    - _EdgeSoftness: 6.53
+    - _EdgeSoftness: 3.2
     - _HexScale: -33
     - _Invert: 1
     - _Scale: 2.09
