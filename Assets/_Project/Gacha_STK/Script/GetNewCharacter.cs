@@ -396,6 +396,8 @@ namespace CookApps.AutoBattler
             if (EndAction != null)
                 EndAction();
 
+            SoundManager.Instance.StopSFX(SoundFX.snd_sfx_gacha_result_ambient_001);
+
             Destroy(this.gameObject);
         }
 
