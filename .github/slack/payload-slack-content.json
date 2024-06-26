@@ -1,0 +1,68 @@
+{
+  "text": "{{ env.TEXT }}",
+  "attachments": [
+    {
+      "color": "{{ env.JOB_STATUS_COLOR }}",
+      "blocks": [
+        {
+          "type": "section",
+          "fields": [
+            {
+              "type": "mrkdwn",
+              "text": "*Project*\n${{ env.PROJECT_NAME }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Repository*\n<${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}.git|${{ env.GITHUB_REPOSITORY }}>"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Workflow*\n${{ env.GITHUB_WORKFLOW }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Triggered By*\n`${{ env.GITHUB_TRIGGERING_ACTOR }}`"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Platform*\n${{ env.PLATFORM }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Version*\n${{ env.VERSION }} (${{ env.VERSION_CODE }})"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Ref*\n`${{ env.GITHUB_REF }}`"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*SHA*\n`${{ env.GITHUB_SHA }}`"
+            }
+          ]
+        },
+        {
+          "type": "actions",
+          "elements": [
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "Download"
+              },
+              "url": "${{ env.DOWNLOAD_URL }}"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "View Logs"
+              },
+              "url": "${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}|${{ env.GITHUB_RUN_ID }}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
