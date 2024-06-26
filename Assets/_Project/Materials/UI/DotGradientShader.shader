@@ -2,7 +2,6 @@ Shader "Custom/DotGradientShader"
 {
     Properties
     {
-        
         _MainTex ("Texture", 2D) = "white" {}
         [Header(Dot Properties)]
         [Space(10)]
@@ -11,17 +10,15 @@ Shader "Custom/DotGradientShader"
         [Space(20)]
         [Header(Gradient Properties)]
         [Space(10)]
-         _GradientScale ("Gradient Scale", Range(-2, 2)) = 1.0
+        _GradientScale ("Gradient Scale", Range(-2, 2)) = 1.0
         _GradientDirection ("Gradient Direction", Vector) = (0, 1, 0, 0) // (x, y) = (0, 1) for vertical, (1, 0) for horizontal
         _FlipGradient ("Flip Gradient", int) = 0 // 0: no flip, 1: flip
         _Speed ("Speed", Range(0.1, 10.0)) = 1.0
         _Tiling ("Tiling", Vector) = (1, 1, 0, 0)
-       
-        
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Overlay-1"}
+        Tags { "RenderType"="Transparent" "Queue"="Overlay-1" }
         LOD 100
 
         Blend SrcAlpha OneMinusSrcAlpha
@@ -33,6 +30,7 @@ Shader "Custom/DotGradientShader"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 2.0
 
             #include "UnityCG.cginc"
 
@@ -46,6 +44,7 @@ Shader "Custom/DotGradientShader"
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                UNITY_FOG_COORDS(1)
             };
 
             sampler2D _MainTex;
@@ -63,6 +62,7 @@ Shader "Custom/DotGradientShader"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                UNITY_TRANSFER_FOG(o, o.vertex);
                 return o;
             }
 
@@ -102,6 +102,11 @@ Shader "Custom/DotGradientShader"
 
                 // Apply the dot color
                 float4 dotColor = _DotColor * finalAlpha;
+
+                // Apply clipping for UI
+                #ifdef UNITY_UI_CLIP
+                dotColor.a *= UnityGet2DClipping(i.uv);
+                #endif
 
                 return dotColor; // Return the dot color with calculated alpha
             }
