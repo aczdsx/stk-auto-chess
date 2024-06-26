@@ -112,7 +112,6 @@ public class InGameTopUI : MonoBehaviour
 
         var synergyCountList = synergyCounts.ToList();
 
-        InGameObjectManager.Instance.ClearSynergyFx();
         foreach (var synergyCount in synergyCountList)
         {
             if (synergyCount.IsCharacterPosition)

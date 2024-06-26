@@ -114,6 +114,7 @@ namespace CookApps.AutoBattler
         }
         public void SetInGameTopUI()
         {
+            InGameObjectManager.Instance.ClearSynergyFx();
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
 

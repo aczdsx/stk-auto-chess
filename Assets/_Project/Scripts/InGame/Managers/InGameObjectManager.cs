@@ -731,6 +731,7 @@ namespace CookApps.BattleSystem
         {
             _synergyVfxList.ForEach(vfx =>
             {
+                vfx.transform.SetParent(InGameObjectManager.Instance.Playground);
                 vfx.Remove();
             });
             _synergyVfxList.Clear();
