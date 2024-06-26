@@ -15,7 +15,6 @@
     "com.cookapps.specdatamanager": "1.0.14",
     "com.cookapps.unitysettings": "2.0.5",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-    "com.febucci.custom-hierarchy": "https://github.com/febucci/unitypackage-custom-hierarchy.git",
     "com.google.external-dependency-manager": "file:./GooglePackages/com.google.external-dependency-manager-1.2.177.tgz",
     "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
     "com.unity.2d.sprite": "1.0.0",
