@@ -72,6 +72,9 @@ namespace CookApps.AutoBattler
 
             // 유저 레벨업 체크용 이전 레벨 데이터 저장
             UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
+
+            // 사운드 재생
+            PlayStageBGM(chapter);
         }
 
         protected override void OnPreExit()
@@ -133,6 +136,22 @@ namespace CookApps.AutoBattler
 
                     _updateTimer -= UpdateInterval;
                 }
+            }
+        }
+
+        private void PlayStageBGM(int targetChapter)
+        {
+            switch (targetChapter)
+            {
+                case 1:
+                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter0);
+                    break;
+                case 2:
+                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter1);
+                    break;
+                case 3:
+                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter2);
+                    break;
             }
         }
 
