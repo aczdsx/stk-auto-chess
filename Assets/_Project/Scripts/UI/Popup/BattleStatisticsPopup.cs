@@ -137,7 +137,13 @@ namespace CookApps.AutoBattler
         {
             while (InGameManager.Instance.IsInGamePlaying)
             {
-                _battleStatSlotList.ForEach(slot => slot.RefreshBattleStatSlot());
+                _battleStatSlotList.Sort((a, b) => { return b.AttackDamageAmount.CompareTo(a.AttackDamageAmount); });
+                for (int i = 0; i < _battleStatSlotList.Count; i++)
+                {
+                    _battleStatSlotList[i].gameObject.transform.SetSiblingIndex(i);
+                }
+
+                _battleStatSlotList.ForEach(slot => slot.RefreshBattleStatSlotSmooth(STATISTICS_UPDATE_TIME * 0.001f).Forget());
 
                 await UniTask.Delay(STATISTICS_UPDATE_TIME);
             }
