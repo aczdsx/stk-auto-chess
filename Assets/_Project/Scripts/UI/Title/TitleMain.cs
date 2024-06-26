@@ -24,6 +24,9 @@ namespace CookApps.AutoBattler
             progressDict.Clear();
             touchToStart.SetActive(false);
             RunAllTasks().Forget();
+
+            // bgm on
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
         }
 
         private async UniTask RunAllTasks()
@@ -109,7 +112,7 @@ namespace CookApps.AutoBattler
                     var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
                     if (UserDataManager.Instance.IsClearStage(lastStageID))
                     {
-                        specStageData = UserDataManager.Instance.GetNextStageData(lastStageID);
+                        specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
                     }
 
                     SceneLoading.GoToNextScene("InGame", ((int)specStageData.chapter_id, (int)specStageData.stage_number, DifficultyType.NORMAL)).Forget();
