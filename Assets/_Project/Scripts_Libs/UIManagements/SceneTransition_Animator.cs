@@ -9,8 +9,6 @@ namespace CookApps.TeamBattle.UIManagements
     {
         [SerializeField] private Image dim;
         [SerializeField] private Animator _animator;
-        private float fadeInDuration = 0.25f;
-        private float fadeOutDuration = 0.5f;
 
         public static SceneTransition_Animator Create()
         {
@@ -22,7 +20,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public async UniTask FadeInAsync()
         {
-            _animator.Play("SetTransitionIn");
+            _animator.SetTrigger("SetTransitionIn");
             await UniTask.Yield(PlayerLoopTiming.Update);
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             await UniTask.Delay(TimeSpan.FromSeconds(stateInfo.length));
@@ -30,7 +28,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public async UniTask FadeOutAsync(bool withDelete)
         {
-            _animator.Play("SetTransitionOut");
+            _animator.SetTrigger("SetTransitionOut");
             await UniTask.Yield(PlayerLoopTiming.Update);
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             await UniTask.Delay(TimeSpan.FromSeconds(stateInfo.length));

@@ -15,7 +15,6 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     private ObfuscatorFloat _powerRate;
 
     private bool _isReadyToActivate;
-    private bool _isSkillActivated;
 
     private SpecSkill _specSkill;
 
@@ -29,7 +28,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _isReadyToActivate = false;
-        _isSkillActivated = false;
+        IsSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
@@ -43,7 +42,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        if (!_isSkillActivated)
+        if (!IsSkillActivated)
         {
             return;
         }
@@ -58,7 +57,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 
     public override void OnCooltime(float dt)
     {
-        if (_isReadyToActivate || _isSkillActivated)
+        if (_isReadyToActivate || IsSkillActivated)
             return;
         CoolTimeElapsedTime += dt;
         if (CoolTimeElapsedTime >= CoolTimeDurationTime)
@@ -77,7 +76,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
         base.Activate();
         // TODO: Target Check
         _isReadyToActivate = false;
-        _isSkillActivated = true;
+        IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);
@@ -90,21 +89,20 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var tile = owner.Target.CurrentTile;
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, owner.Target.CurrentTile.View.CachedTr.position);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            tile.OccupiedCharacter.SkillRootTransformFollowable);
+            owner.Target.SkillRootTransformFollowable);
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            tile.OccupiedCharacter.SkillRootTransformFollowable);
+            owner.Target.SkillRootTransformFollowable);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-        var type = tile.OccupiedCharacter.GetDamaged(damage, owner);
+        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, owner.Target);
+        var type = owner.Target.GetDamaged(damage, owner);
 
         if (type == DamageReturnType.Killed)
             isKilled = true;
 
-        _isSkillActivated = false;
+        IsSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
@@ -118,7 +116,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
         {
             CoolTimeElapsedTime = 0;
         }
-        _isSkillActivated = false;
+        IsSkillActivated = false;
         base.OnSkillAnimationEnd();
         // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
     }

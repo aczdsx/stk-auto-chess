@@ -18,7 +18,6 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
     private ObfuscatorFloat _damageRate;
 
     private bool _isReadyToActivate;
-    private bool _isSkillActivated;
 
     private SpecSkill _specSkill;
 
@@ -30,7 +29,7 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _isReadyToActivate = false;
-        _isSkillActivated = false;
+        IsSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
@@ -44,7 +43,7 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        if (!_isSkillActivated)
+        if (!IsSkillActivated)
         {
             return;
         }
@@ -59,7 +58,7 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
 
     public override void OnCooltime(float dt)
     {
-        if (_isReadyToActivate || _isSkillActivated)
+        if (_isReadyToActivate || IsSkillActivated)
             return;
         CoolTimeElapsedTime += dt;
         if (CoolTimeElapsedTime >= CoolTimeDurationTime)
@@ -78,7 +77,7 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
         base.Activate();
         // TODO: Target Check
         _isReadyToActivate = false;
-        _isSkillActivated = true;
+        IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);
@@ -115,13 +114,13 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
             }
         }
 
-        _isSkillActivated = false;
+        IsSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
     {
         CoolTimeElapsedTime = 0;
-        _isSkillActivated = false;
+        IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
 }

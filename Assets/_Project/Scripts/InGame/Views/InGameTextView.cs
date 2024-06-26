@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
             _root.position = initialPosition;
             _animator.SetTrigger(isCritical ? Critical : Normal);
 
-            await WaitForAnimationEnd();
+            // await WaitForAnimationEnd();
         }
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
@@ -52,14 +52,19 @@ namespace CookApps.AutoBattler
             _root.position = initialPosition;
             _animator.SetTrigger(Heal);
 
-            await WaitForAnimationEnd();
+            // await WaitForAnimationEnd();
         }
 
-        private async UniTask WaitForAnimationEnd()
+        public void ReturnTextView()
         {
-            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-            await UniTask.WaitUntil(() => stateInfo.normalizedTime >= 1f);
+            InGameTextViewPool.Instance.Return(this);
         }
+
+        // private async UniTask WaitForAnimationEnd()
+        // {
+        //     AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+        //     await UniTask.WaitUntil(() => stateInfo.normalizedTime >= 1f);
+        // }
     }
 
     public class InGameTextViewPool : Singleton<InGameTextViewPool>

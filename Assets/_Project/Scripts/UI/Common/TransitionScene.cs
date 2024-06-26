@@ -82,6 +82,16 @@ namespace CookApps.AutoBattler
                 await UniTask.Yield(PlayerLoopTiming.Update, token);
             }
         }
+
+        public void FadeInComplete()
+        {
+
+        }
+
+        public void FadeOutComplete()
+        {
+
+        }
     }
 
 }

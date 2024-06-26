@@ -33,11 +33,14 @@ public class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
                 (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
             if (eccBase != null)
             {
-                float durationTime = eccBase.GetDurationTime();
-                float elapsedTime = eccBase.GetDurationTime();
-                float decreasedTime = durationTime * statValue;
-                float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
-                eccBase.SetElapsedTime(newElapsedTime);
+                if (!eccBase.IsSkillActivated)
+                {
+                    float durationTime = eccBase.GetDurationTime();
+                    float elapsedTime = eccBase.GetElapsedTime();
+                    float decreasedTime = durationTime * statValue;
+                    float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+                    eccBase.SetElapsedTime(newElapsedTime);
+                }
             }
         }
     }

@@ -33,9 +33,12 @@ public class EffectCodeSynergyPositionWizard : EffectCodeCharacterBase
                 (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
             if (eccBase != null)
             {
-                float durationTime = eccBase.GetDurationTime();
-                float newElapsedTime =  durationTime * statValue;
-                eccBase.SetElapsedTime(newElapsedTime);
+                if (!eccBase.IsSkillActivated)
+                {
+                    float durationTime = eccBase.GetDurationTime();
+                    float newElapsedTime = durationTime * statValue;
+                    eccBase.SetElapsedTime(newElapsedTime);
+                }
             }
         }
     }

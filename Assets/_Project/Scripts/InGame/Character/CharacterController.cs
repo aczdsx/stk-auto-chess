@@ -954,7 +954,6 @@ namespace CookApps.BattleSystem
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, isDoubleCritical);
-            InGameTextViewPool.Instance.Return(textView);
         }
 
         private async UniTask ShowHealText(double amount)
@@ -965,7 +964,6 @@ namespace CookApps.BattleSystem
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowHealText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
-            InGameTextViewPool.Instance.Return(textView);
         }
 
         public void MoveCharacter(bool isInRange)

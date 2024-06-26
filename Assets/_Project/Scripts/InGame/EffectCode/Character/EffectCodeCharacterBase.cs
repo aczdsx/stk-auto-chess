@@ -16,6 +16,7 @@ namespace CookApps.BattleSystem
         public void SetElapsedTime(float elapsedTime) => CoolTimeElapsedTime = elapsedTime;
         public float GetElapsedTime() => CoolTimeElapsedTime;
         public float GetDurationTime() => CoolTimeDurationTime;
+        public bool IsSkillActivated;
 
         public override int CalcOrder => 1;
 

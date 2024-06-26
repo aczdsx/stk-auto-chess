@@ -15,10 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class EffectCodeSkill1406011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
-
     private bool _isReadyToActivate;
-    private bool _isSkillActivated;
-
     private SpecSkill _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -29,7 +26,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _isReadyToActivate = false;
-        _isSkillActivated = false;
+        IsSkillActivated = false;
 
         SkillIndex = 0;
 
@@ -45,7 +42,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        if (!_isSkillActivated)
+        if (!IsSkillActivated)
         {
             return;
         }
@@ -60,7 +57,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
 
     public override void OnCooltime(float dt)
     {
-        if (_isReadyToActivate || _isSkillActivated)
+        if (_isReadyToActivate || IsSkillActivated)
             return;
         CoolTimeElapsedTime += dt;
         if (CoolTimeElapsedTime >= CoolTimeDurationTime)
@@ -79,7 +76,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
         base.Activate();
         // TODO: Target Check
         _isReadyToActivate = false;
-        _isSkillActivated = true;
+        IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);
@@ -109,13 +106,13 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
             }
         }
 
-        _isSkillActivated = false;
+        IsSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
     {
         CoolTimeElapsedTime = 0;
-        _isSkillActivated = false;
+        IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
 }

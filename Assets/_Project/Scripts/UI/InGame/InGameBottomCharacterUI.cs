@@ -50,6 +50,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     protected void Awake()
     {
+        bool isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+        _commanderSkillUI.gameObject.SetActive(isOpenCommanderSkill);
+
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         _CommanderSkillButton?.onClick.AddListener(OnClickCommanderSkillButton);
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
