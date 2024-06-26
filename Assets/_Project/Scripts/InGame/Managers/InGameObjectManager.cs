@@ -721,8 +721,8 @@ namespace CookApps.BattleSystem
 
                 if (character.SpecCharacter.element_type == elementType)
                 {
-                    _synergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfx(inGameVfxNameType,
-                        character.SkillRootTransformFollowable));
+                    _synergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
+                        character.GetCharacterView().CachedTr));
                 }
             }
         }

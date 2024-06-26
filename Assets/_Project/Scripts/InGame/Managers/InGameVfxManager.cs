@@ -101,6 +101,14 @@ namespace CookApps.BattleSystem
             return effect;
         }
 
+        public InGameVfx AddInGameVfxByTransform(InGameVfxNameType vfxNameType, Transform transform)
+        {
+            var effect = InGameVfxPool.Get(vfxNameType, transform);
+            addWaitingInGameVfxs.Enqueue(effect);
+            effect.CachedTr.position = transform.position;
+            return effect;
+        }
+
         public InGameVfx AddInGameTileFx(ElementType type, Vector3 worldPosition)
         {
             InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;

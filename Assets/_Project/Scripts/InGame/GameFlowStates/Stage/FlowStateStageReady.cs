@@ -69,15 +69,16 @@ public class FlowStateStageReady : StateBase
     {
         if (_specStage.chapter_rule_tile.Length > 0)
         {
-            Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length];
+            Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length + 1];
             debuffStats.Clear();
 
             debuffStats[0] = _specStage.effect_code_stat;
-            for (int i = 1; i < _specStage.chapter_rule_tile.Length; i++)
+            for (int i = 0; i < _specStage.chapter_rule_tile.Length; i++)
             {
-                debuffStats[i] = _specStage.chapter_rule_tile[i];
+                debuffStats[i + 1] = _specStage.chapter_rule_tile[i];
             }
-            var effectCodeID = new EffectCodeInfo((long)_specStage.effect_code_name, 0, debuffStats);
+
+            var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name, 0, debuffStats);
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
         }
     }
