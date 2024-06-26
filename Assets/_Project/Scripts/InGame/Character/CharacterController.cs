@@ -124,6 +124,8 @@ namespace CookApps.BattleSystem
         private static int characUIdInc;
         private int _characterUId;
 
+        private Vector3 SelectedOffSet;
+
         public async UniTask Initialize(InGameTile tile, Transform Playground, int id)
         {
             ChangeOccupiedTile(tile);
@@ -341,6 +343,10 @@ namespace CookApps.BattleSystem
 
         public void SetSelectedCharacter(bool isSetSelected)
         {
+            if (isSetSelected)
+                SelectedOffSet += Vector3.up * 0.5f;
+            else
+                SelectedOffSet -= Vector3.up * 0.5f;
             _view.SetSelected(isSetSelected);
             Color color = isSetSelected ? Color.gray : Color.white;
             _view.SetColor(color);
@@ -440,7 +446,7 @@ namespace CookApps.BattleSystem
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
             {
-                _view.UpdatePosition(position, ViewPosition3D);
+                _view.UpdatePosition(position, ViewPosition3D, SelectedOffSet);
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnUpdate))
@@ -451,7 +457,7 @@ namespace CookApps.BattleSystem
 
             if (isAirborne || isKnockBack)
             {
-                _view.UpdatePosition(position, ViewPosition3D);
+                _view.UpdatePosition(position, ViewPosition3D, SelectedOffSet);
             }
 
             {
