@@ -72,7 +72,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         _readyUIObj.SetActive(false);
 
-        InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         SetCommanderSkill();
 

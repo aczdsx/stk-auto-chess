@@ -10,11 +10,8 @@ public class FlowStateStageStart : StateBase
 
     public override async void StateStart()
     {
-        // 스테이지 시작! UI 출력
-        // var uiLayer = await SceneUILayerManager.Instance.PushUILayerAsync<StageStartOverlay>();
-        // await uiLayer.WaitForExit();
-
-        // 캐릭터 선택 UI 없애기
+        InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
+        InGameObjectManager.Instance.ClearSynergyFx();
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
     }
 
