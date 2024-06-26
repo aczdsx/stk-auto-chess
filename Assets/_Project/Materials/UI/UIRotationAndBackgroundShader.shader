@@ -16,13 +16,22 @@ Shader "Custom/UIRotationAndBackgroundShader"
     }
     SubShader
     {
-        Tags { "Queue" = "Transparent" }
+        Tags { "Queue" = "Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" "PreviewType"="Plane" }
+        LOD 100
+
+        Blend SrcAlpha OneMinusSrcAlpha
+        Cull Off
+        Lighting Off
+        ZWrite Off
+        ZTest Always
 
         Pass
         {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 2.0
+
             #include "UnityCG.cginc"
 
             struct appdata
@@ -37,6 +46,7 @@ Shader "Custom/UIRotationAndBackgroundShader"
                 float2 uvRotate : TEXCOORD1;
                 float2 uvExtra : TEXCOORD2;
                 float4 vertex : SV_POSITION;
+                UNITY_FOG_COORDS(1)
             };
 
             sampler2D _BackgroundTex;
@@ -69,6 +79,7 @@ Shader "Custom/UIRotationAndBackgroundShader"
                 o.uvExtra = (o.uv - 0.5) * _ExtraTexScale + 0.5;
                 o.uvExtra = o.uvExtra * _ExtraTex_ST.xy + _ExtraTex_ST.zw;
 
+                UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
 
@@ -83,6 +94,12 @@ Shader "Custom/UIRotationAndBackgroundShader"
                 fixed4 extraCol = tex2D(_ExtraTex, i.uvExtra) * _ExtraColor;
 
                 fixed4 result = lerp(lerp(backgroundCol, rotateCol, _BlendIntensity), extraCol, extraCol.a);
+
+                // Apply clipping for UI
+                #ifdef UNITY_UI_CLIP
+                result.a *= UnityGet2DClipping(i.uv);
+                #endif
+
                 return result;
             }
             ENDCG

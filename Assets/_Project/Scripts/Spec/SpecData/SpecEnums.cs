@@ -229,6 +229,7 @@ namespace CookApps.AutoBattler
         OPEN_CHEST = 6,
         SUMMON_CHARCTER = 7,
         END_DIALOGUE = 8,
+        LEVELUP_CHARACTER_TARGET = 9,
     }
 
     public enum DialogueEventType

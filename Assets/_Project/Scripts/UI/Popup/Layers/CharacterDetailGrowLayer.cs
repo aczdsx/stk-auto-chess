@@ -224,6 +224,7 @@ namespace CookApps.AutoBattler
 
             // 가이드 미션 체크
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
 
             // 이펙트 실행
             PlayLevelUpEffect();

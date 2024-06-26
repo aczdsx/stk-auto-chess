@@ -1,4 +1,5 @@
-Shader "Custom/TexturedCircleDotPattern"{
+Shader "Custom/TexturedCircleDotPattern"
+{
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
@@ -13,17 +14,22 @@ Shader "Custom/TexturedCircleDotPattern"{
     }
     SubShader
     {
-        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+        Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" "PreviewType"="Plane" }
         LOD 100
 
         Blend SrcAlpha OneMinusSrcAlpha
+        Cull Off
+        Lighting Off
         ZWrite Off
+        ZTest Always
 
         Pass
         {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 2.0
+
             #include "UnityCG.cginc"
 
             struct appdata
@@ -36,6 +42,7 @@ Shader "Custom/TexturedCircleDotPattern"{
             {
                 float2 uv : TEXCOORD0;
                 float4 pos : SV_POSITION;
+                UNITY_FOG_COORDS(1)
             };
 
             sampler2D _MainTex;
@@ -53,6 +60,7 @@ Shader "Custom/TexturedCircleDotPattern"{
                 v2f o;
                 o.uv = v.uv;
                 o.pos = UnityObjectToClipPos(v.vertex);
+                UNITY_TRANSFER_FOG(o,o.pos);
                 return o;
             }
 
@@ -85,6 +93,11 @@ Shader "Custom/TexturedCircleDotPattern"{
                 // Combine texture color with dot color
                 float4 color = texColor * _DotColor;
                 color.a = dotPattern * circle; // Apply the pattern and circle alpha
+
+                // Apply clipping for UI
+                #ifdef UNITY_UI_CLIP
+                color.a *= UnityGet2DClipping(i.uv);
+                #endif
 
                 return color;
             }

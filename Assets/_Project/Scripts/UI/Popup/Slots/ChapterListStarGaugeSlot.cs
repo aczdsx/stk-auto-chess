@@ -66,7 +66,6 @@ namespace CookApps.AutoBattler
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
             _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);
 
-            _completeSymbolObject.SetActive(_isAlreadyGetReward);
             if (_isAlreadyGetReward)
             {
                 _rewardIconImage.color = BMUtil.ChangeColorAlpha(_rewardIconImage.color, 60);
@@ -74,6 +73,9 @@ namespace CookApps.AutoBattler
                 _completeLayerImage_1.color = _completedColor;
                 _completeLayerImage_2.color = _completedColor;
             }
+
+            _completeLayerImage_1.gameObject.SetActive(_isAlreadyGetReward);
+            _completeSymbolObject.SetActive(_isAlreadyGetReward);
         }
 
         private void OnClickGetRewardButton()
@@ -99,6 +101,9 @@ namespace CookApps.AutoBattler
 
             // 보상 수령 데이터 처리
             UserDataManager.Instance.SetStageAccRewardState(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
+
+            // 보상 지급
+            UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
 
             // 챕터 리스트 팝업 갱신
             var chapterListPopup = SceneUILayerManager.Instance.GetUILayer<ChapterListPopup>();
