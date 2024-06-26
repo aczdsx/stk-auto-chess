@@ -388,7 +388,8 @@ namespace CookApps.AutoBattler
 
                 // 스테이지 진입
                 InGameManager.Instance.EndInGame();
-                SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type)).Forget();
+                SceneTransition_Animator transition = SceneTransition_Animator.Create();
+                SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type), transition).Forget();
             }
         }
 

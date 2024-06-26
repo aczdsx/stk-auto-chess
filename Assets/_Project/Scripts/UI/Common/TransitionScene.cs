@@ -1,4 +1,5 @@
 using System.Threading;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -81,7 +82,6 @@ namespace CookApps.AutoBattler
                 await UniTask.Yield(PlayerLoopTiming.Update, token);
             }
         }
-
     }
 
 }

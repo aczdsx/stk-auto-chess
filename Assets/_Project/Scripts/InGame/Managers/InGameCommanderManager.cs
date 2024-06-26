@@ -35,7 +35,7 @@ public class CommanderSkillData
     }
 }
 
-public class InGameCommanderManager : LazySingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
+public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
     IEndDragHandler
 {
     // [TODO] switchObj 추가 필요
