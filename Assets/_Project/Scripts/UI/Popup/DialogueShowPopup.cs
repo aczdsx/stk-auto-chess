@@ -102,6 +102,8 @@ namespace CookApps.AutoBattler
         {
             currentDialogueSeq++;
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_dialogue);
+
             // 다이얼로그 종료 처리
             if (currentDialogueSeq >= _dialogueList.Count)
             {

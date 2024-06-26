@@ -217,12 +217,12 @@ namespace CookApps.AutoBattler
                 if (isHaveSSR)
                 {
                     // 1개 획득할때 SSR 사운드
-                    //SoundManager.Instance.PlaySFX(SFXIndex.gacha_start_003);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_start_003);
                 }
                 else
                 {
                     // 1개 획득할때 노말 사운드
-                    //SoundManager.Instance.PlaySFX(SFXIndex.gacha_start_004);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_start_004);
                 }
             }
             else
@@ -231,12 +231,12 @@ namespace CookApps.AutoBattler
                 if (isHaveSSR)
                 {
                     // 10개 획득할때 SSR 사운드
-                    //SoundManager.Instance.PlaySFX(SFXIndex.gacha_start_001);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_start_001);
                 }
                 else
                 {
                     // 10개 획득할때 노말 사운드
-                    //SoundManager.Instance.PlaySFX(SFXIndex.gacha_start_002);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_start_002);
                 }
             }
             for (int i = 0; i < SSRGachaFX.Length; i++)
@@ -279,7 +279,7 @@ namespace CookApps.AutoBattler
                         pds[3].gameObject.SetActive(true);
 
                         pds[3].Play();
-                        //SoundManager.Instance.PlaySFX(SFXIndex.gacha_starfall_002);
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_starfall_002);
                     }
                     else
                     {
@@ -288,7 +288,7 @@ namespace CookApps.AutoBattler
                         pds[1].gameObject.SetActive(true);
 
                         pds[1].Play();
-                        //SoundManager.Instance.PlaySFX(SFXIndex.gacha_starfall_001);
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_starfall_001);
                     }
                 }
             });
@@ -636,7 +636,7 @@ namespace CookApps.AutoBattler
                     pds[2].gameObject.SetActive(false);
                     pds[3].gameObject.SetActive(true);
                     pds[3].Play();
-                    //SoundManager.Instance.PlaySFX(SFXIndex.gacha_starfall_002);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_starfall_002);
                 }
                 else
                 {
@@ -682,7 +682,7 @@ namespace CookApps.AutoBattler
                     pds[0].gameObject.SetActive(false);
                     pds[1].gameObject.SetActive(true);
                     pds[1].Play();
-                    //SoundManager.Instance.PlaySFX(SFXIndex.gacha_starfall_001);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_starfall_001);
                 }
                 else
                 {

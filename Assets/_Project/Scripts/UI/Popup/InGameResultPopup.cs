@@ -112,6 +112,12 @@ namespace CookApps.AutoBattler
             {
                 CheckLatestStageClear();
                 CreateRewardItems();
+
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
             }
 
             var currentMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();

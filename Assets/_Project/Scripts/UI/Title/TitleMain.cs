@@ -126,6 +126,8 @@ namespace CookApps.AutoBattler
                     SceneLoading.GoToNextScene("Lobby", (int)specStageData.chapter_id, transition).Forget();
                 }
 
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+
                 // int lastChapter = 1;
                 // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
             }
