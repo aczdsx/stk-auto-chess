@@ -382,7 +382,7 @@ namespace CookApps.AutoBattler
 
             if (skipDatas.Count <= skipCnt)
             {
-                //SoundManager.Instance.PlaySFX(SFXIndex.gacha_open_cha001);
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
                 foreach (var obj in GachItems)
                 {
 
@@ -443,7 +443,7 @@ namespace CookApps.AutoBattler
             GachItems[idx].ChangeItem();
             if (idx == 0)
             {
-                //SoundManager.Instance.PlaySFX(SFXIndex.gacha_result_ambient_001);
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_result_ambient_001);
                 SkipObject.SetActive(true);
 
             }
@@ -457,7 +457,7 @@ namespace CookApps.AutoBattler
                 SkipObject.SetActive(false);
                 Run.After(System.TimeSpan.FromSeconds(1f).Seconds, () =>
                 {
-                    // SoundManager.Instance.PlaySFX(SFXIndex.gacha_open_cha001);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
                     // foreach (var obj in GachItems)
                     // {
                     //     // obj.ShowItem();
@@ -485,7 +485,7 @@ namespace CookApps.AutoBattler
 
             if (cnt > _datas.Count - 1)
             {
-                //SoundManager.Instance.PlaySFX(SFXIndex.gacha_open_cha001);
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
                 foreach (var obj in GachItems)
                 {
                     // obj.ShowItem();
@@ -647,7 +647,7 @@ namespace CookApps.AutoBattler
                     isSkipGet = true;
                     if (CheckSkipCharacter() == false)
                     {
-                        //SoundManager.Instance.PlaySFX(SFXIndex.gacha_open_cha001);
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
                         foreach (var obj in GachItems)
                         {
 
@@ -693,7 +693,7 @@ namespace CookApps.AutoBattler
                     isSkipGet = true;
                     if (CheckSkipCharacter() == false)
                     {
-                        //SoundManager.Instance.PlaySFX(SFXIndex.gacha_open_cha001);
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
                         foreach (var obj in GachItems)
                         {
 
@@ -801,6 +801,8 @@ namespace CookApps.AutoBattler
             {
                 gachaPopup.SetCanvasTargetDisplay(0);
             }
+
+            SoundManager.Instance.StopSFX(SoundFX.snd_sfx_gacha_result_ambient_001);
 
             Destroy(this.gameObject);
         }

@@ -25,6 +25,8 @@ namespace CookApps.AutoBattler
             touchToStart.SetActive(false);
             RunAllTasks().Forget();
 
+            Debug.Log("TitleMain OnPreEnter");
+
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
         }
