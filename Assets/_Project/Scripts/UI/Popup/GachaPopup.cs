@@ -75,6 +75,9 @@ namespace CookApps.AutoBattler
             // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList, true);
 
+            // 가챠 티켓 소모
+            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_1_TIME_COUNT, true);
+
             // 가챠 결과 아이템 저장
             UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
 
@@ -116,6 +119,9 @@ namespace CookApps.AutoBattler
 
             //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList);
+
+            // 가챠 티켓 소모
+            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_10_TIME_COUNT, true);
 
             // 가챠 결과 아이템 저장
             UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);

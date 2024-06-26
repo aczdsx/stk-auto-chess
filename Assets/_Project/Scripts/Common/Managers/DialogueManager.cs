@@ -18,6 +18,13 @@ namespace CookApps.AutoBattler
             // 다이얼로그 재생 여부 확인
             if (IsWatchedDialogueEvent(eventType, subKeyValue)) return;
 
+            // 현재 다이얼로그 팝업이 켜져 있는 상태인지 확인
+            var dialoguePopup = SceneUILayerManager.Instance.GetUILayer<DialogueShowPopup>();
+            if (dialoguePopup != null)
+            {
+                return;
+            }
+
             // 다이얼로그 팝업 생성
             switch (eventType)
             {
