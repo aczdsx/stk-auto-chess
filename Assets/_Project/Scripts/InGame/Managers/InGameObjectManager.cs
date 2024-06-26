@@ -691,7 +691,7 @@ namespace CookApps.BattleSystem
                 attrValue += character.GetCharacterStat().GetAttrValue();
             }
 
-            return attrValue.ToString();
+            return attrValue.ToString($"n0");
         }
     }
 }

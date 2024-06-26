@@ -105,6 +105,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);
         UpdateData();
         InGameMain.GetInGameMain().SetInGameTopUI();
+        SetCharacterCountText();
     }
 
     public void CheckNewCharacter()
@@ -304,7 +305,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         int maximumCount = SpecDataManager.Instance.SpecAccountLevelExp
             .Get(UserDataManager.Instance.UserBasicData.Level).squad_count;
 
-        string colorCode = characterCount == 0 ? "#AA0000" : "#9EAEC3";
+        string colorCode = characterCount == 0 ? "#CA6E71" : "#9EAEC3";
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
     }
 }
