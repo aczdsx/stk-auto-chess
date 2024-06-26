@@ -160,7 +160,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
             SceneUILayerManager.Instance.PopUILayer(this);
         }
