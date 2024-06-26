@@ -7,6 +7,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +45,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField]
     private CommanderSkillUI _commanderSkillUI;
 
+    [SerializeField]
+    private TextMeshProUGUI _characterCountText;
+
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private bool isRunningAddCharacter;
@@ -62,7 +66,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     {
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == 0)
         {
-            ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
+            ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_CHAR_NOT_SET");
             return;
         }
 
@@ -246,6 +250,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     {
         _characterStats.Add(controller.GetCharacterStat());
         UpdateData();
+        SetCharacterCountText();
     }
 
     private async void AddCharacterToTile(CharacterStatData statData)
@@ -259,7 +264,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         if (userLevelData.squad_count < InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
-            ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
+            ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
         }
         else
         {
@@ -277,6 +282,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             });
 
             InGameMain.GetInGameMain().SetInGameTopUI();
+            SetCharacterCountText();
         }
 
         isRunningAddCharacter = false;
@@ -290,5 +296,15 @@ public class InGameBottomCharacterUI : MonoBehaviour
     public void SetIconColor(float fadeAlpha)
     {
         _commanderSkillUI.SetIconColor(fadeAlpha);
+    }
+
+    public void SetCharacterCountText()
+    {
+        int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
+        int maximumCount = SpecDataManager.Instance.SpecAccountLevelExp
+            .Get(UserDataManager.Instance.UserBasicData.Level).squad_count;
+
+        string colorCode = characterCount == 0 ? "#AA0000" : "#9EAEC3";
+        _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
     }
 }

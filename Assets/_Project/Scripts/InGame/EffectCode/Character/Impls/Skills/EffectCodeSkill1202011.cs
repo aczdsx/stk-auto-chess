@@ -113,6 +113,7 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
+            InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.15f, 0.2f);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
             if (tile.OccupiedCharacter != null)
