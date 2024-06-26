@@ -1,4 +1,4 @@
-Shader "Custom/HollowCircleShader"
+Shader "Custom/CircleShader"
 {
     Properties
     {
@@ -11,16 +11,22 @@ Shader "Custom/HollowCircleShader"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Overlay" }
+        Tags { "RenderType"="Transparent" "Queue"="Overlay" "IgnoreProjector"="True" "PreviewType"="Plane" }
         LOD 100
 
         Blend SrcAlpha OneMinusSrcAlpha // 알파 블렌딩 설정
+        Cull Off
+        Lighting Off
+        ZWrite Off
+        ZTest Always
 
         Pass
         {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 2.0
+
             #include "UnityCG.cginc"
 
             struct appdata_t
@@ -33,6 +39,7 @@ Shader "Custom/HollowCircleShader"
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                UNITY_FOG_COORDS(1)
             };
 
             sampler2D _MainTex;
@@ -48,6 +55,7 @@ Shader "Custom/HollowCircleShader"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                UNITY_TRANSFER_FOG(o, o.vertex);
                 return o;
             }
 
@@ -74,6 +82,11 @@ Shader "Custom/HollowCircleShader"
                 {
                     color.a = 0; // 마스킹 범위를 벗어난 픽셀은 투명하게 처리
                 }
+
+                // Apply clipping for UI
+                #ifdef UNITY_UI_CLIP
+                color.a *= UnityGet2DClipping(i.uv);
+                #endif
 
                 return color;
             }
