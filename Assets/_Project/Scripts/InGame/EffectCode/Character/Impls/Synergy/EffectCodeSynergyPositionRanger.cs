@@ -38,7 +38,7 @@ public class EffectCodeSynergyPositionRanger : EffectCodeCharacterBase
                     float durationTime = eccBase.GetDurationTime();
                     float elapsedTime = eccBase.GetElapsedTime();
                     float decreasedTime = durationTime * statValue;
-                    float newElapsedTime = Math.Max(0, elapsedTime - decreasedTime);
+                    float newElapsedTime = elapsedTime + decreasedTime;
                     eccBase.SetElapsedTime(newElapsedTime);
                 }
             }
