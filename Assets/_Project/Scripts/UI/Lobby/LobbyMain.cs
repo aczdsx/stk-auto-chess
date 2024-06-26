@@ -102,6 +102,9 @@ namespace CookApps.AutoBattler
 
             // 레이어 갱신
             RefreshUI(LobbyMainRefreshType.ALL);
+
+            // bgm on
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)

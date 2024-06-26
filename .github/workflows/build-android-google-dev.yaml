@@ -1,0 +1,95 @@
+name: ☕ Development Build for Google Play
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    name: Build for Android and deliver build artifacts
+    runs-on: [self-hosted, macOS, ARM64, unity-builder, production]
+    steps:
+      # Checkout
+      - name: Checkout ${{ github.ref }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          clean: false
+      - name: Git clean manually
+        run: git clean -ffdx -e Library/
+
+      # Unity build
+      - name: Request Unity license
+        id: license
+        uses: cookapps-devops/tech-build/.github/actions/request-license@v1
+      - name: Build
+        uses: game-ci/unity-builder@v4.1.3
+        env:
+          UNITY_SERIAL: ${{ steps.license.outputs.unity-serial }}
+          UNITY_EMAIL: ${{ steps.license.outputs.unity-email }}
+          UNITY_PASSWORD: ${{ steps.license.outputs.unity-password }}
+        with:
+          targetPlatform: Android
+          versioning: None
+          buildMethod: CookApps.Build.CookAppsBuild.BuildBatchMode
+          androidKeystoreName: user.keystore
+          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+          customParameters: >
+            -buildName android-google-dev
+            -EnableCacheServer
+            -cacheServerEndpoint ${{ vars.UNITY_ACCELERATOR_ENDPOINT }}
+            -cacheServerNamespacePrefix ${{ github.repository }}
+            -cacheServerEnableDownload true
+            -cacheServerEnableUpload true
+      - name: Return Unity license
+        if: ${{ always() && steps.license.outcome == 'success' }}
+        uses: cookapps-devops/tech-build/.github/actions/return-license@v1
+        with:
+          unity-license: ${{ toJSON(steps.license.outputs) }}
+      - name: Extract data from build summary file
+        id: build-summary
+        uses: cookapps-devops/tech-build/.github/actions/build-summary@v1
+        with:
+          build-summary-file-path: Builds/build-summary.json
+
+      # Upload build artifacts to CookApps internal platform
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Upload build artifacts
+        id: upload
+        uses: cookapps-devops/tech-build/.github/actions/upload-build@v1
+        with:
+          path: ${{ steps.build-summary.outputs.output-path }}
+          build-summary: ${{ toJSON(steps.build-summary.outputs) }}
+          api-key: ${{ secrets.COOKAPPS_BI_API_KEY }}
+
+      # Notify Slack
+      - name: Notify Slack
+        if: success() || failure()
+        uses: slackapi/slack-github-action@v1
+        env:
+          # Post a message by utilizing incoming webhook
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+          # Environment variables for payload
+          TEXT: ${{ job.status == 'success' && 'Build finished successfully!' || job.status == 'failure' && 'Failed to build the application.' }}
+          JOB_STATUS_COLOR: ${{ job.status == 'success' && '#00FF00' || job.status == 'failure' && '#FF0000' }}
+          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+          PLATFORM: ${{ steps.build-summary.outputs.platform }}
+          VERSION: ${{ steps.build-summary.outputs.version }}
+          VERSION_CODE: ${{ steps.build-summary.outputs.version-code }}
+          DOWNLOAD_URL: ${{ job.status == 'success' && steps.upload.outputs.url || job.status == 'failure' && 'https://github.com' }}
+        with:
+          payload-file-path: .github/slack/payload-slack-content.json

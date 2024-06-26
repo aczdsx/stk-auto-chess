@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -92,7 +93,7 @@ public enum SoundFX
 }
 
 
-public class SoundManager : GameObjectSingleton<SoundManager>
+public class SoundManager : Singleton<SoundManager>
 {
     /////////////////////////////////////////////////////////////
     // public
@@ -284,9 +285,9 @@ public class SoundManager : GameObjectSingleton<SoundManager>
             _mixer.SetFloat("AMB", -80f);
     }
 
-    protected override void Awake()
+    public void Initialize()
     {
-        base.Awake();
+        this.isReady = true;
         this.UpdateOption();
     }
 

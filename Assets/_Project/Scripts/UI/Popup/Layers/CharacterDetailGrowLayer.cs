@@ -45,6 +45,8 @@ namespace CookApps.AutoBattler
         private SpecCharacterLevelExp _specCharacterLevelExpData;
         private CharacterStatData _userStatData;
 
+        private CharacterCollectionPopup _parentCollectionPopup;
+
         private bool _isHaveCharacter = false;
         private bool _isPlayingLevelupEffect = false;
 
@@ -62,9 +64,11 @@ namespace CookApps.AutoBattler
             _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
         }
 
-        public void InitLayer(int characterID)
+        public void InitLayer(CharacterCollectionPopup _parentPopup, int characterID)
         {
             ClearLayer();
+
+            _parentCollectionPopup = _parentPopup;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
@@ -219,6 +223,9 @@ namespace CookApps.AutoBattler
 
             // 이펙트 실행
             PlayLevelUpEffect();
+
+            // 메인 레이어 갱신
+            _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
 
             RefreshLayer();
         }

@@ -52,6 +52,8 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.Initialize(sceneData, allUILayers);
             Addressables.Release(sceneData);
 
+            SoundManager.Instance.Initialize();
+
 #if UNITY_EDITOR
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
 #endif
