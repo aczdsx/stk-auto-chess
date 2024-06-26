@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
             GachItems[idx].ChangeItem();
             if (idx == 0)
             {
-                //SoundManager.Instance.PlaySFX(SFXIndex.gacha_result_ambient_001);
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_result_ambient_001);
             }
             if (idx == 9)
             {
@@ -122,7 +122,7 @@ namespace CookApps.AutoBattler
             // }
             //
             //
-            // SoundManager.Instance.StopSFX(SFXIndex.gacha_result_ambient_001);
+            SoundManager.Instance.StopSFX(SoundFX.snd_sfx_gacha_result_ambient_001);
             // LobbyScene.Instance.ShowLobby();
             // LobbyUIManager.Instance.PlayCharacterBGM();
 
