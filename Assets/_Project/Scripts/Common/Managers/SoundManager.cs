@@ -309,6 +309,12 @@ public class SoundManager : Singleton<SoundManager>
         this.onSFX = Preference.LoadPreference(Pref.VOX_V, true);
     }
 
+
+    public void StopAllSound()
+    {
+        AudioController.StopAll();
+    }
+
     protected void Start()
     {
         // Run.Wait(() => { return AssetBundleManager.Instance.ReadyToStart; }, () =>

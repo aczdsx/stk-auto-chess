@@ -89,6 +89,8 @@ namespace CookApps.AutoBattler
             // 가이드 미션 체크
             UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
 
+            SoundManager.Instance.StopBGM();
+
             SetCanvasTargetDisplay(1);
         }
 
@@ -133,6 +135,8 @@ namespace CookApps.AutoBattler
 
             // 가이드 미션 체크
             UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
+
+            SoundManager.Instance.StopBGM();
 
             SetCanvasTargetDisplay(1);
         }
