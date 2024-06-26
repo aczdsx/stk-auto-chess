@@ -3068,7 +3068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8264092430691225387, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 9437134
+      value: 4287627214
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3284,7 +3284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8264092430691225387, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 9437134
+      value: 4287627214
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3329,6 +3329,22 @@ PrefabInstance:
     - target: {fileID: 342882070250253298, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
       propertyPath: m_text
       value: "\uBC30\uD2C0 \uCE90\uB9AD\uD130 \uBC30\uCE58 \uC218"
+      objectReference: {fileID: 0}
+    - target: {fileID: 342882070250253298, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.7877358
+      objectReference: {fileID: 0}
+    - target: {fileID: 342882070250253298, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.9621621
+      objectReference: {fileID: 0}
+    - target: {fileID: 342882070250253298, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 342882070250253298, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4291425791
       objectReference: {fileID: 0}
     - target: {fileID: 5267161383066385282, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
       propertyPath: m_Name
@@ -3416,7 +3432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8264092430691225387, guid: b306a81fec7641f4d860bc560c200d86, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 9437134
+      value: 4287627214
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
