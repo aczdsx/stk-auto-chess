@@ -113,6 +113,14 @@ public class SoundManager : Singleton<SoundManager>
             return this.PlaySFX(sfx.ToString());
     }
 
+    public ClockStone.AudioObject PlaySFX(string sfxString, bool forceInSilence = false)
+    {
+        if (forceInSilence)
+            return this.PlaySFXWithoutSilence(sfxString);
+        else
+            return this.PlaySFX(sfxString);
+    }
+
     //public ClockStone.AudioObject PlayVOX(SoundVOX vox, bool forceInSilence = false)
     //{
     //    if (forceInSilence)
