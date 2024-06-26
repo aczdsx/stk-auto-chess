@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
+using CookApps.TeamBattle.UIManagements;
 
 namespace CookApps.AutoBattler
 {
@@ -97,7 +98,7 @@ namespace CookApps.AutoBattler
             return false;
         }
 
-        public void IncreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave)
+        public void IncreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave, bool needUpdateReddot)
         {
             switch (itemType)
             {
@@ -159,6 +160,16 @@ namespace CookApps.AutoBattler
             {
                 SaveUserWallet();
             }
+
+            if (needUpdateReddot)
+            {
+                // 메인 로비 레드닷 갱신
+                var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+                if (lobbyMain != null)
+                {
+                    lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+                }
+            }
         }
 
         public void IncreaseRewardItemList(List<RewardItem> rewardList, bool isSave)
@@ -168,16 +179,23 @@ namespace CookApps.AutoBattler
             // 리워드 적용
             foreach (var reward in rewardList)
             {
-                IncreaseItem(reward.Type, reward.Key, reward.Count, false);
+                IncreaseItem(reward.Type, reward.Key, reward.Count, false, false);
             }
 
             if (isSave)
             {
                 SaveUserWallet();
             }
+
+            // 메인 로비 레드닷 갱신
+            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+            if (lobbyMain != null)
+            {
+                lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+            }
         }
 
-        public void DecreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave)
+        public void DecreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave, bool needUpdateReddot)
         {
             switch (itemType)
             {
@@ -215,6 +233,16 @@ namespace CookApps.AutoBattler
             {
                 SaveUserWallet();
             }
+
+            if (needUpdateReddot)
+            {
+                // 메인 로비 레드닷 갱신
+                var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+                if (lobbyMain != null)
+                {
+                    lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+                }
+            }
         }
 
         public void DecreaseRewardItemList(List<RewardItem> rewardList, bool isSave)
@@ -224,12 +252,19 @@ namespace CookApps.AutoBattler
             // 리워드 적용
             foreach (var reward in rewardList)
             {
-                DecreaseItem(reward.Type, reward.Key, reward.Count, false);
+                DecreaseItem(reward.Type, reward.Key, reward.Count, false, false);
             }
 
             if (isSave)
             {
                 SaveUserWallet();
+            }
+
+            // 메인 로비 레드닷 갱신
+            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+            if (lobbyMain != null)
+            {
+                lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
             }
         }
 
