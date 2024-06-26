@@ -532,7 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txtDamage: {fileID: 6364900939099001491}
   _textCritDamage: {fileID: 7259707319273919424}
-  _healDamage: {fileID: 0}
+  _healDamage: {fileID: 5507389230048468621}
   _root: {fileID: 5851131040658997946}
   _animator: {fileID: 4378550466312692077}
   _heightOffset: 0.3
