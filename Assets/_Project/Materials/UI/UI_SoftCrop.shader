@@ -3,46 +3,40 @@ Shader "Custom/UI_SoftCrop"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        [Header(Left Crop)]
-        [Space(10)]
-        _LeftX ("Left X", Range(-1, 1)) = 0.0
-        _SoftnessLeft ("Softness Left", Range(-1, 1)) = 0.1
+        _LeftX ("Left X", Range(0, 1)) = 0.0
+        _RightX ("Right X", Range(0, 1)) = 1.0
+        _SoftnessLeft ("Softness Left", Range(0, 1)) = 0.1
+        _SoftnessRight ("Softness Right", Range(0, 1)) = 0.1
         _LeftAlpha ("Left Alpha", Range(0, 1)) = 1.0
-        [Space(10)]
-        [Header(Right Crop)]
-        [Space(10)]
-        _RightX ("Right X", Range(-1, 1)) = 1.0
-        _SoftnessRight ("Softness Right", Range(-1, 1)) = 0.1
         _RightAlpha ("Right Alpha", Range(0, 1)) = 1.0
-        [Space(10)]
-        [Header(Global Alpha)]
-        [Space(10)]
-        _GlobalAlpha ("Global Alpha", Range(0, 1)) = 1.0
     }
     SubShader
     {
-        Tags { "Queue"="Overlay" "RenderType"="Transparent" }
+        Tags { "Queue"="Overlay" "IgnoreProjector"="True" "RenderType"="Transparent" "PreviewType"="Plane" }
+        LOD 100
         Blend SrcAlpha OneMinusSrcAlpha
+        Cull Off
+        Lighting Off
+        ZWrite Off
+        ZTest Always
         Pass
         {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-
+            #pragma target 2.0
             #include "UnityCG.cginc"
-
             struct appdata_t
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
             };
-
             struct v2f
             {
                 float4 pos : POSITION;
                 float2 uv : TEXCOORD0;
+                UNITY_FOG_COORDS(1)
             };
-
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float _LeftX;
@@ -51,28 +45,23 @@ Shader "Custom/UI_SoftCrop"
             float _SoftnessRight;
             float _LeftAlpha;
             float _RightAlpha;
-            float _GlobalAlpha;
-
             v2f vert (appdata_t v)
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                UNITY_TRANSFER_FOG(o,o.pos);
                 return o;
             }
-
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 color = tex2D(_MainTex, i.uv);
-
                 float leftEdge = _LeftX;
                 float rightEdge = _RightX;
                 float softnessLeft = _SoftnessLeft * 0.5;
                 float softnessRight = _SoftnessRight * 0.5;
                 float leftAlpha = _LeftAlpha;
                 float rightAlpha = _RightAlpha;
-                float globalAlpha = _GlobalAlpha;
-
                 float alpha = 1.0;
                 if (i.uv.x < leftEdge)
                 {
@@ -82,12 +71,15 @@ Shader "Custom/UI_SoftCrop"
                 {
                     alpha = lerp(rightAlpha, 1.0, smoothstep(rightEdge + softnessRight, rightEdge, i.uv.x));
                 }
-
-                color.a *= alpha * globalAlpha;
-
+                color.a *= alpha;
+                // Apply clipping for UI
+                #ifdef UNITY_UI_CLIP
+                color.a *= UnityGet2DClipping(i.uv);
+                #endif
                 return color;
             }
             ENDCG
         }
     }
+    FallBack "Transparent/Diffuse"
 }
