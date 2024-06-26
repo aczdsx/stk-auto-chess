@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
                 damage += ap * 50f / (50f + res);
             }
 
-            Debug.LogColor($"[{target.SpecCharacter.prefab_id}] {damage} : {ad} : {ap} : {def} : {res}", "cyan");
+            // Debug.LogColor($"[{target.SpecCharacter.prefab_id}] {damage} : {ad} : {ap} : {def} : {res}", "cyan");
 
             return damage;
         }

@@ -205,7 +205,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                         {
                             if (_selectedCharacterController != null)
                             {
-                                Debug.LogColor($"position : {_selectedCharacterController.Position3D} / target : {targetPosition}");
+                                // Debug.LogColor($"position : {_selectedCharacterController.Position3D} / target : {targetPosition}");
                                 _selectedCharacterController.Position3D = value;
                             }
                         });

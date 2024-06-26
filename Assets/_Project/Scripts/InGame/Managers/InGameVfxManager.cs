@@ -57,8 +57,15 @@ namespace CookApps.BattleSystem
             while (removeWaitingInGameVfxs.Count > 0)
             {
                 InGameVfx effect = removeWaitingInGameVfxs.Dequeue();
-                InGameVfxPool.Return(effect);
-                runningEffects.Remove(effect);
+                if (effect)
+                {
+                    InGameVfxPool.Return(effect);
+                    runningEffects.Remove(effect);
+                }
+                else
+                {
+                    Debug.LogColor("회수해야하는 이펙트가 없습니다 : " + effect.VfxNameType.ToString());
+                }
             }
         }
 

@@ -25,8 +25,6 @@ namespace CookApps.AutoBattler
             GameObject ingameTextPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/DamageText.prefab");
             InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
 
-            if (chapter == 1)
-                chapter = 999;
             StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Stage{chapter}.prefab");
         }
 
