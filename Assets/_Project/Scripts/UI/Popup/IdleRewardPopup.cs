@@ -14,6 +14,7 @@ namespace CookApps.AutoBattler
     public class IdleRewardPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;
+        [SerializeField] private CAButton _dimCloseButton;
         [SerializeField] private CAButton _getRewardButton;
 
         [Space(10)]
@@ -32,6 +33,7 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _closeButton.onClick.AddListener(OnClickCloseButton);
+            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
             _getRewardButton.onClick.AddListener(OnClickGetRewardButton);
         }
 
@@ -40,6 +42,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
             _getRewardButton.onClick.RemoveListener(OnClickGetRewardButton);
         }
 
