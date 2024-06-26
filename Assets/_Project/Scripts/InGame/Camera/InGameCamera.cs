@@ -1,11 +1,18 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using PrimeTween;
 
 public class InGameCamera : MonoBehaviour
 {
     [SerializeField]
     private GameObject _rootObj;
+
+    [SerializeField]
+    private Camera _mainCamera;
+
+    [SerializeField]
+    private Camera _characterCamera;
 
     private CancellationTokenSource _cancellationTokenSource;
 
@@ -15,6 +22,25 @@ public class InGameCamera : MonoBehaviour
         _cancellationTokenSource = new CancellationTokenSource();
 
         Shake(durationTime, magnitude, _cancellationTokenSource.Token).Forget();
+    }
+
+    public async UniTask SetCameraSize(float targetSize, float duration)
+    {
+        float startSize = _mainCamera.orthographicSize;
+
+        Tween.Custom(startSize, targetSize, duration,
+            (float newSize) =>
+            {
+                _characterCamera.orthographicSize = newSize;
+                _mainCamera.orthographicSize = newSize;
+            },
+            ease: Ease.OutQuad).OnComplete(this, _ =>
+        {
+            _characterCamera.orthographicSize = targetSize;
+            _mainCamera.orthographicSize = targetSize;
+        });
+
+        await UniTask.WaitUntil(() => Mathf.Approximately(_mainCamera.orthographicSize, targetSize));
     }
 
     private async UniTaskVoid Shake(float duration, float magnitude, CancellationToken cancellationToken)

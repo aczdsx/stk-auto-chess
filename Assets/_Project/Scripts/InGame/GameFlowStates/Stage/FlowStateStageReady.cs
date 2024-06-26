@@ -38,6 +38,8 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
+
+        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, 1.0f).Forget();
         InGameMain.GetInGameMain().SetReadyUI();
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList();

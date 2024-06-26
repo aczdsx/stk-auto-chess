@@ -332,6 +332,9 @@ namespace CookApps.AutoBattler
         fx_common_synergy_water = 88,
         fx_common_synergy_fire = 89,
         fx_common_synergy_darkness = 90,
+        Skill_102031 = 91,
+        Skill_201011 = 92,
+        Skill_202031 = 93,
     }
 
     public enum GlobalEffectProviderType
