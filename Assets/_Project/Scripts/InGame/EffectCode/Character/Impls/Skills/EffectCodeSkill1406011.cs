@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(1406011)]
 public class EffectCodeSkill1406011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _damageRate;
+    private ObfuscatorFloat _healRate;
     private bool _isReadyToActivate;
     private SpecSkill _specSkill;
 
@@ -24,7 +24,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -37,7 +37,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -101,7 +101,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                double damage = owner.PostCalculateHealAmount(_damageRate, tile.OccupiedCharacter);
+                double damage = owner.PostCalculateHealAmount(_healRate * owner.AP, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
             }
         }

@@ -38,11 +38,15 @@ public class CommanderSkillData
 public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
     IEndDragHandler
 {
+    public InGameCamera InGameCamera => _inGameCamera;
+    [SerializeField]
+    private InGameCamera _inGameCamera;
     // [TODO] switchObj 추가 필요
     public GameObject switchObj;
     public float switchThreshold = 40f;
     public float maxFadeAlpha = 0.5f;
 
+    private InGameCamera _ingameCamera;
     private Camera _mainCamera;
     private bool _isDragging = false;
     private Vector2 _dragStartPosition;
@@ -206,7 +210,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         var statValueData =
             SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
 
-        _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
+        _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate * 0.01f);
     }
 
     public void Clear()
