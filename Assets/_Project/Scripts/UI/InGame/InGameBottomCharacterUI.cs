@@ -75,6 +75,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         SetCommanderSkill();
 
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+
         // HideCharacterSelectUI(() =>
         // {
         // });

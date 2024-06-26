@@ -50,7 +50,11 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+
+            SoundManager.Instance.StopBGM();
+
             (_isVictory, _star) = ((bool, int))param;
+
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);
 
