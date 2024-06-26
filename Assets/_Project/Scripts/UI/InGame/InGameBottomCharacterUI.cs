@@ -305,7 +305,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         int maximumCount = SpecDataManager.Instance.SpecAccountLevelExp
             .Get(UserDataManager.Instance.UserBasicData.Level).squad_count;
 
-        string colorCode = characterCount == 0 ? "#CA6E71" : "#9EAEC3";
-        _characterCountText.text = $"{maximumCount}/<color={colorCode}>{characterCount}</color>";
+        string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
+        _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
     }
 }
