@@ -1255,9 +1255,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 104.17139, y: 0}
-  m_SizeDelta: {x: 208.3428, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -124, y: 0}
+  m_SizeDelta: {x: 332.34277, y: 1000}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3264554039418152278
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1316,7 +1316,7 @@ MonoBehaviour:
   _effectGradient:
     serializedVersion: 2
     key0: {r: 0.18282354, g: 0.21663158, b: 0.24705882, a: 0.57254905}
-    key1: {r: 0.18164827, g: 0.20710216, b: 0.24528301, a: 0}
+    key1: {r: 0.18164827, g: 0.20710216, b: 0.24528301, a: 0.57254905}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1332,8 +1332,8 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 65535
-    atime2: 0
+    atime1: 14649
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -1342,7 +1342,7 @@ MonoBehaviour:
     m_Mode: 0
     m_ColorSpace: -1
     m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
+    m_NumAlphaKeys: 3
 --- !u!1 &7572554757303390269
 GameObject:
   m_ObjectHideFlags: 0
