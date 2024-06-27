@@ -38,6 +38,13 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private List<InGameSynergyUI> _playerSynergyUIList;
     [SerializeField] private List<InGameSynergyUI> _enemySynergyUIList;
 
+    [Space]
+    [SerializeField] private List<InGameSynergyUI> _combatPlayerSynergyUIList;
+    [SerializeField] private List<InGameSynergyUI> _combatEnemySynergyUIList;
+    [SerializeField] private TextMeshProUGUI _combatPlayerAttr;
+    [SerializeField] private TextMeshProUGUI _combatEnemyAttr;
+    [SerializeField] private TextMeshProUGUI _stageName;
+
 
     private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
@@ -59,9 +66,21 @@ public class InGameTopUI : MonoBehaviour
         _timeText.text = timeSpan.ToString(@"mm\:ss");
     }
 
-    public void UpdateSynergyUI(AllianceType type)
+    public void SetCombatUI()
+    {
+        _combatPlayerAttr.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Player);
+        _combatEnemyAttr.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Enemy);
+        UpdateSynergyUI(AllianceType.Player, false);
+        UpdateSynergyUI(AllianceType.Enemy, false);
+    }
+
+    public void UpdateSynergyUI(AllianceType type, bool isCombat)
     {
         List<InGameSynergyUI> _synergyUIList = type == AllianceType.Player ? _playerSynergyUIList : _enemySynergyUIList;
+        if (isCombat)
+        {
+            _synergyUIList = type == AllianceType.Player ? _combatPlayerSynergyUIList : _combatEnemySynergyUIList;
+        }
         int uiIndex = 0;
         int uiListCount = _synergyUIList.Count;
 
@@ -145,11 +164,11 @@ public class InGameTopUI : MonoBehaviour
         string attrText = InGameObjectManager.Instance.GetAttrText(type);
         if (type == AllianceType.Player)
         {
-            _playerAttrText.text = attrText;
+            _combatPlayerAttr.text = attrText;
         }
         else
         {
-            _enemyAttrText.text = attrText;
+            _combatEnemyAttr.text = attrText;
         }
     }
 
@@ -178,6 +197,11 @@ public class InGameTopUI : MonoBehaviour
 
             beforeEnemyHpRate = rate;
         }
+    }
+
+    public void SetStageName(string stageName)
+    {
+        _stageName.text = stageName;
     }
 
     private async UniTask AnimateHpBar(Slider slider, float startRatio, float targetRatio)

@@ -83,6 +83,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         SetCommanderSkill();
+        InGameMain.GetInGameMain().SetCombatUI();
+
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 

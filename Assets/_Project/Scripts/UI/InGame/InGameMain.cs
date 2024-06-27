@@ -75,6 +75,8 @@ namespace CookApps.AutoBattler
             // 유저 레벨업 체크용 이전 레벨 데이터 저장
             UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
 
+            _InGameTopUI.SetStageName($"스테이지 {chapter}-{stageIndex + 1}");
+
             // 사운드 재생
             PlayStageBGM(chapter);
         }
@@ -117,8 +119,8 @@ namespace CookApps.AutoBattler
         public void SetInGameTopUI()
         {
             InGameObjectManager.Instance.ClearSynergyFx();
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Player);
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy);
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Player, true);
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, true);
 
             _InGameTopUI.UpdateAttrUI(AllianceType.Player);
             _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
@@ -176,6 +178,11 @@ namespace CookApps.AutoBattler
         public void SetCommanderFx(bool active)
         {
             _inGameBottomCharacterUI.SetCommanderFx(active);
+        }
+
+        public void SetCombatUI()
+        {
+            _InGameTopUI.SetCombatUI();
         }
     }
 }
