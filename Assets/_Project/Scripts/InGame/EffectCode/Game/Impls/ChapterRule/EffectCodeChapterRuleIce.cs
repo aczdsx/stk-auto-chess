@@ -8,10 +8,24 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeChapterRuleIce : EffectCodeGameBase
     {
+        public class CharacterInfo
+        {
+            public CharacterController Controller { get; set; }
+            public float Value { get; set; }
+
+            public CharacterInfo(CharacterController controller, float value)
+            {
+                Controller = controller;
+                Value = value;
+            }
+        }
+
         private const int CodeId = (int) EffectCodeNameType.CHAPTER_ICE;
         List<InGameTile> _chapterRuleTiles = new List<InGameTile>();
+        List<CharacterInfo> _characterList = new List<CharacterInfo>();
         private float _effectCodeStat;
-        private float elapsedTime = 0f;
+        private float _elapsedTime = 0f;
+        private float _durationTime = 3.0f;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -47,32 +61,38 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
+            _characterList.Add(new CharacterInfo(character, _durationTime));
         }
 
         public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
         {
+            _characterList.RemoveAll(c => c.Controller.CharacterUId == character.CharacterUId);
+        }
+
+        public override void OnUpdate(float dt)
+        {
             if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
                 return;
 
-            bool isIceTile = _chapterRuleTiles.Exists(l => l == tile);
-            if (isIceTile)
+            foreach (var characterInfo in _characterList)
             {
-                Debug.LogColor("[TEST] OnTileCharacterEnter", "blue");
-                if (tile == null || character == null)
+                characterInfo.Value += dt;
+
+                if (characterInfo.Value >= _durationTime)
                 {
-                    return;
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
+                        characterInfo.Controller.GetCharacterView().CachedTr.position);
+
+                    Span<double> eccStats = stackalloc double[1];
+                    eccStats.Clear();
+                    eccStats[0] = _effectCodeStat;
+
+                    long effectCodeID = (long)EffectCodeNameType.STUN;
+                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+                    characterInfo.Controller.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
+
+                    _elapsedTime -= _durationTime;
                 }
-
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
-                    character.GetCharacterView().CachedTr.position);
-
-                Span<double> eccStats = stackalloc double[1];
-                eccStats.Clear();
-                eccStats[0] = _effectCodeStat;
-
-                long effectCodeID = (long)EffectCodeNameType.STUN;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
             }
         }
     }
