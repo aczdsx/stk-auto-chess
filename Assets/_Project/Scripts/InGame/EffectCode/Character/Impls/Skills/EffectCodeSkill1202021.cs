@@ -113,7 +113,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
     {
         await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기
 
-        InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.1f);
+        InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
         foreach (var tile in inGameTiles)
         {
             if (tile.OccupiedCharacter != null)
