@@ -236,6 +236,8 @@ namespace CookApps.BattleSystem
         /// </summary>
         public virtual void Activate()
         {
+            if (SoundManager.Instance.IsPlayingGacha) return;   // 가챠 실행중에는 사운드 off
+
             SoundManager.Instance.PlaySFX(GetSoundFxName());
         }
         #endregion

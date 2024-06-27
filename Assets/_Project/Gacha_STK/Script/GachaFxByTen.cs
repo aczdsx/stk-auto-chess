@@ -804,6 +804,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopSFX(SoundFX.snd_sfx_gacha_result_ambient_001);
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+            SoundManager.Instance.IsPlayingGacha = false;
 
             Destroy(this.gameObject);
         }
