@@ -136,6 +136,12 @@ namespace CookApps.AutoBattler
 
         public void OnCoolTimeUpdated(int index, float current, float max)
         {
+            if (max == 0)
+            {
+                Debug.LogError("Max cannot be zero");
+                return;
+            }
+
             float targetRatio = Mathf.Clamp01((float)(current / max));
             _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
         }

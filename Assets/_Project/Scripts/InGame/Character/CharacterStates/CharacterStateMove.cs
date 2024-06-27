@@ -11,7 +11,7 @@ public class CharacterStateMove : CharacterStateBase
 {
     private bool isMoving;
 
-
+    private Tween moveTween;
     public override void StateStart()
     {
         base.StateStart();
@@ -30,7 +30,7 @@ public class CharacterStateMove : CharacterStateBase
         //         moveDuration *= 0.2f;
         // }
 
-        Tween.Custom(
+        moveTween = Tween.Custom(
             characCtrl.Position3D,
             characCtrl.CurrentTile.View.Position,
             moveDuration,
@@ -49,14 +49,7 @@ public class CharacterStateMove : CharacterStateBase
                 if (characCtrl.IsAlive == false)
                 {
                     Debug.LogColor($"[TEST] : {characCtrl.SpecCharacter.prefab_id} 캐릭터가 죽어서 이동 중단");
-                    if (characCtrl.AllianceType == AllianceType.Enemy)
-                    {
-                        InGameObjectManager.Instance.RemoveEnemyFromField(characCtrl);
-                    }
-                    else
-                    {
-                        InGameObjectManager.Instance.RemoveCharacterFromField(characCtrl);
-                    }
+
                     return;
                 }
 
@@ -69,5 +62,11 @@ public class CharacterStateMove : CharacterStateBase
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
         return CharacterStateRunningResult.CanCallAllWithoutActivate;
+    }
+
+    public override void StateEnd(bool isForced)
+    {
+        base.StateEnd(isForced);
+        moveTween.Stop();
     }
 }

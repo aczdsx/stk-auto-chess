@@ -90,7 +90,6 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
             return;
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
 
         foreach (var tile in inGameTiles)
         {
@@ -101,11 +100,12 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
 
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null)
+            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.None)
             {
                 if (tile.OccupiedCharacter != owner)
                 {
                     tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long)EffectCodeNameType.SHIELD);
+                    var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
 
                     var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);

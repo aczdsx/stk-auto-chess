@@ -83,7 +83,7 @@ namespace CookApps.BattleSystem
         public void AddSynergyEffectCode(AllianceType type)
         {
             ElementType elementType = ElementType.DARK;
-            Span<double> stats = stackalloc double[1];
+            Span<double> stats = stackalloc double[2];
 
             int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(type, elementType);
             if (synergyCount > 0)

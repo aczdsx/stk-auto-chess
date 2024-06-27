@@ -60,11 +60,11 @@ MonoBehaviour:
       data:
         Name: ios-prod
         Target: 9
-        Identifier: com.cookapps.tech.sampleteambattle
+        Identifier: com.mintry.stk
         Version: 0.1.0
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1651
+        VersionCode: 1698
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -78,7 +78,7 @@ MonoBehaviour:
         SigningTeamID: AE446264XG
         CodeGeneration: 0
         ManagedStrippingLevel: 4
-        AppIcon: 
+        AppIcon: 32cded47098369f48904609248c8d83a
     - rid: 9161305264687939584
       type: {class: BuildPlatformIOS, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
       data:

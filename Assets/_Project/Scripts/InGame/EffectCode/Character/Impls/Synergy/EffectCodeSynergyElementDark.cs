@@ -20,7 +20,11 @@ public class EffectCodeSynergyElementDark : EffectCodeCharacterBase
         _statValue = codeInfo.GetCodeStatToFloat(0);
         _enemyType = codeInfo.GetCodeStatToInt(1);
 
-        var characterList = InGameObjectManager.Instance.GetCharacterList((AllianceType)(int)_enemyType);
+        AllianceType allianceType = (AllianceType) (int) _enemyType == AllianceType.Player
+            ? AllianceType.Enemy
+            : AllianceType.Player;
+
+        var characterList = InGameObjectManager.Instance.GetCharacterList(allianceType);
         foreach (var character in characterList)
         {
             Span<double> debuffStats = stackalloc double[3];

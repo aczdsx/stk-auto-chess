@@ -98,6 +98,7 @@ public class SoundManager : Singleton<SoundManager>
     // public
 
     public bool IsReady => this.isReady;
+    public bool IsPlayingGacha { get; set; } = false;
 
     [SerializeField] private AudioMixer _mixer;
 

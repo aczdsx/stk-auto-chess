@@ -9,6 +9,7 @@ public class CharacterStateDead : CharacterStateBase
         base.StateStart();
         AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.DEAD);
         characCtrl.GetCharacterView().SetDeadSprite(clip);
+        characCtrl.IsBlockChangeState = true;
 
         Transform skillRootTransform = characCtrl.GetCharacterView().SkillRootTransform;
         Transform playgroundTransform = InGameObjectManager.Instance.Playground;

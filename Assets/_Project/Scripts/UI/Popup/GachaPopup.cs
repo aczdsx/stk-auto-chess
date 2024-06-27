@@ -90,6 +90,7 @@ namespace CookApps.AutoBattler
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
 
             SoundManager.Instance.StopBGM();
+            SoundManager.Instance.IsPlayingGacha = true;
 
             SetCanvasTargetDisplay(1);
         }
@@ -137,6 +138,7 @@ namespace CookApps.AutoBattler
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
 
             SoundManager.Instance.StopBGM();
+            SoundManager.Instance.IsPlayingGacha = true;
 
             SetCanvasTargetDisplay(1);
         }

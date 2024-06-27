@@ -41,6 +41,7 @@ public class EffectCodeSkill1201011 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
+        CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
@@ -93,51 +94,25 @@ public class EffectCodeSkill1201011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
-
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
-
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        if (inGameTile != null)
-        {
-            Vector3 direction = (inGameTile[0].View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
-            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-
-            movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
-            vfxProjectile.Initialize(false, movement);
-            vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
-            // movement.OnReachedTarget +=
-        }
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+            owner.CurrentTile.View.CachedTr.position);
+        Vector3 direction = (owner.Target.CurrentTile.View.CachedTr.position - vfx.CachedTr.position).normalized;
+        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
         IsSkillActivated = false;
-    }
 
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,tile.View.CachedTr.position);
-        tileFx.CachedTr.position = tile.View.CachedTr.position;
+        List<InGameTile> inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 2);
+        foreach (var tile in inGameTiles)
+        {
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-        if (tile.OccupiedCharacter == null)
-            return;
+            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+            tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-        if (tile.OccupiedCharacter.AllianceType == AllianceType.None)
-            return;
-
-        if (tile.OccupiedCharacter.AllianceType == owner.AllianceType)
-            return;
-
-        if (_hitCharacters.Contains(tile.OccupiedCharacter))
-            return;
-
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-        tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-        _hitCharacters.Add(tile.OccupiedCharacter);
+            _hitCharacters.Add(tile.OccupiedCharacter);
+        }
     }
 
     public override void OnSkillAnimationEnd()

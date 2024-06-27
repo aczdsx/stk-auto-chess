@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
+public class EffectCodeDebuffCoolTimeReduceDown : EffectCodeBuffBase
 {
     public const int CodeId = (int)EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.CoolTimeDown;
@@ -115,5 +115,15 @@ public class EffectCodeCoolTimeReduceDown : EffectCodeBuffBase
         owner.RemoveBuffDebuffType(buffDebuffType);
         base.OnPreRemoved();
         ListPool<BuffStackData>.Release(stackDatas);
+    }
+
+    public override float GetIncrementFixedSkillCooltimeRate()
+    {
+        double increaseRate = 0;
+        for (int i = 0; i < stackDatas.Count; i++)
+        {
+            increaseRate -= stackDatas[i]?.value ?? 0;
+        }
+        return (float)increaseRate;
     }
 }

@@ -243,7 +243,7 @@ namespace CookApps.BattleSystem
         {
             foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
             {
-                if (elementType != ElementType.NONE)
+                if (elementType != ElementType.NONE && elementType != ElementType.DARK)
                 {
                     bool isEffectAllCharacter = elementType == ElementType.WATER || elementType == ElementType.LIGHT;
                     if (isEffectAllCharacter)
@@ -438,14 +438,14 @@ namespace CookApps.BattleSystem
             var isKnockBack = HasCrowdControl(CrowdControlType.KnockBack);
             var isStun = HasCrowdControl(CrowdControlType.Stun);
             var isEntangle = HasCrowdControl(CrowdControlType.Entangle);
-            var isSilence = HasCrowdControl(CrowdControlType.Entangle);
-            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle || isSilence)
+            var isSilence = HasCrowdControl(CrowdControlType.Silence);
+            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle)
             {
                 result &= ~CharacterStateRunningResult.CanCallMove;
-                if (isStun || isAirborne || isFreezing || isKnockBack)
-                {
-                    result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
-                }
+            }
+            if (isStun || isAirborne || isFreezing || isKnockBack || isSilence)
+            {
+                result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
@@ -984,6 +984,16 @@ namespace CookApps.BattleSystem
             await textView.ShowHealText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
         }
 
+        public async UniTask ShowShieldText(double amount)
+        {
+            if (amount == 0)
+            {
+                return;
+            }
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
+            await textView.ShowShieldText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
+        }
+
         public void MoveCharacter(bool isInRange)
         {
             if (isInRange)
@@ -993,24 +1003,33 @@ namespace CookApps.BattleSystem
             else
             {
                 Target = InGameObjectManager.Instance.GetNearestTarget(this);
+
                 if (Target == null)
                 {
                     AddNextState<CharacterStateIdle>();
                 }
                 else
                 {
-                    InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile,
-                        Target.CurrentTile);
-                    if (bestTile == CurrentTile)
+                    var isNewTargetInRange = InGameObjectManager.Instance.IsInRange(this, Target);
+                    if (isNewTargetInRange)
                     {
-                        GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
                         AddNextState<CharacterStateIdle>();
                     }
                     else
                     {
-                        GetCharacterView().LookAt(CurrentTile, bestTile);
-                        ChangeOccupiedTile(bestTile);
-                        AddNextState<CharacterStateMove>();
+                        InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile,
+                            Target.CurrentTile);
+                        if (bestTile == CurrentTile)
+                        {
+                            GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                            AddNextState<CharacterStateIdle>();
+                        }
+                        else
+                        {
+                            GetCharacterView().LookAt(CurrentTile, bestTile);
+                            ChangeOccupiedTile(bestTile);
+                            AddNextState<CharacterStateMove>();
+                        }
                     }
                 }
             }

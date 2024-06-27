@@ -17,6 +17,7 @@ namespace CookApps.BattleSystem
         public float GetElapsedTime() => CoolTimeElapsedTime;
         public float GetDurationTime() => CoolTimeDurationTime;
         public bool IsSkillActivated;
+        public bool IsExecute;
 
         public override int CalcOrder => 1;
 
@@ -236,6 +237,8 @@ namespace CookApps.BattleSystem
         /// </summary>
         public virtual void Activate()
         {
+            if (SoundManager.Instance.IsPlayingGacha) return;   // 가챠 실행중에는 사운드 off
+
             SoundManager.Instance.PlaySFX(GetSoundFxName());
         }
         #endregion
@@ -265,6 +268,7 @@ namespace CookApps.BattleSystem
         /// <param name="totalLength"></param>
         public virtual void OnSkillExecute(int executeIndex, int totalLength)
         {
+            IsExecute = true;
         }
 
         /// <summary>
@@ -285,6 +289,16 @@ namespace CookApps.BattleSystem
             // 이펙트 코드에게 스킬 사용 전달
             var characEffectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnSkill);
             EffectCodeForLoopHelper.CallWithArgs(characEffectCodes, EffectCodeCharacterLambda.CallOnSkillLambda, this);
+        }
+
+        public virtual void OnSkillCanceled()
+        {
+            Debug.LogColor("[TEST] SkillCanceled", "red");
+            IsSkillActivated = false;
+            if (!IsExecute)
+            {
+                SetElapsedTime(GetDurationTime() - 0.5f);
+            }
         }
         #endregion
     }
