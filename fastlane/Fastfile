@@ -45,11 +45,7 @@ platform :ios do
     build(type: 'appstore')
 
     upload_to_testflight(skip_waiting_for_build_processing: true)
-
-    upload_symbols_to_crashlytics(
-      binary_path: "#{ENV['IOS_BUILD_PATH']}/Pods/FirebaseCrashlytics/upload-symbols",
-      app_id: ENV['FIREBASE_IOS_APP_ID']
-    )
+	
   end
 
   desc "Create .ipa"
