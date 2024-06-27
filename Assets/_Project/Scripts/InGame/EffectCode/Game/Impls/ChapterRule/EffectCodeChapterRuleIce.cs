@@ -24,7 +24,6 @@ namespace CookApps.BattleSystem
         List<InGameTile> _chapterRuleTiles = new List<InGameTile>();
         List<CharacterInfo> _characterList = new List<CharacterInfo>();
         private float _effectCodeStat;
-        private float _elapsedTime = 0f;
         private float _durationTime = 3.0f;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -61,7 +60,7 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
-            _characterList.Add(new CharacterInfo(character, _durationTime));
+            _characterList.Add(new CharacterInfo(character, _durationTime - 0.5f));
         }
 
         public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
@@ -76,22 +75,25 @@ namespace CookApps.BattleSystem
 
             foreach (var characterInfo in _characterList)
             {
-                characterInfo.Value += dt;
-
-                if (characterInfo.Value >= _durationTime)
+                if (characterInfo.Controller != null)
                 {
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
-                        characterInfo.Controller.GetCharacterView().CachedTr.position);
+                    characterInfo.Value += dt;
 
-                    Span<double> eccStats = stackalloc double[1];
-                    eccStats.Clear();
-                    eccStats[0] = _effectCodeStat;
+                    if (characterInfo.Value >= _durationTime)
+                    {
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
+                            characterInfo.Controller.GetCharacterView().CachedTr.position);
 
-                    long effectCodeID = (long)EffectCodeNameType.STUN;
-                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                    characterInfo.Controller.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
+                        Span<double> eccStats = stackalloc double[1];
+                        eccStats.Clear();
+                        eccStats[0] = _effectCodeStat;
 
-                    _elapsedTime -= _durationTime;
+                        long effectCodeID = (long)EffectCodeNameType.STUN;
+                        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+                        characterInfo.Controller.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
+
+                        characterInfo.Value -= _durationTime;
+                    }
                 }
             }
         }
