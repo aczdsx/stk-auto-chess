@@ -2,6 +2,8 @@ using System;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
+using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using Google.Protobuf.Collections;
 
 namespace CookApps.AutoBattler
@@ -66,6 +68,9 @@ namespace CookApps.AutoBattler
         // 현재 가이드 미션 상태 세팅 (행동 횟수)
         public void SetGuideMissionActionValue(GuideMissionType missionType, int subKey, int actionValue)
         {
+            bool isGuideMissionAllClear = userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder();
+            if (isGuideMissionAllClear) return;
+
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
             {
                 var targetUserData = UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder];
@@ -95,6 +100,9 @@ namespace CookApps.AutoBattler
         // 현재 가이드 미션 상태 세팅 (미션 상태)
         public void SetGuideMissionState(GuideMissionType missionType, int subKey, MissionStateType stateType)
         {
+            bool isGuideMissionAllClear = userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder();
+            if (isGuideMissionAllClear) return;
+
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
             {
                 var targetUserData = UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder];
@@ -111,9 +119,15 @@ namespace CookApps.AutoBattler
 
                 // 클리어한 경우 다음 가이드 미션으로 변경
                 if (stateType == MissionStateType.CLEAR &&
-                    userMissionData.GuideMissionCurrentOrder < SpecDataManager.Instance.GetGuideMissionMaxOrder())
+                    userMissionData.GuideMissionCurrentOrder <= SpecDataManager.Instance.GetGuideMissionMaxOrder())
                 {
                     UserMissionData.GuideMissionCurrentOrder++;
+                }
+
+                // 모든 가이드 미션 클리어 상태 체크
+                if (userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder())
+                {
+                    SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
                 }
 
                 SaveUserMissionData();
