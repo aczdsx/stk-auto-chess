@@ -75,7 +75,7 @@ namespace CookApps.AutoBattler
             // 유저 레벨업 체크용 이전 레벨 데이터 저장
             UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
 
-            _InGameTopUI.SetStageName($"스테이지 {chapter}-{stageIndex + 1}");
+            _InGameTopUI.SetStageName($"스테이지 {chapter}-{stageIndex}");
 
             // 사운드 재생
             PlayStageBGM(chapter);
