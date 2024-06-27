@@ -84,7 +84,7 @@ platform :ios do
     )
 
     build_app(
-      project: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcproj",
+      project: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcodeproj",
       scheme: 'Unity-iPhone',
       xcargs: '-allowProvisioningUpdates'
     )
