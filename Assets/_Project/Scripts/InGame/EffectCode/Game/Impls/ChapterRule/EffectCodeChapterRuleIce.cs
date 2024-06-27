@@ -60,12 +60,18 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
-            _characterList.Add(new CharacterInfo(character, _durationTime - 1.0f));
+            if (_chapterRuleTiles.Exists(l => l == tile))
+            {
+                _characterList.Add(new CharacterInfo(character, _durationTime - 1.0f));
+            }
         }
 
         public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
         {
-            _characterList.RemoveAll(c => c.Controller.CharacterUId == character.CharacterUId);
+            if (_chapterRuleTiles.Exists(l => l == tile))
+            {
+                _characterList.RemoveAll(c => c.Controller.CharacterUId == character.CharacterUId);
+            }
         }
 
         public override void OnUpdate(float dt)
