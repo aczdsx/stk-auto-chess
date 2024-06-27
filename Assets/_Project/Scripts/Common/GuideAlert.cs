@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
 
                     Invoke(nameof(OffAlert), GUIDE_ALERT_TIME);
 
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+                    //SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
                 }
             }
         }

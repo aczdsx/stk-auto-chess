@@ -143,9 +143,13 @@ namespace CookApps.BattleSystem
 
             if (summonVfxType != InGameVfxNameType.NONE)
             {
-                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_spawn);
                 var vfx = InGameVfxManager.Instance.AddInGameVfx(summonVfxType, tile.View.CachedTr.position);
                 vfx.Initialize(false);
+
+                if (SoundManager.Instance.IsPlayingGacha == false)
+                {
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_spawn);
+                }
             }
 
             characCtrl.AddNextState(startStateType);
