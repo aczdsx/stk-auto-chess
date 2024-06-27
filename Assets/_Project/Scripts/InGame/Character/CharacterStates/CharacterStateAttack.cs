@@ -123,8 +123,8 @@ public class CharacterStateAttack : CharacterStateBase
                 var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(characCtrl);
                 if (inGameTile != null)
                 {
-                    Vector3 direction = (inGameTile[0].View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
-                    vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+                    Vector3 direction = (inGameTile[0].View.CachedTr.position - characCtrl.CurrentTile.View.CachedTr.position).normalized;
+                    vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
 
                     movement.SetData(vfxProjectile.CachedTr.position, characCtrl.Target.GetCharacterView().CachedTr.position, 50);
                     vfxProjectile.Initialize(false, movement);
