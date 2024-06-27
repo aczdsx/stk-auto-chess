@@ -154,6 +154,7 @@ MonoBehaviour:
   _txtDamage: {fileID: 0}
   _textCritDamage: {fileID: 0}
   _healDamage: {fileID: 0}
+  _shieldDamage: {fileID: 0}
   _root: {fileID: 1931683326633946100}
   _animator: {fileID: 0}
   _heightOffset: 0.3
@@ -354,6 +355,7 @@ MonoBehaviour:
   _txtDamage: {fileID: 0}
   _textCritDamage: {fileID: 0}
   _healDamage: {fileID: 0}
+  _shieldDamage: {fileID: 0}
   _root: {fileID: 3249998276893708729}
   _animator: {fileID: 0}
   _heightOffset: 0.3
@@ -554,6 +556,7 @@ MonoBehaviour:
   _txtDamage: {fileID: 0}
   _textCritDamage: {fileID: 0}
   _healDamage: {fileID: 0}
+  _shieldDamage: {fileID: 0}
   _root: {fileID: 7478143097305157841}
   _animator: {fileID: 0}
   _heightOffset: 0.3
@@ -921,6 +924,7 @@ MonoBehaviour:
   _txtDamage: {fileID: 6749699551292391855}
   _textCritDamage: {fileID: 6885590725263564004}
   _healDamage: {fileID: 6493489177371492042}
+  _shieldDamage: {fileID: 6897087686530347196}
   _root: {fileID: 2909842877419095992}
   _animator: {fileID: 8492018132756941307}
   _heightOffset: 0.3

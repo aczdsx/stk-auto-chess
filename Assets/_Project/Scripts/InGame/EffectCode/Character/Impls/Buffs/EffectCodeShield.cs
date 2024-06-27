@@ -3,6 +3,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Threading.Tasks;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
@@ -120,7 +121,8 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
             return damageAmount;
 
         var reducedAmount = originDamageAmount - damageAmount;
-        // [TODO]: show shield damage text
+
+        owner.ShowShieldText(reducedAmount).Forget();
 
         return damageAmount;
     }

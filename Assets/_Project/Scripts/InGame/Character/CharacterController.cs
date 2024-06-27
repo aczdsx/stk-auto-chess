@@ -984,6 +984,16 @@ namespace CookApps.BattleSystem
             await textView.ShowHealText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
         }
 
+        public async UniTask ShowShieldText(double amount)
+        {
+            if (amount == 0)
+            {
+                return;
+            }
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
+            await textView.ShowShieldText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
+        }
+
         public void MoveCharacter(bool isInRange)
         {
             if (isInRange)
