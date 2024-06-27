@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1212020275849310691}
   - component: {fileID: 6934393944402884642}
   - component: {fileID: 8304147779716901701}
+  - component: {fileID: 467383734995356975}
+  - component: {fileID: 9049658652207495596}
   m_Layer: 5
   m_Name: Badge_Synergy (7)
   m_TagString: Untagged
@@ -112,6 +114,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &467383734995356975
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113281866496074049}
+  m_CullTransparentMesh: 1
+--- !u!114 &9049658652207495596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113281866496074049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &248830981310115578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,6 +1178,8 @@ GameObject:
   - component: {fileID: 2427746175870499463}
   - component: {fileID: 3037746181570471681}
   - component: {fileID: 2262184524000818047}
+  - component: {fileID: 568024231980021618}
+  - component: {fileID: 8560414001429856958}
   m_Layer: 5
   m_Name: Badge_Synergy (1)
   m_TagString: Untagged
@@ -1253,6 +1281,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &568024231980021618
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025903406206621372}
+  m_CullTransparentMesh: 1
+--- !u!114 &8560414001429856958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025903406206621372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1363749603122193105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,6 +1507,8 @@ GameObject:
   - component: {fileID: 2506946294986677989}
   - component: {fileID: 5010282506987419997}
   - component: {fileID: 927548173335575022}
+  - component: {fileID: 5683171238530629875}
+  - component: {fileID: 2841822895086190763}
   m_Layer: 5
   m_Name: Badge_Synergy (4)
   m_TagString: Untagged
@@ -1556,6 +1610,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &5683171238530629875
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532608081665785414}
+  m_CullTransparentMesh: 1
+--- !u!114 &2841822895086190763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532608081665785414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1697880981333264622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,6 +2134,8 @@ GameObject:
   - component: {fileID: 5048525154771690370}
   - component: {fileID: 5681333935121456604}
   - component: {fileID: 4326881037396942144}
+  - component: {fileID: 5084409793303564607}
+  - component: {fileID: 7766037528428229082}
   m_Layer: 5
   m_Name: Badge_Synergy
   m_TagString: Untagged
@@ -2157,6 +2237,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &5084409793303564607
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378255383166189600}
+  m_CullTransparentMesh: 1
+--- !u!114 &7766037528428229082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378255383166189600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2470220074371391991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,6 +2347,8 @@ GameObject:
   - component: {fileID: 9074896235401638801}
   - component: {fileID: 4197221112100970519}
   - component: {fileID: 8040429567092852239}
+  - component: {fileID: 8140815333188192535}
+  - component: {fileID: 5070653512751440114}
   m_Layer: 5
   m_Name: Badge_Synergy (8)
   m_TagString: Untagged
@@ -2344,6 +2450,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &8140815333188192535
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495419201710782179}
+  m_CullTransparentMesh: 1
+--- !u!114 &5070653512751440114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495419201710782179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2692682737397378512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2639,6 +2769,8 @@ GameObject:
   - component: {fileID: 2388245382192584956}
   - component: {fileID: 1267041193404441170}
   - component: {fileID: 2274169559881489311}
+  - component: {fileID: 6880795476339209342}
+  - component: {fileID: 4955806259345533226}
   m_Layer: 5
   m_Name: Badge_Synergy (1)
   m_TagString: Untagged
@@ -2740,6 +2872,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &6880795476339209342
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3240057202730247003}
+  m_CullTransparentMesh: 1
+--- !u!114 &4955806259345533226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3240057202730247003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3541997403226185152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,6 +2907,8 @@ GameObject:
   - component: {fileID: 4443517798745053607}
   - component: {fileID: 2875247478840606328}
   - component: {fileID: 4629116623290129035}
+  - component: {fileID: 2564212627629352665}
+  - component: {fileID: 6458266135746630371}
   m_Layer: 5
   m_Name: Badge_Synergy (6)
   m_TagString: Untagged
@@ -2852,6 +3010,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &2564212627629352665
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541997403226185152}
+  m_CullTransparentMesh: 1
+--- !u!114 &6458266135746630371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541997403226185152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3674028293925375511
 GameObject:
   m_ObjectHideFlags: 0
@@ -3293,6 +3475,8 @@ GameObject:
   - component: {fileID: 7091934855866252072}
   - component: {fileID: 1380613708212019587}
   - component: {fileID: 7800054351220030863}
+  - component: {fileID: 5684946983011298381}
+  - component: {fileID: 7626586965902234202}
   m_Layer: 5
   m_Name: Badge_Synergy (3)
   m_TagString: Untagged
@@ -3394,6 +3578,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &5684946983011298381
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270216442378616073}
+  m_CullTransparentMesh: 1
+--- !u!114 &7626586965902234202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270216442378616073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4820358394500797876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3539,6 +3747,8 @@ GameObject:
   - component: {fileID: 5429870309757256259}
   - component: {fileID: 5209835644022448298}
   - component: {fileID: 5320436263638263924}
+  - component: {fileID: 6042136518528667007}
+  - component: {fileID: 8062321531891054475}
   m_Layer: 5
   m_Name: Badge_Synergy (4)
   m_TagString: Untagged
@@ -3640,6 +3850,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &6042136518528667007
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833724964649301340}
+  m_CullTransparentMesh: 1
+--- !u!114 &8062321531891054475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833724964649301340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4874622833837286868
 GameObject:
   m_ObjectHideFlags: 0
@@ -3651,6 +3885,8 @@ GameObject:
   - component: {fileID: 5551228840891667818}
   - component: {fileID: 7676903411672388090}
   - component: {fileID: 1861622279224701644}
+  - component: {fileID: 2000564243583879766}
+  - component: {fileID: 8169572870408727490}
   m_Layer: 5
   m_Name: Badge_Synergy (2)
   m_TagString: Untagged
@@ -3752,6 +3988,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &2000564243583879766
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874622833837286868}
+  m_CullTransparentMesh: 1
+--- !u!114 &8169572870408727490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874622833837286868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4937567482795861220
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,6 +4023,8 @@ GameObject:
   - component: {fileID: 6855544050614719601}
   - component: {fileID: 908088442766728915}
   - component: {fileID: 6816983058576032519}
+  - component: {fileID: 8272051719322161722}
+  - component: {fileID: 3935539658726996008}
   m_Layer: 5
   m_Name: Badge_Synergy (2)
   m_TagString: Untagged
@@ -3864,6 +4126,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &8272051719322161722
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937567482795861220}
+  m_CullTransparentMesh: 1
+--- !u!114 &3935539658726996008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937567482795861220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4966650529745555432
 GameObject:
   m_ObjectHideFlags: 0
@@ -3875,6 +4161,8 @@ GameObject:
   - component: {fileID: 6566637298415985340}
   - component: {fileID: 8654099720694991676}
   - component: {fileID: 7397975974514692632}
+  - component: {fileID: 91672665358626927}
+  - component: {fileID: 6463181909575996454}
   m_Layer: 5
   m_Name: Badge_Synergy (5)
   m_TagString: Untagged
@@ -3976,6 +4264,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &91672665358626927
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966650529745555432}
+  m_CullTransparentMesh: 1
+--- !u!114 &6463181909575996454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966650529745555432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5120764361739814425
 GameObject:
   m_ObjectHideFlags: 0
@@ -3987,6 +4299,8 @@ GameObject:
   - component: {fileID: 3430121879960159401}
   - component: {fileID: 6656632103895516602}
   - component: {fileID: 3435803851126883190}
+  - component: {fileID: 7762889819120813301}
+  - component: {fileID: 1554166868104815241}
   m_Layer: 5
   m_Name: Badge_Synergy (5)
   m_TagString: Untagged
@@ -4088,6 +4402,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &7762889819120813301
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120764361739814425}
+  m_CullTransparentMesh: 1
+--- !u!114 &1554166868104815241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120764361739814425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5232467211358915402
 GameObject:
   m_ObjectHideFlags: 0
@@ -5527,6 +5865,8 @@ GameObject:
   - component: {fileID: 6294461551867470728}
   - component: {fileID: 6168338836674811951}
   - component: {fileID: 1926011897775032097}
+  - component: {fileID: 5428539546008387634}
+  - component: {fileID: 7553668931016940668}
   m_Layer: 5
   m_Name: Badge_Synergy (3)
   m_TagString: Untagged
@@ -5628,6 +5968,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &5428539546008387634
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076439556852083674}
+  m_CullTransparentMesh: 1
+--- !u!114 &7553668931016940668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076439556852083674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7102102173261274038
 GameObject:
   m_ObjectHideFlags: 0
@@ -5639,6 +6003,8 @@ GameObject:
   - component: {fileID: 5118030850927571169}
   - component: {fileID: 6662381930727845890}
   - component: {fileID: 4889487521305612892}
+  - component: {fileID: 3611820945017237402}
+  - component: {fileID: 3389004452571506316}
   m_Layer: 5
   m_Name: Badge_Synergy (8)
   m_TagString: Untagged
@@ -5740,6 +6106,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &3611820945017237402
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102102173261274038}
+  m_CullTransparentMesh: 1
+--- !u!114 &3389004452571506316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102102173261274038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7175631233767098082
 GameObject:
   m_ObjectHideFlags: 0
@@ -5826,6 +6216,8 @@ GameObject:
   - component: {fileID: 5755627042772877326}
   - component: {fileID: 8852992405401249430}
   - component: {fileID: 5530830246241960232}
+  - component: {fileID: 1009541175632029568}
+  - component: {fileID: 3328501244292943002}
   m_Layer: 5
   m_Name: Badge_Synergy (6)
   m_TagString: Untagged
@@ -5927,6 +6319,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &1009541175632029568
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7404919589788075512}
+  m_CullTransparentMesh: 1
+--- !u!114 &3328501244292943002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7404919589788075512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7512442659168028249
 GameObject:
   m_ObjectHideFlags: 0
@@ -6281,6 +6697,8 @@ GameObject:
   - component: {fileID: 5830021374659306952}
   - component: {fileID: 1518827101538570732}
   - component: {fileID: 3865931960192913723}
+  - component: {fileID: 5389551349090300427}
+  - component: {fileID: 5065566069358844000}
   m_Layer: 5
   m_Name: Badge_Synergy (7)
   m_TagString: Untagged
@@ -6382,6 +6800,30 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &5389551349090300427
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969918015232620442}
+  m_CullTransparentMesh: 1
+--- !u!114 &5065566069358844000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969918015232620442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8216759457506782789
 GameObject:
   m_ObjectHideFlags: 0
@@ -7422,6 +7864,8 @@ GameObject:
   - component: {fileID: 1985088903976979658}
   - component: {fileID: 427210863426942969}
   - component: {fileID: 3903186278389896558}
+  - component: {fileID: 2379956671338601533}
+  - component: {fileID: 1566459776883358187}
   m_Layer: 5
   m_Name: Badge_Synergy
   m_TagString: Untagged
@@ -7523,3 +7967,27 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!222 &2379956671338601533
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9095123813220748243}
+  m_CullTransparentMesh: 1
+--- !u!114 &1566459776883358187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9095123813220748243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
