@@ -43,11 +43,11 @@ namespace CookApps.AutoBattler
             {
                 if (isCritical)
                 {
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_normal1);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_critical1);
                 }
                 else
                 {
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_critical1);
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_normal1);
                 }
             }
 
