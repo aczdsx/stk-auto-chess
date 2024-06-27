@@ -62,7 +62,7 @@ namespace CookApps.BattleSystem
         {
             if (_chapterRuleTiles.Exists(l => l == tile))
             {
-                _characterList.Add(new CharacterInfo(character, _durationTime - 1.0f));
+                _characterList.Add(new CharacterInfo(character, _durationTime - 0.8f));
             }
         }
 
@@ -98,7 +98,10 @@ namespace CookApps.BattleSystem
                         var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
                         characterInfo.Controller.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
 
+                        characterInfo.Controller.Position3D = characterInfo.Controller.CurrentTile.View.CachedTr.position;
+
                         characterInfo.Value -= _durationTime;
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
                     }
                 }
             }

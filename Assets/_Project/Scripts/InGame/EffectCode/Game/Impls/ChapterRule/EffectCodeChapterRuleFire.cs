@@ -55,6 +55,7 @@ namespace CookApps.BattleSystem
             damage.damageAmount = _effectCodeStat;
 
             character.GetDamaged(damage, null);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_fire);
         }
 
         public override void OnUpdate(float dt)
@@ -73,6 +74,7 @@ namespace CookApps.BattleSystem
                         damage.damageAmount = _effectCodeStat;
 
                         ruleTile.OccupiedCharacter.GetDamaged(damage, null);
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_fire);
                     }
                 }
                 elapsedTime -= 1f;
