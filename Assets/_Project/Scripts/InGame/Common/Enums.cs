@@ -24,6 +24,7 @@ namespace CookApps.BattleSystem
         Slowing = 0x0010,
         Provocation = 0x0020,
         Freezing = 0x0040,
+        Silence = 0x0050,
         All = 0x0FFF,
     }
 

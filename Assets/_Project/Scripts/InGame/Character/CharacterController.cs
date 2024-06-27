@@ -438,7 +438,8 @@ namespace CookApps.BattleSystem
             var isKnockBack = HasCrowdControl(CrowdControlType.KnockBack);
             var isStun = HasCrowdControl(CrowdControlType.Stun);
             var isEntangle = HasCrowdControl(CrowdControlType.Entangle);
-            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle)
+            var isSilence = HasCrowdControl(CrowdControlType.Entangle);
+            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle || isSilence)
             {
                 result &= ~CharacterStateRunningResult.CanCallMove;
                 if (isStun || isAirborne || isFreezing || isKnockBack)
@@ -467,9 +468,14 @@ namespace CookApps.BattleSystem
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
                 if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
                 {
-                    float skillCooltimeRate = InGameCalculator.CalculateCooltimeRate(SkillCooltimeRate);
-                    EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
+                    if (!isSilence)
+                    {
+                        float skillCooltimeRate = InGameCalculator.CalculateCooltimeRate(SkillCooltimeRate);
+                        EffectCodeForLoopHelper.CallWithArgs(effectCodes,
+                            EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
+                    }
                 }
+
                 for (var i = 0; i < effectCodes.Count; i++)
                 {
                     if (effectCodes[i] is EffectCodeCharacterBase characterEffectCode)
