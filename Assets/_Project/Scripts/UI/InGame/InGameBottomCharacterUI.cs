@@ -48,6 +48,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _characterCountText;
 
+    [SerializeField]
+    private ParticleSystem _commanderFx;
+
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private bool isRunningAddCharacter;
@@ -156,6 +159,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         var image = ImageManager.Instance.GetCommanderSkillSprite(id);
         if (image != null)
             _commanderSkillUI.SetIcon(image);
+
+        InGameMain.GetInGameMain().SetCommanderFx(false);
     }
 
     public void InitData()
@@ -318,5 +323,12 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
+    }
+
+    public void SetCommanderFx(bool isActive)
+    {
+        _commanderFx.gameObject.SetActive(isActive);
+        if (isActive)
+            _commanderFx.Play();
     }
 }

@@ -24,7 +24,7 @@ namespace CookApps.BattleSystem
         List<InGameTile> _chapterRuleTiles = new List<InGameTile>();
         List<CharacterInfo> _characterList = new List<CharacterInfo>();
         private float _effectCodeStat;
-        private float _durationTime = 3.0f;
+        private float _durationTime = 7.0f;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -60,7 +60,7 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
-            _characterList.Add(new CharacterInfo(character, _durationTime - 0.5f));
+            _characterList.Add(new CharacterInfo(character, _durationTime - 1.0f));
         }
 
         public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
@@ -75,7 +75,7 @@ namespace CookApps.BattleSystem
 
             foreach (var characterInfo in _characterList)
             {
-                if (characterInfo.Controller != null)
+                if (characterInfo.Controller != null && characterInfo.Controller.GetCharacterView() != null)
                 {
                     characterInfo.Value += dt;
 

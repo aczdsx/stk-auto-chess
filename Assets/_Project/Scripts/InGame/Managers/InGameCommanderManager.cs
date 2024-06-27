@@ -53,6 +53,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     private InGameTileView _hitTileView;
     private List<InGameTile> _activeTiles = new List<InGameTile>();
     private CommanderSkillData _commanderSkillData;
+    private bool isCanUseCommanderSkill = false;
 
     public void Initialize()
     {
@@ -164,6 +165,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
         InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
         _commanderSkillData.ElapsedTime = 0;
+        isCanUseCommanderSkill = false;
     }
 
     public void ManagedUpdate(float dt)
@@ -171,11 +173,20 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (_commanderSkillData == null)
             return;
 
+        if (isCanUseCommanderSkill)
+            return;
+
         if (_commanderSkillData.ElapsedTime < _commanderSkillData.DurationTime)
         {
             _commanderSkillData.ElapsedTime += dt;
             InGameMain.GetInGameMain()
                 .SetCommanderSkillCoolTime(_commanderSkillData.ElapsedTime, _commanderSkillData.DurationTime);
+            InGameMain.GetInGameMain().SetCommanderFx(false);
+        }
+        else
+        {
+            isCanUseCommanderSkill = true;
+            InGameMain.GetInGameMain().SetCommanderFx(true);
         }
     }
 
