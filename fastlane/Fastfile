@@ -54,11 +54,6 @@ platform :ios do
 
   desc "Create .ipa"
   private_lane :build do |options|
-    cocoapods(
-      repo_update: true,
-      clean_install: true,
-      podfile: "#{ENV['IOS_BUILD_PATH']}/"
-    )
 
     setup_ci
 
