@@ -26,6 +26,7 @@ jobs:
           fetch-depth: 0
           clean: false
           submodules: true
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Git clean manually
         run: git clean -ffdx -e Library/
 
