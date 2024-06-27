@@ -71,8 +71,8 @@ public class InGameCamera : MonoBehaviour
                 return;
             }
 
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            float x = originalPos.x + Random.Range(-1f, 1f) * magnitude;
+            float y = originalPos.y + Random.Range(-1f, 1f) * magnitude;
 
             _rootObj.transform.localPosition = new Vector3(x, y, originalPos.z);
 
