@@ -37,6 +37,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.Char_User_Exp_Item);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+
             _currentTabType = CharacterCollectionPopupTabType.MAIN;
             _currentCharacterID = 0;
 

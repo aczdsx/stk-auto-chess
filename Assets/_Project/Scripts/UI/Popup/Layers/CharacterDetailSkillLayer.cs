@@ -42,6 +42,8 @@ namespace CookApps.AutoBattler
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
 
             SetSkillLayer();
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
         public void RefreshLayer()

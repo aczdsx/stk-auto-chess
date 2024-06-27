@@ -107,6 +107,8 @@ namespace CookApps.AutoBattler
             {
                 _parentPopup.SetSelectedChapterData(_specChapterData.id);
             }
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
 
         private void OnClickDimmedLayerButton()

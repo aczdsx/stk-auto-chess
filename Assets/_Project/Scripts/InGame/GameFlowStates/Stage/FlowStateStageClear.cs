@@ -21,7 +21,7 @@ public class FlowStateStageClear : StateBase
         SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star));
 
         // 행동력 소모 처리
-        UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true);
+        UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true, false);
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());

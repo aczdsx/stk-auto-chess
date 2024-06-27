@@ -69,6 +69,8 @@ namespace CookApps.AutoBattler
         {
             if (_parentPopup == null) return;
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+
             UserDataManager.Instance.SetEquippedCommanderSkill(_specCommanderSkillData.commander_skill_id);
 
             _parentPopup.RefreshSkillSlot();
@@ -77,6 +79,8 @@ namespace CookApps.AutoBattler
         private void OnClickSkillInfoButton()
         {
             if (_parentPopup == null) return;
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             _parentPopup.OpenSkillToolTipPopup(_specCommanderSkillData);
         }

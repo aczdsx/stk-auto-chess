@@ -124,6 +124,8 @@ namespace CookApps.BattleSystem
         private static int characUIdInc;
         private int _characterUId;
 
+        private Vector3 SelectedOffSet;
+
         public async UniTask Initialize(InGameTile tile, Transform Playground, int id)
         {
             ChangeOccupiedTile(tile);
@@ -341,6 +343,13 @@ namespace CookApps.BattleSystem
 
         public void SetSelectedCharacter(bool isSetSelected)
         {
+            if (isSetSelected)
+                SelectedOffSet += Vector3.up * 0.3f;
+            else
+            {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_landing, CurrentTile.View.CachedTr.position);
+                SelectedOffSet -= Vector3.up * 0.3f;
+            }
             _view.SetSelected(isSetSelected);
             Color color = isSetSelected ? Color.gray : Color.white;
             _view.SetColor(color);
@@ -429,7 +438,8 @@ namespace CookApps.BattleSystem
             var isKnockBack = HasCrowdControl(CrowdControlType.KnockBack);
             var isStun = HasCrowdControl(CrowdControlType.Stun);
             var isEntangle = HasCrowdControl(CrowdControlType.Entangle);
-            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle)
+            var isSilence = HasCrowdControl(CrowdControlType.Entangle);
+            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle || isSilence)
             {
                 result &= ~CharacterStateRunningResult.CanCallMove;
                 if (isStun || isAirborne || isFreezing || isKnockBack)
@@ -440,7 +450,7 @@ namespace CookApps.BattleSystem
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
             {
-                _view.UpdatePosition(position, ViewPosition3D);
+                _view.UpdatePosition(position, ViewPosition3D, SelectedOffSet);
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnUpdate))
@@ -451,16 +461,21 @@ namespace CookApps.BattleSystem
 
             if (isAirborne || isKnockBack)
             {
-                _view.UpdatePosition(position, ViewPosition3D);
+                _view.UpdatePosition(position, ViewPosition3D, SelectedOffSet);
             }
 
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
                 if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
                 {
-                    float skillCooltimeRate = InGameCalculator.CalculateCooltimeRate(SkillCooltimeRate);
-                    EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
+                    if (!isSilence)
+                    {
+                        float skillCooltimeRate = InGameCalculator.CalculateCooltimeRate(SkillCooltimeRate);
+                        EffectCodeForLoopHelper.CallWithArgs(effectCodes,
+                            EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
+                    }
                 }
+
                 for (var i = 0; i < effectCodes.Count; i++)
                 {
                     if (effectCodes[i] is EffectCodeCharacterBase characterEffectCode)
@@ -631,6 +646,9 @@ namespace CookApps.BattleSystem
             if (vfxName != InGameVfxNameType.NONE)
                 InGameVfxManager.Instance.AddInGameVfx(vfxName, SkillRootTransformFollowable);
 
+            var sfxName = type.GetSoundFx();
+            if (sfxName != SoundFX.NONE)
+                SoundManager.Instance.PlaySFX(sfxName);
 
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {

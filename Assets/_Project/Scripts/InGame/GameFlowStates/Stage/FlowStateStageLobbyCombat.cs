@@ -37,10 +37,12 @@ public class FlowStateStageLobbyCombat : StateBase
 
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate, AllianceType.Player,
                 typeof(CharacterStateIdle), false));
+
+            await UniTask.Delay(250);
         }
 
         // 전투 시작 후 1초는 대기
-        await UniTask.Delay(1000);
+        await UniTask.Delay(700);
     }
 
     private float elapsedTime = 0f;
@@ -75,7 +77,7 @@ public class FlowStateStageLobbyCombat : StateBase
         {
             Debug.LogColor($"monster 추가 : {randomMonster.monster_id}");
             var statData = new CharacterStatData(randomMonster.monster_id, randomMonster.monster_lv,
-                0.0001f, randomMonster.multiple_hp);
+                0, randomMonster.multiple_hp);
 
             InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Enemy);
             if (ingameTile != null)

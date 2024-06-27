@@ -157,6 +157,8 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.MAIN);
         }
 

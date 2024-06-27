@@ -24,72 +24,71 @@ public enum SoundFX
     sfx_battle_start,
     sfx_cancel,
     sfx_click,
-    sfx_popup,
-    sfx_popup2,
-    sfx_tab,
-    sfx_card_flip,
-    sfx_reinforce,
-    sfx_equip,
-    sfx_exp_up,
-    sfx_item_show_special,
-    sfx_item_buy,
-    sfx_item_sell,
-    sfx_change_weapon,
-    sfx_card_draw,
-    sfx_shake,
-    sfx_congrats,
-    SFX_Ancient_Weapon_Gacha,
-    SFX_Ancient_Weapon_Gacha_Base,
-    SFX_Ancient_Weapon_Gacha_Common,
-    SFX_Ancient_Weapon_Gacha_Legend,
-    SFX_Ancient_Weapon_Gacha_Ancient,
 
-    // Enemy
-    sfx_enemy_hit = 101,
+    // UI
+    snd_sfx_ui_btn_confirm = 101,
+    snd_sfx_ui_btn_touch,
+    snd_sfx_ui_btn_dialogue,
+    snd_sfx_ui_btn_popup,
+    snd_sfx_ui_btn_negative,
+    snd_sfx_ui_item_reward,
+    snd_sfx_ui_char_level_up,
+    snd_sfx_ui_account_levelup,
+    snd_sfx_ingame_result_victory_001,
+    snd_sfx_ui_clear_star,
+    snd_sfx_ingame_result_defeat_001,
+    snd_sfx_ui_btn_splash,
 
-    // Player
-    sfx_attack_axe = 201,
-    sfx_attack_bow,
-    sfx_attack_dagger,
-    sfx_attack_gun,
-    sfx_attack_laser,
-    sfx_attack_magic,
-    sfx_attack_punch,
-    sfx_attack_sword,
 
-    // UI & Home
-    sfx_enhance = 301,
-    sfx_levelup,
-    sfx_reward,
-    sfx_building_start,
-    sfx_building_complete,
-    sfx_stone_upgrade,
-    sfx_stone_upgrade_fail,
-    sfx_text,
-    sfx_hero_set,
-    sfx_promotion,
-    sfx_victory,
-    sfx_knights_levelup,
-    sfx_chestOpenFx,
-    sfx_legendGachaPop,
-    sfx_gacha_complete,
-    sfx_rune_levelup,
-    sfx_ChapterBridgePop,
-    sfx_artifact_reinforce_success,
-    sfx_artifact_reinforce_fail,
-    sfx_challange_shop_shuffle_1t,
-    sfx_challenge_shop_shuffle_10t,
-    SFX_Guild_Entrance_First,
+    // Gacha
+    snd_sfx_gacha_start_001 = 201,
+    snd_sfx_gacha_start_002,
+    snd_sfx_gacha_start_003,
+    snd_sfx_gacha_start_004,
+    snd_sfx_gacha_result_ambient_001,
+    snd_sfx_gacha_starfall_001,
+    snd_sfx_gacha_starfall_002,
+    snd_sfx_gacha_open_ssr,
+    snd_sfx_gacha_open_normal,
+    snd_sfx_gacha_open_ticker,
+    snd_sfx_gacha_open_whoosh01,
+    snd_sfx_gacha_open_whoosh02,
+    snd_sfx_gacha_open_cha001,
 
-    // VOX
-    TitleCall = 401,
-    TitleCall_JP,
+    // InGame
+    snd_sfx_ingame_spawn = 301,
+    snd_sfx_hit_normal1,
+    snd_sfx_ingame_atkup,
+    snd_sfx_ingame_spdup,
+    snd_sfx_ingame_shield,
+    snd_sfx_ingame_debuff,
+    snd_sfx_ingame_stun,
+    snd_sfx_hit_critical1,
 
-    // AMB
-    amb_tavern = 501,
-    amb_night,
-    amb_rainy,
-    amb_wind
+    // Character Skill
+    snd_sfx_skill_401011 = 401,
+    snd_sfx_skill_401031,
+    snd_sfx_skill_302011,
+    snd_sfx_skill_404021,
+    snd_sfx_skill_306011,
+    snd_sfx_skill_304021,
+    snd_sfx_skill_303011,
+    snd_sfx_skill_403011,
+    snd_sfx_skill_305011,
+    snd_sfx_skill_405021,
+    snd_sfx_skill_406011,
+
+    // Monster Skill
+    snd_sfx_monster_101011 = 501,
+    snd_sfx_monster_101021,
+    snd_sfx_monster_104011,
+    snd_sfx_monster_202011,
+    snd_sfx_monster_104021,
+    snd_sfx_monster_103011,
+    snd_sfx_monster_202021,
+    snd_sfx_monster_201011,
+    snd_sfx_monster_203011,
+    snd_sfx_monster_202031,
 }
 
 
@@ -113,6 +112,14 @@ public class SoundManager : Singleton<SoundManager>
             return this.PlaySFXWithoutSilence(sfx.ToString());
         else
             return this.PlaySFX(sfx.ToString());
+    }
+
+    public ClockStone.AudioObject PlaySFX(string sfxString, bool forceInSilence = false)
+    {
+        if (forceInSilence)
+            return this.PlaySFXWithoutSilence(sfxString);
+        else
+            return this.PlaySFX(sfxString);
     }
 
     //public ClockStone.AudioObject PlayVOX(SoundVOX vox, bool forceInSilence = false)
@@ -309,6 +316,12 @@ public class SoundManager : Singleton<SoundManager>
         this.onBGM = Preference.LoadPreference(Pref.BGM_V, true);
         this.onSFX = Preference.LoadPreference(Pref.SFX_V, true);
         this.onSFX = Preference.LoadPreference(Pref.VOX_V, true);
+    }
+
+
+    public void StopAllSound()
+    {
+        AudioController.StopAll();
     }
 
     protected void Start()

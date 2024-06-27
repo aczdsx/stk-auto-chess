@@ -40,6 +40,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.C_Ticket);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+
             // test
             //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));
         }
@@ -76,7 +78,7 @@ namespace CookApps.AutoBattler
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList, true);
 
             // 가챠 티켓 소모
-            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_1_TIME_COUNT, true);
+            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_1_TIME_COUNT, true, true);
 
             // 가챠 결과 아이템 저장
             UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
@@ -85,7 +87,9 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_1_TIME_COUNT);
 
             // 가이드 미션 체크
-            UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
+
+            SoundManager.Instance.StopBGM();
 
             SetCanvasTargetDisplay(1);
         }
@@ -121,7 +125,7 @@ namespace CookApps.AutoBattler
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList);
 
             // 가챠 티켓 소모
-            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_10_TIME_COUNT, true);
+            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_10_TIME_COUNT, true, true);
 
             // 가챠 결과 아이템 저장
             UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
@@ -130,13 +134,17 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_10_TIME_COUNT);
 
             // 가이드 미션 체크
-            UserDataManager.Instance.SetGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
+
+            SoundManager.Instance.StopBGM();
 
             SetCanvasTargetDisplay(1);
         }
 
         private void OnClickCloseButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }

@@ -131,6 +131,8 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             // 캐릭터 조각 20개 이상 보유 하여 최초 획득 시 처리
             if (UserDataManager.Instance.IsHaveCharacter(_userCharacterData.CharacterId) == false)
             {

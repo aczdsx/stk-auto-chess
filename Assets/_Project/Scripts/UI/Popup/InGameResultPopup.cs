@@ -50,7 +50,11 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+
+            SoundManager.Instance.StopBGM();
+
             (_isVictory, _star) = ((bool, int))param;
+
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);
 
@@ -112,6 +116,12 @@ namespace CookApps.AutoBattler
             {
                 CheckLatestStageClear();
                 CreateRewardItems();
+
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
             }
 
             var currentMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
@@ -142,8 +152,13 @@ namespace CookApps.AutoBattler
 
         private void OnExitButtonClicked()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
+            int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+            var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+
             var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby",  (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
+            SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
         }
 
         private void OnNextStageButtonClicked()
@@ -155,6 +170,8 @@ namespace CookApps.AutoBattler
 
             // 최종 챕터/스테이지 여부 체크
             if (_isEndChapter) return;
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
             int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
@@ -174,6 +191,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickRetryStageButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, (int)InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
         }

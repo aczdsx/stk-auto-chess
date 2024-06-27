@@ -12,12 +12,20 @@ jobs:
     name: Build for iOS and release to Apple App Store
     runs-on: [self-hosted, macOS, ARM64, unity-builder, production]
     steps:
+    # Generate token
+      - name: Generate token
+        id: generate-token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_APP_PEM }}
       # Checkout
       - name: Checkout ${{ github.ref }}
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           clean: false
+          submodules: true
       - name: Git clean manually
         run: git clean -ffdx -e Library/
 
@@ -34,8 +42,9 @@ jobs:
         with:
           targetPlatform: iOS
           versioning: None
-          buildMethod: # FIXME
+          buildMethod: CookApps.Build.CookAppsBuild.BuildBatchMode
           customParameters: >
+            -buildName ios-prod
             -EnableCacheServer
             -cacheServerEndpoint ${{ vars.UNITY_ACCELERATOR_ENDPOINT }}
             -cacheServerNamespacePrefix ${{ github.repository }}
@@ -93,7 +102,7 @@ jobs:
         uses: slackapi/slack-github-action@v1
         env:
           # Post a message by utilizing incoming webhook
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ vars.SLACK_WEBHOOK_URL_PROD }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
           # Environment variables for payload

@@ -25,6 +25,8 @@ namespace CookApps.AutoBattler
             touchToStart.SetActive(false);
             RunAllTasks().Forget();
 
+            Debug.Log("TitleMain OnPreEnter");
+
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
         }
@@ -125,6 +127,8 @@ namespace CookApps.AutoBattler
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
                     SceneLoading.GoToNextScene("Lobby", (int)specStageData.chapter_id, transition).Forget();
                 }
+
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
 
                 // int lastChapter = 1;
                 // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();

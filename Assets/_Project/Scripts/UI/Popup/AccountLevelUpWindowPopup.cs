@@ -49,6 +49,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_account_levelup);
+
             _currentSpecAccountLevelExpData = param as SpecAccountLevelExp;
             _prevSpecAccountLevelExpData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(_currentSpecAccountLevelExpData.lv - 1);
 
@@ -87,6 +89,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 

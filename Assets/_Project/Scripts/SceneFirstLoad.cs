@@ -42,6 +42,8 @@ namespace CookApps.AutoBattler
         {
             await UniTask.Yield();
 
+            Debug.Log("SceneFirstLoad Awake");
+
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -52,6 +54,8 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.Initialize(sceneData, allUILayers);
             Addressables.Release(sceneData);
 
+            Debug.Log("SceneFirstLoad Awake -1");
+
             SoundManager.Instance.Initialize();
 
 #if UNITY_EDITOR
@@ -59,6 +63,8 @@ namespace CookApps.AutoBattler
 #endif
             var transition = SceneTransition_FadeInOut.Create();
             await SceneLoading.GoToNextScene("Title", null, transition);
+
+            Debug.Log("SceneFirstLoad Awake -2");
         }
     }
 }

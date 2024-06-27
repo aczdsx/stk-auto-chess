@@ -23,7 +23,6 @@ public class CharacterStateAttack : CharacterStateBase
 
         if (characCtrl != null)
         {
-
             if (characCtrl.NeedToBeIdle())
             {
                 ReturnToIdle();
@@ -32,7 +31,8 @@ public class CharacterStateAttack : CharacterStateBase
 
             // 1. 잡는 적이 아직 살아있는지 체크
             CharacterController atkTarget = characCtrl.Target;
-            if (atkTarget == null || !atkTarget.IsAlive || !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
+            if (atkTarget == null || !atkTarget.IsAlive ||
+                !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
             {
                 isAttackAnimRunning = false;
                 ReturnToIdle();
@@ -49,7 +49,8 @@ public class CharacterStateAttack : CharacterStateBase
                 characCtrl.ResetAttackCoolTime();
 
                 // 이펙트 코드에게 공격 횟수 전달
-                var characEffectCodes = characCtrl.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttack);
+                var characEffectCodes = characCtrl.GetEffectCodeContainer()
+                    .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttack);
                 EffectCodeForLoopHelper.Call(characEffectCodes, EffectCodeCharacterLambda.CallOnAttackLambda);
 
                 RunAttackAnimation();
@@ -57,7 +58,9 @@ public class CharacterStateAttack : CharacterStateBase
             }
         }
 
-        return isAttackAnimRunning ? CharacterStateRunningResult.CanCallAllWithoutMove : CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
+        return isAttackAnimRunning
+            ? CharacterStateRunningResult.CanCallAllWithoutMove
+            : CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
     }
 
     protected virtual void RunAttackAnimation()
@@ -101,7 +104,8 @@ public class CharacterStateAttack : CharacterStateBase
             int hitCount = eventKey - AnimationEventKey.ExecuteStart;
 
             // damage 계산
-            CharacterController.DamageInfo damageInfo = characCtrl.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
+            CharacterController.DamageInfo damageInfo =
+                characCtrl.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
             characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
             if (hitCount > 1)
             {
@@ -117,27 +121,28 @@ public class CharacterStateAttack : CharacterStateBase
                     return;
                 }
 
-                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile, characCtrl.GetCharacterView().ProjectileTransform.position);
+                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile,
+                    characCtrl.GetCharacterView().ProjectileTransform.position);
 
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-                var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(characCtrl);
-                if (inGameTile != null)
+
+                Vector3 direction =
+                    (characCtrl.Target.CurrentTile.View.CachedTr.position -
+                     characCtrl.CurrentTile.View.CachedTr.position).normalized;
+                vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
+
+                movement.SetData(vfxProjectile.CachedTr.position,
+                    characCtrl.Target.GetCharacterView().CachedTr.position, 50);
+                vfxProjectile.Initialize(false, movement);
+
+                void OnReachedTargetHandler()
                 {
-                    Vector3 direction = (inGameTile[0].View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
-                    vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-
-                    movement.SetData(vfxProjectile.CachedTr.position, characCtrl.Target.GetCharacterView().CachedTr.position, 50);
-                    vfxProjectile.Initialize(false, movement);
-
-                    void OnReachedTargetHandler()
-                    {
-                        if (characCtrl != null && characCtrl.Target != null)
-                            characCtrl.Target.GetDamaged(damageInfo, characCtrl);
-                        vfxProjectile.Remove();
-                    }
-                    movement.OnReachedTarget += OnReachedTargetHandler;
+                    if (characCtrl != null && characCtrl.Target != null)
+                        characCtrl.Target.GetDamaged(damageInfo, characCtrl);
+                    vfxProjectile.Remove();
                 }
 
+                movement.OnReachedTarget += OnReachedTargetHandler;
 
                 characCtrl.Target.GetDamaged(damageInfo, characCtrl);
             }

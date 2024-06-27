@@ -35,6 +35,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_item_reward);
+
             _rewardItemList = param as List<RewardItem>;
 
             SetRewardSlotList();
@@ -55,6 +57,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickOkButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 

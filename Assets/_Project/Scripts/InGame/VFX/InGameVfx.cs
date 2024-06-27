@@ -55,7 +55,6 @@ namespace CookApps.BattleSystem
         public virtual void Clear()
         {
             OnCollisionWithTile = null;
-
         }
 
         public virtual void Restart() { }

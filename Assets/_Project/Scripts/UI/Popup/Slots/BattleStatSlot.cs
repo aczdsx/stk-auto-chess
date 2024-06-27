@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace CookApps.AutoBattler
 {
     public class BattleStatSlot : CachedMonoBehaviour
     {
+        public double AttackDamageAmount => _attackDamageAmount;
         [Header("Base Info")]
         [SerializeField] private Image _characterIconImage;
         [SerializeField] private TextMeshProUGUI _damageAmountText;
@@ -21,6 +23,7 @@ namespace CookApps.AutoBattler
 
         private int _currentCharacterID;
         private SpecCharacter _specCharacterData;
+        private double _attackDamageAmount;
 
         public void SetBattleStatSlot(int targetCharacterID)
         {
@@ -31,17 +34,32 @@ namespace CookApps.AutoBattler
             _characterIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
         }
 
-        public void RefreshBattleStatSlot()
+        public async UniTask RefreshBattleStatSlotSmooth(float duration)
         {
             if (InGameStatistics.Instance == null) return;
 
             var totalDamageAmount = InGameStatistics.Instance.GetTotalAttackDamageAmount();
-            var attackDamageAmount = InGameStatistics.Instance.GetAttackDamageAmount(_currentCharacterID);
+            var targetAttackDamageAmount = InGameStatistics.Instance.GetAttackDamageAmount(_currentCharacterID);
 
-            _damageAmountSlider.maxValue = (int)totalDamageAmount;
-            _damageAmountSlider.value = (int)attackDamageAmount;
+            float startTime = Time.time;
+            float startAttackDamageAmount = (float)_attackDamageAmount;
 
-            _damageAmountText.text = attackDamageAmount.ToString("N0");
+            while (Time.time < startTime + duration)
+            {
+                float t = (Time.time - startTime) / duration;
+                _attackDamageAmount = Mathf.Lerp(startAttackDamageAmount, (float)targetAttackDamageAmount, t);
+
+                _damageAmountSlider.maxValue = (int)totalDamageAmount;
+                _damageAmountSlider.value = (int)_attackDamageAmount;
+
+                _damageAmountText.text = _attackDamageAmount.ToString("N0");
+
+                await UniTask.Yield();
+            }
+
+            _attackDamageAmount = targetAttackDamageAmount;
+            _damageAmountSlider.value = (int)_attackDamageAmount;
+            _damageAmountText.text = _attackDamageAmount.ToString("N0");
         }
 
         private void ClearSlot()

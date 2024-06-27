@@ -26,6 +26,8 @@ namespace CookApps.BattleSystem
         private List<CharacterController> charactersInPlaygroundForUpdate = new();
 
         private List<CharacterController> startingPlayerCharacters = new();
+
+        private List<InGameVfx> _synergyVfxList = new();
         private double _playerSumMaxHp;
         private double _enemySumMaxHp;
         private float _lastRate;
@@ -59,6 +61,7 @@ namespace CookApps.BattleSystem
             playground = null;
             ClearAllCharactersInField();
             ClearAllEnemiesInField();
+            ClearSynergyFx();
         }
 
         public List<CharacterController> GetCharacterList(AllianceType allianceType)
@@ -140,6 +143,7 @@ namespace CookApps.BattleSystem
 
             if (summonVfxType != InGameVfxNameType.NONE)
             {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_spawn);
                 var vfx = InGameVfxManager.Instance.AddInGameVfx(summonVfxType, tile.View.CachedTr.position);
                 vfx.Initialize(false);
             }
@@ -691,7 +695,47 @@ namespace CookApps.BattleSystem
                 attrValue += character.GetCharacterStat().GetAttrValue();
             }
 
-            return attrValue.ToString();
+            return attrValue.ToString($"n0");
+        }
+
+        public void SpawnSynergyFx(AllianceType type, ElementType elementType)
+        {
+            List<CharacterController> targetList = (type == AllianceType.Player)
+                ? charactersInPlaygroundForUpdate
+                : enemiesInPlaygroundForUpdate;
+
+            foreach (var character in targetList)
+            {
+                InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
+                if (elementType == ElementType.FIRE)
+                {
+                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
+                }
+                else if (elementType == ElementType.WATER)
+                {
+                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
+                }
+                else if (elementType == ElementType.DARK)
+                {
+                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
+                }
+
+                if (character.SpecCharacter.element_type == elementType)
+                {
+                    _synergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
+                        character.GetCharacterView().CachedTr));
+                }
+            }
+        }
+
+        public void ClearSynergyFx()
+        {
+            _synergyVfxList.ForEach(vfx =>
+            {
+                vfx.transform.SetParent(Playground);
+                vfx.Remove();
+            });
+            _synergyVfxList.Clear();
         }
     }
 }

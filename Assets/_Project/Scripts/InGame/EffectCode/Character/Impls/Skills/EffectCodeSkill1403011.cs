@@ -19,10 +19,13 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _durationTime;
     private ObfuscatorFloat _dotDamageRate;
+    private ObfuscatorFloat _dotDamageElapsedTime;
 
+    private float elapsedTime = 0f;
     private bool _isReadyToActivate;
 
     private SpecSkill _specSkill;
+    private List<InGameTile> _effectTiles = new List<InGameTile>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -50,6 +53,32 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
+        elapsedTime += dt;
+        if (elapsedTime >= 1f)
+        {
+            _dotDamageElapsedTime += elapsedTime;
+            foreach (var tile in _effectTiles)
+            {
+                if (tile.OccupiedCharacter != null)
+                {
+                    if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                    {
+                        var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
+                            codeId, true);
+                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                        tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    }
+                }
+            }
+
+            if (_dotDamageElapsedTime > _durationTime)
+            {
+                _effectTiles.Clear();
+                _dotDamageElapsedTime = 0;
+            }
+            elapsedTime -= 1f;
+        }
+
         if (!IsSkillActivated)
         {
             return;
@@ -96,35 +125,37 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
+        _dotDamageElapsedTime = 0;
+        _effectTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
-        foreach (var tile in inGameTiles)
+        foreach (var tile in _effectTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         }
 
-        foreach (var tile in inGameTiles)
+        foreach (var tile in _effectTiles)
         {
             if (tile.OccupiedCharacter != null)
             {
                 if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
                 {
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter,
+                    var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
                         codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
                 }
             }
 
-            int effectCodeID = (int)EffectCodeNameType.TILE_BURN;
-            Span<double> eccStats = stackalloc double[3];
-            eccStats.Clear();
-            eccStats[0] = owner.CharacterUId;
-            eccStats[1] = _dotDamageRate;
-            eccStats[2] = _durationTime;
-
-            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-            tile.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, owner);
+            // [TODO] 타일 기반 작업 차후에 다시 작업
+            // int effectCodeID = (int)EffectCodeNameType.TILE_BURN;
+            // Span<double> eccStats = stackalloc double[3];
+            // eccStats.Clear();
+            // eccStats[0] = owner.CharacterUId;
+            // eccStats[1] = _dotDamageRate;
+            // eccStats[2] = _durationTime;
+            //
+            // var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+            // tile.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, owner);
 
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
         }

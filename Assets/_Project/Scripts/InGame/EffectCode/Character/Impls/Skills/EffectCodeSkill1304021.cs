@@ -2,6 +2,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using UnityEngine;
 
 /// <summary>
 /// 필리아
@@ -74,7 +75,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // TODO: Target Check
+        owner.Target = InGameObjectManager.Instance.GetNearestTarget(owner);
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -90,8 +91,12 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
             return;
 
         InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, owner.Target.CurrentTile.View.CachedTr.position);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            owner.Target.SkillRootTransformFollowable);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+        var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
+
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
             owner.Target.SkillRootTransformFollowable);
 
@@ -109,12 +114,12 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     {
         if (isKilled)
         {
-            CoolTimeElapsedTime = CoolTimeDurationTime;
+            CoolTimeElapsedTime = CoolTimeDurationTime - 0.5f;
             isKilled = false;
         }
         else
         {
-            CoolTimeElapsedTime = 0;
+            CoolTimeElapsedTime = 0.0f;
         }
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();

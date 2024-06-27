@@ -11,7 +11,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 시이나
 // 대상 : 가장 가까운 적
 // 대미지 : 강하게 베어 공격력 {0}%의 대미지를 가한다.
-//     특수 효과 : 피격된 적은 {1}초 동안 스킬 쿨타임 감소 속도를 {2}%느리게 한다.
+//     특수 효과 : 피격된 적은 {1}초 동안 침묵 디버프에 걸리게 한다.
+// *침묵 : 스킬 사용 불가능, 스킬 쿨타임 감소 정지
 /// </summary>
 [UseEffectCodeIds(1305011)]
 public class EffectCodeSkill1305011 : EffectCodeCharacterBase
@@ -33,8 +34,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _debuffTime = codeInfo.GetCodeStatToFloat(1);
-        _debuffRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _debuffTime = codeInfo.GetCodeStatToFloat(2);
         isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -46,7 +46,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _debuffRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _debuffTime = codeInfo.GetCodeStatToFloat(2);
     }
 
     public override void OnUpdate(float dt)
@@ -116,8 +116,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         debuffStats.Clear();
         debuffStats[0] = codeId;
         debuffStats[1] = _debuffTime;
-        debuffStats[2] = _debuffRate;
-        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
+        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.SILENCE, 0, debuffStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
 
         IsSkillActivated = false;

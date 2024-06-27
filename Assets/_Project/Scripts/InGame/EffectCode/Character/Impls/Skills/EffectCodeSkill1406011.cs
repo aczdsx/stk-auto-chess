@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -9,12 +10,14 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// <summary>
 /// 엔키
 // 대상 : 아군 전체
-// 효과 : 아군 전체의 공격 속도를 {0}% 만큼 증가시킨다.
+// 효과 : 아군 전체의 체력을 엔키 공격력 {0}%만큼 회복시키고 {1}초 동안 공격 속도를 {2}% 만큼 증가시킨다.
 /// </summary>
 [UseEffectCodeIds(1406011)]
 public class EffectCodeSkill1406011 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _damageRate;
+    private ObfuscatorFloat _healRate;
+    private ObfuscatorFloat _buffTime;
+    private ObfuscatorFloat _atkBuffRate;
     private bool _isReadyToActivate;
     private SpecSkill _specSkill;
 
@@ -24,7 +27,9 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _buffTime = codeInfo.GetCodeStatToFloat(2);
+        _atkBuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -37,7 +42,9 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _buffTime = codeInfo.GetCodeStatToFloat(2);
+        _atkBuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -101,8 +108,18 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                double damage = owner.PostCalculateHealAmount(_damageRate, tile.OccupiedCharacter);
+                double damage = owner.PostCalculateHealAmount(_healRate * owner.AP, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
+
+                Span<double> eccStats = stackalloc double[3];
+                eccStats.Clear();
+                eccStats[0] = codeId;
+                eccStats[1] = _buffTime;
+                eccStats[2] = _atkBuffRate;
+
+                long effectCodeID = (long)EffectCodeNameType.BUFF_ATK_SPEED_UP;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }
         }
 

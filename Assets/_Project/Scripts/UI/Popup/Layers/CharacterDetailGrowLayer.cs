@@ -83,6 +83,8 @@ namespace CookApps.AutoBattler
 
             // 레벨업 기능 관련 처리
             SetLevelupLayer();
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
         public void RefreshLayer()
@@ -96,11 +98,13 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
+            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+
             int userLevel = Mathf.Max(1, _userCharacterData.Level);
 
             _userStatData = new CharacterStatData(_userCharacterData.CharacterId, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
-            _levelText.text = $"Lv.{userLevel}";
+            _levelText.text = $"Lv.{userLevel}/{maxLevel}";
             _battlePointText.text = _userStatData.GetAttrValue().ToString("N0");
             _attackValueText.text = _userStatData.AD.ToString("N0");
             _hpValueText.text = _userStatData.HP.ToString("N0");
@@ -175,6 +179,8 @@ namespace CookApps.AutoBattler
         {
             if (_userStatData == null) return;
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PushUILayerAsync<InfoDetailTooltipPopup>(_userStatData).Forget();
         }
 
@@ -220,12 +226,16 @@ namespace CookApps.AutoBattler
 
             // 가이드 미션 체크
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
 
             // 이펙트 실행
             PlayLevelUpEffect();
 
             // 메인 레이어 갱신
             _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
+
+            // 사운드 플레이
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);
 
             RefreshLayer();
         }

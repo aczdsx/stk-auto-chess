@@ -229,6 +229,7 @@ namespace CookApps.AutoBattler
         OPEN_CHEST = 6,
         SUMMON_CHARCTER = 7,
         END_DIALOGUE = 8,
+        LEVELUP_CHARACTER_TARGET = 9,
     }
 
     public enum DialogueEventType
@@ -326,6 +327,15 @@ namespace CookApps.AutoBattler
         fx_common_trap_fire = 83,
         fx_common_trap_ice_01 = 84,
         fx_common_trap_ice_02 = 85,
+        Skill_101021 = 86,
+        Skill_104021_1 = 87,
+        fx_common_synergy_water = 88,
+        fx_common_synergy_fire = 89,
+        fx_common_synergy_darkness = 90,
+        Skill_102031 = 91,
+        Skill_201011 = 92,
+        Skill_202031 = 93,
+        fx_common_area_landing = 94,
     }
 
     public enum GlobalEffectProviderType

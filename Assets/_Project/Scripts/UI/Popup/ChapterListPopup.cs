@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,6 +58,8 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             var currentStageId = UserDataManager.Instance.GetLastPlayStageID();
             _selectedChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStageId);
@@ -168,10 +172,18 @@ namespace CookApps.AutoBattler
             RefreshSelectedLayer(false);
 
             OnClickCloseButton();
+
+            InGameManager.Instance.EndInGame();
+            var transition = SceneTransition_FadeInOut.Create();
+            SceneLoading.GoToNextScene("Lobby",  (int)_selectedChapterData.chapter_id, transition).Forget();
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
 
         private void OnClickCloseButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }

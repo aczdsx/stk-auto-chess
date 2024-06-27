@@ -129,8 +129,11 @@ public class InGameTopUI : MonoBehaviour
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
 
                 TrySetSynergyUI(() =>
-                    _synergyUIList[uiIndex].SetSynergy((ElementType)synergyCount.Type, synergyCount.Count, data.grade)
+                    _synergyUIList[uiIndex].SetSynergy((ElementType) synergyCount.Type, synergyCount.Count, data.grade)
                 );
+
+                if (data.grade > 0)
+                    InGameObjectManager.Instance.SpawnSynergyFx(type, (ElementType)synergyCount.Type);
             }
         }
 

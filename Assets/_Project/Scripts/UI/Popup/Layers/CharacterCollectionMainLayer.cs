@@ -66,6 +66,8 @@ namespace CookApps.AutoBattler
         {
             _currentMainLayerTabType = (CharacterCollectionMainLayerTabType)tabIndex;
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             FilterCharacterList(_currentMainLayerTabType);
         }
 
@@ -117,6 +119,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickBackButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer("CharacterCollectionPopup");
         }
     }

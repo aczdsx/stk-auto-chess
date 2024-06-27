@@ -29,6 +29,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _gachaButton;
         [SerializeField] private CAButton _idleRewardButton;
 
+        [Header("Vignette Layer")]
+        [SerializeField] private RawImage _vignetteImage;
+        [SerializeField] private List<Color> _stageVignetteColorList;
+        [SerializeField] private Material _chapter1VignetteMaterial; // [TODO] 임시 작업
+        [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
+
         [Header("User Info Layer")]
         [SerializeField] private Image _userIconImage;
         [SerializeField] private TextMeshProUGUI _userNameText;
@@ -243,6 +249,15 @@ namespace CookApps.AutoBattler
 
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }
+
+            // Vignette 세팅
+            SetVignetteColor(specChapterData.chapter_id);
+        }
+
+        private void SetVignetteColor(int targetChapter)
+        {
+            _vignetteImage.material = (targetChapter == 1) ? _chapter1VignetteMaterial : _defaultVignetteMaterial;
+            _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[targetChapter - 1]);
         }
 
         private async void SetIdleRewardLayer()
@@ -393,27 +408,37 @@ namespace CookApps.AutoBattler
                 InGameManager.Instance.EndInGame();
                 SceneTransition_Animator transition = SceneTransition_Animator.Create();
                 SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type), transition).Forget();
+
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             }
         }
 
         private void OnClickChapterStageButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterListPopup>(currentStageId).Forget();
         }
 
         private void OnClickGachaButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
         }
 
         private void OnClickCharacterCollectionButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
         }
 
         private void OnClickIdleRewardButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
         }
 

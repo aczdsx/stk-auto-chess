@@ -119,6 +119,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 챕터 ID
         public CookApps.Obfuscator.ObfuscatorInt chapter_id;
+        /// 보여지는 챕터 번호
+        public CookApps.Obfuscator.ObfuscatorInt display_number;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 챕터 타이틀 토큰

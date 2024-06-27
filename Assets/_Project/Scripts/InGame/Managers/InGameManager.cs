@@ -15,13 +15,11 @@ namespace CookApps.BattleSystem
     {
         #region GameInfo
         public SpecStage SpecStage { get; private set; }
-        public inGameCamera IngameCamera;
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
         private EffectCodeContainer ecc;
         public EffectCodeContainer EffectCodeContainer => ecc;
-        private inGameCamera _ingameCamera;
 
         public void ResetRandomGeneratorSeed()
         {
@@ -53,8 +51,6 @@ namespace CookApps.BattleSystem
             InGameObjectManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
             InGameCommanderManager.Instance.Initialize();
-
-            _ingameCamera = Camera.main.GetComponent<inGameCamera>();
         }
 
         public void StartInGame<T>(object stateData) where T : StateBase, new()
@@ -67,8 +63,6 @@ namespace CookApps.BattleSystem
             InGameObjectManager.Instance.Initialize();
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
             InGameCommanderManager.Instance.Initialize();
-
-            _ingameCamera = Camera.main.GetComponent<inGameCamera>();
         }
 
         public void EndInGame()
@@ -83,7 +77,6 @@ namespace CookApps.BattleSystem
             InGameStatistics.Instance.Clear();
             ecc.Clear();
             ecc = null;
-            _ingameCamera = null;
         }
         #endregion
 
