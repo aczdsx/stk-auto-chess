@@ -60,11 +60,11 @@ MonoBehaviour:
       data:
         Name: ios-prod
         Target: 9
-        Identifier: com.cookapps.tech.sampleteambattle
+        Identifier: com.mintry.stk
         Version: 0.1.0
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1651
+        VersionCode: 1684
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
