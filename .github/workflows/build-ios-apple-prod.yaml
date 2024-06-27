@@ -102,7 +102,7 @@ jobs:
         uses: slackapi/slack-github-action@v1
         env:
           # Post a message by utilizing incoming webhook
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_PROD }}
+          SLACK_WEBHOOK_URL: ${{ vars.SLACK_WEBHOOK_URL_PROD }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
           # Environment variables for payload
