@@ -154,6 +154,13 @@ namespace CookApps.AutoBattler
                         SetGuideMissionState(GuideMissionType.CLEAR_STAGE, specGuideMissionData.sub_key, MissionStateType.REWARD);
                     }
                     break;
+                case GuideMissionType.LEVELUP_CHARACTER_TARGET:
+                    var userCharacterData = GetUserCharacter(specGuideMissionData.sub_key);
+                    if (userCharacterData != null && userCharacterData.Level >= specGuideMissionData.need_count)
+                    {
+                        SetGuideMissionState(GuideMissionType.LEVELUP_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
+                    }
+                    break;
             }
         }
 
