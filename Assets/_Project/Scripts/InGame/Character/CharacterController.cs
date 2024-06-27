@@ -243,7 +243,7 @@ namespace CookApps.BattleSystem
         {
             foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
             {
-                if (elementType != ElementType.NONE)
+                if (elementType != ElementType.NONE && elementType != ElementType.DARK)
                 {
                     bool isEffectAllCharacter = elementType == ElementType.WATER || elementType == ElementType.LIGHT;
                     if (isEffectAllCharacter)

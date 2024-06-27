@@ -26,6 +26,8 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
 
     private SpecSkill _specSkill;
 
+    private ElementType _elementType;
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -86,6 +88,7 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);
+        _elementType = owner.SpecCharacter.element_type;
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -104,7 +107,7 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,tile.View.CachedTr.position);
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(_elementType, tile.View.CachedTr.position);
         tileFx.CachedTr.position = tile.View.CachedTr.position;
 
         if (tile.OccupiedCharacter == null)
