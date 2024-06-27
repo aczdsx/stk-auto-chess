@@ -17,6 +17,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private CharacterController _selectedCharacterController = null;
     private InGameTileView _selectedTileView = null;
+    private InGameTileView _selectedFirstTileView = null;
 
     private Vector3 _offset;
 
@@ -219,7 +220,21 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         Debug.LogColor("CancelMoveCharacter");
         if (_selectedCharacterController != null)
         {
-            _selectedCharacterController.ChangeOccupiedTile(_selectedCharacterController.CurrentTile);
+            var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
+
+            _selectedCharacterController.ChangeOccupiedTile(inGameTile);
+            ReleaseSelectedHero();
+        }
+    }
+
+    private void CancelMoveToFirstTile()
+    {
+        Debug.LogColor("CancelMoveCharacter");
+        if (_selectedCharacterController != null)
+        {
+            var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
+
+            _selectedCharacterController.ChangeOccupiedTile(inGameTile);
             ReleaseSelectedHero();
         }
     }
@@ -275,16 +290,28 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void HandleCharacterTileChange(InGameTile tile, InGameTileView ingameTileView)
     {
-        if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+        if (tile.OccupiedCharacter != null)
         {
-            CharacterController targetCharacter = tile.OccupiedCharacter;
-            if (_selectedCharacterController == targetCharacter)
+            if (tile.OccupiedCharacter.AllianceType == AllianceType.None)
             {
-                CancelMoveCharacter();
+                var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
+
+                AnimateCharacterMove(_selectedCharacterController, inGameTile.View.Position, () =>
+                {
+                    CancelMoveToFirstTile();
+                });
             }
             else
             {
-                AnimateCharacterSwap(_selectedCharacterController, targetCharacter);
+                CharacterController targetCharacter = tile.OccupiedCharacter;
+                if (_selectedCharacterController == targetCharacter)
+                {
+                    CancelMoveCharacter();
+                }
+                else
+                {
+                    AnimateCharacterSwap(_selectedCharacterController, targetCharacter);
+                }
             }
         }
         else
@@ -377,6 +404,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         _selectedCharacterController = character;
         _selectedTileView.SetActiveObj(true);
+        _selectedFirstTileView = _selectedTileView;
         _selectedCharacterController.SetSelectedCharacter(true);
         InGameMain.GetInGameMain().ReturnObjectActive(true);
     }
@@ -389,6 +417,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().ReturnObjectActive(false);
             _selectedTileView.SetActiveObj(false);
             _selectedCharacterController = null;
+            _selectedFirstTileView = null;
         }
     }
 }
