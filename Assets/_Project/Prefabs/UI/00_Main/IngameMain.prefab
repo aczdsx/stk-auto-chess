@@ -11637,6 +11637,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2557828969918421573, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2887963934328705653, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_Name
       value: Btn_MasterSkill
@@ -11657,12 +11661,24 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6820604139528763337, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7123135919630078612, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7334074177717131077, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7645300314230458462, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013847438705818346, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8716054674237042399, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
