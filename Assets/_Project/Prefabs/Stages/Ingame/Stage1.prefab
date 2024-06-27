@@ -441,7 +441,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!1 &4130109192999193644
 GameObject:
@@ -453,7 +453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5773576563941665827}
   m_Layer: 0
-  m_Name: Playground
+  m_Name: stage_1001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
