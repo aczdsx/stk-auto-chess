@@ -69,10 +69,10 @@ namespace CookApps.AutoBattler
             // await WaitForAnimationEnd();
         }
 
-        public async UniTask ShowShieldText(Vector3 position, float characterHeight, double healAmount)
+        public async UniTask ShowShieldText(Vector3 position, float characterHeight, double shieldAmount)
         {
             _damageText = _shieldDamage;
-            _damageText.text = $"+{healAmount}";
+            _damageText.text = $"{shieldAmount}";
 
             _xOffset = Random.Range(-0.5f, 0.5f);
 
