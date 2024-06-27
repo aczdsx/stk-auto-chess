@@ -47,40 +47,33 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
+        }
+
+        public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
+        {
             if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
                 return;
 
-            Debug.LogColor("[TEST] OnTileCharacterEnter", "blue");
-            if (tile == null || character == null)
+            bool isIceTile = _chapterRuleTiles.Exists(l => l == tile);
+            if (isIceTile)
             {
-                return;
+                Debug.LogColor("[TEST] OnTileCharacterEnter", "blue");
+                if (tile == null || character == null)
+                {
+                    return;
+                }
+
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
+                    character.GetCharacterView().CachedTr.position);
+
+                Span<double> eccStats = stackalloc double[1];
+                eccStats.Clear();
+                eccStats[0] = _effectCodeStat;
+
+                long effectCodeID = (long)EffectCodeNameType.STUN;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+                character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
             }
-
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
-                character.GetCharacterView().CachedTr.position);
-
-            Span<double> eccStats = stackalloc double[1];
-            eccStats.Clear();
-            eccStats[0] = _effectCodeStat;
-
-            long effectCodeID = (long)EffectCodeNameType.STUN;
-            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-            character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
         }
-
-        // public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
-        // {
-        //     Debug.LogColor("[TEST] OnTileCharacterExit", "blue");
-        //     if (tile == null || character == null)
-        //     {
-        //         return;
-        //     }
-        //
-        //     if (_chapterRuleTiles.Contains(tile))
-        //     {
-        //         var someCodeId = 0;
-        //         character.GetEffectCodeContainer().RemoveEffectCode(someCodeId);
-        //     }
-        // }
     }
 }
