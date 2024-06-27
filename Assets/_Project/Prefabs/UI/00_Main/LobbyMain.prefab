@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 2017592635030136656}
   - component: {fileID: 7291784142468576269}
   - component: {fileID: 2187810555628401492}
+  - component: {fileID: 6317056600130708534}
   m_Layer: 5
   m_Name: ChapterList
   m_TagString: Untagged
@@ -216,6 +217,20 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6317056600130708534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551084043044075439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &1697542874308121810
 GameObject:
   m_ObjectHideFlags: 0

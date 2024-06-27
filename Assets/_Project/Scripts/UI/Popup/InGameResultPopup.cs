@@ -45,6 +45,7 @@ namespace CookApps.AutoBattler
         private bool _isClearTutorialStage = false;     // 튜토리얼 스테이지 클리어 여부 체크
         private bool _isPlayingLastStage = false;   // 챕터의 마지막 스테이지 체크용
         private bool _isEndChapter = false;         // 게임의 마지막 챕터인지 확인용
+        private bool _isEndStage = false;         // 게임의 가장 마지막 스테이지 체크
         private bool _isWaitGuideMissionReward = false;         // 현재 가이드 미션을 클리어한 상태인지 체크
 
         protected override void OnPreEnter(object param)

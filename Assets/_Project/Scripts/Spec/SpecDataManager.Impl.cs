@@ -294,6 +294,7 @@ namespace CookApps.AutoBattler
 
             if (typeof(T) == typeof(int) && configData.config_value_type == ConfigValueType.INT) return int.Parse(configData.config_value).ConvertTo<T>();
             if (typeof(T) == typeof(float) && configData.config_value_type == ConfigValueType.FLOAT) return float.Parse(configData.config_value).ConvertTo<T>();
+            if (typeof(T) == typeof(string) && configData.config_value_type == ConfigValueType.STRING) return configData.config_value.ConvertTo<T>();
 
             return configData.config_value.ConvertTo<T>();
         }
@@ -466,6 +467,14 @@ namespace CookApps.AutoBattler
             }
 
             return null;
+        }
+
+        // 가장 마지막 스테이지 데이터 반환
+        public SpecStage GetEndStage()
+        {
+            var lastChapterData = SpecChapter.All.ToList().Max(data => data.chapter_id);
+
+            return GetLastStageData(lastChapterData, DifficultyType.NORMAL);
         }
 
         // 해당 스테이지 데이터 기준 다음 스테이지 정보 반환

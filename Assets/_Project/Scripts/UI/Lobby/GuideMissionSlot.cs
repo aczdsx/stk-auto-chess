@@ -54,11 +54,19 @@ namespace CookApps.AutoBattler
 
         public void RefreshGuideMissionSlot()
         {
+            int currentOrder = UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder;
+
+            // 가이드 미션 최대 오더일 경우 off 처리
+            if (currentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder())
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             // 가이드 미션 상태 갱신
             UserDataManager.Instance.RefreshCurrentGuideMissionData();
 
             // 가이드 미션 슬롯 데이터 세팅
-            int currentOrder = UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder;
             _specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(currentOrder);
 
             _userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
