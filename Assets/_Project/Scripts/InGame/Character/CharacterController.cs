@@ -819,8 +819,15 @@ namespace CookApps.BattleSystem
         /// 대미지를 입힌 후 상태
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
-        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker, bool isFirstDamage = true)
+        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
+            bool isFirstDamage = true)
         {
+            //[TODO] MVP임시처리
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageLobbyCombat)
+            {
+                if (attacker.AllianceType == AllianceType.Enemy)
+                    return DamageReturnType.Damaging;
+            }
             // 같은 틱에 대미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
             if (_currHp <= 0 || _view == null)
             {
