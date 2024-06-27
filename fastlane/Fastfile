@@ -84,8 +84,7 @@ platform :ios do
     )
 
     build_app(
-      #workspace: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcworkspace",
-	  workspace: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcodeproj",
+      workspace: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcodeproj",
       scheme: 'Unity-iPhone',
       xcargs: '-allowProvisioningUpdates'
     )
