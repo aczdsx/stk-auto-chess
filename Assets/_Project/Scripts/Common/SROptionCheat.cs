@@ -12,6 +12,15 @@ public partial class SROptions
     #region 유저 정보 관련
 
     [Category("유저 정보 관련")]
+    public void 유저계정레벨최대()
+    {
+        UserDataManager.Instance.UserBasicData.Level = SpecDataManager.Instance.GetAccountMaxLevel();
+        UserDataManager.Instance.UserBasicData.Exp = 18600;
+
+        UserDataManager.Instance.SaveUserBasic();
+    }
+
+    [Category("유저 정보 관련")]
     public void 가이드미션진행상태초기화()
     {
         UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder = 1;
@@ -117,10 +126,21 @@ public partial class SROptions
     }
 
     [Category("캐릭터 관련")]
+    public void 캐릭터레벨설정()
+    {
+        if (원하는캐릭터ID <= 0) return;
+        if (원하는캐릭터레벨 <= 0) return;
+
+        UserDataManager.Instance.SetCharacterLevel(원하는캐릭터ID, 원하는캐릭터레벨);
+    }
+
+    [Category("캐릭터 관련")]
     public int 원하는캐릭터ID { get; set; } = 0;
 
     [Category("캐릭터 관련")]
     public int 원하는캐릭터조각갯수 { get; set; } = 0;
+    [Category("캐릭터 관련")]
+    public int 원하는캐릭터레벨 { get; set; } = 0;
 
     #endregion
 

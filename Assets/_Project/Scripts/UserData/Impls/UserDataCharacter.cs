@@ -78,6 +78,18 @@ namespace CookApps.AutoBattler
             return userCharacterGroup.UserCharacterBattleDecks.ToList();
         }
 
+        public void SetCharacterLevel(int characterID, int level)
+        {
+            if (UserCharacterDic.ContainsKey(characterID))
+            {
+                UserCharacterDic[characterID].Level = level;
+
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[characterID]);
+
+                SaveCharacterGroup();
+            }
+        }
+
         public void IncreaseCharacterLevel(int characterID, int level)
         {
             if (UserCharacterDic.ContainsKey(characterID))
