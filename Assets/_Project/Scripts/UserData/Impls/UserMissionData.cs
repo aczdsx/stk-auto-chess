@@ -81,6 +81,8 @@ namespace CookApps.AutoBattler
                 // 클리어 여부 체크
                 if (specMissionData.need_count <= targetUserData.ActionCount)
                 {
+                    ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
+
                     targetUserData.MissionStateType = (int)MissionStateType.REWARD;
                 }
 
