@@ -12,7 +12,8 @@ namespace CookApps.BattleSystem
         private ObfuscatorInt _tileID;
         private ObfuscatorFloat _damageRate;
 
-        public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
+        public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
+            IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
 
@@ -43,7 +44,7 @@ namespace CookApps.BattleSystem
 
                 if (tile.OccupiedCharacter != null)
                 {
-                    if(tile.OccupiedCharacter.AllianceType == AllianceType.Player)
+                    if (tile.OccupiedCharacter.AllianceType == AllianceType.Player)
                     {
                         var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
                         if (playerCharacterList != null && playerCharacterList.Count > 0)
@@ -51,7 +52,8 @@ namespace CookApps.BattleSystem
                             var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
 
                             CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                            damageInfo.damageAmount = strongestCharacter.AD * _damageRate;
+                            damageInfo.damageAmount = damageInfo.damageAmount =
+                                (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
 
                             tile.OccupiedCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
                         }

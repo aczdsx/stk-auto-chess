@@ -53,7 +53,8 @@ namespace CookApps.BattleSystem
                             var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
 
                             CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                            damageInfo.damageAmount = strongestCharacter.AD * _damageRate;
+                            damageInfo.damageAmount = damageInfo.damageAmount =
+                                (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
 
                             tile.OccupiedCharacter.GetDamaged(damageInfo, null);
                         }
