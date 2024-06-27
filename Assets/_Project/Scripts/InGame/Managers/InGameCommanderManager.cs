@@ -144,6 +144,11 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         _commanderSkillData.ElapsedTime = 0;
         isCanUseCommanderSkill = false;
         _hitTileView = null;
+        foreach (var tile in _activeTiles)
+        {
+            tile.View.SetNavigateObj(false);
+        }
+        _activeTiles.Clear();
     }
 
     public void ManagedUpdate(float dt)
