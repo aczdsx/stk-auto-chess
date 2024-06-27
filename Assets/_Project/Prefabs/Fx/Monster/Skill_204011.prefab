@@ -14700,6 +14700,7 @@ GameObject:
   - component: {fileID: 8170571030382678665}
   - component: {fileID: -5030476764123983157}
   - component: {fileID: 601211368447170354}
+  - component: {fileID: 2766683408314238417}
   m_Layer: 6
   m_Name: Skill_204011
   m_TagString: Untagged
@@ -19554,12 +19555,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 5, z: 2.1}
+  m_Size: {x: 30, y: 5, z: 1}
   m_Center: {x: 15, y: 0, z: 0}
+--- !u!54 &2766683408314238417
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296675430932555179}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4061021224587313327
 GameObject:
   m_ObjectHideFlags: 0
