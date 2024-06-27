@@ -70,7 +70,8 @@ namespace CookApps.BattleSystem
         {
             if (_chapterRuleTiles.Exists(l => l == tile))
             {
-                _characterList.RemoveAll(c => c.Controller.CharacterUId == character.CharacterUId);
+                _characterList.RemoveAll(c =>
+                    c.Controller != null && c.Controller.CharacterUId == character.CharacterUId);
             }
         }
 
