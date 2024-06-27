@@ -16,11 +16,13 @@ namespace CookApps.AutoBattler
         private ElementType _elementType;
         private CharacterPositionType _positionType;
         private bool _isElementType;
+        private int _step;
 
         // 캐릭터 속성 시너지 세팅
         public void SetSynergy(ElementType type, int count, int step, bool isActive = true)
         {
             _elementType = type;
+            _step = step;
             _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
             _countText.text = count.ToString();
 
@@ -48,7 +50,7 @@ namespace CookApps.AutoBattler
                 var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_elementType);
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
-                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((specSynergyDataList, _step)).Forget();
                 }
             }
             else
@@ -56,7 +58,7 @@ namespace CookApps.AutoBattler
                 var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_positionType);
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
-                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((specSynergyDataList, _step)).Forget();
                 }
             }
         }
