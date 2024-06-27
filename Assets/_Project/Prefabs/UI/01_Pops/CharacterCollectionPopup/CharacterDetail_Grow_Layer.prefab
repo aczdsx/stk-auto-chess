@@ -30683,7 +30683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2868138953371370824}
   - component: {fileID: 4461423142043983763}
-  - component: {fileID: 1694131702613047304}
+  - component: {fileID: 7777609999583703015}
   m_Layer: 5
   m_Name: CharacterDetail_Grow_Layer
   m_TagString: Untagged
@@ -30752,7 +30752,7 @@ MonoBehaviour:
   - {fileID: 6101121587673692813}
   - {fileID: 5523329027734130464}
   - {fileID: 5645103984099166335}
---- !u!114 &1694131702613047304
+--- !u!114 &7777609999583703015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30761,7 +30761,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4763284980940285645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c568c3d1b4dd95b43ab3ba36d2299da3, type: 3}
+  m_Script: {fileID: 11500000, guid: 364c147925150354686ae4d51b33f645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4788429664279921020
