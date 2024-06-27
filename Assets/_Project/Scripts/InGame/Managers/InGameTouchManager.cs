@@ -275,7 +275,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void HandleCharacterTileChange(InGameTile tile, InGameTileView ingameTileView)
     {
-        if (tile.OccupiedCharacter != null)
+        if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.None)
         {
             CharacterController targetCharacter = tile.OccupiedCharacter;
             if (_selectedCharacterController == targetCharacter)
