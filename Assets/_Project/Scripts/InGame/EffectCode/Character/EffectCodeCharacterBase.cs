@@ -288,6 +288,8 @@ namespace CookApps.BattleSystem
             var characEffectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnSkill);
             EffectCodeForLoopHelper.CallWithArgs(characEffectCodes, EffectCodeCharacterLambda.CallOnSkillLambda, this);
         }
+
+        public virtual void OnSkillCanceled() { }
         #endregion
     }
 

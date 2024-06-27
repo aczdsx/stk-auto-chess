@@ -51,6 +51,7 @@ public class CharacterStateSkill : CharacterStateBase
     {
         if (characCtrl.NeedToBeIdle())
         {
+            effectCode.OnSkillCanceled();
             characCtrl.AddNextState<CharacterStateIdle>();
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
@@ -59,7 +60,6 @@ public class CharacterStateSkill : CharacterStateBase
         {
             effectCode.OnSkillAnimationEnd();
             characCtrl.AddNextState<CharacterStateIdle>();
-
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
 
