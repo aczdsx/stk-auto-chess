@@ -2955,6 +2955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5540150445166008803}
   - component: {fileID: 8161824179440491813}
+  - component: {fileID: 8426710352602393133}
   m_Layer: 5
   m_Name: CharacterDetail_Skill__Layer
   m_TagString: Untagged
@@ -2998,6 +2999,18 @@ MonoBehaviour:
   _skillInfoButton: {fileID: 7283677768531146072}
   _normalSkillIconImage: {fileID: 4138099568168682925}
   _normalSkillNameText: {fileID: 6384736998863389423}
+--- !u!114 &8426710352602393133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969466586028112486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c568c3d1b4dd95b43ab3ba36d2299da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3025349251710354457
 GameObject:
   m_ObjectHideFlags: 0
