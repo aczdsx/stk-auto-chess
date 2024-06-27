@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Resources;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 
@@ -42,25 +44,37 @@ public class FlowStateStageReady : StateBase
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, 0.0f, 1.0f).Forget();
         InGameMain.GetInGameMain().SetReadyUI();
 
+        // 장애물 설치
+        foreach (var gridID in _specStage.obstacle_grid_id)
+        {
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID, _specStage.chapter_id));
+        }
+
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList();
+        List<ObfuscatorInt> tileIDList = _specStage.obstacle_grid_id.ToList();
+
+        battleDeckList.RemoveAll(l =>
+        {
+            return tileIDList.Exists(t =>
+                t.Value == InGameObjectManager.Instance.InGameGrid.GetTile(new int2(l.PositionTileX, l.PositionTileY))
+                    .View
+                    .ID);
+        });
+
         foreach (var character in battleDeckList)
         {
             var characterData = UserDataManager.Instance.GetUserCharacter(character.CharacterId);
             Debug.LogColor($"기존 배치 캐릭터 추가 : {character.CharacterId}");
-            var characterStat = new CharacterStatData(characterData.CharacterId, characterData.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+            var characterStat = new CharacterStatData(characterData.CharacterId, characterData.Level,
+                GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             int x = character.PositionTileX;
             int y = character.PositionTileY;
+
             int2 coordinate = new int2(x, y);
-
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate, AllianceType.Player,
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate,
+                AllianceType.Player,
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
-        }
-
-        // 그리드 설치
-        foreach (var gridID in _specStage.obstacle_grid_id)
-        {
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID, _specStage.chapter_id));
         }
 
         await UniTask.WhenAll(addCharacterTasks);

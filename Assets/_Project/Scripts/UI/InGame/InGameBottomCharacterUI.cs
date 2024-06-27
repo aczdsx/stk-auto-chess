@@ -70,6 +70,12 @@ public class InGameBottomCharacterUI : MonoBehaviour
             return;
         }
 
+        // if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == )
+        // {
+        //     ToastManager.Instance.ShowToastByTokenKey("MSG_ALERT_CAN_ADD_SET");
+        //     return;
+        // }
+
         _readyUIObj.SetActive(false);
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
