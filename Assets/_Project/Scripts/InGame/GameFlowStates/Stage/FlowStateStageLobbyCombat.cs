@@ -38,7 +38,7 @@ public class FlowStateStageLobbyCombat : StateBase
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate, AllianceType.Player,
                 typeof(CharacterStateIdle), false));
 
-            await UniTask.Delay(250);
+            await UniTask.Delay(210);
         }
 
         // 전투 시작 후 1초는 대기

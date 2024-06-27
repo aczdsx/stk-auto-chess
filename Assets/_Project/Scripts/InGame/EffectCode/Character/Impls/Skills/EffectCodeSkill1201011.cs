@@ -104,14 +104,17 @@ public class EffectCodeSkill1201011 : EffectCodeCharacterBase
         List<InGameTile> inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 2);
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                tile.OccupiedCharacter.SkillRootTransformFollowable);
+            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+            {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-            tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-            _hitCharacters.Add(tile.OccupiedCharacter);
+                _hitCharacters.Add(tile.OccupiedCharacter);
+            }
         }
     }
 
