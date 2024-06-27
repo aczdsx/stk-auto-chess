@@ -160,9 +160,15 @@ public class InGameBottomCharacterUI : MonoBehaviour
     {
         var image = ImageManager.Instance.GetCommanderSkillSprite(id);
         if (image != null)
+        {
             _commanderSkillUI.SetIcon(image);
+            InGameMain.GetInGameMain().SetCommanderFx(false);
+        }
+        else
+        {
+            InGameMain.GetInGameMain().SetCommanderFx(true);
+        }
 
-        InGameMain.GetInGameMain().SetCommanderFx(false);
     }
 
     public void InitData()
