@@ -438,14 +438,14 @@ namespace CookApps.BattleSystem
             var isKnockBack = HasCrowdControl(CrowdControlType.KnockBack);
             var isStun = HasCrowdControl(CrowdControlType.Stun);
             var isEntangle = HasCrowdControl(CrowdControlType.Entangle);
-            var isSilence = HasCrowdControl(CrowdControlType.Entangle);
-            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle || isSilence)
+            var isSilence = HasCrowdControl(CrowdControlType.Silence);
+            if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle)
             {
                 result &= ~CharacterStateRunningResult.CanCallMove;
-                if (isStun || isAirborne || isFreezing || isKnockBack)
-                {
-                    result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
-                }
+            }
+            if (isStun || isAirborne || isFreezing || isKnockBack || isSilence)
+            {
+                result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
             }
 
             if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
