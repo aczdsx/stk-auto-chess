@@ -6816,6 +6816,7 @@ MonoBehaviour:
   _readyUIObj: {fileID: 5213092355249420699}
   _commanderSkillUI: {fileID: 3354549759876606384}
   _characterCountText: {fileID: 2677038619236645257}
+  _commanderFx: {fileID: 6424748000464412942}
 --- !u!1 &7492626183605821385
 GameObject:
   m_ObjectHideFlags: 0
@@ -11544,6 +11545,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8563017840764645380}
     m_Modifications:
+    - target: {fileID: 79119714263315894, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 96833712157157014, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11628,9 +11633,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867845841984529850, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2887963934328705653, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_Name
       value: Btn_MasterSkill
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904661210634249979, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4314205316992832440, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_text
@@ -11644,6 +11657,10 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7123135919630078612, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7645300314230458462, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -11651,6 +11668,10 @@ PrefabInstance:
     - target: {fileID: 8716054674237042399, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9212752683212430333, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11679,6 +11700,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &6424748000464412942 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4322164915376906298, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
+  m_PrefabInstance: {fileID: 7120789503738331444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7172587056341690274 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 96833712157157014, guid: 77f964b40f345424e9dc2d7f2b7dafe2, type: 3}
@@ -11695,6 +11721,10 @@ PrefabInstance:
     - target: {fileID: 3331106642067916445, guid: bf0e7af07d053f84195a34d224933d8c, type: 3}
       propertyPath: m_Name
       value: IngameEntrySequencePop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5600784399957677538, guid: bf0e7af07d053f84195a34d224933d8c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9125658761380203233, guid: bf0e7af07d053f84195a34d224933d8c, type: 3}
       propertyPath: m_Pivot.x
