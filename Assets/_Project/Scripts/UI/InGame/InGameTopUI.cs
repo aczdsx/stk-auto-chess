@@ -138,18 +138,25 @@ public class InGameTopUI : MonoBehaviour
                 var list = SpecDataManager.Instance.GetSpecSynergyList((CharacterPositionType)synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
 
-                TrySetSynergyUI(() =>
-                    _synergyUIList[uiIndex].SetPositionSynergy((CharacterPositionType)synergyCount.Type, synergyCount.Count, data.grade)
-                );
+                if (data.grade > 0)
+                {
+                    TrySetSynergyUI(() =>
+                        _synergyUIList[uiIndex].SetPositionSynergy((CharacterPositionType)synergyCount.Type, synergyCount.Count, data.grade)
+                    );
+                }
             }
             else
             {
-                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)synergyCount.Type);
+                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType) synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
 
-                TrySetSynergyUI(() =>
-                    _synergyUIList[uiIndex].SetSynergy((ElementType) synergyCount.Type, synergyCount.Count, data.grade)
-                );
+                if (data.grade > 0)
+                {
+                    TrySetSynergyUI(() =>
+                        _synergyUIList[uiIndex]
+                            .SetSynergy((ElementType) synergyCount.Type, synergyCount.Count, data.grade)
+                    );
+                }
 
                 if (data.grade > 0)
                     InGameObjectManager.Instance.SpawnSynergyFx(type, (ElementType)synergyCount.Type);
