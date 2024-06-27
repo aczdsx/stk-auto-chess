@@ -68,8 +68,8 @@ public class InGameTopUI : MonoBehaviour
 
     public void SetCombatUI()
     {
-        _combatPlayerAttr.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Player);
-        _combatEnemyAttr.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Enemy);
+        _playerAttrText.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Player);
+        _enemyAttrText.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Enemy);
         UpdateSynergyUI(AllianceType.Player, false);
         UpdateSynergyUI(AllianceType.Enemy, false);
     }

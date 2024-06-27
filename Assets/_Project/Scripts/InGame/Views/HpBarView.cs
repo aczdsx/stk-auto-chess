@@ -83,7 +83,7 @@ namespace CookApps.AutoBattler
 
             float defaultX = _defalutSize.x * targetRatio;
             if (!float.IsNaN(defaultX))
-                _selectedFillLeft.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
+                _selectedFillLeft.size = new Vector2(_defalutSize.x * targetRatio, _selectedFillLeft.size.y);
 
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
         }
@@ -110,7 +110,7 @@ namespace CookApps.AutoBattler
 
                 float defaultX = _defalutSize.x* ratio;
                 if (!float.IsNaN(defaultX))
-                    _hpFillSmoothGuage.size = new Vector2(defaultX, _defalutSize.y);
+                    _hpFillSmoothGuage.size = new Vector2(defaultX, _hpFillSmoothGuage.size.y);
 
                 // _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
 
@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
 
             if (_hpFillSmoothGuage != null)
             {
-                _hpFillSmoothGuage.size = new Vector2(0, _defalutSize.y);
+                _hpFillSmoothGuage.size = new Vector2(0, _hpFillSmoothGuage.size.y);
                 // _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0);
             }
         }
@@ -143,7 +143,7 @@ namespace CookApps.AutoBattler
             }
 
             float targetRatio = Mathf.Clamp01((float)(current / max));
-            _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _defalutSize.y);
+            _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _coolTimeGuage.size.y);
         }
 
         public void AddBuffIcon(long codeID)
