@@ -406,20 +406,23 @@ namespace CookApps.AutoBattler
 
                 // 게임 플로우 강제성을 위한 예외처리 적용
                 var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-                var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(userGuideMissionData.MissionId);
-                if (userGuideMissionData != null && specGuideMissionData != null)
+                if (userGuideMissionData != null)
                 {
-                    if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE &&
-                        userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD)
+                    var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(userGuideMissionData.MissionId);
+                    if (userGuideMissionData != null && specGuideMissionData != null)
                     {
-                        ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
-                        return;
-                    }
+                        if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE &&
+                            userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD)
+                        {
+                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
+                            return;
+                        }
 
-                    if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
-                    {
-                        ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
-                        return;
+                        if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
+                        {
+                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
+                            return;
+                        }
                     }
                 }
 

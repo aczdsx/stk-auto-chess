@@ -204,20 +204,28 @@ namespace CookApps.AutoBattler
             var latestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
             var latestStageData = SpecDataManager.Instance.GetStageData(latestStageID);
 
+            if (latestStageData == null) return;
+
             if (InGameManager.Instance.SpecStage.chapter_id == latestStageData.chapter_id)
             {
                 if (InGameManager.Instance.SpecStage.stage_number > latestStageData.stage_number)
                 {
                     var nextStageData = SpecDataManager.Instance.GetNextStageData(InGameManager.Instance.SpecStage.stage_id);
 
-                    UserDataManager.Instance.SetLastPlayStageID(nextStageData.stage_id, true);
+                    if (nextStageData != null)
+                    {
+                        UserDataManager.Instance.SetLastPlayStageID(nextStageData.stage_id, true);
+                    }
                 }
             }
             else if (InGameManager.Instance.SpecStage.chapter_id > latestStageData.chapter_id)
             {
                 var nextStageData = SpecDataManager.Instance.GetNextStageData(InGameManager.Instance.SpecStage.stage_id);
 
-                UserDataManager.Instance.SetLastPlayStageID(nextStageData.stage_id, true);
+                if (nextStageData != null)
+                {
+                    UserDataManager.Instance.SetLastPlayStageID(nextStageData.stage_id, true);
+                }
             }
         }
 
