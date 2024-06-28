@@ -126,6 +126,24 @@ public partial class SROptions
     }
 
     [Category("캐릭터 관련")]
+    public void 모든캐릭터최대레벨설정()
+    {
+        var userCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
+
+        int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+
+        foreach (var userCharacter in userCharacterList)
+        {
+            if (UserDataManager.Instance.IsHaveCharacter(userCharacter.character_id) == false)
+            {
+                UserDataManager.Instance.AddNewCharacter(userCharacter.character_id);
+            }
+
+            UserDataManager.Instance.SetCharacterLevel(userCharacter.character_id, maxLevel);
+        }
+    }
+
+    [Category("캐릭터 관련")]
     public void 캐릭터레벨설정()
     {
         if (원하는캐릭터ID <= 0) return;
@@ -189,6 +207,17 @@ public partial class SROptions
     //////////////////////////////////////////////////////////////////////////////////
 
     #region 미션 관련
+
+    [Category("미션 관련")]
+    public void 모든가이드미션클리어()
+    {
+        var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All.ToList();
+
+        foreach (var guideMission in allGuideMissionList)
+        {
+            UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key, MissionStateType.CLEAR);
+        }
+    }
 
     [Category("미션 관련")]
     public void 현재가이드미션클리어()
