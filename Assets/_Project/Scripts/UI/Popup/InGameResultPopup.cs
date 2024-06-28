@@ -85,13 +85,27 @@ namespace CookApps.AutoBattler
             }
 
             // 하단 별+조건 상태 갱신
-            for (int i = 0; i < _starConditionList.Count; i++)
+            if (_isVictory)
             {
-                _starConditionList[i]._starObject.SetActive(_star > i);
+                for (int i = 0; i < _starConditionList.Count; i++)
+                {
+                    _starConditionList[i]._starObject.SetActive(_star > i);
 
-                string resultToken = string.Format("STAGE_STAR_CONDITON_DESC_{0}", i + 1);
-                _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
+                    string resultToken = string.Format("STAGE_STAR_CONDITON_DESC_{0}", i + 1);
+                    _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
+                }
             }
+            else
+            {
+                for (int i = 0; i < _starConditionList.Count; i++)
+                {
+                    _starConditionList[i]._starObject.SetActive(false);
+
+                    string resultToken = string.Format("STAGE_LOSE_GUIDE_DESC_{0}", i + 1);
+                    _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
+                }
+            }
+
 
             // 챕터 1 (튜토리얼 스테이지) 관련 처리
             if (InGameManager.Instance.SpecStage.chapter_id == 1 && !UserDataManager.Instance.IsClearStage(InGameManager.Instance.SpecStage.stage_id))
