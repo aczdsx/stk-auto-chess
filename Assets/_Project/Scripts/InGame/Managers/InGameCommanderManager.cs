@@ -215,31 +215,36 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
     private bool CheckSkillTile(PointerEventData eventData)
     {
-        if (Physics.Raycast(_mainCamera.ScreenPointToRay(eventData.position), out RaycastHit hit))
+        RaycastHit[] hits = Physics.RaycastAll(_mainCamera.ScreenPointToRay(eventData.position));
+        foreach (RaycastHit hit in hits)
         {
-            _hitTileView = hit.transform.GetComponent<InGameTileView>();
-            if (_hitTileView != null)
+            if (hit.transform.gameObject.CompareTag("Slot"))
             {
-                InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
-                var tiles = new List<InGameTile>();
-
-                // [TODO] 나중에는 데이터에서 처리 필요
-                if (_commanderSkillData.Spec.commander_skill_id == 300001)
-                    tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
-                else
-                    tiles.AddRange(
-                        InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
-
-                ClearAndSetActive(tiles);
-                if (centerTile.OccupiedCharacter != null &&
-                    centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
+                Debug.LogColor("DRAG : " + hit.transform.gameObject.name);
+                _hitTileView = hit.transform.GetComponent<InGameTileView>();
+                if (_hitTileView != null)
                 {
-                    Debug.LogColor(
-                        $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
-                }
-                else
-                {
-                    Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y})");
+                    InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
+                    var tiles = new List<InGameTile>();
+
+                    // [TODO] 나중에는 데이터에서 처리 필요
+                    if (_commanderSkillData.Spec.commander_skill_id == 300001)
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
+                    else
+                        tiles.AddRange(
+                            InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
+
+                    ClearAndSetActive(tiles);
+                    if (centerTile.OccupiedCharacter != null &&
+                        centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
+                    {
+                        Debug.LogColor(
+                            $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
+                    }
+                    else
+                    {
+                        Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y})");
+                    }
                 }
             }
         }
