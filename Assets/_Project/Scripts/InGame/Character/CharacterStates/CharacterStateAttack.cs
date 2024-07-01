@@ -143,8 +143,6 @@ public class CharacterStateAttack : CharacterStateBase
                 }
 
                 movement.OnReachedTarget += OnReachedTargetHandler;
-
-                characCtrl.Target.GetDamaged(damageInfo, characCtrl);
             }
             else
             {
