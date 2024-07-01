@@ -220,7 +220,6 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         {
             if (hit.transform.gameObject.CompareTag("Slot"))
             {
-                Debug.LogColor("DRAG : " + hit.transform.gameObject.name);
                 _hitTileView = hit.transform.GetComponent<InGameTileView>();
                 if (_hitTileView != null)
                 {

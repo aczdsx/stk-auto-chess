@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CookApps.Obfuscator;
+using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
@@ -361,10 +362,10 @@ namespace CookApps.BattleSystem
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
                     var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
-                    postSkillCooltimeRate = effectCodes.CalculateSkillCooltimeRate(GetCharacterStat().SkillCooltimeRate);
+                    postSkillCooltimeRate = 1 + effectCodes.CalculateSkillCooltimeRate(GetCharacterStat().SkillCooltimeRate);
                 }
 
-                return postSkillCooltimeRate;
+                return Mathf.Max(0, postSkillCooltimeRate);
             }
         }
 

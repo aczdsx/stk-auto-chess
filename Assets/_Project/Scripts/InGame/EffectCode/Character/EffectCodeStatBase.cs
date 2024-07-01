@@ -982,7 +982,7 @@ namespace CookApps.BattleSystem
                 fixedValue += list[i].GetIncrementFixedSkillCooltimeRate();
             }
 
-            return Mathf.Max(0, basicStat + fixedValue);
+            return basicStat + fixedValue;
         }
 
         public static float CalculateTotalDamageRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
