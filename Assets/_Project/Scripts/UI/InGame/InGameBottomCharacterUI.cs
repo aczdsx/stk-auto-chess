@@ -67,18 +67,30 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnStartButtonClicked()
     {
+        // 전투 인원 0명 검사
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == 0)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_CHAR_NOT_SET");
             return;
         }
 
-        // if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == )
-        // {
-        //     ToastManager.Instance.ShowToastByTokenKey("MSG_ALERT_CAN_ADD_SET");
-        //     return;
-        // }
+        // 전투 인원 최대 인원 미배치 검사
+        var userLevelData = SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
+        if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userLevelData.squad_count)
+        {
+            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+            newPopupData.SetPopupData("시스템 알림", "전투 인원이 최대 인원보다 적습니다. 그래도 전투를 시작하시겠습니까?", "확인", "취소", StartInGameBattle);
 
+            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+
+            return;
+        }
+
+        StartInGameBattle();
+    }
+
+    private void StartInGameBattle()
+    {
         _readyUIObj.SetActive(false);
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
