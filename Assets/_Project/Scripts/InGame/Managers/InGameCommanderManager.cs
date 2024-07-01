@@ -43,8 +43,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     private InGameCamera _inGameCamera;
     // [TODO] switchObj 추가 필요
     public GameObject switchObj;
-    public float switchThreshold = 40f;
-    public float maxFadeAlpha = 0.5f;
+    public float switchThreshold = 50f;
+    public float maxFadeAlpha = 0.9f;
 
     private InGameCamera _ingameCamera;
     private Camera _mainCamera;
@@ -89,14 +89,12 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (_isDragging)
         {
             float distance = Vector2.Distance(eventData.position, _dragStartPosition);
-            if (distance < switchThreshold)
-            {
-                // 거리에 따른 알파값 계산
-                float normalizedDistance = Mathf.Clamp01(distance / switchThreshold);
-                float fadeAlpha = Mathf.Lerp(0f, maxFadeAlpha, normalizedDistance);
-                InGameMain.GetInGameMain().SetIconColor(fadeAlpha);
-            }
-            else
+
+            float normalizedDistance = Mathf.Clamp01(distance / switchThreshold);
+            float fadeAlpha = Mathf.Lerp(0f, maxFadeAlpha, normalizedDistance);
+            InGameMain.GetInGameMain().SetIconColor(fadeAlpha);
+
+            if (distance >= switchThreshold)
             {
                 Vector3 worldPos = HandleRuntimeDrag(eventData);
                 if (switchObj != null)
@@ -107,16 +105,38 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
                 CheckSkillTile(eventData);
             }
+            else
+            {
+                _hitTileView = null;
+                foreach (var tile in _activeTiles)
+                {
+                    tile.View.SetNavigateObj(false);
+                }
+            }
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
-        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+        if (!_isDragging)
             return;
 
-        if (!_isDragging)
+        InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
+
+        if (switchObj)
+            switchObj.SetActive(false);
+        _isDragging = false;
+        ClearAndSetActive(null);
+
+        _hitTileView = null;
+        foreach (var tile in _activeTiles)
+        {
+            tile.View.SetNavigateObj(false);
+        }
+        _activeTiles.Clear();
+        InGameMain.GetInGameMain().SetIconColor(0);
+
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
             return;
 
         if (_hitTileView == null)
@@ -130,25 +150,18 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
             }
         }
 
-        if (switchObj)
-            switchObj.SetActive(false);
-        _isDragging = false;
-        ClearAndSetActive(null);
-
-        double[] eccStat = new double[2];
-        eccStat[0] = _hitTileView.ID;
-        eccStat[1] = (double) _commanderSkillData.StatValue;
-        var effectCodeInfo = new EffectCodeInfo(_commanderSkillData.Spec.commander_skill_id, 0, eccStat);
-
-        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
-        _commanderSkillData.ElapsedTime = 0;
-        isCanUseCommanderSkill = false;
-        _hitTileView = null;
-        foreach (var tile in _activeTiles)
+        float distance = Vector2.Distance(eventData.position, _dragStartPosition);
+        if (distance >= switchThreshold)
         {
-            tile.View.SetNavigateObj(false);
+            double[] eccStat = new double[2];
+            eccStat[0] = _hitTileView.ID;
+            eccStat[1] = (double) _commanderSkillData.StatValue;
+            var effectCodeInfo = new EffectCodeInfo(_commanderSkillData.Spec.commander_skill_id, 0, eccStat);
+
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
+            _commanderSkillData.ElapsedTime = 0;
+            isCanUseCommanderSkill = false;
         }
-        _activeTiles.Clear();
     }
 
     public void ManagedUpdate(float dt)

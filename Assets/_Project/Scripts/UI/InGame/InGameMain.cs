@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Animator _sceneAnimator;
         [SerializeField] private Material _chapter1VignetteMaterial; // [TODO] 임시 작업
         [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
+        [SerializeField] private Image _commanderBgImage;
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
@@ -167,6 +168,7 @@ namespace CookApps.AutoBattler
 
         public void SetIconColor(float fadeAlpha)
         {
+            _commanderBgImage.color = new Color(0, 0, 0, fadeAlpha);
             // _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
         }
 

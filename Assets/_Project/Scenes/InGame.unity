@@ -1581,8 +1581,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inGameCamera: {fileID: 1070652114}
   switchObj: {fileID: 0}
-  switchThreshold: 40
-  maxFadeAlpha: 0.5
+  switchThreshold: 100
+  maxFadeAlpha: 0.6
 --- !u!1001 &1836511069
 PrefabInstance:
   m_ObjectHideFlags: 0
