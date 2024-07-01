@@ -186,6 +186,12 @@ namespace CookApps.AutoBattler
             // 최종 챕터/스테이지 여부 체크
             if (_isEndChapter) return;
 
+            // 행동력 검사
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true))
+            {
+                return;
+            }
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
@@ -206,6 +212,12 @@ namespace CookApps.AutoBattler
 
         private void OnClickRetryStageButton()
         {
+            // 행동력 검사
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true))
+            {
+                return;
+            }
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             //InGameManager.Instance.EndInGame();
