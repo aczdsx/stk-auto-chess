@@ -103,15 +103,11 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
                     switchObj.transform.position = worldPos;
                 }
 
-                CheckSkillTile(eventData);
+                CheckSkillTile(eventData, true);
             }
             else
             {
-                _hitTileView = null;
-                foreach (var tile in _activeTiles)
-                {
-                    tile.View.SetNavigateObj(false);
-                }
+                ClearAndSetActive(null);
             }
         }
     }
@@ -126,14 +122,9 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (switchObj)
             switchObj.SetActive(false);
         _isDragging = false;
-        ClearAndSetActive(null);
 
         _hitTileView = null;
-        foreach (var tile in _activeTiles)
-        {
-            tile.View.SetNavigateObj(false);
-        }
-        _activeTiles.Clear();
+        ClearAndSetActive(null);
         InGameMain.GetInGameMain().SetIconColor(0);
 
         if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
@@ -141,7 +132,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
         if (_hitTileView == null)
         {
-            bool isHitTileView = CheckSkillTile(eventData);
+            bool isHitTileView = CheckSkillTile(eventData, false);
             if (!isHitTileView)
             {
                 // 타일을 다시 설정해주세요.
@@ -226,7 +217,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         _commanderSkillData = null;
     }
 
-    private bool CheckSkillTile(PointerEventData eventData)
+    private bool CheckSkillTile(PointerEventData eventData, bool isNavigate)
     {
         RaycastHit[] hits = Physics.RaycastAll(_mainCamera.ScreenPointToRay(eventData.position));
         foreach (RaycastHit hit in hits)
@@ -246,7 +237,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
                         tiles.AddRange(
                             InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
 
-                    ClearAndSetActive(tiles);
+                    if (isNavigate)
+                        ClearAndSetActive(tiles);
                     if (centerTile.OccupiedCharacter != null &&
                         centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
                     {
