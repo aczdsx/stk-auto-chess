@@ -122,7 +122,7 @@ public class EffectCodeDebuffCoolTimeReduceDown : EffectCodeBuffBase
         double increaseRate = 0;
         for (int i = 0; i < stackDatas.Count; i++)
         {
-            increaseRate += stackDatas[i]?.value ?? 0;
+            increaseRate -= stackDatas[i]?.value ?? 0;
         }
         return (float)increaseRate;
     }
