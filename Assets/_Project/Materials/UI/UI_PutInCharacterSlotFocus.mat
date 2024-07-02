@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - CHROMABERR_ON
+  - DOODLE_ON
   - GLITCH_ON
   - HITEFFECT_ON
   - HOLOGRAM_ON
@@ -111,7 +112,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 1
-    - _AlphaCutoffValue: 0.228
+    - _AlphaCutoffValue: 0.595
     - _AlphaOutlineBlend: 1
     - _AlphaOutlineGlow: 1
     - _AlphaOutlineMinAlpha: 0
@@ -123,7 +124,7 @@ Material:
     - _Brightness: 0
     - _BumpScale: 1
     - _ChromAberrAlpha: 0.4
-    - _ChromAberrAmount: 0.071
+    - _ChromAberrAmount: 0.0000000114087015
     - _ClipUvDown: 0
     - _ClipUvLeft: 0.255
     - _ClipUvRight: 0
@@ -159,7 +160,7 @@ Material:
     - _GhostBlend: 1
     - _GhostColorBoost: 1
     - _GhostTransparency: 0
-    - _GlitchAmount: 0.26440787
+    - _GlitchAmount: 0.7659693
     - _GlitchSize: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -178,7 +179,7 @@ Material:
     - _GreyscaleBlend: 1
     - _GreyscaleLuminosity: 0
     - _GreyscaleOutline: 0
-    - _HandDrawnAmount: 5
+    - _HandDrawnAmount: 3
     - _HandDrawnSpeed: 5
     - _HitEffectBlend: 0.217
     - _HitEffectGlow: 5.4
@@ -236,7 +237,7 @@ Material:
     - _RectSize: 1
     - _RotateUvAmount: 0
     - _RoundWaveSpeed: 1.53
-    - _RoundWaveStrength: 0.031
+    - _RoundWaveStrength: 0.018
     - _ShadowAlpha: 0.5
     - _ShadowX: 0.1
     - _ShadowY: -0.05
@@ -260,9 +261,9 @@ Material:
     - _WarpScale: 0.5
     - _WarpSpeed: 8
     - _WarpStrength: 0.025
-    - _WaveAmount: 5.7
-    - _WaveSpeed: 20.9
-    - _WaveStrength: 25
+    - _WaveAmount: 3.3
+    - _WaveSpeed: 13.9
+    - _WaveStrength: 0.8
     - _WaveX: 0.5
     - _WaveY: 0.448
     - _ZTestMode: 4
