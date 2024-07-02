@@ -262,7 +262,14 @@ namespace CookApps.AutoBattler
 
         private async void SetIdleRewardLayer()
         {
-            await CalculateIdleRewardState(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            try
+            {
+                await CalculateIdleRewardState(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.Log(e);
+            }
         }
 
         private async UniTask CalculateIdleRewardState(CancellationToken cancelToken)
