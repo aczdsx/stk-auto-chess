@@ -100,6 +100,9 @@ namespace CookApps.AutoBattler
 
             // 슬롯 레이어 갱신 처리
             _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_targetChapterID));
+
+            // UI Popup 갱신
+            RefreshSelectedLayer(false);
         }
 
         public void RefreshSelectedLayer(bool isFirstInit)
@@ -133,13 +136,6 @@ namespace CookApps.AutoBattler
 
             // 보상 슬롯 관련 처리
             RefreshRewardLayer();
-
-            // 로비 메인 하단 스테이지 UI 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-            if (lobbyMain != null)
-            {
-                lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
-            }
         }
 
         private void SetChapterListUI()
@@ -169,13 +165,19 @@ namespace CookApps.AutoBattler
         {
             if (_selectedChapterData == null) return;
 
-            RefreshSelectedLayer(false);
-
             OnClickCloseButton();
 
+            // 로비 배경 전환
             InGameManager.Instance.EndInGame();
             var transition = SceneTransition_FadeInOut.Create();
             SceneLoading.GoToNextScene("Lobby",  (int)_selectedChapterData.chapter_id, transition).Forget();
+
+            // 로비 메인 하단 스테이지 UI 갱신
+            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+            if (lobbyMain != null)
+            {
+                lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+            }
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
