@@ -552,7 +552,11 @@ namespace CookApps.BattleSystem
             }
 
             var maxDistance = float.MinValue;
-            foreach (var enemy in targets)
+            var sortedTargets = pivot.AllianceType == AllianceType.Enemy
+                ? targets.OrderByDescending(t => t.CurrentTile.Y).ToList()
+                : targets.OrderBy(t => t.CurrentTile.Y).ToList();
+
+            foreach (var enemy in sortedTargets)
             {
                 if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
                 {
@@ -562,6 +566,8 @@ namespace CookApps.BattleSystem
                 var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
                 if (maxDistance < distance)
                 {
+                    if (target.CurrentTile.Y != enemy.CurrentTile.Y)
+                        continue;
                     maxDistance = distance;
                     target = enemy;
                 }
