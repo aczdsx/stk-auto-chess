@@ -472,7 +472,7 @@ namespace CookApps.BattleSystem
                     {
                         float skillCooltimeRate = InGameCalculator.CalculateCooltimeRate(SkillCooltimeRate);
                         EffectCodeForLoopHelper.CallWithArgs(effectCodes,
-                            EffectCodeCharacterLambda.CallOnCooltimeLambda, dt * skillCooltimeRate);
+                            EffectCodeCharacterLambda.CallOnCooltimeLambda, dt / skillCooltimeRate);
                     }
                 }
 

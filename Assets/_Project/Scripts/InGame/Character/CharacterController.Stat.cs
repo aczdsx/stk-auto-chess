@@ -362,10 +362,10 @@ namespace CookApps.BattleSystem
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
                     var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
-                    postSkillCooltimeRate = 1 + effectCodes.CalculateSkillCooltimeRate(GetCharacterStat().SkillCooltimeRate);
+                    postSkillCooltimeRate = effectCodes.CalculateSkillCooltimeRate(GetCharacterStat().SkillCooltimeRate);
                 }
 
-                return Mathf.Max(0, postSkillCooltimeRate);
+                return postSkillCooltimeRate;
             }
         }
 
