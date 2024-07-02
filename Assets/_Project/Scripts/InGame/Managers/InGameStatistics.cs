@@ -19,6 +19,7 @@ namespace CookApps.BattleSystem
     public readonly struct ActionLog
     {
         public readonly float elapsedTime;
+        public readonly bool isPlayerCharacter;
         public readonly int srcCharacterUId;
         public readonly int srcCharacterId;
         public readonly int destCharacterUId;
@@ -26,9 +27,10 @@ namespace CookApps.BattleSystem
         public readonly ActionType actionType;
         public readonly double value;
 
-        public ActionLog(float elapsedTime, int srcCharacterUId, int srcCharacterId, int destCharacterUId, int destCharacterId, ActionType actionType, double value)
+        public ActionLog(float elapsedTime, bool srcIsPlayerCharacter, int srcCharacterUId, int srcCharacterId, int destCharacterUId, int destCharacterId, ActionType actionType, double value)
         {
             this.elapsedTime = elapsedTime;
+            this.isPlayerCharacter = srcIsPlayerCharacter;
             this.srcCharacterUId = srcCharacterUId;
             this.srcCharacterId = srcCharacterId;
             this.destCharacterUId = destCharacterUId;
@@ -69,9 +71,12 @@ namespace CookApps.BattleSystem
                     return;
             }
 
+            bool isPlayerCharacter = attacker?.AllianceType == AllianceType.Player;
+
             //make actionlog
             var actionLog = new ActionLog(
                 statisticsData.totalCombatTime,
+                isPlayerCharacter,
                 attacker?.CharacterUId ?? 0,
                 attacker?.CharacterId ?? 0,
                 receiver?.CharacterUId ?? 0,
@@ -92,8 +97,10 @@ namespace CookApps.BattleSystem
             //     nextHp = maxHp;
             // var realHealAmount = nextHp - currHp;
             //make actionlog
+            bool isPlayerCharacter = giver.AllianceType == AllianceType.Player;
             var actionLog = new ActionLog(
                 statisticsData.totalCombatTime,
+                isPlayerCharacter,
                 giver?.CharacterUId ?? 0,
                 giver?.CharacterId ?? 0,
                 receiver?.CharacterUId ?? 0,
@@ -117,6 +124,7 @@ namespace CookApps.BattleSystem
                     damageAmount += log.value;
                 }
             }
+
             return damageAmount;
         }
 
@@ -125,8 +133,10 @@ namespace CookApps.BattleSystem
             var damageAmount = 0d;
             foreach (var log in statisticsData.combatLogs)
             {
-                damageAmount += log.value;
+                if (log.isPlayerCharacter && log.actionType == ActionType.Damaged)
+                    damageAmount += log.value;
             }
+
             return damageAmount;
         }
 
