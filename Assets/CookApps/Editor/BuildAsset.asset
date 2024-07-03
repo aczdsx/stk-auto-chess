@@ -61,10 +61,10 @@ MonoBehaviour:
         Name: ios-prod
         Target: 9
         Identifier: com.mintry.stk
-        Version: 0.1.0
+        Version: 0.1.1
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1845
+        VersionCode: 1858
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
