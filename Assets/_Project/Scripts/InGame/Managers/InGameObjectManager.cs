@@ -175,8 +175,9 @@ namespace CookApps.BattleSystem
 
             characCtrl.Clear();
 
-            SceneUILayerManager.Instance.GetUILayer("BattleStatisticsPopup").GetComponent<BattleStatisticsPopup>()
-                .SetDeadSlot(characCtrl.CharacterId);
+            var uiLayer = SceneUILayerManager.Instance.GetUILayer("BattleStatisticsPopup");
+            if (uiLayer != null)
+                uiLayer.GetComponent<BattleStatisticsPopup>().SetDeadSlot(characCtrl.CharacterId);
         }
 
         public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID)

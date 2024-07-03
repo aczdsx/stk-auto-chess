@@ -264,7 +264,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     if (topUIObject != null && topUIObject.CompareTag("ReturnObj"))
                     {
                         CharacterController deleteCharacterController = _selectedCharacterController;
-                        ReleaseSelectedHero();
+                        ReleaseSelectedHero(true);
                         InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
                     }
                 }
@@ -412,7 +412,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         InGameMain.GetInGameMain().SetFocusSlot(character.GetCharacterStat().Spec.prefab_id);
     }
 
-    private void ReleaseSelectedHero()
+    private void ReleaseSelectedHero(bool isDropFx = false)
     {
         if (_selectedCharacterController != null)
         {
@@ -421,7 +421,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             _selectedTileView.SetActiveObj(false);
             _selectedCharacterController = null;
             _selectedFirstTileView = null;
-            InGameMain.GetInGameMain().UnSetFocusSlot();
+            InGameMain.GetInGameMain().UnSetFocusSlot(isDropFx);
         }
     }
 }

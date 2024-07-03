@@ -16,6 +16,7 @@ public class InGameCharacterItem : MonoBehaviour
     [SerializeField] private GameObject _emptySlotObj;
     [SerializeField] private GameObject _focusObj;
     [SerializeField] private Image _focusImage;
+    [SerializeField] private Animation _dropFxAnimation;
     private Action<CharacterStatData> _onSelected;
     private CharacterStatData _statData;
 
@@ -48,5 +49,10 @@ public class InGameCharacterItem : MonoBehaviour
         if (isActiveFocus)
             _focusImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(prefabID);
         _focusObj.SetActive(isActiveFocus);
+    }
+
+    public void PlayDropFx()
+    {
+        _dropFxAnimation.Play();
     }
 }

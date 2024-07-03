@@ -500,6 +500,7 @@ MonoBehaviour:
   _emptySlotObj: {fileID: 4679146988832549458}
   _focusObj: {fileID: 6724134815730647592}
   _focusImage: {fileID: 8541941969444491826}
+  _dropFxAnimation: {fileID: 2943248564705236822}
 --- !u!114 &524712126046447701
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -364,13 +364,15 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
-    public void UnSetFocusCharacter()
+    public void UnSetFocusCharacter(bool isDropFx)
     {
         foreach (var characterItem in _characterItemList)
         {
             if (characterItem.IsFocusSlot)
             {
                 characterItem.SetFocusCharacter();
+                if(isDropFx)
+                    characterItem.PlayDropFx();
                 return;
             }
         }
