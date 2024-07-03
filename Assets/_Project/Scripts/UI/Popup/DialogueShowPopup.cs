@@ -126,6 +126,9 @@ namespace CookApps.AutoBattler
                 // 다이얼로그 히스토리 데이터 추가 및 저장
                 UserDataManager.Instance.AddDialogHistory(_dialogueGroupID);
 
+                // 가이드 미션 가이드 효과 재생
+                GuideMissionManager.Instance.UpdateGuideMissionAlert();
+
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;
             }
