@@ -114,7 +114,8 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     {
         if (isKilled)
         {
-            CoolTimeElapsedTime = CoolTimeDurationTime - 0.5f;
+            CoolTimeElapsedTime = CoolTimeDurationTime;
+            _isReadyToActivate = true;
             isKilled = false;
         }
         else
