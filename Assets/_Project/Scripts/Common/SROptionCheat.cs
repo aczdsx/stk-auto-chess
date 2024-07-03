@@ -1,8 +1,10 @@
 #if !RELEASE || UNITY_EDITOR || ENABLE_CHEAT
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CookApps.AutoBattler;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 
@@ -173,8 +175,25 @@ public partial class SROptions
         if (원하는스테이지ID <= 0) return;
         if (스테이지클리어별갯수 <= 0) return;
 
+        var targetSpecStageData = SpecDataManager.Instance.GetStageData(원하는스테이지ID);
+
+        // 스테이지 데이터저장
         UserDataManager.Instance.SetUserStage(원하는스테이지ID, 스테이지클리어별갯수);
         GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,원하는스테이지ID, 1);
+
+        // 보상 지급
+        var rewardList = SpecDataManager.Instance.GetSpecStageReward(targetSpecStageData.reward_id)
+            .FindAll(l => l.difficulty_type == targetSpecStageData.difficulty_type);
+
+        var rewardItemList = SpecDataManager.Instance.GetRewardItemListByStageRewardList(rewardList);
+
+        // 보상 데이터 저장
+        if (rewardList.Count > 0)
+        {
+            UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
+        }
+
+        SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
 
         var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
         if (lobbyMain != null)
