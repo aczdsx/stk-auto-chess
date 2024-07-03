@@ -50,11 +50,6 @@ platform :ios do
 
   desc "Create .ipa"
   private_lane :build do |options|
-	cocoapods(
-      repo_update: true,
-      clean_install: true,
-      podfile: "#{ENV['IOS_BUILD_PATH']}/"
-    )
 
     setup_ci
 
@@ -85,7 +80,7 @@ platform :ios do
     )
 
     build_app(
-      project: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcworkspace",
+      project: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcodeproj",
       scheme: 'Unity-iPhone',
       xcargs: '-allowProvisioningUpdates'
     )
