@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2474910789928907700
 RectTransform:
   m_ObjectHideFlags: 0
@@ -95,16 +95,16 @@ MonoBehaviour:
   _zoom: 0.9
   _effectGradient:
     serializedVersion: 2
-    key0: {r: 0.13725491, g: 0.99607843, b: 0.99607843, a: 0}
-    key1: {r: 0.13725491, g: 0.7490196, b: 0.99607843, a: 1}
-    key2: {r: 0.13725491, g: 0.99607843, b: 0.99607843, a: 0}
+    key0: {r: 0.19607843, g: 0.4509804, b: 0.5647059, a: 0}
+    key1: {r: 0.4862745, g: 0.8039216, b: 1, a: 1}
+    key2: {r: 0.5882353, g: 0.8980392, b: 1, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 32768
+    ctime1: 32575
     ctime2: 65535
     ctime3: 0
     ctime4: 0
@@ -1382,7 +1382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3519357448714100767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1459,16 +1459,16 @@ MonoBehaviour:
   _zoom: 0.9
   _effectGradient:
     serializedVersion: 2
-    key0: {r: 0.13725491, g: 0.9960785, b: 0.9960785, a: 1}
-    key1: {r: 0.1372549, g: 0.7474167, b: 0.99607843, a: 0}
-    key2: {r: 0.13725491, g: 0.99607843, b: 0.99607843, a: 0}
+    key0: {r: 0.5896226, g: 0.89761406, b: 1, a: 1}
+    key1: {r: 0.48584908, g: 0.8052543, b: 1, a: 0}
+    key2: {r: 0.19490923, g: 0.4525435, b: 0.5660378, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 32768
+    ctime0: 193
+    ctime1: 32575
     ctime2: 65535
     ctime3: 0
     ctime4: 0
@@ -1899,7 +1899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8056353180312450632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1934,7 +1934,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: f6c6a66c9a9963048b26296711b0a74e, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1 &6724134815730647592
