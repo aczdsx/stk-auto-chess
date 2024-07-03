@@ -36,7 +36,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
 
         [Header("User Info Layer")]
-        [SerializeField] private Image _userIconImage;
+        //[SerializeField] private Image _userIconImage;
         [SerializeField] private TextMeshProUGUI _userNameText;
         [SerializeField] private TextMeshProUGUI _userLevelText;
         [SerializeField] private TextMeshProUGUI _userExpText;
@@ -178,7 +178,7 @@ namespace CookApps.AutoBattler
         {
             var userBasicData = UserDataManager.Instance.UserBasicData;
 
-            _userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
+            //_userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
             _userNameText.text = userBasicData.Nickname;
 
             int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);

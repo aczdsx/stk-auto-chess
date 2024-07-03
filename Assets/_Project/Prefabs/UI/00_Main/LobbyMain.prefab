@@ -1773,7 +1773,6 @@ MonoBehaviour:
   - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
   _chapter1VignetteMaterial: {fileID: 2100000, guid: cb66fc5cd88444d44a2942a2244f553a, type: 2}
   _defaultVignetteMaterial: {fileID: 2100000, guid: a3161629ffcf62f4cb2a0014c848b84f, type: 2}
-  _userIconImage: {fileID: 0}
   _userNameText: {fileID: 1804400419255090806}
   _userLevelText: {fileID: 5241043022816834879}
   _userExpText: {fileID: 7928689309068224391}
@@ -3144,7 +3143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2011726260667882060, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 61.73
+      value: 88.09
       objectReference: {fileID: 0}
     - target: {fileID: 2011726260667882060, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3172,6 +3171,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3268290139706924390, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268290139706924390, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3268290139706924390, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
