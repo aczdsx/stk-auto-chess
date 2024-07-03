@@ -112,10 +112,9 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
         _targetCharacter.GetDamaged(damage, owner);
 
-        Span<double> debuffStats = stackalloc double[3];
+        Span<double> debuffStats = stackalloc double[1];
         debuffStats.Clear();
-        debuffStats[0] = codeId;
-        debuffStats[1] = _debuffTime;
+        debuffStats[0] = _debuffTime;
         var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.SILENCE, 0, debuffStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
 

@@ -443,6 +443,7 @@ namespace CookApps.BattleSystem
             {
                 result &= ~CharacterStateRunningResult.CanCallMove;
             }
+
             if (isStun || isAirborne || isFreezing || isKnockBack || isSilence)
             {
                 result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
