@@ -78,14 +78,18 @@ public class InGameBottomCharacterUI : MonoBehaviour
         var userLevelData = SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userLevelData.squad_count)
         {
-            string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
+            bool isAvailableCharacter = _characterItemList.Exists(l => l.StatData != null);
+            if (isAvailableCharacter)
+            {
+                string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
 
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-            newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
+                SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
 
-            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
 
-            return;
+                return;
+            }
         }
 
         StartInGameBattle();
