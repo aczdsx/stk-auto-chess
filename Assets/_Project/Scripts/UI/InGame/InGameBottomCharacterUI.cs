@@ -78,8 +78,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
         var userLevelData = SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userLevelData.squad_count)
         {
+            string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
+
             SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-            newPopupData.SetPopupData("시스템 알림", "전투 인원이 최대 인원보다 적습니다. 그래도 전투를 시작하시겠습니까?", "확인", "취소", StartInGameBattle);
+            newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
 
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
 
