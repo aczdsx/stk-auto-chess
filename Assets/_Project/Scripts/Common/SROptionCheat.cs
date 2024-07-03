@@ -177,6 +177,13 @@ public partial class SROptions
 
         var targetSpecStageData = SpecDataManager.Instance.GetStageData(원하는스테이지ID);
 
+        // 행동력 검사
+        if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, targetSpecStageData.need_ap, false))
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
+            return;
+        }
+
         // 스테이지 데이터저장
         UserDataManager.Instance.SetUserStage(원하는스테이지ID, 스테이지클리어별갯수);
         GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,원하는스테이지ID, 1);
@@ -194,6 +201,9 @@ public partial class SROptions
         }
 
         SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+
+        // 행동력 소모 처리
+        UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, targetSpecStageData.need_ap, true, false);
 
         var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
         if (lobbyMain != null)
