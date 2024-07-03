@@ -53,6 +53,17 @@
       },
       "url": "http://packages.tech.cookapps.com"
     },
+    "com.cookapps.facebook": {
+      "version": "1.2.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.link-xml-resolver": "1.0.1",
+        "com.cookapps.package.window": "1.3.5",
+        "com.google.external-dependency-manager": "1.2.179"
+      },
+      "url": "http://packages.tech.cookapps.com"
+    },
     "com.cookapps.favorites": {
       "version": "1.0.2",
       "depth": 0,
