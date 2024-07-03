@@ -53,12 +53,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
-    private bool isRunningAddCharacter;
+    private bool _isRunningAddCharacter;
+    private bool _isOpenCommanderSkill;
 
     protected void Awake()
     {
-        bool isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
-        _commanderSkillUI.gameObject.SetActive(isOpenCommanderSkill);
+        _isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+        _commanderSkillUI.gameObject.SetActive(_isOpenCommanderSkill);
 
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         _CommanderSkillButton?.onClick.AddListener(OnClickCommanderSkillButton);
@@ -82,6 +83,23 @@ public class InGameBottomCharacterUI : MonoBehaviour
             if (isAvailableCharacter)
             {
                 string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
+
+                SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
+
+                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+
+                return;
+            }
+        }
+
+        // 지휘자 스킬 장착 확인
+        if (_isOpenCommanderSkill)
+        {
+            var equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
+            if (equippedCommanderSkill == 0)
+            {
+                string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
 
                 SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
                 newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
@@ -298,10 +316,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private async void AddCharacterToTile(CharacterStatData statData)
     {
-        if (isRunningAddCharacter)
+        if (_isRunningAddCharacter)
             return;
 
-        isRunningAddCharacter = true;
+        _isRunningAddCharacter = true;
         var userLevelData =
             SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
 
@@ -328,7 +346,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             SetCharacterCountText();
         }
 
-        isRunningAddCharacter = false;
+        _isRunningAddCharacter = false;
     }
 
     public void SetCommanderSkillCoolTime(float elapsedTime, float durationTime)
