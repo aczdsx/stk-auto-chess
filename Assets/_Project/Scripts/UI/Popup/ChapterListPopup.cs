@@ -66,8 +66,7 @@ namespace CookApps.AutoBattler
 
             SetChapterListUI();
 
-            SetSelectedChapterData(_selectedChapterData.chapter_id);
-            RefreshSelectedLayer(true);
+            SetSelectedChapterData(_selectedChapterData.chapter_id, true);
 
             _chapterScrollRect.verticalNormalizedPosition = 1;
 
@@ -92,7 +91,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetSelectedChapterData(int targetChapterID)
+        public void SetSelectedChapterData(int targetChapterID, bool isFirstInit)
         {
             _targetChapterID = targetChapterID;
 
@@ -102,7 +101,7 @@ namespace CookApps.AutoBattler
             _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_targetChapterID));
 
             // UI Popup 갱신
-            RefreshSelectedLayer(false);
+            RefreshSelectedLayer(isFirstInit);
         }
 
         public void RefreshSelectedLayer(bool isFirstInit)
