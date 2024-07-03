@@ -116,6 +116,12 @@ namespace CookApps.AutoBattler
             */
         }
 
+        public void SetDeadSlot(int characterID)
+        {
+            var slot = _battleStatSlotList.Find(l => l.CharacterID == characterID);
+            slot.SetDeadCharacter();
+        }
+
         private void SetBattleStatisticsPopup()
         {
             ClearPopup();

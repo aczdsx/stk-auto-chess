@@ -4,6 +4,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
@@ -171,7 +172,11 @@ namespace CookApps.BattleSystem
             }
 
             characCtrl.CurrentTile.SetUnoccupied();
+
             characCtrl.Clear();
+
+            SceneUILayerManager.Instance.GetUILayer("BattleStatisticsPopup").GetComponent<BattleStatisticsPopup>()
+                .SetDeadSlot(characCtrl.CharacterId);
         }
 
         public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID)

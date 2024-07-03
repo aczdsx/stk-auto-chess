@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Coffee.UIEffects;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace CookApps.AutoBattler
 {
     public class BattleStatSlot : CachedMonoBehaviour
     {
+        public int CharacterID => _currentCharacterID;
         public double AttackDamageAmount => _attackDamageAmount;
         [Header("Base Info")]
         [SerializeField] private Image _characterIconImage;
@@ -21,9 +23,18 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _buffListParentObject;
         [SerializeField] private GameObject _buffListSlotObject;
 
+        [SerializeField] private UIEffect _characterIconEffect;
+
         private int _currentCharacterID;
         private SpecCharacter _specCharacterData;
         private double _attackDamageAmount;
+
+        public void SetDeadCharacter()
+        {
+            _characterIconEffect.effectMode = EffectMode.Grayscale;
+            float grayColor = 154 / 255f;
+            _characterIconImage.color = new Color(grayColor, grayColor, grayColor, 1);
+        }
 
         public void SetBattleStatSlot(int targetCharacterID)
         {
@@ -32,6 +43,10 @@ namespace CookApps.AutoBattler
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(_currentCharacterID);
 
             _characterIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
+
+            bool isAlive = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Exists(l => l.CharacterId == targetCharacterID);
+            if (!isAlive)
+                SetDeadCharacter();
         }
 
         public async UniTask RefreshBattleStatSlotSmooth(float duration)

@@ -201,6 +201,7 @@ MonoBehaviour:
   _damageAmountSlider: {fileID: 5133297736606739249}
   _buffListParentObject: {fileID: 5170643456459545127}
   _buffListSlotObject: {fileID: 0}
+  _characterIconEffect: {fileID: 2268912702967867760}
 --- !u!114 &792975746293775739
 MonoBehaviour:
   m_ObjectHideFlags: 0
