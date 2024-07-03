@@ -498,6 +498,8 @@ MonoBehaviour:
   _lvText: {fileID: 3390028407743059545}
   _body: {fileID: 3052446370037572043}
   _emptySlotObj: {fileID: 4679146988832549458}
+  _focusObj: {fileID: 6724134815730647592}
+  _focusImage: {fileID: 8541941969444491826}
 --- !u!114 &524712126046447701
 MonoBehaviour:
   m_ObjectHideFlags: 0

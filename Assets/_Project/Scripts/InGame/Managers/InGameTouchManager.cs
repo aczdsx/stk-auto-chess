@@ -330,6 +330,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void AnimateCharacterSwap(CharacterController character1, CharacterController character2)
     {
+        if (character1 == null || character2 == null)
+            return;
         Vector3 startPosition1 = character1.Position3D;
         Vector3 targetPosition1 = character2.Position3D;
 
@@ -407,6 +409,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         _selectedFirstTileView = _selectedTileView;
         _selectedCharacterController.SetSelectedCharacter(true);
         InGameMain.GetInGameMain().ReturnObjectActive(true);
+        InGameMain.GetInGameMain().SetFocusSlot(character.GetCharacterStat().Spec.prefab_id);
     }
 
     private void ReleaseSelectedHero()
@@ -418,6 +421,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             _selectedTileView.SetActiveObj(false);
             _selectedCharacterController = null;
             _selectedFirstTileView = null;
+            InGameMain.GetInGameMain().UnSetFocusSlot();
         }
     }
 }

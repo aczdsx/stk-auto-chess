@@ -351,4 +351,28 @@ public class InGameBottomCharacterUI : MonoBehaviour
         if (isActive)
             _commanderFx.Play();
     }
+
+    public void SetFocusCharacter(int prefabID = 0)
+    {
+        foreach (var characterItem in _characterItemList)
+        {
+            if (characterItem.StatData == null)
+            {
+                characterItem.SetFocusCharacter(prefabID);
+                return;
+            }
+        }
+    }
+
+    public void UnSetFocusCharacter()
+    {
+        foreach (var characterItem in _characterItemList)
+        {
+            if (characterItem.IsFocusSlot)
+            {
+                characterItem.SetFocusCharacter();
+                return;
+            }
+        }
+    }
 }

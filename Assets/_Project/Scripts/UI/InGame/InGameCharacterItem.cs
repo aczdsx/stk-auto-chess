@@ -7,12 +7,15 @@ using UnityEngine.UI;
 public class InGameCharacterItem : MonoBehaviour
 {
     public CharacterStatData StatData => _statData;
+    public bool IsFocusSlot => _focusObj.activeSelf;
     [SerializeField] private Image _image;
     [SerializeField] private Image _SynergyImage;
     [SerializeField] private Image _SynergyClassImage;
     [SerializeField] private TextMeshProUGUI _lvText;
     [SerializeField] private GameObject _body;
     [SerializeField] private GameObject _emptySlotObj;
+    [SerializeField] private GameObject _focusObj;
+    [SerializeField] private Image _focusImage;
     private Action<CharacterStatData> _onSelected;
     private CharacterStatData _statData;
 
@@ -37,5 +40,13 @@ public class InGameCharacterItem : MonoBehaviour
     {
         if (_statData != null)
             _onSelected.Invoke(_statData);
+    }
+
+    public void SetFocusCharacter(int prefabID = 0)
+    {
+        bool isActiveFocus = prefabID != 0;
+        if (isActiveFocus)
+            _focusImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(prefabID);
+        _focusObj.SetActive(isActiveFocus);
     }
 }
