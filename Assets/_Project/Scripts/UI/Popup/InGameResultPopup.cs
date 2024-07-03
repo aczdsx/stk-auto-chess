@@ -29,6 +29,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private TextMeshProUGUI _victoryStageText;
         [SerializeField] private TextMeshProUGUI _failStageText;
+        [SerializeField] private TextMeshProUGUI _nextStageButtonText;
 
         [SerializeField] private Transform _rewardsTransform;
         [SerializeField] private GameObject _rewardItemSlotObj;
@@ -163,6 +164,9 @@ namespace CookApps.AutoBattler
                 _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _isVictory);
                 _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
             }
+
+            string buttonStringKey = _isPlayingLastStage ? "UI_CHAPTER_NEXT_MOVE" : "UI_STAGE_NEXT_MOVE";
+            _nextStageButtonText.text = LanguageManager.Instance.GetLanguageText(buttonStringKey);
         }
 
         private void OnExitButtonClicked()
