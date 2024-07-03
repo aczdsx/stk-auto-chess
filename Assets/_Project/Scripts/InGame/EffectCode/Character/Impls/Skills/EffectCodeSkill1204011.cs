@@ -85,6 +85,7 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
         // TODO: Target Check
         _isReadyToActivate = false;
         IsSkillActivated = true;
+        _hitCharacters.Clear();
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
             owner.GetCharacterView().CachedTr.position);

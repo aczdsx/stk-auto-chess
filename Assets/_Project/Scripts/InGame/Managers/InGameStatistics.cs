@@ -97,7 +97,7 @@ namespace CookApps.BattleSystem
             //     nextHp = maxHp;
             // var realHealAmount = nextHp - currHp;
             //make actionlog
-            bool isPlayerCharacter = giver.AllianceType == AllianceType.Player;
+            bool isPlayerCharacter = giver != null && giver.AllianceType == AllianceType.Player;
             var actionLog = new ActionLog(
                 statisticsData.totalCombatTime,
                 isPlayerCharacter,
