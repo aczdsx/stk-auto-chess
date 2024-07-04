@@ -164,6 +164,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
+            Preference.SavePreference(Pref.STATISTIC, false);
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }

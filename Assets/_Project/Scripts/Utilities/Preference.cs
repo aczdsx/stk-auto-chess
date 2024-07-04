@@ -9,6 +9,7 @@ public enum Pref
     BGM_V,
     SFX_V,
     VOX_V,
+    STATISTIC,
 }
 
 public class Preference

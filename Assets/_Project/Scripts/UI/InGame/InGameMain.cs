@@ -196,5 +196,10 @@ namespace CookApps.AutoBattler
         {
             _InGameTopUI.SetCombatUI();
         }
+
+        public void OpenStatisticPop()
+        {
+            _inGameBottomCharacterUI.OpenStatisticPop();
+        }
     }
 }

@@ -182,9 +182,9 @@ namespace CookApps.BattleSystem
         public int GetMvpID()
         {
             int mvpID = 0;
-            float attackDamageWeight = 3.0f;
-            float takenDamageWeight = 1.0f;
-            float givenHealWeight = 1.0f;
+            float attackDamageWeight = 1.0f;
+            float takenDamageWeight = 0.0f;
+            float givenHealWeight = 0.0f;
             double maxScore = double.MinValue;
 
             foreach (var character in InGameObjectManager.Instance.StartingPlayerCharacters)

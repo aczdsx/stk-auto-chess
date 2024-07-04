@@ -134,6 +134,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
         SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
+
+        Preference.SavePreference(Pref.STATISTIC, true);
     }
 
     private void OnClickCommanderSkillButton()
@@ -400,5 +402,12 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void OpenStatisticPop()
+    {
+        bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
+        if (isOpenStatisticPop)
+            SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
     }
 }
