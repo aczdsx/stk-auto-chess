@@ -61,6 +61,7 @@ namespace CookApps.AutoBattler
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
         DEBUFF_FIRE = 2100000004,
         DEBUFF_ICE = 2100000005,
+        DEBUFF_SILENCE = 2100000006,
     }
 
     public enum GradeType
@@ -336,6 +337,8 @@ namespace CookApps.AutoBattler
         Skill_201011 = 92,
         Skill_202031 = 93,
         fx_common_area_landing = 94,
+        fx_common_debuff_silence = 95,
+        fx_common_hit_03 = 96,
     }
 
     public enum GlobalEffectProviderType

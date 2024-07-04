@@ -209,6 +209,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
             SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
 
         _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
+        //[TODO] 나중에는 성장 스텟으로 빼기
+        _commanderSkillData.ElapsedTime = _commanderSkillData.DurationTime * 0.5f;
     }
 
     public void Clear()
