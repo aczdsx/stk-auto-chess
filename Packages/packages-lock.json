@@ -232,7 +232,7 @@
       "hash": "fbe0bf85155f42f8832205f7b3ac3df571ada33e"
     },
     "com.google.external-dependency-manager": {
-      "version": "file:C:/Users/Cookapps/Downloads/com.google.external-dependency-manager-1.2.181.tgz",
+      "version": "file:../Assets/Plugins/GoogleDependency/com.google.external-dependency-manager-1.2.181.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
