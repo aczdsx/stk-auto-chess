@@ -31,10 +31,9 @@ namespace CookApps.AutoBattler
 
         private List<ChapterListItemSlot> _chapterSlotList = new();
 
-        private SpecChapter _selectedChapterData;
+        private SpecChapter _currentChapterData;   // 현재 팝업에서 선택한 챕터 데이터 (팝업만)
+        private SpecChapter _selectedChapterData;   // 현재 선택된 챕터 데이터 (스테이지)
         public SpecChapter SelectedChapterData => _selectedChapterData;
-
-        private int _targetChapterID;
 
         protected override void Awake()
         {
@@ -81,7 +80,7 @@ namespace CookApps.AutoBattler
 
         public void RefreshRewardLayer()
         {
-            var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _selectedChapterData.chapter_id, _selectedChapterData.difficulty_type);
+            var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _currentChapterData.chapter_id, _currentChapterData.difficulty_type);
             if (rewardInfoList != null)
             {
                 for (int i = 0; i < _chapterStarRewardSlotList.Count; ++i)
@@ -93,40 +92,36 @@ namespace CookApps.AutoBattler
 
         public void SetSelectedChapterData(int targetChapterID, bool isFirstInit)
         {
-            _targetChapterID = targetChapterID;
-
-            _moveChapterButton.gameObject.SetActive(_selectedChapterData != null && _selectedChapterData.id != _targetChapterID);
-
-            // 슬롯 레이어 갱신 처리
-            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_targetChapterID));
+            _currentChapterData = SpecDataManager.Instance.GetChapterData(targetChapterID);
 
             // UI Popup 갱신
             RefreshSelectedLayer(isFirstInit);
+
+            // 슬롯 레이어 갱신 처리
+            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_currentChapterData.chapter_id));
+
+            // 버튼 상태 갱신
+            _moveChapterButton.gameObject.SetActive(_selectedChapterData.chapter_id != _currentChapterData.chapter_id);
         }
 
         public void RefreshSelectedLayer(bool isFirstInit)
         {
             if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
-
-            _selectedChapterData = SpecDataManager.Instance.SpecChapter.Get(_targetChapterID);
-            if (_selectedChapterData == null) return;
+            if (_currentChapterData == null) return;
 
             // 유저 데이터 처리 (현재는 챕터 이동 시 무조건 첫번째 스테이지만 저장)
             if (isFirstInit == false)
             {
-                var firstSpecStage = SpecDataManager.Instance.GetStageData(_selectedChapterData.chapter_id, 1, _selectedChapterData.difficulty_type);
-                UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.stage_id, true);
-
                 // 연출 적용
                 baseAnimator.SetTrigger("SetSelect");
             }
 
             // 팝업 관련 처리 (하단 정보, 슬라이더)
-            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _selectedChapterData.chapter_id, _selectedChapterData.difficulty_type);
-            _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_selectedChapterData.name_token);
+            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _currentChapterData.chapter_id, _currentChapterData.difficulty_type);
+            _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_currentChapterData.name_token);
 
-            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_selectedChapterData.chapter_id, _selectedChapterData.difficulty_type);
-            int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_selectedChapterData.chapter_id, _selectedChapterData.difficulty_type);
+            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_currentChapterData.chapter_id, _currentChapterData.difficulty_type);
+            int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_currentChapterData.chapter_id, _currentChapterData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
 
@@ -162,7 +157,14 @@ namespace CookApps.AutoBattler
 
         private void OnClickMoveChapterButton()
         {
-            if (_selectedChapterData == null) return;
+            if (_currentChapterData == null) return;
+
+            // 선택된 챕터 데이터 갱신
+            _selectedChapterData = SpecDataManager.Instance.GetChapterData(_currentChapterData.chapter_id);
+
+            // 유저 챕터 선택 데이터 저장
+            var firstSpecStage = SpecDataManager.Instance.GetStageData(_currentChapterData.chapter_id, 1, _currentChapterData.difficulty_type);
+            UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.stage_id, true);
 
             OnClickCloseButton();
 
