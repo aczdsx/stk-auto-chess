@@ -127,7 +127,7 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
             eccStats[1] = _debuffTime;
             eccStats[2] = 0;
 
-            long effectCodeID = (long)EffectCodeNameType.SILENCE;
+            long effectCodeID = (long)EffectCodeNameType.DEBUFF_SILENCE;
             var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
             _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
         }

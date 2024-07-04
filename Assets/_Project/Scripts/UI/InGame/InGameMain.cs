@@ -201,5 +201,15 @@ namespace CookApps.AutoBattler
         {
             _inGameBottomCharacterUI.OpenStatisticPop();
         }
+
+        public void ShowSKillTooltip(CharacterStatData getCharacterStat)
+        {
+            _inGameBottomCharacterUI.ShowSKillTooltip(getCharacterStat);
+        }
+
+        public void CloseSkillTooltip()
+        {
+            _inGameBottomCharacterUI.CloseSkillTooltip();
+        }
     }
 }

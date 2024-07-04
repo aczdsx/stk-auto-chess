@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
@@ -258,15 +259,14 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 _ = ListPool<RaycastResult>.Get(out var results);
                 EventSystem.current.RaycastAll(pointerData, results);
 
-                if (results.Count > 0)
+                var returnObjResult = results.FirstOrDefault(r => r.gameObject != null && r.gameObject.CompareTag("ReturnObj"));
+
+                if (returnObjResult.gameObject != null)
                 {
-                    GameObject topUIObject = results[0].gameObject;
-                    if (topUIObject != null && topUIObject.CompareTag("ReturnObj"))
-                    {
-                        CharacterController deleteCharacterController = _selectedCharacterController;
-                        ReleaseSelectedHero(true);
-                        InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
-                    }
+                    var inGameMain = InGameMain.GetInGameMain();
+                    CharacterController deleteCharacterController = _selectedCharacterController;
+                    ReleaseSelectedHero(true);
+                    inGameMain.ReturnCharacter(deleteCharacterController);
                 }
             }
 
@@ -410,6 +410,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         _selectedCharacterController.SetSelectedCharacter(true);
         InGameMain.GetInGameMain().ReturnObjectActive(true);
         InGameMain.GetInGameMain().SetFocusSlot(character.GetCharacterStat().Spec.prefab_id);
+
+        InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
     }
 
     private void ReleaseSelectedHero(bool isDropFx = false)
@@ -422,6 +424,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             _selectedCharacterController = null;
             _selectedFirstTileView = null;
             InGameMain.GetInGameMain().UnSetFocusSlot(isDropFx);
+
+            InGameMain.GetInGameMain().CloseSkillTooltip();
         }
     }
 }
