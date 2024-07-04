@@ -51,6 +51,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField]
     private ParticleSystem _commanderFx;
 
+    [SerializeField]
+    private SkillTooltipPopup _skillTooltipPopup;
+
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
@@ -188,7 +191,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
-                characterItem.SetData(characterStat, AddCharacterToTile);
+                characterItem.SetData(this, characterStat, AddCharacterToTile);
                 _characterStats.Add(characterStat);
             }
         }
@@ -242,7 +245,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
-                characterItem.SetData(characterStat, AddCharacterToTile);
+                characterItem.SetData(this, characterStat, AddCharacterToTile);
             }
         }
     }
@@ -263,11 +266,11 @@ public class InGameBottomCharacterUI : MonoBehaviour
         {
             if (i < _characterStats.Count)
             {
-                _characterItemList[i].SetData(_characterStats[i], AddCharacterToTile);
+                _characterItemList[i].SetData(this, _characterStats[i], AddCharacterToTile);
             }
             else
             {
-                _characterItemList[i].SetData(null, null);
+                _characterItemList[i].SetData(this, null, null);
             }
         }
     }
@@ -314,6 +317,27 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _characterStats.Add(controller.GetCharacterStat());
         UpdateData();
         SetCharacterCountText();
+    }
+
+    public void ShowSKillTooltip(CharacterStatData statData)
+    {
+        if (statData == null) return;
+        if (_skillTooltipPopup == null) return;
+
+        var specSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(statData.Spec.prefab_id);
+        if (specSkillList != null && specSkillList.Count > 0)
+        {
+            var skillData = specSkillList[0];
+
+            _skillTooltipPopup.gameObject.SetActive(true);
+
+            _skillTooltipPopup.SetSkillToolTipPopup(skillData);
+        }
+    }
+
+    public void CloseSkillTooltip()
+    {
+        _skillTooltipPopup?.gameObject.SetActive(false);
     }
 
     private async void AddCharacterToTile(CharacterStatData statData)
