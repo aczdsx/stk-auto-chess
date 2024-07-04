@@ -14,10 +14,14 @@ public class FlowStateStageLobbyCombat : StateBase
     private List<CharacterController> _playerCharacters;
     private List<CharacterController> _enemyCharacters;
 
+    private int _maxEnemySpawnCount = 5;
+
     public override void StateInit(object target)
     {
         _playerCharacters = ListPool<CharacterController>.Get();
         _enemyCharacters = ListPool<CharacterController>.Get();
+
+        _maxEnemySpawnCount = SpecDataManager.Instance.GetGameConfig<int>("max_idle_battle_monster_count");
     }
 
     public override void StateStart()
@@ -65,6 +69,8 @@ public class FlowStateStageLobbyCombat : StateBase
 
     private async UniTask SpawnEnemy()
     {
+        if (InGameObjectManager.Instance.EnemiesInPlaygroundForUpdate.Count >= _maxEnemySpawnCount) return;
+
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(InGameResourceHolder.Chapter, 1,

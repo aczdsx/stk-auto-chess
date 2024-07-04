@@ -20,6 +20,7 @@ namespace CookApps.BattleSystem
         public InGameGrid InGameGrid => _grid;
         public InGameStage InGameStage => _stage;
         public List<CharacterController> StartingPlayerCharacters => startingPlayerCharacters;
+        public List<CharacterController> EnemiesInPlaygroundForUpdate => enemiesInPlaygroundForUpdate;
 
         private InGameGrid _grid;
         private InGameStage _stage;
