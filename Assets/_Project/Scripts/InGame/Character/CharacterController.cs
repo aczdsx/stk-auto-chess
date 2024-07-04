@@ -661,7 +661,7 @@ namespace CookApps.BattleSystem
                 var loopVfxName = type.GetLoopVfxName();
                 if (loopVfxName != InGameVfxNameType.NONE)
                 {
-                    bool isUseOffset = loopVfxName == InGameVfxNameType.fx_common_debuff_stun;
+                    bool isUseOffset = loopVfxName == InGameVfxNameType.fx_common_debuff_stun ||  loopVfxName == InGameVfxNameType.fx_common_debuff_silence;
                     if (isUseOffset)
                     {
                         var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName,
