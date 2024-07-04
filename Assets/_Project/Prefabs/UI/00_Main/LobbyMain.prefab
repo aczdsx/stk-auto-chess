@@ -986,8 +986,8 @@ MonoBehaviour:
   _effectGradient:
     serializedVersion: 2
     key0: {r: 0.119482, g: 0.12556614, b: 0.14150941, a: 0}
-    key1: {r: 0.32053223, g: 0.3916792, b: 0.46226418, a: 0.23529412}
-    key2: {r: 0, g: 0, b: 0, a: 0.54901963}
+    key1: {r: 0.19321822, g: 0.21925062, b: 0.24528301, a: 0.23529412}
+    key2: {r: 0, g: 0, b: 0, a: 0.3254902}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1002,7 +1002,7 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 32960
+    atime1: 42983
     atime2: 65535
     atime3: 0
     atime4: 0
@@ -1243,7 +1243,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 7
+  m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -2494,15 +2494,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 571973193204389704, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_Color.b
-      value: 0.9450981
+      value: 0.8901961
       objectReference: {fileID: 0}
     - target: {fileID: 571973193204389704, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_Color.g
-      value: 0.9176471
+      value: 0.94088817
       objectReference: {fileID: 0}
     - target: {fileID: 571973193204389704, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_Color.r
-      value: 0.89019614
+      value: 0.94509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173124230936802519, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173124230936802519, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173124230936802519, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1342356078735501212, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_SortingLayer
@@ -2620,6 +2632,34 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294044387
       objectReference: {fileID: 0}
+    - target: {fileID: 7276197558043066693, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: _effectGradient.ctime1
+      value: 45875
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276197558043066693, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: _effectGradient.key1.b
+      value: 0.5798769
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276197558043066693, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: _effectGradient.key1.g
+      value: 0.527582
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276197558043066693, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: _effectGradient.key1.r
+      value: 0.52566504
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276197558043066693, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: _effectGradient.key2.b
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276197558043066693, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: _effectGradient.key2.g
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276197558043066693, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: _effectGradient.key2.r
+      value: 0.9433962
+      objectReference: {fileID: 0}
     - target: {fileID: 7991288640989510128, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -2638,11 +2678,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7991288640989510128, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 94
+      value: 78
       objectReference: {fileID: 0}
     - target: {fileID: 7991288640989510128, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 94
+      value: 78
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4175,15 +4215,47 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1349521558864533609, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 70
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 1349521558864533609, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 70
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349521558864533609, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1349521558864533609, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075424164044100836, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: _effectGradient.ctime1
+      value: 45875
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075424164044100836, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: _effectGradient.key1.b
+      value: 0.5798769
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075424164044100836, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: _effectGradient.key1.g
+      value: 0.527582
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075424164044100836, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: _effectGradient.key1.r
+      value: 0.52566504
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075424164044100836, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: _effectGradient.key2.b
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075424164044100836, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: _effectGradient.key2.g
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075424164044100836, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
+      propertyPath: _effectGradient.key2.r
+      value: 0.9433962
       objectReference: {fileID: 0}
     - target: {fileID: 3637744375681794717, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Sprite
@@ -4191,15 +4263,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b19ced2efc8e89140b6f9a587940fd97, type: 3}
     - target: {fileID: 3637744375681794717, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Color.b
-      value: 0.9450981
+      value: 0.8901961
       objectReference: {fileID: 0}
     - target: {fileID: 3637744375681794717, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Color.g
-      value: 0.9176471
+      value: 0.94088817
       objectReference: {fileID: 0}
     - target: {fileID: 3637744375681794717, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Color.r
-      value: 0.89019614
+      value: 0.94509804
       objectReference: {fileID: 0}
     - target: {fileID: 3748072903309281631, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_Name
@@ -4347,11 +4419,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9072320445479520389, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 94
+      value: 78
       objectReference: {fileID: 0}
     - target: {fileID: 9072320445479520389, guid: 907b69d37cecef84dbc9365cb5788e45, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 94
+      value: 78
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
