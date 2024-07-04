@@ -49,13 +49,15 @@ namespace CookApps.AutoBattler
         private bool _isEndStage = false;         // 게임의 가장 마지막 스테이지 체크
         private bool _isWaitGuideMissionReward = false;         // 현재 가이드 미션을 클리어한 상태인지 체크
 
+        private SpecCharacter _specCharacter;
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _star) = ((bool, int))param;
+            (_isVictory, _star, _specCharacter) = ((bool, int, SpecCharacter))param;
 
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);
@@ -69,13 +71,11 @@ namespace CookApps.AutoBattler
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
             _retryStageButton?.onClick.AddListener(OnClickRetryStageButton);
 
-            var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
-            if (_mvpCharacterData != null)
+            if (_specCharacter != null)
             {
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
-                var _specCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
-                string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
+                string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacter.prefab_id);
                 AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             }
 

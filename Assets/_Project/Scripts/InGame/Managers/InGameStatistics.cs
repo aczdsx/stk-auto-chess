@@ -193,7 +193,7 @@ namespace CookApps.BattleSystem
                 double takenDamageAmount = GetTakenDamageAmount(character.CharacterId);
                 double givenHealAmount = GetGivenHealAmount(character.CharacterId);
 
-                double score = attackDamageAmount * attackDamageWeight - takenDamageAmount * takenDamageWeight + givenHealAmount * givenHealWeight;
+                double score = attackDamageAmount * attackDamageWeight + takenDamageAmount * takenDamageWeight + givenHealAmount * givenHealWeight;
 
                 if (score > maxScore)
                 {
