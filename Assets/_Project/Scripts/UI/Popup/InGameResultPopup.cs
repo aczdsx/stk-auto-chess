@@ -103,7 +103,7 @@ namespace CookApps.AutoBattler
                     _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
                 }
 
-                _starConditionList[0]._starObject.SetActive(true);
+                _starConditionList[0]._starObject.SetActive(_isVictory);
                 _starConditionList[1]._starObject.SetActive(_starTime);
                 _starConditionList[2]._starObject.SetActive(_starNoDeath);
             }
