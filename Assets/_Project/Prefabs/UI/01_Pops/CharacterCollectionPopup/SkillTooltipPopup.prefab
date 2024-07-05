@@ -265,6 +265,7 @@ MonoBehaviour:
   _skillDescText: {fileID: 6046540803503233719}
   _skillCoolTimeText: {fileID: 4962611232128719572}
   _skillTypeText: {fileID: 2838006465978636138}
+  _sizeFitter: {fileID: 8309515828785203062}
 --- !u!1 &2893971333906931306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2079,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8309515828785203062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8153745776755982973, guid: 36da59676375b2541b005f553305a71f, type: 3}
+  m_PrefabInstance: {fileID: 177531595838424331}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4005783430624395459

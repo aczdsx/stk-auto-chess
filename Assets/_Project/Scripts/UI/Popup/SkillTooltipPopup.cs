@@ -25,6 +25,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _skillCoolTimeText;
         [SerializeField] private TextMeshProUGUI _skillTypeText;
 
+        [SerializeField] private ContentSizeFitter _sizeFitter;
+
         protected override void Awake()
         {
             base.Awake();
@@ -68,6 +70,11 @@ namespace CookApps.AutoBattler
             if (extraSkillData != null)
             {
                 _skillCoolTimeText.text = $"{extraSkillData.base_rate}초";
+                Run.NextFrame(() =>
+                {
+                    _sizeFitter.enabled = false;
+                    _sizeFitter.enabled = true;
+                });
             }
         }
 

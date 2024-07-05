@@ -189,6 +189,7 @@ MonoBehaviour:
   _skillDescText: {fileID: 5063876109642896448}
   _skillCoolTimeText: {fileID: 2917167228858790963}
   _skillTypeText: {fileID: 4451947412094097229}
+  _sizeFitter: {fileID: 2302522631029975441}
 --- !u!1 &1178637647920566913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2122,6 +2123,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2245535923998477781, guid: 36da59676375b2541b005f553305a71f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245535923998477781, guid: 36da59676375b2541b005f553305a71f, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3688730463381116465, guid: 36da59676375b2541b005f553305a71f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2262,6 +2271,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -22
       objectReference: {fileID: 0}
+    - target: {fileID: 8153745776755982973, guid: 36da59676375b2541b005f553305a71f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8990583735179586472, guid: 36da59676375b2541b005f553305a71f, type: 3}
       propertyPath: m_Name
       value: SkillCoolTimeTag (1)
@@ -2271,6 +2284,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36da59676375b2541b005f553305a71f, type: 3}
+--- !u!114 &2302522631029975441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8153745776755982973, guid: 36da59676375b2541b005f553305a71f, type: 3}
+  m_PrefabInstance: {fileID: 7985964846119594988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2917167228858790963 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5091324416122347487, guid: 36da59676375b2541b005f553305a71f, type: 3}
