@@ -110,6 +110,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
             // movement.OnReachedTarget +=
         }
 
+        CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
 
