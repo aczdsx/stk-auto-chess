@@ -25,10 +25,10 @@ MonoBehaviour:
         Name: aos-dev
         Target: 13
         Identifier: com.cookapps.tech.sampleteambattle
-        Version: 1.0.0
+        Version: 0.1.2
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1978
+        VersionCode: 1979
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -64,7 +64,7 @@ MonoBehaviour:
         Version: 0.1.2
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1978
+        VersionCode: 1979
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -88,7 +88,7 @@ MonoBehaviour:
         Version: 1.0.0
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1977
+        VersionCode: 1979
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
