@@ -9,6 +9,7 @@ public class CommanderSkillUI : MonoBehaviour
     [SerializeField] private Image _iconImage;
     [SerializeField] private Image _coolTimeImage;
     [SerializeField] private TextMeshProUGUI _coolTimeText;
+    [SerializeField] private GameObject _guideObj;
 
     public void SetIcon(Sprite sprite)
     {
@@ -20,6 +21,8 @@ public class CommanderSkillUI : MonoBehaviour
         float rate = elapsedTime / durationTime;
         _coolTimeText.text = elapsedTime >= durationTime ? "" : $"{durationTime - elapsedTime:F1}";
         _coolTimeImage.fillAmount = 1 - rate;
+
+        _guideObj.SetActive(rate >= 1);
     }
 
     public void SetIconColor(float fadeAlpha)
