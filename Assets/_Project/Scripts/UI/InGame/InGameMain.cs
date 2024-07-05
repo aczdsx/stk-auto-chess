@@ -182,9 +182,9 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.SetCommanderFx(active);
         }
 
-        public void SetFocusSlot(int prefabID)
+        public void SetFocusSlot(SpecCharacter spec)
         {
-            _inGameBottomCharacterUI.SetFocusCharacter(prefabID);
+            _inGameBottomCharacterUI.SetFocusCharacter(spec);
         }
 
         public void UnSetFocusSlot(bool isDropFx)

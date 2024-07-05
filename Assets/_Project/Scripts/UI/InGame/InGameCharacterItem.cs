@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CookApps.AutoBattler;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     [SerializeField] private GameObject _focusObj;
     [SerializeField] private Image _focusImage;
     [SerializeField] private Animation _dropFxAnimation;
+    [SerializeField] private TextMeshProUGUI _focusText;
 
     private Action<CharacterStatData> _onSelected;
     private CharacterStatData _statData;
@@ -57,11 +59,14 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isShowLongPressFunc = false;
     }
 
-    public void SetFocusCharacter(int prefabID = 0)
+    public void SetFocusCharacter(SpecCharacter spec)
     {
-        bool isActiveFocus = prefabID != 0;
+        bool isActiveFocus = spec != null;
         if (isActiveFocus)
-            _focusImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(prefabID);
+        {
+            _focusImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(spec.prefab_id);
+            _focusText.text = UserDataManager.Instance.GetUserCharacter(spec.character_id).Level.ToString("n0");
+        }
         _focusObj.SetActive(isActiveFocus);
     }
 

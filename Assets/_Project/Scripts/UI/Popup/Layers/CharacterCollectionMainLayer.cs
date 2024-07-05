@@ -36,6 +36,9 @@ namespace CookApps.AutoBattler
 
         private CharacterCollectionPopup _parentCollectionPopup;
 
+        [SerializeField]
+        private GameObject _guideObj;
+
         private void Awake()
         {
             _backButton.onClick.AddListener(OnClickBackButton);
@@ -81,12 +84,29 @@ namespace CookApps.AutoBattler
             _totalCharacterList = _totalCharacterList.OrderByDescending(data => UserDataManager.Instance.IsHaveCharacter(data.character_id))
                 .ThenByDescending(data => data.character_id).ToList();
 
+
+            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            var _specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userGuideMissionData.MissionId);
+            bool isGuide = false;
+            if (_specGuideMissionData != null)
+                isGuide = _specGuideMissionData.guide_mission_type == GuideMissionType.LEVELUP_CHARACTER_TARGET;
+            if (_guideObj != null)
+                _guideObj.SetActive(isGuide);
+
             foreach (var characterData in _totalCharacterList)
             {
                 GameObject newCardObject = Instantiate(_characterCardSlotObject, _characterScrollRect.content);
                 CharacterCardSlot slot = newCardObject.GetComponent<CharacterCardSlot>();
                 slot.SetCharcacterSlot(characterData, _parentCollectionPopup);
 
+                if (isGuide && _guideObj != null)
+                {
+                    if (_specGuideMissionData.sub_key == characterData.character_id)
+                    {
+                        _guideObj.transform.parent = newCardObject.transform;
+                        _guideObj.transform.localPosition = Vector3.zero;
+                    }
+                }
                 _characterCardSlotList.Add(slot);
             }
 
