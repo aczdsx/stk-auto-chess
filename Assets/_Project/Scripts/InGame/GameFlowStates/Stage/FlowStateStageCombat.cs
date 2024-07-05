@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -24,6 +25,8 @@ public class FlowStateStageCombat : StateBase
 
         InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(6.0f, 1.5f, 1.0f).Forget();
+
+        InGameMain.GetInGameMain().OpenStatisticPop();
     }
 
     public override void StateStart()
@@ -96,6 +99,13 @@ public class FlowStateStageCombat : StateBase
         {
             isEndCombat = true;
             isWin = true;
+        }
+
+        if (InGameMain.GetInGameMain().InGameTime <= 0)
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_TIME_OVER");
+            isEndCombat = true;
+            isWin = false;
         }
 
         if (isEndCombat)

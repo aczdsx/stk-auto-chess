@@ -141,6 +141,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Entangle => "",
                 // BuffDebuffType.Freezing => "",
                 BuffDebuffType.Stun => InGameVfxNameType.fx_common_debuff_stun,
+                BuffDebuffType.Silence => InGameVfxNameType.fx_common_debuff_silence,
                 // BuffDebuffType.Provocation => "",
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",

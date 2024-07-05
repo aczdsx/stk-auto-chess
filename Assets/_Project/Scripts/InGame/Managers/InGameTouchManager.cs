@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
@@ -20,6 +21,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private InGameTileView _selectedFirstTileView = null;
 
     private Vector3 _offset;
+    private bool _isMoveEndAnimation;
 
     /////////////////////////////////////////////////////////////
     // protected
@@ -84,17 +86,17 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         {
             case TouchPhase.Began:
                 // case TouchPhase.Stationary:
-                CheckSelectedCharacter(touchPosition, isPointerOverUI);
+                CheckSelectedCharacter(touchPosition);
                 break;
             case TouchPhase.Canceled:
                 Debug.LogColor("Canceled");
                 CancelMoveCharacter();
                 break;
             case TouchPhase.Ended:
-                EndedMoveCharacter(touchPosition, isPointerOverUI);
+                EndedMoveCharacter(touchPosition);
                 break;
             case TouchPhase.Moved:
-                MoveCharacter(touchPosition, isPointerOverUI);
+                MoveCharacter(touchPosition);
                 break;
         }
     }
@@ -108,35 +110,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         return results.Count > 0;
     }
 
-    private void CheckSelectedCharacter(Vector3 touchPosition, bool isPointerOverUI)
+    private void CheckSelectedCharacter(Vector3 touchPosition)
     {
-        if (_selectedCharacterController != null)
+        if (_isMoveEndAnimation)
             return;
 
-        if (isPointerOverUI)
-        {
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition
-            };
-
-            _ = ListPool<RaycastResult>.Get(out var results);
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            if (results.Count > 0)
-            {
-                GameObject topUIObject = results[0].gameObject;
-                if (topUIObject != null && topUIObject.CompareTag("ReturnObj"))
-                {
-                    if (_selectedCharacterController != null)
-                    {
-                        CharacterController deleteCharacterController = _selectedCharacterController;
-                        ReleaseSelectedHero();
-                        InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
-                    }
-                }
-            }
-        }
+        if (_selectedCharacterController != null)
+            return;
 
         Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
         RaycastHit hit;
@@ -154,35 +134,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
     }
 
-    private void MoveCharacter(Vector3 touchPosition, bool isPointerOverUI)
+    private void MoveCharacter(Vector3 touchPosition)
     {
+        if (_isMoveEndAnimation)
+            return;
+
         if (_selectedCharacterController != null)
         {
-            if (isPointerOverUI)
-            {
-                PointerEventData pointerData = new PointerEventData(EventSystem.current)
-                {
-                    position = Input.mousePosition
-                };
-
-                _ = ListPool<RaycastResult>.Get(out var results);
-                EventSystem.current.RaycastAll(pointerData, results);
-
-                if (results.Count > 0)
-                {
-                    GameObject topUIObject = results[0].gameObject;
-                    InGameMain.GetInGameMain().ReturnObjectColorChange(topUIObject != null && topUIObject.CompareTag("ReturnObj"));
-                }
-                else
-                {
-                    InGameMain.GetInGameMain().ReturnObjectColorChange(false);
-                }
-            }
-            else
-            {
-                InGameMain.GetInGameMain().ReturnObjectColorChange(false);
-            }
-
             Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
@@ -239,52 +197,35 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
     }
 
-    private void EndedMoveCharacter(Vector3 touchPosition, bool isPointerOverUI)
+    private void EndedMoveCharacter(Vector3 touchPosition)
     {
-        if (_selectedCharacterController != null)
+        if (_isMoveEndAnimation)
+            return;
+        if (_selectedCharacterController == null)
+            return;
+
+        _isMoveEndAnimation = true;
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
-            Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
-            RaycastHit[] hits = Physics.RaycastAll(ray);
+            position = Input.mousePosition
+        };
 
-            InGameTileView ingameTileView = _selectedTileView;
+        _ = ListPool<RaycastResult>.Get(out var results);
+        EventSystem.current.RaycastAll(pointerData, results);
 
-            if (isPointerOverUI)
-            {
-                PointerEventData pointerData = new PointerEventData(EventSystem.current)
-                {
-                    position = Input.mousePosition
-                };
+        var returnObjResult = results.FirstOrDefault(r => r.gameObject != null && r.gameObject.CompareTag("ReturnObj"));
 
-                _ = ListPool<RaycastResult>.Get(out var results);
-                EventSystem.current.RaycastAll(pointerData, results);
-
-                if (results.Count > 0)
-                {
-                    GameObject topUIObject = results[0].gameObject;
-                    if (topUIObject != null && topUIObject.CompareTag("ReturnObj"))
-                    {
-                        CharacterController deleteCharacterController = _selectedCharacterController;
-                        ReleaseSelectedHero();
-                        InGameMain.GetInGameMain().ReturnCharacter(deleteCharacterController);
-                    }
-                }
-            }
-
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.transform.tag.Equals("Slot"))
-                {
-                    InGameTileView hitTileView = hit.transform.GetComponent<InGameTileView>();
-                    if (hitTileView.AllianceType == AllianceType.Player)
-                    {
-                        ingameTileView = hitTileView;
-                        break;
-                    }
-                }
-            }
-
-            InGameTile tile = InGameObjectManager.Instance.GetInGameTile(ingameTileView.ID);
-            HandleCharacterTileChange(tile, ingameTileView);
+        if (returnObjResult.gameObject != null)
+        {
+            var inGameMain = InGameMain.GetInGameMain();
+            CharacterController deleteCharacterController = _selectedCharacterController;
+            ReleaseSelectedHero(true);
+            inGameMain.ReturnCharacter(deleteCharacterController);
+        }
+        else
+        {
+            InGameTile tile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
+            HandleCharacterTileChange(tile, _selectedTileView);
         }
     }
 
@@ -316,20 +257,19 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
         else
         {
-            if (_selectedCharacterController != null)
+            Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
+            AnimateCharacterMove(_selectedCharacterController, targetPosition, () =>
             {
-                Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
-                AnimateCharacterMove(_selectedCharacterController, targetPosition, () =>
-                {
-                    InGameObjectManager.Instance.ChangeTile(_selectedCharacterController, tile);
-                    CancelMoveCharacter();
-                });
-            }
+                InGameObjectManager.Instance.ChangeTile(_selectedCharacterController, tile);
+                CancelMoveCharacter();
+            });
         }
     }
 
     private void AnimateCharacterSwap(CharacterController character1, CharacterController character2)
     {
+        if (character1 == null || character2 == null)
+            return;
         Vector3 startPosition1 = character1.Position3D;
         Vector3 targetPosition1 = character2.Position3D;
 
@@ -407,9 +347,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         _selectedFirstTileView = _selectedTileView;
         _selectedCharacterController.SetSelectedCharacter(true);
         InGameMain.GetInGameMain().ReturnObjectActive(true);
+        InGameMain.GetInGameMain().SetFocusSlot(character.GetCharacterStat().Spec.prefab_id);
+
+        InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
     }
 
-    private void ReleaseSelectedHero()
+    private void ReleaseSelectedHero(bool isDropFx = false)
     {
         if (_selectedCharacterController != null)
         {
@@ -418,6 +361,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             _selectedTileView.SetActiveObj(false);
             _selectedCharacterController = null;
             _selectedFirstTileView = null;
+            InGameMain.GetInGameMain().UnSetFocusSlot(isDropFx);
+
+            InGameMain.GetInGameMain().CloseSkillTooltip();
+            _isMoveEndAnimation = false;
         }
     }
 }

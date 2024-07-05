@@ -4,6 +4,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace CookApps.BattleSystem
         public InGameGrid InGameGrid => _grid;
         public InGameStage InGameStage => _stage;
         public List<CharacterController> StartingPlayerCharacters => startingPlayerCharacters;
+        public List<CharacterController> EnemiesInPlaygroundForUpdate => enemiesInPlaygroundForUpdate;
 
         private InGameGrid _grid;
         private InGameStage _stage;
@@ -171,7 +173,12 @@ namespace CookApps.BattleSystem
             }
 
             characCtrl.CurrentTile.SetUnoccupied();
+
             characCtrl.Clear();
+
+            var uiLayer = SceneUILayerManager.Instance.GetUILayer("BattleStatisticsPopup");
+            if (uiLayer != null)
+                uiLayer.GetComponent<BattleStatisticsPopup>().SetDeadSlot(characCtrl.CharacterId);
         }
 
         public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID)
@@ -552,7 +559,11 @@ namespace CookApps.BattleSystem
             }
 
             var maxDistance = float.MinValue;
-            foreach (var enemy in targets)
+            var sortedTargets = pivot.AllianceType == AllianceType.Enemy
+                ? targets.OrderBy(t => t.CurrentTile.Y).ToList()
+                : targets.OrderByDescending(t => t.CurrentTile.Y).ToList();
+
+            foreach (var enemy in sortedTargets)
             {
                 if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
                 {
@@ -562,8 +573,13 @@ namespace CookApps.BattleSystem
                 var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
                 if (maxDistance < distance)
                 {
-                    maxDistance = distance;
-                    target = enemy;
+                    if (target != null && target.CurrentTile.Y != enemy.CurrentTile.Y)
+                        return target;
+                    else
+                    {
+                        maxDistance = distance;
+                        target = enemy;
+                    }
                 }
             }
 

@@ -81,6 +81,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     {
         base.Activate();
         // TODO: Target Check
+        _hitCharacters.Clear();
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);

@@ -94,6 +94,7 @@ namespace CookApps.BattleSystem
         Sleep,
         Provocation,
         Trap,
+        Silence,
         MAX,
     }
 

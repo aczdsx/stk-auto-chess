@@ -112,12 +112,25 @@ public class EffectCodeSkill1305011 : EffectCodeCharacterBase
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
         _targetCharacter.GetDamaged(damage, owner);
 
-        Span<double> debuffStats = stackalloc double[3];
-        debuffStats.Clear();
-        debuffStats[0] = codeId;
-        debuffStats[1] = _debuffTime;
-        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.SILENCE, 0, debuffStats);
-        _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+        {
+            Span<double> debuffStats = stackalloc double[1];
+            debuffStats.Clear();
+            debuffStats[0] = _debuffTime;
+            var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.SILENCE, 0, debuffStats);
+            _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+        }
+
+        {
+            Span<double> eccStats = stackalloc double[3];
+            eccStats.Clear();
+            eccStats[0] = codeId;
+            eccStats[1] = _debuffTime;
+            eccStats[2] = 0;
+
+            long effectCodeID = (long)EffectCodeNameType.DEBUFF_SILENCE;
+            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+            _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+        }
 
         IsSkillActivated = false;
     }

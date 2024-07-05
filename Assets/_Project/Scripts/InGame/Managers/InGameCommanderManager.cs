@@ -43,8 +43,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     private InGameCamera _inGameCamera;
     // [TODO] switchObj 추가 필요
     public GameObject switchObj;
-    public float switchThreshold = 40f;
-    public float maxFadeAlpha = 0.5f;
+    public float switchThreshold = 50f;
+    public float maxFadeAlpha = 0.9f;
 
     private InGameCamera _ingameCamera;
     private Camera _mainCamera;
@@ -89,14 +89,12 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (_isDragging)
         {
             float distance = Vector2.Distance(eventData.position, _dragStartPosition);
-            if (distance < switchThreshold)
-            {
-                // 거리에 따른 알파값 계산
-                float normalizedDistance = Mathf.Clamp01(distance / switchThreshold);
-                float fadeAlpha = Mathf.Lerp(0f, maxFadeAlpha, normalizedDistance);
-                InGameMain.GetInGameMain().SetIconColor(fadeAlpha);
-            }
-            else
+
+            float normalizedDistance = Mathf.Clamp01(distance / switchThreshold);
+            float fadeAlpha = Mathf.Lerp(0f, maxFadeAlpha, normalizedDistance);
+            InGameMain.GetInGameMain().SetIconColor(fadeAlpha);
+
+            if (distance >= switchThreshold)
             {
                 Vector3 worldPos = HandleRuntimeDrag(eventData);
                 if (switchObj != null)
@@ -105,23 +103,36 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
                     switchObj.transform.position = worldPos;
                 }
 
-                CheckSkillTile(eventData);
+                CheckSkillTile(eventData, true);
+            }
+            else
+            {
+                ClearAndSetActive(null);
             }
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
-        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+        if (!_isDragging)
             return;
 
-        if (!_isDragging)
+        InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
+
+        if (switchObj)
+            switchObj.SetActive(false);
+        _isDragging = false;
+
+        _hitTileView = null;
+        ClearAndSetActive(null);
+        InGameMain.GetInGameMain().SetIconColor(0);
+
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
             return;
 
         if (_hitTileView == null)
         {
-            bool isHitTileView = CheckSkillTile(eventData);
+            bool isHitTileView = CheckSkillTile(eventData, false);
             if (!isHitTileView)
             {
                 // 타일을 다시 설정해주세요.
@@ -130,25 +141,18 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
             }
         }
 
-        if (switchObj)
-            switchObj.SetActive(false);
-        _isDragging = false;
-        ClearAndSetActive(null);
-
-        double[] eccStat = new double[2];
-        eccStat[0] = _hitTileView.ID;
-        eccStat[1] = (double) _commanderSkillData.StatValue;
-        var effectCodeInfo = new EffectCodeInfo(_commanderSkillData.Spec.commander_skill_id, 0, eccStat);
-
-        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
-        _commanderSkillData.ElapsedTime = 0;
-        isCanUseCommanderSkill = false;
-        _hitTileView = null;
-        foreach (var tile in _activeTiles)
+        float distance = Vector2.Distance(eventData.position, _dragStartPosition);
+        if (distance >= switchThreshold)
         {
-            tile.View.SetNavigateObj(false);
+            double[] eccStat = new double[2];
+            eccStat[0] = _hitTileView.ID;
+            eccStat[1] = (double) _commanderSkillData.StatValue;
+            var effectCodeInfo = new EffectCodeInfo(_commanderSkillData.Spec.commander_skill_id, 0, eccStat);
+
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
+            _commanderSkillData.ElapsedTime = 0;
+            isCanUseCommanderSkill = false;
         }
-        _activeTiles.Clear();
     }
 
     public void ManagedUpdate(float dt)
@@ -205,6 +209,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
             SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
 
         _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
+        //[TODO] 나중에는 성장 스텟으로 빼기
+        _commanderSkillData.ElapsedTime = _commanderSkillData.DurationTime * 0.5f;
     }
 
     public void Clear()
@@ -213,33 +219,38 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         _commanderSkillData = null;
     }
 
-    private bool CheckSkillTile(PointerEventData eventData)
+    private bool CheckSkillTile(PointerEventData eventData, bool isNavigate)
     {
-        if (Physics.Raycast(_mainCamera.ScreenPointToRay(eventData.position), out RaycastHit hit))
+        RaycastHit[] hits = Physics.RaycastAll(_mainCamera.ScreenPointToRay(eventData.position));
+        foreach (RaycastHit hit in hits)
         {
-            _hitTileView = hit.transform.GetComponent<InGameTileView>();
-            if (_hitTileView != null)
+            if (hit.transform.gameObject.CompareTag("Slot"))
             {
-                InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
-                var tiles = new List<InGameTile>();
-
-                // [TODO] 나중에는 데이터에서 처리 필요
-                if (_commanderSkillData.Spec.commander_skill_id == 300001)
-                    tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
-                else
-                    tiles.AddRange(
-                        InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
-
-                ClearAndSetActive(tiles);
-                if (centerTile.OccupiedCharacter != null &&
-                    centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
+                _hitTileView = hit.transform.GetComponent<InGameTileView>();
+                if (_hitTileView != null)
                 {
-                    Debug.LogColor(
-                        $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
-                }
-                else
-                {
-                    Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y})");
+                    InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
+                    var tiles = new List<InGameTile>();
+
+                    // [TODO] 나중에는 데이터에서 처리 필요
+                    if (_commanderSkillData.Spec.commander_skill_id == 300001)
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
+                    else
+                        tiles.AddRange(
+                            InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
+
+                    if (isNavigate)
+                        ClearAndSetActive(tiles);
+                    if (centerTile.OccupiedCharacter != null &&
+                        centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
+                    {
+                        Debug.LogColor(
+                            $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
+                    }
+                    else
+                    {
+                        Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y})");
+                    }
                 }
             }
         }

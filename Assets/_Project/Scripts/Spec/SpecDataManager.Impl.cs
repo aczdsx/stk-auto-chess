@@ -324,6 +324,11 @@ namespace CookApps.AutoBattler
             return SpecCharacterQuotes.All.ToList().Find(data => data.prefab_id == prefabID);
         }
 
+        public SpecChapter GetChapterData(int chapterID)
+        {
+            return SpecChapter.All.ToList().Find(dat => dat.chapter_id == chapterID);
+        }
+
         public SpecChapter GetChapterData(int chapterID, DifficultyType type)
         {
             if (chapterDic.TryGetValue(chapterID, out List<SpecChapter> chapterList))
@@ -567,6 +572,18 @@ namespace CookApps.AutoBattler
             foreach (var gachaScenario in gachaScenarioList)
             {
                 rewardItemList.Add(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count));
+            }
+
+            return rewardItemList;
+        }
+
+        // 스테이지 보상 데이터를 RewardItem 리스트로 변환
+        public List<RewardItem> GetRewardItemListByStageRewardList(List<SpecStageReward> stageRewardList)
+        {
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            foreach (var stageReward in stageRewardList)
+            {
+                rewardItemList.Add(new RewardItem(stageReward.item_type, stageReward.item_key, stageReward.item_count));
             }
 
             return rewardItemList;

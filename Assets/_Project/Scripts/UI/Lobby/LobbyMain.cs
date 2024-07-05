@@ -36,7 +36,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
 
         [Header("User Info Layer")]
-        [SerializeField] private Image _userIconImage;
+        //[SerializeField] private Image _userIconImage;
         [SerializeField] private TextMeshProUGUI _userNameText;
         [SerializeField] private TextMeshProUGUI _userLevelText;
         [SerializeField] private TextMeshProUGUI _userExpText;
@@ -178,7 +178,7 @@ namespace CookApps.AutoBattler
         {
             var userBasicData = UserDataManager.Instance.UserBasicData;
 
-            _userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
+            //_userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
             _userNameText.text = userBasicData.Nickname;
 
             int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
@@ -262,7 +262,14 @@ namespace CookApps.AutoBattler
 
         private async void SetIdleRewardLayer()
         {
-            await CalculateIdleRewardState(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            try
+            {
+                await CalculateIdleRewardState(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.Log(e);
+            }
         }
 
         private async UniTask CalculateIdleRewardState(CancellationToken cancelToken)
@@ -399,8 +406,10 @@ namespace CookApps.AutoBattler
             if (currentStageData != null)
             {
                 // 행동력 검사
-                if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, currentStageData.need_ap, true))
+                if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, currentStageData.need_ap, false))
                 {
+                    SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
+                    ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
                     return;
                 }
 

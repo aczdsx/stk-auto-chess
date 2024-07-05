@@ -29,6 +29,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private TextMeshProUGUI _victoryStageText;
         [SerializeField] private TextMeshProUGUI _failStageText;
+        [SerializeField] private TextMeshProUGUI _nextStageButtonText;
 
         [SerializeField] private Transform _rewardsTransform;
         [SerializeField] private GameObject _rewardItemSlotObj;
@@ -48,13 +49,15 @@ namespace CookApps.AutoBattler
         private bool _isEndStage = false;         // 게임의 가장 마지막 스테이지 체크
         private bool _isWaitGuideMissionReward = false;         // 현재 가이드 미션을 클리어한 상태인지 체크
 
+        private SpecCharacter _specCharacter;
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _star) = ((bool, int))param;
+            (_isVictory, _star, _specCharacter) = ((bool, int, SpecCharacter))param;
 
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);
@@ -68,13 +71,11 @@ namespace CookApps.AutoBattler
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
             _retryStageButton?.onClick.AddListener(OnClickRetryStageButton);
 
-            var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
-            if (_mvpCharacterData != null)
+            if (_specCharacter != null)
             {
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
-                var _specCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
-                string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
+                string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacter.prefab_id);
                 AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             }
 
@@ -163,6 +164,9 @@ namespace CookApps.AutoBattler
                 _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _isVictory);
                 _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
             }
+
+            string buttonStringKey = _isPlayingLastStage ? "UI_CHAPTER_NEXT_MOVE" : "UI_STAGE_NEXT_MOVE";
+            _nextStageButtonText.text = LanguageManager.Instance.GetLanguageText(buttonStringKey);
         }
 
         private void OnExitButtonClicked()
@@ -186,6 +190,12 @@ namespace CookApps.AutoBattler
             // 최종 챕터/스테이지 여부 체크
             if (_isEndChapter) return;
 
+            // 행동력 검사
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true))
+            {
+                return;
+            }
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
@@ -206,6 +216,12 @@ namespace CookApps.AutoBattler
 
         private void OnClickRetryStageButton()
         {
+            // 행동력 검사
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true))
+            {
+                return;
+            }
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             //InGameManager.Instance.EndInGame();

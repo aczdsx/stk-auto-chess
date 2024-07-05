@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAppIndex: 0
   clientTokens:
-  - 
+  - c7b1613d1793c2abdb4e1a1b43581e0a
   appIds:
-  - 0
+  - 1185325149130382
   appLabels:
-  - App Name
+  - StellaKnights
   cookie: 1
   logging: 1
   status: 1

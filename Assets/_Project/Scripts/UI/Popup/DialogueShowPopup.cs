@@ -111,12 +111,17 @@ namespace CookApps.AutoBattler
                 GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.END_DIALOGUE, 0, 1);
 
                 // 보상 지급 여부 체크
-                if (_currentSpecDialogueData.reward_id > 0)
+                bool isGetReward = _currentSpecDialogueData.reward_id > 0;
+                if (isGetReward)
                 {
                     var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(_currentSpecDialogueData.reward_id);
                     var rewardItemList = SpecDataManager.Instance.GetRewardItemListByRewadInfoList(rewardInfoList);
 
-                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList, callback =>
+                    {
+                        // 가이드 미션 가이드 효과 재생
+                        GuideMissionManager.Instance.UpdateGuideMissionAlert();
+                    }).Forget();
 
                     UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
 
@@ -125,6 +130,12 @@ namespace CookApps.AutoBattler
 
                 // 다이얼로그 히스토리 데이터 추가 및 저장
                 UserDataManager.Instance.AddDialogHistory(_dialogueGroupID);
+
+                if (isGetReward == false)
+                {
+                    // 가이드 미션 가이드 효과 재생
+                    GuideMissionManager.Instance.UpdateGuideMissionAlert();
+                }
 
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;

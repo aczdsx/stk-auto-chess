@@ -116,6 +116,12 @@ namespace CookApps.AutoBattler
             */
         }
 
+        public void SetDeadSlot(int characterID)
+        {
+            var slot = _battleStatSlotList.Find(l => l.CharacterID == characterID);
+            slot.SetDeadCharacter();
+        }
+
         private void SetBattleStatisticsPopup()
         {
             ClearPopup();
@@ -158,6 +164,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
+            Preference.SavePreference(Pref.STATISTIC, false);
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }

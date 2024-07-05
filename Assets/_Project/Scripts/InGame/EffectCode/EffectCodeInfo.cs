@@ -32,28 +32,13 @@ namespace CookApps.BattleSystem
             statsLength = stats.Length; // stats 배열의 실제 길이를 사용합니다.
 
             this.stat8 = statsLength > 7 ? stats[7] : 0;
-            if (stat8 == 0 && statsLength > 7) statsLength = 7;
-
             this.stat7 = statsLength > 6 ? stats[6] : 0;
-            if (stat7 == 0 && statsLength > 6) statsLength = 6;
-
             this.stat6 = statsLength > 5 ? stats[5] : 0;
-            if (stat6 == 0 && statsLength > 5) statsLength = 5;
-
             this.stat5 = statsLength > 4 ? stats[4] : 0;
-            if (stat5 == 0 && statsLength > 4) statsLength = 4;
-
             this.stat4 = statsLength > 3 ? stats[3] : 0;
-            if (stat4 == 0 && statsLength > 3) statsLength = 3;
-
             this.stat3 = statsLength > 2 ? stats[2] : 0;
-            if (stat3 == 0 && statsLength > 2) statsLength = 2;
-
             this.stat2 = statsLength > 1 ? stats[1] : 0;
-            if (stat2 == 0 && statsLength > 1) statsLength = 1;
-
             this.stat1 = statsLength > 0 ? stats[0] : 0;
-            if (stat1 == 0 && statsLength > 0) statsLength = 0;
         }
 
         // [TODO] 우선 -1로 임시처리 0도 애매함

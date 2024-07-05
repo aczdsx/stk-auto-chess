@@ -23,10 +23,9 @@ public class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    public override void OnKill(CharacterController deadCharacter)
+    public override void OnAttack()
     {
-        base.OnKill(deadCharacter);
-
+        base.OnAttack();
         foreach (var skillID in owner.SpecCharacter.skill_ids)
         {
             EffectCodeCharacterBase eccBase =

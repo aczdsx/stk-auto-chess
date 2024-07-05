@@ -51,14 +51,18 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField]
     private ParticleSystem _commanderFx;
 
+    [SerializeField]
+    private SkillTooltipPopup _skillTooltipPopup;
+
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
-    private bool isRunningAddCharacter;
+    private bool _isRunningAddCharacter;
+    private bool _isOpenCommanderSkill;
 
     protected void Awake()
     {
-        bool isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
-        _commanderSkillUI.gameObject.SetActive(isOpenCommanderSkill);
+        _isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+        _commanderSkillUI.gameObject.SetActive(_isOpenCommanderSkill);
 
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         _CommanderSkillButton?.onClick.AddListener(OnClickCommanderSkillButton);
@@ -67,18 +71,53 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnStartButtonClicked()
     {
+        // 전투 인원 0명 검사
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == 0)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_CHAR_NOT_SET");
             return;
         }
 
-        // if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == )
-        // {
-        //     ToastManager.Instance.ShowToastByTokenKey("MSG_ALERT_CAN_ADD_SET");
-        //     return;
-        // }
+        // 전투 인원 최대 인원 미배치 검사
+        var userLevelData = SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
+        if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userLevelData.squad_count)
+        {
+            bool isAvailableCharacter = _characterItemList.Exists(l => l.StatData != null);
+            if (isAvailableCharacter)
+            {
+                string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
 
+                SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
+
+                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+
+                return;
+            }
+        }
+
+        // 지휘자 스킬 장착 확인
+        if (_isOpenCommanderSkill)
+        {
+            var equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
+            if (equippedCommanderSkill == 0)
+            {
+                string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
+
+                SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
+
+                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+
+                return;
+            }
+        }
+
+        StartInGameBattle();
+    }
+
+    private void StartInGameBattle()
+    {
         _readyUIObj.SetActive(false);
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
@@ -98,6 +137,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
         SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
+
+        Preference.SavePreference(Pref.STATISTIC, true);
     }
 
     private void OnClickCommanderSkillButton()
@@ -150,7 +191,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
-                characterItem.SetData(characterStat, AddCharacterToTile);
+                characterItem.SetData(this, characterStat, AddCharacterToTile);
                 _characterStats.Add(characterStat);
             }
         }
@@ -204,7 +245,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
-                characterItem.SetData(characterStat, AddCharacterToTile);
+                characterItem.SetData(this, characterStat, AddCharacterToTile);
             }
         }
     }
@@ -225,11 +266,11 @@ public class InGameBottomCharacterUI : MonoBehaviour
         {
             if (i < _characterStats.Count)
             {
-                _characterItemList[i].SetData(_characterStats[i], AddCharacterToTile);
+                _characterItemList[i].SetData(this, _characterStats[i], AddCharacterToTile);
             }
             else
             {
-                _characterItemList[i].SetData(null, null);
+                _characterItemList[i].SetData(this, null, null);
             }
         }
     }
@@ -278,12 +319,33 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SetCharacterCountText();
     }
 
+    public void ShowSKillTooltip(CharacterStatData statData)
+    {
+        if (statData == null) return;
+        if (_skillTooltipPopup == null) return;
+
+        var specSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(statData.Spec.prefab_id);
+        if (specSkillList != null && specSkillList.Count > 0)
+        {
+            var skillData = specSkillList[0];
+
+            _skillTooltipPopup.gameObject.SetActive(true);
+
+            _skillTooltipPopup.SetSkillToolTipPopup(skillData);
+        }
+    }
+
+    public void CloseSkillTooltip()
+    {
+        _skillTooltipPopup?.gameObject.SetActive(false);
+    }
+
     private async void AddCharacterToTile(CharacterStatData statData)
     {
-        if (isRunningAddCharacter)
+        if (_isRunningAddCharacter)
             return;
 
-        isRunningAddCharacter = true;
+        _isRunningAddCharacter = true;
         var userLevelData =
             SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
 
@@ -310,7 +372,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             SetCharacterCountText();
         }
 
-        isRunningAddCharacter = false;
+        _isRunningAddCharacter = false;
     }
 
     public void SetCommanderSkillCoolTime(float elapsedTime, float durationTime)
@@ -338,5 +400,38 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _commanderFx.gameObject.SetActive(isActive);
         if (isActive)
             _commanderFx.Play();
+    }
+
+    public void SetFocusCharacter(int prefabID = 0)
+    {
+        foreach (var characterItem in _characterItemList)
+        {
+            if (characterItem.StatData == null)
+            {
+                characterItem.SetFocusCharacter(prefabID);
+                return;
+            }
+        }
+    }
+
+    public void UnSetFocusCharacter(bool isDropFx)
+    {
+        foreach (var characterItem in _characterItemList)
+        {
+            if (characterItem.IsFocusSlot)
+            {
+                characterItem.SetFocusCharacter();
+                if(isDropFx)
+                    characterItem.PlayDropFx();
+                return;
+            }
+        }
+    }
+
+    public void OpenStatisticPop()
+    {
+        bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
+        if (isOpenStatisticPop)
+            SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
     }
 }

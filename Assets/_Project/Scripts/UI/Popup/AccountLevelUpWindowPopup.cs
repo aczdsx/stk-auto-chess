@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -29,6 +25,11 @@ namespace CookApps.AutoBattler
 
         private SpecAccountLevelExp _currentSpecAccountLevelExpData;
         private SpecAccountLevelExp _prevSpecAccountLevelExpData;
+
+        [Header("Effect Layer")]
+        [SerializeField] private LevelUpIncreaseDataSlot _levelUpEffectAnimation;
+        [SerializeField] private LevelUpIncreaseDataSlot _maxAPEffectAnimation;
+        [SerializeField] private LevelUpIncreaseDataSlot _squadCountEffectAnimation;
 
         protected override void Awake()
         {
@@ -85,6 +86,12 @@ namespace CookApps.AutoBattler
 
             // 보상 데이터 저장
             UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
+
+            // 이펙트 재생
+            if (_prevSpecAccountLevelExpData.squad_count < _currentSpecAccountLevelExpData.squad_count)
+            {
+                _squadCountEffectAnimation.ChangeFocusFX();
+            }
         }
 
         private void OnClickCloseButton()

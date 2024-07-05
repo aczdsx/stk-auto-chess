@@ -392,6 +392,36 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecSkill
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 스킬 id
+        public CookApps.Obfuscator.ObfuscatorInt skill_id;
+        /// 스킬 타입
+        public global::CookApps.AutoBattler.SkillType skill_type;
+        /// 캐릭터 ID
+        public CookApps.Obfuscator.ObfuscatorInt prefab_id;
+        /// 전용 무기 id
+        public CookApps.Obfuscator.ObfuscatorInt weapon_id;
+        /// #스킬 사용자
+        public string character_name;
+        /// AP AD 판정 유무
+        public global::CookApps.AutoBattler.AtkType atk_type;
+        /// 스킬 이름 토큰
+        public string skill_name_token;
+        /// 스킬 설명 토큰
+        public string skill_desc_token;
+        /// # 사용 이펙트
+        public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs;
+        /// #변수 의미
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
+        /// 스킬 계수
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecStage
     {
         /// 전체 ID
@@ -500,36 +530,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt item_count;
         /// 보상 지급 확률
         public CookApps.Obfuscator.ObfuscatorDouble rate;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecSkill
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 스킬 id
-        public CookApps.Obfuscator.ObfuscatorInt skill_id;
-        /// 스킬 타입
-        public global::CookApps.AutoBattler.SkillType skill_type;
-        /// 캐릭터 ID
-        public CookApps.Obfuscator.ObfuscatorInt prefab_id;
-        /// 전용 무기 id
-        public CookApps.Obfuscator.ObfuscatorInt weapon_id;
-        /// #스킬 사용자
-        public string character_name;
-        /// AP AD 판정 유무
-        public global::CookApps.AutoBattler.AtkType atk_type;
-        /// 스킬 이름 토큰
-        public string skill_name_token;
-        /// 스킬 설명 토큰
-        public string skill_desc_token;
-        /// # 사용 이펙트
-        public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs;
-        /// #변수 의미
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 스킬 계수
-        public CookApps.Obfuscator.ObfuscatorFloat base_rate;
     }
 
     [GeneratorSpecData]

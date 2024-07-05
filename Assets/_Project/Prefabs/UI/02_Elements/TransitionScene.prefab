@@ -327,7 +327,7 @@ MonoBehaviour:
   _mat: {fileID: 2100000, guid: 3e9d01cf0df388b4b949f5e1db7b7d29, type: 2}
   _radiusPropertyName: _CircleRadius
   _radiusValue: 0
-  _colorPropertyName: _Color
+  _colorPropertyName: _DotColor
   _targetColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!95 &1499690544028212245
 Animator:

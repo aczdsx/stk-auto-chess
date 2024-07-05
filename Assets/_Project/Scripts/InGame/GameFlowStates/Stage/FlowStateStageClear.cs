@@ -11,6 +11,7 @@ public class FlowStateStageClear : StateBase
 
     public override void StateStart()
     {
+        var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameManager.Instance.EndInGame();
         int star = 1;
         if (InGameMain.GetInGameMain().InGameTime >= 40)
@@ -18,7 +19,7 @@ public class FlowStateStageClear : StateBase
         if (InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive())
             star++;
 
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star));
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star, _mvpCharacterData));
 
         // 행동력 소모 처리
         UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true, false);

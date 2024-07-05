@@ -28,7 +28,7 @@ MonoBehaviour:
         Version: 1.0.0
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1435
+        VersionCode: 1845
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -52,7 +52,7 @@ MonoBehaviour:
           keystorePass: 
           keyaliasName: 
           keyaliasPass: 
-        AppIcon: 
+        AppIcon: bc6b55129a251d64da2c6b4be7e9cd33
         AppIconForeground: 
         AppIconBackground: 
     - rid: 7388923239852146688
@@ -61,10 +61,10 @@ MonoBehaviour:
         Name: ios-prod
         Target: 9
         Identifier: com.mintry.stk
-        Version: 0.1.0
+        Version: 0.1.1
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1713
+        VersionCode: 1858
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -88,7 +88,7 @@ MonoBehaviour:
         Version: 1.0.0
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1435
+        VersionCode: 1845
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e

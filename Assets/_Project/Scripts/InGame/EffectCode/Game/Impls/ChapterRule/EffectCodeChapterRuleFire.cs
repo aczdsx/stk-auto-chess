@@ -35,6 +35,7 @@ namespace CookApps.BattleSystem
         {
             base.Merge(codeInfo, source);
             _effectCodeStat = codeInfo.GetCodeStatToInt(0);
+            _chapterRuleTiles.Clear();
             for (int i = 0; i < codeInfo.StatsLength; i++)
             {
                 int tileID = codeInfo.GetCodeStatToInt(i);
@@ -51,11 +52,14 @@ namespace CookApps.BattleSystem
             if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
                 return;
 
-            CharacterController.DamageInfo damage = new CharacterController.DamageInfo();
-            damage.damageAmount = _effectCodeStat;
+            if (_chapterRuleTiles.Exists(l => l.View.ID == tile.View.ID))
+            {
+                CharacterController.DamageInfo damage = new CharacterController.DamageInfo();
+                damage.damageAmount = _effectCodeStat;
 
-            character.GetDamaged(damage, null);
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_fire);
+                character.GetDamaged(damage, null);
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_fire);
+            }
         }
 
         public override void OnUpdate(float dt)
