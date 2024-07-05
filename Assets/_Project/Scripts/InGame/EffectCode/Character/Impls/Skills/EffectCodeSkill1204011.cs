@@ -8,10 +8,7 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 아트레시아
-///범위 : 전방 X축 2칸
-// 대미지 : 검기를 날려, 적에게 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 검기는 맵 끝까지 지속된다.
+/// 2챕터 저격수
 /// </summary>
 [UseEffectCodeIds(1204011)]
 public class EffectCodeSkill1204011 : EffectCodeCharacterBase
@@ -118,6 +115,9 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
             return;
 
         if (_hitCharacters.Contains(tile.OccupiedCharacter))
+            return;
+
+        if(owner.AllianceType == tile.OccupiedCharacter.AllianceType)
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,

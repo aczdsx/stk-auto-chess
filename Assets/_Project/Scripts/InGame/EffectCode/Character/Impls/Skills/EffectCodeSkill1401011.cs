@@ -127,6 +127,9 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (_hitCharacters.Contains(tile.OccupiedCharacter))
             return;
 
+        if(owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+            return;
+
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
             tile.OccupiedCharacter.SkillRootTransformFollowable);
 
