@@ -117,14 +117,14 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
         if (_hitCharacters.Contains(tile.OccupiedCharacter))
             return;
 
-        if(owner.AllianceType == tile.OccupiedCharacter.AllianceType)
-            return;
-
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            tile.OccupiedCharacter.SkillRootTransformFollowable);
-
         if (owner != null)
         {
+            if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+                return;
+
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                tile.OccupiedCharacter.SkillRootTransformFollowable);
+
             var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
             owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
             tile.OccupiedCharacter.GetDamaged(damage, owner);
