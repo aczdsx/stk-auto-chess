@@ -81,7 +81,7 @@ namespace CookApps.AutoBattler
                 AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             }
 
-            _star = 1;
+            _star = _isVictory ? 1 : 0;
             if (_starTime)
                 _star++;
             if (_starNoDeath)
@@ -97,8 +97,6 @@ namespace CookApps.AutoBattler
             {
                 for (int i = 0; i < _starConditionList.Count; i++)
                 {
-                    _starConditionList[i]._starObject.SetActive(_star > i);
-
                     string resultToken = string.Format("STAGE_STAR_CONDITON_DESC_{0}", i + 1);
                     _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
                 }
