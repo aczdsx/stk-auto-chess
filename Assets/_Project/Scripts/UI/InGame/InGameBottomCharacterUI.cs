@@ -402,13 +402,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
             _commanderFx.Play();
     }
 
-    public void SetFocusCharacter(int prefabID = 0)
+    public void SetFocusCharacter(SpecCharacter spec)
     {
         foreach (var characterItem in _characterItemList)
         {
             if (characterItem.StatData == null)
             {
-                characterItem.SetFocusCharacter(prefabID);
+                characterItem.SetFocusCharacter(spec);
                 return;
             }
         }
@@ -420,7 +420,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         {
             if (characterItem.IsFocusSlot)
             {
-                characterItem.SetFocusCharacter();
+                characterItem.SetFocusCharacter(null);
                 if(isDropFx)
                     characterItem.PlayDropFx();
                 return;

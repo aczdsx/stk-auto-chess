@@ -14,6 +14,7 @@ public class CommanderSkillUI : MonoBehaviour
     public void SetIcon(Sprite sprite)
     {
         _iconImage.sprite = sprite;
+        _iconImage.color = Color.white;
     }
 
     public void UpdateCommanderSkillCoolTime(float elapsedTime, float durationTime)

@@ -347,7 +347,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         _selectedFirstTileView = _selectedTileView;
         _selectedCharacterController.SetSelectedCharacter(true);
         InGameMain.GetInGameMain().ReturnObjectActive(true);
-        InGameMain.GetInGameMain().SetFocusSlot(character.GetCharacterStat().Spec.prefab_id);
+        InGameMain.GetInGameMain().SetFocusSlot(character.GetCharacterStat().Spec);
 
         InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
     }
