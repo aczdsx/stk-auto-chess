@@ -30043,6 +30043,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 96833712157157014}
     m_Modifications:
+    - target: {fileID: 946928553873794335, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.74216413
+      objectReference: {fileID: 0}
+    - target: {fileID: 946928553873794335, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3820755
+      objectReference: {fileID: 0}
+    - target: {fileID: 946928553873794335, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: eaf8fc3de93284840b4576140d88624a, type: 2}
+    - target: {fileID: 1415945541597401430, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.74216413
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415945541597401430, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3820755
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415945541597401430, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: eaf8fc3de93284840b4576140d88624a, type: 2}
+    - target: {fileID: 2266896102284548571, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.74216413
+      objectReference: {fileID: 0}
+    - target: {fileID: 2266896102284548571, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3820755
+      objectReference: {fileID: 0}
+    - target: {fileID: 2266896102284548571, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: eaf8fc3de93284840b4576140d88624a, type: 2}
     - target: {fileID: 6715794887170840481, guid: 4abae97cf81fedd479a89f5c750f3ae2, type: 3}
       propertyPath: m_Name
       value: MasterSkillGuideArrowFX
