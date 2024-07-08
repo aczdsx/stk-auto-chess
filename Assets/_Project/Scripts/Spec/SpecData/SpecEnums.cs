@@ -346,4 +346,21 @@ namespace CookApps.AutoBattler
         EQIUP = 1,
         MONSTER_MULTIPLE = 99,
     }
+
+    public enum TermType
+    {
+        NONE = 0,
+        DAILY = 1,
+        WEEKLY = 2,
+        MONTHLY = 3,
+    }
+
+    public enum QuestType
+    {
+        CLEAR_DAILY_QUEST = 1,
+        CLEAR_WEEKLY_QUEST = 2,
+        CLEAR_STAGE = 3,
+        LEVELUP_CHARACTER = 4,
+        SUMMON_CHARACTER = 5,
+    }
 }

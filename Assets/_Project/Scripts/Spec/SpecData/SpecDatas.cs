@@ -392,6 +392,34 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecQuest
+    {
+        /// ID
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 퀘스트ID
+        public CookApps.Obfuscator.ObfuscatorInt quest_id;
+        /// 반복 기간 타입
+        public global::CookApps.AutoBattler.TermType term_type;
+        /// 퀘스트 타입
+        public global::CookApps.AutoBattler.QuestType quest_type;
+        /// 퀘스트 이름 토큰
+        public string name_token;
+        /// 퀘스트 설명 토큰
+        public string desc_token;
+        /// 타겟 id
+        public CookApps.Obfuscator.ObfuscatorInt sub_key;
+        /// 필요 행위 횟수
+        public CookApps.Obfuscator.ObfuscatorInt need_count;
+        /// 보상 종류
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 키 값
+        public CookApps.Obfuscator.ObfuscatorInt item_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt item_count;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecSkill
     {
         /// 유니크 id
