@@ -260,7 +260,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
             AnimateCharacterMove(_selectedCharacterController, targetPosition, () =>
             {
-                InGameObjectManager.Instance.ChangeTile(_selectedCharacterController, tile);
+                _selectedCharacterController.ChangeOccupiedTile(tile);
                 CancelMoveCharacter();
             });
         }

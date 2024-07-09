@@ -289,11 +289,6 @@ namespace CookApps.BattleSystem
             occupiedCharacter.ChangeOccupiedTile(selectedCharacterTile);
         }
 
-        public void ChangeTile(CharacterController selectedCharacter, InGameTile newTile)
-        {
-            selectedCharacter.ChangeOccupiedTile(newTile);
-        }
-
         public void SaveStartingPlayerCharacter()
         {
             startingPlayerCharacters.Clear();
@@ -449,7 +444,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
+                var distance = _grid.BFS(pivot.CurrentTile, enemy.CurrentTile);
                 if (minDistance > distance)
                 {
                     minDistance = distance;
@@ -460,7 +455,7 @@ namespace CookApps.BattleSystem
             return target;
         }
 
-        public CharacterController GetFarthestTarget(CharacterController pivot)
+        public CharacterController GetNearestTargetByManhattanDistance(CharacterController pivot)
         {
             CharacterController target = null;
 
@@ -480,7 +475,7 @@ namespace CookApps.BattleSystem
                 return null;
             }
 
-            var maxDistance = float.MinValue;
+            var minDistance = float.MaxValue;
             foreach (var enemy in targets)
             {
                 if (enemy.IsAlive == false)
@@ -489,9 +484,9 @@ namespace CookApps.BattleSystem
                 }
 
                 var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
-                if (maxDistance < distance)
+                if (minDistance > distance)
                 {
-                    maxDistance = distance;
+                    minDistance = distance;
                     target = enemy;
                 }
             }

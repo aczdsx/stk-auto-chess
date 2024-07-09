@@ -46,7 +46,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         elapsedTime = 0;
         _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-        InGameObjectManager.Instance.ChangeTile(owner, _inGameTile);
+        owner.ChangeOccupiedTile(_inGameTile);
         Tween.Custom(
             owner.Position3D,
             _inGameTile.View.Position,

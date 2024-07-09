@@ -51,8 +51,6 @@ public class CharacterStateIdle : CharacterStateBase
             else
             {
                 characCtrl.MoveCharacter(isInRange);
-
-                return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
             }
         }
 

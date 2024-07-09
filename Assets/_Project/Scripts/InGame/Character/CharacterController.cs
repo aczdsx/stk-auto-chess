@@ -367,7 +367,11 @@ namespace CookApps.BattleSystem
             if (_statData != null)
                 Debug.LogColor($"[Set Tile] {_statData.CharacterId} : ({newTile.X}, {newTile.Y})");
             CurrentTile = newTile;
-            newTile.SetOccupied(this);
+            if (CurrentTile.OccupiedCharacter != null)
+            {
+                Debug.LogColor("CurrentTile.OccupiedCharacter != null");
+            }
+            CurrentTile.SetOccupied(this);
 
         }
 
@@ -1010,7 +1014,7 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                Target = InGameObjectManager.Instance.GetNearestTarget(this);
+                Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(this);
 
                 if (Target == null)
                 {
@@ -1034,9 +1038,19 @@ namespace CookApps.BattleSystem
                         }
                         else
                         {
-                            GetCharacterView().LookAt(CurrentTile, bestTile);
-                            ChangeOccupiedTile(bestTile);
-                            AddNextState<CharacterStateMove>();
+                            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
+                            EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
+                            if (effectCode is EffectCodeCharacterBase runEffectCode)
+                            {
+                                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                                AddNextState<CharacterStateIdle>();
+                            }
+                            else
+                            {
+                                GetCharacterView().LookAt(CurrentTile, bestTile);
+                                ChangeOccupiedTile(bestTile);
+                                AddNextState<CharacterStateMove>();
+                            }
                         }
                     }
                 }

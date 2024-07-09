@@ -194,7 +194,7 @@ namespace CookApps.BattleSystem
             return bestTile;
         }
 
-        private int BFS(InGameTile start, InGameTile dest)
+        public int BFS(InGameTile start, InGameTile dest)
         {
             var queue = new Queue<(InGameTile tile, int distance)>();
             var visited = new HashSet<InGameTile>();
