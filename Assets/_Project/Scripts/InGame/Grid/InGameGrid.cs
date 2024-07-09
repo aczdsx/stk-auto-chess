@@ -154,10 +154,10 @@ namespace CookApps.BattleSystem
                 {
                     var neighbor = GetTile(newPos);
 
-                    bool isDying = (neighbor.OccupiedCharacter != null) &&
-                                    neighbor.OccupiedCharacter.GetCurrentState() is CharacterStateDead;
+                    // bool isDying = (neighbor.OccupiedCharacter != null) &&
+                    //                 neighbor.OccupiedCharacter.GetCurrentState() is CharacterStateDead;
 
-                    if (neighbor.OccupiedCharacter == null || isDying)
+                    if (neighbor.OccupiedCharacter == null /*|| isDying*/)
                     {
                         var distance = BFS(neighbor, dest);
                         if (distance < shortestDistance)
@@ -180,7 +180,7 @@ namespace CookApps.BattleSystem
                         var neighbor = GetTile(newPos);
                         if (neighbor.OccupiedCharacter == null)
                         {
-                            var distance = GetManhattanDistance(neighbor, dest);
+                            var distance = BFSByOnlyWall(neighbor, dest);
                             if (distance < shortestDistance)
                             {
                                 shortestDistance = distance;
@@ -225,6 +225,49 @@ namespace CookApps.BattleSystem
                 foreach (var neighbor in GetNeighbors(current))
                 {
                     if (!visited.Contains(neighbor) && neighbor.OccupiedCharacter == null)
+                    {
+                        queue.Enqueue((neighbor, distance + 1));
+                        visited.Add(neighbor);
+                    }
+                }
+            }
+
+            return int.MaxValue; // 경로를 찾지 못한 경우
+        }
+
+        public int BFSByOnlyWall(InGameTile start, InGameTile dest)
+        {
+            var queue = new Queue<(InGameTile tile, int distance)>();
+            var visited = new HashSet<InGameTile>();
+
+            var targetPositions = new List<InGameTile>();
+            foreach (var direction in Directions)
+            {
+                int2 neighborPos = new int2(dest.X + direction.x, dest.Y + direction.y);
+                if (IsValidPosition(neighborPos))
+                {
+                    var neighbor = GetTile(neighborPos);
+                    targetPositions.Add(neighbor);
+                }
+            }
+
+            queue.Enqueue((start, 0));
+            visited.Add(start);
+
+            while (queue.Count > 0)
+            {
+                var (current, distance) = queue.Dequeue();
+
+                if (targetPositions.Contains(current))
+                {
+                    return distance;
+                }
+
+                foreach (var neighbor in GetNeighbors(current))
+                {
+                    bool isCheckTile = neighbor.OccupiedCharacter != null &&
+                                       neighbor.OccupiedCharacter.AllianceType == AllianceType.None;
+                    if (!visited.Contains(neighbor) && !isCheckTile)
                     {
                         queue.Enqueue((neighbor, distance + 1));
                         visited.Add(neighbor);

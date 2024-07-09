@@ -17,6 +17,8 @@ public class CharacterStateDead : CharacterStateBase
         {
             skillRootTransform.GetChild(i).parent = playgroundTransform;
         }
+
+        characCtrl.CurrentTile.SetUnoccupied();
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)

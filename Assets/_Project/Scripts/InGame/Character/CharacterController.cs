@@ -371,8 +371,8 @@ namespace CookApps.BattleSystem
             {
                 Debug.LogColor("CurrentTile.OccupiedCharacter != null");
             }
-            CurrentTile.SetOccupied(this);
 
+            CurrentTile.SetOccupied(this);
         }
 
         public bool NeedToBeIdle()
@@ -1047,14 +1047,19 @@ namespace CookApps.BattleSystem
                             }
                             else
                             {
-                                GetCharacterView().LookAt(CurrentTile, bestTile);
-                                ChangeOccupiedTile(bestTile);
-                                AddNextState<CharacterStateMove>();
+                                MoveTile(bestTile);
                             }
                         }
                     }
                 }
             }
+        }
+
+        public void MoveTile(InGameTile tile)
+        {
+            GetCharacterView().LookAt(CurrentTile, tile);
+            ChangeOccupiedTile(tile);
+            AddNextState<CharacterStateMove>();
         }
     }
 }

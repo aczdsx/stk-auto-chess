@@ -80,7 +80,15 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 
         var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
         if (!isInRange)
+        {
+            if (owner.Target != null)
+            {
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+                    owner.Target.CurrentTile);
+                owner.MoveTile(bestTile);
+            }
             return;
+        }
 
         _isReadyToActivate = false;
         IsSkillActivated = true;

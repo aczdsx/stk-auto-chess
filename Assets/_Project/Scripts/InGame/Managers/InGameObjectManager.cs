@@ -172,8 +172,6 @@ namespace CookApps.BattleSystem
                 enemiesInPlaygroundForUpdate.Remove(characCtrl);
             }
 
-            characCtrl.CurrentTile.SetUnoccupied();
-
             characCtrl.Clear();
 
             var uiLayer = SceneUILayerManager.Instance.GetUILayer("BattleStatisticsPopup");
@@ -257,7 +255,6 @@ namespace CookApps.BattleSystem
                 other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
             }
 
-            characCtrl.CurrentTile.SetUnoccupied();
             characCtrl.Clear();
             enemiesInPlaygroundForUpdate.Remove(characCtrl);
         }
