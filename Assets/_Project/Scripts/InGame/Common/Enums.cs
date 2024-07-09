@@ -9,6 +9,13 @@ namespace CookApps.AutoBattler
         REWARD,     // 보상 수령 가능
         CLEAR,      // 보상 수령 후 클리어
     }
+
+    public enum QuestStateType
+    {
+        WAIT,       // 진행중 (대기 상태)
+        REWARD,     // 보상 수령 가능
+        CLEAR,      // 보상 수령 후 클리어
+    }
 }
 
 namespace CookApps.BattleSystem
