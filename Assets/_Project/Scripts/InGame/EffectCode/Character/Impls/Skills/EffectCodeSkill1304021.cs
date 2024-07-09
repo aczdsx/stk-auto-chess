@@ -75,7 +75,13 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
+
         owner.Target = InGameObjectManager.Instance.GetNearestTarget(owner);
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        if (!isInRange)
+            return;
+
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
