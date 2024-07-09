@@ -29,6 +29,11 @@ namespace CookApps.AutoBattler
             return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(1);
         }
 
+        public long TommorrowTimeStamp()
+        {
+            return DateTimeToTimeStamp(Tommorrow());
+        }
+
         public DateTime NextMonday()
         {
             DateTime now = UtcNow();
@@ -42,6 +47,11 @@ namespace CookApps.AutoBattler
             }
 
             return now;
+        }
+
+        public long NextMondayTimeStamp()
+        {
+            return DateTimeToTimeStamp(NextMonday());
         }
 
         public TimeSpan GetTimeSpanFromNow(long targetTimeStamp)
