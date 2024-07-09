@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 462281305636858735}
   - component: {fileID: 8633732179113730746}
   - component: {fileID: 3531707285823693516}
-  - component: {fileID: 493021778082380840}
+  - component: {fileID: 5619357049705326369}
   m_Layer: 6
   m_Name: fx_common_debuff_stun
   m_TagString: Untagged
@@ -4892,7 +4892,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &493021778082380840
+--- !u!114 &5619357049705326369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4901,10 +4901,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937585355646430208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
 --- !u!1 &4254439968524026333
 GameObject:
   m_ObjectHideFlags: 0

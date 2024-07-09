@@ -93,12 +93,17 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
 
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-        Vector3 direction = (owner.Target.CurrentTile.View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
 
-        vfx.Initialize(false);
-        vfx.OnCollisionWithTile += OnCollision2DEnter;
+        if (owner.Target != null)
+        {
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
+            Vector3 direction = (owner.Target.CurrentTile.View.CachedTr.position - vfx.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
+            vfx.Initialize(false);
+            vfx.OnCollisionWithTile += OnCollision2DEnter;
+        }
 
         IsSkillActivated = false;
     }

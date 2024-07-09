@@ -76,7 +76,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        owner.Target = InGameObjectManager.Instance.GetNearestTarget(owner);
+        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
 
         var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
         if (!isInRange)

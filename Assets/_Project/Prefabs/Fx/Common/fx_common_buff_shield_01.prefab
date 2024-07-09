@@ -19635,7 +19635,7 @@ GameObject:
   - component: {fileID: 3818073216135434931}
   - component: {fileID: 748346455964601813}
   - component: {fileID: 6104627623187403861}
-  - component: {fileID: 2809604084285889401}
+  - component: {fileID: 124600068957338924}
   m_Layer: 6
   m_Name: fx_common_buff_shield_01
   m_TagString: Untagged
@@ -24459,7 +24459,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2809604084285889401
+--- !u!114 &124600068957338924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24468,7 +24468,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6545929051635005458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
