@@ -322,6 +322,50 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecEvent
+    {
+        /// ID
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 이벤트ID
+        public CookApps.Obfuscator.ObfuscatorInt event_id;
+        /// 반복 기간 타입
+        public global::CookApps.AutoBattler.TermType term_type;
+        /// 이벤트 시작 시간
+        [GeneratorDateTime(nameof(start_at))]
+        public string start_at;
+        /// 이벤트 종료 시간
+        [GeneratorDateTime(nameof(end_at))]
+        public string end_at;
+        /// 이벤트 타입
+        public global::CookApps.AutoBattler.EventType event_type;
+        /// 이벤트 이름 토큰
+        public string name_token;
+        /// 이벤트 설명 토큰
+        public string desc_token;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecEventCondition
+    {
+        /// ID
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 이벤트ID
+        public CookApps.Obfuscator.ObfuscatorInt event_id;
+        /// 이벤트 컨디션 ID
+        public CookApps.Obfuscator.ObfuscatorInt event_condition_id;
+        /// 필요 조건 값
+        public CookApps.Obfuscator.ObfuscatorInt need_count;
+        /// 보상 종류
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 키 값
+        public CookApps.Obfuscator.ObfuscatorInt item_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt item_count;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecLanguage
     {
         /// 아이디

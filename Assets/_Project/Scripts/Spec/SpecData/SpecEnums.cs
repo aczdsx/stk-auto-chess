@@ -351,8 +351,9 @@ namespace CookApps.AutoBattler
     {
         NONE = 0,
         DAILY = 1,
-        WEEKLY = 2,
-        MONTHLY = 3,
+        DAILY_LIMIT = 2,
+        WEEKLY = 3,
+        WEEKLY_LIMIT = 4,
     }
 
     public enum QuestType
@@ -362,5 +363,13 @@ namespace CookApps.AutoBattler
         CLEAR_STAGE = 3,
         LEVELUP_CHARACTER = 4,
         SUMMON_CHARACTER = 5,
+    }
+
+    public enum EventType
+    {
+        ATTENDANCE = 1,
+        ACC_PLAY_TIME = 2,
+        USE_AP = 3,
+        USE_GOLD = 4,
     }
 }
