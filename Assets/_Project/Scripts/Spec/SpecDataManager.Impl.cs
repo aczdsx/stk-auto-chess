@@ -722,6 +722,21 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        public SpecQuest GetSpecQuestData(int questID)
+        {
+            return SpecQuest.All.ToList().Find(data => data.quest_id == questID);
+        }
+
+        public List<SpecQuest> GetSpecQuestList(TermType termType)
+        {
+            return SpecQuest.All.ToList().FindAll(data => data.term_type == termType);
+        }
+
+        public List<SpecQuest> GetSpecQuestList(TermType termType, QuestType questType)
+        {
+            return SpecQuest.All.ToList().FindAll(data => data.term_type == termType && data.quest_type == questType);
+        }
+
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
         // {
         //     return inGameVfxDic.GetValueOrDefault(vfxNameType);
