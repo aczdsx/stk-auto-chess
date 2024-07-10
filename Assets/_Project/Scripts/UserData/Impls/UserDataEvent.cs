@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
@@ -23,9 +24,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            UpdateRecentEventData();
-
             userEvent = MessageUtility.FromBase64String<UserEvent>(data);
+
+            UpdateRecentEventData();
         }
 
         [Clear]
@@ -37,6 +38,26 @@ namespace CookApps.AutoBattler
         public void SaveUserEventData()
         {
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserEvent.ToCategoryString(), userEvent);
+        }
+
+        public UserEventData GetUserEventData(int eventID)
+        {
+            if (UserEvent.UserEventDatas.ContainsKey(eventID))
+            {
+                return UserEvent.UserEventDatas[eventID];
+            }
+
+            return null;
+        }
+
+        public List<UserEventConditionData> GetUserEventConditionDataList(int eventID)
+        {
+            if (UserEvent.UserEventDatas.ContainsKey(eventID))
+            {
+                return UserEvent.UserEventDatas[eventID].UserEventConditionDatas.Values.ToList();
+            }
+
+            return null;
         }
 
         public void SetUserEventConditionActionCount(int eventID, int eventConditionID, int actionValue, bool needSave)
@@ -92,6 +113,7 @@ namespace CookApps.AutoBattler
                 if (UserEvent.UserEventDatas.ContainsKey(currentEventData.event_id) == false)
                 {
                     UserEventData newUserEventData = new UserEventData();
+                    newUserEventData.EventId = currentEventData.event_id;
 
                     UserEvent.UserEventDatas.Add(currentEventData.event_id, newUserEventData);
 

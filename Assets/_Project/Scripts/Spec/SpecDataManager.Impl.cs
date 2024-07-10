@@ -737,6 +737,11 @@ namespace CookApps.AutoBattler
             return SpecQuest.All.ToList().FindAll(data => data.term_type == termType && data.quest_type == questType);
         }
 
+        public List<SpecEvent> GetSpecEventList(EventType eventType)
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.event_type == eventType);
+        }
+
         public List<SpecEvent> GetSpecEventList(TermType termType)
         {
             return SpecEvent.All.ToList().FindAll(data => data.term_type == termType);
@@ -752,6 +757,27 @@ namespace CookApps.AutoBattler
         public List<SpecEvent> GetNoneLimitedSpecEventList()
         {
             return SpecEvent.All.ToList().FindAll(data => data.frequency_type == FrequencyType.REPEAT);
+        }
+
+        // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터를 반환
+        public SpecEvent GetCurrentSpecEvent(EventType eventType)
+        {
+            var eventList = GetSpecEventList(eventType);
+
+            foreach (var eventData in eventList)
+            {
+                var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
+                var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
+
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+
+                if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
+                {
+                    return eventData;
+                }
+            }
+
+            return null;
         }
 
         // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터 리스트를 반환
