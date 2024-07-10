@@ -329,8 +329,10 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 이벤트ID
         public CookApps.Obfuscator.ObfuscatorInt event_id;
-        /// 반복 기간 타입
+        /// 기간 타입
         public global::CookApps.AutoBattler.TermType term_type;
+        /// 반복 타입
+        public global::CookApps.AutoBattler.FrequencyType frequency_type;
         /// 이벤트 시작 시간
         [GeneratorDateTime(nameof(start_at))]
         public string start_at;
@@ -521,6 +523,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 장애물
         public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id;
+        /// 부서지는 장애물
+        public CookApps.Obfuscator.ObfuscatorInt[] neutral_grid_id;
         /// 챕터 룰
         public CookApps.Obfuscator.ObfuscatorInt[] chapter_rule_tile;
         /// 이펙트 코드
@@ -553,32 +557,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecSynergy
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 속성 시너지
-        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
-        /// 포지션 시너지
-        public global::CookApps.AutoBattler.ElementType element_type;
-        /// 시너지 이름 토큰
-        public string name_token;
-        /// 시너지 효과 설명 토큰
-        public string desc_token;
-        /// 시너지 단계
-        public CookApps.Obfuscator.ObfuscatorInt grade;
-        /// 단계 발동 최소 명수 조건
-        public CookApps.Obfuscator.ObfuscatorInt min_count;
-        /// 단계 발동 최대 명수 조건
-        public CookApps.Obfuscator.ObfuscatorInt max_count;
-        /// 계수 타입
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 계수
-        public CookApps.Obfuscator.ObfuscatorFloat stat_value;
-    }
-
-    [GeneratorSpecData]
     public partial class SpecStageReward
     {
         /// 유니크 id
@@ -602,6 +580,32 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt item_count;
         /// 보상 지급 확률
         public CookApps.Obfuscator.ObfuscatorDouble rate;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecSynergy
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 속성 시너지
+        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        /// 포지션 시너지
+        public global::CookApps.AutoBattler.ElementType element_type;
+        /// 시너지 이름 토큰
+        public string name_token;
+        /// 시너지 효과 설명 토큰
+        public string desc_token;
+        /// 시너지 단계
+        public CookApps.Obfuscator.ObfuscatorInt grade;
+        /// 단계 발동 최소 명수 조건
+        public CookApps.Obfuscator.ObfuscatorInt min_count;
+        /// 단계 발동 최대 명수 조건
+        public CookApps.Obfuscator.ObfuscatorInt max_count;
+        /// 계수 타입
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
+        /// 계수
+        public CookApps.Obfuscator.ObfuscatorFloat stat_value;
     }
 
     [GeneratorSpecData]

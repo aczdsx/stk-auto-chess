@@ -81,5 +81,19 @@ namespace CookApps.AutoBattler
             dt = dt.AddSeconds(value).ToLocalTime();
             return dt;
         }
+
+        // 스펙 데이터의 datetime 데이터 문자열을 DateTime 형식으로 변환
+        public DateTime ChangeDateStringToDateTime(string dateTimeString)
+        {
+            return DateTime.Parse(dateTimeString, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        }
+
+        // 스펙 데이터의 datetime 데이터 문자열을 long 형식으로 변환
+        public long ChangeDateStringToTimeStamp(string dateTimeString)
+        {
+            var targetDateTime = DateTime.Parse(dateTimeString, null, System.Globalization.DateTimeStyles.RoundtripKind);
+
+            return DateTimeToTimeStamp(targetDateTime);
+        }
     }
 }

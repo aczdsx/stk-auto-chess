@@ -351,9 +351,7 @@ namespace CookApps.AutoBattler
     {
         NONE = 0,
         DAILY = 1,
-        DAILY_LIMIT = 2,
         WEEKLY = 3,
-        WEEKLY_LIMIT = 4,
     }
 
     public enum QuestType
@@ -371,5 +369,20 @@ namespace CookApps.AutoBattler
         ACC_PLAY_TIME = 2,
         USE_AP = 3,
         USE_GOLD = 4,
+    }
+
+    public enum DungeonType
+    {
+        TRIAL = 1,
+    }
+
+    public enum TrialType
+    {
+        BATTLE_NORMAL = 0,
+        BRONZE = 1,
+        SILVER = 2,
+        GOLD = 3,
+        PLATINUM = 4,
+        DIAMOND = 5,
     }
 }
