@@ -60,26 +60,18 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public void SetUserEventConditionActionCount(int eventID, int eventConditionID, int actionValue, bool needSave)
+        public void SetUserEventActionCount(int eventID, int actionValue, bool needSave)
         {
-            var specEventConditionData = SpecDataManager.Instance.GetSpecEventConditionData(eventID, eventConditionID);
-
             if (UserEvent.UserEventDatas.ContainsKey(eventID))
             {
-                if (UserEvent.UserEventDatas[eventID].UserEventConditionDatas.ContainsKey(eventConditionID))
+                UserEvent.UserEventDatas[eventID].ActionCount += actionValue;
+
+                // 조건 충족 시 보상 수령 가능 상태로 condition State 변경
+                UpdateUserEventConditionState(eventID);
+
+                if (needSave)
                 {
-                    UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventConditionID].ActionCount += actionValue;
-
-                    // 조건 충족 시 보상 수령 가능 상태로 변경
-                    if (UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventConditionID].ActionCount >= specEventConditionData.need_count)
-                    {
-                        UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventConditionID].EventStateType = (int) EventStateType.REWARD;
-                    }
-
-                    if (needSave)
-                    {
-                        SaveUserEventData();
-                    }
+                    SaveUserEventData();
                 }
             }
         }
@@ -123,7 +115,6 @@ namespace CookApps.AutoBattler
                         UserEventConditionData newUserEventConditionData = new UserEventConditionData
                         {
                             EventConditionId = specEventConditionData.event_condition_id,
-                            ActionCount = 0,
                             EventStateType = (int)EventStateType.WAIT,
                         };
 
@@ -143,6 +134,27 @@ namespace CookApps.AutoBattler
             }
 
             SaveUserEventData();
+        }
+
+        // 이벤트 데이터 기준에 맞춰 condition State 업데이트
+        private void UpdateUserEventConditionState(int eventID)
+        {
+            if (UserEvent.UserEventDatas.ContainsKey(eventID))
+            {
+                var eventConditionList = SpecDataManager.Instance.GetSpecEventConditionList(eventID);
+                foreach (var eventCondition in eventConditionList)
+                {
+                    if (UserEvent.UserEventDatas[eventID].UserEventConditionDatas.ContainsKey(eventCondition.event_condition_id))
+                    {
+                        if (UserEvent.UserEventDatas[eventID].ActionCount >= eventCondition.need_count
+                            && UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventCondition.event_condition_id].EventStateType != (int)EventStateType.REWARD
+                            && UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventCondition.event_condition_id].EventStateType != (int)EventStateType.CLEAR)
+                        {
+                            UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventCondition.event_condition_id].EventStateType = (int)EventStateType.REWARD;
+                        }
+                    }
+                }
+            }
         }
     }
 }
