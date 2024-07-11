@@ -133,7 +133,7 @@ namespace CookApps.BattleSystem
             position = tile.View.Position;
 
             GameObject viewGo = await Addressables.InstantiateAsync(
-                $"Obstacle/Stage/CharacterView_{id}.prefab");
+                $"Obstacle/Stage/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             _view = viewGo.GetComponent<SpriteCharacterView>();
             _view.CachedTr.SetParent(Playground, false);
             _view.CachedTr.localPosition = position;
