@@ -43,7 +43,26 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
+            UpdateAttendanceData();
             SetAttendancePopup();
+        }
+
+        public void RefreshPopup()
+        {
+            if (_attendanceDailySlotList == null || _attendanceDailySlotList.Count <= 0) return;
+
+            _attendanceDailySlotList.ForEach(slot => slot.RefreshSlot(true));
+        }
+
+        private void UpdateAttendanceData()
+        {
+            if (_currentUserEventData == null) return;
+
+            if (_currentUserEventData.EventExtraRefreshTimestamp < UserDataManager.Instance.UserBasicData.LastLoginTimestamp)
+            {
+                UserDataManager.Instance.SetUserEventActionCount(_currentUserEventData.EventId, 1, true);
+                UserDataManager.Instance.UpdateEventTimeData(_currentUserEventData.EventId);
+            }
         }
 
         private void SetAttendancePopup()
@@ -57,7 +76,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < _currentUserEventConditionDataList.Count; ++i)
             {
-                _attendanceDailySlotList[i].SetAttendanceSlot(_currentUserEventData, _currentUserEventConditionDataList[i]);
+                _attendanceDailySlotList[i].SetAttendanceSlot(this, _currentUserEventData, _currentUserEventConditionDataList[i]);
             }
         }
 

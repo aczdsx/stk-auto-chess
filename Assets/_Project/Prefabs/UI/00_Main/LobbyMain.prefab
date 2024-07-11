@@ -1888,6 +1888,7 @@ MonoBehaviour:
   _gachaButton: {fileID: 593947708553966226}
   _idleRewardButton: {fileID: 5085768673705005770}
   _attendanceButton: {fileID: 771116231089938256}
+  _questButton: {fileID: 6811864923079749924}
   _vignetteImage: {fileID: 5632547169323492497}
   _stageVignetteColorList:
   - {r: 0.039215688, g: 0.04705883, b: 0.054901965, a: 1}
@@ -3644,6 +3645,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5416598531209741102, guid: 49f116c863277bf479f014a39c493dd6, type: 3}
   m_PrefabInstance: {fileID: 5459390730663279053}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6811864923079749924 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1534388264568490217, guid: 49f116c863277bf479f014a39c493dd6, type: 3}
+  m_PrefabInstance: {fileID: 5459390730663279053}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5753184158384477312
 PrefabInstance:
   m_ObjectHideFlags: 0

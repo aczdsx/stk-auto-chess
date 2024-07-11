@@ -20,6 +20,7 @@ namespace CookApps.AutoBattler
                 userEvent = new UserEvent();
 
                 UpdateRecentEventData();
+                UpdateAllEventTimeData(true);
 
                 return;
             }
@@ -27,6 +28,7 @@ namespace CookApps.AutoBattler
             userEvent = MessageUtility.FromBase64String<UserEvent>(data);
 
             UpdateRecentEventData();
+            UpdateAllEventTimeData(false);
         }
 
         [Clear]
@@ -45,6 +47,19 @@ namespace CookApps.AutoBattler
             if (UserEvent.UserEventDatas.ContainsKey(eventID))
             {
                 return UserEvent.UserEventDatas[eventID];
+            }
+
+            return null;
+        }
+
+        public UserEventConditionData GetUserEventConditionData(int eventID, int eventConditionID)
+        {
+            if (UserEvent.UserEventDatas.ContainsKey(eventID))
+            {
+                if (UserEvent.UserEventDatas[eventID].UserEventConditionDatas.ContainsKey(eventConditionID))
+                {
+                    return UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventConditionID];
+                }
             }
 
             return null;
@@ -94,7 +109,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        // 이벤트 기간에 맞춰 유저 이벤트 데이터를 갱신
+        // 현재 이벤트 기간에 맞춰 유저 이벤트 데이터를 갱신
         public void UpdateRecentEventData()
         {
             // 서비스 중인 동안 계속 반복 되거나, 운영 기간에 해당하는 이벤트 데이터를 세팅
@@ -121,8 +136,62 @@ namespace CookApps.AutoBattler
                         UserEvent.UserEventDatas[currentEventData.event_id].UserEventConditionDatas.Add(specEventConditionData.event_condition_id, newUserEventConditionData);
                     }
                 }
+            }
 
-                // 이벤트 갱신 시간 업데이트
+            SaveUserEventData();
+        }
+
+        // 특정 이벤트 갱신 시간 업데이트
+        public void UpdateEventTimeData(int eventID)
+        {
+            // 서비스 중인 동안 계속 반복 되거나, 운영 기간에 해당하는 이벤트 데이터를 세팅
+            var currentEventData = SpecDataManager.Instance.GetSpecEventData(eventID);
+            if (UserEvent.UserEventDatas.ContainsKey(currentEventData.event_id))
+            {
+                // 출석 이벤트 처리
+                if (currentEventData.event_type == EventType.ATTENDANCE)
+                {
+                    long extraRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+
+                    UserEvent.UserEventDatas[currentEventData.event_id].EventExtraRefreshTimestamp = extraRefreshTimestamp;
+                }
+
+                // 나머지 기간제 이벤트 처리
+                if (currentEventData.term_type == TermType.DAILY)
+                {
+                    UserEvent.UserEventDatas[currentEventData.event_id].EventRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                }
+                else if (currentEventData.term_type == TermType.WEEKLY)
+                {
+                    UserEvent.UserEventDatas[currentEventData.event_id].EventRefreshTimestamp = TimeManager.Instance.NextMondayTimeStamp();
+                }
+            }
+
+            SaveUserEventData();
+        }
+
+        // 전체 벤트 갱신 시간 업데이트
+        public void UpdateAllEventTimeData(bool isFirstInit)
+        {
+            // 서비스 중인 동안 계속 반복 되거나, 운영 기간에 해당하는 이벤트 데이터를 세팅
+            var currentSpecEventDataList = SpecDataManager.Instance.GetCurrentSpecEventList();
+            foreach (var currentEventData in currentSpecEventDataList)
+            {
+                if (UserEvent.UserEventDatas.ContainsKey(currentEventData.event_id) == false) continue;
+
+                // 출석 이벤트 처리
+                if (currentEventData.event_type == EventType.ATTENDANCE)
+                {
+                    long extraRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    if (isFirstInit)
+                    {
+                        extraRefreshTimestamp = TimeManager.Instance.DefaultTimeStamp();
+                    }
+
+                    UserEvent.UserEventDatas[currentEventData.event_id].EventExtraRefreshTimestamp = extraRefreshTimestamp;
+                }
+
+                // 나머지 기간제 이벤트 처리
                 if (currentEventData.term_type == TermType.DAILY)
                 {
                     UserEvent.UserEventDatas[currentEventData.event_id].EventRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
