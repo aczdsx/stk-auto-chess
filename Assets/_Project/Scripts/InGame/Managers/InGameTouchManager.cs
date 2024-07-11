@@ -30,8 +30,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private Vector2 _initialFingersPosition;
     private Vector3 _initialCameraPosition;
-    private Vector2 _minCameraPosition = new Vector2(-2, -2);
-    private Vector2 _maxCameraPosition = new Vector2(2, 2);
 
 
     /////////////////////////////////////////////////////////////
@@ -78,16 +76,16 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 else if (touch.phase == TouchPhase.Moved)
                 {
                     Vector2 direction = (touch.position - _initialFingersPosition).normalized;
-                    float distance = Vector2.Distance(touch.position, _initialFingersPosition) * 0.02f;
+                    float distance = Vector2.Distance(touch.position, _initialFingersPosition) * -0.01f;
 
                     Vector2 distancePosition;
-                    distancePosition.x = Mathf.Clamp(direction.x * distance, _minCameraPosition.x, _maxCameraPosition.x);
-                    distancePosition.y = Mathf.Clamp(direction.y * distance, _minCameraPosition.y, _maxCameraPosition.y);
+                    distancePosition.x = direction.x * distance;
+                    distancePosition.y = direction.y * distance;
 
                     Vector3 newCameraPosition = new Vector3(
-                        _initialCameraPosition.x + distancePosition.x,
-                        _initialCameraPosition.y+ distancePosition.y,
-                        _initialCameraPosition.z - distancePosition.x
+                        Mathf.Clamp(_initialCameraPosition.x + distancePosition.x, -2, 2),
+                        Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -2, 2),
+                        Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
                     );
 
                     InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
