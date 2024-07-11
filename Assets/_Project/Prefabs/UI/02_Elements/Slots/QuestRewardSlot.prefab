@@ -510,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7487339424213752818}
   - component: {fileID: 3644031387198148924}
+  - component: {fileID: 8180732921499492687}
   m_Layer: 5
   m_Name: QuestRewardSlot
   m_TagString: Untagged
@@ -545,6 +546,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7305018599283940616}
   m_CullTransparentMesh: 1
+--- !u!114 &8180732921499492687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7305018599283940616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e133e876cd4af544a92a5b48e0f8f32b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rewardItemCountText: {fileID: 8516616579712871971}
+  _rewardItemImage: {fileID: 4704940506258016326}
+  _rewardCharacterImage: {fileID: 4369859261205042031}
+  _rewardCharacterBGObject: {fileID: 7167289692780437041}
 --- !u!1 &8279397752670627392
 GameObject:
   m_ObjectHideFlags: 0
