@@ -149,23 +149,20 @@ namespace CookApps.BattleSystem
 
             GameObject viewGo = null;
 
-            if (allianceType == AllianceType.Enemy)
+            if (statData.Spec.character_type == CharacterType.CHARACTER)
             {
-                try
-                {
-                    viewGo = await Addressables.InstantiateAsync(
-                        $"Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
-                }
-                catch (Exception e)
-                {
-                    viewGo = await Addressables.InstantiateAsync(
-                        $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
-                }
+                viewGo = await Addressables.InstantiateAsync(
+                    $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+            }
+            else if (statData.Spec.character_type == CharacterType.OBSTACLE)
+            {
+                viewGo = await Addressables.InstantiateAsync(
+                    $"Obstacle/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
             else
             {
                 viewGo = await Addressables.InstantiateAsync(
-                    $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                    $"Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
 
 
