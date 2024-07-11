@@ -114,7 +114,6 @@ public class EffectCodeSkill1101021 : EffectCodeCharacterBase
         Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
         vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-
         var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
         _targetCharacter.GetDamaged(damage, owner);

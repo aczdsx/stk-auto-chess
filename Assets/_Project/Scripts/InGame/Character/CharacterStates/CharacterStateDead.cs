@@ -38,14 +38,7 @@ public class CharacterStateDead : CharacterStateBase
 
         if (eventKey == AnimationEventKey.End)
         {
-            if (characCtrl.AllianceType == AllianceType.Enemy)
-            {
-                InGameObjectManager.Instance.RemoveEnemyFromField(characCtrl);
-            }
-            else
-            {
-                InGameObjectManager.Instance.RemoveCharacterFromField(characCtrl);
-            }
+            InGameObjectManager.Instance.RemoveCharacterFromField(characCtrl);
         }
     }
 }

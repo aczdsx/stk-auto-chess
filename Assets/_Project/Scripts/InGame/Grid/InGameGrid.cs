@@ -266,7 +266,7 @@ namespace CookApps.BattleSystem
                 foreach (var neighbor in GetNeighbors(current))
                 {
                     bool isCheckTile = neighbor.OccupiedCharacter != null &&
-                                       neighbor.OccupiedCharacter.AllianceType == AllianceType.None;
+                                       neighbor.OccupiedCharacter.AllianceType == AllianceType.Wall;
                     if (!visited.Contains(neighbor) && !isCheckTile)
                     {
                         queue.Enqueue((neighbor, distance + 1));

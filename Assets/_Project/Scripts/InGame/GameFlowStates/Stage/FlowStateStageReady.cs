@@ -25,8 +25,10 @@ public class FlowStateStageReady : StateBase
             SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,
                 _specStage.difficulty_type);
 
+        float monsterMultipleHp = 1.0f;
         foreach (var monster in monsters)
         {
+            monsterMultipleHp = monster.multiple_hp;
             Debug.LogColor($"monster 추가 : {monster.monster_id}");
             var statData = new CharacterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
                 monster.multiple_hp);
@@ -47,7 +49,20 @@ public class FlowStateStageReady : StateBase
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)
         {
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID, _specStage.chapter_id));
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID, _specStage.chapter_id, AllianceType.Wall));
+        }
+
+        // 체력이 있는 장애물 설치
+        foreach (var gridID in _specStage.neutral_grid_id)
+        {
+            Debug.LogColor($"neutral 추가 : {_specStage.neutral_wall_id}");
+            var statData = new CharacterStatData(_specStage.neutral_wall_id, 1, 1, monsterMultipleHp);
+
+            var tile = InGameObjectManager.Instance.GetInGameTile(gridID);
+            int2 coordinate = new int2(tile.X, tile.Y);
+
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Neutral,
+                typeof(CharacterStateReady), false, HpBarType.None));
         }
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList();

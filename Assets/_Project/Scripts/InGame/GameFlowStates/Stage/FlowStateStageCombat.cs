@@ -43,6 +43,11 @@ public class FlowStateStageCombat : StateBase
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
+        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Neutral))
+        {
+            character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
+        }
+
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
@@ -60,7 +65,7 @@ public class FlowStateStageCombat : StateBase
         await UniTask.Delay(1000);
 
         // 모든 캐릭터 락 해제
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
             if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
@@ -70,7 +75,7 @@ public class FlowStateStageCombat : StateBase
 
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
         }
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
             if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
@@ -79,6 +84,12 @@ public class FlowStateStageCombat : StateBase
                 charac.AddNextState<CharacterStateIdle>();
 
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
+        }
+
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Neutral, characters);
+        foreach (CharacterController charac in characters)
+        {
+            charac.AddNextState<CharacterStateIdleNetural>();
         }
     }
 
@@ -87,14 +98,14 @@ public class FlowStateStageCombat : StateBase
         if (isEndCombat)
             return;
 
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         if (characters.Count == 0)
         {
             isEndCombat = true;
             isWin = false;
         }
 
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
             isEndCombat = true;

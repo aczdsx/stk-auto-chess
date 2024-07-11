@@ -126,10 +126,10 @@ namespace CookApps.BattleSystem
 
         private Vector3 SelectedOffSet;
 
-        public async UniTask Initialize(InGameTile tile, Transform Playground, int id)
+        public async UniTask Initialize(InGameTile tile, Transform Playground, int id, AllianceType allianceType)
         {
             ChangeOccupiedTile(tile);
-            _allianceType = AllianceType.None;
+            _allianceType = allianceType;
             position = tile.View.Position;
 
             GameObject viewGo = await Addressables.InstantiateAsync(

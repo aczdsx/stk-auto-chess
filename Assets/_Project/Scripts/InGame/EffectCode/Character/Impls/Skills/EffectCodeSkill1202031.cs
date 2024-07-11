@@ -121,7 +121,7 @@ public class EffectCodeSkill1202031 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                 {
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 

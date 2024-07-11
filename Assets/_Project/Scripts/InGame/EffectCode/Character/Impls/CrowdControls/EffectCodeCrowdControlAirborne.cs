@@ -44,23 +44,27 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
         owner.AddCrowdControl(CrowdControlType.Airborne);
         elapsedTime = 0;
-        _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-        owner.ChangeOccupiedTile(_inGameTile);
-        Tween.Custom(
-            owner.Position3D,
-            _inGameTile.View.Position,
-            duration,
-            (Vector3 value) =>
-            {
-                if (owner != null)
-                    owner.Position3D = value;
-            }, ease : Ease.InCirc).OnComplete(this, target =>
-            {
-                if (owner != null)
-                    owner.AddNextState<CharacterStateIdle>();
-            }
-        );
+
+        if (owner.SpecCharacter.is_knock_back)
+        {
+            _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+            owner.ChangeOccupiedTile(_inGameTile);
+            Tween.Custom(
+                owner.Position3D,
+                _inGameTile.View.Position,
+                duration,
+                (Vector3 value) =>
+                {
+                    if (owner != null)
+                        owner.Position3D = value;
+                }, ease : Ease.InCirc).OnComplete(this, target =>
+                {
+                    if (owner != null)
+                        owner.AddNextState<CharacterStateIdle>();
+                }
+            );
+        }
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

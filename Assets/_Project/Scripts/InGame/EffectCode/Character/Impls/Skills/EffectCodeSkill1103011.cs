@@ -128,7 +128,7 @@ public class EffectCodeSkill1103011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter.AllianceType != AllianceType.None)
+                if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                 {
                     if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
                     {

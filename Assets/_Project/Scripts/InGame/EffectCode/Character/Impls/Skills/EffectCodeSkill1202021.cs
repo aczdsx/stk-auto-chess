@@ -130,7 +130,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                 {
                     var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
                         codeId, true);

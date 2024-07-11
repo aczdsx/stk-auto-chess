@@ -233,7 +233,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (tile.OccupiedCharacter != null)
         {
-            if (tile.OccupiedCharacter.AllianceType == AllianceType.None)
+            if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall || tile.OccupiedCharacter.AllianceType == AllianceType.Neutral)
             {
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
 

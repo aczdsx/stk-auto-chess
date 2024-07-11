@@ -242,7 +242,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
                     if (isNavigate)
                         ClearAndSetActive(tiles);
                     if (centerTile.OccupiedCharacter != null &&
-                        centerTile.OccupiedCharacter.AllianceType != AllianceType.None)
+                        centerTile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                     {
                         Debug.LogColor(
                             $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");

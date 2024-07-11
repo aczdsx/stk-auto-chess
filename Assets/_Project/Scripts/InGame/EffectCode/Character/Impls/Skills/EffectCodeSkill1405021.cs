@@ -112,7 +112,7 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
 
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
             {
                 if (tile.OccupiedCharacter != owner)
                 {
