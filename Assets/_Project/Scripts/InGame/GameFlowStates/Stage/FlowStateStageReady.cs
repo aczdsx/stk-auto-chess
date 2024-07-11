@@ -43,7 +43,7 @@ public class FlowStateStageReady : StateBase
         }
 
 
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, 0.0f, 1.0f).Forget();
+        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, 0.0f, 1.0f).Forget();
         InGameMain.GetInGameMain().SetReadyUI();
 
         // 장애물 설치
