@@ -50,7 +50,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            playground = GameObject.Find("Playground").GetComponent<Transform>();
+            playground = GameObject.FindWithTag("Playground").GetComponent<Transform>();
             startingPlayerCharacters = new();
 
             _stage = stage;
