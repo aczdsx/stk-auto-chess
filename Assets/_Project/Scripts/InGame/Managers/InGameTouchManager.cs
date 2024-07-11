@@ -86,7 +86,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
                         // 0.5 ~ 1.5 사이 노말라이즈 값
                         float cameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
-                        float normalizedSize = 1.5f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize);
+                        float normalizedSize = (2.0f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize)) * 0.5f;
 
                         float distance = Vector2.Distance(touch.position, _initialFingersPosition) * -0.01f * normalizedSize;
 
@@ -96,7 +96,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
                         Vector3 newCameraPosition = new Vector3(
                             Mathf.Clamp(_initialCameraPosition.x + distancePosition.x, -2, 2),
-                            Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -2, 2),
+                            Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -3, 3),
                             Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
                         );
 
