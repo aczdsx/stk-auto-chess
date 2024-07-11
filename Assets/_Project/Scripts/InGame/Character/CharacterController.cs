@@ -131,9 +131,8 @@ namespace CookApps.BattleSystem
             ChangeOccupiedTile(tile);
             _allianceType = allianceType;
             position = tile.View.Position;
-
             GameObject viewGo = await Addressables.InstantiateAsync(
-                $"Obstacle/Stage/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
             _view = viewGo.GetComponent<SpriteCharacterView>();
             _view.CachedTr.SetParent(Playground, false);
             _view.CachedTr.localPosition = position;
