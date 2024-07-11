@@ -28,6 +28,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private readonly float _cameraMinSize = 5.0f;
     private readonly float _cameraMaxSize = 10.0f;
 
+    private Vector2 _initialFingersPosition;
+    private Vector3 _initialCameraPosition;
+    private Vector2 _minCameraPosition = new Vector2(-10, -10);
+    private Vector2 _maxCameraPosition = new Vector2(10, 10);
+
+
     /////////////////////////////////////////////////////////////
     // protected
 
@@ -45,14 +51,34 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
                 _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+
+                _initialFingersPosition = (touch1.position + touch2.position) / 2;
+                _initialCameraPosition = InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
             }
             else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
             {
+                // 핀치 줌 처리
                 var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
                 var scaleFactor = _initialFingersDistance / currentFingersDistance;
 
-                float size = Mathf.Clamp(_initialCameraSize * scaleFactor, _cameraMinSize, _cameraMaxSize);
+                float size = _initialCameraSize * scaleFactor;
+                size = Mathf.Clamp(Camera.main.orthographicSize, _cameraMinSize, _cameraMaxSize);
                 InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
+
+                // 스와이프 처리
+                Vector2 currentFingersPosition = (touch1.position + touch2.position) / 2;
+                Vector2 positionDelta = _initialFingersPosition - currentFingersPosition;
+
+                Vector3 newCameraPosition = new Vector3(
+                    _initialCameraPosition.x + positionDelta.x,
+                    _initialCameraPosition.y + positionDelta.y,
+                    _initialCameraPosition.z
+                );
+
+                newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, _minCameraPosition.x, _maxCameraPosition.x);
+                newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, _minCameraPosition.y, _maxCameraPosition.y);
+
+                InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
             }
         }
 
