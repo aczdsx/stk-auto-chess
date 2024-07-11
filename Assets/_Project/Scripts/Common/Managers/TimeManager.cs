@@ -18,6 +18,11 @@ namespace CookApps.AutoBattler
             return DateTimeToTimeStamp(UtcNow());
         }
 
+        public long DefaultTimeStamp()
+        {
+            return DateTimeToTimeStamp(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+        }
+
         public DayOfWeek UtcDayOfWeek()
         {
             return UtcNow().DayOfWeek;
@@ -52,6 +57,11 @@ namespace CookApps.AutoBattler
         public long NextMondayTimeStamp()
         {
             return DateTimeToTimeStamp(NextMonday());
+        }
+
+        public TimeSpan GetTimeSpan(long baseTimeStamp, long targetTimeStamp)
+        {
+            return TimeStampToDateTime(targetTimeStamp) - TimeStampToDateTime(baseTimeStamp);
         }
 
         public TimeSpan GetTimeSpanFromNow(long targetTimeStamp)

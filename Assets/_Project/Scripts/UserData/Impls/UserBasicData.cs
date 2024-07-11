@@ -24,6 +24,7 @@ namespace CookApps.AutoBattler
                     Exp = 0,
                     Nickname = "StellaKnights",
                     UserIconId = 40101,
+                    LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp(),
 
                     TotalGachaCount = 0,
                 };
@@ -35,12 +36,24 @@ namespace CookApps.AutoBattler
             userBasicData = MessageUtility.FromBase64String<UserBasicData>(data);
 
             PrevAccountLevel = userBasicData.Level;
+
+            SetLastLoginTimestamp(true);
         }
 
         [Clear]
         private void Clear_BasicData()
         {
             userBasicData = null;
+        }
+
+        public void SetLastLoginTimestamp(bool needSave)
+        {
+            UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp();
+
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
         }
 
         public void AddUserLevelExp(int exp)
