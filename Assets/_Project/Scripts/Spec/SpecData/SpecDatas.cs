@@ -525,6 +525,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 장애물
         public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id;
+        /// 장애물 id
+        public CookApps.Obfuscator.ObfuscatorInt obstacle_id;
         /// 부서지는 장애물
         public CookApps.Obfuscator.ObfuscatorInt[] neutral_grid_id;
         /// 장애물 id
