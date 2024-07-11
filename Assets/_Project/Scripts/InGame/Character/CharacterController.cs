@@ -143,7 +143,19 @@ namespace CookApps.BattleSystem
             _characterUId = characUIdInc++;
             _statData = statData;
             position = tile.View.Position;
+
             ChangeOccupiedTile(tile);
+
+            if (statData.Spec.size >= 1)
+            {
+                var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, statData.Spec.size);
+                tiles.Remove(tile);
+                foreach (var occupiedTile in tiles)
+                {
+                    occupiedTile.SetOccupied(this);
+                }
+            }
+
             _allianceType = allianceType;
 
             GameObject viewGo = null;
@@ -1053,9 +1065,12 @@ namespace CookApps.BattleSystem
 
         public void MoveTile(InGameTile tile)
         {
-            GetCharacterView().LookAt(CurrentTile, tile);
-            ChangeOccupiedTile(tile);
-            AddNextState<CharacterStateMove>();
+            if (SpecCharacter.move_speed > 0)
+            {
+                GetCharacterView().LookAt(CurrentTile, tile);
+                ChangeOccupiedTile(tile);
+                AddNextState<CharacterStateMove>();
+            }
         }
     }
 }

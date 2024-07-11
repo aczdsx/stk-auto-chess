@@ -161,6 +161,8 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.ElementType element_type;
         /// 포지션 시너지
         public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        /// 사이즈
+        public CookApps.Obfuscator.ObfuscatorInt size;
         /// 태생 등급
         public CookApps.Obfuscator.ObfuscatorInt init_star;
         /// 최대 등급

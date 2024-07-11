@@ -197,7 +197,8 @@ namespace CookApps.BattleSystem
             characCtrl.Clear();
         }
 
-        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID, AllianceType allianceType)
+        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID,
+            AllianceType allianceType)
         {
             var characCtrl = new CharacterController();
             var tile = InGameGrid.GetTile(gridID);
@@ -235,6 +236,7 @@ namespace CookApps.BattleSystem
             {
                 targetList[i].Clear();
             }
+
             targetList.Clear();
         }
 
@@ -271,8 +273,10 @@ namespace CookApps.BattleSystem
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
             UserDataManager.Instance.SetUserCharaceterBattleDeckList(startingPlayerCharacters);
 
-            charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate.OrderBy(character => character.SpecCharacter.atk_range).ToList();
-            enemiesInPlaygroundForUpdate = enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
+            charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate
+                .OrderBy(character => character.SpecCharacter.atk_range).ToList();
+            enemiesInPlaygroundForUpdate =
+                enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
         }
 
         public bool IsCheckAllPlayerCharacterAlive()
@@ -302,7 +306,20 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
-            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange);
+            if (target.SpecCharacter.size > 0)
+            {
+                var targetTiles = InGameGrid.GetTileListByShapeSquare(target.CurrentTile, target.SpecCharacter.size);
+                foreach (var targetTile in targetTiles)
+                {
+                    if (_grid.IsInRange(pivot.CurrentTile, targetTile, pivot.AttackRange))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+                return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange);
         }
 
         /// <summary>
@@ -498,7 +515,8 @@ namespace CookApps.BattleSystem
             var minDistance = float.MaxValue;
             foreach (var enemy in reusableList)
             {
-                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
+                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
+                    CharacterPositionType.ASSASSIN)
                 {
                     continue;
                 }
@@ -542,7 +560,8 @@ namespace CookApps.BattleSystem
 
             foreach (var enemy in sortedTargets)
             {
-                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
+                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
+                    CharacterPositionType.ASSASSIN)
                 {
                     continue;
                 }

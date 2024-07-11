@@ -44,7 +44,6 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
-
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
         InGameMain.GetInGameMain().SetReadyUI();
 
