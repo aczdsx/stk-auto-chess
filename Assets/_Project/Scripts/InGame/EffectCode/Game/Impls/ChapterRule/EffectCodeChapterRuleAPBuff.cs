@@ -40,7 +40,7 @@ namespace CookApps.BattleSystem
                 InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
                 _chapterRuleTiles.Add(inGameTile);
 
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ad,
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ap,
                     inGameTile.View.CachedTr.position);
             }
         }
