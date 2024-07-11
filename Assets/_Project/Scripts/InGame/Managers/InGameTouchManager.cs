@@ -41,36 +41,31 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         if (Input.touchCount == 2)
         {
-            // 두 손가락 터치: 핀치 줌 처리
-            if (!EventSystem.current.IsPointerOverGameObject())
+            Touch touch1 = Input.GetTouch(0);
+            Touch touch2 = Input.GetTouch(1);
+
+            if (touch2.phase == TouchPhase.Began)
             {
-                Touch touch1 = Input.GetTouch(0);
-                Touch touch2 = Input.GetTouch(1);
+                _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
+                _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+            }
+            else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
+            {
+                var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
+                var scaleFactor = _initialFingersDistance / currentFingersDistance;
 
-                if (touch2.phase == TouchPhase.Began)
-                {
-                    _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
-                    _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
-                }
-                else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
-                {
-                    var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
-                    var scaleFactor = _initialFingersDistance / currentFingersDistance;
+                float size = _initialCameraSize * scaleFactor;
+                size = Mathf.Clamp(size, _cameraMinSize, _cameraMaxSize);
+                InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
 
-                    float size = _initialCameraSize * scaleFactor;
-                    size = Mathf.Clamp(size, _cameraMinSize, _cameraMaxSize);
-                    InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
-
-                    InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
-                }
+                InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
             }
         }
         else if (Input.touchCount == 1)
         {
             if (_selectedCharacterController == null)
             {
-                // 한 손가락 터치: 상하좌우 이동 처리
-                if (!EventSystem.current.IsPointerOverGameObject())
+                if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
                     Touch touch = Input.GetTouch(0);
 
@@ -84,9 +79,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     {
                         Vector2 direction = (touch.position - _initialFingersPosition).normalized;
 
-                        // 0.5 ~ 1.5 사이 노말라이즈 값
+                        // 0.3 ~ 0.8 사이 노말라이즈 값
                         float cameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
-                        float normalizedSize = (2.0f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize)) * 0.5f;
+                        float normalizedSize = (2.0f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize)) * 0.3f;
 
                         float distance = Vector2.Distance(touch.position, _initialFingersPosition) * -0.01f * normalizedSize;
 
