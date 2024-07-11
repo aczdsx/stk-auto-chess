@@ -77,16 +77,16 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 }
                 else if (touch.phase == TouchPhase.Moved)
                 {
-                    Vector2 positionDelta = _initialFingersPosition - touch.position;
+                    Vector2 positionDelta = (_initialFingersPosition - touch.position) * 0.2f;
 
                     Vector3 newCameraPosition = new Vector3(
                         _initialCameraPosition.x + positionDelta.x,
-                        _initialCameraPosition.y + positionDelta.y,
-                        _initialCameraPosition.z
+                        _initialCameraPosition.y,
+                        _initialCameraPosition.z + positionDelta.y
                     );
 
                     newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, _minCameraPosition.x, _maxCameraPosition.x);
-                    newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, _minCameraPosition.y, _maxCameraPosition.y);
+                    newCameraPosition.z = Mathf.Clamp(newCameraPosition.y, _minCameraPosition.y, _maxCameraPosition.y);
 
                     InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
                 }

@@ -32,6 +32,7 @@ public class InGameCamera : MonoBehaviour
     public void SetCameraSize(float size)
     {
         _mainCamera.orthographicSize = size;
+        _characterCamera.orthographicSize = size;
     }
 
     public Transform GetCameraTransform()
