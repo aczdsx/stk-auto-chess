@@ -30,8 +30,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private Vector2 _initialFingersPosition;
     private Vector3 _initialCameraPosition;
-    private Vector2 _minCameraPosition = new Vector2(-10, -10);
-    private Vector2 _maxCameraPosition = new Vector2(10, 10);
+    private Vector2 _minCameraPosition = new Vector2(-5, -5);
+    private Vector2 _maxCameraPosition = new Vector2(5, 5);
 
 
     /////////////////////////////////////////////////////////////
@@ -44,6 +44,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         if (Input.touchCount == 2)
         {
+            // 두 손가락 터치: 핀치 줌 처리
             Touch touch1 = Input.GetTouch(0);
             Touch touch2 = Input.GetTouch(1);
 
@@ -51,34 +52,44 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
                 _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
-
-                _initialFingersPosition = (touch1.position + touch2.position) / 2;
-                _initialCameraPosition = InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
             }
             else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
             {
-                // 핀치 줌 처리
                 var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
                 var scaleFactor = _initialFingersDistance / currentFingersDistance;
 
                 float size = _initialCameraSize * scaleFactor;
-                size = Mathf.Clamp(Camera.main.orthographicSize, _cameraMinSize, _cameraMaxSize);
+                size = Mathf.Clamp(size, _cameraMinSize, _cameraMaxSize);
                 InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
+            }
+        }
+        else if (Input.touchCount == 1)
+        {
+            if (_selectedCharacterController == null)
+            {
+                // 한 손가락 터치: 상하좌우 이동 처리
+                Touch touch = Input.GetTouch(0);
 
-                // 스와이프 처리
-                Vector2 currentFingersPosition = (touch1.position + touch2.position) / 2;
-                Vector2 positionDelta = _initialFingersPosition - currentFingersPosition;
+                if (touch.phase == TouchPhase.Began)
+                {
+                    _initialFingersPosition = touch.position;
+                    _initialCameraPosition = InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
+                }
+                else if (touch.phase == TouchPhase.Moved)
+                {
+                    Vector2 positionDelta = _initialFingersPosition - touch.position;
 
-                Vector3 newCameraPosition = new Vector3(
-                    _initialCameraPosition.x + positionDelta.x,
-                    _initialCameraPosition.y + positionDelta.y,
-                    _initialCameraPosition.z
-                );
+                    Vector3 newCameraPosition = new Vector3(
+                        _initialCameraPosition.x + positionDelta.x,
+                        _initialCameraPosition.y + positionDelta.y,
+                        _initialCameraPosition.z
+                    );
 
-                newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, _minCameraPosition.x, _maxCameraPosition.x);
-                newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, _minCameraPosition.y, _maxCameraPosition.y);
+                    newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, _minCameraPosition.x, _maxCameraPosition.x);
+                    newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, _minCameraPosition.y, _maxCameraPosition.y);
 
-                InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
+                    InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
+                }
             }
         }
 
