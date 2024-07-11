@@ -737,6 +737,89 @@ namespace CookApps.AutoBattler
             return SpecQuest.All.ToList().FindAll(data => data.term_type == termType && data.quest_type == questType);
         }
 
+        public List<SpecEvent> GetSpecEventList(EventType eventType)
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.event_type == eventType);
+        }
+
+        public List<SpecEvent> GetSpecEventList(TermType termType)
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.term_type == termType);
+        }
+
+        // 기간 제한이 존재하는 이벤트 리스트를 반환
+        public List<SpecEvent> GetLimitedSpecEventList()
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.frequency_type == FrequencyType.ONCE);
+        }
+
+        // 기간 제한이 존재하지 않는 이벤트 리스트를 반환 (서비스 중 기간동안 지속 반복)
+        public List<SpecEvent> GetNoneLimitedSpecEventList()
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.frequency_type == FrequencyType.REPEAT);
+        }
+
+        // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터를 반환
+        public SpecEvent GetCurrentSpecEvent(EventType eventType)
+        {
+            var eventList = GetSpecEventList(eventType);
+
+            foreach (var eventData in eventList)
+            {
+                var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
+                var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
+
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+
+                if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
+                {
+                    return eventData;
+                }
+            }
+
+            return null;
+        }
+
+        // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터 리스트를 반환
+        public List<SpecEvent> GetCurrentSpecEventList()
+        {
+            List<SpecEvent> resultEventList = new List<SpecEvent>();
+
+            // 기간 제한이 없는 이벤트 데이터 처리
+            List<SpecEvent> noneLimitedSpecEventList = GetNoneLimitedSpecEventList();
+            if (noneLimitedSpecEventList != null && noneLimitedSpecEventList.Count > 0)
+            {
+                resultEventList.AddRange(noneLimitedSpecEventList);
+            }
+
+            // 기간 제한이 있는 이벤트 데이터 처리
+            List<SpecEvent> limitedSpecEventList = GetLimitedSpecEventList();
+            foreach (var eventData in limitedSpecEventList)
+            {
+                var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
+                var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
+
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+
+                if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
+                {
+                    resultEventList.Add(eventData);
+                }
+            }
+
+            return resultEventList;
+        }
+
+        public SpecEventCondition GetSpecEventConditionData(int eventID, int eventConditionID)
+        {
+            return SpecEventCondition.All.ToList().Find(data => data.event_id == eventID && data.event_condition_id == eventConditionID);
+        }
+
+        public List<SpecEventCondition> GetSpecEventConditionList(int eventID)
+        {
+            return SpecEventCondition.All.ToList().FindAll(data => data.event_id == eventID);
+        }
+
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
         // {
         //     return inGameVfxDic.GetValueOrDefault(vfxNameType);

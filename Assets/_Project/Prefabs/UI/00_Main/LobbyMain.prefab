@@ -1887,6 +1887,7 @@ MonoBehaviour:
   _shopButton: {fileID: 8875471266541138312}
   _gachaButton: {fileID: 593947708553966226}
   _idleRewardButton: {fileID: 5085768673705005770}
+  _attendanceButton: {fileID: 771116231089938256}
   _vignetteImage: {fileID: 5632547169323492497}
   _stageVignetteColorList:
   - {r: 0.039215688, g: 0.04705883, b: 0.054901965, a: 1}
@@ -4759,6 +4760,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a65fe1d63c6d73149b5102b01df82868, type: 3}
+--- !u!114 &771116231089938256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9056876614489415795, guid: a65fe1d63c6d73149b5102b01df82868, type: 3}
+  m_PrefabInstance: {fileID: 8575965759812435747}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6112278001438528663 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2580807908768213940, guid: a65fe1d63c6d73149b5102b01df82868, type: 3}

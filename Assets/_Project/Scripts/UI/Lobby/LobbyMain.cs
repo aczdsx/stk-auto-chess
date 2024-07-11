@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _shopButton;
         [SerializeField] private CAButton _gachaButton;
         [SerializeField] private CAButton _idleRewardButton;
+        [SerializeField] private CAButton _attendanceButton;
 
         [Header("Vignette Layer")]
         [SerializeField] private RawImage _vignetteImage;
@@ -81,6 +82,7 @@ namespace CookApps.AutoBattler
             _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
             _idleRewardButton.onClick.AddListener(OnClickIdleRewardButton);
+            _attendanceButton.onClick.AddListener(OnClickAttendanceButton);
         }
 
         protected override void OnDestroy()
@@ -91,6 +93,7 @@ namespace CookApps.AutoBattler
             _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.RemoveListener(OnClickGachaButton);
             _idleRewardButton.onClick.RemoveListener(OnClickIdleRewardButton);
+            _attendanceButton.onClick.RemoveListener(OnClickAttendanceButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -471,6 +474,27 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
+        }
+
+        private void OnClickAttendanceButton()
+        {
+            // 이벤트 기간 유효성 검증
+            var currentSpecEventData = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.ATTENDANCE);
+            if (currentSpecEventData == null)
+            {
+                return;
+            }
+
+            // 이벤트 유저 데이터 유효성 검증
+            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
+            if (currentUserEventData == null)
+            {
+                return;
+            }
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
+            SceneUILayerManager.Instance.PushUILayerAsync<AttendancePopup>(currentUserEventData).Forget();
         }
 
         private void ClearBottomSlotLayer()
