@@ -34,6 +34,16 @@ public class InGameCamera : MonoBehaviour
         _mainCamera.orthographicSize = size;
     }
 
+    public Transform GetCameraTransform()
+    {
+        return _mainCamera.transform;
+    }
+
+    public void SetCameraPosition(Vector3 position)
+    {
+        _mainCamera.transform.position = position;
+    }
+
     public async UniTask SetCameraSize(float targetSize, float targetPosY, float duration)
     {
         float startSize = _mainCamera.orthographicSize;
