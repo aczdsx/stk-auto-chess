@@ -31,7 +31,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private Vector2 _initialFingersPosition;
     private Vector3 _initialCameraPosition;
 
-
     /////////////////////////////////////////////////////////////
     // protected
 
@@ -43,22 +42,27 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (Input.touchCount == 2)
         {
             // 두 손가락 터치: 핀치 줌 처리
-            Touch touch1 = Input.GetTouch(0);
-            Touch touch2 = Input.GetTouch(1);
-
-            if (touch2.phase == TouchPhase.Began)
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
-                _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
-            }
-            else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
-            {
-                var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
-                var scaleFactor = _initialFingersDistance / currentFingersDistance;
+                Touch touch1 = Input.GetTouch(0);
+                Touch touch2 = Input.GetTouch(1);
 
-                float size = _initialCameraSize * scaleFactor;
-                size = Mathf.Clamp(size, _cameraMinSize, _cameraMaxSize);
-                InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
+                if (touch2.phase == TouchPhase.Began)
+                {
+                    _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
+                    _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+                }
+                else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
+                {
+                    var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
+                    var scaleFactor = _initialFingersDistance / currentFingersDistance;
+
+                    float size = _initialCameraSize * scaleFactor;
+                    size = Mathf.Clamp(size, _cameraMinSize, _cameraMaxSize);
+                    InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
+
+                    InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+                }
             }
         }
         else if (Input.touchCount == 1)
@@ -66,29 +70,38 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             if (_selectedCharacterController == null)
             {
                 // 한 손가락 터치: 상하좌우 이동 처리
-                Touch touch = Input.GetTouch(0);
-
-                if (touch.phase == TouchPhase.Began)
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    _initialFingersPosition = touch.position;
-                    _initialCameraPosition = InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
-                }
-                else if (touch.phase == TouchPhase.Moved)
-                {
-                    Vector2 direction = (touch.position - _initialFingersPosition).normalized;
-                    float distance = Vector2.Distance(touch.position, _initialFingersPosition) * -0.01f;
+                    Touch touch = Input.GetTouch(0);
 
-                    Vector2 distancePosition;
-                    distancePosition.x = direction.x * distance;
-                    distancePosition.y = direction.y * distance;
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        _initialFingersPosition = touch.position;
+                        _initialCameraPosition =
+                            InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
+                    }
+                    else if (touch.phase == TouchPhase.Moved)
+                    {
+                        Vector2 direction = (touch.position - _initialFingersPosition).normalized;
 
-                    Vector3 newCameraPosition = new Vector3(
-                        Mathf.Clamp(_initialCameraPosition.x + distancePosition.x, -2, 2),
-                        Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -2, 2),
-                        Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
-                    );
+                        // 0.5 ~ 1.5 사이 노말라이즈 값
+                        float cameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+                        float normalizedSize = 1.5f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize);
 
-                    InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
+                        float distance = Vector2.Distance(touch.position, _initialFingersPosition) * -0.01f * normalizedSize;
+
+                        Vector2 distancePosition;
+                        distancePosition.x = direction.x * distance;
+                        distancePosition.y = direction.y * distance;
+
+                        Vector3 newCameraPosition = new Vector3(
+                            Mathf.Clamp(_initialCameraPosition.x + distancePosition.x, -2, 2),
+                            Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -2, 2),
+                            Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
+                        );
+
+                        InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
+                    }
                 }
             }
         }
@@ -295,14 +308,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (tile.OccupiedCharacter != null)
         {
-            if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall || tile.OccupiedCharacter.AllianceType == AllianceType.Neutral)
+            if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall ||
+                tile.OccupiedCharacter.AllianceType == AllianceType.Neutral)
             {
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
 
-                AnimateCharacterMove(_selectedCharacterController, inGameTile.View.Position, () =>
-                {
-                    CancelMoveToFirstTile();
-                });
+                AnimateCharacterMove(_selectedCharacterController, inGameTile.View.Position,
+                    () => { CancelMoveToFirstTile(); });
             }
             else
             {
@@ -396,10 +408,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             startPosition,
             targetPosition,
             duration,
-            (Vector3 value) =>
-            {
-                character.Position3D = value;
-            }).OnComplete(onComplete);
+            (Vector3 value) => { character.Position3D = value; }).OnComplete(onComplete);
     }
 
     private void SetSelectedCharacter(CharacterController character)
