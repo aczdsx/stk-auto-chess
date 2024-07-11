@@ -24,6 +24,16 @@ public class InGameCamera : MonoBehaviour
         Shake(durationTime, magnitude, _cancellationTokenSource.Token).Forget();
     }
 
+    public float GetCameraSize()
+    {
+        return _mainCamera.orthographicSize;
+    }
+
+    public void SetCameraSize(float size)
+    {
+        _mainCamera.orthographicSize = size;
+    }
+
     public async UniTask SetCameraSize(float targetSize, float targetPosY, float duration)
     {
         float startSize = _mainCamera.orthographicSize;

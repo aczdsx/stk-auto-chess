@@ -156,7 +156,7 @@ namespace CookApps.BattleSystem
             else if (statData.Spec.character_type == CharacterType.OBSTACLE)
             {
                 viewGo = await Addressables.InstantiateAsync(
-                    $"Obstacle/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                    $"Obstacle/Stage/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
             else
             {

@@ -89,7 +89,7 @@ public class FlowStateStageCombat : StateBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Neutral, characters);
         foreach (CharacterController charac in characters)
         {
-            charac.AddNextState<CharacterStateIdleNetural>();
+            charac.AddNextState<CharacterStateIdle>();
         }
     }
 

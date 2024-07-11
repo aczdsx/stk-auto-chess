@@ -23,6 +23,11 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private Vector3 _offset;
     private bool _isMoveEndAnimation;
 
+    private float _initialFingersDistance;
+    private float _initialCameraSize;
+    private readonly float _cameraMinSize = 5.0f;
+    private readonly float _cameraMaxSize = 10.0f;
+
     /////////////////////////////////////////////////////////////
     // protected
 
@@ -30,6 +35,26 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageReady))
             return;
+
+        if (Input.touchCount == 2)
+        {
+            Touch touch1 = Input.GetTouch(0);
+            Touch touch2 = Input.GetTouch(1);
+
+            if (touch2.phase == TouchPhase.Began)
+            {
+                _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
+                _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+            }
+            else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
+            {
+                var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
+                var scaleFactor = _initialFingersDistance / currentFingersDistance;
+
+                float size = Mathf.Clamp(_initialCameraSize * scaleFactor, _cameraMinSize, _cameraMaxSize);
+                InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
+            }
+        }
 
         bool isPointerOverUI = false;
         if (Application.isEditor)
