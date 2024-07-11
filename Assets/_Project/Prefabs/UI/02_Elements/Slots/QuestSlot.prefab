@@ -752,7 +752,8 @@ MonoBehaviour:
   _questDescText: {fileID: 2233736430821693470}
   _questProgressSlider: {fileID: 4199679508441574111}
   _questSliderText: {fileID: 8812010390461730436}
-  _claimButtonObject: {fileID: 3037395175584224497}
+  _claimBGObject: {fileID: 3037395175584224497}
+  _claimButtonObject: {fileID: 826448359608037012}
   _claimButton: {fileID: 7203688979457051205}
   _completeLayerObject: {fileID: 388780460362806568}
   _completeButtonObject: {fileID: 471262417077497762}

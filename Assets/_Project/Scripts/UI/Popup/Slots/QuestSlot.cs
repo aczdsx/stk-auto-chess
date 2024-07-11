@@ -21,6 +21,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _questSliderText;
 
         [Space]
+        [SerializeField] private GameObject _claimBGObject;
         [SerializeField] private GameObject _claimButtonObject;
         [SerializeField] private CAButton _claimButton;
         [SerializeField] private GameObject _completeLayerObject;
@@ -78,7 +79,9 @@ namespace CookApps.AutoBattler
             _questProgressSlider.value = _userQuestData.ActionCount;
 
             // 버튼 상태 세팅
+            _claimBGObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.REWARD);
             _claimButtonObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.REWARD);
+            
             _completeLayerObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.CLEAR);
             _completeButtonObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.CLEAR);
         }
