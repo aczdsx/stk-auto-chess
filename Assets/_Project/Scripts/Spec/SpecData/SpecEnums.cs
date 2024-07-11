@@ -35,6 +35,9 @@ namespace CookApps.AutoBattler
         SILENCE = 1100000004,
         CHAPTER_FIRE = 1200000001,
         CHAPTER_ICE = 1200000002,
+        RULE_AD = 1210000001,
+        RULE_DEF = 1210000002,
+        RULE_AP = 1210000003,
         BUFF_AD_UP = 2000000001,
         BUFF_AD_PERCENT_UP = 2000000002,
         BUFF_AP_UP = 2000000003,
@@ -340,6 +343,10 @@ namespace CookApps.AutoBattler
         fx_common_area_landing = 94,
         fx_common_debuff_silence = 95,
         fx_common_hit_03 = 96,
+        fx_common_bufftrap_ad = 97,
+        fx_common_bufftrap_ap = 98,
+        fx_common_bufftrap_defense = 99,
+        fx_common_synergy_light = 100,
     }
 
     public enum GlobalEffectProviderType

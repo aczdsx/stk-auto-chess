@@ -98,18 +98,48 @@ public class FlowStateStageReady : StateBase
 
     public override void StateStart()
     {
-        if (_specStage.chapter_rule_tile.Length > 0)
+        if (_specStage.effect_code_rule_tile.Length > 0)
         {
-            Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length + 1];
+            Span<double> debuffStats = stackalloc double[_specStage.effect_code_rule_tile.Length + 1];
             debuffStats.Clear();
 
             debuffStats[0] = _specStage.effect_code_stat;
-            for (int i = 0; i < _specStage.chapter_rule_tile.Length; i++)
+            for (int i = 0; i < _specStage.effect_code_rule_tile.Length; i++)
             {
-                debuffStats[i + 1] = _specStage.chapter_rule_tile[i];
+                debuffStats[i + 1] = _specStage.effect_code_rule_tile[i];
             }
 
             var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name, 0, debuffStats);
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+        }
+
+        if (_specStage.effect_code_rule_tile_2.Length > 0)
+        {
+            Span<double> debuffStats = stackalloc double[_specStage.effect_code_rule_tile_2.Length + 1];
+            debuffStats.Clear();
+
+            debuffStats[0] = _specStage.effect_code_stat_2;
+            for (int i = 0; i < _specStage.effect_code_rule_tile_2.Length; i++)
+            {
+                debuffStats[i + 1] = _specStage.effect_code_rule_tile_2[i];
+            }
+
+            var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name_2, 0, debuffStats);
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+        }
+
+        if (_specStage.effect_code_rule_tile_3.Length > 0)
+        {
+            Span<double> debuffStats = stackalloc double[_specStage.effect_code_rule_tile_3.Length + 1];
+            debuffStats.Clear();
+
+            debuffStats[0] = _specStage.effect_code_stat_3;
+            for (int i = 0; i < _specStage.effect_code_rule_tile_3.Length; i++)
+            {
+                debuffStats[i + 1] = _specStage.effect_code_rule_tile_3[i];
+            }
+
+            var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name_3, 0, debuffStats);
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
         }
     }

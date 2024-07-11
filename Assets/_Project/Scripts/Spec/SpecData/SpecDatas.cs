@@ -532,11 +532,23 @@ namespace CookApps.AutoBattler
         /// 장애물 id
         public CookApps.Obfuscator.ObfuscatorInt neutral_wall_id;
         /// 챕터 룰
-        public CookApps.Obfuscator.ObfuscatorInt[] chapter_rule_tile;
+        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile;
         /// 이펙트 코드
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
         /// 이텍트 코드 스텟
         public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat;
+        /// 챕터 룰2
+        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile_2;
+        /// 이펙트 코드2
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_2;
+        /// 이텍트 코드 스텟2
+        public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat_2;
+        /// 챕터 룰3
+        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile_3;
+        /// 이펙트 코드3
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_3;
+        /// 이텍트 코드 스텟3
+        public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat_3;
     }
 
     [GeneratorSpecData]
