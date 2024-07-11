@@ -30,8 +30,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private Vector2 _initialFingersPosition;
     private Vector3 _initialCameraPosition;
-    private Vector2 _minCameraPosition = new Vector2(-5, -5);
-    private Vector2 _maxCameraPosition = new Vector2(5, 5);
+    private Vector2 _minCameraPosition = new Vector2(-2, -2);
+    private Vector2 _maxCameraPosition = new Vector2(2, 2);
 
 
     /////////////////////////////////////////////////////////////
@@ -77,16 +77,18 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 }
                 else if (touch.phase == TouchPhase.Moved)
                 {
-                    Vector2 positionDelta = (_initialFingersPosition - touch.position) * 0.2f;
+                    Vector2 direction = (touch.position - _initialFingersPosition).normalized;
+                    float distance = Vector2.Distance(touch.position, _initialFingersPosition) * 0.02f;
+
+                    Vector2 distancePosition;
+                    distancePosition.x = Mathf.Clamp(direction.x * distance, _minCameraPosition.x, _maxCameraPosition.x);
+                    distancePosition.y = Mathf.Clamp(direction.y * distance, _minCameraPosition.y, _maxCameraPosition.y);
 
                     Vector3 newCameraPosition = new Vector3(
-                        _initialCameraPosition.x + positionDelta.x,
-                        _initialCameraPosition.y,
-                        _initialCameraPosition.z + positionDelta.y
+                        _initialCameraPosition.x + distancePosition.x,
+                        _initialCameraPosition.y+ distancePosition.y,
+                        _initialCameraPosition.z - distancePosition.x
                     );
-
-                    newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, _minCameraPosition.x, _maxCameraPosition.x);
-                    newCameraPosition.z = Mathf.Clamp(newCameraPosition.y, _minCameraPosition.y, _maxCameraPosition.y);
 
                     InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
                 }

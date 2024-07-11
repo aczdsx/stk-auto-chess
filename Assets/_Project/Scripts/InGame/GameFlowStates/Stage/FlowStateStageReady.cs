@@ -7,6 +7,8 @@ using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
+using UnityEngine;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class FlowStateStageReady : StateBase
 {
@@ -43,7 +45,7 @@ public class FlowStateStageReady : StateBase
         }
 
 
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, 0.0f, 1.0f).Forget();
+        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
         InGameMain.GetInGameMain().SetReadyUI();
 
         // 장애물 설치
