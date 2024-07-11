@@ -260,6 +260,49 @@ public partial class SROptions
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    #region 퀘스트 관련
+
+    [Category("퀘스트 관련")]
+    public void 일일퀘스트전체초기화()
+    {
+        UserDataManager.Instance.ResetQuestDataList(TermType.DAILY);
+    }
+
+    [Category("퀘스트 관련")]
+    public void 주간퀘스트전체초기화()
+    {
+        UserDataManager.Instance.ResetQuestDataList(TermType.WEEKLY);
+    }
+
+    [Category("퀘스트 관련")]
+    public void 타겟퀘스트액션카운트변경()
+    {
+        if (대상퀘스트ID == 0) return;
+
+        UserDataManager.Instance.SetUserQuestActionCount(대상퀘스트ID, 퀘스트완료횟수, true);
+    }
+
+    [Category("퀘스트 관련")]
+    public void 타겟퀘스트상태변경()
+    {
+        if (대상퀘스트ID == 0) return;
+
+        UserDataManager.Instance.SetUserQuestState(대상퀘스트ID, 퀘스트상태, true);
+    }
+
+    [Category("퀘스트 관련")]
+    public int 대상퀘스트ID { get; set; } = 0;
+
+    [Category("퀘스트 관련")]
+    public int 퀘스트완료횟수 { get; set; } = 0;
+
+    [Category("퀘스트 관련")]
+    public QuestStateType 퀘스트상태 { get; set; } = 0;
+
+    #endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     #region 스킬 관련
 
     [Category("스킬 관련")]
