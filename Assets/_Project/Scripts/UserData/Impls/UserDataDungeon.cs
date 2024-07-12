@@ -35,6 +35,33 @@ namespace CookApps.AutoBattler
         {
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserDungeon.ToCategoryString(), userDungeon);
         }
+
+        #region Trial Dungeon (시련던전)
+
+        public UserTrialDungeonData GetTrialDungeonData(int dungeonID)
+        {
+            if (userDungeon.UserTrialDungeonDatas.ContainsKey(dungeonID))
+            {
+                return userDungeon.UserTrialDungeonDatas[dungeonID];
+            }
+
+            return null;
+        }
+
+        public void SetTrialDungeonData(int dungeonID, DungeonStateType stateType, bool needSave)
+        {
+            if (userDungeon.UserTrialDungeonDatas.ContainsKey(dungeonID))
+            {
+                userDungeon.UserTrialDungeonDatas[dungeonID].DungeonStateType = (int)stateType;
+            }
+
+            if (needSave)
+            {
+                SaveUserDungeonData();
+            }
+        }
+
+        #endregion
     }
 }
 
