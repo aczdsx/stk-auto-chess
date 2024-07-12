@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeObj: {fileID: 887737099335315448}
+  _attackActiveObj: {fileID: 2302862222453307536}
   _commanderSkillNavigateObj: {fileID: 4000069818481049035}
   _allianceType: 1
   _boardSprite: {fileID: 1497983088874606}
@@ -407,6 +408,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 617b8bb48a16abe48bce7a6a666d6f04, type: 3}
+--- !u!1 &2302862222453307536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5133220224469749961, guid: 617b8bb48a16abe48bce7a6a666d6f04, type: 3}
+  m_PrefabInstance: {fileID: 6397843094202493017}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3243484164115646030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8487772146290388503, guid: 617b8bb48a16abe48bce7a6a666d6f04, type: 3}

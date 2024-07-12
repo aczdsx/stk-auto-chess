@@ -27,7 +27,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private float _initialFingersDistance;
     private float _initialCameraSize;
     private readonly float _cameraMinSize = 5.0f;
-    private readonly float _cameraMaxSize = 10.0f;
+    private readonly float _cameraMaxSize = 9.0f;
 
     private Vector2 _initialFingersPosition;
     private Vector3 _initialCameraPosition;
@@ -132,7 +132,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
                                 Vector3 newCameraPosition = new Vector3(
                                     Mathf.Clamp(_initialCameraPosition.x + distancePosition.x, -2, 2),
-                                    Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -3, 3),
+                                    Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -2, 4),
                                     Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
                                 );
 
