@@ -46,12 +46,19 @@ namespace CookApps.AutoBattler
             }
 
             userQuest = MessageUtility.FromBase64String<UserQuest>(data);
+
+            UpdateQuestClearCount(false);
         }
 
         [Clear]
         private void Clear_QuestData()
         {
             userQuest = null;
+        }
+
+        public void SaveUserQuestData()
+        {
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserQuest.ToCategoryString(), userQuest);
         }
 
         public void UpdateLastQuestRefreshTimeStamp(bool needSave)
@@ -81,8 +88,65 @@ namespace CookApps.AutoBattler
             }
         }
 
-        // 유저 퀘스트 데이터 세팅 (행동 횟수)
-        public void SetUserQuestActionCount(int questID, int actionValue, bool needSave)
+        // 유저 퀘스트 데이터 세팅 (행동 횟수) - 퀘스트 타입
+        public void SetUserQuestActionCount(QuestType questType, int actionValue, bool isAdd, bool needSave)
+        {
+            var specQuestDataList = SpecDataManager.Instance.GetSpecQuestList(questType);
+
+            foreach (var questData in specQuestDataList)
+            {
+                if (questData.term_type == TermType.DAILY)
+                {
+                    if (userQuest.UserQuestDailyDatas.ContainsKey(questData.quest_id))
+                    {
+                        if (isAdd)
+                        {
+                            userQuest.UserQuestDailyDatas[questData.quest_id].ActionCount += actionValue;
+                        }
+                        else
+                        {
+                            userQuest.UserQuestDailyDatas[questData.quest_id].ActionCount = actionValue;
+                        }
+
+                        // 조건 충족 시 보상 수령 가능 상태로 변경
+                        if (userQuest.UserQuestDailyDatas[questData.quest_id].ActionCount >= questData.need_count
+                            && userQuest.UserQuestDailyDatas[questData.quest_id].QuestStateType != (int)QuestStateType.CLEAR)
+                        {
+                            userQuest.UserQuestDailyDatas[questData.quest_id].QuestStateType = (int)QuestStateType.REWARD;
+                        }
+                    }
+                }
+                else if (questData.term_type == TermType.WEEKLY)
+                {
+                    if (userQuest.UserQuestWeeklyDatas.ContainsKey(questData.quest_id))
+                    {
+                        if (isAdd)
+                        {
+                            userQuest.UserQuestWeeklyDatas[questData.quest_id].ActionCount += actionValue;
+                        }
+                        else
+                        {
+                            userQuest.UserQuestWeeklyDatas[questData.quest_id].ActionCount = actionValue;
+                        }
+
+                        // 조건 충족 시 보상 수령 가능 상태로 변경
+                        if (userQuest.UserQuestWeeklyDatas[questData.quest_id].ActionCount >= questData.need_count
+                            && userQuest.UserQuestWeeklyDatas[questData.quest_id].QuestStateType != (int)QuestStateType.CLEAR)
+                        {
+                            userQuest.UserQuestWeeklyDatas[questData.quest_id].QuestStateType = (int)QuestStateType.REWARD;
+                        }
+                    }
+                }
+            }
+
+            if (needSave)
+            {
+                SaveUserQuestData();
+            }
+        }
+
+        // 유저 퀘스트 데이터 세팅 (행동 횟수) - 퀘스트 ID
+        public void SetUserQuestActionCount(int questID, int actionValue, bool isAdd, bool needSave)
         {
             SpecQuest specQuestData = SpecDataManager.Instance.GetSpecQuestData(questID);
 
@@ -90,10 +154,18 @@ namespace CookApps.AutoBattler
             {
                 if (userQuest.UserQuestDailyDatas.ContainsKey(questID))
                 {
-                    userQuest.UserQuestDailyDatas[questID].ActionCount += actionValue;
+                    if (isAdd)
+                    {
+                        userQuest.UserQuestDailyDatas[specQuestData.quest_id].ActionCount += actionValue;
+                    }
+                    else
+                    {
+                        userQuest.UserQuestDailyDatas[specQuestData.quest_id].ActionCount = actionValue;
+                    }
 
                     // 조건 충족 시 보상 수령 가능 상태로 변경
-                    if (userQuest.UserQuestDailyDatas[questID].ActionCount >= specQuestData.need_count)
+                    if (userQuest.UserQuestDailyDatas[questID].ActionCount >= specQuestData.need_count
+                        && userQuest.UserQuestDailyDatas[questID].QuestStateType != (int)QuestStateType.CLEAR)
                     {
                         userQuest.UserQuestDailyDatas[questID].QuestStateType = (int)QuestStateType.REWARD;
                     }
@@ -103,10 +175,18 @@ namespace CookApps.AutoBattler
             {
                 if (userQuest.UserQuestWeeklyDatas.ContainsKey(questID))
                 {
-                    userQuest.UserQuestWeeklyDatas[questID].ActionCount += actionValue;
+                    if (isAdd)
+                    {
+                        userQuest.UserQuestWeeklyDatas[specQuestData.quest_id].ActionCount += actionValue;
+                    }
+                    else
+                    {
+                        userQuest.UserQuestWeeklyDatas[specQuestData.quest_id].ActionCount = actionValue;
+                    }
 
                     // 조건 충족 시 보상 수령 가능 상태로 변경
-                    if (userQuest.UserQuestWeeklyDatas[questID].ActionCount >= specQuestData.need_count)
+                    if (userQuest.UserQuestWeeklyDatas[questID].ActionCount >= specQuestData.need_count
+                        && userQuest.UserQuestWeeklyDatas[questID].QuestStateType != (int)QuestStateType.CLEAR)
                     {
                         userQuest.UserQuestWeeklyDatas[questID].QuestStateType = (int)QuestStateType.REWARD;
                     }
@@ -119,7 +199,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        // 유저 퀘스트 데이터 세팅 (현재 퀘스트 상태)
+        // 유저 퀘스트 데이터 세팅 (현재 퀘스트 상태) - 퀘스트 ID
         public void SetUserQuestState(int questID, QuestStateType stateType, bool needSave)
         {
             SpecQuest specQuestData = SpecDataManager.Instance.GetSpecQuestData(questID);
@@ -137,6 +217,12 @@ namespace CookApps.AutoBattler
                 {
                     userQuest.UserQuestWeeklyDatas[questID].QuestStateType = (int)stateType;
                 }
+            }
+
+            // 완료 요청 처리가 왔을 경우 퀘스트 클리어 마일스톤 업데이트
+            if (stateType == QuestStateType.CLEAR)
+            {
+                UpdateQuestClearCount(!needSave);   // needSave가 true일 경우 함수외부에서 이미 저장 처리를 하기 때문에 false로 처리
             }
 
             if (needSave)
@@ -187,9 +273,36 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SaveUserQuestData()
+        // 일일/주간 퀘스트 클리어 마일스톤 데이터 업데이트
+        private void UpdateQuestClearCount(bool needSave)
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserQuest.ToCategoryString(), userQuest);
+            // 일일 퀘스트 체크
+            int dailyClearCount = 0;
+            foreach (var questData in userQuest.UserQuestDailyDatas)
+            {
+                var specQuestData = SpecDataManager.Instance.GetSpecQuestData(questData.Key);
+                if (specQuestData.quest_type == QuestType.CLEAR_DAILY_QUEST) continue;
+
+                if (questData.Value.QuestStateType == (int)QuestStateType.CLEAR)
+                {
+                    dailyClearCount++;
+                }
+            }
+            SetUserQuestActionCount(QuestType.CLEAR_DAILY_QUEST, dailyClearCount, false, needSave);
+
+            // 주간 퀘스트 체크
+            int weeklyClearCount = 0;
+            foreach (var questData in userQuest.UserQuestWeeklyDatas)
+            {
+                var specQuestData = SpecDataManager.Instance.GetSpecQuestData(questData.Key);
+                if (specQuestData.quest_type == QuestType.CLEAR_WEEKLY_QUEST) continue;
+
+                if (questData.Value.QuestStateType == (int)QuestStateType.CLEAR)
+                {
+                    weeklyClearCount++;
+                }
+            }
+            SetUserQuestActionCount(QuestType.CLEAR_WEEKLY_QUEST, weeklyClearCount, false, needSave);
         }
     }
 }

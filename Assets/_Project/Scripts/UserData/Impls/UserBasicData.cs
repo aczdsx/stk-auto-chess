@@ -37,7 +37,8 @@ namespace CookApps.AutoBattler
 
             PrevAccountLevel = userBasicData.Level;
 
-            SetLastLoginTimestamp(true);
+            RefreshLastLoginTimestamp(true);
+            UpdateResetCharacterCount();
         }
 
         [Clear]
@@ -46,7 +47,12 @@ namespace CookApps.AutoBattler
             userBasicData = null;
         }
 
-        public void SetLastLoginTimestamp(bool needSave)
+        public void SaveUserBasic()
+        {
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
+        }
+
+        public void RefreshLastLoginTimestamp(bool needSave)
         {
             UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp();
 
@@ -79,9 +85,35 @@ namespace CookApps.AutoBattler
             SaveUserBasic();
         }
 
-        public void SaveUserBasic()
+        public void SetResetCharacterCount(int count, bool isAdd, bool needSave)
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
+            if (isAdd)
+            {
+                UserBasicData.ResetCharacterCount += count;
+            }
+            else
+            {
+                UserBasicData.ResetCharacterCount = count;
+            }
+
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
+        }
+
+        // 캐릭터 초기화 카운트 및 시간 갱신
+        public void UpdateResetCharacterCount()
+        {
+            // 현재 날짜가 리셋 날짜보다 크거나 같으면 초기화
+            if (UserBasicData.ResetCharacterTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+            {
+                SetResetCharacterCount(0, false, false);
+
+                UserBasicData.ResetCharacterTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+
+                SaveUserBasic();
+            }
         }
 
         public void CheatResetUserLevelData()

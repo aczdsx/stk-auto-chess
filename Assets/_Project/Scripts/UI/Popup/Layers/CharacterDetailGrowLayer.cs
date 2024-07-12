@@ -228,6 +228,9 @@ namespace CookApps.AutoBattler
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
 
+            // 퀘스트 데이터 갱신
+            UserDataManager.Instance.SetUserQuestActionCount(QuestType.LEVELUP_CHARACTER, 1, true, true);
+
             // 이펙트 실행
             PlayLevelUpEffect();
 
@@ -238,6 +241,21 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);
 
             RefreshLayer();
+        }
+
+        private void OnClickCharacterResetButton()
+        {
+            // 리셋 가능 횟수 체크
+            int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
+            if (UserDataManager.Instance.UserBasicData.ResetCharacterCount >= maxResetCount)
+            {
+                return;
+            }
+
+            //todo.. 캐릭터 레벨 리셋
+
+            // 리셋 횟수 증가
+            UserDataManager.Instance.SetResetCharacterCount(1, true, true);
         }
 
         private void ClearLayer()

@@ -32,6 +32,8 @@ namespace CookApps.AutoBattler
 
         private List<RewardItem> _questRewardItemList = new List<RewardItem>();
 
+        private QuestPopup _parentPopup;
+
         private void Awake()
         {
             _claimButton.onClick.AddListener(OnClickGetRewardButton);
@@ -44,9 +46,11 @@ namespace CookApps.AutoBattler
             _claimButton.onClick.RemoveListener(OnClickGetRewardButton);
         }
 
-        public void SetQuestSlot(SpecQuest data)
+        public void SetQuestSlot(QuestPopup parent, SpecQuest data)
         {
             if (data == null) return;
+
+            _parentPopup = parent;
 
             _specQuestData = data;
             _userQuestData = UserDataManager.Instance.GetUserQuestData(_specQuestData.quest_id);
@@ -81,7 +85,7 @@ namespace CookApps.AutoBattler
             // 버튼 상태 세팅
             _claimBGObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.REWARD);
             _claimButtonObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.REWARD);
-            
+
             _completeLayerObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.CLEAR);
             _completeButtonObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.CLEAR);
         }
@@ -98,7 +102,7 @@ namespace CookApps.AutoBattler
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(_questRewardItemList).Forget();
 
-            RefreshQuestSlot(true);
+            _parentPopup?.RefreshPopup();
         }
     }
 }
