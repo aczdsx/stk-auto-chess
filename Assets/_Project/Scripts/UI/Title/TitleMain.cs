@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
             // TODO: update progress bar
         }
 
-        public void OnClickTouchToStart()
+        public async void OnClickTouchToStart()
         {
             // if (LocalUserDataManager.Instance.GetIsFirstGame() == true)
             // {
@@ -130,8 +130,28 @@ namespace CookApps.AutoBattler
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
 
+                // 세션 타임 기록 unitask 실행
+                //await RecordSessionTime();
+
                 // int lastChapter = 1;
                 // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
+            }
+        }
+
+        // 유저 세션 타임 기록
+        private async UniTask RecordSessionTime()
+        {
+            var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ACC_PLAY_TIME);
+            if (specEventData == null) return;
+
+            while (true)
+            {
+                //var userDataValue = UserDataManager.Instance.GetUserEventData(specEventData.event_id).ActionCount;
+                //Debug.Log("***********************RecordSessionTime Test***********************   =>  " + userDataValue);
+
+                await UniTask.Delay(1000 * 60);
+
+                UserDataManager.Instance.SetUserEventActionCount(specEventData.event_id, 1, true);
             }
         }
     }

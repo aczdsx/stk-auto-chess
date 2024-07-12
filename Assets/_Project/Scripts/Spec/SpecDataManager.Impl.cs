@@ -747,6 +747,11 @@ namespace CookApps.AutoBattler
             return SpecEvent.All.ToList().Find(data => data.event_id == eventID);
         }
 
+        public SpecEvent GetSpecEventData(EventType eventType)
+        {
+            return SpecEvent.All.ToList().Find(data => data.event_type == eventType);
+        }
+
         public List<SpecEvent> GetSpecEventList(EventType eventType)
         {
             return SpecEvent.All.ToList().FindAll(data => data.event_type == eventType);

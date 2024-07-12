@@ -170,7 +170,7 @@ namespace CookApps.AutoBattler
             SaveUserEventData();
         }
 
-        // 전체 벤트 갱신 시간 업데이트
+        // 전체 이벤트 갱신 시간 업데이트
         public void UpdateAllEventTimeData(bool isFirstInit)
         {
             // 서비스 중인 동안 계속 반복 되거나, 운영 기간에 해당하는 이벤트 데이터를 세팅
