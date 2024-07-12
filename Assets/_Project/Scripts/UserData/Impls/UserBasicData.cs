@@ -25,6 +25,7 @@ namespace CookApps.AutoBattler
                     Nickname = "StellaKnights",
                     UserIconId = 40101,
                     LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp(),
+                    MaxSquadCount = SpecDataManager.Instance.GetGameConfig<int>("default_max_squad_count"),
 
                     TotalGachaCount = 0,
                 };
@@ -83,6 +84,16 @@ namespace CookApps.AutoBattler
             UserBasicData.TotalGachaCount += count;
 
             SaveUserBasic();
+        }
+
+        public void SetMaxSquadCount(int count, bool needSave)
+        {
+            UserBasicData.MaxSquadCount = count;
+
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
         }
 
         public void SetResetCharacterCount(int count, bool isAdd, bool needSave)

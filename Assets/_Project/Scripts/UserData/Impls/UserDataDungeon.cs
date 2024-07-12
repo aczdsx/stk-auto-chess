@@ -53,6 +53,17 @@ namespace CookApps.AutoBattler
             if (userDungeon.UserTrialDungeonDatas.ContainsKey(dungeonID))
             {
                 userDungeon.UserTrialDungeonDatas[dungeonID].DungeonStateType = (int)stateType;
+
+                // 던전 클리어 시 연관 데이터 처리
+                if (stateType == DungeonStateType.CLEAR)
+                {
+                    var specDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialData(dungeonID);
+                    if (specDungeonData != null)
+                    {
+                        // 최대 배치 기사 수 증가
+                        SetMaxSquadCount(specDungeonData.squad_count, needSave);
+                    }
+                }
             }
 
             if (needSave)

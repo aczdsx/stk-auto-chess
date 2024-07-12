@@ -835,6 +835,11 @@ namespace CookApps.AutoBattler
             return SpecEventCondition.All.ToList().FindAll(data => data.event_id == eventID);
         }
 
+        public SpecDungeonTrial GetSpecDungeonTrialData(int dungeonID)
+        {
+            return SpecDungeonTrial.All.ToList().Find(data => data.dungeon_id == dungeonID);
+        }
+
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
         // {
         //     return inGameVfxDic.GetValueOrDefault(vfxNameType);
