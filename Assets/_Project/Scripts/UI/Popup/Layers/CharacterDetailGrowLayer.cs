@@ -243,6 +243,21 @@ namespace CookApps.AutoBattler
             RefreshLayer();
         }
 
+        private void OnClickCharacterResetButton()
+        {
+            // 리셋 가능 횟수 체크
+            int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
+            if (UserDataManager.Instance.UserBasicData.ResetCharacterCount >= maxResetCount)
+            {
+                return;
+            }
+
+            //todo.. 캐릭터 레벨 리셋
+
+            // 리셋 횟수 증가
+            UserDataManager.Instance.SetResetCharacterCount(1, true, true);
+        }
+
         private void ClearLayer()
         {
             _levelupEffectObjectList_1.ForEach(effect => effect.gameObject.SetActive(false));
