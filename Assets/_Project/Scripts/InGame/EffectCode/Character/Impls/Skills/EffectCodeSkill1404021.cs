@@ -110,6 +110,9 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         if (_targetCharacter == null)
             return;
 
+        if (owner == null)
+            return;
+
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
             _targetCharacter.SkillRootTransformFollowable);
 
