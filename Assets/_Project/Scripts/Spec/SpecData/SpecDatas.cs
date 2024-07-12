@@ -603,6 +603,76 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecDungeonTrial
+    {
+        /// 전체 ID
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 던전 타입
+        public global::CookApps.AutoBattler.DungeonType dungeon_type;
+        /// 던전 id
+        public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
+        /// 공략 desc 토큰
+        public string guide_desc_token;
+        /// 스테이지 타입
+        public global::CookApps.AutoBattler.TrialType trial_type;
+        /// 별 입장 조건
+        public CookApps.Obfuscator.ObfuscatorInt need_star;
+        /// 어려움 난이도 행동력
+        public CookApps.Obfuscator.ObfuscatorInt ap_HARD;
+        /// 캐릭터 배치 가능 수
+        public CookApps.Obfuscator.ObfuscatorInt squad_count;
+        /// 장애물
+        public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id;
+        /// 챕터 룰
+        public CookApps.Obfuscator.ObfuscatorInt[] chapter_rule_tile;
+        /// 이펙트 코드
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
+        /// 이텍트 코드 스텟
+        public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecDungeonMonster
+    {
+        /// 전체 ID
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 던전 타입
+        public global::CookApps.AutoBattler.DungeonType dungeon_type;
+        /// 챕터 id
+        public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
+        /// 좌표값 (x,y)
+        public string coordinate;
+        /// 몬스터 id
+        public CookApps.Obfuscator.ObfuscatorInt monster_id;
+        /// 몬스터 레벨
+        public CookApps.Obfuscator.ObfuscatorInt monster_lv;
+        /// 공격력 멀티플
+        public CookApps.Obfuscator.ObfuscatorFloat multiple_atk;
+        /// 체력 멀티플
+        public CookApps.Obfuscator.ObfuscatorFloat multiple_hp;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecDungeonReward
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 던전 타입
+        public global::CookApps.AutoBattler.DungeonType dungeon_type;
+        /// 던전 id
+        public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
+        /// 보상 타입
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 키 값
+        public CookApps.Obfuscator.ObfuscatorInt item_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt item_count;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecSynergy
     {
         /// 유니크 id
