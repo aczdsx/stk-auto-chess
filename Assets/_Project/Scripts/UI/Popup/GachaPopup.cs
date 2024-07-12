@@ -89,6 +89,9 @@ namespace CookApps.AutoBattler
             // 가이드 미션 체크
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
 
+            // 퀘스트 데이터 갱신
+            UserDataManager.Instance.SetUserQuestActionCount(QuestType.SUMMON_CHARACTER, Defines.GACHA_1_TIME_COUNT, true, true);
+
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;
 
@@ -136,6 +139,9 @@ namespace CookApps.AutoBattler
 
             // 가이드 미션 체크
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
+
+            // 퀘스트 데이터 갱신
+            UserDataManager.Instance.SetUserQuestActionCount(QuestType.SUMMON_CHARACTER, Defines.GACHA_10_TIME_COUNT, true, true);
 
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;

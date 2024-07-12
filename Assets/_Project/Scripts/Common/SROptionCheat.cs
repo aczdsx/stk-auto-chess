@@ -279,7 +279,14 @@ public partial class SROptions
     {
         if (대상퀘스트ID == 0) return;
 
-        UserDataManager.Instance.SetUserQuestActionCount(대상퀘스트ID, 퀘스트완료횟수, true);
+        UserDataManager.Instance.SetUserQuestActionCount(대상퀘스트ID, 퀘스트완료횟수, false, true);
+
+        // 퀘스트 팝업 UI 갱신
+        var questPopup = SceneUILayerManager.Instance.GetUILayer("QuestPopup");
+        if (questPopup != null)
+        {
+            questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
+        }
     }
 
     [Category("퀘스트 관련")]
@@ -288,6 +295,13 @@ public partial class SROptions
         if (대상퀘스트ID == 0) return;
 
         UserDataManager.Instance.SetUserQuestState(대상퀘스트ID, 퀘스트상태, true);
+
+        // 퀘스트 팝업 UI 갱신
+        var questPopup = SceneUILayerManager.Instance.GetUILayer("QuestPopup");
+        if (questPopup != null)
+        {
+            questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
+        }
     }
 
     [Category("퀘스트 관련")]

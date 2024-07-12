@@ -732,6 +732,11 @@ namespace CookApps.AutoBattler
             return SpecQuest.All.ToList().FindAll(data => data.term_type == termType);
         }
 
+        public List<SpecQuest> GetSpecQuestList(QuestType questType)
+        {
+            return SpecQuest.All.ToList().FindAll(data => data.quest_type == questType);
+        }
+
         public List<SpecQuest> GetSpecQuestList(TermType termType, QuestType questType)
         {
             return SpecQuest.All.ToList().FindAll(data => data.term_type == termType && data.quest_type == questType);

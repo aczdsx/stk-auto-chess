@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _closeButton.onClick.AddListener(OnClickCloseButton);
-            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
+            //_dimCloseButton.onClick.AddListener(OnClickCloseButton);
             _dailyQuestTabButton.onClick.AddListener(OnClickDailyQuestButton);
             _weeklyQuestTabButton.onClick.AddListener(OnClickWeeklyQuestButton);
         }
@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
+            //_dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
             _dailyQuestTabButton.onClick.RemoveListener(OnClickDailyQuestButton);
             _weeklyQuestTabButton.onClick.RemoveListener(OnClickWeeklyQuestButton);
         }
@@ -62,6 +62,13 @@ namespace CookApps.AutoBattler
             CheckQuestRefreshState();
 
             SetQuestPopup(_currentTabTermType);
+        }
+
+        public void RefreshPopup()
+        {
+            if (_questSlotList == null || _questSlotList.Count <= 0) return;
+
+            _questSlotList.ForEach(slot => slot.RefreshQuestSlot(true));
         }
 
         // 퀘스트 초기화 시간이 지났는지 체크
@@ -101,7 +108,7 @@ namespace CookApps.AutoBattler
             {
                 GameObject newSlotObject = Instantiate(_questSlotPrefabObject, _questSlotScrollRect.content);
                 QuestSlot newSlot = newSlotObject.GetComponent<QuestSlot>();
-                newSlot.SetQuestSlot(specData);
+                newSlot.SetQuestSlot(this, specData);
 
                 _questSlotList.Add(newSlot);
             }
