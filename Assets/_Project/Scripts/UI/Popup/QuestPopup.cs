@@ -78,12 +78,16 @@ namespace CookApps.AutoBattler
             if (UserDataManager.Instance.UserQuest.NextDailyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
             {
                 UserDataManager.Instance.UpdateNextRefreshTimeStamp(TermType.DAILY, true);
+
+                UserDataManager.Instance.ResetQuestDataList(TermType.DAILY);
             }
 
             // 주간 퀘스트 체크
             if (UserDataManager.Instance.UserQuest.NextWeeklyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
             {
                 UserDataManager.Instance.UpdateNextRefreshTimeStamp(TermType.WEEKLY, true);
+
+                UserDataManager.Instance.ResetQuestDataList(TermType.WEEKLY);
             }
         }
 
