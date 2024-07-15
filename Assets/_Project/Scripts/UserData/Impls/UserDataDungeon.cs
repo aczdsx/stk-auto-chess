@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
@@ -51,6 +52,31 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        // 가장 마지막 시련 던전 데이터 반환
+        public UserTrialDungeonData GetLastTrialDungeonData()
+        {
+            var clearDungeonList = GetTrialDungeonDataList(DungeonStateType.CLEAR);
+
+            // 아무것도 클리어 하지 않은 경우 가장 첫번째 던전 데이터 반환
+            if (clearDungeonList == null || clearDungeonList.Count <= 0)
+            {
+                var firstDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialDataByOrder(1);
+                if (firstDungeonData != null)
+                {
+                    return GetTrialDungeonData(firstDungeonData.dungeon_id);
+                }
+            }
+
+            int maxOrder = clearDungeonList.Max(data => data.Order);
+            var lastDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialDataByOrder(maxOrder);
+            return GetTrialDungeonData(lastDungeonData.dungeon_id);
+        }
+
+        public List<UserTrialDungeonData> GetTrialDungeonDataList(DungeonStateType stateType)
+        {
+            return userDungeon.UserTrialDungeonDatas.Values.Where(x => x.DungeonStateType == (int)stateType).ToList();
+        }
+
         public void SetTrialDungeonData(int dungeonID, DungeonStateType stateType, bool needSave)
         {
             if (userDungeon.UserTrialDungeonDatas.ContainsKey(dungeonID))
@@ -86,6 +112,7 @@ namespace CookApps.AutoBattler
                 userDungeon.UserTrialDungeonDatas.Add(dungeonData.dungeon_id, new UserTrialDungeonData
                 {
                     DungeonId = dungeonData.dungeon_id,
+                    Order = dungeonData.order,
                     DungeonStateType = (int)DungeonStateType.WAIT,
                 });
             }

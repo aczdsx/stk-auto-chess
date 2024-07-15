@@ -612,6 +612,8 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.DungeonType dungeon_type;
         /// 던전 id
         public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
+        /// 던전 순서
+        public CookApps.Obfuscator.ObfuscatorInt order;
         /// 공략 desc 토큰
         public string guide_desc_token;
         /// 스테이지 타입

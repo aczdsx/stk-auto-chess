@@ -874,6 +874,11 @@ namespace CookApps.AutoBattler
             return SpecDungeonTrial.All.ToList().Find(data => data.dungeon_id == dungeonID);
         }
 
+        public SpecDungeonTrial GetSpecDungeonTrialDataByOrder(int order)
+        {
+            return SpecDungeonTrial.All.ToList().Find(data => data.order == order);
+        }
+
         public List<SpecDungeonTrial> GetSpecDungeonTrialDataList(DungeonType dungeonType)
         {
             return SpecDungeonTrial.All.ToList().FindAll(data => data.dungeon_type == dungeonType);

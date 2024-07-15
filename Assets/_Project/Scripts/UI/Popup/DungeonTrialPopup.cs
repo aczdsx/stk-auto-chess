@@ -66,8 +66,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            //test
-            CurrentUserDungeonData = UserDataManager.Instance.GetTrialDungeonData(10001);
+            CurrentUserDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
             _specDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(CurrentUserDungeonData.DungeonId);
 
             InitDungeonPopup();
@@ -106,6 +105,8 @@ namespace CookApps.AutoBattler
             SetMonsterInfoLayer();
             SetRewardInfoLayer();
             SetStepSlotLayer();
+
+            _stepScrollRect.horizontalNormalizedPosition = 0;
         }
 
         private void SetCommonInfoLayer()
