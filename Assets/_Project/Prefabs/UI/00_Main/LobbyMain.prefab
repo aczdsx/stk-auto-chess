@@ -1892,6 +1892,7 @@ MonoBehaviour:
   _idleRewardButton: {fileID: 5085768673705005770}
   _attendanceButton: {fileID: 771116231089938256}
   _questButton: {fileID: 6811864923079749924}
+  _trialDungeonButton: {fileID: 6612707305023326019}
   _vignetteImage: {fileID: 5632547169323492497}
   _stageVignetteColorList:
   - {r: 0.039215688, g: 0.04705883, b: 0.054901965, a: 1}
@@ -5121,3 +5122,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8457218267022422992, guid: b0d2a94a5586a944395a38ac9ee7689b, type: 3}
   m_PrefabInstance: {fileID: 8885346754008043571}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6612707305023326019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2344714635646211952, guid: b0d2a94a5586a944395a38ac9ee7689b, type: 3}
+  m_PrefabInstance: {fileID: 8885346754008043571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

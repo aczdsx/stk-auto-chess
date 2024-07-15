@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _idleRewardButton;
         [SerializeField] private CAButton _attendanceButton;
         [SerializeField] private CAButton _questButton;
+        [SerializeField] private CAButton _trialDungeonButton;
 
         [Header("Vignette Layer")]
         [SerializeField] private RawImage _vignetteImage;
@@ -85,6 +86,7 @@ namespace CookApps.AutoBattler
             _idleRewardButton.onClick.AddListener(OnClickIdleRewardButton);
             _attendanceButton.onClick.AddListener(OnClickAttendanceButton);
             _questButton.onClick.AddListener(OnClickQuestButton);
+            _trialDungeonButton.onClick.AddListener(OnClickTrialDungeonButton);
         }
 
         protected override void OnDestroy()
@@ -97,6 +99,7 @@ namespace CookApps.AutoBattler
             _idleRewardButton.onClick.RemoveListener(OnClickIdleRewardButton);
             _attendanceButton.onClick.RemoveListener(OnClickAttendanceButton);
             _questButton.onClick.RemoveListener(OnClickQuestButton);
+            _trialDungeonButton.onClick.RemoveListener(OnClickTrialDungeonButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -505,6 +508,13 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneUILayerManager.Instance.PushUILayerAsync<QuestPopup>().Forget();
+        }
+
+        private void OnClickTrialDungeonButton()
+        {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
+            SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
         }
 
         private void ClearBottomSlotLayer()
