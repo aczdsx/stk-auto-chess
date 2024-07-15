@@ -39,8 +39,10 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     IEndDragHandler
 {
     public InGameCamera InGameCamera => _inGameCamera;
+
     [SerializeField]
     private InGameCamera _inGameCamera;
+
     // [TODO] switchObj 추가 필요
     public GameObject switchObj;
     public float switchThreshold = 50f;
@@ -52,7 +54,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     private Vector2 _dragStartPosition;
     private InGameTileView _hitTileView;
     private List<InGameTile> _activeTiles = new List<InGameTile>();
-    private CommanderSkillData _commanderSkillData;
+    private List<CommanderSkillData> _commandSkillDataList = new List<CommanderSkillData>();
+    private CommanderSkillData _selectedCommanderSkillData;
     private bool isCanUseCommanderSkill = false;
 
     public void Initialize()
@@ -68,15 +71,17 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
             return;
 
-        var isCommanderSkillTouch = eventData.pointerCurrentRaycast.gameObject.CompareTag("CommanderSkill");
-        if (!isCommanderSkillTouch)
+        var commanderSkillUI = eventData.pointerCurrentRaycast.gameObject.GetComponent<CommanderSkillUI>();
+        if (commanderSkillUI == null)
             return;
 
-        if (_commanderSkillData == null)
+        if (_selectedCommanderSkillData == null)
             return;
 
-        if (_commanderSkillData.DurationTime > _commanderSkillData.ElapsedTime)
+        if (_selectedCommanderSkillData.DurationTime > _selectedCommanderSkillData.ElapsedTime)
             return;
+
+        _selectedCommanderSkillData = _commandSkillDataList.Find(l => l.Spec.id == commanderSkillUI.Data.Spec.id);
 
         _isDragging = true;
         _dragStartPosition = eventData.position;
@@ -117,6 +122,9 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (!_isDragging)
             return;
 
+        if (_selectedCommanderSkillData == null)
+            return;
+
         InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
 
         if (switchObj)
@@ -146,35 +154,28 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         {
             double[] eccStat = new double[2];
             eccStat[0] = _hitTileView.ID;
-            eccStat[1] = (double) _commanderSkillData.StatValue;
-            var effectCodeInfo = new EffectCodeInfo(_commanderSkillData.Spec.commander_skill_id, 0, eccStat);
+            eccStat[1] = (double) _selectedCommanderSkillData.StatValue;
+            var effectCodeInfo = new EffectCodeInfo(_selectedCommanderSkillData.Spec.commander_skill_id, 0, eccStat);
 
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
-            _commanderSkillData.ElapsedTime = 0;
+            _selectedCommanderSkillData.ElapsedTime = 0;
             isCanUseCommanderSkill = false;
+            _selectedCommanderSkillData = null;
         }
     }
 
     public void ManagedUpdate(float dt)
     {
-        if (_commanderSkillData == null)
-            return;
-
         if (isCanUseCommanderSkill)
             return;
 
-        if (_commanderSkillData.ElapsedTime < _commanderSkillData.DurationTime)
+        foreach (var commanderSkillData in _commandSkillDataList)
         {
-            _commanderSkillData.ElapsedTime += dt;
-            InGameMain.GetInGameMain()
-                .SetCommanderSkillCoolTime(_commanderSkillData.ElapsedTime, _commanderSkillData.DurationTime);
-            InGameMain.GetInGameMain().SetCommanderFx(false);
+            commanderSkillData.ElapsedTime += dt;
         }
-        else
-        {
-            isCanUseCommanderSkill = true;
-            InGameMain.GetInGameMain().SetCommanderFx(true);
-        }
+
+        if (InGameMain.GetInGameMain() != null)
+            InGameMain.GetInGameMain().UpdateCommanderSkillCoolTime();
     }
 
     Vector3 HandleRuntimeDrag(PointerEventData eventData)
@@ -202,21 +203,25 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         }
     }
 
-    public void SetCommanderSkillData(SpecCommanderSkill data)
+    public CommanderSkillData InitCommanderSkillData(SpecCommanderSkill data)
     {
         var coolTimeData = SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.COOL);
         var statValueData =
             SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
 
-        _commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
+        var commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
         //[TODO] 나중에는 성장 스텟으로 빼기
-        _commanderSkillData.ElapsedTime = _commanderSkillData.DurationTime * 0.5f;
+        commanderSkillData.ElapsedTime = commanderSkillData.DurationTime * 0.5f;
+        _commandSkillDataList.Add(commanderSkillData);
+
+        return commanderSkillData;
     }
 
     public void Clear()
     {
         InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
-        _commanderSkillData = null;
+        _selectedCommanderSkillData = null;
+        _commandSkillDataList.Clear();
     }
 
     private bool CheckSkillTile(PointerEventData eventData, bool isNavigate)
@@ -233,7 +238,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
                     var tiles = new List<InGameTile>();
 
                     // [TODO] 나중에는 데이터에서 처리 필요
-                    if (_commanderSkillData.Spec.commander_skill_id == 300001)
+                    if (_selectedCommanderSkillData.Spec.commander_skill_id == 300001)
                         tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
                     else
                         tiles.AddRange(

@@ -10,49 +10,26 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameBottomCharacterUI : MonoBehaviour
 {
-    [SerializeField]
-    private CAButton _startButton;
-
-    [SerializeField]
-    private CAButton _CommanderSkillButton;
-
-    [SerializeField]
-    private CAButton _statisticButton;
-
-    [SerializeField]
-    private Transform _characterSelectedTransform;
-
-    [SerializeField]
-    private Transform _rightTransform;
-
-    [SerializeField]
-    private Image _returnImage;
-
-    [SerializeField]
-    private InGameCharacterItem _ingameCharacterItemPrefab;
-
-    [SerializeField]
-    private Transform _inGameCharacterItemTransform;
-
-    [SerializeField]
-    private GameObject _readyUIObj;
-
-    [SerializeField]
-    private CommanderSkillUI _commanderSkillUI;
-
-    [SerializeField]
-    private TextMeshProUGUI _characterCountText;
-
-    [SerializeField]
-    private ParticleSystem _commanderFx;
-
-    [SerializeField]
-    private SkillTooltipPopup _skillTooltipPopup;
+    [SerializeField] private CAButton _startButton;
+    [SerializeField] private List<CAButton> _CommanderSkillButtonList;
+    [SerializeField] private CAButton _statisticButton;
+    [SerializeField] private Transform _characterSelectedTransform;
+    [SerializeField] private Transform _rightTransform;
+    [SerializeField] private Image _returnImage;
+    [SerializeField] private InGameCharacterItem _ingameCharacterItemPrefab;
+    [SerializeField] private Transform _inGameCharacterItemTransform;
+    [SerializeField] private GameObject _readyUIObj;
+    [SerializeField] private GameObject _commanderSkillObj;
+    [SerializeField] private List<CommanderSkillUI> _commanderSkillUIList;
+    [SerializeField] private TextMeshProUGUI _characterCountText;
+    [SerializeField] private ParticleSystem _commanderFx;
+    [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
 
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
@@ -62,10 +39,11 @@ public class InGameBottomCharacterUI : MonoBehaviour
     protected void Awake()
     {
         _isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
-        _commanderSkillUI.gameObject.SetActive(_isOpenCommanderSkill);
+        _commanderSkillObj.SetActive(_isOpenCommanderSkill);
 
         _startButton?.onClick.AddListener(OnStartButtonClicked);
-        _CommanderSkillButton?.onClick.AddListener(OnClickCommanderSkillButton);
+        for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
+            _CommanderSkillButtonList[i]?.onClick.AddListener(() => OnClickCommanderSkillButton(i));
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
 
@@ -121,7 +99,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _readyUIObj.SetActive(false);
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
-        SetCommanderSkill();
+        InitCommanderSkill();
         InGameMain.GetInGameMain().SetCombatUI();
 
 
@@ -141,14 +119,14 @@ public class InGameBottomCharacterUI : MonoBehaviour
         Preference.SavePreference(Pref.STATISTIC, true);
     }
 
-    private void OnClickCommanderSkillButton()
+    private void OnClickCommanderSkillButton(int index)
     {
         if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
             return;
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-        SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
+        SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>(index).Forget();
     }
 
     public void ChangeStatisticsButtonActiveState(bool isOn)
@@ -197,17 +175,17 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
-    public void SetCommanderSkillUI(int id)
+    public void SetCommanderSkillUI(int index, int id)
     {
         var image = ImageManager.Instance.GetCommanderSkillSprite(id);
         if (image != null)
         {
-            _commanderSkillUI.SetIcon(image);
-            InGameMain.GetInGameMain().SetCommanderFx(false);
+            _commanderSkillUIList[index].SetIcon(image);
+            _commanderSkillUIList[index].SetCommanderFx(false);
         }
         else
         {
-            InGameMain.GetInGameMain().SetCommanderFx(true);
+            _commanderSkillUIList[index].SetCommanderFx(true);
         }
 
     }
@@ -230,7 +208,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // _characterStats.Add(new CharacterStatData(140502, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         // _characterStats.Add(new CharacterStatData(130501, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
 
-        SetCommanderSkillUI(UserDataManager.Instance.GetEquippedCommanderSkill(0));
+        for (int i = 0; i < _commanderSkillUIList.Count; i++)
+            SetCommanderSkillUI(i, UserDataManager.Instance.GetEquippedCommanderSkill(i));
+
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
@@ -250,13 +230,17 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
-    public void SetCommanderSkill()
+    public void InitCommanderSkill()
     {
-        int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(0);
-        if (equippedCommanderSkill != 0)
+        for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {
-            var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
-            InGameCommanderManager.Instance.SetCommanderSkillData(data);
+            int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(i);
+            if (equippedCommanderSkill != 0)
+            {
+                var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
+                CommanderSkillData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(data);
+                _commanderSkillUIList[i].SetData(skillData);
+            }
         }
     }
 
@@ -375,14 +359,19 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _isRunningAddCharacter = false;
     }
 
-    public void SetCommanderSkillCoolTime(float elapsedTime, float durationTime)
+    public void UpdateCommanderSkillCoolTime()
     {
-        _commanderSkillUI.UpdateCommanderSkillCoolTime(elapsedTime, durationTime);
-    }
+        foreach (var skillUI in _commanderSkillUIList)
+        {
+            if (skillUI.Data != null)
+            {
+                bool isActiveCoolTime = skillUI.Data.ElapsedTime >= skillUI.Data.DurationTime;
+                if (!isActiveCoolTime)
+                    skillUI.UpdateCommanderSkillCoolTime();
 
-    public void SetIconColor(float fadeAlpha)
-    {
-        _commanderSkillUI.SetIconColor(fadeAlpha);
+                InGameMain.GetInGameMain().SetCommanderFx(isActiveCoolTime);
+            }
+        }
     }
 
     public void SetCharacterCountText()

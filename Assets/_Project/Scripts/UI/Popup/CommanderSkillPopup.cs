@@ -21,6 +21,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _skillListSlotObject;
 
         private List<CommanderSkillSlot> _commanderSkillSlotList = new List<CommanderSkillSlot>();
+        private int _index = 0;
 
         private void Awake()
         {
@@ -38,6 +39,7 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
+            _index = (int)param;
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             _skillTooltipPopup.gameObject.SetActive(false);
@@ -85,7 +87,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
-            InGameMain.GetInGameMain().SetCommanderSkillUI(UserDataManager.Instance.GetEquippedCommanderSkill(0));
+            InGameMain.GetInGameMain().SetCommanderSkillUI(_index, UserDataManager.Instance.GetEquippedCommanderSkill(_index));
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 

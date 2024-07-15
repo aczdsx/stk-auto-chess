@@ -14985,6 +14985,7 @@ MonoBehaviour:
   _coolTimeImage: {fileID: 4955085964715298484}
   _coolTimeText: {fileID: 4314205316992832440}
   _guideObj: {fileID: 6365565527128675470}
+  _activeFx: {fileID: 4322164915376906298}
 --- !u!1 &4821035711983739333
 GameObject:
   m_ObjectHideFlags: 0

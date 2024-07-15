@@ -161,9 +161,9 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetCommanderSkillCoolTime(float elapsedTime, float durationTime)
+        public void UpdateCommanderSkillCoolTime()
         {
-            _inGameBottomCharacterUI.SetCommanderSkillCoolTime(elapsedTime, durationTime);
+            _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
         }
 
         public void SetIconColor(float fadeAlpha)
@@ -172,9 +172,9 @@ namespace CookApps.AutoBattler
             // _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
         }
 
-        public void SetCommanderSkillUI(int equippedCommanderSkillId)
+        public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
-            _inGameBottomCharacterUI.SetCommanderSkillUI(equippedCommanderSkillId);
+            _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
 
         public void SetCommanderFx(bool active)
