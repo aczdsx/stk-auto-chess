@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace CookApps.AutoBattler
 {
@@ -25,7 +25,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private ScrollRect _questSlotScrollRect;
         [SerializeField] private GameObject _questSlotPrefabObject;
 
-        private List<SpecQuest> _specQuestDataList;
+        [Header("MileStone Layer")]
+        [SerializeField] private Slider _mileStoneSlider;
+        [SerializeField] private List<QuestClearRewardGaugeSlot> _mileStoneRewardSlotList;
+
+        private List<SpecQuest> _specNormalQuestDataList;
+        private List<SpecQuest> _specMileStoneQuestDataList;
         private List<QuestSlot> _questSlotList = new List<QuestSlot>();
 
         private TermType _currentTabTermType = TermType.DAILY;
@@ -67,8 +72,12 @@ namespace CookApps.AutoBattler
         public void RefreshPopup()
         {
             if (_questSlotList == null || _questSlotList.Count <= 0) return;
+            if (_mileStoneRewardSlotList == null || _mileStoneRewardSlotList.Count <= 0) return;
 
             _questSlotList.ForEach(slot => slot.RefreshQuestSlot(true));
+            _mileStoneRewardSlotList.ForEach(slot => slot.RefreshSlot(true));
+
+            SetQuestMileStoneSlider();
         }
 
         // 퀘스트 초기화 시간이 지났는지 체크
@@ -93,9 +102,14 @@ namespace CookApps.AutoBattler
 
         private void SetQuestPopup(TermType termType)
         {
-            _specQuestDataList = SpecDataManager.Instance.GetSpecQuestList(termType);
+            _specNormalQuestDataList = SpecDataManager.Instance.GetSpecQuestList(termType, false);
+
+            QuestType targetMilestoneQuestType = termType == TermType.DAILY ? QuestType.CLEAR_DAILY_QUEST : QuestType.CLEAR_WEEKLY_QUEST;
+            _specMileStoneQuestDataList = SpecDataManager.Instance.GetSpecQuestList(termType, targetMilestoneQuestType);
 
             SetQuestSlotList();
+            SetQuestMileStoneLayer();
+            SetQuestMileStoneSlider();
 
             UpdateTabButton();
 
@@ -104,11 +118,11 @@ namespace CookApps.AutoBattler
 
         private void SetQuestSlotList()
         {
-            if (_specQuestDataList == null || _specQuestDataList.Count <= 0) return;
+            if (_specNormalQuestDataList == null || _specNormalQuestDataList.Count <= 0) return;
 
             ClearLayer();
 
-            foreach (var specData in _specQuestDataList)
+            foreach (var specData in _specNormalQuestDataList)
             {
                 GameObject newSlotObject = Instantiate(_questSlotPrefabObject, _questSlotScrollRect.content);
                 QuestSlot newSlot = newSlotObject.GetComponent<QuestSlot>();
@@ -116,6 +130,28 @@ namespace CookApps.AutoBattler
 
                 _questSlotList.Add(newSlot);
             }
+        }
+
+        private void SetQuestMileStoneLayer()
+        {
+            if (_mileStoneRewardSlotList == null || _mileStoneRewardSlotList.Count <= 0) return;
+            if (_specMileStoneQuestDataList == null || _specMileStoneQuestDataList.Count <= 0) return;
+
+            if (_mileStoneRewardSlotList.Count != _specMileStoneQuestDataList.Count) return;
+
+            for (int i = 0; i < _specMileStoneQuestDataList.Count; ++i)
+            {
+                _mileStoneRewardSlotList[i].SetQuestGaugeSlot(this, _specMileStoneQuestDataList[i]);
+            }
+        }
+
+        private void SetQuestMileStoneSlider()
+        {
+            if (_specMileStoneQuestDataList == null || _specMileStoneQuestDataList.Count <= 0) return;
+
+            // 슬라이더 세팅
+            _mileStoneSlider.maxValue = _specMileStoneQuestDataList.Max(data => data.need_count);
+            _mileStoneSlider.value = UserDataManager.Instance.GetQuestClearCount(_currentTabTermType);
         }
 
         private void UpdateTabButton()

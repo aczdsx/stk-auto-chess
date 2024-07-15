@@ -19,7 +19,7 @@ namespace CookApps.AutoBattler
                 userQuest = new UserQuest();
 
                 // 전체 퀘스트 리스트 생성 (일일)
-                var allDailyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.DAILY);
+                var allDailyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.DAILY, true);
                 foreach (var questData in allDailyQuestList)
                 {
                     userQuest.UserQuestDailyDatas.Add(questData.quest_id, new UserQuestData
@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
                 }
 
                 // 전체 퀘스트 리스트 생성 (주간)
-                var allweeklyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.WEEKLY);
+                var allweeklyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.WEEKLY, true);
                 foreach (var questData in allweeklyQuestList)
                 {
                     userQuest.UserQuestWeeklyDatas.Add(questData.quest_id, new UserQuestData
@@ -251,6 +251,43 @@ namespace CookApps.AutoBattler
             }
 
             return null;
+        }
+
+        // 클리어 한 퀘스트 갯수 반환 (마일스톤 제외)
+        public int GetQuestClearCount(TermType termType)
+        {
+            int resultCount = 0;
+
+            // 일일 퀘스트 체크
+            if (termType == TermType.DAILY)
+            {
+                foreach (var questData in userQuest.UserQuestDailyDatas)
+                {
+                    var specQuestData = SpecDataManager.Instance.GetSpecQuestData(questData.Key);
+                    if (specQuestData.quest_type == QuestType.CLEAR_DAILY_QUEST) continue;
+
+                    if (questData.Value.QuestStateType == (int)QuestStateType.CLEAR)
+                    {
+                        resultCount++;
+                    }
+                }
+            }
+            else if (termType == TermType.WEEKLY)
+            {
+                // 주간 퀘스트 체크
+                foreach (var questData in userQuest.UserQuestWeeklyDatas)
+                {
+                    var specQuestData = SpecDataManager.Instance.GetSpecQuestData(questData.Key);
+                    if (specQuestData.quest_type == QuestType.CLEAR_WEEKLY_QUEST) continue;
+
+                    if (questData.Value.QuestStateType == (int)QuestStateType.CLEAR)
+                    {
+                        resultCount++;
+                    }
+                }
+            }
+
+            return resultCount;
         }
 
         public void ResetQuestDataList(TermType termType)

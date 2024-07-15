@@ -761,9 +761,17 @@ namespace CookApps.AutoBattler
             return SpecQuest.All.ToList().Find(data => data.quest_id == questID);
         }
 
-        public List<SpecQuest> GetSpecQuestList(TermType termType)
+        public List<SpecQuest> GetSpecQuestList(TermType termType, bool isIncludeMilestone)
         {
-            return SpecQuest.All.ToList().FindAll(data => data.term_type == termType);
+            if (isIncludeMilestone)
+            {
+                return SpecQuest.All.ToList().FindAll(data => data.term_type == termType);
+            }
+
+            return SpecQuest.All.ToList().FindAll(data =>
+                data.term_type == termType
+                && data.quest_type != QuestType.CLEAR_DAILY_QUEST
+                && data.quest_type != QuestType.CLEAR_WEEKLY_QUEST);
         }
 
         public List<SpecQuest> GetSpecQuestList(QuestType questType)
