@@ -16,20 +16,47 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameBottomCharacterUI : MonoBehaviour
 {
-    [SerializeField] private CAButton _startButton;
-    [SerializeField] private List<CAButton> _CommanderSkillButtonList;
-    [SerializeField] private CAButton _statisticButton;
-    [SerializeField] private Transform _characterSelectedTransform;
-    [SerializeField] private Transform _rightTransform;
-    [SerializeField] private Image _returnImage;
-    [SerializeField] private InGameCharacterItem _ingameCharacterItemPrefab;
-    [SerializeField] private Transform _inGameCharacterItemTransform;
-    [SerializeField] private GameObject _readyUIObj;
-    [SerializeField] private GameObject _commanderSkillObj;
-    [SerializeField] private List<CommanderSkillUI> _commanderSkillUIList;
-    [SerializeField] private TextMeshProUGUI _characterCountText;
-    [SerializeField] private ParticleSystem _commanderFx;
-    [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
+    [SerializeField]
+    private CAButton _startButton;
+
+    [SerializeField]
+    private List<CAButton> _CommanderSkillButtonList;
+
+    [SerializeField]
+    private CAButton _statisticButton;
+
+    [SerializeField]
+    private Transform _characterSelectedTransform;
+
+    [SerializeField]
+    private Transform _rightTransform;
+
+    [SerializeField]
+    private Image _returnImage;
+
+    [SerializeField]
+    private InGameCharacterItem _ingameCharacterItemPrefab;
+
+    [SerializeField]
+    private Transform _inGameCharacterItemTransform;
+
+    [SerializeField]
+    private GameObject _readyUIObj;
+
+    [SerializeField]
+    private GameObject _commanderSkillObj;
+
+    [SerializeField]
+    private List<CommanderSkillUI> _commanderSkillUIList;
+
+    [SerializeField]
+    private TextMeshProUGUI _characterCountText;
+
+    [SerializeField]
+    private ParticleSystem _commanderFx;
+
+    [SerializeField]
+    private SkillTooltipPopup _skillTooltipPopup;
 
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
@@ -38,12 +65,17 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     protected void Awake()
     {
-        _isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+        _isOpenCommanderSkill =
+            InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
 
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
-            _CommanderSkillButtonList[i]?.onClick.AddListener(() => OnClickCommanderSkillButton(i));
+        {
+            int index = i;
+            _CommanderSkillButtonList[i]?.onClick.AddListener(() => OnClickCommanderSkillButton(index));
+        }
+
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
 
@@ -57,7 +89,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
 
         // 전투 인원 최대 인원 미배치 검사
-        var userLevelData = SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
+        var userLevelData =
+            SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userLevelData.squad_count)
         {
             bool isAvailableCharacter = _characterItemList.Exists(l => l.StatData != null);
@@ -101,7 +134,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         InitCommanderSkill();
         InGameMain.GetInGameMain().SetCombatUI();
-
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
@@ -164,7 +196,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         foreach (var characterStat in uniqueCharacters)
         {
-            bool isExist = _characterItemList.Exists(l => l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
+            bool isExist = _characterItemList.Exists(l =>
+                l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
             if (!isExist)
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
@@ -187,7 +220,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
         {
             _commanderSkillUIList[index].SetCommanderFx(true);
         }
-
     }
 
     public void InitData()
@@ -220,7 +252,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         foreach (var characterStat in _characterStats)
         {
-            bool isExist = _characterItemList.Exists(l => l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
+            bool isExist = _characterItemList.Exists(l =>
+                l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
             if (!isExist)
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
@@ -365,10 +398,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         {
             if (skillUI.Data != null)
             {
-                bool isActiveCoolTime = skillUI.Data.ElapsedTime >= skillUI.Data.DurationTime;
-                if (!isActiveCoolTime)
-                    skillUI.UpdateCommanderSkillCoolTime();
-
+                skillUI.UpdateCommanderSkillCoolTime();
+                bool isActiveCoolTime = skillUI.Data.ElapsedTime > skillUI.Data.DurationTime;
                 InGameMain.GetInGameMain().SetCommanderFx(isActiveCoolTime);
             }
         }
@@ -410,7 +441,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
             if (characterItem.IsFocusSlot)
             {
                 characterItem.SetFocusCharacter(null);
-                if(isDropFx)
+                if (isDropFx)
                     characterItem.PlayDropFx();
                 return;
             }

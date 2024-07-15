@@ -75,13 +75,13 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (commanderSkillUI == null)
             return;
 
+        _selectedCommanderSkillData = _commandSkillDataList.Find(l => l.Spec.id == commanderSkillUI.Data.Spec.id);
+
         if (_selectedCommanderSkillData == null)
             return;
 
         if (_selectedCommanderSkillData.DurationTime > _selectedCommanderSkillData.ElapsedTime)
             return;
-
-        _selectedCommanderSkillData = _commandSkillDataList.Find(l => l.Spec.id == commanderSkillUI.Data.Spec.id);
 
         _isDragging = true;
         _dragStartPosition = eventData.position;

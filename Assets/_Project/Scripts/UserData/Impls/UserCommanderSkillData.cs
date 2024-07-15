@@ -64,12 +64,8 @@ namespace CookApps.AutoBattler
 
         public void SetEquippedCommanderSkill(int targetSlot, int commanderSkillID)
         {
-            if (userCommanderSkillData.EquippedCommanderSkillIds.ContainsKey(targetSlot))
-            {
-                userCommanderSkillData.EquippedCommanderSkillIds[targetSlot] = commanderSkillID;
-
-                SaveUserCommanderSKillData();
-            }
+            userCommanderSkillData.EquippedCommanderSkillIds[targetSlot] = commanderSkillID;
+            SaveUserCommanderSKillData();
         }
 
         public int GetEquippedCommanderSkill(int targetSlot)
@@ -80,6 +76,11 @@ namespace CookApps.AutoBattler
             }
 
             return 0;
+        }
+
+        public bool IsEquippedCommanderSkill(int skillID)
+        {
+            return userCommanderSkillData.EquippedCommanderSkillIds.Values.Any(value => value == skillID);
         }
 
         // 현재 장착 중인 지휘자 스킬 ID 리스트 반환
