@@ -70,26 +70,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecCommanderSkill
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 지휘자 스킬 id
-        public CookApps.Obfuscator.ObfuscatorInt commander_skill_id;
-        /// 개방 챕터 id
-        public CookApps.Obfuscator.ObfuscatorInt open_key_chapter_id;
-        /// 지휘자 스킬 이름 토큰
-        public string name_token;
-        /// 지휘자 스킬 설명 토큰
-        public string desc_token;
-        /// 스킬 벨류 타입
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 실제 계수
-        public CookApps.Obfuscator.ObfuscatorFloat base_rate;
-    }
-
-    [GeneratorSpecData]
     public partial class SpecAccountLevelExp
     {
         /// 유니크 id
@@ -295,6 +275,26 @@ namespace CookApps.AutoBattler
         public string dialog_token;
         /// 사운드 토큰
         public string sound_token_kr;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecCommanderSkill
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 지휘자 스킬 id
+        public CookApps.Obfuscator.ObfuscatorInt commander_skill_id;
+        /// 개방 챕터 id
+        public CookApps.Obfuscator.ObfuscatorInt open_key_chapter_id;
+        /// 지휘자 스킬 이름 토큰
+        public string name_token;
+        /// 지휘자 스킬 설명 토큰
+        public string desc_token;
+        /// 스킬 벨류 타입
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
+        /// 실제 계수
+        public CookApps.Obfuscator.ObfuscatorFloat base_rate;
     }
 
     [GeneratorSpecData]

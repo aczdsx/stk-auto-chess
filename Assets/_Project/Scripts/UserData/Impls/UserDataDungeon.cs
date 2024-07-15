@@ -19,6 +19,9 @@ namespace CookApps.AutoBattler
             if (string.IsNullOrEmpty(data))
             {
                 userDungeon = new UserDungeon();
+
+                CreateDungeonTrialDataList();
+
                 return;
             }
 
@@ -69,6 +72,22 @@ namespace CookApps.AutoBattler
             if (needSave)
             {
                 SaveUserDungeonData();
+            }
+        }
+
+        private void CreateDungeonTrialDataList()
+        {
+            // 전체 시련 던전 데이터 생성
+            var dungeonDataList = SpecDataManager.Instance.GetSpecDungeonTrialDataList(DungeonType.TRIAL);
+            foreach (var dungeonData in dungeonDataList)
+            {
+                if (userDungeon.UserTrialDungeonDatas.ContainsKey(dungeonData.dungeon_id)) continue;
+
+                userDungeon.UserTrialDungeonDatas.Add(dungeonData.dungeon_id, new UserTrialDungeonData
+                {
+                    DungeonId = dungeonData.dungeon_id,
+                    DungeonStateType = (int)DungeonStateType.WAIT,
+                });
             }
         }
 

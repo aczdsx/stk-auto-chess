@@ -200,6 +200,7 @@ namespace CookApps.AutoBattler
         PERCENT = 1,
         TIME = 2,
         COOL = 3,
+        INT = 4,
     }
 
     public enum SkillType
