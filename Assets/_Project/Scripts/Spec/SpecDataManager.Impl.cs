@@ -319,6 +319,40 @@ namespace CookApps.AutoBattler
             return SpecCharacterLevelExp.All.ToList().Find(data => data.level == level);
         }
 
+        public List<SpecCharacterLevelExp> GetCharacterLevelExpDataList(int level)
+        {
+            return SpecCharacterLevelExp.All.ToList().FindAll(data => data.level <= level);
+        }
+
+        // 캐릭터 레벨업에 필요한 총 필요 아이템 리스트 반환
+        // 7.15 - 현재 10레벨 단위 레벨업 시 조각을 소모하므로 characterID를 인자로 넘겨 받음
+        public List<RewardItem> GetCharacterLevelupTotalNeedItemList(int level, int characterID)
+        {
+            if (level <= 1) return null;
+
+            int targetLevel = level - 1;
+
+            List<RewardItem> resultItemList = new List<RewardItem>();
+
+            var levelExpData = GetCharacterLevelExpData(targetLevel);
+            if (levelExpData != null)
+            {
+                RewardItem needGoldItem = new RewardItem(ItemType.GOLD, 0, levelExpData.need_gold_sum);
+                resultItemList.Add(needGoldItem);
+
+                RewardItem needExpItem = new RewardItem(ItemType.CHAR_USER_EXP_ITEM, 0, levelExpData.base_levelup_item_sum);
+                resultItemList.Add(needExpItem);
+
+                if (levelExpData.sec_levelup_item_sum > 0)
+                {
+                    RewardItem needSecondLevelupItem = new RewardItem(levelExpData.sec_levelup_item_type, characterID, levelExpData.sec_levelup_item_sum);
+                    resultItemList.Add(needSecondLevelupItem);
+                }
+            }
+
+            return resultItemList;
+        }
+
         public SpecCharacterQuotes GetCharacterQuotesDataByPrefabID(int prefabID)
         {
             return SpecCharacterQuotes.All.ToList().Find(data => data.prefab_id == prefabID);

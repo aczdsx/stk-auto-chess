@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
         [Header("LevelUp Layer")]
         [SerializeField] private CAButton _activeLevelUpButton;
         [SerializeField] private CAButton _inactiveLevelUpButton;
+        [SerializeField] private CAButton _resetLevelUpButton;
 
         [Space(10)]
         [SerializeField] private CurrencyUIItem _baseExpItemCurrencyUIItem;
@@ -54,6 +55,7 @@ namespace CookApps.AutoBattler
         {
             _detailStatButton.onClick.AddListener(OnClickDetailStatButton);
             _activeLevelUpButton.onClick.AddListener(OnClickLevelupButton);
+            _resetLevelUpButton.onClick.AddListener(OnClickCharacterResetButton);
         }
 
         protected override void OnDestroy()
@@ -62,6 +64,7 @@ namespace CookApps.AutoBattler
 
             _detailStatButton.onClick.RemoveListener(OnClickDetailStatButton);
             _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
+            _resetLevelUpButton.onClick.RemoveListener(OnClickCharacterResetButton);
         }
 
         public void InitLayer(CharacterCollectionPopup _parentPopup, int characterID)
@@ -245,17 +248,51 @@ namespace CookApps.AutoBattler
 
         private void OnClickCharacterResetButton()
         {
+            // 리셋 가능 레벨 체크
+            if (_userCharacterData.Level <= 1)
+            {
+                ToastManager.Instance.ShowToast("TEST - 리셋 가능 레벨이 아닙니다.");
+                return;
+            }
+
             // 리셋 가능 횟수 체크
             int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
             if (UserDataManager.Instance.UserBasicData.ResetCharacterCount >= maxResetCount)
             {
+                ToastManager.Instance.ShowToast("TEST - 리셋 가능 횟수 초과.");
                 return;
             }
 
-            //todo.. 캐릭터 레벨 리셋
+            // 레벨업 리셋에 소모된 아이템 반환 아이템 체크
+            var resetRewardItemList = SpecDataManager.Instance.GetCharacterLevelupTotalNeedItemList(_userCharacterData.Level, _userCharacterData.CharacterId);
+            if (resetRewardItemList == null || resetRewardItemList.Count <= 0)
+            {
+                ToastManager.Instance.ShowToast("TEST - 리셋 아이템 데이터 에러");
+                return;
+            }
 
-            // 리셋 횟수 증가
-            UserDataManager.Instance.SetResetCharacterCount(1, true, true);
+            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+            newPopupData.SetPopupData("시스템 알림", "Test - 캐릭터 레벨을 초기화 하시겠습니까?", "확인", "취소", () =>
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+
+                // 캐릭터 레벨 리셋
+                UserDataManager.Instance.SetCharacterLevel(_userCharacterData.CharacterId, 1);
+
+                // 리셋 횟수 증가
+                UserDataManager.Instance.SetResetCharacterCount(1, true, true);
+
+                // 레벨업에 소모된 아이템 반환 적용 처리
+                UserDataManager.Instance.IncreaseRewardItemList(resetRewardItemList, true);
+                SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(resetRewardItemList).Forget();
+
+                // 팝업 레이어 갱신
+                _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
+
+                RefreshLayer();
+            });
+
+            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
         }
 
         private void ClearLayer()

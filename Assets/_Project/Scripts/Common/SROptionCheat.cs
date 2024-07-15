@@ -48,6 +48,12 @@ public partial class SROptions
     }
 
     [Category("유저 정보 관련")]
+    public void 캐릭터리셋횟수초기화()
+    {
+        UserDataManager.Instance.SetResetCharacterCount(0, false, true);
+    }
+
+    [Category("유저 정보 관련")]
     public void 유저레벨데이터초기화()
     {
         UserDataManager.Instance.CheatResetUserLevelData();
