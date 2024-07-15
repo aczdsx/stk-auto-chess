@@ -99,7 +99,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // 지휘자 스킬 장착 확인
         if (_isOpenCommanderSkill)
         {
-            var equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
+            var equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(0);
             if (equippedCommanderSkill == 0)
             {
                 string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
@@ -230,7 +230,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // _characterStats.Add(new CharacterStatData(140502, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         // _characterStats.Add(new CharacterStatData(130501, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
 
-        SetCommanderSkillUI(UserDataManager.Instance.UserCommanderSkillData.EquippedCommanderSkillId);
+        SetCommanderSkillUI(UserDataManager.Instance.GetEquippedCommanderSkill(0));
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
@@ -252,7 +252,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     public void SetCommanderSkill()
     {
-        int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
+        int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(0);
         if (equippedCommanderSkill != 0)
         {
             var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);

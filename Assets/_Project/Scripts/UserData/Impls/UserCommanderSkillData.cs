@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.gRPC.Hatchery;
@@ -18,10 +19,11 @@ namespace CookApps.AutoBattler
         {
             if (string.IsNullOrEmpty(data))
             {
-                userCommanderSkillData = new UserCommanderSkillData
-                {
-                    EquippedCommanderSkillId = 0,
-                };
+                userCommanderSkillData = new UserCommanderSkillData();
+
+                // 슬롯 데이터 추가 (현재 2개로 제한)
+                userCommanderSkillData.EquippedCommanderSkillIds.Add(0, 0);
+                userCommanderSkillData.EquippedCommanderSkillIds.Add(1, 0);
 
                 UpdateCommanderSkillState();
 
@@ -60,16 +62,39 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetEquippedCommanderSkill(int commanderSkillID)
+        public void SetEquippedCommanderSkill(int targetSlot, int commanderSkillID)
         {
-            userCommanderSkillData.EquippedCommanderSkillId = commanderSkillID;
+            if (userCommanderSkillData.EquippedCommanderSkillIds.ContainsKey(targetSlot))
+            {
+                userCommanderSkillData.EquippedCommanderSkillIds[targetSlot] = commanderSkillID;
 
-            SaveUserCommanderSKillData();
+                SaveUserCommanderSKillData();
+            }
         }
 
-        public int GetEquippedCommanderSkill()
+        public int GetEquippedCommanderSkill(int targetSlot)
         {
-            return userCommanderSkillData.EquippedCommanderSkillId;
+            if (userCommanderSkillData.EquippedCommanderSkillIds.ContainsKey(targetSlot))
+            {
+                return userCommanderSkillData.EquippedCommanderSkillIds[targetSlot];
+            }
+
+            return 0;
+        }
+
+        // 현재 장착 중인 지휘자 스킬 ID 리스트 반환
+        public List<int> GetAllEquippedCommanderSkillIDList()
+        {
+            List<int> commanderSkillIDList = new List<int>();
+            foreach (var commanderSkill in userCommanderSkillData.EquippedCommanderSkillIds)
+            {
+                if (commanderSkill.Value > 0)
+                {
+                    commanderSkillIDList.Add(commanderSkill.Value);
+                }
+            }
+
+            return commanderSkillIDList;
         }
 
         public void AddCommanderSkillData(int commanderSkillID, bool needSave)

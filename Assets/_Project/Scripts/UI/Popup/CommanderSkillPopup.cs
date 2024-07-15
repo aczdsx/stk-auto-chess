@@ -85,7 +85,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
-            InGameMain.GetInGameMain().SetCommanderSkillUI(UserDataManager.Instance.UserCommanderSkillData.EquippedCommanderSkillId);
+            InGameMain.GetInGameMain().SetCommanderSkillUI(UserDataManager.Instance.GetEquippedCommanderSkill(0));
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
