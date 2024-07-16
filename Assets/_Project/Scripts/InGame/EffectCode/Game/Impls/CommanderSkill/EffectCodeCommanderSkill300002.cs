@@ -4,6 +4,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 
+//십자범위 내 적을 {0}초 동안 빙결 시킨다.
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(300002)]

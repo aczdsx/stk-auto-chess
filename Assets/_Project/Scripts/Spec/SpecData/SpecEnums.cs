@@ -65,6 +65,7 @@ namespace CookApps.AutoBattler
         DEBUFF_FIRE = 2100000004,
         DEBUFF_ICE = 2100000005,
         DEBUFF_SILENCE = 2100000006,
+        DEBUFF_AD_DOWN = 2100000007,
     }
 
     public enum GradeType
@@ -348,6 +349,13 @@ namespace CookApps.AutoBattler
         fx_common_bufftrap_ap = 98,
         fx_common_bufftrap_defense = 99,
         fx_common_synergy_light = 100,
+        fx_common_synergy_ground = 101,
+        fx_common_synergy_wind = 102,
+        fx_common_commander_skill_03 = 103,
+        fx_common_commander_skill_04 = 104,
+        fx_common_commander_skill_05 = 105,
+        fx_common_commander_skill_06_01 = 106,
+        fx_common_commander_skill_06_02 = 107,
     }
 
     public enum GlobalEffectProviderType

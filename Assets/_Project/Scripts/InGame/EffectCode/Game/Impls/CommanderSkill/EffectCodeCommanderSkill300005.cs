@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
+using Cysharp.Threading.Tasks;
 
-//선택한 적 1명을 {0}초 동안 에어본한다.
+//배치판 위의 아군과 적, 지형 지물 요소의 위치를 모두 랜덤하게 바꾼다.
 namespace CookApps.BattleSystem
 {
-    [UseEffectCodeIds(300003)]
-    public class EffectCodeCommanderSkill300003 : EffectCodeGameBase
+    [UseEffectCodeIds(300005)]
+    public class EffectCodeCommanderSkill300005 : EffectCodeGameBase
     {
         private ObfuscatorInt _tileID;
         private ObfuscatorFloat _time;
@@ -31,27 +32,27 @@ namespace CookApps.BattleSystem
             _tileID = codeInfo.GetCodeStatToInt(0);
             _time = codeInfo.GetCodeStatToFloat(1);
 
-            SkillAction();
+            SkillAction().Forget();
         }
 
-        private void SkillAction()
+        private async UniTaskVoid SkillAction()
         {
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
 
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_04,
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_06_01,
                 inGameTile.View.CachedTr.position);
 
             if (inGameTile.OccupiedCharacter != null)
             {
-                Span<double> eccStats = stackalloc double[3];
-                eccStats.Clear();
-                eccStats[0] = 2.0f;
-                eccStats[1] = _time;
-                eccStats[2] = inGameTile.View.ID;
+                inGameTile.SetUnoccupied();
 
-                long effectCodeID = (long) EffectCodeNameType.BOUND;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                inGameTile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5));
+
+                var randomTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile();
+                randomTile.SetOccupied(inGameTile.OccupiedCharacter);
+
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_06_02,
+                    randomTile.View.CachedTr.position);
             }
         }
     }

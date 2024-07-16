@@ -4,11 +4,11 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 
-//선택한 적 1명을 {0}초 동안 에어본한다.
+// 3*3 범위 내에 위치한 적의 체력 아군 평균 공격력의 {0}%만큼 회복시킨다.
 namespace CookApps.BattleSystem
 {
-    [UseEffectCodeIds(300003)]
-    public class EffectCodeCommanderSkill300003 : EffectCodeGameBase
+    [UseEffectCodeIds(300004)]
+    public class EffectCodeCommanderSkill300004 : EffectCodeGameBase
     {
         private ObfuscatorInt _tileID;
         private ObfuscatorFloat _time;

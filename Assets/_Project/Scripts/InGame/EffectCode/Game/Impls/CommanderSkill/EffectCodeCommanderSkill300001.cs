@@ -4,6 +4,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 
+// 십자범위 내 적에게 아군의 최고 공격력의 {0}%만큼의 대미지를 준다
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(300001)]

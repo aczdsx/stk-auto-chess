@@ -744,6 +744,18 @@ namespace CookApps.BattleSystem
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
                 }
+                else if (elementType == ElementType.LIGHT)
+                {
+                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_light;
+                }
+                else if (elementType == ElementType.EARTH)
+                {
+                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
+                }
+                else if (elementType == ElementType.WIND)
+                {
+                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
+                }
 
                 if (character.SpecCharacter.element_type == elementType)
                 {
