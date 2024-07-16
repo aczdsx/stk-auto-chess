@@ -1893,6 +1893,7 @@ MonoBehaviour:
   _attendanceButton: {fileID: 771116231089938256}
   _questButton: {fileID: 6811864923079749924}
   _trialDungeonButton: {fileID: 6612707305023326019}
+  _sessionEventButton: {fileID: 244007958178209753}
   _vignetteImage: {fileID: 5632547169323492497}
   _stageVignetteColorList:
   - {r: 0.039215688, g: 0.04705883, b: 0.054901965, a: 1}
@@ -3224,6 +3225,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a5c4dcd0289974dab1315b566064ee, type: 3}
+--- !u!114 &244007958178209753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4416034518180161725, guid: 56a5c4dcd0289974dab1315b566064ee, type: 3}
+  m_PrefabInstance: {fileID: 4479397240609797988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6248438048218839929 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7538160744831323165, guid: 56a5c4dcd0289974dab1315b566064ee, type: 3}

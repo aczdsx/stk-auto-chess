@@ -131,7 +131,7 @@ namespace CookApps.AutoBattler
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
 
                 // 세션 타임 기록 unitask 실행
-                //await RecordSessionTime();
+                await RecordSessionTime();
 
                 // int lastChapter = 1;
                 // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
@@ -146,8 +146,8 @@ namespace CookApps.AutoBattler
 
             while (true)
             {
-                //var userDataValue = UserDataManager.Instance.GetUserEventData(specEventData.event_id).ActionCount;
-                //Debug.Log("***********************RecordSessionTime Test***********************   =>  " + userDataValue);
+                // var userDataValue = UserDataManager.Instance.GetUserEventData(specEventData.event_id).ActionCount;
+                // Debug.Log("***********************RecordSessionTime Test***********************   =>  " + userDataValue);
 
                 await UniTask.Delay(1000 * 60);
 
