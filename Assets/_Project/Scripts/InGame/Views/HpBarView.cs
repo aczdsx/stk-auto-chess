@@ -25,6 +25,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteRenderer _hpFillSmoothGuage;
         [SerializeField] private SpriteRenderer _hpPlayerFillLeft;
         [SerializeField] private SpriteRenderer _hpEnemyFillLeft;
+        [SerializeField] private SpriteRenderer _shieldFiilLeft;
         [SerializeField] private Color _playerSmoothColor;
         [SerializeField] private Color _enermySmoothColor;
         [SerializeField] private SpriteRenderer _coolTimeGuage;
@@ -41,6 +42,7 @@ namespace CookApps.AutoBattler
         private SpriteRenderer _selectedFillLeft;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
         private Vector2 _defalutSize;
+        private Vector3 _defaultScale;
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
@@ -53,6 +55,7 @@ namespace CookApps.AutoBattler
             _hpFillSmoothGuage.color = isPlayer ? _playerSmoothColor : _enermySmoothColor;
 
             _defalutSize = _selectedFillLeft.size;
+            _defaultScale = _selectedFillLeft.transform.localScale;
 
             if (statData != null)
             {
@@ -69,20 +72,27 @@ namespace CookApps.AutoBattler
             _synergyObj.SetActive(type.HasFlag(HpBarType.Synergy));
         }
 
-        public async void SetHpValue(double current, double max)
+        public async void SetValue(double currHP, double maxHP, double currShield)
         {
             if (!CachedGo.activeSelf)
             {
                 ShowHpBar();
             }
 
-            float targetRatio = Mathf.Clamp01((float)(current / max));
+            float targetRatio = Mathf.Clamp01((float)(currHP / (maxHP + currShield)));
             float startRatio = _selectedFillLeft.size.x / _defalutSize.x;
-
+            float shieldRatio = Mathf.Clamp01((float)(currShield / (maxHP + currShield)));
 
             float defaultX = _defalutSize.x * targetRatio;
             if (!float.IsNaN(defaultX))
+            {
                 _selectedFillLeft.size = new Vector2(_defalutSize.x * targetRatio, _selectedFillLeft.size.y);
+                _shieldFiilLeft.size = new Vector2(_defalutSize.x * shieldRatio, _shieldFiilLeft.size.y);
+
+                // 쉴드바 위치를 HP바 끝에 놓일 수 있도록 계산
+                _shieldFiilLeft.transform.localPosition = _selectedFillLeft.transform.localPosition
+                                                          + Vector3.right * (_defaultScale.x * (_selectedFillLeft.size.x + _shieldFiilLeft.size.x));
+            }
 
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
         }

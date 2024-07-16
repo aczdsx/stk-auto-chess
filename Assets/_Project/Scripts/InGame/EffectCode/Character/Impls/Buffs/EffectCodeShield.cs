@@ -10,7 +10,7 @@ using UnityEngine.Pool;
 public class EffectCodeBuffShield : EffectCodeBuffBase
 {
     public const int CodeId = (int)EffectCodeNameType.SHIELD;
-    private class ShieldData
+    public class ShieldData
     {
         public ObfuscatorFloat elapsedTime;
         public ObfuscatorFloat buffDuration;
@@ -24,6 +24,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
     }
 
     private List<ShieldData> shields = null;
+    public List<ShieldData> Shields => shields;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -40,6 +41,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         shields.Add(shieldData);
 
         owner.AddBuffDebuffType(BuffDebuffType.Shield);
+        owner.UpdateHpBar();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -55,11 +57,14 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         shieldData.buffDuration = codeInfo.GetCodeStatToFloat(0);
         shieldData.shieldAmount = shieldAmount;
         shields.Add(shieldData);
+
+        owner.UpdateHpBar();
     }
 
     public override void OnPreRemoved()
     {
         owner.RemoveBuffDebuffType(BuffDebuffType.Shield);
+        owner.UpdateHpBar();
         base.OnPreRemoved();
         ListPool<ShieldData>.Release(shields);
     }

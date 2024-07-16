@@ -113,6 +113,29 @@ namespace CookApps.BattleSystem
         private CrowdControlType _crowdControlType = CrowdControlType.None;
         private double _currHp;
 
+        private double _currShield
+        {
+            get
+            {
+                double shieldAmount = 0d;
+                var effectCodeShield =
+                    GetEffectCodeContainer().GetEffectCode(EffectCodeBuffShield.CodeId) as EffectCodeBuffShield;
+                
+                if (effectCodeShield == null)
+                    return 0d;
+
+                var shields = effectCodeShield.Shields;
+
+                foreach (var shield in shields)
+                {
+                    if (shield == null) continue;
+                    shieldAmount += shield.shieldAmount;
+                }
+
+                return shieldAmount;
+            }
+        }
+
         private CharacterStateBase _currState;
         private Queue<CharacterStateBase> _nextStates = new ();
 
@@ -578,7 +601,7 @@ namespace CookApps.BattleSystem
                     _currHp = HP;
                 }
 
-                UpdateHp();
+                UpdateHpBar();
             }
         }
 
@@ -869,7 +892,7 @@ namespace CookApps.BattleSystem
             _currHp -= damageAmount;
 
             InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
-            UpdateHp();
+            UpdateHpBar();
 
             if (_currHp <= 0)
             {
@@ -899,7 +922,7 @@ namespace CookApps.BattleSystem
         public void ForceSetHp(double hp)
         {
             _currHp = Math.Min(hp, HP);
-            UpdateHp();
+            UpdateHpBar();
         }
 
         private void FollowHpBar()
@@ -907,14 +930,14 @@ namespace CookApps.BattleSystem
             // hpBarView.CachedTr.position = GetCharacterView().CachedTr.position + new Vector3(0, GetCharacterView().Height);
         }
 
-        private void UpdateHp()
+        public void UpdateHpBar()
         {
-            _hpBarView.SetHpValue(_currHp, HP);
+            _hpBarView.SetValue(_currHp, HP, _currShield);
         }
 
         public void RefreshHp()
         {
-            _hpBarView.SetHpValue(_currHp, HP);
+            _hpBarView.SetValue(_currHp, HP, _currShield);
         }
         #endregion
 
@@ -980,7 +1003,7 @@ namespace CookApps.BattleSystem
 
             InGameStatistics.Instance.AddCombatHeal(healer, this, amount, _currHp, HP, source);
 
-            UpdateHp();
+            UpdateHpBar();
             return true;
         }
 

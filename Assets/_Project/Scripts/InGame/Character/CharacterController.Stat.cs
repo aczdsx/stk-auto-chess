@@ -73,7 +73,7 @@ namespace CookApps.BattleSystem
                         _currHp = postHP;
                     }
 
-                    UpdateHp();
+                    UpdateHpBar();
                 }
 
                 return postHP;
