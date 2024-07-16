@@ -24,7 +24,7 @@ public class FlowStateStageClear : StateBase
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
 
-        // 행동력 소모 이벤트 처리
+        // 행동력 소모 이벤트 처리 (todo.. 추후 상황에 따라 DecreaseItem 함수 내부로 이동 가능)
         UserDataManager.Instance.SetUserEventActionCount(EventType.USE_AP, InGameManager.Instance.SpecStage.need_ap, true, true);
     }
 
