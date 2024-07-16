@@ -126,14 +126,13 @@ namespace CookApps.BattleSystem
 
         private Vector3 SelectedOffSet;
 
-        public async UniTask Initialize(InGameTile tile, Transform Playground, int id)
+        public async UniTask Initialize(InGameTile tile, Transform Playground, int id, AllianceType allianceType)
         {
             ChangeOccupiedTile(tile);
-            _allianceType = AllianceType.None;
+            _allianceType = allianceType;
             position = tile.View.Position;
-
             GameObject viewGo = await Addressables.InstantiateAsync(
-                $"Obstacle/Stage/CharacterView_{id}.prefab");
+                $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
             _view = viewGo.GetComponent<SpriteCharacterView>();
             _view.CachedTr.SetParent(Playground, false);
             _view.CachedTr.localPosition = position;
@@ -144,28 +143,37 @@ namespace CookApps.BattleSystem
             _characterUId = characUIdInc++;
             _statData = statData;
             position = tile.View.Position;
+
             ChangeOccupiedTile(tile);
+
+            if (statData.Spec.size >= 1)
+            {
+                var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, statData.Spec.size);
+                tiles.Remove(tile);
+                foreach (var occupiedTile in tiles)
+                {
+                    occupiedTile.SetOccupied(this);
+                }
+            }
+
             _allianceType = allianceType;
 
             GameObject viewGo = null;
 
-            if (allianceType == AllianceType.Enemy)
+            if (statData.Spec.character_type == CharacterType.CHARACTER)
             {
-                try
-                {
-                    viewGo = await Addressables.InstantiateAsync(
-                        $"Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
-                }
-                catch (Exception e)
-                {
-                    viewGo = await Addressables.InstantiateAsync(
-                        $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
-                }
+                viewGo = await Addressables.InstantiateAsync(
+                    $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+            }
+            else if (statData.Spec.character_type == CharacterType.OBSTACLE)
+            {
+                viewGo = await Addressables.InstantiateAsync(
+                    $"Obstacle/Stage/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
             else
             {
                 viewGo = await Addressables.InstantiateAsync(
-                    $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                    $"Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
 
 
@@ -367,8 +375,12 @@ namespace CookApps.BattleSystem
             if (_statData != null)
                 Debug.LogColor($"[Set Tile] {_statData.CharacterId} : ({newTile.X}, {newTile.Y})");
             CurrentTile = newTile;
-            newTile.SetOccupied(this);
+            if (CurrentTile.OccupiedCharacter != null)
+            {
+                Debug.LogColor("CurrentTile.OccupiedCharacter != null");
+            }
 
+            CurrentTile.SetOccupied(this);
         }
 
         public bool NeedToBeIdle()
@@ -1010,7 +1022,7 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                Target = InGameObjectManager.Instance.GetNearestTarget(this);
+                Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(this);
 
                 if (Target == null)
                 {
@@ -1034,12 +1046,30 @@ namespace CookApps.BattleSystem
                         }
                         else
                         {
-                            GetCharacterView().LookAt(CurrentTile, bestTile);
-                            ChangeOccupiedTile(bestTile);
-                            AddNextState<CharacterStateMove>();
+                            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
+                            EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
+                            if (effectCode is EffectCodeCharacterBase runEffectCode)
+                            {
+                                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                                AddNextState<CharacterStateIdle>();
+                            }
+                            else
+                            {
+                                MoveTile(bestTile);
+                            }
                         }
                     }
                 }
+            }
+        }
+
+        public void MoveTile(InGameTile tile)
+        {
+            if (SpecCharacter.move_speed > 0)
+            {
+                GetCharacterView().LookAt(CurrentTile, tile);
+                ChangeOccupiedTile(tile);
+                AddNextState<CharacterStateMove>();
             }
         }
     }

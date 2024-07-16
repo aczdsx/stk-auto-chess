@@ -80,7 +80,19 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // TODO: Target Check
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        if (!isInRange)
+        {
+            if (owner.Target != null)
+            {
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+                    owner.Target.CurrentTile);
+                owner.MoveTile(bestTile);
+            }
+            return;
+        }
+
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -116,7 +128,7 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                 {
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
                 }
@@ -129,7 +141,7 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                 {
                     float calculatedDamageRate = _damageRate;
                     if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == ElementType.FIRE)

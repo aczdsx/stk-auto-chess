@@ -9729,7 +9729,7 @@ GameObject:
   - component: {fileID: 6684620451573907944}
   - component: {fileID: 5569540272517795035}
   - component: {fileID: 8776624621931727815}
-  - component: {fileID: -8164028764555346402}
+  - component: {fileID: 1168447645882609022}
   m_Layer: 3
   m_Name: fx_common_debuff_spddown_02
   m_TagString: Untagged
@@ -14551,7 +14551,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-8164028764555346402
+--- !u!114 &1168447645882609022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14560,7 +14560,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9159198796022318899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}

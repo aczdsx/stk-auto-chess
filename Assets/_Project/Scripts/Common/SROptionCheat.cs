@@ -48,6 +48,12 @@ public partial class SROptions
     }
 
     [Category("유저 정보 관련")]
+    public void 캐릭터리셋횟수초기화()
+    {
+        UserDataManager.Instance.SetResetCharacterCount(0, false, true);
+    }
+
+    [Category("유저 정보 관련")]
     public void 유저레벨데이터초기화()
     {
         UserDataManager.Instance.CheatResetUserLevelData();
@@ -235,6 +241,40 @@ public partial class SROptions
 
     //////////////////////////////////////////////////////////////////////////////////
 
+    #region 이벤트 관련
+
+    // [Category("이벤트 관련")]
+    // public void 이벤트전체초기화()
+    // {
+    //
+    // }
+
+    [Category("이벤트 관련")]
+    public void 타겟ID이벤트초기화()
+    {
+        if (대상이벤트ID == 0) return;
+
+        UserDataManager.Instance.ResetEventData(대상이벤트ID, true);
+    }
+
+    [Category("이벤트 관련")]
+    public void 타겟이벤트액션카운트변경()
+    {
+        if (대상이벤트ID == 0) return;
+
+        UserDataManager.Instance.SetUserEventActionCount(대상이벤트ID, 이벤트완료횟수, false, true);
+    }
+
+    [Category("이벤트 관련")]
+    public int 대상이벤트ID { get; set; } = 0;
+
+    [Category("이벤트 관련")]
+    public int 이벤트완료횟수 { get; set; } = 0;
+
+    #endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     #region 미션 관련
 
     [Category("미션 관련")]
@@ -259,6 +299,64 @@ public partial class SROptions
     #endregion
 
     ////////////////////////////////////////////////////////////////////////////////////////
+
+    #region 퀘스트 관련
+
+    [Category("퀘스트 관련")]
+    public void 일일퀘스트전체초기화()
+    {
+        UserDataManager.Instance.ResetQuestDataList(TermType.DAILY);
+    }
+
+    [Category("퀘스트 관련")]
+    public void 주간퀘스트전체초기화()
+    {
+        UserDataManager.Instance.ResetQuestDataList(TermType.WEEKLY);
+    }
+
+    [Category("퀘스트 관련")]
+    public void 타겟퀘스트액션카운트변경()
+    {
+        if (대상퀘스트ID == 0) return;
+
+        UserDataManager.Instance.SetUserQuestActionCount(대상퀘스트ID, 퀘스트완료횟수, false, true);
+
+        // 퀘스트 팝업 UI 갱신
+        var questPopup = SceneUILayerManager.Instance.GetUILayer("QuestPopup");
+        if (questPopup != null)
+        {
+            questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
+        }
+    }
+
+    [Category("퀘스트 관련")]
+    public void 타겟퀘스트상태변경()
+    {
+        if (대상퀘스트ID == 0) return;
+
+        UserDataManager.Instance.SetUserQuestState(대상퀘스트ID, 퀘스트상태, true);
+
+        // 퀘스트 팝업 UI 갱신
+        var questPopup = SceneUILayerManager.Instance.GetUILayer("QuestPopup");
+        if (questPopup != null)
+        {
+            questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
+        }
+    }
+
+    [Category("퀘스트 관련")]
+    public int 대상퀘스트ID { get; set; } = 0;
+
+    [Category("퀘스트 관련")]
+    public int 퀘스트완료횟수 { get; set; } = 0;
+
+    [Category("퀘스트 관련")]
+    public QuestStateType 퀘스트상태 { get; set; } = 0;
+
+    #endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
 
     #region 스킬 관련
 

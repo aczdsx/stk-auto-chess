@@ -7,6 +7,8 @@ using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
+using UnityEngine;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class FlowStateStageReady : StateBase
 {
@@ -25,8 +27,10 @@ public class FlowStateStageReady : StateBase
             SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,
                 _specStage.difficulty_type);
 
+        float monsterMultipleHp = 1.0f;
         foreach (var monster in monsters)
         {
+            monsterMultipleHp = monster.multiple_hp;
             Debug.LogColor($"monster 추가 : {monster.monster_id}");
             var statData = new CharacterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
                 monster.multiple_hp);
@@ -40,14 +44,26 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
-
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, 0.0f, 1.0f).Forget();
+        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
         InGameMain.GetInGameMain().SetReadyUI();
 
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)
         {
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID, _specStage.chapter_id));
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID, _specStage.obstacle_id, AllianceType.Wall));
+        }
+
+        // 체력이 있는 장애물 설치
+        foreach (var gridID in _specStage.neutral_grid_id)
+        {
+            Debug.LogColor($"neutral 추가 : {_specStage.neutral_wall_id}");
+            var statData = new CharacterStatData(_specStage.neutral_wall_id, 1, 1, monsterMultipleHp);
+
+            var tile = InGameObjectManager.Instance.GetInGameTile(gridID);
+            int2 coordinate = new int2(tile.X, tile.Y);
+
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Neutral,
+                typeof(CharacterStateReady), false, HpBarType.None));
         }
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList();
@@ -83,18 +99,48 @@ public class FlowStateStageReady : StateBase
 
     public override void StateStart()
     {
-        if (_specStage.chapter_rule_tile.Length > 0)
+        if (_specStage.effect_code_rule_tile.Length > 0)
         {
-            Span<double> debuffStats = stackalloc double[_specStage.chapter_rule_tile.Length + 1];
+            Span<double> debuffStats = stackalloc double[_specStage.effect_code_rule_tile.Length + 1];
             debuffStats.Clear();
 
             debuffStats[0] = _specStage.effect_code_stat;
-            for (int i = 0; i < _specStage.chapter_rule_tile.Length; i++)
+            for (int i = 0; i < _specStage.effect_code_rule_tile.Length; i++)
             {
-                debuffStats[i + 1] = _specStage.chapter_rule_tile[i];
+                debuffStats[i + 1] = _specStage.effect_code_rule_tile[i];
             }
 
             var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name, 0, debuffStats);
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+        }
+
+        if (_specStage.effect_code_rule_tile_2.Length > 0)
+        {
+            Span<double> debuffStats = stackalloc double[_specStage.effect_code_rule_tile_2.Length + 1];
+            debuffStats.Clear();
+
+            debuffStats[0] = _specStage.effect_code_stat_2;
+            for (int i = 0; i < _specStage.effect_code_rule_tile_2.Length; i++)
+            {
+                debuffStats[i + 1] = _specStage.effect_code_rule_tile_2[i];
+            }
+
+            var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name_2, 0, debuffStats);
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+        }
+
+        if (_specStage.effect_code_rule_tile_3.Length > 0)
+        {
+            Span<double> debuffStats = stackalloc double[_specStage.effect_code_rule_tile_3.Length + 1];
+            debuffStats.Clear();
+
+            debuffStats[0] = _specStage.effect_code_stat_3;
+            for (int i = 0; i < _specStage.effect_code_rule_tile_3.Length; i++)
+            {
+                debuffStats[i + 1] = _specStage.effect_code_rule_tile_3[i];
+            }
+
+            var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name_3, 0, debuffStats);
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
         }
     }

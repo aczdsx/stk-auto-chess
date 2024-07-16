@@ -30,7 +30,7 @@ public class EffectCodeSynergyElementDark : EffectCodeCharacterBase
             Span<double> debuffStats = stackalloc double[3];
             debuffStats.Clear();
             debuffStats[0] = codeId;
-            debuffStats[1] = 99.0f;
+            debuffStats[1] = 10.0f;
             debuffStats[2] = _statValue;
             var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
             character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);

@@ -24,6 +24,8 @@ namespace CookApps.AutoBattler
                     Exp = 0,
                     Nickname = "StellaKnights",
                     UserIconId = 40101,
+                    LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp(),
+                    MaxSquadCount = SpecDataManager.Instance.GetGameConfig<int>("default_max_squad_count"),
 
                     TotalGachaCount = 0,
                 };
@@ -35,12 +37,30 @@ namespace CookApps.AutoBattler
             userBasicData = MessageUtility.FromBase64String<UserBasicData>(data);
 
             PrevAccountLevel = userBasicData.Level;
+
+            RefreshLastLoginTimestamp(true);
+            UpdateResetCharacterCount();
         }
 
         [Clear]
         private void Clear_BasicData()
         {
             userBasicData = null;
+        }
+
+        public void SaveUserBasic()
+        {
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
+        }
+
+        public void RefreshLastLoginTimestamp(bool needSave)
+        {
+            UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp();
+
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
         }
 
         public void AddUserLevelExp(int exp)
@@ -66,9 +86,45 @@ namespace CookApps.AutoBattler
             SaveUserBasic();
         }
 
-        public void SaveUserBasic()
+        public void SetMaxSquadCount(int count, bool needSave)
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
+            UserBasicData.MaxSquadCount = count;
+
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
+        }
+
+        public void SetResetCharacterCount(int count, bool isAdd, bool needSave)
+        {
+            if (isAdd)
+            {
+                UserBasicData.ResetCharacterCount += count;
+            }
+            else
+            {
+                UserBasicData.ResetCharacterCount = count;
+            }
+
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
+        }
+
+        // 캐릭터 초기화 카운트 및 시간 갱신
+        public void UpdateResetCharacterCount()
+        {
+            // 현재 날짜가 리셋 날짜보다 크거나 같으면 초기화
+            if (UserBasicData.ResetCharacterTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+            {
+                SetResetCharacterCount(0, false, false);
+
+                UserBasicData.ResetCharacterTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+
+                SaveUserBasic();
+            }
         }
 
         public void CheatResetUserLevelData()

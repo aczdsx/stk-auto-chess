@@ -8,10 +8,7 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 아트레시아
-///범위 : 전방 X축 2칸
-// 대미지 : 검기를 날려, 적에게 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 검기는 맵 끝까지 지속된다.
+/// 2챕터 저격수
 /// </summary>
 [UseEffectCodeIds(1204011)]
 public class EffectCodeSkill1204011 : EffectCodeCharacterBase
@@ -96,12 +93,17 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
 
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-        Vector3 direction = (owner.Target.CurrentTile.View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
 
-        vfx.Initialize(false);
-        vfx.OnCollisionWithTile += OnCollision2DEnter;
+        if (owner.Target != null)
+        {
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
+            Vector3 direction = (owner.Target.CurrentTile.View.CachedTr.position - vfx.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
+            vfx.Initialize(false);
+            vfx.OnCollisionWithTile += OnCollision2DEnter;
+        }
 
         IsSkillActivated = false;
     }
@@ -114,17 +116,20 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
         if (tile.OccupiedCharacter == null)
             return;
 
-        if (tile.OccupiedCharacter.AllianceType == AllianceType.None)
+        if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall)
             return;
 
         if (_hitCharacters.Contains(tile.OccupiedCharacter))
             return;
 
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            tile.OccupiedCharacter.SkillRootTransformFollowable);
-
         if (owner != null)
         {
+            if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+                return;
+
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                tile.OccupiedCharacter.SkillRootTransformFollowable);
+
             var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
             owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
             tile.OccupiedCharacter.GetDamaged(damage, owner);

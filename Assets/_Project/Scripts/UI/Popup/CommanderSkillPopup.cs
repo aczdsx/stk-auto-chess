@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/CommanderSkillPopup.prefab")]
     public class CommanderSkillPopup : UILayer
     {
+        public int Index => _index;
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
 
@@ -21,6 +22,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _skillListSlotObject;
 
         private List<CommanderSkillSlot> _commanderSkillSlotList = new List<CommanderSkillSlot>();
+        private int _index = 0;
 
         private void Awake()
         {
@@ -38,6 +40,7 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
+            _index = (int)param;
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             _skillTooltipPopup.gameObject.SetActive(false);
@@ -85,7 +88,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
-            InGameMain.GetInGameMain().SetCommanderSkillUI(UserDataManager.Instance.UserCommanderSkillData.EquippedCommanderSkillId);
+            InGameMain.GetInGameMain().SetCommanderSkillUI(_index, UserDataManager.Instance.GetEquippedCommanderSkill(_index));
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 

@@ -35,6 +35,9 @@ namespace CookApps.AutoBattler
         SILENCE = 1100000004,
         CHAPTER_FIRE = 1200000001,
         CHAPTER_ICE = 1200000002,
+        RULE_AD = 1210000001,
+        RULE_DEF = 1210000002,
+        RULE_AP = 1210000003,
         BUFF_AD_UP = 2000000001,
         BUFF_AD_PERCENT_UP = 2000000002,
         BUFF_AP_UP = 2000000003,
@@ -143,6 +146,7 @@ namespace CookApps.AutoBattler
         ELITE = 2,
         BOSS = 3,
         CHARACTER = 4,
+        OBSTACLE = 5,
     }
 
     public enum ContentType
@@ -196,6 +200,7 @@ namespace CookApps.AutoBattler
         PERCENT = 1,
         TIME = 2,
         COOL = 3,
+        INT = 4,
     }
 
     public enum SkillType
@@ -339,11 +344,54 @@ namespace CookApps.AutoBattler
         fx_common_area_landing = 94,
         fx_common_debuff_silence = 95,
         fx_common_hit_03 = 96,
+        fx_common_bufftrap_ad = 97,
+        fx_common_bufftrap_ap = 98,
+        fx_common_bufftrap_defense = 99,
+        fx_common_synergy_light = 100,
     }
 
     public enum GlobalEffectProviderType
     {
         EQIUP = 1,
         MONSTER_MULTIPLE = 99,
+    }
+
+    public enum TermType
+    {
+        NONE = 0,
+        DAILY = 1,
+        WEEKLY = 3,
+    }
+
+    public enum QuestType
+    {
+        CLEAR_DAILY_QUEST = 1,
+        CLEAR_WEEKLY_QUEST = 2,
+        CLEAR_STAGE = 3,
+        LEVELUP_CHARACTER = 4,
+        SUMMON_CHARACTER = 5,
+    }
+
+    public enum EventType
+    {
+        ATTENDANCE = 1,
+        ACC_PLAY_TIME = 2,
+        USE_AP = 3,
+        USE_GOLD = 4,
+    }
+
+    public enum DungeonType
+    {
+        TRIAL = 1,
+    }
+
+    public enum TrialType
+    {
+        BATTLE_NORMAL = 0,
+        BRONZE = 1,
+        SILVER = 2,
+        GOLD = 3,
+        PLATINUM = 4,
+        DIAMOND = 5,
     }
 }

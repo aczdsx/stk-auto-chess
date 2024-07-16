@@ -75,7 +75,21 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        owner.Target = InGameObjectManager.Instance.GetNearestTarget(owner);
+
+        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        if (!isInRange)
+        {
+            if (owner.Target != null)
+            {
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+                    owner.Target.CurrentTile);
+                owner.MoveTile(bestTile);
+            }
+            return;
+        }
+
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);

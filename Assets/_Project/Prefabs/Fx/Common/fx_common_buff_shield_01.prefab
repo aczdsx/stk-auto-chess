@@ -19635,7 +19635,7 @@ GameObject:
   - component: {fileID: 3818073216135434931}
   - component: {fileID: 748346455964601813}
   - component: {fileID: 6104627623187403861}
-  - component: {fileID: 2809604084285889401}
+  - component: {fileID: 7098777141499668121}
   m_Layer: 6
   m_Name: fx_common_buff_shield_01
   m_TagString: Untagged
@@ -24459,7 +24459,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2809604084285889401
+--- !u!114 &7098777141499668121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -39,6 +39,9 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
+            // 캐릭터 리셋 데이터 업데이트
+            UserDataManager.Instance.UpdateResetCharacterCount();
+
             _currentTabType = CharacterCollectionPopupTabType.MAIN;
             _currentCharacterID = 0;
 

@@ -76,7 +76,19 @@ public class EffectCodeSkill1101021 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // TODO: Target Check
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        if (!isInRange)
+        {
+            if (owner.Target != null)
+            {
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+                    owner.Target.CurrentTile);
+                owner.MoveTile(bestTile);
+            }
+            return;
+        }
+
         isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -101,7 +113,6 @@ public class EffectCodeSkill1101021 : EffectCodeCharacterBase
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
         vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-
 
         var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, _targetCharacter);

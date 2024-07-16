@@ -18,6 +18,11 @@ namespace CookApps.AutoBattler
             return DateTimeToTimeStamp(UtcNow());
         }
 
+        public long DefaultTimeStamp()
+        {
+            return DateTimeToTimeStamp(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+        }
+
         public DayOfWeek UtcDayOfWeek()
         {
             return UtcNow().DayOfWeek;
@@ -27,6 +32,11 @@ namespace CookApps.AutoBattler
         {
             DateTime now = UtcNow();
             return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(1);
+        }
+
+        public long TommorrowTimeStamp()
+        {
+            return DateTimeToTimeStamp(Tommorrow());
         }
 
         public DateTime NextMonday()
@@ -42,6 +52,16 @@ namespace CookApps.AutoBattler
             }
 
             return now;
+        }
+
+        public long NextMondayTimeStamp()
+        {
+            return DateTimeToTimeStamp(NextMonday());
+        }
+
+        public TimeSpan GetTimeSpan(long baseTimeStamp, long targetTimeStamp)
+        {
+            return TimeStampToDateTime(targetTimeStamp) - TimeStampToDateTime(baseTimeStamp);
         }
 
         public TimeSpan GetTimeSpanFromNow(long targetTimeStamp)
@@ -70,6 +90,20 @@ namespace CookApps.AutoBattler
             DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dt = dt.AddSeconds(value).ToLocalTime();
             return dt;
+        }
+
+        // 스펙 데이터의 datetime 데이터 문자열을 DateTime 형식으로 변환
+        public DateTime ChangeDateStringToDateTime(string dateTimeString)
+        {
+            return DateTime.Parse(dateTimeString, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        }
+
+        // 스펙 데이터의 datetime 데이터 문자열을 long 형식으로 변환
+        public long ChangeDateStringToTimeStamp(string dateTimeString)
+        {
+            var targetDateTime = DateTime.Parse(dateTimeString, null, System.Globalization.DateTimeStyles.RoundtripKind);
+
+            return DateTimeToTimeStamp(targetDateTime);
         }
     }
 }

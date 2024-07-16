@@ -80,7 +80,19 @@ public class EffectCodeSkill1201011 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // TODO: Target Check
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        if (!isInRange)
+        {
+            if (owner.Target != null)
+            {
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+                    owner.Target.CurrentTile);
+                owner.MoveTile(bestTile);
+            }
+            return;
+        }
+
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -104,7 +116,7 @@ public class EffectCodeSkill1201011 : EffectCodeCharacterBase
         List<InGameTile> inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 2);
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.None)
+            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);

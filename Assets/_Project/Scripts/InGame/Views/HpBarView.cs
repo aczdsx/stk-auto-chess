@@ -44,11 +44,6 @@ namespace CookApps.AutoBattler
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
-            if (statData == null)
-            {
-                return;
-            }
-
             bool isPlayer = allianceType == AllianceType.Player;
 
             _hpPlayerFillLeft.gameObject.SetActive(isPlayer);
@@ -59,8 +54,12 @@ namespace CookApps.AutoBattler
 
             _defalutSize = _selectedFillLeft.size;
 
-            _elementSynergySprite.sprite = ImageManager.Instance.GetSynergySprite(statData.Spec.element_type);
-            _positionSynergySprite.sprite = ImageManager.Instance.GetPositionSprite(statData.Spec.character_position_type);
+            if (statData != null)
+            {
+                _elementSynergySprite.sprite = ImageManager.Instance.GetSynergySprite(statData.Spec.element_type);
+                _positionSynergySprite.sprite =
+                    ImageManager.Instance.GetPositionSprite(statData.Spec.character_position_type);
+            }
         }
 
         public void SetHpBarType(HpBarType type = HpBarType.None)

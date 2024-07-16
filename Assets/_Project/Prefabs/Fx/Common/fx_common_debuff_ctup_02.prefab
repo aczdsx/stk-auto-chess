@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5524665086385765690}
   - component: {fileID: 2479196261289585956}
   - component: {fileID: 5940861837278029380}
-  - component: {fileID: 8260733640515296071}
+  - component: {fileID: 5811597173914802943}
   m_Layer: 6
   m_Name: fx_common_debuff_ctup_02
   m_TagString: Untagged
@@ -4832,7 +4832,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8260733640515296071
+--- !u!114 &5811597173914802943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4841,10 +4841,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2666651523803120944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
 --- !u!1 &5821834617333436518
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,19 +13,19 @@ public class FlowStateStageClear : StateBase
     {
         var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameManager.Instance.EndInGame();
-        int star = 1;
-        if (InGameMain.GetInGameMain().InGameTime >= 40)
-            star++;
-        if (InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive())
-            star++;
+        bool start2 = InGameMain.GetInGameMain().InGameTime >= 30;
+        bool start3 = InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive();
 
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star, _mvpCharacterData));
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, start2, start3, _mvpCharacterData));
 
         // 행동력 소모 처리
         UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true, false);
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
+
+        // 행동력 소모 이벤트 처리
+        UserDataManager.Instance.SetUserEventActionCount(EventType.USE_AP, InGameManager.Instance.SpecStage.need_ap, true, true);
     }
 
     public override void StateRunning(float dt)

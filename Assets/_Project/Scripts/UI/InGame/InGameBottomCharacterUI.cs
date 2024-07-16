@@ -10,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -19,7 +20,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private CAButton _startButton;
 
     [SerializeField]
-    private CAButton _CommanderSkillButton;
+    private List<CAButton> _CommanderSkillButtonList;
 
     [SerializeField]
     private CAButton _statisticButton;
@@ -43,7 +44,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private GameObject _readyUIObj;
 
     [SerializeField]
-    private CommanderSkillUI _commanderSkillUI;
+    private GameObject _commanderSkillObj;
+
+    [SerializeField]
+    private List<CommanderSkillUI> _commanderSkillUIList;
 
     [SerializeField]
     private TextMeshProUGUI _characterCountText;
@@ -61,11 +65,17 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     protected void Awake()
     {
-        _isOpenCommanderSkill = InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
-        _commanderSkillUI.gameObject.SetActive(_isOpenCommanderSkill);
+        _isOpenCommanderSkill =
+            InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+        _commanderSkillObj.SetActive(_isOpenCommanderSkill);
 
         _startButton?.onClick.AddListener(OnStartButtonClicked);
-        _CommanderSkillButton?.onClick.AddListener(OnClickCommanderSkillButton);
+        for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
+        {
+            int index = i;
+            _CommanderSkillButtonList[i]?.onClick.AddListener(() => OnClickCommanderSkillButton(index));
+        }
+
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
 
@@ -79,7 +89,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
 
         // 전투 인원 최대 인원 미배치 검사
-        var userLevelData = SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
+        var userLevelData =
+            SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userLevelData.squad_count)
         {
             bool isAvailableCharacter = _characterItemList.Exists(l => l.StatData != null);
@@ -99,7 +110,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // 지휘자 스킬 장착 확인
         if (_isOpenCommanderSkill)
         {
-            var equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
+            var equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(0);
             if (equippedCommanderSkill == 0)
             {
                 string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
@@ -121,9 +132,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _readyUIObj.SetActive(false);
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
-        SetCommanderSkill();
+        InitCommanderSkill();
         InGameMain.GetInGameMain().SetCombatUI();
-
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
@@ -141,14 +151,14 @@ public class InGameBottomCharacterUI : MonoBehaviour
         Preference.SavePreference(Pref.STATISTIC, true);
     }
 
-    private void OnClickCommanderSkillButton()
+    private void OnClickCommanderSkillButton(int index)
     {
         if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
             return;
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-        SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>().Forget();
+        SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>(index).Forget();
     }
 
     public void ChangeStatisticsButtonActiveState(bool isOn)
@@ -186,7 +196,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         foreach (var characterStat in uniqueCharacters)
         {
-            bool isExist = _characterItemList.Exists(l => l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
+            bool isExist = _characterItemList.Exists(l =>
+                l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
             if (!isExist)
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
@@ -197,19 +208,18 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
-    public void SetCommanderSkillUI(int id)
+    public void SetCommanderSkillUI(int index, int id)
     {
         var image = ImageManager.Instance.GetCommanderSkillSprite(id);
         if (image != null)
         {
-            _commanderSkillUI.SetIcon(image);
-            InGameMain.GetInGameMain().SetCommanderFx(false);
+            _commanderSkillUIList[index].SetIcon(image);
+            _commanderSkillUIList[index].SetCommanderFx(false);
         }
         else
         {
-            InGameMain.GetInGameMain().SetCommanderFx(true);
+            _commanderSkillUIList[index].SetCommanderFx(true);
         }
-
     }
 
     public void InitData()
@@ -230,7 +240,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // _characterStats.Add(new CharacterStatData(140502, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         // _characterStats.Add(new CharacterStatData(130501, 1, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
 
-        SetCommanderSkillUI(UserDataManager.Instance.UserCommanderSkillData.EquippedCommanderSkillId);
+        for (int i = 0; i < _commanderSkillUIList.Count; i++)
+            SetCommanderSkillUI(i, UserDataManager.Instance.GetEquippedCommanderSkill(i));
+
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
@@ -240,7 +252,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         foreach (var characterStat in _characterStats)
         {
-            bool isExist = _characterItemList.Exists(l => l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
+            bool isExist = _characterItemList.Exists(l =>
+                l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
             if (!isExist)
             {
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
@@ -250,13 +263,17 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
-    public void SetCommanderSkill()
+    public void InitCommanderSkill()
     {
-        int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill();
-        if (equippedCommanderSkill != 0)
+        for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {
-            var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
-            InGameCommanderManager.Instance.SetCommanderSkillData(data);
+            int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(i);
+            if (equippedCommanderSkill != 0)
+            {
+                var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
+                CommanderSkillData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(data);
+                _commanderSkillUIList[i].SetData(skillData);
+            }
         }
     }
 
@@ -375,14 +392,17 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _isRunningAddCharacter = false;
     }
 
-    public void SetCommanderSkillCoolTime(float elapsedTime, float durationTime)
+    public void UpdateCommanderSkillCoolTime()
     {
-        _commanderSkillUI.UpdateCommanderSkillCoolTime(elapsedTime, durationTime);
-    }
-
-    public void SetIconColor(float fadeAlpha)
-    {
-        _commanderSkillUI.SetIconColor(fadeAlpha);
+        foreach (var skillUI in _commanderSkillUIList)
+        {
+            if (skillUI.Data != null)
+            {
+                skillUI.UpdateCommanderSkillCoolTime();
+                bool isActiveCoolTime = skillUI.Data.ElapsedTime > skillUI.Data.DurationTime;
+                InGameMain.GetInGameMain().SetCommanderFx(isActiveCoolTime);
+            }
+        }
     }
 
     public void SetCharacterCountText()
@@ -402,13 +422,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
             _commanderFx.Play();
     }
 
-    public void SetFocusCharacter(int prefabID = 0)
+    public void SetFocusCharacter(SpecCharacter spec)
     {
         foreach (var characterItem in _characterItemList)
         {
             if (characterItem.StatData == null)
             {
-                characterItem.SetFocusCharacter(prefabID);
+                characterItem.SetFocusCharacter(spec);
                 return;
             }
         }
@@ -420,8 +440,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         {
             if (characterItem.IsFocusSlot)
             {
-                characterItem.SetFocusCharacter();
-                if(isDropFx)
+                characterItem.SetFocusCharacter(null);
+                if (isDropFx)
                     characterItem.PlayDropFx();
                 return;
             }

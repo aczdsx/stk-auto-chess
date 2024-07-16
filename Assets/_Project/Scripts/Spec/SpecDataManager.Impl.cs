@@ -319,6 +319,40 @@ namespace CookApps.AutoBattler
             return SpecCharacterLevelExp.All.ToList().Find(data => data.level == level);
         }
 
+        public List<SpecCharacterLevelExp> GetCharacterLevelExpDataList(int level)
+        {
+            return SpecCharacterLevelExp.All.ToList().FindAll(data => data.level <= level);
+        }
+
+        // 캐릭터 레벨업에 필요한 총 필요 아이템 리스트 반환
+        // 7.15 - 현재 10레벨 단위 레벨업 시 조각을 소모하므로 characterID를 인자로 넘겨 받음
+        public List<RewardItem> GetCharacterLevelupTotalNeedItemList(int level, int characterID)
+        {
+            if (level <= 1) return null;
+
+            int targetLevel = level - 1;
+
+            List<RewardItem> resultItemList = new List<RewardItem>();
+
+            var levelExpData = GetCharacterLevelExpData(targetLevel);
+            if (levelExpData != null)
+            {
+                RewardItem needGoldItem = new RewardItem(ItemType.GOLD, 0, levelExpData.need_gold_sum);
+                resultItemList.Add(needGoldItem);
+
+                RewardItem needExpItem = new RewardItem(ItemType.CHAR_USER_EXP_ITEM, 0, levelExpData.base_levelup_item_sum);
+                resultItemList.Add(needExpItem);
+
+                if (levelExpData.sec_levelup_item_sum > 0)
+                {
+                    RewardItem needSecondLevelupItem = new RewardItem(levelExpData.sec_levelup_item_type, characterID, levelExpData.sec_levelup_item_sum);
+                    resultItemList.Add(needSecondLevelupItem);
+                }
+            }
+
+            return resultItemList;
+        }
+
         public SpecCharacterQuotes GetCharacterQuotesDataByPrefabID(int prefabID)
         {
             return SpecCharacterQuotes.All.ToList().Find(data => data.prefab_id == prefabID);
@@ -720,6 +754,152 @@ namespace CookApps.AutoBattler
             }
 
             return null;
+        }
+
+        public SpecQuest GetSpecQuestData(int questID)
+        {
+            return SpecQuest.All.ToList().Find(data => data.quest_id == questID);
+        }
+
+        public List<SpecQuest> GetSpecQuestList(TermType termType, bool isIncludeMilestone)
+        {
+            if (isIncludeMilestone)
+            {
+                return SpecQuest.All.ToList().FindAll(data => data.term_type == termType);
+            }
+
+            return SpecQuest.All.ToList().FindAll(data =>
+                data.term_type == termType
+                && data.quest_type != QuestType.CLEAR_DAILY_QUEST
+                && data.quest_type != QuestType.CLEAR_WEEKLY_QUEST);
+        }
+
+        public List<SpecQuest> GetSpecQuestList(QuestType questType)
+        {
+            return SpecQuest.All.ToList().FindAll(data => data.quest_type == questType);
+        }
+
+        public List<SpecQuest> GetSpecQuestList(TermType termType, QuestType questType)
+        {
+            return SpecQuest.All.ToList().FindAll(data => data.term_type == termType && data.quest_type == questType);
+        }
+
+        public SpecEvent GetSpecEventData(int eventID)
+        {
+            return SpecEvent.All.ToList().Find(data => data.event_id == eventID);
+        }
+
+        public SpecEvent GetSpecEventData(EventType eventType)
+        {
+            return SpecEvent.All.ToList().Find(data => data.event_type == eventType);
+        }
+
+        public List<SpecEvent> GetSpecEventList(EventType eventType)
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.event_type == eventType);
+        }
+
+        public List<SpecEvent> GetSpecEventList(TermType termType)
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.term_type == termType);
+        }
+
+        // 기간 제한이 존재하는 이벤트 리스트를 반환
+        public List<SpecEvent> GetLimitedSpecEventList()
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.frequency_type == FrequencyType.ONCE);
+        }
+
+        // 기간 제한이 존재하지 않는 이벤트 리스트를 반환 (서비스 중 기간동안 지속 반복)
+        public List<SpecEvent> GetNoneLimitedSpecEventList()
+        {
+            return SpecEvent.All.ToList().FindAll(data => data.frequency_type == FrequencyType.REPEAT);
+        }
+
+        // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터를 반환
+        public SpecEvent GetCurrentSpecEvent(EventType eventType)
+        {
+            var eventList = GetSpecEventList(eventType);
+
+            foreach (var eventData in eventList)
+            {
+                var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
+                var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
+
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+
+                if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
+                {
+                    return eventData;
+                }
+            }
+
+            return null;
+        }
+
+        // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터 리스트를 반환
+        public List<SpecEvent> GetCurrentSpecEventList()
+        {
+            List<SpecEvent> resultEventList = new List<SpecEvent>();
+
+            // 기간 제한이 없는 이벤트 데이터 처리
+            List<SpecEvent> noneLimitedSpecEventList = GetNoneLimitedSpecEventList();
+            if (noneLimitedSpecEventList != null && noneLimitedSpecEventList.Count > 0)
+            {
+                resultEventList.AddRange(noneLimitedSpecEventList);
+            }
+
+            // 기간 제한이 있는 이벤트 데이터 처리
+            List<SpecEvent> limitedSpecEventList = GetLimitedSpecEventList();
+            foreach (var eventData in limitedSpecEventList)
+            {
+                var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
+                var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
+
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+
+                if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
+                {
+                    resultEventList.Add(eventData);
+                }
+            }
+
+            return resultEventList;
+        }
+
+        public SpecEventCondition GetSpecEventConditionData(int eventID, int eventConditionID)
+        {
+            return SpecEventCondition.All.ToList().Find(data => data.event_id == eventID && data.event_condition_id == eventConditionID);
+        }
+
+        public List<SpecEventCondition> GetSpecEventConditionList(int eventID)
+        {
+            return SpecEventCondition.All.ToList().FindAll(data => data.event_id == eventID);
+        }
+
+        public SpecDungeonTrial GetSpecDungeonTrialData(int dungeonID)
+        {
+            return SpecDungeonTrial.All.ToList().Find(data => data.dungeon_id == dungeonID);
+        }
+
+        public SpecDungeonTrial GetSpecDungeonTrialDataByOrder(int order)
+        {
+            return SpecDungeonTrial.All.ToList().Find(data => data.order == order);
+        }
+
+        public List<SpecDungeonTrial> GetSpecDungeonTrialDataList(DungeonType dungeonType)
+        {
+            return SpecDungeonTrial.All.ToList().FindAll(data => data.dungeon_type == dungeonType);
+        }
+
+        public List<SpecDungeonMonster> GetSpecDungeonMonsterDataList(int dungeonID)
+        {
+            return SpecDungeonMonster.All.ToList().FindAll(data => data.dungeon_id == dungeonID);
+        }
+
+        public List<SpecDungeonReward> GetSpecDungeonRewardDataList(int dungeonID)
+        {
+            return SpecDungeonReward.All.ToList().FindAll(data => data.dungeon_id == dungeonID);
         }
 
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)

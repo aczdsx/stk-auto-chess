@@ -78,7 +78,19 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // TODO: Target Check
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        if (!isInRange)
+        {
+            if (owner.Target != null)
+            {
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+                    owner.Target.CurrentTile);
+                owner.MoveTile(bestTile);
+            }
+            return;
+        }
+
         isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -96,6 +108,9 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
 
         if (_targetCharacter == null)
+            return;
+
+        if (owner == null)
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,

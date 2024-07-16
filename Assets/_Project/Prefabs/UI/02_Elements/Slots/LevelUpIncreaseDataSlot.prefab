@@ -226,7 +226,7 @@ MonoBehaviour:
   _blendMode: 2
   _modifyVertices: 1
   _offset: -1
-  _zoom: 0.69
+  _zoom: 1
   _effectGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.9849755, b: 0.7971698, a: 1}
@@ -646,7 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7415927049408885861}
-  - component: {fileID: 4944660164213848134}
+  - component: {fileID: 1526544301786947566}
   m_Layer: 5
   m_Name: LevelUpIncreaseDataSlot
   m_TagString: Untagged
@@ -679,22 +679,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 1100, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &4944660164213848134
-Animation:
+--- !u!114 &1526544301786947566
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5267161383066385282}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 40f196a6c8d522f409da098319709218, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 40f196a6c8d522f409da098319709218, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dcabdc4201f484c801f760e25272df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _focusFX: {fileID: 8377783312194289654}
+  _beforeColor: {r: 0.6392157, g: 0.72156864, b: 0.8117647, a: 1}
+  _afterColor: {r: 1, g: 0.9607843, b: 0.7882353, a: 1}
+  _KeyText: {fileID: 342882070250253298}
+  _fx_R: {fileID: 3113689763965869534}
+  _fx_L: {fileID: 3119300940340230022}
 --- !u!1 &5604362838222481866
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,14 +930,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2174420927066059274}
-  - component: {fileID: 8014015494647477310}
   m_Layer: 5
   m_Name: FocusFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2174420927066059274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -957,19 +958,3 @@ RectTransform:
   m_AnchoredPosition: {x: -30, y: 0}
   m_SizeDelta: {x: -60, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &8014015494647477310
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8377783312194289654}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 40f196a6c8d522f409da098319709218, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 40f196a6c8d522f409da098319709218, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0

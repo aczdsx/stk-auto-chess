@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1608005826375266305}
   - component: {fileID: 7536807533771319179}
   - component: {fileID: 4533863003818614917}
-  - component: {fileID: 4427659882194447833}
+  - component: {fileID: 6476282724344924603}
   m_Layer: 6
   m_Name: fx_common_debuff_atkdown_01
   m_TagString: Untagged
@@ -4837,7 +4837,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &4427659882194447833
+--- !u!114 &6476282724344924603
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

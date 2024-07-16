@@ -16,6 +16,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class EffectCodeSkill1302011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _shieldRate;
+    private ObfuscatorFloat _shieldDurationTime;
 
     private bool _isReadyToActivate;
 
@@ -25,8 +26,9 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         SkillIndex = 1;
+        CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        CoolTimeElapsedTime = codeInfo.GetCodeStatToFloat(1);
+        _shieldDurationTime = codeInfo.GetCodeStatToFloat(1);
         _shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
@@ -37,8 +39,9 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
+        CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        CoolTimeElapsedTime = codeInfo.GetCodeStatToFloat(1);
+        _shieldDurationTime = codeInfo.GetCodeStatToFloat(1);
         _shieldRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
     }
 
@@ -108,7 +111,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
 
                         Span<double> eccStats = stackalloc double[2];
                         eccStats.Clear();
-                        eccStats[0] = CoolTimeElapsedTime;
+                        eccStats[0] = _shieldDurationTime;
                         eccStats[1] = shieldAmount.damageAmount;
 
                         var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.SHIELD, 0, eccStats);

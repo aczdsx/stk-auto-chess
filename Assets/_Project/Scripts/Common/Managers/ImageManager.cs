@@ -100,6 +100,32 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
+        public Sprite GetDungeonTrialClassSprite(TrialType type, bool isCompete)
+        {
+            string spriteName = string.Empty;
+
+            switch (type)
+            {
+                case TrialType.BRONZE:
+                    spriteName = isCompete ? "Icon_DungeonTrialClass_Bronze_Completed" : "Icon_DungeonTrialClass_Bronze";
+                    break;
+                case TrialType.SILVER:
+                    spriteName = isCompete ? "Icon_DungeonTrialClass_Silver_Completed" : "Icon_DungeonTrialClass_Silver";
+                    break;
+                case TrialType.GOLD:
+                    spriteName = isCompete ? "Icon_DungeonTrialClass_Gold_Completed" : "Icon_DungeonTrialClass_Gold";
+                    break;
+                case TrialType.PLATINUM:
+                    spriteName = isCompete ? "Icon_DungeonTrialClass_Platinum_Completed" : "Icon_DungeonTrialClass_Platinum";
+                    break;
+                case TrialType.DIAMOND:
+                    spriteName = isCompete ? "Icon_DungeonTrialClass_Legend_Completed" : "Icon_DungeonTrialClass_Legend";
+                    break;
+            }
+
+            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
+        }
+
         public Sprite GetChapterIconSprite(int chapterID)
         {
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, $"Icon_Chapter_{chapterID}");

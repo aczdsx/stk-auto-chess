@@ -40,7 +40,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _characterIllustParentObject;
 
         private bool _isVictory = false;
-        private int _star = 0;
+        private bool _starTime;
+        private bool _starNoDeath;
+        private int _star;
 
         private bool _isPlayingTutorialStage = false;   // 튜토리얼 진행 여부 체크
         private bool _isClearTutorialStage = false;     // 튜토리얼 스테이지 클리어 여부 체크
@@ -57,7 +59,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _star, _specCharacter) = ((bool, int, SpecCharacter))param;
+            (_isVictory, _starTime, _starNoDeath, _specCharacter) = ((bool, bool, bool, SpecCharacter))param;
 
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);
@@ -79,6 +81,11 @@ namespace CookApps.AutoBattler
                 AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             }
 
+            _star = _isVictory ? 1 : 0;
+            if (_starTime)
+                _star++;
+            if (_starNoDeath)
+                _star++;
             // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
             {
@@ -90,11 +97,13 @@ namespace CookApps.AutoBattler
             {
                 for (int i = 0; i < _starConditionList.Count; i++)
                 {
-                    _starConditionList[i]._starObject.SetActive(_star > i);
-
                     string resultToken = string.Format("STAGE_STAR_CONDITON_DESC_{0}", i + 1);
                     _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
                 }
+
+                _starConditionList[0]._starObject.SetActive(_isVictory);
+                _starConditionList[1]._starObject.SetActive(_starTime);
+                _starConditionList[2]._starObject.SetActive(_starNoDeath);
             }
             else
             {
@@ -132,6 +141,9 @@ namespace CookApps.AutoBattler
             {
                 CheckLatestStageClear();
                 CreateRewardItems();
+
+                // 퀘스트 데이터 갱신
+                UserDataManager.Instance.SetUserQuestActionCount(QuestType.CLEAR_STAGE, 1, true, true);
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
             }

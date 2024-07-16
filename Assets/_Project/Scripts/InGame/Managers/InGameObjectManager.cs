@@ -26,8 +26,10 @@ namespace CookApps.BattleSystem
         private InGameStage _stage;
         private List<CharacterController> enemiesInPlaygroundForUpdate = new();
         private List<CharacterController> charactersInPlaygroundForUpdate = new();
+        private List<CharacterController> neutralInPlaygroundForUpdate = new();
 
         private List<CharacterController> startingPlayerCharacters = new();
+        private List<CharacterController> reusableList = new List<CharacterController>();
 
         private List<InGameVfx> _synergyVfxList = new();
         private double _playerSumMaxHp;
@@ -48,7 +50,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            playground = GameObject.Find("Playground").GetComponent<Transform>();
+            playground = GameObject.FindWithTag("Playground").GetComponent<Transform>();
             startingPlayerCharacters = new();
 
             _stage = stage;
@@ -61,14 +63,24 @@ namespace CookApps.BattleSystem
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
             InGameMainFlowManager.Instance.RemoveLateUpdateListener(LateManagedUpdate);
             playground = null;
-            ClearAllCharactersInField();
-            ClearAllEnemiesInField();
+            ClearAllCharactersInField(AllianceType.Player);
+            ClearAllCharactersInField(AllianceType.Enemy);
+            ClearAllCharactersInField(AllianceType.Neutral);
             ClearSynergyFx();
         }
 
         public List<CharacterController> GetCharacterList(AllianceType allianceType)
         {
-            return allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
+            if (allianceType == AllianceType.Player)
+            {
+                return charactersInPlaygroundForUpdate;
+            }
+            else if (allianceType == AllianceType.Enemy)
+            {
+                return enemiesInPlaygroundForUpdate;
+            }
+
+            return neutralInPlaygroundForUpdate;
         }
 
         public CharacterController GetCharacterInField(int characUId)
@@ -142,6 +154,11 @@ namespace CookApps.BattleSystem
                 enemiesInPlaygroundForUpdate.Add(characCtrl);
                 summonVfxType = InGameVfxNameType.fx_common_summon_enemy;
             }
+            else if (allianceType == AllianceType.Neutral)
+            {
+                neutralInPlaygroundForUpdate.Add(characCtrl);
+                summonVfxType = InGameVfxNameType.fx_common_summon_enemy;
+            }
 
             if (summonVfxType != InGameVfxNameType.NONE)
             {
@@ -161,32 +178,32 @@ namespace CookApps.BattleSystem
 
         public void RemoveCharacterFromField(CharacterController characCtrl)
         {
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
+            List<CharacterController> targetList = GetCharacterList(characCtrl.AllianceType);
+
+            for (var i = 0; i < targetList.Count; i++)
             {
-                CharacterController other = charactersInPlaygroundForUpdate[i];
+                CharacterController other = targetList[i];
                 other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
             }
 
-            if (!charactersInPlaygroundForUpdate.Remove(characCtrl))
+            targetList.Remove(characCtrl);
+            if (characCtrl.AllianceType == AllianceType.Player)
             {
-                enemiesInPlaygroundForUpdate.Remove(characCtrl);
+                var uiLayer = SceneUILayerManager.Instance.GetUILayer("BattleStatisticsPopup");
+                if (uiLayer != null)
+                    uiLayer.GetComponent<BattleStatisticsPopup>().SetDeadSlot(characCtrl.CharacterId);
             }
 
-            characCtrl.CurrentTile.SetUnoccupied();
-
             characCtrl.Clear();
-
-            var uiLayer = SceneUILayerManager.Instance.GetUILayer("BattleStatisticsPopup");
-            if (uiLayer != null)
-                uiLayer.GetComponent<BattleStatisticsPopup>().SetDeadSlot(characCtrl.CharacterId);
         }
 
-        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID)
+        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID,
+            AllianceType allianceType)
         {
             var characCtrl = new CharacterController();
             var tile = InGameGrid.GetTile(gridID);
             if (tile.OccupiedCharacter == null)
-                characCtrl.Initialize(tile, Playground, chapterID);
+                characCtrl.Initialize(tile, Playground, chapterID, allianceType);
 
             return characCtrl;
         }
@@ -211,55 +228,16 @@ namespace CookApps.BattleSystem
             return charactersInPlaygroundForUpdate.Count == 0 ? true : false;
         }
 
-        public void RemoveCharacterFromField(int characUId)
+        public void ClearAllCharactersInField(AllianceType allianceType)
         {
-            CharacterController charCtrl = GetCharacterInField(characUId);
+            List<CharacterController> targetList = GetCharacterList(allianceType);
 
-            CharacterController target = null;
-
-            if (charCtrl.Target != null)
+            for (var i = 0; i < targetList.Count; i++)
             {
-                target = charCtrl.Target;
+                targetList[i].Clear();
             }
 
-            RemoveCharacterFromField(charCtrl);
-            if (target != null)
-            {
-                target.Target = null;
-            }
-        }
-
-        public void ClearAllCharactersInField()
-        {
-            for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
-            {
-                charactersInPlaygroundForUpdate[i].Clear();
-            }
-
-            charactersInPlaygroundForUpdate.Clear();
-        }
-
-        public void ClearAllEnemiesInField()
-        {
-            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
-            {
-                enemiesInPlaygroundForUpdate[i].Clear();
-            }
-
-            enemiesInPlaygroundForUpdate.Clear();
-        }
-
-        public void RemoveEnemyFromField(CharacterController characCtrl)
-        {
-            for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
-            {
-                CharacterController other = enemiesInPlaygroundForUpdate[i];
-                other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
-            }
-
-            characCtrl.CurrentTile.SetUnoccupied();
-            characCtrl.Clear();
-            enemiesInPlaygroundForUpdate.Remove(characCtrl);
+            targetList.Clear();
         }
 
         public InGameTile GetInGameTile(int id)
@@ -289,19 +267,16 @@ namespace CookApps.BattleSystem
             occupiedCharacter.ChangeOccupiedTile(selectedCharacterTile);
         }
 
-        public void ChangeTile(CharacterController selectedCharacter, InGameTile newTile)
-        {
-            selectedCharacter.ChangeOccupiedTile(newTile);
-        }
-
         public void SaveStartingPlayerCharacter()
         {
             startingPlayerCharacters.Clear();
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
             UserDataManager.Instance.SetUserCharaceterBattleDeckList(startingPlayerCharacters);
 
-            charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate.OrderBy(character => character.SpecCharacter.atk_range).ToList();
-            enemiesInPlaygroundForUpdate = enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
+            charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate
+                .OrderBy(character => character.SpecCharacter.atk_range).ToList();
+            enemiesInPlaygroundForUpdate =
+                enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
         }
 
         public bool IsCheckAllPlayerCharacterAlive()
@@ -331,7 +306,20 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
-            return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange);
+            if (target.SpecCharacter.size > 0)
+            {
+                var targetTiles = InGameGrid.GetTileListByShapeSquare(target.CurrentTile, target.SpecCharacter.size);
+                foreach (var targetTile in targetTiles)
+                {
+                    if (_grid.IsInRange(pivot.CurrentTile, targetTile, pivot.AttackRange))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+                return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange);
         }
 
         /// <summary>
@@ -388,22 +376,24 @@ namespace CookApps.BattleSystem
         public void GetNearestEnemiesInRange(CharacterController pivot, int range, AttackRangeShape rangeShapeType,
             List<CharacterController> resTargets)
         {
-            List<CharacterController> searchList = null;
+            reusableList.Clear();
             if (pivot.AllianceType == AllianceType.Player)
             {
-                searchList = enemiesInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
             else if (pivot.AllianceType == AllianceType.Enemy)
             {
-                searchList = charactersInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
 
-            if (searchList == null)
+            if (reusableList == null)
                 return;
 
-            for (var i = 0; i < searchList.Count; i++)
+            for (var i = 0; i < reusableList.Count; i++)
             {
-                CharacterController other = searchList[i];
+                CharacterController other = reusableList[i];
                 if (other is not {IsAlive: true})
                 {
                     continue;
@@ -425,24 +415,65 @@ namespace CookApps.BattleSystem
         {
             CharacterController target = null;
 
-            List<CharacterController> targets = null;
-
-            if (pivot.AllianceType == AllianceType.Enemy)
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
             {
-                targets = charactersInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            else if (pivot.AllianceType == AllianceType.Player)
+            else if (pivot.AllianceType == AllianceType.Enemy)
             {
-                targets = enemiesInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
 
-            if (targets == null || targets.Count == 0)
+            if (reusableList == null || reusableList.Count == 0)
             {
                 return null;
             }
 
             var minDistance = float.MaxValue;
-            foreach (var enemy in targets)
+            foreach (var enemy in reusableList)
+            {
+                if (enemy.IsAlive == false)
+                {
+                    continue;
+                }
+
+                var distance = _grid.BFS(pivot.CurrentTile, enemy.CurrentTile);
+                if (minDistance > distance)
+                {
+                    minDistance = distance;
+                    target = enemy;
+                }
+            }
+
+            return target;
+        }
+
+        public CharacterController GetNearestTargetByManhattanDistance(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
+            {
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            else if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+
+            if (reusableList == null || reusableList.Count == 0)
+            {
+                return null;
+            }
+
+            var minDistance = float.MaxValue;
+            foreach (var enemy in reusableList)
             {
                 if (enemy.IsAlive == false)
                 {
@@ -460,69 +491,32 @@ namespace CookApps.BattleSystem
             return target;
         }
 
-        public CharacterController GetFarthestTarget(CharacterController pivot)
-        {
-            CharacterController target = null;
-
-            List<CharacterController> targets = null;
-
-            if (pivot.AllianceType == AllianceType.Enemy)
-            {
-                targets = charactersInPlaygroundForUpdate;
-            }
-            else if (pivot.AllianceType == AllianceType.Player)
-            {
-                targets = enemiesInPlaygroundForUpdate;
-            }
-
-            if (targets == null || targets.Count == 0)
-            {
-                return null;
-            }
-
-            var maxDistance = float.MinValue;
-            foreach (var enemy in targets)
-            {
-                if (enemy.IsAlive == false)
-                {
-                    continue;
-                }
-
-                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
-                if (maxDistance < distance)
-                {
-                    maxDistance = distance;
-                    target = enemy;
-                }
-            }
-
-            return target;
-        }
-
         public CharacterController GetNearestTargetOnce(CharacterController pivot)
         {
             CharacterController target = null;
 
-            List<CharacterController> targets = null;
-
-            if (pivot.AllianceType == AllianceType.Enemy)
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
             {
-                targets = charactersInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            else if (pivot.AllianceType == AllianceType.Player)
+            else if (pivot.AllianceType == AllianceType.Enemy)
             {
-                targets = enemiesInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
 
-            if (targets == null || targets.Count == 0)
+            if (reusableList == null || reusableList.Count == 0)
             {
                 return null;
             }
 
             var minDistance = float.MaxValue;
-            foreach (var enemy in targets)
+            foreach (var enemy in reusableList)
             {
-                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
+                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
+                    CharacterPositionType.ASSASSIN)
                 {
                     continue;
                 }
@@ -542,30 +536,32 @@ namespace CookApps.BattleSystem
         {
             CharacterController target = null;
 
-            List<CharacterController> targets = null;
-
-            if (pivot.AllianceType == AllianceType.Enemy)
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
             {
-                targets = charactersInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            else if (pivot.AllianceType == AllianceType.Player)
+            else if (pivot.AllianceType == AllianceType.Enemy)
             {
-                targets = enemiesInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
 
-            if (targets == null || targets.Count == 0)
+            if (reusableList == null || reusableList.Count == 0)
             {
                 return null;
             }
 
             var maxDistance = float.MinValue;
             var sortedTargets = pivot.AllianceType == AllianceType.Enemy
-                ? targets.OrderBy(t => t.CurrentTile.Y).ToList()
-                : targets.OrderByDescending(t => t.CurrentTile.Y).ToList();
+                ? reusableList.OrderBy(t => t.CurrentTile.Y).ToList()
+                : reusableList.OrderByDescending(t => t.CurrentTile.Y).ToList();
 
             foreach (var enemy in sortedTargets)
             {
-                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
+                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
+                    CharacterPositionType.ASSASSIN)
                 {
                     continue;
                 }
@@ -591,25 +587,29 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="type"></param>
         /// <param name="resTargets"></param>
-        public void GetAllAliveCharacters(AllianceType type, List<CharacterController> resTargets)
+        public void GetAllAliveOnlyCharacters(AllianceType type, List<CharacterController> resTargets)
         {
-            List<CharacterController> searchList = null;
+            reusableList.Clear();
             if (type == AllianceType.Player)
             {
-                searchList = charactersInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
             }
             else if (type == AllianceType.Enemy)
             {
-                searchList = enemiesInPlaygroundForUpdate;
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+            }
+            else if (type == AllianceType.Neutral)
+            {
+                reusableList = new List<CharacterController>(neutralInPlaygroundForUpdate);
             }
 
-            if (searchList == null)
+            if (reusableList == null)
                 return;
 
             resTargets.Clear();
-            for (var i = 0; i < searchList.Count; i++)
+            for (var i = 0; i < reusableList.Count; i++)
             {
-                CharacterController other = searchList[i];
+                CharacterController other = reusableList[i];
 
                 if (!other.IsAlive)
                 {
@@ -629,7 +629,7 @@ namespace CookApps.BattleSystem
         {
             CharacterController res = null;
             using var _ = ListPool<CharacterController>.Get(out List<CharacterController> targets);
-            GetAllAliveCharacters(allianceType, targets);
+            GetAllAliveOnlyCharacters(allianceType, targets);
             if (targets.Count == 0)
             {
                 ListPool<CharacterController>.Release(targets);
@@ -684,6 +684,11 @@ namespace CookApps.BattleSystem
             for (var i = 0; i < enemiesInPlaygroundForUpdate.Count; i++)
             {
                 enemiesInPlaygroundForUpdate[i].ManagedUpdate(dt);
+            }
+
+            for (var i = 0; i < neutralInPlaygroundForUpdate.Count; i++)
+            {
+                neutralInPlaygroundForUpdate[i].ManagedUpdate(dt);
             }
 
             var effectCodes = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);

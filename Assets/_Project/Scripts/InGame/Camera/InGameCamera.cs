@@ -24,10 +24,31 @@ public class InGameCamera : MonoBehaviour
         Shake(durationTime, magnitude, _cancellationTokenSource.Token).Forget();
     }
 
-    public async UniTask SetCameraSize(float targetSize, float targetPosY, float duration)
+    public float GetCameraSize()
+    {
+        return _mainCamera.orthographicSize;
+    }
+
+    public void SetCameraSize(float size)
+    {
+        _mainCamera.orthographicSize = size;
+        _characterCamera.orthographicSize = size;
+    }
+
+    public Transform GetCameraTransform()
+    {
+        return _mainCamera.transform;
+    }
+
+    public void SetCameraPosition(Vector3 position)
+    {
+        _mainCamera.transform.position = position;
+    }
+
+    public async UniTask SetCameraSize(float targetSize, Vector3 targetPosition, float duration)
     {
         float startSize = _mainCamera.orthographicSize;
-        float startPosY = _mainCamera.transform.position.y;
+        Vector3 startPos = _mainCamera.transform.position;
 
         Tween.Custom(startSize, targetSize, duration,
             (float newSize) =>
@@ -37,24 +58,20 @@ public class InGameCamera : MonoBehaviour
             },
             ease: Ease.OutQuad);
 
-        Tween.Custom(startPosY, targetPosY, duration,
-            (float newPosY) =>
+        Tween.Custom(startPos, targetPosition, duration,
+            (Vector3 newPosition) =>
             {
-                Vector3 position = _mainCamera.transform.position;
-                position.y = newPosY;
-                _mainCamera.transform.position = position;
+                _mainCamera.transform.position = newPosition;
             },
             ease: Ease.OutQuad).OnComplete(this, _ =>
         {
             _characterCamera.orthographicSize = targetSize;
             _mainCamera.orthographicSize = targetSize;
 
-            Vector3 position = _mainCamera.transform.position;
-            position.y = targetPosY;
-            _mainCamera.transform.position = position;
+            _mainCamera.transform.position = targetPosition;
         });
 
-        await UniTask.WaitUntil(() => Mathf.Approximately(_mainCamera.orthographicSize, targetSize) && Mathf.Approximately(_mainCamera.transform.position.y, targetPosY));
+        await UniTask.WaitUntil(() => Mathf.Approximately(_mainCamera.orthographicSize, targetSize) && Mathf.Approximately(_mainCamera.transform.position.y, targetPosition.y));
     }
 
     private async UniTaskVoid Shake(float duration, float magnitude, CancellationToken cancellationToken)

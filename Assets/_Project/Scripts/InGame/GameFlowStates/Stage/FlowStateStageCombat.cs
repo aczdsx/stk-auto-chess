@@ -24,7 +24,7 @@ public class FlowStateStageCombat : StateBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
         InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(6.0f, 1.5f, 1.0f).Forget();
+        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
 
         InGameMain.GetInGameMain().OpenStatisticPop();
     }
@@ -40,6 +40,11 @@ public class FlowStateStageCombat : StateBase
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
             character.AddSynergyEffectCode();
+            character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
+        }
+
+        foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Neutral))
+        {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
@@ -60,7 +65,7 @@ public class FlowStateStageCombat : StateBase
         await UniTask.Delay(1000);
 
         // 모든 캐릭터 락 해제
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
             if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
@@ -70,7 +75,7 @@ public class FlowStateStageCombat : StateBase
 
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
         }
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
             if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
@@ -79,6 +84,12 @@ public class FlowStateStageCombat : StateBase
                 charac.AddNextState<CharacterStateIdle>();
 
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
+        }
+
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Neutral, characters);
+        foreach (CharacterController charac in characters)
+        {
+            charac.AddNextState<CharacterStateIdle>();
         }
     }
 
@@ -87,14 +98,14 @@ public class FlowStateStageCombat : StateBase
         if (isEndCombat)
             return;
 
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Player, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         if (characters.Count == 0)
         {
             isEndCombat = true;
             isWin = false;
         }
 
-        InGameObjectManager.Instance.GetAllAliveCharacters(AllianceType.Enemy, characters);
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
             isEndCombat = true;

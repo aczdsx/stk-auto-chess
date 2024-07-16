@@ -106,7 +106,8 @@ public class EffectCodeDebuffCoolTimeReduceDown : EffectCodeBuffBase
                 RemoveFromContainer();
             }
 
-            container.SetDirtyFlag(this);
+            if (container != null)
+                container.SetDirtyFlag(this);
         }
     }
 

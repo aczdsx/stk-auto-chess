@@ -110,6 +110,7 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
             // movement.OnReachedTarget +=
         }
 
+        CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
 
@@ -121,10 +122,13 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         if (tile.OccupiedCharacter == null)
             return;
 
-        if (tile.OccupiedCharacter.AllianceType == AllianceType.None)
+        if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall)
             return;
 
         if (_hitCharacters.Contains(tile.OccupiedCharacter))
+            return;
+
+        if(owner.AllianceType == tile.OccupiedCharacter.AllianceType)
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,

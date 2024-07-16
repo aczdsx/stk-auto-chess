@@ -63,7 +63,7 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
                 {
                     if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
                     {
-                        if (tile.OccupiedCharacter.AllianceType != AllianceType.None)
+                        if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                         {
                             var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate,
                                 tile.OccupiedCharacter,
@@ -115,7 +115,19 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // TODO: Target Check
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        if (!isInRange)
+        {
+            if (owner.Target != null)
+            {
+                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+                    owner.Target.CurrentTile);
+                owner.MoveTile(bestTile);
+            }
+            return;
+        }
+
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -141,15 +153,13 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
         {
             if (tile.OccupiedCharacter != null)
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType &&
+                    tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                 {
-                    if (tile.OccupiedCharacter.AllianceType != AllianceType.None)
-                    {
-                        var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
-                            codeId, true);
-                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                        tile.OccupiedCharacter.GetDamaged(damage, owner);
-                    }
+                    var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
+                        codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
                 }
             }
 

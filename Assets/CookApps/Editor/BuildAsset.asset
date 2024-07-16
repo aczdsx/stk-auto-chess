@@ -25,19 +25,19 @@ MonoBehaviour:
         Name: aos-dev
         Target: 13
         Identifier: com.cookapps.tech.sampleteambattle
-        Version: 1.0.0
+        Version: 0.1.2
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1845
+        VersionCode: 1979
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
         - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
         - Guid: 61e7bd672efcc4045915939216d08afd
         - Guid: 8029178524cba4055adeed793914bebd
-        AddDefine:
+        AddDefine: []
+        RemoveDefine:
         - ENABLE_CHEAT
-        RemoveDefine: []
         BuildOptions: 0
         TargetSdkVersion: 0
         CreateSymbols: 0
@@ -61,10 +61,10 @@ MonoBehaviour:
         Name: ios-prod
         Target: 9
         Identifier: com.mintry.stk
-        Version: 0.1.1
+        Version: 0.1.2
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1858
+        VersionCode: 1979
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -88,16 +88,16 @@ MonoBehaviour:
         Version: 1.0.0
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 1845
+        VersionCode: 1979
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
         - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
         - Guid: 61e7bd672efcc4045915939216d08afd
         - Guid: 8029178524cba4055adeed793914bebd
-        AddDefine:
+        AddDefine: []
+        RemoveDefine:
         - ENABLE_CHEAT
-        RemoveDefine: []
         BuildOptions: 0
         SigningTeamID: AE446264XG
         CodeGeneration: 0
