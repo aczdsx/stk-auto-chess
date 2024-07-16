@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private ScrollRect _eventSlotScrollRect;
         [SerializeField] private GameObject _eventSlotObject;
 
-        private List<SessionTimeEventSlot> _seesionTimeEventSlotList = new List<SessionTimeEventSlot>();
+        private List<SessionTimeEventSlot> _sessionTimeEventSlotList = new List<SessionTimeEventSlot>();
 
         private UserEventData _currentUserEventData;
         private List<UserEventConditionData> _currentUserEventConditionDataList;
@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            UpdateEventData();
+            //UpdateEventData();
             SetEventPopup();
             SetProgressBar();
         }
@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
 
             if (_currentUserEventData.EventExtraRefreshTimestamp < UserDataManager.Instance.UserBasicData.LastLoginTimestamp)
             {
-                UserDataManager.Instance.SetUserEventActionCount(_currentUserEventData.EventId, 1, true);
+                UserDataManager.Instance.SetUserEventActionCount(_currentUserEventData.EventId, 1, true, true);
                 UserDataManager.Instance.UpdateEventTimeData(_currentUserEventData.EventId);
             }
         }
@@ -79,7 +79,7 @@ namespace CookApps.AutoBattler
                 SessionTimeEventSlot newEventSlot = newEventSlotObject.GetComponent<SessionTimeEventSlot>();
                 newEventSlot.SetEventSlot(_currentUserEventData, eventConditionData);
 
-                _seesionTimeEventSlotList.Add(newEventSlot);
+                _sessionTimeEventSlotList.Add(newEventSlot);
             }
         }
 
@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler
         {
             BMUtil.RemoveChildObjects(_eventSlotScrollRect.content);
 
-            _seesionTimeEventSlotList.Clear();
+            _sessionTimeEventSlotList.Clear();
         }
     }
 }
