@@ -75,11 +75,18 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public void SetUserEventActionCount(int eventID, int actionValue, bool needSave)
+        public void SetUserEventActionCount(int eventID, int actionValue, bool isAdd, bool needSave)
         {
             if (UserEvent.UserEventDatas.ContainsKey(eventID))
             {
-                UserEvent.UserEventDatas[eventID].ActionCount += actionValue;
+                if (isAdd)
+                {
+                    UserEvent.UserEventDatas[eventID].ActionCount += actionValue;
+                }
+                else
+                {
+                    UserEvent.UserEventDatas[eventID].ActionCount = actionValue;
+                }
 
                 // 조건 충족 시 보상 수령 가능 상태로 condition State 변경
                 UpdateUserEventConditionState(eventID);
@@ -88,6 +95,34 @@ namespace CookApps.AutoBattler
                 {
                     SaveUserEventData();
                 }
+            }
+        }
+
+        public void SetUserEventActionCount(EventType eventType, int actionValue, bool isAdd, bool needSave)
+        {
+            var eventList = SpecDataManager.Instance.GetSpecEventList(eventType);
+
+            foreach (var eventData in eventList)
+            {
+                if (UserEvent.UserEventDatas.ContainsKey(eventData.event_id))
+                {
+                    if (isAdd)
+                    {
+                        UserEvent.UserEventDatas[eventData.event_id].ActionCount += actionValue;
+                    }
+                    else
+                    {
+                        UserEvent.UserEventDatas[eventData.event_id].ActionCount = actionValue;
+                    }
+
+                    // 조건 충족 시 보상 수령 가능 상태로 condition State 변경
+                    UpdateUserEventConditionState(eventData.event_id);
+                }
+            }
+
+            if (needSave)
+            {
+                SaveUserEventData();
             }
         }
 
@@ -105,6 +140,29 @@ namespace CookApps.AutoBattler
                     {
                         SaveUserEventData();
                     }
+                }
+            }
+        }
+
+        // 이벤트 데이터 초기화
+        public void ResetEventData(int eventID, bool needSave)
+        {
+            if (UserEvent.UserEventDatas.ContainsKey(eventID))
+            {
+                UserEvent.UserEventDatas[eventID].ActionCount = 0;
+
+                var conditionDataList = SpecDataManager.Instance.GetSpecEventConditionList(eventID);
+                foreach (var conditionData in conditionDataList)
+                {
+                    if (UserEvent.UserEventDatas[eventID].UserEventConditionDatas.ContainsKey(conditionData.event_condition_id))
+                    {
+                        UserEvent.UserEventDatas[eventID].UserEventConditionDatas[conditionData.event_condition_id].EventStateType = (int) EventStateType.WAIT;
+                    }
+                }
+
+                if (needSave)
+                {
+                    SaveUserEventData();
                 }
             }
         }

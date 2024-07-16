@@ -1,24 +1,26 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle.UIManagements;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/SessionTimeEventPopup.prefab")]
-    public class SessionTimeEventPopup : UILayer
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/ItemConsumeEventPopup.prefab")]
+    public class ItemConsumeEventPopup : UILayer
     {
         [Header("Common")]
         [SerializeField] private CAButton _closeButton;
+        [SerializeField] private TextMeshProUGUI _eventTitleText;
+        [SerializeField] private TextMeshProUGUI _eventDescText;
 
         [Header("Event Slot")]
-        [SerializeField] private Slider _eventProgressBar;
         [SerializeField] private ScrollRect _eventSlotScrollRect;
         [SerializeField] private GameObject _eventSlotObject;
 
-        private List<SessionTimeEventSlot> _sessionTimeEventSlotList = new List<SessionTimeEventSlot>();
+        private List<ConsumeEventSlot> _consumeEventSlotList = new List<ConsumeEventSlot>();
 
         private UserEventData _currentUserEventData;
         private List<UserEventConditionData> _currentUserEventConditionDataList;
@@ -51,7 +53,7 @@ namespace CookApps.AutoBattler
 
             //UpdateEventData();
             SetEventPopup();
-            SetProgressBar();
+            SetEventSlotList();
         }
 
         private void UpdateEventData()
@@ -67,6 +69,12 @@ namespace CookApps.AutoBattler
 
         private void SetEventPopup()
         {
+            _eventTitleText.text = LanguageManager.Instance.GetLanguageText(_specEventData.name_token);
+            _eventDescText.text = LanguageManager.Instance.GetLanguageText(_specEventData.desc_token);
+        }
+
+        private void SetEventSlotList()
+        {
             if (_currentUserEventData == null) return;
 
             ClearPopup();
@@ -76,17 +84,13 @@ namespace CookApps.AutoBattler
             foreach (var eventConditionData in _currentUserEventConditionDataList)
             {
                 GameObject newEventSlotObject = Instantiate(_eventSlotObject, _eventSlotScrollRect.content);
-                SessionTimeEventSlot newEventSlot = newEventSlotObject.GetComponent<SessionTimeEventSlot>();
+                ConsumeEventSlot newEventSlot = newEventSlotObject.GetComponent<ConsumeEventSlot>();
                 newEventSlot.SetEventSlot(_currentUserEventData, eventConditionData);
 
-                _sessionTimeEventSlotList.Add(newEventSlot);
+                _consumeEventSlotList.Add(newEventSlot);
             }
-        }
 
-        private void SetProgressBar()
-        {
-            _eventProgressBar.maxValue = _specEventConditionDataList.Max(data => data.need_count);
-            _eventProgressBar.value = _currentUserEventData.ActionCount;
+            _eventSlotScrollRect.horizontalNormalizedPosition = 0;
         }
 
         private void OnClickCloseButton()
@@ -100,7 +104,7 @@ namespace CookApps.AutoBattler
         {
             BMUtil.RemoveChildObjects(_eventSlotScrollRect.content);
 
-            _sessionTimeEventSlotList.Clear();
+            _consumeEventSlotList.Clear();
         }
     }
 }

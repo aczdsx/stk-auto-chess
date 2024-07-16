@@ -23,6 +23,9 @@ public class FlowStateStageClear : StateBase
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
+
+        // 행동력 소모 이벤트 처리
+        UserDataManager.Instance.SetUserEventActionCount(EventType.USE_AP, InGameManager.Instance.SpecStage.need_ap, true, true);
     }
 
     public override void StateRunning(float dt)
