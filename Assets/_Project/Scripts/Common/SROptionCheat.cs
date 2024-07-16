@@ -161,12 +161,23 @@ public partial class SROptions
     }
 
     [Category("캐릭터 관련")]
+    public void 캐릭터초월레벨설정()
+    {
+        if (원하는캐릭터ID <= 0) return;
+        if (원하는캐릭터초월레벨 <= 0) return;
+
+        UserDataManager.Instance.SetTranscendenceLevel(원하는캐릭터ID, 원하는캐릭터초월레벨);
+    }
+
+    [Category("캐릭터 관련")]
     public int 원하는캐릭터ID { get; set; } = 0;
 
     [Category("캐릭터 관련")]
     public int 원하는캐릭터조각갯수 { get; set; } = 0;
     [Category("캐릭터 관련")]
     public int 원하는캐릭터레벨 { get; set; } = 0;
+    [Category("캐릭터 관련")]
+    public int 원하는캐릭터초월레벨 { get; set; } = 0;
 
     #endregion
 
