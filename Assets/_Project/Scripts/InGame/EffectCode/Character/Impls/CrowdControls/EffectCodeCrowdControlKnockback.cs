@@ -42,7 +42,7 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         upFactor = (startY - height) / (halfDuration * halfDuration);
         downFactor = -height / (halfDuration * halfDuration);
 
-        owner.AddCrowdControl(CrowdControlType.Airborne);
+        owner.AddCrowdControl(CrowdControlType.KnockBack);
         elapsedTime = 0;
 
         if (owner.SpecCharacter.is_knock_back)
@@ -140,7 +140,7 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        owner.RemoveCrowdControl(CrowdControlType.Airborne);
+        owner.RemoveCrowdControl(CrowdControlType.KnockBack);
         base.OnPreRemoved();
     }
 }

@@ -37,7 +37,7 @@ namespace CookApps.BattleSystem
         private void SkillAction()
         {
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
-            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistance(inGameTile, 1);
+            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(inGameTile, 1);
             foreach (var tile in tileList)
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_02,

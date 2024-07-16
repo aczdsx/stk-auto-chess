@@ -15,7 +15,6 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
     // const data
     private ObfuscatorFloat duration;
     private ObfuscatorFloat height;
-    private ObfuscatorFloat startY;
     private ObfuscatorInt tileID;
 
     // runtime data
@@ -26,7 +25,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
     private InGameTile _inGameTile;
 
-    private const float _moveTime = 0.3f;
+    private const float _moveTime = 0.2f;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -38,34 +37,8 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         height = codeInfo.GetCodeStatToFloat(1);
         tileID = codeInfo.GetCodeStatToInt(2);
 
-        startY = owner.ViewPosition3D.y;
-
-        var halfDuration = duration * 0.5f + _moveTime;
-        upFactor = (startY - height) / (halfDuration * halfDuration);
-        downFactor = -height / (halfDuration * halfDuration);
-
         owner.AddCrowdControl(CrowdControlType.Airborne);
         elapsedTime = 0;
-
-        if (owner.SpecCharacter.is_knock_back)
-        {
-            _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
-            owner.ChangeOccupiedTile(_inGameTile);
-            Tween.Custom(
-                owner.Position3D,
-                _inGameTile.View.Position,
-                duration,
-                (Vector3 value) =>
-                {
-                    if (owner != null)
-                        owner.Position3D = value;
-                }, ease: Ease.InCirc).OnComplete(this, target =>
-                {
-                    if (owner != null)
-                        owner.AddNextState<CharacterStateIdle>();
-                }
-            );
-        }
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -103,11 +76,6 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
             }
         }
 
-        startY = owner.ViewPosition3D.y;
-
-        var halfDuration = duration * 0.5f + _moveTime;
-        upFactor = (startY - height) / (halfDuration * halfDuration);
-        downFactor = -height / (halfDuration * halfDuration);
         elapsedTime = 0;
     }
 
@@ -123,12 +91,10 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
             return;
         }
 
-        // 에어본 위치 계산
         if (elapsedTime <= _moveTime)
         {
-            isGoingUp = true;
             var pos = owner.ViewPosition3D;
-            pos.y = upFactor * elapsedTime * elapsedTime;
+            pos.y = height * (elapsedTime / _moveTime);
             owner.ViewPosition3D = pos;
         }
         else if (elapsedTime <= duration + _moveTime)
@@ -139,10 +105,8 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         }
         else
         {
-            isGoingUp = false;
             var pos = owner.ViewPosition3D;
-            pos.y = downFactor * (elapsedTime - duration - _moveTime) *
-                    (elapsedTime - duration - _moveTime);
+            pos.y = height * (1 - ((elapsedTime - duration - _moveTime) / _moveTime));
             owner.ViewPosition3D = pos;
         }
     }

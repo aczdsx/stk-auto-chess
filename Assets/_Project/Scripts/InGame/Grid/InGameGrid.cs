@@ -123,6 +123,21 @@ namespace CookApps.BattleSystem
             return tilesAtDistance;
         }
 
+        public List<InGameTile> GetTileListByManhattanDistanceInRange(InGameTile pivotTile, int distance)
+        {
+            List<InGameTile> tilesAtDistance = new List<InGameTile>();
+
+            foreach (var tile in _tiles)
+            {
+                if (GetManhattanDistance(pivotTile, tile) == distance)
+                {
+                    tilesAtDistance.Add(tile);
+                }
+            }
+
+            return tilesAtDistance;
+        }
+
         public bool IsInRange(InGameTile from, InGameTile to, int range)
         {
             return GetManhattanDistance(from, to) <= range;

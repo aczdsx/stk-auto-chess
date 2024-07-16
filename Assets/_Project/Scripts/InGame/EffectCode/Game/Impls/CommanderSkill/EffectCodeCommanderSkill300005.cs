@@ -12,7 +12,6 @@ namespace CookApps.BattleSystem
     public class EffectCodeCommanderSkill300005 : EffectCodeGameBase
     {
         private ObfuscatorInt _tileID;
-        private ObfuscatorFloat _time;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -20,7 +19,6 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _time = codeInfo.GetCodeStatToFloat(1);
 
             SkillAction();
         }
@@ -30,7 +28,6 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _time = codeInfo.GetCodeStatToFloat(1);
 
             SkillAction().Forget();
         }
@@ -38,18 +35,18 @@ namespace CookApps.BattleSystem
         private async UniTaskVoid SkillAction()
         {
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
+            var character = inGameTile.OccupiedCharacter;
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_06_01,
                 inGameTile.View.CachedTr.position);
 
-            if (inGameTile.OccupiedCharacter != null)
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5));
+
+            if (character != null)
             {
-                inGameTile.SetUnoccupied();
-
-                await UniTask.Delay(TimeSpan.FromSeconds(0.5));
-
                 var randomTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile();
-                randomTile.SetOccupied(inGameTile.OccupiedCharacter);
+                character.ChangeOccupiedTile(randomTile);
+                character.Position3D = randomTile.View.Position;
 
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_06_02,
                     randomTile.View.CachedTr.position);
