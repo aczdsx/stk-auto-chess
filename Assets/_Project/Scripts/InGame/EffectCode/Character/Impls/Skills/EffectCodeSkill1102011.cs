@@ -126,11 +126,11 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
 
         Span<double> eccStats = stackalloc double[3];
         eccStats.Clear();
-        eccStats[0] = 0.5f;
+        eccStats[0] = 0.3f;
         eccStats[1] = 0.3f;
         eccStats[2] = inGameTile.View.ID;
 
-        long effectCodeID = (long)EffectCodeNameType.BOUND;
+        long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
         var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
         _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
 

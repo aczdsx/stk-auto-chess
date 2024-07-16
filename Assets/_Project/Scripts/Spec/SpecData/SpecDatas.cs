@@ -215,8 +215,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt sec_levelup_item_count;
         /// 2차 재화 누적 필요량
         public CookApps.Obfuscator.ObfuscatorInt sec_levelup_item_sum;
-        /// 초월 가능 여부
-        public bool is_transcendence;
     }
 
     [GeneratorSpecData]

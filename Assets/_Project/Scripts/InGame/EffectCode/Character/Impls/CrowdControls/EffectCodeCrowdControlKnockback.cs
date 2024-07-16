@@ -6,9 +6,9 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
+public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 {
-    public const int CodeId = (int) EffectCodeNameType.AIRBORNE;
+    public const int CodeId = (int) EffectCodeNameType.KNOCKBACK;
     public override bool IsRemoveWithSource => false;
     public override EffectCodeType Type => EffectCodeType.CrowdControl;
 
@@ -26,8 +26,6 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
     private InGameTile _inGameTile;
 
-    private const float _moveTime = 0.3f;
-
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -40,7 +38,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
         startY = owner.ViewPosition3D.y;
 
-        var halfDuration = duration * 0.5f + _moveTime;
+        var halfDuration = duration * 0.5f;
         upFactor = (startY - height) / (halfDuration * halfDuration);
         downFactor = -height / (halfDuration * halfDuration);
 
@@ -105,7 +103,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 
         startY = owner.ViewPosition3D.y;
 
-        var halfDuration = duration * 0.5f + _moveTime;
+        var halfDuration = duration * 0.5f;
         upFactor = (startY - height) / (halfDuration * halfDuration);
         downFactor = -height / (halfDuration * halfDuration);
         elapsedTime = 0;
@@ -114,7 +112,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
     public override void OnUpdate(float dt)
     {
         elapsedTime += dt;
-        if (elapsedTime > duration + (_moveTime * 2))
+        if (elapsedTime > duration)
         {
             var pos = owner.ViewPosition3D;
             pos.y = 0;
@@ -123,26 +121,19 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
             return;
         }
 
-        // 에어본 위치 계산
-        if (elapsedTime <= _moveTime)
+        var x = elapsedTime - duration * 0.5f;
+        if (x < 0)
         {
             isGoingUp = true;
             var pos = owner.ViewPosition3D;
-            pos.y = upFactor * elapsedTime * elapsedTime;
-            owner.ViewPosition3D = pos;
-        }
-        else if (elapsedTime <= duration + _moveTime)
-        {
-            var pos = owner.ViewPosition3D;
-            pos.y = height;
+            pos.y = upFactor * x * x + height;
             owner.ViewPosition3D = pos;
         }
         else
         {
             isGoingUp = false;
             var pos = owner.ViewPosition3D;
-            pos.y = downFactor * (elapsedTime - duration - _moveTime) *
-                    (elapsedTime - duration - _moveTime);
+            pos.y = downFactor * x * x + height;
             owner.ViewPosition3D = pos;
         }
     }

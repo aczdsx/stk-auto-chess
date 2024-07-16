@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     public class EffectCodeCommanderSkill300002 : EffectCodeGameBase
     {
         private ObfuscatorInt _tileID;
-        private ObfuscatorFloat _damageRate;
+        private ObfuscatorFloat _time;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -19,7 +19,7 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            _time = codeInfo.GetCodeStatToFloat(1);
 
             SkillAction();
         }
@@ -29,7 +29,7 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1);
+            _time = codeInfo.GetCodeStatToFloat(1);
 
             SkillAction();
         }
@@ -37,7 +37,7 @@ namespace CookApps.BattleSystem
         private void SkillAction()
         {
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
-            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile, 1);
+            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistance(inGameTile, 1);
             foreach (var tile in tileList)
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_02,
@@ -45,19 +45,21 @@ namespace CookApps.BattleSystem
 
                 if (tile.OccupiedCharacter != null)
                 {
-                    if (tile.OccupiedCharacter.AllianceType == AllianceType.Player)
+                    if (tile.OccupiedCharacter.AllianceType != AllianceType.Player &&
+                        tile.OccupiedCharacter.AllianceType != AllianceType.None)
                     {
-                        var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-                        if (playerCharacterList != null && playerCharacterList.Count > 0)
-                        {
-                            var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
+                        Span<double> eccStats = stackalloc double[1];
+                        eccStats.Clear();
+                        eccStats[0] = _time;
 
-                            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                            damageInfo.damageAmount = damageInfo.damageAmount =
-                                (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
+                        long effectCodeID = (long) EffectCodeNameType.STUN;
+                        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+                        tile.OccupiedCharacter.GetEffectCodeContainer()
+                            .AddOrMergeEffectCode(effectCodeInfo, null);
+                        tile.OccupiedCharacter.Position3D =
+                            tile.OccupiedCharacter.CurrentTile.View.CachedTr.position;
 
-                            tile.OccupiedCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
-                        }
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
                     }
                 }
             }

@@ -38,18 +38,15 @@ namespace CookApps.BattleSystem
         {
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
 
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_04,
-                inGameTile.View.CachedTr.position);
-
             if (inGameTile.OccupiedCharacter != null)
             {
                 Span<double> eccStats = stackalloc double[3];
                 eccStats.Clear();
-                eccStats[0] = 2.0f;
-                eccStats[1] = _time;
+                eccStats[0] = _time;
+                eccStats[1] = 4.0f;
                 eccStats[2] = inGameTile.View.ID;
 
-                long effectCodeID = (long) EffectCodeNameType.BOUND;
+                long effectCodeID = (long) EffectCodeNameType.AIRBORNE;
                 var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
                 inGameTile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
             }

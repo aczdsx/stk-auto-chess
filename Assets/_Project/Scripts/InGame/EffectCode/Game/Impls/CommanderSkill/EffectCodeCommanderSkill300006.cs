@@ -39,7 +39,7 @@ namespace CookApps.BattleSystem
         {
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
-            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile);
+            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile, 1);
 
             foreach (var tile in tileList)
             {
@@ -56,7 +56,7 @@ namespace CookApps.BattleSystem
                         eccStats[1] = 3;
                         eccStats[2] = _powerRate;
 
-                        long effectCodeID = (long)EffectCodeNameType.BUFF_AD_PERCENT_UP;
+                        long effectCodeID = (long)EffectCodeNameType.DEBUFF_AD_PERCENT_DOWN;
                         var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
                         tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
                     }
