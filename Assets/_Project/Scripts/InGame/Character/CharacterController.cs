@@ -674,16 +674,36 @@ namespace CookApps.BattleSystem
                 if (loopVfxName != InGameVfxNameType.NONE)
                 {
                     bool isUseOffset = loopVfxName == InGameVfxNameType.fx_common_debuff_stun ||  loopVfxName == InGameVfxNameType.fx_common_debuff_silence;
+                    bool isNotFollowable = loopVfxName == InGameVfxNameType.fx_common_commander_skill_03;
                     if (isUseOffset)
                     {
-                        var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName,
-                            SkillRootTransformFollowable, new Vector3(0, SpecCharacter.height, 0));
-                        _buffDebuffEffectViewDict.Add(type, effectView);
+                        if (isNotFollowable)
+                        {
+                            var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName,
+                                CurrentTile.View.Position);
+                            _buffDebuffEffectViewDict.Add(type, effectView);
+                        }
+                        else
+                        {
+                            var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName,
+                                SkillRootTransformFollowable, new Vector3(0, SpecCharacter.height, 0));
+                            _buffDebuffEffectViewDict.Add(type, effectView);
+                        }
                     }
                     else
                     {
-                        var effectView = InGameVfxManager.Instance.AddInGameVfx(loopVfxName, SkillRootTransformFollowable);
-                        _buffDebuffEffectViewDict.Add(type, effectView);
+                        if (isNotFollowable)
+                        {
+                            var effectView =
+                                InGameVfxManager.Instance.AddInGameVfx(loopVfxName, CurrentTile.View.Position);
+                            _buffDebuffEffectViewDict.Add(type, effectView);
+                        }
+                        else
+                        {
+                            var effectView =
+                                InGameVfxManager.Instance.AddInGameVfx(loopVfxName, SkillRootTransformFollowable);
+                            _buffDebuffEffectViewDict.Add(type, effectView);
+                        }
                     }
                 }
             }

@@ -34,6 +34,7 @@ namespace CookApps.AutoBattler
                         Exp = 0,
                         StarLevel = character.init_star,
                         CharacterPiece = 0,
+                        TranscendenceLevel = 0,
                     });
                 }
 
@@ -52,6 +53,23 @@ namespace CookApps.AutoBattler
         public int[] GetAllCharacterIds()
         {
             return userCharacterGroup.UserCharacters.Keys.ToArray();
+        }
+
+        public int GetCharacterMaxLevel(int characterID)
+        {
+            if (UserCharacterDic.ContainsKey(characterID))
+            {
+                var specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
+                if (specCharacterData != null)
+                {
+                    int transcendenceLevel = UserCharacterDic[characterID].TranscendenceLevel;
+                    var specTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(specCharacterData.element_type, specCharacterData.grade_type, transcendenceLevel);
+
+                    return specTranscendenceData.max_lv;
+                }
+            }
+
+            return 0;
         }
 
         public void SetUserCharaceterBattleDeckList(List<CookApps.BattleSystem.CharacterController> characterList)
@@ -95,6 +113,30 @@ namespace CookApps.AutoBattler
             if (UserCharacterDic.ContainsKey(characterID))
             {
                 UserCharacterDic[characterID].Level += level;
+
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[characterID]);
+
+                SaveCharacterGroup();
+            }
+        }
+
+        public void SetTranscendenceLevel(int characterID, int transcendenceLevel)
+        {
+            if (UserCharacterDic.ContainsKey(characterID))
+            {
+                UserCharacterDic[characterID].TranscendenceLevel = transcendenceLevel;
+
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[characterID]);
+
+                SaveCharacterGroup();
+            }
+        }
+
+        public void IncreaseTranscendenceLevel(int characterID, int transcendenceLevel)
+        {
+            if (UserCharacterDic.ContainsKey(characterID))
+            {
+                UserCharacterDic[characterID].TranscendenceLevel += transcendenceLevel;
 
                 OnUserCharacterChanged?.Invoke(UserCharacterDic[characterID]);
 

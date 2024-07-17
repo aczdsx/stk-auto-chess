@@ -140,8 +140,8 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
                         InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
                             1);
 
-                    long effectCodeID = (long)EffectCodeNameType.BOUND;
-                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.5f, 0.3f, inGameTile.View.ID);
+                    long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
+                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.3f, 0.3f, inGameTile.View.ID);
                     tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
                 }
             }

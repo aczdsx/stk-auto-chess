@@ -75,14 +75,15 @@ namespace CookApps.AutoBattler
 
             foreach (var commanderSkill in commanderSkillList)
             {
-                if (commanderSkill.skill_value_type == SkillValueType.COOL) continue;
+                if (commanderSkill.skill_value_type == SkillValueType.COOL)
+                {
+                    GameObject newSkillSlot = Instantiate(_skillListSlotObject, _skillListParentObject.transform);
+                    CommanderSkillSlot commanderSkillSlot = newSkillSlot.GetComponent<CommanderSkillSlot>();
 
-                GameObject newSkillSlot = Instantiate(_skillListSlotObject, _skillListParentObject.transform);
-                CommanderSkillSlot commanderSkillSlot = newSkillSlot.GetComponent<CommanderSkillSlot>();
+                    commanderSkillSlot.SetCommanderSkillSlot(this, commanderSkill);
 
-                commanderSkillSlot.SetCommanderSkillSlot(this, commanderSkill);
-
-                _commanderSkillSlotList.Add(commanderSkillSlot);
+                    _commanderSkillSlotList.Add(commanderSkillSlot);
+                }
             }
         }
 
