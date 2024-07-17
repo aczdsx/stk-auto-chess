@@ -1,15 +1,10 @@
 
-root = true
-
 [*]
 charset = utf-8
 indent_style = space
+indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
-
-# .NET configuration
-[*.cs]
-indent_size = 4
 
 # Microsoft .NET properties
 csharp_new_line_before_members_in_object_initializers = false
@@ -24,8 +19,9 @@ dotnet_naming_rule.unity_serialized_field_rule.severity = warning
 dotnet_naming_rule.unity_serialized_field_rule.style = lower_camel_case_style
 dotnet_naming_rule.unity_serialized_field_rule.symbols = unity_serialized_field_symbols
 dotnet_naming_style.lower_camel_case_style.capitalization = camel_case
+dotnet_naming_style.lower_camel_case_style.required_prefix = _
 dotnet_naming_symbols.unity_serialized_field_symbols.applicable_accessibilities = *
-dotnet_naming_symbols.unity_serialized_field_symbols.applicable_kinds =
+dotnet_naming_symbols.unity_serialized_field_symbols.applicable_kinds = 
 dotnet_naming_symbols.unity_serialized_field_symbols.resharper_applicable_kinds = unity_serialised_field
 dotnet_naming_symbols.unity_serialized_field_symbols.resharper_required_modifiers = instance
 dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:none
@@ -77,16 +73,3 @@ resharper_web_config_module_not_resolved_highlighting = warning
 resharper_web_config_type_not_resolved_highlighting = warning
 resharper_web_config_wrong_module_highlighting = warning
 end_of_line = crlf
-
-# Specific configuration for extension type
-[{*.json, *.yaml, *.yml}]
-indent_size = 2
-
-[*.md]
-trim_trailing_whitespace = false
-
-[*.asmdef]
-indent_size = 2
-
-[{.babelrc,.eslintrc,.stylelintrc}]
-indent_size = 2

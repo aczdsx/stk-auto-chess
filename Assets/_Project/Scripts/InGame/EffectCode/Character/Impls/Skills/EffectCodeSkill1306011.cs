@@ -29,11 +29,11 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
-        _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;;
+        _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
-        _specSkill = SpecDataManager.Instance.GetSkillDataList((int)codeId).First();
+        _specSkill = SpecDataManager.Instance.GetSkillDataList((int) codeId).First();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -41,7 +41,8 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
-        _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;;
+        _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        ;
     }
 
     public override void OnUpdate(float dt)
@@ -62,7 +63,10 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
     public override void OnCooltime(float dt)
     {
         if (_isReadyToActivate || IsSkillActivated)
+        {
             return;
+        }
+
         CoolTimeElapsedTime += dt;
         if (CoolTimeElapsedTime >= CoolTimeDurationTime)
         {
@@ -91,17 +95,21 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
+        {
             return;
+        }
 
         // 나한테 붙은 vfx
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 2);
+        List<InGameTile> inGameTiles =
+            InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 2);
         if (inGameTiles != null)
         {
-            foreach (var tile in inGameTiles)
+            foreach (InGameTile tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+                    tile.View.CachedTr.position);
 
                 Span<double> eccStats = stackalloc double[3];
                 eccStats.Clear();
@@ -109,7 +117,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                 eccStats[1] = _duration;
                 eccStats[2] = _atkUpRate;
 
-                long effectCodeID = (long)EffectCodeNameType.BUFF_AD_PERCENT_UP;
+                var effectCodeID = (long) EffectCodeNameType.BUFF_AD_PERCENT_UP;
                 var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
                 tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }
