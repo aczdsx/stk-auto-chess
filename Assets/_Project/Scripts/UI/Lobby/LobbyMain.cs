@@ -32,6 +32,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _questButton;
         [SerializeField] private CAButton _trialDungeonButton;
         [SerializeField] private CAButton _sessionEventButton;
+        [SerializeField] private CAButton _consumeAPEventButton;
 
         [Header("Vignette Layer")]
         [SerializeField] private RawImage _vignetteImage;
@@ -88,7 +89,8 @@ namespace CookApps.AutoBattler
             _attendanceButton.onClick.AddListener(OnClickAttendanceButton);
             _questButton.onClick.AddListener(OnClickQuestButton);
             _trialDungeonButton.onClick.AddListener(OnClickTrialDungeonButton);
-            _sessionEventButton.onClick.AddListener(OnClickSeesionEventButton);
+            _sessionEventButton.onClick.AddListener(OnClickSessionEventButton);
+            _consumeAPEventButton.onClick.AddListener(OnClickConsumeAPEventButton);
         }
 
         protected override void OnDestroy()
@@ -102,7 +104,8 @@ namespace CookApps.AutoBattler
             _attendanceButton.onClick.RemoveListener(OnClickAttendanceButton);
             _questButton.onClick.RemoveListener(OnClickQuestButton);
             _trialDungeonButton.onClick.RemoveListener(OnClickTrialDungeonButton);
-            _sessionEventButton.onClick.RemoveListener(OnClickSeesionEventButton);
+            _sessionEventButton.onClick.RemoveListener(OnClickSessionEventButton);
+            _consumeAPEventButton.onClick.RemoveListener(OnClickConsumeAPEventButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -520,7 +523,7 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
         }
 
-        private void OnClickSeesionEventButton()
+        private void OnClickSessionEventButton()
         {
             // 이벤트 기간 유효성 검증
             var currentSpecEventData = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.ACC_PLAY_TIME);
@@ -539,6 +542,27 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentUserEventData).Forget();
+        }
+
+        private void OnClickConsumeAPEventButton()
+        {
+            // 이벤트 기간 유효성 검증
+            var currentSpecEventData = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.USE_AP);
+            if (currentSpecEventData == null)
+            {
+                return;
+            }
+
+            // 이벤트 유저 데이터 유효성 검증
+            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
+            if (currentUserEventData == null)
+            {
+                return;
+            }
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentUserEventData).Forget();
         }
 
         private void ClearBottomSlotLayer()

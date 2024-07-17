@@ -58,9 +58,9 @@ namespace CookApps.AutoBattler
         {
             if (_currentUserEventData == null) return;
 
-            if (_currentUserEventData.EventExtraRefreshTimestamp < UserDataManager.Instance.UserBasicData.LastLoginTimestamp)
+            if (_currentUserEventData.EventExtraRefreshTimestamp < TimeManager.Instance.UtcNowTimeStamp())
             {
-                UserDataManager.Instance.SetUserEventActionCount(_currentUserEventData.EventId, 1, true);
+                UserDataManager.Instance.SetUserEventActionCount(_currentUserEventData.EventId, 1, true, true);
                 UserDataManager.Instance.UpdateEventTimeData(_currentUserEventData.EventId);
             }
         }

@@ -157,6 +157,11 @@ namespace CookApps.AutoBattler
             return totalStarCount;
         }
 
+        public int GetAllTotalChapterStarCount()
+        {
+            return userStageGroup.UserStages.Values.Sum(data => data.StarCount);
+        }
+
         // 챕터 개방 여부 확인
         public bool IsChapterOpen(int chapterID, DifficultyType type)
         {

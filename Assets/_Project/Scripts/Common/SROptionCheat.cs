@@ -59,10 +59,7 @@ public partial class SROptions
         UserDataManager.Instance.CheatResetUserLevelData();
 
         var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-        if (lobbyMain != null)
-        {
-            lobbyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
-        }
+        if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
     }
 
     [Category("유저 정보 관련")]
@@ -73,14 +70,10 @@ public partial class SROptions
         UserDataManager.Instance.AddUserLevelExp(추가유저경험치);
 
         var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-        if (lobbyMain != null)
-        {
-            lobbyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
-        }
+        if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
     }
 
-    [Category("유저 정보 관련")]
-    public int 추가유저경험치 { get; set; } = 0;
+    [Category("유저 정보 관련")] public int 추가유저경험치 { get; set; } = 0;
 
     #endregion
 
@@ -105,10 +98,8 @@ public partial class SROptions
         UserDataManager.Instance.DecreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true, true);
     }
 
-    [Category("아이템 관련")]
-    public ItemType 원하는아이템타입 { get; set; } = ItemType.GOLD;
-    [Category("아이템 관련")]
-    public int 원하는아이템갯수 { get; set; } = 0;
+    [Category("아이템 관련")] public ItemType 원하는아이템타입 { get; set; } = ItemType.GOLD;
+    [Category("아이템 관련")] public int 원하는아이템갯수 { get; set; } = 0;
 
     #endregion
 
@@ -125,6 +116,13 @@ public partial class SROptions
     }
 
     [Category("캐릭터 관련")]
+    public void 모든캐릭터획득()
+    {
+        UserDataManager.Instance.AddAllCharacters();
+    }
+
+
+    [Category("캐릭터 관련")]
     public void 캐릭터조각추가()
     {
         if (원하는캐릭터ID <= 0) return;
@@ -138,14 +136,12 @@ public partial class SROptions
     {
         var userCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
 
-        int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+        var maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
 
         foreach (var userCharacter in userCharacterList)
         {
             if (UserDataManager.Instance.IsHaveCharacter(userCharacter.character_id) == false)
-            {
                 UserDataManager.Instance.AddNewCharacter(userCharacter.character_id);
-            }
 
             UserDataManager.Instance.SetCharacterLevel(userCharacter.character_id, maxLevel);
         }
@@ -161,12 +157,19 @@ public partial class SROptions
     }
 
     [Category("캐릭터 관련")]
-    public int 원하는캐릭터ID { get; set; } = 0;
+    public void 캐릭터초월레벨설정()
+    {
+        if (원하는캐릭터ID <= 0) return;
+        if (원하는캐릭터초월레벨 <= 0) return;
 
-    [Category("캐릭터 관련")]
-    public int 원하는캐릭터조각갯수 { get; set; } = 0;
-    [Category("캐릭터 관련")]
-    public int 원하는캐릭터레벨 { get; set; } = 0;
+        UserDataManager.Instance.SetTranscendenceLevel(원하는캐릭터ID, 원하는캐릭터초월레벨);
+    }
+
+    [Category("캐릭터 관련")] public int 원하는캐릭터ID { get; set; } = 0;
+
+    [Category("캐릭터 관련")] public int 원하는캐릭터조각갯수 { get; set; } = 0;
+    [Category("캐릭터 관련")] public int 원하는캐릭터레벨 { get; set; } = 0;
+    [Category("캐릭터 관련")] public int 원하는캐릭터초월레벨 { get; set; } = 0;
 
     #endregion
 
@@ -192,7 +195,7 @@ public partial class SROptions
 
         // 스테이지 데이터저장
         UserDataManager.Instance.SetUserStage(원하는스테이지ID, 스테이지클리어별갯수);
-        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,원하는스테이지ID, 1);
+        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, 원하는스테이지ID, 1);
 
         // 보상 지급
         var rewardList = SpecDataManager.Instance.GetSpecStageReward(targetSpecStageData.reward_id)
@@ -201,10 +204,7 @@ public partial class SROptions
         var rewardItemList = SpecDataManager.Instance.GetRewardItemListByStageRewardList(rewardList);
 
         // 보상 데이터 저장
-        if (rewardList.Count > 0)
-        {
-            UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
-        }
+        if (rewardList.Count > 0) UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
 
         SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
 
@@ -226,20 +226,51 @@ public partial class SROptions
         foreach (var stageData in tutoStageDataList)
         {
             UserDataManager.Instance.SetUserStage(stageData.stage_id, 3);
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,stageData.stage_id, 1);
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, stageData.stage_id,
+                1);
         }
     }
 
-    [Category("스테이지 관련")]
-    public int 원하는스테이지ID { get; set; } = 0;
+    [Category("스테이지 관련")] public int 원하는스테이지ID { get; set; } = 0;
 
-    [Category("스테이지 관련")]
-    public int 스테이지클리어별갯수 { get; set; } = 0;
+    [Category("스테이지 관련")] public int 스테이지클리어별갯수 { get; set; } = 0;
 
     #endregion
 
 
     //////////////////////////////////////////////////////////////////////////////////
+
+    #region 이벤트 관련
+
+    // [Category("이벤트 관련")]
+    // public void 이벤트전체초기화()
+    // {
+    //
+    // }
+
+    [Category("이벤트 관련")]
+    public void 타겟ID이벤트초기화()
+    {
+        if (대상이벤트ID == 0) return;
+
+        UserDataManager.Instance.ResetEventData(대상이벤트ID, true);
+    }
+
+    [Category("이벤트 관련")]
+    public void 타겟이벤트액션카운트변경()
+    {
+        if (대상이벤트ID == 0) return;
+
+        UserDataManager.Instance.SetUserEventActionCount(대상이벤트ID, 이벤트완료횟수, false, true);
+    }
+
+    [Category("이벤트 관련")] public int 대상이벤트ID { get; set; } = 0;
+
+    [Category("이벤트 관련")] public int 이벤트완료횟수 { get; set; } = 0;
+
+    #endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     #region 미션 관련
 
@@ -249,17 +280,19 @@ public partial class SROptions
         var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All.ToList();
 
         foreach (var guideMission in allGuideMissionList)
-        {
-            UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key, MissionStateType.CLEAR);
-        }
+            UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
+                MissionStateType.CLEAR);
     }
 
     [Category("미션 관련")]
     public void 현재가이드미션클리어()
     {
-        var currentGuideMission = SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
+        var currentGuideMission =
+            SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData
+                .GuideMissionCurrentOrder);
 
-        GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type, currentGuideMission.sub_key, MissionStateType.REWARD);
+        GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type,
+            currentGuideMission.sub_key, MissionStateType.REWARD);
     }
 
     #endregion
@@ -289,10 +322,7 @@ public partial class SROptions
 
         // 퀘스트 팝업 UI 갱신
         var questPopup = SceneUILayerManager.Instance.GetUILayer("QuestPopup");
-        if (questPopup != null)
-        {
-            questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
-        }
+        if (questPopup != null) questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
     }
 
     [Category("퀘스트 관련")]
@@ -304,24 +334,19 @@ public partial class SROptions
 
         // 퀘스트 팝업 UI 갱신
         var questPopup = SceneUILayerManager.Instance.GetUILayer("QuestPopup");
-        if (questPopup != null)
-        {
-            questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
-        }
+        if (questPopup != null) questPopup.GetComponent<QuestPopup>()?.RefreshPopup();
     }
 
-    [Category("퀘스트 관련")]
-    public int 대상퀘스트ID { get; set; } = 0;
+    [Category("퀘스트 관련")] public int 대상퀘스트ID { get; set; } = 0;
 
-    [Category("퀘스트 관련")]
-    public int 퀘스트완료횟수 { get; set; } = 0;
+    [Category("퀘스트 관련")] public int 퀘스트완료횟수 { get; set; } = 0;
 
-    [Category("퀘스트 관련")]
-    public QuestStateType 퀘스트상태 { get; set; } = 0;
+    [Category("퀘스트 관련")] public QuestStateType 퀘스트상태 { get; set; } = 0;
 
     #endregion
 
     ////////////////////////////////////////////////////////////////////////////////////////
+
 
     #region 스킬 관련
 
@@ -333,9 +358,7 @@ public partial class SROptions
         allCommanderSkillList.GroupBy(data => data.commander_skill_id);
 
         foreach (var skill in allCommanderSkillList)
-        {
             UserDataManager.Instance.AddCommanderSkillData(skill.commander_skill_id, false);
-        }
 
         UserDataManager.Instance.SaveUserCommanderSKillData();
     }

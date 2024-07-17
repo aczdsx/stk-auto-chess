@@ -177,11 +177,6 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
 
-        public void SetCommanderFx(bool active)
-        {
-            _inGameBottomCharacterUI.SetCommanderFx(active);
-        }
-
         public void SetFocusSlot(SpecCharacter spec)
         {
             _inGameBottomCharacterUI.SetFocusCharacter(spec);

@@ -151,7 +151,7 @@ namespace CookApps.AutoBattler
 
                 await UniTask.Delay(1000 * 60);
 
-                UserDataManager.Instance.SetUserEventActionCount(specEventData.event_id, 1, true);
+                UserDataManager.Instance.SetUserEventActionCount(specEventData.event_id, 1, true, true);
             }
         }
     }

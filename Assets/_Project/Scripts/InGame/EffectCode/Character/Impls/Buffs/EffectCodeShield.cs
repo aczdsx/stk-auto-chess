@@ -10,6 +10,7 @@ using UnityEngine.Pool;
 public class EffectCodeBuffShield : EffectCodeBuffBase
 {
     public const int CodeId = (int)EffectCodeNameType.SHIELD;
+
     public class ShieldData
     {
         public ObfuscatorFloat elapsedTime;
@@ -32,7 +33,8 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         shields = ListPool<ShieldData>.Get();
         var effectCodes = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyShieldAmount);
         var shieldAmount = codeInfo.GetCodeStat(1);
-        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
+        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes,
+            EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
 
         var shieldData = GenericPool<ShieldData>.Get();
         shieldData.elapsedTime = 0f;
@@ -50,7 +52,8 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         var effectCodes = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyShieldAmount);
         var shieldAmount = codeInfo.GetCodeStat(1);
 
-        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
+        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes,
+            EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
 
         var shieldData = GenericPool<ShieldData>.Get();
         shieldData.elapsedTime = 0f;
@@ -71,8 +74,8 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
 
     public override void OnUpdate(float dt)
     {
-        bool needRemove = false;
-        for (int i = 0; i < shields.Count; i++)
+        var needRemove = false;
+        for (var i = 0; i < shields.Count; i++)
         {
             if (shields[i] == null)
             {
@@ -91,18 +94,15 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         if (needRemove)
         {
             shields.RemoveAll(NullChecker<ShieldData>.NullCheck);
-            if (shields.Count <= 0)
-            {
-                RemoveFromContainer();
-            }
+            if (shields.Count <= 0) RemoveFromContainer();
         }
     }
 
     public override double OnDamaged(double damageAmount, CharacterController attacker, bool isPure)
     {
-        double originDamageAmount = damageAmount;
-        bool hasShield = false;
-        for (int i = 0; i < shields.Count; i++)
+        var originDamageAmount = damageAmount;
+        var hasShield = false;
+        for (var i = 0; i < shields.Count; i++)
         {
             if (shields[i] == null)
                 continue;

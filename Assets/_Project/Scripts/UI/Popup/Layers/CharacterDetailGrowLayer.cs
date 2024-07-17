@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -41,9 +42,19 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<ParticleSystem> _levelupEffectObjectList_1;
         [SerializeField] private List<ParticleSystem> _levelupEffectObjectList_2;
 
+        [Header("Transcendence Layer")]
+        [SerializeField] private CAButton _activeTranscendenceButton;
+        [SerializeField] private CAButton _inactiveTranscendenceButton;
+
+        [Space(10)]
+        [SerializeField] private CurrencyUIItem _transcendenceItemCurrencyUIItem;
+
         private UserCharacter _userCharacterData;
         private SpecCharacter _specCharacterData;
+
         private SpecCharacterLevelExp _specCharacterLevelExpData;
+        private SpecCharacterTranscendence _specCharacterTranscendenceData;
+
         private CharacterStatData _userStatData;
 
         private CharacterCollectionPopup _parentCollectionPopup;
@@ -51,11 +62,18 @@ namespace CookApps.AutoBattler
         private bool _isHaveCharacter = false;
         private bool _isPlayingLevelupEffect = false;
 
+        private int _maxTranscendenceLevel;
+
         private void Awake()
         {
             _detailStatButton.onClick.AddListener(OnClickDetailStatButton);
+
+            // 레벨업
             _activeLevelUpButton.onClick.AddListener(OnClickLevelupButton);
             _resetLevelUpButton.onClick.AddListener(OnClickCharacterResetButton);
+
+            // 초월
+            _activeTranscendenceButton.onClick.AddListener(OnClickTranscendenceButton);
         }
 
         protected override void OnDestroy()
@@ -63,8 +81,13 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _detailStatButton.onClick.RemoveListener(OnClickDetailStatButton);
+
+            // 레벨업
             _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
             _resetLevelUpButton.onClick.RemoveListener(OnClickCharacterResetButton);
+
+            // 초월
+            _activeTranscendenceButton.onClick.RemoveListener(OnClickTranscendenceButton);
         }
 
         public void InitLayer(CharacterCollectionPopup _parentPopup, int characterID)
@@ -87,6 +110,9 @@ namespace CookApps.AutoBattler
             // 레벨업 기능 관련 처리
             SetLevelupLayer();
 
+            // 초월 기능 관련 처리
+            SetTranscendenceLayer();
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
@@ -95,13 +121,14 @@ namespace CookApps.AutoBattler
             SetUserStatLayer();
             SetPieceLayer();
             SetLevelupLayer();
+            SetTranscendenceLayer();
         }
 
         private void SetUserStatLayer()
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
-            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+            int maxLevel = UserDataManager.Instance.GetCharacterMaxLevel(_userCharacterData.CharacterId);
 
             int userLevel = Mathf.Max(1, _userCharacterData.Level);
 
@@ -131,7 +158,7 @@ namespace CookApps.AutoBattler
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             // 레벨업 가능 여부 체크
-            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+            int maxLevel = UserDataManager.Instance.GetCharacterMaxLevel(_userCharacterData.CharacterId);
             bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
 
             int userLevel = Mathf.Max(1, _userCharacterData.Level);
@@ -153,6 +180,27 @@ namespace CookApps.AutoBattler
 
             _activeLevelUpButton.gameObject.SetActive(isAvailLevelup);
             _inactiveLevelUpButton.gameObject.SetActive(!isAvailLevelup);
+        }
+
+        private void SetTranscendenceLayer()
+        {
+            if (_specCharacterData == null || _userCharacterData == null) return;
+
+            // 초월 가능 여부 체크
+            var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.element_type, _specCharacterData.grade_type);
+            _maxTranscendenceLevel = transcendenceDataList.Max(data => data.transcendence_lv);
+
+            bool isAvailTranscendence = _isHaveCharacter && _userCharacterData.TranscendenceLevel < _maxTranscendenceLevel;
+
+            // 초월에 필요한 자원 정보 세팅
+            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            if (_specCharacterTranscendenceData != null)
+            {
+                _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count);
+            }
+
+            _activeTranscendenceButton.gameObject.SetActive(isAvailTranscendence);
+            _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
         }
 
         private void PlayLevelUpEffect()
@@ -199,7 +247,7 @@ namespace CookApps.AutoBattler
             }
 
             // 최대 레벨 검사
-            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel();
+            int maxLevel = UserDataManager.Instance.GetCharacterMaxLevel(_userCharacterData.CharacterId);
             if (_userCharacterData.Level >= maxLevel)
             {
                 return;
@@ -293,6 +341,47 @@ namespace CookApps.AutoBattler
             });
 
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+        }
+
+        private void OnClickTranscendenceButton()
+        {
+            if (_userCharacterData == null) return;
+            if (_specCharacterTranscendenceData == null) return;
+
+            // 캐릭터 보유 상태 검사
+            if (_isHaveCharacter == false)
+            {
+                return;
+            }
+
+            // 최대 초월 레벨 검사
+            if (_maxTranscendenceLevel <= _userCharacterData.TranscendenceLevel)
+            {
+                return;
+            }
+
+            // 재료 검사
+            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterTranscendenceData.item_type, 0, _specCharacterTranscendenceData.char_transcendence_count, true))
+            {
+                return;
+            }
+
+            // 재료 아이템 소진
+            List<RewardItem> recipeItemList = new List<RewardItem>();
+            recipeItemList.Add(new RewardItem(_specCharacterTranscendenceData.item_type, 0, _specCharacterTranscendenceData.char_transcendence_count));
+
+            UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
+
+            // 초월 진행
+            UserDataManager.Instance.IncreaseTranscendenceLevel(_specCharacterData.character_id, 1);
+
+            // 메인 레이어 갱신
+            _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
+
+            // 사운드 플레이
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);
+
+            RefreshLayer();
         }
 
         private void ClearLayer()

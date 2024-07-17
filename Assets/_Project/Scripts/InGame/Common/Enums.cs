@@ -4,32 +4,32 @@ namespace CookApps.AutoBattler
 {
     public enum MissionStateType
     {
-        NONE,       // 진행중 아님
-        WAIT,       // 진행중 (대기 상태)
-        REWARD,     // 보상 수령 가능
-        CLEAR,      // 보상 수령 후 클리어
+        NONE, // 진행중 아님
+        WAIT, // 진행중 (대기 상태)
+        REWARD, // 보상 수령 가능
+        CLEAR // 보상 수령 후 클리어
     }
 
     public enum QuestStateType
     {
-        WAIT,       // 진행중 (대기 상태)
-        REWARD,     // 보상 수령 가능
-        CLEAR,      // 보상 수령 후 클리어
+        WAIT, // 진행중 (대기 상태)
+        REWARD, // 보상 수령 가능
+        CLEAR // 보상 수령 후 클리어
     }
 
     public enum EventStateType
     {
-        NONE,       // 진행중 아님
-        WAIT,       // 진행중 (대기 상태)
-        REWARD,     // 보상 수령 가능
-        CLEAR,      // 보상 수령 후 클리어
+        NONE, // 진행중 아님
+        WAIT, // 진행중 (대기 상태)
+        REWARD, // 보상 수령 가능
+        CLEAR // 보상 수령 후 클리어
     }
 
     public enum DungeonStateType
     {
-        WAIT,       // 진행중 (대기 상태)
-        REWARD,     // 보상 수령 가능
-        CLEAR,      // 보상 수령 후 클리어
+        WAIT, // 진행중 (대기 상태)
+        REWARD, // 보상 수령 가능
+        CLEAR // 보상 수령 후 클리어
     }
 }
 
@@ -47,7 +47,7 @@ namespace CookApps.BattleSystem
         Provocation = 0x0020,
         Freezing = 0x0040,
         Silence = 0x0050,
-        All = 0x0FFF,
+        All = 0x0FFF
     }
 
     public enum EffectCodeType : byte
@@ -67,7 +67,7 @@ namespace CookApps.BattleSystem
     {
         Instant,
         Permanent,
-        LimitedTime,
+        LimitedTime
     }
 
     public enum RoleType
@@ -78,7 +78,7 @@ namespace CookApps.BattleSystem
         Assassin,
         Ranger,
         Buffer,
-        All,
+        All
     }
 
     public enum AllianceType
@@ -87,7 +87,7 @@ namespace CookApps.BattleSystem
         Player,
         Enemy,
         Neutral,
-        Wall,
+        Wall
     }
 
     public enum BuffDebuffType
@@ -96,6 +96,7 @@ namespace CookApps.BattleSystem
         Meditation,
         Shield,
         AttackUp,
+        AbilityPowerUp,
         DefenceUp,
         ResistanceUp,
         AttackSpeedUp,
@@ -119,14 +120,15 @@ namespace CookApps.BattleSystem
         Provocation,
         Trap,
         Silence,
-        MAX,
+        Airborne,
+        MAX
     }
 
     public enum DamageReturnType
     {
         AlreadyDead,
         Killed,
-        Damaging,
+        Damaging
     }
 
     /// <summary>
@@ -145,7 +147,7 @@ namespace CookApps.BattleSystem
         DEAD,
         Spawn,
         Crying,
-        LongCrying,
+        LongCrying
     }
 
     /// <summary>
@@ -177,7 +179,7 @@ namespace CookApps.BattleSystem
         Execute1Per10,
         Execute1Per11,
         Execute1Per12,
-        ExecuteEnd,
+        ExecuteEnd
     }
 
     public enum InGameVfxAnimationKey
@@ -185,7 +187,7 @@ namespace CookApps.BattleSystem
         Spawn,
         Idle,
         Broken,
-        Disappear,
+        Disappear
     }
 
     public enum AttackRangeShape
@@ -195,19 +197,19 @@ namespace CookApps.BattleSystem
         RectangleCut2Edge,
         RectangleCut3Edge,
         RectangleCut4Edge,
-        RectangleCut5Edge,
+        RectangleCut5Edge
     }
 
     public enum AttackType
     {
         Melee = 1,
-        Projectile = 2,
+        Projectile = 2
     }
 
     public enum ScanType
     {
         None,
         Nearest,
-        Farthest,
+        Farthest
     }
 }

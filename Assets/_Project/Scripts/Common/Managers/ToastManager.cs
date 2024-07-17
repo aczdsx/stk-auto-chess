@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
 
             IsShowingToast = true;
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>(message).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)message).Forget();
         }
 
         public void ShowToastByTokenKey(string tokenKey)
