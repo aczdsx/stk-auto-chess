@@ -905,14 +905,16 @@ namespace CookApps.AutoBattler
             return SpecDungeonTrial.All.ToList().FindAll(data => data.dungeon_type == dungeonType);
         }
 
-        public List<SpecDungeonMonster> GetSpecDungeonMonsterDataList(int dungeonID)
+        public List<SpecDungeonMonster> GetSpecDungeonMonsterDataList(DungeonType dungeonType, int dungeonID)
         {
-            return SpecDungeonMonster.All.ToList().FindAll(data => data.dungeon_id == dungeonID);
+            return SpecDungeonMonster.All.ToList()
+                .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
 
-        public List<SpecDungeonReward> GetSpecDungeonRewardDataList(int dungeonID)
+        public List<SpecDungeonReward> GetSpecDungeonRewardDataList(DungeonType dungeonType, int dungeonID)
         {
-            return SpecDungeonReward.All.ToList().FindAll(data => data.dungeon_id == dungeonID);
+            return SpecDungeonReward.All.ToList()
+                .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
 
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)

@@ -59,9 +59,9 @@ namespace CookApps.BattleSystem
                         var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
                         tile.OccupiedCharacter.GetEffectCodeContainer()
                             .AddOrMergeEffectCode(effectCodeInfo, null);
-                        tile.OccupiedCharacter.Position3D =
-                            tile.OccupiedCharacter.CurrentTile.View.CachedTr.position;
 
+                        tile.OccupiedCharacter.Position3D = tile.OccupiedCharacter.CurrentTile.View.Position;
+                        tile.OccupiedCharacter.GetCharacterView().CachedTr.localPosition = tile.OccupiedCharacter.CurrentTile.View.Position;
                         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
                     }
                 }

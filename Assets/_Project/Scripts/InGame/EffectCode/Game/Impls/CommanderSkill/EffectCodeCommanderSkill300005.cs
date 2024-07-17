@@ -40,13 +40,14 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_06_01,
                 inGameTile.View.CachedTr.position);
 
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3));
 
             if (character != null)
             {
                 var randomTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile();
                 character.ChangeOccupiedTile(randomTile);
                 character.Position3D = randomTile.View.Position;
+                character.GetCharacterView().CachedTr.localPosition = randomTile.View.Position;
 
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_06_02,
                     randomTile.View.CachedTr.position);
