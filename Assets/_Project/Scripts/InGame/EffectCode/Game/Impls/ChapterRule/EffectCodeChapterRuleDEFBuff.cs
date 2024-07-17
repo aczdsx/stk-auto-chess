@@ -101,7 +101,7 @@ namespace CookApps.BattleSystem
 
                     InGameEnumExtensions.GetSoundFx(BuffDebuffType.DefenceUp);
                     Debug.LogWarning(
-                        $"{character.CharacterId} + 버프 추가! | {addBuffInfo.Vfx.name} : 이펙트! | 공격력 : {character.DEF}");
+                        $"{character.CharacterId} + 버프 추가! | {addBuffInfo.Vfx.name} : 이펙트! | 방어력 : {character.DEF}");
                 }
                 else
                 {
@@ -129,7 +129,7 @@ namespace CookApps.BattleSystem
                     _characterByEffectCode.Remove(character.CharacterId);
                     InGameVfxManager.Instance.RemoveInGameVfx(removeBuffInfo.Vfx);
                     Debug.LogWarning(
-                        $"{character.CharacterId}  버프 제거!! | {removeBuffInfo.Vfx.name} : 이펙트 제거!! | 공격력 : {character.DEF}");
+                        $"{character.CharacterId}  버프 제거!! | {removeBuffInfo.Vfx.name} : 이펙트 제거!! | 방어력 : {character.DEF}");
                     removeBuffInfo = null;
                 }
                 else

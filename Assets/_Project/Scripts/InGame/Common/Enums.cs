@@ -96,7 +96,7 @@ namespace CookApps.BattleSystem
         Meditation,
         Shield,
         AttackUp,
-        AbilityUp,
+        AbilityPowerUp,
         DefenceUp,
         ResistanceUp,
         AttackSpeedUp,

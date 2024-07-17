@@ -17,16 +17,16 @@ namespace CookApps.AutoBattler
         public MapField<int, UserCharacter> UserCharacterDic => userCharacterGroup.UserCharacters;
 
         [Initialize(DataCategory.UserCharacterGroup)]
-        void Initialize_CharacterGroup(string data)
+        private void Initialize_CharacterGroup(string data)
         {
             if (string.IsNullOrEmpty(data))
             {
                 userCharacterGroup = new UserCharacterGroup();
 
                 // 전체 캐릭터 리스트 생성
-                var allCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
+                var allCharacterList =
+                    SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
                 foreach (var character in allCharacterList)
-                {
                     userCharacterGroup.UserCharacters.Add(character.character_id, new UserCharacter
                     {
                         CharacterId = character.character_id,
@@ -34,9 +34,8 @@ namespace CookApps.AutoBattler
                         Exp = 0,
                         StarLevel = character.init_star,
                         CharacterPiece = 0,
-                        TranscendenceLevel = 0,
+                        TranscendenceLevel = 0
                     });
-                }
 
                 return;
             }
@@ -45,7 +44,7 @@ namespace CookApps.AutoBattler
         }
 
         [Clear]
-        void Clear_CharacterGroup()
+        private void Clear_CharacterGroup()
         {
             userCharacterGroup = null;
         }
@@ -62,8 +61,10 @@ namespace CookApps.AutoBattler
                 var specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
                 if (specCharacterData != null)
                 {
-                    int transcendenceLevel = UserCharacterDic[characterID].TranscendenceLevel;
-                    var specTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(specCharacterData.element_type, specCharacterData.grade_type, transcendenceLevel);
+                    var transcendenceLevel = UserCharacterDic[characterID].TranscendenceLevel;
+                    var specTranscendenceData =
+                        SpecDataManager.Instance.GetCharacterTranscendenceData(specCharacterData.element_type,
+                            specCharacterData.grade_type, transcendenceLevel);
 
                     return specTranscendenceData.max_lv;
                 }
@@ -79,14 +80,12 @@ namespace CookApps.AutoBattler
             userCharacterGroup.UserCharacterBattleDecks.Clear();
 
             foreach (var character in characterList)
-            {
                 userCharacterGroup.UserCharacterBattleDecks.Add(new UserCharacterBattleDeck
                 {
                     CharacterId = character.CharacterId,
                     PositionTileX = character.CurrentTile.X,
-                    PositionTileY = character.CurrentTile.Y,
+                    PositionTileY = character.CurrentTile.Y
                 });
-            }
 
             SaveCharacterGroup();
         }
@@ -171,12 +170,24 @@ namespace CookApps.AutoBattler
         {
             if (UserCharacterDic.ContainsKey(characterID))
             {
-                UserCharacterDic[characterID].Level = 1;   // 0: 미획득, 1 이상: 획득
+                UserCharacterDic[characterID].Level = 1; // 0: 미획득, 1 이상: 획득
 
                 OnUserCharacterChanged?.Invoke(UserCharacterDic[characterID]);
 
                 SaveCharacterGroup();
             }
+        }
+
+        public void AddAllCharacters()
+        {
+            foreach (var data in UserCharacterDic)
+            {
+                UserCharacterDic[data.Key].Level = 1; // 0: 미획득, 1 이상: 획득
+
+                OnUserCharacterChanged?.Invoke(UserCharacterDic[data.Key]);
+            }
+
+            SaveCharacterGroup();
         }
 
         // 보유한 캐릭터 인지 확인용
@@ -198,10 +209,7 @@ namespace CookApps.AutoBattler
         public UserCharacter GetUserCharacter(int characterID)
         {
             UserCharacter resultData = null;
-            if (userCharacterGroup.UserCharacters.TryGetValue(characterID, out resultData))
-            {
-                return resultData;
-            }
+            if (userCharacterGroup.UserCharacters.TryGetValue(characterID, out resultData)) return resultData;
 
             return null;
         }
@@ -218,7 +226,8 @@ namespace CookApps.AutoBattler
 
         public void SaveCharacterGroup()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserCharacterGroup.ToCategoryString(), userCharacterGroup);
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserCharacterGroup.ToCategoryString(),
+                userCharacterGroup);
         }
     }
 }
