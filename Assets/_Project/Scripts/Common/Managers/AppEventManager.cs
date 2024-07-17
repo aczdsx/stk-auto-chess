@@ -72,5 +72,27 @@ namespace CookApps.AutoBattler
 
             return defaultData;
         }
+
+        /// <summary>
+        /// 스테이지 클리어 이벤트
+        /// </summary>
+        /// <param name="stage_id">스테이지 아이디</param>
+        /// <param name="chapter_id">스테이지 아이디</param>
+        /// <param name="stage_number">스테이지 아이디</param>
+        /// <param name="stage_type">스테이지 아이디</param>
+        /// <param name="stage_star">스테이지 아이디</param>
+        /// <param name="is_win">스테이지 아이디</param>
+        public void StageClear(int stage_id, int chapter_id, int stage_number, StageType stage_type, int stage_star, bool is_win)
+        {
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.STAGE_ID, stage_id);
+            appEventParameter.Add(AppEventStringConst.CHAPTER_ID, chapter_id);
+            appEventParameter.Add(AppEventStringConst.STAGE_NUMBER, stage_number);
+            appEventParameter.Add(AppEventStringConst.STAGE_TYPE, stage_type.ToString());
+            appEventParameter.Add(AppEventStringConst.STAGE_STAR, stage_star);
+            appEventParameter.Add(AppEventStringConst.IS_WIN, is_win);
+
+            SendEvent(AppEventStringConst.STAGE_CLEAR, appEventParameter);
+        }
     }
 }

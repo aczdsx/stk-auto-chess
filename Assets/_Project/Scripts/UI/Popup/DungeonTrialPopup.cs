@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
-using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
@@ -139,9 +138,7 @@ namespace CookApps.AutoBattler
 
             BMUtil.RemoveChildObjects(_rewardInfoContentTransform);
 
-            var rewardDataList =
-                SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL,
-                    CurrentUserDungeonData.DungeonId);
+            var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
 
             foreach (var rewardData in rewardDataList)
             {
