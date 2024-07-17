@@ -67,11 +67,11 @@ namespace CookApps.AutoBattler
 
             _prevLevelText.text = _prevSpecAccountLevelExpData.lv.ToString();
             _prevAPCountText.text = _prevSpecAccountLevelExpData.ap_max.ToString();
-            _prevBattleDeckCountText.text = _prevSpecAccountLevelExpData.squad_count.ToString();
+            //_prevBattleDeckCountText.text = _prevSpecAccountLevelExpData.squad_count.ToString();
 
             _currentLevelText.text = _currentSpecAccountLevelExpData.lv.ToString();
             _currentAPCountText.text = _currentSpecAccountLevelExpData.ap_max.ToString();
-            _currentBattleDeckCountText.text = _currentSpecAccountLevelExpData.squad_count.ToString();
+            //_currentBattleDeckCountText.text = _currentSpecAccountLevelExpData.squad_count.ToString();
 
             // 보상 데이터 세팅
             var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(_currentSpecAccountLevelExpData.reward_id);

@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            //UpdateEventData();
+            UpdateEventData();
             SetEventPopup();
             SetEventSlotList();
         }
@@ -60,9 +60,9 @@ namespace CookApps.AutoBattler
         {
             if (_currentUserEventData == null) return;
 
-            if (_currentUserEventData.EventExtraRefreshTimestamp < UserDataManager.Instance.UserBasicData.LastLoginTimestamp)
+            if (_currentUserEventData.EventRefreshTimestamp < TimeManager.Instance.UtcNowTimeStamp())
             {
-                UserDataManager.Instance.SetUserEventActionCount(_currentUserEventData.EventId, 1, true, true);
+                UserDataManager.Instance.ResetEventData(_currentUserEventData.EventId, true);
                 UserDataManager.Instance.UpdateEventTimeData(_currentUserEventData.EventId);
             }
         }

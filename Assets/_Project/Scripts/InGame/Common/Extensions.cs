@@ -145,6 +145,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Provocation => "",
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",
+                BuffDebuffType.Airborne => InGameVfxNameType.fx_common_commander_skill_03,
                 _ => InGameVfxNameType.NONE
             };
         }

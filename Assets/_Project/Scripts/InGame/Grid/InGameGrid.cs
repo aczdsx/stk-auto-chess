@@ -48,9 +48,9 @@ namespace CookApps.BattleSystem
             return _tiles;
         }
 
-        public InGameTile GetRandomEmptyTile(AllianceType allianceType)
+        public InGameTile GetRandomEmptyTile(AllianceType? allianceType = null)
         {
-            var emptyTiles = _tiles.Where(t => t.View.AllianceType == allianceType && t.OccupiedCharacter == null)
+            var emptyTiles = _tiles.Where(t => (!allianceType.HasValue || t.View.AllianceType == allianceType.Value) && t.OccupiedCharacter == null)
                 .ToList();
             if (emptyTiles.Count == 0)
             {
@@ -115,6 +115,21 @@ namespace CookApps.BattleSystem
             foreach (var tile in _tiles)
             {
                 if (GetManhattanDistance(pivotTile, tile) == distance)
+                {
+                    tilesAtDistance.Add(tile);
+                }
+            }
+
+            return tilesAtDistance;
+        }
+
+        public List<InGameTile> GetTileListByManhattanDistanceInRange(InGameTile pivotTile, int distance)
+        {
+            List<InGameTile> tilesAtDistance = new List<InGameTile>();
+
+            foreach (var tile in _tiles)
+            {
+                if (GetManhattanDistance(pivotTile, tile) <= distance)
                 {
                     tilesAtDistance.Add(tile);
                 }

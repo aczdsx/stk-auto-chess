@@ -78,6 +78,18 @@ namespace CookApps.AutoBattler
             return 0;
         }
 
+        public bool IsAllCommanderSkillsEquipped()
+        {
+            foreach (var skillId in userCommanderSkillData.EquippedCommanderSkillIds.Values)
+            {
+                if (skillId == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public bool IsEquippedCommanderSkill(int skillID)
         {
             return userCommanderSkillData.EquippedCommanderSkillIds.Values.Any(value => value == skillID);

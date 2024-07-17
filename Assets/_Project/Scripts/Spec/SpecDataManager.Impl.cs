@@ -324,6 +324,19 @@ namespace CookApps.AutoBattler
             return SpecCharacterLevelExp.All.ToList().FindAll(data => data.level <= level);
         }
 
+        public SpecCharacterTranscendence GetCharacterTranscendenceData(ElementType elementType, GradeType gradeType, int transcendenceLevel)
+        {
+            return SpecCharacterTranscendence.All.ToList().Find(data => data.element_type == elementType
+                                                                    && data.grade_type == gradeType
+                                                                    && data.transcendence_lv == transcendenceLevel);
+        }
+
+        public List<SpecCharacterTranscendence> GetCharacterTranscendenceDataList(ElementType elementType, GradeType gradeType)
+        {
+            return SpecCharacterTranscendence.All.ToList().FindAll(data => data.element_type == elementType
+                                                                        && data.grade_type == gradeType);
+        }
+
         // 캐릭터 레벨업에 필요한 총 필요 아이템 리스트 반환
         // 7.15 - 현재 10레벨 단위 레벨업 시 조각을 소모하므로 characterID를 인자로 넘겨 받음
         public List<RewardItem> GetCharacterLevelupTotalNeedItemList(int level, int characterID)

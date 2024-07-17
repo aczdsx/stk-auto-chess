@@ -155,6 +155,7 @@ namespace CookApps.AutoBattler
             if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
 
             BMUtil.RemoveChildObjects(_stepScrollRect.content);
+            _stepSlotList.Clear();
 
             var totalDungeonDataList = SpecDataManager.Instance.GetSpecDungeonTrialDataList(DungeonType.TRIAL);
 
@@ -178,6 +179,13 @@ namespace CookApps.AutoBattler
 
         private void OnClickEnterDungeonButton()
         {
+            // 던전 진입 가능 조건 검사
+            if (UserDataManager.Instance.GetAllTotalChapterStarCount() < _specDungeonTrialData.need_star)
+            {
+                ToastManager.Instance.ShowToast("TEST - 스테이지 별 갯수 부족");
+                return;
+            }
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             // todo.. 던전 입장 처리

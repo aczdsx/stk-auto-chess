@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3500952817943321464}
   - component: {fileID: 4654170290935930943}
   - component: {fileID: 2086160494926921431}
+  - component: {fileID: 3556524974140300106}
   m_Layer: 6
   m_Name: fx_common_commander_skill_05
   m_TagString: Untagged
@@ -4833,6 +4834,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3556524974140300106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232041578093808494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &2527205234878972787
 GameObject:
   m_ObjectHideFlags: 0

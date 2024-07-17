@@ -208,8 +208,13 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         var coolTimeData = SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.COOL);
         var statValueData =
             SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
+        if (statValueData == null)
+            statValueData =
+                SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.TIME);
 
-        var commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate, statValueData.base_rate);
+        float stat = statValueData?.base_rate ?? 0;
+
+        var commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate,stat);
         //[TODO] 나중에는 성장 스텟으로 빼기
         commanderSkillData.ElapsedTime = commanderSkillData.DurationTime * 0.5f;
         _commandSkillDataList.Add(commanderSkillData);
@@ -240,9 +245,16 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
                     // [TODO] 나중에는 데이터에서 처리 필요
                     if (_selectedCommanderSkillData.Spec.commander_skill_id == 300001)
                         tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile));
-                    else
+                    else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300002)
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(centerTile, 1));
+                    else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300004)
                         tiles.AddRange(
                             InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
+                    else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300006)
+                        tiles.AddRange(
+                            InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
+                    else
+                        tiles.Add(centerTile);
 
                     if (isNavigate)
                         ClearAndSetActive(tiles);
