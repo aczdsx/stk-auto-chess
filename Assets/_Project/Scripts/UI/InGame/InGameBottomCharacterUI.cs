@@ -110,8 +110,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // 지휘자 스킬 장착 확인
         if (_isOpenCommanderSkill)
         {
-            var equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(0);
-            if (equippedCommanderSkill == 0)
+            var isEquippedCommanderSkill = UserDataManager.Instance.IsAllCommanderSkillsEquipped();
+            if (!isEquippedCommanderSkill)
             {
                 string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
 
@@ -399,8 +399,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
             if (skillUI.Data != null)
             {
                 skillUI.UpdateCommanderSkillCoolTime();
-                bool isActiveCoolTime = skillUI.Data.ElapsedTime > skillUI.Data.DurationTime;
-                InGameMain.GetInGameMain().SetCommanderFx(isActiveCoolTime);
+                // bool isActiveCoolTime = skillUI.Data.ElapsedTime > skillUI.Data.DurationTime;
+                // InGameMain.GetInGameMain().SetCommanderFx(isActiveCoolTime);
             }
         }
     }
@@ -413,13 +413,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
-    }
-
-    public void SetCommanderFx(bool isActive)
-    {
-        _commanderFx.gameObject.SetActive(isActive);
-        if (isActive)
-            _commanderFx.Play();
     }
 
     public void SetFocusCharacter(SpecCharacter spec)

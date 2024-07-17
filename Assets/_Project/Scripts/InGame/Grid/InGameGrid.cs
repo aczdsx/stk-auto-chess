@@ -129,7 +129,7 @@ namespace CookApps.BattleSystem
 
             foreach (var tile in _tiles)
             {
-                if (GetManhattanDistance(pivotTile, tile) == distance)
+                if (GetManhattanDistance(pivotTile, tile) <= distance)
                 {
                     tilesAtDistance.Add(tile);
                 }
