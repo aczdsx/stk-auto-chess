@@ -105,8 +105,7 @@ namespace CookApps.BattleSystem
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAP);
                     var effectCodes = GetEffectCodeContainer()
                         .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAP);
-                    // postAP = effectCodes.CalculateAD(GetCharacterStat().AP); AP 계산인데 CalculateAD가 적용됨
-                    postAP = effectCodes.CalculateAP(GetCharacterStat().AP); // [Fix]
+                    postAP = effectCodes.CalculateAP(GetCharacterStat().AP);
                 }
 
                 return postAP;
@@ -124,8 +123,7 @@ namespace CookApps.BattleSystem
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEF);
                     var effectCodes = GetEffectCodeContainer()
                         .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
-                    // postDEF = effectCodes.CalculateAD(GetCharacterStat().DEF); DEF 계산인데 CalculateAD가 적용됨
-                    postDEF = effectCodes.CalculateDEF(GetCharacterStat().DEF); // [Fix]
+                    postDEF = effectCodes.CalculateDEF(GetCharacterStat().DEF);
                 }
 
                 return postDEF;
@@ -143,8 +141,7 @@ namespace CookApps.BattleSystem
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRES);
                     var effectCodes = GetEffectCodeContainer()
                         .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
-                    // postRES = effectCodes.CalculateAD(GetCharacterStat().RES); RES 계산인데 CalculateAD가 적용됨 
-                    postRES = effectCodes.CalculateRES(GetCharacterStat().RES); // [Fix]
+                    postRES = effectCodes.CalculateRES(GetCharacterStat().RES);
                 }
 
                 return postRES;
@@ -163,7 +160,7 @@ namespace CookApps.BattleSystem
                     var effectCodes = GetEffectCodeContainer()
                         .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
                     postDEFPenetration =
-                        effectCodes.CalculateDEFPenetration(GetCharacterStat().DEFPenetration); // [Fix]
+                        effectCodes.CalculateDEFPenetration(GetCharacterStat().DEFPenetration);
                 }
 
                 return postDEFPenetration;
@@ -182,7 +179,7 @@ namespace CookApps.BattleSystem
                     var effectCodes = GetEffectCodeContainer()
                         .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
                     postRESPenetration =
-                        effectCodes.CalculateRESPenetration(GetCharacterStat().RESPenetration); // [Fix]
+                        effectCodes.CalculateRESPenetration(GetCharacterStat().RESPenetration);
                 }
 
                 return postRESPenetration;

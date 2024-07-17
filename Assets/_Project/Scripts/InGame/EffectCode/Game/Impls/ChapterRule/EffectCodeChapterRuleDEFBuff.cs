@@ -53,7 +53,7 @@ namespace CookApps.BattleSystem
             IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _defUpRate = codeInfo.GetCodeStatToInt(0);
+            _defUpRate = codeInfo.GetCodeStatToInt(0) * 0.01f;
             _chapterRuleTiles.Clear();
             SetRuleTileByTEST(new List<int> { 6, 8 }, InGameVfxNameType.fx_common_bufftrap_defense);
         }
@@ -61,7 +61,7 @@ namespace CookApps.BattleSystem
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _defUpRate = codeInfo.GetCodeStatToInt(0);
+            _defUpRate = codeInfo.GetCodeStatToInt(0) * 0.01f;
             _chapterRuleTiles.Clear();
             SetRuleTileByTEST(new List<int> { 6, 8 }, InGameVfxNameType.fx_common_bufftrap_defense);
         }

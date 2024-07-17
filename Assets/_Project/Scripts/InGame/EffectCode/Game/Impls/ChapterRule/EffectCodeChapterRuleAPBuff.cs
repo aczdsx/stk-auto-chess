@@ -30,7 +30,7 @@ namespace CookApps.BattleSystem
             IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _abilUpRate = codeInfo.GetCodeStatToInt(0);
+            _abilUpRate = codeInfo.GetCodeStatToInt(0) * 0.01f;
             _chapterRuleTiles.Clear();
             for (var i = 1; i < codeInfo.StatsLength; i++)
             {
@@ -46,7 +46,7 @@ namespace CookApps.BattleSystem
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _abilUpRate = codeInfo.GetCodeStatToInt(0);
+            _abilUpRate = codeInfo.GetCodeStatToInt(0) * 0.01f;
             _chapterRuleTiles.Clear();
             for (var i = 1; i < codeInfo.StatsLength; i++)
             {
