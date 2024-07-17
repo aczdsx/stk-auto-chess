@@ -635,12 +635,12 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class SpecDungeonMonster
     {
-        /// 전체 ID
+        /// 아이디
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 던전 타입
         public global::CookApps.AutoBattler.DungeonType dungeon_type;
-        /// 챕터 id
+        /// 던전 id
         public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
         /// 좌표값 (x,y)
         public string coordinate;
@@ -802,5 +802,95 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt item_key;
         /// 보상 수량
         public CookApps.Obfuscator.ObfuscatorInt item_count;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecPVPConfig
+    {
+        /// 아이디
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 계산 방식
+        public global::CookApps.AutoBattler.CalcUnit calc_unit;
+        /// 최소 점수 범위
+        public CookApps.Obfuscator.ObfuscatorInt minus_range;
+        /// 최대 점수 범위
+        public CookApps.Obfuscator.ObfuscatorInt plus_range;
+        /// 불러올 상대 수
+        public CookApps.Obfuscator.ObfuscatorInt count;
+        /// 추가 계산 방식
+        public global::CookApps.AutoBattler.CalcUnit alpha_calc_unit;
+        /// 맞는 상대 없을 시 키워나갈 알파값
+        public CookApps.Obfuscator.ObfuscatorInt alpha_range;
+        /// 추가 최대 검사 횟수
+        public CookApps.Obfuscator.ObfuscatorInt alpha_max_iteration;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecPVPTier
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 리워드 타입 (1: 티어 달성보상, 2: 해당 티어 데일리 보상)
+        public CookApps.Obfuscator.ObfuscatorInt reward_type;
+        public CookApps.Obfuscator.ObfuscatorInt ranking_id;
+        /// 티어 진입 최소점수
+        public CookApps.Obfuscator.ObfuscatorInt ranking_min;
+        public string reward_sheet;
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 보상방식 (1: 우편, 2: 팝업으로 직접)
+        public CookApps.Obfuscator.ObfuscatorInt reward_send_type;
+        public string reward_post_title;
+        public string reward_post_desc;
+        public string icon_image;
+        public string local_key;
+        public string name_color;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecPVPRanking
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 1: 지난시즌랭킹보상, 2: 지난시즌티어랭킹보상
+        public CookApps.Obfuscator.ObfuscatorInt reward_type;
+        public CookApps.Obfuscator.ObfuscatorInt ranking_id;
+        public CookApps.Obfuscator.ObfuscatorInt rank_range_start;
+        /// 0 : 나머지 그외 모두
+        public CookApps.Obfuscator.ObfuscatorInt rank_range_end;
+        public string reward_sheet;
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 1: 우편, 2: 팝업으로 직접보상
+        public CookApps.Obfuscator.ObfuscatorInt reward_send_type;
+        public string reward_post_title;
+        public string reward_post_desc;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecPVPDummy
+    {
+        /// 아이디
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 더미 아이디
+        public string dummy_id;
+        /// 더미 정보
+        public string dummy_info;
+        /// 전투력
+        public CookApps.Obfuscator.ObfuscatorInt power;
+        /// 포인트
+        public CookApps.Obfuscator.ObfuscatorInt point;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecReward
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// dim=중복
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        public global::CookApps.AutoBattler.ItemType item_type;
+        public CookApps.Obfuscator.ObfuscatorInt item_id;
+        public CookApps.Obfuscator.ObfuscatorLong item_count;
     }
 }
