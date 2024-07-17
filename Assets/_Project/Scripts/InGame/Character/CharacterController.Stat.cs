@@ -7,6 +7,7 @@ namespace CookApps.BattleSystem
     public partial class CharacterController
     {
         #region Stat getter
+
         private EffectCodeInheritFlag needUpdateFlag;
 
         private ObfuscatorDouble
@@ -58,20 +59,15 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatHP);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatHP);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHP);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHP);
 
-                    ObfuscatorDouble prevHp = postHP;
+                    var prevHp = postHP;
                     postHP = effectCodes.CalculateHP(GetCharacterStat().HP);
-                    ObfuscatorDouble diff = postHP - prevHp;
-                    if (0 < diff)
-                    {
-                        _currHp += diff;
-                    }
+                    var diff = postHP - prevHp;
+                    if (0 < diff) _currHp += diff;
 
-                    if (_currHp > postHP)
-                    {
-                        _currHp = postHP;
-                    }
+                    if (_currHp > postHP) _currHp = postHP;
 
                     UpdateHp();
                 }
@@ -89,7 +85,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAD);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAD);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAD);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAD);
                     postAD = effectCodes.CalculateAD(GetCharacterStat().AD);
                 }
 
@@ -106,8 +103,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAP);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAP);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAP);
-                    postAP = effectCodes.CalculateAD(GetCharacterStat().AP);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAP);
+                    // postAP = effectCodes.CalculateAD(GetCharacterStat().AP); AP 계산인데 CalculateAD가 적용됨
+                    postAP = effectCodes.CalculateAP(GetCharacterStat().AP); // [Fix]
                 }
 
                 return postAP;
@@ -123,8 +122,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDEF);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEF);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
-                    postDEF = effectCodes.CalculateAD(GetCharacterStat().DEF);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
+                    // postDEF = effectCodes.CalculateAD(GetCharacterStat().DEF); DEF 계산인데 CalculateAD가 적용됨
+                    postDEF = effectCodes.CalculateDEF(GetCharacterStat().DEF); // [Fix]
                 }
 
                 return postDEF;
@@ -140,8 +141,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRES);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRES);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
-                    postRES = effectCodes.CalculateAD(GetCharacterStat().RES);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
+                    // postRES = effectCodes.CalculateAD(GetCharacterStat().RES); RES 계산인데 CalculateAD가 적용됨 
+                    postRES = effectCodes.CalculateRES(GetCharacterStat().RES); // [Fix]
                 }
 
                 return postRES;
@@ -157,8 +160,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDEFPenetration);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEFPenetration);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
-                    postDEFPenetration = effectCodes.CalculateAD(GetCharacterStat().DEFPenetration);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
+                    postDEFPenetration =
+                        effectCodes.CalculateDEFPenetration(GetCharacterStat().DEFPenetration); // [Fix]
                 }
 
                 return postDEFPenetration;
@@ -174,8 +179,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRESPenetration);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRESPenetration);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
-                    postRESPenetration = effectCodes.CalculateAD(GetCharacterStat().RESPenetration);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
+                    postRESPenetration =
+                        effectCodes.CalculateRESPenetration(GetCharacterStat().RESPenetration); // [Fix]
                 }
 
                 return postRESPenetration;
@@ -191,7 +198,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRecoveryHP);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRecoveryHP);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRecoveryHP);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRecoveryHP);
                     postRecoveryHP = effectCodes.CalculateRecoveryHP(GetCharacterStat().HPRecovery);
                 }
 
@@ -208,7 +216,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatMoveSpeed);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatMoveSpeed);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatMoveSpeed);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatMoveSpeed);
                     postMoveSpeed = effectCodes.CalculateMoveSpeed(GetCharacterStat().MoveSpeed);
                 }
 
@@ -225,7 +234,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackSpeed);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackSpeed);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackSpeed);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackSpeed);
                     postAttackSpeed = effectCodes.CalculateAttackSpeed(GetCharacterStat().AttackSpeed);
                 }
 
@@ -242,8 +252,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackRangeShape);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackRangeShape);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRangeShape);
-                    _postAttackRangeShapeType = effectCodes.CalculateAttackRangeShape(GetCharacterStat().AttackRangeShape);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRangeShape);
+                    _postAttackRangeShapeType =
+                        effectCodes.CalculateAttackRangeShape(GetCharacterStat().AttackRangeShape);
                 }
 
                 return _postAttackRangeShapeType;
@@ -259,7 +271,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackRange);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackRange);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackRange);
                     postAttackRange = effectCodes.CalculateAttackRange(GetCharacterStat().AttackRange);
                 }
 
@@ -276,7 +289,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatCriticalProb);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatCriticalProb);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalProb);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalProb);
                     postCriticalProb = effectCodes.CalculateCriticalProb(GetCharacterStat().CriticalProb);
                 }
 
@@ -293,8 +307,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
-                    postCriticalDamageRate = effectCodes.CalculateCriticalDamageRate(GetCharacterStat().CriticalDamageRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCriticalDamageRate);
+                    postCriticalDamageRate =
+                        effectCodes.CalculateCriticalDamageRate(GetCharacterStat().CriticalDamageRate);
                 }
 
                 return postCriticalDamageRate;
@@ -310,8 +326,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
-                    postDoubleCriticalProb = effectCodes.CalculateDoubleCriticalProb(GetCharacterStat().DoubleCriticalProb);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalProb);
+                    postDoubleCriticalProb =
+                        effectCodes.CalculateDoubleCriticalProb(GetCharacterStat().DoubleCriticalProb);
                 }
 
                 return postDoubleCriticalProb;
@@ -327,8 +345,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
-                    postDoubleCriticalDamageRate = effectCodes.CalculateCriticalDamageRate(GetCharacterStat().DoubleCriticalDamageRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDoubleCriticalDamageRate);
+                    postDoubleCriticalDamageRate =
+                        effectCodes.CalculateCriticalDamageRate(GetCharacterStat().DoubleCriticalDamageRate);
                 }
 
                 return postDoubleCriticalDamageRate;
@@ -344,7 +364,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatSkillDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatSkillDamageRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillDamageRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillDamageRate);
                     postSkillDamageRate = effectCodes.CalculateSkillDamageRate(GetCharacterStat().SkillDamageRate);
                 }
 
@@ -361,8 +382,10 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
-                    postSkillCooltimeRate = effectCodes.CalculateSkillCooltimeRate(GetCharacterStat().SkillCooltimeRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatSkillCooltimeRate);
+                    postSkillCooltimeRate =
+                        effectCodes.CalculateSkillCooltimeRate(GetCharacterStat().SkillCooltimeRate);
                 }
 
                 return postSkillCooltimeRate;
@@ -378,7 +401,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAttackDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAttackDamageRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackDamageRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAttackDamageRate);
                     postAttackDamageRate = effectCodes.CalculateTotalDamageRate(GetCharacterStat().AttackDamageRate);
                 }
 
@@ -395,7 +419,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatTakenDamageRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatTakenDamageRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenDamageRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenDamageRate);
                     postTakenDamageRate = effectCodes.CalculateTakenDamageRate(GetCharacterStat().TakenDamageRate);
                 }
 
@@ -412,7 +437,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatGivenHealRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatGivenHealRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatGivenHealRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatGivenHealRate);
                     postGivenHealRate = effectCodes.CalculateGivenHealRate(GetCharacterStat().GivenHealRate);
                 }
 
@@ -429,7 +455,8 @@ namespace CookApps.BattleSystem
                 {
                     needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatTakenHealRate);
                     GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatTakenHealRate);
-                    var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenHealRate);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenHealRate);
                     postTakenHealRate = effectCodes.CalculateTakenHealRate(GetCharacterStat().TakenHealRate);
                 }
 
@@ -444,7 +471,8 @@ namespace CookApps.BattleSystem
             {
                 needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatCrowdControlImmune);
                 GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatCrowdControlImmune);
-                var effectCodes = GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCrowdControlImmune);
+                var effectCodes = GetEffectCodeContainer()
+                    .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatCrowdControlImmune);
                 postCCImmune = effectCodes.CalculateCrowdControlImmune();
             }
 
@@ -455,6 +483,7 @@ namespace CookApps.BattleSystem
         {
             needUpdateFlag |= flag;
         }
+
         #endregion
     }
 }

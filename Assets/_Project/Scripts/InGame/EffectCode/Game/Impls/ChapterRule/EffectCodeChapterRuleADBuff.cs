@@ -27,22 +27,36 @@ namespace CookApps.BattleSystem
         private List<InGameTile> _chapterRuleTiles = new();
         private Dictionary<int, BuffInfo> _characterByEffectCode = new();
 
-        public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
-            IEffectCodeSource source)
+        private void SetRuleTileByInfo(EffectCodeInfo codeInfo, InGameVfxNameType vnt)
         {
-            base.Initialize(codeInfo, container, source);
-            _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
-            _chapterRuleTiles.Clear();
-
             for (var i = 1; i < codeInfo.StatsLength; i++)
             {
                 var tileID = codeInfo.GetCodeStatToInt(i);
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
                 _chapterRuleTiles.Add(inGameTile);
 
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ad,
-                    inGameTile.View.CachedTr.position);
+                InGameVfxManager.Instance.AddInGameVfx(vnt, inGameTile.View.CachedTr.position);
             }
+        }
+
+        private void SetRuleTileByTEST(List<int> testRuleTile, InGameVfxNameType vnt)
+        {
+            foreach (var tileID in testRuleTile)
+            {
+                var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+                _chapterRuleTiles.Add(inGameTile);
+
+                InGameVfxManager.Instance.AddInGameVfx(vnt, inGameTile.View.CachedTr.position);
+            }
+        }
+
+        public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
+            IEffectCodeSource source)
+        {
+            base.Initialize(codeInfo, container, source);
+            _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
+            _chapterRuleTiles.Clear();
+            SetRuleTileByTEST(new List<int> { 0, 4 }, InGameVfxNameType.fx_common_bufftrap_ad);
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -50,16 +64,7 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
             _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             _chapterRuleTiles.Clear();
-
-            for (var i = 1; i < codeInfo.StatsLength; i++)
-            {
-                var tileID = codeInfo.GetCodeStatToInt(i);
-                var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
-                _chapterRuleTiles.Add(inGameTile);
-
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ad,
-                    inGameTile.View.CachedTr.position);
-            }
+            SetRuleTileByTEST(new List<int> { 0, 4 }, InGameVfxNameType.fx_common_bufftrap_ad);
         }
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
