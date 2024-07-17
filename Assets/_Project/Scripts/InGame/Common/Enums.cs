@@ -119,6 +119,7 @@ namespace CookApps.BattleSystem
         Provocation,
         Trap,
         Silence,
+        Airborne,
         MAX,
     }
 

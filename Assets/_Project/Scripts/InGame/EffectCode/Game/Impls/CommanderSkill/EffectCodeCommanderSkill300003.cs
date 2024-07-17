@@ -40,15 +40,29 @@ namespace CookApps.BattleSystem
 
             if (inGameTile.OccupiedCharacter != null)
             {
-                Span<double> eccStats = stackalloc double[3];
-                eccStats.Clear();
-                eccStats[0] = _time;
-                eccStats[1] = 4.0f;
-                eccStats[2] = inGameTile.View.ID;
+                {
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = _time;
+                    eccStats[1] = 4.0f;
+                    eccStats[2] = inGameTile.View.ID;
 
-                long effectCodeID = (long) EffectCodeNameType.AIRBORNE;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                inGameTile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+                    long effectCodeID = (long) EffectCodeNameType.AIRBORNE;
+                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+                    inGameTile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+                }
+
+                {
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = codeId;
+                    eccStats[1] = _time;
+                    eccStats[2] = 0;
+
+                    long effectCodeID = (long)EffectCodeNameType.DEBUFF_AIRBORNE;
+                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
+                    inGameTile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+                }
             }
         }
     }

@@ -48,6 +48,9 @@ namespace CookApps.BattleSystem
                     if (tile.OccupiedCharacter.AllianceType != AllianceType.Player &&
                         tile.OccupiedCharacter.AllianceType != AllianceType.None)
                     {
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
+                            tile.View.CachedTr.position);
+
                         Span<double> eccStats = stackalloc double[1];
                         eccStats.Clear();
                         eccStats[0] = _time;

@@ -45,7 +45,7 @@ namespace CookApps.BattleSystem
 
                 if (tile.OccupiedCharacter != null)
                 {
-                    if(tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
+                    if(tile.OccupiedCharacter.AllianceType == AllianceType.Player)
                     {
                         var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
                         if (playerCharacterList != null && playerCharacterList.Count > 0)
