@@ -5,11 +5,11 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeBuffAtkUp : EffectCodeBuffBase
+public class EffectCodeBuffDefUp : EffectCodeBuffBase
 {
-    private const int CodeId = (int) EffectCodeNameType.BUFF_AD_PERCENT_UP;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.AttackUp;
-    private List<BuffStackData> stackDatas = new List<BuffStackData>();
+    private const int CodeId = (int)EffectCodeNameType.BUFF_DEF_PERCENT_UP;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.DefenceUp;
+    private List<BuffStackData> stackDatas = new();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -17,10 +17,10 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
         stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
-            sourceCodeId: codeInfo.GetCodeStatToInt(0),
-            duration: codeInfo.GetCodeStatToFloat(1),
-            value: codeInfo.GetCodeStat(2),
-            source: source
+            codeInfo.GetCodeStatToInt(0),
+            codeInfo.GetCodeStatToFloat(1),
+            codeInfo.GetCodeStat(2),
+            source
         );
         stackDatas.Add(buffStackData);
         owner.AddBuffDebuffType(buffDebuffType);
@@ -32,7 +32,6 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
 
         var hasSameSource = false;
         foreach (var stackData in stackDatas)
-        {
             if (stackData.sourceCodeId == codeInfo.GetCodeStatToInt(0))
             {
                 hasSameSource = true;
@@ -45,17 +44,16 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
                 // stackData.value = Math.Max(stackData.value, codeInfo.GetCodeStat(2));
                 break;
             }
-        }
 
         if (hasSameSource)
             return;
 
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
-            sourceCodeId: codeInfo.GetCodeStatToInt(0),
-            duration: codeInfo.GetCodeStatToFloat(1),
-            value: codeInfo.GetCodeStat(2),
-            source: source
+            codeInfo.GetCodeStatToInt(0),
+            codeInfo.GetCodeStatToFloat(1),
+            codeInfo.GetCodeStat(2),
+            source
         );
         stackDatas.Add(buffStackData);
     }
@@ -63,15 +61,13 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
     public override bool TryRemoveWithSource(IEffectCodeSource source)
     {
         var isRemoved = false;
-        for (int i = 0; i < stackDatas.Count; i++)
-        {
+        for (var i = 0; i < stackDatas.Count; i++)
             if (stackDatas[i].source == source)
             {
                 GenericPool<BuffStackData>.Release(stackDatas[i]);
                 stackDatas[i] = null;
                 isRemoved = true;
             }
-        }
 
         if (isRemoved)
             container.SetDirtyFlag(this);
@@ -81,8 +77,8 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
 
     public override void OnUpdate(float dt)
     {
-        bool needRemove = false;
-        for (int i = 0; i < stackDatas.Count; i++)
+        var needRemove = false;
+        for (var i = 0; i < stackDatas.Count; i++)
         {
             if (stackDatas[i] == null)
             {
@@ -101,10 +97,7 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
         if (needRemove)
         {
             stackDatas.RemoveAll(NullChecker<BuffStackData>.NullCheck);
-            if (stackDatas.Count <= 0)
-            {
-                RemoveFromContainer();
-            }
+            if (stackDatas.Count <= 0) RemoveFromContainer();
 
             if (container != null)
                 container.SetDirtyFlag(this);
@@ -118,13 +111,10 @@ public class EffectCodeBuffAtkUp : EffectCodeBuffBase
         ListPool<BuffStackData>.Release(stackDatas);
     }
 
-    public override double GetIncrementPercentAD()
+    public override double GetIncrementPercentDEF()
     {
         double increaseRate = 0;
-        for (int i = 0; i < stackDatas.Count; i++)
-        {
-            increaseRate += stackDatas[i]?.value ?? 0;
-        }
+        for (var i = 0; i < stackDatas.Count; i++) increaseRate += stackDatas[i]?.value ?? 0;
 
         return increaseRate;
     }

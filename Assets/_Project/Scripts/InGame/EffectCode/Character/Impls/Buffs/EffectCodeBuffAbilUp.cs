@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
@@ -5,10 +6,10 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeBuffDefUp : EffectCodeBuffBase
+public class EffectCodeBuffAbilUp : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_DEF_PERCENT_UP;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.DefenceUp;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_AP_PERCENT_UP;
+    [Obsolete] private const BuffDebuffType buffDebuffType = BuffDebuffType.None; //
     private List<BuffStackData> stackDatas = new();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -111,7 +112,7 @@ public class EffectCodeBuffDefUp : EffectCodeBuffBase
         ListPool<BuffStackData>.Release(stackDatas);
     }
 
-    public override double GetIncrementPercentDEF()
+    public override double GetIncrementPercentAP()
     {
         double increaseRate = 0;
         for (var i = 0; i < stackDatas.Count; i++) increaseRate += stackDatas[i]?.value ?? 0;

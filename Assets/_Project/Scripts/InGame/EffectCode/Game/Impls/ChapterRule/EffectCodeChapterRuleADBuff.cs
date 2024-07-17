@@ -26,7 +26,6 @@ namespace CookApps.BattleSystem
 
         private List<InGameTile> _chapterRuleTiles = new();
         private Dictionary<int, BuffInfo> _characterByEffectCode = new();
-        private List<int> TEST_RULE_TILE_INDEX = new() { 0, 2, 4, 6, 8 };
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -34,23 +33,16 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
             _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             _chapterRuleTiles.Clear();
-            foreach (var tileID in TEST_RULE_TILE_INDEX)
+
+            for (var i = 1; i < codeInfo.StatsLength; i++)
             {
+                var tileID = codeInfo.GetCodeStatToInt(i);
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
                 _chapterRuleTiles.Add(inGameTile);
 
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ad,
                     inGameTile.View.CachedTr.position);
             }
-            // for (var i = 1; i < codeInfo.StatsLength; i++)
-            // {
-            //     int tileID = codeInfo.GetCodeStatToInt(i);
-            //     InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
-            //     _chapterRuleTiles.Add(inGameTile);
-            //
-            //     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ad,
-            //         inGameTile.View.CachedTr.position);
-            // }
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -58,23 +50,16 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
             _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             _chapterRuleTiles.Clear();
-            foreach (var tileID in TEST_RULE_TILE_INDEX)
+
+            for (var i = 1; i < codeInfo.StatsLength; i++)
             {
+                var tileID = codeInfo.GetCodeStatToInt(i);
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
                 _chapterRuleTiles.Add(inGameTile);
 
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ad,
                     inGameTile.View.CachedTr.position);
             }
-            // for (var i = 1; i < codeInfo.StatsLength; i++)
-            // {
-            //     int tileID = codeInfo.GetCodeStatToInt(i);
-            //     InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
-            //     _chapterRuleTiles.Add(inGameTile);
-            //
-            //     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_ad,
-            //         inGameTile.View.CachedTr.position);
-            // }
         }
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
@@ -94,7 +79,8 @@ namespace CookApps.BattleSystem
                 // Key는 유저 Value 이펙트 인포로 적용 해제를 레퍼런스.
                 // 추가하고 실행
 
-                if (character != null && !_characterByEffectCode.ContainsKey(character.CharacterId))
+                if (character.AllianceType == AllianceType.Player &&
+                    !_characterByEffectCode.ContainsKey(character.CharacterId))
                 {
                     Span<double> eccStats = stackalloc double[3];
                     eccStats.Clear();
@@ -138,7 +124,8 @@ namespace CookApps.BattleSystem
             {
                 // 딕셔너리에서 캐릭터 검색
                 // 이펙트 코드 리무브 하기
-                if (character != null && _characterByEffectCode.ContainsKey(character.CharacterId))
+                if (character.AllianceType == AllianceType.Player &&
+                    _characterByEffectCode.ContainsKey(character.CharacterId))
                 {
                     var removeBuffInfo = _characterByEffectCode[character.CharacterId];
                     character.GetEffectCodeContainer().RemoveEffectCode(removeBuffInfo.Info.CodeId);
