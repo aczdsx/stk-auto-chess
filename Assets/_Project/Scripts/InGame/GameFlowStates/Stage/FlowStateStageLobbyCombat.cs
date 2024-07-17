@@ -73,7 +73,7 @@ public class FlowStateStageLobbyCombat : StateBase
 
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
-            SpecDataManager.Instance.GetStageMonsterList(InGameResourceHolder.Chapter, 1,
+            SpecDataManager.Instance.GetStageMonsterList(InGameManager.Instance.SpecStage.chapter_id, 1,
                 DifficultyType.NORMAL);
 
         System.Random random = new System.Random();

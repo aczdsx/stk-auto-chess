@@ -13,6 +13,15 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
+    public interface IGameStateUI
+    {
+        void SetInGameBottomUI();
+        void SetInGameTopUI();
+        void Initialize(int id);
+        void PlayBGM();
+        string GetStageName();
+    }
+
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
@@ -29,6 +38,7 @@ namespace CookApps.AutoBattler
         private float _inGameTime = 0f;
         private const float UpdateInterval = 0.3f;
         private const float InGameMaxTime = 60f;
+        private IGameStateUI _currentGameStateUI;
 
         public static InGameMain GetInGameMain()
         {
@@ -37,32 +47,25 @@ namespace CookApps.AutoBattler
 
         public void ReturnCharacter(CharacterController characterController)
         {
-            InGameObjectManager.Instance.ClearSynergyFx();
-            InGameObjectManager.Instance.RemoveCharacterFromField(characterController);
             _inGameBottomCharacterUI.ReturnCharacter(characterController);
-            SetInGameTopUI();
+            InGameManager.Instance.UpdateSynergyAndAttr();
         }
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            (int chapter, int stageIndex, DifficultyType difficultyType) = ((int, int, DifficultyType)) param;
-            var specStage = SpecDataManager.Instance.GetStageData(chapter, stageIndex, difficultyType);
-            InGameManager.Instance.StartInGame<FlowStateStageReady>(specStage, specStage);
+
+            (IGameStateUI gameState, int id) = ((IGameStateUI, int)) param;
+            _currentGameStateUI = gameState;
+            _currentGameStateUI.Initialize(id);
+            _InGameTopUI.SetStageName(_currentGameStateUI.GetStageName());
+            _currentGameStateUI.PlayBGM();
+
+            // [TODO] stage에서만 되도록 작업 필요
+            // _vignetteImage.material = (chapter == 1) ? _chapter1VignetteMaterial : _defaultVignetteMaterial;
+            // _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[chapter - 1]);
+
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
-            _vignetteImage.material = (chapter == 1) ? _chapter1VignetteMaterial : _defaultVignetteMaterial;
-            _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[chapter - 1]);
-
-            // 최근 플레이 스테이지 저장
-            UserDataManager.Instance.SetLastPlayStageID(specStage.stage_id, true);
-
-            // 유저 레벨업 체크용 이전 레벨 데이터 저장
-            UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
-
-            _InGameTopUI.SetStageName($"스테이지 {chapter}-{stageIndex}");
-
-            // 사운드 재생
-            PlayStageBGM(chapter);
         }
 
         protected override void OnPreExit()
@@ -71,7 +74,7 @@ namespace CookApps.AutoBattler
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
         }
 
-        public void SetInGameBottomUI()
+        private void SetInGameBottomUI()
         {
             _inGameBottomCharacterUI.InitData();
         }
@@ -125,22 +128,6 @@ namespace CookApps.AutoBattler
 
                     _updateTimer -= UpdateInterval;
                 }
-            }
-        }
-
-        private void PlayStageBGM(int targetChapter)
-        {
-            switch (targetChapter)
-            {
-                case 1:
-                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter0);
-                    break;
-                case 2:
-                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter1);
-                    break;
-                case 3:
-                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter2);
-                    break;
             }
         }
 

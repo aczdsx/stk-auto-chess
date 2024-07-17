@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -189,6 +190,9 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             // todo.. 던전 입장 처리
+
+            SceneLoading.GoToNextScene("InGame",
+                ((IGameStateUI) new InGameMainStateTrialDungeonUI(), (int)_specDungeonTrialData.dungeon_id)).Forget();
         }
 
         private void OnClickCloseButton()

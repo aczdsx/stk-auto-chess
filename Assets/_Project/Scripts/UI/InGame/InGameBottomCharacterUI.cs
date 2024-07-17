@@ -65,8 +65,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     protected void Awake()
     {
+        var latestClearUserStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+        var stageData = SpecDataManager.Instance.GetStageData(latestClearUserStageID);
         _isOpenCommanderSkill =
-            InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+            stageData.chapter_id >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
 
         _startButton?.onClick.AddListener(OnStartButtonClicked);
@@ -171,7 +173,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         foreach (var battleDeck in battleDeckList)
             _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);
         UpdateData();
-        InGameMain.GetInGameMain().SetInGameTopUI();
+        InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
     }
 
@@ -385,7 +387,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
                     typeof(CharacterStateReady), true, HpBarType.Synergy),
             });
 
-            InGameMain.GetInGameMain().SetInGameTopUI();
+            InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
         }
 

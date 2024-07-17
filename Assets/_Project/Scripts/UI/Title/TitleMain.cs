@@ -13,9 +13,10 @@ namespace CookApps.AutoBattler
     {
         public static int SessionCount { get; private set; }
 
-        private Dictionary<int, float> progressDict = new ();
+        private Dictionary<int, float> progressDict = new();
 
-        [SerializeField] private GameObject touchToStart;
+        [SerializeField]
+        private GameObject touchToStart;
 
         protected override void OnPreEnter(object param)
         {
@@ -117,7 +118,8 @@ namespace CookApps.AutoBattler
                         specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
                     }
 
-                    SceneLoading.GoToNextScene("InGame", ((int)specStageData.chapter_id, (int)specStageData.stage_number, DifficultyType.NORMAL)).Forget();
+                    SceneLoading.GoToNextScene("InGame",
+                        ((IGameStateUI) new InGameMainStateUIStageUI(), (int)specStageData.stage_id)).Forget();
                 }
                 else
                 {
@@ -125,7 +127,7 @@ namespace CookApps.AutoBattler
 
                     int lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
-                    SceneLoading.GoToNextScene("Lobby", (int)specStageData.chapter_id, transition).Forget();
+                    SceneLoading.GoToNextScene("Lobby", (int) specStageData.chapter_id, transition).Forget();
                 }
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);

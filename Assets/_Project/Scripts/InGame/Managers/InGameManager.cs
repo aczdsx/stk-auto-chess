@@ -15,6 +15,7 @@ namespace CookApps.BattleSystem
     {
         #region GameInfo
         public SpecStage SpecStage { get; private set; }
+        public SpecDungeonTrial SpecDungeonTrial { get; private set; }
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
@@ -42,6 +43,20 @@ namespace CookApps.BattleSystem
         public void StartInGame<T>(SpecStage specStage, object stateData) where T : StateBase, new()
         {
             SpecStage = specStage;
+            IsInGamePlaying = true;
+            ecc = new EffectCodeContainer(this);
+            // 순서 중요!
+            InGameVfxManager.Instance.Initialize();
+            InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
+            InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
+            InGameObjectManager.Instance.Initialize();
+            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
+            InGameCommanderManager.Instance.Initialize();
+        }
+
+        public void StartInGame<T>(SpecDungeonTrial specDungeonTrial, object stateData) where T : StateBase, new()
+        {
+            SpecDungeonTrial = specDungeonTrial;
             IsInGamePlaying = true;
             ecc = new EffectCodeContainer(this);
             // 순서 중요!
@@ -111,6 +126,12 @@ namespace CookApps.BattleSystem
             }
 
             InGameRandomManager.Instance.ResetGlobalRandomSeed(globalRandomSeeds);
+        }
+
+        public void UpdateSynergyAndAttr()
+        {
+            InGameObjectManager.Instance.ClearSynergyFx();
+            InGameMain.GetInGameMain().SetInGameTopUI();
         }
     }
 }

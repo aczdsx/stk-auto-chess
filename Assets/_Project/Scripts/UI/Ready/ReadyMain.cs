@@ -12,20 +12,31 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Ready/ReadyMain.prefab")]
     public class ReadyMain : UILayer
     {
-        [SerializeField] private TMP_Text stageNameText;
-        [SerializeField] private Transform[] playerPositionParentTrs;
-        [SerializeField] private Transform[] enemyPositionParentTrs;
-        [SerializeField] private CharacterSlot characterSlotOrigin;
-        [SerializeField] private TableView tableView;
-        [SerializeField] private CAButton startButton;
+        [SerializeField]
+        private TMP_Text stageNameText;
+
+        [SerializeField]
+        private Transform[] playerPositionParentTrs;
+
+        [SerializeField]
+        private Transform[] enemyPositionParentTrs;
+
+        [SerializeField]
+        private CharacterSlot characterSlotOrigin;
+
+        [SerializeField]
+        private TableView tableView;
+
+        [SerializeField]
+        private CAButton startButton;
 
         private ObjectPool<CharacterSlot> characterSlotPool;
         private int chapter;
         private int stageIndex;
-        private List<int> ownCharacterIds = new ();
+        private List<int> ownCharacterIds = new();
 
-        private List<CharacterSlot> playerCharacterSlots = new ();
-        private List<CharacterSlot> enemyCharacterSlots = new ();
+        private List<CharacterSlot> playerCharacterSlots = new();
+        private List<CharacterSlot> enemyCharacterSlots = new();
 
         protected override void Awake()
         {
@@ -100,7 +111,6 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
             (chapter, stageIndex) = ((int, int)) param;
-            stageNameText.text = ZString.Format("{0}-{1}", chapter, stageIndex + 1);
             ownCharacterIds.Clear();
             ownCharacterIds.AddRange(UserDataManager.Instance.GetAllCharacterIds());
             tableView.RefreshAll();
@@ -219,7 +229,8 @@ namespace CookApps.AutoBattler
 
         private void OnClickStartButton()
         {
-            SceneLoading.GoToNextScene("InGame", (chapter, stageIndex, DifficultyType.NORMAL)).Forget();
+            SceneLoading.GoToNextScene("InGame",
+                ((IGameStateUI) new InGameMainStateUIStageUI(), chapter, stageIndex, DifficultyType.NORMAL)).Forget();
         }
     }
 }

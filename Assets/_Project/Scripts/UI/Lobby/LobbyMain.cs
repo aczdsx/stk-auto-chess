@@ -116,7 +116,9 @@ namespace CookApps.AutoBattler
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
 
             // 전투 진행
-            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(null);
+            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
+            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(stageSpecData);
 
             // 방치 보상 갱신
             SetIdleRewardLayer();
@@ -453,7 +455,9 @@ namespace CookApps.AutoBattler
                 // 스테이지 진입
                 InGameManager.Instance.EndInGame();
                 SceneTransition_Animator transition = SceneTransition_Animator.Create();
-                SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type), transition).Forget();
+                SceneLoading.GoToNextScene("InGame",
+                    ((IGameStateUI) new InGameMainStateUIStageUI(),(int) currentStageData.stage_id),
+                    transition).Forget();
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             }
