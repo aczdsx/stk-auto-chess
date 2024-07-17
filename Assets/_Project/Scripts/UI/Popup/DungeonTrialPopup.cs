@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
@@ -122,7 +123,7 @@ namespace CookApps.AutoBattler
 
             BMUtil.RemoveChildObjects(_monsterInfoScrollRect.content);
 
-            var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(CurrentUserDungeonData.DungeonId);
+            var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
 
             foreach (var monsterData in monsterDataList)
             {
@@ -138,7 +139,9 @@ namespace CookApps.AutoBattler
 
             BMUtil.RemoveChildObjects(_rewardInfoContentTransform);
 
-            var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(CurrentUserDungeonData.DungeonId);
+            var rewardDataList =
+                SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL,
+                    CurrentUserDungeonData.DungeonId);
 
             foreach (var rewardData in rewardDataList)
             {

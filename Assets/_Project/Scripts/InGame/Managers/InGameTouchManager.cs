@@ -418,7 +418,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         ActiveAttackTile(character.CurrentTile, character.AttackRange);
         _selectedFirstTileView = _selectedTileView;
         _selectedCharacterController.SetSelectedCharacter(true);
-        InGameMain.GetInGameMain().ReturnObjectActive(true);
         InGameMain.GetInGameMain().SetFocusSlot(character.GetCharacterStat().Spec);
 
         InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
@@ -429,7 +428,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_selectedCharacterController != null)
         {
             _selectedCharacterController.SetSelectedCharacter(false);
-            InGameMain.GetInGameMain().ReturnObjectActive(false);
             InActiveAttackTile();
             _attackRangeTileList.Clear();
             _selectedCharacterController = null;

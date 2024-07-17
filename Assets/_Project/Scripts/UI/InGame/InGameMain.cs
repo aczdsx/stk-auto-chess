@@ -13,12 +13,6 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    class InGameData
-    {
-        private int stageId;
-        // char///
-    }
-
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
@@ -30,7 +24,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private Animator _sceneAnimator;
         [SerializeField] private Material _chapter1VignetteMaterial; // [TODO] 임시 작업
         [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
-        [SerializeField] private Image _commanderBgImage;
 
         private float _updateTimer = 0f;
         private float _inGameTime = 0f;
@@ -40,16 +33,6 @@ namespace CookApps.AutoBattler
         public static InGameMain GetInGameMain()
         {
             return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
-        }
-
-        public void ReturnObjectActive(bool active)
-        {
-            // _inGameBottomCharacterUI.ReturnObjectActive(active);
-        }
-
-        public void ReturnObjectColorChange(bool active)
-        {
-            // _inGameBottomCharacterUI.ReturnObjectColorChange(active);
         }
 
         public void ReturnCharacter(CharacterController characterController)
@@ -164,12 +147,6 @@ namespace CookApps.AutoBattler
         public void UpdateCommanderSkillCoolTime()
         {
             _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
-        }
-
-        public void SetIconColor(float fadeAlpha)
-        {
-            _commanderBgImage.color = new Color(0, 0, 0, fadeAlpha);
-            // _inGameBottomCharacterUI.SetIconColor(fadeAlpha);
         }
 
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
