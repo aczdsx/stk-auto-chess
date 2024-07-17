@@ -9,7 +9,7 @@ public static class AppEventStringConst
     public const string COUNTRY = "country";
 
     // 앱 이벤트 이름
-
+    public const string STAGE_CLEAR = "STAGE_CLEAR";
 
     // 앱 이벤트 파라미터
     public const string AMOUNT = "amount";
@@ -19,4 +19,10 @@ public static class AppEventStringConst
     public const string TYPE = "type";
     public const string DEFAULT = "default";
     public const string ID = "id";
+    public const string STAGE_ID = "stage_id";
+    public const string CHAPTER_ID = "chapter_id";
+    public const string STAGE_NUMBER = "stage_number";
+    public const string STAGE_TYPE = "stage_type";
+    public const string STAGE_STAR = "stage_star";
+    public const string IS_WIN = "is_win";
 }
