@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 public class EffectCodeBuffAbilUp : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.BUFF_AP_PERCENT_UP;
-    [Obsolete] private const BuffDebuffType buffDebuffType = BuffDebuffType.AbilityPowerUp; //
+    [Obsolete] private const BuffDebuffType buffDebuffType = BuffDebuffType.AbilityPowerUp;
     private List<BuffStackData> stackDatas = new();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

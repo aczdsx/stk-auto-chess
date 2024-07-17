@@ -82,8 +82,9 @@ namespace CookApps.BattleSystem
                     var effectCodeID = (long)EffectCodeNameType.BUFF_AP_PERCENT_UP;
                     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats); // 근데 이펙트 코드는 Struct이다.
 
+                    // TODO!! 임시 VFX 확인용!!!
                     var ingameBuffVFX = InGameVfxManager.Instance.AddInGameVfx(
-                        InGameEnumExtensions.GetLoopVfxName(BuffDebuffType.AbilityPowerUp),
+                        InGameEnumExtensions.GetLoopVfxName(BuffDebuffType.CoolTimeDown),
                         character.SkillRootTransformFollowable);
 
                     var addBuffInfo = new BuffInfo(effectCodeInfo, ingameBuffVFX);
@@ -91,7 +92,7 @@ namespace CookApps.BattleSystem
                     _characterByEffectCode.Add(character.CharacterId, addBuffInfo);
                     character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null); // Null 에러 발생
 
-                    InGameEnumExtensions.GetSoundFx(BuffDebuffType.AbilityPowerUp);
+                    // InGameEnumExtensions.GetSoundFx(BuffDebuffType.AbilityPowerUp);
                     Debug.LogWarning(
                         $"{character.CharacterId} + 버프 추가! | {addBuffInfo.Vfx.name} : 이펙트! | 마법 공격력 : {character.AP}");
                 }

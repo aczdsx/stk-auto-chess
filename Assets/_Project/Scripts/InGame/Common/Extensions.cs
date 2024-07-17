@@ -6,16 +6,13 @@ namespace CookApps.BattleSystem
 {
     public static class InGameEnumExtensions
     {
-        private static Dictionary<int, string> cachedAnimKeyStringMap = new ();
-        private static Dictionary<string, int> cachedAnimStringKeyMap = new ();
+        private static Dictionary<int, string> cachedAnimKeyStringMap = new();
+        private static Dictionary<string, int> cachedAnimStringKeyMap = new();
 
         public static string ToAnimationName(this AnimationKey key)
         {
-            var index = (int) key;
-            if (!cachedAnimKeyStringMap.ContainsKey(index))
-            {
-                cachedAnimKeyStringMap.Add(index, key.ToString());
-            }
+            var index = (int)key;
+            if (!cachedAnimKeyStringMap.ContainsKey(index)) cachedAnimKeyStringMap.Add(index, key.ToString());
 
             return cachedAnimKeyStringMap[index];
         }
@@ -23,22 +20,18 @@ namespace CookApps.BattleSystem
         public static AnimationKey ToAnimationKey(this string name)
         {
             if (!cachedAnimStringKeyMap.ContainsKey(name))
-            {
-                cachedAnimStringKeyMap.Add(name, (int) Enum.Parse(typeof(AnimationKey), name));
-            }
+                cachedAnimStringKeyMap.Add(name, (int)Enum.Parse(typeof(AnimationKey), name));
 
-            return (AnimationKey) cachedAnimStringKeyMap[name];
+            return (AnimationKey)cachedAnimStringKeyMap[name];
         }
 
-        private static Dictionary<int, string> cachedInGameVfxAnimKeyStringMap = new ();
+        private static Dictionary<int, string> cachedInGameVfxAnimKeyStringMap = new();
 
         public static string ToAnimationName(this InGameVfxAnimationKey key)
         {
-            var index = (int) key;
+            var index = (int)key;
             if (!cachedInGameVfxAnimKeyStringMap.ContainsKey(index))
-            {
                 cachedInGameVfxAnimKeyStringMap.Add(index, key.ToString());
-            }
 
             return cachedInGameVfxAnimKeyStringMap[index];
         }
@@ -48,7 +41,7 @@ namespace CookApps.BattleSystem
             return type switch
             {
                 // BuffDebuffType.Meditation => "",
-                BuffDebuffType.Shield =>InGameVfxNameType.fx_common_buff_shield_01,
+                BuffDebuffType.Shield => InGameVfxNameType.fx_common_buff_shield_01,
                 // BuffDebuffType.Bleeding => "",
                 // BuffDebuffType.Poison => "",
                 // BuffDebuffType.Burn => "",
@@ -56,6 +49,8 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.AttackDown => InGameVfxNameType.fx_common_debuff_atkdown_01,
                 BuffDebuffType.AttackSpeedUp => InGameVfxNameType.fx_common_buff_spdup_01,
                 BuffDebuffType.CoolTimeUp => InGameVfxNameType.fx_common_buff_ctdown_01,
+                BuffDebuffType.AbilityPowerUp => InGameVfxNameType.fx_common_buff_ctdown_01, // TODO 임시 추가된 버프
+                BuffDebuffType.DefenceUp => InGameVfxNameType.fx_common_buff_shield_01, // TODO 임시 추가된 버프
                 // BuffDebuffType.DefenceUp => "",
                 // BuffDebuffType.ResistanceUp => "",
                 // BuffDebuffType.AttackDown => "",
@@ -83,7 +78,7 @@ namespace CookApps.BattleSystem
             return type switch
             {
                 // BuffDebuffType.Meditation => "",
-                BuffDebuffType.Shield =>SoundFX.snd_sfx_ingame_shield,
+                BuffDebuffType.Shield => SoundFX.snd_sfx_ingame_shield,
                 // BuffDebuffType.Bleeding => "",
                 // BuffDebuffType.Poison => "",
                 // BuffDebuffType.Burn => "",
@@ -118,7 +113,7 @@ namespace CookApps.BattleSystem
             return type switch
             {
                 // BuffDebuffType.Meditation => "",
-                BuffDebuffType.Shield =>  InGameVfxNameType.fx_common_buff_shield_02,
+                BuffDebuffType.Shield => InGameVfxNameType.fx_common_buff_shield_02,
                 // BuffDebuffType.Bleeding => "",
                 // BuffDebuffType.Poison => "",
                 // BuffDebuffType.Burn => "",
@@ -126,7 +121,7 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.AttackDown => InGameVfxNameType.fx_common_debuff_atkdown_02,
                 BuffDebuffType.AttackSpeedUp => InGameVfxNameType.fx_common_buff_spdup_02,
                 BuffDebuffType.CoolTimeUp => InGameVfxNameType.fx_common_buff_ctdown_02,
-                // BuffDebuffType.DefenceUp => "",
+                // BuffDebuffType.DefenceUp => ""
                 // BuffDebuffType.ResistanceUp => "",
                 // BuffDebuffType.AttackDown => "",
                 // BuffDebuffType.DefenceDown => "",
