@@ -44,43 +44,43 @@ namespace CookApps.AutoBattler
 		public List<SpecPVPDummy> SpecPVPDummyList {get; private set;}
 		public List<SpecReward> SpecRewardList {get; private set;}
 
-	private void GenerateCacheSpecData()
-	{
-		SpecChestList = SpecChest.All.ToList();
-		SpecAccountLevelExpList = SpecAccountLevelExp.All.ToList();
-		SpecChapterList = SpecChapter.All.ToList();
-		SpecCharacterList = SpecCharacter.All.ToList();
-		SpecCharacterLevelExpList = SpecCharacterLevelExp.All.ToList();
-		SpecCharacterTranscendenceList = SpecCharacterTranscendence.All.ToList();
-		SpecCharacterEnhanceList = SpecCharacterEnhance.All.ToList();
-		SpecCharacterQuotesList = SpecCharacterQuotes.All.ToList();
-		SpecCommanderSkillList = SpecCommanderSkill.All.ToList();
-		SpecDialogueList = SpecDialogue.All.ToList();
-		SpecEventList = SpecEvent.All.ToList();
-		SpecEventConditionList = SpecEventCondition.All.ToList();
-		SpecLanguageList = SpecLanguage.All.ToList();
-		SpecGameConfigList = SpecGameConfig.All.ToList();
-		SpecGachaScenarioList = SpecGachaScenario.All.ToList();
-		SpecGuideMissionList = SpecGuideMission.All.ToList();
-		SpecQuestList = SpecQuest.All.ToList();
-		SpecSkillList = SpecSkill.All.ToList();
-		SpecStageList = SpecStage.All.ToList();
-		SpecStageMonsterList = SpecStageMonster.All.ToList();
-		SpecStageRewardList = SpecStageReward.All.ToList();
-		SpecDungeonTrialList = SpecDungeonTrial.All.ToList();
-		SpecDungeonMonsterList = SpecDungeonMonster.All.ToList();
-		SpecDungeonRewardList = SpecDungeonReward.All.ToList();
-		SpecSynergyList = SpecSynergy.All.ToList();
-		SpecTutorialList = SpecTutorial.All.ToList();
-		SpecItemList = SpecItem.All.ToList();
-		SpecIdleRewardList = SpecIdleReward.All.ToList();
-		SpecInGameVfxList = SpecInGameVfx.All.ToList();
-		SpecRewardInfoList = SpecRewardInfo.All.ToList();
-		SpecPVPConfigList = SpecPVPConfig.All.ToList();
-		SpecPVPTierList = SpecPVPTier.All.ToList();
-		SpecPVPRankingList = SpecPVPRanking.All.ToList();
-		SpecPVPDummyList = SpecPVPDummy.All.ToList();
-		SpecRewardList = SpecReward.All.ToList();
-	}
+		private void GenerateCacheSpecData()
+		{
+			SpecChestList = SpecChest.All.ToList();
+			SpecAccountLevelExpList = SpecAccountLevelExp.All.ToList();
+			SpecChapterList = SpecChapter.All.ToList();
+			SpecCharacterList = SpecCharacter.All.ToList();
+			SpecCharacterLevelExpList = SpecCharacterLevelExp.All.ToList();
+			SpecCharacterTranscendenceList = SpecCharacterTranscendence.All.ToList();
+			SpecCharacterEnhanceList = SpecCharacterEnhance.All.ToList();
+			SpecCharacterQuotesList = SpecCharacterQuotes.All.ToList();
+			SpecCommanderSkillList = SpecCommanderSkill.All.ToList();
+			SpecDialogueList = SpecDialogue.All.ToList();
+			SpecEventList = SpecEvent.All.ToList();
+			SpecEventConditionList = SpecEventCondition.All.ToList();
+			SpecLanguageList = SpecLanguage.All.ToList();
+			SpecGameConfigList = SpecGameConfig.All.ToList();
+			SpecGachaScenarioList = SpecGachaScenario.All.ToList();
+			SpecGuideMissionList = SpecGuideMission.All.ToList();
+			SpecQuestList = SpecQuest.All.ToList();
+			SpecSkillList = SpecSkill.All.ToList();
+			SpecStageList = SpecStage.All.ToList();
+			SpecStageMonsterList = SpecStageMonster.All.ToList();
+			SpecStageRewardList = SpecStageReward.All.ToList();
+			SpecDungeonTrialList = SpecDungeonTrial.All.ToList();
+			SpecDungeonMonsterList = SpecDungeonMonster.All.ToList();
+			SpecDungeonRewardList = SpecDungeonReward.All.ToList();
+			SpecSynergyList = SpecSynergy.All.ToList();
+			SpecTutorialList = SpecTutorial.All.ToList();
+			SpecItemList = SpecItem.All.ToList();
+			SpecIdleRewardList = SpecIdleReward.All.ToList();
+			SpecInGameVfxList = SpecInGameVfx.All.ToList();
+			SpecRewardInfoList = SpecRewardInfo.All.ToList();
+			SpecPVPConfigList = SpecPVPConfig.All.ToList();
+			SpecPVPTierList = SpecPVPTier.All.ToList();
+			SpecPVPRankingList = SpecPVPRanking.All.ToList();
+			SpecPVPDummyList = SpecPVPDummy.All.ToList();
+			SpecRewardList = SpecReward.All.ToList();
+		}
 	}
 }

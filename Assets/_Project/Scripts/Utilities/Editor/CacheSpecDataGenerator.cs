@@ -56,15 +56,15 @@ public class CacheSpecDataGenerator : Editor
 
         sb.AppendLine();
 
-        sb.AppendLine("\tprivate void GenerateCacheSpecData()");
-        sb.AppendLine("\t{");
+        sb.AppendLine("\t\tprivate void GenerateCacheSpecData()");
+        sb.AppendLine("\t\t{");
 
         for (int i = 0; i < sheetList.Count; ++i)
         {
-            sb.AppendLine("\t\t" + sheetList[i] + " = " + sheetList2[i] + ".All.ToList();");
+            sb.AppendLine("\t\t\t" + sheetList[i] + " = " + sheetList2[i] + ".All.ToList();");
         }
 
-        sb.AppendLine("\t}");
+        sb.AppendLine("\t\t}");
 
         sb.AppendLine("\t}");
 
