@@ -9,7 +9,6 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
 {
     public const int CodeId = (int) EffectCodeNameType.DEBUFF_FIRE;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.Burn;
-    private List<BuffStackData> stackDatas = new List<BuffStackData>();
 
     private float elapsedTime = 0f;
     private float updateInterval = 1f;
@@ -21,7 +20,7 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
         _characterController = InGameObjectManager.Instance.GetCharacterInField(ownerUID);
 
         base.Initialize(codeInfo, container, source);
-        stackDatas = ListPool<BuffStackData>.Get();
+        _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             sourceCodeId: codeInfo.GetCodeStatToInt(0),
@@ -29,8 +28,9 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
             value: codeInfo.GetCodeStat(2),
             source: source
         );
-        stackDatas.Add(buffStackData);
+        _stackDatas.Add(buffStackData);
         owner.AddBuffDebuffType(buffDebuffType);
+        owner.AddBuffStackData(CodeId, buffStackData);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -38,7 +38,7 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
         base.Merge(codeInfo, source);
 
         var hasSameSource = false;
-        foreach (var stackData in stackDatas)
+        foreach (var stackData in _stackDatas)
         {
             if (stackData.sourceCodeId == codeInfo.GetCodeStatToInt(0))
             {
@@ -57,7 +57,7 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
         if (hasSameSource)
             return;
 
-        stackDatas = ListPool<BuffStackData>.Get();
+        _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             sourceCodeId: codeInfo.GetCodeStatToInt(0),
@@ -65,18 +65,19 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
             value: codeInfo.GetCodeStat(2),
             source: source
         );
-        stackDatas.Add(buffStackData);
+        _stackDatas.Add(buffStackData);
+        owner.AddBuffStackData(CodeId, buffStackData);
     }
 
     public override bool TryRemoveWithSource(IEffectCodeSource source)
     {
         var isRemoved = false;
-        for (int i = 0; i < stackDatas.Count; i++)
+        for (int i = 0; i < _stackDatas.Count; i++)
         {
-            if (stackDatas[i].source == source)
+            if (_stackDatas[i].source == source)
             {
-                GenericPool<BuffStackData>.Release(stackDatas[i]);
-                stackDatas[i] = null;
+                GenericPool<BuffStackData>.Release(_stackDatas[i]);
+                _stackDatas[i] = null;
                 isRemoved = true;
             }
         }
@@ -95,7 +96,7 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
         {
             elapsedTime = 0f;
 
-            foreach (var data in stackDatas)
+            foreach (var data in _stackDatas)
             {
                 var damage = owner.PrecalculateDamageAmount(_characterController.AD * data.value, 0, owner, codeId, true);
                 _characterController.PostCalculateDamageAmount(ref damage, owner);
@@ -104,26 +105,27 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
         }
 
         bool needRemove = false;
-        for (int i = 0; i < stackDatas.Count; i++)
+        for (int i = 0; i < _stackDatas.Count; i++)
         {
-            if (stackDatas[i] == null)
+            if (_stackDatas[i] == null)
             {
                 needRemove = true;
                 continue;
             }
 
-            if (stackDatas[i].AddDeltaTime(dt))
+            if (_stackDatas[i].AddDeltaTime(dt))
             {
-                GenericPool<BuffStackData>.Release(stackDatas[i]);
-                stackDatas[i] = null;
+                owner.RemoveBuffStackData(_stackDatas[i]);
+                GenericPool<BuffStackData>.Release(_stackDatas[i]);
+                _stackDatas[i] = null;
                 needRemove = true;
             }
         }
 
         if (needRemove)
         {
-            stackDatas.RemoveAll(NullChecker<BuffStackData>.NullCheck);
-            if (stackDatas.Count <= 0)
+            _stackDatas.RemoveAll(NullChecker<BuffStackData>.NullCheck);
+            if (_stackDatas.Count <= 0)
             {
                 RemoveFromContainer();
             }
@@ -135,7 +137,8 @@ public class EffectCodeDebuffBurn : EffectCodeBuffBase
     public override void OnPreRemoved()
     {
         owner.RemoveBuffDebuffType(buffDebuffType);
+        owner.RemoveBuffStackData(codeId);
         base.OnPreRemoved();
-        ListPool<BuffStackData>.Release(stackDatas);
+        ListPool<BuffStackData>.Release(_stackDatas);
     }
 }

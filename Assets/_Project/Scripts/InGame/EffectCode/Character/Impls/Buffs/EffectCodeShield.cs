@@ -11,7 +11,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
 {
     public const int CodeId = (int)EffectCodeNameType.SHIELD;
 
-    private class ShieldData
+    public class ShieldData
     {
         public ObfuscatorFloat elapsedTime;
         public ObfuscatorFloat buffDuration;
@@ -25,6 +25,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
     }
 
     private List<ShieldData> shields = null;
+    public List<ShieldData> Shields => shields;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -32,8 +33,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         shields = ListPool<ShieldData>.Get();
         var effectCodes = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyShieldAmount);
         var shieldAmount = codeInfo.GetCodeStat(1);
-        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes,
-            EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
+        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
 
         var shieldData = GenericPool<ShieldData>.Get();
         shieldData.elapsedTime = 0f;
@@ -42,6 +42,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         shields.Add(shieldData);
 
         owner.AddBuffDebuffType(BuffDebuffType.Shield);
+        owner.UpdateHpBar();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -50,27 +51,29 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         var effectCodes = container.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyShieldAmount);
         var shieldAmount = codeInfo.GetCodeStat(1);
 
-        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes,
-            EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
+        shieldAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyShieldAmountLambda, shieldAmount);
 
         var shieldData = GenericPool<ShieldData>.Get();
         shieldData.elapsedTime = 0f;
         shieldData.buffDuration = codeInfo.GetCodeStatToFloat(0);
         shieldData.shieldAmount = shieldAmount;
         shields.Add(shieldData);
+
+        owner.UpdateHpBar();
     }
 
     public override void OnPreRemoved()
     {
         owner.RemoveBuffDebuffType(BuffDebuffType.Shield);
+        owner.UpdateHpBar();
         base.OnPreRemoved();
         ListPool<ShieldData>.Release(shields);
     }
 
     public override void OnUpdate(float dt)
     {
-        var needRemove = false;
-        for (var i = 0; i < shields.Count; i++)
+        bool needRemove = false;
+        for (int i = 0; i < shields.Count; i++)
         {
             if (shields[i] == null)
             {
@@ -89,15 +92,18 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         if (needRemove)
         {
             shields.RemoveAll(NullChecker<ShieldData>.NullCheck);
-            if (shields.Count <= 0) RemoveFromContainer();
+            if (shields.Count <= 0)
+            {
+                RemoveFromContainer();
+            }
         }
     }
 
     public override double OnDamaged(double damageAmount, CharacterController attacker, bool isPure)
     {
-        var originDamageAmount = damageAmount;
-        var hasShield = false;
-        for (var i = 0; i < shields.Count; i++)
+        double originDamageAmount = damageAmount;
+        bool hasShield = false;
+        for (int i = 0; i < shields.Count; i++)
         {
             if (shields[i] == null)
                 continue;
@@ -125,10 +131,5 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         owner.ShowShieldText(reducedAmount).Forget();
 
         return damageAmount;
-    }
-
-    public override bool IsNeedToShowIcon()
-    {
-        return false;
     }
 }
