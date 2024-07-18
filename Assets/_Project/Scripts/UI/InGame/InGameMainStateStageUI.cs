@@ -34,8 +34,10 @@ namespace CookApps.AutoBattler
             var bottomUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Bottom.prefab").Task;
 
             _InGameTopUI = GameObject.Instantiate(topUIObj, canvasTransform).GetComponent<InGameTopUI>();
+            _InGameTopUI.transform.SetSiblingIndex(2);
             _inGameBottomCharacterUI = GameObject.Instantiate(bottomUIObj, canvasTransform)
                 .GetComponent<InGameBottomCharacterUI>();
+            _inGameBottomCharacterUI.transform.SetSiblingIndex(3);
 
             _specStage = SpecDataManager.Instance.GetStageData(id);
             _InGameTopUI.SetStageName($"스테이지 {_specStage.chapter_id}-{_specStage.stage_number}");

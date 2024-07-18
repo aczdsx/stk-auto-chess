@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
             {
                 var dungeonData = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
                 StagePrefab =
-                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Stage{dungeonData.dungeon_id}.prefab");
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Trial{dungeonData.dungeon_id}.prefab");
             }
         }
 

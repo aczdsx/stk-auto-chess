@@ -3,92 +3,143 @@ using Cookapps.Autobattleproject.V1;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
     public class InGameMainStateTrialDungeonUI : IGameStateUI
     {
-        private SpecDungeonTrial _specDungeonTrial;
+        private InGameTopUI _InGameTopUI;
+        private InGameBottomCharacterUI _inGameBottomCharacterUI;
+        private SpecStage _specStage;
 
-        public void SetInGameBottomUI()
-        {
-        }
+        private float _updateTimer = 0f;
+        private const float UpdateInterval = 0.3f;
+        private const float InGameMaxTime = 60f;
 
         public void RefreshInGameTopUI()
         {
+            InGameObjectManager.Instance.ClearSynergyFx();
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Player, true);
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, true);
+
+            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
+            _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
         }
 
-        public UniTask Initialize(Transform canvasTransform, int id)
+        public async UniTask Initialize(Transform canvasTransform, int id)
         {
-            _specDungeonTrial = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
-            InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specDungeonTrial, _specDungeonTrial);
+            var topUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Top.prefab").Task;
+            var bottomUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Bottom.prefab").Task;
 
-            return UniTask.CompletedTask;
+            _InGameTopUI = GameObject.Instantiate(topUIObj, canvasTransform).GetComponent<InGameTopUI>();
+            _inGameBottomCharacterUI = GameObject.Instantiate(bottomUIObj, canvasTransform)
+                .GetComponent<InGameBottomCharacterUI>();
+
+            _specStage = SpecDataManager.Instance.GetStageData(id);
+            _InGameTopUI.SetStageName($"스테이지 {_specStage.chapter_id}-{_specStage.stage_number}");
+
+            InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage, _specStage);
+
+            // 최근 플레이 스테이지 저장
+            UserDataManager.Instance.SetLastPlayStageID(_specStage.stage_id, true);
+
+            // 유저 레벨업 체크용 이전 레벨 데이터 저장
+            UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
+
+            PlayBGM();
+            InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
         }
 
         public void ReturnCharacter(CharacterController characterController)
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.ReturnCharacter(characterController);
+            InGameManager.Instance.UpdateSynergyAndAttr();
         }
 
         public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.AddCharacter(battleDeckList);
         }
 
         public void SetInGameBottomUIInGuide()
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.CheckNewCharacter();
         }
 
         public void ManagedUpdate(float dt)
         {
-            throw new System.NotImplementedException();
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+            {
+                _updateTimer += dt;
+                InGameMain.GetInGameMain().SetInGameTime(InGameMain.GetInGameMain().InGameTime - dt);
+
+                if (_updateTimer >= UpdateInterval)
+                {
+                    _InGameTopUI.UpdateTopHpUI(AllianceType.Player);
+                    _InGameTopUI.UpdateTopHpUI(AllianceType.Enemy);
+                    _InGameTopUI.UpdateTimeUI(InGameMain.GetInGameMain().InGameTime);
+
+                    _updateTimer -= UpdateInterval;
+                }
+            }
         }
 
         public void SetReadyUI()
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.InitData();
+            RefreshInGameTopUI();
+            InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
+
+            // 다이얼로그 체크
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());
         }
 
         public void UpdateCommanderSkillCoolTime()
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
         }
 
         public void SetFocusSlot(SpecCharacter spec)
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.SetFocusCharacter(spec);
         }
 
         public void UnSetFocusSlot(bool isDropFx)
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.UnSetFocusCharacter(isDropFx);
         }
 
         public void SetCombatUI()
         {
-            throw new System.NotImplementedException();
+            _InGameTopUI.SetCombatUI();
         }
 
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
-            throw new System.NotImplementedException();
+            _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
 
         public int GetVignetteID()
         {
-            throw new System.NotImplementedException();
+            return _specStage.chapter_id - 1;
         }
 
-        public void PlayBGM()
+        private void PlayBGM()
         {
-        }
-
-        public string GetStageName()
-        {
-            throw new System.NotImplementedException();
+            switch (_specStage.chapter_id)
+            {
+                case 1:
+                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter0);
+                    break;
+                case 2:
+                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter1);
+                    break;
+                case 3:
+                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter2);
+                    break;
+            }
         }
     }
 }
