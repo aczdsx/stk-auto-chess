@@ -483,7 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 34
-    m_Right: 28
+    m_Right: 80
     m_Top: 19
     m_Bottom: 0
   m_ChildAlignment: 1
@@ -965,8 +965,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 1.5, y: 30}
-  m_SizeDelta: {x: -63, y: 74}
+  m_AnchoredPosition: {x: -21, y: 30}
+  m_SizeDelta: {x: -78, y: 74}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &8403957007489468583
 GameObject:
