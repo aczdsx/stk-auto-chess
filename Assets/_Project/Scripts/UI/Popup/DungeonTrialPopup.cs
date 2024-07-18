@@ -192,7 +192,7 @@ namespace CookApps.AutoBattler
             // todo.. 던전 입장 처리
 
             SceneLoading.GoToNextScene("InGame",
-                ((IGameStateUI) new InGameMainStateTrialDungeonUI(), (int)_specDungeonTrialData.dungeon_id)).Forget();
+                (InGameType.TRIAL, (IGameStateUI) new InGameMainStateTrialDungeonUI(), (int)_specDungeonTrialData.dungeon_id)).Forget();
         }
 
         private void OnClickCloseButton()

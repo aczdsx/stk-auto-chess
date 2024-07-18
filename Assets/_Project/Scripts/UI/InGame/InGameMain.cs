@@ -15,56 +15,50 @@ namespace CookApps.AutoBattler
 {
     public interface IGameStateUI
     {
-        void SetInGameBottomUI();
-        void SetInGameTopUI();
-        void Initialize(int id);
-        void PlayBGM();
-        string GetStageName();
+        void RefreshInGameTopUI();
+        UniTask Initialize(Transform canvasTransform, int id);
+        void ReturnCharacter(CharacterController characterController);
+        void AddCharacter(List<UserCharacterBattleDeck> battleDeckList);
+        void SetInGameBottomUIInGuide();
+        void ManagedUpdate(float dt);
+        void SetReadyUI();
+        void UpdateCommanderSkillCoolTime();
+        void SetFocusSlot(SpecCharacter spec);
+        void UnSetFocusSlot(bool isDropFx);
+        void SetCombatUI();
+        void SetCommanderSkillUI(int index, int equippedCommanderSkillId);
+        int GetVignetteID();
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
         public float InGameTime => _inGameTime;
-        [SerializeField] private InGameTopUI _InGameTopUI;
-        [SerializeField] private InGameBottomCharacterUI _inGameBottomCharacterUI;
-        [SerializeField] private List<Color> _stageVignetteColorList;
+
+        [SerializeField] private Transform _canvasTransform;
         [SerializeField] private RawImage _vignetteImage;
         [SerializeField] private Animator _sceneAnimator;
-        [SerializeField] private Material _chapter1VignetteMaterial; // [TODO] 임시 작업
-        [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
 
-        private float _updateTimer = 0f;
+        [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
+        [SerializeField] private VignetteSO _vignetteData;
+
         private float _inGameTime = 0f;
-        private const float UpdateInterval = 0.3f;
-        private const float InGameMaxTime = 60f;
         private IGameStateUI _currentGameStateUI;
+        private InGameType _inGameType;
 
         public static InGameMain GetInGameMain()
         {
             return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
         }
 
-        public void ReturnCharacter(CharacterController characterController)
-        {
-            _inGameBottomCharacterUI.ReturnCharacter(characterController);
-            InGameManager.Instance.UpdateSynergyAndAttr();
-        }
-
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
 
-            (IGameStateUI gameState, int id) = ((IGameStateUI, int)) param;
+            (InGameType inGameType, IGameStateUI gameState, int id) = ((InGameType, IGameStateUI, int)) param;
+            _inGameType = inGameType;
             _currentGameStateUI = gameState;
-            _currentGameStateUI.Initialize(id);
-            _InGameTopUI.SetStageName(_currentGameStateUI.GetStageName());
-            _currentGameStateUI.PlayBGM();
-
-            // [TODO] stage에서만 되도록 작업 필요
-            // _vignetteImage.material = (chapter == 1) ? _chapter1VignetteMaterial : _defaultVignetteMaterial;
-            // _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[chapter - 1]);
-
+            _currentGameStateUI.Initialize(_canvasTransform, id).Forget();
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
         }
 
@@ -74,14 +68,27 @@ namespace CookApps.AutoBattler
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
         }
 
-        private void SetInGameBottomUI()
+        public void OpenStatisticPop()
         {
-            _inGameBottomCharacterUI.InitData();
+            bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
+            if (isOpenStatisticPop)
+                SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
         }
 
-        public void SetInGameBottomUIInGuide()
+        public void ShowSKillTooltip(CharacterStatData getCharacterStat)
         {
-            _inGameBottomCharacterUI.CheckNewCharacter();
+            if (getCharacterStat == null) return;
+            if (_skillTooltipPopup == null) return;
+
+            var specSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(getCharacterStat.Spec.prefab_id);
+            if (specSkillList != null && specSkillList.Count > 0)
+            {
+                var skillData = specSkillList[0];
+
+                _skillTooltipPopup.gameObject.SetActive(true);
+
+                _skillTooltipPopup.SetSkillToolTipPopup(skillData);
+            }
         }
 
         public void PlaySceneAnimation(string name)
@@ -89,86 +96,76 @@ namespace CookApps.AutoBattler
             _sceneAnimator.SetTrigger(name);
         }
 
+        public void CloseSkillTooltip()
+        {
+            _skillTooltipPopup?.gameObject.SetActive(false);
+        }
+
+        public void SetInGameTime(float time)
+        {
+            _inGameTime = time;
+        }
+
+        public void SetVignette(int id)
+        {
+            var vignette = _vignetteData.stageColors.FirstOrDefault(x => x.InGameType == _inGameType && x.ID == id);
+            _vignetteImage.material = vignette.Material;
+            _vignetteImage.material.SetColor("_DotColor", vignette.Color);
+        }
+
+        public void ReturnCharacter(CharacterController characterController)
+        {
+            _currentGameStateUI.ReturnCharacter(characterController);
+        }
+
+        public void SetInGameBottomUIInGuide()
+        {
+            _currentGameStateUI.SetInGameBottomUIInGuide();
+        }
+
         public void SetReadyUI()
         {
-            SetInGameBottomUI();
-            SetInGameTopUI();
-            _inGameTime = InGameMaxTime;
-
-            // 다이얼로그 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());
+            _currentGameStateUI.SetReadyUI();
         }
 
         public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
         {
-            _inGameBottomCharacterUI.AddCharacter(battleDeckList);
+            _currentGameStateUI.AddCharacter(battleDeckList);
         }
-        public void SetInGameTopUI()
-        {
-            InGameObjectManager.Instance.ClearSynergyFx();
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Player, true);
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, true);
 
-            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
-            _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
+        public void RefreshInGameTopUI()
+        {
+            _currentGameStateUI.RefreshInGameTopUI();
         }
 
         private void ManagedUpdate(float dt)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
-            {
-                _updateTimer += dt;
-                _inGameTime -= dt;
-
-                if (_updateTimer >= UpdateInterval)
-                {
-                    _InGameTopUI.UpdateTopHpUI(AllianceType.Player);
-                    _InGameTopUI.UpdateTopHpUI(AllianceType.Enemy);
-                    _InGameTopUI.UpdateTimeUI(_inGameTime);
-
-                    _updateTimer -= UpdateInterval;
-                }
-            }
+            _currentGameStateUI.ManagedUpdate(dt);
         }
 
         public void UpdateCommanderSkillCoolTime()
         {
-            _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
-        }
-
-        public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
-        {
-            _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
-        }
-
-        public void SetFocusSlot(SpecCharacter spec)
-        {
-            _inGameBottomCharacterUI.SetFocusCharacter(spec);
-        }
-
-        public void UnSetFocusSlot(bool isDropFx)
-        {
-            _inGameBottomCharacterUI.UnSetFocusCharacter(isDropFx);
+            _currentGameStateUI.UpdateCommanderSkillCoolTime();
         }
 
         public void SetCombatUI()
         {
-            _InGameTopUI.SetCombatUI();
+            _currentGameStateUI.SetCombatUI();
         }
 
-        public void OpenStatisticPop()
+        public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
-            _inGameBottomCharacterUI.OpenStatisticPop();
+            _currentGameStateUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
 
-        public void ShowSKillTooltip(CharacterStatData getCharacterStat)
+        public void SetFocusSlot(SpecCharacter spec)
         {
-            _inGameBottomCharacterUI.ShowSKillTooltip(getCharacterStat);
+            _currentGameStateUI.SetFocusSlot(spec);
         }
 
-        public void CloseSkillTooltip()
+        public void UnSetFocusSlot(bool isDropFx)
         {
-            _inGameBottomCharacterUI.CloseSkillTooltip();
+            _currentGameStateUI.UnSetFocusSlot(isDropFx);
         }
     }
 }

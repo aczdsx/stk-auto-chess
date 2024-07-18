@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
                     }
 
                     SceneLoading.GoToNextScene("InGame",
-                        ((IGameStateUI) new InGameMainStateUIStageUI(), (int)specStageData.stage_id)).Forget();
+                        (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int)specStageData.stage_id)).Forget();
                 }
                 else
                 {

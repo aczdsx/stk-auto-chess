@@ -1895,14 +1895,8 @@ MonoBehaviour:
   _trialDungeonButton: {fileID: 6612707305023326019}
   _sessionEventButton: {fileID: 244007958178209753}
   _consumeAPEventButton: {fileID: 4450260306717938947}
+  _vignetteData: {fileID: 11400000, guid: 6e525e54f8ab47e43a10ebe4272074f9, type: 2}
   _vignetteImage: {fileID: 5632547169323492497}
-  _stageVignetteColorList:
-  - {r: 0.039215688, g: 0.04705883, b: 0.054901965, a: 1}
-  - {r: 0.69803923, g: 0.28235295, b: 0.10980392, a: 1}
-  - {r: 0.8745098, g: 0.9137255, b: 0.9411765, a: 1}
-  - {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
-  _chapter1VignetteMaterial: {fileID: 2100000, guid: cb66fc5cd88444d44a2942a2244f553a, type: 2}
-  _defaultVignetteMaterial: {fileID: 2100000, guid: a3161629ffcf62f4cb2a0014c848b84f, type: 2}
   _userNameText: {fileID: 1804400419255090806}
   _userLevelText: {fileID: 5241043022816834879}
   _userExpText: {fileID: 7928689309068224391}

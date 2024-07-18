@@ -805,6 +805,55 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecPVPTier
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        public CookApps.Obfuscator.ObfuscatorInt ranking_id;
+        public CookApps.Obfuscator.ObfuscatorInt order;
+        public global::CookApps.AutoBattler.RankingType ranking_type;
+        /// 티어 진입 최소점수
+        public CookApps.Obfuscator.ObfuscatorInt ranking_min;
+        public CookApps.Obfuscator.ObfuscatorInt ranking_max;
+        public string reward_sheet;
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        public string icon_image;
+        public string local_key;
+        public string name_color;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecPvpReward
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        public global::CookApps.AutoBattler.PvpRewardType pvp_reward_type;
+        public CookApps.Obfuscator.ObfuscatorInt ranking_id;
+        public global::CookApps.AutoBattler.ItemType item_type;
+        public CookApps.Obfuscator.ObfuscatorInt item_key;
+        public CookApps.Obfuscator.ObfuscatorInt item_count;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecPVPRanking
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 랭킹 정산 방식
+        public global::CookApps.AutoBattler.RankingType ranking_type;
+        public string ranking_title;
+        public CookApps.Obfuscator.ObfuscatorInt rank_range_start;
+        /// 0 : 나머지 그외 모두
+        public CookApps.Obfuscator.ObfuscatorInt rank_range_end;
+        public string reward_sheet;
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 1: 우편, 2: 팝업으로 직접보상
+        public CookApps.Obfuscator.ObfuscatorInt reward_send_type;
+        public string reward_post_title;
+        public string reward_post_desc;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecPVPConfig
     {
         /// 아이디
@@ -824,46 +873,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt alpha_range;
         /// 추가 최대 검사 횟수
         public CookApps.Obfuscator.ObfuscatorInt alpha_max_iteration;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecPVPTier
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 리워드 타입 (1: 티어 달성보상, 2: 해당 티어 데일리 보상)
-        public CookApps.Obfuscator.ObfuscatorInt reward_type;
-        public CookApps.Obfuscator.ObfuscatorInt ranking_id;
-        /// 티어 진입 최소점수
-        public CookApps.Obfuscator.ObfuscatorInt ranking_min;
-        public string reward_sheet;
-        public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        /// 보상방식 (1: 우편, 2: 팝업으로 직접)
-        public CookApps.Obfuscator.ObfuscatorInt reward_send_type;
-        public string reward_post_title;
-        public string reward_post_desc;
-        public string icon_image;
-        public string local_key;
-        public string name_color;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecPVPRanking
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 1: 지난시즌랭킹보상, 2: 지난시즌티어랭킹보상
-        public CookApps.Obfuscator.ObfuscatorInt reward_type;
-        public CookApps.Obfuscator.ObfuscatorInt ranking_id;
-        public CookApps.Obfuscator.ObfuscatorInt rank_range_start;
-        /// 0 : 나머지 그외 모두
-        public CookApps.Obfuscator.ObfuscatorInt rank_range_end;
-        public string reward_sheet;
-        public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        /// 1: 우편, 2: 팝업으로 직접보상
-        public CookApps.Obfuscator.ObfuscatorInt reward_send_type;
-        public string reward_post_title;
-        public string reward_post_desc;
     }
 
     [GeneratorSpecData]

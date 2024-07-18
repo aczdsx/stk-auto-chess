@@ -415,4 +415,27 @@ namespace CookApps.AutoBattler
         Numeric = 0,
         Percentage = 1,
     }
+
+    public enum RankingType
+    {
+        SCORE = 1,
+        RATE = 2,
+        NUMBER = 3,
+    }
+
+    public enum PvpRewardType
+    {
+        PVP_REWARD_TIER_UP = 1,
+        PVP_REWARD_DAILY = 2,
+        PVP_REWARD_SEASON = 3,
+        PVP_REWARD_VICTORY = 4,
+        PVP_REWARD_LOSE = 5,
+    }
+
+    public enum InGameType
+    {
+        STAGE = 1,
+        TRIAL = 2,
+        PVP = 3,
+    }
 }

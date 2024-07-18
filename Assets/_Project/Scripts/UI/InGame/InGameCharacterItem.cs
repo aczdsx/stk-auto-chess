@@ -80,7 +80,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         Debug.Log("######## Long Pressed ########");
 
-        _parentUI?.ShowSKillTooltip(_statData);
+        InGameMain.GetInGameMain().ShowSKillTooltip(_statData);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -93,7 +93,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         _isPressing = false;
 
-        _parentUI?.CloseSkillTooltip();
+        InGameMain.GetInGameMain().CloseSkillTooltip();
     }
 
     void Update()

@@ -230,7 +230,7 @@ namespace CookApps.AutoBattler
         private void OnClickStartButton()
         {
             SceneLoading.GoToNextScene("InGame",
-                ((IGameStateUI) new InGameMainStateUIStageUI(), chapter, stageIndex, DifficultyType.NORMAL)).Forget();
+                (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), chapter, stageIndex, DifficultyType.NORMAL)).Forget();
         }
     }
 }

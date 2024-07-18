@@ -55,9 +55,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField]
     private ParticleSystem _commanderFx;
 
-    [SerializeField]
-    private SkillTooltipPopup _skillTooltipPopup;
-
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
@@ -338,27 +335,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SetCharacterCountText();
     }
 
-    public void ShowSKillTooltip(CharacterStatData statData)
-    {
-        if (statData == null) return;
-        if (_skillTooltipPopup == null) return;
-
-        var specSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(statData.Spec.prefab_id);
-        if (specSkillList != null && specSkillList.Count > 0)
-        {
-            var skillData = specSkillList[0];
-
-            _skillTooltipPopup.gameObject.SetActive(true);
-
-            _skillTooltipPopup.SetSkillToolTipPopup(skillData);
-        }
-    }
-
-    public void CloseSkillTooltip()
-    {
-        _skillTooltipPopup?.gameObject.SetActive(false);
-    }
-
     private async void AddCharacterToTile(CharacterStatData statData)
     {
         if (_isRunningAddCharacter)
@@ -441,12 +417,5 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 return;
             }
         }
-    }
-
-    public void OpenStatisticPop()
-    {
-        bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
-        if (isOpenStatisticPop)
-            SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
     }
 }
