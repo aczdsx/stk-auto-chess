@@ -2018,8 +2018,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290818732
-  m_fontColor: {r: 0.6728373, g: 0.69996256, b: 0.754717, a: 1}
+    rgba: 4292463815
+  m_fontColor: {r: 0.7809719, g: 0.80139726, b: 0.8490566, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 0
   m_fontColorGradient:
@@ -2892,8 +2892,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291940817
-  m_fontColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
@@ -2963,6 +2963,26 @@ PrefabInstance:
     - target: {fileID: 2133005354839434082, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
       propertyPath: m_Name
       value: TierSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 2831726358272531931, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2831726358272531931, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2831726358272531931, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2831726358272531931, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3269721809607885327, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4601696635596199682, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
       propertyPath: m_SortingLayer
@@ -3046,6 +3066,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6391246409269442381, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582356058175982921, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582356058175982921, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582356058175982921, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582356058175982921, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8243762082456712947, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854537990479321812, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854537990479321812, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854537990479321812, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854537990479321812, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
