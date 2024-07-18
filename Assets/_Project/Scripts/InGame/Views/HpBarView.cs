@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.TeamBattle;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {
@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
 
         [Space]
         [SerializeField] private GameObject _buffObj;
-        [SerializeField] private List<InGameBuffDebuff> _buffDebuffList;
+        [SerializeField] private List<InGameBuffDebuff> _buffDebuffs;
 
         [Space]
         [SerializeField] private GameObject _synergyObj;
@@ -155,19 +155,40 @@ namespace CookApps.AutoBattler
             _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _coolTimeGuage.size.y);
         }
 
-        public void AddBuffIcon(long codeID)
+        public void RestructBuffIcon(IReadOnlyList<(int, BuffStackData)> buffDebuffs)
         {
-            // [TODO] buff, debuff icon 고민 좀만 더...
-            // EffectCodeType type = (EffectCodeType)codeID;
-            // _buffDebuffList.ForEach(renderer =>
-            // {
-            //     if (renderer.sprite == null)
-            //     {
-            //         renderer.sprite = ImageManager.Instance.GetBuffDebuffSprite(type.ToString());
-            //         renderer.gameObject.SetActive(true);
-            //         return;
-            //     }
-            // });
+            // 최상위 3개 버프 아이콘만 보여준다.
+            for (int i = 0; i < 3; i++)
+            {
+                var inGameBuffDebuff = _buffDebuffs[i];
+                inGameBuffDebuff.gameObject.SetActive(false);
+
+                if (i < buffDebuffs.Count)
+                {
+                    int codeID = buffDebuffs[i].Item1;
+                    if (codeID == 0)
+                        continue;
+                    
+                    inGameBuffDebuff.gameObject.SetActive(true);
+                    inGameBuffDebuff.Set(buffDebuffs[i]);
+                }
+            }
+        }
+
+        public void RefreshCoolTimeBuffIcon(out bool isExpired)
+        {
+            isExpired = false;
+
+            foreach (var buffDebuff in _buffDebuffs)
+            {
+                if (buffDebuff.IsWorking == false)
+                    continue;
+
+                bool isBuffExpired = buffDebuff.RefreshCoolTime();
+
+                if (!isExpired && isBuffExpired)
+                    isExpired = true;
+            }
         }
     }
 

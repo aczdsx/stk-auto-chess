@@ -9,12 +9,11 @@ public class EffectCodeDebffAtkSpeedDown : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.AttackSpeedDown;
-    private List<BuffStackData> stackDatas = new List<BuffStackData>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        stackDatas = ListPool<BuffStackData>.Get();
+        _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             sourceCodeId: codeInfo.GetCodeStatToInt(0),
@@ -22,8 +21,9 @@ public class EffectCodeDebffAtkSpeedDown : EffectCodeBuffBase
             value: codeInfo.GetCodeStat(2),
             source: source
         );
-        stackDatas.Add(buffStackData);
+        _stackDatas.Add(buffStackData);
         owner.AddBuffDebuffType(buffDebuffType);
+        owner.AddBuffStackData(CodeId, buffStackData);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -31,7 +31,7 @@ public class EffectCodeDebffAtkSpeedDown : EffectCodeBuffBase
         base.Merge(codeInfo, source);
 
         var hasSameSource = false;
-        foreach (var stackData in stackDatas)
+        foreach (var stackData in _stackDatas)
         {
             if (stackData.sourceCodeId == codeInfo.GetCodeStatToInt(0))
             {
@@ -57,18 +57,19 @@ public class EffectCodeDebffAtkSpeedDown : EffectCodeBuffBase
             value: codeInfo.GetCodeStat(2),
             source: source
         );
-        stackDatas.Add(buffStackData);
+        _stackDatas.Add(buffStackData);
+        owner.AddBuffStackData(CodeId, buffStackData);
     }
 
     public override bool TryRemoveWithSource(IEffectCodeSource source)
     {
         var isRemoved = false;
-        for (int i = 0; i < stackDatas.Count; i++)
+        for (int i = 0; i < _stackDatas.Count; i++)
         {
-            if (stackDatas[i].source == source)
+            if (_stackDatas[i].source == source)
             {
-                GenericPool<BuffStackData>.Release(stackDatas[i]);
-                stackDatas[i] = null;
+                GenericPool<BuffStackData>.Release(_stackDatas[i]);
+                _stackDatas[i] = null;
                 isRemoved = true;
             }
         }
@@ -82,26 +83,27 @@ public class EffectCodeDebffAtkSpeedDown : EffectCodeBuffBase
     public override void OnUpdate(float dt)
     {
         bool needRemove = false;
-        for (int i = 0; i < stackDatas.Count; i++)
+        for (int i = 0; i < _stackDatas.Count; i++)
         {
-            if (stackDatas[i] == null)
+            if (_stackDatas[i] == null)
             {
                 needRemove = true;
                 continue;
             }
 
-            if (stackDatas[i].AddDeltaTime(dt))
+            if (_stackDatas[i].AddDeltaTime(dt))
             {
-                GenericPool<BuffStackData>.Release(stackDatas[i]);
-                stackDatas[i] = null;
+                owner.RemoveBuffStackData(_stackDatas[i]);
+                GenericPool<BuffStackData>.Release(_stackDatas[i]);
+                _stackDatas[i] = null;
                 needRemove = true;
             }
         }
 
         if (needRemove)
         {
-            stackDatas.RemoveAll(NullChecker<BuffStackData>.NullCheck);
-            if (stackDatas.Count <= 0)
+            _stackDatas.RemoveAll(NullChecker<BuffStackData>.NullCheck);
+            if (_stackDatas.Count <= 0)
             {
                 RemoveFromContainer();
             }
@@ -114,16 +116,17 @@ public class EffectCodeDebffAtkSpeedDown : EffectCodeBuffBase
     public override void OnPreRemoved()
     {
         owner.RemoveBuffDebuffType(buffDebuffType);
+        owner.RemoveBuffStackData(codeId);
         base.OnPreRemoved();
-        ListPool<BuffStackData>.Release(stackDatas);
+        ListPool<BuffStackData>.Release(_stackDatas);
     }
 
     public override float GetIncrementPercentAttackSpeed()
     {
         double increaseRate = 0;
-        for (int i = 0; i < stackDatas.Count; i++)
+        for (int i = 0; i < _stackDatas.Count; i++)
         {
-            increaseRate += stackDatas[i]?.value ?? 0;
+            increaseRate += _stackDatas[i]?.value ?? 0;
         }
         return -(float)increaseRate;
     }

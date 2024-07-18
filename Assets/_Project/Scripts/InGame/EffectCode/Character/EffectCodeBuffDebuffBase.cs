@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 
 namespace CookApps.BattleSystem
@@ -6,6 +7,9 @@ namespace CookApps.BattleSystem
     {
         public virtual bool Removable => true;
         public override EffectCodeType Type => EffectCodeType.Character;
+        
+        protected List<BuffStackData> _stackDatas = new List<BuffStackData>();
+        public List<BuffStackData> StackDatas => _stackDatas;
 
         public virtual bool IsNeedToShowIcon()
         {

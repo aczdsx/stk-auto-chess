@@ -181,9 +181,9 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.COMMANDER_SKILL_ATLAS_NAME, $"CommanderSkill_{commanderSkillID}");
         }
 
-        public Sprite GetBuffDebuffSprite(string type)
+        public Sprite GetBuffDebuffSprite(int codeID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_BUFF_DEBUFF_ICON_NAME, $"BuffDebuffIcon_{type}");
+            return AtlasManager.Instance.GetSprite(Defines.CHAR_BUFF_DEBUFF_ICON_NAME, $"BuffDebuffIcon_{codeID}");
         }
 
         public Color GetGradeTypeColor(GradeType GradeType)

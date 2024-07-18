@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Pool;
 
 namespace CookApps.BattleSystem
 {
@@ -120,7 +122,7 @@ namespace CookApps.BattleSystem
                 double shieldAmount = 0d;
                 var effectCodeShield =
                     GetEffectCodeContainer().GetEffectCode(EffectCodeBuffShield.CodeId) as EffectCodeBuffShield;
-                
+
                 if (effectCodeShield == null)
                     return 0d;
 
@@ -141,6 +143,7 @@ namespace CookApps.BattleSystem
 
         private ObfuscatorFloat _atkCoolTime;
 
+        private List<(int codeID, BuffStackData buffStackData)> _buffDebuffs;
         private Dictionary<BuffDebuffType, ObfuscatorInt> _buffDebuffRefCountDict;
         private Dictionary<BuffDebuffType, InGameVfx> _buffDebuffEffectViewDict;
 
@@ -214,6 +217,7 @@ namespace CookApps.BattleSystem
 
                 _view.OnAnimationEvent += OnAnimationEvent;
                 _view.CachedTr.localPosition = position;
+                _buffDebuffs = new();
                 _buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
                 _buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameVfx>();
 
@@ -534,23 +538,14 @@ namespace CookApps.BattleSystem
                 }
             }
 
-            // buff debuff 표시
+            // BuffDebuff 쿨타임
             {
-                // GetHpBarView().ResetBuffIcons();
-                for (var i = 0; i < buffDebuffTypes.Length; i++)
+                GetHpBarView().RefreshCoolTimeBuffIcon(out bool isExpired);
+
+                if (isExpired)
                 {
-                    var effectCodes = ecc.GetEffectCodesByType(buffDebuffTypes[i]);
-                    foreach (var effectCode in effectCodes)
-                    {
-                        if (!(effectCode is EffectCodeBuffDebuffBase buffDebuffEffectCode))
-                            continue;
-                        if (!buffDebuffEffectCode.IsNeedToShowIcon())
-                            continue;
-                        var buffCodeID = effectCode.CodeId;
-                        if (buffCodeID == 0)
-                            continue;
-                        GetHpBarView().AddBuffIcon(buffCodeID);
-                    }
+                    // BuffDebuff 아이콘 재구축
+                    GetHpBarView().RestructBuffIcon(_buffDebuffs);
                 }
             }
 
@@ -781,6 +776,27 @@ namespace CookApps.BattleSystem
             }
 
             return false;
+        }
+
+        public void AddBuffStackData(int codeID, BuffStackData buffStackData)
+        {
+            if (codeID == 0)
+                return;
+            
+            _buffDebuffs.Add((codeID, buffStackData));
+            _hpBarView.RestructBuffIcon(_buffDebuffs);
+        }
+
+        public void RemoveBuffStackData(BuffStackData buffStackData)
+        {
+            _buffDebuffs.RemoveAll(x => x.buffStackData == buffStackData);
+            _hpBarView.RestructBuffIcon(_buffDebuffs);
+        }
+        
+        public void RemoveBuffStackData(long codeID)
+        {
+            _buffDebuffs.RemoveAll(x => x.codeID == codeID);
+            _hpBarView.RestructBuffIcon(_buffDebuffs);
         }
         #endregion
 
