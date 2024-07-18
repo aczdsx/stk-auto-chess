@@ -14,7 +14,7 @@ public static class Defines
     public const string CHAR_SKILL_ATLAS_NAME = "Atlas_Icon_Skill";
     public const string COMMANDER_SKILL_ATLAS_NAME = "UI_Commander_Skill";
     public const string CHAR_INGAME_PORTRAIT_ATLAS_NAME = "UI_Character_IngamePortrait";
-    public const string CHAR_BUFF_DEBUFF_ICON_NAME = "Atlas_Icon_BuffDebuff";
+    public const string CHAR_BUFF_DEBUFF_ICON_NAME = "UI_Buff";
 
     public const string CHARACTER_UI_PREFEAB_NAME_FORMAT = "UI_SDCha_{0}";
     public const string CHARACTER_ILLUST_PREFEAB_NAME_FORMAT = "Illust_Cha_{0}";

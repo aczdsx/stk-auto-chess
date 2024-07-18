@@ -85,8 +85,11 @@ namespace CookApps.BattleSystem
                     return null;
                 }
 
-                effectCode.Initialize(codeInfo, this, source);
+                //[TODO] 90-91 라인 순서가 Swap 됨.
+                //Shield 버프는 Initialize 내부에서 effectCodes를 필요로 하기 때문...
                 effectCodes.Add(effectCode);
+                effectCode.Initialize(codeInfo, this, source);
+
                 // 높은 아이디의 이펙트 코드가 먼저 발동해야하기때문에 정렬을 해준다.
                 effectCodes.Sort(EffectCodeBase.SortByPriorityFunc);
             }

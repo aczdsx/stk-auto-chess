@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Pool;
 
 namespace CookApps.BattleSystem
 {
@@ -113,11 +115,35 @@ namespace CookApps.BattleSystem
         private CrowdControlType _crowdControlType = CrowdControlType.None;
         private double _currHp;
 
+        private double _currShield
+        {
+            get
+            {
+                double shieldAmount = 0d;
+                var effectCodeShield =
+                    GetEffectCodeContainer().GetEffectCode(EffectCodeBuffShield.CodeId) as EffectCodeBuffShield;
+
+                if (effectCodeShield == null)
+                    return 0d;
+
+                var shields = effectCodeShield.Shields;
+
+                foreach (var shield in shields)
+                {
+                    if (shield == null) continue;
+                    shieldAmount += shield.shieldAmount;
+                }
+
+                return shieldAmount;
+            }
+        }
+
         private CharacterStateBase _currState;
         private Queue<CharacterStateBase> _nextStates = new ();
 
         private ObfuscatorFloat _atkCoolTime;
 
+        private List<(int codeID, BuffStackData buffStackData)> _buffDebuffs;
         private Dictionary<BuffDebuffType, ObfuscatorInt> _buffDebuffRefCountDict;
         private Dictionary<BuffDebuffType, InGameVfx> _buffDebuffEffectViewDict;
 
@@ -191,6 +217,7 @@ namespace CookApps.BattleSystem
 
                 _view.OnAnimationEvent += OnAnimationEvent;
                 _view.CachedTr.localPosition = position;
+                _buffDebuffs = new();
                 _buffDebuffRefCountDict = new Dictionary<BuffDebuffType, ObfuscatorInt>();
                 _buffDebuffEffectViewDict = new Dictionary<BuffDebuffType, InGameVfx>();
 
@@ -511,23 +538,14 @@ namespace CookApps.BattleSystem
                 }
             }
 
-            // buff debuff 표시
+            // BuffDebuff 쿨타임
             {
-                // GetHpBarView().ResetBuffIcons();
-                for (var i = 0; i < buffDebuffTypes.Length; i++)
+                GetHpBarView().RefreshCoolTimeBuffIcon(out bool isExpired);
+
+                if (isExpired)
                 {
-                    var effectCodes = ecc.GetEffectCodesByType(buffDebuffTypes[i]);
-                    foreach (var effectCode in effectCodes)
-                    {
-                        if (!(effectCode is EffectCodeBuffDebuffBase buffDebuffEffectCode))
-                            continue;
-                        if (!buffDebuffEffectCode.IsNeedToShowIcon())
-                            continue;
-                        var buffCodeID = effectCode.CodeId;
-                        if (buffCodeID == 0)
-                            continue;
-                        GetHpBarView().AddBuffIcon(buffCodeID);
-                    }
+                    // BuffDebuff 아이콘 재구축
+                    GetHpBarView().RestructBuffIcon(_buffDebuffs);
                 }
             }
 
@@ -578,7 +596,7 @@ namespace CookApps.BattleSystem
                     _currHp = HP;
                 }
 
-                UpdateHp();
+                UpdateHpBar();
             }
         }
 
@@ -759,6 +777,27 @@ namespace CookApps.BattleSystem
 
             return false;
         }
+
+        public void AddBuffStackData(int codeID, BuffStackData buffStackData)
+        {
+            if (codeID == 0)
+                return;
+            
+            _buffDebuffs.Add((codeID, buffStackData));
+            _hpBarView.RestructBuffIcon(_buffDebuffs);
+        }
+
+        public void RemoveBuffStackData(BuffStackData buffStackData)
+        {
+            _buffDebuffs.RemoveAll(x => x.buffStackData == buffStackData);
+            _hpBarView.RestructBuffIcon(_buffDebuffs);
+        }
+        
+        public void RemoveBuffStackData(long codeID)
+        {
+            _buffDebuffs.RemoveAll(x => x.codeID == codeID);
+            _hpBarView.RestructBuffIcon(_buffDebuffs);
+        }
         #endregion
 
         private bool CriticalTest()
@@ -889,7 +928,7 @@ namespace CookApps.BattleSystem
             _currHp -= damageAmount;
 
             InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
-            UpdateHp();
+            UpdateHpBar();
 
             if (_currHp <= 0)
             {
@@ -919,7 +958,7 @@ namespace CookApps.BattleSystem
         public void ForceSetHp(double hp)
         {
             _currHp = Math.Min(hp, HP);
-            UpdateHp();
+            UpdateHpBar();
         }
 
         private void FollowHpBar()
@@ -927,14 +966,14 @@ namespace CookApps.BattleSystem
             // hpBarView.CachedTr.position = GetCharacterView().CachedTr.position + new Vector3(0, GetCharacterView().Height);
         }
 
-        private void UpdateHp()
+        public void UpdateHpBar()
         {
-            _hpBarView.SetHpValue(_currHp, HP);
+            _hpBarView.SetValue(_currHp, HP, _currShield);
         }
 
         public void RefreshHp()
         {
-            _hpBarView.SetHpValue(_currHp, HP);
+            _hpBarView.SetValue(_currHp, HP, _currShield);
         }
         #endregion
 
@@ -1000,7 +1039,7 @@ namespace CookApps.BattleSystem
 
             InGameStatistics.Instance.AddCombatHeal(healer, this, amount, _currHp, HP, source);
 
-            UpdateHp();
+            UpdateHpBar();
             return true;
         }
 
