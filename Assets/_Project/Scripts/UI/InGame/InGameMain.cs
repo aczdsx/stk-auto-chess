@@ -23,11 +23,10 @@ namespace CookApps.AutoBattler
         void ManagedUpdate(float dt);
         void SetReadyUI();
         void UpdateCommanderSkillCoolTime();
-        void SetFocusSlot(SpecCharacter spec);
-        void UnSetFocusSlot(bool isDropFx);
+        void SetFocusSlotUI(SpecCharacter spec);
+        void UnSetFocusSlotUI(bool isDropFx);
         void SetCombatUI();
         void SetCommanderSkillUI(int index, int equippedCommanderSkillId);
-        int GetVignetteID();
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
@@ -160,12 +159,17 @@ namespace CookApps.AutoBattler
 
         public void SetFocusSlot(SpecCharacter spec)
         {
-            _currentGameStateUI.SetFocusSlot(spec);
+            _currentGameStateUI.SetFocusSlotUI(spec);
         }
 
         public void UnSetFocusSlot(bool isDropFx)
         {
-            _currentGameStateUI.UnSetFocusSlot(isDropFx);
+            _currentGameStateUI.UnSetFocusSlotUI(isDropFx);
+        }
+
+        public void ClearGame()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -18,10 +18,14 @@ public class FlowStateStageReady : StateBase
     {
         base.SetStateData(data);
         _specStage = data as SpecStage;
+        SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
+        InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
     }
 
     public override async void StateInit(object target)
-    {;
+    {
+        InGameMain.GetInGameMain().PlaySceneAnimation("SetEntry");
+
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,

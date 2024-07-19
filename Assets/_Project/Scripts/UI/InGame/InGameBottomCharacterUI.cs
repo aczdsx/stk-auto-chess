@@ -393,7 +393,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
     }
 
-    public void SetFocusCharacter(SpecCharacter spec)
+    public void SetFocusCharacterUI(SpecCharacter spec)
     {
         foreach (var characterItem in _characterItemList)
         {
@@ -405,7 +405,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
-    public void UnSetFocusCharacter(bool isDropFx)
+    public void UnSetFocusCharacterUI(bool isDropFx)
     {
         foreach (var characterItem in _characterItemList)
         {

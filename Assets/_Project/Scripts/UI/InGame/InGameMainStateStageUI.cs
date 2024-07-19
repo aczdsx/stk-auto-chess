@@ -49,9 +49,6 @@ namespace CookApps.AutoBattler
 
             // 유저 레벨업 체크용 이전 레벨 데이터 저장
             UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
-
-            PlayBGM();
-            InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
         }
 
         public void ReturnCharacter(CharacterController characterController)
@@ -103,14 +100,14 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
         }
 
-        public void SetFocusSlot(SpecCharacter spec)
+        public void SetFocusSlotUI(SpecCharacter spec)
         {
-            _inGameBottomCharacterUI.SetFocusCharacter(spec);
+            _inGameBottomCharacterUI.SetFocusCharacterUI(spec);
         }
 
-        public void UnSetFocusSlot(bool isDropFx)
+        public void UnSetFocusSlotUI(bool isDropFx)
         {
-            _inGameBottomCharacterUI.UnSetFocusCharacter(isDropFx);
+            _inGameBottomCharacterUI.UnSetFocusCharacterUI(isDropFx);
         }
 
         public void SetCombatUI()
@@ -121,27 +118,6 @@ namespace CookApps.AutoBattler
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
-        }
-
-        public int GetVignetteID()
-        {
-            return _specStage.chapter_id - 1;
-        }
-
-        private void PlayBGM()
-        {
-            switch (_specStage.chapter_id)
-            {
-                case 1:
-                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter0);
-                    break;
-                case 2:
-                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter1);
-                    break;
-                case 3:
-                    SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter2);
-                    break;
-            }
         }
     }
 }

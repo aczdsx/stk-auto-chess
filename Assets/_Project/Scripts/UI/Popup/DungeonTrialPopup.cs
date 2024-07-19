@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Autobattleproject.V1;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -191,8 +192,11 @@ namespace CookApps.AutoBattler
 
             // todo.. 던전 입장 처리
 
+
+            InGameManager.Instance.EndInGame();
+            var transition = SceneTransition_FadeInOut.Create();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.TRIAL, (IGameStateUI) new InGameMainStateTrialDungeonUI(), (int)_specDungeonTrialData.dungeon_id)).Forget();
+                (InGameType.TRIAL, (IGameStateUI) new InGameMainStateTrialDungeonUI(), (int)_specDungeonTrialData.dungeon_id), transition).Forget();
         }
 
         private void OnClickCloseButton()

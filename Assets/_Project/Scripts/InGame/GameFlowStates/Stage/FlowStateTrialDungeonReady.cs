@@ -18,6 +18,10 @@ public class FlowStateTrialDungeonReady : StateBase
     {
         base.SetStateData(data);
         _specDungeonTrial = data as SpecDungeonTrial;
+
+        //[TODO] 시련 던전 사운드, 비네트
+        SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter0);
+        InGameMain.GetInGameMain().SetVignette(0);
     }
 
     public override async void StateInit(object target)

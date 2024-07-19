@@ -932,7 +932,7 @@ namespace CookApps.AutoBattler
 
         public List<SpecPVPTier> GetPVPTierDataList(int pvpRewardType)
         {
-            return SpecPVPTierList.FindAll(data => data.reward_type == pvpRewardType);
+            return SpecPVPTierList.FindAll(data => data.reward_id == pvpRewardType);
         }
 
         public SpecPVPRanking GetPVPRankingData(int ranking)
