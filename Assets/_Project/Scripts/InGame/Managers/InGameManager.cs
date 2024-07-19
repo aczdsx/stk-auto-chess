@@ -45,7 +45,8 @@ namespace CookApps.BattleSystem
             SpecStage = specStage;
             IsInGamePlaying = true;
             ecc = new EffectCodeContainer(this);
-            InitializeInGameComponents();
+            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specStage);
+            InitializeInGameComponents(specStage);
         }
 
         public void StartInGame<T>(SpecDungeonTrial specDungeonTrial) where T : StateBase, new()
@@ -53,10 +54,11 @@ namespace CookApps.BattleSystem
             SpecDungeonTrial = specDungeonTrial;
             IsInGamePlaying = true;
             ecc = new EffectCodeContainer(this);
-            InitializeInGameComponents();
+            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specDungeonTrial);
+            InitializeInGameComponents(specDungeonTrial);
         }
 
-        private void InitializeInGameComponents()
+        private void InitializeInGameComponents(object stateData)
         {
             // 순서 중요!
             InGameVfxManager.Instance.Initialize();
