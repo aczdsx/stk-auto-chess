@@ -10,8 +10,7 @@ public class CacheSpecDataGenerator : Editor
 {
     public static List<string> IgnoreSheetList = new List<string>
     {
-        "SpecOption",
-        "TestSpecCharacter",
+        
     };
 
     [MenuItem("Tools/Generate Cache SpecData")]

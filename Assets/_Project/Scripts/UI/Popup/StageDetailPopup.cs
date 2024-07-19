@@ -140,7 +140,7 @@ namespace CookApps.AutoBattler
 
         private void OnStartButtonClicked()
         {
-            SceneUILayerManager.Instance.PushUILayerAsync<ReadyMain>((chapter, stageIndex)).Forget();
+            //SceneUILayerManager.Instance.PushUILayerAsync<ReadyMain>((chapter, stageIndex)).Forget();
         }
     }
 }

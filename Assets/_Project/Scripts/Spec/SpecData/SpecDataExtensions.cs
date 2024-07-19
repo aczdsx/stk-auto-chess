@@ -76,34 +76,4 @@ namespace CookApps.AutoBattler
             };
         }
     }
-
-    public partial class SpecChest
-    {
-        public RewardItem ToRewardItem()
-        {
-            return new RewardItem
-            {
-                Type = type,
-                Key = key,
-                Count = value,
-            };
-        }
-    }
-
-    public partial class TestSpecCharacter
-    {
-        public int GetLineIndex()
-        {
-            return position switch
-            {
-                CharacterPositionType.GUARDIAN => 0,
-                CharacterPositionType.TANK => 0,
-                CharacterPositionType.RANGER => 1,
-                CharacterPositionType.WIZARD => 1,
-                CharacterPositionType.ASSASSIN => 2,
-                CharacterPositionType.SUPPORTER => 2,
-                _ => 0,
-            };
-        }
-    }
 }

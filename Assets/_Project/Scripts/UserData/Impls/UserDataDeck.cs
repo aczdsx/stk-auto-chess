@@ -41,29 +41,6 @@ namespace CookApps.AutoBattler
             return userDeck;
         }
 
-        public void AddCharacterInTeam(int characterId)
-        {
-            int count = userDeck.LineCharacters.Sum(x => x.CharacterIds.Count);
-            if (count >= SpecOptionCache.DeckMaxSize)
-            {
-                return;
-            }
-
-            TestSpecCharacter specCharacter = SpecDataManager.Instance.TestSpecCharacter.Get(characterId);
-            if (userDeck.LineCharacters[specCharacter.GetLineIndex()].CharacterIds.Count >= SpecOptionCache.DeckLineMaxSize)
-            {
-                return;
-            }
-
-            userDeck.LineCharacters[specCharacter.GetLineIndex()].CharacterIds.Add(characterId);
-        }
-
-        public void RemoveCharacterInTeam(int characterId)
-        {
-            int lineIndex = SpecDataManager.Instance.TestSpecCharacter.Get(characterId).GetLineIndex();
-            userDeck.LineCharacters[lineIndex].CharacterIds.Remove(characterId);
-        }
-
         public bool IsDeployed(int characterId)
         {
             foreach (UserDeckLine userDeckLine in userDeck.LineCharacters)

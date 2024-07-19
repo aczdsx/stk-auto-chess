@@ -100,19 +100,6 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // Chest
-            chestDic.Clear();
-            foreach (SpecChest chest in SpecChest.All)
-            {
-                if (!chestDic.TryGetValue(chest.chest_id, out List<RewardItem> chestList))
-                {
-                    chestList = new List<RewardItem>();
-                    chestDic.Add(chest.chest_id, chestList);
-                }
-
-                chestList.Add(chest.ToRewardItem());
-            }
-
             // Chapter
             chapterDic.Clear();
             chapterDifficultDic.Clear();
