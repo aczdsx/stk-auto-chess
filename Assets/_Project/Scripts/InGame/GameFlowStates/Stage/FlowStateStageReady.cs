@@ -66,7 +66,7 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateReady), false, HpBarType.None));
         }
 
-        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList();
+        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
         List<ObfuscatorInt> tileIDList = _specStage.obstacle_grid_id.ToList();
 
         battleDeckList.RemoveAll(l =>
