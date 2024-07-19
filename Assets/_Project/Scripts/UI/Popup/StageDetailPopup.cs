@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -140,7 +140,7 @@ namespace CookApps.AutoBattler
 
         private void OnStartButtonClicked()
         {
-            SceneUILayerManager.Instance.PushUILayerAsync<ReadyMain>((chapter, stageIndex)).Forget();
+            //SceneUILayerManager.Instance.PushUILayerAsync<ReadyMain>((chapter, stageIndex)).Forget();
         }
     }
 }

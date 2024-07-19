@@ -1,5 +1,5 @@
 using System.Linq;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 using Google.Protobuf.Collections;
@@ -39,29 +39,6 @@ namespace CookApps.AutoBattler
         public UserDeck GetUserTeam()
         {
             return userDeck;
-        }
-
-        public void AddCharacterInTeam(int characterId)
-        {
-            int count = userDeck.LineCharacters.Sum(x => x.CharacterIds.Count);
-            if (count >= SpecOptionCache.DeckMaxSize)
-            {
-                return;
-            }
-
-            TestSpecCharacter specCharacter = SpecDataManager.Instance.TestSpecCharacter.Get(characterId);
-            if (userDeck.LineCharacters[specCharacter.GetLineIndex()].CharacterIds.Count >= SpecOptionCache.DeckLineMaxSize)
-            {
-                return;
-            }
-
-            userDeck.LineCharacters[specCharacter.GetLineIndex()].CharacterIds.Add(characterId);
-        }
-
-        public void RemoveCharacterInTeam(int characterId)
-        {
-            int lineIndex = SpecDataManager.Instance.TestSpecCharacter.Get(characterId).GetLineIndex();
-            userDeck.LineCharacters[lineIndex].CharacterIds.Remove(characterId);
         }
 
         public bool IsDeployed(int characterId)

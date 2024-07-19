@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Coffee.UIEffects;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;

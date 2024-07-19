@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
@@ -73,36 +73,6 @@ namespace CookApps.AutoBattler
                 BattleSystem.AttackRangeShape.RectangleCut4Edge => AttackRangeShape.RectangleCut4Edge,
                 BattleSystem.AttackRangeShape.RectangleCut5Edge => AttackRangeShape.RectangleCut5Edge,
                 _ => AttackRangeShape.Rectangle,
-            };
-        }
-    }
-
-    public partial class SpecChest
-    {
-        public RewardItem ToRewardItem()
-        {
-            return new RewardItem
-            {
-                Type = type,
-                Key = key,
-                Count = value,
-            };
-        }
-    }
-
-    public partial class TestSpecCharacter
-    {
-        public int GetLineIndex()
-        {
-            return position switch
-            {
-                CharacterPositionType.GUARDIAN => 0,
-                CharacterPositionType.TANK => 0,
-                CharacterPositionType.RANGER => 1,
-                CharacterPositionType.WIZARD => 1,
-                CharacterPositionType.ASSASSIN => 2,
-                CharacterPositionType.SUPPORTER => 2,
-                _ => 0,
             };
         }
     }

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;

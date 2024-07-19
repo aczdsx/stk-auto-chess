@@ -18,58 +18,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecChest
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        public CookApps.Obfuscator.ObfuscatorInt chest_id;
-        public global::CookApps.AutoBattler.ItemType type;
-        public CookApps.Obfuscator.ObfuscatorInt key;
-        public CookApps.Obfuscator.ObfuscatorInt value;
-        public CookApps.Obfuscator.ObfuscatorDouble rate;
-    }
-
-    [GeneratorSpecData]
-    public partial class TestSpecCharacter
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// ?
-        public CookApps.Obfuscator.ObfuscatorInt seq;
-        public CookApps.Obfuscator.ObfuscatorInt prefab_id;
-        public CookApps.Obfuscator.ObfuscatorInt chapter;
-        public string nickname_token;
-        public string name_token;
-        public string desc_token;
-        public global::CookApps.AutoBattler.GradeType grade;
-        public CookApps.Obfuscator.ObfuscatorInt need_piece;
-        /// ?
-        public global::CookApps.AutoBattler.ElementType type;
-        /// ?
-        public global::CookApps.AutoBattler.CharacterPositionType position;
-        public CookApps.Obfuscator.ObfuscatorInt init_star;
-        public CookApps.Obfuscator.ObfuscatorInt max_star;
-        public CookApps.Obfuscator.ObfuscatorInt stat_hp;
-        /// 공격 계산식 & 레벨업 스텟 계산식?
-        public CookApps.Obfuscator.ObfuscatorInt stat_atk;
-        public CookApps.Obfuscator.ObfuscatorInt stat_def;
-        /// 관통?
-        public CookApps.Obfuscator.ObfuscatorInt stat_atk_pierce;
-        public CookApps.Obfuscator.ObfuscatorFloat inc_rate;
-        public CookApps.Obfuscator.ObfuscatorFloat inc_star;
-        public CookApps.Obfuscator.ObfuscatorFloat crit_power;
-        public CookApps.Obfuscator.ObfuscatorFloat crit_rate;
-        public CookApps.Obfuscator.ObfuscatorDouble base_inc;
-        public CookApps.Obfuscator.ObfuscatorFloat atkSpd;
-        public CookApps.Obfuscator.ObfuscatorInt atkRange;
-        public global::CookApps.AutoBattler.AttackRangeShape atkRangeShape;
-        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
-        public CookApps.Obfuscator.ObfuscatorInt equipment_id;
-        public CookApps.Obfuscator.ObfuscatorInt[] upgrade_skill_ids;
-        public CookApps.Obfuscator.ObfuscatorFloat scale;
-    }
-
-    [GeneratorSpecData]
     public partial class SpecAccountLevelExp
     {
         /// 유니크 id

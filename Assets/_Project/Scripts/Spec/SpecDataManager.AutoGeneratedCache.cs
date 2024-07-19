@@ -8,7 +8,6 @@ namespace CookApps.AutoBattler
 {
 	public partial class SpecDataManager
 	{
-		public List<SpecChest> SpecChestList {get; private set;}
 		public List<SpecAccountLevelExp> SpecAccountLevelExpList {get; private set;}
 		public List<SpecChapter> SpecChapterList {get; private set;}
 		public List<SpecCharacter> SpecCharacterList {get; private set;}
@@ -38,15 +37,15 @@ namespace CookApps.AutoBattler
 		public List<SpecIdleReward> SpecIdleRewardList {get; private set;}
 		public List<SpecInGameVfx> SpecInGameVfxList {get; private set;}
 		public List<SpecRewardInfo> SpecRewardInfoList {get; private set;}
-		public List<SpecPVPConfig> SpecPVPConfigList {get; private set;}
 		public List<SpecPVPTier> SpecPVPTierList {get; private set;}
+		public List<SpecPvpReward> SpecPvpRewardList {get; private set;}
 		public List<SpecPVPRanking> SpecPVPRankingList {get; private set;}
+		public List<SpecPVPConfig> SpecPVPConfigList {get; private set;}
 		public List<SpecPVPDummy> SpecPVPDummyList {get; private set;}
 		public List<SpecReward> SpecRewardList {get; private set;}
 
 		private void GenerateCacheSpecData()
 		{
-			SpecChestList = SpecChest.All.ToList();
 			SpecAccountLevelExpList = SpecAccountLevelExp.All.ToList();
 			SpecChapterList = SpecChapter.All.ToList();
 			SpecCharacterList = SpecCharacter.All.ToList();
@@ -76,9 +75,10 @@ namespace CookApps.AutoBattler
 			SpecIdleRewardList = SpecIdleReward.All.ToList();
 			SpecInGameVfxList = SpecInGameVfx.All.ToList();
 			SpecRewardInfoList = SpecRewardInfo.All.ToList();
-			SpecPVPConfigList = SpecPVPConfig.All.ToList();
 			SpecPVPTierList = SpecPVPTier.All.ToList();
+			SpecPvpRewardList = SpecPvpReward.All.ToList();
 			SpecPVPRankingList = SpecPVPRanking.All.ToList();
+			SpecPVPConfigList = SpecPVPConfig.All.ToList();
 			SpecPVPDummyList = SpecPVPDummy.All.ToList();
 			SpecRewardList = SpecReward.All.ToList();
 		}
