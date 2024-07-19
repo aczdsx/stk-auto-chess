@@ -11,6 +11,8 @@ public class FlowStateStageStart : StateBase
     public override async void StateStart()
     {
         InGameMain.GetInGameMain().PlaySceneAnimation("SetBattleEntry");
+        InGameMain.GetInGameMain().InitCommanderSkill();
+        InGameMain.GetInGameMain().RefreshInGameTopUI(true);
         InGameObjectManager.Instance.ClearSynergyFx();
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
     }

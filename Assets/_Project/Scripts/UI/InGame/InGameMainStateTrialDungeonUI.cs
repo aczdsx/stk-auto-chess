@@ -33,20 +33,8 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
         }
 
-        public void RefreshInGameTopUI()
-        {
-            InGameObjectManager.Instance.ClearSynergyFx();
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Player, true);
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, true);
-
-            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
-            _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
-        }
-
         public void RefreshInGameTopUI(bool isCombat)
         {
-            if (!isCombat)
-                InGameObjectManager.Instance.ClearSynergyFx();
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
 
@@ -89,10 +77,10 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetReadyStateUI()
+        public void InitReadyStateUI()
         {
             _inGameBottomCharacterUI.InitData();
-            RefreshInGameTopUI();
+            RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
         }
 
@@ -108,6 +96,10 @@ namespace CookApps.AutoBattler
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
+        }
+        public void InitCommanderSkill()
+        {
+            _inGameBottomCharacterUI.InitCommanderSkill();
         }
     }
 }

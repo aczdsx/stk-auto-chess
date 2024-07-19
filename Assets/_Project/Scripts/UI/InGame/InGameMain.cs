@@ -21,10 +21,11 @@ namespace CookApps.AutoBattler
         void AddCharacterUI(List<UserCharacterBattleDeck> battleDeckList);
         void SetInGameBottomUIInGuideUI();
         void ManagedUpdate(float dt);
-        void SetReadyStateUI();
+        void InitReadyStateUI();
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
         void SetCommanderSkillUI(int index, int equippedCommanderSkillId);
+        void InitCommanderSkill();
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
@@ -120,9 +121,9 @@ namespace CookApps.AutoBattler
             _currentGameStateUI.SetInGameBottomUIInGuideUI();
         }
 
-        public void SetReadyStateUI()
+        public void InitReadyStateUI()
         {
-            _currentGameStateUI.SetReadyStateUI();
+            _currentGameStateUI.InitReadyStateUI();
         }
 
         public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
@@ -153,6 +154,11 @@ namespace CookApps.AutoBattler
         public void UnSetFocusSlotUI(bool isDropFx)
         {
             _currentGameStateUI.UnSetFocusSlotUI(isDropFx);
+        }
+
+        public void InitCommanderSkill()
+        {
+            _currentGameStateUI.InitCommanderSkill();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace CookApps.AutoBattler
         private SpecStage _specStage;
 
         private float _updateTimer = 0f;
+        private IGameStateUI _gameStateUIImplementation;
         private const float UpdateInterval = 0.3f;
         private const float InGameMaxTime = 60f;
 
@@ -43,8 +44,6 @@ namespace CookApps.AutoBattler
 
         public void RefreshInGameTopUI(bool isCombat)
         {
-            if (!isCombat)
-                InGameObjectManager.Instance.ClearSynergyFx();
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
             _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
 
@@ -87,7 +86,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetReadyStateUI()
+        public void InitReadyStateUI()
         {
             _inGameBottomCharacterUI.InitData();
             RefreshInGameTopUI(false);
@@ -110,6 +109,11 @@ namespace CookApps.AutoBattler
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
+        }
+
+        public void InitCommanderSkill()
+        {
+            _inGameBottomCharacterUI.InitCommanderSkill();
         }
     }
 }
