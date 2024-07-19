@@ -68,7 +68,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
             return;
 
         var commanderSkillUI = eventData.pointerCurrentRaycast.gameObject.GetComponent<CommanderSkillUI>();
@@ -133,7 +133,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         _hitTileView = null;
         ClearAndSetActive(null);
 
-        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
             return;
 
         if (_hitTileView == null)

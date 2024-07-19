@@ -77,7 +77,7 @@ namespace CookApps.BattleSystem
 
         public override void OnUpdate(float dt)
         {
-            if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
                 return;
 
             foreach (var characterInfo in _characterList)

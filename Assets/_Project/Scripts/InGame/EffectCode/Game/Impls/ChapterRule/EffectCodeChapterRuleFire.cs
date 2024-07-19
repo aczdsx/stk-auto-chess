@@ -49,7 +49,7 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
-            if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
                 return;
 
             if (_chapterRuleTiles.Exists(l => l.View.ID == tile.View.ID))
@@ -68,7 +68,7 @@ namespace CookApps.BattleSystem
 
         public override void OnUpdate(float dt)
         {
-            if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
                 return;
 
             elapsedTime += dt;

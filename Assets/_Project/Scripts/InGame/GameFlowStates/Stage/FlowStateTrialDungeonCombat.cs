@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-public class FlowStateStageCombat : StateCombatBase
+public class FlowStateTrialDungeonCombat : StateCombatBase
 {
     private List<CharacterController> characters;
     private bool isEndCombat;
@@ -147,11 +147,11 @@ public class FlowStateStageCombat : StateCombatBase
         InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
         if (isWin)
         {
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();
+            InGameMainFlowManager.Instance.AddNextState<FlowStateTrialDungeonClear>();
         }
         else
         {
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();
+            InGameMainFlowManager.Instance.AddNextState<FlowStateTrialDungeonFail>();
         }
     }
 }

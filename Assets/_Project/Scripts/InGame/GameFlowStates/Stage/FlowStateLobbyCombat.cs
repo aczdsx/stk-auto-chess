@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 using Random = Unity.Mathematics.Random;
 
-public class FlowStateStageLobbyCombat : StateBase
+public class FlowStateLobbyCombat : StateCombatBase
 {
     private List<CharacterController> _playerCharacters;
     private List<CharacterController> _enemyCharacters;

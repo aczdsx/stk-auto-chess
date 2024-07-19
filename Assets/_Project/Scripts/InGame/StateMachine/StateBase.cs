@@ -8,4 +8,8 @@
         public abstract void StateRunning(float dt);
         public abstract void StateEnd(bool isForced);
     }
+    
+    public abstract class StateCombatBase : StateBase
+    {
+    }
 }

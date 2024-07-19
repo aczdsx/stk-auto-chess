@@ -129,7 +129,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private void StartInGameBattle()
     {
         _readyUIObj.SetActive(false);
-        InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
+        InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
     }
 
@@ -144,7 +144,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     private void OnClickCommanderSkillButton(int index)
     {
-        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+        if (InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase)
             return;
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
@@ -157,7 +157,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _statisticButton.gameObject.SetActive(isOn);
     }
 
-    public void InitCharacterUI(List<UserCharacterBattleDeck> battleDeckList)
+    public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
     {
         foreach (var battleDeck in battleDeckList)
             _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);

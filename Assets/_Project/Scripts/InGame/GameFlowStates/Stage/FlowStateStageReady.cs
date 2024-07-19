@@ -24,8 +24,6 @@ public class FlowStateStageReady : StateBase
 
     public override async void StateInit(object target)
     {
-        InGameMain.GetInGameMain().PlaySceneAnimation("SetEntry");
-
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,

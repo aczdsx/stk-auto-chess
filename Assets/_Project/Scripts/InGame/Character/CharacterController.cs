@@ -893,7 +893,7 @@ namespace CookApps.BattleSystem
             bool isFirstDamage = true)
         {
             //[TODO] MVP임시처리
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageLobbyCombat)
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
             {
                 if (attacker.AllianceType == AllianceType.Enemy)
                     return DamageReturnType.Damaging;

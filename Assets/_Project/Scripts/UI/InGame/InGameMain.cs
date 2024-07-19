@@ -16,15 +16,15 @@ namespace CookApps.AutoBattler
     public interface IGameStateUI
     {
         UniTask Initialize(Transform canvasTransform, int id);
-        void RefreshInGameTopUI(bool isCombat);
-        void ReturnCharacterUI(CharacterController characterController);
-        void SetInGameBottomUIInGuideUI();
-        void ManagedUpdate(float dt);
         void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList);
+        void InitCombatStateUI();
+        void RefreshInGameTopUI(bool isCombat);
+        void ManagedUpdate(float dt);
+        void ReturnCharacterUI(CharacterController characterController);
+        void SetCommanderSkillUI(int index, int equippedCommanderSkillId);
+        void SetInGameBottomUIInGuideUI();
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
-        void SetCommanderSkillUI(int index, int equippedCommanderSkillId);
-        void InitCommanderSkill();
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
@@ -42,6 +42,7 @@ namespace CookApps.AutoBattler
         private float _inGameTime = 0f;
         private IGameStateUI _currentGameStateUI;
         private InGameType _inGameType;
+        private static readonly int SetBattleEntry = Animator.StringToHash("SetBattleEntry");
 
         public static InGameMain GetInGameMain()
         {
@@ -88,19 +89,15 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void PlaySceneAnimation(string name)
-        {
-            _sceneAnimator.SetTrigger(name);
-        }
-
         public void CloseSkillTooltip()
         {
             _skillTooltipPopup?.gameObject.SetActive(false);
         }
 
-        public void InitCommanderSkill()
+        public void InitCombatStateUI()
         {
-            _currentGameStateUI.InitCommanderSkill();
+            _sceneAnimator.SetTrigger(SetBattleEntry);
+            _currentGameStateUI.InitCombatStateUI();
         }
 
         public void SetInGameTime(float time)

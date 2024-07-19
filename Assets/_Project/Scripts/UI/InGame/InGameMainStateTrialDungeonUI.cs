@@ -33,6 +33,12 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
         }
 
+        public void InitCombatStateUI()
+        {
+            _inGameBottomCharacterUI.InitCommanderSkill();
+            InGameMain.GetInGameMain().RefreshInGameTopUI(true);
+        }
+
         public void RefreshInGameTopUI(bool isCombat)
         {
             _InGameTopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
@@ -55,7 +61,7 @@ namespace CookApps.AutoBattler
 
         public void ManagedUpdate(float dt)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+            if (InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase)
             {
                 _updateTimer += dt;
                 InGameMain.GetInGameMain().SetInGameTime(InGameMain.GetInGameMain().InGameTime - dt);
@@ -77,7 +83,7 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameBottomCharacterUI.InitCharacterUI(battleDeckList);
+            _inGameBottomCharacterUI.InitReadyStateUI(battleDeckList);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)
@@ -92,10 +98,6 @@ namespace CookApps.AutoBattler
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
-        }
-        public void InitCommanderSkill()
-        {
-            _inGameBottomCharacterUI.InitCommanderSkill();
         }
     }
 }
