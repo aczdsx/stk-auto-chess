@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
