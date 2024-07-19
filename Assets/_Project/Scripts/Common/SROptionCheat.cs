@@ -118,7 +118,7 @@ public partial class SROptions
     [Category("캐릭터 관련")]
     public void 모든캐릭터획득()
     {
-        UserDataManager.Instance.AddAllCharacters();
+        // UserDataManager.Instance.AddAllCharacters();
     }
 
 
