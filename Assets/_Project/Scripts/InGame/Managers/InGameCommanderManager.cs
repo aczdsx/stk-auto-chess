@@ -171,9 +171,6 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         {
             commanderSkillData.ElapsedTime += dt;
         }
-
-        if (InGameMain.GetInGameMain() != null)
-            InGameMain.GetInGameMain().UpdateCommanderSkillCoolTime();
     }
 
     Vector3 HandleRuntimeDrag(PointerEventData eventData)

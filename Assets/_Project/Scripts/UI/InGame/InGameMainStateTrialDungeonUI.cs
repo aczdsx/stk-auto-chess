@@ -12,11 +12,26 @@ namespace CookApps.AutoBattler
     {
         private InGameTopUI _InGameTopUI;
         private InGameBottomCharacterUI _inGameBottomCharacterUI;
-        private SpecStage _specStage;
+        private SpecDungeonTrial _specTrialDungeon;
 
         private float _updateTimer = 0f;
-        private const float UpdateInterval = 0.3f;
+        private const float UpdateInterval = 0.2f;
         private const float InGameMaxTime = 60f;
+
+        public async UniTask Initialize(Transform canvasTransform, int id)
+        {
+            var topUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Top.prefab").Task;
+            var bottomUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Bottom.prefab").Task;
+
+            _InGameTopUI = GameObject.Instantiate(topUIObj, canvasTransform).GetComponent<InGameTopUI>();
+            _inGameBottomCharacterUI = GameObject.Instantiate(bottomUIObj, canvasTransform)
+                .GetComponent<InGameBottomCharacterUI>();
+
+            _specTrialDungeon = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
+            _InGameTopUI.SetStageName($"시련 던전 {_specTrialDungeon.dungeon_id}");
+
+            InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
+        }
 
         public void RefreshInGameTopUI()
         {
@@ -28,35 +43,29 @@ namespace CookApps.AutoBattler
             _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
         }
 
-        public async UniTask Initialize(Transform canvasTransform, int id)
+        public void RefreshInGameTopUI(bool isCombat)
         {
-            var topUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Top.prefab").Task;
-            var bottomUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Bottom.prefab").Task;
+            if (!isCombat)
+                InGameObjectManager.Instance.ClearSynergyFx();
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
+            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
 
-            _InGameTopUI = GameObject.Instantiate(topUIObj, canvasTransform).GetComponent<InGameTopUI>();
-            _inGameBottomCharacterUI = GameObject.Instantiate(bottomUIObj, canvasTransform)
-                .GetComponent<InGameBottomCharacterUI>();
-
-            _specStage = SpecDataManager.Instance.GetStageData(id);
-            _InGameTopUI.SetStageName($"시련 던전 {_specStage.chapter_id}-{_specStage.stage_number}");
-
-            InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specStage, _specStage);
-
-            InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
+            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
+            _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
         }
 
-        public void ReturnCharacter(CharacterController characterController)
+        public void ReturnCharacterUI(CharacterController characterController)
         {
             _inGameBottomCharacterUI.ReturnCharacter(characterController);
             InGameManager.Instance.UpdateSynergyAndAttr();
         }
 
-        public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
+        public void AddCharacterUI(List<UserCharacterBattleDeck> battleDeckList)
         {
             _inGameBottomCharacterUI.AddCharacter(battleDeckList);
         }
 
-        public void SetInGameBottomUIInGuide()
+        public void SetInGameBottomUIInGuideUI()
         {
             _inGameBottomCharacterUI.CheckNewCharacter();
         }
@@ -67,6 +76,7 @@ namespace CookApps.AutoBattler
             {
                 _updateTimer += dt;
                 InGameMain.GetInGameMain().SetInGameTime(InGameMain.GetInGameMain().InGameTime - dt);
+                _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
 
                 if (_updateTimer >= UpdateInterval)
                 {
@@ -79,19 +89,11 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetReadyUI()
+        public void SetReadyStateUI()
         {
             _inGameBottomCharacterUI.InitData();
             RefreshInGameTopUI();
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-
-            // 다이얼로그 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());
-        }
-
-        public void UpdateCommanderSkillCoolTime()
-        {
-            _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)
@@ -103,12 +105,6 @@ namespace CookApps.AutoBattler
         {
             _inGameBottomCharacterUI.UnSetFocusCharacterUI(isDropFx);
         }
-
-        public void SetCombatUI()
-        {
-            _InGameTopUI.SetCombatUI();
-        }
-
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);

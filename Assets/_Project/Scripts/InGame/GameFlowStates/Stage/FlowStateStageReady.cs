@@ -49,7 +49,7 @@ public class FlowStateStageReady : StateBase
         }
 
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
-        InGameMain.GetInGameMain().SetReadyUI();
+        InGameMain.GetInGameMain().SetReadyStateUI();
 
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)

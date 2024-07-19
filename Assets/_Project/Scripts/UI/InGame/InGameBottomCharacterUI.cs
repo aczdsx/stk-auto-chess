@@ -132,13 +132,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         InitCommanderSkill();
-        InGameMain.GetInGameMain().SetCombatUI();
+        InGameMain.GetInGameMain().RefreshInGameTopUI(true);
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
-
-        // HideCharacterSelectUI(() =>
-        // {
-        // });
     }
 
     private void OnClickStatisticButton()

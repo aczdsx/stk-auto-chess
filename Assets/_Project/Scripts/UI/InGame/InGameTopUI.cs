@@ -66,14 +66,6 @@ public class InGameTopUI : MonoBehaviour
         _timeText.text = timeSpan.ToString(@"mm\:ss");
     }
 
-    public void SetCombatUI()
-    {
-        _playerAttrText.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Player);
-        _enemyAttrText.text = InGameObjectManager.Instance.GetAttrText(AllianceType.Enemy);
-        UpdateSynergyUI(AllianceType.Player, false);
-        UpdateSynergyUI(AllianceType.Enemy, false);
-    }
-
     public void UpdateSynergyUI(AllianceType type, bool isCombat)
     {
         List<InGameSynergyUI> _synergyUIList = type == AllianceType.Player ? _playerSynergyUIList : _enemySynergyUIList;

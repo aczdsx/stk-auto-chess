@@ -117,7 +117,7 @@ namespace CookApps.AutoBattler
             // 전투 진행
             int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
             var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
-            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(stageSpecData, stageSpecData);
+            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(stageSpecData);
 
             // 방치 보상 갱신
             SetIdleRewardLayer();
