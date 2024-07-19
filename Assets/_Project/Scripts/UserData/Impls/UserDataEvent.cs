@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 
@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             userEvent = MessageUtility.FromBase64String<UserEvent>(data);
 
             UpdateRecentEventData();
-            UpdateAllEventTimeData(false);
+            //UpdateAllEventTimeData(false);
         }
 
         [Clear]

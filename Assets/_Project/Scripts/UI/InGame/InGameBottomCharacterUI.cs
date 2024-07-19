@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cookapps.Autobattleproject.V1;
+using Cookapps.Stkauto.V1;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -55,9 +55,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField]
     private ParticleSystem _commanderFx;
 
-    [SerializeField]
-    private SkillTooltipPopup _skillTooltipPopup;
-
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
@@ -65,8 +62,10 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     protected void Awake()
     {
+        var latestClearUserStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+        var stageData = SpecDataManager.Instance.GetStageData(latestClearUserStageID);
         _isOpenCommanderSkill =
-            InGameResourceHolder.Chapter >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+            stageData.chapter_id >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
 
         _startButton?.onClick.AddListener(OnStartButtonClicked);
@@ -133,13 +132,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
         InGameMainFlowManager.Instance.AddNextState<FlowStateStageStart>();
         InitCommanderSkill();
-        InGameMain.GetInGameMain().SetCombatUI();
+        InGameMain.GetInGameMain().RefreshInGameTopUI(true);
 
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
-
-        // HideCharacterSelectUI(() =>
-        // {
-        // });
     }
 
     private void OnClickStatisticButton()
@@ -171,7 +166,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         foreach (var battleDeck in battleDeckList)
             _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);
         UpdateData();
-        InGameMain.GetInGameMain().SetInGameTopUI();
+        InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
     }
 
@@ -336,27 +331,6 @@ public class InGameBottomCharacterUI : MonoBehaviour
         SetCharacterCountText();
     }
 
-    public void ShowSKillTooltip(CharacterStatData statData)
-    {
-        if (statData == null) return;
-        if (_skillTooltipPopup == null) return;
-
-        var specSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(statData.Spec.prefab_id);
-        if (specSkillList != null && specSkillList.Count > 0)
-        {
-            var skillData = specSkillList[0];
-
-            _skillTooltipPopup.gameObject.SetActive(true);
-
-            _skillTooltipPopup.SetSkillToolTipPopup(skillData);
-        }
-    }
-
-    public void CloseSkillTooltip()
-    {
-        _skillTooltipPopup?.gameObject.SetActive(false);
-    }
-
     private async void AddCharacterToTile(CharacterStatData statData)
     {
         if (_isRunningAddCharacter)
@@ -385,7 +359,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
                     typeof(CharacterStateReady), true, HpBarType.Synergy),
             });
 
-            InGameMain.GetInGameMain().SetInGameTopUI();
+            InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
         }
 
@@ -415,7 +389,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
     }
 
-    public void SetFocusCharacter(SpecCharacter spec)
+    public void SetFocusCharacterUI(SpecCharacter spec)
     {
         foreach (var characterItem in _characterItemList)
         {
@@ -427,7 +401,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         }
     }
 
-    public void UnSetFocusCharacter(bool isDropFx)
+    public void UnSetFocusCharacterUI(bool isDropFx)
     {
         foreach (var characterItem in _characterItemList)
         {
@@ -439,12 +413,5 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 return;
             }
         }
-    }
-
-    public void OpenStatisticPop()
-    {
-        bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
-        if (isOpenStatisticPop)
-            SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
     }
 }

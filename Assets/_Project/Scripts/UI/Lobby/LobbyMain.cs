@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -35,10 +36,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _consumeAPEventButton;
 
         [Header("Vignette Layer")]
+        [SerializeField] private VignetteSO _vignetteData;
         [SerializeField] private RawImage _vignetteImage;
-        [SerializeField] private List<Color> _stageVignetteColorList;
-        [SerializeField] private Material _chapter1VignetteMaterial; // [TODO] 임시 작업
-        [SerializeField] private Material _defaultVignetteMaterial; // [TODO] 임시 작업
 
         [Header("User Info Layer")]
         //[SerializeField] private Image _userIconImage;
@@ -116,7 +115,9 @@ namespace CookApps.AutoBattler
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
 
             // 전투 진행
-            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(null);
+            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
+            InGameManager.Instance.StartInGame<FlowStateStageLobbyCombat>(stageSpecData);
 
             // 방치 보상 갱신
             SetIdleRewardLayer();
@@ -271,8 +272,9 @@ namespace CookApps.AutoBattler
 
         private void SetVignetteColor(int targetChapter)
         {
-            _vignetteImage.material = (targetChapter == 1) ? _chapter1VignetteMaterial : _defaultVignetteMaterial;
-            _vignetteImage.material.SetColor("_DotColor", _stageVignetteColorList[targetChapter - 1]);
+            var vignette = _vignetteData.stageColors.FirstOrDefault(x => x.InGameType == InGameType.STAGE && x.ID == targetChapter);
+            _vignetteImage.material = vignette.Material;
+            _vignetteImage.material.SetColor("_DotColor", vignette.Color);
         }
 
         private async void SetIdleRewardLayer()
@@ -453,7 +455,9 @@ namespace CookApps.AutoBattler
                 // 스테이지 진입
                 InGameManager.Instance.EndInGame();
                 SceneTransition_Animator transition = SceneTransition_Animator.Create();
-                SceneLoading.GoToNextScene("InGame", ((int)currentStageData.chapter_id, (int)currentStageData.stage_number, currentStageData.difficulty_type), transition).Forget();
+                SceneLoading.GoToNextScene("InGame",
+                    (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int) currentStageData.stage_id),
+                    transition).Forget();
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             }

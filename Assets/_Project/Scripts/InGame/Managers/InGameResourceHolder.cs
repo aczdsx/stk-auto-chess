@@ -13,25 +13,31 @@ namespace CookApps.AutoBattler
         public static GameObject StagePrefab { get; private set; }
         public static HpBarView HpBarView = null;
         public static InGameTextView InGameText = null;
-        // public static SpecStage SpecStage = null;
-        public static int Chapter { get; private set; }
 
-        public static async UniTask LoadResources(int chapter, int stageIdx, DifficultyType difficultyType)
+        public static async UniTask LoadResources(InGameType inGameType, IGameStateUI gameStateUI, int id)
         {
-            Chapter = chapter;
             GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();
 
             GameObject ingameTextPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/DamageText.prefab");
             InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
 
-            StagePrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Stage{chapter}.prefab");
+            if (inGameType == InGameType.STAGE)
+            {
+                var stageData = SpecDataManager.Instance.GetStageData(id);
+                StagePrefab =
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Stage{stageData.chapter_id}.prefab");
+            }
+            else if (inGameType == InGameType.TRIAL)
+            {
+                var dungeonData = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
+                StagePrefab =
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Trial{dungeonData.dungeon_id}.prefab");
+            }
         }
 
         public static async UniTask LoadLobbyResources(int chapter)
         {
-            Chapter = chapter;
-
             GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();
 

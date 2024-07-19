@@ -57,8 +57,6 @@ namespace CookApps.BattleSystem
         public bool IsForceIdle { get; set; }
         public bool IsBlockChangeState { get; set; }
 
-        public Queue<InGameTile> RecentlyVisitedTiles = new Queue<InGameTile>();
-
         public IFollowable SkillRootTransformFollowable => new SimpleSkillTransformFollowable(this);
 
         /// <summary>

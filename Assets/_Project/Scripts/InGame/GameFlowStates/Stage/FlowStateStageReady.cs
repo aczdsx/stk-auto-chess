@@ -18,10 +18,14 @@ public class FlowStateStageReady : StateBase
     {
         base.SetStateData(data);
         _specStage = data as SpecStage;
+        SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
+        InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
     }
 
     public override async void StateInit(object target)
-    {;
+    {
+        InGameMain.GetInGameMain().PlaySceneAnimation("SetEntry");
+
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecStageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,
@@ -45,7 +49,7 @@ public class FlowStateStageReady : StateBase
         }
 
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
-        InGameMain.GetInGameMain().SetReadyUI();
+        InGameMain.GetInGameMain().SetReadyStateUI();
 
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)
@@ -66,7 +70,7 @@ public class FlowStateStageReady : StateBase
                 typeof(CharacterStateReady), false, HpBarType.None));
         }
 
-        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList();
+        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
         List<ObfuscatorInt> tileIDList = _specStage.obstacle_grid_id.ToList();
 
         battleDeckList.RemoveAll(l =>

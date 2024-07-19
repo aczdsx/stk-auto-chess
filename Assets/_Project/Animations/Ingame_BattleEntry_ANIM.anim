@@ -52,7 +52,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Top/Top_Status
+    path: Top(Clone)/Top_Status
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -91,7 +91,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: _offset
-    path: Bottom/Gradient_Bottom
+    path: Bottom(Clone)/Gradient_Bottom
     classID: 114
     script: {fileID: 11500000, guid: 45facfdc6a639f041b007c036dc527b8, type: 3}
     flags: 0
@@ -130,7 +130,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SizeDelta.y
-    path: Bottom/Gradient_Bottom/RawImage
+    path: Bottom(Clone)/Gradient_Bottom/RawImage
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -169,7 +169,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Bottom/Bottom_Right_Menu/Btn_IngameBattle
+    path: Bottom(Clone)/Bottom_Right_Menu/Btn_IngameBattle
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -217,7 +217,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Bottom/Bottom_Right_Menu/Btn_IngameBattle/Frame
+    path: Bottom(Clone)/Bottom_Right_Menu/Btn_IngameBattle/Frame
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -265,7 +265,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Bottom/Bottom_Right_Menu/Btn_IngameBattle/Frame/Text (TMP)_Battle
+    path: Bottom(Clone)/Bottom_Right_Menu/Btn_IngameBattle/Frame/Text (TMP)_Battle
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -304,7 +304,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Bottom/Bottom_Right_Menu/MasterSkill
+    path: Bottom(Clone)/Bottom_Right_Menu/MasterSkill
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -382,7 +382,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Bottom/Bottom_Left_Menu
+    path: Bottom(Clone)/Bottom_Left_Menu
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -421,7 +421,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Bottom/Bottom_Left_Menu/Btn_BattleStatistics
+    path: Bottom(Clone)/Bottom_Left_Menu/Btn_BattleStatistics
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -451,7 +451,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -481,7 +481,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Delayed_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Delayed_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -511,7 +511,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -541,7 +541,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Delayed_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Delayed_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -589,7 +589,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -637,7 +637,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -685,7 +685,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -733,7 +733,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -763,7 +763,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player_OnlyAnim
+    path: Top(Clone)/Top_Status/Player_OnlyAnim
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -793,7 +793,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy_OnlyAnim
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -823,7 +823,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy/EnemyGauge/Ratio
+    path: Top(Clone)/Top_Status/Enemy/EnemyGauge/Ratio
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -853,7 +853,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player/PlayerGauge/Ratio
+    path: Top(Clone)/Top_Status/Player/PlayerGauge/Ratio
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -892,7 +892,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Top/Top_Status/Text_Time
+    path: Top(Clone)/Top_Status/Text_Time
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -922,7 +922,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player
+    path: Top(Clone)/Top_Status/Player
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -952,7 +952,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy
+    path: Top(Clone)/Top_Status/Enemy
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -982,7 +982,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Fill
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Fill
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -1012,46 +1012,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Fill
-    classID: 114
-    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.16666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8833333
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Color.a
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/bg
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Fill
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -1090,7 +1051,46 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/bg
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/bg
+    classID: 114
+    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.16666667
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8833333
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Color.a
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/bg
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -1138,7 +1138,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Bottom/SetTip
+    path: Bottom(Clone)/SetTip
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -1186,7 +1186,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Bottom/SetTip
+    path: Bottom(Clone)/SetTip
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -1225,7 +1225,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_EntryInfo
+    path: Top(Clone)/Top_EntryInfo
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -1264,7 +1264,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Top/Top_EntryInfo
+    path: Top(Clone)/Top_EntryInfo
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -1303,7 +1303,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Top/Top_EntryInfo/Player
+    path: Top(Clone)/Top_EntryInfo/Player
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -1342,7 +1342,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Top/Top_EntryInfo/Enemy
+    path: Top(Clone)/Top_EntryInfo/Enemy
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -1372,7 +1372,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player/Power
+    path: Top(Clone)/Top_Status/Player/Power
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -1402,7 +1402,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy/Power
+    path: Top(Clone)/Top_Status/Enemy/Power
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -1441,7 +1441,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Bottom/Bottom_Slot_Menu/Viewport/Slots_Character
+    path: Bottom(Clone)/Bottom_Slot_Menu/Viewport/Slots_Character
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -1480,7 +1480,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Bottom/Bottom_Slot_Menu/Viewport/Slots_Character
+    path: Bottom(Clone)/Bottom_Slot_Menu/Viewport/Slots_Character
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -1900,7 +1900,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Top/Top_Status
+    path: Top(Clone)/Top_Status
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -1939,7 +1939,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: _offset
-    path: Bottom/Gradient_Bottom
+    path: Bottom(Clone)/Gradient_Bottom
     classID: 114
     script: {fileID: 11500000, guid: 45facfdc6a639f041b007c036dc527b8, type: 3}
     flags: 0
@@ -1978,7 +1978,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SizeDelta.y
-    path: Bottom/Gradient_Bottom/RawImage
+    path: Bottom(Clone)/Gradient_Bottom/RawImage
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -2017,7 +2017,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Bottom/Bottom_Right_Menu/Btn_IngameBattle
+    path: Bottom(Clone)/Bottom_Right_Menu/Btn_IngameBattle
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -2065,7 +2065,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Bottom/Bottom_Right_Menu/Btn_IngameBattle/Frame
+    path: Bottom(Clone)/Bottom_Right_Menu/Btn_IngameBattle/Frame
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -2113,7 +2113,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Bottom/Bottom_Right_Menu/Btn_IngameBattle/Frame/Text (TMP)_Battle
+    path: Bottom(Clone)/Bottom_Right_Menu/Btn_IngameBattle/Frame/Text (TMP)_Battle
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -2152,7 +2152,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Bottom/Bottom_Right_Menu/MasterSkill
+    path: Bottom(Clone)/Bottom_Right_Menu/MasterSkill
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -2230,7 +2230,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Bottom/Bottom_Left_Menu
+    path: Bottom(Clone)/Bottom_Left_Menu
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -2269,7 +2269,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Bottom/Bottom_Left_Menu/Btn_BattleStatistics
+    path: Bottom(Clone)/Bottom_Left_Menu/Btn_BattleStatistics
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -2299,7 +2299,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -2329,7 +2329,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Delayed_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Delayed_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -2359,7 +2359,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -2389,7 +2389,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Value
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Delayed_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Delayed_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
     flags: 0
@@ -2437,7 +2437,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -2485,7 +2485,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -2533,7 +2533,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Ratio_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -2581,7 +2581,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Ratio_AnimOnly
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -2611,7 +2611,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player_OnlyAnim
+    path: Top(Clone)/Top_Status/Player_OnlyAnim
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -2641,7 +2641,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy_OnlyAnim
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -2671,7 +2671,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy/EnemyGauge/Ratio
+    path: Top(Clone)/Top_Status/Enemy/EnemyGauge/Ratio
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -2701,7 +2701,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player/PlayerGauge/Ratio
+    path: Top(Clone)/Top_Status/Player/PlayerGauge/Ratio
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -2740,7 +2740,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_fontColor.a
-    path: Top/Top_Status/Text_Time
+    path: Top(Clone)/Top_Status/Text_Time
     classID: 114
     script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
     flags: 0
@@ -2770,7 +2770,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player
+    path: Top(Clone)/Top_Status/Player
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -2800,7 +2800,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy
+    path: Top(Clone)/Top_Status/Enemy
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -2830,7 +2830,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Fill
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/Fill
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -2860,46 +2860,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Fill
-    classID: 114
-    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.16666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8833333
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Color.a
-    path: Top/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/bg
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/Fill
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -2938,7 +2899,46 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
-    path: Top/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/bg
+    path: Top(Clone)/Top_Status/Player_OnlyAnim/PlayerGauge_AnimOnly/bg
+    classID: 114
+    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.16666667
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8833333
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Color.a
+    path: Top(Clone)/Top_Status/Enemy_OnlyAnim/EnemyGauge_AnimOnly/bg
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
     flags: 0
@@ -2986,7 +2986,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Bottom/SetTip
+    path: Bottom(Clone)/SetTip
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -3034,7 +3034,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Bottom/SetTip
+    path: Bottom(Clone)/SetTip
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -3073,7 +3073,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_EntryInfo
+    path: Top(Clone)/Top_EntryInfo
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -3112,7 +3112,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Top/Top_EntryInfo
+    path: Top(Clone)/Top_EntryInfo
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -3151,7 +3151,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Top/Top_EntryInfo/Player
+    path: Top(Clone)/Top_EntryInfo/Player
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -3190,7 +3190,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Top/Top_EntryInfo/Enemy
+    path: Top(Clone)/Top_EntryInfo/Enemy
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -3220,7 +3220,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Player/Power
+    path: Top(Clone)/Top_Status/Player/Power
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -3250,7 +3250,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Top/Top_Status/Enemy/Power
+    path: Top(Clone)/Top_Status/Enemy/Power
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -3289,7 +3289,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: Bottom/Bottom_Slot_Menu/Viewport/Slots_Character
+    path: Bottom(Clone)/Bottom_Slot_Menu/Viewport/Slots_Character
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -3328,7 +3328,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: Bottom/Bottom_Slot_Menu/Viewport/Slots_Character
+    path: Bottom(Clone)/Bottom_Slot_Menu/Viewport/Slots_Character
     classID: 224
     script: {fileID: 0}
     flags: 0

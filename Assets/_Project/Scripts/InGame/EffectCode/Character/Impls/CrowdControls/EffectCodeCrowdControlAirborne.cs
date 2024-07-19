@@ -100,7 +100,7 @@ public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
         else if (elapsedTime <= duration + _moveTime)
         {
             var pos = owner.ViewPosition3D;
-            pos.y = height;
+            pos.y = height + Mathf.Sin(elapsedTime * Mathf.PI * 3) * 0.1f;
             owner.ViewPosition3D = pos;
         }
         else

@@ -210,20 +210,8 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-            int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
-            int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
-            if (_isPlayingLastStage)
-            {
-                targetChapterID++;
-                targetStageNumber = 1;
-            }
-            else
-            {
-                targetStageNumber++;
-            }
-
-            //InGameManager.Instance.EndInGame();
-            SceneLoading.GoToNextScene("InGame", (targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
+            SceneLoading.GoToNextScene("InGame",
+                (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int)InGameManager.Instance.SpecStage.stage_id)).Forget();
         }
 
         private void OnClickRetryStageButton()
@@ -237,7 +225,8 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             //InGameManager.Instance.EndInGame();
-            SceneLoading.GoToNextScene("InGame", ((int)InGameManager.Instance.SpecStage.chapter_id, (int)InGameManager.Instance.SpecStage.stage_number, InGameManager.Instance.SpecStage.difficulty_type)).Forget();
+            SceneLoading.GoToNextScene("InGame",
+                (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int)InGameManager.Instance.SpecStage.stage_id)).Forget();
         }
 
         // 가장 높은 스테이지 클리어 여부 체크

@@ -15,6 +15,7 @@ namespace CookApps.BattleSystem
     {
         #region GameInfo
         public SpecStage SpecStage { get; private set; }
+        public SpecDungeonTrial SpecDungeonTrial { get; private set; }
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
@@ -39,37 +40,37 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region InGame Cycle
-        public void StartInGame<T>(SpecStage specStage, object stateData) where T : StateBase, new()
+        public void StartInGame<T>(SpecStage specStage) where T : StateBase, new()
         {
             SpecStage = specStage;
             IsInGamePlaying = true;
             ecc = new EffectCodeContainer(this);
+            InitializeInGameComponents();
+        }
+
+        public void StartInGame<T>(SpecDungeonTrial specDungeonTrial) where T : StateBase, new()
+        {
+            SpecDungeonTrial = specDungeonTrial;
+            IsInGamePlaying = true;
+            ecc = new EffectCodeContainer(this);
+            InitializeInGameComponents();
+        }
+
+        private void InitializeInGameComponents()
+        {
             // 순서 중요!
             InGameVfxManager.Instance.Initialize();
             InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
-            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
-            InGameCommanderManager.Instance.Initialize();
-        }
-
-        public void StartInGame<T>(object stateData) where T : StateBase, new()
-        {
-            IsInGamePlaying = true;
-            ecc = new EffectCodeContainer(this);
-            InGameVfxManager.Instance.Initialize();
-            InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
-            InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
-            InGameObjectManager.Instance.Initialize();
-            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(stateData);
             InGameCommanderManager.Instance.Initialize();
         }
 
         public void EndInGame()
         {
             IsInGamePlaying = false;
-            InGameCommanderManager.Instance.Clear();
             InGameMainFlowManager.Instance.StopInGameMainLoop();
+            InGameCommanderManager.Instance.Clear();
             InGameObjectManager.Instance.Clear();
             InGameTextViewPool.Instance.ReleasePool();
             InGameHpBarViewPool.Instance.Clear();
@@ -111,6 +112,12 @@ namespace CookApps.BattleSystem
             }
 
             InGameRandomManager.Instance.ResetGlobalRandomSeed(globalRandomSeeds);
+        }
+
+        public void UpdateSynergyAndAttr()
+        {
+            InGameObjectManager.Instance.ClearSynergyFx();
+            InGameMain.GetInGameMain().RefreshInGameTopUI(false);
         }
     }
 }

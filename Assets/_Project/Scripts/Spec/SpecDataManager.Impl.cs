@@ -4,14 +4,12 @@
 using CookApps.gRPC.Universal;
 using CookApps.LocalData;
 #endif
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
-using UnityEditor.Rendering;
 
 namespace CookApps.AutoBattler
 {
@@ -65,9 +63,11 @@ namespace CookApps.AutoBattler
 #endif
             Load(json);
             await UniTask.Yield();
+            GenerateCacheSpecData();
             CustomizeSpecData();
         }
 
+        // SpecData Dictionary Cache Data
         private Dictionary<string, SpecLanguage> languageDic = new (); // key : token_key, value : language data
         private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
         private Dictionary<int, List<SpecChapter>> chapterDic = new (); // key : chapter_id, value : chapter list
@@ -85,8 +85,11 @@ namespace CookApps.AutoBattler
         private Dictionary<CharacterPositionType, List<SpecSynergy>> positionSynergyDic = new (); // key : CharacterPositionType, value : SpecSynergy
         private Dictionary<ElementType, List<SpecSynergy>> elementSynergyDic = new (); // key : ElementType, value : SpecSynergy
 
+
+
         private void CustomizeSpecData()
         {
+            # region SpecData Dictionary Cache
             // Language
             languageDic.Clear();
             foreach (SpecLanguage language in SpecLanguage.All)
@@ -95,19 +98,6 @@ namespace CookApps.AutoBattler
                 {
                     languageDic.Add(language.token_key, language);
                 }
-            }
-
-            // Chest
-            chestDic.Clear();
-            foreach (SpecChest chest in SpecChest.All)
-            {
-                if (!chestDic.TryGetValue(chest.chest_id, out List<RewardItem> chestList))
-                {
-                    chestList = new List<RewardItem>();
-                    chestDic.Add(chest.chest_id, chestList);
-                }
-
-                chestList.Add(chest.ToRewardItem());
             }
 
             // Chapter
@@ -273,6 +263,9 @@ namespace CookApps.AutoBattler
 
                 list.Add(synergy);
             }
+            #endregion
+
+
         }
 
         public string GetLanguageText(string tokenKey)
@@ -301,39 +294,39 @@ namespace CookApps.AutoBattler
 
         public SpecCharacter GetCharacterData(int characterID)
         {
-            return SpecCharacter.All.ToList().Find(character => character.character_id == characterID);
+            return SpecCharacterList.Find(character => character.character_id == characterID);
         }
 
         public List<SpecCharacter> GetCharacterListByCharacterType(CharacterType type)
         {
-            return SpecCharacter.All.ToList().FindAll(character => character.character_type == type);
+            return SpecCharacterList.FindAll(character => character.character_type == type);
         }
 
         public int GetCharacterMaxLevel()
         {
-            return SpecCharacterLevelExp.All.Max(data => data.level);
+            return SpecCharacterLevelExpList.Max(data => data.level);
         }
 
         public SpecCharacterLevelExp GetCharacterLevelExpData(int level)
         {
-            return SpecCharacterLevelExp.All.ToList().Find(data => data.level == level);
+            return SpecCharacterLevelExpList.Find(data => data.level == level);
         }
 
         public List<SpecCharacterLevelExp> GetCharacterLevelExpDataList(int level)
         {
-            return SpecCharacterLevelExp.All.ToList().FindAll(data => data.level <= level);
+            return SpecCharacterLevelExpList.FindAll(data => data.level <= level);
         }
 
         public SpecCharacterTranscendence GetCharacterTranscendenceData(ElementType elementType, GradeType gradeType, int transcendenceLevel)
         {
-            return SpecCharacterTranscendence.All.ToList().Find(data => data.element_type == elementType
+            return SpecCharacterTranscendenceList.Find(data => data.element_type == elementType
                                                                     && data.grade_type == gradeType
                                                                     && data.transcendence_lv == transcendenceLevel);
         }
 
         public List<SpecCharacterTranscendence> GetCharacterTranscendenceDataList(ElementType elementType, GradeType gradeType)
         {
-            return SpecCharacterTranscendence.All.ToList().FindAll(data => data.element_type == elementType
+            return SpecCharacterTranscendenceList.FindAll(data => data.element_type == elementType
                                                                         && data.grade_type == gradeType);
         }
 
@@ -368,12 +361,12 @@ namespace CookApps.AutoBattler
 
         public SpecCharacterQuotes GetCharacterQuotesDataByPrefabID(int prefabID)
         {
-            return SpecCharacterQuotes.All.ToList().Find(data => data.prefab_id == prefabID);
+            return SpecCharacterQuotesList.Find(data => data.prefab_id == prefabID);
         }
 
         public SpecChapter GetChapterData(int chapterID)
         {
-            return SpecChapter.All.ToList().Find(dat => dat.chapter_id == chapterID);
+            return SpecChapterList.Find(dat => dat.chapter_id == chapterID);
         }
 
         public SpecChapter GetChapterData(int chapterID, DifficultyType type)
@@ -436,7 +429,7 @@ namespace CookApps.AutoBattler
 
         public List<SpecDialogue> GetDialogueListByGroupID(int groupID)
         {
-            return SpecDialogue.All.ToList().FindAll(data => data.dialouge_group_id == groupID);
+            return SpecDialogueList.FindAll(data => data.dialouge_group_id == groupID);
         }
 
         public int GetDialgueGroupIDByEventType(DialogueEventType eventType, string subKeyValue)
@@ -453,7 +446,7 @@ namespace CookApps.AutoBattler
 
         public SpecStage GetStageData(int stageID)
         {
-            return SpecStage.All.ToList().Find(data => data.stage_id == stageID);
+            return SpecStageList.Find(data => data.stage_id == stageID);
         }
 
         public SpecStage GetStageData(int chapterID, int stageNumber, DifficultyType type)
@@ -524,7 +517,7 @@ namespace CookApps.AutoBattler
         // 가장 마지막 스테이지 데이터 반환
         public SpecStage GetEndStage()
         {
-            var lastChapterData = SpecChapter.All.ToList().Max(data => data.chapter_id);
+            var lastChapterData = SpecChapterList.Max(data => data.chapter_id);
 
             return GetLastStageData(lastChapterData, DifficultyType.NORMAL);
         }
@@ -587,29 +580,29 @@ namespace CookApps.AutoBattler
         // 해당 챕터에서 받을 수 있는 Idle 보상 리스트 반환 (해당 챕터 이하 리스트 모두 반환)
         public List<SpecIdleReward> GetAllIdleRewardList(int chapterID)
         {
-            return SpecIdleReward.All.ToList().FindAll(data => data.chapter_id <= chapterID);
+            return SpecIdleRewardList.FindAll(data => data.chapter_id <= chapterID);
         }
 
         public List<SpecRewardInfo> GetSpecRewardInfoList(int rewardID)
         {
-            return SpecRewardInfo.All.ToList().FindAll(dataa => dataa.reward_id == rewardID);
+            return SpecRewardInfoList.FindAll(dataa => dataa.reward_id == rewardID);
         }
 
         // 보상 데이터 리스트 반환
         public List<SpecRewardInfo> GetSpecRewardInfoList(ContentType contentType, int contentKey, DifficultyType difficultyType)
         {
-            return SpecRewardInfo.All.ToList().FindAll(data => data.content_type == contentType
-                                                    && data.content_key_value == contentKey
-                                                    && data.difficulty_type == difficultyType);
+            return SpecRewardInfoList.FindAll(data => data.content_type == contentType
+                                                      && data.content_key_value == contentKey
+                                                      && data.difficulty_type == difficultyType);
         }
 
         // 시나리오 가챠 데이터 반환
         public List<SpecGachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
         {
-            int maxCount = SpecGachaScenario.All.Count;
+            int maxCount = SpecGachaScenarioList.Count;
             int resultCount = currentCount + gachaCount > maxCount ? maxCount - currentCount : gachaCount;
 
-            return SpecGachaScenario.All.ToList().GetRange(currentCount, resultCount);
+            return SpecGachaScenarioList.GetRange(currentCount, resultCount);
         }
 
         // 시나리오 가챠 데이터를 RewardItem 리스트로 변환
@@ -665,41 +658,41 @@ namespace CookApps.AutoBattler
 
         public SpecSkill GetSkillData(int skillID, SkillValueType type)
         {
-            return SpecSkill.All.ToList().Find(data => data.skill_id == skillID && data.skill_value_type == type);
+            return SpecSkillList.Find(data => data.skill_id == skillID && data.skill_value_type == type);
         }
 
         public List<SpecCommanderSkill> GetCommanderSkillList(int chapterID)
         {
-            return SpecCommanderSkill.All.ToList().FindAll(data => data.open_key_chapter_id <= chapterID);
+            return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id <= chapterID);
         }
 
         public int GetFirstCommanderSkillChapter()
         {
-            return SpecCommanderSkill.All.Min(data => data.open_key_chapter_id);
+            return SpecCommanderSkillList.Min(data => data.open_key_chapter_id);
         }
 
         public SpecCommanderSkill GetCommanderSkillData(int skillID)
         {
-            return SpecCommanderSkill.All.FirstOrDefault(data => data.commander_skill_id == skillID);
+            return SpecCommanderSkillList.FirstOrDefault(data => data.commander_skill_id == skillID);
         }
 
         public SpecCommanderSkill GetCommanderSkillData(int commanderSkillID, SkillValueType type)
         {
-            return SpecCommanderSkill.All.ToList().Find(data => data.commander_skill_id == commanderSkillID && data.skill_value_type == type);
+            return SpecCommanderSkillList.Find(data => data.commander_skill_id == commanderSkillID && data.skill_value_type == type);
         }
 
         public SpecCharacter GetSpecCharacter(int characterID)
         {
-            return SpecCharacter.All.FirstOrDefault(data => data.character_id == characterID);
+            return SpecCharacterList.FirstOrDefault(data => data.character_id == characterID);
         }
         public SpecAccountLevelExp GetAccountLevelExpDataByLevel(int level)
         {
-            return SpecAccountLevelExp.All.ToList().Find(data => data.lv == level);
+            return SpecAccountLevelExpList.Find(data => data.lv == level);
         }
 
         public int GetAccountMaxLevel()
         {
-            return SpecAccountLevelExp.All.Max(data => data.lv);
+            return SpecAccountLevelExpList.Max(data => data.lv);
         }
 
         public int GetAccountLevelByExp(long exp)
@@ -712,7 +705,7 @@ namespace CookApps.AutoBattler
             }
 
             // 나머지 레벨 체크
-            foreach (var accountData in SpecAccountLevelExp.All)
+            foreach (var accountData in SpecAccountLevelExpList)
             {
                 if (accountData.exp_start > exp)
                 {
@@ -725,13 +718,13 @@ namespace CookApps.AutoBattler
 
         public SpecGuideMission GetGuideMissionDataByOrder(int order)
         {
-            return SpecGuideMission.All.ToList().Find(data => data.order == order);
+            return SpecGuideMissionList.Find(data => data.order == order);
         }
 
         // 가이드 미션 order 최대치 반환
         public int GetGuideMissionMaxOrder()
         {
-            return SpecGuideMission.All.Max(guide => guide.order);
+            return SpecGuideMissionList.Max(guide => guide.order);
         }
 
         public List<SpecStageReward> GetSpecStageReward(int rewardID)
@@ -771,17 +764,17 @@ namespace CookApps.AutoBattler
 
         public SpecQuest GetSpecQuestData(int questID)
         {
-            return SpecQuest.All.ToList().Find(data => data.quest_id == questID);
+            return SpecQuestList.Find(data => data.quest_id == questID);
         }
 
         public List<SpecQuest> GetSpecQuestList(TermType termType, bool isIncludeMilestone)
         {
             if (isIncludeMilestone)
             {
-                return SpecQuest.All.ToList().FindAll(data => data.term_type == termType);
+                return SpecQuestList.FindAll(data => data.term_type == termType);
             }
 
-            return SpecQuest.All.ToList().FindAll(data =>
+            return SpecQuestList.FindAll(data =>
                 data.term_type == termType
                 && data.quest_type != QuestType.CLEAR_DAILY_QUEST
                 && data.quest_type != QuestType.CLEAR_WEEKLY_QUEST);
@@ -789,44 +782,44 @@ namespace CookApps.AutoBattler
 
         public List<SpecQuest> GetSpecQuestList(QuestType questType)
         {
-            return SpecQuest.All.ToList().FindAll(data => data.quest_type == questType);
+            return SpecQuestList.FindAll(data => data.quest_type == questType);
         }
 
         public List<SpecQuest> GetSpecQuestList(TermType termType, QuestType questType)
         {
-            return SpecQuest.All.ToList().FindAll(data => data.term_type == termType && data.quest_type == questType);
+            return SpecQuestList.FindAll(data => data.term_type == termType && data.quest_type == questType);
         }
 
         public SpecEvent GetSpecEventData(int eventID)
         {
-            return SpecEvent.All.ToList().Find(data => data.event_id == eventID);
+            return SpecEventList.Find(data => data.event_id == eventID);
         }
 
         public SpecEvent GetSpecEventData(EventType eventType)
         {
-            return SpecEvent.All.ToList().Find(data => data.event_type == eventType);
+            return SpecEventList.Find(data => data.event_type == eventType);
         }
 
         public List<SpecEvent> GetSpecEventList(EventType eventType)
         {
-            return SpecEvent.All.ToList().FindAll(data => data.event_type == eventType);
+            return SpecEventList.FindAll(data => data.event_type == eventType);
         }
 
         public List<SpecEvent> GetSpecEventList(TermType termType)
         {
-            return SpecEvent.All.ToList().FindAll(data => data.term_type == termType);
+            return SpecEventList.FindAll(data => data.term_type == termType);
         }
 
         // 기간 제한이 존재하는 이벤트 리스트를 반환
         public List<SpecEvent> GetLimitedSpecEventList()
         {
-            return SpecEvent.All.ToList().FindAll(data => data.frequency_type == FrequencyType.ONCE);
+            return SpecEventList.FindAll(data => data.frequency_type == FrequencyType.ONCE);
         }
 
         // 기간 제한이 존재하지 않는 이벤트 리스트를 반환 (서비스 중 기간동안 지속 반복)
         public List<SpecEvent> GetNoneLimitedSpecEventList()
         {
-            return SpecEvent.All.ToList().FindAll(data => data.frequency_type == FrequencyType.REPEAT);
+            return SpecEventList.FindAll(data => data.frequency_type == FrequencyType.REPEAT);
         }
 
         // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터를 반환
@@ -882,38 +875,60 @@ namespace CookApps.AutoBattler
 
         public SpecEventCondition GetSpecEventConditionData(int eventID, int eventConditionID)
         {
-            return SpecEventCondition.All.ToList().Find(data => data.event_id == eventID && data.event_condition_id == eventConditionID);
+            return SpecEventConditionList.Find(data => data.event_id == eventID && data.event_condition_id == eventConditionID);
         }
 
         public List<SpecEventCondition> GetSpecEventConditionList(int eventID)
         {
-            return SpecEventCondition.All.ToList().FindAll(data => data.event_id == eventID);
+            return SpecEventConditionList.FindAll(data => data.event_id == eventID);
         }
 
         public SpecDungeonTrial GetSpecDungeonTrialData(int dungeonID)
         {
-            return SpecDungeonTrial.All.ToList().Find(data => data.dungeon_id == dungeonID);
+            return SpecDungeonTrialList.Find(data => data.dungeon_id == dungeonID);
         }
 
         public SpecDungeonTrial GetSpecDungeonTrialDataByOrder(int order)
         {
-            return SpecDungeonTrial.All.ToList().Find(data => data.order == order);
+            return SpecDungeonTrialList.Find(data => data.order == order);
         }
 
         public List<SpecDungeonTrial> GetSpecDungeonTrialDataList(DungeonType dungeonType)
         {
-            return SpecDungeonTrial.All.ToList().FindAll(data => data.dungeon_type == dungeonType);
+            return SpecDungeonTrialList.FindAll(data => data.dungeon_type == dungeonType);
         }
 
-        public List<SpecDungeonMonster> GetSpecDungeonMonsterDataList(int dungeonID)
+        public List<SpecDungeonMonster> GetSpecDungeonMonsterDataList(DungeonType dungeonType, int dungeonID)
         {
-            return SpecDungeonMonster.All.ToList().FindAll(data => data.dungeon_id == dungeonID);
+            return SpecDungeonMonsterList
+                .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
 
-        public List<SpecDungeonReward> GetSpecDungeonRewardDataList(int dungeonID)
+        public List<SpecDungeonReward> GetSpecDungeonRewardDataList(DungeonType dungeonType, int dungeonID)
         {
-            return SpecDungeonReward.All.ToList().FindAll(data => data.dungeon_id == dungeonID);
+            return SpecDungeonRewardList
+                .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
+
+        #region PVP
+
+        public SpecPVPTier GetPVPTierData(int ranking_id)
+        {
+            return SpecPVPTierList.Find(data => data.ranking_id == ranking_id);
+        }
+
+        public List<SpecPVPTier> GetPVPTierDataList(RankingType rankingType)
+        {
+            return SpecPVPTierList.FindAll(data => data.ranking_type == rankingType);
+        }
+
+        public SpecPVPRanking GetPVPRankingData(int ranking)
+        {
+            return SpecPVPRankingList.Find(data => data.rank_range_start <= ranking && data.rank_range_end <= ranking);
+        }
+
+        #endregion
+
 
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
         // {

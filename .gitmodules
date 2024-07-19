@@ -1,3 +1,3 @@
 [submodule "Assets/_Project/Scripts/gRPC/grpc-proto"]
 	path = Assets/_Project/Scripts/gRPC/grpc-proto
-	url = git@github.com:cookapps-devops/auto-battle-project-grpcproto.git
+	url = https://github.com/cookapps-devops/stkauto-grpc-IDL.git

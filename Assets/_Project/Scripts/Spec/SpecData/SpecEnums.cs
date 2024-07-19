@@ -59,7 +59,7 @@ namespace CookApps.AutoBattler
         BUFF_DAMAGE_REDUCE_UP = 2000000018,
         BUFF_COOL_DOWN_SPEED_PERCENT_UP = 2000000019,
         BUFF_ATK_SPEED_UP = 2000000020,
-        BUFF_SKILL_POWER_UP = 2000000020,
+        BUFF_SKILL_POWER_UP = 2000000021,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
         DEBUFF_ICE = 2100000005,
         DEBUFF_SILENCE = 2100000006,
         DEBUFF_AD_DOWN = 2100000007,
-        DEBUFF_AIRBORNE =  2100000008,
+        DEBUFF_AIRBORNE = 2100000008,
     }
 
     public enum GradeType
@@ -93,6 +93,7 @@ namespace CookApps.AutoBattler
         CHARACTER_PIECE = 10,
         CHAR_USER_EXP_ITEM_2 = 11,
         KNIGHT_PIECE = 12,
+        PVP_TICKET = 13,
     }
 
     public enum ElementType
@@ -358,6 +359,10 @@ namespace CookApps.AutoBattler
         fx_common_commander_skill_05 = 105,
         fx_common_commander_skill_06_01 = 106,
         fx_common_commander_skill_06_02 = 107,
+        Projectile_104031 = 108,
+        Projectile_204031 = 109,
+        Projectile_204041 = 110,
+        Projectile_204051 = 111,
     }
 
     public enum GlobalEffectProviderType
@@ -403,5 +408,34 @@ namespace CookApps.AutoBattler
         GOLD = 3,
         PLATINUM = 4,
         DIAMOND = 5,
+    }
+
+    public enum CalcUnit
+    {
+        Numeric = 0,
+        Percentage = 1,
+    }
+
+    public enum RankingType
+    {
+        SCORE = 1,
+        RATE = 2,
+        NUMBER = 3,
+    }
+
+    public enum PvpRewardType
+    {
+        PVP_REWARD_TIER_UP = 1,
+        PVP_REWARD_DAILY = 2,
+        PVP_REWARD_SEASON = 3,
+        PVP_REWARD_VICTORY = 4,
+        PVP_REWARD_LOSE = 5,
+    }
+
+    public enum InGameType
+    {
+        STAGE = 1,
+        TRIAL = 2,
+        PVP = 3,
     }
 }
