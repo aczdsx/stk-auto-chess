@@ -49,7 +49,6 @@ public class FlowStateStageReady : StateBase
         }
 
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
-        InGameMain.GetInGameMain().InitReadyStateUI();
 
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)
@@ -98,7 +97,7 @@ public class FlowStateStageReady : StateBase
         }
 
         await UniTask.WhenAll(addCharacterTasks);
-        InGameMain.GetInGameMain().AddCharacter(battleDeckList);
+        InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
     }
 
     public override void StateStart()

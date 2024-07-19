@@ -48,11 +48,6 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.UpdateSynergyAndAttr();
         }
 
-        public void AddCharacterUI(List<UserCharacterBattleDeck> battleDeckList)
-        {
-            _inGameBottomCharacterUI.AddCharacter(battleDeckList);
-        }
-
         public void SetInGameBottomUIInGuideUI()
         {
             _inGameBottomCharacterUI.CheckNewCharacter();
@@ -76,12 +71,13 @@ namespace CookApps.AutoBattler
                 }
             }
         }
-
-        public void InitReadyStateUI()
+        
+        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
         {
             _inGameBottomCharacterUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
+            _inGameBottomCharacterUI.InitCharacterUI(battleDeckList);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)

@@ -298,8 +298,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             ReleaseSelectedHero(true);
 
             InGameObjectManager.Instance.ClearSynergyFx();
+            deleteCharacterController.CurrentTile.SetUnoccupied();
             InGameObjectManager.Instance.RemoveCharacterFromField(deleteCharacterController);
-            inGameMain.ReturnCharacter(deleteCharacterController);
+            inGameMain.ReturnCharacterUI(deleteCharacterController);
         }
         else
         {

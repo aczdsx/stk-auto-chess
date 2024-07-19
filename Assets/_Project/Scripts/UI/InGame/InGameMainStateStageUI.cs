@@ -57,11 +57,6 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.UpdateSynergyAndAttr();
         }
 
-        public void AddCharacterUI(List<UserCharacterBattleDeck> battleDeckList)
-        {
-            _inGameBottomCharacterUI.AddCharacter(battleDeckList);
-        }
-
         public void SetInGameBottomUIInGuideUI()
         {
             _inGameBottomCharacterUI.CheckNewCharacter();
@@ -86,11 +81,12 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void InitReadyStateUI()
+        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
         {
             _inGameBottomCharacterUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
+            _inGameBottomCharacterUI.InitCharacterUI(battleDeckList);
 
             // 다이얼로그 체크
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());

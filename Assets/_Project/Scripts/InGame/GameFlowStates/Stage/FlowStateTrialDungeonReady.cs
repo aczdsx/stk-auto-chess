@@ -48,7 +48,6 @@ public class FlowStateTrialDungeonReady : StateBase
         }
 
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
-        InGameMain.GetInGameMain().InitReadyStateUI();
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.TRIAL);
         List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.ToList();
@@ -78,7 +77,7 @@ public class FlowStateTrialDungeonReady : StateBase
         }
 
         await UniTask.WhenAll(addCharacterTasks);
-        InGameMain.GetInGameMain().AddCharacter(battleDeckList);
+        InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
     }
 
     public override void StateStart()

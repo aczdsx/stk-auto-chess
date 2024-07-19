@@ -16,7 +16,7 @@ namespace CookApps.BattleSystem
             this.character = character;
         }
 
-        public bool IsAlive => character.IsAlive;
+        public bool IsAlive => character.GetCharacterView() != null && character.IsAlive;
         public Vector3 GetPosition() => character.GetCharacterView().SkillRootTransform.position;
     }
 

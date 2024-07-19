@@ -15,13 +15,12 @@ namespace CookApps.AutoBattler
 {
     public interface IGameStateUI
     {
-        void RefreshInGameTopUI(bool isCombat);
         UniTask Initialize(Transform canvasTransform, int id);
+        void RefreshInGameTopUI(bool isCombat);
         void ReturnCharacterUI(CharacterController characterController);
-        void AddCharacterUI(List<UserCharacterBattleDeck> battleDeckList);
         void SetInGameBottomUIInGuideUI();
         void ManagedUpdate(float dt);
-        void InitReadyStateUI();
+        void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList);
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
         void SetCommanderSkillUI(int index, int equippedCommanderSkillId);
@@ -99,6 +98,11 @@ namespace CookApps.AutoBattler
             _skillTooltipPopup?.gameObject.SetActive(false);
         }
 
+        public void InitCommanderSkill()
+        {
+            _currentGameStateUI.InitCommanderSkill();
+        }
+
         public void SetInGameTime(float time)
         {
             _inGameTime = time;
@@ -111,7 +115,7 @@ namespace CookApps.AutoBattler
             _vignetteImage.material.SetColor("_DotColor", vignette.Color);
         }
 
-        public void ReturnCharacter(CharacterController characterController)
+        public void ReturnCharacterUI(CharacterController characterController)
         {
             _currentGameStateUI.ReturnCharacterUI(characterController);
         }
@@ -121,14 +125,9 @@ namespace CookApps.AutoBattler
             _currentGameStateUI.SetInGameBottomUIInGuideUI();
         }
 
-        public void InitReadyStateUI()
+        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
         {
-            _currentGameStateUI.InitReadyStateUI();
-        }
-
-        public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
-        {
-            _currentGameStateUI.AddCharacterUI(battleDeckList);
+            _currentGameStateUI.InitReadyStateUI(battleDeckList);
         }
 
         public void RefreshInGameTopUI(bool isCombat)
@@ -154,11 +153,6 @@ namespace CookApps.AutoBattler
         public void UnSetFocusSlotUI(bool isDropFx)
         {
             _currentGameStateUI.UnSetFocusSlotUI(isDropFx);
-        }
-
-        public void InitCommanderSkill()
-        {
-            _currentGameStateUI.InitCommanderSkill();
         }
     }
 }

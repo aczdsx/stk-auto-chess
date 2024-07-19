@@ -157,7 +157,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _statisticButton.gameObject.SetActive(isOn);
     }
 
-    public void AddCharacter(List<UserCharacterBattleDeck> battleDeckList)
+    public void InitCharacterUI(List<UserCharacterBattleDeck> battleDeckList)
     {
         foreach (var battleDeck in battleDeckList)
             _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);
