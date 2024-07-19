@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             userEvent = MessageUtility.FromBase64String<UserEvent>(data);
 
             UpdateRecentEventData();
-            UpdateAllEventTimeData(false);
+            //UpdateAllEventTimeData(false);
         }
 
         [Clear]
