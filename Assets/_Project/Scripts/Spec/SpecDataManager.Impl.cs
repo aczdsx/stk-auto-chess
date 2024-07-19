@@ -930,9 +930,9 @@ namespace CookApps.AutoBattler
             return SpecPVPTierList.Find(data => data.ranking_id == ranking_id);
         }
 
-        public List<SpecPVPTier> GetPVPTierDataList(int pvpRewardType)
+        public List<SpecPVPTier> GetPVPTierDataList(RankingType rankingType)
         {
-            return SpecPVPTierList.FindAll(data => data.reward_id == pvpRewardType);
+            return SpecPVPTierList.FindAll(data => data.ranking_type == rankingType);
         }
 
         public SpecPVPRanking GetPVPRankingData(int ranking)

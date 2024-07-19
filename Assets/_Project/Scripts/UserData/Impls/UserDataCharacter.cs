@@ -72,28 +72,39 @@ namespace CookApps.AutoBattler
             return 0;
         }
 
-        public void SetUserCharaceterBattleDeckList(List<CookApps.BattleSystem.CharacterController> characterList)
+        public void SetUserCharaceterBattleDeckList(InGameType targetType, List<CookApps.BattleSystem.CharacterController> characterList)
         {
             if (characterList == null || characterList.Count <= 0) return;
 
-            userCharacterGroup.UserCharacterBattleDecks.Clear();
+            if (userCharacterGroup.UserCharacterBattleDeckDic.ContainsKey((int)targetType) == false)
+            {
+                userCharacterGroup.UserCharacterBattleDeckDic.Add((int)targetType, new UserCharacterBattleDeckList());
+            }
+
+            userCharacterGroup.UserCharacterBattleDeckDic[(int)targetType].UserCharacterBattleDecks.Clear();
 
             foreach (var character in characterList)
             {
-                userCharacterGroup.UserCharacterBattleDecks.Add(new UserCharacterBattleDeck
-                {
-                    CharacterId = character.CharacterId,
-                    PositionTileX = character.CurrentTile.X,
-                    PositionTileY = character.CurrentTile.Y,
-                });
+                UserCharacterBattleDeck newUserBattleDeck = new UserCharacterBattleDeck();
+
+                newUserBattleDeck.CharacterId = character.CharacterId;
+                newUserBattleDeck.PositionTileX = character.CurrentTile.X;
+                newUserBattleDeck.PositionTileY = character.CurrentTile.Y;
+
+                userCharacterGroup.UserCharacterBattleDeckDic[(int) targetType].UserCharacterBattleDecks.Add(newUserBattleDeck);
             }
 
             SaveCharacterGroup();
         }
 
-        public List<UserCharacterBattleDeck> GetUserCharacterBattleDeckList()
+        public List<UserCharacterBattleDeck> GetUserCharacterBattleDeckList(InGameType targetType)
         {
-            return userCharacterGroup.UserCharacterBattleDecks.ToList();
+            if (userCharacterGroup.UserCharacterBattleDeckDic.ContainsKey((int)targetType) == false)
+            {
+                userCharacterGroup.UserCharacterBattleDeckDic.Add((int)targetType, new UserCharacterBattleDeckList());
+            }
+
+            return userCharacterGroup.UserCharacterBattleDeckDic[(int)targetType].UserCharacterBattleDecks.ToList();
         }
 
         public void SetCharacterLevel(int characterID, int level)
