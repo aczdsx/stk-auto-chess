@@ -37,7 +37,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     protected void Update()
     {
-        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageReady))
+        if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateReadyBase))
             return;
 
         bool isPointerOverUI = false;

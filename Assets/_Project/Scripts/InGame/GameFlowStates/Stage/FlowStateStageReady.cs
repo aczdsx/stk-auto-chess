@@ -10,7 +10,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-public class FlowStateStageReady : StateBase
+public class FlowStateStageReady : StateReadyBase
 {
     private SpecStage _specStage;
 

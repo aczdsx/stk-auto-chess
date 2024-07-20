@@ -83,7 +83,7 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameBottomCharacterUI.InitReadyStateUI(battleDeckList);
+            _inGameBottomCharacterUI.InitReadyStateUI(typeof(FlowStateTrialDungeonCombat), battleDeckList);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)

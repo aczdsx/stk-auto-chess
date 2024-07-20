@@ -60,6 +60,8 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private bool _isRunningAddCharacter;
     private bool _isOpenCommanderSkill;
 
+    private Type _combatType;
+
     protected void Awake()
     {
         var latestClearUserStageID = UserDataManager.Instance.GetLatestClearUserStageID();
@@ -98,7 +100,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
 
                 SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () => StartInGameBattle(_combatType));
 
                 SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
 
@@ -115,7 +117,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
                 string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
 
                 SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", StartInGameBattle);
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () => StartInGameBattle(_combatType));
 
                 SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
 
@@ -123,13 +125,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
             }
         }
 
-        StartInGameBattle();
+        StartInGameBattle(_combatType);
     }
 
-    private void StartInGameBattle()
+    private void StartInGameBattle(Type stateType)
     {
         _readyUIObj.SetActive(false);
-        InGameMainFlowManager.Instance.AddNextState<FlowStateStageCombat>();
+        InGameMainFlowManager.Instance.AddNextState(stateType);
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
     }
 
@@ -157,8 +159,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _statisticButton.gameObject.SetActive(isOn);
     }
 
-    public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
+    public void InitReadyStateUI(Type combatType, List<UserCharacterBattleDeck> battleDeckList)
     {
+        _combatType = combatType;
         foreach (var battleDeck in battleDeckList)
             _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);
         UpdateData();

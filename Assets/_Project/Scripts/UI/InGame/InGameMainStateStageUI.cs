@@ -86,7 +86,7 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameBottomCharacterUI.InitReadyStateUI(battleDeckList);
+            _inGameBottomCharacterUI.InitReadyStateUI(typeof(FlowStateStageCombat), battleDeckList);
 
             // 다이얼로그 체크
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());

@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
             base.OnPreExit();
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
         }
-
+        
         public void OpenStatisticPop()
         {
             bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);

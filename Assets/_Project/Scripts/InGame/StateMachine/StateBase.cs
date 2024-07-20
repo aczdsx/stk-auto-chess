@@ -12,4 +12,8 @@
     public abstract class StateCombatBase : StateBase
     {
     }
+    
+    public abstract class StateReadyBase : StateBase
+    {
+    }
 }

@@ -10,7 +10,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-public class FlowStateTrialDungeonReady : StateBase
+public class FlowStateTrialDungeonReady : StateReadyBase
 {
     private SpecDungeonTrial _specDungeonTrial;
 
