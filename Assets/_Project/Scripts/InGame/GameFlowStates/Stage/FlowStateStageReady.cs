@@ -46,7 +46,11 @@ public class FlowStateStageReady : StateReadyBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
+        bool isSize75 = _specStage.chapter_id == 1 || _specStage.chapter_id == 2; // [TODO] 나중에 데이터로 
+        if (isSize75)
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
+        else
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
 
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)

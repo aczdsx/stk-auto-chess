@@ -210,7 +210,7 @@ namespace CookApps.BattleSystem
                 _view.SetHpBarView(_hpBarView, _statData.Spec.height);
                 _view.SetFirstDirection(allianceType);
                 if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 ||
-                    _statData.Spec.prefab_id == 10401)
+                    _statData.Spec.prefab_id == 20201)
                     _view.SetHologramShader();
 
                 _view.OnAnimationEvent += OnAnimationEvent;
