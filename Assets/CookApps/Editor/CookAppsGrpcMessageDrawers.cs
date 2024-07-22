@@ -45,6 +45,8 @@ namespace CookApps.gRPC.Editor
     internal class UserCharacterBattleDrawer : GrpcMessagePropertyDrawer<UserCharacterBattle> { }
     [CustomPropertyDrawer(typeof(UserCharacterBattleDeck))]
     internal class UserCharacterBattleDeckDrawer : GrpcMessagePropertyDrawer<UserCharacterBattleDeck> { }
+    [CustomPropertyDrawer(typeof(UserCharacterBattleDeckList))]
+    internal class UserCharacterBattleDeckListDrawer : GrpcMessagePropertyDrawer<UserCharacterBattleDeckList> { }
     [CustomPropertyDrawer(typeof(UserIdleData))]
     internal class UserIdleDataDrawer : GrpcMessagePropertyDrawer<UserIdleData> { }
     [CustomPropertyDrawer(typeof(UserCommanderSkillData))]
@@ -55,4 +57,6 @@ namespace CookApps.gRPC.Editor
     internal class UserDeckDrawer : GrpcMessagePropertyDrawer<UserDeck> { }
     [CustomPropertyDrawer(typeof(UserDeckLine))]
     internal class UserDeckLineDrawer : GrpcMessagePropertyDrawer<UserDeckLine> { }
+    [CustomPropertyDrawer(typeof(UserPVP))]
+    internal class UserPVPDrawer : GrpcMessagePropertyDrawer<UserPVP> { }
 }
