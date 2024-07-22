@@ -68,6 +68,8 @@ namespace CookApps.AutoBattler
         DEBUFF_SILENCE = 2100000006,
         DEBUFF_AD_DOWN = 2100000007,
         DEBUFF_AIRBORNE = 2100000008,
+        DEBUFF_DEF_PERCENT_DOWN = 2100000009,
+        DEBUFF_HEAL_RATE_DOWN = 2100000010,
     }
 
     public enum GradeType

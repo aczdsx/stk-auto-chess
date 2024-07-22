@@ -208,10 +208,24 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
+            int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
+            if (_isPlayingLastStage)
+            {
+                targetChapterID++;
+                targetStageNumber = 1;
+            }
+            else
+            {
+                targetStageNumber++;
+            }
+
+            var nextStageData = SpecDataManager.Instance.GetStageData(targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type);
+            
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int)InGameManager.Instance.SpecStage.stage_id)).Forget();
+                (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int)nextStageData.stage_id)).Forget();
         }
 
         private void OnClickRetryStageButton()
