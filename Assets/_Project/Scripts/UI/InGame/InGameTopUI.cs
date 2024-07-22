@@ -150,8 +150,11 @@ public class InGameTopUI : MonoBehaviour
                     );
                 }
 
-                if (data.grade > 0)
-                    InGameObjectManager.Instance.SpawnSynergyFx(type, (ElementType)synergyCount.Type);
+                if (!isCombat)
+                {
+                    if (data.grade > 0)
+                        InGameObjectManager.Instance.SpawnSynergyFx(type, (ElementType) synergyCount.Type);
+                }
             }
         }
 
