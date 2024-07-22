@@ -414,9 +414,27 @@ namespace CookApps.BattleSystem
             return tiles;
         }
 
-        public List<InGameTile> GetTileListByShapeX(InGameTile ingameTile)
+        public List<InGameTile> GetTileListByShapeX(InGameTile inGameTile)
         {
-            return _tiles.Where(t => t.X == ingameTile.X ||  t.Y == ingameTile.Y).ToList();
+            return _tiles.Where(t => t.X == inGameTile.X ||  t.Y == inGameTile.Y).ToList();
+        }
+        
+        public List<InGameTile> GetTileListByShapeX(InGameTile inGameTile, int size)
+        {
+            return _tiles.Where(t => 
+                (t.X == inGameTile.X && (t.Y == inGameTile.Y + size || t.Y == inGameTile.Y - size)) ||
+                (t.Y == inGameTile.Y && (t.X == inGameTile.X + size || t.X == inGameTile.X - size))
+            ).ToList();
+        }
+        
+        public List<InGameTile> GetTileListByDiagonal(InGameTile ingameTile, int size)
+        {
+            return _tiles.Where(t =>
+                    (t.X == ingameTile.X + size && t.Y == ingameTile.Y + size) || // 우상
+                    (t.X == ingameTile.X - size && t.Y == ingameTile.Y + size) || // 좌상
+                    (t.X == ingameTile.X + size && t.Y == ingameTile.Y - size) || // 우하
+                    (t.X == ingameTile.X - size && t.Y == ingameTile.Y - size)    // 좌하
+            ).ToList();
         }
 
         public List<InGameTile> GetTileListByShapeSquare(InGameTile pivot, int size)

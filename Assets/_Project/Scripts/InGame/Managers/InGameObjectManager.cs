@@ -83,6 +83,26 @@ namespace CookApps.BattleSystem
             return neutralInPlaygroundForUpdate;
         }
 
+        public List<CharacterController> GetCharacterListSortedByHpRate(AllianceType allianceType)
+        {
+            List<CharacterController> characterList;
+
+            if (allianceType == AllianceType.Player)
+            {
+                characterList = charactersInPlaygroundForUpdate;
+            }
+            else if (allianceType == AllianceType.Enemy)
+            {
+                characterList = enemiesInPlaygroundForUpdate;
+            }
+            else
+            {
+                characterList = neutralInPlaygroundForUpdate;
+            }
+
+            return characterList.OrderBy(c => c.CurrentHp).ToList();
+        }
+
         public CharacterController GetCharacterInField(int characUId)
         {
             for (var i = 0; i < charactersInPlaygroundForUpdate.Count; i++)
