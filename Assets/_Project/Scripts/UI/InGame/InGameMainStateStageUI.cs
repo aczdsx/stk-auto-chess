@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
@@ -24,9 +25,9 @@ namespace CookApps.AutoBattler
             var topUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Top.prefab").Task;
             var bottomUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Bottom.prefab").Task;
 
-            _InGameTopUI = GameObject.Instantiate(topUIObj, canvasTransform).GetComponent<InGameTopUI>();
+            _InGameTopUI = Object.Instantiate(topUIObj, canvasTransform).GetComponent<InGameTopUI>();
             _InGameTopUI.transform.SetSiblingIndex(2);
-            _inGameBottomCharacterUI = GameObject.Instantiate(bottomUIObj, canvasTransform)
+            _inGameBottomCharacterUI = Object.Instantiate(bottomUIObj, canvasTransform)
                 .GetComponent<InGameBottomCharacterUI>();
             _inGameBottomCharacterUI.transform.SetSiblingIndex(3);
 
@@ -89,15 +90,16 @@ namespace CookApps.AutoBattler
             _inGameBottomCharacterUI.InitReadyStateUI(typeof(FlowStateStageCombat), battleDeckList);
 
             // 다이얼로그 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START, InGameManager.Instance.SpecStage.stage_id.ToString());
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START,
+                InGameManager.Instance.SpecStage.stage_id.ToString());
         }
-        
+
         public void InitCombatStateUI()
         {
             _inGameBottomCharacterUI.InitCommanderSkill();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
         }
-        
+
         public void SetFocusSlotUI(SpecCharacter spec)
         {
             _inGameBottomCharacterUI.SetFocusCharacterUI(spec);
