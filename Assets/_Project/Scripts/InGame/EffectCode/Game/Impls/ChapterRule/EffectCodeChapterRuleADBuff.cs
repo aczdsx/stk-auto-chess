@@ -17,10 +17,11 @@ namespace CookApps.BattleSystem
         private List<InGameTile> _chapterRuleTiles = new();
         private List<CharacterController> _characterControllers  = new();
 
-        private void SetRuleTileByTEST(List<int> testRuleTile, InGameVfxNameType vnt)
+        private void SetRuleTileByInfo(EffectCodeInfo codeInfo, InGameVfxNameType vnt)
         {
-            foreach (var tileID in testRuleTile)
+            for (var i = 1; i < codeInfo.StatsLength; i++)
             {
+                var tileID = codeInfo.GetCodeStatToInt(i);
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
                 _chapterRuleTiles.Add(inGameTile);
 
@@ -35,7 +36,7 @@ namespace CookApps.BattleSystem
             _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             _chapterRuleTiles.Clear();
             
-            SetRuleTileByTEST(new List<int> { 0, 4 }, InGameVfxNameType.fx_common_bufftrap_ad);
+            SetRuleTileByInfo(codeInfo, InGameVfxNameType.fx_common_bufftrap_ad);
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -43,12 +44,11 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
             _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             _chapterRuleTiles.Clear();
-            SetRuleTileByTEST(new List<int> { 0, 4 }, InGameVfxNameType.fx_common_bufftrap_ad);
+            SetRuleTileByInfo(codeInfo, InGameVfxNameType.fx_common_bufftrap_ad);
         }
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
-            Debug.LogWarning($"[Enter Tile] {character.CharacterId} : ({tile.X}, {tile.Y})");
 
             if (_chapterRuleTiles.Exists(l => l.View.ID == tile.View.ID))
             {
@@ -60,7 +60,6 @@ namespace CookApps.BattleSystem
                     eccStats[1] = 99999f;
                     eccStats[2] = _atkUpRate;
 
-                    Debug.LogWarning($"에펙트 배율 {_atkUpRate}");
 
                     var effectCodeID = BuffEffectCodeID;
                     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats); 
@@ -68,18 +67,12 @@ namespace CookApps.BattleSystem
                     character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
 
                     _characterControllers.Add(character);
-                    Debug.LogWarning($"{character.CharacterId} + 버프 추가!");
-                }
-                else
-                {
-                    Debug.LogWarning("이미 캐릭터가 버프를 받고있음");
                 }
             }
         }
 
         public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
         {
-            Debug.LogWarning($"[Enter Tile] {character.CharacterId} : ({tile.X}, {tile.Y})");
 
             if (_chapterRuleTiles.Exists(l => l == tile))
             {
@@ -90,10 +83,6 @@ namespace CookApps.BattleSystem
                         character.GetEffectCodeContainer().RemoveEffectCode(BuffEffectCodeID);
                     }
                     _characterControllers.Remove(character);
-                }
-                else
-                {
-                    Debug.LogWarning("이미 캐릭터가 버프를 받지 않고있음");
                 }
             }
         }

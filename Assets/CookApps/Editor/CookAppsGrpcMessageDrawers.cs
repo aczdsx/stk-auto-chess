@@ -2,7 +2,7 @@
 namespace CookApps.gRPC.Editor
 {
     using UnityEditor;
-    using Cookapps.Stkauto.V1;
+    using Cookapps.Autobattleproject.V1;
     [CustomPropertyDrawer(typeof(Reward))]
     internal class RewardDrawer : GrpcMessagePropertyDrawer<Reward> { }
     [CustomPropertyDrawer(typeof(UserDataSequence))]
