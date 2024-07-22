@@ -99,9 +99,9 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         }
     }
 
-    public override double OnDamaged(double damageAmount, CharacterController attacker, bool isPure)
+    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, CharacterController attacker, bool isPure)
     {
-        double originDamageAmount = damageAmount;
+        CharacterController.DamageInfo originDamageAmount = damageInfo;
         bool hasShield = false;
         for (int i = 0; i < shields.Count; i++)
         {
@@ -109,27 +109,27 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
                 continue;
 
             hasShield = true;
-            shields[i].shieldAmount -= (float)damageAmount;
+            shields[i].shieldAmount -= (float)damageInfo.damageAmount.Value;
             if (shields[i].shieldAmount <= 0)
             {
-                damageAmount = -(int)shields[i].shieldAmount;
+                damageInfo.damageAmount = -(int)shields[i].shieldAmount;
                 GenericPool<ShieldData>.Release(shields[i]);
                 shields[i] = null;
             }
             else
             {
-                damageAmount = 0;
+                damageInfo.damageAmount = 0;
                 break;
             }
         }
 
         if (!hasShield)
-            return damageAmount;
+            return damageInfo;
 
-        var reducedAmount = originDamageAmount - damageAmount;
+        var reducedAmount = originDamageAmount.damageAmount - damageInfo.damageAmount;
 
         owner.ShowShieldText(reducedAmount).Forget();
 
-        return damageAmount;
+        return damageInfo;
     }
 }

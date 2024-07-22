@@ -45,9 +45,9 @@ namespace CookApps.AutoBattler
             _victoryObj.SetActive(_isVictory);
 
             if (_isVictory)
-                _victoryStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
+                _victoryStageText.text = StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial);
             else
-                _failStageText.text =  StringUtil.GetStageString(InGameManager.Instance.SpecStage);
+                _failStageText.text =  StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial);
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
@@ -91,12 +91,12 @@ namespace CookApps.AutoBattler
 
         private void OnNextStageButtonClicked()
         {
-
+            
         }
 
         private void OnClickRetryStageButton()
         {
-
+            
         }
 
         private void CreateRewardItems()

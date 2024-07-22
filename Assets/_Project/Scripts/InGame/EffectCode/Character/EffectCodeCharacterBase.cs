@@ -148,14 +148,14 @@ namespace CookApps.BattleSystem
         /// 주변 아군이 받는 피해의 {0}%를 대신 받는 스킬의 경우
         /// 주변 아군에게 방어력이나 피해량 감소 기능을 넣어주는 것 보다 이 함수를 통해 피해량을 감소시키고 감소된 피해량을 본인에게 주자.
         /// </summary>
-        /// <param name="damageAmount"></param>
+        /// <param name="damageInfo"></param>
         /// <param name="attacker">nullable</param>
         /// <param name="isPure"></param>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnDamaged)]
-        public virtual double OnDamaged(double damageAmount, [CanBeNull] CharacterController attacker, bool isPure)
+        public virtual CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, [CanBeNull] CharacterController attacker, bool isPure)
         {
-            return damageAmount;
+            return damageInfo;
         }
 
         /// <summary>
@@ -393,14 +393,14 @@ namespace CookApps.BattleSystem
             }
         };
 
-        public static Func<EffectCodeStatBase, double, CharacterController, bool, double> CallOnDamagedLambda = (x, damageAmount, attacker, isPure) =>
+        public static Func<EffectCodeStatBase, CharacterController.DamageInfo, CharacterController, bool, CharacterController.DamageInfo> CallOnDamagedLambda = (x, damageInfo, attacker, isFirstDamage) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
-                return code.OnDamaged(damageAmount, attacker, isPure);
+                return code.OnDamaged(damageInfo, attacker, isFirstDamage);
             }
 
-            return damageAmount;
+            return damageInfo;
         };
 
         public static Func<EffectCodeStatBase, DeathInfo, DeathInfo> CallOnDeadLambda = (x, deathInfo) =>

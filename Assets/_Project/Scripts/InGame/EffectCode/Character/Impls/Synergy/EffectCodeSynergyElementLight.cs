@@ -2,7 +2,7 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
 /// <summary>
-///마법사 타입 캐릭터 스킬 쿨타임 감소 속도 증가
+///빛 시너지 캐릭터 특정 시간 동안 모든 상태 이상 면역
 /// </summary>
 [UseEffectCodeIds(CodeId)]
 public class EffectCodeSynergyElementLight : EffectCodeCharacterBase

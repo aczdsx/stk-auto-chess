@@ -8,9 +8,9 @@ using CookApps.BattleSystem;
 // (물리, 마법) 방어력 증가   
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
+public class EffectCodeSynergyElementWind : EffectCodeCharacterBase
 {
-    public const int CodeId = 220101;
+    public const int CodeId = 220501;
     private ObfuscatorFloat _statValue;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -23,7 +23,7 @@ public class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
         buffStats[0] = codeId;
         buffStats[1] = 999f;
         buffStats[2] = _statValue;
-        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.BUFF_DEF_PERCENT_UP, 0, buffStats);
+        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.BUFF_ATK_SPEED_UP, 0, buffStats);
         owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, source);
     }
 
@@ -32,5 +32,4 @@ public class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
     }
-
 }

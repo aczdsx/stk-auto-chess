@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
                 .GetComponent<InGameBottomCharacterUI>();
 
             _specTrialDungeon = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
-            _InGameTopUI.SetStageName($"시련 던전 {_specTrialDungeon.dungeon_id}");
+            _InGameTopUI.SetStageName(StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial));
 
             InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
         }

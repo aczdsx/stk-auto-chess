@@ -15,6 +15,11 @@ public static class StringUtil
     {
         return $"스테이지 {stage.chapter_id}-{stage.stage_number}";
     }
+    
+    public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon)
+    {
+        return $"시련던전 {trialDungeon.dungeon_id}";
+    }
 
     public static string BigIntToShortString(BigInteger value)
     {

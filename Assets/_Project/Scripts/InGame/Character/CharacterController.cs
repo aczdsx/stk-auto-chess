@@ -811,6 +811,7 @@ namespace CookApps.BattleSystem
         public struct DamageInfo
         {
             public ObfuscatorDouble damageAmount;
+            public bool isAD;
             public bool isCritical;
             public bool isDoubleCritical;
             public long source;
@@ -835,6 +836,8 @@ namespace CookApps.BattleSystem
             if (isSkill)
             {
                 damage *= SkillDamageRate;
+                if (ap > 0)
+                    damageInfo.isAD = false;
             }
 
             damageInfo.isCritical = CriticalTest();
@@ -905,11 +908,11 @@ namespace CookApps.BattleSystem
             }
 
             var originDamageAmount = damageInfo.damageAmount.Value;
-            var damageAmount = damageInfo.damageAmount.Value;
+            var damageAmount = damageInfo;
             // effectCode에게 이벤트 전달
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDamaged);
-                damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageAmount, this, isFirstDamage);
+                damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageInfo, this, isFirstDamage);
             }
 
             // effectCode에게 이벤트 전달
@@ -921,9 +924,9 @@ namespace CookApps.BattleSystem
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
-            ShowDamageText(damageAmount, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
+            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 
-            _currHp -= damageAmount;
+            _currHp -= damageAmount.damageAmount.Value;
 
             InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
             UpdateHpBar();

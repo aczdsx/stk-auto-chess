@@ -23,25 +23,30 @@ public class EffectCodeSynergyGuardian : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    public override void OnKill(CharacterController deadCharacter)
+    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageAmount,  CharacterController attacker, bool isPure)
     {
-        base.OnKill(deadCharacter);
+        base.OnDamaged(damageAmount, attacker, isPure);
 
-        foreach (var skillID in owner.SpecCharacter.skill_ids)
+        if (damageAmount.isAD == false)
         {
-            EffectCodeCharacterBase eccBase =
-                (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
-            if (eccBase != null)
+            foreach (var skillID in owner.SpecCharacter.skill_ids)
             {
-                if (!eccBase.IsSkillActivated)
+                EffectCodeCharacterBase eccBase =
+                    (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
+                if (eccBase != null)
                 {
-                    float durationTime = eccBase.GetDurationTime();
-                    float elapsedTime = eccBase.GetElapsedTime();
-                    float decreasedTime = durationTime * statValue;
-                    float newElapsedTime = elapsedTime + decreasedTime;
-                    eccBase.SetElapsedTime(newElapsedTime);
+                    if (!eccBase.IsSkillActivated)
+                    {
+                        float durationTime = eccBase.GetDurationTime();
+                        float elapsedTime = eccBase.GetElapsedTime();
+                        float decreasedTime = durationTime * statValue;
+                        float newElapsedTime = elapsedTime + decreasedTime;
+                        eccBase.SetElapsedTime(newElapsedTime);
+                    }
                 }
             }
         }
+
+        return damageAmount;
     }
 }
