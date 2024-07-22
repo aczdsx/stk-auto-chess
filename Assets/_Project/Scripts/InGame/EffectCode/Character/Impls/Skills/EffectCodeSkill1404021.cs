@@ -127,15 +127,13 @@ public class EffectCodeSkill1404021 : EffectCodeCharacterBase
             InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
                 2);
 
-        long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
         Span<double> eccStats = stackalloc double[3];
         eccStats.Clear();
         eccStats[0] = 0.3f;
         eccStats[1] = 0.3f;
         eccStats[2] = inGameTile.View.ID;
-
-        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-        _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+        
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
 
         IsSkillActivated = false;
     }

@@ -54,11 +54,8 @@ namespace CookApps.BattleSystem
                         Span<double> eccStats = stackalloc double[1];
                         eccStats.Clear();
                         eccStats[0] = _time;
-
-                        long effectCodeID = (long) EffectCodeNameType.STUN;
-                        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                        tile.OccupiedCharacter.GetEffectCodeContainer()
-                            .AddOrMergeEffectCode(effectCodeInfo, null);
+                        
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
 
                         tile.OccupiedCharacter.Position3D = tile.OccupiedCharacter.CurrentTile.View.Position;
                         tile.OccupiedCharacter.GetCharacterView().CachedTr.localPosition = tile.OccupiedCharacter.CurrentTile.View.Position;

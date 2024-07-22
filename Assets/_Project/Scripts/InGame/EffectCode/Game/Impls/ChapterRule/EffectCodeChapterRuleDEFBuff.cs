@@ -9,7 +9,7 @@ namespace CookApps.BattleSystem
     public class EffectCodeChapterRuleDEFBuff : EffectCodeGameBase
     {
         private float _defUpRate;
-        private const long BuffEffectCodeID = (long)EffectCodeNameType.BUFF_DEF_PERCENT_UP;
+        private const EffectCodeNameType BuffEffectCodeID = EffectCodeNameType.BUFF_DEF_PERCENT_UP;
         private const int CodeId = (int)EffectCodeNameType.RULE_DEF;
 
         private List<InGameTile> _chapterRuleTiles = new();
@@ -56,12 +56,8 @@ namespace CookApps.BattleSystem
                     eccStats[0] = CodeId;
                     eccStats[1] = 99999f;
                     eccStats[2] = _defUpRate;
-
-
-                    var effectCodeID = BuffEffectCodeID;
-                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-
-                    character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+                    
+                    EffectCodeHelper.AddOrMergeEffectCode(BuffEffectCodeID, character, eccStats, source);
 
                     _characterControllers.Add(character);
                 }
@@ -85,7 +81,7 @@ namespace CookApps.BattleSystem
                 if (character.AllianceType != AllianceType.Wall)
                 {
                     if (_characterControllers.Exists(c => c.CharacterUId == character.CharacterUId))
-                        character.GetEffectCodeContainer().RemoveEffectCode(BuffEffectCodeID);
+                        character.GetEffectCodeContainer().RemoveEffectCode((long)BuffEffectCodeID);
                     _characterControllers.Remove(character);
                 }
         }

@@ -157,10 +157,8 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
 
                     double[] eccStats = new double[1];
                     eccStats[0] = _stunTime;
-
-                    long effectCodeID = (long)EffectCodeNameType.STUN;
-                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                    occupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                    
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, occupiedCharacter, eccStats, source);
                     
                     await UniTask.Yield();
                 }

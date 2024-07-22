@@ -129,10 +129,8 @@ public class EffectCodeSkill1102011 : EffectCodeCharacterBase
         eccStats[0] = 0.3f;
         eccStats[1] = 0.3f;
         eccStats[2] = inGameTile.View.ID;
-
-        long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
-        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-        _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+        
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, _targetCharacter, eccStats, source);
 
         IsSkillActivated = false;
     }

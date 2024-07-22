@@ -113,9 +113,8 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
                         eccStats.Clear();
                         eccStats[0] = _shieldDurationTime;
                         eccStats[1] = shieldAmount.damageAmount;
-
-                        var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.SHIELD, 0, eccStats);
-                        tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                        
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, tile.OccupiedCharacter, eccStats, source);
                     }
                 }
             }

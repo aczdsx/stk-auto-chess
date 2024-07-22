@@ -126,10 +126,8 @@ public class EffectCodeSkill1102031 : EffectCodeCharacterBase
         Span<double> eccStats = stackalloc double[1];
         eccStats.Clear();
         eccStats[0] = _durationTime;
-
-        long effectCodeID = (long)EffectCodeNameType.STUN;
-        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-        _targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+        
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, _targetCharacter, eccStats, source);
 
         IsSkillActivated = false;
     }

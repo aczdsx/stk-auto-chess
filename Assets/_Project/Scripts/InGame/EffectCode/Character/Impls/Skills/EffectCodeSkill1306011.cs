@@ -116,10 +116,8 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                 eccStats[0] = codeId;
                 eccStats[1] = _duration;
                 eccStats[2] = _atkUpRate;
-
-                var effectCodeID = (long) EffectCodeNameType.BUFF_AD_PERCENT_UP;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, tile.OccupiedCharacter, eccStats, source);
             }
         }
 

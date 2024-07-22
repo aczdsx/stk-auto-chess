@@ -94,10 +94,8 @@ namespace CookApps.BattleSystem
                         Span<double> eccStats = stackalloc double[1];
                         eccStats.Clear();
                         eccStats[0] = _effectCodeStat;
-
-                        long effectCodeID = (long)EffectCodeNameType.STUN;
-                        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                        characterInfo.Controller.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, null);
+                        
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, characterInfo.Controller, eccStats, source);
 
                         characterInfo.Controller.Position3D = characterInfo.Controller.CurrentTile.View.CachedTr.position;
 

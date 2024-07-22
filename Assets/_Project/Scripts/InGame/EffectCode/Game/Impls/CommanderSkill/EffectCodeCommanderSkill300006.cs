@@ -55,10 +55,8 @@ namespace CookApps.BattleSystem
                         eccStats[0] = codeId;
                         eccStats[1] = 3;
                         eccStats[2] = _powerRate;
-
-                        long effectCodeID = (long)EffectCodeNameType.DEBUFF_AD_PERCENT_DOWN;
-                        var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                        tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+                        
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_AD_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
                     }
                 }
             }

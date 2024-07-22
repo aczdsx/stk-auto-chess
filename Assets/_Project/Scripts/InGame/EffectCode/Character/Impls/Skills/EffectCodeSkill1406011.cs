@@ -116,10 +116,8 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
                 eccStats[0] = codeId;
                 eccStats[1] = _buffTime;
                 eccStats[2] = _atkBuffRate;
-
-                long effectCodeID = (long)EffectCodeNameType.BUFF_ATK_SPEED_UP;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+                
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ATK_SPEED_UP, tile.OccupiedCharacter, eccStats, source);
             }
         }
 

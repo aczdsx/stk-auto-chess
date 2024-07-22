@@ -8,9 +8,8 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeChapterRuleAP : EffectCodeGameBase
     {
-
         private float _abilUpRate;
-        private const long BuffEffectCodeID = (long)EffectCodeNameType.BUFF_AP_PERCENT_UP;
+        private const EffectCodeNameType BuffEffectCodeID = EffectCodeNameType.BUFF_AP_PERCENT_UP;
         private const int CodeId = (int)EffectCodeNameType.RULE_AP;
 
         private List<InGameTile> _chapterRuleTiles = new();
@@ -62,12 +61,9 @@ namespace CookApps.BattleSystem
                     eccStats[0] = CodeId;
                     eccStats[1] = 99999f;
                     eccStats[2] = _abilUpRate;
-
-
-                    var effectCodeID = BuffEffectCodeID;
-                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats); // 근데 이펙트 코드는 Struct이다.
                     
-                    character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AP_PERCENT_UP, character, eccStats, source);
+                    
                     _characterControllers.Add(character);
                 }
             }
@@ -87,7 +83,7 @@ namespace CookApps.BattleSystem
                 {
                     if(_characterControllers.Exists(c => c.CharacterUId == character.CharacterUId))
                     {
-                        character.GetEffectCodeContainer().RemoveEffectCode(BuffEffectCodeID);
+                        character.GetEffectCodeContainer().RemoveEffectCode((long)BuffEffectCodeID);
                     }
                     _characterControllers.Remove(character);
                 }
