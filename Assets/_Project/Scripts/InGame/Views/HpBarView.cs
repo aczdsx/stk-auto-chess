@@ -79,9 +79,9 @@ namespace CookApps.AutoBattler
                 ShowHpBar();
             }
 
-            float targetRatio = Mathf.Clamp01((float)(currHP / (maxHP + currShield)));
             float startRatio = _selectedFillLeft.size.x / _defalutSize.x;
-            float shieldRatio = Mathf.Clamp01((float)(currShield / (maxHP + currShield)));
+            float targetRatio = (currHP + currShield < maxHP) ? Mathf.Clamp01((float) (currHP / maxHP)) : Mathf.Clamp01((float) (currHP / (maxHP + currShield)));
+            float shieldRatio = (currHP + currShield < maxHP) ? Mathf.Clamp01((float) (currShield / maxHP)) : Mathf.Clamp01((float) (currShield / (maxHP + currShield)));
 
             float defaultX = _defalutSize.x * targetRatio;
             if (!float.IsNaN(defaultX))
