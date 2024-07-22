@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
         private void UpdateCommanderSkillState()
         {
             // 지휘자 스킬 상태 갱신
-            int lastStageID = GetLatestClearUserStageID();
+            var lastStageID = GetLatestClearUserStageID();
             var lastStageData = SpecDataManager.Instance.GetStageData(lastStageID);
             if (lastStageData != null)
             {
@@ -71,9 +71,7 @@ namespace CookApps.AutoBattler
         public int GetEquippedCommanderSkill(int targetSlot)
         {
             if (userCommanderSkillData.EquippedCommanderSkillIds.ContainsKey(targetSlot))
-            {
                 return userCommanderSkillData.EquippedCommanderSkillIds[targetSlot];
-            }
 
             return 0;
         }
@@ -81,12 +79,8 @@ namespace CookApps.AutoBattler
         public bool IsAllCommanderSkillsEquipped()
         {
             foreach (var skillId in userCommanderSkillData.EquippedCommanderSkillIds.Values)
-            {
                 if (skillId == 0)
-                {
                     return false;
-                }
-            }
             return true;
         }
 
@@ -98,21 +92,17 @@ namespace CookApps.AutoBattler
         // 현재 장착 중인 지휘자 스킬 ID 리스트 반환
         public List<int> GetAllEquippedCommanderSkillIDList()
         {
-            List<int> commanderSkillIDList = new List<int>();
+            var commanderSkillIDList = new List<int>();
             foreach (var commanderSkill in userCommanderSkillData.EquippedCommanderSkillIds)
-            {
                 if (commanderSkill.Value > 0)
-                {
                     commanderSkillIDList.Add(commanderSkill.Value);
-                }
-            }
 
             return commanderSkillIDList;
         }
 
         public void AddCommanderSkillData(int commanderSkillID, bool needSave)
         {
-            bool saveFlag = false;
+            var saveFlag = false;
 
             if (UserCommanderSkillData.UserCommanderSkillList.ToList()
                     .Exists(data => data.CommanderSkillId == commanderSkillID) == false)
@@ -126,21 +116,20 @@ namespace CookApps.AutoBattler
                 saveFlag = true;
             }
 
-            if (needSave && saveFlag)
-            {
-                SaveUserCommanderSKillData();
-            }
+            if (needSave && saveFlag) SaveUserCommanderSKillData();
         }
 
         // 지휘자 스킬 획득 여부 확인
         public bool IsOpenedCommanderSkill(int commanderSkillID)
         {
-            return UserCommanderSkillData.UserCommanderSkillList.ToList().Exists(data => data.CommanderSkillId == commanderSkillID);
+            return UserCommanderSkillData.UserCommanderSkillList.ToList()
+                .Exists(data => data.CommanderSkillId == commanderSkillID);
         }
 
         public void SaveUserCommanderSKillData()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserCommanderSkillData.ToCategoryString(), userCommanderSkillData);
+            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserCommanderSkillData.ToCategoryString(),
+                userCommanderSkillData);
         }
     }
 }

@@ -49,8 +49,10 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.AttackDown => InGameVfxNameType.fx_common_debuff_atkdown_01,
                 BuffDebuffType.AttackSpeedUp => InGameVfxNameType.fx_common_buff_spdup_01,
                 BuffDebuffType.CoolTimeUp => InGameVfxNameType.fx_common_buff_ctdown_01,
-                BuffDebuffType.AbilityPowerUp => InGameVfxNameType.fx_common_buff_ctdown_01, // TODO 임시 추가된 버프
-                BuffDebuffType.DefenceUp => InGameVfxNameType.fx_common_buff_shield_01, // TODO 임시 추가된 버프
+                BuffDebuffType.AbilityPowerUp => InGameVfxNameType
+                    .fx_common_buff_ctdown_01, // TODO 임시 추가된 버프 SpecEnums를 통해 추가 해야 함.
+                BuffDebuffType.DefenceUp => InGameVfxNameType
+                    .fx_common_buff_shield_01, // TODO 임시 추가된 버프 SpecEnums를 통해 추가 해야 함.
                 // BuffDebuffType.DefenceUp => "",
                 // BuffDebuffType.ResistanceUp => "",
                 // BuffDebuffType.AttackDown => "",
@@ -87,7 +89,8 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.AttackSpeedUp => SoundFX.snd_sfx_ingame_spdup,
                 BuffDebuffType.CoolTimeUp => SoundFX.snd_sfx_ingame_spdup,
                 // BuffDebuffType.CoolTimeDown => "",
-                // BuffDebuffType.DefenceUp => "",
+                // BuffDebuffType.AbilityPowerUp => "", 
+                // BuffDebuffType.DefenceUp => "", 
                 // BuffDebuffType.ResistanceUp => "",
                 // BuffDebuffType.AttackDown => "",
                 // BuffDebuffType.DefenceDown => "",
@@ -121,7 +124,8 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.AttackDown => InGameVfxNameType.fx_common_debuff_atkdown_02,
                 BuffDebuffType.AttackSpeedUp => InGameVfxNameType.fx_common_buff_spdup_02,
                 BuffDebuffType.CoolTimeUp => InGameVfxNameType.fx_common_buff_ctdown_02,
-                // BuffDebuffType.DefenceUp => ""
+                // BuffDebuffType.AbilityPowerUp => "" // TODO 임시 추가된 버프 SpecEnums를 통해 추가 해야 함.
+                // BuffDebuffType.DefenceUp => ""// TODO 임시 추가된 버프 SpecEnums를 통해 추가 해야 함.
                 // BuffDebuffType.ResistanceUp => "",
                 // BuffDebuffType.AttackDown => "",
                 // BuffDebuffType.DefenceDown => "",
