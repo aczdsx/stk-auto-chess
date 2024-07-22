@@ -9,25 +9,20 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 테토라
-// "범위 : 가장 가까이에 위치한 적 1명 
-// 효과 : 대검을 휘둘러 적 1명에게 대미지를 주고 4칸 넉백시킨다.
-//     대미지 : 테토라 공격력 {0}% + 마법 방어력 비례 추가 대미지
-// 개발용 대미지 계산식 : 테토라 공격력*{0}*(1+마법 방어력/{1})
-// 특수 효과 : 넉백된 적이 구조물 또는 캐릭터에 부딪힐 시, 3*3범위로 {2}초 동안 스턴을 일으키며
-// 공격력 {3}%의 대미지를 준다. 
-//
-//     개발 참고 사항 
-//     피격된 적이 아군에게 부딪힐 경우, 적군은 충돌 중지 + 스턴 적용 
-//     아군에게는 대미지와 스턴이 적용되지 않음. "
+/// 메이
+// "범위 : 자기 중심 십자 범위
+// 대미지 : 주변 적에게 공격력 {0}%의 대미지를 주며 넉백 시킨다.
+//     효과 : {1}초 동안 자기에게 {2}%의 방어력 증가 버프를 건다. 
+//     추가 효과 : 바람 시너지 배치 인원 1명당 물리 방어력 {3}% 추가 증가
+// (최대 3명까지만 적용) "
 /// </summary>
-[UseEffectCodeIds(1401021)]
-public class EffectCodeSkill1401021 : EffectCodeCharacterBase
+[UseEffectCodeIds(1302021)]
+public class EffectCodeSkill1302021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
-    private ObfuscatorFloat _resRate;
-    private ObfuscatorFloat _stunTime;
-    private ObfuscatorFloat _additionalDamageRate;
+    private ObfuscatorFloat _buffTime;
+    private ObfuscatorFloat _buffRate;
+    private ObfuscatorFloat _additionalBuffRate;
 
     private bool isReadyToActivate;
 
@@ -42,9 +37,9 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _resRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _stunTime = codeInfo.GetCodeStatToFloat(3);
-        _additionalDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
+        _buffTime = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _buffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _additionalBuffRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -56,9 +51,9 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _resRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _stunTime = codeInfo.GetCodeStatToFloat(3);
-        _additionalDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
+        _buffTime = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _buffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _additionalBuffRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -132,26 +127,31 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
         vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
         
-        float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.RES / _resRate);
-        var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
-        _targetCharacter.GetDamaged(damage, owner);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(owner.CurrentTile, 1);
+        foreach (var tile in inGameTiles)
+        {
+            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
+            {
+                if (owner.AllianceType != tile.OccupiedCharacter.AllianceType)
+                {
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
         
-        var inGameTile =
-            InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
-                1);
-
-        float knockBackTime = 0.3f;
-        Span<double> eccStats = stackalloc double[3];
-        eccStats.Clear();
-        eccStats[0] = knockBackTime;
-        eccStats[1] = 0.3f;
-        eccStats[2] = inGameTile.View.ID;
+                    var inGameTile =
+                        InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
+                            1);
+                    
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = 0.3f;
+                    eccStats[1] = 0.3f;
+                    eccStats[2] = inGameTile.View.ID;
         
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
-        
-        // 스턴
-        ApplyStunEffectAsync(inGameTile, knockBackTime).Forget();
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, tile.OccupiedCharacter, eccStats, source);
+                }
+            }
+        }
 
         IsSkillActivated = false;
     }
@@ -161,33 +161,5 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
-    }
-    
-    private async UniTaskVoid ApplyStunEffectAsync(InGameTile inGameTile, float second)
-    {
-        await UniTask.Delay(TimeSpan.FromSeconds(second));
-
-        var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile, 1);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], inGameTile.View.Position);
-        foreach (var tile in tileList)
-        {
-            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-            {
-                if (owner.AllianceType != tile.OccupiedCharacter.AllianceType)
-                {
-                    StunCharacter(tile);
-                }
-            }
-        }
-    }
-    
-    
-    private void StunCharacter(InGameTile tile)
-    {
-        Span<double> eccStats = stackalloc double[1];
-        eccStats.Clear();
-        eccStats[0] = _stunTime;
-        
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
     }
 }
