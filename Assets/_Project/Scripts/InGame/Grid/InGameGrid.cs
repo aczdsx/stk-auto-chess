@@ -487,6 +487,14 @@ namespace CookApps.BattleSystem
         {
             return _tiles.Where(t => t.Y == tile.Y).ToList();
         }
+        
+        public List<InGameTile> GetTileListByRow(InGameTile tile, int range)
+        {
+            int minX = Math.Max(0, tile.X - range);
+            int maxX = Math.Min(Width - 1, tile.X + range);
+
+            return _tiles.Where(t => t.Y == tile.Y && t.X >= minX && t.X <= maxX).ToList();
+        }
 
         public List<InGameTile> GetTileListByNearest(InGameTile tile)
         {
