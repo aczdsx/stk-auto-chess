@@ -17,7 +17,7 @@ namespace CookApps.BattleSystem
 
         private static readonly int2[] Directions =
         {
-            new int2(-1, 0), new int2(1, 0), new int2(0, -1), new int2(0, 1),
+            new int2(0, 1), new int2(0, -1), new int2(1, 0), new int2(-1, 0),
         };
 
         public InGameGrid(int2 gridSize, InGameTileView[] views)
@@ -155,13 +155,15 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest)
+        public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest, bool isBFS)
         {
             Debug.Log($"GetNextMovableTile: ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
 
             InGameTile bestTile = src;
             int shortestDistance = int.MaxValue;
+            int manhattanDistance = int.MaxValue;
 
+            // y축 확인 후 x축 확인
             foreach (var direction in Directions)
             {
                 int2 newPos = new int2(src.X + direction.x, src.Y + direction.y);
@@ -174,11 +176,18 @@ namespace CookApps.BattleSystem
 
                     if (neighbor.OccupiedCharacter == null /*|| isDying*/)
                     {
-                        var distance = BFS(neighbor, dest);
-                        if (distance < shortestDistance)
+                        // 근거리 캐릭터는 BFS로 거리 판단 
+                        var distance = (isBFS) ? BFS(neighbor, dest) : GetManhattanDistance(neighbor, dest);
+                        if (distance <= shortestDistance)
                         {
-                            shortestDistance = distance;
-                            bestTile = neighbor;
+                            // distance가 같은 상황이 있따면 manhattan거리로 판단
+                            int tempManhattanDistance = GetManhattanDistance(neighbor, dest);
+                            if (manhattanDistance > tempManhattanDistance)
+                            {
+                                shortestDistance = distance;
+                                manhattanDistance = tempManhattanDistance;
+                                bestTile = neighbor;
+                            }
                         }
                     }
                 }

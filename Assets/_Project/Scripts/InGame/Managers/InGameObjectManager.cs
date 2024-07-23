@@ -272,7 +272,12 @@ namespace CookApps.BattleSystem
 
         public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest)
         {
-            return _grid.GetNextMovableTile(src, dest);
+            return _grid.GetNextMovableTile(src, dest, false);
+        }
+        
+        public InGameTile GetNextMovableTile(CharacterController characterController)
+        {
+            return _grid.GetNextMovableTile(characterController.CurrentTile, characterController.Target.CurrentTile, characterController.SpecCharacter.atk_range == 1);
         }
 
         public void ChangeTileCharacterToCharacter(CharacterController selectedCharacter,
