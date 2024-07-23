@@ -11,8 +11,7 @@ namespace CookApps.AutoBattler
 {
     public class InGameMainStateUIStageUI : IGameStateUI
     {
-        private InGameTopUI _InGameTopUI;
-        private InGameBottomCharacterUI _inGameBottomCharacterUI;
+        private InGameUI _inGameUI;
         private SpecStage _specStage;
 
         private float _updateTimer = 0f;
@@ -22,17 +21,13 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
-            var topUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Top.prefab").Task;
-            var bottomUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/Bottom.prefab").Task;
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
 
-            _InGameTopUI = Object.Instantiate(topUIObj, canvasTransform).GetComponent<InGameTopUI>();
-            _InGameTopUI.transform.SetSiblingIndex(2);
-            _inGameBottomCharacterUI = Object.Instantiate(bottomUIObj, canvasTransform)
-                .GetComponent<InGameBottomCharacterUI>();
-            _inGameBottomCharacterUI.transform.SetSiblingIndex(3);
+            _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
+            _inGameUI.transform.SetSiblingIndex(2);
 
             _specStage = SpecDataManager.Instance.GetStageData(id);
-            _InGameTopUI.SetStageName($"스테이지 {_specStage.chapter_id}-{_specStage.stage_number}");
+            _inGameUI.TopUI.SetStageName($"스테이지 {_specStage.chapter_id}-{_specStage.stage_number}");
 
             InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
 
@@ -45,22 +40,22 @@ namespace CookApps.AutoBattler
 
         public void RefreshInGameTopUI(bool isCombat)
         {
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
-            _InGameTopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
+            _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
+            _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
 
-            _InGameTopUI.UpdateAttrUI(AllianceType.Player);
-            _InGameTopUI.UpdateAttrUI(AllianceType.Enemy);
+            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Player);
+            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Enemy);
         }
 
         public void ReturnCharacterUI(CharacterController characterController)
         {
-            _inGameBottomCharacterUI.ReturnCharacter(characterController);
+            _inGameUI.BottomUI.ReturnCharacter(characterController);
             InGameManager.Instance.UpdateSynergyAndAttr();
         }
 
         public void SetInGameBottomUIInGuideUI()
         {
-            _inGameBottomCharacterUI.CheckNewCharacter();
+            _inGameUI.BottomUI.CheckNewCharacter();
         }
 
         public void ManagedUpdate(float dt)
@@ -69,13 +64,13 @@ namespace CookApps.AutoBattler
             {
                 _updateTimer += dt;
                 InGameMain.GetInGameMain().SetInGameTime(InGameMain.GetInGameMain().InGameTime - dt);
-                _inGameBottomCharacterUI.UpdateCommanderSkillCoolTime();
+                _inGameUI.BottomUI.UpdateCommanderSkillCoolTime();
 
                 if (_updateTimer >= UpdateInterval)
                 {
-                    _InGameTopUI.UpdateTopHpUI(AllianceType.Player);
-                    _InGameTopUI.UpdateTopHpUI(AllianceType.Enemy);
-                    _InGameTopUI.UpdateTimeUI(InGameMain.GetInGameMain().InGameTime);
+                    _inGameUI.TopUI.UpdateTopHpUI(AllianceType.Player);
+                    _inGameUI.TopUI.UpdateTopHpUI(AllianceType.Enemy);
+                    _inGameUI.TopUI.UpdateTimeUI(InGameMain.GetInGameMain().InGameTime);
 
                     _updateTimer -= UpdateInterval;
                 }
@@ -84,10 +79,11 @@ namespace CookApps.AutoBattler
 
         public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
         {
-            _inGameBottomCharacterUI.InitData();
+            _inGameUI.PlayAnimation("SetEntry");
+            _inGameUI.BottomUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameBottomCharacterUI.InitReadyStateUI(typeof(FlowStateStageCombat), battleDeckList);
+            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateStageCombat), battleDeckList);
 
             // 다이얼로그 체크
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START,
@@ -96,23 +92,24 @@ namespace CookApps.AutoBattler
 
         public void InitCombatStateUI()
         {
-            _inGameBottomCharacterUI.InitCommanderSkill();
+            _inGameUI.PlayAnimation("SetBattleEntry");
+            _inGameUI.BottomUI.InitCommanderSkill();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)
         {
-            _inGameBottomCharacterUI.SetFocusCharacterUI(spec);
+            _inGameUI.BottomUI.SetFocusCharacterUI(spec);
         }
 
         public void UnSetFocusSlotUI(bool isDropFx)
         {
-            _inGameBottomCharacterUI.UnSetFocusCharacterUI(isDropFx);
+            _inGameUI.BottomUI.UnSetFocusCharacterUI(isDropFx);
         }
 
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
-            _inGameBottomCharacterUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
+            _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
     }
 }

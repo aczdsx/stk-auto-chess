@@ -34,7 +34,6 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Transform _canvasTransform;
         [SerializeField] private RawImage _vignetteImage;
-        [SerializeField] private Animator _sceneAnimator;
 
         [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
         [SerializeField] private VignetteSO _vignetteData;
@@ -42,7 +41,6 @@ namespace CookApps.AutoBattler
         private float _inGameTime = 0f;
         private IGameStateUI _currentGameStateUI;
         private InGameType _inGameType;
-        private static readonly int SetBattleEntry = Animator.StringToHash("SetBattleEntry");
 
         public static InGameMain GetInGameMain()
         {
@@ -96,7 +94,6 @@ namespace CookApps.AutoBattler
 
         public void InitCombatStateUI()
         {
-            _sceneAnimator.SetTrigger(SetBattleEntry);
             _currentGameStateUI.InitCombatStateUI();
         }
 
