@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   id-token: write
 
@@ -116,3 +117,20 @@ jobs:
           DOWNLOAD_URL: ${{ job.status == 'success' && format('https://testflight.apple.com/v1/app/{0}', vars.IOS_APP_ID) || job.status == 'failure' && 'https://github.com' }}
         with:
           payload-file-path: .github/slack/payload-slack-content.json
+
+  error-solution:
+    needs: [ build ]
+    if: failure()
+    name: Build Error solution
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Detect error
+        id: detect-error
+        uses: cookapps-devops/tech-build/.github/actions/error-solution@v1
+        with:
+          api-key: ${{ secrets.OPENAI_API_KEY }}
