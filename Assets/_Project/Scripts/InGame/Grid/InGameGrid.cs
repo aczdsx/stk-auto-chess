@@ -155,7 +155,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest, bool isBFS)
+        public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest)
         {
             Debug.Log($"GetNextMovableTile: ({src.X}, {src.Y}) -> ({dest.X}, {dest.Y})");
 
@@ -176,17 +176,28 @@ namespace CookApps.BattleSystem
 
                     if (neighbor.OccupiedCharacter == null /*|| isDying*/)
                     {
-                        // 근거리 캐릭터는 BFS로 거리 판단 
-                        var distance = (isBFS) ? BFS(neighbor, dest) : GetManhattanDistance(neighbor, dest);
+                        var distance = BFS(neighbor, dest); 
                         if (distance <= shortestDistance)
                         {
-                            // distance가 같은 상황이 있따면 manhattan거리로 판단
-                            int tempManhattanDistance = GetManhattanDistance(neighbor, dest);
-                            if (manhattanDistance > tempManhattanDistance)
+                            if (distance == shortestDistance)
                             {
-                                shortestDistance = distance;
-                                manhattanDistance = tempManhattanDistance;
-                                bestTile = neighbor;
+                                int tempManhattanDistance = GetManhattanDistance(neighbor, dest);
+                                if (manhattanDistance > tempManhattanDistance)
+                                {
+                                    shortestDistance = distance;
+                                    manhattanDistance = tempManhattanDistance;
+                                    bestTile = neighbor;
+                                }
+                            }
+                            else
+                            {
+                                if (distance < shortestDistance)
+                                {
+                                    int tempManhattanDistance = GetManhattanDistance(neighbor, dest);
+                                    shortestDistance = distance;
+                                    manhattanDistance = tempManhattanDistance;
+                                    bestTile = neighbor;
+                                }
                             }
                         }
                     }

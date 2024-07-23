@@ -1099,7 +1099,7 @@ namespace CookApps.BattleSystem
                     }
                     else
                     {
-                        InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(this);
+                        InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
                         if (bestTile == CurrentTile)
                         {
                             GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);

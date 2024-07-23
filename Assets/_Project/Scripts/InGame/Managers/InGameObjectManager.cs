@@ -272,12 +272,7 @@ namespace CookApps.BattleSystem
 
         public InGameTile GetNextMovableTile(InGameTile src, InGameTile dest)
         {
-            return _grid.GetNextMovableTile(src, dest, false);
-        }
-        
-        public InGameTile GetNextMovableTile(CharacterController characterController)
-        {
-            return _grid.GetNextMovableTile(characterController.CurrentTile, characterController.Target.CurrentTile, characterController.SpecCharacter.atk_range == 1);
+            return _grid.GetNextMovableTile(src, dest);
         }
 
         public void ChangeTileCharacterToCharacter(CharacterController selectedCharacter,
@@ -508,7 +503,16 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
+                int distance = 0;
+                if (pivot.AttackRange == 1)
+                {
+                    distance = _grid.BFS(pivot.CurrentTile, enemy.CurrentTile);
+                }
+                else
+                {
+                    distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
+                }
+                
                 if (minDistance > distance)
                 {
                     minDistance = distance;
