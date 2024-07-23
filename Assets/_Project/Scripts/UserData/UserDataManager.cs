@@ -7,6 +7,7 @@ using CookApps.gRPC.Hatchery;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Tech.Hatchery.V2;
+using GetPlayerDataResponse = Tech.Hatchery.V2.GetPlayerDataResponse;
 
 namespace CookApps.AutoBattler
 {
