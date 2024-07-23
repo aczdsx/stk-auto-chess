@@ -130,7 +130,7 @@ namespace CookApps.AutoBattler
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id
-        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids;
+        public CookApps.Obfuscator.ObfuscatorInt[] skill_ids = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 전용 장비 id
         public CookApps.Obfuscator.ObfuscatorInt equipment_id;
         /// 전용 스킬 id
@@ -438,7 +438,7 @@ namespace CookApps.AutoBattler
         /// 스킬 설명 토큰
         public string skill_desc_token;
         /// # 사용 이펙트
-        public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs;
+        public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
         /// #변수 의미
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 스킬 계수
@@ -472,31 +472,31 @@ namespace CookApps.AutoBattler
         /// 클리어 보상 id
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 장애물
-        public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id;
+        public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 장애물 id
         public CookApps.Obfuscator.ObfuscatorInt obstacle_id;
         /// 부서지는 장애물
-        public CookApps.Obfuscator.ObfuscatorInt[] neutral_grid_id;
+        public CookApps.Obfuscator.ObfuscatorInt[] neutral_grid_id = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 장애물 id
         public CookApps.Obfuscator.ObfuscatorInt neutral_wall_id;
-        /// 챕터 룰
-        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile;
         /// 이펙트 코드
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
         /// 이텍트 코드 스텟
         public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat;
-        /// 챕터 룰2
-        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile_2;
+        /// 챕터 룰
+        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 이펙트 코드2
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_2;
         /// 이텍트 코드 스텟2
         public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat_2;
-        /// 챕터 룰3
-        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile_3;
+        /// 챕터 룰2
+        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile_2 = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 이펙트 코드3
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_3;
         /// 이텍트 코드 스텟3
         public CookApps.Obfuscator.ObfuscatorFloat effect_code_stat_3;
+        /// 챕터 룰3
+        public CookApps.Obfuscator.ObfuscatorInt[] effect_code_rule_tile_3 = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
     }
 
     [GeneratorSpecData]
@@ -556,6 +556,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 던전 타입
         public global::CookApps.AutoBattler.DungeonType dungeon_type;
+        /// 던전 맵
+        public CookApps.Obfuscator.ObfuscatorInt dungeon_map_id;
         /// 던전 id
         public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
         /// 던전 순서
@@ -571,9 +573,9 @@ namespace CookApps.AutoBattler
         /// 캐릭터 배치 가능 수
         public CookApps.Obfuscator.ObfuscatorInt squad_count;
         /// 장애물
-        public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id;
+        public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 챕터 룰
-        public CookApps.Obfuscator.ObfuscatorInt[] chapter_rule_tile;
+        public CookApps.Obfuscator.ObfuscatorInt[] chapter_rule_tile = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 이펙트 코드
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
         /// 이텍트 코드 스텟
@@ -626,7 +628,7 @@ namespace CookApps.AutoBattler
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 속성 시너지
+        /// 시너지 시너지
         public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
         /// 포지션 시너지
         public global::CookApps.AutoBattler.ElementType element_type;
@@ -831,11 +833,15 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 더미 아이디
         public string dummy_id;
-        /// 더미 정보
+        /// 더미 기본 정보
         public string dummy_info;
-        /// 전투력
+        /// 더미 히어로 덱 정보
+        public string dummy_deck;
+        /// 더미 지형지물 정보
+        public string dummy_geographic;
+        /// 더미 전투력
         public CookApps.Obfuscator.ObfuscatorInt power;
-        /// 포인트
+        /// PVP 점수
         public CookApps.Obfuscator.ObfuscatorInt point;
     }
 
