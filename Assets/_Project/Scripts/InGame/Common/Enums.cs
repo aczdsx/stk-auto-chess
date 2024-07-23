@@ -40,14 +40,15 @@ namespace CookApps.BattleSystem
     {
         None = 0x0000,
         Airborne = 0x0001,
-        KnockBack = 0x0003,
+        KnockBack = 0x0002,
         Entangle = 0x0004,
         Stun = 0x0008,
         Slowing = 0x0010,
         Provocation = 0x0020,
         Freezing = 0x0040,
-        Silence = 0x0050,
-        All = 0x0FFF
+        Silence = 0x0080,
+        MisaRestraint = 0x0100,
+        All = 0xFFFF
     }
 
     public enum EffectCodeType : byte

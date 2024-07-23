@@ -83,6 +83,11 @@ namespace CookApps.AutoBattler
             CachedTr.localPosition = (Vector3) position + viewPosition + selectedOffSet;
         }
 
+        public void SetScale(Vector3 scale)
+        {
+            _rootTransform.localScale = scale;
+        }
+
         public void SetSelected(bool isSetSelected)
         {
             if (isSetSelected)
