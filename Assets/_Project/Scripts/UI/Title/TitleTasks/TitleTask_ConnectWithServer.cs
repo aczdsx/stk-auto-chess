@@ -1,10 +1,16 @@
 #define USE_LOCAL_SERVER
 
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using CookApps.Build;
 using CookApps.gRPC;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
+using Tech.Universal.V2;
+using GrpcGame;
 
 namespace CookApps.AutoBattler
 {
@@ -26,8 +32,36 @@ namespace CookApps.AutoBattler
 
         public async UniTask RunTask()
         {
-            var param = new GrpcInitializeParam(true);
-            HatcheryGrpcManager.Instance.Initialize(param);
+            MatchCollection matches = Regex.Matches(BuildInfo.GetVersionCode(), @"\d+");
+            var res = ZString.Join("", matches.Select(x => x.Value));
+            if (!int.TryParse(res, out var versionCode))
+            {
+                versionCode = 1000;
+            }
+            
+            var param = new GrpcInitializeParam(
+                url : "stkauto-adfjk.dev.cookappsgames.com",
+                port: 443,
+                channelCredentials: EnumChannelCredentials.SECURE_SSL,
+                // channelCredentials: EnumChannelCredentials.INSECURE,
+                bundleVersion: versionCode,
+#if UNITY_IOS
+                store:Store.AppStore,
+#else
+                store:Store.GooglePlay,
+#endif
+                onHandleGrpcSuccess: GrpcExceptionHandler.HandleServerSuccess,
+                onHandleServerException: GrpcExceptionHandler.HandleServerException,
+                onHandleGrpcException: GrpcExceptionHandler.HandleGrpcException,
+                enabledLog:true,
+                queueThreshold:3);
+            
+            UniversalGrpcManager.Instance.Initialize(param);
+            GameGrpcManager.Instance.Initialize(param);
+            
+            var hacheryParam = new GrpcInitializeParam(true);
+            HatcheryGrpcManager.Instance.Initialize(hacheryParam);
+            
             progressCallback.Invoke(GetHashCode(), 1f);
         }
 

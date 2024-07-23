@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CookApps.gRPC.Universal;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using Tech.Universal.V2;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -18,12 +23,19 @@ namespace CookApps.AutoBattler
         [SerializeField]
         private GameObject touchToStart;
 
+        bool isLogin = false;
+        bool isLoginProcess = false;
+        
+        [SerializeField] private TMP_InputField _guestIDInputField;
+        [SerializeField] private TextMeshProUGUI _currentGuestIDText;
+        
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             SessionCount++;
             progressDict.Clear();
             touchToStart.SetActive(false);
+            
             RunAllTasks().Forget();
 
             Debug.Log("TitleMain OnPreEnter");
@@ -97,6 +109,8 @@ namespace CookApps.AutoBattler
 
         public async void OnClickTouchToStart()
         {
+            if (isLogin == false) return;
+            
             // if (LocalUserDataManager.Instance.GetIsFirstGame() == true)
             // {
             //     LocalUserDataManager.Instance.SaveFirstGame();
@@ -138,6 +152,128 @@ namespace CookApps.AutoBattler
                 // int lastChapter = 1;
                 // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
             }
+        }
+
+        public void OnClickGuestLoginButton()
+        {
+            if (isLoginProcess)
+                return;
+
+            isLoginProcess = true;
+            LoginGuest().ContinueWith(() =>
+            {
+                isLoginProcess = false;
+            }).Forget();
+        }
+
+        public void OnClickCrateGuestIDButton()
+        {
+            if (isLoginProcess)
+                return;
+
+            isLoginProcess = true;
+            CreateGuestAccount().ContinueWith(() =>
+            {
+                isLoginProcess = false;
+            }).Forget();
+        }
+        
+        public async UniTask LoginGuest()
+        {
+            // 처음 로그인 인지 체크
+            // if (UserDataManager.Instance.IsHaveLoginData() == false)
+            // {
+            //     Debug.LogError("게스트 아이디를 생성해주세요.");
+            //     return;
+            // }
+            
+            if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
+            {
+                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            else
+            {
+                while (!UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
+                {
+                    await UniTask.Yield();
+                }
+
+                isLogin =  await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            
+            Debug.Log("UID ++++> " + UniversalGrpcManager.Instance.Uid);
+            
+            var resp = await UniversalGrpcManager.Instance.SelectServerAndPlayerAsync(UserDataManager.Instance.UserBasicData.ServerId, UserDataManager.Instance.UserBasicData.PlayerId);
+            if (resp.IsError)
+            {
+                //FinishWithServerError();
+                return;
+            }
+            
+            // 로그인 진행
+            OnClickTouchToStart();
+        }
+        
+        public async UniTask CreateGuestAccount()
+        {
+            // if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
+            //     return;
+        
+            if (string.IsNullOrWhiteSpace(_guestIDInputField.text))
+            {
+                Debug.LogError("게스트 아이디가 공백임");
+                return;
+            }
+            
+            var authId = await UniversalGrpcManager.Instance.GenerateUuidAsync();
+            if(string.IsNullOrEmpty(authId))
+            {
+                CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
+                return;
+            }
+            await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Guest, authId);
+            
+            // 아래를 호출하지 않으면 에러 발생
+            if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
+            {
+                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            else
+            {
+                while (!UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
+                {
+                    await UniTask.Yield();
+                }
+            
+                isLogin =  await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            
+            // 플레이어 데이터 생성
+            var newPlayerResponse = await UniversalGrpcManager.Instance.CreatePlayerAsync(1, _guestIDInputField.text);
+            if (newPlayerResponse.IsError)
+            {
+                //FinishWithServerError();
+                return;
+            }
+            
+            Debug.Log("PlayID ++++> " + newPlayerResponse.PlayerId);
+            
+            var resp = await UniversalGrpcManager.Instance.SelectServerAndPlayerAsync(1, newPlayerResponse.PlayerId);
+            if (resp.IsError)
+            {
+                //FinishWithServerError();
+                return;
+            }
+            
+            Debug.Log("UID ++++> " + UniversalGrpcManager.Instance.Uid);
+            
+            // 유저 로그인 정보 저장
+            var commonLoginData = UniversalGrpcManager.Instance.GetCommonRequestParam();
+            var gameLoginData = UniversalGrpcManager.Instance.GetGameRequestParam();
+            UserDataManager.Instance.SetUserLoginData(commonLoginData.Uid, gameLoginData.ServerId, gameLoginData.PlayerId, _guestIDInputField.text);
+
+            // 로그인 진행
+            OnClickTouchToStart();
         }
 
         // 유저 세션 타임 기록

@@ -20,6 +20,8 @@ namespace CookApps.AutoBattler
                 userBasicData = new UserBasicData
                 {
                     Uid = 0,
+                    ServerId = 1,
+                    PlayerId = "",
                     Level = 1,
                     Exp = 0,
                     Nickname = "StellaKnights",
@@ -53,6 +55,22 @@ namespace CookApps.AutoBattler
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
         }
 
+        public void SetUserLoginData(int UID, int serverID, string playerID, string username)
+        {
+            UserBasicData.Uid = UID;
+            UserBasicData.ServerId = serverID;
+            UserBasicData.PlayerId = playerID;
+            UserBasicData.Nickname = username;
+            
+            SaveUserBasic();
+        }
+
+        // 이전에 로그인 데이터를 가지고 있는지 체크
+        public bool IsHaveLoginData()
+        {
+            return UserBasicData.Uid > 0 && UserBasicData.ServerId > 0 && !string.IsNullOrWhiteSpace(UserBasicData.PlayerId);
+        }
+        
         public void RefreshLastLoginTimestamp(bool needSave)
         {
             UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp();
