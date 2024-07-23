@@ -583,6 +583,22 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecUserGrade
+    {
+        /// 전체 ID
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 등급
+        public CookApps.Obfuscator.ObfuscatorInt grade;
+        /// 캐릭터 배치 가능 인원
+        public CookApps.Obfuscator.ObfuscatorInt maximum_character_count;
+        /// 지휘자 스킬 장착 갯수
+        public CookApps.Obfuscator.ObfuscatorInt maximum_commander_skill_count;
+        /// 시련 던전 id
+        public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecDungeonMonster
     {
         /// 아이디

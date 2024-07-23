@@ -668,7 +668,8 @@ namespace CookApps.AutoBattler
 
         public int GetFirstCommanderSkillChapter()
         {
-            return SpecCommanderSkillList.Min(data => data.open_key_chapter_id);
+            int openChapterID = SpecCommanderSkillList.Min(data => data.open_key_chapter_id) - 1;
+            return stageChapterDic[openChapterID].Last().stage_id;
         }
 
         public SpecCommanderSkill GetCommanderSkillData(int skillID)

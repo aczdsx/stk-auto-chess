@@ -65,16 +65,23 @@ public class InGameBottomCharacterUI : MonoBehaviour
     protected void Awake()
     {
         var latestClearUserStageID = UserDataManager.Instance.GetLatestClearUserStageID();
-        var stageData = SpecDataManager.Instance.GetStageData(latestClearUserStageID);
-        _isOpenCommanderSkill =
-            stageData.chapter_id >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+        _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
 
-        _startButton?.onClick.AddListener(OnStartButtonClicked);
-        for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
+        var grade = SpecDataManager.Instance.SpecUserGrade.Get(1); // [TODO] 현재 등급 가져오기
+        if (grade != null)
         {
-            int index = i;
-            _CommanderSkillButtonList[i]?.onClick.AddListener(() => OnClickCommanderSkillButton(index));
+            _startButton?.onClick.AddListener(OnStartButtonClicked);
+            for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
+            {
+                bool isOpen = i < grade.maximum_commander_skill_count;
+                _CommanderSkillButtonList[i].gameObject.SetActive(isOpen);
+                if (isOpen)
+                {
+                    int index = i;
+                    _CommanderSkillButtonList[i]?.onClick.AddListener(() => OnClickCommanderSkillButton(index));
+                }
+            }
         }
 
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
