@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterStateCC : CharacterStateBase
 {
-    public override StatePriority StatePriority => StatePriority.Idle;
+    public override StatePriority StatePriority => StatePriority.CC;
     
     public override void StateStart()
     {
