@@ -54,8 +54,6 @@ namespace CookApps.BattleSystem
         public InGameTile CurrentTile { get; set; }
 
         public bool IsAlive { get; set; }
-        public bool IsForceIdle { get; set; }
-        public bool IsBlockChangeState { get; set; }
 
         public IFollowable SkillRootTransformFollowable => new SimpleSkillTransformFollowable(this);
 
@@ -137,7 +135,7 @@ namespace CookApps.BattleSystem
         }
 
         private CharacterStateBase _currState;
-        private Queue<CharacterStateBase> _nextStates = new ();
+        private CharacterStateBase _nextState;
 
         private ObfuscatorFloat _atkCoolTime;
 
@@ -408,9 +406,9 @@ namespace CookApps.BattleSystem
             CurrentTile.SetOccupied(this);
         }
 
-        public bool NeedToBeIdle()
+        public bool NeedToBeCrowdControlState()
         {
-            return HasCrowdControl(CrowdControlType.Airborne) || HasCrowdControl(CrowdControlType.KnockBack) || HasCrowdControl(CrowdControlType.Stun) || IsForceIdle;
+            return HasCrowdControl(CrowdControlType.Airborne) || HasCrowdControl(CrowdControlType.KnockBack) || HasCrowdControl(CrowdControlType.Stun);
         }
 
         public bool HasCrowdControl(CrowdControlType type)
@@ -447,9 +445,10 @@ namespace CookApps.BattleSystem
         {
             if (_currState == null)
             {
-                if (_nextStates.Count > 0)
+                if (_nextState != null)
                 {
-                    _currState = _nextStates.Dequeue();
+                    _currState = _nextState;
+                    _nextState = null;
                     _currState.StateInit(this);
                     _currState.StateStart();
                     OnStateChanged?.Invoke(_currState);
@@ -552,16 +551,15 @@ namespace CookApps.BattleSystem
             // Regen HP
             RecoverHP(dt);
 
-            if (_nextStates.Count > 0)
+            if (_nextState != null)
             {
-                if (IsBlockChangeState)
-                {
+                if (_currState.IsBlockingChangeState)
                     return;
-                }
-
+                
                 _currState.StateEnd(false);
                 StatePool.Instance.Return(_currState);
-                _currState = _nextStates.Dequeue();
+                _currState = _nextState;
+                _nextState = null;
                 _currState.StateInit(this);
                 _currState.StateStart();
                 OnStateChanged?.Invoke(_currState);
@@ -605,12 +603,19 @@ namespace CookApps.BattleSystem
 #if UNITY_EDITOR
             Debug.Log($"AddNextState >> {Time.frameCount}, {stateType}");
 #endif
-            StateBase state = StatePool.Instance.Get(stateType);
-            if (state != null)
+            
+            var state = StatePool.Instance.Get(stateType) as CharacterStateBase;
+            if (state == null)
+                return null;
+
+            if (_nextState != null && state.StatePriority < _nextState.StatePriority)
             {
-                state.SetStateData(stateData);
-                _nextStates.Enqueue(state as CharacterStateBase);
+                StatePool.Instance.Return(state);
+                return null;
             }
+            
+            state.SetStateData(stateData);
+            _nextState = state;
 
             return state;
         }
@@ -621,8 +626,17 @@ namespace CookApps.BattleSystem
             // Debug.Log($"AddNextState >> {Time.frameCount}, {CharacId}, {CharacUId}, {typeof(T).ToString()}");
 #endif
             var state = StatePool.Instance.Get<T>();
+            if (state == null)
+                return null;
+            
+            if (_nextState != null && state.StatePriority < _nextState.StatePriority)
+            {
+                StatePool.Instance.Return(state);
+                return null;
+            }
+            
             state.SetStateData(stateData);
-            _nextStates.Enqueue(state);
+            _nextState = state;
             return state;
         }
 
@@ -647,11 +661,12 @@ namespace CookApps.BattleSystem
             {
                 _currState.StateEnd(true);
                 StatePool.Instance.Return(_currState);
-                while (_nextStates.Count > 0)
-                {
-                    CharacterStateBase nextState = _nextStates.Dequeue();
-                    StatePool.Instance.Return(nextState);
-                }
+                _currState = null;
+            }
+            if (_nextState != null)
+            {
+                StatePool.Instance.Return(_nextState);
+                _nextState = null;
             }
         }
 
@@ -1078,50 +1093,50 @@ namespace CookApps.BattleSystem
 
         public void MoveCharacter(bool isInRange)
         {
+            if (NeedToBeCrowdControlState())
+            {
+                AddNextState<CharacterStateCC>();
+                return;
+            }
+            
             if (isInRange)
             {
                 AddNextState<CharacterStateIdle>();
+                return;
             }
-            else
-            {
-                Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(this);
 
-                if (Target == null)
-                {
-                    AddNextState<CharacterStateIdle>();
-                }
-                else
-                {
-                    var isNewTargetInRange = InGameObjectManager.Instance.IsInRange(this, Target);
-                    if (isNewTargetInRange)
-                    {
-                        AddNextState<CharacterStateIdle>();
-                    }
-                    else
-                    {
-                        InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
-                        if (bestTile == CurrentTile)
-                        {
-                            GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
-                            AddNextState<CharacterStateIdle>();
-                        }
-                        else
-                        {
-                            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
-                            EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
-                            if (effectCode is EffectCodeCharacterBase runEffectCode)
-                            {
-                                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
-                                AddNextState<CharacterStateIdle>();
-                            }
-                            else
-                            {
-                                MoveTile(bestTile);
-                            }
-                        }
-                    }
-                }
+            Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(this);
+            if (Target == null)
+            {
+                AddNextState<CharacterStateIdle>();
+                return;
             }
+             
+            var isNewTargetInRange = InGameObjectManager.Instance.IsInRange(this, Target);
+            if (isNewTargetInRange)
+            {
+                AddNextState<CharacterStateIdle>();
+                return;
+            }
+             
+            InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
+            if (bestTile == CurrentTile)
+            {
+                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                AddNextState<CharacterStateIdle>();
+                return;
+            }
+
+            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
+            EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
+            if (effectCode is EffectCodeCharacterBase runEffectCode)
+            {
+                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                AddNextState<CharacterStateIdle>();
+                return;
+            }
+
+            MoveTile(bestTile);
         }
 
         public void MoveTile(InGameTile tile)

@@ -17,9 +17,23 @@ namespace CookApps.BattleSystem
         CanCallAll = CanCallEffectCodeOnUpdate | CanCallEffectCodeOnCooltime | CanCallEffectCodeActivate | CanCallMove,
     }
 
+    public enum StatePriority
+    {
+        Idle = 0,
+        Ready = 1,
+        Attack = 2,
+        Skill = 3,
+        CC = 4,
+        Move = 5,
+        Dead = 10,
+    }
+    
     public abstract class CharacterStateBase : StateBase
     {
         protected CharacterController characCtrl = null;
+        public abstract StatePriority StatePriority { get; }
+        protected bool isBlockingChangeState = false;
+        public bool IsBlockingChangeState => isBlockingChangeState;
 
         public override void StateInit(object owner)
         {

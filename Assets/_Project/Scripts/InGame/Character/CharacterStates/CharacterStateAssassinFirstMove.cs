@@ -8,10 +8,12 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
 {
     private const float ScanTargetInterval = 0.1f;
     private float scanTargetTime = 0f;
+    public override StatePriority StatePriority => StatePriority.Move;
 
     public override void StateStart()
     {
         base.StateStart();
+        isBlockingChangeState = true;
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.IDLE);
         scanTargetTime = ScanTargetInterval;
 
@@ -60,6 +62,7 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
                     }
 
                     characCtrl.AddNextState<CharacterStateIdle>();
+                    isBlockingChangeState = false;
                 }
             });
         }

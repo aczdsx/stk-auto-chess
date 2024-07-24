@@ -6,6 +6,8 @@ public class CharacterStateIdle : CharacterStateBase
     private const float ScanTargetInterval = 0.1f;
     private float scanTargetTime = 0f;
 
+    public override StatePriority StatePriority => StatePriority.Idle;
+    
     public override void StateStart()
     {
         base.StateStart();
@@ -16,8 +18,9 @@ public class CharacterStateIdle : CharacterStateBase
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
         // 1. 캐릭터가 Idle 상태로 있어야 하는지 체크
-        if (characCtrl.NeedToBeIdle())
+        if (characCtrl.NeedToBeCrowdControlState())
         {
+            characCtrl.AddNextState<CharacterStateCC>();
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
 
