@@ -9,12 +9,14 @@ using UnityEngine;
 /// </summary>
 public class CharacterStateMove : CharacterStateBase
 {
-    private bool isMoving;
-
     private Tween moveTween;
+    
+    public override StatePriority StatePriority => StatePriority.Move;
+    
     public override void StateStart()
     {
         base.StateStart();
+        isBlockingChangeState = true;
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.MOVE);
 
         var moveDuration = SpecOptionCache.DefaultMoveDuration / characCtrl.GetCharacterStat().MoveSpeed;
@@ -55,6 +57,7 @@ public class CharacterStateMove : CharacterStateBase
 
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
                 characCtrl.MoveCharacter(isInRange);
+                isBlockingChangeState = false;
             }
         });
     }

@@ -15,6 +15,8 @@ public class CharacterStateSkill : CharacterStateBase
         this.effectCode = effectCode as EffectCodeCharacterBase;
     }
 
+    public override StatePriority StatePriority => StatePriority.Skill;
+
     public override void StateInit(object target)
     {
         base.StateInit(target);
@@ -49,10 +51,10 @@ public class CharacterStateSkill : CharacterStateBase
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
-        if (characCtrl.NeedToBeIdle())
+        if (characCtrl.NeedToBeCrowdControlState())
         {
             effectCode.OnSkillCanceled();
-            characCtrl.AddNextState<CharacterStateIdle>();
+            characCtrl.AddNextState<CharacterStateCC>();
             return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
         }
 

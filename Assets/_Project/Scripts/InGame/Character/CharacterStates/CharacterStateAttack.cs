@@ -7,7 +7,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class CharacterStateAttack : CharacterStateBase
 {
     protected bool isAttackAnimRunning;
-
+    public override StatePriority StatePriority => StatePriority.Attack;
+    
     public override void StateStart()
     {
         base.StateStart();
@@ -23,9 +24,10 @@ public class CharacterStateAttack : CharacterStateBase
 
         if (characCtrl != null)
         {
-            if (characCtrl.NeedToBeIdle())
+            if (characCtrl.NeedToBeCrowdControlState())
             {
-                ReturnToIdle();
+                characCtrl.Target = null;
+                characCtrl.AddNextState<CharacterStateCC>();
                 return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
             }
 
@@ -35,7 +37,8 @@ public class CharacterStateAttack : CharacterStateBase
                 !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
             {
                 isAttackAnimRunning = false;
-                ReturnToIdle();
+                characCtrl.Target = null;
+                characCtrl.AddNextState<CharacterStateIdle>();
                 return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
             }
 
@@ -150,12 +153,6 @@ public class CharacterStateAttack : CharacterStateBase
                 characCtrl.Target.GetDamaged(damageInfo, characCtrl);
             }
         }
-    }
-
-    protected virtual void ReturnToIdle()
-    {
-        characCtrl.Target = null;
-        characCtrl.AddNextState<CharacterStateIdle>();
     }
 
     public override void StateEnd(bool isForced)

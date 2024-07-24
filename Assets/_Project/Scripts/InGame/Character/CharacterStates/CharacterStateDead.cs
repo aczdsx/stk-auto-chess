@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class CharacterStateDead : CharacterStateBase
 {
+    public override StatePriority StatePriority => StatePriority.Dead;
+    
     public override void StateStart()
     {
         base.StateStart();
         AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.DEAD);
         characCtrl.GetCharacterView().SetDeadSprite(clip);
-        characCtrl.IsBlockChangeState = true;
+        isBlockingChangeState = true;
 
         Transform skillRootTransform = characCtrl.GetCharacterView().SkillRootTransform;
         Transform playgroundTransform = InGameObjectManager.Instance.Playground;
