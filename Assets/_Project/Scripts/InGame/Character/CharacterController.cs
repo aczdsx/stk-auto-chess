@@ -12,7 +12,6 @@ namespace CookApps.BattleSystem
 {
     public partial class CharacterController : IEffectCodeSource
     {
-        public static Type DefaultDeadState;
         public int CharacterUId => _characterUId;
         public int CharacterId => _statData.CharacterId;
         public SpecCharacter SpecCharacter => _statData.Spec;
@@ -961,9 +960,9 @@ namespace CookApps.BattleSystem
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
                 deathInfo = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
 
-                if (!deathInfo.isUseCustomState && DefaultDeadState != null)
+                if (!deathInfo.isUseCustomState)
                 {
-                    AddNextState(DefaultDeadState);
+                    ForceSetNextState<CharacterStateDead>();
                 }
 
                 return DamageReturnType.Killed;
