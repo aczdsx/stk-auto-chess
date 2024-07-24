@@ -21,6 +21,8 @@ public class EffectCodeSkill1406031 : EffectCodeCharacterBase
     private bool _isReadyToActivate;
     private SpecSkill _specSkill;
 
+    private InGameVfxObj _vfxObj;
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -94,35 +96,34 @@ public class EffectCodeSkill1406031 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-        //
-        // var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 10);
-        // InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-        //     owner.GetCharacterView().CachedTr.position);
-        // foreach (var tile in inGameTiles)
-        // {
-        //     InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-        //         tile.View.CachedTr.position);
-        // }
-        //
-        // {
-        //     Span<double> buffStats = stackalloc double[3];
-        //     buffStats.Clear();
-        //     buffStats[0] = codeId;
-        //     buffStats[1] = 999f;
-        //     buffStats[2] = _statValue;
-        //     var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.BUFF_RES_PERCENT_UP, 0, buffStats);
-        //     owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, source);
-        // }
-        // {
-        //     Span<double> buffStats = stackalloc double[3];
-        //     buffStats.Clear();
-        //     buffStats[0] = codeId;
-        //     buffStats[1] = 999f;
-        //     buffStats[2] = _statValue;
-        //     var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.BUFF_RES_PERCENT_UP, 0, buffStats);
-        //     owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, source);
-        // }
+
+        if (_vfxObj != null)
+        {
+            _vfxObj = InGameVfxManager.Instance
+                .AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().CachedTr.position)
+                .GetComponent<InGameVfxObj>();
+        }
         
+        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+
+        var targetCharacterList = InGameObjectManager.Instance.GetCharacterList(owner.AllianceType);
+        var characterWithLowestHp = targetCharacterList.OrderBy(character => character.CurrentHp).FirstOrDefault();
+        if (characterWithLowestHp != null)
+        {
+            Vector3 direction = (characterWithLowestHp.CurrentTile.View.CachedTr.position - _vfxObj.CachedTr.position).normalized;
+            _vfxObj.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
+            movement.SetData(_vfxObj.CachedTr.position, characterWithLowestHp.CurrentTile.View.CachedTr.position, 20);
+            _vfxObj.Initialize(false, movement);
+
+            void OnReachedTargetHandler()
+            {
+                if (characterWithLowestHp != null)
+                    _vfxObj.SetFollowable(characterWithLowestHp.SkillRootTransformFollowable);
+            }
+
+            movement.OnReachedTarget += OnReachedTargetHandler;
+        }
 
         IsSkillActivated = false;
     }
