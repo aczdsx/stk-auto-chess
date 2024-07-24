@@ -34,6 +34,7 @@ namespace CookApps.BattleSystem
         public abstract StatePriority StatePriority { get; }
         protected bool isBlockingChangeState = false;
         public bool IsBlockingChangeState => isBlockingChangeState;
+        public void ClearBlockingChangeState() => isBlockingChangeState = false;
 
         public override void StateInit(object owner)
         {

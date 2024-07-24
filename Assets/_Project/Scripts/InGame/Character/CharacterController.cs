@@ -639,14 +639,16 @@ namespace CookApps.BattleSystem
             return state;
         }
 
-        public void ForceSetNextState<T>(object stateData = null) where T : CharacterStateBase, new()
+        public T ForceSetNextState<T>(object stateData = null) where T : CharacterStateBase, new()
         {
-            ClearAllState();
             var state = StatePool.Instance.Get<T>();
-            _currState = state;
-            _currState.SetStateData(stateData);
-            _currState.StateInit(this);
-            _currState.StateStart();
+            if (state == null)
+                return null;
+            
+            _currState?.ClearBlockingChangeState();
+            state.SetStateData(stateData);
+            _nextState = state;
+            return state;
         }
 
         public CharacterStateBase GetCurrentState()
