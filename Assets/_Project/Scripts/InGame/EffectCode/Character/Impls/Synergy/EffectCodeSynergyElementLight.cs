@@ -1,3 +1,5 @@
+using System;
+using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 
@@ -14,6 +16,12 @@ public class EffectCodeSynergyElementLight : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         statValue = codeInfo.GetCodeStatToFloat(0);
+        
+        Span<double> buffStats = stackalloc double[1];
+        buffStats.Clear();
+        buffStats[0] = statValue;
+        
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)

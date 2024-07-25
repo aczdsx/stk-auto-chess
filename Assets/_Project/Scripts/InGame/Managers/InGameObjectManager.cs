@@ -102,6 +102,26 @@ namespace CookApps.BattleSystem
 
             return characterList.OrderBy(c => c.CurrentHp).ToList();
         }
+        
+        public List<CharacterController> GetCharacterListSortedByAD(AllianceType allianceType)
+        {
+            List<CharacterController> characterList;
+
+            if (allianceType == AllianceType.Player)
+            {
+                characterList = charactersInPlaygroundForUpdate;
+            }
+            else if (allianceType == AllianceType.Enemy)
+            {
+                characterList = enemiesInPlaygroundForUpdate;
+            }
+            else
+            {
+                characterList = neutralInPlaygroundForUpdate;
+            }
+
+            return characterList.OrderBy(c => c.AD).ToList();
+        }
 
         public CharacterController GetCharacterInField(int characUId)
         {

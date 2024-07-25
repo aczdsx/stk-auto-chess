@@ -10,12 +10,12 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 4챕터 마법사
-// 대상 : 가장 가까운 적
-// 범위 : 적이 위치한 칸 중심 십자가 범위
-// 대미지 : 불을 소환해 공격력 {0}%의 대미지를 준다.
+// 샌드웜이 바닥으로 {0}초 동안 들어간다, 이 때 타겟 불가능 상태가 된다. 
+//  현재 DPS 가장 높은 적에게 큰 가시를 소환해 공격력 {1}%의 대미지를 준다. 
+//  그 주변 범위에는 작은 가시를 소환해 {2}%의 대미지를 준다. 
 /// </summary>
 [UseEffectCodeIds(1103021)]
-public class EffectCodeSkill1103021 : EffectCodeCharacterBase
+public class EffectCodeSkill1202051 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
 
@@ -78,18 +78,6 @@ public class EffectCodeSkill1103021 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
-        if (!isInRange)
-        {
-            if (owner.Target != null)
-            {
-                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
-                    owner.Target.CurrentTile);
-                owner.MoveTile(bestTile);
-            }
-            return;
-        }
-
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -100,17 +88,21 @@ public class EffectCodeSkill1103021 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
+        
+        
         if (owner.Target == null)
             return;
+        
+        // InGameObjectManager.Instance.GetCharacterListSortedByAD();
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(owner.Target.CurrentTile, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(owner.Target.CurrentTile, 2);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         }
 
-        AfterAction(inGameTiles, 1).Forget();
+        AfterAction(inGameTiles, 0.2f).Forget();
     }
 
     public override void OnSkillAnimationEnd()
@@ -120,9 +112,26 @@ public class EffectCodeSkill1103021 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    private async UniTask AfterAction(InGameTile[] inGameTiles, int second)
+    private async UniTask AfterAction(InGameTile[] inGameTiles, float second)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(second));
+        
+        // if (tile.OccupiedCharacter != null)
+        // {
+        //     if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
+        //     {
+        //         if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
+        //         {
+        //             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+        //             float calculatedDamageRate = _damageRate;
+        //
+        //             var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+        //                 tile.OccupiedCharacter, codeId, true);
+        //             owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+        //             tile.OccupiedCharacter.GetDamaged(damage, owner);
+        //         }
+        //     }
+        // }
 
         foreach (var tile in inGameTiles)
         {
