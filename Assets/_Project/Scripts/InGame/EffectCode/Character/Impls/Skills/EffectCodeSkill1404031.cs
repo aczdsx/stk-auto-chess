@@ -97,15 +97,9 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
 
         var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
-        
-        AllianceType targetAllianceType;
-        if (owner.AllianceType == AllianceType.Player)
-            targetAllianceType = AllianceType.Enemy;
-        else
-            targetAllianceType = AllianceType.Player;
 
         var inGameCharacterListSortedByHpRate =
-            InGameObjectManager.Instance.GetCharacterListSortedByHpRate(targetAllianceType, false);
+            InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
         List<CharacterController> targetCharacters = new();
         
         if (inGameCharacterListSortedByHpRate.Count > 0)

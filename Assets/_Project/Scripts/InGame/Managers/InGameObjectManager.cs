@@ -109,6 +109,15 @@ namespace CookApps.BattleSystem
 
             return characterList.OrderBy(c => Vector3.Distance(character.Position, c.Position)).ToList();
         }
+        
+        public List<CharacterController> GetCharacterListSortedByDistanceDescending(CharacterController character, bool isOwnCharacter)
+        {
+            List<CharacterController> characterList = isOwnCharacter 
+                ? (character.AllianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
+                : (character.AllianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
+
+            return characterList.OrderByDescending(c => Vector3.Distance(character.Position, c.Position)).ToList();
+        }
 
         public CharacterController GetCharacterInField(int characUId)
         {
