@@ -475,6 +475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7924184723916855679}
+  - component: {fileID: 1562327783277616708}
   m_Layer: 5
   m_Name: ArenaRankSlot
   m_TagString: Untagged
@@ -502,6 +503,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1562327783277616708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304156364038774672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0608d90ec7d79714a9cdc9402365da72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rankTierImage: {fileID: 4451124564337473592}
+  _rankText: {fileID: 3365181250509884637}
+  _rankPointText: {fileID: 13161848096205313}
+  _levelText: {fileID: 6191192627876690731}
+  _nicknameText: {fileID: 3037673460535950155}
 --- !u!1 &337413050066852955
 GameObject:
   m_ObjectHideFlags: 0

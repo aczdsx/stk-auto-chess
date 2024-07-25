@@ -10,6 +10,7 @@ namespace CookApps.AutoBattler
     public class PVPManager : Singleton<PVPManager>
     {
         public GetPvpInfoResponse CurrentPVPInfo { get; private set; }      // 현재 PVP INFO
+        public GetPvpRankListResponse CurrentPVPRankListData { get; private set; } // 현재 PVP 랭킹 리스트
         
         // PVP 정보를 서버로 부터 최신화
         public async UniTask UpdatePVPInfo()
@@ -30,5 +31,19 @@ namespace CookApps.AutoBattler
 
             
         }
+        
+        // PVP 랭킹 리스트를 로드
+        public async UniTask UpdatePVPRankList()
+        {
+            int showRankCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_RANKING_LIST_COUNT");
+            
+            var response = await GrpcGame.GameGrpcManager.Instance.GetPvpRankListAsync(showRankCount);
+            if (response.IsError)
+                return;
+
+            CurrentPVPRankListData = response;
+            
+            // todo.. 내 랭킹 데이터 업데이트
+        } 
     }
 }

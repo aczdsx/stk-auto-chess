@@ -100,6 +100,8 @@ namespace CookApps.AutoBattler
                 case ArenaMainPopupTabType.PVP_RANK:
                     //_pvpRankTabToggle.isOn = true;
                     _pvpRankTabLayer.gameObject.SetActive(true);
+
+                    LoadPVPRankData();
                     break;
                 case ArenaMainPopupTabType.PVP_SEASON_REWARD:
                     //_pvpSeasonRewardTabToggle.isOn = true;
@@ -118,6 +120,7 @@ namespace CookApps.AutoBattler
                 case ArenaMainPopupTabType.PVP_BATTLE_LOG:
                     break;
                 case ArenaMainPopupTabType.PVP_RANK:
+                    _pvpRankTabLayer.RefreshLayer();
                     break;
                 case ArenaMainPopupTabType.PVP_SEASON_REWARD:
                     break;
@@ -129,6 +132,13 @@ namespace CookApps.AutoBattler
             await PVPManager.Instance.UpdatePVPInfo();
             
             ChangeTabType(CurrentTabType, true);
+        }
+
+        private async void LoadPVPRankData()
+        {
+            await PVPManager.Instance.UpdatePVPRankList();
+            
+            _pvpRankTabLayer.InitLayer(this);
         }
         
         private void OnClickCloseButton()
