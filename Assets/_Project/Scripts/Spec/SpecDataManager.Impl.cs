@@ -923,11 +923,42 @@ namespace CookApps.AutoBattler
             return SpecPVPTierList.FindAll(data => data.ranking_type == rankingType);
         }
 
+        public SpecPVPTier GetPVPTierDataByRankPoint(RankingType rankingType, int rankPoint)
+        {
+            return SpecPVPTierList.Find(data => data.ranking_type == rankingType
+                                        && rankPoint >= data.ranking_min
+                                        && rankPoint < data.ranking_max);
+        }
+
         public SpecPVPRanking GetPVPRankingData(int ranking)
         {
             return SpecPVPRankingList.Find(data => data.rank_range_start <= ranking && data.rank_range_end <= ranking);
         }
 
+        public List<SpecPvpReward> GetPVPRewardDataList(PvpRewardType rewardType)
+        {
+            return SpecPvpRewardList.FindAll(data => data.pvp_reward_type == rewardType);
+        }
+        
+        public List<SpecPvpReward> GetPVPRewardDataList(PvpRewardType rewardType, int ranking_id)
+        {
+            return SpecPvpRewardList.FindAll(data => data.pvp_reward_type == rewardType && data.ranking_id == ranking_id);
+        }
+        
+        // PVP 보상 데이터를 RewardItem 리스트로 변환
+        public List<RewardItem> GetRewardItemListByPVPRewardList(PvpRewardType rewardType, int ranking_id)
+        {
+            var pvpRewardList = GetPVPRewardDataList(rewardType, ranking_id);
+            
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            foreach (var pvpReward in pvpRewardList)
+            {
+                rewardItemList.Add(new RewardItem(pvpReward.item_type, pvpReward.item_key, pvpReward.item_count));
+            }
+
+            return rewardItemList;
+        }
+        
         #endregion
 
 

@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
         SILENCE = 1100000004,
         AIRBORNE = 1100000005,
         MISA_RESTRAINT = 1100000006,
-        TARGET_IMPOSSIBLE = 1100000006,
+        TARGET_IMPOSSIBLE = 1100000007,
         CHAPTER_FIRE = 1200000001,
         CHAPTER_ICE = 1200000002,
         CHAPTER_LANDMINE = 1200000003,
@@ -102,6 +102,7 @@ namespace CookApps.AutoBattler
         CHAR_USER_EXP_ITEM_2 = 11,
         KNIGHT_PIECE = 12,
         PVP_TICKET = 13,
+        OBSTACLE = 14,
     }
 
     public enum ElementType
@@ -213,6 +214,7 @@ namespace CookApps.AutoBattler
         TIME = 2,
         COOL = 3,
         INT = 4,
+        NONE = 5,
     }
 
     public enum SkillType
@@ -371,6 +373,69 @@ namespace CookApps.AutoBattler
         Projectile_204031 = 109,
         Projectile_204041 = 110,
         Projectile_204051 = 111,
+        fx_common_buff_apup = 112,
+        fx_common_buff_apup_01 = 113,
+        fx_common_buff_dfup = 114,
+        fx_common_buff_dfup_01 = 115,
+        fx_common_buff_dfdown = 116,
+        fx_common_buff_01 = 117,
+        fx_common_buff_healdown = 118,
+        fx_common_buff_healdown_01 = 119,
+        fx_common_buff_provoke = 120,
+        fx_common_buff_provoke_01 = 121,
+        fx_common_buff_apdfup_01 = 122,
+        fx_common_buff_apdfup_02 = 123,
+        fx_common_buff_immune_01 = 124,
+        fx_common_buff_immune_02 = 125,
+        Skill_101041 = 126,
+        Skill_101051 = 127,
+        Skill_101061 = 128,
+        Skill_201031 = 129,
+        Skill_201031_1 = 130,
+        Skill_201031_2 = 131,
+        Skill_201031_3 = 132,
+        Skill_102041 = 133,
+        Skill_102051 = 134,
+        Skill_102061 = 135,
+        Skill_103021 = 136,
+        Skill_103031 = 137,
+        Skill_103041 = 138,
+        Skill_104031 = 139,
+        Skill_104061 = 140,
+        Skill_104071 = 141,
+        Skill_104081 = 142,
+        Skill_105011 = 143,
+        Skill_105021 = 144,
+        Skill_105031 = 145,
+        Skill_106021 = 146,
+        Skill_106031 = 147,
+        Skill_106041 = 148,
+        Skill_203021 = 149,
+        Skill_202051 = 150,
+        Skill_202051_1 = 151,
+        Skill_202061 = 152,
+        Skill_202071 = 153,
+        Skill_202081 = 154,
+        Skill_202091 = 155,
+        Skill_401021 = 156,
+        Skill_302021 = 157,
+        Skill_402011 = 158,
+        Skill_402021 = 159,
+        Skill_403021 = 160,
+        Skill_404011 = 161,
+        Skill_404031 = 162,
+        Skill_204031 = 163,
+        Skill_204032 = 164,
+        Skill_204033 = 165,
+        Skill_204041 = 166,
+        Skill_204042 = 167,
+        Skill_204043 = 168,
+        Skill_204051 = 169,
+        Skill_204052 = 170,
+        Skill_204053 = 171,
+        Skill_405011 = 172,
+        Skill_406021 = 173,
+        Skill_406031 = 174,
     }
 
     public enum GlobalEffectProviderType
@@ -445,5 +510,23 @@ namespace CookApps.AutoBattler
         STAGE = 1,
         TRIAL = 2,
         PVP = 3,
+    }
+
+    public enum UserGradeType
+    {
+        BRONZE = 1,
+        SILVER = 2,
+        GOLD = 3,
+        PLATINUM = 4,
+        DIAMOND = 5,
+    }
+
+    public enum PVPTierType
+    {
+        BRONZE = 1,
+        SILVER = 2,
+        GOLD = 3,
+        PLATINUM = 4,
+        DIAMOND = 5,
     }
 }

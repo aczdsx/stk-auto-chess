@@ -55,8 +55,6 @@ namespace CookApps.AutoBattler
             CurrentTabType = param as ArenaMainPopupTabType? ?? ArenaMainPopupTabType.PVP_BATTLE;
             
             LoadPVPInfoData();
-            
-            ChangeTabType(CurrentTabType, true);
         }
 
         public void OnClickBattleTabButton()
@@ -92,6 +90,8 @@ namespace CookApps.AutoBattler
                 case ArenaMainPopupTabType.PVP_BATTLE:
                     //_pvpBattleTabToggle.isOn = true;
                     _pvpBattleTabLayer.gameObject.SetActive(true);
+                    
+                    _myPVPInfoLayer?.InitLayer(this);
                     break;
                 case ArenaMainPopupTabType.PVP_BATTLE_LOG:
                     //_pvpBattleLogTabToggle.isOn = true;
@@ -113,6 +113,7 @@ namespace CookApps.AutoBattler
             switch (tabType)
             {
                 case ArenaMainPopupTabType.PVP_BATTLE:
+                    _myPVPInfoLayer?.RefreshLayer();
                     break;
                 case ArenaMainPopupTabType.PVP_BATTLE_LOG:
                     break;
@@ -123,9 +124,11 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void LoadPVPInfoData()
+        private async void LoadPVPInfoData()
         {
-            //PVPManager.Instance.UpdatePVPInfo();
+            await PVPManager.Instance.UpdatePVPInfo();
+            
+            ChangeTabType(CurrentTabType, true);
         }
         
         private void OnClickCloseButton()

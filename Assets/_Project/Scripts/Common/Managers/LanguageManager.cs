@@ -70,6 +70,25 @@ namespace CookApps.AutoBattler
                     return string.Empty;
             }
         }
+        
+        public string GetPVPTierText(PVPTierType type)
+        {
+            switch (type)
+            {
+                case PVPTierType.BRONZE:
+                    return "브론즈";
+                case PVPTierType.SILVER:
+                    return "실버";
+                case PVPTierType.GOLD:
+                    return "골드";
+                case PVPTierType.PLATINUM:
+                    return "플래티넘";
+                case PVPTierType.DIAMOND:
+                    return "다이아몬드";
+                default:
+                    return string.Empty;
+            }
+        }
 
         public string GetAtkTypeText(AtkType type)
         {

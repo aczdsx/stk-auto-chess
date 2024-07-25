@@ -125,6 +125,32 @@ namespace CookApps.AutoBattler
 
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
+        
+        public Sprite GetPVPTierIconSprite(PVPTierType type)
+        {
+            string spriteName = string.Empty;
+
+            switch (type)
+            {
+                case PVPTierType.BRONZE:
+                    spriteName = "Icon_Rank_Bronze";
+                    break;
+                case PVPTierType.SILVER:
+                    spriteName = "Icon_Rank_Silver";
+                    break;
+                case PVPTierType.GOLD:
+                    spriteName = "Icon_Rank_Gold";
+                    break;
+                case PVPTierType.PLATINUM:
+                    spriteName = "Icon_Rank_Platinum";
+                    break;
+                case PVPTierType.DIAMOND:
+                    spriteName = "Icon_Rank_Diamond";
+                    break;
+            }
+
+            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
+        }
 
         public Sprite GetChapterIconSprite(int chapterID)
         {

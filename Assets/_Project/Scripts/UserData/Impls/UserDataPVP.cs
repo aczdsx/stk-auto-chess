@@ -21,10 +21,10 @@ namespace CookApps.AutoBattler
             {
                 userPVP = new UserPVP();
                 userPVP.RecentSeasonId = 1;
-                userPVP.RankId = 0;
-                userPVP.RankPoint = 0;
                 userPVP.Ranking = 0;
 
+                UpdateUserRankData(0, false);   // 랭크 데이터 업데이트
+                
                 return;
             }
 
@@ -40,6 +40,20 @@ namespace CookApps.AutoBattler
         public void SaveUserPVPData()
         {
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserPvp.ToCategoryString(), userPVP);
+        }
+
+        public void UpdateUserRankData(int rankPoint, bool needSave)
+        {
+            var specTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, rankPoint);
+            if (specTierData == null) return;
+
+            UserPVP.RankPoint = rankPoint;
+            UserPVP.RankId = specTierData.ranking_id;
+            
+            if (needSave)
+            {
+                SaveUserPVPData();
+            }
         }
         
         // 매칭 리스트에 데이터 추가
