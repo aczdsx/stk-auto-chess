@@ -370,7 +370,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasCrowdControl(CrowdControlType.Airborne));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
 
             if (reusableList == null)
                 return;
@@ -410,7 +410,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasCrowdControl(CrowdControlType.Airborne));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
 
             if (reusableList == null || reusableList.Count == 0)
             {
@@ -451,7 +451,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasCrowdControl(CrowdControlType.Airborne));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
 
             if (reusableList == null || reusableList.Count == 0)
             {
@@ -492,7 +492,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasCrowdControl(CrowdControlType.Airborne));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
 
             if (reusableList == null || reusableList.Count == 0)
             {
@@ -542,7 +542,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasCrowdControl(CrowdControlType.Airborne));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
 
             if (reusableList == null || reusableList.Count == 0)
             {
@@ -584,7 +584,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasCrowdControl(CrowdControlType.Airborne));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
 
             if (reusableList == null || reusableList.Count == 0)
             {

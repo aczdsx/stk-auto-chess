@@ -414,7 +414,7 @@ namespace CookApps.BattleSystem
         {
             return (_crowdControlType & type) == type;
         }
-
+        
         public void AddCrowdControl(CrowdControlType type)
         {
             _crowdControlType = _crowdControlType | type;

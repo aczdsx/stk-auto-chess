@@ -43,13 +43,21 @@ namespace CookApps.BattleSystem
                 {
                     Span<double> eccStats = stackalloc double[3];
                     eccStats.Clear();
+                    eccStats[0] = codeId;
+                    eccStats[1] = _time;
+                    eccStats[2] = 1.0f;
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.TARGET_IMPOSSIBLE, inGameTile.OccupiedCharacter, eccStats, source);
+                }
+                
+                {
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
                     eccStats[0] = _time;
                     eccStats[1] = 4.0f;
                     eccStats[2] = inGameTile.View.ID;
                     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AIRBORNE, inGameTile.OccupiedCharacter, eccStats, source);
                 }
                 
-
                 {
                     Span<double> eccStats = stackalloc double[3];
                     eccStats.Clear();

@@ -104,6 +104,7 @@ namespace CookApps.BattleSystem
         CriticalProbUp,
         Invincibility,
         CoolTimeUp,
+        TargetImpossible,
         AttackDown = 1000,
         DefenceDown,
         CoolTimeDown,
