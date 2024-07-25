@@ -99,28 +99,65 @@ public class EffectCodeSkill1201031 : EffectCodeCharacterBase
             owner.GetCharacterView().CachedTr.position);
     }
 
-    public override void OnSkillExecute(int executeIndex, int totalLength)
+public override void OnSkillExecute(int executeIndex, int totalLength)
+{
+    base.OnSkillExecute(executeIndex, totalLength);
+
+    var targetCharacters = GetClosestCharacters(owner, 3);
+
+    foreach (var targetCharacter in targetCharacters)
     {
-        base.OnSkillExecute(executeIndex, totalLength);
+        ApplyVfxAndDamage(targetCharacter, _specSkill.skill_vfxs[0], _specSkill.skill_vfxs[1], _damageRate, true);
+    }
 
-        var targetCharacters = GetClosestCharacters(owner, 3);
+    CoolTimeElapsedTime = 0;
+    IsSkillActivated = false;
+}
 
-        foreach (var targetCharacter in targetCharacters)
+private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNameType vfxProjectileType,
+    InGameVfxNameType vfxHitType, ObfuscatorFloat damageRate, bool applyAdditionalDamage)
+{
+    var targetTile = targetCharacter.CurrentTile;
+    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile.View.CachedTr.position);
+
+    var vfxProjectile =
+        InGameVfxManager.Instance.AddInGameVfx(vfxProjectileType, owner.CurrentTile.View.CachedTr.position);
+    var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+    Vector3 direction = (targetTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
+    vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
+    movement.SetData(vfxProjectile.CachedTr.position, targetTile.View.CachedTr.position, 15);
+    vfxProjectile.Initialize(false, movement);
+
+    void OnReachedTargetHandler()
+    {
+        vfxProjectile.Remove();
+
+        if (targetCharacter != null)
         {
-            ApplyVfxAndDamage(targetCharacter, _specSkill.skill_vfxs[0], _specSkill.skill_vfxs[1], _damageRate);
+            // 타겟 히트
+            var vfxHit = InGameVfxManager.Instance.AddInGameVfx(vfxHitType,
+                targetCharacter.CurrentTile.View.CachedTr.position);
+            var damage =
+                owner.PrecalculateDamageAmount(owner.AD * damageRate, 0, targetCharacter, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, targetCharacter);
+            targetCharacter.GetDamaged(damage, owner);
 
-            var additionalTargetCharacters = GetClosestCharacters(owner, 3);
-
-            foreach (var additionalTargetCharacter in additionalTargetCharacters)
+            if (applyAdditionalDamage)
             {
-                ApplyVfxAndDamage(additionalTargetCharacter, _specSkill.skill_vfxs[2], _specSkill.skill_vfxs[3],
-                    _damageRate);
+                var additionalTargetCharacters = GetClosestCharacters(targetCharacter, 3);
+
+                foreach (var additionalTargetCharacter in additionalTargetCharacters)
+                {
+                    ApplyVfxAndDamage(additionalTargetCharacter, _specSkill.skill_vfxs[2], _specSkill.skill_vfxs[3],
+                        _damageRate, false);
+                }
             }
         }
-
-        CoolTimeElapsedTime = 0;
-        IsSkillActivated = false;
     }
+
+    movement.OnReachedTarget += OnReachedTargetHandler;
+}
 
     private List<CharacterController> GetClosestCharacters(CharacterController owner, int count)
     {
@@ -142,40 +179,6 @@ public class EffectCodeSkill1201031 : EffectCodeCharacterBase
         }
 
         return targetCharacters;
-    }
-
-    private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNameType vfxProjectileType,
-        InGameVfxNameType vfxHitType, ObfuscatorFloat damageRate)
-    {
-        var targetTile = targetCharacter.CurrentTile;
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile.View.CachedTr.position);
-
-        var vfxProjectile =
-            InGameVfxManager.Instance.AddInGameVfx(vfxProjectileType, owner.CurrentTile.View.CachedTr.position);
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-        Vector3 direction = (targetTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
-        vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-
-        movement.SetData(vfxProjectile.CachedTr.position, targetTile.View.CachedTr.position, 15);
-        vfxProjectile.Initialize(false, movement);
-
-        void OnReachedTargetHandler()
-        {
-            vfxProjectile.Remove();
-
-            if (targetCharacter != null)
-            {
-                // 타겟 히트
-                var vfxHit = InGameVfxManager.Instance.AddInGameVfx(vfxHitType,
-                    targetCharacter.CurrentTile.View.CachedTr.position);
-                var damage =
-                    owner.PrecalculateDamageAmount(owner.AD * damageRate, 0, targetCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, targetCharacter);
-                targetCharacter.GetDamaged(damage, owner);
-            }
-        }
-
-        movement.OnReachedTarget += OnReachedTargetHandler;
     }
 
     public override void OnSkillAnimationEnd()
