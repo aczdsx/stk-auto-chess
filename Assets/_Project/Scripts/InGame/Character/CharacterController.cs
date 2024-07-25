@@ -1106,7 +1106,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(this);
+            Target = InGameObjectManager.Instance.GetTargetForMove(this);
             if (Target == null)
             {
                 AddNextState<CharacterStateIdle>();

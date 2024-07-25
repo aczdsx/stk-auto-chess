@@ -93,7 +93,7 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
 
-        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
+        owner.Target = InGameObjectManager.Instance.GetTargetForMove(owner);
 
         if (owner.Target != null)
         {

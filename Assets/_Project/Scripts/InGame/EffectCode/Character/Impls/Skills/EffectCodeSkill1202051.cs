@@ -92,17 +92,29 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
         
         if (owner.Target == null)
             return;
-        
-        // InGameObjectManager.Instance.GetCharacterListSortedByAD();
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(owner.Target.CurrentTile, 2);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
-        foreach (var tile in inGameTiles)
+        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByAD(owner.AllianceType, false);
+        if (characterControllers.Count > 0)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-        }
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], characterControllers[0].CurrentTile.View.CachedTr.position);
+            float calculatedDamageRate = _damageRate;
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, characterControllers[0].CurrentTile.View.CachedTr.position);
 
-        AfterAction(inGameTiles, 0.2f).Forget();
+            var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                characterControllers[0], codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, characterControllers[0]);
+            characterControllers[0].GetDamaged(damage, owner);
+            
+            // 주변 타겟
+            var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.Target.CurrentTile, 2);
+            inGameTiles.Remove(characterControllers[0].CurrentTile);
+            foreach (var tile in inGameTiles)
+            {
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            }
+
+            AfterAction(inGameTiles, 0.2f).Forget();
+        }
     }
 
     public override void OnSkillAnimationEnd()
@@ -112,27 +124,10 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    private async UniTask AfterAction(InGameTile[] inGameTiles, float second)
+    private async UniTask AfterAction(List<InGameTile> inGameTiles, float second)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(second));
         
-        // if (tile.OccupiedCharacter != null)
-        // {
-        //     if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-        //     {
-        //         if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
-        //         {
-        //             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-        //             float calculatedDamageRate = _damageRate;
-        //
-        //             var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-        //                 tile.OccupiedCharacter, codeId, true);
-        //             owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-        //             tile.OccupiedCharacter.GetDamaged(damage, owner);
-        //         }
-        //     }
-        // }
-
         foreach (var tile in inGameTiles)
         {
             if (tile.OccupiedCharacter != null)
@@ -141,7 +136,7 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
                 {
                     if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
                     {
-                        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+                        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
                         float calculatedDamageRate = _damageRate;
 
                         var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,

@@ -132,7 +132,7 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
 
     private async UniTask ActiveSkill()
     {
-        CharacterController targetController = InGameObjectManager.Instance.GetNearestTarget(owner);
+        CharacterController targetController = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
         while (true)
         {
             if (_hitCharacters.Count >= _targetMaximumCount)

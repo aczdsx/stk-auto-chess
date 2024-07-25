@@ -98,11 +98,6 @@ namespace CookApps.BattleSystem
             return GetRandomEmptyTile(AllianceType.Player);
         }
 
-        public InGameTile[] GetManhattanDistanceTiles(InGameTile centerTile, int distance)
-        {
-            return _tiles.Where(tile => GetManhattanDistance(centerTile, tile) <= distance).ToArray();
-        }
-
         public int GetManhattanDistance(InGameTile from, InGameTile to)
         {
             return Mathf.Abs(from.X - to.X) + Mathf.Abs(from.Y - to.Y);

@@ -33,7 +33,7 @@ public class CharacterStateIdle : CharacterStateBase
 
         // 2. 타겟 찾기
         if (characCtrl.Target == null)
-            characCtrl.Target = InGameObjectManager.Instance.GetNearestTarget(characCtrl);
+            characCtrl.Target = InGameObjectManager.Instance.GetNearestTargetByBFS(characCtrl);
 
         if (characCtrl.Target is {IsAlive: false})
         {

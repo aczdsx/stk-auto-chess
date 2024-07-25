@@ -454,7 +454,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private void ActiveAttackTile(InGameTile pivot, int range)
     {
         _selectedTileView.SetActiveObj(true);
-        var tiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(pivot, range);
+        var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(pivot, range);
         _attackRangeTileList.AddRange(tiles.ToList());
         _attackRangeTileList.Remove(pivot);
         foreach (var tile in _attackRangeTileList)

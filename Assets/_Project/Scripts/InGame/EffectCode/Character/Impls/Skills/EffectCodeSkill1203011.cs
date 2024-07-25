@@ -103,7 +103,7 @@ public class EffectCodeSkill1203011 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetManhattanDistanceTiles(owner.Target.CurrentTile, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.Target.CurrentTile, 1);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in inGameTiles)
         {
@@ -120,7 +120,7 @@ public class EffectCodeSkill1203011 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    private async UniTask AfterAction(InGameTile[] inGameTiles, float second)
+    private async UniTask AfterAction(List<InGameTile> inGameTiles, float second)
     {
         foreach (var tile in inGameTiles)
         {

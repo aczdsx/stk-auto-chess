@@ -83,44 +83,31 @@ namespace CookApps.BattleSystem
             return neutralInPlaygroundForUpdate;
         }
 
-        public List<CharacterController> GetCharacterListSortedByHpRate(AllianceType allianceType)
+        public List<CharacterController> GetCharacterListSortedByHpRate(AllianceType allianceType, bool isOwnCharacter)
         {
-            List<CharacterController> characterList;
-
-            if (allianceType == AllianceType.Player)
-            {
-                characterList = charactersInPlaygroundForUpdate;
-            }
-            else if (allianceType == AllianceType.Enemy)
-            {
-                characterList = enemiesInPlaygroundForUpdate;
-            }
-            else
-            {
-                characterList = neutralInPlaygroundForUpdate;
-            }
+            List<CharacterController> characterList = isOwnCharacter 
+                ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
+                : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
             return characterList.OrderBy(c => c.CurrentHp).ToList();
         }
         
-        public List<CharacterController> GetCharacterListSortedByAD(AllianceType allianceType)
+        public List<CharacterController> GetCharacterListSortedByAD(AllianceType allianceType, bool isOwnCharacter)
         {
-            List<CharacterController> characterList;
-
-            if (allianceType == AllianceType.Player)
-            {
-                characterList = charactersInPlaygroundForUpdate;
-            }
-            else if (allianceType == AllianceType.Enemy)
-            {
-                characterList = enemiesInPlaygroundForUpdate;
-            }
-            else
-            {
-                characterList = neutralInPlaygroundForUpdate;
-            }
+            List<CharacterController> characterList = isOwnCharacter 
+                ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
+                : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
             return characterList.OrderBy(c => c.AD).ToList();
+        }
+        
+        public List<CharacterController> GetCharacterListSortedByDistance(CharacterController character, bool isOwnCharacter)
+        {
+            List<CharacterController> characterList = isOwnCharacter 
+                ? (character.AllianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
+                : (character.AllianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
+
+            return characterList.OrderBy(c => Vector3.Distance(character.Position, c.Position)).ToList();
         }
 
         public CharacterController GetCharacterInField(int characUId)
@@ -363,50 +350,6 @@ namespace CookApps.BattleSystem
         }
 
         /// <summary>
-        /// pivot을 기준으로 range내에 있는 동료들을 반환
-        /// </summary>
-        /// <param name="pivot"></param>
-        /// <param name="range"></param>
-        /// <param name="rangeShapeType"></param>
-        /// <param name="includePivot"></param>
-        /// <param name="resTargets"></param>
-        public void GetNearestColleaguesInRange(CharacterController pivot, int range,
-            BattleSystem.AttackRangeShape rangeShape, bool includePivot, List<CharacterController> resTargets)
-        {
-            List<CharacterController> searchList = null;
-            if (pivot.AllianceType == AllianceType.Player)
-            {
-                searchList = enemiesInPlaygroundForUpdate;
-            }
-            else if (pivot.AllianceType == AllianceType.Enemy)
-            {
-                searchList = charactersInPlaygroundForUpdate;
-            }
-
-            if (searchList == null)
-                return;
-
-            for (var i = 0; i < searchList.Count; i++)
-            {
-                CharacterController other = searchList[i];
-                if (!includePivot && other == pivot)
-                {
-                    continue;
-                }
-
-                if (other is not {IsAlive: true})
-                {
-                    continue;
-                }
-
-                if (_grid.IsInRange(pivot.CurrentTile, other.CurrentTile, range))
-                {
-                    resTargets.Add(other);
-                }
-            }
-        }
-
-        /// <summary>
         /// pivot을 기준으로 range내에 있는 적들을 반환
         /// </summary>
         /// <param name="pivot"></param>
@@ -452,7 +395,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="pivot"></param>
         /// <returns></returns>
-        public CharacterController GetNearestTarget(CharacterController pivot)
+        public CharacterController GetNearestTargetByBFS(CharacterController pivot)
         {
             CharacterController target = null;
 
@@ -492,8 +435,49 @@ namespace CookApps.BattleSystem
 
             return target;
         }
-
+        
         public CharacterController GetNearestTargetByManhattanDistance(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
+            {
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            else if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            reusableList.RemoveAll(l => l.HasCrowdControl(CrowdControlType.Airborne));
+
+            if (reusableList == null || reusableList.Count == 0)
+            {
+                return null;
+            }
+
+            var minDistance = float.MaxValue;
+            foreach (var enemy in reusableList)
+            {
+                if (enemy.IsAlive == false)
+                {
+                    continue;
+                }
+
+                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
+                if (minDistance > distance)
+                {
+                    minDistance = distance;
+                    target = enemy;
+                }
+            }
+
+            return target;
+        }
+
+        public CharacterController GetTargetForMove(CharacterController pivot)
         {
             CharacterController target = null;
 

@@ -105,7 +105,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
             targetAllianceType = AllianceType.Player;
 
         var inGameCharacterListSortedByHpRate =
-            InGameObjectManager.Instance.GetCharacterListSortedByHpRate(targetAllianceType);
+            InGameObjectManager.Instance.GetCharacterListSortedByHpRate(targetAllianceType, false);
         List<CharacterController> targetCharacters = new();
         
         if (inGameCharacterListSortedByHpRate.Count > 0)
