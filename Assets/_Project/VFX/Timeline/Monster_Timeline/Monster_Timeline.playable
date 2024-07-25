@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 4200245488196177737}
   m_Children: []
   m_Clips: []
   m_Markers:
@@ -4869,7 +4869,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 4200245488196177737}
   m_Children: []
   m_Clips:
   - m_Version: 1
@@ -7778,12 +7778,7 @@ MonoBehaviour:
   - {fileID: -7438877813381585100}
   - {fileID: -5677346620003527390}
   - {fileID: -1012272755197526969}
-  - {fileID: 7660196854026614269}
-  - {fileID: 443924907249538643}
-  - {fileID: -8694002171677866168}
-  - {fileID: 3823481388851805884}
-  - {fileID: 1880938974314445496}
-  - {fileID: -4131523522308456926}
+  - {fileID: 4200245488196177737}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -8038,7 +8033,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 4200245488196177737}
   m_Children: []
   m_Clips: []
   m_Markers:
@@ -9502,7 +9497,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 4200245488196177737}
   m_Children: []
   m_Clips:
   - m_Version: 1
@@ -10874,7 +10869,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 4200245488196177737}
   m_Children: []
   m_Clips: []
   m_Markers:
@@ -11239,6 +11234,35 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: Skill_202031 (1)
+  m_Markers:
+    m_Objects: []
+--- !u!114 &4200245488196177737
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fc6f5187a81dc47999eefade6f0935, type: 3}
+  m_Name: 2010311
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children:
+  - {fileID: 7660196854026614269}
+  - {fileID: 443924907249538643}
+  - {fileID: -8694002171677866168}
+  - {fileID: 3823481388851805884}
+  - {fileID: 1880938974314445496}
+  - {fileID: -4131523522308456926}
+  m_Clips: []
   m_Markers:
     m_Objects: []
 --- !u!114 &4202834681367895010
@@ -14605,7 +14629,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 4200245488196177737}
   m_Children: []
   m_Clips: []
   m_Markers:

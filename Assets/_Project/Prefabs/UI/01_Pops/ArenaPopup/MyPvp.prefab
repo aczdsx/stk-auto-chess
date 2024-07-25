@@ -440,6 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2887184153223201490}
   - component: {fileID: 8296812801962296672}
+  - component: {fileID: 5703970489552237484}
   m_Layer: 5
   m_Name: MyPvp
   m_TagString: Untagged
@@ -489,6 +490,27 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5703970489552237484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101250150759331854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2711205a7378a448a7c745e53dbc47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myTierImage: {fileID: 0}
+  _myTierSlider: {fileID: 0}
+  _myTierNameText: {fileID: 0}
+  _myTierLevelObjectList: []
+  _myRankingText: {fileID: 0}
+  _myRankingPointText: {fileID: 0}
+  _myBattlePointText: {fileID: 0}
+  _mySeasonRewardItemSlotList: []
+  _settingDefenseDeckButton: {fileID: 0}
 --- !u!1 &1506781617377949755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,7 +3008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4601696635596199682, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4601696635596199682, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
       propertyPath: m_SortingLayer

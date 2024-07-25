@@ -34,6 +34,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _trialDungeonButton;
         [SerializeField] private CAButton _sessionEventButton;
         [SerializeField] private CAButton _consumeAPEventButton;
+        [SerializeField] private CAButton _EnterArenaButton;
 
         [Header("Vignette Layer")]
         [SerializeField] private VignetteSO _vignetteData;
@@ -90,6 +91,7 @@ namespace CookApps.AutoBattler
             _trialDungeonButton.onClick.AddListener(OnClickTrialDungeonButton);
             _sessionEventButton.onClick.AddListener(OnClickSessionEventButton);
             _consumeAPEventButton.onClick.AddListener(OnClickConsumeAPEventButton);
+            _EnterArenaButton.onClick.AddListener(OnClickEnterArenaButton);
         }
 
         protected override void OnDestroy()
@@ -105,6 +107,7 @@ namespace CookApps.AutoBattler
             _trialDungeonButton.onClick.RemoveListener(OnClickTrialDungeonButton);
             _sessionEventButton.onClick.RemoveListener(OnClickSessionEventButton);
             _consumeAPEventButton.onClick.RemoveListener(OnClickConsumeAPEventButton);
+            _EnterArenaButton.onClick.RemoveListener(OnClickEnterArenaButton);
         }
 
         protected override void OnPreEnter(object param)
@@ -567,6 +570,13 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentUserEventData).Forget();
+        }
+
+        private void OnClickEnterArenaButton()
+        {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
+            SceneUILayerManager.Instance.PushUILayerAsync<ArenaMainPopup>().Forget();
         }
 
         private void ClearBottomSlotLayer()
