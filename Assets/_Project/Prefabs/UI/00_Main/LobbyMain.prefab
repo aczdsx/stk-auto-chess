@@ -1896,6 +1896,7 @@ MonoBehaviour:
   _trialDungeonButton: {fileID: 6612707305023326019}
   _sessionEventButton: {fileID: 244007958178209753}
   _consumeAPEventButton: {fileID: 4450260306717938947}
+  _EnterArenaButton: {fileID: 7718233980253714535}
   _vignetteData: {fileID: 11400000, guid: 6e525e54f8ab47e43a10ebe4272074f9, type: 2}
   _vignetteImage: {fileID: 5632547169323492497}
   _userNameText: {fileID: 1804400419255090806}
@@ -3347,6 +3348,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9207696171098868618, guid: 9734f32ffb9e943489228e17c245b1f8, type: 3}
   m_PrefabInstance: {fileID: 4683999480927180621}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7718233980253714535 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3034375425810263850, guid: 9734f32ffb9e943489228e17c245b1f8, type: 3}
+  m_PrefabInstance: {fileID: 4683999480927180621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4692689700546225065
 PrefabInstance:
   m_ObjectHideFlags: 0

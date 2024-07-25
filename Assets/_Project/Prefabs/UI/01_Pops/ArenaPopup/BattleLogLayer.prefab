@@ -693,6 +693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3750566737707374622}
   - component: {fileID: 2278404888478598996}
+  - component: {fileID: 4826577267616219647}
   m_Layer: 5
   m_Name: BattleLogLayer
   m_TagString: Untagged
@@ -731,6 +732,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7595321907622029772}
   m_CullTransparentMesh: 1
+--- !u!114 &4826577267616219647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7595321907622029772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7c02da5b2ede6409e678cf062f1ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7728167975403501470
 GameObject:
   m_ObjectHideFlags: 0

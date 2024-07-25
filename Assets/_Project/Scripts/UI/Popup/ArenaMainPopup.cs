@@ -1,15 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ArenaMainPopup.prefab")]
+    public enum ArenaMainPopupTabType
+    {
+        PVP_BATTLE,
+        PVP_BATTLE_LOG,
+        PVP_RANK,
+        PVP_SEASON_REWARD
+    }
+    
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ArenaPopup/ArenaMainPopup.prefab")]
     public class ArenaMainPopup : UILayer
     {
         [Header("Common")]
         [SerializeField] private CAButton _closeButton;
+        
+        [Header("Tab Layer")]
+        [SerializeField] private CAToggle _pvpBattleTabToggle;
+        [SerializeField] private CAToggle _pvpBattleLogTabToggle;
+        [SerializeField] private CAToggle _pvpRankTabToggle;
+        [SerializeField] private CAToggle _pvpSeasonRewardTabToggle;
+        
+        [Space(10)]
+        [SerializeField] private PVPBattleLayer _pvpBattleTabLayer;
+        [SerializeField] private PVPBattleLogLayer _pvpBattleLogTabLayer;
+        [SerializeField] private PVPRankLayer _pvpRankTabLayer;
+        [SerializeField] private PVPSeasonRewardLayer _pvpSeasonRewardTabLayer;
+
+        [Header("My PVP Info Layer")] 
+        [SerializeField] private PVPMyInfoLayer _myPVPInfoLayer;
+        
+        public ArenaMainPopupTabType CurrentTabType { get; private set; } = ArenaMainPopupTabType.PVP_BATTLE;
         
         private void Awake()
         {
@@ -29,12 +52,80 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
+            CurrentTabType = param as ArenaMainPopupTabType? ?? ArenaMainPopupTabType.PVP_BATTLE;
+            
             LoadPVPInfoData();
+            
+            ChangeTabType(CurrentTabType, true);
+        }
+
+        public void OnClickBattleTabButton()
+        {
+            ChangeTabType(ArenaMainPopupTabType.PVP_BATTLE, false);
+        }
+        
+        public void OnClickBattleLogTabButton()
+        {
+            ChangeTabType(ArenaMainPopupTabType.PVP_BATTLE_LOG, false);
+        }
+        
+        public void OnClickRankTabButton()
+        {
+            ChangeTabType(ArenaMainPopupTabType.PVP_RANK, false);
+        }
+        
+        public void OnClickSeasonRewardTabButton()
+        {
+            ChangeTabType(ArenaMainPopupTabType.PVP_SEASON_REWARD, false);
+        }
+
+        public void ChangeTabType(ArenaMainPopupTabType tabType, bool isFirstEnter)
+        {
+            if (CurrentTabType == tabType && isFirstEnter == false) return;
+
+            ClearLayer();
+            
+            CurrentTabType = tabType;
+
+            switch (tabType)
+            {
+                case ArenaMainPopupTabType.PVP_BATTLE:
+                    //_pvpBattleTabToggle.isOn = true;
+                    _pvpBattleTabLayer.gameObject.SetActive(true);
+                    break;
+                case ArenaMainPopupTabType.PVP_BATTLE_LOG:
+                    //_pvpBattleLogTabToggle.isOn = true;
+                    _pvpBattleLogTabLayer.gameObject.SetActive(true);
+                    break;
+                case ArenaMainPopupTabType.PVP_RANK:
+                    //_pvpRankTabToggle.isOn = true;
+                    _pvpRankTabLayer.gameObject.SetActive(true);
+                    break;
+                case ArenaMainPopupTabType.PVP_SEASON_REWARD:
+                    //_pvpSeasonRewardTabToggle.isOn = true;
+                    _pvpSeasonRewardTabLayer.gameObject.SetActive(true);
+                    break;
+            }
+        }
+
+        public void RefreshTabLayer(ArenaMainPopupTabType tabType)
+        {
+            switch (tabType)
+            {
+                case ArenaMainPopupTabType.PVP_BATTLE:
+                    break;
+                case ArenaMainPopupTabType.PVP_BATTLE_LOG:
+                    break;
+                case ArenaMainPopupTabType.PVP_RANK:
+                    break;
+                case ArenaMainPopupTabType.PVP_SEASON_REWARD:
+                    break;
+            }
         }
 
         private void LoadPVPInfoData()
         {
-            
+            //PVPManager.Instance.UpdatePVPInfo();
         }
         
         private void OnClickCloseButton()
@@ -42,6 +133,19 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneUILayerManager.Instance.PopUILayer(this);
+        }
+
+        private void ClearLayer()
+        {
+            // _pvpBattleTabToggle.isOn = false;
+            // _pvpBattleLogTabToggle.isOn = false;
+            // _pvpRankTabToggle.isOn = false;
+            // _pvpSeasonRewardTabToggle.isOn = false;
+            
+            _pvpBattleTabLayer.gameObject.SetActive(false);
+            _pvpBattleLogTabLayer.gameObject.SetActive(false);
+            _pvpRankTabLayer.gameObject.SetActive(false);
+            _pvpSeasonRewardTabLayer.gameObject.SetActive(false);
         }
     }
 }
