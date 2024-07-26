@@ -32,6 +32,8 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
 
         if (tile != null)
         {
+            characCtrl.ChangeOccupiedTile(tile);
+
             Tween.Custom(
                 characCtrl.Position3D,
                 characCtrl.CurrentTile.View.Position,
@@ -49,7 +51,6 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
                         return;
 
                     characCtrl.GetCharacterView().LookAt(tile, characCtrl.Target.CurrentTile);
-                    characCtrl.ChangeOccupiedTile(tile);
                     characCtrl.Position3D = tile.View.Position;
                     characCtrl.GetCharacterView().CachedTr.localPosition = tile.View.Position;
 
