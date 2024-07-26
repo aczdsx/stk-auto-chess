@@ -70,9 +70,9 @@ namespace CookApps.AutoBattler
         }
         
         // 매칭 리스트에서 데이터 반환 (단일)
-        public UserPVPBattleData GetPVPMatchingData(int playerID)
+        public UserPVPBattleData GetPVPMatchingData(string playerID)
         {
-            if (playerID <= 0) return null;
+            if (string.IsNullOrWhiteSpace(playerID)) return null;
             
             return UserPVP.CurrentPvpMatchingList.ToList().Find(x => x.PlayerId == playerID);
         }
