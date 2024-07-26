@@ -23259,7 +23259,7 @@ GameObject:
   - component: {fileID: 2941344910888238340}
   - component: {fileID: 259945115954755132}
   m_Layer: 5
-  m_Name: PvpEndPop
+  m_Name: ArenaPvpEndPop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
