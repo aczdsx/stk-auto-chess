@@ -125,11 +125,15 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                
                 var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);

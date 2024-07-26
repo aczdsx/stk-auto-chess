@@ -123,6 +123,7 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         tile.CheckValidTile(owner.AllianceType, false, () =>
         {
             if (_hitCharacters.Contains(tile.OccupiedCharacter))
@@ -131,37 +132,31 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
             var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
             foreach (var inGameTile in inGameTiles)
             {
-                if (inGameTile.OccupiedCharacter == null)
-                    continue;
-
-                if (inGameTile.OccupiedCharacter.AllianceType == AllianceType.Wall)
-                    continue;
-
-                if (inGameTile.OccupiedCharacter.AllianceType == owner.AllianceType)
-                    continue;
-
-                var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                    inGameTile.View.CachedTr.position);
-
+                inGameTile.CheckValidTile(owner.AllianceType, false, () =>
                 {
-                    Span<double> buffStats = stackalloc double[3];
-                    buffStats.Clear();
-                    buffStats[0] = codeId;
-                    buffStats[1] = _debuffTime;
-                    buffStats[2] = _defDebuffRate;
-                    var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, 0, buffStats);
-                    InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
-                }
+                    var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+                        inGameTile.View.CachedTr.position);
+
+                    {
+                        Span<double> buffStats = stackalloc double[3];
+                        buffStats.Clear();
+                        buffStats[0] = codeId;
+                        buffStats[1] = _debuffTime;
+                        buffStats[2] = _defDebuffRate;
+                        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, 0, buffStats);
+                        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
+                    }
             
-                {
-                    Span<double> buffStats = stackalloc double[3];
-                    buffStats.Clear();
-                    buffStats[0] = codeId;
-                    buffStats[1] = _debuffTime;
-                    buffStats[2] = _healDebuffRate;
-                    var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, 0, buffStats);
-                    InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
-                }
+                    {
+                        Span<double> buffStats = stackalloc double[3];
+                        buffStats.Clear();
+                        buffStats[0] = codeId;
+                        buffStats[1] = _debuffTime;
+                        buffStats[2] = _healDebuffRate;
+                        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, 0, buffStats);
+                        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
+                    }
+                });
             }
         });
         

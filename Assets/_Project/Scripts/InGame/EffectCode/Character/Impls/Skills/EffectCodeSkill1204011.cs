@@ -117,6 +117,7 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
 
         tile.CheckValidTile(owner.AllianceType, false, () =>
         {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
             if (_hitCharacters.Contains(tile.OccupiedCharacter))
                 return;
             

@@ -124,8 +124,12 @@ public class EffectCodeSkill1203021 : EffectCodeCharacterBase
                 var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetTile, 1);
                 foreach (var tile in tiles)
                 {
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
                     tile.CheckValidTile(owner.AllianceType, false, () =>
                     {
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                            tile.OccupiedCharacter.SkillRootTransformFollowable);
+                        
                         var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
                             tile.View.CachedTr.position);
                     

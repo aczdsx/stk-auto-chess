@@ -116,6 +116,7 @@ public class EffectCodeSkill1101031 : EffectCodeCharacterBase
         List<InGameTile> inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 2);
         foreach (var tile in inGameTiles)
         {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,

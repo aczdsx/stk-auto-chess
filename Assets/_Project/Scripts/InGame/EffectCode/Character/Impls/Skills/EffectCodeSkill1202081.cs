@@ -150,6 +150,10 @@ public class EffectCodeSkill1202081 : EffectCodeCharacterBase
                 
                 tile.CheckValidTile(owner.AllianceType, false, () =>
                 {
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
 
                     var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * _damageRate,

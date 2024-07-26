@@ -106,6 +106,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
 
         foreach (var tile in inGameTiles)
         {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
             tile.CheckValidTile(owner.AllianceType, true, () =>
             {
                 double damage = owner.PostCalculateHealAmount(_healRate * owner.AP, tile.OccupiedCharacter);

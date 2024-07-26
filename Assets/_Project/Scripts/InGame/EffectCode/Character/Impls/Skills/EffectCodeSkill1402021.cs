@@ -140,8 +140,12 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                
                 var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
 
                 var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate * (1 + owner.DEF / _defValue), 0, tile.OccupiedCharacter, codeId, true);

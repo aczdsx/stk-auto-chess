@@ -98,10 +98,9 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         {
             foreach (var tile in inGameTiles)
             {
-                tile.CheckValidTile(owner.AllianceType, false, () =>
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+                tile.CheckValidTile(owner.AllianceType, true, () =>
                 {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-                    
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 

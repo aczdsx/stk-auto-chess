@@ -426,43 +426,43 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [ContextMenu("User Deck Json Data Test")]
     public void UserDeckJsonDataTest()
     {
-        // 기본 정보
-        UserPVPBattleData newUserPvpBattleData = new UserPVPBattleData();
-        newUserPvpBattleData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
-        newUserPvpBattleData.ServerId = 1;
-        newUserPvpBattleData.RankId = 1001;
-        newUserPvpBattleData.RankPoint = 1100;
-        newUserPvpBattleData.Ranking = 1234;
-        newUserPvpBattleData.Nickname = "STK_JSON_TESTER";
-        newUserPvpBattleData.PlayerLevel = 30;
-
-        newUserPvpBattleData.PvpDeckList = new UserPVPBattleDeckList();
-        
-        // 덱 정보 (캐릭터)
-        
-        
-        // 덱 정보 (장애물)
-        UserPVPObstacleBattleDeck obstacle1 = new UserPVPObstacleBattleDeck();
-        obstacle1.Id = 1001;
-        obstacle1.PosX = 100;
-        obstacle1.PosY = 100;
-        
-        UserPVPObstacleBattleDeck obstacle2 = new UserPVPObstacleBattleDeck();
-        obstacle1.Id = 2001;
-        obstacle1.PosX = 200;
-        obstacle1.PosY = 200;
-        
-        UserPVPObstacleBattleDeck obstacle3 = new UserPVPObstacleBattleDeck();
-        obstacle1.Id = 3001;
-        obstacle1.PosX = 300;
-        obstacle1.PosY = 300;
-        
-        newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle1);
-        newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle2);
-        newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle3);
-
-        var result = JsonConvert.SerializeObject(newUserPvpBattleData);
-        UnityEngine.Debug.Log("<<UserDeckJsonDataTest>> RESULT :: ");
-        UnityEngine.Debug.Log(result);
+        // // 기본 정보
+        // UserPVPBattleData newUserPvpBattleData = new UserPVPBattleData();
+        // newUserPvpBattleData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
+        // newUserPvpBattleData.ServerId = 1;
+        // newUserPvpBattleData.RankId = 1001;
+        // newUserPvpBattleData.RankPoint = 1100;
+        // newUserPvpBattleData.Ranking = 1234;
+        // newUserPvpBattleData.Nickname = "STK_JSON_TESTER";
+        // newUserPvpBattleData.PlayerLevel = 30;
+        //
+        // newUserPvpBattleData.PvpDeckList = new UserPVPBattleDeckList();
+        //
+        // // 덱 정보 (캐릭터)
+        //
+        //
+        // // 덱 정보 (장애물)
+        // UserPVPObstacleBattleDeck obstacle1 = new UserPVPObstacleBattleDeck();
+        // obstacle1.Id = 1001;
+        // obstacle1.PosX = 100;
+        // obstacle1.PosY = 100;
+        //
+        // UserPVPObstacleBattleDeck obstacle2 = new UserPVPObstacleBattleDeck();
+        // obstacle1.Id = 2001;
+        // obstacle1.PosX = 200;
+        // obstacle1.PosY = 200;
+        //
+        // UserPVPObstacleBattleDeck obstacle3 = new UserPVPObstacleBattleDeck();
+        // obstacle1.Id = 3001;
+        // obstacle1.PosX = 300;
+        // obstacle1.PosY = 300;
+        //
+        // newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle1);
+        // newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle2);
+        // newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle3);
+        //
+        // var result = JsonConvert.SerializeObject(newUserPvpBattleData);
+        // UnityEngine.Debug.Log("<<UserDeckJsonDataTest>> RESULT :: ");
+        // UnityEngine.Debug.Log(result);
     }
 }

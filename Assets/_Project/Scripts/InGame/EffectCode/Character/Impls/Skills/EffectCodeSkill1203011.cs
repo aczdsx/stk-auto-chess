@@ -124,6 +124,7 @@ public class EffectCodeSkill1203011 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
@@ -134,8 +135,12 @@ public class EffectCodeSkill1203011 : EffectCodeCharacterBase
 
         foreach (var tile in inGameTiles)
         {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                
                 float calculatedDamageRate = _damageRate;
 
                 var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
