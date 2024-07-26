@@ -8,6 +8,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TMPro;
 using Unity.Mathematics;
 using UnityEditor.ShaderGraph.Serialization;
@@ -426,43 +427,90 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [ContextMenu("User Deck Json Data Test")]
     public void UserDeckJsonDataTest()
     {
-        // // 기본 정보
-        // UserPVPBattleData newUserPvpBattleData = new UserPVPBattleData();
-        // newUserPvpBattleData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
-        // newUserPvpBattleData.ServerId = 1;
-        // newUserPvpBattleData.RankId = 1001;
-        // newUserPvpBattleData.RankPoint = 1100;
-        // newUserPvpBattleData.Ranking = 1234;
-        // newUserPvpBattleData.Nickname = "STK_JSON_TESTER";
-        // newUserPvpBattleData.PlayerLevel = 30;
-        //
-        // newUserPvpBattleData.PvpDeckList = new UserPVPBattleDeckList();
-        //
-        // // 덱 정보 (캐릭터)
-        //
-        //
-        // // 덱 정보 (장애물)
-        // UserPVPObstacleBattleDeck obstacle1 = new UserPVPObstacleBattleDeck();
-        // obstacle1.Id = 1001;
-        // obstacle1.PosX = 100;
-        // obstacle1.PosY = 100;
-        //
-        // UserPVPObstacleBattleDeck obstacle2 = new UserPVPObstacleBattleDeck();
-        // obstacle1.Id = 2001;
-        // obstacle1.PosX = 200;
-        // obstacle1.PosY = 200;
-        //
-        // UserPVPObstacleBattleDeck obstacle3 = new UserPVPObstacleBattleDeck();
-        // obstacle1.Id = 3001;
-        // obstacle1.PosX = 300;
-        // obstacle1.PosY = 300;
-        //
-        // newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle1);
-        // newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle2);
-        // newUserPvpBattleData.PvpDeckList.UserPvpObstacleBattleDecks.Add(obstacle3);
-        //
-        // var result = JsonConvert.SerializeObject(newUserPvpBattleData);
-        // UnityEngine.Debug.Log("<<UserDeckJsonDataTest>> RESULT :: ");
-        // UnityEngine.Debug.Log(result);
+        // 기본 정보
+        UserPVPBattleDetailData newUserPvpBattleData = new UserPVPBattleDetailData();
+        newUserPvpBattleData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
+        newUserPvpBattleData.ServerId = 1;
+        newUserPvpBattleData.RankId = 1001;
+        newUserPvpBattleData.RankPoint = 1100;
+        newUserPvpBattleData.Ranking = 1234;
+        newUserPvpBattleData.Nickname = "STK_JSON_TESTER";
+        newUserPvpBattleData.PlayerLv = 30;
+
+        newUserPvpBattleData.PvpDeckList = new UserPVPBattleDeckList();
+        
+        // 덱 정보 (캐릭터)
+        
+        
+        // 덱 정보 (장애물)
+        UserPVPObstacleBattleDeck obstacle1 = new UserPVPObstacleBattleDeck();
+        obstacle1.Id = 1001;
+        obstacle1.PosX = 100;
+        obstacle1.PosY = 100;
+        
+        UserPVPObstacleBattleDeck obstacle2 = new UserPVPObstacleBattleDeck();
+        obstacle1.Id = 2001;
+        obstacle1.PosX = 200;
+        obstacle1.PosY = 200;
+        
+        UserPVPObstacleBattleDeck obstacle3 = new UserPVPObstacleBattleDeck();
+        obstacle1.Id = 3001;
+        obstacle1.PosX = 300;
+        obstacle1.PosY = 300;
+        
+        newUserPvpBattleData.PvpDeckList.PvpObstacleDecks.Add(obstacle1);
+        newUserPvpBattleData.PvpDeckList.PvpObstacleDecks.Add(obstacle2);
+        newUserPvpBattleData.PvpDeckList.PvpObstacleDecks.Add(obstacle3);
+
+        var result = JsonConvert.SerializeObject(newUserPvpBattleData);
+        UnityEngine.Debug.Log("<<UserDeckJsonDataTest>> RESULT :: ");
+        UnityEngine.Debug.Log(result);
+    }
+    
+    [ContextMenu("User Simple Deck Json Data Test")]
+    public void UserSimpleDeckJsonDataTest()
+    {
+        TestSimpleBattleDeckData newSimplePvpBattleData = new TestSimpleBattleDeckData();
+        newSimplePvpBattleData.p_id = UserDataManager.Instance.UserBasicData.PlayerId;
+        newSimplePvpBattleData.rank_id = 1001;
+        newSimplePvpBattleData.rank_point = 1100;
+        newSimplePvpBattleData.nickname = "STK_JSON_TESTER";
+        newSimplePvpBattleData.u_lv = 30;
+        newSimplePvpBattleData.battle_point = 12345;
+
+        newSimplePvpBattleData.char_list = new List<TestSimpleCharacterData>();
+
+        for (int i = 0; i < 8; ++i)
+        {
+            TestSimpleCharacterData newCharacter = new TestSimpleCharacterData();
+            newCharacter.id = 1001 + i;
+            newCharacter.lv = 1 + i;
+            
+            newSimplePvpBattleData.char_list.Add(newCharacter);
+        }
+        
+        var result = JsonConvert.SerializeObject(newSimplePvpBattleData);
+        UnityEngine.Debug.Log("<<UserSimpleDeckJsonDataTest>> RESULT :: ");
+        UnityEngine.Debug.Log(result);
+    }
+
+    [Serializable]
+    public class TestSimpleBattleDeckData
+    {
+        public string p_id;
+        public string nickname;
+        public int u_lv;
+        public int battle_point;
+        public int rank_id;
+        public int rank_point;
+
+        public List<TestSimpleCharacterData> char_list;
+    }
+
+    [Serializable]
+    public class TestSimpleCharacterData
+    {
+        public int id;
+        public int lv;
     }
 }
