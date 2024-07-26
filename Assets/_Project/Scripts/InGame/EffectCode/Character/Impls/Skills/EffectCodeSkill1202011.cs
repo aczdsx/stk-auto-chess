@@ -128,23 +128,20 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
-            if (tile.OccupiedCharacter != null)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
-                {
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    var inGameTile =
-                        InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
-                            1);
+                var inGameTile =
+                    InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
+                        1);
 
-                    long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
-                    var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.3f, 0.3f, inGameTile.View.ID);
-                    tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
-                }
-            }
+                long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.3f, 0.3f, inGameTile.View.ID);
+                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
+            });
 
             await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기
         }

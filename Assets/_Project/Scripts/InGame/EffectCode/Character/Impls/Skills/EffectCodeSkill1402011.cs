@@ -85,6 +85,7 @@ public class EffectCodeSkill1402011 : EffectCodeCharacterBase
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
+        //[TODO] 미사 스킬 구현 필요
         base.OnSkillExecute(executeIndex, totalLength);
 
         if (owner.Target == null)

@@ -1,5 +1,7 @@
+using System;
 using CookApps.AutoBattler;
 using Unity.Mathematics;
+using UnityEngine.WSA;
 
 namespace CookApps.BattleSystem
 {
@@ -31,6 +33,31 @@ namespace CookApps.BattleSystem
         {
             _ecc.Clear();
             _ecc = null;
+        }
+
+        public void CheckValidTile(AllianceType allianceType, bool isCheckSameType, Action action)
+        {
+            if (OccupiedCharacter == null)
+                return;
+
+            if (OccupiedCharacter.AllianceType == AllianceType.Wall)
+                return;
+
+            if (OccupiedCharacter.AllianceType == AllianceType.Neutral)
+            {
+                action.Invoke();
+            }
+            else
+            {
+                if (isCheckSameType && OccupiedCharacter.AllianceType == allianceType)
+                {
+                    action.Invoke();
+                }
+                else if (!isCheckSameType && OccupiedCharacter.AllianceType != allianceType)
+                {
+                    action.Invoke();
+                }
+            }
         }
 
         public bool IsOccupied()

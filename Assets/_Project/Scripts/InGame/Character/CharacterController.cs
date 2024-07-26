@@ -769,9 +769,9 @@ namespace CookApps.BattleSystem
 
         public bool HasBuffDebuffType(BuffDebuffType type)
         {
-            if (_buffDebuffRefCountDict[type] > 0)
+            if (_buffDebuffRefCountDict.TryGetValue(type, out ObfuscatorInt count))
             {
-                return true;
+                return count > 0;
             }
 
             return false;

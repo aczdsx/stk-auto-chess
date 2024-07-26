@@ -106,10 +106,11 @@ public class EffectCodeSkill1406031 : EffectCodeCharacterBase
         
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
 
-        var targetCharacterList = InGameObjectManager.Instance.GetCharacterList(owner.AllianceType);
-        var characterWithLowestHp = targetCharacterList.OrderBy(character => character.CurrentHp).FirstOrDefault();
-        if (characterWithLowestHp != null)
+        var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, true);
+        if (targetCharacterList.Count > 0)
         {
+            var characterWithLowestHp = targetCharacterList[0];
+            
             Vector3 direction = (characterWithLowestHp.CurrentTile.View.CachedTr.position - _vfxObj.CachedTr.position).normalized;
             _vfxObj.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 

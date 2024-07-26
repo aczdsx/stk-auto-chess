@@ -101,9 +101,6 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
             return;
 
         ExecuteSkillRoutine().Forget();
-        var inGameTiles1 = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 1);
-        var inGameTiles2 = InGameObjectManager.Instance.InGameGrid.GetTileListByDiagonal(owner.CurrentTile, 1);
-        var inGameTiles3 = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 2);
 
         IsSkillActivated = false;
     }
@@ -143,27 +140,23 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
-            var occupiedCharacter = tile.OccupiedCharacter;
-            if (occupiedCharacter != null && occupiedCharacter.AllianceType != AllianceType.Wall)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (occupiedCharacter != owner)
-                {
-                    var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], occupiedCharacter.CurrentTile.View.CachedTr.position);
+                var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, occupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, occupiedCharacter);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate * (1 + owner.DEF / _defValue), 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
 
-                    occupiedCharacter.GetDamaged(damage, owner);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    double[] eccStats = new double[1];
-                    eccStats[0] = _stunTime;
+                double[] eccStats = new double[1];
+                eccStats[0] = _stunTime;
                     
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, occupiedCharacter, eccStats, source);
-                    
-                    await UniTask.Yield();
-                }
-            }
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
+            });
         }
+                    
+        UniTask.Yield();
     }
 
 }

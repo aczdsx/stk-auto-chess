@@ -25,6 +25,22 @@ namespace CookApps.BattleSystem
         private ObfuscatorDouble stat8;
         private int statsLength;
 
+        public List<double> GetStats()
+        {
+            List<double> stats = new List<double>();
+
+            if (statsLength > 0) stats.Add(stat1);
+            if (statsLength > 1) stats.Add(stat2);
+            if (statsLength > 2) stats.Add(stat3);
+            if (statsLength > 3) stats.Add(stat4);
+            if (statsLength > 4) stats.Add(stat5);
+            if (statsLength > 5) stats.Add(stat6);
+            if (statsLength > 6) stats.Add(stat7);
+            if (statsLength > 7) stats.Add(stat8);
+
+            return stats;
+        }
+
         public EffectCodeInfo(long codeId, int priority, in ReadOnlySpan<double> stats)
         {
             this.codeId = codeId;

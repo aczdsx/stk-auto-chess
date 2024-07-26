@@ -112,18 +112,15 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
 
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (tile.OccupiedCharacter != owner)
-                {
                     tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long)EffectCodeNameType.SHIELD);
                     var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
 
                     var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
-                }
-            }
+            });
         }
 
         IsSkillActivated = false;

@@ -137,6 +137,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
+        // [TODO] 아란 기반으로 다시 수정하자.
         if (tile.OccupiedCharacter == null)
             return;
 

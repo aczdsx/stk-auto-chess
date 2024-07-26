@@ -102,14 +102,16 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
         // 나한테 붙은 vfx
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
 
-        List<InGameTile> inGameTiles =
-            InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 2);
-        if (inGameTiles != null)
+        var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(owner.AllianceType, true);
+        if (targetCharacters.Count > 0)
         {
-            foreach (InGameTile tile in inGameTiles)
+            for (int i = 0; i < 2; i++)
             {
+                if (i >= targetCharacters.Count)
+                    break;
+                
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                    tile.View.CachedTr.position);
+                    targetCharacters[i].CurrentTile.View.CachedTr.position);
 
                 Span<double> eccStats = stackalloc double[3];
                 eccStats.Clear();
@@ -117,7 +119,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                 eccStats[1] = _duration;
                 eccStats[2] = _atkUpRate;
                 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, tile.OccupiedCharacter, eccStats, source);
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacters[i], eccStats, source);
             }
         }
 

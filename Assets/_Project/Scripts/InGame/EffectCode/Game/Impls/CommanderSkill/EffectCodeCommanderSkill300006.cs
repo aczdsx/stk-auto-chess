@@ -46,19 +46,16 @@ namespace CookApps.BattleSystem
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_05,
                     tile.View.CachedTr.position);
 
-                if (tile.OccupiedCharacter != null)
+                tile.CheckValidTile(AllianceType.Player, false, () =>
                 {
-                    if (tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
-                    {
-                        Span<double> eccStats = stackalloc double[3];
-                        eccStats.Clear();
-                        eccStats[0] = codeId;
-                        eccStats[1] = 3;
-                        eccStats[2] = _powerRate;
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = codeId;
+                    eccStats[1] = 3;
+                    eccStats[2] = _powerRate;
                         
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_AD_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
-                    }
-                }
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_AD_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
+                });
             }
         }
     }

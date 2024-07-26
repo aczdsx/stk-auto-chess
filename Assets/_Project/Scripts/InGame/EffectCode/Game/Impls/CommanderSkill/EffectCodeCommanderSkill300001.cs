@@ -44,23 +44,20 @@ namespace CookApps.BattleSystem
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_01,
                     tile.View.CachedTr.position);
 
-                if (tile.OccupiedCharacter != null)
+                tile.CheckValidTile(AllianceType.Player, false, () =>
                 {
-                    if (tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
+                    var playerCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(AllianceType.Player, true);
+                    if (playerCharacterList.Count > 0)
                     {
-                        var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-                        if (playerCharacterList != null && playerCharacterList.Count > 0)
-                        {
-                            var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
+                        var strongestCharacter = playerCharacterList.First();
 
-                            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                            damageInfo.damageAmount = damageInfo.damageAmount =
-                                (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
+                        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+                        damageInfo.damageAmount = damageInfo.damageAmount =
+                            (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
 
-                            tile.OccupiedCharacter.GetDamaged(damageInfo, null);
-                        }
+                        tile.OccupiedCharacter.GetDamaged(damageInfo, null);
                     }
-                }
+                });
             }
         }
     }

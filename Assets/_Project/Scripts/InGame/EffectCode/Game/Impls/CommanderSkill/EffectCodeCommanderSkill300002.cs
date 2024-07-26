@@ -42,26 +42,22 @@ namespace CookApps.BattleSystem
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_04,
                     tile.View.CachedTr.position);
-
-                if (tile.OccupiedCharacter != null)
+                
+                tile.CheckValidTile(AllianceType.Player, false, () =>
                 {
-                    if (tile.OccupiedCharacter.AllianceType != AllianceType.Player &&
-                        tile.OccupiedCharacter.AllianceType != AllianceType.None)
-                    {
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
-                            tile.View.CachedTr.position);
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
+                        tile.View.CachedTr.position);
 
-                        Span<double> eccStats = stackalloc double[1];
-                        eccStats.Clear();
-                        eccStats[0] = _time;
+                    Span<double> eccStats = stackalloc double[1];
+                    eccStats.Clear();
+                    eccStats[0] = _time;
                         
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
 
-                        tile.OccupiedCharacter.Position3D = tile.OccupiedCharacter.CurrentTile.View.Position;
-                        tile.OccupiedCharacter.GetCharacterView().CachedTr.localPosition = tile.OccupiedCharacter.CurrentTile.View.Position;
-                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
-                    }
-                }
+                    tile.OccupiedCharacter.Position3D = tile.OccupiedCharacter.CurrentTile.View.Position;
+                    tile.OccupiedCharacter.GetCharacterView().CachedTr.localPosition = tile.OccupiedCharacter.CurrentTile.View.Position;
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
+                });
             }
         }
     }

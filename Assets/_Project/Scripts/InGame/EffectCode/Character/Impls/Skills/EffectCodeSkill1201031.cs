@@ -117,6 +117,7 @@ public override void OnSkillExecute(int executeIndex, int totalLength)
 private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNameType vfxProjectileType,
     InGameVfxNameType vfxHitType, ObfuscatorFloat damageRate, bool applyAdditionalDamage)
 {
+    //[TODO] 디버프 처리는 아직 안함.
     var targetTile = targetCharacter.CurrentTile;
     InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile.View.CachedTr.position);
 

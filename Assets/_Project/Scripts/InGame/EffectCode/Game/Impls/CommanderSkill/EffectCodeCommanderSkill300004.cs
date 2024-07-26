@@ -19,7 +19,7 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1);
+            _damageRate = codeInfo.GetCodeStatToFloat(1) * 100;
 
             SkillAction();
         }
@@ -29,7 +29,7 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1);
+            _damageRate = codeInfo.GetCodeStatToFloat(1) * 100;
 
             SkillAction();
         }
@@ -38,27 +38,27 @@ namespace CookApps.BattleSystem
         {
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile, 1);
+            double damageAmount = 0;
+            
+            var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+            if (playerCharacterList != null && playerCharacterList.Count > 0)
+            {
+                var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
+                damageAmount = strongestCharacter.AD * _damageRate;
+            }
+            
             foreach (var tile in tileList)
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_02,
                     tile.View.CachedTr.position);
 
-                if (tile.OccupiedCharacter != null)
+                tile.CheckValidTile(AllianceType.Player, true, () =>
                 {
-                    if(tile.OccupiedCharacter.AllianceType == AllianceType.Player)
-                    {
-                        var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-                        if (playerCharacterList != null && playerCharacterList.Count > 0)
-                        {
-                            var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
+                    CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+                    damageInfo.damageAmount = damageAmount;
 
-                            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                            damageInfo.damageAmount = strongestCharacter.AD * _damageRate;
-
-                            tile.OccupiedCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
-                        }
-                    }
-                }
+                    tile.OccupiedCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
+                });
             }
         }
     }

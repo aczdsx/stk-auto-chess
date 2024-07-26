@@ -98,25 +98,23 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
         {
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-                if (tile.OccupiedCharacter != null)
+                tile.CheckValidTile(owner.AllianceType, false, () =>
                 {
-                    if (tile.OccupiedCharacter.AllianceType == owner.AllianceType)
-                    {
-                        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-                            tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+                    
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                        var shieldAmount = owner.PrecalculateDamageAmount(owner.AD * _shieldRate, 0, tile.OccupiedCharacter,
-                            codeId, true);
+                    var shieldAmount = owner.PrecalculateDamageAmount(owner.AD * _shieldRate, 0, tile.OccupiedCharacter,
+                        codeId, true);
 
-                        Span<double> eccStats = stackalloc double[2];
-                        eccStats.Clear();
-                        eccStats[0] = _shieldDurationTime;
-                        eccStats[1] = shieldAmount.damageAmount;
+                    Span<double> eccStats = stackalloc double[2];
+                    eccStats.Clear();
+                    eccStats[0] = _shieldDurationTime;
+                    eccStats[1] = shieldAmount.damageAmount;
                         
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, tile.OccupiedCharacter, eccStats, source);
-                    }
-                }
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, tile.OccupiedCharacter, eccStats, source);
+                });
             }
         }
 

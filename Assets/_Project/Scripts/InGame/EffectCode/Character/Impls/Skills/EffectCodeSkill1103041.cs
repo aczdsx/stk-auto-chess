@@ -126,22 +126,16 @@ public class EffectCodeSkill1103041 : EffectCodeCharacterBase
 
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-                {
-                    if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
-                    {
-                        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-                        float calculatedDamageRate = _damageRate;
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+                float calculatedDamageRate = _damageRate;
 
-                        var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                            tile.OccupiedCharacter, codeId, true);
-                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                        tile.OccupiedCharacter.GetDamaged(damage, owner);
-                    }
-                }
-            }
+                var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                    tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+            });
         }
 
         IsSkillActivated = false;

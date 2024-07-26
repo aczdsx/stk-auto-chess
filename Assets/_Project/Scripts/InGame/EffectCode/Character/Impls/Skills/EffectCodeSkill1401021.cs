@@ -171,13 +171,10 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], inGameTile.View.Position);
         foreach (var tile in tileList)
         {
-            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (owner.AllianceType != tile.OccupiedCharacter.AllianceType)
-                {
-                    StunCharacter(tile);
-                }
-            }
+                StunCharacter(tile);
+            });
         }
     }
     

@@ -8,7 +8,9 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 2챕터 저격수
+/// 3챕터 저격수
+/// 범위 : 전방 일직선 (현재 위치에서 즉발)
+// 대미지 : 관통하는 레이저 발사해 공격력 {0}%의 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(1204011)]
 public class EffectCodeSkill1204011 : EffectCodeCharacterBase
@@ -113,29 +115,26 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
         var tileFx = InGameVfxManager.Instance.AddInGameTileFx(_elementType, tile.View.CachedTr.position);
         tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-        if (tile.OccupiedCharacter == null)
-            return;
-
-        if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall)
-            return;
-
-        if (_hitCharacters.Contains(tile.OccupiedCharacter))
-            return;
-
-        if (owner != null)
+        tile.CheckValidTile(owner.AllianceType, false, () =>
         {
-            if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+            if (_hitCharacters.Contains(tile.OccupiedCharacter))
                 return;
+            
+            if (owner != null)
+            {
+                if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+                    return;
 
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                tile.OccupiedCharacter.SkillRootTransformFollowable);
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-            tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-            _hitCharacters.Add(tile.OccupiedCharacter);
-        }
+                _hitCharacters.Add(tile.OccupiedCharacter);
+            }
+        });
     }
 
     public override void OnSkillAnimationEnd()

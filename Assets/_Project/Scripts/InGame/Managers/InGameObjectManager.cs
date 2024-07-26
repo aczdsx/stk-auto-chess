@@ -92,13 +92,13 @@ namespace CookApps.BattleSystem
             return characterList.OrderBy(c => c.CurrentHp).ToList();
         }
         
-        public List<CharacterController> GetCharacterListSortedByAD(AllianceType allianceType, bool isOwnCharacter)
+        public List<CharacterController> GetCharacterListSortedByADDescending(AllianceType allianceType, bool isOwnCharacter)
         {
             List<CharacterController> characterList = isOwnCharacter 
                 ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
-            return characterList.OrderBy(c => c.AD).ToList();
+            return characterList.OrderByDescending(c => c.AD).ToList();
         }
         
         public List<CharacterController> GetCharacterListSortedByDistance(CharacterController character, bool isOwnCharacter)

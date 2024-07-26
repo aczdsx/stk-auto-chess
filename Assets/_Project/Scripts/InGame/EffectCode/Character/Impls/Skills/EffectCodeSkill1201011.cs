@@ -8,7 +8,7 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 2챕터 레어 가디언
+/// 3챕터 레어 가디언
 // 범위 : 자신의 전방 1x2
 // 대미지 : 검기를 날려 범위 내 적들에게 공격력 {0}%의 대미지를 준다.
 /// </summary>
@@ -116,7 +116,7 @@ public class EffectCodeSkill1201011 : EffectCodeCharacterBase
         List<InGameTile> inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 2);
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
@@ -126,7 +126,7 @@ public class EffectCodeSkill1201011 : EffectCodeCharacterBase
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                 _hitCharacters.Add(tile.OccupiedCharacter);
-            }
+            });
         }
     }
 

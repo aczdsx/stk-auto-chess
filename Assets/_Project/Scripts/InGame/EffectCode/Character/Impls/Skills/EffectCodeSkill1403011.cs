@@ -151,29 +151,14 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
 
         foreach (var tile in _effectTiles)
         {
-            if (tile.OccupiedCharacter != null)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType &&
-                    tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-                {
-                    var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
-                        codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
-                }
-            }
-
-            // [TODO] 타일 기반 작업 차후에 다시 작업
-            // int effectCodeID = (int)EffectCodeNameType.TILE_BURN;
-            // Span<double> eccStats = stackalloc double[3];
-            // eccStats.Clear();
-            // eccStats[0] = owner.CharacterUId;
-            // eccStats[1] = _dotDamageRate;
-            // eccStats[2] = _durationTime;
-            //
-            // var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, eccStats);
-            // tile.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, owner);
-
+                var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
+                    codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+            });
+            
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
         }
 

@@ -130,27 +130,24 @@ public class EffectCodeSkill1302021 : EffectCodeCharacterBase
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.CurrentTile, 1);
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (owner.AllianceType != tile.OccupiedCharacter.AllianceType)
-                {
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
         
-                    var inGameTile =
-                        InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
-                            1);
+                var inGameTile =
+                    InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
+                        1);
                     
-                    Span<double> eccStats = stackalloc double[3];
-                    eccStats.Clear();
-                    eccStats[0] = 0.3f;
-                    eccStats[1] = 0.3f;
-                    eccStats[2] = inGameTile.View.ID;
+                Span<double> eccStats = stackalloc double[3];
+                eccStats.Clear();
+                eccStats[0] = 0.3f;
+                eccStats[1] = 0.3f;
+                eccStats[2] = inGameTile.View.ID;
         
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, tile.OccupiedCharacter, eccStats, source);
-                }
-            }
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, tile.OccupiedCharacter, eccStats, source);
+            });
         }
 
         IsSkillActivated = false;

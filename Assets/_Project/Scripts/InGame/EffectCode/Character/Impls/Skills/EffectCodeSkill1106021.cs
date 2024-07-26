@@ -90,21 +90,25 @@ public class EffectCodeSkill1106021 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
+        var characterControllers = InGameObjectManager.Instance.GetCharacterList(owner.AllianceType);
+
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 10);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
-        foreach (var tile in inGameTiles)
+        foreach (var character in characterControllers)
         {
-            if (tile.OccupiedCharacter != owner)
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                    tile.View.CachedTr.position);
+            if(character == owner)
+                continue;
+            
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+                character.CurrentTile.View.CachedTr.position);
         }
 
-        foreach (var tile in inGameTiles)
+        foreach (var character in characterControllers)
         {
-            if (tile.OccupiedCharacter != null)
+            if (character != null)
             {
-                double damage = owner.PostCalculateHealAmount(owner.AP * _damageRate, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
+                double damage = owner.PostCalculateHealAmount(owner.AP * _damageRate, character);
+                character.GetHealed(damage, owner, codeId, true);
             }
         }
 

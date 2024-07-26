@@ -126,7 +126,7 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
         MoveUp(moveTime, distance).Forget();
         
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.Target.CurrentTile, 2);
-        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByAD(owner.AllianceType, false);
+        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(owner.AllianceType, false);
         if (characterControllers.Count > 0)
         {
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], characterControllers[0].CurrentTile.View.CachedTr.position);
@@ -150,22 +150,16 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
         
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-                {
-                    if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
-                    {
-                        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
-                        float calculatedDamageRate = _additionalDamageRate;
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
+                float calculatedDamageRate = _additionalDamageRate;
 
-                        var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                            tile.OccupiedCharacter, codeId, true);
-                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                        tile.OccupiedCharacter.GetDamaged(damage, owner);
-                    }
-                }
-            }
+                var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                    tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+            });
         }
 
         IsSkillActivated = false;

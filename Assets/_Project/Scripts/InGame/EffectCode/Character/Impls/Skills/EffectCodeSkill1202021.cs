@@ -128,18 +128,15 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
         foreach (var tile in inGameTiles)
         {
-            if (tile.OccupiedCharacter != null)
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (tile.OccupiedCharacter.AllianceType != owner.AllianceType && tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-                {
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
-                        codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
+                    codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    StunCharacter(tile);
-                }
-            }
+                StunCharacter(tile);
+            });
         }
 
         IsSkillActivated = false;

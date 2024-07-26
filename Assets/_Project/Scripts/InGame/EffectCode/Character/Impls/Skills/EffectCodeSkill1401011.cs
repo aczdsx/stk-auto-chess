@@ -119,26 +119,17 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,tile.View.CachedTr.position);
         tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-        if (tile.OccupiedCharacter == null)
-            return;
+        tile.CheckValidTile(owner.AllianceType, false, () =>
+        {
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-        if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall)
-            return;
+            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+            tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-        if (_hitCharacters.Contains(tile.OccupiedCharacter))
-            return;
-
-        if(owner.AllianceType == tile.OccupiedCharacter.AllianceType)
-            return;
-
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-        tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-        _hitCharacters.Add(tile.OccupiedCharacter);
+            _hitCharacters.Add(tile.OccupiedCharacter);
+        });
     }
 
     public override void OnSkillAnimationEnd()
