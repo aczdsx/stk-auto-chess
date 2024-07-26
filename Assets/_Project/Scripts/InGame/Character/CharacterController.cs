@@ -275,7 +275,7 @@ namespace CookApps.BattleSystem
             {
                 if (elementType != ElementType.NONE && elementType != ElementType.DARK)
                 {
-                    bool isEffectAllCharacter = elementType == ElementType.WATER || elementType == ElementType.LIGHT;
+                    bool isEffectAllCharacter = elementType == ElementType.WATER;
                     if (isEffectAllCharacter)
                     {
                         Span<double> stats = stackalloc double[1];
