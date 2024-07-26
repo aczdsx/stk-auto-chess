@@ -467,8 +467,6 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt limit_count;
         /// 행동력
         public CookApps.Obfuscator.ObfuscatorInt need_ap;
-        /// 어려움 난이도 행동력
-        public CookApps.Obfuscator.ObfuscatorInt ap_HARD;
         /// 클리어 보상 id
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
         /// 장애물
@@ -800,6 +798,7 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt ranking_min;
         public CookApps.Obfuscator.ObfuscatorInt ranking_max;
         public global::CookApps.AutoBattler.PVPTierType pvp_tier_type;
+        public CookApps.Obfuscator.ObfuscatorInt tier_order;
         public string reward_sheet;
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
         public string icon_image;

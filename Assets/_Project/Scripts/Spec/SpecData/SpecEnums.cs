@@ -458,6 +458,8 @@ namespace CookApps.AutoBattler
         CLEAR_STAGE = 3,
         LEVELUP_CHARACTER = 4,
         SUMMON_CHARACTER = 5,
+        BATTLE_PVP = 6,
+        GET_IDLE_REWARD = 7,
     }
 
     public enum EventType
