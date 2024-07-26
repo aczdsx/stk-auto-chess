@@ -98,9 +98,10 @@ public class CharacterStateAttack : CharacterStateBase
         }
 
         if (characCtrl.Target == null)
-        {
             return;
-        }
+
+        if (!characCtrl.Target.IsAlive)
+            return;
 
         if (AnimationEventKey.ExecuteStart < eventKey && eventKey < AnimationEventKey.ExecuteEnd)
         {

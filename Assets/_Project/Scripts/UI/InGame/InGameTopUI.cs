@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using System.Threading;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -46,7 +47,7 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _stageName;
 
 
-    private const float AnimationDuration = 0.3f; // 애니메이션 지속 시간
+    private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
     private float beforeEnemyHpRate = 1.0f;
 
@@ -174,6 +175,9 @@ public class InGameTopUI : MonoBehaviour
         }
     }
 
+    private CancellationTokenSource playerAnimationCts;
+    private CancellationTokenSource enemyAnimationCts;
+
     public void UpdateTopHpUI(AllianceType type)
     {
         float rate = InGameObjectManager.Instance.GetHpRate(type);
@@ -183,8 +187,12 @@ public class InGameTopUI : MonoBehaviour
                 _playerSynergyRationTween.DamageFXTween();
 
             _playerHpRate.text = rate.ToString("P0");
-            _playerSlider.value = rate;
-            AnimateHpBar(_playerDelayedSlider, _playerDelayedSlider.value, rate);
+            _playerSlider.value = rate + 0.01f;
+        
+            playerAnimationCts?.Cancel();
+            playerAnimationCts = new CancellationTokenSource();
+        
+            AnimateHpBar(_playerDelayedSlider, _playerDelayedSlider.value, rate, playerAnimationCts.Token);
 
             beforePlayerHpRate = rate;
         }
@@ -194,8 +202,12 @@ public class InGameTopUI : MonoBehaviour
                 _enemySynergyRationTween.DamageFXTween();
 
             _enemyHpRate.text = rate.ToString("P0");
-            _enemySlider.value = rate;
-            AnimateHpBar(_enemyDelayedSlider, _enemyDelayedSlider.value, rate);
+            _enemySlider.value = rate + 0.01f;
+        
+            enemyAnimationCts?.Cancel();
+            enemyAnimationCts = new CancellationTokenSource();
+        
+            AnimateHpBar(_enemyDelayedSlider, _enemyDelayedSlider.value, rate, enemyAnimationCts.Token);
 
             beforeEnemyHpRate = rate;
         }
@@ -206,19 +218,27 @@ public class InGameTopUI : MonoBehaviour
         _stageName.text = stageName;
     }
 
-    private async UniTask AnimateHpBar(Slider slider, float startRatio, float targetRatio)
+    private async UniTask AnimateHpBar(Slider slider, float startRatio, float targetRatio, CancellationToken cancellationToken)
     {
         float elapsed = 0f;
 
         while (elapsed < AnimationDuration)
         {
-            elapsed += Time.deltaTime;
+            if (cancellationToken.IsCancellationRequested)
+            {
+                break;
+            }
+
+            elapsed += Time.unscaledDeltaTime;
             slider.value = Mathf.Lerp(startRatio, targetRatio, elapsed / AnimationDuration);
 
-            await UniTask.Yield();
+            await UniTask.Yield(cancellationToken);
         }
 
-        slider.value = Mathf.Lerp(startRatio, targetRatio, elapsed / AnimationDuration);
+        if (!cancellationToken.IsCancellationRequested)
+        {
+            slider.value = targetRatio; 
+        }
     }
 
     private void OnClickPauseButton()

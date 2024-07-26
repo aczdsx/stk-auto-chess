@@ -124,22 +124,25 @@ public class EffectCodeSkill1103011 : EffectCodeCharacterBase
     {
         await UniTask.Delay(TimeSpan.FromSeconds(second));
 
-        foreach (var tile in inGameTiles)
+        if (owner != null)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+            foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+                tile.CheckValidTile(owner.AllianceType, false, () =>
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
                 
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-                float calculatedDamageRate = _damageRate;
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+                    float calculatedDamageRate = _damageRate;
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                    tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-            });
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                        tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                });
+            }
         }
 
         IsSkillActivated = false;

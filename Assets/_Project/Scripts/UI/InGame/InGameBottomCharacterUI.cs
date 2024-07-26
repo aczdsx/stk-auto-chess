@@ -64,6 +64,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
     private bool _isOpenCommanderSkill;
 
     private Type _combatType;
+    private SpecUserGrade _specUserGrade;
 
     protected void Awake()
     {
@@ -71,13 +72,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
         _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
 
-        var grade = SpecDataManager.Instance.SpecUserGrade.Get(1); // [TODO] 현재 등급 가져오기
-        if (grade != null)
+        _specUserGrade = SpecDataManager.Instance.SpecUserGrade.Get(1); // [TODO] 현재 등급 가져오기
+        if (_specUserGrade != null)
         {
             _startButton?.onClick.AddListener(OnStartButtonClicked);
             for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
             {
-                bool isOpen = i < grade.maximum_commander_skill_count;
+                bool isOpen = i < _specUserGrade.maximum_commander_skill_count;
                 _CommanderSkillButtonList[i].gameObject.SetActive(isOpen);
                 if (isOpen)
                 {
@@ -121,13 +122,13 @@ public class InGameBottomCharacterUI : MonoBehaviour
         // 지휘자 스킬 장착 확인
         if (_isOpenCommanderSkill)
         {
-            var isEquippedCommanderSkill = UserDataManager.Instance.IsAllCommanderSkillsEquipped();
+            var isEquippedCommanderSkill = UserDataManager.Instance.IsAllCommanderSkillsEquipped(_specUserGrade.maximum_commander_skill_count);
             if (!isEquippedCommanderSkill)
             {
                 string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
 
                 SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () => StartInGameBattle(_combatType));
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", null);
 
                 SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
 

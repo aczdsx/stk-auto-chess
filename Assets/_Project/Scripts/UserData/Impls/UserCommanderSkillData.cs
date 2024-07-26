@@ -76,9 +76,9 @@ namespace CookApps.AutoBattler
             return 0;
         }
 
-        public bool IsAllCommanderSkillsEquipped()
+        public bool IsAllCommanderSkillsEquipped(int slotCount)
         {
-            foreach (var skillId in userCommanderSkillData.EquippedCommanderSkillIds.Values)
+            foreach (var skillId in userCommanderSkillData.EquippedCommanderSkillIds.Values.Take(slotCount))
                 if (skillId == 0)
                     return false;
             return true;
