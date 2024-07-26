@@ -35,16 +35,14 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            var someCodeId = (int)EffectCodeNameType.DEBUFF_FIRE;
-            Span<double> debuffStats = stackalloc double[4];
-            debuffStats.Clear();
-            debuffStats[0] = codeId;
-            debuffStats[1] = _ownerUID;
-            debuffStats[2] = _damageRate;
-            debuffStats[3] = _duration;
-
-            var debuff = new EffectCodeInfo(someCodeId, 0, debuffStats);
-            character.GetEffectCodeContainer().AddOrMergeEffectCode(debuff, null);
+            Span<double> eccStats = stackalloc double[4];
+            eccStats.Clear();
+            eccStats[0] = codeId;
+            eccStats[1] = _ownerUID;
+            eccStats[2] = _damageRate;
+            eccStats[3] = _duration;
+            
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_FIRE, character, eccStats, source);
         }
 
         public override void OnTileCharacterExit(InGameTile tile, CharacterController character)

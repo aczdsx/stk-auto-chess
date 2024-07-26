@@ -120,15 +120,14 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                     codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-                Span<double> debuffStats = stackalloc double[3];
-                debuffStats.Clear();
-                debuffStats[0] = codeId;
-                debuffStats[1] = _debuffTime;
-                debuffStats[2] = _atkSpeedDownRate;
-                var effectCodeID =
-                    new EffectCodeInfo((long) EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, 0, debuffStats);
-                tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+                
+                Span<double> eccStats = stackalloc double[3];
+                eccStats.Clear();
+                eccStats[0] = codeId;
+                eccStats[1] = _debuffTime;
+                eccStats[2] = _atkSpeedDownRate;
+        
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, tile.OccupiedCharacter, eccStats, source);
             });
         }
 

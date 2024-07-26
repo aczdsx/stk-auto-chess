@@ -27,13 +27,13 @@ public class EffectCodeSynergyElementDark : EffectCodeCharacterBase
         var characterList = InGameObjectManager.Instance.GetCharacterList(allianceType);
         foreach (var character in characterList)
         {
-            Span<double> debuffStats = stackalloc double[3];
-            debuffStats.Clear();
-            debuffStats[0] = codeId;
-            debuffStats[1] = 10.0f;
-            debuffStats[2] = _statValue;
-            var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, 0, debuffStats);
-            character.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, owner);
+            Span<double> eccStats = stackalloc double[3];
+            eccStats.Clear();
+            eccStats[0] = codeId;
+            eccStats[1] = 10.0f;
+            eccStats[2] = _statValue;
+            
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN, character, eccStats, source);
         }
     }
 
