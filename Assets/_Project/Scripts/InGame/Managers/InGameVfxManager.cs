@@ -122,7 +122,7 @@ namespace CookApps.BattleSystem
             }
             else if (type == ElementType.WIND)
             {
-                vfxNameType = InGameVfxNameType.fx_common_area_water; // [TODO] wind 필요
+                vfxNameType = InGameVfxNameType.fx_common_area_wind;
             }
             else if (type == ElementType.LIGHT)
             {
@@ -160,7 +160,7 @@ namespace CookApps.BattleSystem
             }
             else if (type == ElementType.WIND)
             {
-                vfxNameType = InGameVfxNameType.fx_common_area_water; // [TODO] wind 필요
+                vfxNameType = InGameVfxNameType.fx_common_cast_wind;
             }
             else if (type == ElementType.LIGHT)
             {

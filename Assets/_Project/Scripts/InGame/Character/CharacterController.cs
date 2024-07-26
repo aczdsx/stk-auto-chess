@@ -913,7 +913,7 @@ namespace CookApps.BattleSystem
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
             bool isFirstDamage = true)
         {
-            //[TODO] MVP임시처리
+            // 로비 전투 상황일 때
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
             {
                 if (attacker.AllianceType == AllianceType.Enemy)

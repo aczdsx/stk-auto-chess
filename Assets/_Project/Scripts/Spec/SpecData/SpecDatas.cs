@@ -867,12 +867,10 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 더미 아이디
         public string dummy_id;
-        /// 더미 기본 정보
-        public string dummy_info;
-        /// 더미 히어로 덱 정보
-        public string dummy_deck;
-        /// 더미 지형지물 정보
-        public string dummy_geographic;
+        /// 더미 간단 정보 (전투이력리스트, 매칭리스트, 랭킹리스트 UI 에 들어가는)
+        public string dummy_simple_info;
+        /// 더미 무거운 정보 (실 전투시 사용되는 정보들. 지형지물 등)
+        public string dummy_heavy_info;
         /// 더미 전투력
         public CookApps.Obfuscator.ObfuscatorInt power;
         /// PVP 점수

@@ -43,7 +43,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     [SerializeField]
     private InGameCamera _inGameCamera;
 
-    // [TODO] switchObj 추가 필요
+    //[TODO] switchObj 필요
     public GameObject switchObj;
     public float switchThreshold = 50f;
     public float maxFadeAlpha = 0.9f;
