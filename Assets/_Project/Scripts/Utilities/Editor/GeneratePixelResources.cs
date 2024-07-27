@@ -206,7 +206,7 @@ public class GeneratePixelResources : Editor
             AnimationEvent attackEvent = new AnimationEvent();
             attackEvent.functionName = "InvokeAnimationEvent";
             attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
-            attackEvent.time = 4;
+            attackEvent.time = 0.3f;
             animationEvents.Add(attackEvent);
         }
 
@@ -215,7 +215,7 @@ public class GeneratePixelResources : Editor
             AnimationEvent attackEvent = new AnimationEvent();
             attackEvent.functionName = "InvokeAnimationEvent";
             attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
-            attackEvent.time = 6 / animationClip.frameRate;
+            attackEvent.time = 0.5f;
             animationEvents.Add(attackEvent);
         }
 
