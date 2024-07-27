@@ -37,6 +37,11 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
         }
 
+        public UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void RefreshInGameTopUI(bool isCombat)
         {
             _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Player, isCombat);

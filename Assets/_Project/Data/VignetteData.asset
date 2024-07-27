@@ -17,6 +17,10 @@ MonoBehaviour:
     ID: 0
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
     Color: {r: 0, g: 0, b: 0, a: 0}
+  - InGameType: 4
+    ID: 0
+    Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
+    Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
   - InGameType: 2
     ID: 0
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
@@ -35,5 +39,13 @@ MonoBehaviour:
     Color: {r: 0.8745098, g: 0.9137255, b: 0.9411765, a: 1}
   - InGameType: 1
     ID: 4
+    Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
+    Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
+  - InGameType: 1
+    ID: 5
+    Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
+    Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
+  - InGameType: 1
+    ID: 6
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
     Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}

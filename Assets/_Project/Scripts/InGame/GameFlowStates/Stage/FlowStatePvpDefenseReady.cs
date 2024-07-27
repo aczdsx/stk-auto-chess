@@ -11,7 +11,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-public class FlowStatePvpReady : StateReadyBase
+public class FlowStatePvpDefenseReady : StateReadyBase
 {
     private UserPVPBattleDetailData _pvpBattleDeckList;
 
@@ -27,48 +27,10 @@ public class FlowStatePvpReady : StateReadyBase
 
     public override async void StateInit(object target)
     {;
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
+        //[TODO] _pvpBattleDeckList 여기에 data 보내주고 이거 기반으로 생성.
+        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(-5, 2.5f, -10), 1.0f).Forget();
         
         var addCharacterTasks = new List<UniTask<CharacterController>>();
-        
-        foreach (var pvpCharacter in _pvpBattleDeckList.PvpDeckList.PvpCharacterDecks)
-        {
-            var statData = new CharacterStatData(pvpCharacter.Id, pvpCharacter.Lv, pvpCharacter.EffectCodeInfo, _pvpBattleDeckList.PvpDeckList.EffectCodeInfos);
-            
-            int2 coordinate = new int2(pvpCharacter.PosX, pvpCharacter.PosY);
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
-                typeof(CharacterStateReady), true, HpBarType.Synergy));
-        }
-        
-        // 장애물 설치
-        foreach (var obstacleDeck in _pvpBattleDeckList.PvpDeckList.PvpObstacleDecks)
-        {
-            var specObstacleDataList = SpecDataManager.Instance.GetSpecSynergyList(obstacleDeck.Id);
-            if (specObstacleDataList.Count > 0)
-            {
-                if (specObstacleDataList[0].obstacle_type == ObstacleType.WALL)
-                {
-                    var grid = InGameObjectManager.Instance.GetInGameTile(
-                        new int2(obstacleDeck.PosX, obstacleDeck.PosY));
-                    addCharacterTasks.Add(
-                        InGameObjectManager.Instance.AddObstacleToField(grid.View.ID, obstacleDeck.Id,
-                            AllianceType.Wall));
-                }
-
-                if (specObstacleDataList[0].obstacle_type == ObstacleType.NEUTRAL_WALL)
-                {
-                    var statData = new CharacterStatData(specObstacleDataList[0].obstacle_id, 1, 1, 1);
-
-                    var tile = InGameObjectManager.Instance.GetInGameTile(specObstacleDataList[0].obstacle_id);
-                    int2 coordinate = new int2(tile.X, tile.Y);
-
-                    addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
-                        AllianceType.Neutral,
-                        typeof(CharacterStateReady), false, HpBarType.None));
-                }
-            } 
-        }
-
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.PVP);
 
         foreach (var character in battleDeckList)

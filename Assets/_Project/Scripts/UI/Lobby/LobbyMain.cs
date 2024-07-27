@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using CookApps.BattleSystem;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -456,12 +457,28 @@ namespace CookApps.AutoBattler
                 }
 
                 // 스테이지 진입
-                InGameManager.Instance.EndInGame();
-                SceneTransition_Animator transition = SceneTransition_Animator.Create();
-                SceneLoading.GoToNextScene("InGame",
-                    (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int) currentStageData.stage_id),
-                    transition).Forget();
+                // InGameManager.Instance.EndInGame();
+                // SceneTransition_Animator transition = SceneTransition_Animator.Create();
+                // SceneLoading.GoToNextScene("InGame",
+                //     (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int) currentStageData.stage_id),
+                //     transition).Forget();
+                
+                
+                // [TODO] 방어 덱 설정 진입 테스트 코드 (나중에 삭제)
+                // SceneTransition_Animator transition = SceneTransition_Animator.Create();
+                // UserPVPBattleDetailData data = null;
+                // SceneLoading.GoToNextScene("InGame",
+                //     (InGameType.PVP_DEFENSE, (IGameStateUI) new InGameMainStatePvpDefenseUI(), 0),
+                //     transition).Forget();
 
+                // [TODO] PVP 진입 테스트 코드 (나중에 삭제)
+                // InGameManager.Instance.EndInGame();
+                // SceneTransition_Animator transition = SceneTransition_Animator.Create();
+                // UserPVPBattleDetailData data = new();
+                // SceneLoading.GoToNextScene("InGame",
+                //     (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
+                //     transition).Forget();
+                
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             }
         }

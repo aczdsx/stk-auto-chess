@@ -8,10 +8,9 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStateTrialDungeonUI : IGameStateUI
+    public class InGameMainStatePvpDefenseUI : IGameStateUI
     {
         private InGameUI _inGameUI;
-        private SpecDungeonTrial _specTrialDungeon;
 
         private float _updateTimer = 0f;
         private const float UpdateInterval = 0.2f;
@@ -23,10 +22,10 @@ namespace CookApps.AutoBattler
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _specTrialDungeon = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
-            _inGameUI.TopUI.SetStageName(StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial));
+            _inGameUI.TopUI.SetStageName("PVP 방어덱 세팅");
 
-            InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
+            UserPVPBattleDetailData data = new UserPVPBattleDetailData();
+            InGameManager.Instance.StartInGame<FlowStatePvpDefenseReady>(data);
         }
 
         public UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
@@ -96,14 +95,15 @@ namespace CookApps.AutoBattler
         {
             _inGameUI.BottomUI.UnSetFocusCharacterUI(isDropFx);
         }
+
+        public bool IsCheckTouchTile(InGameTile tile)
+        {
+            return tile.IsOccupied() && tile.View.AllianceType == AllianceType.Player;
+        }
+
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
-        }
-        
-        public bool IsCheckTouchTile(InGameTile tile)
-        {
-            return tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player;
         }
     }
 }

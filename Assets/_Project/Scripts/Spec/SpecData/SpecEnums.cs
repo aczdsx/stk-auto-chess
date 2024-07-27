@@ -514,6 +514,7 @@ namespace CookApps.AutoBattler
         STAGE = 1,
         TRIAL = 2,
         PVP = 3,
+        PVP_DEFENSE = 4,
     }
 
     public enum UserGradeType

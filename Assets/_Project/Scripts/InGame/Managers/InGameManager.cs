@@ -17,7 +17,7 @@ namespace CookApps.BattleSystem
         #region GameInfo
         public SpecStage SpecStage { get; private set; }
         public SpecDungeonTrial SpecDungeonTrial { get; private set; }
-        public UserPVPBattleDeckList UserPvpBattleDeckList { get; private set; }
+        public UserPVPBattleDetailData UserPvpBattleDeckList { get; private set; }
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
@@ -60,7 +60,7 @@ namespace CookApps.BattleSystem
             InitializeInGameComponents(specDungeonTrial);
         }
         
-        public void StartInGame<T>(UserPVPBattleDeckList pvpBattleDeck) where T : StateBase, new()
+        public void StartInGame<T>(UserPVPBattleDetailData pvpBattleDeck) where T : StateBase, new()
         {
             UserPvpBattleDeckList = pvpBattleDeck;
             IsInGamePlaying = true;

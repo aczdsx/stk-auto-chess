@@ -18,6 +18,10 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
+        }
+
+        public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
+        {
             var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
@@ -25,7 +29,7 @@ namespace CookApps.AutoBattler
             _inGameUI.TopUI.SetStageName("PVP 유저 이름 들어가야 합니다.");
 
             // [TODO] pvp 데이터 받아오는 작업 필요
-            var pvpBattleDeckList = new UserPVPBattleDeckList();
+            var pvpBattleDeckList = new UserPVPBattleDetailData();
             InGameManager.Instance.StartInGame<FlowStatePvpReady>(pvpBattleDeckList);
         }
 
@@ -79,7 +83,7 @@ namespace CookApps.AutoBattler
             _inGameUI.BottomUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateTrialDungeonCombat), battleDeckList);
+            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStatePvpCombat), battleDeckList);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)

@@ -34,6 +34,16 @@ namespace CookApps.AutoBattler
                 StagePrefab =
                     await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Trial{dungeonData.dungeon_id}.prefab");
             }
+            else if (inGameType == InGameType.PVP_DEFENSE)
+            {
+                StagePrefab =
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/PVPSetting.prefab");
+            }
+            else if (inGameType == InGameType.PVP)
+            {
+                StagePrefab =
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/PVP.prefab");
+            }
         }
 
         public static async UniTask LoadLobbyResources(int chapter)

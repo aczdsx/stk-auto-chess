@@ -1,3 +1,4 @@
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -47,8 +48,15 @@ namespace CookApps.AutoBattler
 
         private static async UniTask LoadInGameResources(object defaultUIData)
         {
-            (InGameType inGameType, IGameStateUI state, int id) = ((InGameType, IGameStateUI, int)) defaultUIData;
-            await InGameResourceHolder.LoadResources(inGameType, state, id);
+            switch (defaultUIData)
+            {
+                case (InGameType inGameType, IGameStateUI state, int id):
+                    await InGameResourceHolder.LoadResources(inGameType, state, id);
+                    break;
+                case (InGameType inGameType, IGameStateUI state, UserPVPBattleDetailData data):
+                    await InGameResourceHolder.LoadResources(inGameType, state, 0);
+                    break;
+            }
         }
 
         private static async UniTask UnloadInGameResources()
