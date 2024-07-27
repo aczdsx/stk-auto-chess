@@ -84,6 +84,7 @@ namespace CookApps.AutoBattler
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
         private Dictionary<CharacterPositionType, List<SpecSynergy>> positionSynergyDic = new (); // key : CharacterPositionType, value : SpecSynergy
         private Dictionary<ElementType, List<SpecSynergy>> elementSynergyDic = new (); // key : ElementType, value : SpecSynergy
+        private Dictionary<int, List<SpecObstacle>> obstacleDic = new (); // key : obstacle_id, value : SpecObstacle
 
 
 
@@ -265,7 +266,18 @@ namespace CookApps.AutoBattler
             }
             #endregion
 
+            // Element Synergy Dic
+            obstacleDic.Clear();
+            foreach (SpecObstacle obstacle in SpecObstacle.All)
+            {
+                if (!obstacleDic.TryGetValue(obstacle.obstacle_id, out var list))
+                {
+                    list = new List<SpecObstacle>();
+                    obstacleDic.Add(obstacle.obstacle_id, list);
+                }
 
+                list.Add(obstacle);
+            }
         }
 
         public string GetLanguageText(string tokenKey)
@@ -909,6 +921,16 @@ namespace CookApps.AutoBattler
         {
             return SpecDungeonRewardList
                 .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
+        }
+        
+        public List<SpecObstacle> GetSpecSynergyList(int obstacleID)
+        {
+            if (obstacleDic.TryGetValue(obstacleID, out List<SpecObstacle> obstacleList))
+            {
+                return obstacleList;
+            }
+
+            return null;
         }
 
         #region PVP

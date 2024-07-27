@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using PrimeTween;
 using Unity.Mathematics;
@@ -16,6 +17,7 @@ namespace CookApps.BattleSystem
         #region GameInfo
         public SpecStage SpecStage { get; private set; }
         public SpecDungeonTrial SpecDungeonTrial { get; private set; }
+        public UserPVPBattleDeckList UserPvpBattleDeckList { get; private set; }
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
@@ -56,6 +58,15 @@ namespace CookApps.BattleSystem
             ecc = new EffectCodeContainer(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specDungeonTrial);
             InitializeInGameComponents(specDungeonTrial);
+        }
+        
+        public void StartInGame<T>(UserPVPBattleDeckList pvpBattleDeck) where T : StateBase, new()
+        {
+            UserPvpBattleDeckList = pvpBattleDeck;
+            IsInGamePlaying = true;
+            ecc = new EffectCodeContainer(this);
+            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(pvpBattleDeck);
+            InitializeInGameComponents(pvpBattleDeck);
         }
 
         private void InitializeInGameComponents(object stateData)

@@ -776,6 +776,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 기믹 id
         public CookApps.Obfuscator.ObfuscatorInt obstacle_id;
+        /// 기믹 type
+        public global::CookApps.AutoBattler.ObstacleType obstacle_type;
         /// 지휘자 스킬 이름 토큰
         public string name_token;
         /// 지휘자 스킬 설명 토큰

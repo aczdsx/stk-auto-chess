@@ -533,4 +533,11 @@ namespace CookApps.AutoBattler
         PLATINUM = 4,
         DIAMOND = 5,
     }
+
+    public enum ObstacleType
+    {
+        WALL = 1,
+        NEUTRAL_WALL = 2,
+        EFFECT_CODE = 3,
+    }
 }

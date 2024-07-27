@@ -280,6 +280,11 @@ namespace CookApps.BattleSystem
         {
             return _grid.GetTile(id);
         }
+        
+        public InGameTile GetInGameTile(int2 pos)
+        {
+            return _grid.GetTile(pos);
+        }
 
         public InGameTile[] GetAllInGameTiles()
         {

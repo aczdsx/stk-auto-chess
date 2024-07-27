@@ -24,7 +24,9 @@ namespace CookApps.AutoBattler
 
             _inGameUI.TopUI.SetStageName("PVP 유저 이름 들어가야 합니다.");
 
-            InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
+            // [TODO] pvp 데이터 받아오는 작업 필요
+            var pvpBattleDeckList = new UserPVPBattleDeckList();
+            InGameManager.Instance.StartInGame<FlowStatePvpReady>(pvpBattleDeckList);
         }
 
         public void InitCombatStateUI()
