@@ -199,7 +199,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameTileView inGameTileView = hit.transform.GetComponent<InGameTileView>();
             InGameTile tile =
                 InGameObjectManager.Instance.GetInGameTile(inGameTileView.ID);
-            if (tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player)
+            
+            if (InGameMain.GetInGameMain().IsCheckTouchTile(tile))
             {
                 _selectedTileView = inGameTileView;
                 SetSelectedCharacter(tile.OccupiedCharacter);
@@ -313,8 +314,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (tile.OccupiedCharacter != null)
         {
-            if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall ||
-                tile.OccupiedCharacter.AllianceType == AllianceType.Neutral)
+            if (!InGameMain.GetInGameMain().IsCheckTouchTile(tile))
             {
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
 

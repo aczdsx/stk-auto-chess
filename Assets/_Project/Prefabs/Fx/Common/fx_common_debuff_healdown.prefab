@@ -19698,6 +19698,7 @@ GameObject:
   - component: {fileID: 9014372412891165732}
   - component: {fileID: 2051002792588412607}
   - component: {fileID: 7161050090501154049}
+  - component: {fileID: 4920430904921728004}
   m_Layer: 6
   m_Name: fx_common_debuff_healdown
   m_TagString: Untagged
@@ -24522,6 +24523,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4920430904921728004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339269658938882838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &7405900270141332887
 GameObject:
   m_ObjectHideFlags: 0

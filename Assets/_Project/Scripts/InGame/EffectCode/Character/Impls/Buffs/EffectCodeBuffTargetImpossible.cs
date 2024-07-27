@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 public class EffectCodeBuffTargetImpossible : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.TARGET_IMPOSSIBLE;
-    [Obsolete] private const BuffDebuffType buffDebuffType = BuffDebuffType.TargetImpossible;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.TargetImpossible;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {

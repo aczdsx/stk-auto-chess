@@ -110,5 +110,10 @@ namespace CookApps.AutoBattler
         {
             _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
+        
+        public bool IsCheckTouchTile(InGameTile tile)
+        {
+            return tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player;
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace CookApps.AutoBattler
         void SetInGameBottomUIInGuideUI();
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
+        bool IsCheckTouchTile(InGameTile tile);
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
@@ -147,6 +148,11 @@ namespace CookApps.AutoBattler
         public void UnSetFocusSlotUI(bool isDropFx)
         {
             _currentGameStateUI.UnSetFocusSlotUI(isDropFx);
+        }
+
+        public bool IsCheckTouchTile(InGameTile tile)
+        {
+            return _currentGameStateUI.IsCheckTouchTile(tile);
         }
     }
 }
