@@ -457,11 +457,11 @@ namespace CookApps.AutoBattler
                 }
 
                 // 스테이지 진입
-                // InGameManager.Instance.EndInGame();
-                // SceneTransition_Animator transition = SceneTransition_Animator.Create();
-                // SceneLoading.GoToNextScene("InGame",
-                //     (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int) currentStageData.stage_id),
-                //     transition).Forget();
+                InGameManager.Instance.EndInGame();
+                SceneTransition_Animator transition = SceneTransition_Animator.Create();
+                SceneLoading.GoToNextScene("InGame",
+                    (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int) currentStageData.stage_id),
+                    transition).Forget();
                 
                 
                 // [TODO] 방어 덱 설정 진입 테스트 코드 (나중에 삭제)
