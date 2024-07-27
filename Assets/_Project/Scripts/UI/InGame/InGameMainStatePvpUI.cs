@@ -4,19 +4,16 @@ using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Events;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStateUIStageUI : IGameStateUI
+    public class InGameMainStatePvpUI : IGameStateUI
     {
         private InGameUI _inGameUI;
-        private SpecStage _specStage;
 
         private float _updateTimer = 0f;
-        private IGameStateUI _gameStateUIImplementation;
-        private const float UpdateInterval = 0.3f;
+        private const float UpdateInterval = 0.2f;
         private const float InGameMaxTime = 60f;
 
         public async UniTask Initialize(Transform canvasTransform, int id)
@@ -25,16 +22,15 @@ namespace CookApps.AutoBattler
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _specStage = SpecDataManager.Instance.GetStageData(id);
-            _inGameUI.TopUI.SetStageName($"스테이지 {_specStage.chapter_id}-{_specStage.stage_number}");
+            _inGameUI.TopUI.SetStageName("PVP 유저 이름 들어가야 합니다.");
 
-            InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
+            InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
+        }
 
-            // 최근 플레이 스테이지 저장
-            UserDataManager.Instance.SetLastPlayStageID(_specStage.stage_id, true);
-
-            // 유저 레벨업 체크용 이전 레벨 데이터 저장
-            UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
+        public void InitCombatStateUI()
+        {
+            _inGameUI.BottomUI.InitCommanderSkill();
+            InGameMain.GetInGameMain().RefreshInGameTopUI(true);
         }
 
         public void RefreshInGameTopUI(bool isCombat)
@@ -75,25 +71,13 @@ namespace CookApps.AutoBattler
                 }
             }
         }
-
+        
         public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
         {
-            _inGameUI.PlayAnimation("SetEntry");
             _inGameUI.BottomUI.InitData();
             RefreshInGameTopUI(false);
             InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateStageCombat), battleDeckList);
-
-            // 다이얼로그 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START,
-                InGameManager.Instance.SpecStage.stage_id.ToString());
-        }
-
-        public void InitCombatStateUI()
-        {
-            _inGameUI.PlayAnimation("SetBattleEntry");
-            _inGameUI.BottomUI.InitCommanderSkill();
-            InGameMain.GetInGameMain().RefreshInGameTopUI(true);
+            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateTrialDungeonCombat), battleDeckList);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)
@@ -105,7 +89,6 @@ namespace CookApps.AutoBattler
         {
             _inGameUI.BottomUI.UnSetFocusCharacterUI(isDropFx);
         }
-
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);

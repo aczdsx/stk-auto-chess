@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using Cookapps.Stkauto.V1;
+using Google.Protobuf.Collections;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -39,7 +41,7 @@ namespace CookApps.AutoBattler
         {
             this.characterId = characterId;
         }
-
+        
         public CharacterStatData(int characterId, int level, float multiAd, float multiHp, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             Debug.LogColor("characterID : " + characterId);
@@ -95,6 +97,51 @@ namespace CookApps.AutoBattler
                 foreach (EffectCodeInfo effectCodeInfo in globalEffectCodeInfos)
                 {
                     EffectCodeBase code = EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, this);
+                }
+            }
+
+            UpdateStats(EffectCodeInheritFlag.StatAll);
+        }
+
+        // PVP 전용
+        public CharacterStatData(int characterId, int level, RepeatedField<EffectCodeInfoProto> protos, RepeatedField<EffectCodeInfoProto> globalEffectCodeInfos = null)
+        {
+            Debug.LogColor("characterID : " + characterId);
+            this.characterId = characterId;
+            EffectCodeContainer = new EffectCodeContainer(this);
+            _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
+            _level = level;
+
+            var levelBonusRate = 0f;
+            for (var i = 1; i <= level; i++)
+            {
+                if (i % 10 == 0)
+                    levelBonusRate += _spec.inc_lv_bonus_rate;
+                else
+                    levelBonusRate += _spec.inc_lv_rate;
+            }
+
+            {
+                var adBonusCodeInfo = new EffectCodeInfo((long) EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
+                var apBonusCodeInfo = new EffectCodeInfo((long) EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
+                var hpBonusCodeInfo = new EffectCodeInfo((long) EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
+                EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
+                EffectCodeContainer.AddOrMergeEffectCode(apBonusCodeInfo, this);
+                EffectCodeContainer.AddOrMergeEffectCode(hpBonusCodeInfo, this);
+            }
+
+            if (globalEffectCodeInfos != null)
+            {
+                foreach (EffectCodeInfoProto effectCodeInfo in globalEffectCodeInfos)
+                {
+                    List<double> statsList = new List<double>();
+                    foreach (var stat in effectCodeInfo.Stat)
+                    {
+                        statsList.Add(stat);
+                    }
+                    ReadOnlySpan<double> stats = statsList.ToArray().AsSpan();
+                    EffectCodeInfo eccInfo = new EffectCodeInfo(effectCodeInfo.Id, 0, stats);
+                    EffectCodeBase code = EffectCodeContainer.AddOrMergeEffectCode(eccInfo, this);
                 }
             }
 
