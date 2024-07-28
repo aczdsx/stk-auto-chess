@@ -52,7 +52,14 @@ namespace CookApps.AutoBattler
         
         private void OnClickBattleButton()
         {
+            // 방어덱 설정 여부 체크
+            if (UserDataManager.Instance.CheckUserCharacterBattleDeckList(InGameType.PVP_DEFENSE) == false)
+            {
+                ToastManager.Instance.ShowToast("TEST - 방어덱 설정이 필요합니다.");
+                return;
+            }
             
+            // todo.. pvp 인게임 씬 진입
         }
         
         private void ClearSlot()
