@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
         private ArenaMainPopup _parentPopup;
         
         private UserPVP _currentUserPVPData;
-        private List<PlayerRankingData> _currentServerRankingDataList;
+        private List<PvpRankingData> _currentServerRankingDataList;
         
         private SpecPVPTier _specPVPTierData;
         

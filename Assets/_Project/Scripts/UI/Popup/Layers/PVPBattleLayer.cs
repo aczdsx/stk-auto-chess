@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
         private ArenaMainPopup _parentPopup;
 
         private UserPVP _currentUserPVPData;
-        private List<PvpMatchOpponentData> _currentServerMatchingDataList;
+        private List<MyPvpMatchingData> _currentServerMatchingDataList;
 
         private void Awake()
         {
@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
             var matchInfo = PVPManager.Instance.CurrentPVPMatchListData;
             if (matchInfo != null)
             {
-                _currentServerMatchingDataList = matchInfo.PvpMatchOpponents.ToList();
+                _currentServerMatchingDataList = matchInfo.MatchInfo.ToList();
 
                 foreach (var matchData in _currentServerMatchingDataList)
                 {
