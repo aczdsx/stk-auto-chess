@@ -101,7 +101,8 @@ namespace CookApps.AutoBattler
                     //_pvpBattleLogTabToggle.isOn = true;
                     _pvpBattleLogTabLayer.gameObject.SetActive(true);
 
-                    _pvpBattleLogTabLayer?.InitLayer(this);
+                    //LoadPVPLogHistoryData();
+                    _pvpBattleTabLayer.InitLayer(this);     // temp - 임시 처리
                     break;
                 case ArenaMainPopupTabType.PVP_RANK:
                     //_pvpRankTabToggle.isOn = true;
@@ -151,6 +152,13 @@ namespace CookApps.AutoBattler
             await PVPManager.Instance.UpdatePVPMatchList();
             
             _pvpBattleTabLayer.InitLayer(this);
+        }
+        
+        private async void LoadPVPLogHistoryData()
+        {
+            await PVPManager.Instance.UpdatePVPHistoryList();
+            
+            _pvpBattleLogTabLayer.InitLayer(this);
         }
         
         private async void LoadPVPRankData()
