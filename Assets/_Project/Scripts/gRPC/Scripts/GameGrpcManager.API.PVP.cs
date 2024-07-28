@@ -46,6 +46,19 @@ namespace GrpcGame
             return response;
         } 
         
+        // PVP 전투 히스토리 리스트를 서버로부터 가져옴
+        public async UniTask<GetPvpMatchHistoryResponse> GetPvpMatchHistory(int showCount)
+        {
+            using var _ = GenericPool<GetPvpMatchHistoryRequest>.Get(out var request);
+            request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
+            request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
+            request.HistoryCount = showCount;
+            var response = await GameService.GetPvpMatchHistoryAsync(request);
+            if (response == null)
+                throw new System.Exception("response is canceled!");
+            return response;
+        } 
+        
         // 방어덱 세팅 정보를 서버에 업데이트
         // public async UniTask<UpdatePvpProfileResponse> UpdatePvpProfileAsync(int showRankCount)
         // {

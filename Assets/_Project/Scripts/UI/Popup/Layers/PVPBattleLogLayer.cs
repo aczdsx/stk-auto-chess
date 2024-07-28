@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using UnityEngine;
 
-public class PVPBattleLogLayer : MonoBehaviour
+namespace CookApps.AutoBattler
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PVPBattleLogLayer : CachedMonoBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        public void InitLayer(ArenaMainPopup parent)
+        {
+            
+        }
         
-    }
+        public void RefreshLayer()
+        {
+            
+        }
+    }   
 }

@@ -85,17 +85,23 @@ namespace CookApps.AutoBattler
             
             CurrentTabType = tabType;
 
+            // 공용 레이어 초기화
+            _myPVPInfoLayer?.InitLayer(this);
+            
+            // 탭 레이어 초기화
             switch (tabType)
             {
                 case ArenaMainPopupTabType.PVP_BATTLE:
                     //_pvpBattleTabToggle.isOn = true;
                     _pvpBattleTabLayer.gameObject.SetActive(true);
                     
-                    _myPVPInfoLayer?.InitLayer(this);
+                    LoadPVPMatchingData();
                     break;
                 case ArenaMainPopupTabType.PVP_BATTLE_LOG:
                     //_pvpBattleLogTabToggle.isOn = true;
                     _pvpBattleLogTabLayer.gameObject.SetActive(true);
+
+                    _pvpBattleLogTabLayer?.InitLayer(this);
                     break;
                 case ArenaMainPopupTabType.PVP_RANK:
                     //_pvpRankTabToggle.isOn = true;
@@ -114,12 +120,15 @@ namespace CookApps.AutoBattler
 
         public void RefreshTabLayer(ArenaMainPopupTabType tabType)
         {
+            _myPVPInfoLayer?.RefreshLayer();
+            
             switch (tabType)
             {
                 case ArenaMainPopupTabType.PVP_BATTLE:
-                    _myPVPInfoLayer?.RefreshLayer();
+                    _pvpBattleTabLayer?.RefreshLayer();
                     break;
                 case ArenaMainPopupTabType.PVP_BATTLE_LOG:
+                    _pvpBattleLogTabLayer?.RefreshLayer();
                     break;
                 case ArenaMainPopupTabType.PVP_RANK:
                     _pvpRankTabLayer?.RefreshLayer();
@@ -137,6 +146,13 @@ namespace CookApps.AutoBattler
             ChangeTabType(CurrentTabType, true);
         }
 
+        private async void LoadPVPMatchingData()
+        {
+            await PVPManager.Instance.UpdatePVPMatchList();
+            
+            _pvpBattleTabLayer.InitLayer(this);
+        }
+        
         private async void LoadPVPRankData()
         {
             await PVPManager.Instance.UpdatePVPRankList();
