@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using TMPro;
@@ -13,6 +11,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _rankTierImage;
         [SerializeField] private TextMeshProUGUI _rankNameText;
         [SerializeField] private TextMeshProUGUI _rankPointText;
+        [SerializeField] private List<GameObject> _tierLevelStickObjectList;
         
         [SerializeField] private GameObject _rewardSlotObject;
         
@@ -22,7 +21,7 @@ namespace CookApps.AutoBattler
         [Header("Season Reward Layer")]
         [SerializeField] private GameObject _seasonRewardContentObject;
 
-        private SpecPVPTier specPVPTierData;
+        private SpecPVPTier _specPVPTierData;
         
         public void InitSlot(SpecPVPTier data)
         {
@@ -30,13 +29,18 @@ namespace CookApps.AutoBattler
 
             ClearSlot();
 
-            specPVPTierData = data;
-            var dailyRewardDataList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_DAILY, specPVPTierData.ranking_id);
-            var seasonRewardDataList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_SEASON, specPVPTierData.ranking_id);
+            _specPVPTierData = data;
+            var dailyRewardDataList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_DAILY, _specPVPTierData.ranking_id);
+            var seasonRewardDataList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_SEASON, _specPVPTierData.ranking_id);
             
-            _rankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specPVPTierData.pvp_tier_type);
-            _rankNameText.text = LanguageManager.Instance.GetPVPTierText(specPVPTierData.pvp_tier_type);
-            _rankPointText.text = specPVPTierData.ranking_min.ToString();
+            _rankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specPVPTierData.pvp_tier_type);
+            _rankNameText.text = LanguageManager.Instance.GetPVPTierText(_specPVPTierData.pvp_tier_type);
+            _rankPointText.text = _specPVPTierData.ranking_min.ToString();
+
+            for(int i = 0; i < _specPVPTierData.tier_order; i++)
+            {
+                _tierLevelStickObjectList[i].SetActive(true);
+            }
             
             // 보상 데이터 리스트 생성 (일일)
             foreach (var rewardItem in dailyRewardDataList)
@@ -59,6 +63,8 @@ namespace CookApps.AutoBattler
         {
             BMUtil.RemoveChildObjects(_dailyRewardContentObject.transform);
             BMUtil.RemoveChildObjects(_seasonRewardContentObject.transform);
+            
+            _tierLevelStickObjectList?.ForEach(obj => obj.SetActive(false));
         }
     }
 }

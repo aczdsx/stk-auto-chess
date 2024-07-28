@@ -48,6 +48,11 @@ namespace CookApps.AutoBattler
             _myRankingText.text = _currentUserPVPData.Ranking.ToString();
             _myRankingPointText.text = $"{_currentUserPVPData.RankPoint}<color=#ACB2C0>/{_specPVPTierData.ranking_max}</color>";
             
+            for(int i = 0; i < _specPVPTierData.tier_order; i++)
+            {
+                _myTierLevelObjectList[i].SetActive(true);
+            }
+            
             // 시즌 보상 리스트
             var seasonRewardList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_SEASON, _currentUserPVPData.RankId);
             foreach (var rewardData in seasonRewardList)
@@ -72,6 +77,8 @@ namespace CookApps.AutoBattler
         private void ClearLayer()
         {
             BMUtil.RemoveChildObjects(_rewardContentObject.transform);
+            
+            _myTierLevelObjectList?.ForEach(obj => obj.SetActive(false));
         }
     }
 }

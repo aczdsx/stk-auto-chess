@@ -560,6 +560,10 @@ MonoBehaviour:
   _rankTierImage: {fileID: 60917491458861682}
   _rankNameText: {fileID: 9153559333197539046}
   _rankPointText: {fileID: 4619524331036415426}
+  _tierLevelStickObjectList:
+  - {fileID: 7305828338959233355}
+  - {fileID: 7853157066043498212}
+  - {fileID: 6222444798866401918}
   _rewardSlotObject: {fileID: 7094475473946656399}
   _dailyRewardContentObject: {fileID: 6411936018171869826}
   _seasonRewardContentObject: {fileID: 3962309478936294072}
