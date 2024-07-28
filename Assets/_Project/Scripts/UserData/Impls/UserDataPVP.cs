@@ -57,7 +57,7 @@ namespace CookApps.AutoBattler
         }
         
         // 매칭 리스트에 데이터 추가
-        public void AddPVPMatchingList(UserPVPBattleDetailData pvpData, bool needSave)
+        public void AddPVPMatchingList(UserPVPBattleSimpleData pvpData, bool needSave)
         {
             if (pvpData == null) return;
             
@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
         }
         
         // 매칭 리스트에서 데이터 반환 (단일)
-        public UserPVPBattleDetailData GetPVPMatchingData(string playerID)
+        public UserPVPBattleSimpleData GetPVPMatchingData(string playerID)
         {
             if (string.IsNullOrWhiteSpace(playerID)) return null;
             
@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
         }
         
         // 매칭 리스트에서 데이터 반환 (전체)
-        public List<UserPVPBattleDetailData> GetPVPMatchingDataList()
+        public List<UserPVPBattleSimpleData> GetPVPMatchingDataList()
         {
             return UserPVP.CurrentPvpMatchingList.ToList();
         }
