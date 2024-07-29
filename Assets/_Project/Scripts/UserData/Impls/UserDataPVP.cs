@@ -220,12 +220,18 @@ namespace CookApps.AutoBattler
         {
             if (pvpData == null) return;
             
-            UserPVP.CurrentPvpMatchingList.Add(pvpData);
-            
             if (needSave)
             {
                 SaveUserPVPData();
             }
+        }
+
+        // PVP 매칭 결과데이터 업데이트
+        public void SetPVPMatchingResultData(int targetPlayerID, PvpMatchResult resultType)
+        {
+            if (UserPVP.CurrentPvpMatchingDic == null || UserPVP.CurrentPvpMatchingDic.Count <= 0) return;
+            
+            
         }
         
         // 유저 PVP 매칭 데이터를 타겟 매치 데이터를 기준으로 새로 업데이트
@@ -235,7 +241,7 @@ namespace CookApps.AutoBattler
             
             var matchDataList = targetMatchData.MatchInfo.ToList();
             
-            UserPVP.CurrentPvpMatchingList.Clear();
+            UserPVP.CurrentPvpMatchingDic.Clear();
             foreach (var matchData in matchDataList)
             {
                 UserPVPBattleSimpleData newPVPSimpleData = new UserPVPBattleSimpleData();
@@ -243,7 +249,7 @@ namespace CookApps.AutoBattler
                 var decompressStringData  = BMUtil.DecompressGzipToString(matchData.SimpleInfo);
                 newPVPSimpleData = JsonConvert.DeserializeObject<UserPVPBattleSimpleData>(decompressStringData);
                 
-                UserPVP.CurrentPvpMatchingList.Add(newPVPSimpleData);
+                UserPVP.CurrentPvpMatchingDic.Add(matchData.PlayerId, newPVPSimpleData);
             }
             
             if (needSave)
@@ -256,14 +262,15 @@ namespace CookApps.AutoBattler
         public UserPVPBattleSimpleData GetPVPMatchingData(string playerID)
         {
             if (string.IsNullOrWhiteSpace(playerID)) return null;
-            
-            return UserPVP.CurrentPvpMatchingList.ToList().Find(x => x.PlayerId == playerID);
+            if (UserPVP.CurrentPvpMatchingDic.ContainsKey(playerID) == false) return null;
+
+            return UserPVP.CurrentPvpMatchingDic[playerID];
         }
         
         // 매칭 리스트에서 데이터 반환 (전체)
         public List<UserPVPBattleSimpleData> GetPVPMatchingDataList()
         {
-            return UserPVP.CurrentPvpMatchingList.ToList();
+            return UserPVP.CurrentPvpMatchingDic.Values.ToList();
         }
     }
 }
