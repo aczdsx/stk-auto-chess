@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
         private ArenaMainPopup _parentPopup;
         
         private UserPVP _currentUserPVPData;
-        private List<PlayerRankingData> _currentServerRankingDataList;
+        private List<PvpRankingData> _currentServerRankingDataList;
         
         private SpecPVPTier _specPVPTierData;
         
@@ -49,6 +49,8 @@ namespace CookApps.AutoBattler
             CreateRankScrollList();
             
             _emptyLayerObject?.SetActive(_currentServerRankingDataList == null || _currentServerRankingDataList.Count == 0);
+            
+            _rankScrollRect.verticalNormalizedPosition = 1;
         }
         
         public void RefreshLayer()

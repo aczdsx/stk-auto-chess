@@ -106,6 +106,17 @@ namespace CookApps.AutoBattler
 
             return userCharacterGroup.UserCharacterBattleDeckDic[(int)targetType].UserCharacterBattleDecks.ToList();
         }
+        
+        // 해당 타입의 배틀 덱이 있는지 확인
+        public bool CheckUserCharacterBattleDeckList(InGameType targetType)
+        {
+            if (userCharacterGroup.UserCharacterBattleDeckDic.ContainsKey((int)targetType) == false)
+            {
+                userCharacterGroup.UserCharacterBattleDeckDic.Add((int)targetType, new UserCharacterBattleDeckList());
+            }
+
+            return userCharacterGroup.UserCharacterBattleDeckDic[(int)targetType].UserCharacterBattleDecks.Count > 0;
+        }
 
         public void SetCharacterLevel(int characterID, int level)
         {
