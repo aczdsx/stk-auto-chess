@@ -51,6 +51,8 @@ public class InGameTopUI : MonoBehaviour
     private float beforePlayerHpRate = 1.0f;
     private float beforeEnemyHpRate = 1.0f;
 
+    private Type _failType;
+
     private void Awake()
     {
         _pauseButton.onClick.AddListener(OnClickPauseButton);
@@ -243,6 +245,11 @@ public class InGameTopUI : MonoBehaviour
 
     private void OnClickPauseButton()
     {
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameExitPopup>().Forget();
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameExitPopup>(_failType).Forget();
+    }
+
+    public void InitTopUI(Type type)
+    {
+        _failType = type;
     }
 }

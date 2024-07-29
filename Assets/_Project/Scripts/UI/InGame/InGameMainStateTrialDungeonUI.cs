@@ -24,14 +24,22 @@ namespace CookApps.AutoBattler
             _inGameUI.transform.SetSiblingIndex(2);
 
             _specTrialDungeon = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
-            _inGameUI.TopUI.SetStageName(StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial));
-
+            _inGameUI.TopUI.SetStageName(StringUtil.GetTrialDungeonString(_specTrialDungeon));
             InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
         }
 
         public UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
         {
             throw new System.NotImplementedException();
+        }
+        
+        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
+        {
+            _inGameUI.BottomUI.InitData();
+            RefreshInGameTopUI(false);
+            InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
+            _inGameUI.TopUI.InitTopUI(typeof(FlowStateTrialDungeonFail));
+            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateTrialDungeonCombat), battleDeckList);
         }
         
         public void InitCombatStateUI()
@@ -77,14 +85,6 @@ namespace CookApps.AutoBattler
                     _updateTimer -= UpdateInterval;
                 }
             }
-        }
-        
-        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
-        {
-            _inGameUI.BottomUI.InitData();
-            RefreshInGameTopUI(false);
-            InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateTrialDungeonCombat), battleDeckList);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)

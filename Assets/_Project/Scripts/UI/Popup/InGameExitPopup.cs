@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
+using System;
 
 namespace CookApps.AutoBattler
 {
@@ -12,6 +13,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _exitButton;
         [SerializeField] private CAButton _continueButton;
+        
+        private Type _failType;
 
         protected override void Awake()
         {
@@ -34,6 +37,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+            _failType = (Type) param;
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
@@ -58,10 +62,8 @@ namespace CookApps.AutoBattler
         private void OnClickExitButton()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PopUILayer(this);
-
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();
+            InGameMainFlowManager.Instance.AddNextState(_failType);
         }
     }
 }
