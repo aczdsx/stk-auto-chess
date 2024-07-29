@@ -141,6 +141,9 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         inGameTiles.Clear();
         inGameTiles =InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 1);
         await ExecuteSkillStep(inGameTiles);
+        
+        CoolTimeElapsedTime = 0;
+        IsSkillActivated = false;
     }
     
     
