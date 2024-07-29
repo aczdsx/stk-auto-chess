@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -90,6 +91,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickSettingDefenseDeckButton()
         {
+            InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
             UserPVPBattleDetailData data = UserDataManager.Instance.GetCurrentPVPDetailProfileData();
             SceneLoading.GoToNextScene("InGame",
