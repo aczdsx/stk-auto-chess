@@ -93,7 +93,7 @@ namespace CookApps.AutoBattler
         {
             InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
-            UserPVPBattleDetailData data = UserDataManager.Instance.GetCurrentPVPDetailProfileData();
+            UserPVPBattleDetailData data = UserDataManager.Instance.GetCurrentPVPDetailProfileData(true);
             SceneLoading.GoToNextScene("InGame",
                 (InGameType.PVP_DEFENSE, (IGameStateUI) new InGameMainStatePvpDefenseUI(), data),
                 transition).Forget();
