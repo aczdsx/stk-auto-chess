@@ -9,24 +9,21 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 라키유
-// 대상 : 물리 또는 마법 방어력이 가장 높은 적의 3*3 범위
+// "대상 : 물리 또는 마법 방어력이 가장 높은 적의 3*3 범위
 // 효과 : 약병을 투하해 {0}초 동안 범위 내에 위치한 적군의 치유 효과를 {1}%, 
-// 물리/마법 방어력을 {2}% 감소시킨다.
+// 물리/마법 방어력을 {2}% 감소시킨다."
 /// </summary>
 [UseEffectCodeIds(1406021)]
 public class EffectCodeSkill1406021 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _debuffTime;
-    private ObfuscatorFloat _healDebuffRate;
-    private ObfuscatorFloat _defDebuffRate;
-
+    private ObfuscatorFloat _healRate;
+    private ObfuscatorFloat _buffTime;
+    private ObfuscatorFloat _buffRate;
     private bool _isReadyToActivate;
-
-    private List<CharacterController> _hitCharacters = new List<CharacterController>();
-
-    private WeakReference<InGameVfx> _vfx;
-
     private SpecSkill _specSkill;
+
+    private InGameVfx _vfxObj;
+    private InGameTile _targetTile;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -34,11 +31,13 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _debuffTime = codeInfo.GetCodeStatToFloat(1);
-        _healDebuffRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _defDebuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _buffTime = codeInfo.GetCodeStatToFloat(2);
+        _buffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
+
+        SkillIndex = 0;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
@@ -47,9 +46,9 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _debuffTime = codeInfo.GetCodeStatToFloat(1);
-        _healDebuffRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _defDebuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _buffTime = codeInfo.GetCodeStatToFloat(2);
+        _buffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -87,7 +86,6 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
     {
         base.Activate();
         // TODO: Target Check
-        _hitCharacters.Clear();
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -97,38 +95,47 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
-        // [TODO] 이거 아란 기반으로 다시 수정해야 함.
         base.OnSkillExecute(executeIndex, totalLength);
+        if (owner.Target == null)
+            return;
 
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
-        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileListByNearest(owner.CurrentTile);
-        if (inGameTile.Count > 0)
+        _vfxObj = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
+
+        var target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
+        if (target != null)
         {
-            var targetTile = inGameTile[0];
-            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,targetTile.View.CachedTr.position);
-            
-            Vector3 direction = (targetTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
-            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+            _targetTile = target.CurrentTile;
+            Vector3 direction = (target.CurrentTile.View.CachedTr.position - _vfxObj.CachedTr.position).normalized;
+            _vfxObj.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-            movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
-            vfxProjectile.Initialize(false, movement);
-            vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
-            // movement.OnReachedTarget +=
+            var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
+            movement.SetData(_vfxObj.CachedTr.position, target.CurrentTile.View.CachedTr.position, 10);
+            _vfxObj.Initialize(false, movement);
+
+            void OnReachedTargetHandler()
+            {
+                _vfxObj.Remove();
+                SkillAction(_targetTile);
+            }
+
+            movement.OnReachedTarget += OnReachedTargetHandler;
         }
 
-        CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
 
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    public override void OnSkillAnimationEnd()
+    {
+        CoolTimeElapsedTime = 0;
+        IsSkillActivated = false;
+        base.OnSkillAnimationEnd();
+    }
+    
+    private void SkillAction(InGameTile tile)
     {
         InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
         tile.CheckValidTile(owner.AllianceType, false, () =>
         {
-            if (_hitCharacters.Contains(tile.OccupiedCharacter))
-                return;
-            
             var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
             foreach (var inGameTile in inGameTiles)
             {
@@ -141,8 +148,8 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
                         Span<double> buffStats = stackalloc double[3];
                         buffStats.Clear();
                         buffStats[0] = codeId;
-                        buffStats[1] = _debuffTime;
-                        buffStats[2] = _defDebuffRate;
+                        buffStats[1] = _buffTime;
+                        buffStats[2] = _buffRate;
                         var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, 0, buffStats);
                         InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
                     }
@@ -151,22 +158,13 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
                         Span<double> buffStats = stackalloc double[3];
                         buffStats.Clear();
                         buffStats[0] = codeId;
-                        buffStats[1] = _debuffTime;
-                        buffStats[2] = _healDebuffRate;
+                        buffStats[1] = _buffTime;
+                        buffStats[2] = _healRate;
                         var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, 0, buffStats);
                         InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
                     }
                 });
             }
         });
-        
-        _hitCharacters.Add(tile.OccupiedCharacter);
-    }
-
-    public override void OnSkillAnimationEnd()
-    {
-        CoolTimeElapsedTime = 0;
-        IsSkillActivated = false;
-        base.OnSkillAnimationEnd();
     }
 }
