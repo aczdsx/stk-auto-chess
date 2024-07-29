@@ -1,6 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.IO;
+using System.IO.Compression;
+using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
+
 
 public static class BMUtil
 {
@@ -17,4 +21,40 @@ public static class BMUtil
     {
         return new Color(color.r, color.g, color.b, alpha);
     }
+    
+    public static string ConvertToJsonSerialize<T>(T data)
+    {
+        return JsonConvert.SerializeObject(data);
+    }
+    
+    public static T ConvertFromJsonDeserialize<T>(string data)
+    {
+        return JsonConvert.DeserializeObject<T>(data);
+    }
+
+    public static string DecompressGzipToString(string compressedString)
+    {
+        // Base64 문자열을 바이트 배열로 변환
+        byte[] gzipData = Convert.FromBase64String(compressedString);
+    
+        using (var inputStream = new MemoryStream(gzipData))
+        using (var gzipStream = new GZipStream(inputStream, CompressionMode.Decompress))
+        using (var outputStream = new MemoryStream())
+        {
+            gzipStream.CopyTo(outputStream);
+            byte[] decompressedData = outputStream.ToArray();
+        
+            // 바이트 배열을 문자열로 변환
+            string resultString = Encoding.UTF8.GetString(decompressedData);
+        
+            // 역슬래시 제거
+            resultString = resultString.Replace("\\", "");
+            
+            // 따옴표 제거
+            resultString = resultString.Trim('"');
+        
+            return resultString;
+        }
+    }
+
 }

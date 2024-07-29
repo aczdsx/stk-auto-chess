@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
         private ArenaMainPopup _parentPopup;
 
         private UserPVP _currentUserPVPData;
-        private List<MyPvpMatchingData> _currentServerMatchingDataList;
+        private List<UserPVPBattleSimpleData> _currentServerMatchingDataList;
 
         private void Awake()
         {
@@ -58,31 +58,29 @@ namespace CookApps.AutoBattler
         
         public void RefreshLayer()
         {
+            CreateMatchingScrollList();
             
+            _emptyLayerObject?.SetActive(_currentServerMatchingDataList == null || _currentServerMatchingDataList.Count == 0);
         }
         
         private void CreateMatchingScrollList()
         {
             ClearLayer();
 
-            var matchInfo = PVPManager.Instance.CurrentPVPMatchListData;
-            if (matchInfo != null)
+            _currentServerMatchingDataList = UserDataManager.Instance.GetPVPMatchingDataList();
+            
+            foreach (var matchData in _currentServerMatchingDataList)
             {
-                _currentServerMatchingDataList = matchInfo.MatchInfo.ToList();
-
-                foreach (var matchData in _currentServerMatchingDataList)
-                {
-                    GameObject newSlotObject = Instantiate(_matchingSlotObject, _matchingScrollRect.content);
-                    var matchingSlot = newSlotObject.GetComponent<ArenaBattleEnemySlot>();
+                GameObject newSlotObject = Instantiate(_matchingSlotObject, _matchingScrollRect.content);
+                var matchingSlot = newSlotObject.GetComponent<ArenaBattleEnemySlot>();
                     
-                    matchingSlot?.InitSlot();
-                }
+                matchingSlot?.InitSlot(matchData);
             }
         }
         
         private void OnClickMatchingRefreshButton()
         {
-            
+            _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
         }
         
         private void ClearLayer()
