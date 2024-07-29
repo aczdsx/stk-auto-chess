@@ -109,7 +109,7 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
             _vfxObj.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
-            movement.SetData(_vfxObj.CachedTr.position, target.CurrentTile.View.CachedTr.position, 10);
+            movement.SetData(_vfxObj.CachedTr.position, target.CurrentTile.View.CachedTr.position, 5);
             _vfxObj.Initialize(false, movement);
 
             void OnReachedTargetHandler()
@@ -131,40 +131,36 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
     
-    private void SkillAction(InGameTile tile)
+    private void SkillAction(InGameTile pivotTile)
     {
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-        tile.CheckValidTile(owner.AllianceType, false, () =>
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, pivotTile.View.CachedTr.position);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(pivotTile, 1);
+        foreach (var tile in inGameTiles)
         {
-            var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
-            foreach (var inGameTile in inGameTiles)
+            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+                tile.View.CachedTr.position);
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                inGameTile.CheckValidTile(owner.AllianceType, false, () =>
                 {
-                    var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                        inGameTile.View.CachedTr.position);
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = codeId;
+                    eccStats[1] = _buffTime;
+                    eccStats[2] = _buffRate;
 
-                    {
-                        Span<double> buffStats = stackalloc double[3];
-                        buffStats.Clear();
-                        buffStats[0] = codeId;
-                        buffStats[1] = _buffTime;
-                        buffStats[2] = _buffRate;
-                        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, 0, buffStats);
-                        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
-                    }
-            
-                    {
-                        Span<double> buffStats = stackalloc double[3];
-                        buffStats.Clear();
-                        buffStats[0] = codeId;
-                        buffStats[1] = _buffTime;
-                        buffStats[2] = _healRate;
-                        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, 0, buffStats);
-                        InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, source);
-                    }
-                });
-            }
-        });
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
+                }
+                
+                {
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = codeId;
+                    eccStats[1] = _buffTime;
+                    eccStats[2] = _healRate;
+
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, tile.OccupiedCharacter, eccStats, source);
+                }
+            });
+        }
     }
 }

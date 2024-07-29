@@ -18,17 +18,19 @@ namespace CookApps.BattleSystem
         private void InitializeBezierData()
         {
             time = 0;
-            // [TODO]: 곡선의 길이를 계산할 수 있으면 좋을 듯
             totalDistance = Mathf.Abs(Vector3.Distance(srcPos, destPos));
 
             // 시작 지점.
             points[0] = srcPos;
 
-            // [TODO]: 시작 지점을 기준으로 랜덤 포인트 지정.
-            points[1] = srcPos;
+            // 최대점 높이.
+            float h = srcPos.y + 5.0f; // 최대 높이
 
-            // [TODO]: 도착 지점을 기준으로 랜덤 포인트 지정.
-            points[2] = destPos;
+            // 시작 지점을 기준으로 포인트 지정.
+            points[1] = new Vector3(srcPos.x, h, srcPos.z);
+
+            // 도착 지점을 기준으로 포인트 지정.
+            points[2] = new Vector3(destPos.x, h, destPos.z);
 
             // 도착 지점.
             points[3] = destPos;
@@ -49,7 +51,8 @@ namespace CookApps.BattleSystem
             // 베지어 곡선으로 X,Y,Z 좌표 얻기.
             currPos = new Vector3(
                 CubicBezierCurve(points[0].x, points[1].x, points[2].x, points[3].x),
-                CubicBezierCurve(points[0].y, points[1].y, points[2].y, points[3].y)
+                CubicBezierCurve(points[0].y, points[1].y, points[2].y, points[3].y),
+                CubicBezierCurve(points[0].z, points[1].z, points[2].z, points[3].z)
             );
         }
 

@@ -109,8 +109,8 @@ namespace CookApps.AutoBattler
         public async UniTask SendMatchPVPResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
         {
             var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData);
-            if (response.IsError)
-                return;
+            // if (response.IsError)
+            //     return;
 
         }
     }
