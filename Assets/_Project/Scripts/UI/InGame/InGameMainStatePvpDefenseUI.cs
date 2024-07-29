@@ -18,24 +18,23 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
-            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
+            throw new System.NotImplementedException();
+        }
+
+        public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
+        {
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PvpDefenseUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _inGameUI.TopUI.SetStageName("PVP 방어덱 세팅");
+            _inGameUI.TopUI.SetMyName("PVP 방어덱 세팅");
 
-            UserPVPBattleDetailData data = new UserPVPBattleDetailData();
             InGameManager.Instance.StartInGame<FlowStatePvpDefenseReady>(data);
-        }
-
-        public UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
-        {
-            throw new System.NotImplementedException();
         }
         
         public void InitCombatStateUI()
         {
-            _inGameUI.BottomUI.InitCommanderSkill();
+            // _inGameUI.BottomUI.InitCommanderSkill();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
         }
 
@@ -103,7 +102,7 @@ namespace CookApps.AutoBattler
 
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
-            _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
+            return;
         }
     }
 }

@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +35,19 @@ namespace CookApps.AutoBattler
         private UserPVP _currentUserPVPData;
 
         private SpecPVPTier _specPVPTierData;
-        
+
+        private void Awake()
+        {
+            _settingDefenseDeckButton.onClick.AddListener(OnClickSettingDefenseDeckButton);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            
+            _settingDefenseDeckButton.onClick.RemoveListener(OnClickSettingDefenseDeckButton);
+        }
+
         public void InitLayer(ArenaMainPopup parent)
         {
             _parentPopup = parent;
@@ -72,6 +87,16 @@ namespace CookApps.AutoBattler
         private void UpdateLayer()
         {
             
+        }
+
+        private void OnClickSettingDefenseDeckButton()
+        {
+            InGameManager.Instance.EndInGame();
+            SceneTransition_Animator transition = SceneTransition_Animator.Create();
+            UserPVPBattleDetailData data = UserDataManager.Instance.GetCurrentPVPDetailProfileData();
+            SceneLoading.GoToNextScene("InGame",
+                (InGameType.PVP_DEFENSE, (IGameStateUI) new InGameMainStatePvpDefenseUI(), data),
+                transition).Forget();
         }
 
         private void ClearLayer()

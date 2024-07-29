@@ -27,7 +27,7 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _resRate;
     private ObfuscatorFloat _stunTime;
-    private ObfuscatorFloat _additionalDamageRate;
+    private ObfuscatorFloat _afterDamageRate;
 
     private bool isReadyToActivate;
 
@@ -44,7 +44,7 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _resRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         _stunTime = codeInfo.GetCodeStatToFloat(3);
-        _additionalDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
+        _afterDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -58,7 +58,7 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _resRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
         _stunTime = codeInfo.GetCodeStatToFloat(3);
-        _additionalDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
+        _afterDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -139,7 +139,7 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         
         var inGameTile =
             InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
-                1);
+                4);
 
         float knockBackTime = 0.3f;
         Span<double> eccStats = stackalloc double[3];
@@ -182,6 +182,11 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
     
     private void StunCharacter(InGameTile tile)
     {
+        float damageRate = (float)(owner.AD * _afterDamageRate) * (1.0f + (float)owner.RES / _resRate);
+        var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+        _targetCharacter.GetDamaged(damage, owner);
+        
         Span<double> eccStats = stackalloc double[1];
         eccStats.Clear();
         eccStats[0] = _stunTime;

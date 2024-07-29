@@ -36390,7 +36390,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 2341518298037132567}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -97048,6 +97048,7 @@ MonoBehaviour:
   - {fileID: 5299592178891479545}
   _combatPlayerAttr: {fileID: 69818645454830397}
   _combatEnemyAttr: {fileID: 7641703784369361170}
+  _myName: {fileID: 5742008445028290392}
   _stageName: {fileID: 4748512183126632229}
 --- !u!1 &6721963576853553248
 GameObject:

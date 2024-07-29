@@ -44,6 +44,7 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private List<InGameSynergyUI> _combatEnemySynergyUIList;
     [SerializeField] private TextMeshProUGUI _combatPlayerAttr;
     [SerializeField] private TextMeshProUGUI _combatEnemyAttr;
+    [SerializeField] private TextMeshProUGUI _myName;
     [SerializeField] private TextMeshProUGUI _stageName;
 
 
@@ -218,6 +219,11 @@ public class InGameTopUI : MonoBehaviour
     public void SetStageName(string stageName)
     {
         _stageName.text = stageName;
+    }
+    
+    public void SetMyName(string stageName)
+    {
+        _myName.text = stageName;
     }
 
     private async UniTask AnimateHpBar(Slider slider, float startRatio, float targetRatio, CancellationToken cancellationToken)

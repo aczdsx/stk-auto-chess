@@ -22,11 +22,12 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
         {
-            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PvpUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _inGameUI.TopUI.SetStageName("PVP 유저 이름 들어가야 합니다.");
+            _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
+            _inGameUI.TopUI.SetStageName("PVP 상대 유저 이름 들어가야 합니다.");
 
             // [TODO] pvp 데이터 받아오는 작업 필요
             var pvpBattleDeckList = new UserPVPBattleDetailData();
