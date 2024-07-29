@@ -44,8 +44,26 @@ namespace CookApps.AutoBattler
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserPvp.ToCategoryString(), userPVP);
         }
 
+        // 유저 공격덱 데이터 반환
+        public List<UserCharacterBattleDeck> GetPVPAttackDeckDataList()
+        {
+            return GetUserCharacterBattleDeckList(InGameType.PVP);
+        }
+        
+        // 유저 방어덱 데이터 반환 (캐릭터)
+        public List<UserPVPCharacterBattleDeck> GetPVPDefenseCharacterDeckDataList()
+        {
+            return UserPVP?.MyPvpDefenseDeckList?.PvpCharacterDecks.ToList();
+        }
+        
+        // 유저 방어덱 데이터 반환 (장애물)
+        public List<UserPVPObstacleBattleDeck> GetPVPDefenseObstacleDeckDataList()
+        {
+            return UserPVP?.MyPvpDefenseDeckList?.PvpObstacleDecks.ToList();
+        }
+
         // 현재 정보를 기준으로 유저 데이터를 서버에 보낼 수 있는 SimpleData로 변환
-        public UserPVPBattleSimpleData GetCurrentPVPSimpleProfileData()
+        public UserPVPBattleSimpleData GetCurrentPVPSimpleProfileData(bool isDefenseDeck)
         {
             UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
             simpleData.PlayerId = UserBasicData.PlayerId;
@@ -56,26 +74,49 @@ namespace CookApps.AutoBattler
             simpleData.Nickname = UserBasicData.Nickname;
             simpleData.PlayerLv = UserBasicData.Level;
             //simpleData.BattlePoint =
-            
-            //var getCurrentPVPDeckList = GetUserCharacterBattleDeckList(InGameType.PVP_DEFENSE);
-            var getCurrentPVPDeckList = GetUserCharacterBattleDeckList(InGameType.STAGE);
-            foreach (var deckData in getCurrentPVPDeckList)
+
+            if (isDefenseDeck)
             {
-                var characterData = GetUserCharacter(deckData.CharacterId);
-                if (characterData == null) continue;
+                var getPVPDefenseDeckList = GetPVPDefenseCharacterDeckDataList();
+                if (getPVPDefenseDeckList != null)
+                {
+                    foreach (var deckData in getPVPDefenseDeckList)
+                    {
+                        var characterData = GetUserCharacter(deckData.Id);
+                        if (characterData == null) continue;
                 
-                UserPVPCharacterSimpleDeck newSimpleData = new UserPVPCharacterSimpleDeck();
-                newSimpleData.Id = characterData.CharacterId;
-                newSimpleData.Lv = characterData.Level;
+                        UserPVPCharacterSimpleDeck newSimpleData = new UserPVPCharacterSimpleDeck();
+                        newSimpleData.Id = characterData.CharacterId;
+                        newSimpleData.Lv = characterData.Level;
                 
-                simpleData.SimpleDeckList.Add(newSimpleData);
+                        simpleData.SimpleDeckList.Add(newSimpleData);
+                    }
+                }
+            }
+            else
+            {
+                var getPVPAttackDeckList = GetPVPAttackDeckDataList();
+                if (getPVPAttackDeckList != null)
+                {
+                    foreach (var deckData in getPVPAttackDeckList)
+                    {
+                        var characterData = GetUserCharacter(deckData.CharacterId);
+                        if (characterData == null) continue;
+                
+                        UserPVPCharacterSimpleDeck newSimpleData = new UserPVPCharacterSimpleDeck();
+                        newSimpleData.Id = characterData.CharacterId;
+                        newSimpleData.Lv = characterData.Level;
+                
+                        simpleData.SimpleDeckList.Add(newSimpleData);
+                    }
+                }
             }
             
             return simpleData;
         }
         
         // 현재 정보를 기준으로 유저 데이터를 서버에 보낼 수 있는 DetailData로 변환
-        public UserPVPBattleDetailData GetCurrentPVPDetailProfileData()
+        public UserPVPBattleDetailData GetCurrentPVPDetailProfileData(bool isDefenseDeck)
         {
             UserPVPBattleDetailData detailData = new UserPVPBattleDetailData();
             detailData.PlayerId = UserBasicData.PlayerId;
@@ -90,26 +131,74 @@ namespace CookApps.AutoBattler
             detailData.PvpDeckList = new UserPVPBattleDeckList();
             
             // 유저 캐릭터 덱 데이터 세팅
-            //var getCurrentPVPDeckList = GetUserCharacterBattleDeckList(InGameType.PVP_DEFENSE);
-            var getCurrentPVPDeckList = GetUserCharacterBattleDeckList(InGameType.STAGE);
-            foreach (var deckData in getCurrentPVPDeckList)
+            if (isDefenseDeck)
             {
-                var characterData = GetUserCharacter(deckData.CharacterId);
-                if (characterData == null) continue;
+                var getPVPDefenseDeckList = GetPVPDefenseCharacterDeckDataList();
+                if (getPVPDefenseDeckList != null)
+                {
+                    foreach (var deckData in getPVPDefenseDeckList)
+                    {
+                        detailData.PvpDeckList.PvpCharacterDecks.Add(deckData);
+                    }
+                }
+            }
+            else
+            {
+                var getPVPAttackDeckList = GetPVPAttackDeckDataList();
+                if (getPVPAttackDeckList != null)
+                {
+                    foreach (var deckData in getPVPAttackDeckList)
+                    {
+                        var characterData = GetUserCharacter(deckData.CharacterId);
+                        if (characterData == null) continue;
                 
-                UserPVPCharacterBattleDeck characterDeckData = new UserPVPCharacterBattleDeck();
-                characterDeckData.Id = characterData.CharacterId;
-                characterDeckData.Lv = characterData.Level;
-                characterDeckData.PosX = deckData.PositionTileX;
-                characterDeckData.PosY = deckData.PositionTileY;
+                        UserPVPCharacterBattleDeck characterDeckData = new UserPVPCharacterBattleDeck();
+                        characterDeckData.Id = characterData.CharacterId;
+                        characterDeckData.Lv = characterData.Level;
+                        characterDeckData.PosX = deckData.PositionTileX;
+                        characterDeckData.PosY = deckData.PositionTileY;
                 
-                detailData.PvpDeckList.PvpCharacterDecks.Add(characterDeckData);
+                        detailData.PvpDeckList.PvpCharacterDecks.Add(characterDeckData);
+                    }
+                }
             }
             
             // 유저 장애물 덱 데이터 세팅
             //...
             
             return detailData;
+        }
+
+        public void SetPVPDefenseDeck(List<CookApps.BattleSystem.CharacterController> characterList /*장애물 데이터 파라미터*/)
+        {
+            if (characterList == null || characterList.Count <= 0) return;
+
+            if (UserPVP.MyPvpDefenseDeckList == null)
+            {
+                UserPVP.MyPvpDefenseDeckList = new UserPVPBattleDeckList();
+            }
+            
+            // 초기화
+            UserPVP.MyPvpDefenseDeckList.PvpCharacterDecks.Clear();
+            UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Clear();
+            UserPVP.MyPvpDefenseDeckList.EffectCodeInfos.Clear();
+            
+            // 캐릭터 데이터 세팅
+            foreach (var character in characterList)
+            {
+                UserPVPCharacterBattleDeck newUserBattleDeck = new UserPVPCharacterBattleDeck();
+
+                newUserBattleDeck.Id = character.CharacterId;
+                newUserBattleDeck.Lv = character.GetCharacterStat().Level;
+                newUserBattleDeck.PosX = character.CurrentTile.X;
+                newUserBattleDeck.PosY = character.CurrentTile.Y;
+
+                UserPVP.MyPvpDefenseDeckList.PvpCharacterDecks.Add(newUserBattleDeck);
+            }
+            
+            // todo.. 장애물 데이터 세팅
+            
+            SaveUserPVPData();
         }
         
         public void UpdateUserRankData(int rankPoint, bool needSave)

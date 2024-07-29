@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -82,6 +84,12 @@ namespace CookApps.AutoBattler
             }
             
             // todo.. pvp 인게임 씬 진입
+            InGameManager.Instance.EndInGame();
+            SceneTransition_Animator transition = SceneTransition_Animator.Create();
+            UserPVPBattleDetailData data = new();   // 상대방 디테일 덱
+            SceneLoading.GoToNextScene("InGame",
+                (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
+                transition).Forget();
         }
         
         private void ClearSlot()

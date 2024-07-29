@@ -74,20 +74,44 @@ namespace CookApps.AutoBattler
             CurrentPVPHistoryListData = response;
         }
         
-        // 자신의 PVP 프로필 정보를 서버에 업데이트 (배틀덱 저장 - 자동, 수동)
+        // 자신의 PVP 방어덱 프로필 정보를 서버에 업데이트 (배틀덱 저장 - 자동 위주)
         public async UniTask UpdatePVPProfileData(int battlePower)
         {
+            // 저장할 덱 데이터 유효성 체크
+            var pvpDefenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
+            if (pvpDefenseDeckList == null || pvpDefenseDeckList.Count <= 0)
+            {
+                return;
+            }
+            
             // 심플 정보 세팅
-            var userPVPSimpleData = UserDataManager.Instance.GetCurrentPVPSimpleProfileData();
+            var userPVPSimpleData = UserDataManager.Instance.GetCurrentPVPSimpleProfileData(true);
             var serializedSimpleData = BMUtil.ConvertToJsonSerialize(userPVPSimpleData);
             
             // 디테일 정보 세팅
-            var userPVPDetailData = UserDataManager.Instance.GetCurrentPVPDetailProfileData();
+            var userPVPDetailData = UserDataManager.Instance.GetCurrentPVPDetailProfileData(true);
             var serializedDetailData = BMUtil.ConvertToJsonSerialize(userPVPDetailData);
             
             var response = await GrpcGame.GameGrpcManager.Instance.UpdatePvpProfile(battlePower, serializedSimpleData, serializedDetailData);
             if (response.IsError)
                 return;
+        }
+
+        // 자신의 PVP 방어덱 프로필 정보를 서버 및 로컬 데이터에 업데이트
+        public async UniTask SavePVPProfileData(int battlePower, List<CookApps.BattleSystem.CharacterController> characterList /*장애물 데이터 파라미터*/)
+        {
+            UserDataManager.Instance.SetPVPDefenseDeck(characterList);
+            
+            await UpdatePVPProfileData(battlePower);
+        }
+        
+        // PVP 전투 결과를 전송
+        public async UniTask SendMatchPVPResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
+        {
+            var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData);
+            if (response.IsError)
+                return;
+
         }
     }
 }
