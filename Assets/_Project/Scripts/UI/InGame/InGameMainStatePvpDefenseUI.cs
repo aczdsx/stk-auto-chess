@@ -23,7 +23,7 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
         {
-            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PvpDefenseUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
         
         public void InitCombatStateUI()
         {
-            _inGameUI.BottomUI.InitCommanderSkill();
+            // _inGameUI.BottomUI.InitCommanderSkill();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
         }
 
@@ -102,7 +102,7 @@ namespace CookApps.AutoBattler
 
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
-            _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
+            return;
         }
     }
 }

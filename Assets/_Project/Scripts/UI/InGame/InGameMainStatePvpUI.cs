@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
         {
-            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PvpUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
