@@ -439,6 +439,7 @@ namespace CookApps.AutoBattler
         fx_common_cast_wind = 175,
         fx_common_area_wind = 176,
         Skill_401021_1 = 177,
+        Skill_406021_1 = 178,
     }
 
     public enum GlobalEffectProviderType
