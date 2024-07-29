@@ -75,6 +75,19 @@ namespace GrpcGame
             return response;
         } 
         
+        // PVP 전투 결과 전송
+        public async UniTask<MatchPvpResponse> MatchPvp(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
+        {
+            using var _ = GenericPool<MatchPvpRequest>.Get(out var request);
+            request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
+            request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
+
+            var response = await GameService.MatchPvpAsync(request);
+            if (response == null)
+                throw new System.Exception("response is canceled!");
+            return response;
+        } 
+        
         // 방어덱 세팅 정보를 서버에 업데이트
         // public async UniTask<UpdatePvpProfileResponse> UpdatePvpProfileAsync(int showRankCount)
         // {
