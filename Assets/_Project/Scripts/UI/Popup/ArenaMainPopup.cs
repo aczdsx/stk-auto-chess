@@ -150,15 +150,11 @@ namespace CookApps.AutoBattler
         private async void LoadPVPMatchingData()
         {
             var getUserPVPDataList = UserDataManager.Instance.GetPVPMatchingDataList();
-            // if (getUserPVPDataList == null || getUserPVPDataList.Count <= 0)
-            // {
-            //     await PVPManager.Instance.UpdatePVPMatchList();
-            //     
-            //     _pvpBattleTabLayer?.InitLayer(this);
-            // }
+            if (getUserPVPDataList == null || getUserPVPDataList.Count <= 0)    // 매칭 데이터가 없을 경우 새로 갱신
+            {
+                await PVPManager.Instance.UpdatePVPMatchList();
+            }
             
-            await PVPManager.Instance.UpdatePVPMatchList();
-                
             _pvpBattleTabLayer?.InitLayer(this);
         }
         

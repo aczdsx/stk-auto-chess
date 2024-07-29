@@ -215,25 +215,6 @@ namespace CookApps.AutoBattler
             }
         }
         
-        // 매칭 리스트에 데이터 추가
-        public void AddPVPMatchingList(UserPVPBattleSimpleData pvpData, bool needSave)
-        {
-            if (pvpData == null) return;
-            
-            if (needSave)
-            {
-                SaveUserPVPData();
-            }
-        }
-
-        // PVP 매칭 결과데이터 업데이트
-        public void SetPVPMatchingResultData(int targetPlayerID, PvpMatchResult resultType)
-        {
-            if (UserPVP.CurrentPvpMatchingDic == null || UserPVP.CurrentPvpMatchingDic.Count <= 0) return;
-            
-            
-        }
-        
         // 유저 PVP 매칭 데이터를 타겟 매치 데이터를 기준으로 새로 업데이트
         public void UpdatePVPMatchingListData(GetPvpMatchListResponse targetMatchData, bool needSave)
         {
@@ -244,6 +225,8 @@ namespace CookApps.AutoBattler
             UserPVP.CurrentPvpMatchingDic.Clear();
             foreach (var matchData in matchDataList)
             {
+                if (UserPVP.CurrentPvpMatchingDic.ContainsKey(matchData.PlayerId)) continue;
+                
                 UserPVPBattleSimpleData newPVPSimpleData = new UserPVPBattleSimpleData();
 
                 var decompressStringData  = BMUtil.DecompressGzipToString(matchData.SimpleInfo);
@@ -252,6 +235,20 @@ namespace CookApps.AutoBattler
                 UserPVP.CurrentPvpMatchingDic.Add(matchData.PlayerId, newPVPSimpleData);
             }
             
+            if (needSave)
+            {
+                SaveUserPVPData();
+            }
+        }
+        
+        // PVP 매칭 리스트 결과데이터 업데이트
+        public void SetPVPMatchingResultData(string targetPlayerID, PvpMatchResult resultType, bool needSave)
+        {
+            if (UserPVP.CurrentPvpMatchingDic == null || UserPVP.CurrentPvpMatchingDic.Count <= 0) return;
+            if (UserPVP.CurrentPvpMatchingDic.ContainsKey(targetPlayerID) == false) return;
+            
+            UserPVP.CurrentPvpMatchingDic[targetPlayerID].MatchResult = (int)resultType;
+
             if (needSave)
             {
                 SaveUserPVPData();
