@@ -371,7 +371,7 @@ namespace CookApps.BattleSystem
             return tiles;
         }
 
-        public List<InGameTile> GetTileListByCharacterDirection(CharacterController characterController, int frontSize, int areaSize)
+        public List<InGameTile> GetTileListByCharacterDirection(CharacterController characterController, int frontDistance, int areaSize)
         {
             bool isFront = characterController.GetCharacterView().CachedFront;
             bool isFlip = characterController.GetCharacterView().CachedFlipX;
@@ -384,45 +384,53 @@ namespace CookApps.BattleSystem
             int2 primaryDirection;
             List<int2> secondaryDirections = new();
 
+            bool isX = false;
             if (!isFront && isFlip)
             {
-                primaryDirection = new int2(frontSize, 0);
+                primaryDirection = new int2(frontDistance, 0);
+                isX = true;
             }
             else if (!isFront && !isFlip)
             {
-                primaryDirection = new int2(0, frontSize);
+                primaryDirection = new int2(0, frontDistance);
             }
             else if (isFront && isFlip)
             {
-                primaryDirection = new int2(0, -frontSize);
+                primaryDirection = new int2(0, -frontDistance);
             }
             else
             {
-                primaryDirection = new int2(-frontSize, 0);
+                primaryDirection = new int2(-frontDistance, 0);
+                isX = true;
             }
 
             for (int i = 1; i <= areaSize; i++)
             {
-                secondaryDirections.Add(new int2(0, -i));
-                secondaryDirections.Add(new int2(0, i));
+                if (isX)
+                {
+                    secondaryDirections.Add(new int2(0, -i));
+                    secondaryDirections.Add(new int2(0, i));
+                }
+                else
+                {
+                    secondaryDirections.Add(new int2(-i, 0));
+                    secondaryDirections.Add(new int2(i, 0));
+                }
             }
 
-            for (int i = 1; i <= frontSize; i++)
+            int2 primaryPos = new int2(directionX, directionY) + primaryDirection;
+            if (IsValidPosition(primaryPos))
             {
-                int2 primaryPos = new int2(directionX, directionY) + primaryDirection * i;
-                if (IsValidPosition(primaryPos))
-                {
-                    tiles.Add(GetTile(primaryPos));
-                }
+                tiles.Add(GetTile(primaryPos));
+            }
 
-                // Loop through areaSize
-                foreach (var offset in secondaryDirections)
+            // Loop through areaSize
+            foreach (var offset in secondaryDirections)
+            {
+                int2 secondaryPos = primaryPos + offset;
+                if (IsValidPosition(secondaryPos))
                 {
-                    int2 secondaryPos = primaryPos + offset;
-                    if (IsValidPosition(secondaryPos))
-                    {
-                        tiles.Add(GetTile(secondaryPos));
-                    }
+                    tiles.Add(GetTile(secondaryPos));
                 }
             }
 

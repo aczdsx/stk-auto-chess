@@ -4,6 +4,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -107,33 +108,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 1, 1);
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
-            tile.CheckValidTile(owner.AllianceType, false, () =>
-            {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
-                
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
-                    codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-                
-                Span<double> eccStats = stackalloc double[3];
-                eccStats.Clear();
-                eccStats[0] = codeId;
-                eccStats[1] = _debuffTime;
-                eccStats[2] = _atkSpeedDownRate;
-        
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, tile.OccupiedCharacter, eccStats, source);
-            });
-        }
-
+        ExecuteSkillRoutine(0.2f).Forget();
 
         IsSkillActivated = false;
     }
@@ -143,5 +118,59 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+    }
+    
+    private async UniTaskVoid ExecuteSkillRoutine(float WaitTime)
+    {
+        if (owner.Target == null)
+            return;
+
+        IsSkillActivated = false;
+        
+        List<InGameTile> inGameTiles = null;
+        
+        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 1, 1);
+        await ExecuteSkillStep(inGameTiles);
+        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
+
+        inGameTiles.Clear();
+        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 2, 1);
+        await ExecuteSkillStep(inGameTiles);
+        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
+
+        inGameTiles.Clear();
+        inGameTiles =InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 1);
+        await ExecuteSkillStep(inGameTiles);
+    }
+    
+    
+    private async UniTask ExecuteSkillStep(List<InGameTile> inGameTiles)
+    {
+        foreach (var tile in inGameTiles)
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+            
+            tile.CheckValidTile(owner.AllianceType, false, () =>
+            {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId,
+                    true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                double[] eccStats = new double[3];
+                eccStats[0] = codeId;
+                eccStats[1] = _debuffTime;
+                eccStats[2] = _atkSpeedDownRate;
+                    
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, tile.OccupiedCharacter, eccStats, source);
+            });
+        }
+                    
+        UniTask.Yield();
     }
 }
