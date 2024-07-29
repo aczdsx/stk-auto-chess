@@ -26,7 +26,8 @@ namespace CookApps.AutoBattler
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _inGameUI.TopUI.SetStageName("PVP 유저 이름 들어가야 합니다.");
+            _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
+            _inGameUI.TopUI.SetStageName("PVP 상대 유저 이름 들어가야 합니다.");
 
             // [TODO] pvp 데이터 받아오는 작업 필요
             var pvpBattleDeckList = new UserPVPBattleDetailData();

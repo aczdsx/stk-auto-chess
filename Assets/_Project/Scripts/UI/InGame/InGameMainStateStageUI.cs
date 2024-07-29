@@ -26,6 +26,7 @@ namespace CookApps.AutoBattler
             _inGameUI.transform.SetSiblingIndex(2);
 
             _specStage = SpecDataManager.Instance.GetStageData(id);
+            _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
             _inGameUI.TopUI.SetStageName($"스테이지 {_specStage.chapter_id}-{_specStage.stage_number}");
 
             InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
