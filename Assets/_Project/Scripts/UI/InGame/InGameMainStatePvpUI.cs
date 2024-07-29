@@ -27,11 +27,9 @@ namespace CookApps.AutoBattler
             _inGameUI.transform.SetSiblingIndex(2);
 
             _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
-            _inGameUI.TopUI.SetStageName("PVP 상대 유저 이름 들어가야 합니다.");
+            _inGameUI.TopUI.SetStageName(data.Nickname);
 
-            // [TODO] pvp 데이터 받아오는 작업 필요
-            var pvpBattleDeckList = new UserPVPBattleDetailData();
-            InGameManager.Instance.StartInGame<FlowStatePvpReady>(pvpBattleDeckList);
+            InGameManager.Instance.StartInGame<FlowStatePvpReady>(data);
         }
 
         public void InitCombatStateUI()
