@@ -126,7 +126,7 @@ namespace CookApps.AutoBattler
             switch (tabType)
             {
                 case ArenaMainPopupTabType.PVP_BATTLE:
-                    _pvpBattleTabLayer?.RefreshLayer();
+                    RefreshPVPMatchingData();
                     break;
                 case ArenaMainPopupTabType.PVP_BATTLE_LOG:
                     _pvpBattleLogTabLayer?.RefreshLayer();
@@ -149,9 +149,24 @@ namespace CookApps.AutoBattler
 
         private async void LoadPVPMatchingData()
         {
+            var getUserPVPDataList = UserDataManager.Instance.GetPVPMatchingDataList();
+            // if (getUserPVPDataList == null || getUserPVPDataList.Count <= 0)
+            // {
+            //     await PVPManager.Instance.UpdatePVPMatchList();
+            //     
+            //     _pvpBattleTabLayer?.InitLayer(this);
+            // }
+            
+            await PVPManager.Instance.UpdatePVPMatchList();
+                
+            _pvpBattleTabLayer?.InitLayer(this);
+        }
+        
+        private async void RefreshPVPMatchingData()
+        {
             await PVPManager.Instance.UpdatePVPMatchList();
             
-            _pvpBattleTabLayer.InitLayer(this);
+            _pvpBattleTabLayer?.RefreshLayer();
         }
         
         private async void LoadPVPLogHistoryData()

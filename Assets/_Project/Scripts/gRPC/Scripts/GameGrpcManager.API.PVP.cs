@@ -59,6 +59,22 @@ namespace GrpcGame
             return response;
         } 
         
+        // PVP 프로필 정보 업데이트
+        public async UniTask<UpdatePvpProfileResponse> UpdatePvpProfile(int battlePower, string simpleProfileData, string detailProfileData)
+        {
+            using var _ = GenericPool<UpdatePvpProfileRequest>.Get(out var request);
+            request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
+            request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
+            request.Power = battlePower.ToString();
+            request.SimpleInfo = simpleProfileData;
+            request.HeavyInfo = detailProfileData;
+
+            var response = await GameService.UpdatePvpProfileAsync(request);
+            if (response == null)
+                throw new System.Exception("response is canceled!");
+            return response;
+        } 
+        
         // 방어덱 세팅 정보를 서버에 업데이트
         // public async UniTask<UpdatePvpProfileResponse> UpdatePvpProfileAsync(int showRankCount)
         // {

@@ -137,8 +137,11 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
+                    // 현재 PVP 유저 데이터 덱 자동저장
+                    await PVPManager.Instance.UpdatePVPProfileData(0);
+                    
                     var transition = SceneTransition_FadeInOut.Create();
-
+                    
                     int lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
                     SceneLoading.GoToNextScene("Lobby", (int) specStageData.chapter_id, transition).Forget();

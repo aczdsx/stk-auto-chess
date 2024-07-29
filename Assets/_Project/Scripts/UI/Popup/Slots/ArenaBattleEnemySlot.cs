@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private ScrollRect _characterDeckScrollRect;
         [SerializeField] private GameObject _characterDeckObject;
 
+        private UserPVPBattleSimpleData _userPVPBattleSimpleData;
+        
         private void Awake()
         {
             _battleButton.onClick.AddListener(OnClickBattleButton);
@@ -34,9 +37,20 @@ namespace CookApps.AutoBattler
             _battleButton.onClick.RemoveListener(OnClickBattleButton);
         }
 
-        public void InitSlot()
+        public void InitSlot(UserPVPBattleSimpleData data)
         {
+            if (data == null) return;
+            
+            _userPVPBattleSimpleData = data;       
+            
+            _enemyLevelText.text = $"Lv.{_userPVPBattleSimpleData.PlayerLv}";
+            _enemyNicknameText.text = _userPVPBattleSimpleData.Nickname;
+            _enemyBattlePowerText.text = _userPVPBattleSimpleData.BattlePoint.ToString();
 
+            var specTierData = SpecDataManager.Instance.GetPVPTierData(_userPVPBattleSimpleData.RankId);
+            _enemyRankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
+            _enemyRankPointText.text = _userPVPBattleSimpleData.RankPoint.ToString();
+            
             CreateCharacterDeckList();
         }
 
@@ -48,6 +62,14 @@ namespace CookApps.AutoBattler
         private void CreateCharacterDeckList()
         {
             ClearSlot();
+
+            foreach (var simpleDeckData in _userPVPBattleSimpleData.SimpleDeckList)
+            {
+                GameObject newSlotObject = Instantiate(_characterDeckObject, _characterDeckScrollRect.content);
+                var characterDeckSlot = newSlotObject.GetComponent<CharacterItemSlot>();
+                
+                characterDeckSlot.SetSlot(simpleDeckData.Id, simpleDeckData.Lv);
+            }
         }
         
         private void OnClickBattleButton()
@@ -64,7 +86,7 @@ namespace CookApps.AutoBattler
         
         private void ClearSlot()
         {
-            
+            BMUtil.RemoveChildObjects(_characterDeckScrollRect.content);
         }
     }
 }

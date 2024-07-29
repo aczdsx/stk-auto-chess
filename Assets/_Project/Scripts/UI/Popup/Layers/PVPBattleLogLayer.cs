@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
                     GameObject newSlotObject = Instantiate(_logSlotObject, _logScrollRect.content);
                     var logSlot = newSlotObject.GetComponent<ArenaBattleEnemySlot>();
                     
-                    logSlot?.InitSlot();
+                    //logSlot?.InitSlot(matchData);
                 }
             }
         }
