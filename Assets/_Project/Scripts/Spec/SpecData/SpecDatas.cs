@@ -867,7 +867,7 @@ namespace CookApps.AutoBattler
         /// 아이디
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 더미 아이디
+        /// 더미 아이디 (DUMMY_숫자 : 이 포맷을 바꾸면 절대안됨!!)
         public string dummy_id;
         /// 더미 간단 정보 (전투이력리스트, 매칭리스트, 랭킹리스트 UI 에 들어가는)
         public string dummy_simple_info;

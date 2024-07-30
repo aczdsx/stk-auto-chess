@@ -22,7 +22,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
 
     private bool _isReadyToActivate;
 
-    private List<InGameVfx> _vfxList = new List<InGameVfx>();
+    private Dictionary<InGameVfx, InGameTile> _vfxDictionary = new();
 
     private SpecSkill _specSkill;
 
@@ -83,7 +83,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
     {
         base.Activate();
         // TODO: Target Check
-        _vfxList.Clear();
+        _vfxDictionary.Clear();
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -94,10 +94,6 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
-
         var inGameCharacterListSortedByHpRate =
             InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
         List<CharacterController> targetCharacters = new();
@@ -117,85 +113,73 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
             }
         }
 
-        foreach (var targetCharacter in targetCharacters)
+        foreach (var target in targetCharacters)
         {
-            var targetTile = targetCharacter.CurrentTile;
-            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                targetTile.View.CachedTr.position);
+            if (target != null)
+            {
+                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                    owner.CurrentTile.View.CachedTr.position);
+                var targetTile = target.CurrentTile;
+                _vfxDictionary.Add(vfxProjectile, targetTile);
+                Vector3 direction = (target.CurrentTile.View.CachedTr.position - targetTile.View.CachedTr.position)
+                    .normalized;
+                vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-            Vector3 direction = (targetTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
-            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+                var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
+                movement.SetData(vfxProjectile.CachedTr.position, target.CurrentTile.View.CachedTr.position, 5);
+                vfxProjectile.Initialize(false, movement);
 
-            movement.SetData(vfxProjectile.CachedTr.position, targetTile.View.CachedTr.position, 15);
-            vfxProjectile.Initialize(false, movement);
-            vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+                void OnReachedTargetHandler()
+                {
+                    vfxProjectile.Remove();
+                    SkillAction(_vfxDictionary[vfxProjectile]);
+                    _vfxDictionary.Remove(vfxProjectile);
+                }
+
+                movement.OnReachedTarget += OnReachedTargetHandler;
+            }
         }
 
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
-
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        // [TODO] 아란 기반으로 다시 수정하자.
-        if (tile.OccupiedCharacter == null)
-            return;
-
-        if (tile.OccupiedCharacter.AllianceType == AllianceType.Wall)
-            return;
-
-        if (_vfxList.Contains(vfx))
-            return;
-
-        if(owner.AllianceType == tile.OccupiedCharacter.AllianceType)
-            return;
-
-        if (tile.OccupiedCharacter != null && tile.OccupiedCharacter.AllianceType != owner.AllianceType)
-        {
-            if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-            {
-                var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                    tile.View.CachedTr.position);
-            
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-            }
-        }
-
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 1);
-        foreach (var inGameTile in inGameTiles)
-        {
-            if (inGameTile.OccupiedCharacter == null)
-                continue;
-
-            if (inGameTile.OccupiedCharacter.AllianceType == AllianceType.Wall)
-                continue;
-
-            if (inGameTile.OccupiedCharacter.AllianceType == owner.AllianceType)
-                continue;
-
-            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                inGameTile.View.CachedTr.position);
-            
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-            var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0, tile.OccupiedCharacter, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-            tile.OccupiedCharacter.GetDamaged(damage, owner);
-        }
-        
-        _vfxList.Add(vfx);
-    }
-
     public override void OnSkillAnimationEnd()
     {
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+    }
+
+    private void SkillAction(InGameTile pivotTile)
+    {
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+            pivotTile.View.CachedTr.position);
+
+        pivotTile.CheckValidTile(owner.AllianceType, false, () =>
+        {
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                pivotTile.OccupiedCharacter.SkillRootTransformFollowable);
+
+            var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, pivotTile.OccupiedCharacter, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, pivotTile.OccupiedCharacter);
+            pivotTile.OccupiedCharacter.GetDamaged(damage, owner);
+        });
+
+        var vfxBoom = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], pivotTile.View.CachedTr.position);
+
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(pivotTile, 1);
+        foreach (var inGameTile in inGameTiles)
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile.View.CachedTr.position);
+            inGameTile.CheckValidTile(owner.AllianceType, false, () =>
+            {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    inGameTile.OccupiedCharacter.SkillRootTransformFollowable);
+
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0, inGameTile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, inGameTile.OccupiedCharacter);
+                inGameTile.OccupiedCharacter.GetDamaged(damage, owner);
+            });
+        }
     }
 }
