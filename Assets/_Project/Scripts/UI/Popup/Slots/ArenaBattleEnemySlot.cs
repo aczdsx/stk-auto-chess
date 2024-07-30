@@ -91,7 +91,7 @@ namespace CookApps.AutoBattler
 
             _isBattleLogSlot = true;
             
-            _userPVPBattleSimpleData = BMUtil.ConvertFromJsonDeserialize<UserPVPBattleSimpleData>(data.OpponentSimpleInfo);
+            _userPVPBattleSimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(data.OpponentSimpleInfo);
             _userPVPBattleSimpleData.MatchResult = (int)data.Result;    // 전투 결과 데이터 추가 설정
             
             _pvpMatchHistoryData = data;

@@ -241,8 +241,7 @@ namespace CookApps.AutoBattler
                 
                 UserPVPBattleSimpleData newPVPSimpleData = new UserPVPBattleSimpleData();
 
-                var decompressStringData  = BMUtil.DecompressGzipToString(matchData.SimpleInfo);
-                newPVPSimpleData = JsonConvert.DeserializeObject<UserPVPBattleSimpleData>(decompressStringData);
+                newPVPSimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(matchData.SimpleInfo);
                 
                 UserPVP.CurrentPvpMatchingDic.Add(matchData.PlayerId, newPVPSimpleData);
             }

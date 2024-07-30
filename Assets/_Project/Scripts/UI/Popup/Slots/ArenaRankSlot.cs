@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             if (data == null) return;
 
             _currentRankingData = data;
-            _userPVPBattleSimpleData = BMUtil.ConvertFromJsonDeserialize<UserPVPBattleSimpleData>(_currentRankingData.SimpleInfo);
+            _userPVPBattleSimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(_currentRankingData.SimpleInfo);
 
             _specPVPTierData = SpecDataManager.Instance.GetPVPTierData(_userPVPBattleSimpleData.RankId);
             

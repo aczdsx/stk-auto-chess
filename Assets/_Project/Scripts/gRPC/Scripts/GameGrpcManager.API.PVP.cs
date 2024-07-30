@@ -66,8 +66,8 @@ namespace GrpcGame
             request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
             request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
             request.Power = battlePower.ToString();
-            request.SimpleInfo = simpleProfileData;
-            request.HeavyInfo = detailProfileData;
+            request.SimpleInfo = BMUtil.CompressStringToGzip(simpleProfileData);
+            request.HeavyInfo = BMUtil.CompressStringToGzip(detailProfileData);
 
             var response = await GameService.UpdatePvpProfileAsync(request);
             if (response == null)
@@ -83,7 +83,7 @@ namespace GrpcGame
             request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
             request.MatchResult = result;
             request.OpponentPlayerId = opponentPlayerID;
-            request.OpponentSimpleInfo = opponentSimpleData;
+            request.OpponentSimpleInfo = BMUtil.CompressStringToGzip(opponentSimpleData);
 
             var response = await GameService.MatchPvpAsync(request);
             if (response == null)
