@@ -20,43 +20,43 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class InGameBottomCharacterUI : MonoBehaviour
 {
     [SerializeField]
-    private CAButton _startButton;
+    protected CAButton _startButton;
 
     [SerializeField]
-    private List<CAButton> _CommanderSkillButtonList;
+    protected List<CAButton> _CommanderSkillButtonList;
 
     [SerializeField]
-    private CAButton _statisticButton;
+    protected CAButton _statisticButton;
 
     [SerializeField]
-    private Transform _characterSelectedTransform;
+    protected Transform _characterSelectedTransform;
 
     [SerializeField]
-    private Transform _rightTransform;
+    protected Transform _rightTransform;
 
     [SerializeField]
-    private Image _returnImage;
+    protected Image _returnImage;
 
     [SerializeField]
-    private InGameCharacterItem _ingameCharacterItemPrefab;
+    protected InGameCharacterItem _ingameCharacterItemPrefab;
 
     [SerializeField]
-    private Transform _inGameCharacterItemTransform;
+    protected Transform _inGameCharacterItemTransform;
 
     [SerializeField]
-    private GameObject _readyUIObj;
+    protected GameObject _readyUIObj;
 
     [SerializeField]
-    private GameObject _commanderSkillObj;
+    protected GameObject _commanderSkillObj;
 
     [SerializeField]
-    private List<CommanderSkillUI> _commanderSkillUIList;
+    protected List<CommanderSkillUI> _commanderSkillUIList;
 
     [SerializeField]
-    private TextMeshProUGUI _characterCountText;
+    protected TextMeshProUGUI _characterCountText;
 
     [SerializeField]
-    private ParticleSystem _commanderFx;
+    protected ParticleSystem _commanderFx;
 
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;

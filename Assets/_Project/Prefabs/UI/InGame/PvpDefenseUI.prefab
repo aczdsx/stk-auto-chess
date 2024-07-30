@@ -28791,7 +28791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topUI: {fileID: 3576708076315274325}
-  _bottomUI: {fileID: 5330841195415939548}
+  _bottomUI: {fileID: 914089410702546410}
   _animator: {fileID: 8392573985640438793}
 --- !u!1 &2315666928562775762
 GameObject:
@@ -47451,7 +47451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4884822001980502313}
-  - component: {fileID: 5330841195415939548}
+  - component: {fileID: 914089410702546410}
   m_Layer: 5
   m_Name: Bottom(Clone)
   m_TagString: Untagged
@@ -47486,7 +47486,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &5330841195415939548
+--- !u!114 &914089410702546410
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47495,7 +47495,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3788897708123432742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cd0b972b9bdbf74eadf8faccfc4d933, type: 3}
+  m_Script: {fileID: 11500000, guid: 39425fad068ee7b48b5310935ce15fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _startButton: {fileID: 2642003811098809852}
@@ -47516,7 +47516,7 @@ MonoBehaviour:
   - {fileID: 6822249861067411944}
   - {fileID: 2005238447566721080}
   _characterCountText: {fileID: 9123894062618672810}
-  _commanderFx: {fileID: 2162868930111231704}
+  _commanderFx: {fileID: 0}
 --- !u!1 &3811274703280264828
 GameObject:
   m_ObjectHideFlags: 0
