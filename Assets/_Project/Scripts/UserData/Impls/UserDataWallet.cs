@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
         public static event Action<int> OnGoldChanged;
         public static event Action<int> OnJewelChanged;
         public static event Action<int> OnCTicketChanged;
+        public static event Action<int> OnPVPTicketChanged;
         public static event Action<int> OnCharUserExpItemChanged;
         public static event Action<int> OnCharUserExpItem2Changed;
 
@@ -71,6 +72,12 @@ namespace CookApps.AutoBattler
                         ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
                     }
                     return userWallet.CTicket >= itemAmount;
+                case ItemType.PVP_TICKET:
+                    if (userWallet.PvpTicket < itemAmount && isShowToast)
+                    {
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_PVP_TICKET");
+                    }
+                    return userWallet.PvpTicket >= itemAmount;
                 case ItemType.CHAR_USER_EXP_ITEM:
                     if (userWallet.CharUserExpItem < itemAmount && isShowToast)
                     {
@@ -117,6 +124,10 @@ namespace CookApps.AutoBattler
                 case ItemType.C_TICKET:
                     userWallet.CTicket += itemAmount;
                     OnCTicketChanged?.Invoke(userWallet.CTicket);
+                    break;
+                case ItemType.PVP_TICKET:
+                    userWallet.PvpTicket += itemAmount;
+                    OnPVPTicketChanged?.Invoke(userWallet.PvpTicket);
                     break;
                 case ItemType.CHAR_USER_EXP_ITEM:
                     userWallet.CharUserExpItem += itemAmount;
@@ -214,6 +225,10 @@ namespace CookApps.AutoBattler
                 case ItemType.C_TICKET:
                     userWallet.CTicket -= itemAmount;
                     OnCTicketChanged?.Invoke(userWallet.CTicket);
+                    break;
+                case ItemType.PVP_TICKET:
+                    userWallet.PvpTicket -= itemAmount;
+                    OnPVPTicketChanged?.Invoke(userWallet.PvpTicket);
                     break;
                 case ItemType.CHAR_USER_EXP_ITEM:
                     userWallet.CharUserExpItem -= itemAmount;

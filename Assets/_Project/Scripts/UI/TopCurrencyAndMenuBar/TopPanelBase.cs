@@ -10,6 +10,7 @@ namespace CookApps.AutoBattler
         AP,
         Jewel,
         C_Ticket,
+        PVP_Ticket,
 
         Char_User_Exp_Item,
         Char_User_Exp_Item_2,
