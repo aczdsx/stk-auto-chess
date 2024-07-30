@@ -42,12 +42,12 @@ public class InGameBottomPvpUI : InGameBottomCharacterUI
     
     private async UniTask PvPSaveProcess()
     {
-        InGameManager.Instance.EndInGame();
-        
         var characterControllers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
         double attrText = InGameObjectManager.Instance.GetAttr(AllianceType.Player);
+        
         await PVPManager.Instance.SavePVPProfileData((int)attrText, characterControllers);
 
+        InGameManager.Instance.EndInGame();
         int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
         var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
         var transition = SceneTransition_FadeInOut.Create();
