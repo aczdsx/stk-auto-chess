@@ -158,7 +158,8 @@ namespace CookApps.AutoBattler
                 _revengeRankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specTierData.pvp_tier_type);
 
                 int rankPointDiff = _pvpMatchHistoryData.MyAfterScore - _pvpMatchHistoryData.MyBeforeScore;
-                _revengeRankPointText.text = $"{_pvpMatchHistoryData.MyBeforeScore}<color=#BFFF39>(+{rankPointDiff})</color>";
+                string markText = rankPointDiff > 0 ? "+" : "";
+                _revengeRankPointText.text = $"{_pvpMatchHistoryData.MyBeforeScore}<color=#BFFF39>({markText}{rankPointDiff})</color>";
             }
         }
         

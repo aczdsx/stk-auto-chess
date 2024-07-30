@@ -21,6 +21,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _myNicknameText;
         [SerializeField] private TextMeshProUGUI _myRankPointText;
         
+        [Space(10)] 
+        [SerializeField] private GameObject _bronzeRankerObject;    // 3위 랭커 아이콘
+        [SerializeField] private GameObject _silverRankerObject;    // 2위 랭커 아이콘
+        [SerializeField] private GameObject _goldRankerObject;      // 1위 랭커 아이콘
+        
         [Header("Ranking List")]
         [SerializeField] private ScrollRect _rankScrollRect;
         [SerializeField] private GameObject _rankSlotObject;
@@ -45,6 +50,11 @@ namespace CookApps.AutoBattler
             _myTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specPVPTierData.pvp_tier_type);
             _myRankingText.text = _currentUserPVPData.Ranking.ToString();
             _myRankPointText.text = _currentUserPVPData.RankPoint.ToString();
+            
+            // 랭커 아이콘 세팅
+            _bronzeRankerObject.SetActive(_currentUserPVPData.Ranking == 3);
+            _silverRankerObject.SetActive(_currentUserPVPData.Ranking == 2);
+            _goldRankerObject.SetActive(_currentUserPVPData.Ranking == 1);
             
             CreateRankScrollList();
             

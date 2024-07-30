@@ -520,6 +520,9 @@ MonoBehaviour:
   _rankPointText: {fileID: 13161848096205313}
   _levelText: {fileID: 6191192627876690731}
   _nicknameText: {fileID: 3037673460535950155}
+  _bronzeRankerObject: {fileID: 4178457823191010272}
+  _silverRankerObject: {fileID: 8365325108685914076}
+  _goldRankerObject: {fileID: 5550887456392398473}
 --- !u!1 &337413050066852955
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _nicknameText;
 
+        [Header("Ranker Icon")] 
+        [SerializeField] private GameObject _bronzeRankerObject;    // 3위 랭커 아이콘
+        [SerializeField] private GameObject _silverRankerObject;    // 2위 랭커 아이콘
+        [SerializeField] private GameObject _goldRankerObject;      // 1위 랭커 아이콘
+
         private PvpRankingData _currentRankingData;
         private UserPVPBattleSimpleData _userPVPBattleSimpleData;
         
@@ -35,6 +40,11 @@ namespace CookApps.AutoBattler
             _rankPointText.text = _currentRankingData.Score.ToString();
             _levelText.text = $"Lv. {_userPVPBattleSimpleData.PlayerLv}";
             _nicknameText.text = _userPVPBattleSimpleData.Nickname;
+            
+            // 랭커 아이콘 세팅
+            _bronzeRankerObject.SetActive(_currentRankingData.Rank == 3);
+            _silverRankerObject.SetActive(_currentRankingData.Rank == 2);
+            _goldRankerObject.SetActive(_currentRankingData.Rank == 1);
         }
     }
 }
