@@ -463,7 +463,7 @@ RectTransform:
   - {fileID: 4963507917019395060}
   - {fileID: 8190342124845574970}
   - {fileID: 3118894209512982935}
-  - {fileID: 2925061462367915756}
+  - {fileID: 3476225455318823363}
   - {fileID: 2586348452527643478}
   - {fileID: 4845946137388250591}
   - {fileID: 4548033991741584135}
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 9069680493758840629}
-  _dimmedBGLayerObject: {fileID: 3739038364236461082}
+  _dimmedBGLayerObject: {fileID: 7805356499888728666}
   _detailBGLayerObject: {fileID: 4972471346295014224}
   _detailMainBGLayer: {fileID: 6331557183476723124}
   _collectionMainLayer: {fileID: 4928659314064489471}
@@ -3509,6 +3509,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3475491612193821079, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8037487999225810903, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
       propertyPath: m_Name
       value: UnOwned
@@ -3602,14 +3606,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
---- !u!224 &2925061462367915756 stripped
+--- !u!224 &3476225455318823363 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8430378634762597665, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7806805197354437134, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
   m_PrefabInstance: {fileID: 6658958341740362701}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3739038364236461082 stripped
+--- !u!1 &7805356499888728666 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8037487999225810903, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3475491612193821079, guid: 05ba530598beccc4a82172e7be80f93c, type: 3}
   m_PrefabInstance: {fileID: 6658958341740362701}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7458443148646256797
