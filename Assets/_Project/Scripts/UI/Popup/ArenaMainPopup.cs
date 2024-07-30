@@ -92,26 +92,26 @@ namespace CookApps.AutoBattler
             switch (tabType)
             {
                 case ArenaMainPopupTabType.PVP_BATTLE:
-                    //_pvpBattleTabToggle.isOn = true;
+                    _pvpBattleTabToggle.isOn = true;
                     _pvpBattleTabLayer.gameObject.SetActive(true);
                     
                     LoadPVPMatchingData();
                     break;
                 case ArenaMainPopupTabType.PVP_BATTLE_LOG:
-                    //_pvpBattleLogTabToggle.isOn = true;
+                    _pvpBattleLogTabToggle.isOn = true;
                     _pvpBattleLogTabLayer.gameObject.SetActive(true);
 
                     LoadPVPLogHistoryData();
-                    //_pvpBattleTabLayer.InitLayer(this);     // temp - 임시 처리
+                    _pvpBattleTabLayer.InitLayer(this);     // temp - 임시 처리
                     break;
                 case ArenaMainPopupTabType.PVP_RANK:
-                    //_pvpRankTabToggle.isOn = true;
+                    _pvpRankTabToggle.isOn = true;
                     _pvpRankTabLayer.gameObject.SetActive(true);
 
                     LoadPVPRankData();
                     break;
                 case ArenaMainPopupTabType.PVP_SEASON_REWARD:
-                    //_pvpSeasonRewardTabToggle.isOn = true;
+                    _pvpSeasonRewardTabToggle.isOn = true;
                     _pvpSeasonRewardTabLayer.gameObject.SetActive(true);
                     
                     _pvpSeasonRewardTabLayer?.InitLayer(this);
