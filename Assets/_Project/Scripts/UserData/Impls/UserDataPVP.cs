@@ -44,6 +44,18 @@ namespace CookApps.AutoBattler
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserPvp.ToCategoryString(), userPVP);
         }
 
+        // PVP 전투 결과 데이터를 유저데이터에 반영
+        public void SetPVPBattleResultData(MatchPvpResponse data, bool needSave)
+        {
+            UserPVP.Ranking = data.MyCurrentRank;
+            UserPVP.RankPoint = data.MyCurrentScore;
+
+            if (needSave)
+            {
+                SaveUserPVPData();
+            }
+        }
+
         // 유저 공격덱 데이터 반환
         public List<UserCharacterBattleDeck> GetPVPAttackDeckDataList()
         {

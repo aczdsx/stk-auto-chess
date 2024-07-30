@@ -121,6 +121,9 @@ namespace CookApps.AutoBattler
                 //var transition = SceneTransition_FadeInOut.Create();
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.
 
+                // 현재 PVP 유저 프로필 자동저장
+                await PVPManager.Instance.UpdatePVPProfileData(0);
+                
                 // 초반 플로우 체크 및 진행
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
                 if (UserDataManager.Instance.IsClearStage(lastTutoStageData.stage_id) == false)
@@ -137,7 +140,7 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    // 현재 PVP 유저 데이터 덱 자동저장
+                    // 현재 PVP 유저 프로필 자동저장
                     await PVPManager.Instance.UpdatePVPProfileData(0);
                     
                     var transition = SceneTransition_FadeInOut.Create();
@@ -151,7 +154,7 @@ namespace CookApps.AutoBattler
 
                 // 세션 타임 기록 unitask 실행
                 await RecordSessionTime();
-
+                
                 // int lastChapter = 1;
                 // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
             }
