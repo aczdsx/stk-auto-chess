@@ -14,8 +14,11 @@ namespace CookApps.AutoBattler
     public class ArenaBattleEnemySlot : MonoBehaviour
     {
         [Header("Common")] 
+        [SerializeField] private GameObject _tierLayer;
         [SerializeField] private GameObject _battleLayer;
         [SerializeField] private CAButton _battleButton;
+        [SerializeField] private GameObject _enableBattleButtonObject;
+        [SerializeField] private GameObject _disableBattleButtonObject;
         
         [Header("Enemy Info")]
         [SerializeField] private TextMeshProUGUI _enemyLevelText;
@@ -69,7 +72,7 @@ namespace CookApps.AutoBattler
             _userPVPBattleSimpleData = data;       
             _pvpMatchHistoryData = null;
             
-            _battleLayer.SetActive(!_isBattleLogSlot && _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Unspecified);
+            _battleLayer.SetActive(true);
             
             _enemyLevelText.text = $"Lv.{_userPVPBattleSimpleData.PlayerLv}";
             _enemyNicknameText.text = _userPVPBattleSimpleData.Nickname;
@@ -134,7 +137,11 @@ namespace CookApps.AutoBattler
         {
             bool haveResult = _userPVPBattleSimpleData.MatchResult != (int)PvpMatchResult.Unspecified;
 
+            _tierLayer.SetActive(!haveResult);
             _battleResultLayer.SetActive(haveResult);
+            
+            _enableBattleButtonObject.SetActive(!haveResult);
+            _disableBattleButtonObject.SetActive(haveResult);
             
             if (haveResult)
             {
@@ -211,14 +218,14 @@ namespace CookApps.AutoBattler
         public async void TestBattle_Win()
         {
             var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
-            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Win, _userPVPBattleSimpleData.PlayerId, simpleData);
+            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Win, _userPVPBattleSimpleData.PlayerId, simpleData, false);
         }
         
         [ContextMenu("Play Test Battle - LOSE")]
         public async void TestBattle_Lose()
         {
             var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
-            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Lose, _userPVPBattleSimpleData.PlayerId, simpleData);
+            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Lose, _userPVPBattleSimpleData.PlayerId, simpleData, false);
         }
     }
 }

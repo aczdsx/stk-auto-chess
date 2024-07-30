@@ -1407,8 +1407,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7951540e9dd514499450dbda36c3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tierLayer: {fileID: 7325754262599908791}
   _battleLayer: {fileID: 2641812762970420241}
   _battleButton: {fileID: 7147999440199709006}
+  _enableBattleButtonObject: {fileID: 3474606518619994725}
+  _disableBattleButtonObject: {fileID: 6929404760923633074}
   _enemyLevelText: {fileID: 3147002936191576324}
   _enemyNicknameText: {fileID: 8492518175296798706}
   _enemyBattlePowerText: {fileID: 975610086486004449}
@@ -1726,7 +1729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3779434639108648176
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3261,9 +3264,9 @@ RectTransform:
   - {fileID: 7737771787032410621}
   m_Father: {fileID: 3520333508517728973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 86, y: -59}
   m_SizeDelta: {x: 140, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4811426433729417356
@@ -4250,7 +4253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5694758939859493528
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5081,9 +5084,9 @@ RectTransform:
   - {fileID: 3703360046087123361}
   m_Father: {fileID: 3520333508517728973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 86, y: -162}
   m_SizeDelta: {x: 150, y: 106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3775303755363549793
