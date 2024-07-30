@@ -78,11 +78,11 @@ namespace CookApps.AutoBattler
         public async UniTask UpdatePVPProfileData(int battlePower)
         {
             // 저장할 덱 데이터 유효성 체크
-            var pvpDefenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
-            if (pvpDefenseDeckList == null || pvpDefenseDeckList.Count <= 0)
-            {
-                return;
-            }
+            // var pvpDefenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
+            // if (pvpDefenseDeckList == null || pvpDefenseDeckList.Count <= 0)
+            // {
+            //     return;
+            // }
             
             // 심플 정보 세팅
             var userPVPSimpleData = UserDataManager.Instance.GetCurrentPVPSimpleProfileData(true);
@@ -95,6 +95,8 @@ namespace CookApps.AutoBattler
             var response = await GrpcGame.GameGrpcManager.Instance.UpdatePvpProfile(battlePower, serializedSimpleData, serializedDetailData);
             if (response.IsError)
                 return;
+            
+            Debug.Log("UpdatePVPProfileData --- Success");
         }
 
         // 자신의 PVP 방어덱 프로필 정보를 서버 및 로컬 데이터에 업데이트
@@ -109,9 +111,21 @@ namespace CookApps.AutoBattler
         public async UniTask SendMatchPVPResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
         {
             var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData);
-            // if (response.IsError)
-            //     return;
+            if (response.IsError)
+                return;
 
+            // 유저 데이터에 결과 저장
+            UserDataManager.Instance.SetPVPBattleResultData(response, true);
+        }
+        
+        // 상대방 PVP 매칭 덱이 업데이트 되었는지 체크
+        public async UniTask<CheckPvpPowerUpdatedResponse> CheckPVPPowerUpdated(string opponentPlayerID, int opponentBattlePower)
+        {
+            var response = await GrpcGame.GameGrpcManager.Instance.CheckPvpPowerUpdated(opponentPlayerID, opponentBattlePower);
+            if (response.IsError)
+                return null;
+
+            return response;
         }
     }
 }

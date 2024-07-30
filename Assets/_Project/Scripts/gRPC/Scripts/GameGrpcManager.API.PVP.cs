@@ -81,8 +81,26 @@ namespace GrpcGame
             using var _ = GenericPool<MatchPvpRequest>.Get(out var request);
             request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
             request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
+            request.MatchResult = result;
+            request.OpponentPlayerId = opponentPlayerID;
+            request.OpponentSimpleInfo = opponentSimpleData;
 
             var response = await GameService.MatchPvpAsync(request);
+            if (response == null)
+                throw new System.Exception("response is canceled!");
+            return response;
+        } 
+        
+        // 상대방 PVP 매칭 데이터가 업데이트 되었는지 체크
+        public async UniTask<CheckPvpPowerUpdatedResponse> CheckPvpPowerUpdated(string opponentPlayerID, int opponentBattlePower)
+        {
+            using var _ = GenericPool<CheckPvpPowerUpdatedRequest>.Get(out var request);
+            request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
+            request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
+            request.OpponentPlayerId = opponentPlayerID;
+            request.Power = opponentBattlePower;
+
+            var response = await GameService.CheckPvpPowerUpdatedAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
             return response;

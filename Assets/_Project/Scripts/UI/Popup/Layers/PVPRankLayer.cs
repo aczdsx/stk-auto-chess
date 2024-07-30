@@ -72,10 +72,9 @@ namespace CookApps.AutoBattler
                     GameObject newSlotObject = Instantiate(_rankSlotObject, _rankScrollRect.content);
                     var rankSlot = newSlotObject.GetComponent<ArenaRankSlot>();
                     
-                    rankSlot?.SetSlot();
+                    rankSlot?.SetSlot(rankData);
                 }
             }
-            
         }
         
         public void ClearLayer()

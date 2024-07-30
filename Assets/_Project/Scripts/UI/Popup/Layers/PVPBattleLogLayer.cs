@@ -51,12 +51,12 @@ namespace CookApps.AutoBattler
             {
                 _currentServerLogDataList = logInfo.PvpMatchHistories.ToList();
 
-                foreach (var matchData in _currentServerLogDataList)
+                foreach (var logData in _currentServerLogDataList)
                 {
                     GameObject newSlotObject = Instantiate(_logSlotObject, _logScrollRect.content);
                     var logSlot = newSlotObject.GetComponent<ArenaBattleEnemySlot>();
                     
-                    //logSlot?.InitSlot(matchData);
+                    logSlot?.InitBattleLogSlot(logData);
                 }
             }
         }

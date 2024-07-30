@@ -14,6 +14,7 @@ namespace CookApps.AutoBattler
     public class ArenaBattleEnemySlot : MonoBehaviour
     {
         [Header("Common")] 
+        [SerializeField] private GameObject _battleLayer;
         [SerializeField] private CAButton _battleButton;
         
         [Header("Enemy Info")]
@@ -27,33 +28,88 @@ namespace CookApps.AutoBattler
         [SerializeField] private ScrollRect _characterDeckScrollRect;
         [SerializeField] private GameObject _characterDeckObject;
 
+        [Header("Battle Result Layer")]
+        [SerializeField] private GameObject _battleResultLayer;
+        [SerializeField] private GameObject _battleResultWinObject;
+        [SerializeField] private GameObject _battleResultLoseObject;
+        [SerializeField] private TextMeshProUGUI _battleResultText;
+        [SerializeField] private TextMeshProUGUI _battleResultTimeText;
+        
+        [Header("Revenge Layer")]
+        [SerializeField] private GameObject _revengeLayer;
+        [SerializeField] private CAButton _revengeButton;
+        [SerializeField] private Image _revengeRankTierImage;
+        [SerializeField] private TextMeshProUGUI _revengeRankPointText;
+        
         private UserPVPBattleSimpleData _userPVPBattleSimpleData;
+        private PvpMatchHistoryData _pvpMatchHistoryData;
+
+        private SpecPVPTier _specTierData;
+        
+        private bool _isBattleLogSlot = false;
         
         private void Awake()
         {
             _battleButton.onClick.AddListener(OnClickBattleButton);
+            _revengeButton.onClick.AddListener(OnClickRevengeButton);
         }
 
         private void OnDestroy()
         {
             _battleButton.onClick.RemoveListener(OnClickBattleButton);
+            _revengeButton.onClick.RemoveListener(OnClickRevengeButton);
         }
 
-        public void InitSlot(UserPVPBattleSimpleData data)
+        public void InitMatchSlot(UserPVPBattleSimpleData data)
         {
             if (data == null) return;
+
+            _isBattleLogSlot = false;
             
             _userPVPBattleSimpleData = data;       
+            _pvpMatchHistoryData = null;
+            
+            _battleLayer.SetActive(!_isBattleLogSlot && _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Unspecified);
             
             _enemyLevelText.text = $"Lv.{_userPVPBattleSimpleData.PlayerLv}";
             _enemyNicknameText.text = _userPVPBattleSimpleData.Nickname;
             _enemyBattlePowerText.text = _userPVPBattleSimpleData.BattlePoint.ToString();
 
-            var specTierData = SpecDataManager.Instance.GetPVPTierData(_userPVPBattleSimpleData.RankId);
-            _enemyRankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
+            _specTierData = SpecDataManager.Instance.GetPVPTierData(_userPVPBattleSimpleData.RankId);
+            _enemyRankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specTierData.pvp_tier_type);
             _enemyRankPointText.text = _userPVPBattleSimpleData.RankPoint.ToString();
             
             CreateCharacterDeckList();
+
+            SetBattleResultLayer();
+            SetRevengeLayer();
+        }
+
+        public void InitBattleLogSlot(PvpMatchHistoryData data)
+        {
+            if (data == null) return;
+
+            _isBattleLogSlot = true;
+            
+            _userPVPBattleSimpleData = BMUtil.ConvertFromJsonDeserialize<UserPVPBattleSimpleData>(data.OpponentSimpleInfo);
+            _userPVPBattleSimpleData.MatchResult = (int)data.Result;    // 전투 결과 데이터 추가 설정
+            
+            _pvpMatchHistoryData = data;
+            
+            _battleLayer.SetActive(false);
+            
+            _enemyLevelText.text = $"Lv.{_userPVPBattleSimpleData.PlayerLv}";
+            _enemyNicknameText.text = _userPVPBattleSimpleData.Nickname;
+            _enemyBattlePowerText.text = _userPVPBattleSimpleData.BattlePoint.ToString();
+
+            _specTierData = SpecDataManager.Instance.GetPVPTierData(_userPVPBattleSimpleData.RankId);
+            _enemyRankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specTierData.pvp_tier_type);
+            _enemyRankPointText.text = _userPVPBattleSimpleData.RankPoint.ToString();
+            
+            CreateCharacterDeckList();
+
+            SetBattleResultLayer();
+            SetRevengeLayer();
         }
 
         public void RefreshSlot()
@@ -73,11 +129,63 @@ namespace CookApps.AutoBattler
                 characterDeckSlot.SetSlot(simpleDeckData.Id, simpleDeckData.Lv);
             }
         }
+
+        private void SetBattleResultLayer()
+        {
+            bool haveResult = _userPVPBattleSimpleData.MatchResult != (int)PvpMatchResult.Unspecified;
+
+            _battleResultLayer.SetActive(haveResult);
+            
+            if (haveResult)
+            {
+                _battleResultWinObject.SetActive(_userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Win);
+                _battleResultLoseObject.SetActive(_userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Lose);
+                
+                string resultText = _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Win ? "승리" : "패배";
+                _battleResultText.text = resultText;
+            }
+        }
+
+        private void SetRevengeLayer()
+        {
+            bool isLoseBattle = _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Lose;
+            bool isAvailRevenge = _isBattleLogSlot && isLoseBattle;
+            
+            _revengeLayer.SetActive(isAvailRevenge);
+
+            if (isAvailRevenge)
+            {
+                _revengeRankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specTierData.pvp_tier_type);
+
+                int rankPointDiff = _pvpMatchHistoryData.MyAfterScore - _pvpMatchHistoryData.MyBeforeScore;
+                _revengeRankPointText.text = $"{_pvpMatchHistoryData.MyBeforeScore}<color=#BFFF39>(+{rankPointDiff})</color>";
+            }
+        }
         
         private void OnClickBattleButton()
         {
             // 방어덱 설정 여부 체크
-            if (UserDataManager.Instance.CheckUserCharacterBattleDeckList(InGameType.PVP_DEFENSE) == false)
+            var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
+            if (defenseDeckList == null || defenseDeckList.Count <= 0)
+            {
+                ToastManager.Instance.ShowToast("TEST - 방어덱 설정이 필요합니다.");
+                return;
+            }
+            
+            // todo.. pvp 인게임 씬 진입
+            InGameManager.Instance.EndInGame();
+            SceneTransition_Animator transition = SceneTransition_Animator.Create();
+            UserPVPBattleDetailData data = new();   // 상대방 디테일 덱
+            SceneLoading.GoToNextScene("InGame",
+                (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
+                transition).Forget();
+        }
+
+        private void OnClickRevengeButton()
+        {
+            // 방어덱 설정 여부 체크
+            var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
+            if (defenseDeckList == null || defenseDeckList.Count <= 0)
             {
                 ToastManager.Instance.ShowToast("TEST - 방어덱 설정이 필요합니다.");
                 return;
@@ -95,6 +203,21 @@ namespace CookApps.AutoBattler
         private void ClearSlot()
         {
             BMUtil.RemoveChildObjects(_characterDeckScrollRect.content);
+        }
+        
+        //////// TEST ///////
+        [ContextMenu("Play Test Battle - WIN")]
+        public async void TestBattle_Win()
+        {
+            var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
+            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Win, _userPVPBattleSimpleData.PlayerId, simpleData);
+        }
+        
+        [ContextMenu("Play Test Battle - LOSE")]
+        public async void TestBattle_Lose()
+        {
+            var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
+            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Lose, _userPVPBattleSimpleData.PlayerId, simpleData);
         }
     }
 }
