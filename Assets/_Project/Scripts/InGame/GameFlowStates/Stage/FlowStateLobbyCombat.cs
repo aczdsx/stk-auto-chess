@@ -32,7 +32,10 @@ public class FlowStateLobbyCombat : StateCombatBase
     private async UniTask StartAsync()
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
-        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
+        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList()
+            .OrderByDescending(character => SpecDataManager.Instance.GetCharacterData(character.CharacterId).seq)
+            .Take(5) // 상위 5개만 선택
+            .ToList();
         foreach (var character in userCharacters)
         {
             var characterStat = new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
