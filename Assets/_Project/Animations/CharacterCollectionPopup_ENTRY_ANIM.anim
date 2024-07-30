@@ -52,7 +52,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: CharacterCollection_Main_Layer/Root/Top/CharacterList
+    path: CharacterCollection_Main_Layer/Root/CharacterList
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -91,7 +91,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: CharacterCollection_Main_Layer/Root/Top/CharacterList
+    path: CharacterCollection_Main_Layer/Root/CharacterList
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -104,7 +104,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 656450763
+      path: 1019014875
       attribute: 1574349066
       script: {fileID: 0}
       typeID: 225
@@ -113,7 +113,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 656450763
+      path: 1019014875
       attribute: 538195251
       script: {fileID: 0}
       typeID: 224
@@ -178,7 +178,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Alpha
-    path: CharacterCollection_Main_Layer/Root/Top/CharacterList
+    path: CharacterCollection_Main_Layer/Root/CharacterList
     classID: 225
     script: {fileID: 0}
     flags: 0
@@ -217,7 +217,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: CharacterCollection_Main_Layer/Root/Top/CharacterList
+    path: CharacterCollection_Main_Layer/Root/CharacterList
     classID: 224
     script: {fileID: 0}
     flags: 0
