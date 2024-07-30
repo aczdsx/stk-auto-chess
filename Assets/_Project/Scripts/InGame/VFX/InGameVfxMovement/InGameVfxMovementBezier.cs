@@ -69,7 +69,8 @@ namespace CookApps.BattleSystem
             if (moveDirection != Vector3.zero)
             {
                 // 이동 방향으로 로테이션 설정.
-                _transform.rotation = Quaternion.LookRotation(moveDirection);
+                if (_transform != null)
+                    _transform.rotation = Quaternion.LookRotation(moveDirection);
             }
         }
 
