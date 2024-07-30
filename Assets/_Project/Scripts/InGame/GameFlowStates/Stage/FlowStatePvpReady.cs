@@ -31,6 +31,7 @@ public class FlowStatePvpReady : StateReadyBase
         
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         
+        // 상대 덱 설정
         foreach (var pvpCharacter in _pvpBattleDeckList.PvpDeckList.PvpCharacterDecks)
         {
             var statData = new CharacterStatData(pvpCharacter.Id, pvpCharacter.Lv, pvpCharacter.EffectCodeInfo, _pvpBattleDeckList.PvpDeckList.EffectCodeInfos);
@@ -68,18 +69,25 @@ public class FlowStatePvpReady : StateReadyBase
                 }
             } 
         }
-
-        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.PVP);
-
-        foreach (var character in battleDeckList)
+        
+        // 내 덱 설정
+        var currentDetailDeck = UserDataManager.Instance.GetCurrentPVPDetailProfileData(false);
+        var battleDeckList = new List<UserCharacterBattleDeck>();
+        foreach (var character in currentDetailDeck.PvpDeckList.PvpCharacterDecks)
         {
-            var characterData = UserDataManager.Instance.GetUserCharacter(character.CharacterId);
-            Debug.LogColor($"기존 배치 캐릭터 추가 : {character.CharacterId}");
+            UserCharacterBattleDeck battleDeck = new UserCharacterBattleDeck();
+            battleDeck.CharacterId = character.Id;
+            battleDeck.PositionTileX = character.PosX;
+            battleDeck.PositionTileY = character.PosY;
+            battleDeckList.Add(battleDeck);
+            
+            var characterData = UserDataManager.Instance.GetUserCharacter(character.Id);
+            Debug.LogColor($"기존 배치 캐릭터 추가 : {character.Id}");
             var characterStat = new CharacterStatData(characterData.CharacterId, characterData.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
-            int x = character.PositionTileX;
-            int y = character.PositionTileY;
+            int x = character.PosX;
+            int y = character.PosY;
 
             int2 coordinate = new int2(x, y);
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate,
