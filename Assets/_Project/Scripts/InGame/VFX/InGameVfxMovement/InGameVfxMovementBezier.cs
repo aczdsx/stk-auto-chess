@@ -9,9 +9,18 @@ namespace CookApps.BattleSystem
         private float time = 0;
         private float totalDistance = 0;
 
+        private Transform _transform;
+
         public override void SetData(Vector3 srcPos, Vector3 destPos, float speed)
         {
             base.SetData(srcPos, destPos, speed);
+            InitializeBezierData();
+        }
+        
+        public void SetData(Transform transform, Vector3 srcPos, Vector3 destPos, float speed)
+        {
+            base.SetData(srcPos, destPos, speed);
+            _transform = transform;
             InitializeBezierData();
         }
 
@@ -54,6 +63,14 @@ namespace CookApps.BattleSystem
                 CubicBezierCurve(points[0].y, points[1].y, points[2].y, points[3].y),
                 CubicBezierCurve(points[0].z, points[1].z, points[2].z, points[3].z)
             );
+            
+            // 이동 벡터 계산.
+            Vector3 moveDirection = currPos - prevPos;
+            if (moveDirection != Vector3.zero)
+            {
+                // 이동 방향으로 로테이션 설정.
+                _transform.rotation = Quaternion.LookRotation(moveDirection);
+            }
         }
 
         /// <summary>

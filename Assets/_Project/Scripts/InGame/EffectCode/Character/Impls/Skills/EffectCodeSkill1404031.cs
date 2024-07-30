@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -112,7 +114,21 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
                 }
             }
         }
+        
+        ProcessTarget(targetCharacters).Forget();
 
+        CoolTimeElapsedTime = 0;
+        IsSkillActivated = false;
+    }
+    public override void OnSkillAnimationEnd()
+    {
+        CoolTimeElapsedTime = 0;
+        IsSkillActivated = false;
+        base.OnSkillAnimationEnd();
+    }
+    
+    private async UniTask ProcessTarget(List<CharacterController> targetCharacters)
+    {
         foreach (var target in targetCharacters)
         {
             if (target != null)
@@ -126,7 +142,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
                 vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
-                movement.SetData(vfxProjectile.CachedTr.position, target.CurrentTile.View.CachedTr.position, 5);
+                movement.SetData(vfxProjectile.transform, vfxProjectile.CachedTr.position, target.CurrentTile.View.CachedTr.position, 7);
                 vfxProjectile.Initialize(false, movement);
 
                 void OnReachedTargetHandler()
@@ -137,17 +153,9 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
                 }
 
                 movement.OnReachedTarget += OnReachedTargetHandler;
+                await UniTask.Delay(TimeSpan.FromSeconds(0.3)); // 0.3초 간격으로 실행
             }
         }
-
-        CoolTimeElapsedTime = 0;
-        IsSkillActivated = false;
-    }
-    public override void OnSkillAnimationEnd()
-    {
-        CoolTimeElapsedTime = 0;
-        IsSkillActivated = false;
-        base.OnSkillAnimationEnd();
     }
 
     private void SkillAction(InGameTile pivotTile)
