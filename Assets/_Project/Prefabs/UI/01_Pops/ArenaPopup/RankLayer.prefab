@@ -106,6 +106,9 @@ MonoBehaviour:
   _myLevelText: {fileID: 508336397971335616}
   _myNicknameText: {fileID: 8701388019262859680}
   _myRankPointText: {fileID: 5965214551845402858}
+  _bronzeRankerObject: {fileID: 0}
+  _silverRankerObject: {fileID: 0}
+  _goldRankerObject: {fileID: 0}
   _rankScrollRect: {fileID: 9046161433543028082}
   _rankSlotObject: {fileID: 779083251799588102}
 --- !u!1 &1276374502471252419
@@ -2492,6 +2495,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7924184723916855679, guid: cd9fbc2b848b52141afde429f94606cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832243919908703353, guid: cd9fbc2b848b52141afde429f94606cf, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

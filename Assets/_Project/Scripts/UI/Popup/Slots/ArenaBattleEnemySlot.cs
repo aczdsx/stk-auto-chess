@@ -164,6 +164,7 @@ namespace CookApps.AutoBattler
             bool isAvailRevenge = _isBattleLogSlot && isLoseBattle;
             
             _revengeLayer.SetActive(isAvailRevenge);
+            _revengeButton.gameObject.SetActive(isLoseBattle);
 
             if (isAvailRevenge)
             {
