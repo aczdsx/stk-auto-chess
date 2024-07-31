@@ -21,6 +21,20 @@ namespace GrpcGame
             return response;
         } 
         
+        // PVP 프로필 정보를 서버로부터 가져옴
+        public async UniTask<GetPvpProfileResponse> GetPvpProfileAsync(string playerID, int profileType)
+        {
+            using var _ = GenericPool<GetPvpProfileRequest>.Get(out var request);
+            request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
+            request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
+            request.Type = profileType;
+            request.OpponentPlayerId = playerID;
+            var response = await GameService.GetPvpProfileAsync(request);
+            if (response == null)
+                throw new System.Exception("response is canceled!");
+            return response;
+        } 
+        
         // PVP 매칭 리스트를 서버로부터 가져옴
         public async UniTask<GetPvpMatchListResponse> GetPvpMatchListAsync()
         {
@@ -98,7 +112,7 @@ namespace GrpcGame
             request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
             request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
             request.OpponentPlayerId = opponentPlayerID;
-            request.Power = opponentBattlePower;
+            request.Power = opponentBattlePower.ToString();
 
             var response = await GameService.CheckPvpPowerUpdatedAsync(request);
             if (response == null)
