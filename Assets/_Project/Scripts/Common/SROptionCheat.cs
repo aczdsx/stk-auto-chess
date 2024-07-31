@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 
@@ -353,10 +354,29 @@ public partial class SROptions
     public async void 유저PVP전체프로필초기화()
     {
         // 심플 정보 세팅
-        var serializedSimpleData = "";
+        UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
+        simpleData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
+        simpleData.ServerId = UserDataManager.Instance.UserBasicData.ServerId;
+        simpleData.RankId = UserDataManager.Instance.UserPVP.RankId;
+        simpleData.RankPoint = UserDataManager.Instance.UserPVP.RankPoint;
+        simpleData.Ranking = UserDataManager.Instance.UserPVP.Ranking;
+        simpleData.Nickname = UserDataManager.Instance.UserBasicData.Nickname;
+        simpleData.PlayerLv = UserDataManager.Instance.UserBasicData.Level;
+        var serializedSimpleData = BMUtil.ConvertToJsonSerialize(simpleData);
             
         // 디테일 정보 세팅
-        var serializedDetailData = "";
+        UserPVPBattleDetailData detailData = new UserPVPBattleDetailData();
+        detailData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
+        detailData.ServerId = UserDataManager.Instance.UserBasicData.ServerId;
+        detailData.RankId = UserDataManager.Instance.UserPVP.RankId;
+        detailData.RankPoint = UserDataManager.Instance.UserPVP.RankPoint;
+        detailData.Ranking = UserDataManager.Instance.UserPVP.Ranking;
+        detailData.Nickname = UserDataManager.Instance.UserBasicData.Nickname;
+        detailData.PlayerLv = UserDataManager.Instance.UserBasicData.Level;
+        //detailData.BattlePoint =
+
+        detailData.PvpDeckList = new UserPVPBattleDeckList();
+        var serializedDetailData = BMUtil.ConvertToJsonSerialize(detailData);
             
         var response = await GrpcGame.GameGrpcManager.Instance.UpdatePvpProfile(0, serializedSimpleData, serializedDetailData);
         if (response.IsError)
