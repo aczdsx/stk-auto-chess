@@ -347,7 +347,26 @@ public partial class SROptions
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    #region PVP 관련
 
+    [Category("PVP 관련")]
+    public async void 유저PVP전체프로필초기화()
+    {
+        // 심플 정보 세팅
+        var serializedSimpleData = "";
+            
+        // 디테일 정보 세팅
+        var serializedDetailData = "";
+            
+        var response = await GrpcGame.GameGrpcManager.Instance.UpdatePvpProfile(0, serializedSimpleData, serializedDetailData);
+        if (response.IsError)
+            return;
+    }
+
+    #endregion
+    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    
     #region 스킬 관련
 
     [Category("스킬 관련")]
