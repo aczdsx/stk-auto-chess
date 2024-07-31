@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
 
         private List<BattleStatSlot> _battleStatSlotList = new List<BattleStatSlot>();
 
-        private InGameBottomCharacterUI _parentUI;
+        private InGameBottomUI _parentUI;
 
         protected override void Awake()
         {
@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            _parentUI = param as InGameBottomCharacterUI;
+            _parentUI = param as InGameBottomUI;
 
             SetBattleStatisticsPopup();
 

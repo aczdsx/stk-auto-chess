@@ -3,10 +3,10 @@ using UnityEngine;
 public class InGameUI : MonoBehaviour
 {
     public InGameTopUI TopUI => _topUI;
-    public InGameBottomCharacterUI BottomUI => _bottomUI;
+    public InGameBottomUI BottomUI => _bottomUI;
     
     [SerializeField] private InGameTopUI _topUI;
-    [SerializeField] private InGameBottomCharacterUI _bottomUI;
+    [SerializeField] private InGameBottomUI _bottomUI;
     [SerializeField] private Animator _animator;
 
     public void PlayAnimation(string trigger)

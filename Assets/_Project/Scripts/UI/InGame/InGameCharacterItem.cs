@@ -26,14 +26,14 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     private Action<CharacterStatData> _onSelected;
     private CharacterStatData _statData;
 
-    private InGameBottomCharacterUI _parentUI;
+    private InGameBottomUI _parentUI;
 
     // 롱탭 기능 관련
     private bool _isShowLongPressFunc = false;
     private bool _isPressing = false;
     private float _pressTime;
 
-    public void SetData(InGameBottomCharacterUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
+    public void SetData(InGameBottomUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
     {
         _parentUI = parent;
         _statData = characterStat;

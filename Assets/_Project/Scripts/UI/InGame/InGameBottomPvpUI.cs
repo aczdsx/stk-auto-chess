@@ -1,74 +1,43 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Cookapps.Stkauto.V1;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
-public class InGameBottomPvpUI : InGameBottomCharacterUI
+public class InGameBottomPvpUI : InGameBottomUI
 {
-    [SerializeField] protected InGameObstacleItem _ingameObstacleItemPrefab;
-    [SerializeField] protected Transform _inGameObstacleItemTransform;
-    [SerializeField] protected GameObject _obstacleListBody;
-    [SerializeField] protected CAButton _changeButton;
-    [SerializeField] protected GameObject _obstacleTipObj;
-    
-    private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
-
     protected void Awake()
     {
-        _startButton?.onClick.AddListener(OnPvPSaveButtonClicked);
-        _changeButton?.onClick.AddListener(OnChangeButtonClicked);
-    }
-
-    public void InitData(List<UserPVPObstacleBattleDeck> obstacleBattleDecks)
-    {
-        base.InitData();
-        // [TODO] 보유한 방어덱에 대한 정보 리스트 생성하기
+        _startButton?.onClick.AddListener(OnStartButtonClicked);
     }
     
-    private void OnPvPSaveButtonClicked()
+    protected override bool IsCheckStartBattle()
     {
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-        
-        // string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
-        string contentText = "방어덱을 저장하시겠습니까?(TEST)";
-
-        SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-        newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () =>
+        // 전투 인원 0명 검사
+        if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == 0)
         {
-            PvPSaveProcess().Forget();
-        });
+            ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_CHAR_NOT_SET");
+            return false;
+        }
 
-        SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
-    }
-    
-    private void OnChangeButtonClicked()
-    {
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-        
-        _obstacleListBody.SetActive(!_obstacleListBody.activeSelf);
-        _characterListBody.SetActive(!_characterListBody.activeSelf);
-        
-        _obstacleTipObj.SetActive(!_obstacleTipObj.activeSelf);
-        _characterTipObj.SetActive(!_characterTipObj.activeSelf);
-    }
-    
-    private async UniTask PvPSaveProcess()
-    {
-        var characterControllers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-        double attrText = InGameObjectManager.Instance.GetAttr(AllianceType.Player);
-        
-        await PVPManager.Instance.SavePVPProfileData((int)attrText, characterControllers);
+        // 전투 인원 최대 인원 미배치 검사
+        var userLevelData =
+            SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
+        if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userLevelData.squad_count)
+        {
+            bool isAvailableCharacter = _characterItemList.Exists(l => l.StatData != null);
+            if (isAvailableCharacter)
+            {
+                string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
 
-        InGameManager.Instance.EndInGame();
-        int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
-        var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
-        var transition = SceneTransition_FadeInOut.Create();
-        await SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition);
+                SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () => StartInGameBattle(_combatType));
+
+                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }
