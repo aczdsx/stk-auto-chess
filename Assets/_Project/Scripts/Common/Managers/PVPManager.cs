@@ -130,18 +130,25 @@ namespace CookApps.AutoBattler
         }
         
         // PVP 전투 결과를 전송
-        public async UniTask SendMatchPVPResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData, bool isRevenge)
+        public async UniTask SendMatchPVPBattleResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
         {
             var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData);
             if (response.IsError)
                 return;
 
             // 복수가 아닌 일반 매칭일 경우 매칭 결과 데이터 세팅
-            if (isRevenge == false)
-            {
-                UserDataManager.Instance.SetPVPMatchingResultData(opponentPlayerID, result, false);     // 저장은 SetPVPBattleResultData에서 같이 처리
-            }
+            UserDataManager.Instance.SetPVPMatchingResultData(opponentPlayerID, result, false);     // 저장은 SetPVPBattleResultData에서 같이 처리
             
+            // 유저 데이터에 결과 저장
+            UserDataManager.Instance.SetPVPBattleResultData(response, true);
+        }
+        
+        public async UniTask SendMatchPVPRevengeResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData, string matchID)
+        {
+            var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData);
+            if (response.IsError)
+                return;
+
             // 유저 데이터에 결과 저장
             UserDataManager.Instance.SetPVPBattleResultData(response, true);
         }
