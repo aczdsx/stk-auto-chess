@@ -285,6 +285,13 @@ namespace CookApps.BattleSystem
         {
             return _grid.GetTile(pos);
         }
+        
+        public int2 GetInOppositePosition(int2 pos)
+        {
+            int x = _grid.Width - pos.x - 1;
+            int y = _grid.Height - pos.y - 1;
+            return new int2(x, y);
+        }
 
         public InGameTile[] GetAllInGameTiles()
         {

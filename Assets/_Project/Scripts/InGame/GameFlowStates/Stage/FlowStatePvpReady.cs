@@ -37,7 +37,8 @@ public class FlowStatePvpReady : StateReadyBase
             var statData = new CharacterStatData(pvpCharacter.Id, pvpCharacter.Lv, pvpCharacter.EffectCodeInfo, _pvpBattleDeckList.PvpDeckList.EffectCodeInfos);
             
             int2 coordinate = new int2(pvpCharacter.PosX, pvpCharacter.PosY);
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
+            var newPos = InGameObjectManager.Instance.GetInOppositePosition(coordinate);
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, newPos, AllianceType.Enemy,
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
         
@@ -49,8 +50,10 @@ public class FlowStatePvpReady : StateReadyBase
             {
                 if (specObstacleDataList[0].obstacle_type == ObstacleType.WALL)
                 {
-                    var grid = InGameObjectManager.Instance.GetInGameTile(
-                        new int2(obstacleDeck.PosX, obstacleDeck.PosY));
+                    var newPos =
+                        InGameObjectManager.Instance.GetInOppositePosition(new int2(obstacleDeck.PosX,
+                            obstacleDeck.PosY));
+                    var grid = InGameObjectManager.Instance.GetInGameTile(newPos);
                     addCharacterTasks.Add(
                         InGameObjectManager.Instance.AddObstacleToField(grid.View.ID, obstacleDeck.Id,
                             AllianceType.Wall));
@@ -61,9 +64,10 @@ public class FlowStatePvpReady : StateReadyBase
                     var statData = new CharacterStatData(specObstacleDataList[0].obstacle_id, 1, 1, 1);
 
                     var tile = InGameObjectManager.Instance.GetInGameTile(specObstacleDataList[0].obstacle_id);
-                    int2 coordinate = new int2(tile.X, tile.Y);
+                    var newPos =
+                        InGameObjectManager.Instance.GetInOppositePosition(new int2(tile.X, tile.Y));
 
-                    addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
+                    addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, newPos,
                         AllianceType.Neutral,
                         typeof(CharacterStateReady), false, HpBarType.None));
                 }
