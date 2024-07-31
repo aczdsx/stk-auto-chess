@@ -7,6 +7,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class InGameBottomPvpDefenseUI : InGameBottomUI
@@ -18,6 +19,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     [SerializeField] protected GameObject _obstacleTipObj;
     
     private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
+    private bool _isRunningAddCharacter;
 
     protected void Awake()
     {
@@ -25,17 +27,27 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         _changeButton?.onClick.AddListener(OnChangeButtonClicked);
     }
 
-    public void InitData(List<UserPVPObstacleBattleDeck> obstacleBattleDecks)
+    public override void InitData()
     {
+        //[TODO] stats로 체크하던 부분 item의 uid로 체크하도록 수정
         base.InitData();
         List<int> obstacleIDs = new List<int>();
         obstacleIDs.Add(100001);
         obstacleIDs.Add(100001);
         obstacleIDs.Add(100001);
 
+        _obstacleItemList.Clear();
+        BMUtil.RemoveChildObjects(_inGameObstacleItemTransform);
+        
         foreach (var obstacleID in obstacleIDs)
         {
-            // SpecDataManager.Instance.GetSpecObstacleList(obstacleID);
+            var obstacleList = SpecDataManager.Instance.GetSpecObstacleList(obstacleID);
+            if (obstacleList.Count > 0)
+            {
+                var obstacleItem = Instantiate(_ingameObstacleItemPrefab, _inGameObstacleItemTransform);
+                _obstacleItemList.Add(obstacleItem);
+                obstacleItem.SetData(this, obstacleList[0], AddObstacleToTile);
+            }
         }
     }
     
@@ -83,5 +95,56 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
         var transition = SceneTransition_FadeInOut.Create();
         await SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition);
+    }
+    
+    private async void AddObstacleToTile(SpecObstacle specObstacle)
+    {
+        if (_isRunningAddCharacter)
+            return;
+
+        _isRunningAddCharacter = true;
+        UpdateObstacleData();
+
+        var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile();
+        int2 pos = new int2(ingameTile.X, ingameTile.Y);
+
+        if (specObstacle.obstacle_type == ObstacleType.WALL)
+        {
+            await UniTask.WhenAll(new[]
+            {
+                InGameObjectManager.Instance.AddObstacleToField(ingameTile.View.ID, specObstacle.obstacle_id,
+                    AllianceType.Wall)
+            });
+        }
+        else
+        {
+            var statData = new CharacterStatData(specObstacle.obstacle_id, 1, 1, 1);
+            await UniTask.WhenAll(new[]
+            {
+                InGameObjectManager.Instance.AddCharacterToField(statData, pos,
+                    AllianceType.Neutral,
+                    typeof(CharacterStateReady), false, HpBarType.None)
+            });
+        }
+
+        InGameManager.Instance.UpdateSynergyAndAttr();
+        SetCharacterCountText();
+
+        _isRunningAddCharacter = false;
+    }
+    
+    public void UpdateObstacleData()
+    {
+        // for (int i = 0; i < _obstacleItemList.Count; i++)
+        // {
+        //     if (i < _obstacleStats.Count)
+        //     {
+        //         _obstacleItemList[i].SetData(this, _obstacleStats[i], AddObstacleToTile);
+        //     }
+        //     else
+        //     {
+        //         _obstacleItemList[i].SetData(this, null, null);
+        //     }
+        // }
     }
 }

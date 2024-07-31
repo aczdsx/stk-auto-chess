@@ -168,7 +168,7 @@ public class InGameBottomUI : MonoBehaviour
         }
     }
 
-    public void InitData()
+    public virtual void InitData()
     {
         _characterItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameCharacterItemTransform);
