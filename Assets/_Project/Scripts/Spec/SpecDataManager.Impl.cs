@@ -923,7 +923,7 @@ namespace CookApps.AutoBattler
                 .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
         
-        public List<SpecObstacle> GetSpecSynergyList(int obstacleID)
+        public List<SpecObstacle> GetSpecObstacleList(int obstacleID)
         {
             if (obstacleDic.TryGetValue(obstacleID, out List<SpecObstacle> obstacleList))
             {

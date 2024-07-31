@@ -28,7 +28,15 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     public void InitData(List<UserPVPObstacleBattleDeck> obstacleBattleDecks)
     {
         base.InitData();
-        // [TODO] 보유한 방어덱에 대한 정보 리스트 생성하기
+        List<int> obstacleIDs = new List<int>();
+        obstacleIDs.Add(100001);
+        obstacleIDs.Add(100001);
+        obstacleIDs.Add(100001);
+
+        foreach (var obstacleID in obstacleIDs)
+        {
+            // SpecDataManager.Instance.GetSpecObstacleList(obstacleID);
+        }
     }
     
     protected override bool IsCheckStartBattle()

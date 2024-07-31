@@ -6,12 +6,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InGameObstacleItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class InGameObstacleItem : MonoBehaviour
 {
     private const float LONG_PRESS_DURATION = 0.5f;
 
-    public CharacterStatData StatData => _statData;
-    public bool IsFocusSlot => _focusObj.activeSelf;
     [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private GameObject _body;
@@ -21,35 +19,35 @@ public class InGameObstacleItem : MonoBehaviour, IPointerDownHandler, IPointerUp
     [SerializeField] private Animation _dropFxAnimation;
     [SerializeField] private TextMeshProUGUI _focusText;
 
-    private Action<CharacterStatData> _onSelected;
-    private CharacterStatData _statData;
+    private Action<SpecObstacle> _onSelected;
 
     private InGameBottomUI _parentUI;
+    private SpecObstacle _specObstacle;
 
     // 롱탭 기능 관련
     private bool _isShowLongPressFunc = false;
     private bool _isPressing = false;
     private float _pressTime;
 
-    public void SetData(InGameBottomUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
+    public void SetData(InGameBottomUI parent, SpecObstacle specObstacle, Action<SpecObstacle> onSelected)
     {
         _parentUI = parent;
-        _statData = characterStat;
-        bool isExsist = _statData != null;
+        _specObstacle = specObstacle;
+        bool isExsist = _specObstacle != null;
 
         _body.SetActive(isExsist);
         _emptySlotObj.SetActive(!isExsist);
         if (_body.activeSelf)
         {
-            _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
+            _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specObstacle.obstacle_id); // [TODO] 장애물 스프라이트로 변경
         }
         _onSelected = onSelected;
     }
 
     public void OnClickItem()
     {
-        if (_statData != null && !_isShowLongPressFunc)
-            _onSelected.Invoke(_statData);
+        if (_specObstacle != null && !_isShowLongPressFunc)
+            _onSelected.Invoke(_specObstacle);
 
         _isShowLongPressFunc = false;
     }
@@ -68,36 +66,5 @@ public class InGameObstacleItem : MonoBehaviour, IPointerDownHandler, IPointerUp
     public void PlayDropFx()
     {
         _dropFxAnimation.Play();
-    }
-
-    // 롱탭 동작 시 실행할 함수
-    public void OnLongPress()
-    {
-        Debug.Log("######## Long Pressed ########");
-
-        InGameMain.GetInGameMain().ShowSKillTooltip(_statData);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        _isPressing = true;
-        _pressTime = Time.time;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        _isPressing = false;
-
-        InGameMain.GetInGameMain().CloseSkillTooltip();
-    }
-
-    void Update()
-    {
-        if (_isPressing && (Time.time - _pressTime) >= LONG_PRESS_DURATION)
-        {
-            _isShowLongPressFunc = true;
-            _isPressing = false;
-            OnLongPress();
-        }
     }
 }

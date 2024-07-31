@@ -55,7 +55,7 @@ public class FlowStatePvpDefenseReady : StateReadyBase
         
         foreach (var obstacleDeck in _pvpBattleDeckList.PvpDeckList.PvpObstacleDecks)
         {
-            var specObstacleDataList = SpecDataManager.Instance.GetSpecSynergyList(obstacleDeck.Id);
+            var specObstacleDataList = SpecDataManager.Instance.GetSpecObstacleList(obstacleDeck.Id);
             if (specObstacleDataList.Count > 0)
             {
                 if (specObstacleDataList[0].obstacle_type == ObstacleType.WALL)
