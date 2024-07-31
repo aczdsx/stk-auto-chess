@@ -14,12 +14,15 @@ public class InGameBottomPvpUI : InGameBottomCharacterUI
     [SerializeField] protected InGameObstacleItem _ingameObstacleItemPrefab;
     [SerializeField] protected Transform _inGameObstacleItemTransform;
     [SerializeField] protected GameObject _obstacleListBody;
+    [SerializeField] protected CAButton _changeButton;
+    [SerializeField] protected GameObject _obstacleTipObj;
     
     private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
 
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnPvPSaveButtonClicked);
+        _changeButton?.onClick.AddListener(OnChangeButtonClicked);
     }
 
     public void InitData(List<UserPVPObstacleBattleDeck> obstacleBattleDecks)
@@ -48,7 +51,11 @@ public class InGameBottomPvpUI : InGameBottomCharacterUI
     {
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         
+        _obstacleListBody.SetActive(!_obstacleListBody.activeSelf);
+        _characterListBody.SetActive(!_characterListBody.activeSelf);
         
+        _obstacleTipObj.SetActive(!_obstacleTipObj.activeSelf);
+        _characterTipObj.SetActive(!_characterTipObj.activeSelf);
     }
     
     private async UniTask PvPSaveProcess()

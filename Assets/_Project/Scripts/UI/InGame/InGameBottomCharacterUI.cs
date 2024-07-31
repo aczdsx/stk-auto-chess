@@ -61,6 +61,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
     [SerializeField]
     protected ParticleSystem _commanderFx;
     
+    [SerializeField] 
+    protected GameObject _characterTipObj;
+    
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
