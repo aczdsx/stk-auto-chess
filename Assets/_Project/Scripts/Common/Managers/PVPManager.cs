@@ -8,6 +8,14 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
+    // PVP 전투 정보를 구성하기 위한 프로필 데이터
+    public class PVPProfileData
+    {
+        public string PlayerID;
+        public UserPVPBattleSimpleData SimpleData;
+        public UserPVPBattleDetailData DetailData;
+    }
+    
     public class PVPManager : SingletonMonoBehaviour<PVPManager>
     {
         public GetPvpInfoResponse CurrentPVPInfo { get; private set; }      // 현재 PVP INFO
@@ -25,6 +33,20 @@ namespace CookApps.AutoBattler
             
         }
 
+        // 상대방 PVP 프로필 정보를 서버로부터 가져옴
+        public async UniTask<PVPProfileData> GetPVPProfileData(string playerID, int profileType)
+        {
+            var response = await GrpcGame.GameGrpcManager.Instance.GetPvpProfileAsync(playerID, profileType);
+            if (response.IsError)
+                return null;
+
+            PVPProfileData newProfileData = new PVPProfileData();
+            newProfileData.SimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(response.SimpleInfo);
+            newProfileData.DetailData = BMUtil.DecompressGzipToDataClass<UserPVPBattleDetailData>(response.HeavyInfo);
+            
+            return newProfileData;
+        }
+        
         // PVP 정보를 서버로 부터 최신화
         public async UniTask UpdatePVPInfo()
         {
