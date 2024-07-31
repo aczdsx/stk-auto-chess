@@ -170,7 +170,7 @@ namespace CookApps.AutoBattler
             }
         }
         
-        private void OnClickBattleButton()
+        private async void OnClickBattleButton()
         {
             // 방어덱 설정 여부 체크
             var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
@@ -180,16 +180,21 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // todo.. 상대방 덱 업데이트 서버 체크
+
+            // 서버로 부터 상대방 덱 정보 로드
+            var pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
+            
             // todo.. pvp 인게임 씬 진입
             InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
-            UserPVPBattleDetailData data = new();   // 상대방 디테일 덱
+            UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
             SceneLoading.GoToNextScene("InGame",
                 (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
                 transition).Forget();
         }
 
-        private void OnClickRevengeButton()
+        private async void OnClickRevengeButton()
         {
             // 방어덱 설정 여부 체크
             var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
@@ -199,10 +204,15 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // todo.. 상대방 덱 업데이트 서버 체크
+            
+            // 서버로 부터 상대방 덱 정보 로드
+            var pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
+            
             // todo.. pvp 인게임 씬 진입
             InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
-            UserPVPBattleDetailData data = new();   // 상대방 디테일 덱
+            UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
             SceneLoading.GoToNextScene("InGame",
                 (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
                 transition).Forget();
