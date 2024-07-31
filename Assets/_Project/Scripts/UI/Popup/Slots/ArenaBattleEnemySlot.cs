@@ -50,6 +50,7 @@ namespace CookApps.AutoBattler
         private SpecPVPTier _specTierData;
         
         private bool _isBattleLogSlot = false;
+        private bool _isDummyUser = false;
         
         private void Awake()
         {
@@ -71,6 +72,8 @@ namespace CookApps.AutoBattler
             
             _userPVPBattleSimpleData = data;       
             _pvpMatchHistoryData = null;
+            
+            _isDummyUser = SpecDataManager.Instance.IsPVPDummyUser(_userPVPBattleSimpleData.PlayerId);
             
             _battleLayer.SetActive(true);
             
@@ -96,6 +99,8 @@ namespace CookApps.AutoBattler
             
             _userPVPBattleSimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(data.OpponentSimpleInfo);
             _userPVPBattleSimpleData.MatchResult = (int)data.Result;    // 전투 결과 데이터 추가 설정
+            
+            _isDummyUser = SpecDataManager.Instance.IsPVPDummyUser(_userPVPBattleSimpleData.PlayerId);
             
             _pvpMatchHistoryData = data;
             
@@ -182,10 +187,29 @@ namespace CookApps.AutoBattler
             
             // todo.. 상대방 덱 업데이트 서버 체크
 
-            // 서버로 부터 상대방 덱 정보 로드
-            var pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
+            // 서버로 부터 상대방 덱 정보 로드 및 체크
+            PVPProfileData pvpProfileData = new PVPProfileData();
+            if (_isDummyUser)
+            {
+                var specDummyData = SpecDataManager.Instance.GetPVPDummyData(_userPVPBattleSimpleData.PlayerId);
+                if (specDummyData == null)
+                {
+                    return;
+                }
+                
+                pvpProfileData.SimpleData = BMUtil.ConvertFromJsonDeserialize<UserPVPBattleSimpleData>(specDummyData.dummy_simple_info);
+                pvpProfileData.DetailData = BMUtil.ConvertFromJsonDeserialize<UserPVPBattleDetailData>(specDummyData.dummy_heavy_info);
+            }
+            else
+            {
+                pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
+                if (pvpProfileData == null || pvpProfileData.DetailData == null)
+                {
+                    return;
+                }
+            }
             
-            // todo.. pvp 인게임 씬 진입
+            // 인게임 씬 집입
             InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
             UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
@@ -206,10 +230,14 @@ namespace CookApps.AutoBattler
             
             // todo.. 상대방 덱 업데이트 서버 체크
             
-            // 서버로 부터 상대방 덱 정보 로드
+            // 서버로 부터 상대방 덱 정보 로드 및 체크
             var pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
+            if (pvpProfileData == null || pvpProfileData.DetailData == null)
+            {
+                return;
+            }
             
-            // todo.. pvp 인게임 씬 진입
+            // 인게임 씬 집입
             InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
             UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
@@ -237,5 +265,20 @@ namespace CookApps.AutoBattler
             var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
             await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Lose, _userPVPBattleSimpleData.PlayerId, simpleData, false);
         }
+        
+        [ContextMenu("Play Test Revenge - WIN")]
+        public async void TestRevenge_Win()
+        {
+            var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
+            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.RevengeWin, _userPVPBattleSimpleData.PlayerId, simpleData, false);
+        }
+        
+        [ContextMenu("Play Test Revenge - LOSE")]
+        public async void TestRevenge_Lose()
+        {
+            var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
+            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.RevengeLose, _userPVPBattleSimpleData.PlayerId, simpleData, false);
+        }
+        
     }
 }

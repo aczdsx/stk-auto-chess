@@ -957,6 +957,16 @@ namespace CookApps.AutoBattler
             return SpecPVPRankingList.Find(data => data.rank_range_start <= ranking && data.rank_range_end <= ranking);
         }
 
+        public SpecPVPDummy GetPVPDummyData(string dummyID)
+        {
+            return SpecPVPDummyList.Find(data => data.dummy_id == dummyID);
+        }
+        
+        public bool IsPVPDummyUser(string playerID)
+        {
+            return playerID.Contains("DUMMY");
+        }
+
         public List<SpecPvpReward> GetPVPRewardDataList(PvpRewardType rewardType)
         {
             return SpecPvpRewardList.FindAll(data => data.pvp_reward_type == rewardType);
