@@ -119,7 +119,7 @@ private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNam
 {
     //[TODO] 디버프 처리는 아직 안함.
     var targetTile = targetCharacter.CurrentTile;
-    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile.View.CachedTr.position);
+    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile);
 
     var vfxProjectile =
         InGameVfxManager.Instance.AddInGameVfx(vfxProjectileType, owner.CurrentTile.View.CachedTr.position);

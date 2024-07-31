@@ -496,6 +496,11 @@ namespace CookApps.BattleSystem
                 return tiles.Take(count).ToList();
             }
         }
+        
+        public List<InGameTile> GetTileListByColumn(InGameTile tile)
+        {
+            return _tiles.Where(t => t.X == tile.X).ToList();
+        }
 
         public List<InGameTile> GetTileListByRow(InGameTile tile)
         {

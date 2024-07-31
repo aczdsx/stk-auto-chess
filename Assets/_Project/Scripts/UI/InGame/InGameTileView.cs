@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
         public int ID { get; set; }
         public Vector3 Position => CachedTr.position;
         public AllianceType AllianceType => _allianceType;
+        public bool IsAlphaBoard => _boardSprite.color.a == 0;
 
         public void SetActiveObj(bool isActive)
         {

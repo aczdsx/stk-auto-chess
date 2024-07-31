@@ -106,8 +106,7 @@ public class EffectCodeSkill1203021 : EffectCodeCharacterBase
             var target = targetCharacterList[0];
             
             var targetTile = target.CurrentTile;
-            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                targetTile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile);
 
             Vector3 direction = (targetTile.View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
             vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
@@ -124,14 +123,13 @@ public class EffectCodeSkill1203021 : EffectCodeCharacterBase
                 var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetTile, 1);
                 foreach (var tile in tiles)
                 {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
                     tile.CheckValidTile(owner.AllianceType, false, () =>
                     {
                         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                             tile.OccupiedCharacter.SkillRootTransformFollowable);
                         
-                        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                            tile.View.CachedTr.position);
+                        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
                     
                         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
                         float calculatedDamageRate = _additionalDamageRate;

@@ -116,21 +116,24 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,tile.View.CachedTr.position);
-        tileFx.CachedTr.position = tile.View.CachedTr.position;
-
-        tile.CheckValidTile(owner.AllianceType, false, () =>
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+        if (tileFx != null)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                tile.OccupiedCharacter.SkillRootTransformFollowable);
+            tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-            tile.OccupiedCharacter.GetDamaged(damage, owner);
+            tile.CheckValidTile(owner.AllianceType, false, () =>
+            {
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-            _hitCharacters.Add(tile.OccupiedCharacter);
-        });
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                _hitCharacters.Add(tile.OccupiedCharacter);
+            });
+        }
     }
 
     public override void OnSkillAnimationEnd()

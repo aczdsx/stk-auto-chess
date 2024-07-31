@@ -109,8 +109,11 @@ namespace CookApps.BattleSystem
             return effect;
         }
 
-        public InGameVfx AddInGameTileFx(ElementType type, Vector3 worldPosition)
+        public InGameVfx AddInGameTileFx(ElementType type, InGameTile inGameTile)
         {
+            if (inGameTile.View.IsAlphaBoard)
+                return null;
+            
             InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
             if (type == ElementType.DARK)
             {
@@ -141,7 +144,7 @@ namespace CookApps.BattleSystem
             {
                 var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
                 addWaitingInGameVfxs.Enqueue(effect);
-                effect.CachedTr.position = worldPosition;
+                effect.CachedTr.position = inGameTile.View.CachedTr.position;
                 return effect;
             }
             return null;

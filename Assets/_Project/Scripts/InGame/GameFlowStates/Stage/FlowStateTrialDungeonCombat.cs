@@ -24,7 +24,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
-        InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
+        InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f, true);
         InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
 
         InGameMain.GetInGameMain().OpenStatisticPop();

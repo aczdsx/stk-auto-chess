@@ -171,7 +171,7 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], inGameTile.View.Position);
         foreach (var tile in tileList)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 StunCharacter(tile);

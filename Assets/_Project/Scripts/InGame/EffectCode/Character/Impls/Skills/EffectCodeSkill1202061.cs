@@ -136,7 +136,7 @@ public class EffectCodeSkill1202061 : EffectCodeCharacterBase
         {
             float calculatedDamageRate = _damageRate;
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                characterControllers[0].CurrentTile.View.CachedTr.position);
+                characterControllers[0].CurrentTile);
 
             var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
                 character, codeId, true);
@@ -147,8 +147,7 @@ public class EffectCodeSkill1202061 : EffectCodeCharacterBase
             inGameTiles.Remove(characterControllers[0].CurrentTile);
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                    tile.View.CachedTr.position);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
 
                 StunCharacter(character);
             }

@@ -111,7 +111,7 @@ public class EffectCodeSkill1306011 : EffectCodeCharacterBase
                     break;
                 
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                    targetCharacters[i].CurrentTile.View.CachedTr.position);
+                    targetCharacters[i].CurrentTile);
 
                 Span<double> eccStats = stackalloc double[3];
                 eccStats.Clear();

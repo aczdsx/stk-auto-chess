@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CookApps.AutoBattler;
+using CookApps.Obfuscator;
+using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+using CharacterController = CookApps.BattleSystem.CharacterController;
+
+/// <summary>
+/// 시련 보스 스킬
+/// </summary>
+/// 
+[UseEffectCodeIds(1204031)]
+public class EffectCodeSkill1204031 : EffectCodeCharacterBase
+{
+    private ObfuscatorFloat _powerRate1;
+
+    private bool _isReadyToActivate;
+    private SpecSkill _specSkill;
+    private int _count = 0;
+
+    public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
+    {
+        base.Initialize(codeInfo, container, source);
+        SkillIndex = 1;
+        CoolTimeElapsedTime = 0f;
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
+        _powerRate1 = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _isReadyToActivate = false;
+        IsSkillActivated = false;
+
+        _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+    }
+
+    public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
+    {
+        base.Merge(codeInfo, source);
+        CoolTimeElapsedTime = 0f;
+        CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
+        _powerRate1 = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+    }
+
+    public override void OnUpdate(float dt)
+    {
+        if (!IsSkillActivated)
+        {
+            return;
+        }
+
+        // target check
+        if (false)
+        {
+            owner.AddNextState<CharacterStateIdle>();
+            CoolTimeElapsedTime = CoolTimeDurationTime;
+        }
+    }
+
+    public override void OnCooltime(float dt)
+    {
+        if (_isReadyToActivate || IsSkillActivated)
+            return;
+        CoolTimeElapsedTime += dt;
+        if (CoolTimeElapsedTime >= CoolTimeDurationTime)
+        {
+            _isReadyToActivate = true;
+        }
+    }
+
+    public override bool IsReadyToActivate()
+    {
+        return _isReadyToActivate;
+    }
+
+    public override void Activate()
+    {
+        base.Activate();
+
+        _isReadyToActivate = false;
+        IsSkillActivated = true;
+        owner.AddNextState<CharacterStateSkill>(this);
+    }
+
+    public override void OnSkillExecute(int executeIndex, int totalLength)
+    {
+        base.OnSkillExecute(executeIndex, totalLength);
+        if (owner.Target == null)
+            return;
+
+        if (_count == 0)
+        {
+            var inGameTiles =
+                InGameObjectManager.Instance.InGameGrid.GetTileListByColumn(owner.Target.CurrentTile);
+            inGameTiles = inGameTiles.OrderByDescending(t => t.Y).ToList();
+            ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
+        }
+        else if (_count == 1)
+        {
+            var inGameTiles =
+                InGameObjectManager.Instance.InGameGrid.GetTileListByColumn(owner.Target.CurrentTile);
+            inGameTiles = inGameTiles.OrderByDescending(t => t.Y).ToList();
+            inGameTiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByRow(owner.Target.CurrentTile));
+            ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
+        }
+        else
+        {
+            var inGameTiles =
+                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3);
+            ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
+        }
+
+        _count += 1;
+
+        IsSkillActivated = false;
+    }
+    
+    private void OnSkillEnd()
+    {
+        IsSkillActivated = false;
+        owner.AddNextState<CharacterStateIdle>();
+        CoolTimeElapsedTime = CoolTimeDurationTime;
+        base.OnSkillAnimationEnd();
+    }
+
+    public override void OnSkillAnimationEnd()
+    {
+        //[TODO] 이거 불리지 않도록 end를 제거하거나 스킬을 길게 만들던 해서 다른 방법으로 처리해야 함.
+        CoolTimeElapsedTime = 0;
+        IsSkillActivated = false;
+        base.OnSkillAnimationEnd();
+    }
+    
+    private async UniTask ProcessTiles(List<InGameTile> tiles, CharacterController owner, float powerRate)
+    {
+        foreach (var tile in tiles.FindAll(l => l.View.AllianceType == AllianceType.Player))
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+            tile.CheckValidTile(owner.AllianceType, false, async () =>
+            {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+
+                var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+            });
+            await UniTask.Delay(TimeSpan.FromSeconds(0.2));
+        }
+    }
+}

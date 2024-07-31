@@ -106,7 +106,7 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 10);
         foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
 
         OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
 
@@ -125,7 +125,7 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 

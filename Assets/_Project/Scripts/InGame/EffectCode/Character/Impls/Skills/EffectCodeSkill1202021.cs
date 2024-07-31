@@ -112,7 +112,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
 
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
         }
 
@@ -128,7 +128,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,

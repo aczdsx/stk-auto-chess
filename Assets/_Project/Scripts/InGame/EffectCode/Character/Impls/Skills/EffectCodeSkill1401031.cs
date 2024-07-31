@@ -151,7 +151,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
             
             tile.CheckValidTile(owner.AllianceType, false, () =>

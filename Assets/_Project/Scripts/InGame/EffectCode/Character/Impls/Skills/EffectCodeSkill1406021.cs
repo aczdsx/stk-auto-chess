@@ -133,12 +133,11 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
     
     private void SkillAction(InGameTile pivotTile)
     {
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, pivotTile.View.CachedTr.position);
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, pivotTile);
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(pivotTile, 1);
         foreach (var tile in inGameTiles)
         {
-            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 {

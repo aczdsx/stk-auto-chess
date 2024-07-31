@@ -160,8 +160,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
 
     private void SkillAction(InGameTile pivotTile)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-            pivotTile.View.CachedTr.position);
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, pivotTile);
 
         pivotTile.CheckValidTile(owner.AllianceType, false, () =>
         {
@@ -178,7 +177,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(pivotTile, 1);
         foreach (var inGameTile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);
             inGameTile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,

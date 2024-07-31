@@ -131,7 +131,7 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
         {
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], characterControllers[0].CurrentTile.View.CachedTr.position);
             float calculatedDamageRate = _damageRate;
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, characterControllers[0].CurrentTile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, characterControllers[0].CurrentTile);
 
             var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
                 characterControllers[0], codeId, true);
@@ -142,7 +142,7 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
             inGameTiles.Remove(characterControllers[0].CurrentTile);
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             }
         }
         
@@ -150,7 +150,7 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
         
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             tile.CheckValidTile(owner.AllianceType, false, () =>
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,

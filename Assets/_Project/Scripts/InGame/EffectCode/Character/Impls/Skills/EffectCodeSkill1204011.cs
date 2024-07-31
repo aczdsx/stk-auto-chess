@@ -112,30 +112,33 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(_elementType, tile.View.CachedTr.position);
-        tileFx.CachedTr.position = tile.View.CachedTr.position;
-
-        tile.CheckValidTile(owner.AllianceType, false, () =>
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(_elementType, tile);
+        if (tileFx != null)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile.View.CachedTr.position);
-            if (_hitCharacters.Contains(tile.OccupiedCharacter))
-                return;
-            
-            if (owner != null)
+            tileFx.CachedTr.position = tile.View.CachedTr.position;
+
+            tile.CheckValidTile(owner.AllianceType, false, () =>
             {
-                if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                if (_hitCharacters.Contains(tile.OccupiedCharacter))
                     return;
+            
+                if (owner != null)
+                {
+                    if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+                        return;
 
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                _hitCharacters.Add(tile.OccupiedCharacter);
-            }
-        });
+                    _hitCharacters.Add(tile.OccupiedCharacter);
+                }
+            });
+        }
     }
 
     public override void OnSkillAnimationEnd()

@@ -99,8 +99,7 @@ public class EffectCodeSkill1106011 : EffectCodeCharacterBase
             if(character == owner)
                 continue;
             
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
-                character.CurrentTile.View.CachedTr.position);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, character.CurrentTile);
         }
 
         foreach (var character in characterControllers)

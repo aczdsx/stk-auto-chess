@@ -56,7 +56,8 @@ namespace CookApps.AutoBattler
         {
             if (_animator != null)
             {
-                _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
+                if (_spriteRenderer == null)
+                    _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
                 _spriteRenderer.material = _disorveMaterial;
                 _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
                 _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
