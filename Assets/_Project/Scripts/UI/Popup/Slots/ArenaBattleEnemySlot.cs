@@ -257,28 +257,28 @@ namespace CookApps.AutoBattler
         public async void TestBattle_Win()
         {
             var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
-            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Win, _userPVPBattleSimpleData.PlayerId, simpleData, false);
+            await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Win, _userPVPBattleSimpleData.PlayerId, simpleData);
         }
         
         [ContextMenu("Play Test Battle - LOSE")]
         public async void TestBattle_Lose()
         {
             var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
-            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.Lose, _userPVPBattleSimpleData.PlayerId, simpleData, false);
+            await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Lose, _userPVPBattleSimpleData.PlayerId, simpleData);
         }
         
         [ContextMenu("Play Test Revenge - WIN")]
         public async void TestRevenge_Win()
         {
             var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
-            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.RevengeWin, _userPVPBattleSimpleData.PlayerId, simpleData, false);
+            await PVPManager.Instance.SendMatchPVPRevengeResult(PvpMatchResult.RevengeWin, _userPVPBattleSimpleData.PlayerId, simpleData, _pvpMatchHistoryData.MatchId);
         }
         
         [ContextMenu("Play Test Revenge - LOSE")]
         public async void TestRevenge_Lose()
         {
             var simpleData = BMUtil.ConvertToJsonSerialize(_userPVPBattleSimpleData);
-            await PVPManager.Instance.SendMatchPVPResult(PvpMatchResult.RevengeLose, _userPVPBattleSimpleData.PlayerId, simpleData, false);
+            await PVPManager.Instance.SendMatchPVPRevengeResult(PvpMatchResult.RevengeLose, _userPVPBattleSimpleData.PlayerId, simpleData, _pvpMatchHistoryData.MatchId);
         }
         
     }
