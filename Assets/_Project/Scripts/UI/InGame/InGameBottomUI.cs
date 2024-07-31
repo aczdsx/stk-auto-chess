@@ -269,6 +269,10 @@ public class InGameBottomUI : MonoBehaviour
         UpdateData();
         SetCharacterCountText();
     }
+    
+    public virtual void ReturnObstacle(CharacterController controller)
+    {
+    }
 
     private async void AddCharacterToTile(CharacterStatData statData)
     {

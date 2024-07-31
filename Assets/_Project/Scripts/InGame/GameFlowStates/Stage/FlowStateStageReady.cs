@@ -55,7 +55,7 @@ public class FlowStateStageReady : StateReadyBase
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)
         {
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddObstacleToField(gridID, _specStage.obstacle_id, AllianceType.Wall));
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddNonStatObstacleToField(gridID, _specStage.obstacle_id, AllianceType.Wall));
         }
 
         // 체력이 있는 장애물 설치

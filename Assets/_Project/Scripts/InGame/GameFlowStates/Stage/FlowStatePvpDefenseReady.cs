@@ -63,7 +63,7 @@ public class FlowStatePvpDefenseReady : StateReadyBase
                     var grid = InGameObjectManager.Instance.GetInGameTile(
                         new int2(obstacleDeck.PosX, obstacleDeck.PosY));
                     addCharacterTasks.Add(
-                        InGameObjectManager.Instance.AddObstacleToField(grid.View.ID, obstacleDeck.Id,
+                        InGameObjectManager.Instance.AddNonStatObstacleToField(grid.View.ID, obstacleDeck.Id,
                             AllianceType.Wall));
                 }
 

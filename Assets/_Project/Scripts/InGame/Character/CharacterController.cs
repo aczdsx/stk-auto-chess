@@ -13,7 +13,7 @@ namespace CookApps.BattleSystem
     public partial class CharacterController : IEffectCodeSource
     {
         public int CharacterUId => _characterUId;
-        public int CharacterId => _statData.CharacterId;
+        public int CharacterId => _statData?.CharacterId ?? _characterID;
         public SpecCharacter SpecCharacter => _statData.Spec;
 
         private EffectCodeContainer ecc;
@@ -143,17 +143,22 @@ namespace CookApps.BattleSystem
         private Dictionary<BuffDebuffType, InGameVfx> _buffDebuffEffectViewDict;
 
         private static int characUIdInc;
+        private int _characterID;
         private int _characterUId;
 
         private Vector3 SelectedOffSet;
 
         public async UniTask Initialize(InGameTile tile, Transform Playground, int id, AllianceType allianceType)
         {
+            _characterID = id;
+            _characterUId = characUIdInc++;
             ChangeOccupiedTile(tile);
             _allianceType = allianceType;
             position = tile.View.Position;
+            // GameObject viewGo = await Addressables.InstantiateAsync(
+            //     $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
             GameObject viewGo = await Addressables.InstantiateAsync(
-                $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
+                $"Obstacle/{id}/GenerateResources/CharacterView_{id}.prefab");
             _view = viewGo.GetComponent<SpriteCharacterView>();
             _view.CachedTr.SetParent(Playground, false);
             _view.CachedTr.localPosition = position;
@@ -231,18 +236,22 @@ namespace CookApps.BattleSystem
 
         public void Clear()
         {
-            InGameHpBarViewPool.Instance.Return(_hpBarView);
-            Target = null;
-            ecc.Clear();
-            ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
-            foreach (var pair in _buffDebuffEffectViewDict)
+            if (_statData != null)
             {
-                InGameVfxManager.Instance.RemoveInGameVfx(pair.Value);
+                InGameHpBarViewPool.Instance.Return(_hpBarView);
+                ecc.Clear();
+                ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
+                foreach (var pair in _buffDebuffEffectViewDict)
+                {
+                    InGameVfxManager.Instance.RemoveInGameVfx(pair.Value);
+                }
+
+                _buffDebuffEffectViewDict.Clear();
+                _view.OnAnimationEvent -= OnAnimationEvent;
             }
-            _buffDebuffEffectViewDict.Clear();
-            ClearAllState();
-            _view.OnAnimationEvent -= OnAnimationEvent;
             Addressables.ReleaseInstance(_view.gameObject);
+            ClearAllState();
+            Target = null;
             _view = null;
             _hpBarView = null;
         }

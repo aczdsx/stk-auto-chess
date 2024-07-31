@@ -122,9 +122,9 @@ namespace CookApps.AutoBattler
         }
 
         // 자신의 PVP 방어덱 프로필 정보를 서버 및 로컬 데이터에 업데이트
-        public async UniTask SavePVPProfileData(int battlePower, List<CookApps.BattleSystem.CharacterController> characterList /*장애물 데이터 파라미터*/)
+        public async UniTask SavePVPProfileData(int battlePower, List<CookApps.BattleSystem.CharacterController> characterList, IEnumerable<UserPVPObstacleBattleDeck> obstacleDeck)
         {
-            UserDataManager.Instance.SetPVPDefenseDeck(characterList);
+            UserDataManager.Instance.SetPVPDefenseDeck(characterList, obstacleDeck);
             
             await UpdatePVPProfileData(battlePower);
         }

@@ -19,35 +19,35 @@ public class InGameObstacleItem : MonoBehaviour
     [SerializeField] private Animation _dropFxAnimation;
     [SerializeField] private TextMeshProUGUI _focusText;
 
-    private Action<SpecObstacle> _onSelected;
+    private Action<TestObstacle> _onSelected;
 
     private InGameBottomUI _parentUI;
-    private SpecObstacle _specObstacle;
+    private TestObstacle _obstacleData;
 
     // 롱탭 기능 관련
     private bool _isShowLongPressFunc = false;
     private bool _isPressing = false;
     private float _pressTime;
 
-    public void SetData(InGameBottomUI parent, SpecObstacle specObstacle, Action<SpecObstacle> onSelected)
+    public void SetData(InGameBottomUI parent, TestObstacle obstacleData, Action<TestObstacle> onSelected)
     {
         _parentUI = parent;
-        _specObstacle = specObstacle;
-        bool isExsist = _specObstacle != null;
+        _obstacleData = obstacleData;
+        bool isExsist = _obstacleData != null;
 
         _body.SetActive(isExsist);
         _emptySlotObj.SetActive(!isExsist);
         if (_body.activeSelf)
         {
-            _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specObstacle.obstacle_id); // [TODO] 장애물 스프라이트로 변경
+            _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(obstacleData.ID); // [TODO] 장애물 스프라이트로 변경
         }
         _onSelected = onSelected;
     }
 
     public void OnClickItem()
     {
-        if (_specObstacle != null && !_isShowLongPressFunc)
-            _onSelected.Invoke(_specObstacle);
+        if (_obstacleData != null && !_isShowLongPressFunc)
+            _onSelected.Invoke(_obstacleData);
 
         _isShowLongPressFunc = false;
     }

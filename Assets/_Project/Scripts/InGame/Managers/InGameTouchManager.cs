@@ -228,7 +228,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     _selectedTileView = ingameTileView;
 
                     var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
-                    ActiveAttackTile(inGameTile, _selectedCharacterController.AttackRange);
+                    if (_selectedCharacterController.GetCharacterStat() != null)
+                        ActiveAttackTile(inGameTile, _selectedCharacterController.AttackRange);
 
                     Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
                     float duration = 0.15f;
@@ -243,6 +244,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                             {
                                 // Debug.LogColor($"position : {_selectedCharacterController.Position3D} / target : {targetPosition}");
                                 _selectedCharacterController.Position3D = value;
+                                _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
                             }
                         });
                 }
@@ -419,11 +421,14 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private void SetSelectedCharacter(CharacterController character)
     {
         _selectedCharacterController = character;
-        ActiveAttackTile(character.CurrentTile, character.AttackRange);
         _selectedFirstTileView = _selectedTileView;
-        _selectedCharacterController.SetSelectedCharacter(true);
-        InGameMain.GetInGameMain().SetFocusSlotUI(character.GetCharacterStat().Spec);
-        InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
+        if (character.GetCharacterStat() != null)
+        {
+            ActiveAttackTile(character.CurrentTile, character.AttackRange);
+            _selectedCharacterController.SetSelectedCharacter(true);
+            InGameMain.GetInGameMain().SetFocusSlotUI(character.GetCharacterStat().Spec);
+            InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
+        }
     }
 
     private void ReleaseSelectedHero(bool isDropFx = false)

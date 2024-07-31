@@ -27,6 +27,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> enemiesInPlaygroundForUpdate = new();
         private List<CharacterController> charactersInPlaygroundForUpdate = new();
         private List<CharacterController> neutralInPlaygroundForUpdate = new();
+        private List<CharacterController> nonStatObstacleInPlaygroundForUpdate = new();
 
         private List<CharacterController> startingPlayerCharacters = new();
         private List<CharacterController> reusableList = new List<CharacterController>();
@@ -79,7 +80,11 @@ namespace CookApps.BattleSystem
             {
                 return enemiesInPlaygroundForUpdate;
             }
-
+            else if (allianceType == AllianceType.Wall)
+            {
+                return nonStatObstacleInPlaygroundForUpdate;
+            }
+            
             return neutralInPlaygroundForUpdate;
         }
 
@@ -216,10 +221,13 @@ namespace CookApps.BattleSystem
         {
             List<CharacterController> targetList = GetCharacterList(characCtrl.AllianceType);
 
-            for (var i = 0; i < targetList.Count; i++)
+            if (characCtrl.AllianceType != AllianceType.Wall)
             {
-                CharacterController other = targetList[i];
-                other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
+                for (var i = 0; i < targetList.Count; i++)
+                {
+                    CharacterController other = targetList[i];
+                    other.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(characCtrl);
+                }
             }
 
             targetList.Remove(characCtrl);
@@ -233,14 +241,16 @@ namespace CookApps.BattleSystem
             characCtrl.Clear();
         }
 
-        public async UniTask<CharacterController> AddObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID,
+        public async UniTask<CharacterController> AddNonStatObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID,
             AllianceType allianceType)
         {
             var characCtrl = new CharacterController();
             var tile = InGameGrid.GetTile(gridID);
             if (tile.OccupiedCharacter == null)
-                characCtrl.Initialize(tile, Playground, chapterID, allianceType);
-
+            {
+                await characCtrl.Initialize(tile, Playground, chapterID, allianceType);
+                nonStatObstacleInPlaygroundForUpdate.Add(characCtrl);
+            }
             return characCtrl;
         }
 

@@ -181,7 +181,7 @@ namespace CookApps.AutoBattler
             return detailData;
         }
 
-        public void SetPVPDefenseDeck(List<CookApps.BattleSystem.CharacterController> characterList /*장애물 데이터 파라미터*/)
+        public void SetPVPDefenseDeck(List<CookApps.BattleSystem.CharacterController> characterList, IEnumerable<UserPVPObstacleBattleDeck> obstacleDeck)
         {
             if (characterList == null || characterList.Count <= 0) return;
 
@@ -208,7 +208,8 @@ namespace CookApps.AutoBattler
                 UserPVP.MyPvpDefenseDeckList.PvpCharacterDecks.Add(newUserBattleDeck);
             }
             
-            // todo.. 장애물 데이터 세팅
+            // 캐릭터 데이터 세팅
+            UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.AddRange(obstacleDeck);
             
             SaveUserPVPData();
         }

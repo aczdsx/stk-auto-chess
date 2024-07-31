@@ -49,8 +49,15 @@ namespace CookApps.AutoBattler
 
         public void ReturnCharacterUI(CharacterController characterController)
         {
-            _inGameUI.BottomUI.ReturnCharacter(characterController);
-            InGameManager.Instance.UpdateSynergyAndAttr();
+            if (characterController.AllianceType == AllianceType.Wall)
+            {
+                _inGameUI.BottomUI.ReturnObstacle(characterController);
+            }
+            else
+            {
+                _inGameUI.BottomUI.ReturnCharacter(characterController);
+                InGameManager.Instance.UpdateSynergyAndAttr();
+            }
         }
 
         public void SetInGameBottomUIInGuideUI()
