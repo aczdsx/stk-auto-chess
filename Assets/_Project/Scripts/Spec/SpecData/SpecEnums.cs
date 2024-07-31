@@ -250,6 +250,11 @@ namespace CookApps.AutoBattler
         SUMMON_CHARCTER = 7,
         END_DIALOGUE = 8,
         LEVELUP_CHARACTER_TARGET = 9,
+        SET_LV_CHARACTER_TARGET = 10,
+        CLEAR_TRIAL = 11,
+        SUM_CHARACTER_LEVEL = 12,
+        SET_PVP_DEF_DECK = 13,
+        PLAY_PVP = 14,
     }
 
     public enum DialogueEventType
