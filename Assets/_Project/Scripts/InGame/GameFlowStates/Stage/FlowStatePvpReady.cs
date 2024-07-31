@@ -95,35 +95,35 @@ public class FlowStatePvpReady : StateReadyBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
         
-        // [TODO] 내 방어덱 장애물 확인 후 설치
-        List<UserPVPObstacleBattleDeck> datas = new();
-        foreach (var obstacleDeck in datas)
-        {
-            var specObstacleDataList = SpecDataManager.Instance.GetSpecSynergyList(obstacleDeck.Id);
-            if (specObstacleDataList.Count > 0)
-            {
-                if (specObstacleDataList[0].obstacle_type == ObstacleType.WALL)
-                {
-                    var grid = InGameObjectManager.Instance.GetInGameTile(
-                        new int2(obstacleDeck.PosX, obstacleDeck.PosY));
-                    addCharacterTasks.Add(
-                        InGameObjectManager.Instance.AddObstacleToField(grid.View.ID, obstacleDeck.Id,
-                            AllianceType.Wall));
-                }
-
-                if (specObstacleDataList[0].obstacle_type == ObstacleType.NEUTRAL_WALL)
-                {
-                    var statData = new CharacterStatData(specObstacleDataList[0].obstacle_id, 1, 1, 1);
-
-                    var tile = InGameObjectManager.Instance.GetInGameTile(specObstacleDataList[0].obstacle_id);
-                    int2 coordinate = new int2(tile.X, tile.Y);
-
-                    addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
-                        AllianceType.Neutral,
-                        typeof(CharacterStateReady), false, HpBarType.None));
-                }
-            } 
-        }
+        // [TODO] 내 방어덱 장애물 확인 후 설치 (우선 내 장애물 없음.)
+        // List<UserPVPObstacleBattleDeck> datas = new();
+        // foreach (var obstacleDeck in datas)
+        // {
+        //     var specObstacleDataList = SpecDataManager.Instance.GetSpecSynergyList(obstacleDeck.Id);
+        //     if (specObstacleDataList.Count > 0)
+        //     {
+        //         if (specObstacleDataList[0].obstacle_type == ObstacleType.WALL)
+        //         {
+        //             var grid = InGameObjectManager.Instance.GetInGameTile(
+        //                 new int2(obstacleDeck.PosX, obstacleDeck.PosY));
+        //             addCharacterTasks.Add(
+        //                 InGameObjectManager.Instance.AddObstacleToField(grid.View.ID, obstacleDeck.Id,
+        //                     AllianceType.Wall));
+        //         }
+        //
+        //         if (specObstacleDataList[0].obstacle_type == ObstacleType.NEUTRAL_WALL)
+        //         {
+        //             var statData = new CharacterStatData(specObstacleDataList[0].obstacle_id, 1, 1, 1);
+        //
+        //             var tile = InGameObjectManager.Instance.GetInGameTile(specObstacleDataList[0].obstacle_id);
+        //             int2 coordinate = new int2(tile.X, tile.Y);
+        //
+        //             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
+        //                 AllianceType.Neutral,
+        //                 typeof(CharacterStateReady), false, HpBarType.None));
+        //         }
+        //     } 
+        // }
 
         await UniTask.WhenAll(addCharacterTasks);
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);

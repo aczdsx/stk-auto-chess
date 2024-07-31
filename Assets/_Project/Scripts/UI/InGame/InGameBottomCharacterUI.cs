@@ -44,6 +44,9 @@ public class InGameBottomCharacterUI : MonoBehaviour
     protected Transform _inGameCharacterItemTransform;
 
     [SerializeField]
+    protected GameObject _characterListBody;
+
+    [SerializeField]
     protected GameObject _readyUIObj;
 
     [SerializeField]
@@ -57,7 +60,7 @@ public class InGameBottomCharacterUI : MonoBehaviour
 
     [SerializeField]
     protected ParticleSystem _commanderFx;
-
+    
     private List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;

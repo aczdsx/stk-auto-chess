@@ -7,21 +7,25 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using TMPro;
-using Unity.Mathematics;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameBottomPvpUI : InGameBottomCharacterUI
 {
+    [SerializeField] protected InGameObstacleItem _ingameObstacleItemPrefab;
+    [SerializeField] protected Transform _inGameObstacleItemTransform;
+    [SerializeField] protected GameObject _obstacleListBody;
+    
+    private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
+
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnPvPSaveButtonClicked);
+    }
+
+    public void InitData(List<UserPVPObstacleBattleDeck> obstacleBattleDecks)
+    {
+        base.InitData();
+        // [TODO] 보유한 방어덱에 대한 정보 리스트 생성하기
     }
     
     private void OnPvPSaveButtonClicked()
@@ -38,6 +42,13 @@ public class InGameBottomPvpUI : InGameBottomCharacterUI
         });
 
         SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+    }
+    
+    private void OnChangeButtonClicked()
+    {
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+        
+        
     }
     
     private async UniTask PvPSaveProcess()

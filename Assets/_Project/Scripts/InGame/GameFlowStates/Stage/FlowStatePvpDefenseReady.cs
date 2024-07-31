@@ -53,9 +53,7 @@ public class FlowStatePvpDefenseReady : StateReadyBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
         
-        // [TODO] 내 방어덱 장애물 확인 후 설치
-        List<UserPVPObstacleBattleDeck> datas = new();
-        foreach (var obstacleDeck in datas)
+        foreach (var obstacleDeck in _pvpBattleDeckList.PvpDeckList.PvpObstacleDecks)
         {
             var specObstacleDataList = SpecDataManager.Instance.GetSpecSynergyList(obstacleDeck.Id);
             if (specObstacleDataList.Count > 0)
