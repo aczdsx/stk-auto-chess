@@ -56,6 +56,8 @@ namespace CookApps.AutoBattler
             CurrentTabType = param as ArenaMainPopupTabType? ?? ArenaMainPopupTabType.PVP_BATTLE;
             
             LoadPVPInfoData();
+            
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.MATCHING_REFRESH_COUNT);
         }
 
         public void OnClickBattleTabButton()
@@ -175,9 +177,44 @@ namespace CookApps.AutoBattler
         
         private async void LoadPVPRankData()
         {
-            await PVPManager.Instance.UpdatePVPRankList();
+            bool isNeedRefresh = CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.RANKING_LIST);
+            if (isNeedRefresh)
+            {
+                await PVPManager.Instance.UpdatePVPRankList();
+            }
             
             _pvpRankTabLayer.InitLayer(this);
+        }
+
+        // PVP 팝업 갱신 시간 업데이트 및 체크 (true: 갱신 필요)
+        private bool CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType timeType)
+        {
+            bool result = false;
+            
+            switch (timeType)
+            {
+                case PVPTimeRefreshType.MATCHING_LIST:
+                    break;
+                case PVPTimeRefreshType.MATCHING_REFRESH_COUNT:
+                    if (UserDataManager.Instance.UserPVP.RefreshMatchingCntTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    {
+                        UserDataManager.Instance.UserPVP.MatchRefreshCnt = 0;
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_REFRESH_COUNT, true);
+                        result = true;
+                    }
+                    break;
+                case PVPTimeRefreshType.RANKING_LIST:
+                    if (UserDataManager.Instance.UserPVP.RefreshRankingTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    {
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.RANKING_LIST, true);
+                        result = true;
+                    }
+                    break;
+                case PVPTimeRefreshType.AUTO_PROFILE:
+                    break;
+            }
+
+            return result;
         }
         
         private void OnClickCloseButton()

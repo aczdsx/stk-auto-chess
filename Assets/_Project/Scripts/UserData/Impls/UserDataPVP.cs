@@ -10,6 +10,15 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
+    // PVP 시간 갱신 타입
+    public enum PVPTimeRefreshType
+    {
+        MATCHING_LIST,              // 매칭 리스트 갱신
+        MATCHING_REFRESH_COUNT,     // 매칭 리스트 갱신 카운트
+        RANKING_LIST,               // 랭킹 리스트 갱신
+        AUTO_PROFILE,               // 자동 프로필 갱신
+    }
+    
     public partial class UserDataManager
     {
         private UserPVP userPVP;
@@ -212,6 +221,34 @@ namespace CookApps.AutoBattler
             UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.AddRange(obstacleDeck);
             
             SaveUserPVPData();
+        }
+        
+        // PVP와 관련있는 갱신 시간 데이터를 업데이트
+        public void UpdateNextRefreshTimeStamp(PVPTimeRefreshType timeType, bool needSave)
+        {
+            switch (timeType)
+            {
+                case PVPTimeRefreshType.MATCHING_LIST:
+                    // var nextMatchingRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_RANKING_LIST_REFRESH_TIME");
+                    // UserPVP.RefreshRankingTimestamp = TimeManager.Instance.AddSecondsTimeStamp(nextMatchingRefreshTime);
+                    break;
+                case PVPTimeRefreshType.MATCHING_REFRESH_COUNT:
+                    UserPVP.RefreshMatchingCntTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    break;
+                case PVPTimeRefreshType.RANKING_LIST:
+                    var nextRankingRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_RANKING_LIST_REFRESH_TIME");
+                    UserPVP.RefreshRankingTimestamp = TimeManager.Instance.AddSecondsTimeStamp(nextRankingRefreshTime);
+                    break;
+                case PVPTimeRefreshType.AUTO_PROFILE:
+                    var autoRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_PROFILE_AUTO_REFRESH_TIME");
+                    UserPVP.RefreshRankingTimestamp = TimeManager.Instance.AddSecondsTimeStamp(autoRefreshTime);
+                    break;
+            }
+
+            if (needSave)
+            {
+                SaveUserQuestData();
+            }
         }
         
         public void UpdateUserRankData(int rankPoint, bool needSave)

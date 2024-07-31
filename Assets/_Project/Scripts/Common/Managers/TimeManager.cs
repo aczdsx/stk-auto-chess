@@ -33,10 +33,32 @@ namespace CookApps.AutoBattler
             DateTime now = UtcNow();
             return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(1);
         }
+        
+        public DateTime AddMinute(double minute)
+        {
+            DateTime now = UtcNow();
+            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, DateTimeKind.Utc).AddMinutes(minute);
+        }
+        
+        public DateTime AddSeconds(double seconds)
+        {
+            DateTime now = UtcNow();
+            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, DateTimeKind.Utc).AddSeconds(seconds);
+        }
 
         public long TommorrowTimeStamp()
         {
             return DateTimeToTimeStamp(Tommorrow());
+        }
+        
+        public long AddMinuteTimeStamp(double minute)
+        {
+            return DateTimeToTimeStamp(AddMinute(minute));
+        }
+        
+        public long AddSecondsTimeStamp(double seconds)
+        {
+            return DateTimeToTimeStamp(AddSeconds(seconds));
         }
 
         public DateTime NextMonday()
