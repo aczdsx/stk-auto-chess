@@ -43,8 +43,13 @@ namespace CookApps.AutoBattler
                 
                 if (UserDataManager.Instance.UserPVP.AutoRefreshProfileTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
                 {
-                    await UpdatePVPProfileData();
                     UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.AUTO_PROFILE, true);
+                    
+                    var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
+                    if (defenseDeckList != null && defenseDeckList.Count > 0)
+                    {
+                        await UpdatePVPProfileData();
+                    }
                 }
                 
                 profileUpdateTime = 0;
