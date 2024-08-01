@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
             simpleData.Ranking = UserPVP.Ranking;
             simpleData.Nickname = UserBasicData.Nickname;
             simpleData.PlayerLv = UserBasicData.Level;
-            //simpleData.BattlePoint =
+            simpleData.BattlePoint = GetPVPDeckBattlePower(isDefenseDeck);
 
             if (isDefenseDeck)
             {
@@ -147,7 +147,7 @@ namespace CookApps.AutoBattler
             detailData.Ranking = UserPVP.Ranking;
             detailData.Nickname = UserBasicData.Nickname;
             detailData.PlayerLv = UserBasicData.Level;
-            //detailData.BattlePoint =
+            detailData.BattlePoint = GetPVPDeckBattlePower(isDefenseDeck);
 
             detailData.PvpDeckList = new UserPVPBattleDeckList();
             

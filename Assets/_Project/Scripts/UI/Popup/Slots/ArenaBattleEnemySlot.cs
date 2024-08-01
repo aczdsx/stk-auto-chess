@@ -164,7 +164,6 @@ namespace CookApps.AutoBattler
         private void SetRevengeLayer()
         {
             bool isLoseBattle = _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Lose;
-            bool isAvailRevenge = _isBattleLogSlot && isLoseBattle;
             
             _revengeLayer.SetActive(_isBattleLogSlot);
             _revengeButton.gameObject.SetActive(isLoseBattle);
