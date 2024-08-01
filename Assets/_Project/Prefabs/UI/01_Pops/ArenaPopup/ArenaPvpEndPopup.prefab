@@ -11102,7 +11102,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5640958156023065995}
   - {fileID: 7264664917027478305}
   - {fileID: 6011221755560093175}
   - {fileID: 5563448772027467695}
@@ -29077,7 +29076,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
-  _closeButton: {fileID: 0}
+  _okButton: {fileID: 5820830992953344849}
+  _tierImage: {fileID: 6215398437015069863}
+  _tierNameText: {fileID: 2399465421059331000}
+  _tierPointText: {fileID: 8017571068245261583}
+  _tierPointChangeText: {fileID: 5906820218433227862}
+  _tierLevelObjectList:
+  - {fileID: 4931289663728114160}
+  - {fileID: 8026212846884253605}
+  - {fileID: 1342193662504187995}
+  _rewardContentObject: {fileID: 1905210006171377452}
+  _rewardItemSlotObject: {fileID: 693939285823181458}
 --- !u!95 &259945115954755132
 Animator:
   serializedVersion: 5
@@ -29209,6 +29218,7 @@ RectTransform:
   - {fileID: 7242183946607728727}
   - {fileID: 7015230262915726685}
   - {fileID: 8428670567256902524}
+  - {fileID: 5640958156023065995}
   m_Father: {fileID: 7046741590222626375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -34808,6 +34818,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7226882460588133341, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
   m_PrefabInstance: {fileID: 4913721384919491335}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5820830992953344849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1510594159584239702, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
+  m_PrefabInstance: {fileID: 4913721384919491335}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003232806892453080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5603662316783965070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34940,7 +34961,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8428670567256902524}
+    m_TransformParent: {fileID: 578924498795181396}
     m_Modifications:
     - target: {fileID: 459990999289320037, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_SortingLayer
@@ -34964,7 +34985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_AnchorMin.x
@@ -34972,7 +34993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_SizeDelta.x
@@ -35012,11 +35033,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -883
       objectReference: {fileID: 0}
     - target: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -35055,6 +35076,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
+--- !u!1 &693939285823181458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6431695464060537184, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
+  m_PrefabInstance: {fileID: 5827841434219977714}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5640958156023065995 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2209036948035925625, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}

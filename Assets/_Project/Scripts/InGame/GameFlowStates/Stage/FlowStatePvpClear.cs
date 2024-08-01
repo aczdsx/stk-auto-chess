@@ -15,7 +15,7 @@ public class FlowStatePvpClear : StateBase
         var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameManager.Instance.EndInGame();
 
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonResultPopup>((true, _mvpCharacterData));
+        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((true, _mvpCharacterData));
     }
 
     public override void StateRunning(float dt)
