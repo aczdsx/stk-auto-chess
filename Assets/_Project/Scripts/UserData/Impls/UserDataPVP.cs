@@ -99,7 +99,7 @@ namespace CookApps.AutoBattler
             if (isDefenseDeck)
             {
                 var getPVPDefenseDeckList = GetPVPDefenseCharacterDeckDataList();
-                if (getPVPDefenseDeckList != null)
+                if (getPVPDefenseDeckList != null && getPVPDefenseDeckList.Count > 0)
                 {
                     foreach (var deckData in getPVPDefenseDeckList)
                     {
@@ -117,7 +117,7 @@ namespace CookApps.AutoBattler
             else
             {
                 var getPVPAttackDeckList = GetPVPAttackDeckDataList();
-                if (getPVPAttackDeckList != null)
+                if (getPVPAttackDeckList != null && getPVPAttackDeckList.Count > 0)
                 {
                     foreach (var deckData in getPVPAttackDeckList)
                     {
@@ -155,7 +155,7 @@ namespace CookApps.AutoBattler
             if (isDefenseDeck)
             {
                 var getPVPDefenseDeckList = GetPVPDefenseCharacterDeckDataList();
-                if (getPVPDefenseDeckList != null)
+                if (getPVPDefenseDeckList != null && getPVPDefenseDeckList.Count > 0)
                 {
                     foreach (var deckData in getPVPDefenseDeckList)
                     {
@@ -166,7 +166,7 @@ namespace CookApps.AutoBattler
             else
             {
                 var getPVPAttackDeckList = GetPVPAttackDeckDataList();
-                if (getPVPAttackDeckList != null)
+                if (getPVPAttackDeckList != null && getPVPAttackDeckList.Count > 0)
                 {
                     foreach (var deckData in getPVPAttackDeckList)
                     {
