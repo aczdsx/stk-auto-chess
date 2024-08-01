@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Cookapps.Stkauto.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
@@ -159,6 +160,24 @@ namespace CookApps.AutoBattler
                     if (userCharacterData != null && userCharacterData.Level >= specGuideMissionData.need_count)
                     {
                         SetGuideMissionState(GuideMissionType.LEVELUP_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
+                    }
+                    break;
+                case GuideMissionType.SET_LV_CHARACTER_TARGET:
+                    var userCharacterData1 = GetUserCharacter(specGuideMissionData.sub_key);
+                    if (userCharacterData1 != null && userCharacterData1.Level >= specGuideMissionData.need_count)
+                    {
+                        SetGuideMissionState(GuideMissionType.SET_LV_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
+                    }
+                    break;
+                case GuideMissionType.SUM_CHARACTER_LEVEL:
+                    var allUserCharacterList = GetAllUserCharacterList();
+                    if (allUserCharacterList != null && allUserCharacterList.Count > 0)
+                    {
+                        int totalLevel = allUserCharacterList.Sum(data => data.Level);
+                        if (totalLevel >= specGuideMissionData.need_count)
+                        {
+                            SetGuideMissionState(GuideMissionType.SUM_CHARACTER_LEVEL, specGuideMissionData.sub_key, MissionStateType.REWARD);
+                        }
                     }
                     break;
             }
