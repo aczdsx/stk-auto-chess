@@ -12,10 +12,9 @@ public class FlowStatePvpClear : StateBase
     public override void StateStart()
     {
         //[TODO] pvp result pop 작업 필요
-        var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameManager.Instance.EndInGame();
-
-        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((true, _mvpCharacterData));
+        
+        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((true, InGameManager.Instance.UserPvpBattleDeckList));
     }
 
     public override void StateRunning(float dt)
