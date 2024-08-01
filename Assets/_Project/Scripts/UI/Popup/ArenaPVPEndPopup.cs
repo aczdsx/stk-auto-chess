@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -28,7 +29,7 @@ namespace CookApps.AutoBattler
         
         private bool _isVictory = false;
         
-        private SpecCharacter _specCharacter;
+        private UserPVPBattleDetailData _detailData;
         
         private void Awake()
         {
@@ -49,7 +50,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
             
-            (_isVictory, _specCharacter) = ((bool, SpecCharacter))param;
+            (_isVictory, _detailData) = ((bool, UserPVPBattleDetailData))param;
         }
         
         private async void OnClickCloseButton()
