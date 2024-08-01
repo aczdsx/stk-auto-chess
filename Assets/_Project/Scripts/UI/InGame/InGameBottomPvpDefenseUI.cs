@@ -134,6 +134,16 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
         var transition = SceneTransition_FadeInOut.Create();
         await SceneLoading.GoToNextScene("Lobby", (int) specLastStageData.chapter_id, transition);
+        
+        SceneUILayerManager.OnSceneLoadedEvent += OpenArenaMainPopupAction;
+    }
+    
+    private void OpenArenaMainPopupAction(string scenename)
+    {
+        if (scenename == "Lobby")
+        {
+            SceneUILayerManager.Instance.PushUILayerAsync<ArenaMainPopup>().Forget();
+        }
     }
 
     private async void AddObstacleToTile(TestObstacle obstacleData)
