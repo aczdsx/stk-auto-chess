@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
         private Animator _animator;
 
         [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        private List<SpriteRenderer> _spriteRendererList;
 
         [SerializeField]
         private Transform _rootTransform;
@@ -56,9 +56,15 @@ namespace CookApps.AutoBattler
         {
             if (_animator != null)
             {
-                if (_spriteRenderer == null)
-                    _spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
-                _spriteRenderer.material = _disorveMaterial;
+                if (_spriteRendererList == null || _spriteRendererList.Count == 0)
+                {
+                    var spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
+                    _spriteRendererList = new List<SpriteRenderer> { spriteRenderer };
+                }
+                foreach (var spriteRenderer in _spriteRendererList)
+                {
+                    spriteRenderer.material = _disorveMaterial;
+                }
                 _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
                 _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
             }
@@ -67,21 +73,15 @@ namespace CookApps.AutoBattler
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            // AddressableInstantiateHelper.ReleaseGameObject(_instance);
             if (_animator != null)
             {
                 _animationEventListener.OnAnimationEvent -= OnFiredAnimationEvent;
             }
         }
 
-        /// <summary>
-        /// viewPosition을 받아 위치를 업데이트 합니다.
-        /// </summary>
-        /// <param name="position">view의 필드 위치</param>
-        /// <param name="viewPosition">에어본이나 점프등을 하기 위해 필드 위치와의 offset이 필요할 경우 사용</param>
         public void UpdatePosition(Vector3 position, Vector3 viewPosition, Vector3 selectedOffSet)
         {
-            CachedTr.localPosition = (Vector3) position + viewPosition + selectedOffSet;
+            CachedTr.localPosition = (Vector3)position + viewPosition + selectedOffSet;
         }
 
         public void SetScale(Vector3 scale)
@@ -91,13 +91,9 @@ namespace CookApps.AutoBattler
 
         public void SetSelected(bool isSetSelected)
         {
-            if (isSetSelected)
+            foreach (var spriteRenderer in _spriteRendererList)
             {
-                _spriteRenderer.sortingOrder = 10;
-            }
-            else
-            {
-                _spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = isSetSelected ? 10 : 1;
             }
         }
 
@@ -200,23 +196,34 @@ namespace CookApps.AutoBattler
 
         public void SetHologramShader()
         {
-            _spriteRenderer.material = _hologramMaterial;
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                spriteRenderer.material = _hologramMaterial;
+            }
         }
 
         public async UniTask DoDeadAction(AnimationClip clip)
         {
-            _spriteRenderer.material = _disorveMaterial;
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                spriteRenderer.material = _disorveMaterial;
+            }
+
             float temp = 0;
             float duration = clip.length;
 
             while (temp < 1.0f)
             {
-                if (_spriteRenderer == null)
+                if (_spriteRendererList == null || _spriteRendererList.Count == 0)
                     return;
 
                 temp += Time.deltaTime / duration;
 
-                _spriteRenderer.material.SetFloat("_Dissolve", temp);
+                foreach (var spriteRenderer in _spriteRendererList)
+                {
+                    if (spriteRenderer != null)
+                        spriteRenderer.material.SetFloat("_Dissolve", temp);
+                }
 
                 await UniTask.Yield();
             }
@@ -226,7 +233,10 @@ namespace CookApps.AutoBattler
         {
             float duration = _hitDurationTime;
             float elapsedTime = 0;
-            Color initialColor = _spriteRenderer.color;
+            if (_spriteRendererList == null || _spriteRendererList.Count == 0)
+                return;
+
+            Color initialColor = _spriteRendererList[0].color;
 
             while (elapsedTime < duration)
             {
@@ -235,22 +245,31 @@ namespace CookApps.AutoBattler
                 float t = Mathf.PingPong(elapsedTime * 2 / duration, 1.0f);
                 float gAndBValue = Mathf.Lerp(255, 130, t) / 255f;
 
-                if (_spriteRenderer)
-                    _spriteRenderer.material.SetColor("_TintColor",
-                        new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a));
+                foreach (var spriteRenderer in _spriteRendererList)
+                {
+                    if (spriteRenderer)
+                        spriteRenderer.material.SetColor("_TintColor",
+                            new Color(initialColor.r, gAndBValue, gAndBValue, initialColor.a));
+                }
 
                 await UniTask.Yield();
             }
 
-            if (_spriteRenderer)
-                _spriteRenderer.material.SetColor("_TintColor",
-                    new Color(1, 1, 1, 1));
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                if (spriteRenderer)
+                    spriteRenderer.material.SetColor("_TintColor",
+                        new Color(1, 1, 1, 1));
+            }
         }
 
         public void SetColor(Color color)
         {
-            if (_spriteRenderer)
-                _spriteRenderer.material.SetColor("_TintColor", color);
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                if (spriteRenderer)
+                    spriteRenderer.material.SetColor("_TintColor", color);
+            }
         }
 
         protected void OnDrawGizmos()
