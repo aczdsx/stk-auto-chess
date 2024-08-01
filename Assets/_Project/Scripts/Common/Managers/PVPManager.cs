@@ -18,19 +18,37 @@ namespace CookApps.AutoBattler
     
     public class PVPManager : SingletonMonoBehaviour<PVPManager>
     {
+        private const double PVP_PROFILE_REFRESH_TIME = 300;    // PVP 프로필 정보 갱신 시간 (초)
+        
         public GetPvpInfoResponse CurrentPVPInfo { get; private set; }      // 현재 PVP INFO
         public GetPvpMatchListResponse CurrentPVPMatchListData { get; private set; }      // 현재 PVP 매치 리스트
         public GetPvpRankListResponse CurrentPVPRankListData { get; private set; } // 현재 PVP 랭킹 리스트
         public GetPvpMatchHistoryResponse CurrentPVPHistoryListData { get; private set; } // 현재 PVP 전투 히스토리 리스트
+
+        private double profileUpdateTime = 0;
         
         private void Awake()
         {
             
         }
 
-        private void Update()
+        private async void Update()
         {
+            // 프로필 자동 저장 체크
+            profileUpdateTime += Time.deltaTime;
             
+            if (profileUpdateTime > PVP_PROFILE_REFRESH_TIME)
+            {
+                Debug.Log("***PVP UPDATE CHECK!!***");
+                
+                if (UserDataManager.Instance.UserPVP.AutoRefreshProfileTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                {
+                    await UpdatePVPProfileData();
+                    UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.AUTO_PROFILE, true);
+                }
+                
+                profileUpdateTime = 0;
+            }
         }
 
         // 상대방 PVP 프로필 정보를 서버로부터 가져옴
@@ -97,7 +115,7 @@ namespace CookApps.AutoBattler
         }
         
         // 자신의 PVP 방어덱 프로필 정보를 서버에 업데이트 (배틀덱 저장 - 자동 위주)
-        public async UniTask UpdatePVPProfileData(int battlePower)
+        public async UniTask UpdatePVPProfileData()
         {
             // 저장할 덱 데이터 유효성 체크
             // var pvpDefenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
@@ -105,6 +123,9 @@ namespace CookApps.AutoBattler
             // {
             //     return;
             // }
+            
+            // 전투력 세팅
+            int battlePower = UserDataManager.Instance.GetPVPDeckBattlePower(true);
             
             // 심플 정보 세팅
             var userPVPSimpleData = UserDataManager.Instance.GetCurrentPVPSimpleProfileData(true);
@@ -122,11 +143,11 @@ namespace CookApps.AutoBattler
         }
 
         // 자신의 PVP 방어덱 프로필 정보를 서버 및 로컬 데이터에 업데이트
-        public async UniTask SavePVPProfileData(int battlePower, List<CookApps.BattleSystem.CharacterController> characterList, IEnumerable<UserPVPObstacleBattleDeck> obstacleDeck)
+        public async UniTask SavePVPProfileData(List<CookApps.BattleSystem.CharacterController> characterList, IEnumerable<UserPVPObstacleBattleDeck> obstacleDeck)
         {
             UserDataManager.Instance.SetPVPDefenseDeck(characterList, obstacleDeck);
             
-            await UpdatePVPProfileData(battlePower);
+            await UpdatePVPProfileData();
         }
         
         // PVP 전투 결과를 전송
