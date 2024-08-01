@@ -7,6 +7,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -30,11 +31,16 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     [SerializeField] protected GameObject _obstacleListBody;
     [SerializeField] protected CAButton _changeButton;
     [SerializeField] protected GameObject _obstacleTipObj;
+    [SerializeField] protected TextMeshProUGUI _obstacleCountText;
 
     private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
     private List<TestObstacle> _obstacleDataList = new List<TestObstacle>();
     private bool _isRunningAddObstacle;
-
+    
+    private int _wall1ID = 10001;
+    private int _wall2ID = 10002;
+    
+    private int uid = 0;
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnPvPSaveButtonClicked);
@@ -48,13 +54,25 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         base.InitData();
         _obstacleItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameObstacleItemTransform);
+        
+        var pvpTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, UserDataManager.Instance.UserPVP.RankPoint);
 
+        int wall1Count = pvpTierData.wall_1;
+        int wall2Count = pvpTierData.wall_2;
+        int locatedWall1 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall1ID);
+        int locatedWall2 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall2ID);
+        
         _obstacleDataList.Clear();
-        _obstacleDataList.Add(new(10001, 1));
-        _obstacleDataList.Add(new(10001, 2));
-        _obstacleDataList.Add(new(10001, 3));
-        _obstacleDataList.Add(new(10001, 4));
-        _obstacleDataList.Add(new(10001, 5));
+        for (int i = 0; i < wall1Count; i++)
+        {
+            _obstacleDataList.Add(new(_wall1ID, uid));
+            uid++;
+        }
+        for (int i = 0; i < wall2Count; i++)
+        {
+            _obstacleDataList.Add(new(_wall2ID, uid));
+            uid++;
+        }
 
         foreach (var obstacleData in _obstacleDataList)
         {
@@ -62,12 +80,30 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
             _obstacleItemList.Add(obstacleItem);
             obstacleItem.SetData(this, obstacleData, AddObstacleToTile);
         }
+
+        foreach (UserPVPObstacleBattleDeck deck in UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks)
+        {
+            if (deck.Id == _wall1ID)
+                _obstacleDataList.RemoveAt(_obstacleDataList.Count - 1);
+            else
+                _obstacleDataList.RemoveAt(_obstacleDataList.Count - 1);
+        }
+        SetObstacleCountText();
     }
     
     public override void ReturnObstacle(CharacterController controller)
     {
-        //[TODO] 다시 obstacle 추가 수정 필요
-        _obstacleDataList.Add(new(controller.CharacterId, controller.CharacterUId));
+        if (controller.CharacterId == _wall1ID)
+        {
+            _obstacleDataList.Add(new(_wall1ID, uid));
+            uid++;
+        }
+        else if (controller.CharacterId == _wall2ID)
+        {
+            _obstacleDataList.Add(new(_wall2ID, uid));
+            uid++;
+        }
+        // _obstacleDataList.Add(new(controller.CharacterId, controller.CharacterUId));
         UpdateObstacleData();
     }
 
@@ -157,7 +193,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         if (specObstacles.Count > 0)
         {
             _obstacleDataList.RemoveAll(l => l.UID == obstacleData.UID);
-            // [TODO] 소모한 개념 추가 필요.
+            
             UpdateObstacleData();
 
             var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile();
@@ -199,5 +235,16 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
                 _obstacleItemList[i].SetData(this, null, null);
             }
         }
+
+        SetObstacleCountText();
+    }
+    
+    public void SetObstacleCountText()
+    {
+        int obstacleCount = _obstacleDataList.Count;
+        int maximumCount = _obstacleItemList.Count;
+
+        string colorCode = obstacleCount == 0 ? "#CA6E71" : "#C5C5B2";
+        _obstacleCountText.text = $"<color={colorCode}>{obstacleCount}</color>/{maximumCount}";
     }
 }

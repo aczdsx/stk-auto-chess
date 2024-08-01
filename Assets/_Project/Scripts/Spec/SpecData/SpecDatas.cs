@@ -806,6 +806,8 @@ namespace CookApps.AutoBattler
         public string icon_image;
         public string local_key;
         public string name_color;
+        public CookApps.Obfuscator.ObfuscatorInt wall_1;
+        public CookApps.Obfuscator.ObfuscatorInt wall_2;
     }
 
     [GeneratorSpecData]
