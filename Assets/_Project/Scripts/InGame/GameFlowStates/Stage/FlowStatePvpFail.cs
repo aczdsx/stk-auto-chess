@@ -26,6 +26,8 @@ public class FlowStatePvpFail : StateBase
         InGameManager.Instance.EndInGame();
         
         SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((false, detailDeckData, matchResultData));
+        
+        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.PLAY_PVP, 0, 1);
     }
 
     public override void StateRunning(float dt)

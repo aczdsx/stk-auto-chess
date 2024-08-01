@@ -278,7 +278,8 @@ namespace CookApps.AutoBattler
             // 가이드 미션 체크
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
-
+            GuideMissionManager.Instance.RefreshGuideMissionUI();
+                
             // 퀘스트 데이터 갱신
             UserDataManager.Instance.SetUserQuestActionCount(QuestType.LEVELUP_CHARACTER, 1, true, true);
 

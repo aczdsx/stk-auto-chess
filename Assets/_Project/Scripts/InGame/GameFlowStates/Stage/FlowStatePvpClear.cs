@@ -24,6 +24,8 @@ public class FlowStatePvpClear : StateBase
         InGameManager.Instance.EndInGame();
         
         SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((true, detailDeckData, matchResultData));
+        
+        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.PLAY_PVP, 0, 1);
     }
 
     public override void StateRunning(float dt)

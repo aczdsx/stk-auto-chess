@@ -15,6 +15,9 @@ public class FlowStateTrialDungeonClear : StateBase
         InGameManager.Instance.EndInGame();
 
         SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>((true, _mvpCharacterData));
+        
+        // 가이드 미션 체크
+        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_TRIAL, InGameManager.Instance.SpecDungeonTrial.dungeon_id, 1);
     }
 
     public override void StateRunning(float dt)
