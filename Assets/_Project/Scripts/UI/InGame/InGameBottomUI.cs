@@ -8,12 +8,9 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using TMPro;
 using Unity.Mathematics;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 

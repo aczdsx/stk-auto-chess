@@ -10,6 +10,7 @@ public enum Pref
     SFX_V,
     VOX_V,
     STATISTIC,
+    FIRST_TRIAL,
 }
 
 public class Preference

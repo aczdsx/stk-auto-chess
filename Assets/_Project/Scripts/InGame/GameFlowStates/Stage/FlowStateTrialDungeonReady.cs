@@ -8,7 +8,9 @@ using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using Object = UnityEngine.Object;
 
 public class FlowStateTrialDungeonReady : StateReadyBase
 {
@@ -25,7 +27,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
     }
 
     public override async void StateInit(object target)
-    {;
+    {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<SpecDungeonMonster> monsters =
             SpecDataManager.Instance.GetSpecDungeonMonsterDataList(_specDungeonTrial.dungeon_type, _specDungeonTrial.dungeon_id);
@@ -47,7 +49,8 @@ public class FlowStateTrialDungeonReady : StateReadyBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 0f, -10), 1.0f).Forget();
+        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, 
+            new Vector3(-1f, 0f, -10), 1.0f).Forget();
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.TRIAL);
         List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.ToList();
