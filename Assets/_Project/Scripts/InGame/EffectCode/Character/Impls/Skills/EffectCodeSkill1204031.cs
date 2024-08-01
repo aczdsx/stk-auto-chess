@@ -104,10 +104,16 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
             inGameTiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByRow(owner.Target.CurrentTile));
             ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
         }
-        else
+        else if (_count == 2)
         {
             var inGameTiles =
-                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3);
+                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3).FindAll(l => l.View.ID %2 == 0);
+            ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
+        }
+        else if (_count == 3)
+        {
+            var inGameTiles =
+                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3).FindAll(l => l.View.ID %2 == 1);
             ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
         }
 
@@ -126,7 +132,6 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
 
     public override void OnSkillAnimationEnd()
     {
-        //[TODO] 이거 불리지 않도록 end를 제거하거나 스킬을 길게 만들던 해서 다른 방법으로 처리해야 함.
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
@@ -134,6 +139,9 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
     
     private async UniTask ProcessTiles(List<InGameTile> tiles, CharacterController owner, float powerRate)
     {
+        foreach (var tile in tiles)
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+        
         foreach (var tile in tiles.FindAll(l => l.View.AllianceType == AllianceType.Player))
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
