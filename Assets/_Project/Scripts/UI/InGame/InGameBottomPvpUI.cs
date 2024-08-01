@@ -8,6 +8,7 @@ public class InGameBottomPvpUI : InGameBottomUI
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnStartButtonClicked);
+        _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
     
     protected override bool IsCheckStartBattle()

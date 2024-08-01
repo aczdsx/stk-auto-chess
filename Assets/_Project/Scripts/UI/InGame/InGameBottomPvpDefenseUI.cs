@@ -39,6 +39,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     {
         _startButton?.onClick.AddListener(OnPvPSaveButtonClicked);
         _changeButton?.onClick.AddListener(OnChangeButtonClicked);
+        _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
 
     public override void InitData()

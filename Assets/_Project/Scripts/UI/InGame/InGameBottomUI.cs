@@ -63,8 +63,6 @@ public class InGameBottomUI : MonoBehaviour
                 }
             }
         }
-
-        _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
 
     protected void OnStartButtonClicked()
@@ -87,7 +85,7 @@ public class InGameBottomUI : MonoBehaviour
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
     }
 
-    private void OnClickStatisticButton()
+    protected void OnClickStatisticButton()
     {
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 

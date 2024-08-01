@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ public class InGameBottomStageUI : InGameBottomUI
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnStartButtonClicked);
+        _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }
     
     protected override bool IsCheckStartBattle()

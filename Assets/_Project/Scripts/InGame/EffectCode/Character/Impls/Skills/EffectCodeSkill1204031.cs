@@ -17,6 +17,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class EffectCodeSkill1204031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate1;
+    private ObfuscatorFloat _stunTime;
 
     private bool _isReadyToActivate;
     private SpecSkill _specSkill;
@@ -29,6 +30,7 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate1 = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(2);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -41,6 +43,7 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate1 = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(2);
     }
 
     public override void OnUpdate(float dt)
@@ -153,8 +156,20 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
 
                 var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                StunCharacter(tile.OccupiedCharacter);
             });
             await UniTask.Delay(TimeSpan.FromSeconds(0.2));
         }
+    }
+    
+    private void StunCharacter(CharacterController character)
+    {
+        Span<double> eccStats = stackalloc double[1];
+        eccStats.Clear();
+        eccStats[0] = _stunTime;
+        
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, character, eccStats, source);
     }
 }
