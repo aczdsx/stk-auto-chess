@@ -23,15 +23,20 @@ namespace CookApps.AutoBattler
 
             bool isFirstTrial = _specTrialDungeon.dungeon_map_id == 1 &&
                                 Preference.LoadPreference(Pref.FIRST_TRIAL, true);
-            if (true) 
+            if (isFirstTrial) 
             {
                 Preference.SavePreference(Pref.FIRST_TRIAL, false);
                 var fxResource = await Addressables.LoadAssetAsync<GameObject>($"VFX/Prefab/Prefab_Dungeon_Boss_01.prefab").Task;
                 var animator = Object.Instantiate(fxResource).GetComponent<Animator>();
                 await WaitUntilAnimationFinished(animator, "Prefab_Dungeon_Boss_01");
             }
+
+            GameObject stageUIObj = null;
+            if (_specTrialDungeon.dungeon_map_id == 1)
+                stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/TrialBossUI.prefab").Task;
+            else
+                stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
             
-            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 

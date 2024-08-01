@@ -56,11 +56,12 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         BMUtil.RemoveChildObjects(_inGameObstacleItemTransform);
         
         var pvpTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, UserDataManager.Instance.UserPVP.RankPoint);
+        
 
         int wall1Count = pvpTierData.wall_1;
         int wall2Count = pvpTierData.wall_2;
-        int locatedWall1 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall1ID);
-        int locatedWall2 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall2ID);
+        // int locatedWall1 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall1ID);
+        // int locatedWall2 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall2ID);
         
         _obstacleDataList.Clear();
         for (int i = 0; i < wall1Count; i++)
@@ -81,14 +82,14 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
             obstacleItem.SetData(this, obstacleData, AddObstacleToTile);
         }
 
-        foreach (UserPVPObstacleBattleDeck deck in UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks)
+        foreach (UserPVPObstacleBattleDeck deck in InGameManager.Instance.UserPvpBattleDeckList.PvpDeckList.PvpObstacleDecks)
         {
             if (deck.Id == _wall1ID)
                 _obstacleDataList.RemoveAt(_obstacleDataList.Count - 1);
             else
                 _obstacleDataList.RemoveAt(_obstacleDataList.Count - 1);
         }
-        SetObstacleCountText();
+        UpdateObstacleData();
     }
     
     public override void ReturnObstacle(CharacterController controller)

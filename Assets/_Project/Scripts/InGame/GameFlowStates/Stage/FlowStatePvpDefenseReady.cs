@@ -32,7 +32,7 @@ public class FlowStatePvpDefenseReady : StateReadyBase
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         var battleDeckList = new List<UserCharacterBattleDeck>();
         
-        foreach (var character in UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpCharacterDecks)
+        foreach (var character in _pvpBattleDeckList.PvpDeckList.PvpCharacterDecks)
         {
             UserCharacterBattleDeck battleDeck = new UserCharacterBattleDeck();
             battleDeck.CharacterId = character.Id;
@@ -54,7 +54,7 @@ public class FlowStatePvpDefenseReady : StateReadyBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
         
-        foreach (var obstacleDeck in UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks)
+        foreach (var obstacleDeck in _pvpBattleDeckList.PvpDeckList.PvpObstacleDecks)
         {
             var specObstacleDataList = SpecDataManager.Instance.GetSpecObstacleList(obstacleDeck.Id);
             if (specObstacleDataList.Count > 0)

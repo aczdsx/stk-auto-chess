@@ -162,6 +162,16 @@ namespace CookApps.AutoBattler
                         detailData.PvpDeckList.PvpCharacterDecks.Add(deckData);
                     }
                 }
+                
+                
+                var getPVPDefenseDeckObstacleList = GetPVPDefenseObstacleDeckDataList();
+                if (getPVPDefenseDeckObstacleList != null && getPVPDefenseDeckObstacleList.Count > 0)
+                {
+                    foreach (var deckData in getPVPDefenseDeckObstacleList)
+                    {
+                        detailData.PvpDeckList.PvpObstacleDecks.Add(deckData);
+                    }
+                }
             }
             else
             {
@@ -183,9 +193,6 @@ namespace CookApps.AutoBattler
                     }
                 }
             }
-            
-            // 유저 장애물 덱 데이터 세팅
-            //...
             
             return detailData;
         }

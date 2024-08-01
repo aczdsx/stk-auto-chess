@@ -25,7 +25,11 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
         InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f, true);
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(9.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
+        
+        if (InGameManager.Instance.SpecDungeonTrial.dungeon_map_id == 1)
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(9.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
+        else
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(9.0f, new Vector3(0, 3f, -10), 1.0f).Forget();
 
         InGameMain.GetInGameMain().OpenStatisticPop();
     }

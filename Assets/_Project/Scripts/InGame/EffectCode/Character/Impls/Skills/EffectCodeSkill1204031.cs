@@ -33,6 +33,7 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
         _stunTime = codeInfo.GetCodeStatToFloat(2);
         _isReadyToActivate = false;
         IsSkillActivated = false;
+        _count = 0;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }

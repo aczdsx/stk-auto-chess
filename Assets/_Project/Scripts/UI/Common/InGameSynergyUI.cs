@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
         private CharacterPositionType _positionType;
         private bool _isElementType;
         private int _step;
+        private readonly Color _grayColor = new Color(0.35f, 0.35f, 0.35f, 0.8f);
 
         // 캐릭터 속성 시너지 세팅
         public void SetSynergy(ElementType type, int count, int step, bool isActive = true)
@@ -26,8 +27,8 @@ namespace CookApps.AutoBattler
             _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
             _countText.text = count.ToString();
 
-            _iconImage.color = (step > 0) ? Color.white : Color.gray;
-            _countText.color = (step > 0) ? Color.white : Color.gray;
+            _iconImage.color = (step > 0) ? Color.white : _grayColor;
+            _countText.color = (step > 0) ? Color.white : _grayColor;
             _isElementType = true;
         }
 
@@ -38,8 +39,8 @@ namespace CookApps.AutoBattler
             _iconImage.sprite = ImageManager.Instance.GetPositionSprite(type, isActive);
             _countText.text = count.ToString();
 
-            _iconImage.color = (step > 0) ? Color.white : Color.gray;
-            _countText.color = (step > 0) ? Color.white : Color.gray;
+            _iconImage.color = (step > 0) ? Color.white : _grayColor;
+            _countText.color = (step > 0) ? Color.white : _grayColor;
             _isElementType = false;
         }
 

@@ -67,6 +67,7 @@ namespace CookApps.BattleSystem
             ClearAllCharactersInField(AllianceType.Player);
             ClearAllCharactersInField(AllianceType.Enemy);
             ClearAllCharactersInField(AllianceType.Neutral);
+            ClearAllCharactersInField(AllianceType.Wall);
             ClearSynergyFx();
         }
 

@@ -45,12 +45,17 @@ public class FlowStateTrialDungeonReady : StateReadyBase
             int y = int.Parse(coordinates[1]);
             int2 coordinate = new int2(x, y);
 
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
+                AllianceType.Enemy,
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, 
-            new Vector3(-1f, 0f, -10), 1.0f).Forget();
+        if (InGameManager.Instance.SpecDungeonTrial.dungeon_map_id == 1)
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f,
+                new Vector3(-1f, 0f, -10), 1.0f).Forget();
+        else
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f,
+                new Vector3(0f, 1.5f, -10), 1.0f).Forget();
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.TRIAL);
         List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.ToList();

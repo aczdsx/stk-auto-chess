@@ -134,7 +134,7 @@ public class InGameTopUI : MonoBehaviour
                 var list = SpecDataManager.Instance.GetSpecSynergyList((CharacterPositionType)synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
 
-                if (data.grade > 0)
+                if (data.grade >= 0)
                 {
                     TrySetSynergyUI(() =>
                         _synergyUIList[uiIndex].SetPositionSynergy((CharacterPositionType)synergyCount.Type, synergyCount.Count, data.grade)
@@ -146,7 +146,7 @@ public class InGameTopUI : MonoBehaviour
                 var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType) synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
 
-                if (data.grade > 0)
+                if (data.grade >= 0)
                 {
                     TrySetSynergyUI(() =>
                         _synergyUIList[uiIndex]
