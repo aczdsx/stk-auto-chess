@@ -62,6 +62,7 @@ namespace CookApps.AutoBattler
             _myTierNameText.text = LanguageManager.Instance.GetPVPTierText(_specPVPTierData.pvp_tier_type);
             _myRankingText.text = _currentUserPVPData.Ranking.ToString();
             _myRankingPointText.text = $"{_currentUserPVPData.RankPoint}<color=#ACB2C0>/{_specPVPTierData.ranking_max}</color>";
+            _myBattlePointText.text = UserDataManager.Instance.GetPVPDeckBattlePower(true).ToString("n0");
             
             for(int i = 0; i < _specPVPTierData.tier_order; i++)
             {

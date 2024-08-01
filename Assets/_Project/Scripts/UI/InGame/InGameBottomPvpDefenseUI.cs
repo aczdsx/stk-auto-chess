@@ -102,7 +102,6 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     private async UniTask PvPSaveProcess()
     {
         var characterControllers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-        double attrText = InGameObjectManager.Instance.GetAttr(AllianceType.Player);
 
         // obstacleDeck
         // IEnumerable<UserPVPCharacterBattleDeck>
@@ -128,7 +127,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
             obstacleDeck.Add(deck);
         }
 
-        await PVPManager.Instance.SavePVPProfileData((int) attrText, characterControllers, obstacleDeck);
+        await PVPManager.Instance.SavePVPProfileData(characterControllers, obstacleDeck);
 
         InGameManager.Instance.EndInGame();
         int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();

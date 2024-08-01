@@ -55,6 +55,48 @@ namespace CookApps.AutoBattler
             return userCharacterGroup.UserCharacters.Keys.ToArray();
         }
 
+        // 해당 전투 덱의 전투력을 계산 (일반)
+        public int GetDeckBattlePower(UserCharacterBattleDeckList targetDeckList)
+        {
+            double battlePower = 0;
+
+            foreach (var deckCharacter in targetDeckList.UserCharacterBattleDecks)
+            {
+                var userCharacterData = GetUserCharacter(deckCharacter.CharacterId);
+                if (userCharacterData != null)
+                {
+                    var characterStat = new CharacterStatData(userCharacterData.CharacterId, userCharacterData.Level,
+                        GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+                    
+                    battlePower += characterStat.GetAttrValue();
+                }
+            }
+
+            return (int)battlePower;
+        }
+        
+        // 해당 전투 덱의 전투력을 계산 (PVP)
+        public int GetPVPDeckBattlePower(bool isDefenseDeck)
+        {
+            double battlePower = 0;
+
+            UserPVPBattleDeckList targetDeckList = isDefenseDeck ? UserPVP.MyPvpDefenseDeckList : UserPVP.MyPvpAttackDeckList;
+            
+            foreach (var deckCharacter in targetDeckList.PvpCharacterDecks)
+            {
+                var userCharacterData = GetUserCharacter(deckCharacter.Id);
+                if (userCharacterData != null)
+                {
+                    var characterStat = new CharacterStatData(userCharacterData.CharacterId, userCharacterData.Level,
+                        GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+                    
+                    battlePower += characterStat.GetAttrValue();
+                }
+            }
+
+            return (int)battlePower;
+        }
+        
         public int GetCharacterMaxLevel(int characterID)
         {
             if (UserCharacterDic.ContainsKey(characterID))
