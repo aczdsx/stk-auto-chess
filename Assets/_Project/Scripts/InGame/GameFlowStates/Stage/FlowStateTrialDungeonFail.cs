@@ -14,7 +14,8 @@ public class FlowStateTrialDungeonFail : StateBase
     {
         InGameManager.Instance.EndInGame();
         SpecCharacter mvpCharacterData = null;
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonResultPopup>((false, false, false, mvpCharacterData));
+        
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>((false, mvpCharacterData));
     }
 
     public override void StateRunning(float dt)

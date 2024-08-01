@@ -14,7 +14,7 @@ public class FlowStateTrialDungeonClear : StateBase
         var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameManager.Instance.EndInGame();
 
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonResultPopup>((true, _mvpCharacterData));
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>((true, _mvpCharacterData));
     }
 
     public override void StateRunning(float dt)
