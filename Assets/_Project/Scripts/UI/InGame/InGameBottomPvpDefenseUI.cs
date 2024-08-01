@@ -167,6 +167,9 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
 
         await PVPManager.Instance.SavePVPProfileData(characterControllers, obstacleDeck);
 
+        // 가이드 미션 체크
+        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SET_PVP_DEF_DECK, 0, 1);
+        
         InGameManager.Instance.EndInGame();
         int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
         var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
