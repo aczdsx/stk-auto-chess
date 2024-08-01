@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
             simpleData.Ranking = UserPVP.Ranking;
             simpleData.Nickname = UserBasicData.Nickname;
             simpleData.PlayerLv = UserBasicData.Level;
-            //simpleData.BattlePoint =
+            simpleData.BattlePoint = GetPVPDeckBattlePower(isDefenseDeck);
 
             if (isDefenseDeck)
             {
@@ -147,7 +147,7 @@ namespace CookApps.AutoBattler
             detailData.Ranking = UserPVP.Ranking;
             detailData.Nickname = UserBasicData.Nickname;
             detailData.PlayerLv = UserBasicData.Level;
-            //detailData.BattlePoint =
+            detailData.BattlePoint = GetPVPDeckBattlePower(isDefenseDeck);
 
             detailData.PvpDeckList = new UserPVPBattleDeckList();
             
@@ -241,7 +241,7 @@ namespace CookApps.AutoBattler
                     break;
                 case PVPTimeRefreshType.AUTO_PROFILE:
                     var autoRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_PROFILE_AUTO_REFRESH_TIME");
-                    UserPVP.RefreshRankingTimestamp = TimeManager.Instance.AddSecondsTimeStamp(autoRefreshTime);
+                    UserPVP.AutoRefreshProfileTimestamp = TimeManager.Instance.AddSecondsTimeStamp(autoRefreshTime);
                     break;
             }
 
