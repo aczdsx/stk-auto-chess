@@ -16,6 +16,9 @@ public class FlowStateTrialDungeonClear : StateBase
 
         SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>((true, _mvpCharacterData));
         
+        // 유저 데이터 던전 클리어 처리
+        UserDataManager.Instance.SetTrialDungeonData(InGameManager.Instance.SpecDungeonTrial.dungeon_id, DungeonStateType.CLEAR, true);
+        
         // 가이드 미션 체크
         GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_TRIAL, InGameManager.Instance.SpecDungeonTrial.dungeon_id, 1);
     }

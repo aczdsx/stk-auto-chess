@@ -11720,7 +11720,7 @@ MonoBehaviour:
   Arc: 0.75
   ArcSteps: 380
   ArcRotation: 315
-  Progress: 0.315
+  Progress: 0.357
   ProgressColor: {r: 0.98039216, g: 0.9647059, b: 0.7529412, a: 1}
   Fill: 0
   Thickness: 14
@@ -29079,6 +29079,7 @@ MonoBehaviour:
   _okButton: {fileID: 5820830992953344849}
   _tierImage: {fileID: 6215398437015069863}
   _tierSecondImage: {fileID: 3627080833815091187}
+  _tierSlider: {fileID: 7139821356662394170}
   _tierNameText: {fileID: 2399465421059331000}
   _tierPointText: {fileID: 8017571068245261583}
   _tierPointChangeText: {fileID: 5906820218433227862}

@@ -16,10 +16,10 @@ public class FlowStatePvpClear : StateBase
         var simpleDeckData = PVPManager.Instance.ChangeDetailDataToSimpleData(detailDeckData);
         
         string resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
-        string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
+        //string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
         
         // 전투 종료 API
-        var matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Win, detailDeckData.PlayerId, gzipSimpleData);
+        var matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Win, detailDeckData.PlayerId, resultSimpleData);
         
         InGameManager.Instance.EndInGame();
         

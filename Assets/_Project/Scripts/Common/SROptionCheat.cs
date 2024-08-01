@@ -403,5 +403,21 @@ public partial class SROptions
     }
 
     #endregion
+    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    
+    #region 던전 관련
+
+    [Category("던전 관련")]
+    public void 타겟던전클리어()
+    {
+        UserDataManager.Instance.SetTrialDungeonData(대상던전ID, DungeonStateType.CLEAR, true);
+        
+        ToastManager.Instance.ShowToast("치트 - 사용완료");
+    }
+    
+    [Category("던전 관련")] public int 대상던전ID { get; set; } = 0;
+
+    #endregion
 }
 #endif

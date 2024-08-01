@@ -6,7 +6,9 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -19,6 +21,7 @@ namespace CookApps.AutoBattler
         [Header("Tier Info Layer")] 
         [SerializeField] private Image _tierImage;
         [SerializeField] private Image _tierSecondImage;
+        [SerializeField] private UICircle _tierSlider;
         [SerializeField] private TextMeshProUGUI _tierNameText;
         [SerializeField] private TextMeshProUGUI _tierPointText;
         [SerializeField] private TextMeshProUGUI _tierPointChangeText;
@@ -67,6 +70,8 @@ namespace CookApps.AutoBattler
             _tierNameText.text = LanguageManager.Instance.GetPVPTierText(specTierData.pvp_tier_type);
             _tierPointText.text = _matchResultData.MyCurrentScore.ToString("n0");
             _tierPointChangeText.text = $"({_matchResultData.MyDeltaScore.ToString("n0")})";
+            
+            _tierSlider.Progress = (float)_detailData.RankPoint / specTierData.ranking_max;
             
             for(int i = 0; i < specTierData.tier_order; i++)
             {

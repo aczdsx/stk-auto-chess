@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myTierImage: {fileID: 1107391391126587489}
-  _myTierSlider: {fileID: 0}
+  _myTierSlider: {fileID: 6360342078612093109}
   _myTierNameText: {fileID: 1881758936569980471}
   _myTierLevelObjectList:
   - {fileID: 9168960558570499199}
@@ -3174,6 +3174,10 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8378634902464343752, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+      propertyPath: Progress
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8854537990479321812, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3238,6 +3242,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8660861546596518999, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
   m_PrefabInstance: {fileID: 3171270128863483517}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6360342078612093109 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8378634902464343752, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}
+  m_PrefabInstance: {fileID: 3171270128863483517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8185cad1aa202d04ebb9e14ffa533a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8408460053782847792 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6391246409269442381, guid: 0712dbdf6752f0a4f8202bc1e53fe27d, type: 3}

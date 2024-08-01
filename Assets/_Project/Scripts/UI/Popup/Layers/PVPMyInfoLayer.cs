@@ -9,13 +9,14 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
     public class PVPMyInfoLayer : CachedMonoBehaviour
     {
         [SerializeField] private Image _myTierImage;
-        [SerializeField] private Slider _myTierSlider;
+        [SerializeField] private UICircle _myTierSlider;
         [SerializeField] private TextMeshProUGUI _myTierNameText;
         [SerializeField] private List<GameObject> _myTierLevelObjectList;
         
@@ -63,6 +64,8 @@ namespace CookApps.AutoBattler
             _myRankingText.text = _currentUserPVPData.Ranking.ToString();
             _myRankingPointText.text = $"{_currentUserPVPData.RankPoint}<color=#ACB2C0>/{_specPVPTierData.ranking_max}</color>";
             _myBattlePointText.text = UserDataManager.Instance.GetPVPDeckBattlePower(true).ToString("n0");
+            
+            _myTierSlider.Progress = (float)_currentUserPVPData.RankPoint / _specPVPTierData.ranking_max;
             
             for(int i = 0; i < _specPVPTierData.tier_order; i++)
             {
