@@ -19,6 +19,15 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
+            bool isFirstTrial =Preference.LoadPreference(Pref.FIRST_TRIAL, true);
+            if (true) 
+            {
+                Preference.SavePreference(Pref.FIRST_TRIAL, false);
+                var fxResource = await Addressables.LoadAssetAsync<GameObject>($"VFX/Prefab/Prefab_Dungeon_Boss_01.prefab").Task;
+                var animator = Object.Instantiate(fxResource).GetComponent<Animator>();
+                await WaitUntilAnimationFinished(animator, "Prefab_Dungeon_Boss_01");
+            }
+            
             var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
@@ -106,6 +115,11 @@ namespace CookApps.AutoBattler
         public bool IsCheckTouchTile(InGameTile tile)
         {
             return tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player;
+        }
+        
+        private async UniTask WaitUntilAnimationFinished(Animator animator, string animationName)
+        {
+            await UniTask.WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
         }
     }
 }
