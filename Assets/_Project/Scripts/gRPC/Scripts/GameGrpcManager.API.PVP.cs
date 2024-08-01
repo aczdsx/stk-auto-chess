@@ -90,13 +90,17 @@ namespace GrpcGame
         } 
         
         // PVP 전투 결과 전송
-        public async UniTask<MatchPvpResponse> MatchPvp(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
+        public async UniTask<MatchPvpResponse> MatchPvp(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData, string matchID)
         {
             using var _ = GenericPool<MatchPvpRequest>.Get(out var request);
             request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
             request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
             request.MatchResult = result;
             request.OpponentPlayerId = opponentPlayerID;
+            if (string.IsNullOrWhiteSpace(matchID) == false)
+            {
+                request.MatchId = matchID;
+            }
             request.OpponentSimpleInfo = BMUtil.CompressStringToGzip(opponentSimpleData);
 
             var response = await GameService.MatchPvpAsync(request);

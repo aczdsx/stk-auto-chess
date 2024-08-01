@@ -82,6 +82,8 @@ namespace CookApps.AutoBattler
 
             UserPVPBattleDeckList targetDeckList = isDefenseDeck ? UserPVP.MyPvpDefenseDeckList : UserPVP.MyPvpAttackDeckList;
             
+            if (targetDeckList == null || targetDeckList.PvpCharacterDecks == null) return 0;
+            
             foreach (var deckCharacter in targetDeckList.PvpCharacterDecks)
             {
                 var userCharacterData = GetUserCharacter(deckCharacter.Id);

@@ -241,7 +241,7 @@ namespace CookApps.AutoBattler
                     break;
                 case PVPTimeRefreshType.AUTO_PROFILE:
                     var autoRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_PROFILE_AUTO_REFRESH_TIME");
-                    UserPVP.RefreshRankingTimestamp = TimeManager.Instance.AddSecondsTimeStamp(autoRefreshTime);
+                    UserPVP.AutoRefreshProfileTimestamp = TimeManager.Instance.AddSecondsTimeStamp(autoRefreshTime);
                     break;
             }
 

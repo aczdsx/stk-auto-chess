@@ -150,10 +150,13 @@ namespace CookApps.AutoBattler
             
             if (haveResult)
             {
-                _battleResultWinObject.SetActive(_userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Win);
-                _battleResultLoseObject.SetActive(_userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Lose);
+                bool isWin = _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Win || _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.RevengeWin;
+                bool isLose = _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Lose || _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.RevengeLose;
                 
-                string resultText = _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Win ? "승리" : "패배";
+                _battleResultWinObject.SetActive(isWin);
+                _battleResultLoseObject.SetActive(isLose);
+                
+                string resultText = isWin  ? "승리" : "패배";
                 _battleResultText.text = resultText;
             }
         }
@@ -163,10 +166,10 @@ namespace CookApps.AutoBattler
             bool isLoseBattle = _userPVPBattleSimpleData.MatchResult == (int)PvpMatchResult.Lose;
             bool isAvailRevenge = _isBattleLogSlot && isLoseBattle;
             
-            _revengeLayer.SetActive(isAvailRevenge);
+            _revengeLayer.SetActive(_isBattleLogSlot);
             _revengeButton.gameObject.SetActive(isLoseBattle);
 
-            if (isAvailRevenge)
+            if (_isBattleLogSlot)
             {
                 _revengeRankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specTierData.pvp_tier_type);
 
