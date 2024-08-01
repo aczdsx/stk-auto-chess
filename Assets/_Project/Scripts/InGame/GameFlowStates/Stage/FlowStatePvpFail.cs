@@ -15,7 +15,7 @@ public class FlowStatePvpFail : StateBase
         //[TODO] pvp result pop 작업 필요
         InGameManager.Instance.EndInGame();
         SpecCharacter mvpCharacterData = null;
-        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((false, mvpCharacterData));
+        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((false, InGameManager.Instance.UserPvpBattleDeckList));
     }
 
     public override void StateRunning(float dt)
