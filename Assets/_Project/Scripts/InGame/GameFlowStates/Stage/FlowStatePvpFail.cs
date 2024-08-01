@@ -1,5 +1,6 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 
@@ -10,12 +11,21 @@ public class FlowStatePvpFail : StateBase
     {
     }
 
-    public override void StateStart()
+    public async override void StateStart()
     {
-        //[TODO] pvp result pop 작업 필요
+        var detailDeckData = InGameManager.Instance.UserPvpBattleDeckList;
+        var simpleDeckData = PVPManager.Instance.ChangeDetailDataToSimpleData(detailDeckData);
+        
+        string resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
+        string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
+        
+        // 전투 종료 API
+        var matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Lose, detailDeckData.PlayerId, gzipSimpleData);
+        
+        // PVP 패배 팝업 노출
         InGameManager.Instance.EndInGame();
-        SpecCharacter mvpCharacterData = null;
-        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((false, InGameManager.Instance.UserPvpBattleDeckList));
+        
+        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((false, detailDeckData, matchResultData));
     }
 
     public override void StateRunning(float dt)

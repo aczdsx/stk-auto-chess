@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
 
         [Header("Tier Info Layer")] 
         [SerializeField] private Image _tierImage;
+        [SerializeField] private Image _tierSecondImage;
         [SerializeField] private TextMeshProUGUI _tierNameText;
         [SerializeField] private TextMeshProUGUI _tierPointText;
         [SerializeField] private TextMeshProUGUI _tierPointChangeText;
@@ -30,6 +31,7 @@ namespace CookApps.AutoBattler
         private bool _isVictory = false;
         
         private UserPVPBattleDetailData _detailData;
+        private MatchPvpResponse _matchResultData;
         
         private void Awake()
         {
@@ -48,9 +50,38 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.PVP_Ticket);
 
+            ClearPopup();
+            
             SoundManager.Instance.StopBGM();
             
-            (_isVictory, _detailData) = ((bool, UserPVPBattleDetailData))param;
+            (_isVictory, _detailData, _matchResultData) = ((bool, UserPVPBattleDetailData, MatchPvpResponse))param;
+            
+            // 애니메이션 연출 적용
+            string animKey = _isVictory ? "SetUp" : "SetDown";
+            baseAnimator.SetTrigger(animKey);
+
+            var specTierData = SpecDataManager.Instance.GetPVPTierData(_detailData.RankId);
+
+            _tierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
+            _tierSecondImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
+            _tierNameText.text = LanguageManager.Instance.GetPVPTierText(specTierData.pvp_tier_type);
+            _tierPointText.text = _matchResultData.MyCurrentScore.ToString("n0");
+            _tierPointChangeText.text = $"({_matchResultData.MyDeltaScore.ToString("n0")})";
+            
+            for(int i = 0; i < specTierData.tier_order; i++)
+            {
+                _tierLevelObjectList[i].SetActive(true);
+            }
+            
+            // 시즌 보상 리스트
+            var seasonRewardList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_SEASON, specTierData.ranking_id);
+            foreach (var rewardData in seasonRewardList)
+            {
+                GameObject newObject = Instantiate(_rewardItemSlotObject, _rewardContentObject.transform);
+                var rewardSlot = newObject.GetComponent<RewardItemSlot>();
+                
+                rewardSlot.SetRewardSlot(rewardData);
+            }
         }
         
         private async void OnClickCloseButton()
@@ -59,7 +90,7 @@ namespace CookApps.AutoBattler
             
             SceneUILayerManager.Instance.PopUILayer(this);
             
-            InGameManager.Instance.EndInGame();
+            //InGameManager.Instance.EndInGame();
             int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
             var transition = SceneTransition_FadeInOut.Create();
@@ -74,6 +105,13 @@ namespace CookApps.AutoBattler
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<ArenaMainPopup>().Forget();
             }
+        }
+        
+        private void ClearPopup()
+        {
+            BMUtil.RemoveChildObjects(_rewardContentObject.transform);
+            
+            _tierLevelObjectList?.ForEach(obj => obj.SetActive(false));
         }
     }
 }

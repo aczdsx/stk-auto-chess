@@ -29075,9 +29075,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060671693dabf4d4286fa8c9694d1d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAnimator: {fileID: 0}
+  baseAnimator: {fileID: 259945115954755132}
   _okButton: {fileID: 5820830992953344849}
   _tierImage: {fileID: 6215398437015069863}
+  _tierSecondImage: {fileID: 3627080833815091187}
   _tierNameText: {fileID: 2399465421059331000}
   _tierPointText: {fileID: 8017571068245261583}
   _tierPointChangeText: {fileID: 5906820218433227862}

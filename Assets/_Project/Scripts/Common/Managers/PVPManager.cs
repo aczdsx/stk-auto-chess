@@ -56,6 +56,34 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public UserPVPBattleSimpleData ChangeDetailDataToSimpleData(UserPVPBattleDetailData targetData)
+        {
+            UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
+            simpleData.PlayerId = targetData.PlayerId;
+            simpleData.ServerId = targetData.ServerId;
+            simpleData.RankId = targetData.RankId;
+            simpleData.RankPoint = targetData.RankPoint;
+            simpleData.Ranking = targetData.Ranking;
+            simpleData.Nickname = targetData.Nickname;
+            simpleData.PlayerLv = targetData.PlayerLv;
+            simpleData.BattlePoint = targetData.BattlePoint;
+
+            var getPVPDefenseDeckList = targetData.PvpDeckList.PvpCharacterDecks;
+            if (getPVPDefenseDeckList != null && getPVPDefenseDeckList.Count > 0)
+            {
+                foreach (var deckData in getPVPDefenseDeckList)
+                {
+                    UserPVPCharacterSimpleDeck newSimpleData = new UserPVPCharacterSimpleDeck();
+                    newSimpleData.Id = deckData.Id;
+                    newSimpleData.Lv = deckData.Lv;
+                
+                    simpleData.SimpleDeckList.Add(newSimpleData);
+                }
+            }
+
+            return simpleData;
+        }
+
         // 상대방 PVP 프로필 정보를 서버로부터 가져옴
         public async UniTask<PVPProfileData> GetPVPProfileData(string playerID, int profileType)
         {
@@ -156,27 +184,31 @@ namespace CookApps.AutoBattler
         }
         
         // PVP 전투 결과를 전송
-        public async UniTask SendMatchPVPBattleResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
+        public async UniTask<MatchPvpResponse> SendMatchPVPBattleResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
         {
             var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData, "");
             if (response.IsError)
-                return;
+                return null;
 
             // 복수가 아닌 일반 매칭일 경우 매칭 결과 데이터 세팅
             UserDataManager.Instance.SetPVPMatchingResultData(opponentPlayerID, result, false);     // 저장은 SetPVPBattleResultData에서 같이 처리
             
             // 유저 데이터에 결과 저장
             UserDataManager.Instance.SetPVPBattleResultData(response, true);
+
+            return response;
         }
         
-        public async UniTask SendMatchPVPRevengeResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData, string matchID)
+        public async UniTask<MatchPvpResponse> SendMatchPVPRevengeResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData, string matchID)
         {
             var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData, matchID);
             if (response.IsError)
-                return;
+                return null;
 
             // 유저 데이터에 결과 저장
             UserDataManager.Instance.SetPVPBattleResultData(response, true);
+            
+            return response;
         }
         
         // 상대방 PVP 매칭 덱이 업데이트 되었는지 체크
