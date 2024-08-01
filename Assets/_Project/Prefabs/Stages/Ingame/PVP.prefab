@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridSize:
-    x: 9
-    y: 7
+    x: 7
+    y: 9
   _tileViews:
   - {fileID: 3078448789358385161}
   - {fileID: 8860200407737344374}

@@ -19,7 +19,10 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
-            bool isFirstTrial =Preference.LoadPreference(Pref.FIRST_TRIAL, true);
+            _specTrialDungeon = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
+
+            bool isFirstTrial = _specTrialDungeon.dungeon_map_id == 1 &&
+                                Preference.LoadPreference(Pref.FIRST_TRIAL, true);
             if (true) 
             {
                 Preference.SavePreference(Pref.FIRST_TRIAL, false);
@@ -32,7 +35,6 @@ namespace CookApps.AutoBattler
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _specTrialDungeon = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
             _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
             _inGameUI.TopUI.SetStageName(StringUtil.GetTrialDungeonString(_specTrialDungeon));
             InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);

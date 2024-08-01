@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridSize:
-    x: 4
-    y: 7
+    x: 7
+    y: 4
   _tileViews:
   - {fileID: 1923805090589470283}
   - {fileID: 5404217329412790068}
@@ -205,9 +205,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2727176103808659478}
     m_Modifications:
+    - target: {fileID: 1017132836309751100, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: _allianceType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1563186749292781493, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
       propertyPath: m_Name
       value: Playground4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4133980345999668286, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: _allianceType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073524108726171767, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073524108726171767, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: m_Color.g
+      value: 0.67058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073524108726171767, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5803922
       objectReference: {fileID: 0}
     - target: {fileID: 6563914346962814255, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -248,6 +268,18 @@ PrefabInstance:
     - target: {fileID: 6563914346962814255, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136569521854585205, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136569521854585205, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: m_Color.g
+      value: 0.67058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136569521854585205, guid: afc29e293225ab64a9b019c4e873a6ec, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5803922
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
