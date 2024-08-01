@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -101,6 +102,10 @@ namespace CookApps.AutoBattler
             _inGameUI.PlayAnimation("SetBattleEntry");
             _inGameUI.BottomUI.InitCommanderSkill();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
+            
+            bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
+            if (isOpenStatisticPop)
+                SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(_inGameUI.BottomUI).Forget();
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)

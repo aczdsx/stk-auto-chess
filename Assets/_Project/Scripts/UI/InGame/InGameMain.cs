@@ -76,13 +76,6 @@ namespace CookApps.AutoBattler
             base.OnPreExit();
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
         }
-        
-        public void OpenStatisticPop()
-        {
-            bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
-            if (isOpenStatisticPop)
-                SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
-        }
 
         public void ShowSKillTooltip(CharacterStatData getCharacterStat)
         {
