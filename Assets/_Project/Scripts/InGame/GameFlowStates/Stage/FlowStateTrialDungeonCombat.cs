@@ -29,7 +29,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         if (InGameManager.Instance.SpecDungeonTrial.dungeon_map_id == 1)
             InGameCommanderManager.Instance.InGameCamera.SetCameraSize(9.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
         else
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(9.0f, new Vector3(0, 3f, -10), 1.0f).Forget();
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.0f, new Vector3(0, 3f, -10), 1.0f).Forget();
     }
 
     public override void StateStart()
