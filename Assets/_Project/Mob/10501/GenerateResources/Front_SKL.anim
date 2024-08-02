@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Front_SKL
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 0455d1f865a364d49aa7f785b422cfae, type: 3}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: bd0d6f4a8e7c06b4a8f0c439e2d0fbef, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: a4e46e9d665f0d247a7da75665cd9b54, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: d586ace9b44b4c544afb759a8dc1d25e, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 4e42f7c0223bea2479929828e48e7107, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: 490832e189fca4b45a6bedfbf606471b, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 3c8c28c87adad264d9ba95e11ac968bb, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 93164c3df24f0bb44817baeea59a76bd, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 7c5c179e8e0fdab43b51e526ffbae34c, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: 26b397fbef40a99468aa8b53b7aca14b, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 5486e5834e03eb647a57a24fbcff7c9f, type: 3}
+    - time: 0.9166667
+      value: {fileID: 21300000, guid: 2da4954bb1a8b2540b944b0bbc603ce2, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 12
+  m_WrapMode: 1
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 0455d1f865a364d49aa7f785b422cfae, type: 3}
+    - {fileID: 21300000, guid: bd0d6f4a8e7c06b4a8f0c439e2d0fbef, type: 3}
+    - {fileID: 21300000, guid: a4e46e9d665f0d247a7da75665cd9b54, type: 3}
+    - {fileID: 21300000, guid: d586ace9b44b4c544afb759a8dc1d25e, type: 3}
+    - {fileID: 21300000, guid: 4e42f7c0223bea2479929828e48e7107, type: 3}
+    - {fileID: 21300000, guid: 490832e189fca4b45a6bedfbf606471b, type: 3}
+    - {fileID: 21300000, guid: 3c8c28c87adad264d9ba95e11ac968bb, type: 3}
+    - {fileID: 21300000, guid: 93164c3df24f0bb44817baeea59a76bd, type: 3}
+    - {fileID: 21300000, guid: 7c5c179e8e0fdab43b51e526ffbae34c, type: 3}
+    - {fileID: 21300000, guid: 26b397fbef40a99468aa8b53b7aca14b, type: 3}
+    - {fileID: 21300000, guid: 5486e5834e03eb647a57a24fbcff7c9f, type: 3}
+    - {fileID: 21300000, guid: 2da4954bb1a8b2540b944b0bbc603ce2, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 1
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0
+    functionName: InvokeAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: InvokeAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1001
+    messageOptions: 0
+  - time: 1
+    functionName: InvokeAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1
+    messageOptions: 0
