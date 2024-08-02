@@ -19,7 +19,7 @@ public static class StringUtil
     public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon)
     {
         
-        return (trialDungeon.step == 1) ? $"{trialDungeon.trial_type}" : $"{trialDungeon.trial_type}-{trialDungeon.step}";
+        return (trialDungeon.step == 1) ? $"{trialDungeon.trial_type}" : $"{trialDungeon.trial_type}{trialDungeon.step}";
     }
 
     public static string BigIntToShortString(BigInteger value)
@@ -121,22 +121,22 @@ public static class StringUtil
         {
             if (cost > have)
             {
-                result = $"<color={colorNotEnough}>{cost.ToString("n0")}</color>";
+                result = $"<color={colorNotEnough}>{have.ToString("n0")}</color>";
             }
             else
             {
-                result = $"<color={colorEnough}>{cost.ToString("n0")}</color>";
+                result = $"<color={colorEnough}>{have.ToString("n0")}</color>";
             }
         }
         else
         {
             if (cost > have)
             {
-                result = $"<color={colorNotEnough}>{cost.ToString("n0")}</color>/{have.ToString("n0")}";
+                result = $"<color={colorNotEnough}>{have.ToString("n0")}</color>/{cost.ToString("n0")}";
             }
             else
             {
-                result = $"<color={colorEnough}>{cost.ToString("n0")}</color>/{have.ToString("n0")}";
+                result = $"<color={colorEnough}>{have.ToString("n0")}</color>/{cost.ToString("n0")}";
             }
         }
 

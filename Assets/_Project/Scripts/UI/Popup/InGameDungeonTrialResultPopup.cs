@@ -5,6 +5,7 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -22,10 +23,22 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _failStageText;
         [SerializeField] private TextMeshProUGUI _nextStageButtonText;
 
+        [SerializeField] private GameObject _characterIllustParentObject;
+        
+        [Space]
+        [SerializeField] private GameObject _rewardObj;
         [SerializeField] private Transform _rewardsTransform;
         [SerializeField] private GameObject _rewardItemSlotObj;
-
-        [SerializeField] private GameObject _characterIllustParentObject;
+        
+        [SerializeField] private GameObject _gradeUpObj;
+        [SerializeField] private GameObject _beforeObj;
+        [SerializeField] private Image _beforeGradeImage;
+        [SerializeField] private Image _afterGradeImage;
+        [SerializeField] private GameObject _beforeLoseObj;
+        [SerializeField] private GameObject _afterLoseObj;
+        
+        [SerializeField] private TextMeshProUGUI _beforeGradeText;
+        [SerializeField] private TextMeshProUGUI _afterGradeText;
         
         [Header("Dungeon Info")]
         
@@ -57,11 +70,17 @@ namespace CookApps.AutoBattler
             
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);
-            
+
+            _afterLoseObj.SetActive(!_isVictory);
+            _beforeLoseObj.SetActive(!_isVictory);
             if (_isVictory)
-                _victoryStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
+                _victoryStageText.text =
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial) + " 승급 성공";
             else
-                _failStageText.text =  StringUtil.GetStageString(InGameManager.Instance.SpecStage);
+            {
+                _failStageText.text =
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial) + " 승급 실패";
+            }
 
             if (_specCharacter != null)
             {
@@ -74,6 +93,22 @@ namespace CookApps.AutoBattler
             // 애니메이션 연출 적용
             string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
             baseAnimator.SetTrigger(animKey);
+
+            SetRewardInfo();
+            // _rewardObj.SetActive(!InGameManager.Instance.SpecDungeonTrial.is_grade_up);
+
+            var currentDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(InGameManager.Instance.SpecDungeonTrial.dungeon_id - 1);
+            var nextDungeonTrialData = InGameManager.Instance.SpecDungeonTrial;
+
+            _beforeObj.SetActive(currentDungeonTrialData != null);
+            if (currentDungeonTrialData != null)
+            {
+                _beforeGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(currentDungeonTrialData.trial_type, false);
+                _beforeGradeText.text = StringUtil.GetTrialDungeonString(currentDungeonTrialData);
+            }
+
+            _afterGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(nextDungeonTrialData.trial_type, false);
+            _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData);
         }
 
         private void OnClickExitButton()
@@ -94,6 +129,28 @@ namespace CookApps.AutoBattler
             if (scenename == "Lobby")
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
+            }
+        }
+        
+        private void SetRewardInfo()
+        {
+            if (InGameManager.Instance.SpecDungeonTrial == null) return;
+
+            BMUtil.RemoveChildObjects(_rewardsTransform);
+
+            _gradeUpObj.SetActive(InGameManager.Instance.SpecDungeonTrial.is_grade_up);
+            if (!InGameManager.Instance.SpecDungeonTrial.is_grade_up)
+            {
+                var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
+
+                foreach (var rewardData in rewardDataList)
+                {
+                    GameObject newSlotObject = Instantiate(_rewardItemSlotObj, _rewardsTransform);
+                    RewardItemSlot newSlot = newSlotObject.GetComponent<RewardItemSlot>();
+
+                    RewardItem newRewardItem = new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count);
+                    newSlot?.SetRewardSlot(newRewardItem);
+                }
             }
         }
     }

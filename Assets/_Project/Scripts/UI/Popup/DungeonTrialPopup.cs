@@ -123,7 +123,7 @@ namespace CookApps.AutoBattler
         {
             if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
             
-            _needStageStarText.text = StringUtil.GetCompareString(_specDungeonTrialData.need_star, UserDataManager.Instance.GetAllTotalChapterStarCount());
+            _needStageStarText.text = StringUtil.GetCompareString(UserDataManager.Instance.GetAllTotalChapterStarCount(), _specDungeonTrialData.need_star);
         }
 
         private void SetMonsterInfoLayer()
