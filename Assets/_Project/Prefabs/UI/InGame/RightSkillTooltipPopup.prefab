@@ -521,8 +521,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.1}
   m_AnchorMax: {x: 1, y: 0.9}
-  m_AnchoredPosition: {x: -70, y: 0}
-  m_SizeDelta: {x: 430, y: -304}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 440, y: -292}
   m_Pivot: {x: 0.98, y: 0.5}
 --- !u!222 &4494868119677686583
 CanvasRenderer:
@@ -673,7 +673,7 @@ MonoBehaviour:
   isValid: 1
   target: {fileID: 9141672664959296114}
   animationType: 7
-  targetType: 2
+  targetType: 3
   forcedTargetType: 2
   autoPlay: 1
   useTargetAsV3: 0
@@ -786,7 +786,7 @@ MonoBehaviour:
   autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 50, y: 0, z: 0}
+  endValueV3: {x: -70, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -990,8 +990,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -95.900024, y: 30}
-  m_SizeDelta: {x: 220, y: 35}
+  m_AnchoredPosition: {x: -99, y: 30}
+  m_SizeDelta: {x: 280, y: 35}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4048473298505838200
 CanvasRenderer:
@@ -1201,7 +1201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -94.9, y: -24}
+  m_AnchoredPosition: {x: -97.999855, y: -24}
   m_SizeDelta: {x: 282, y: 44}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &5798823051707280862
