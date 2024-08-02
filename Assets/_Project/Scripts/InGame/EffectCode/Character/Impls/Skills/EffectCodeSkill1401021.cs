@@ -183,9 +183,9 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
     private void StunCharacter(InGameTile tile)
     {
         float damageRate = (float)(owner.AD * _afterDamageRate) * (1.0f + (float)owner.RES / _resRate);
-        var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
-        _targetCharacter.GetDamaged(damage, owner);
+        var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
+        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+        tile.OccupiedCharacter.GetDamaged(damage, owner);
         
         Span<double> eccStats = stackalloc double[1];
         eccStats.Clear();
