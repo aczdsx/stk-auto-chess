@@ -896,4 +896,16 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt item_id;
         public CookApps.Obfuscator.ObfuscatorLong item_count;
     }
+
+    [GeneratorSpecData]
+    public partial class SpecOpenCondition
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// #origin
+        public global::CookApps.AutoBattler.OpenConditionType open_condition_Type;
+        /// 시너지 시너지
+        public CookApps.Obfuscator.ObfuscatorInt guide_mission_id;
+    }
 }

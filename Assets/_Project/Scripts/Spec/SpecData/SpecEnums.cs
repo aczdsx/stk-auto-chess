@@ -550,4 +550,15 @@ namespace CookApps.AutoBattler
         NEUTRAL_WALL = 2,
         EFFECT_CODE = 3,
     }
+
+    public enum OpenConditionType
+    {
+        TRIAL_DUNGEON = 1,
+        PVP = 2,
+        QUEST = 3,
+        SESSION_TIME = 4,
+        ATTENDANCE = 5,
+        AP_USE = 6,
+        SUMMON = 7,
+    }
 }

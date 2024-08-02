@@ -147,6 +147,7 @@ namespace CookApps.AutoBattler
                     CheckNewChapterClear();
                     CheckUserAccountLevelUp();
                     UpdateReddotState();
+                    UpdateOpenCondition();
                     break;
                 case LobbyMainRefreshType.STAGE:
                     SetBottomStageUI();
@@ -155,6 +156,7 @@ namespace CookApps.AutoBattler
                     break;
                 case LobbyMainRefreshType.GUIDE_MISSION:
                     _guideMissionSlot?.RefreshGuideMissionSlot();
+                    UpdateOpenCondition();
                     break;
                 case LobbyMainRefreshType.CHARACTER_LAYER:
                     SetUserInfoLayer();
@@ -611,6 +613,17 @@ namespace CookApps.AutoBattler
             _stageSlotList.Clear();
 
             BMUtil.RemoveChildObjects(_stageSelectScrollRect.content);
+        }
+
+        private void UpdateOpenCondition()
+        {
+            _attendanceButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.ATTENDANCE));
+            _gachaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SUMMON));
+            _questButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.QUEST));
+            _trialDungeonButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.TRIAL_DUNGEON));
+            _EnterArenaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.PVP));
+            _sessionEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SESSION_TIME));
+            _consumeAPEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.AP_USE));
         }
     }
 }

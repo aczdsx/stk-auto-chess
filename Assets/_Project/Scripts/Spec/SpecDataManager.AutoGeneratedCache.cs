@@ -43,6 +43,7 @@ namespace CookApps.AutoBattler
 		public List<SpecPVPConfig> SpecPVPConfigList {get; private set;}
 		public List<SpecPVPDummy> SpecPVPDummyList {get; private set;}
 		public List<SpecReward> SpecRewardList {get; private set;}
+		public List<SpecOpenCondition> SpecOpenConditionList {get; private set;}
 
 		private void GenerateCacheSpecData()
 		{
@@ -81,6 +82,7 @@ namespace CookApps.AutoBattler
 			SpecPVPConfigList = SpecPVPConfig.All.ToList();
 			SpecPVPDummyList = SpecPVPDummy.All.ToList();
 			SpecRewardList = SpecReward.All.ToList();
+			SpecOpenConditionList = SpecOpenCondition.All.ToList();
 		}
 	}
 }
