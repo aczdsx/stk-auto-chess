@@ -5,6 +5,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -29,6 +30,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _dungeonNameText;
         [SerializeField] private TextMeshProUGUI _totalMonsterBattlePointText;
         [SerializeField] private TextMeshProUGUI _needStageStarText;
+        [SerializeField] private GameObject _dungeonClearBtnObj;
 
         [Header("Top Dungeon Progress Layer")]
         [SerializeField] private ScrollRect _stepScrollRect;
@@ -41,6 +43,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _currentStepName;
         [SerializeField] private TextMeshProUGUI _currentStepAttr;
         [SerializeField] private GameObject _characterImageParentObject;
+        [SerializeField] private GameObject _lightFxObj;
+        [SerializeField] private GameObject _dimmedLightFxObj;
+        [SerializeField] private UICharacter _uiCharacter;
 
         [Header("Dungeon Monster Info Layer")]
         [SerializeField] private ScrollRect _monsterInfoScrollRect;
@@ -86,6 +91,11 @@ namespace CookApps.AutoBattler
         {
             CurrentUserDungeonData = UserDataManager.Instance.GetTrialDungeonData(dungeonID);
             _specDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(CurrentUserDungeonData.DungeonId);
+
+            var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
+            bool isDimmed = lastDungeonData.Order > _specDungeonTrialData.order;
+            _dimmedLightFxObj.SetActive(isDimmed);
+            _lightFxObj.SetActive(!isDimmed);
         }
 
         public void RefreshDungeonTrialPopup(DungeonTrialPopupRefreshType refreshType)
@@ -123,6 +133,8 @@ namespace CookApps.AutoBattler
         {
             if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
             
+            var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
+            _dungeonClearBtnObj.SetActive(lastDungeonData.Order > _specDungeonTrialData.order);
             _needStageStarText.text = StringUtil.GetCompareString(UserDataManager.Instance.GetAllTotalChapterStarCount(), _specDungeonTrialData.need_star);
         }
 
@@ -154,9 +166,15 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_characterImageParentObject.transform);
             if (topStatData != null)
             {
+                var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
+                bool isDimmed = lastDungeonData.Order > _specDungeonTrialData.order;
+
                 string characterPrefabName =
                     string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, topStatData.Spec.prefab_id);
-                AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
+                GameObject obj =
+                    AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
+                _uiCharacter = obj.GetComponent<UICharacter>();
+                _uiCharacter.SetGrayCharacter(isDimmed);
             }
         }
 
