@@ -129,6 +129,8 @@ namespace CookApps.AutoBattler
             if (scenename == "Lobby")
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<ArenaMainPopup>().Forget();
+            
+                SceneUILayerManager.OnSceneLoadedEvent -= OpenArenaMainPopupAction;
             }
         }
         
