@@ -81,6 +81,11 @@ namespace CookApps.AutoBattler
             return DateTimeToTimeStamp(NextMonday());
         }
 
+        public TimeSpan GetTimeSpan(long targetTimeStamp)
+        {
+            return TimeStampToDateTime(targetTimeStamp) - UtcNow();
+        }
+        
         public TimeSpan GetTimeSpan(long baseTimeStamp, long targetTimeStamp)
         {
             return TimeStampToDateTime(targetTimeStamp) - TimeStampToDateTime(baseTimeStamp);
