@@ -905,7 +905,7 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// #origin
         public global::CookApps.AutoBattler.OpenConditionType open_condition_Type;
-        /// 시너지 시너지
+        /// 가이드 미션 아이디
         public CookApps.Obfuscator.ObfuscatorInt guide_mission_id;
     }
 }
