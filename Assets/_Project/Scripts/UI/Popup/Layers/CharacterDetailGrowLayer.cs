@@ -300,7 +300,7 @@ namespace CookApps.AutoBattler
             // 리셋 가능 레벨 체크
             if (_userCharacterData.Level <= 1)
             {
-                ToastManager.Instance.ShowToast("TEST - 리셋 가능 레벨이 아닙니다.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_IMPOSSIBLE_ALERT");
                 return;
             }
 
@@ -308,7 +308,7 @@ namespace CookApps.AutoBattler
             int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
             if (UserDataManager.Instance.UserBasicData.ResetCharacterCount >= maxResetCount)
             {
-                ToastManager.Instance.ShowToast("TEST - 리셋 가능 횟수 초과.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_END_GUIDE");
                 return;
             }
 
@@ -316,7 +316,7 @@ namespace CookApps.AutoBattler
             var resetRewardItemList = SpecDataManager.Instance.GetCharacterLevelupTotalNeedItemList(_userCharacterData.Level, _userCharacterData.CharacterId);
             if (resetRewardItemList == null || resetRewardItemList.Count <= 0)
             {
-                ToastManager.Instance.ShowToast("TEST - 리셋 아이템 데이터 에러");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_ITEM_ISSUE");
                 return;
             }
 

@@ -190,7 +190,7 @@ namespace CookApps.AutoBattler
             var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
             if (defenseDeckList == null || defenseDeckList.Count <= 0)
             {
-                ToastManager.Instance.ShowToast("TEST - 방어덱 설정이 필요합니다.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_PVP_SET_DEF_DECK");
                 return;
             }
             
@@ -240,7 +240,7 @@ namespace CookApps.AutoBattler
             var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
             if (defenseDeckList == null || defenseDeckList.Count <= 0)
             {
-                ToastManager.Instance.ShowToast("TEST - 방어덱 설정이 필요합니다.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_PVP_SET_DEF_DECK");
                 return;
             }
             

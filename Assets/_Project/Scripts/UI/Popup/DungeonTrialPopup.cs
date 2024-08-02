@@ -240,7 +240,7 @@ namespace CookApps.AutoBattler
             // 던전 진입 가능 조건 검사
             if (UserDataManager.Instance.GetAllTotalChapterStarCount() < _specDungeonTrialData.need_star)
             {
-                ToastManager.Instance.ShowToast("TEST - 스테이지 별 갯수 부족.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
                 return;
             }
             
@@ -248,13 +248,13 @@ namespace CookApps.AutoBattler
             
             if (lastDungeonData.Order > _specDungeonTrialData.order)
             {
-                ToastManager.Instance.ShowToast("TEST - 이미 클리어한 던전입니다.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
                 return;
             }
             
             if (lastDungeonData.Order < _specDungeonTrialData.order)
             {
-                ToastManager.Instance.ShowToast("TEST - 이전 단계를 클리어 해주세요.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
                 return;
             }
 

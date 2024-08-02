@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
             // 구매 횟수 제한 체크
             if (UserDataManager.Instance.UserPVP.BuyTicketCnt >= _ticketLimitCount)
             {
-                ToastManager.Instance.ShowToast("TEST - 더 이상 구매할 수 없습니다.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_PURCHASE_COUNT_OVER");
                 return;
             }
             
