@@ -7640,6 +7640,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterItemSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 1475556494611317003, guid: 2a347fafc3ef43640854a2c5b20b57fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3052446370037572043, guid: 2a347fafc3ef43640854a2c5b20b57fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6022387219847790098, guid: 2a347fafc3ef43640854a2c5b20b57fc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7702,7 +7710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6022387219847790098, guid: 2a347fafc3ef43640854a2c5b20b57fc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250.73047
+      value: 3814
       objectReference: {fileID: 0}
     - target: {fileID: 6022387219847790098, guid: 2a347fafc3ef43640854a2c5b20b57fc, type: 3}
       propertyPath: m_AnchoredPosition.y
