@@ -40,6 +40,9 @@ public class InGameBottomPvpUI : InGameBottomUI
                 return false;
             }
         }
+        
+        // PVP 티켓 소모
+        UserDataManager.Instance.DecreaseItem(ItemType.PVP_TICKET, 0, 1, true, false);
 
         return true;
     }

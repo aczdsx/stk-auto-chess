@@ -60,6 +60,7 @@ namespace CookApps.AutoBattler
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.MATCHING_REFRESH_COUNT);
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.BUY_TICKET);
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.DAILY_REWARD);
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.REFILL_TICKET);
         }
 
         public void OnClickBattleTabButton()
