@@ -89,13 +89,17 @@ namespace CookApps.AutoBattler
 
             if (newObject != null)
             {
-                // newObject.GetComponent<UIEffectController>()?.SetUIEffectMode(haveCharacter ? EffectMode.None : EffectMode.Grayscale);
-                newObject.GetComponentInChildren<UIEffect>().effectMode = haveCharacter ? EffectMode.None : EffectMode.Grayscale;
-
-                if (!haveCharacter)
+                UICharacter uiCharacter = newObject.GetComponent<UICharacter>();
+                if (uiCharacter != null)
                 {
-                    var newColor = BMUtil.ChangeColorAlpha(newObject.GetComponentInChildren<Image>().color, 0.46f);
-                    newObject.GetComponentInChildren<Image>().color = newColor;
+                    uiCharacter.SetGrayCharacter(!haveCharacter);
+
+                    if (!haveCharacter)
+                    {
+                        // var newColor = BMUtil.ChangeColorAlpha(newObject.GetComponentInChildren<Image>().color, 0.46f);
+                        // newObject.GetComponentInChildren<Image>().color = newColor;
+                    }
+                    // newObject.GetComponent<UIEffectController>()?.SetUIEffectMode(haveCharacter ? EffectMode.None : EffectMode.Grayscale);
                 }
             }
 
