@@ -1099,6 +1099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1145102127885919147}
+  - component: {fileID: 3717607183610007605}
   m_Layer: 5
   m_Name: NicknamePopup
   m_TagString: Untagged
@@ -1126,6 +1127,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3717607183610007605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5419755664757985013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b4a9c42ed792444cb995bf10d397ace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseAnimator: {fileID: 0}
+  _closeButton: {fileID: 8733334902371148795}
+  _confirmButton: {fileID: 5619565198292153360}
+  _nicknameInputField: {fileID: 7431746380943883402}
 --- !u!1 &5775147497593126658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,7 +1233,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7627049715300332740}
   m_TextViewport: {fileID: 4814691665168591429}
   m_TextComponent: {fileID: 1289478522844356208}
   m_Placeholder: {fileID: 2101335023716083124}

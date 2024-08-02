@@ -2007,6 +2007,7 @@ MonoBehaviour:
   _sessionEventButton: {fileID: 244007958178209753}
   _consumeAPEventButton: {fileID: 4450260306717938947}
   _EnterArenaButton: {fileID: 3439723526862910448}
+  _userAccountLayerButton: {fileID: 4659083264000874346}
   _vignetteData: {fileID: 11400000, guid: 6e525e54f8ab47e43a10ebe4272074f9, type: 2}
   _vignetteImage: {fileID: 5632547169323492497}
   _userNameText: {fileID: 1804400419255090806}
@@ -3678,6 +3679,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4659083264000874346 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 123756494470280387, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
+  m_PrefabInstance: {fileID: 4692689700546225065}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9040948234722099547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5241043022816834879 stripped

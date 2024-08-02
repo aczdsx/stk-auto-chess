@@ -162,6 +162,13 @@ namespace CookApps.AutoBattler
             return userCharacterGroup.UserCharacterBattleDeckDic[(int)targetType].UserCharacterBattleDecks.Count > 0;
         }
 
+        public void ChangeNickname(string nickname)
+        {
+            UserBasicData.Nickname = nickname;
+
+            SaveUserBasic();
+        }
+        
         public void SetCharacterLevel(int characterID, int level)
         {
             if (UserCharacterDic.ContainsKey(characterID))
