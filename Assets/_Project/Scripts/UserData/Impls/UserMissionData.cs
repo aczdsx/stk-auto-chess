@@ -171,7 +171,7 @@ namespace CookApps.AutoBattler
                     break;
                 case GuideMissionType.CLEAR_TRIAL:
                     var trialDungeonData = GetTrialDungeonData(specGuideMissionData.sub_key);
-                    if (trialDungeonData != null && trialDungeonData.DungeonId >= specGuideMissionData.need_count)
+                    if (trialDungeonData != null && trialDungeonData.DungeonStateType == 1)
                     {
                         SetGuideMissionState(GuideMissionType.CLEAR_TRIAL, specGuideMissionData.sub_key, MissionStateType.REWARD);
                     }
