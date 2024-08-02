@@ -10,7 +10,8 @@ public class CharacterStateDead : CharacterStateBase
     {
         base.StateStart();
         AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.DEAD);
-        characCtrl.GetCharacterView().SetDeadSprite(clip);
+        if (characCtrl.SpecCharacter.prefab_id != 20403)
+            characCtrl.GetCharacterView().SetDeadSprite(clip);
         isBlockingChangeState = true;
 
         Transform skillRootTransform = characCtrl.GetCharacterView().SkillRootTransform;
