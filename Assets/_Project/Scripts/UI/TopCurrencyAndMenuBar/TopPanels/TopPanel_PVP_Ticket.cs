@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
 
         private void OnEnable()
         {
-            UserDataManager.OnCTicketChanged += PVPTicketChanged;
+            UserDataManager.OnPVPTicketChanged += PVPTicketChanged;
 
             PVPTicketChanged(UserDataManager.Instance.UserWallet.PvpTicket);
             
@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
 
         private void OnDisable()
         {
-            UserDataManager.OnCTicketChanged -= PVPTicketChanged;
+            UserDataManager.OnPVPTicketChanged -= PVPTicketChanged;
             
             _topPanelButton.onClick.RemoveListener(OnClickTopPanelButton);
         }
