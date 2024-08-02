@@ -129,7 +129,10 @@ namespace CookApps.AutoBattler
             if (scenename == "Lobby")
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
+            
+                SceneUILayerManager.OnSceneLoadedEvent -= OpenDungeonTrialPopupAction;
             }
+            
         }
         
         private void SetRewardInfo()
