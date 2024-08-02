@@ -531,6 +531,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1824850558}
     m_Modifications:
+    - target: {fileID: -2082816117376954871, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
+      propertyPath: touchToStart
+      value: 
+      objectReference: {fileID: 1620322812}
+    - target: {fileID: -2082816117376954871, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
+      propertyPath: _guestIDInputField
+      value: 
+      objectReference: {fileID: 1620322815}
+    - target: {fileID: -2082816117376954871, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
+      propertyPath: _currentGuestIDText
+      value: 
+      objectReference: {fileID: 1620322814}
+    - target: {fileID: -2082816117376954871, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
+      propertyPath: _createGuestButtonLayer
+      value: 
+      objectReference: {fileID: 1620322813}
     - target: {fileID: 3051522083987120886, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -619,6 +635,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8955424991025008236, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1620322816}
+    - target: {fileID: 8955424991025008236, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickGuestLoginButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8955424991025008236, guid: e3da17b6ddece0b4687be505ae625d30, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CookApps.AutoBattler.TitleMain, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -637,6 +665,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 697865440549132607, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: _createGuestButtonLayer
+      value: 
+      objectReference: {fileID: 1620322813}
     - target: {fileID: 2583728381327667980, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: m_Name
       value: SplashUI
@@ -644,6 +676,18 @@ PrefabInstance:
     - target: {fileID: 2583728381327667980, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418257745457230121, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: m_text
+      value: CREATE GUEST ID
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026400026169124416, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026400026169124416, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 159
       objectReference: {fileID: 0}
     - target: {fileID: 4036295859474581189, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -685,10 +729,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058421663751716091, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4561338570688833651, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: touchToStart
       value: 
       objectReference: {fileID: 1620322812}
+    - target: {fileID: 7211949483053293710, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 146
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167341032682312037, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickGuestLoginButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -699,6 +755,44 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5588961860860531760, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
   m_PrefabInstance: {fileID: 1620322811}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1620322813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6912974175550860025, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+  m_PrefabInstance: {fileID: 1620322811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1620322814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5174562048235354056, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+  m_PrefabInstance: {fileID: 1620322811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1620322815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8903738078188749025, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+  m_PrefabInstance: {fileID: 1620322811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1620322816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 697865440549132607, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+  m_PrefabInstance: {fileID: 1620322811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e56736e92d404db721bc6b8f47d018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1824850557
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public enum Pref
     VOX_V,
     STATISTIC,
     FIRST_TRIAL,
+    GUEST_ID,
 }
 
 public class Preference

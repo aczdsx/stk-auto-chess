@@ -62,6 +62,8 @@ namespace CookApps.AutoBattler
             UserBasicData.PlayerId = playerID;
             UserBasicData.Nickname = username;
             
+            Preference.SavePreference(Pref.GUEST_ID, UserBasicData.PlayerId);   // 기기자체에도 저장 (첫 로그인 판별용)
+            
             SaveUserBasic();
         }
 
