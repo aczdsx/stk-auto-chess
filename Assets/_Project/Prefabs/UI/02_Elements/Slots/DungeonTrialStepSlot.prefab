@@ -1019,8 +1019,8 @@ MonoBehaviour:
   _normalStateObject: {fileID: 1475404683021862709}
   _normalCompleteObject: {fileID: 6852435096254553665}
   _mainStateObject: {fileID: 8251849325567387958}
-  _mainCompleteObject: {fileID: 6799171829434457683}
-  _mainDimmedObject: {fileID: 854555609218897701}
+  _mainCompleteObject: {fileID: 854555609218897701}
+  _mainDimmedObject: {fileID: 2789288746074657197}
   _mainIcon: {fileID: 6968816351869122684}
   _mainDimmedIcon: {fileID: 9194978938235659413}
   _activeStateObject: {fileID: 5376675062122052841}
@@ -1112,7 +1112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7086269206528883328
 RectTransform:
   m_ObjectHideFlags: 0
