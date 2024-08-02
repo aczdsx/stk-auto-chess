@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
             else if (inGameType == InGameType.PVP_DEFENSE)
             {
                 StagePrefab =
-                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/PVPSetting.prefab");
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/PvpSetting.prefab");
             }
             else if (inGameType == InGameType.PVP)
             {
