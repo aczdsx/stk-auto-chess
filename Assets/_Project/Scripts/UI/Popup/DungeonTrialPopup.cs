@@ -143,7 +143,7 @@ namespace CookApps.AutoBattler
                 newSlot?.SetMonsterInfoSlot(statData);
                 attr += statData.GetAttrValue();
 
-                if (topStatData == null || topStatData.GetAttrValue() > statData.GetAttrValue())
+                if (topStatData == null || topStatData.GetAttrValue() < statData.GetAttrValue())
                     topStatData = statData;
             }
             
@@ -221,9 +221,9 @@ namespace CookApps.AutoBattler
                 return;
             }
             
-            var currentDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialData(CurrentUserDungeonData.DungeonId);
+            var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
             
-            if (currentDungeonData.order > _specDungeonTrialData.order)
+            if (lastDungeonData.Order >= _specDungeonTrialData.order)
             {
                 ToastManager.Instance.ShowToast("TEST - 이미 클리어한 던전입니다.");
                 return;

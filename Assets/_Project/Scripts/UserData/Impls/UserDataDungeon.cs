@@ -69,7 +69,8 @@ namespace CookApps.AutoBattler
 
             int maxOrder = clearDungeonList.Max(data => data.Order);
             var lastDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialDataByOrder(maxOrder);
-            return GetTrialDungeonData(lastDungeonData.dungeon_id);
+            var dungeonData = GetTrialDungeonData(lastDungeonData.dungeon_id + 1) ?? GetTrialDungeonData(lastDungeonData.dungeon_id);
+            return dungeonData;
         }
 
         public List<UserTrialDungeonData> GetTrialDungeonDataList(DungeonStateType stateType)

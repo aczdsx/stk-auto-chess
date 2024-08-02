@@ -223,11 +223,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 if (ingameTileView.ID != _selectedTileView.ID &&
                     ingameTileView.AllianceType == AllianceType.Player)
                 {
+                    _selectedTileView.SetActiveObj(false);
                     InActiveAttackTile();
 
                     _selectedTileView = ingameTileView;
 
                     var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
+                    _selectedTileView.SetActiveObj(true);
                     if (_selectedCharacterController.GetCharacterStat() != null)
                         ActiveAttackTile(inGameTile, _selectedCharacterController.AttackRange);
 
@@ -422,6 +424,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         _selectedCharacterController = character;
         _selectedFirstTileView = _selectedTileView;
+        _selectedTileView.SetActiveObj(true);
         if (character.GetCharacterStat() != null)
         {
             ActiveAttackTile(character.CurrentTile, character.AttackRange);
@@ -436,6 +439,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_selectedCharacterController != null)
         {
             _selectedCharacterController.SetSelectedCharacter(false);
+            _selectedTileView.SetActiveObj(false);
             InActiveAttackTile();
             _attackRangeTileList.Clear();
             _selectedCharacterController = null;
@@ -448,7 +452,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void InActiveAttackTile()
     {
-        _selectedTileView.SetActiveObj(false);
         foreach (var tile in _attackRangeTileList)
         {
             tile.View.SetAttackActiveObj(false);
@@ -458,7 +461,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void ActiveAttackTile(InGameTile pivot, int range)
     {
-        _selectedTileView.SetActiveObj(true);
         var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(pivot, range);
         _attackRangeTileList.AddRange(tiles.ToList());
         _attackRangeTileList.Remove(pivot);
