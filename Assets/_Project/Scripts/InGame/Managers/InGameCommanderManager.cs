@@ -71,8 +71,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
             return;
 
-        var commanderSkillUI = eventData.pointerCurrentRaycast.gameObject.GetComponent<CommanderSkillUI>();
-        if (commanderSkillUI == null)
+        if (!eventData.pointerCurrentRaycast.gameObject.TryGetComponent<CommanderSkillUI>(out var commanderSkillUI))
             return;
 
         _selectedCommanderSkillData = _commandSkillDataList.Find(l => l.Spec.id == commanderSkillUI.Data.Spec.id);
