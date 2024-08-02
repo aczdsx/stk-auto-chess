@@ -16,11 +16,11 @@ MonoBehaviour:
   - InGameType: 3
     ID: 0
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
-    Color: {r: 0.51788366, g: 0.502225, b: 0.6226415, a: 0}
+    Color: {r: 0.07578317, g: 0.09237511, b: 0.12264148, a: 1}
   - InGameType: 4
     ID: 0
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
-    Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
+    Color: {r: 0.07578317, g: 0.09237511, b: 0.12264148, a: 1}
   - InGameType: 2
     ID: 0
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
