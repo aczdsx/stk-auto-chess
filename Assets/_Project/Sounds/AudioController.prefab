@@ -262,7 +262,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_bgm_chapter_05
+    - Name: snd_bgm_chapter4
       Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_bgm_chapter_06
+    - Name: snd_bgm_chapter5
       Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_bgm_chapter_04
+    - Name: snd_bgm_chapter3
       Loop: 1
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2827,7 +2827,7 @@ MonoBehaviour:
   _volume: 1
   _currentInspectorSelection:
     currentCategoryIndex: 0
-    currentItemIndex: 7
+    currentItemIndex: 9
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
