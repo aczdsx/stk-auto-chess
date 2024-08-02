@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4133116592069501046
+--- !u!1001 &8297035404929089896
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c5face79bf560c0408cffc294c6497b9, type: 3}
+      objectReference: {fileID: 21300000, guid: 10194204b47caa24caef1380aa4fc66b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

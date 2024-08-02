@@ -58,29 +58,29 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 21300000, guid: c5a7b5ce19121fa47bd606a95e90cfa5, type: 3}
-    - {fileID: 21300000, guid: a763eb39916999f43b6cd2dace9fa97d, type: 3}
-    - {fileID: 21300000, guid: 59f1f8e7823ee6745ba7cf6367254c7b, type: 3}
-    - {fileID: 21300000, guid: c5face79bf560c0408cffc294c6497b9, type: 3}
+    - {fileID: 21300000, guid: f5eaf85a0bae24a40a8b0ef1dbcc409c, type: 3}
+    - {fileID: 21300000, guid: eb06d7afc4b96e044beb7c176d22c0a4, type: 3}
+    - {fileID: 21300000, guid: 7bf78923de73278449b6be5f55e37318, type: 3}
+    - {fileID: 21300000, guid: 10194204b47caa24caef1380aa4fc66b, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
-    - 59f1f8e7823ee6745ba7cf6367254c7b: 21300000
-    - a763eb39916999f43b6cd2dace9fa97d: 21300000
-    - c5face79bf560c0408cffc294c6497b9: 21300000
-    - c5a7b5ce19121fa47bd606a95e90cfa5: 21300000
+    - 7bf78923de73278449b6be5f55e37318: 21300000
+    - 10194204b47caa24caef1380aa4fc66b: 21300000
+    - f5eaf85a0bae24a40a8b0ef1dbcc409c: 21300000
+    - eb06d7afc4b96e044beb7c176d22c0a4: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 59f1f8e7823ee6745ba7cf6367254c7b, type: 3}
-  - {fileID: 21300000, guid: a763eb39916999f43b6cd2dace9fa97d, type: 3}
-  - {fileID: 21300000, guid: c5face79bf560c0408cffc294c6497b9, type: 3}
-  - {fileID: 21300000, guid: c5a7b5ce19121fa47bd606a95e90cfa5, type: 3}
+  - {fileID: 21300000, guid: 7bf78923de73278449b6be5f55e37318, type: 3}
+  - {fileID: 21300000, guid: 10194204b47caa24caef1380aa4fc66b, type: 3}
+  - {fileID: 21300000, guid: f5eaf85a0bae24a40a8b0ef1dbcc409c, type: 3}
+  - {fileID: 21300000, guid: eb06d7afc4b96e044beb7c176d22c0a4, type: 3}
   m_PackedSpriteNamesToIndex:
-  - obstacle_100001
-  - obstacle_100001
-  - obstacle_100001
-  - obstacle_100001
+  - obstacle_100002
+  - obstacle_100002
+  - obstacle_100002
+  - obstacle_100002
   m_RenderDataMap: {}
   m_Tag: 100002
   m_IsVariant: 0
