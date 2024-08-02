@@ -93,15 +93,17 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
-
-        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
-
-        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        
+
         if (inGameTile.Count > 0)
         {
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+
+            var vfxProjectile =
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
+                    owner.CurrentTile.View.CachedTr.position);
+
+            var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
             Vector3 direction = (inGameTile[0].View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
             vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
