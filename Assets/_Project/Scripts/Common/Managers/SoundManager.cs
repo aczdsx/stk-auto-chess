@@ -14,6 +14,9 @@ public enum SoundBGM
     snd_bgm_chapter0,
     snd_bgm_chapter1,
     snd_bgm_chapter2,
+    snd_bgm_chapter3,
+    snd_bgm_chapter4,
+    snd_bgm_chapter5,
 }
 
 public enum SoundFX
