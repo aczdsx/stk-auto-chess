@@ -236,7 +236,7 @@ namespace CookApps.AutoBattler
                     {
                         int maxTicket = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
                         UserDataManager.Instance.SetItemCount(ItemType.PVP_TICKET, 0, maxTicket, true, false);
-                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.BUY_TICKET, true);
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.REFILL_TICKET, true);
                         result = true;
                     }
                     break;
