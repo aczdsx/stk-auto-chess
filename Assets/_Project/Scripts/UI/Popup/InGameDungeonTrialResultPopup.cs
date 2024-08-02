@@ -138,7 +138,7 @@ namespace CookApps.AutoBattler
 
             BMUtil.RemoveChildObjects(_rewardsTransform);
 
-            _gradeUpObj.SetActive(InGameManager.Instance.SpecDungeonTrial.is_grade_up);
+            _gradeUpObj.SetActive(_isVictory && InGameManager.Instance.SpecDungeonTrial.is_grade_up);
             if (!InGameManager.Instance.SpecDungeonTrial.is_grade_up)
             {
                 var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
