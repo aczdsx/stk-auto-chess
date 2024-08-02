@@ -71,6 +71,9 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
             return;
 
+        if (eventData.pointerCurrentRaycast.gameObject == null)
+            return;
+        
         if (!eventData.pointerCurrentRaycast.gameObject.TryGetComponent<CommanderSkillUI>(out var commanderSkillUI))
             return;
 

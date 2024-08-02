@@ -135,6 +135,7 @@ namespace CookApps.AutoBattler
             
             var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
             _dungeonClearBtnObj.SetActive(lastDungeonData.Order > _specDungeonTrialData.order);
+            _EnterDungeonButton.gameObject.SetActive(!_dungeonClearBtnObj.activeSelf);
             _needStageStarText.text = StringUtil.GetCompareString(UserDataManager.Instance.GetAllTotalChapterStarCount(), _specDungeonTrialData.need_star);
         }
 
