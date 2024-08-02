@@ -25,14 +25,12 @@ public class FlowStateStageCombat : StateCombatBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
         InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
-        if (InGameManager.Instance.SpecStage.chapter_id >= 3)
-        {
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
-        }
+        
+        bool isSize75 = InGameManager.Instance.SpecStage.chapter_id == 1 || InGameManager.Instance.SpecStage.chapter_id == 2; // [TODO] 나중에 데이터로 
+        if (isSize75)
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(6.5f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
         else
-        {
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
-        }
+            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
     }
 
     public override void StateStart()
