@@ -99,7 +99,8 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        if (inGameTile != null)
+        
+        if (inGameTile.Count > 0)
         {
             Vector3 direction = (inGameTile[0].View.CachedTr.position - vfxProjectile.CachedTr.position).normalized;
             vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
