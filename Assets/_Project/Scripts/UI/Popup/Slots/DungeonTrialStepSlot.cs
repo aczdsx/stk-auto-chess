@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
 
         [Header("Step State - Main")]
         [SerializeField] private GameObject _mainStateObject;
+        [SerializeField] private GameObject _mainGrayObject;
         [SerializeField] private GameObject _mainCompleteObject;
         [SerializeField] private GameObject _mainDimmedObject;
         [SerializeField] private Image _mainIcon;
@@ -80,8 +81,9 @@ namespace CookApps.AutoBattler
             _normalCompleteObject.SetActive(isNormalTrialType && isComplete);
 
             _mainStateObject.SetActive(!isNormalTrialType);
-            _mainCompleteObject.SetActive(!isNormalTrialType && (isComplete || isCurrentSlot));
-            _mainDimmedObject.SetActive(!isNormalTrialType && !_mainCompleteObject.activeSelf);
+            _mainCompleteObject.SetActive(!isNormalTrialType && isComplete);
+            _mainGrayObject.SetActive(!isNormalTrialType && (isCurrentSlot || isComplete));
+            _mainDimmedObject.SetActive(!isNormalTrialType && !_mainGrayObject.activeSelf);
 
         }
 
