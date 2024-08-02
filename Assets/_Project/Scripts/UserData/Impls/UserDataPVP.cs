@@ -4,9 +4,6 @@ using System.Linq;
 using Cookapps.Stkauto.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
-using Google.Protobuf.Collections;
-using Newtonsoft.Json;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -17,6 +14,8 @@ namespace CookApps.AutoBattler
         MATCHING_REFRESH_COUNT,     // 매칭 리스트 갱신 카운트
         RANKING_LIST,               // 랭킹 리스트 갱신
         AUTO_PROFILE,               // 자동 프로필 갱신
+        DAILY_REWARD,               // 일일 보상 갱신
+        BUY_TICKET,                 // 티켓 구매 갱신
     }
     
     public partial class UserDataManager
@@ -250,11 +249,17 @@ namespace CookApps.AutoBattler
                     var autoRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_PROFILE_AUTO_REFRESH_TIME");
                     UserPVP.AutoRefreshProfileTimestamp = TimeManager.Instance.AddSecondsTimeStamp(autoRefreshTime);
                     break;
+                case PVPTimeRefreshType.DAILY_REWARD:
+                    UserPVP.DailyRewardResetTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    break;
+                case PVPTimeRefreshType.BUY_TICKET:
+                    UserPVP.BuyTicketResetTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    break;
             }
 
             if (needSave)
             {
-                SaveUserQuestData();
+                SaveUserPVPData();
             }
         }
         
