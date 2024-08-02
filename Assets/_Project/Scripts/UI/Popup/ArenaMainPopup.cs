@@ -58,6 +58,8 @@ namespace CookApps.AutoBattler
             LoadPVPInfoData();
             
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.MATCHING_REFRESH_COUNT);
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.BUY_TICKET);
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.DAILY_REWARD);
         }
 
         public void OnClickBattleTabButton()
@@ -186,7 +188,7 @@ namespace CookApps.AutoBattler
             _pvpRankTabLayer.InitLayer(this);
         }
 
-        // PVP 팝업 갱신 시간 업데이트 및 체크 (true: 갱신 필요)
+        // PVP 팝업 갱신 시간 업데이트 및 체크 (result - true: 갱신 필요)
         private bool CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType timeType)
         {
             bool result = false;
@@ -211,6 +213,22 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case PVPTimeRefreshType.AUTO_PROFILE:
+                    break;
+                case PVPTimeRefreshType.DAILY_REWARD:
+                    if (UserDataManager.Instance.UserPVP.DailyRewardResetTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    {
+                        UserDataManager.Instance.UserPVP.DailyRewardCnt = 0;
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.DAILY_REWARD, true);
+                        result = true;
+                    }
+                    break;
+                case PVPTimeRefreshType.BUY_TICKET:
+                    if (UserDataManager.Instance.UserPVP.BuyTicketResetTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    {
+                        UserDataManager.Instance.UserPVP.BuyTicketCnt = 0;
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.BUY_TICKET, true);
+                        result = true;
+                    }
                     break;
             }
 
