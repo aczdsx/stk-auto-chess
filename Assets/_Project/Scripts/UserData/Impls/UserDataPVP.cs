@@ -12,10 +12,12 @@ namespace CookApps.AutoBattler
     {
         MATCHING_LIST,              // 매칭 리스트 갱신
         MATCHING_REFRESH_COUNT,     // 매칭 리스트 갱신 카운트
+        AUTO_MATCHING_REFRESH_COUNT,     // 매칭 리스트 갱신 카운트
         RANKING_LIST,               // 랭킹 리스트 갱신
         AUTO_PROFILE,               // 자동 프로필 갱신
         DAILY_REWARD,               // 일일 보상 갱신
         BUY_TICKET,                 // 티켓 구매 갱신
+        REFILL_TICKET,              // 티켓 충전
     }
     
     public partial class UserDataManager
@@ -236,8 +238,8 @@ namespace CookApps.AutoBattler
             switch (timeType)
             {
                 case PVPTimeRefreshType.MATCHING_LIST:
-                    // var nextMatchingRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_RANKING_LIST_REFRESH_TIME");
-                    // UserPVP.RefreshRankingTimestamp = TimeManager.Instance.AddSecondsTimeStamp(nextMatchingRefreshTime);
+                    var nextMatchingRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_REFRESH_MATCHING_TIME");
+                    UserPVP.NextRefreshMatchingListTimestamp = TimeManager.Instance.AddSecondsTimeStamp(nextMatchingRefreshTime);
                     break;
                 case PVPTimeRefreshType.MATCHING_REFRESH_COUNT:
                     UserPVP.RefreshMatchingCntTimestamp = TimeManager.Instance.TommorrowTimeStamp();
@@ -255,6 +257,9 @@ namespace CookApps.AutoBattler
                     break;
                 case PVPTimeRefreshType.BUY_TICKET:
                     UserPVP.BuyTicketResetTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    break;
+                case PVPTimeRefreshType.REFILL_TICKET:
+                    UserPVP.PvpTicketTimestamp = TimeManager.Instance.TommorrowTimeStamp();
                     break;
             }
 

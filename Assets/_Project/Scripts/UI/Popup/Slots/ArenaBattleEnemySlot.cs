@@ -180,6 +180,12 @@ namespace CookApps.AutoBattler
         
         private async void OnClickBattleButton()
         {
+            // 아레나 티켓 체크
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.PVP_TICKET, 0, 1, true))
+            {
+                return;
+            }
+            
             // 방어덱 설정 여부 체크
             var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
             if (defenseDeckList == null || defenseDeckList.Count <= 0)
@@ -224,6 +230,12 @@ namespace CookApps.AutoBattler
 
         private async void OnClickRevengeButton()
         {
+            // 아레나 티켓 체크
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.PVP_TICKET, 0, 1, true))
+            {
+                return;
+            }
+            
             // 방어덱 설정 여부 체크
             var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
             if (defenseDeckList == null || defenseDeckList.Count <= 0)

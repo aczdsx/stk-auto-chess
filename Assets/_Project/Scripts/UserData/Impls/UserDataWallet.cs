@@ -31,6 +31,7 @@ namespace CookApps.AutoBattler
                     Gold = 0,
                     Jewel = 0,
                     Ap = 100,
+                    PvpTicket = 10,
                 };
                 return;
             }
@@ -105,6 +106,84 @@ namespace CookApps.AutoBattler
             return false;
         }
 
+        public void SetItemCount(ItemType itemType, int itemKey, int itemAmount, bool isSave, bool needUpdateReddot)
+        {
+            switch (itemType)
+            {
+                case ItemType.GOLD:
+                    userWallet.Gold = itemAmount;
+                    OnGoldChanged?.Invoke(userWallet.Gold);
+                    break;
+                case ItemType.JEWEL:
+                    userWallet.Jewel = itemAmount;
+                    OnJewelChanged?.Invoke(userWallet.Jewel);
+                    break;
+                case ItemType.AP:
+                    userWallet.Ap = itemAmount;
+                    OnAPChanged?.Invoke(userWallet.Ap);
+                    break;
+                case ItemType.C_TICKET:
+                    userWallet.CTicket = itemAmount;
+                    OnCTicketChanged?.Invoke(userWallet.CTicket);
+                    break;
+                case ItemType.PVP_TICKET:
+                    userWallet.PvpTicket = itemAmount;
+                    OnPVPTicketChanged?.Invoke(userWallet.PvpTicket);
+                    break;
+                case ItemType.CHAR_USER_EXP_ITEM:
+                    userWallet.CharUserExpItem = itemAmount;
+                    OnCharUserExpItemChanged?.Invoke(userWallet.CharUserExpItem);
+                    break;
+                case ItemType.CHAR_USER_EXP_ITEM_2:
+                    userWallet.CharUserExpItem2 = itemAmount;
+                    OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
+                    break;
+                // case ItemType.USER_EXP:
+                //     AddUserLevelExp(itemAmount);
+                //     break;
+                // case ItemType.CHARACTER:
+                //     // 최초 완성형 캐릭터 획득 처리 (20조각)
+                //     var specCharacter = SpecDataManager.Instance.GetCharacterData(itemKey);
+                //     if (IsHaveCharacter(specCharacter.character_id) == false)
+                //     {
+                //         AddNewCharacter(specCharacter.character_id);
+                //     }
+                //     else
+                //     {
+                //         IncreaseKnightPieceCount(specCharacter.character_id, specCharacter.need_piece);
+                //     }
+                //     break;
+                // case ItemType.CHARACTER_PIECE:
+                //     // 최초 완성형 캐릭터 획득 처리 (20조각)
+                //     var specCharacterPiece = SpecDataManager.Instance.GetCharacterData(itemKey);
+                //     if (IsHaveCharacter(specCharacterPiece.character_id) == false && itemAmount >= 20)
+                //     {
+                //         AddNewCharacter(specCharacterPiece.character_id);
+                //     }
+                //     else
+                //     {
+                //         IncreaseKnightPieceCount(specCharacterPiece.character_id, itemAmount);
+                //     }
+
+                    break;
+            }
+
+            if (isSave)
+            {
+                SaveUserWallet();
+            }
+
+            if (needUpdateReddot)
+            {
+                // 메인 로비 레드닷 갱신
+                var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+                if (lobbyMain != null)
+                {
+                    lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+                }
+            }
+        }
+        
         public void IncreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave, bool needUpdateReddot)
         {
             switch (itemType)

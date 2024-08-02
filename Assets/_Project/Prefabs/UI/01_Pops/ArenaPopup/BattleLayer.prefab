@@ -878,7 +878,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 18
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -987,7 +987,7 @@ MonoBehaviour:
   _matchRefreshButton: {fileID: 3490440464487484257}
   _matchRefreshItemImage: {fileID: 4708135182010552919}
   _matchRefreshItemAmountText: {fileID: 7730190370521851903}
-  _matchRefreshRemainTimeText: {fileID: 433897924222723845}
+  _matchRefreshRemainTimeText: {fileID: 5526854140834297030}
   _matchingScrollRect: {fileID: 2457578604259455058}
   _matchingSlotObject: {fileID: 4340571854277876970}
 --- !u!1 &6214700658863918393
@@ -2603,22 +2603,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_Refresh
       objectReference: {fileID: 0}
+    - target: {fileID: 7765332011241968351, guid: 3e75c1dd17aedac48bf9547c169b33ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e75c1dd17aedac48bf9547c169b33ed, type: 3}
---- !u!114 &433897924222723845 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9045454842226474740, guid: 3e75c1dd17aedac48bf9547c169b33ed, type: 3}
-  m_PrefabInstance: {fileID: 8899793040284965361}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3490440464487484257 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5472686662137991824, guid: 3e75c1dd17aedac48bf9547c169b33ed, type: 3}
