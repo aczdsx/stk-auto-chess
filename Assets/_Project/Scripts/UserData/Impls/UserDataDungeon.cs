@@ -90,7 +90,7 @@ namespace CookApps.AutoBattler
                     if (specDungeonData != null)
                     {
                         // 최대 배치 기사 수 증가
-                        SetMaxSquadCount(specDungeonData.squad_count, needSave);
+                        SetMaxSquadCount(specDungeonData.grade, needSave);
                     }
                 }
             }

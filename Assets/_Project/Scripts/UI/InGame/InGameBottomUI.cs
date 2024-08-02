@@ -275,10 +275,9 @@ public class InGameBottomUI : MonoBehaviour
             return;
 
         _isRunningAddCharacter = true;
-        var userLevelData =
-            SpecDataManager.Instance.SpecAccountLevelExp.Get(UserDataManager.Instance.UserBasicData.Level);
-
-        if (userLevelData.squad_count <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        
+        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        if (userGrade.maximum_character_count <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
         }
@@ -319,9 +318,10 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetCharacterCountText()
     {
+        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        
         int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
-        int maximumCount = SpecDataManager.Instance.SpecAccountLevelExp
-            .Get(UserDataManager.Instance.UserBasicData.Level).squad_count;
+        int maximumCount = userGrade.maximum_character_count;
 
         string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";

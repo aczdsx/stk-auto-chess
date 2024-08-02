@@ -584,12 +584,12 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt step;
         /// 등급업
         public bool is_grade_up;
+        /// 등급
+        public CookApps.Obfuscator.ObfuscatorInt grade;
         /// 별 입장 조건
         public CookApps.Obfuscator.ObfuscatorInt need_star;
         /// 어려움 난이도 행동력
         public CookApps.Obfuscator.ObfuscatorInt ap_HARD;
-        /// 배치 인원 수
-        public CookApps.Obfuscator.ObfuscatorInt squad_count;
         /// 장애물
         public CookApps.Obfuscator.ObfuscatorInt[] obstacle_grid_id = global::System.Array.Empty<CookApps.Obfuscator.ObfuscatorInt>();
         /// 챕터 룰

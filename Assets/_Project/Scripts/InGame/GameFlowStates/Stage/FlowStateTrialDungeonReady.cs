@@ -57,7 +57,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
             InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f,
                 new Vector3(0f, 1.5f, -10), 1.0f).Forget();
 
-        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.TRIAL);
+        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameResourceHolder.InGameType);
         List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.ToList();
 
         battleDeckList.RemoveAll(l =>

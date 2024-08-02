@@ -212,22 +212,32 @@ namespace CookApps.AutoBattler
 
         private void OnClickEnterDungeonButton()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            
             // 던전 진입 가능 조건 검사
             if (UserDataManager.Instance.GetAllTotalChapterStarCount() < _specDungeonTrialData.need_star)
             {
-                ToastManager.Instance.ShowToast("TEST - 스테이지 별 갯수 부족");
+                ToastManager.Instance.ShowToast("TEST - 스테이지 별 갯수 부족.");
                 return;
             }
-
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            
+            var currentDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialData(CurrentUserDungeonData.DungeonId);
+            
+            if (currentDungeonData.order > _specDungeonTrialData.order)
+            {
+                ToastManager.Instance.ShowToast("TEST - 이미 클리어한 던전입니다.");
+                return;
+            }
 
             // todo.. 던전 입장 처리
 
 
             InGameManager.Instance.EndInGame();
             var transition = SceneTransition_FadeInOut.Create();
+
+            InGameType inGameType = (_specDungeonTrialData.dungeon_map_id == 1) ? InGameType.TRIAL_BOSS: InGameType.TRIAL;
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.TRIAL, (IGameStateUI) new InGameMainStateTrialDungeonUI(), (int)_specDungeonTrialData.dungeon_id), transition).Forget();
+                (inGameType, (IGameStateUI) new InGameMainStateTrialDungeonUI(), (int)_specDungeonTrialData.dungeon_id), transition).Forget();
         }
 
         private void OnClickCloseButton()

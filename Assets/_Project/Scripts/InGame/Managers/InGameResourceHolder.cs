@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
         public static GameObject StagePrefab { get; private set; }
         public static HpBarView HpBarView = null;
         public static InGameTextView InGameText = null;
+        public static InGameType InGameType;
 
         public static async UniTask LoadResources(InGameType inGameType, IGameStateUI gameStateUI, int id)
         {
@@ -22,6 +23,8 @@ namespace CookApps.AutoBattler
             GameObject ingameTextPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/DamageText.prefab");
             InGameText = ingameTextPrefab.GetComponent<InGameTextView>();
 
+            InGameType = inGameType;
+
             if (inGameType == InGameType.STAGE)
             {
                 var stageData = SpecDataManager.Instance.GetStageData(id);
@@ -30,9 +33,13 @@ namespace CookApps.AutoBattler
             }
             else if (inGameType == InGameType.TRIAL)
             {
-                var dungeonData = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
                 StagePrefab =
-                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Trial{dungeonData.dungeon_map_id}.prefab");
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Trial2.prefab");
+            }
+            else if (inGameType == InGameType.TRIAL_BOSS)
+            {
+                StagePrefab =
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Trial1.prefab");
             }
             else if (inGameType == InGameType.PVP_DEFENSE)
             {
