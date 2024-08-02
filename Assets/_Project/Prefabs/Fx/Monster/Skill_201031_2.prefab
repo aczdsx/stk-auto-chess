@@ -4901,6 +4901,7 @@ GameObject:
   - component: {fileID: 5042166020954434603}
   - component: {fileID: 2690057331098570837}
   - component: {fileID: 5952869960641531964}
+  - component: {fileID: 3234515043883039339}
   m_Layer: 3
   m_Name: Skill_201031_2
   m_TagString: Untagged
@@ -9743,6 +9744,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3234515043883039339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059217424757677714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 0}
 --- !u!1 &8834184989597785975
 GameObject:
   m_ObjectHideFlags: 0
