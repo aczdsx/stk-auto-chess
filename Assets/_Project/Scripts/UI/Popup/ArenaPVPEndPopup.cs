@@ -59,19 +59,39 @@ namespace CookApps.AutoBattler
             
             (_isVictory, _detailData, _matchResultData) = ((bool, UserPVPBattleDetailData, MatchPvpResponse))param;
             
+            
+
+            var specTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
+
+            // 등급 변화 체크
+            bool isTierChanage = false;
+            int checkScore = _matchResultData.MyCurrentScore + _matchResultData.MyDeltaScore;
+            var checkSpecTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, checkScore);
+            if (checkSpecTierData != null && specTierData != null)
+            {
+                isTierChanage = specTierData.ranking_id != checkSpecTierData.ranking_id;
+            }
+            
             // 애니메이션 연출 적용
-            string animKey = _isVictory ? "SetUp" : "SetDown";
+            string animKey = "";
+            if (isTierChanage)
+            {
+                animKey = _isVictory ? "SetTierUp" : "SetTierDown";
+            }
+            else
+            {
+                animKey = _isVictory ? "SetUp" : "SetDown";
+            }
             baseAnimator.SetTrigger(animKey);
-
-            var specTierData = SpecDataManager.Instance.GetPVPTierData(_detailData.RankId);
-
+            
+            // 일반 데이터 세팅
             _tierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
             _tierSecondImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
             _tierNameText.text = LanguageManager.Instance.GetPVPTierText(specTierData.pvp_tier_type);
             _tierPointText.text = _matchResultData.MyCurrentScore.ToString("n0");
             _tierPointChangeText.text = $"({_matchResultData.MyDeltaScore.ToString("n0")})";
             
-            _tierSlider.Progress = (float)_detailData.RankPoint / specTierData.ranking_max;
+            _tierSlider.Progress = (float)_matchResultData.MyCurrentScore / specTierData.ranking_max;
             
             for(int i = 0; i < specTierData.tier_order; i++)
             {

@@ -57,6 +57,7 @@ namespace CookApps.AutoBattler
         {
             UserPVP.Ranking = data.MyCurrentRank;
             UserPVP.RankPoint = data.MyCurrentScore;
+            UserPVP.RankId = data.MyCurrentTier;
 
             if (needSave)
             {

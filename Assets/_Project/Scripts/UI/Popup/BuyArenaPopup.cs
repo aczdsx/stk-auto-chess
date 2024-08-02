@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/NicknamePopup.prefab")]
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ArenaPopup/BuyArenaPopup.prefab")]
     public class BuyArenaPopup : UILayer
     {
         [Header("Common")]
