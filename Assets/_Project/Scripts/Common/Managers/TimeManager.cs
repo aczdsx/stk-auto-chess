@@ -127,5 +127,14 @@ namespace CookApps.AutoBattler
 
             return DateTimeToTimeStamp(targetDateTime);
         }
+        
+        public int DateNumber
+        {
+            get
+            {
+                return (DateTime.UtcNow.Year * 10000) + (DateTime.UtcNow.Month * 100) +
+                       (DateTime.UtcNow.Day);
+            }
+        }
     }
 }

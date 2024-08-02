@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.AnalyticsLite;
 using CookApps.TeamBattle;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace CookApps.AutoBattler
 {
@@ -43,10 +44,19 @@ namespace CookApps.AutoBattler
         private AppEventParameter CreateCommonParam()
         {
             AppEventParameter appEventParameter = new AppEventParameter();
-            appEventParameter.Add(AppEventStringConst.USER_ID, "");
-            appEventParameter.Add(AppEventStringConst.SERVER_UID, "");
-            appEventParameter.Add(AppEventStringConst.SERVER, "");
-            appEventParameter.Add(AppEventStringConst.COUNTRY, "");
+            appEventParameter.Add(AppEventStringConst.USER_ID, UserDataManager.Instance.UserBasicData.Uid);
+            appEventParameter.Add(AppEventStringConst.PLAYER_ID, UserDataManager.Instance.UserBasicData.PlayerId);
+            appEventParameter.Add(AppEventStringConst.SERVER, UserDataManager.Instance.UserBasicData.ServerId);
+            appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
+            appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, UserDataManager.Instance.UserBasicData.DailyVisitCount);
+            appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, UserDataManager.Instance.UserBasicData.SinceJoinDate);
+            appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, UserDataManager.Instance.UserBasicData.UserInstallDate);
+            appEventParameter.Add(AppEventStringConst.BEST_STAGE, UserDataManager.Instance.UserBasicData.PlayerId); // [TODO] BEST_STAGE
+            appEventParameter.Add(AppEventStringConst.BEST_MISSION, UserDataManager.Instance.GetCurrentGuideMissionData().MissionId);
+            appEventParameter.Add(AppEventStringConst.USER_LEVEL, UserDataManager.Instance.UserBasicData.Level);
+            appEventParameter.Add(AppEventStringConst.USER_GRADE, UserDataManager.Instance.UserBasicData.MaxSquadCount);
+            appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, UserDataManager.Instance.UserBasicData.PlayerId); // [TODO] USER_STAR_AMOUNT
+            appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, UserDataManager.Instance.UserWallet.Ap);
 
             // yyyyMMddHHmm 에서 뒤에 4자리를 잘라서 yyyyMMdd 바꾸는 부분
             // string createdDate = DataManager.Instance.UserData.CreatedTime;
@@ -70,7 +80,7 @@ namespace CookApps.AutoBattler
             // defaultData.Add(AppEventStringConst.SERVER, $"{NetworkManager.Instance.RegionServer}");
             // defaultData.Add(AppEventStringConst.COUNTRY, $"{LanguageManager.Instance.Language}");
 
-            return defaultData;
+            return appEventParameter;
         }
 
         /// <summary>
@@ -82,17 +92,17 @@ namespace CookApps.AutoBattler
         /// <param name="stage_type">스테이지 아이디</param>
         /// <param name="stage_star">스테이지 아이디</param>
         /// <param name="is_win">스테이지 아이디</param>
-        public void StageClear(int stage_id, int chapter_id, int stage_number, StageType stage_type, int stage_star, bool is_win)
-        {
-            AppEventParameter appEventParameter = CreateCommonParam();
-            appEventParameter.Add(AppEventStringConst.STAGE_ID, stage_id);
-            appEventParameter.Add(AppEventStringConst.CHAPTER_ID, chapter_id);
-            appEventParameter.Add(AppEventStringConst.STAGE_NUMBER, stage_number);
-            appEventParameter.Add(AppEventStringConst.STAGE_TYPE, stage_type.ToString());
-            appEventParameter.Add(AppEventStringConst.STAGE_STAR, stage_star);
-            appEventParameter.Add(AppEventStringConst.IS_WIN, is_win);
-
-            SendEvent(AppEventStringConst.STAGE_CLEAR, appEventParameter);
-        }
+        // public void StageClear(int stage_id, int chapter_id, int stage_number, StageType stage_type, int stage_star, bool is_win)
+        // {
+        //     AppEventParameter appEventParameter = CreateCommonParam();
+        //     appEventParameter.Add(AppEventStringConst.STAGE_ID, stage_id);
+        //     appEventParameter.Add(AppEventStringConst.CHAPTER_ID, chapter_id);
+        //     appEventParameter.Add(AppEventStringConst.STAGE_NUMBER, stage_number);
+        //     appEventParameter.Add(AppEventStringConst.STAGE_TYPE, stage_type.ToString());
+        //     appEventParameter.Add(AppEventStringConst.STAGE_STAR, stage_star);
+        //     appEventParameter.Add(AppEventStringConst.IS_WIN, is_win);
+        //
+        //     SendEvent(AppEventStringConst.STAGE_CLEAR, appEventParameter);
+        // }
     }
 }
