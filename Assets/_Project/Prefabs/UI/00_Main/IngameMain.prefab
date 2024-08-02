@@ -1724,7 +1724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4876696250773234814, guid: 2fccc2de2324864469b26d077173ad24, type: 3}
       propertyPath: targetType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5063876109642896448, guid: 2fccc2de2324864469b26d077173ad24, type: 3}
       propertyPath: m_fontSizeMin
@@ -1955,8 +1955,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7615416405466650440, guid: 2fccc2de2324864469b26d077173ad24, type: 3}
+      propertyPath: isFrom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615416405466650440, guid: 2fccc2de2324864469b26d077173ad24, type: 3}
       propertyPath: endValueV3.x
-      value: 50
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 7842937642666967224, guid: 2fccc2de2324864469b26d077173ad24, type: 3}
       propertyPath: m_Pivot.x
@@ -1972,7 +1976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842937642666967224, guid: 2fccc2de2324864469b26d077173ad24, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8227309138769715479, guid: 2fccc2de2324864469b26d077173ad24, type: 3}
       propertyPath: m_AnchorMax.y
