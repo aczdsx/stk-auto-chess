@@ -147,6 +147,8 @@ namespace CookApps.AutoBattler
                         specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
                     }
 
+                    isLoginProcess = false;
+                    
                     SceneLoading.GoToNextScene("InGame",
                         (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int)specStageData.stage_id)).Forget();
                 }
@@ -156,6 +158,8 @@ namespace CookApps.AutoBattler
                     await PVPManager.Instance.UpdatePVPProfileData();
                     
                     var transition = SceneTransition_FadeInOut.Create();
+                    
+                    isLoginProcess = false;
                     
                     int lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
@@ -177,10 +181,12 @@ namespace CookApps.AutoBattler
             if (isLoginProcess)
                 return;
 
+            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
             isLoginProcess = true;
             LoginGuest().ContinueWith(() =>
             {
-                isLoginProcess = false;
+                //isLoginProcess = false;
+                SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
             }).Forget();
         }
 
@@ -189,10 +195,12 @@ namespace CookApps.AutoBattler
             if (isLoginProcess)
                 return;
 
+            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
             isLoginProcess = true;
             CreateGuestAccount().ContinueWith(() =>
             {
-                isLoginProcess = false;
+                //isLoginProcess = false;
+                SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
             }).Forget();
         }
         
