@@ -18,7 +18,8 @@ public static class StringUtil
     
     public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon)
     {
-        return $"시련던전 {trialDungeon.dungeon_id}";
+        
+        return (trialDungeon.step == 1) ? $"{trialDungeon.trial_type}" : $"{trialDungeon.trial_type}-{trialDungeon.step}";
     }
 
     public static string BigIntToShortString(BigInteger value)
@@ -74,8 +75,8 @@ public static class StringUtil
     public static string PriceColorString(int have, int cost, bool isOnlyCost = false, bool isColorReverse = false)
     {
         string result = string.Empty;
-        string colorNotEnough = "#FF2828"; // Red color
-        string colorEnough = "#66FF66";  // Green color
+        string colorNotEnough = "#C5C5B2"; // Red color
+        string colorEnough = "#CA6E71";  // Green color
 
         if (isColorReverse)
         {
@@ -110,29 +111,32 @@ public static class StringUtil
         return result;
     }
 
-    public static string PriceColorStringReverse(int have, int cost, bool isOnlyCost = false)
+    public static string GetCompareString(int have, int cost, bool isOnlyCost = false)
     {
         string result = string.Empty;
+        string colorNotEnough = "FFFCD0"; 
+        string colorEnough = "#CA6E71"; 
+        
         if (isOnlyCost)
         {
             if (cost > have)
             {
-                result = $"<color=#FF2828>{cost.ToString("n0")}</color>";
+                result = $"<color={colorNotEnough}>{cost.ToString("n0")}</color>";
             }
             else
             {
-                result = $"<color=#66FF66>{cost.ToString("n0")}</color>";
+                result = $"<color={colorEnough}>{cost.ToString("n0")}</color>";
             }
         }
         else
         {
             if (cost > have)
             {
-                result = $"<color=#FF2828>{cost.ToString("n0")}</color>/{have.ToString("n0")}";
+                result = $"{cost.ToString("n0")}/<color={colorNotEnough}>{have.ToString("n0")}</color>";
             }
             else
             {
-                result = $"<color=#66FF66>{cost.ToString("n0")}</color>/{have.ToString("n0")}";
+                result = $"{cost.ToString("n0")}/<color={colorEnough}>{have.ToString("n0")}</color>";
             }
         }
 

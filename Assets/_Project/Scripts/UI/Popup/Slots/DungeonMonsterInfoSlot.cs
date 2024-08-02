@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -12,24 +13,25 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _monsterNameText;
         [SerializeField] private TextMeshProUGUI _monsterBattlePointText;
 
-        [Space]
+        [Space] 
+        [SerializeField] private Image _characterImage;
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
 
-        private SpecDungeonMonster _specDungeonMonsterData;
-        private SpecCharacter _specCharacterMonsterData;
+        private CharacterStatData _statData;
 
-        public void SetMonsterInfoSlot(SpecDungeonMonster data)
+        public void SetMonsterInfoSlot(CharacterStatData data)
         {
             if (data == null) return;
 
-            _specDungeonMonsterData = data;
-            _specCharacterMonsterData = SpecDataManager.Instance.GetCharacterData(_specDungeonMonsterData.monster_id);
+            _statData = data;
 
-            _monsterNameText.text = LanguageManager.Instance.GetLanguageText(_specCharacterMonsterData.name_token);
+            _monsterBattlePointText.text = _statData.GetAttrValue().ToString("n0");
+            _monsterNameText.text = LanguageManager.Instance.GetLanguageText(_statData.Spec.name_token);
 
-            _elementSynergyUI.SetSynergyUI(_specCharacterMonsterData.element_type);
-            _classSynergyUI.SetPositionSynergyUI(_specCharacterMonsterData.character_position_type);
+            _characterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(_statData.Spec.prefab_id);
+            _elementSynergyUI.SetSynergyUI(_statData.Spec.element_type);
+            _classSynergyUI.SetPositionSynergyUI(_statData.Spec.character_position_type);
         }
     }
 }

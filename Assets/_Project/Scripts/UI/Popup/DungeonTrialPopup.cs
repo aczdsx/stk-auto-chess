@@ -36,6 +36,12 @@ namespace CookApps.AutoBattler
 
         private List<DungeonTrialStepSlot> _stepSlotList = new List<DungeonTrialStepSlot>();
 
+        [Header("Current Dungeon Info Layer")]
+        [SerializeField] private Image _currentStepImage;
+        [SerializeField] private TextMeshProUGUI _currentStepName;
+        [SerializeField] private TextMeshProUGUI _currentStepAttr;
+        [SerializeField] private GameObject _characterImageParentObject;
+
         [Header("Dungeon Monster Info Layer")]
         [SerializeField] private ScrollRect _monsterInfoScrollRect;
         [SerializeField] private GameObject _monsterInfoSlotObject;
@@ -43,6 +49,8 @@ namespace CookApps.AutoBattler
         [Header("Dungeon Reward Info Layer")]
         [SerializeField] private Transform _rewardInfoContentTransform;
         [SerializeField] private GameObject _rewardItemSlotObject;
+        [SerializeField] private GameObject _gradeUpObj;
+        [SerializeField] private GameObject _rewardObj;
 
         private SpecDungeonTrial _specDungeonTrialData;
 
@@ -114,23 +122,41 @@ namespace CookApps.AutoBattler
         private void SetCommonInfoLayer()
         {
             if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
-
-            _needStageStarText.text = _specDungeonTrialData.need_star.ToString();
+            
+            _needStageStarText.text = StringUtil.GetCompareString(_specDungeonTrialData.need_star, UserDataManager.Instance.GetAllTotalChapterStarCount());
         }
 
         private void SetMonsterInfoLayer()
         {
             if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
-
             BMUtil.RemoveChildObjects(_monsterInfoScrollRect.content);
-
             var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
-
+            double attr = 0;
+            CharacterStatData topStatData = null;
             foreach (var monsterData in monsterDataList)
             {
+                var statData = new CharacterStatData(monsterData.monster_id, monsterData.monster_lv, monsterData.multiple_atk,
+                    monsterData.multiple_hp);
+                
                 GameObject newSlotObject = Instantiate(_monsterInfoSlotObject, _monsterInfoScrollRect.content);
                 DungeonMonsterInfoSlot newSlot = newSlotObject.GetComponent<DungeonMonsterInfoSlot>();
-                newSlot?.SetMonsterInfoSlot(monsterData);
+                newSlot?.SetMonsterInfoSlot(statData);
+                attr += statData.GetAttrValue();
+
+                if (topStatData == null || topStatData.GetAttrValue() > statData.GetAttrValue())
+                    topStatData = statData;
+            }
+            
+            _currentStepImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonTrialData.trial_type, false);
+            _currentStepName.text = StringUtil.GetTrialDungeonString(_specDungeonTrialData);
+            _currentStepAttr.text = attr.ToString("n0");
+
+            BMUtil.RemoveChildObjects(_characterImageParentObject.transform);
+            if (topStatData != null)
+            {
+                string characterPrefabName =
+                    string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, topStatData.Spec.prefab_id);
+                AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
             }
         }
 
@@ -140,15 +166,20 @@ namespace CookApps.AutoBattler
 
             BMUtil.RemoveChildObjects(_rewardInfoContentTransform);
 
-            var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
-
-            foreach (var rewardData in rewardDataList)
+            _gradeUpObj.SetActive(_specDungeonTrialData.is_grade_up);
+            _rewardObj.SetActive(!_specDungeonTrialData.is_grade_up);
+            if (!_specDungeonTrialData.is_grade_up)
             {
-                GameObject newSlotObject = Instantiate(_rewardItemSlotObject, _rewardInfoContentTransform);
-                RewardItemSlot newSlot = newSlotObject.GetComponent<RewardItemSlot>();
+                var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
 
-                RewardItem newRewardItem = new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count);
-                newSlot?.SetRewardSlot(newRewardItem);
+                foreach (var rewardData in rewardDataList)
+                {
+                    GameObject newSlotObject = Instantiate(_rewardItemSlotObject, _rewardInfoContentTransform);
+                    RewardItemSlot newSlot = newSlotObject.GetComponent<RewardItemSlot>();
+
+                    RewardItem newRewardItem = new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count);
+                    newSlot?.SetRewardSlot(newRewardItem);
+                }
             }
         }
 

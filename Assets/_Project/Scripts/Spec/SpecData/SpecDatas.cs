@@ -580,6 +580,10 @@ namespace CookApps.AutoBattler
         public string guide_desc_token;
         /// 스테이지 타입
         public global::CookApps.AutoBattler.TrialType trial_type;
+        /// 스탭
+        public CookApps.Obfuscator.ObfuscatorInt step;
+        /// 등급업
+        public bool is_grade_up;
         /// 별 입장 조건
         public CookApps.Obfuscator.ObfuscatorInt need_star;
         /// 어려움 난이도 행동력

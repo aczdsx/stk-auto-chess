@@ -53,9 +53,7 @@ namespace CookApps.AutoBattler
             _specDungeonData = specData;
             _userDungeonData = data;
 
-            bool isNormalTrialType = _specDungeonData.trial_type == TrialType.BATTLE_NORMAL;
-
-            if (isNormalTrialType == false)
+            if (_specDungeonData.is_grade_up)
             {
                 _mainIcon.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonData.trial_type, false);
                 _mainDimmedIcon.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonData.trial_type, true);
@@ -70,7 +68,7 @@ namespace CookApps.AutoBattler
             if (_userDungeonData == null) return;
             if (_parentPopup == null) return;
 
-            bool isNormalTrialType = _specDungeonData.trial_type == TrialType.BATTLE_NORMAL;
+            bool isNormalTrialType = !_specDungeonData.is_grade_up;
             bool isComplete = _userDungeonData.DungeonStateType == (int)DungeonStateType.CLEAR;
             bool isCurrentSlot = _parentPopup.CurrentUserDungeonData.DungeonId == _specDungeonData.dungeon_id;
 
