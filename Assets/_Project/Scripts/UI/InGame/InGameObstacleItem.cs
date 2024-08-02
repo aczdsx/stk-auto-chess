@@ -39,7 +39,7 @@ public class InGameObstacleItem : MonoBehaviour
         _emptySlotObj.SetActive(!isExsist);
         if (_body.activeSelf)
         {
-            _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(obstacleData.ID); // [TODO] 장애물 스프라이트로 변경
+            _image.sprite = ImageManager.Instance.GetObstacleInGamePortraitSprite(obstacleData.ID);
         }
         _onSelected = onSelected;
     }
