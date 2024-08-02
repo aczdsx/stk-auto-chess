@@ -22,12 +22,18 @@ namespace CookApps.AutoBattler
 
         [SerializeField]
         private GameObject touchToStart;
+        
+        [SerializeField]
+        private GameObject _createGuestButtonLayer;
+        private GameObject _loginGuestButtonLayer;
 
         bool isLogin = false;
         bool isLoginProcess = false;
         
         [SerializeField] private TMP_InputField _guestIDInputField;
         [SerializeField] private TextMeshProUGUI _currentGuestIDText;
+        
+        private bool haveGuestID = false;
         
         protected override void OnPreEnter(object param)
         {
@@ -38,8 +44,14 @@ namespace CookApps.AutoBattler
             
             RunAllTasks().Forget();
 
-            Debug.Log("TitleMain OnPreEnter");
+            Debug.Log("TitleMain OnPreEnter --> " + gameObject.name);
 
+            var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
+            haveGuestID = string.IsNullOrEmpty(playerID) == false;
+            
+            _createGuestButtonLayer.SetActive(!haveGuestID);
+            //_loginGuestButtonLayer.SetActive(haveGuestID);
+            
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
         }
@@ -75,7 +87,7 @@ namespace CookApps.AutoBattler
 
                 await RunSubTasks(tasks);
 
-                touchToStart.SetActive(true);
+                touchToStart.SetActive(haveGuestID);
             }
         }
 
@@ -277,7 +289,7 @@ namespace CookApps.AutoBattler
             var commonLoginData = UniversalGrpcManager.Instance.GetCommonRequestParam();
             var gameLoginData = UniversalGrpcManager.Instance.GetGameRequestParam();
             UserDataManager.Instance.SetUserLoginData(commonLoginData.Uid, gameLoginData.ServerId, gameLoginData.PlayerId, _guestIDInputField.text);
-
+            
             // 로그인 진행
             OnClickTouchToStart();
         }
