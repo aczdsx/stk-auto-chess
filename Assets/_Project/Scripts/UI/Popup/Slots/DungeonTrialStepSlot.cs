@@ -29,7 +29,8 @@ namespace CookApps.AutoBattler
         private DungeonTrialPopup _parentPopup;
 
         private SpecDungeonTrial _specDungeonData;
-        private UserTrialDungeonData _userDungeonData;
+        private UserTrialDungeonData _selectedDungeonData;
+        private UserTrialDungeonData _dungeonData;
 
         private void Awake()
         {
@@ -48,10 +49,11 @@ namespace CookApps.AutoBattler
             if (data == null) return;
             if (specData == null) return;
 
+            _dungeonData = UserDataManager.Instance.GetTrialDungeonData(specData.dungeon_id);
             _parentPopup = parent;
 
             _specDungeonData = specData;
-            _userDungeonData = data;
+            _selectedDungeonData = data;
 
             if (_specDungeonData.is_grade_up)
             {
@@ -65,11 +67,11 @@ namespace CookApps.AutoBattler
         public void RefreshSlot()
         {
             if (_specDungeonData == null) return;
-            if (_userDungeonData == null) return;
+            if (_selectedDungeonData == null) return;
             if (_parentPopup == null) return;
 
             bool isNormalTrialType = !_specDungeonData.is_grade_up;
-            bool isComplete = _userDungeonData.DungeonStateType == (int)DungeonStateType.CLEAR;
+            bool isComplete = (_dungeonData != null && _dungeonData.DungeonStateType != 0);
             bool isCurrentSlot = _parentPopup.CurrentUserDungeonData.DungeonId == _specDungeonData.dungeon_id;
 
             _normalStateObject.SetActive(isNormalTrialType);
@@ -85,7 +87,7 @@ namespace CookApps.AutoBattler
         private void OnClickSlotButton()
         {
             if (_parentPopup == null) return;
-            if (_userDungeonData == null) return;
+            if (_selectedDungeonData == null) return;
 
             _parentPopup.SetCurrentSelectedDungeonData(_specDungeonData.dungeon_id);
             _parentPopup.RefreshDungeonTrialPopup(DungeonTrialPopupRefreshType.ALL);

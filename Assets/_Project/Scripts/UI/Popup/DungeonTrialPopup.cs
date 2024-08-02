@@ -191,10 +191,11 @@ namespace CookApps.AutoBattler
             _stepSlotList.Clear();
 
             var totalDungeonDataList = SpecDataManager.Instance.GetSpecDungeonTrialDataList(DungeonType.TRIAL);
-
+            
             foreach (var dungeonData in totalDungeonDataList)
             {
                 GameObject newSlotObject = Instantiate(_stepSlotObject, _stepScrollRect.content);
+                
                 DungeonTrialStepSlot newSlot = newSlotObject.GetComponent<DungeonTrialStepSlot>();
                 newSlot?.SetStepSlot(this, dungeonData, CurrentUserDungeonData);
 
@@ -223,9 +224,15 @@ namespace CookApps.AutoBattler
             
             var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
             
-            if (lastDungeonData.Order >= _specDungeonTrialData.order)
+            if (lastDungeonData.Order > _specDungeonTrialData.order)
             {
                 ToastManager.Instance.ShowToast("TEST - 이미 클리어한 던전입니다.");
+                return;
+            }
+            
+            if (lastDungeonData.Order < _specDungeonTrialData.order)
+            {
+                ToastManager.Instance.ShowToast("TEST - 이전 단계를 클리어 해주세요.");
                 return;
             }
 
