@@ -114,7 +114,7 @@ public static class StringUtil
     public static string GetCompareString(int have, int cost, bool isOnlyCost = false)
     {
         string result = string.Empty;
-        string colorNotEnough = "FFFCD0"; 
+        string colorNotEnough = "#FFFCD0"; 
         string colorEnough = "#CA6E71"; 
         
         if (isOnlyCost)
