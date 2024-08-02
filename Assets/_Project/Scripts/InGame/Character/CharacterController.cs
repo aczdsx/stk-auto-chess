@@ -899,6 +899,7 @@ namespace CookApps.BattleSystem
             // 최소 대미지량 적용
             damageInfo.damageAmount = Math.Floor(Math.Max(minDamageAmount, damageInfo.damageAmount));
 
+            if(ecc != null)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageAmount);
                 damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda, damageInfo.damageAmount.Value);
