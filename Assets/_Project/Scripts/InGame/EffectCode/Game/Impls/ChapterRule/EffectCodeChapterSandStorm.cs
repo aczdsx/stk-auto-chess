@@ -23,7 +23,7 @@ namespace CookApps.BattleSystem
                 int tileID = codeInfo.GetCodeStatToInt(i);
                 InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-                var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
+                var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_airborne,
                     inGameTile.View.CachedTr.position);
                 _chapterRuleTiles.Add(inGameTile, vfx);
             }
@@ -38,7 +38,7 @@ namespace CookApps.BattleSystem
                 int tileID = codeInfo.GetCodeStatToInt(i);
                 InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-                var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
+                var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_airborne,
                     inGameTile.View.CachedTr.position);
                 _chapterRuleTiles.Add(inGameTile, vfx);
             }
