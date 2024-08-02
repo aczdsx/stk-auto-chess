@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _rewardItemLayerObject;
         [SerializeField] private Image _rewardItemImage;
         [SerializeField] private TextMeshProUGUI _rewardItemCountText;
+        [SerializeField] private GameObject _checkObj;
 
         [Header("Reward - Piece")]
         [SerializeField] private GameObject _rewardPieceLayerObject;
@@ -95,6 +96,11 @@ namespace CookApps.AutoBattler
 
             // 레이어 활성화
             _rewardCharacterLayerObject.SetActive(true);
+        }
+
+        public void SetCheckSlot(bool isActive)
+        {
+            _checkObj.SetActive(isActive);
         }
 
         private void ClearSlot()

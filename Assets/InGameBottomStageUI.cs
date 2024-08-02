@@ -14,6 +14,7 @@ public class InGameBottomStageUI : InGameBottomUI
 {
     protected void Awake()
     {
+        base.Awake();
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
     }

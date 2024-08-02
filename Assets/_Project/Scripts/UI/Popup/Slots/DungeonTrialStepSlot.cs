@@ -74,14 +74,15 @@ namespace CookApps.AutoBattler
             bool isComplete = (_dungeonData != null && _dungeonData.DungeonStateType != 0);
             bool isCurrentSlot = _parentPopup.CurrentUserDungeonData.DungeonId == _specDungeonData.dungeon_id;
 
+            _activeStateObject.SetActive(isCurrentSlot);
+            
             _normalStateObject.SetActive(isNormalTrialType);
             _normalCompleteObject.SetActive(isNormalTrialType && isComplete);
 
             _mainStateObject.SetActive(!isNormalTrialType);
-            _mainCompleteObject.SetActive(!isNormalTrialType && isComplete);
-            _mainDimmedObject.SetActive(!isNormalTrialType && !isComplete);
+            _mainCompleteObject.SetActive(!isNormalTrialType && (isComplete || isCurrentSlot));
+            _mainDimmedObject.SetActive(!isNormalTrialType && !_mainCompleteObject.activeSelf);
 
-            _activeStateObject.SetActive(isCurrentSlot);
         }
 
         private void OnClickSlotButton()

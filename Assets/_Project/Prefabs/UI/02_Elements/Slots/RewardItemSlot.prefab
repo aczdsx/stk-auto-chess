@@ -2045,6 +2045,7 @@ MonoBehaviour:
   _rewardItemLayerObject: {fileID: 7805482167736214752}
   _rewardItemImage: {fileID: 246091238394257768}
   _rewardItemCountText: {fileID: 1785095067748150429}
+  _checkObj: {fileID: 4583922543600117772}
   _rewardPieceLayerObject: {fileID: 7658858752766862999}
   _rewardPieceImage: {fileID: 6278573381775429225}
   _rewardPieceSliderImage: {fileID: 2593990762542989193}
@@ -4026,5 +4027,10 @@ PrefabInstance:
 --- !u!224 &2800750152337928457 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7999900883408705247, guid: 373468e45bce03148b2975fff311491b, type: 3}
+  m_PrefabInstance: {fileID: 5321873890913413078}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4583922543600117772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8522575620216016858, guid: 373468e45bce03148b2975fff311491b, type: 3}
   m_PrefabInstance: {fileID: 5321873890913413078}
   m_PrefabAsset: {fileID: 0}

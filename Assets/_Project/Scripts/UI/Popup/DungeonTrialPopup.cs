@@ -197,6 +197,9 @@ namespace CookApps.AutoBattler
 
                     RewardItem newRewardItem = new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count);
                     newSlot?.SetRewardSlot(newRewardItem);
+                    
+                    var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
+                    newSlot?.SetCheckSlot(lastDungeonData.Order > _specDungeonTrialData.order);
                 }
             }
         }
