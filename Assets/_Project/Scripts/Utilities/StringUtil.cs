@@ -114,8 +114,8 @@ public static class StringUtil
     public static string GetCompareString(int have, int cost, bool isOnlyCost = false)
     {
         string result = string.Empty;
-        string colorNotEnough = "#FFFCD0"; 
-        string colorEnough = "#CA6E71"; 
+        string colorNotEnough = "#CA6E71"; 
+        string colorEnough = "#CCFF72"; 
         
         if (isOnlyCost)
         {
@@ -132,11 +132,11 @@ public static class StringUtil
         {
             if (cost > have)
             {
-                result = $"{cost.ToString("n0")}/<color={colorNotEnough}>{have.ToString("n0")}</color>";
+                result = $"<color={colorNotEnough}>{cost.ToString("n0")}</color>/{have.ToString("n0")}";
             }
             else
             {
-                result = $"{cost.ToString("n0")}/<color={colorEnough}>{have.ToString("n0")}</color>";
+                result = $"<color={colorEnough}>{cost.ToString("n0")}</color>/{have.ToString("n0")}";
             }
         }
 
