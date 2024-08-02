@@ -18,8 +18,18 @@ public class FlowStatePvpClear : StateBase
         string resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
         //string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
         
+        bool isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
+        
         // 전투 종료 API
-        var matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Win, detailDeckData.PlayerId, resultSimpleData);
+        MatchPvpResponse matchResultData = null;
+        if (isRevenge)
+        {
+            matchResultData = await PVPManager.Instance.SendMatchPVPRevengeResult(PvpMatchResult.RevengeWin, detailDeckData.PlayerId, resultSimpleData, detailDeckData.MatchId);
+        }
+        else
+        {
+            matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Win, detailDeckData.PlayerId, resultSimpleData);
+        }
         
         InGameManager.Instance.EndInGame();
         
