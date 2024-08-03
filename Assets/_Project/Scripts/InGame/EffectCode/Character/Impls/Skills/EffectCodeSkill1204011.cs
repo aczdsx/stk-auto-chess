@@ -117,27 +117,28 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
         {
             tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+            if (owner != null)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-                if (_hitCharacters.Contains(tile.OccupiedCharacter))
-                    return;
-            
-                if (owner != null)
+                tile.CheckValidTile(owner.AllianceType, false, () =>
                 {
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                    if (_hitCharacters.Contains(tile.OccupiedCharacter))
+                        return;
+
                     if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
                         return;
 
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
+                        codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                     _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            });
+                });
+            }
         }
     }
 

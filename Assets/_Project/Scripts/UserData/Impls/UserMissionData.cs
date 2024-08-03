@@ -160,6 +160,7 @@ namespace CookApps.AutoBattler
                     if (userCharacterData != null && userCharacterData.Level >= specGuideMissionData.need_count)
                     {
                         SetGuideMissionState(GuideMissionType.LEVELUP_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
+                        ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
                     }
                     break;
                 case GuideMissionType.SET_LV_CHARACTER_TARGET:
@@ -167,6 +168,7 @@ namespace CookApps.AutoBattler
                     if (userCharacterData1 != null && userCharacterData1.Level >= specGuideMissionData.need_count)
                     {
                         SetGuideMissionState(GuideMissionType.SET_LV_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
+                        ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
                     }
                     break;
                 case GuideMissionType.CLEAR_TRIAL:
@@ -184,6 +186,7 @@ namespace CookApps.AutoBattler
                         if (totalLevel >= specGuideMissionData.need_count)
                         {
                             SetGuideMissionState(GuideMissionType.SUM_CHARACTER_LEVEL, specGuideMissionData.sub_key, MissionStateType.REWARD);
+                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
                         }
                     }
                     break;

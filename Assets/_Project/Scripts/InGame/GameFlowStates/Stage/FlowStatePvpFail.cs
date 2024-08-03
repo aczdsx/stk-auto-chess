@@ -13,31 +13,39 @@ public class FlowStatePvpFail : StateBase
 
     public async override void StateStart()
     {
-        var detailDeckData = InGameManager.Instance.UserPvpBattleDeckList;
-        var simpleDeckData = PVPManager.Instance.ChangeDetailDataToSimpleData(detailDeckData);
-        
-        string resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
-        //string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
-
-        bool isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
-        
-        // 전투 종료 API
-        MatchPvpResponse matchResultData = null;
-        if (isRevenge)
+        if (InGameObjectManager.Instance.StartingPlayerCharacters.Count > 0)
         {
-            matchResultData = await PVPManager.Instance.SendMatchPVPRevengeResult(PvpMatchResult.RevengeLose, detailDeckData.PlayerId, resultSimpleData, detailDeckData.MatchId);
+            var detailDeckData = InGameManager.Instance.UserPvpBattleDeckList;
+            var simpleDeckData = PVPManager.Instance.ChangeDetailDataToSimpleData(detailDeckData);
+        
+            string resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
+            //string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
+
+            bool isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
+        
+            // 전투 종료 API
+            MatchPvpResponse matchResultData = null;
+            if (isRevenge)
+            {
+                matchResultData = await PVPManager.Instance.SendMatchPVPRevengeResult(PvpMatchResult.RevengeLose, detailDeckData.PlayerId, resultSimpleData, detailDeckData.MatchId);
+            }
+            else
+            {
+                matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Lose, detailDeckData.PlayerId, resultSimpleData);
+            }
+            InGameManager.Instance.EndInGame();
+            
+            SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((false, detailDeckData, matchResultData));
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.PLAY_PVP, 0, 1);
         }
         else
         {
-            matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Lose, detailDeckData.PlayerId, resultSimpleData);
+            InGameManager.Instance.EndInGame();
+            int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+            var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+            var transition = SceneTransition_FadeInOut.Create();
+            await SceneLoading.GoToNextScene("Lobby", (int) specLastStageData.chapter_id, transition);
         }
-        
-        // PVP 패배 팝업 노출
-        InGameManager.Instance.EndInGame();
-        
-        SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((false, detailDeckData, matchResultData));
-        
-        GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.PLAY_PVP, 0, 1);
     }
 
     public override void StateRunning(float dt)

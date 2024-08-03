@@ -23,7 +23,19 @@ namespace CookApps.AutoBattler
                 GuideMissionManager.Instance.OnGuideAlertUpdated += UpdateAlert;
             }
 
-            _guideAlertObject.SetActive(false);
+            bool isActive = false;
+            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            if (userGuideMissionData.MissionStateType == (int)MissionStateType.NONE)
+            {
+                var specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userGuideMissionData.MissionId);
+                if (specGuideMissionData != null && specGuideMissionData.guide_mission_type == _guideMissionType)
+                {
+               
+                    isActive = true;
+                }
+            }
+
+            _guideAlertObject.SetActive(isActive);
         }
 
         private void OnDestroy()
