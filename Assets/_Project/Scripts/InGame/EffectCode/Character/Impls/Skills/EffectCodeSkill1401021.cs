@@ -42,7 +42,7 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _resRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _resRate = codeInfo.GetCodeStatToFloat(2);
         _stunTime = codeInfo.GetCodeStatToFloat(3);
         _afterDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
         isReadyToActivate = false;
@@ -56,7 +56,7 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _resRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _resRate = codeInfo.GetCodeStatToFloat(2);
         _stunTime = codeInfo.GetCodeStatToFloat(3);
         _afterDamageRate = codeInfo.GetCodeStatToFloat(4) * 0.01f;
     }

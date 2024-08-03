@@ -31,14 +31,15 @@ public static class EffectCodeHelper
             EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN,
             EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN,
         };
-        
+
         bool isImmuneType = immuneTypes.Contains(effectCodeNameType);
         bool hasImmuneBuff = targetCharacter.HasBuffDebuffType(BuffDebuffType.Immune) && isImmuneType;
-        
+
         if (!hasImmuneBuff)
         {
-            var effectCodeInfo = new EffectCodeInfo((long)effectCodeNameType, 0, stats);
-            targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+            var effectCodeInfo = new EffectCodeInfo((long) effectCodeNameType, 0, stats);
+            if (targetCharacter.GetEffectCodeContainer() != null)
+                targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
         }
     }
 }
