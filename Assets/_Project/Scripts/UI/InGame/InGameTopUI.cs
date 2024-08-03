@@ -121,9 +121,9 @@ public class InGameTopUI : MonoBehaviour
             .Concat(elementTypeCounts)
             .Where(x => x.Count > 0);
 
-        synergyCounts = isDescending
-            ? synergyCounts.OrderByDescending(x => x.Count)
-            : synergyCounts.OrderBy(x => x.Count);
+        synergyCounts = synergyCounts.OrderByDescending(x => x.Count).Take(9);
+        if (!isDescending)
+            synergyCounts = synergyCounts.OrderBy(x => x.Count);
 
         var synergyCountList = synergyCounts.ToList();
 
