@@ -277,7 +277,7 @@ namespace CookApps.AutoBattler
             {
                 if (newPlayerResponse.CommonResponseData.Message == "UNIVERSAL_RESPONSE_CODE_FAIL_NICKNAME_ALREADY_EXIST")
                 {
-                    OnClickGuestLoginButton();
+                    LoginGuest().Forget();
                 }
                 //FinishWithServerError();
                 return;
