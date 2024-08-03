@@ -178,6 +178,9 @@ namespace CookApps.AutoBattler
 
         public void OnClickGuestLoginButton()
         {
+            if (isLoginProcess)
+                return;
+
             SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
             isLoginProcess = true;
             LoginGuest().ContinueWith(() =>
@@ -191,7 +194,7 @@ namespace CookApps.AutoBattler
         {
             if (isLoginProcess)
                 return;
-            
+
             SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
             isLoginProcess = true;
             CreateGuestAccount().ContinueWith(() =>
@@ -275,10 +278,6 @@ namespace CookApps.AutoBattler
             var newPlayerResponse = await UniversalGrpcManager.Instance.CreatePlayerAsync(1, _guestIDInputField.text);
             if (newPlayerResponse.IsError)
             {
-                if (newPlayerResponse.CommonResponseData.Message == "UNIVERSAL_RESPONSE_CODE_FAIL_NICKNAME_ALREADY_EXIST")
-                {
-                    LoginGuest().Forget();
-                }
                 //FinishWithServerError();
                 return;
             }
