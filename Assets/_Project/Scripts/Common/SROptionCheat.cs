@@ -281,8 +281,21 @@ public partial class SROptions
         var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All.ToList();
 
         foreach (var guideMission in allGuideMissionList)
-            UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
-                MissionStateType.CLEAR);
+        {
+            if (guideMission.id >= 30)
+            {
+                UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
+                    MissionStateType.NONE);
+                if(guideMission.id == 30)
+                    UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
+                        MissionStateType.REWARD);
+            }
+            else
+            {
+                UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
+                    MissionStateType.CLEAR);
+            }
+        }
     }
 
     [Category("미션 관련")]

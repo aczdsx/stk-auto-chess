@@ -39,12 +39,14 @@ public class InGameBottomUI : MonoBehaviour
     
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
+    private bool _isStartRunningProcess = false;
 
     protected void Awake()
     {
         var latestClearUserStageID = UserDataManager.Instance.GetLatestClearUserStageID();
         _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
+        _isStartRunningProcess = false;
 
         _specUserGrade = SpecDataManager.Instance.SpecUserGrade.Get(1); // [TODO] 현재 등급 가져오기
         if (_specUserGrade != null)
@@ -77,9 +79,13 @@ public class InGameBottomUI : MonoBehaviour
 
     protected void StartInGameBattle(Type stateType)
     {
-        _readyUIObj.SetActive(false);
-        InGameMainFlowManager.Instance.AddNextState(stateType);
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+        if (!_isStartRunningProcess)
+        {
+            _isStartRunningProcess = true;
+            _readyUIObj.SetActive(false);
+            InGameMainFlowManager.Instance.AddNextState(stateType);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+        }
     }
 
     protected void OnClickStatisticButton()

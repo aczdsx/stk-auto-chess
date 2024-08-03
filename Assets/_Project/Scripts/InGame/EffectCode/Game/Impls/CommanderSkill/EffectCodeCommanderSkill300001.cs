@@ -39,6 +39,7 @@ namespace CookApps.BattleSystem
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile);
 
+            List<int> targetCharacterList = new();
             foreach (var tile in tileList)
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_01,
@@ -46,16 +47,20 @@ namespace CookApps.BattleSystem
 
                 tile.CheckValidTile(AllianceType.Player, false, () =>
                 {
-                    var playerCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(AllianceType.Player, true);
-                    if (playerCharacterList.Count > 0)
+                    if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
                     {
-                        var strongestCharacter = playerCharacterList.First();
+                        targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
+                        var playerCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(AllianceType.Player, true);
+                        if (playerCharacterList.Count > 0)
+                        {
+                            var strongestCharacter = playerCharacterList.First();
 
-                        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                        damageInfo.damageAmount = damageInfo.damageAmount =
-                            (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
+                            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+                            damageInfo.damageAmount = damageInfo.damageAmount =
+                                (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
 
-                        tile.OccupiedCharacter.GetDamaged(damageInfo, null);
+                            tile.OccupiedCharacter.GetDamaged(damageInfo, null);
+                        }
                     }
                 });
             }
