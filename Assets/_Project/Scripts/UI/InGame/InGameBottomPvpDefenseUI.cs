@@ -118,7 +118,8 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
         // string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
-        string contentText = "방어덱을 저장하시겠습니까?(TEST)";
+        // [TODO] 로컬 적용
+        string contentText = "방어덱을 저장하시겠습니까?";
 
         SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
         newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () => { PvPSaveProcess().Forget(); });
