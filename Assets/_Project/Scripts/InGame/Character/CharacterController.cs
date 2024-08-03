@@ -859,6 +859,7 @@ namespace CookApps.BattleSystem
             double damage = InGameCalculator.CalculateDefaultDamage(ad, ap, this, target);
 
             var damageInfo = new DamageInfo();
+            damageInfo.isAD = true;
 
             if (isSkill)
             {
