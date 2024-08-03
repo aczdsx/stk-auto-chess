@@ -46,6 +46,9 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
+                return;
+            
             if (_chapterRuleTiles.ContainsKey(tile))
             {
                 if (tile.OccupiedCharacter != null)
@@ -54,7 +57,7 @@ namespace CookApps.BattleSystem
                         Span<double> eccStats = stackalloc double[3];
                         eccStats.Clear();
                         eccStats[0] = _effectCodeStat;
-                        eccStats[1] = 4.0f;
+                        eccStats[1] = 3.0f;
                         eccStats[2] = tile.View.ID;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AIRBORNE, tile.OccupiedCharacter, eccStats, source);
                     }

@@ -48,7 +48,6 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
-
             if (_chapterRuleTiles.Exists(l => l.View.ID == tile.View.ID))
             {
                 if (character.AllianceType != AllianceType.Wall)
@@ -68,7 +67,6 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterExit(InGameTile tile, CharacterController character)
         {
-
             if (_chapterRuleTiles.Exists(l => l == tile))
             {
                 if (character.AllianceType != AllianceType.Wall)
