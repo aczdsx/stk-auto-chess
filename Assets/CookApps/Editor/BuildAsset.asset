@@ -25,10 +25,10 @@ MonoBehaviour:
         Name: aos-dev
         Target: 13
         Identifier: com.cookapps.tech.sampleteambattle
-        Version: 0.1.2
+        Version: 0.1.3
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 2802
+        VersionCode: 2841
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -64,7 +64,7 @@ MonoBehaviour:
         Version: 0.1.2
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 2802
+        VersionCode: 2841
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -85,10 +85,10 @@ MonoBehaviour:
         Name: ios-dev
         Target: 9
         Identifier: com.mintry.stk
-        Version: 0.1.2
+        Version: 0.1.3
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 2802
+        VersionCode: 2841
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
