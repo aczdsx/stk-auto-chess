@@ -10,12 +10,17 @@ namespace CookApps.AutoBattler
     {
         public DateTime UtcNow()
         {
+            return DateTime.UtcNow;
+        }
+        
+        public DateTime UtcNowLocal()
+        {
             return DateTime.UtcNow.ToLocalTime();
         }
 
         public long UtcNowTimeStamp()
         {
-            return DateTimeToTimeStamp(UtcNow());
+            return DateTimeToTimeStamp(UtcNowLocal());
         }
 
         public long DefaultTimeStamp()
@@ -25,12 +30,12 @@ namespace CookApps.AutoBattler
 
         public DayOfWeek UtcDayOfWeek()
         {
-            return UtcNow().DayOfWeek;
+            return UtcNowLocal().DayOfWeek;
         }
 
         public DateTime Tommorrow()
         {
-            DateTime now = UtcNow();
+            DateTime now = UtcNowLocal();
             return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(1);
         }
         
@@ -63,7 +68,7 @@ namespace CookApps.AutoBattler
 
         public DateTime NextMonday()
         {
-            DateTime now = UtcNow();
+            DateTime now = UtcNowLocal();
             for (int i = 1; i <= 7; i++)
             {
                 DateTime cur = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(i);
@@ -83,7 +88,7 @@ namespace CookApps.AutoBattler
 
         public TimeSpan GetTimeSpan(long targetTimeStamp)
         {
-            return TimeStampToDateTime(targetTimeStamp) - UtcNow();
+            return TimeStampToDateTime(targetTimeStamp) - UtcNowLocal();
         }
         
         public TimeSpan GetTimeSpan(long baseTimeStamp, long targetTimeStamp)
@@ -93,12 +98,12 @@ namespace CookApps.AutoBattler
 
         public TimeSpan GetTimeSpanFromNow(long targetTimeStamp)
         {
-            return UtcNow() - TimeStampToDateTime(targetTimeStamp);
+            return UtcNowLocal() - TimeStampToDateTime(targetTimeStamp);
         }
 
         public long GetLeftTimestampFromNow(long targetTimestamp)
         {
-            return DateTimeToTimeStamp(UtcNow()) - targetTimestamp;
+            return DateTimeToTimeStamp(UtcNowLocal()) - targetTimestamp;
         }
 
         public DateTime GetLeftDateTimeFromNow(long targetTimestamp)
