@@ -163,8 +163,23 @@ namespace CookApps.AutoBattler
             _selectedChapterData = SpecDataManager.Instance.GetChapterData(_currentChapterData.chapter_id);
 
             // 유저 챕터 선택 데이터 저장
-            var firstSpecStage = SpecDataManager.Instance.GetStageData(_currentChapterData.chapter_id, 1, _currentChapterData.difficulty_type);
-            UserDataManager.Instance.SetLastPlayStageID(firstSpecStage.stage_id, true);
+            var lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+            var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
+            var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
+
+            // 가장 최신 챕터를 확인하고 플레이 가능한 최대 스테이지 넘버로 이동
+            int targetStageNumber = 1;
+            if (lastestSpecStageData != null && lastestSpecStageData.chapter_id == _currentChapterData.chapter_id)
+            {
+                if (nextStageData != null)
+                {
+                    targetStageNumber = nextStageData.stage_number;
+                }
+            }
+            
+            // 스테이지 데이터 세팅
+            var targetSpecStage = SpecDataManager.Instance.GetStageData(_currentChapterData.chapter_id, targetStageNumber, _currentChapterData.difficulty_type);
+            UserDataManager.Instance.SetLastPlayStageID(targetSpecStage.stage_id, true);
 
             OnClickCloseButton();
 
