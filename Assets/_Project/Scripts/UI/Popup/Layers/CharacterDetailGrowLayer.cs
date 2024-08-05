@@ -335,8 +335,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData(); // [TODO] 로컬 적용
-            newPopupData.SetPopupData("시스템 알림", "캐릭터 레벨을 초기화 하시겠습니까?", "확인", "취소", () =>
+            string descText = LanguageManager.Instance.GetLanguageText("MSG_CHARACTER_LV_RESET_ALERT");
+            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
+            newPopupData.SetPopupData("시스템 알림", descText, "확인", "취소", () =>
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
 
