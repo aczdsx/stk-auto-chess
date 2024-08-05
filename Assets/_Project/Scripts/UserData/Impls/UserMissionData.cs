@@ -16,6 +16,8 @@ namespace CookApps.AutoBattler
         public UserMissionData UserMissionData => userMissionData;
         public MapField<int, UserGuideMission> UserGuideMissionDic => UserMissionData.UserGuideMissions;
 
+        public bool ClearToastPopupFlag { get; set; }   // 클리어 안내 토스트 팝업 노출 제어 플래그
+        
         [Initialize(DataCategory.UserMissionData)]
         private void Initialize_MissionData(string data)
         {
@@ -123,6 +125,7 @@ namespace CookApps.AutoBattler
                     userMissionData.GuideMissionCurrentOrder <= SpecDataManager.Instance.GetGuideMissionMaxOrder())
                 {
                     UserMissionData.GuideMissionCurrentOrder++;
+                    ClearToastPopupFlag = false;
                 }
 
                 // 모든 가이드 미션 클리어 상태 체크
@@ -160,7 +163,12 @@ namespace CookApps.AutoBattler
                     if (userCharacterData != null && userCharacterData.Level >= specGuideMissionData.need_count)
                     {
                         SetGuideMissionState(GuideMissionType.LEVELUP_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                        ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
+
+                        if (ClearToastPopupFlag == false)
+                        {
+                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
+                            ClearToastPopupFlag = true;
+                        }
                     }
                     break;
                 case GuideMissionType.SET_LV_CHARACTER_TARGET:
@@ -168,7 +176,12 @@ namespace CookApps.AutoBattler
                     if (userCharacterData1 != null && userCharacterData1.Level >= specGuideMissionData.need_count)
                     {
                         SetGuideMissionState(GuideMissionType.SET_LV_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                        ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
+                        
+                        if (ClearToastPopupFlag == false)
+                        {
+                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
+                            ClearToastPopupFlag = true;
+                        }
                     }
                     break;
                 case GuideMissionType.CLEAR_TRIAL:
@@ -186,7 +199,12 @@ namespace CookApps.AutoBattler
                         if (totalLevel >= specGuideMissionData.need_count)
                         {
                             SetGuideMissionState(GuideMissionType.SUM_CHARACTER_LEVEL, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
+                            
+                            if (ClearToastPopupFlag == false)
+                            {
+                                ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
+                                ClearToastPopupFlag = true;
+                            }
                         }
                     }
                     break;
