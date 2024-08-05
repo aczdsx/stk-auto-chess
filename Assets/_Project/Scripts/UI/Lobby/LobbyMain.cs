@@ -264,19 +264,8 @@ namespace CookApps.AutoBattler
                 // _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specMonsterData.prefab_id);
                 // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
 
-                // 임시처리
-                switch (specStageData.chapter_id)
-                {
-                    case 1:
-                        _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(20201);
-                        break;
-                    case 2:
-                        _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(20202);
-                        break;
-                    case 3:
-                        _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(20203);
-                        break;
-                }
+                // 보스 이미지 처리
+                _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specStageData.chapter_id);
 
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }
