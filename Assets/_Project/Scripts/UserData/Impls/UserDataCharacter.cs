@@ -234,6 +234,7 @@ namespace CookApps.AutoBattler
                 if (UserCharacterDic[characterID].CharacterPiece < pieceCount) return;
 
                 UserCharacterDic[characterID].CharacterPiece -= pieceCount;
+                UserCharacterDic[characterID].CharacterPiece = Mathf.Max(0, UserCharacterDic[characterID].CharacterPiece);
 
                 SaveCharacterGroup();
             }

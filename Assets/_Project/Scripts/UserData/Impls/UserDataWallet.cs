@@ -291,30 +291,37 @@ namespace CookApps.AutoBattler
             {
                 case ItemType.GOLD:
                     userWallet.Gold -= itemAmount;
+                    userWallet.Gold = Math.Max(0, userWallet.Gold);
                     OnGoldChanged?.Invoke(userWallet.Gold);
                     break;
                 case ItemType.JEWEL:
                     userWallet.Jewel -= itemAmount;
+                    userWallet.Jewel = Math.Max(0, userWallet.Jewel);
                     OnJewelChanged?.Invoke(userWallet.Jewel);
                     break;
                 case ItemType.AP:
                     userWallet.Ap -= itemAmount;
+                    userWallet.Ap = Math.Max(0, userWallet.Ap);
                     OnAPChanged?.Invoke(userWallet.Ap);
                     break;
                 case ItemType.C_TICKET:
                     userWallet.CTicket -= itemAmount;
+                    userWallet.CTicket = Math.Max(0, userWallet.CTicket);
                     OnCTicketChanged?.Invoke(userWallet.CTicket);
                     break;
                 case ItemType.PVP_TICKET:
                     userWallet.PvpTicket -= itemAmount;
+                    userWallet.PvpTicket = Math.Max(0, userWallet.PvpTicket);
                     OnPVPTicketChanged?.Invoke(userWallet.PvpTicket);
                     break;
                 case ItemType.CHAR_USER_EXP_ITEM:
                     userWallet.CharUserExpItem -= itemAmount;
+                    userWallet.CharUserExpItem = Math.Max(0, userWallet.CharUserExpItem);
                     OnCharUserExpItemChanged?.Invoke(userWallet.CharUserExpItem);
                     break;
                 case ItemType.CHAR_USER_EXP_ITEM_2:
                     userWallet.CharUserExpItem2 -= itemAmount;
+                    userWallet.CharUserExpItem2 = Math.Max(0, userWallet.CharUserExpItem2);
                     OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
                     break;
                 case ItemType.CHARACTER_PIECE:
