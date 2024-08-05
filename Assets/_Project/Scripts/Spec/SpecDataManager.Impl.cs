@@ -910,6 +910,11 @@ namespace CookApps.AutoBattler
         {
             return SpecDungeonTrialList.FindAll(data => data.dungeon_type == dungeonType);
         }
+        
+        public List<SpecDungeonTrial> GetSpecDungeonTrialDataListByStageStar(int stageStar)
+        {
+            return SpecDungeonTrialList.FindAll(data => data.need_star <= stageStar);
+        }
 
         public List<SpecDungeonMonster> GetSpecDungeonMonsterDataList(DungeonType dungeonType, int dungeonID)
         {
