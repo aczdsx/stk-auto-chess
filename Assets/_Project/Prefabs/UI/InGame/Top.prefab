@@ -4237,6 +4237,7 @@ MonoBehaviour:
   - {fileID: 1237647472314577864}
   _combatPlayerAttr: {fileID: 2961252055695773468}
   _combatEnemyAttr: {fileID: 6767923826749310665}
+  _myName: {fileID: 0}
   _stageName: {fileID: 2103241271136618499}
 --- !u!1 &7446378683968950239
 GameObject:

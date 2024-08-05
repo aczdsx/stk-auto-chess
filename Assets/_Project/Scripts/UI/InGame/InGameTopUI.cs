@@ -165,16 +165,22 @@ public class InGameTopUI : MonoBehaviour
 
     }
 
-    public void UpdateAttrUI(AllianceType type)
+    public void UpdateAttrUI(AllianceType type, bool isCombat)
     {
+        TextMeshProUGUI textMesh = type == AllianceType.Player ? _playerAttrText : _enemyAttrText;
+        if (isCombat)
+        {
+            textMesh = type == AllianceType.Player ? _combatPlayerAttr : _combatEnemyAttr;
+        }
+    
         string attrText = InGameObjectManager.Instance.GetAttrText(type);
         if (type == AllianceType.Player)
         {
-            _combatPlayerAttr.text = attrText;
+            textMesh.text = attrText;
         }
         else
         {
-            _combatEnemyAttr.text = attrText;
+            textMesh.text = attrText;
         }
     }
 
