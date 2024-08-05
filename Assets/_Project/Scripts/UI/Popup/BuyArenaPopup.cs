@@ -77,6 +77,9 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // 재화 소모
+            UserDataManager.Instance.DecreaseItem(ItemType.GOLD, 0, _ticketPrice, true, false);
+            
             // 티켓 지급
             List<RewardItem> rewardItemList = new List<RewardItem>();
             RewardItem newReward = new RewardItem(ItemType.PVP_TICKET, 0, _ticketCount);
