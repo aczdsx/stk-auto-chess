@@ -117,7 +117,7 @@ namespace CookApps.AutoBattler
             DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dt = dt.AddSeconds(value);
             
-            return dt/*.ToLocalTime()*/;
+            return dt.ToLocalTime();
         }
 
         // 스펙 데이터의 datetime 데이터 문자열을 DateTime 형식으로 변환

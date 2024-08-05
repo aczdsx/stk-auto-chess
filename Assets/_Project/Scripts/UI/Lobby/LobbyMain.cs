@@ -317,7 +317,7 @@ namespace CookApps.AutoBattler
                     _normalRewardStateObject.gameObject.SetActive(true);
                     _fullRewardStateObject.gameObject.SetActive(false);
 
-                    float resultValue = (currentRewardTimeSpan.Minutes / (float) maxTimeLimitMinute);
+                    float resultValue = (float)currentRewardTimeSpan.TotalMinutes / maxTimeLimitMinute;
                     float resultPercent = resultValue * 100;
                     _idleRewardStateText.text = $"{Mathf.Ceil(resultPercent)}%";
 
