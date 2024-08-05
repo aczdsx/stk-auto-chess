@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
+using Cysharp.Threading.Tasks;
+using PrimeTween;
+using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
@@ -25,6 +28,8 @@ namespace CookApps.BattleSystem
         List<CharacterInfo> _characterList = new List<CharacterInfo>();
         private float _effectCodeStat;
         private float _durationTime = 7.0f;
+        
+        private Tween moveTween;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -62,7 +67,7 @@ namespace CookApps.BattleSystem
         {
             if (_chapterRuleTiles.Exists(l => l == tile))
             {
-                _characterList.Add(new CharacterInfo(character, _durationTime - 0.8f));
+                _characterList.Add(new CharacterInfo(character, _durationTime));
             }
         }
 
@@ -70,8 +75,7 @@ namespace CookApps.BattleSystem
         {
             if (_chapterRuleTiles.Exists(l => l == tile))
             {
-                _characterList.RemoveAll(c =>
-                    c.Controller != null && c.Controller.CharacterUId == character.CharacterUId);
+                _characterList.RemoveAll(c => c.Controller != null && c.Controller.CharacterUId == character.CharacterUId);
             }
         }
 
@@ -88,19 +92,40 @@ namespace CookApps.BattleSystem
 
                     if (characterInfo.Value >= _durationTime)
                     {
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
-                            characterInfo.Controller.GetCharacterView().CachedTr.position);
-
+                        characterInfo.Value = 0;
+                        
                         Span<double> eccStats = stackalloc double[1];
                         eccStats.Clear();
                         eccStats[0] = _effectCodeStat;
-                        
+
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, characterInfo.Controller, eccStats, source);
+                        
+                        var moveDuration = SpecOptionCache.DefaultMoveDuration / characterInfo.Controller.GetCharacterStat().MoveSpeed;
 
-                        characterInfo.Controller.Position3D = characterInfo.Controller.CurrentTile.View.CachedTr.position;
+                        Ease ease = Ease.Linear;
 
-                        characterInfo.Value -= _durationTime;
-                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
+                        moveTween = Tween.Custom(
+                            characterInfo.Controller.Position3D,
+                            characterInfo.Controller.CurrentTile.View.Position,
+                            moveDuration,
+                            (Vector3 value) =>
+                            {
+                                if (characterInfo.Controller != null)
+                                {
+                                    characterInfo.Controller.Position3D = value;
+                                    characterInfo.Controller.GetCharacterView().CachedTr.localPosition = value;
+                                    
+                                }
+                            },
+                            ease: ease).OnComplete(this, target =>
+                        {
+                            if (target != null)
+                            {
+                                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
+                                    characterInfo.Controller.GetCharacterView().CachedTr.position);
+                                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
+                            }
+                        });
                     }
                 }
             }
