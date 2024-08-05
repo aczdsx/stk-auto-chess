@@ -149,6 +149,9 @@ namespace CookApps.AutoBattler
 
             // 방치 보상 데이터 갱신
             UserDataManager.Instance.RefreshLastRewardGetTime();
+            
+            // 퀘스트 데이터 갱신
+            UserDataManager.Instance.SetUserQuestActionCount(QuestType.GET_IDLE_REWARD, 1, true, true);
 
             // temp - 일단은 off
             OnClickCloseButton();
