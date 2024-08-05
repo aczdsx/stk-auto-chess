@@ -20,13 +20,12 @@ namespace CookApps.AutoBattler
 
         private Dictionary<int, float> progressDict = new();
 
-        [SerializeField]
-        private GameObject touchToStart;
+        [SerializeField] private GameObject touchToStart;
         
-        [SerializeField]
-        private GameObject _createGuestButtonLayer;
-        private GameObject _loginGuestButtonLayer;
-
+        [SerializeField] private GameObject _createGuestButtonLayer;
+        [SerializeField] private GameObject _loginGuestButtonLayer;
+        [SerializeField] private GameObject _loadingPopupObject;
+        
         bool isLogin = false;
         bool isLoginProcess = false;
         
@@ -181,12 +180,12 @@ namespace CookApps.AutoBattler
             if (isLoginProcess)
                 return;
 
-            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
+            _loadingPopupObject.SetActive(true);
             isLoginProcess = true;
             LoginGuest().ContinueWith(() =>
             {
                 //isLoginProcess = false;
-                SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                _loadingPopupObject.SetActive(false);
             }).Forget();
         }
 
@@ -195,12 +194,12 @@ namespace CookApps.AutoBattler
             if (isLoginProcess)
                 return;
 
-            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
+            _loadingPopupObject.SetActive(true);
             isLoginProcess = true;
             CreateGuestAccount().ContinueWith(() =>
             {
                 //isLoginProcess = false;
-                SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                _loadingPopupObject.SetActive(false);
             }).Forget();
         }
         

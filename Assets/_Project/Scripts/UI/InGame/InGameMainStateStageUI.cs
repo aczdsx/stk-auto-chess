@@ -49,8 +49,8 @@ namespace CookApps.AutoBattler
             _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
             _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
 
-            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Player);
-            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Enemy);
+            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Player, isCombat);
+            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Enemy, isCombat);
         }
 
         public void ReturnCharacterUI(CharacterController characterController)

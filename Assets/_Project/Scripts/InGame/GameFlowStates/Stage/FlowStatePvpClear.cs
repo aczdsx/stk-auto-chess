@@ -35,7 +35,11 @@ public class FlowStatePvpClear : StateBase
         
         SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((true, detailDeckData, matchResultData));
         
+        // 가이드 미션 체크
         GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.PLAY_PVP, 0, 1);
+        
+        // 퀘스트 데이터 갱신
+        UserDataManager.Instance.SetUserQuestActionCount(QuestType.BATTLE_PVP, 1, true, true);
     }
 
     public override void StateRunning(float dt)

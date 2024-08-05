@@ -626,7 +626,7 @@ namespace CookApps.AutoBattler
                 Destroy(fx);
                 fx = null;
             }
-            SoundManager.Instance.StopAllSound();
+            //SoundManager.Instance.StopAllSound();
             if (IsOne)
             {
 

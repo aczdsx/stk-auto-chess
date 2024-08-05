@@ -71,17 +71,17 @@ namespace CookApps.AutoBattler
             _emptyLayerObject?.SetActive(_currentServerMatchingDataList == null || _currentServerMatchingDataList.Count == 0);
             
             // 남은 갱신 시간 unitask
-            // _unitaskCancelToken.Cancel();
-            // _unitaskCancelToken = new CancellationTokenSource();
-            //
-            // try
-            // {
-            //     await CheckRefreshMatchListTime(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
-            // }
-            // catch (Exception e)
-            // {
-            //     UnityEngine.Debug.Log(e);
-            // }
+            _unitaskCancelToken.Cancel();
+            _unitaskCancelToken = new CancellationTokenSource();
+            
+            try
+            {
+                await CheckRefreshMatchListTime(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.Log(e);
+            }
         }
         
         private void CreateMatchingScrollList()
@@ -101,9 +101,9 @@ namespace CookApps.AutoBattler
         
         private async UniTask CheckRefreshMatchListTime(CancellationToken cancelToken)
         {
+            _isAvailRefresh = false;
+            
             TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpan(UserDataManager.Instance.UserPVP.NextRefreshMatchingListTimestamp);
-
-            int nextTimeLimit = SpecDataManager.Instance.GetGameConfig<int>("PVP_REFRESH_MATCHING_TIME");
 
             try
             {
@@ -132,10 +132,19 @@ namespace CookApps.AutoBattler
         private void OnClickMatchingRefreshButton()
         {
             // 리프레쉬 가능 상태 체크
-            // if (_isAvailRefresh == false)
-            // {
-            //     return;
-            // }
+            if (_isAvailRefresh == false)
+            {
+                ToastManager.Instance.ShowToast("TEST - 아직 갱신할 수 없습니다.");
+                return;
+            }
+            
+            // 리프레쉬 가능 최대 횟수 체크
+            int maxCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_MATCHING_LIST_REFRESH_MAX_COUNT");
+            if (UserDataManager.Instance.UserPVP.MatchRefreshCnt >= maxCount)
+            {
+                ToastManager.Instance.ShowToast("TEST - 더 이상 갱신할 수 없습니다.");
+                return;
+            }
             
             // 재화 소지 체크
             if (!UserDataManager.Instance.CheckEnoughItem(ItemType.GOLD, 0, _refreshPrice, true))
@@ -143,9 +152,18 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // 재화 소모 처리
+            UserDataManager.Instance.DecreaseItem(ItemType.GOLD, 0, _refreshPrice, true, false);
+            
+            // 초기화 진행 횟수 처리
+            UserDataManager.Instance.UserPVP.MatchRefreshCnt++;
+            
+            // 매칭 리스트 갱신 시간 처리
             UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_LIST, true);
 
             _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
+
+            _isAvailRefresh = false;
         }
         
         private void ClearLayer()

@@ -321,6 +321,8 @@ namespace CookApps.BattleSystem
             InGameTile selectedCharacterTile = selectedCharacter.CurrentTile;
             InGameTile occupiedCharacterTile = occupiedCharacter.CurrentTile;
 
+            selectedCharacterTile.SetUnoccupied();
+            occupiedCharacterTile.SetUnoccupied();
             // 각 캐릭터가 새로운 타일로 이동하도록 설정
             selectedCharacter.ChangeOccupiedTile(occupiedCharacterTile);
             occupiedCharacter.ChangeOccupiedTile(selectedCharacterTile);

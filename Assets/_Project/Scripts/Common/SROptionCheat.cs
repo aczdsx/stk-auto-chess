@@ -396,6 +396,14 @@ public partial class SROptions
             return;
     }
 
+    [Category("PVP 관련")]
+    public void 매칭리스트갱신횟수초기화()
+    {
+        UserDataManager.Instance.UserPVP.MatchRefreshCnt = 0;
+        
+        UserDataManager.Instance.SaveUserPVPData();
+    }
+
     #endregion
     
     ////////////////////////////////////////////////////////////////////////////////////////

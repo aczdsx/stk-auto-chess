@@ -72,6 +72,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _gachaReddotObject;
         [SerializeField] private GameObject _idleRewardReddotObject;
         [SerializeField] private GameObject _chapterSelectReddotObject;
+        [SerializeField] private GameObject _questReddotObject;
+        [SerializeField] private GameObject _attendanceReddotObject;
+        [SerializeField] private GameObject _sessionTimeEventReddotObject;
+        [SerializeField] private GameObject _useAPEventReddotObject;
+        [SerializeField] private GameObject _trialDungeonReddotObject;
+        [SerializeField] private GameObject _pvpArenaReddotObject;
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -311,7 +317,7 @@ namespace CookApps.AutoBattler
                     _normalRewardStateObject.gameObject.SetActive(true);
                     _fullRewardStateObject.gameObject.SetActive(false);
 
-                    float resultValue = (currentRewardTimeSpan.Minutes / (float) maxTimeLimitMinute);
+                    float resultValue = (float)currentRewardTimeSpan.TotalMinutes / maxTimeLimitMinute;
                     float resultPercent = resultValue * 100;
                     _idleRewardStateText.text = $"{Mathf.Ceil(resultPercent)}%";
 
@@ -413,9 +419,100 @@ namespace CookApps.AutoBattler
 
             _chapterSelectReddotObject.SetActive(isAvailGetChapterReward);
 
+            // 퀘스트 레드닷
+            bool isAvailDailyQuestReward = false;
+            bool isAvailWeeklyQuestReward = false;
+            var dailyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.DAILY, true);
+            var weeklyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.WEEKLY, true);
 
-            // int totalStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type);
-            // _isAvailGetReward = totalStarCount >= _specRewardInfo.sub_value;
+            foreach (var questData in dailyQuestList)
+            {
+                var userQuestData = UserDataManager.Instance.GetUserQuestData(questData.quest_id);
+                if (userQuestData == null) continue;
+
+                if (userQuestData.QuestStateType == (int) QuestStateType.REWARD)
+                {
+                    isAvailDailyQuestReward = true;
+                    break;
+                }
+            }
+            
+            foreach (var questData in weeklyQuestList)
+            {
+                var userQuestData = UserDataManager.Instance.GetUserQuestData(questData.quest_id);
+                if (userQuestData == null) continue;
+
+                if (userQuestData.QuestStateType == (int) QuestStateType.REWARD)
+                {
+                    isAvailWeeklyQuestReward = true;
+                    break;
+                }
+            }
+            
+            _questReddotObject.SetActive(isAvailDailyQuestReward || isAvailWeeklyQuestReward);
+
+            // 출석 레드닷
+            bool isAvailAttendanceReward = false;
+            var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ATTENDANCE);
+            var userEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specEventData.event_id);
+            if (userEventConditionList != null && userEventConditionList.Count > 0)
+            {
+                isAvailAttendanceReward = userEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
+            }
+            
+            _attendanceReddotObject.SetActive(isAvailAttendanceReward);
+            
+            // 세션타임 이벤트 레드닷
+            bool isAvailSessionTimeEventReward = false;
+            var specSessionEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ACC_PLAY_TIME);
+            var userSessionEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specSessionEventData.event_id);
+            if (userSessionEventConditionList != null && userSessionEventConditionList.Count > 0)
+            {
+                isAvailSessionTimeEventReward = userSessionEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
+            }
+            
+            _sessionTimeEventReddotObject.SetActive(isAvailSessionTimeEventReward);
+
+
+            // 행동력 이벤트 레드닷
+            bool isAvailUseAPReward = false;
+            var specUseAPEventData = SpecDataManager.Instance.GetSpecEventData(EventType.USE_AP);
+            var userUseAPEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specUseAPEventData.event_id);
+            if (userUseAPEventConditionList != null && userUseAPEventConditionList.Count > 0)
+            {
+                isAvailUseAPReward = userUseAPEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
+            }
+            
+            _useAPEventReddotObject.SetActive(isAvailUseAPReward);
+
+            // 시련 던전 레드닷
+            bool isAvailPlayTrialDungeon = false;
+
+            int totalStageStar = UserDataManager.Instance.GetAllTotalChapterStarCount();
+            var trialDungeonList = SpecDataManager.Instance.GetSpecDungeonTrialDataListByStageStar(totalStageStar);
+            if (trialDungeonList != null && trialDungeonList.Count > 0)
+            {
+                foreach (var dungeonData in trialDungeonList)
+                {
+                    var userDungeonData = UserDataManager.Instance.GetTrialDungeonData(dungeonData.dungeon_id);
+                    if (userDungeonData == null) continue;
+
+                    if (userDungeonData.DungeonStateType == (int)DungeonStateType.WAIT)
+                    {
+                        isAvailPlayTrialDungeon = true;
+                        break;
+                    }
+                }
+            }
+            
+            _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
+
+            // 아레나 PVP 레드닷
+            bool isAvailPlayPVP = false;
+
+            isAvailPlayPVP = UserDataManager.Instance.UserWallet.PvpTicket > 0;
+
+            _pvpArenaReddotObject.SetActive(isAvailPlayPVP);
         }
 
         private void OnClickCommanderSkillButton()

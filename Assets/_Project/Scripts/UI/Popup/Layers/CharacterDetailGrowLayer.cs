@@ -32,6 +32,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _activeLevelUpButton;
         [SerializeField] private CAButton _inactiveLevelUpButton;
         [SerializeField] private CAButton _resetLevelUpButton;
+        [SerializeField] private TextMeshProUGUI _resetCountText;
 
         [Space(10)]
         [SerializeField] private CurrencyUIItem _baseExpItemCurrencyUIItem;
@@ -112,6 +113,9 @@ namespace CookApps.AutoBattler
 
             // 초월 기능 관련 처리
             SetTranscendenceLayer();
+            
+            // 리셋 기능 관련 처리
+            SetLevelResetLayer();
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
@@ -122,6 +126,7 @@ namespace CookApps.AutoBattler
             SetPieceLayer();
             SetLevelupLayer();
             SetTranscendenceLayer();
+            SetLevelResetLayer();
         }
 
         private void SetUserStatLayer()
@@ -201,6 +206,16 @@ namespace CookApps.AutoBattler
 
             _activeTranscendenceButton.gameObject.SetActive(isAvailTranscendence);
             _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
+        }
+
+        private void SetLevelResetLayer()
+        {
+            int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
+            int resetCount = UserDataManager.Instance.UserBasicData.ResetCharacterCount;
+
+            int resultCount = maxResetCount - resetCount;
+            
+            _resetCountText.text = resultCount.ToString();
         }
 
         private void PlayLevelUpEffect()
