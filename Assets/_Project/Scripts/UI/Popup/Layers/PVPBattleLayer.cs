@@ -138,6 +138,14 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // 리프레쉬 가능 최대 횟수 체크
+            int maxCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_MATCHING_LIST_REFRESH_MAX_COUNT");
+            if (UserDataManager.Instance.UserPVP.MatchRefreshCnt >= maxCount)
+            {
+                ToastManager.Instance.ShowToast("TEST - 더 이상 갱신할 수 없습니다.");
+                return;
+            }
+            
             // 재화 소지 체크
             if (!UserDataManager.Instance.CheckEnoughItem(ItemType.GOLD, 0, _refreshPrice, true))
             {
@@ -147,6 +155,10 @@ namespace CookApps.AutoBattler
             // 재화 소모 처리
             UserDataManager.Instance.DecreaseItem(ItemType.GOLD, 0, _refreshPrice, true, false);
             
+            // 초기화 진행 횟수 처리
+            UserDataManager.Instance.UserPVP.MatchRefreshCnt++;
+            
+            // 매칭 리스트 갱신 시간 처리
             UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_LIST, true);
 
             _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
