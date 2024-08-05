@@ -30773,6 +30773,7 @@ MonoBehaviour:
   _activeLevelUpButton: {fileID: 597076811668666103}
   _inactiveLevelUpButton: {fileID: 366438474249397153}
   _resetLevelUpButton: {fileID: 4270846576449252669}
+  _resetCountText: {fileID: 3673952518565695941}
   _baseExpItemCurrencyUIItem: {fileID: 8750656550208893263}
   _secondExpItemCurrencyUIItem: {fileID: 4311674732682630737}
   _goldCurrencyUIItem: {fileID: 5823581103576128085}
