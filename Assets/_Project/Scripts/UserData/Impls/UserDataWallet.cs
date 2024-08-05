@@ -88,7 +88,7 @@ namespace CookApps.AutoBattler
                 case ItemType.CHAR_USER_EXP_ITEM_2:
                     if (userWallet.CharUserExpItem2 < itemAmount && isShowToast)
                     {
-                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP");
+                        ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP_2");
                     }
                     return userWallet.CharUserExpItem2 >= itemAmount;
                 case ItemType.CHARACTER_PIECE:
