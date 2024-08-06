@@ -171,7 +171,7 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
             }
         }
         
-        if (!isHasTarget || _targetCount >= _targetMaximumCount)
+        if (!isHasTarget || _targetCount > _targetMaximumCount)
         {
             _vfx.Remove();
             ActionSkillBuff();
