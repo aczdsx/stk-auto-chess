@@ -115,7 +115,15 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
             .AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().CachedTr.position)
             .GetComponent<InGameVfx>();
 
-        var targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
+        var targetTileList = new List<InGameTile>();
+        if (owner.Target is {IsAlive: true})
+        {
+            targetTileList.Add(owner.Target.CurrentTile);
+        }
+        else
+        {
+            targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
+        }
         _targetCount = 0;
         _hitCharacters.Clear();
         ActionSkill(targetTileList);
