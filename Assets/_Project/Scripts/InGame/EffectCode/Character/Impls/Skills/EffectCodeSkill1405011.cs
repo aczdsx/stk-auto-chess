@@ -149,6 +149,7 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
                     {
                         if (targetTile.OccupiedCharacter != null)
                         {
+                            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile);
                             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], targetTile.OccupiedCharacter.GetCharacterView().CachedTr.position);
 
                             float powerRate = _powerRate - _decreasedPowerRate * (float) _targetCount;
