@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
             // 리프레쉬 가능 상태 체크
             if (_isAvailRefresh == false)
             {
-                ToastManager.Instance.ShowToast("TEST - 아직 갱신할 수 없습니다.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_PVP_OPPONENT_REFRESH_IMPOSSIBLE");
                 return;
             }
             
