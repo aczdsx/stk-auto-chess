@@ -139,7 +139,7 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 {
                     Span<double> eccStats = stackalloc double[3];
@@ -160,7 +160,26 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
 
                     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, tile.OccupiedCharacter, eccStats, source);
                 }
-            });
+                {
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = codeId;
+                    eccStats[1] = _buffTime;
+                    eccStats[2] = _buffRate;
+
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
+                }
+                
+                {
+                    Span<double> eccStats = stackalloc double[3];
+                    eccStats.Clear();
+                    eccStats[0] = codeId;
+                    eccStats[1] = _buffTime;
+                    eccStats[2] = _healRate;
+
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, tile.OccupiedCharacter, eccStats, source);
+                }
+            }
         }
     }
 }

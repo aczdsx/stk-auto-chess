@@ -124,21 +124,18 @@ public class EffectCodeSkill1401011 : EffectCodeCharacterBase
         {
             tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            });
+                _hitCharacters.Add(tile.OccupiedCharacter);
+            }
         }
     }
 

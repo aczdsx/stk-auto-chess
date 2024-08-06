@@ -133,41 +133,47 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
         for (int i = 0; i < inGameTiles.Count && !isTargetFound; i++)
         {
             var targetTile = inGameTiles[i];
-            targetTile.CheckValidTile(owner.AllianceType, false, () =>
+
+            if (targetTile.CheckValidTile(owner.AllianceType, false))
             {
-                isHasTarget = true;
-                Vector3 direction = (targetTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
-                _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-
-                movement.SetData(_vfx.CachedTr.position, targetTile.View.CachedTr.position, 20);
-                _vfx.Initialize(false, movement);
-
-                void OnReachedTargetHandler()
+                if (!_hitCharacters.Exists(l => l == targetTile.OccupiedCharacter))
                 {
-                    if (targetTile.OccupiedCharacter != null)
+                    isHasTarget = true;
+                    Vector3 direction = (targetTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
+                    _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
+                    movement.SetData(_vfx.CachedTr.position, targetTile.View.CachedTr.position, 20);
+                    _vfx.Initialize(false, movement);
+
+                    void OnReachedTargetHandler()
                     {
-                
-                        float powerRate = _powerRate - _decreasedPowerRate * (float) _targetCount;
-                        var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter, codeId, true);
-                        owner.PostCalculateDamageAmount(ref damage, targetTile.OccupiedCharacter);
-                        targetTile.OccupiedCharacter.GetDamaged(damage, owner);
+                        if (targetTile.OccupiedCharacter != null)
+                        {
+                            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], targetTile.OccupiedCharacter.GetCharacterView().CachedTr.position);
 
-                        _hitCharacters.Add(targetTile.OccupiedCharacter);
+                            float powerRate = _powerRate - _decreasedPowerRate * (float) _targetCount;
+                            var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter, codeId, true);
+                            owner.PostCalculateDamageAmount(ref damage, targetTile.OccupiedCharacter);
+                            targetTile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                            _hitCharacters.Add(targetTile.OccupiedCharacter);
+                        }
+                
+                        _targetCount++;
+                        var targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetTile, 1);
+                        movement = null;
+                        ActionSkill(targetTileList);
                     }
-                
-                    _targetCount++;
-                    var targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetTile, 1);
-                    movement = null;
-                    ActionSkill(targetTileList);
-                }
 
-                movement.OnReachedTarget += OnReachedTargetHandler;
-                isTargetFound = true; // 타겟을 찾았으므로 for 루프를 종료합니다.
-            });
+                    movement.OnReachedTarget += OnReachedTargetHandler;
+                    isTargetFound = true; // 타겟을 찾았으므로 for 루프를 종료합니다.
+                }
+            }
         }
         
         if (!isHasTarget || _targetCount >= _targetMaximumCount)
         {
+            _vfx.Remove();
             ActionSkillBuff();
         }
     }

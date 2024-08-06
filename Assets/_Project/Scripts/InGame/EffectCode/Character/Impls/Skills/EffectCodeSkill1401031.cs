@@ -153,8 +153,8 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-            
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
@@ -171,7 +171,7 @@ public class EffectCodeSkill1401031 : EffectCodeCharacterBase
                 eccStats[2] = _atkSpeedDownRate;
                     
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, tile.OccupiedCharacter, eccStats, source);
-            });
+            }
         }
                     
         UniTask.Yield();

@@ -106,7 +106,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-            tile.CheckValidTile(owner.AllianceType, true, () =>
+            if (tile.CheckValidTile(owner.AllianceType, true))
             {
                 double damage = owner.PostCalculateHealAmount(_healRate * owner.AP, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
@@ -118,7 +118,7 @@ public class EffectCodeSkill1406011 : EffectCodeCharacterBase
                 eccStats[2] = _atkBuffRate;
                 
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ATK_SPEED_UP, tile.OccupiedCharacter, eccStats, source);
-            });
+            }
         }
 
         IsSkillActivated = false;

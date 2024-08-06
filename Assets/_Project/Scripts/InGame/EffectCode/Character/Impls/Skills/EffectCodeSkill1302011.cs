@@ -99,7 +99,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
             foreach (var tile in inGameTiles)
             {
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-                tile.CheckValidTile(owner.AllianceType, true, () =>
+                if (tile.CheckValidTile(owner.AllianceType, true))
                 {
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
@@ -113,7 +113,7 @@ public class EffectCodeSkill1302011 : EffectCodeCharacterBase
                     eccStats[1] = shieldAmount.damageAmount;
                         
                     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, tile.OccupiedCharacter, eccStats, source);
-                });
+                }
             }
         }
 

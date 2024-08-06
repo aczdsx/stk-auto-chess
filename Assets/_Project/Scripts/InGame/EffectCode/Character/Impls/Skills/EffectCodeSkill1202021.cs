@@ -129,7 +129,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
@@ -140,7 +140,7 @@ public class EffectCodeSkill1202021 : EffectCodeCharacterBase
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                 StunCharacter(tile);
-            });
+            }
         }
 
         IsSkillActivated = false;

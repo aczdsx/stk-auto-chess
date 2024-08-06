@@ -128,8 +128,7 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
@@ -145,7 +144,7 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
                 long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
                 var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.3f, 0.3f, inGameTile.View.ID);
                 tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
-            });
+            }
 
             await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기
         }

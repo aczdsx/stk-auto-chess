@@ -33,29 +33,31 @@ namespace CookApps.BattleSystem
             _ecc = null;
         }
 
-        public void CheckValidTile(AllianceType allianceType, bool isCheckSameAllianceType, Action action)
+        public bool CheckValidTile(AllianceType allianceType, bool isCheckSameAllianceType)
         {
             if (OccupiedCharacter == null)
-                return;
+                return false;
 
             if (OccupiedCharacter.AllianceType == AllianceType.Wall)
-                return;
+                return false;
 
             if (OccupiedCharacter.AllianceType == AllianceType.Neutral)
             {
-                action.Invoke();
+                return true;
             }
             else
             {
                 if (isCheckSameAllianceType && OccupiedCharacter.AllianceType == allianceType)
                 {
-                    action.Invoke();
+                    return true;
                 }
                 else if (!isCheckSameAllianceType && OccupiedCharacter.AllianceType != allianceType)
                 {
-                    action.Invoke();
+                    return true;
                 }
             }
+            
+            return false;
         }
 
         public bool IsOccupied()

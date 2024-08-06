@@ -119,7 +119,7 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
 
             if (owner != null)
             {
-                tile.CheckValidTile(owner.AllianceType, false, () =>
+                if (tile.CheckValidTile(owner.AllianceType, false))
                 {
                     InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
                     if (_hitCharacters.Contains(tile.OccupiedCharacter))
@@ -137,7 +137,7 @@ public class EffectCodeSkill1204011 : EffectCodeCharacterBase
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                     _hitCharacters.Add(tile.OccupiedCharacter);
-                });
+                }
             }
         }
     }

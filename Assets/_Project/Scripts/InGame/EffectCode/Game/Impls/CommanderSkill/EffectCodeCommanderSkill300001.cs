@@ -37,7 +37,7 @@ namespace CookApps.BattleSystem
         {
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
-            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile);
+            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile, 3);
 
             List<int> targetCharacterList = new();
             foreach (var tile in tileList)
@@ -45,7 +45,7 @@ namespace CookApps.BattleSystem
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_01,
                     tile.View.CachedTr.position);
 
-                tile.CheckValidTile(AllianceType.Player, false, () =>
+                if (tile.CheckValidTile(AllianceType.Player, false))
                 {
                     if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
                     {
@@ -62,7 +62,7 @@ namespace CookApps.BattleSystem
                             tile.OccupiedCharacter.GetDamaged(damageInfo, null);
                         }
                     }
-                });
+                }
             }
         }
     }

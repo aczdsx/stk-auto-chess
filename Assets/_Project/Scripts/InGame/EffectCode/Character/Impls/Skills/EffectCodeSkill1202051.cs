@@ -156,18 +156,19 @@ public class EffectCodeSkill1202051 : EffectCodeCharacterBase
             {
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
-                tile.CheckValidTile(owner.AllianceType, false, () =>
+
+                if (tile.CheckValidTile(owner.AllianceType, false))
                 {
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    float calculatedDamageRate = _additionalDamageRate;
+                    float calculatedDamageRate2 = _additionalDamageRate;
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                    var damage2 = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate2,
                         tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
-                });
+                    owner.PostCalculateDamageAmount(ref damage2, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage2, owner);
+                }
             }
         }
 

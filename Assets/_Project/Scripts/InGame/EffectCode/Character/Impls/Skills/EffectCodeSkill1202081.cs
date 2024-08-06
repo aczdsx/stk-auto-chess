@@ -146,12 +146,12 @@ public class EffectCodeSkill1202081 : EffectCodeCharacterBase
             foreach (var tile in inGameTiles)
             {
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-                
-                tile.CheckValidTile(owner.AllianceType, false, () =>
+
+                if (tile.CheckValidTile(owner.AllianceType, false))
                 {
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
-                    
+
                     InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
 
@@ -160,15 +160,8 @@ public class EffectCodeSkill1202081 : EffectCodeCharacterBase
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    Span<double> eccStats = stackalloc double[3];
-                    eccStats.Clear();
-                    eccStats[0] = codeId;
-                    eccStats[1] = _debuffTime;
-                    eccStats[2] = _debuffRate;
-
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN,
-                        tile.OccupiedCharacter, eccStats, source);
-                });
+                    ActionDebuff(tile);
+                }
             }
         }
 
@@ -207,5 +200,17 @@ public class EffectCodeSkill1202081 : EffectCodeCharacterBase
             owner.ViewPosition3D = pos;
             await UniTask.Yield();
         }
+    }
+
+    private void ActionDebuff(InGameTile tile)
+    {
+        Span<double> eccStats = stackalloc double[3];
+        eccStats.Clear();
+        eccStats[0] = codeId;
+        eccStats[1] = _debuffTime;
+        eccStats[2] = _debuffRate;
+
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN,
+            tile.OccupiedCharacter, eccStats, source);
     }
 }

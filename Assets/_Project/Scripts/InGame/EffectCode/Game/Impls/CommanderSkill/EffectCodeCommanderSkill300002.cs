@@ -42,8 +42,8 @@ namespace CookApps.BattleSystem
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_04,
                     tile.View.CachedTr.position);
-                
-                tile.CheckValidTile(AllianceType.Player, false, () =>
+
+                if (tile.CheckValidTile(AllianceType.Player, false))
                 {
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
                         tile.View.CachedTr.position);
@@ -57,7 +57,7 @@ namespace CookApps.BattleSystem
                     tile.OccupiedCharacter.Position3D = tile.OccupiedCharacter.CurrentTile.View.Position;
                     tile.OccupiedCharacter.GetCharacterView().CachedTr.localPosition = tile.OccupiedCharacter.CurrentTile.View.Position;
                     SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
-                });
+                }
             }
         }
     }

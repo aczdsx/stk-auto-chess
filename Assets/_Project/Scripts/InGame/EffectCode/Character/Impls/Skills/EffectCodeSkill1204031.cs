@@ -150,7 +150,7 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-            tile.CheckValidTile(owner.AllianceType, false, async () =>
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
@@ -160,7 +160,8 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                 StunCharacter(tile.OccupiedCharacter);
-            });
+            }
+            
             await UniTask.Delay(TimeSpan.FromSeconds(0.2));
         }
     }

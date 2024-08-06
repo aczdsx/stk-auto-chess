@@ -126,10 +126,10 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-            });
+            }
         }
 
         await UniTask.Delay(TimeSpan.FromSeconds(second));
@@ -138,7 +138,8 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-            tile.CheckValidTile(owner.AllianceType, false, () =>
+
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
                 {
@@ -155,7 +156,7 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
                     owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
                 }
-            });
+            }
         }
 
         IsSkillActivated = false;

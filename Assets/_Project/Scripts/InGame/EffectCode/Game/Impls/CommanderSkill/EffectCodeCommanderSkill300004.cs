@@ -52,13 +52,13 @@ namespace CookApps.BattleSystem
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_02,
                     tile.View.CachedTr.position);
 
-                tile.CheckValidTile(AllianceType.Player, true, () =>
+                if (tile.CheckValidTile(AllianceType.Player, true))
                 {
                     CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
                     damageInfo.damageAmount = damageAmount;
 
                     tile.OccupiedCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
-                });
+                }
             }
         }
     }
