@@ -33,6 +33,7 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
     
     private float _elapsedTime;
     private float _totalElapsedTime;
+    private InGameVfx _vfx;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -115,7 +116,11 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-
+        
+        _vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
+        Vector3 direction = (owner.CurrentTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
+        _vfx.CachedTr.rotation = Quaternion.LookRotation(direction);
+        
         var inGameTiles1 = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         var inGameTiles2 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 2, 1);
         var inGameTiles3 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 2);
@@ -134,6 +139,7 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
         IsSkillActivated = false;
         owner.AddNextState<CharacterStateIdle>();
         CoolTimeElapsedTime = CoolTimeDurationTime;
+        _vfx.Remove();
         base.OnSkillAnimationEnd();
     }
 
@@ -154,8 +160,6 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
-                
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
                 var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);

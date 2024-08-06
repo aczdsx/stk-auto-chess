@@ -33,7 +33,7 @@ namespace CookApps.BattleSystem
             _ecc = null;
         }
 
-        public void CheckValidTile(AllianceType allianceType, bool isCheckSameType, Action action)
+        public void CheckValidTile(AllianceType allianceType, bool isCheckSameAllianceType, Action action)
         {
             if (OccupiedCharacter == null)
                 return;
@@ -47,11 +47,11 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                if (isCheckSameType && OccupiedCharacter.AllianceType == allianceType)
+                if (isCheckSameAllianceType && OccupiedCharacter.AllianceType == allianceType)
                 {
                     action.Invoke();
                 }
-                else if (!isCheckSameType && OccupiedCharacter.AllianceType != allianceType)
+                else if (!isCheckSameAllianceType && OccupiedCharacter.AllianceType != allianceType)
                 {
                     action.Invoke();
                 }

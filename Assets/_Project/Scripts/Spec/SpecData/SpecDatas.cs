@@ -310,24 +310,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecDungeonReward
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 던전 타입
-        public global::CookApps.AutoBattler.DungeonType dungeon_type;
-        /// 던전 id
-        public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
-        /// 보상 타입
-        public global::CookApps.AutoBattler.ItemType item_type;
-        /// 보상 키 값
-        public CookApps.Obfuscator.ObfuscatorInt item_key;
-        /// 보상 수량
-        public CookApps.Obfuscator.ObfuscatorInt item_count;
-    }
-
-    [GeneratorSpecData]
     public partial class SpecDungeonMonster
     {
         /// 아이디
@@ -347,6 +329,24 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat multiple_atk;
         /// 체력 멀티플
         public CookApps.Obfuscator.ObfuscatorFloat multiple_hp;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecDungeonReward
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 던전 타입
+        public global::CookApps.AutoBattler.DungeonType dungeon_type;
+        /// 던전 id
+        public CookApps.Obfuscator.ObfuscatorInt dungeon_id;
+        /// 보상 타입
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 키 값
+        public CookApps.Obfuscator.ObfuscatorInt item_key;
+        /// 보상 수량
+        public CookApps.Obfuscator.ObfuscatorInt item_count;
     }
 
     [GeneratorSpecData]
