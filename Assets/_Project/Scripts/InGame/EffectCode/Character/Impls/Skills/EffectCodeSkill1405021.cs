@@ -110,23 +110,28 @@ public class EffectCodeSkill1405021 : EffectCodeCharacterBase
                     tile);
         }
 
+        List<int> targetCharacterList = new();
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
 
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
+                {
+                    targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long) EffectCodeNameType.SHIELD);
-                var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-                    tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
+                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long) EffectCodeNameType.SHIELD);
+                    var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                        tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
 
-                var damage =
-                    owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    var damage =
+                        owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                }
             }
         }
 

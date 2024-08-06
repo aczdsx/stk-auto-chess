@@ -136,48 +136,53 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
         var boomFx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], pivotTile.View.CachedTr.position);
         InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, pivotTile);
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(pivotTile, 1);
+        List<int> targetCharacterList = new();
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
+                if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
                 {
-                    Span<double> eccStats = stackalloc double[3];
-                    eccStats.Clear();
-                    eccStats[0] = codeId;
-                    eccStats[1] = _buffTime;
-                    eccStats[2] = _buffRate;
+                    targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
+                    {
+                        Span<double> eccStats = stackalloc double[3];
+                        eccStats.Clear();
+                        eccStats[0] = codeId;
+                        eccStats[1] = _buffTime;
+                        eccStats[2] = _buffRate;
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
-                }
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
+                    }
                 
-                {
-                    Span<double> eccStats = stackalloc double[3];
-                    eccStats.Clear();
-                    eccStats[0] = codeId;
-                    eccStats[1] = _buffTime;
-                    eccStats[2] = _healRate;
+                    {
+                        Span<double> eccStats = stackalloc double[3];
+                        eccStats.Clear();
+                        eccStats[0] = codeId;
+                        eccStats[1] = _buffTime;
+                        eccStats[2] = _healRate;
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, tile.OccupiedCharacter, eccStats, source);
-                }
-                {
-                    Span<double> eccStats = stackalloc double[3];
-                    eccStats.Clear();
-                    eccStats[0] = codeId;
-                    eccStats[1] = _buffTime;
-                    eccStats[2] = _buffRate;
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, tile.OccupiedCharacter, eccStats, source);
+                    }
+                    {
+                        Span<double> eccStats = stackalloc double[3];
+                        eccStats.Clear();
+                        eccStats[0] = codeId;
+                        eccStats[1] = _buffTime;
+                        eccStats[2] = _buffRate;
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
-                }
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
+                    }
                 
-                {
-                    Span<double> eccStats = stackalloc double[3];
-                    eccStats.Clear();
-                    eccStats[0] = codeId;
-                    eccStats[1] = _buffTime;
-                    eccStats[2] = _healRate;
+                    {
+                        Span<double> eccStats = stackalloc double[3];
+                        eccStats.Clear();
+                        eccStats[0] = codeId;
+                        eccStats[1] = _buffTime;
+                        eccStats[2] = _healRate;
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, tile.OccupiedCharacter, eccStats, source);
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, tile.OccupiedCharacter, eccStats, source);
+                    }
                 }
             }
         }

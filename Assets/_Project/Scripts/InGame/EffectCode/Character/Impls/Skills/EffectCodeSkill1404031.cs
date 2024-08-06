@@ -175,17 +175,22 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
         var vfxBoom = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], pivotTile.View.CachedTr.position);
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(pivotTile, 1);
+        List<int> targetCharacterList = new();
         foreach (var inGameTile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);
-            if (pivotTile.CheckValidTile(owner.AllianceType, false))
+            if (!targetCharacterList.Contains(inGameTile.OccupiedCharacter.CharacterUId))
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    inGameTile.OccupiedCharacter.SkillRootTransformFollowable);
+                targetCharacterList.Add(inGameTile.OccupiedCharacter.CharacterUId);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);
+                if (pivotTile.CheckValidTile(owner.AllianceType, false))
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        inGameTile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0, inGameTile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, inGameTile.OccupiedCharacter);
-                inGameTile.OccupiedCharacter.GetDamaged(damage, owner);
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0, inGameTile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, inGameTile.OccupiedCharacter);
+                    inGameTile.OccupiedCharacter.GetDamaged(damage, owner);
+                }
             }
         }
     }

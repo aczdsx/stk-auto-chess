@@ -120,7 +120,6 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
     {
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
-        _vfx.Remove();
         base.OnSkillAnimationEnd();
     }
     
@@ -128,16 +127,22 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
     {
         for (int i = 0; i < _perCount; i++)
         {
-            var inGameTiles1 = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-            var inGameTiles2 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 2, 1);
-            var inGameTiles3 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 2);
-            var inGameTiles4 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 4, 3);
+            if (owner != null)
+            {
+                var inGameTiles1 = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+                var inGameTiles2 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 2, 1);
+                var inGameTiles3 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 2);
+                var inGameTiles4 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 4, 3);
 
-            bool isFx = _perCount % (int)duration == 0;
-            ProcessTiles(inGameTiles1, owner, _powerRate1 / _perCount, isFx);
-            ProcessTiles(inGameTiles2, owner, _powerRate1 / _perCount, isFx);
-            ProcessTiles(inGameTiles3, owner, _powerRate2 / _perCount, isFx);
-            ProcessTiles(inGameTiles4, owner, _powerRate3 / _perCount, isFx);
+                bool isFx = i % (int)duration == 0;
+                
+                
+                List<int> targetCharacterList = new();
+                ProcessTiles(inGameTiles1, owner, _powerRate1 / _perCount, isFx, targetCharacterList);
+                ProcessTiles(inGameTiles2, owner, _powerRate1 / _perCount, isFx, targetCharacterList);
+                ProcessTiles(inGameTiles3, owner, _powerRate2 / _perCount, isFx, targetCharacterList);
+                ProcessTiles(inGameTiles4, owner, _powerRate3 / _perCount, isFx, targetCharacterList);
+            }
 
             await UniTask.Delay(TimeSpan.FromSeconds(duration / _perCount));
         }
@@ -153,9 +158,10 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
             
             await UniTask.Delay(TimeSpan.FromSeconds(1));
         }
+        _vfx.Remove();
     }
 
-    private void ProcessTiles(List<InGameTile> tiles, CharacterController owner, float powerRate, bool isTileFx)
+    private void ProcessTiles(List<InGameTile> tiles, CharacterController owner, float powerRate, bool isTileFx, List<int> targetCharacterList)
     {
         foreach (var tile in tiles)
         {
@@ -164,12 +170,16 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
 
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
+                {
+                    targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                }
             }
         }
     }

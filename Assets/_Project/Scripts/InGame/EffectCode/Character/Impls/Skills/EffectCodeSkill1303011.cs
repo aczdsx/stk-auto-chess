@@ -23,6 +23,7 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
     private bool _isReadyToActivate;
 
     private SpecSkill _specSkill;
+    private List<CharacterController> _hitCharacters = new List<CharacterController>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
