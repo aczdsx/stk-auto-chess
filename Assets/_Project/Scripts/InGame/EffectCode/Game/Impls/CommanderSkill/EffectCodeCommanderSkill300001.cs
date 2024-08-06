@@ -37,7 +37,7 @@ namespace CookApps.BattleSystem
         {
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
-            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(inGameTile, 3);
+            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeXInRange(inGameTile, 3);
 
             List<int> targetCharacterList = new();
             foreach (var tile in tileList)

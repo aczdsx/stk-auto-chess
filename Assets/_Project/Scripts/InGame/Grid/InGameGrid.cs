@@ -450,6 +450,14 @@ namespace CookApps.BattleSystem
             ).ToList();
         }
         
+        public List<InGameTile> GetTileListByShapeXInRange(InGameTile inGameTile, int size)
+        {
+            return _tiles.Where(t => 
+                (t.X == inGameTile.X && Math.Abs(t.Y - inGameTile.Y) <= size) ||
+                (t.Y == inGameTile.Y && Math.Abs(t.X - inGameTile.X) <= size)
+            ).ToList();
+        }
+        
         public List<InGameTile> GetTileListByDiagonal(InGameTile ingameTile, int size)
         {
             return _tiles.Where(t =>

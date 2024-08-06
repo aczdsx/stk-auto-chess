@@ -241,7 +241,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
                     // [TODO] 나중에는 데이터에서 처리 필요
                     if (_selectedCommanderSkillData.Spec.commander_skill_id == 300001)
-                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile, 3));
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeXInRange(centerTile, 3));
                     else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300002)
                         tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(centerTile, 1));
                     else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300004)
