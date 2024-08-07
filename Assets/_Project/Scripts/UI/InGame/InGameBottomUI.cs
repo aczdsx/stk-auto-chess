@@ -185,7 +185,7 @@ public class InGameBottomUI : MonoBehaviour
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
         
-        _characterStats = _characterStats.OrderByDescending(stat => stat.GetAttrValue()).ToList();
+        _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
 
         foreach (var characterStat in _characterStats)
         {
@@ -269,6 +269,8 @@ public class InGameBottomUI : MonoBehaviour
     public void ReturnCharacter(CharacterController controller)
     {
         _characterStats.Add(controller.GetCharacterStat());
+        _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
+        
         UpdateData();
         SetCharacterCountText();
     }
