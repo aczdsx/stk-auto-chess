@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Q0dy7utOx4867QxGrrNDGbYbtS3lL3v6XvzreaoTwsIz67o2659IVNYFGAT6uYfhyukpTnuhzdH9U0oSErYfJQ==",
+  "success": true,
+  "projectFilePath": "/Users/twhan/Projects/auto-battle-project/Generators_EffectCode/ConsoleApp/ConsoleApp.csproj",
+  "expectedPackageFiles": [
+    "/Users/twhan/.nuget/packages/microsoft.netcore.app.ref/6.0.30/microsoft.netcore.app.ref.6.0.30.nupkg.sha512",
+    "/Users/twhan/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.30/microsoft.aspnetcore.app.ref.6.0.30.nupkg.sha512",
+    "/Users/twhan/.nuget/packages/microsoft.netcore.app.host.osx-arm64/6.0.30/microsoft.netcore.app.host.osx-arm64.6.0.30.nupkg.sha512"
+  ],
+  "logs": []
+}

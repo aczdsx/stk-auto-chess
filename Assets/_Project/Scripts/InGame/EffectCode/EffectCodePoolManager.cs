@@ -22,135 +22,86 @@ namespace CookApps.BattleSystem
     /// <summary>
     /// 이펙트 코드들을 재사용하는 풀링 매니저
     /// </summary>
-    public class EffectCodePoolManager : Singleton<EffectCodePoolManager>
+    public partial class EffectCodePoolManager : Singleton<EffectCodePoolManager>
     {
         #region Effect Code Datas
-        private Dictionary<long, Func<EffectCodeBase>> effectCodeCreators = new ();
-        private Dictionary<long, EffectCodeType> effectCodeTypeMap = new ();
+        private Dictionary<long, long> codeIdToBaseCodeId = new ();
         private Dictionary<long, Queue<EffectCodeBase>> pools = new ();
 
         public void Clear()
         {
-            effectCodeCreators.Clear();
-            effectCodeTypeMap.Clear();
             pools.Clear();
-        }
-
-        public void RegisterCodeId(long codeId, Type effectCodeImpl)
-        {
-            NewExpression constructorExpression = Expression.New(effectCodeImpl);
-            Expression<Func<EffectCodeBase>> lambdaExpression = Expression.Lambda<Func<EffectCodeBase>>(constructorExpression);
-            Func<EffectCodeBase> createHeadersFunc = lambdaExpression.Compile();
-            AddEffectCodeCreator(codeId, createHeadersFunc);
         }
 
         public void RegisterCodeIdWithBaseCodeId(long codeId, long baseCodeId)
         {
-            if (!effectCodeCreators.TryGetValue(baseCodeId, out var lambda))
-            {
-                CADebug.LogError($"EffectCodePoolManager.RegisterCodeIdWithBaseCodeId - Not found baseCodeId {baseCodeId}");
-                return;
-            }
-            AddEffectCodeCreator(codeId, lambda);
+            codeIdToBaseCodeId.TryAdd(codeId, baseCodeId);
         }
 
-        public void RegisterAttributedCodeIds()
+        private EffectCodeBase CreateEffectCode(long codeId)
         {
-            IEnumerable<Type> allEffectCodeImpls = InheritHelper.GetAllImplementations<EffectCodeBase>();
-            foreach (Type effectCodeImpl in allEffectCodeImpls)
+            var res = CreateEffectCodeInternal(codeId);
+            if (res == null && codeIdToBaseCodeId.TryGetValue(codeId, out var baseCodeId))
             {
-                IEnumerable<ObfuscatorInt> codeIds = effectCodeImpl.GetCustomAttributes<UseEffectCodeIdsAttribute>().SelectMany(x => x.CodeIds);
-                NewExpression constructorExpression = Expression.New(effectCodeImpl);
-                Expression<Func<EffectCodeBase>> lambdaExpression = Expression.Lambda<Func<EffectCodeBase>>(constructorExpression);
-                Func<EffectCodeBase> createHeadersFunc = lambdaExpression.Compile();
-                foreach (ObfuscatorInt codeId in codeIds)
-                {
-                    AddEffectCodeCreator(codeId, createHeadersFunc);
-                }
-            }
-        }
-
-        private void AddEffectCodeCreator(long codeId, Func<EffectCodeBase> lambda)
-        {
-            if (!effectCodeCreators.TryAdd(codeId, lambda))
-            {
-                CADebug.LogError($"EffectCodePoolManager.RegisterCodeId - Already registered codeId {codeId}");
-                return;
+                res = CreateEffectCodeInternal(baseCodeId);
             }
 
-            EffectCodeBase temp = lambda.Invoke();
-            effectCodeTypeMap.Add(codeId, temp.Type);
-        }
-
-        public EffectCodeType GetEffectCodeType(long codeId)
-        {
-            effectCodeTypeMap.TryGetValue(codeId, out EffectCodeType type);
-            return type;
+            return res;
         }
         #endregion
 
         #region EffectCodeBase class Pooling
         public EffectCodeBase Get(long codeId)
         {
-            if (!effectCodeCreators.ContainsKey(codeId))
-            {
-                return null;
-            }
-
             EffectCodeBase codeBase;
             if (!pools.ContainsKey(codeId) || pools[codeId].Count <= 0)
             {
-                codeBase = effectCodeCreators[codeId].Invoke();
+                codeBase = CreateEffectCode(codeId);
+                if (codeBase == null)
+                    return null;
                 codeBase.CodeId = codeId;
             }
             else
             {
-                Queue<EffectCodeBase> pool = pools[codeId];
+                var pool = pools[codeId];
                 codeBase = pool.Dequeue();
             }
-
             return codeBase;
         }
 
         public T Get<T>(int codeId) where T : EffectCodeBase
         {
-            if (!effectCodeCreators.ContainsKey(codeId))
-            {
-                return null;
-            }
-
-            EffectCodeBase effectCode;
+            T res;
             if (!pools.ContainsKey(codeId) || pools[codeId].Count <= 0)
             {
-                effectCode = effectCodeCreators[codeId].Invoke();
-                effectCode.CodeId = codeId;
+                var codeBase = CreateEffectCode(codeId);
+                res = codeBase as T;
+                if (res == null)
+                    return null;
+
+                res.CodeId = codeId;
             }
             else
             {
-                Queue<EffectCodeBase> pool = pools[codeId];
-                effectCode = pool.Dequeue();
+                var pool = pools[codeId];
+                res = pool.Dequeue() as T;
             }
-
-            if (effectCode is T res)
-            {
-                return res;
-            }
-
-            Return(effectCode);
-            throw new Exception($"{codeId} is not {typeof(T).Name}");
+        
+            return res;
         }
 
         public void Return(EffectCodeBase effectCode)
         {
-            if (pools.TryGetValue(effectCode.CodeId, out Queue<EffectCodeBase> pool))
+            if (pools.ContainsKey(effectCode.CodeId))
             {
-                pool.Enqueue(effectCode);
-                return;
+                pools[effectCode.CodeId].Enqueue(effectCode);
             }
-
-            pool = new Queue<EffectCodeBase>();
-            pool.Enqueue(effectCode);
-            pools.Add(effectCode.CodeId, pool);
+            else
+            {
+                var pool = new Queue<EffectCodeBase>();
+                pool.Enqueue(effectCode);
+                pools.Add(effectCode.CodeId, pool);
+            }
         }
         #endregion
     }

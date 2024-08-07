@@ -32,31 +32,30 @@ namespace CookApps.AutoBattler
     {
         public async UniTask Initialize()
         {
-            await UniTask.Yield();
 #if USE_SERVER_SPEC
-        var localData = new CookAppsLocalData(SecretKey.GetKey());
-        string json;
-        if (UniversalGrpcManager.Instance.IsSpecUpdated)
-        {
-            do
-            {
-                json = await UniversalGrpcManager.Instance.GetSpecDataAsync();
-            } while (string.IsNullOrEmpty(json));
-
-            localData.SaveString(json, "SpecData");
-        }
-        else
-        {
-            if (!localData.TryLoadString("SpecData", out json))
+            var localData = new CookAppsLocalData(SecretKey.GetKey());
+            string json;
+            if (UniversalGrpcManager.Instance.IsSpecUpdated)
             {
                 do
                 {
-                    json = await UniversalGrpcManager.Instance.GetSpecDataAsync();
+                    json = await UniversalGrpcManager.Instance.GetSpecDataAsync(UniversalGrpcManager.EnumDataLoadingMethod.REST);
                 } while (string.IsNullOrEmpty(json));
 
-                localData.SaveString(json, "SpecData");
+                localData.Save(json, "SpecData");
             }
-        }
+            else
+            {
+                if (!localData.TryLoad("SpecData", out json))
+                {
+                    do
+                    {
+                        json = await UniversalGrpcManager.Instance.GetSpecDataAsync(UniversalGrpcManager.EnumDataLoadingMethod.REST);
+                    } while (string.IsNullOrEmpty(json));
+
+                    localData.Save(json, "SpecData");
+                }
+            }
 #else
             string json = SpecDataResourceLoader.LoadSpecData();
             await UniTask.Yield();
