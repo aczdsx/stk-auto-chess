@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
         private InGameUI _inGameUI;
 
         private float _updateTimer = 0f;
+        private IGameStateUI _gameStateUIImplementation;
         private const float UpdateInterval = 0.2f;
         private const float InGameMaxTime = 60f;
 
@@ -105,6 +106,11 @@ namespace CookApps.AutoBattler
         public bool IsCheckTouchTile(InGameTile tile)
         {
             return tile.IsOccupied() && tile.View.AllianceType == AllianceType.Player;
+        }
+
+        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+        {
+            _inGameUI.TopUI.AddKillLog(kill, death, isPlayerKill);
         }
 
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)

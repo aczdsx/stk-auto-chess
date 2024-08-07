@@ -15,6 +15,7 @@ namespace CookApps.AutoBattler
         private SpecDungeonTrial _specTrialDungeon;
 
         private float _updateTimer = 0f;
+        private IGameStateUI _gameStateUIImplementation;
         private const float UpdateInterval = 0.2f;
         private const float InGameMaxTime = 60f;
 
@@ -128,7 +129,12 @@ namespace CookApps.AutoBattler
         {
             return tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player;
         }
-        
+
+        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+        {
+            _inGameUI.TopUI.AddKillLog(kill, death, isPlayerKill);
+        }
+
         private async UniTask WaitUntilAnimationFinished(Animator animator, string animationName)
         {
             await UniTask.WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);

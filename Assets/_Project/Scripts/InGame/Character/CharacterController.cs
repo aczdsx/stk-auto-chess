@@ -1012,8 +1012,13 @@ namespace CookApps.BattleSystem
 
         private void IncreaseKillCount(CharacterController deadCharacter)
         {
-            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
-            EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat)
+            {
+                bool isPlayer = _allianceType == AllianceType.Player;
+                InGameMain.GetInGameMain().AddKillLog(this, deadCharacter, isPlayer);
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
+                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
+            }
         }
 
         /// <summary>

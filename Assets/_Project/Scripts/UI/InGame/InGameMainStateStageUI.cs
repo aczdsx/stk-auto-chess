@@ -127,5 +127,10 @@ namespace CookApps.AutoBattler
         {
             return tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player;
         }
+
+        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+        {
+            _inGameUI.TopUI.AddKillLog(kill, death, isPlayerKill);
+        }
     }
 }

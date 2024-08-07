@@ -27,6 +27,7 @@ namespace CookApps.AutoBattler
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
         bool IsCheckTouchTile(InGameTile tile);
+        void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill);
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
@@ -158,6 +159,11 @@ namespace CookApps.AutoBattler
         public bool IsCheckTouchTile(InGameTile tile)
         {
             return _currentGameStateUI.IsCheckTouchTile(tile);
+        }
+        
+        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+        {
+            _currentGameStateUI.AddKillLog(kill, death, isPlayerKill);
         }
     }
 }

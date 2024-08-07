@@ -47,6 +47,8 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _myName;
     [SerializeField] private TextMeshProUGUI _stageName;
 
+    [SerializeField] private Transform _killLogRootTransform;
+    [SerializeField] private InGameKillLogItem _killLogItemPrefab;
 
     private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
@@ -161,8 +163,6 @@ public class InGameTopUI : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     public void UpdateAttrUI(AllianceType type, bool isCombat)
@@ -230,6 +230,15 @@ public class InGameTopUI : MonoBehaviour
     public void SetMyName(string stageName)
     {
         _myName.text = stageName;
+    }
+
+    public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+    {
+        if (_killLogRootTransform != null)
+        {
+            var killLogItem = Instantiate(_killLogItemPrefab, _killLogRootTransform);
+            killLogItem.SetData(kill, death, isPlayerKill);
+        }
     }
 
     private async UniTask AnimateHpBar(Slider slider, float startRatio, float targetRatio, CancellationToken cancellationToken)
