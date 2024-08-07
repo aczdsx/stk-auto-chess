@@ -146,11 +146,16 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
 
     private void ActionSkill(InGameTile targetTile)
     {
+        if (targetTile == null || _targetCount > _targetMaximumCount)
+        {
+            _vfx.Remove();
+            ActionSkillBuff();
+            return;
+        }
+        
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         bool isHasTarget = false;
         bool isTargetFound = false;
-
-        isHasTarget = true;
         Vector3 direction = (targetTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
         _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
         movement.SetData(_vfx.CachedTr.position, targetTile.View.CachedTr.position, 20);
@@ -191,20 +196,10 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
                 targetTile = targetTileList.Find(l => l.CheckValidTile(owner.AllianceType, false));
             }
 
-            if (targetTile != null)
-            {
-                isHasTarget = true;
-                ActionSkill(targetTile);
-            }
+            ActionSkill(targetTile);
         }
 
         movement.OnReachedTarget += OnReachedTargetHandler;
-
-        if (!isHasTarget || _targetCount >= _targetMaximumCount)
-        {
-            _vfx.Remove();
-            ActionSkillBuff();
-        }
     }
 
     public override void OnSkillAnimationEnd()

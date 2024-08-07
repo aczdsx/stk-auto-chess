@@ -159,12 +159,15 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
     {
         for (int i = 0; i < duration; i++)
         {
-            _vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-            Vector3 direction = (tile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
-            _vfx.CachedTr.rotation = Quaternion.LookRotation(direction);
-            _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+            if (owner != null)
+            {
+                _vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
+                Vector3 direction = (tile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
+                _vfx.CachedTr.rotation = Quaternion.LookRotation(direction);
+                _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
             
-            await UniTask.Delay(TimeSpan.FromSeconds(1));
+                await UniTask.Delay(TimeSpan.FromSeconds(1));
+            }
         }
     }
 
