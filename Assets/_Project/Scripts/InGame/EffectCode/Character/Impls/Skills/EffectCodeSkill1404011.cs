@@ -6,6 +6,7 @@ using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -112,8 +113,13 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
 
         float duration = 3.0f;
         _count = 0;
-        ProcessTarget(duration).Forget();
-        PlayEffect(duration).Forget();
+        
+        var inGameTileList = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+        if (inGameTileList.Count > 0)
+        {
+            ProcessTarget(duration, inGameTileList[0]).Forget();
+            PlayEffect(duration, inGameTileList[0]).Forget();
+        }
     }
     
     public override void OnSkillAnimationEnd()
@@ -123,18 +129,19 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
     
-    private async UniTask ProcessTarget(float duration)
+    private async UniTask ProcessTarget(float duration, InGameTile tile)
     {
         for (int i = 0; i < _perCount; i++)
         {
             if (owner != null)
             {
-                var inGameTiles1 = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+                var inGameTiles1 = new List<InGameTile>();
+                inGameTiles1.Add(tile);
                 var inGameTiles2 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 2, 1);
                 var inGameTiles3 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 2);
                 var inGameTiles4 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 4, 3);
 
-                bool isFx = i % (int)duration == 0;
+                bool isFx = i % (int) duration == 0;
                 
                 
                 List<int> targetCharacterList = new();
@@ -148,13 +155,14 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
         }
     }
 
-    private async UniTask PlayEffect(float duration)
+    private async UniTask PlayEffect(float duration, InGameTile tile)
     {
         for (int i = 0; i < duration; i++)
         {
             _vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-            Vector3 direction = (owner.CurrentTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
+            Vector3 direction = (tile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
             _vfx.CachedTr.rotation = Quaternion.LookRotation(direction);
+            _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
             
             await UniTask.Delay(TimeSpan.FromSeconds(1));
         }
