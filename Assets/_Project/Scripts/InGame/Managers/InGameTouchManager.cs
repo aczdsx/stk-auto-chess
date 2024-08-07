@@ -466,30 +466,33 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             }
         }
 
-        if (isInputBegan)
+        if (_zoomCooldownTimer <= 0)
         {
-            _initialFingersPosition = initialPosition;
-            _initialCameraPosition = InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
-        }
-        else if (isInputMoved && !isPointerOverUI)
-        {
-            Vector2 direction = (currentPosition - _initialFingersPosition).normalized;
-            float cameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
-            float normalizedSize = (2.0f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize)) * 0.3f;
-            float distance = Vector2.Distance(currentPosition, _initialFingersPosition) * distanceFactor *
-                             normalizedSize;
+            if (isInputBegan)
+            {
+                _initialFingersPosition = initialPosition;
+                _initialCameraPosition = InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
+            }
+            else if (isInputMoved && !isPointerOverUI)
+            {
+                Vector2 direction = (currentPosition - _initialFingersPosition).normalized;
+                float cameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+                float normalizedSize = (2.0f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize)) * 0.3f;
+                float distance = Vector2.Distance(currentPosition, _initialFingersPosition) * distanceFactor *
+                                 normalizedSize;
 
-            Vector2 distancePosition;
-            distancePosition.x = direction.x * distance;
-            distancePosition.y = direction.y * distance;
+                Vector2 distancePosition;
+                distancePosition.x = direction.x * distance;
+                distancePosition.y = direction.y * distance;
 
-            Vector3 newCameraPosition = new Vector3(
-                Mathf.Clamp(_initialCameraPosition.x + distancePosition.x, -2, 2),
-                Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -2, 4),
-                Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
-            );
+                Vector3 newCameraPosition = new Vector3(
+                    Mathf.Clamp(_initialCameraPosition.x + distancePosition.x, -2, 2),
+                    Mathf.Clamp(_initialCameraPosition.y + distancePosition.y, -2, 4),
+                    Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
+                );
 
-            InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
+                InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
+            }
         }
     }
 
