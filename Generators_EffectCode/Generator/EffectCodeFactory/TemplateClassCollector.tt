@@ -1,0 +1,31 @@
+<#@ template debug="false" hostspecific="false" language="C#" linePragmas="false" #>
+
+<# // 네임스페이스 적용 #>
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+namespace <#= Namespace #>
+{
+<# } #>
+
+partial class <#=Name#>
+{
+    private EffectCodeBase CreateEffectCodeInternal(long codeId)
+    {
+        switch (codeId)
+        {
+<#
+        foreach (var method in Methods)
+        {
+#>
+            case <#=method.codeId#>: return new <#=method.effectCodeImpl#>();
+<#
+        }
+#>
+        }
+
+        return null;
+    }
+}
+
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+}
+<# } #>
