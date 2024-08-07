@@ -108,9 +108,19 @@ public class CharacterStateAttack : CharacterStateBase
             int hitCount = eventKey - AnimationEventKey.ExecuteStart;
 
             // damage 계산
-            CharacterController.DamageInfo damageInfo =
-                characCtrl.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
-            characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
+            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+            if (characCtrl.SpecCharacter.atk_type == AtkType.AD)
+            {
+                damageInfo =
+                    characCtrl.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
+                characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
+            }
+            else
+            {
+                damageInfo =
+                    characCtrl.PrecalculateDamageAmount(0, characCtrl.AP, characCtrl.Target, 0, false);
+                characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
+            }
             if (hitCount > 1)
             {
                 damageInfo.damageAmount /= hitCount;

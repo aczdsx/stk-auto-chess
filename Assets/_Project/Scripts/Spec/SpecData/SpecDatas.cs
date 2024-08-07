@@ -89,6 +89,8 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.ElementType element_type;
         /// 포지션 시너지
         public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        /// 일반 공격 AP AD 판정 유무
+        public global::CookApps.AutoBattler.AtkType atk_type;
         /// 사이즈
         public CookApps.Obfuscator.ObfuscatorInt size;
         /// 태생 등급
