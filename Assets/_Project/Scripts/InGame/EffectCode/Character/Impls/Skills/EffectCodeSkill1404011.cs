@@ -166,7 +166,6 @@ public class EffectCodeSkill1404011 : EffectCodeCharacterBase
             
             await UniTask.Delay(TimeSpan.FromSeconds(1));
         }
-        _vfx.Remove();
     }
 
     private void ProcessTiles(List<InGameTile> tiles, CharacterController owner, float powerRate, bool isTileFx, List<int> targetCharacterList)

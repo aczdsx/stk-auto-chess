@@ -26,7 +26,7 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
     private ObfuscatorFloat _buffTime;
     private ObfuscatorFloat _buffRate;
     private ObfuscatorFloat _targetMaximumCount;
-    
+
     private bool _isReadyToActivate;
 
     private List<CharacterController> _hitCharacters = new List<CharacterController>();
@@ -115,72 +115,92 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
             .AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().CachedTr.position)
             .GetComponent<InGameVfx>();
 
-        var targetTileList = new List<InGameTile>();
+        InGameTile targetTile = null;
         if (owner.Target is {IsAlive: true})
         {
-            targetTileList.Add(owner.Target.CurrentTile);
+            targetTile = owner.Target.CurrentTile;
         }
         else
         {
-            targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
+            var targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
+            targetTile = targetTileList.Find(l => l.CheckValidTile(owner.AllianceType, false));
+            if (targetTile == null)
+            {
+                targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 2);
+                targetTile = targetTileList.Find(l => l.CheckValidTile(owner.AllianceType, false));
+                if (targetTile == null)
+                {
+                    return;
+                }
+            }
         }
+
         _targetCount = 0;
         _hitCharacters.Clear();
-        ActionSkill(targetTileList);
+        if (targetTile != null)
+            ActionSkill(targetTile);
 
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
 
-    private void ActionSkill(List<InGameTile> inGameTiles)
+    private void ActionSkill(InGameTile targetTile)
     {
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         bool isHasTarget = false;
-        
         bool isTargetFound = false;
-        for (int i = 0; i < inGameTiles.Count && !isTargetFound; i++)
+
+        isHasTarget = true;
+        Vector3 direction = (targetTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
+        _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        movement.SetData(_vfx.CachedTr.position, targetTile.View.CachedTr.position, 20);
+        _vfx.Initialize(false, movement);
+
+        void OnReachedTargetHandler()
         {
-            var targetTile = inGameTiles[i];
-
-            if (targetTile.CheckValidTile(owner.AllianceType, false))
+            if (targetTile.OccupiedCharacter != null)
             {
-                if (!_hitCharacters.Exists(l => l == targetTile.OccupiedCharacter))
-                {
-                    isHasTarget = true;
-                    Vector3 direction = (targetTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
-                    _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile);
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
+                    targetTile.OccupiedCharacter.GetCharacterView().CachedTr.position);
 
-                    movement.SetData(_vfx.CachedTr.position, targetTile.View.CachedTr.position, 20);
-                    _vfx.Initialize(false, movement);
+                float powerRate = _powerRate - _decreasedPowerRate * (float) _targetCount;
+                var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter,
+                    codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, targetTile.OccupiedCharacter);
+                targetTile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    void OnReachedTargetHandler()
-                    {
-                        if (targetTile.OccupiedCharacter != null)
-                        {
-                            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile);
-                            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], targetTile.OccupiedCharacter.GetCharacterView().CachedTr.position);
+                _hitCharacters.Add(targetTile.OccupiedCharacter);
+            }
 
-                            float powerRate = _powerRate - _decreasedPowerRate * (float) _targetCount;
-                            var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter, codeId, true);
-                            owner.PostCalculateDamageAmount(ref damage, targetTile.OccupiedCharacter);
-                            targetTile.OccupiedCharacter.GetDamaged(damage, owner);
+            _targetCount++;
+            movement = null;
 
-                            _hitCharacters.Add(targetTile.OccupiedCharacter);
-                        }
-                
-                        _targetCount++;
-                        var targetTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetTile, 1);
-                        movement = null;
-                        ActionSkill(targetTileList);
-                    }
+            InGameTile pivotTile = targetTile;
 
-                    movement.OnReachedTarget += OnReachedTargetHandler;
-                    isTargetFound = true; // 타겟을 찾았으므로 for 루프를 종료합니다.
-                }
+            var targetTileList =
+                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(pivotTile, 1);
+            targetTileList.RemoveAll(l => l.CheckValidTile(owner.AllianceType, false) && _hitCharacters.Exists(hl => l.OccupiedCharacter == hl));
+            targetTile = targetTileList.Find(l => l.CheckValidTile(owner.AllianceType, false));
+
+            if (targetTile == null)
+            {
+                targetTileList =
+                    InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(pivotTile, 2);
+                targetTileList.RemoveAll(l => l.CheckValidTile(owner.AllianceType, false) && _hitCharacters.Exists(hl => l.OccupiedCharacter == hl));
+                targetTile = targetTileList.Find(l => l.CheckValidTile(owner.AllianceType, false));
+            }
+
+            if (targetTile != null)
+            {
+                isHasTarget = true;
+                ActionSkill(targetTile);
             }
         }
-        
-        if (!isHasTarget || _targetCount > _targetMaximumCount)
+
+        movement.OnReachedTarget += OnReachedTargetHandler;
+
+        if (!isHasTarget || _targetCount >= _targetMaximumCount)
         {
             _vfx.Remove();
             ActionSkillBuff();
@@ -199,10 +219,10 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
         double[] eccStats = new double[3];
         eccStats[0] = codeId;
         eccStats[1] = _buffTime;
-        eccStats[2] = _buffRate * (float)_hitCharacters.Count;
+        eccStats[2] = _buffRate * (float) _hitCharacters.Count;
 
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ATK_SPEED_UP, owner, eccStats, source);
-        
+
         _hitCharacters.Clear();
     }
 }
