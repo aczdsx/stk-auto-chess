@@ -62,7 +62,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     if (IsPointerOverUIObject())
                         isPointerOverUI = true;
 
-                    CameraMove(isPointerOverUI);
+                    if (_selectedCharacterController == null)
+                        CameraMove(isPointerOverUI);
                 }
             }
         }
