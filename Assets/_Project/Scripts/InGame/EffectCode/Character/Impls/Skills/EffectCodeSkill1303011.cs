@@ -135,27 +135,30 @@ public class EffectCodeSkill1303011 : EffectCodeCharacterBase
 
         await UniTask.Delay(TimeSpan.FromSeconds(second));
 
-        List<int> targetCharacterList = new();
-        foreach (var tile in inGameTiles)
+        if (owner != null)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-
-            if (tile.CheckValidTile(owner.AllianceType, false))
+            List<int> targetCharacterList = new();
+            foreach (var tile in inGameTiles)
             {
-                if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
-                {
-                    targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
-                
-                    float calculatedDamageRate = _damageRate;
-                    if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == ElementType.FIRE)
-                        calculatedDamageRate += _additionalDamageRate;
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                        tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                if (tile.CheckValidTile(owner.AllianceType, false))
+                {
+                    if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
+                    {
+                        targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                            tile.OccupiedCharacter.SkillRootTransformFollowable);
+                
+                        float calculatedDamageRate = _damageRate;
+                        if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == ElementType.FIRE)
+                            calculatedDamageRate += _additionalDamageRate;
+
+                        var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                            tile.OccupiedCharacter, codeId, true);
+                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                        tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    }
                 }
             }
         }

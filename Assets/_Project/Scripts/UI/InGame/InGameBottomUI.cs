@@ -47,8 +47,8 @@ public class InGameBottomUI : MonoBehaviour
         _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
         _isStartRunningProcess = false;
-
-        _specUserGrade = SpecDataManager.Instance.SpecUserGrade.Get(1); // [TODO] 현재 등급 가져오기
+        
+        _specUserGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
         if (_specUserGrade != null)
         {
             for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
@@ -184,6 +184,8 @@ public class InGameBottomUI : MonoBehaviour
             _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
+        
+        _characterStats = _characterStats.OrderByDescending(stat => stat.GetAttrValue()).ToList();
 
         foreach (var characterStat in _characterStats)
         {
