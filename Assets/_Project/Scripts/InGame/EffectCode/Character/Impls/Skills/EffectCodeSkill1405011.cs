@@ -158,7 +158,7 @@ public class EffectCodeSkill1405011 : EffectCodeCharacterBase
         bool isTargetFound = false;
         Vector3 direction = (targetTile.View.CachedTr.position - _vfx.CachedTr.position).normalized;
         _vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-        movement.SetData(_vfx.CachedTr.position, targetTile.View.CachedTr.position, 20);
+        movement.SetData(_vfx.CachedTr.position, targetTile.View.CachedTr.position, 30);
         _vfx.Initialize(false, movement);
 
         void OnReachedTargetHandler()
