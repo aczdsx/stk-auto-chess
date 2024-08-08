@@ -126,8 +126,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (_selectedCommanderSkillData == null)
             return;
 
-        var defaultSpeed = Preference.LoadPreference(Pref.DEFAULT_SPEED, 1.0f);
-        InGameMainFlowManager.Instance.SetPlaySpeed(defaultSpeed);
+        bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
+        InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
 
         if (switchObj)
             switchObj.SetActive(false);

@@ -49,8 +49,8 @@ namespace CookApps.AutoBattler
         {
             base.OnPreExit();
 
-            var defaultSpeed = Preference.LoadPreference(Pref.DEFAULT_SPEED, 1.0f);
-            InGameMainFlowManager.Instance.SetPlaySpeed(defaultSpeed);
+            bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
+            InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
         }
 
         private void OnClickCloseButton()
