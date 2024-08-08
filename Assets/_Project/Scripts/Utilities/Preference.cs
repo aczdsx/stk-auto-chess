@@ -12,7 +12,7 @@ public enum Pref
     STATISTIC,
     FIRST_TRIAL,
     GUEST_ID,
-    DEFAULT_SPEED,
+    IS_SPEED_UP,
 }
 
 public class Preference

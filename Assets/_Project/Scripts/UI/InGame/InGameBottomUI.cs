@@ -82,7 +82,9 @@ public class InGameBottomUI : MonoBehaviour
     
     protected void OnClickSpeedUp()
     {
-        InGameMainFlowManager.Instance.SetDefaultSpeed();
+        bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
+        Preference.SavePreference(Pref.IS_SPEED_UP, !isSpeedUp);
+        InGameMainFlowManager.Instance.SetInGameSpeed(!isSpeedUp);
     }
     
     protected async void RecommendAction()
@@ -165,6 +167,10 @@ public class InGameBottomUI : MonoBehaviour
         UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
+        
+        //[TODO] 차후에 UI도 처리 필요
+        bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
+        InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
     }
 
     public void CheckNewCharacter()

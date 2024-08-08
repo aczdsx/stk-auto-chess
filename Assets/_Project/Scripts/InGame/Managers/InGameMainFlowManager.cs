@@ -151,16 +151,16 @@ namespace CookApps.BattleSystem
             Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
         }
         
-        public void SetDefaultSpeed()
+        public void SetInGameSpeed(bool isSpeedUp)
         {
-            var defaultSpeed = Preference.LoadPreference(Pref.DEFAULT_SPEED, 1.0f);
-
-            if (Mathf.Approximately(defaultSpeed, 1.0f))
-                Preference.SavePreference(Pref.DEFAULT_SPEED, 1.5f);
+            if (isSpeedUp)
+            {
+                SetPlaySpeed(Preference.LoadPreference(Pref.IS_SPEED_UP, 1.5f));
+            }
             else
-                Preference.SavePreference(Pref.DEFAULT_SPEED, 1.0f);
-
-            SetPlaySpeed(Preference.LoadPreference(Pref.DEFAULT_SPEED, 1.0f));
+            {
+                SetPlaySpeed(Preference.LoadPreference(Pref.IS_SPEED_UP, 1.0f));
+            }
         }
 
         public void AddUpdateListener(int priority, UpdateEventHandler handler)

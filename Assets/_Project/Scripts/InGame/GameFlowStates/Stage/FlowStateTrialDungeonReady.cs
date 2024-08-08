@@ -87,7 +87,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
         await UniTask.WhenAll(addCharacterTasks);
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
 
-        // InGameObjectManager.Instance.DrawPlayerLine();
+        // InGameObjectManager.Instance.DrawPlayerLine(
     }
 
     public override void StateStart()

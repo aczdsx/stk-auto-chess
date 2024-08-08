@@ -147,8 +147,7 @@ public class FlowStateStageCombat : StateCombatBase
     {
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
         await UniTask.Delay(1200);
-        var defaultSpeed = Preference.LoadPreference(Pref.DEFAULT_SPEED, 1.0f);
-        InGameMainFlowManager.Instance.SetPlaySpeed(defaultSpeed);
+        InGameMainFlowManager.Instance.SetInGameSpeed(false);
         if (isWin)
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();
