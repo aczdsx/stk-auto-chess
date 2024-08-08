@@ -113,7 +113,7 @@ public class FlowStatePvpCombat : StateCombatBase
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)
         {
-            ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_TIME_OVER");
+            ToastManager.Instance.ShowToastByTokenKey("MSG_PVP_BATTLE_TIME_OVER");
             var playerHpRate = InGameObjectManager.Instance.GetHpRate(AllianceType.Player);
             var enemyHpRate = InGameObjectManager.Instance.GetHpRate(AllianceType.Enemy);
             isEndCombat = true;

@@ -17,6 +17,7 @@ public class InGameBottomStageUI : InGameBottomUI
         base.Awake();
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
+        _recommendButton?.onClick.AddListener(OnClickRecommend);
     }
     
     protected override bool IsCheckStartBattle()

@@ -18,6 +18,8 @@ public class InGameBottomUI : MonoBehaviour
 {
     [SerializeField] protected CAButton _startButton;
     [SerializeField] protected CAButton _statisticButton;
+    [SerializeField] protected CAButton _recommendButton;
+    
     [SerializeField] protected List<CAButton> _CommanderSkillButtonList;
     [SerializeField] protected Transform _characterSelectedTransform;
     [SerializeField] protected Transform _rightTransform;
@@ -71,6 +73,43 @@ public class InGameBottomUI : MonoBehaviour
         if (IsCheckStartBattle())
             StartInGameBattle(_combatType);
     }
+
+    protected void OnClickRecommend()
+    {
+        RecommendAction();
+    }
+    
+    protected async void RecommendAction()
+    {
+        var charactersOnField = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).ToList();
+        InGameObjectManager.Instance.ClearSynergyFx();
+        foreach (var character in charactersOnField)
+        {
+            character.CurrentTile.SetUnoccupied();
+            InGameObjectManager.Instance.RemoveCharacterFromField(character);
+            InGameMain.GetInGameMain().ReturnCharacterUI(character);
+        }
+        _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
+    
+        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount); 
+        int maximumCharacterCount = userGrade.maximum_character_count;
+
+        int addCharacterCount = _characterItemList.Count >= maximumCharacterCount ? maximumCharacterCount : _characterItemList.Count;
+        List<InGameCharacterItem> selectedCharacterItemList = _characterItemList.GetRange(0, addCharacterCount);
+        List<CharacterStatData> statDataList = selectedCharacterItemList.Select(item => item.StatData).ToList();
+        
+        foreach (var statData in statDataList)
+        {
+            _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+        }
+        UpdateData();
+        
+        await AddCharacterToTile(statDataList);
+
+        InGameManager.Instance.UpdateSynergyAndAttr();
+        SetCharacterCountText();
+    }
+
 
     protected virtual bool IsCheckStartBattle()
     {
@@ -312,6 +351,37 @@ public class InGameBottomUI : MonoBehaviour
 
         _isRunningAddCharacter = false;
     }
+    
+    private async UniTask AddCharacterToTile(List<CharacterStatData> statDataList)
+    {
+        if (_isRunningAddCharacter)
+            return;
+
+        _isRunningAddCharacter = true;
+
+        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        if (userGrade.maximum_character_count <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
+        }
+        else
+        {
+            foreach (var statData in statDataList)
+            {
+                var inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
+                int2 pos = new int2(inGameTile.X, inGameTile.Y);
+
+                await UniTask.WhenAll(new[]
+                {
+                    InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
+                        typeof(CharacterStateReady), true, HpBarType.Synergy),
+                });
+            }
+        }
+
+        _isRunningAddCharacter = false;
+    }
+
 
     public void UpdateCommanderSkillCoolTime()
     {
