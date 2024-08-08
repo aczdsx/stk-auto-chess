@@ -861,5 +861,17 @@ namespace CookApps.BattleSystem
             });
             _synergyVfxList.Clear();
         }
+
+        public void DrawPlayerLine()
+        {
+            foreach (var playerCharacter in charactersInPlaygroundForUpdate)
+            {
+                var target = GetTargetForMove(playerCharacter);
+                playerCharacter.SetLine(target, true, () =>
+                {
+                    
+                });
+            }
+        }
     }
 }

@@ -200,26 +200,26 @@ namespace CookApps.BattleSystem
             }
 
             // 다 막혀 있어서 갱신이 안됐으면 상하좌우 중 그나마 가장 가까운 타일을 찾는다.
-            if (bestTile == src)
-            {
-                foreach (var direction in Directions)
-                {
-                    int2 newPos = new int2(src.X + direction.x, src.Y + direction.y);
-                    if (IsValidPosition(newPos))
-                    {
-                        var neighbor = GetTile(newPos);
-                        if (neighbor.OccupiedCharacter == null)
-                        {
-                            var distance = BFSByOnlyWall(neighbor, dest);
-                            if (distance < shortestDistance)
-                            {
-                                shortestDistance = distance;
-                                bestTile = neighbor;
-                            }
-                        }
-                    }
-                }
-            }
+            // if (bestTile == src)
+            // {
+            //     foreach (var direction in Directions)
+            //     {
+            //         int2 newPos = new int2(src.X + direction.x, src.Y + direction.y);
+            //         if (IsValidPosition(newPos))
+            //         {
+            //             var neighbor = GetTile(newPos);
+            //             if (neighbor.OccupiedCharacter == null)
+            //             {
+            //                 var distance = BFSByOnlyWall(neighbor, dest);
+            //                 if (distance < shortestDistance)
+            //                 {
+            //                     shortestDistance = distance;
+            //                     bestTile = neighbor;
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
 
             return bestTile;
         }

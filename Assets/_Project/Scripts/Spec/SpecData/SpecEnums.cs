@@ -448,6 +448,7 @@ namespace CookApps.AutoBattler
         Skill_404031_1 = 179,
         fx_common_trap_airborne = 180,
         Skill_405011_1 = 181,
+        TargetLineRenderer = 182,
     }
 
     public enum GlobalEffectProviderType

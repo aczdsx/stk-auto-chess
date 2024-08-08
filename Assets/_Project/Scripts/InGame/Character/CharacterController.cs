@@ -147,6 +147,7 @@ namespace CookApps.BattleSystem
         private int _characterUId;
 
         private Vector3 SelectedOffSet;
+        private InGameVfx _notFoundTargetFx;
 
         public async UniTask Initialize(InGameTile tile, Transform Playground, int id, AllianceType allianceType)
         {
@@ -1142,9 +1143,20 @@ namespace CookApps.BattleSystem
             InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
             if (bestTile == CurrentTile)
             {
+                if (_notFoundTargetFx == null)
+                    _notFoundTargetFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
+                        SkillRootTransformFollowable);
                 GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
                 AddNextState<CharacterStateIdle>();
                 return;
+            }
+            else
+            {
+                if (_notFoundTargetFx != null)
+                {
+                    _notFoundTargetFx.Remove();
+                    _notFoundTargetFx = null;
+                }
             }
 
             var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
@@ -1166,6 +1178,20 @@ namespace CookApps.BattleSystem
                 GetCharacterView().LookAt(CurrentTile, tile);
                 ChangeOccupiedTile(tile);
                 AddNextState<CharacterStateMove>();
+            }
+        }
+        
+        public void SetLine(CharacterController character, bool isOwn, Action onComplete = null)
+        {
+            var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TargetLineRenderer,
+                SkillRootTransformFollowable);
+            if (obj != null)
+            {
+                TargetLineRenderer targetLine = obj.GetComponent<TargetLineRenderer>();
+                targetLine.DrawLine(this, character, isOwn, () =>
+                {
+                    onComplete?.Invoke();
+                });
             }
         }
     }
