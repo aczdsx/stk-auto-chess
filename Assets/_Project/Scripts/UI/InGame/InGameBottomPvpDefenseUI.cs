@@ -47,6 +47,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         _changeButton?.onClick.AddListener(OnChangeButtonClicked);
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
         _recommendButton?.onClick.AddListener(OnClickRecommend);
+        _speedUpButton?.onClick.AddListener(OnClickSpeedUp);
     }
 
     public override void InitData()

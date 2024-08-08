@@ -10,6 +10,7 @@ public class InGameBottomPvpUI : InGameBottomUI
         _startButton?.onClick.AddListener(OnStartButtonClicked);
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
         _recommendButton?.onClick.AddListener(OnClickRecommend);
+        _speedUpButton?.onClick.AddListener(OnClickSpeedUp);
     }
     
     protected override bool IsCheckStartBattle()

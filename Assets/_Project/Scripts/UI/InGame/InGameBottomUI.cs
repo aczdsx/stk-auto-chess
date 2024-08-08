@@ -19,6 +19,7 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected CAButton _startButton;
     [SerializeField] protected CAButton _statisticButton;
     [SerializeField] protected CAButton _recommendButton;
+    [SerializeField] protected CAButton _speedUpButton;
     
     [SerializeField] protected List<CAButton> _CommanderSkillButtonList;
     [SerializeField] protected Transform _characterSelectedTransform;
@@ -77,6 +78,11 @@ public class InGameBottomUI : MonoBehaviour
     protected void OnClickRecommend()
     {
         RecommendAction();
+    }
+    
+    protected void OnClickSpeedUp()
+    {
+        InGameMainFlowManager.Instance.SetDefaultSpeed();
     }
     
     protected async void RecommendAction()

@@ -146,7 +146,8 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
     {
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
         await UniTask.Delay(1200);
-        InGameMainFlowManager.Instance.SetPlaySpeed(1.0f);
+        var defaultSpeed = Preference.LoadPreference(Pref.DEFAULT_SPEED, 1.0f);
+        InGameMainFlowManager.Instance.SetPlaySpeed(defaultSpeed);
         if (isWin)
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateTrialDungeonClear>();
