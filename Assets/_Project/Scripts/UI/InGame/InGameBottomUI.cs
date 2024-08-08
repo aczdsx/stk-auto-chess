@@ -344,8 +344,19 @@ public class InGameBottomUI : MonoBehaviour
             if (characterItem.StatData == null)
             {
                 characterItem.SetFocusCharacter(spec);
+                RearrangeCharacterList();
                 return;
             }
+        }
+    }
+
+    private void RearrangeCharacterList()
+    {
+        _characterItemList.Sort((item1, item2) => item2.GetDisplayLv().CompareTo(item1.GetDisplayLv()));
+
+        for (int i = 0; i < _characterItemList.Count; i++)
+        {
+            _characterItemList[i].transform.SetSiblingIndex(i);
         }
     }
 
@@ -357,7 +368,13 @@ public class InGameBottomUI : MonoBehaviour
             {
                 characterItem.SetFocusCharacter(null);
                 if (isDropFx)
+                {
                     characterItem.PlayDropFx();
+                }
+                else
+                {
+                    RearrangeCharacterList(); 
+                }
                 return;
             }
         }

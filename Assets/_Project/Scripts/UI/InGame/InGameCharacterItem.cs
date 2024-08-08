@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using CookApps.AutoBattler;
+using Cookapps.Stkauto.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,8 +65,15 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         bool isActiveFocus = spec != null;
         if (isActiveFocus)
         {
+            var userCharacter = UserDataManager.Instance.GetUserCharacter(spec.character_id);
             _focusImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(spec.prefab_id);
-            _focusText.text = UserDataManager.Instance.GetUserCharacter(spec.character_id).Level.ToString("n0");
+            _focusText.text = userCharacter.Level.ToString("n0");
+            _lvText.text = userCharacter.Level.ToString("n0");
+        }
+        else
+        {
+            _focusText.text = "0";
+            _lvText.text = "0";
         }
         _focusObj.SetActive(isActiveFocus);
     }
@@ -94,6 +102,19 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isPressing = false;
 
         InGameMain.GetInGameMain().CloseSkillTooltip();
+    }
+
+    public int GetDisplayLv()
+    {
+        int level;
+        if (int.TryParse(_lvText.text, out level))
+        {
+            return level;
+        }
+        else
+        {
+            return 0; 
+        }
     }
 
     void Update()

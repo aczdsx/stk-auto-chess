@@ -32,7 +32,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private Vector3 _initialFingersPosition;
     private Vector3 _initialCameraPosition;
     
-    private float _zoomCooldown = 0.3f;
+    private readonly float _zoomCooldown = 0.1f;
     private float _zoomCooldownTimer = 0f;
 
     /////////////////////////////////////////////////////////////
