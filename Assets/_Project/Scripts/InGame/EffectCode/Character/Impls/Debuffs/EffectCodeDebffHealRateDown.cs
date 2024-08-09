@@ -121,7 +121,7 @@ public class EffectCodeDebffHealRateDown : EffectCodeBuffBase
         ListPool<BuffStackData>.Release(_stackDatas);
     }
 
-    public override float GetIncrementFixedGivenHealRate()
+    public override float GetIncrementFixedTakenHealRate()
     {
         double increaseRate = 0;
         for (int i = 0; i < _stackDatas.Count; i++)
