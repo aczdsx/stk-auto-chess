@@ -30,6 +30,8 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
             InGameCommanderManager.Instance.InGameCamera.SetCameraSize(9.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
         else
             InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.0f, new Vector3(0, 3f, -10), 1.0f).Forget();
+        
+        InGameObjectManager.Instance.ClearTargetLine();
     }
 
     public override void StateStart()

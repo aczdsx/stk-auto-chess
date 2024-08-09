@@ -871,7 +871,6 @@ namespace CookApps.BattleSystem
             List<CharacterController> characterControllers = (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
             List<InGameVfxTargetLine> targetLines = (isPlayer) ? playerTargetLines : enemyTargetLines;
             
-            // 먼저 기존의 모든 라인을 제거합니다.
             foreach (var line in targetLines)
             {
                 line.Remove();
@@ -881,15 +880,17 @@ namespace CookApps.BattleSystem
             foreach (var playerCharacter in characterControllers)
             {
                 var target = GetTargetForMove(playerCharacter);
-                var targetLine = playerCharacter.SetLine(target, isPlayer,
-                    (targetLine) => { targetLines.Remove(targetLine); });
+                if (target != null)
+                {
+                    var targetLine = playerCharacter.SetLine(target, isPlayer,
+                        (targetLine) => { targetLines.Remove(targetLine); });
 
-                if (targetLine != null)
                     targetLines.Add(targetLine);
+                }
             }
         }
 
-        private void ClearTargetLine()
+        public void ClearTargetLine()
         {
             foreach (var line in playerTargetLines) line.Remove();
             foreach (var line in enemyTargetLines) line.Remove();

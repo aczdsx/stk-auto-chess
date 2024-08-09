@@ -31,6 +31,8 @@ public class FlowStateStageCombat : StateCombatBase
             InGameCommanderManager.Instance.InGameCamera.SetCameraSize(6.5f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
         else
             InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
+
+        InGameObjectManager.Instance.ClearTargetLine();
     }
 
     public override void StateStart()
