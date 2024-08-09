@@ -298,7 +298,7 @@ namespace CookApps.BattleSystem
 
         public IReadOnlyList<EffectCodeStatBase> GetCharacterEffectCodesByFlag(EffectCodeInheritFlag flag)
         {
-                if (isEffectCodesDividedByFlagDirty.TryAdd(flag, false))
+            if (isEffectCodesDividedByFlagDirty.TryAdd(flag, false))
             {
                 effectCodesDividedByFlag.Add(flag, ListPool<EffectCodeStatBase>.Get());
             }

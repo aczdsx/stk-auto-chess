@@ -52,9 +52,7 @@ public class FlowStatePvpCombat : StateCombatBase
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
-        var effectCodes =
-            InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(
-                EffectCodeInheritFlag.UseOnCombatStart);
+        var effectCodes = InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCombatStart);
         EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
 
         StartAsync().Forget();

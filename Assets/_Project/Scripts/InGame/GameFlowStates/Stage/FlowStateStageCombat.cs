@@ -41,12 +41,18 @@ public class FlowStateStageCombat : StateCombatBase
         {
             character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
+            var effectCodes =character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
+                EffectCodeInheritFlag.UseOnCombatStart);
+            EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
             character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
+            var effectCodes =character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
+                EffectCodeInheritFlag.UseOnCombatStart);
+            EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Neutral))
@@ -57,10 +63,12 @@ public class FlowStateStageCombat : StateCombatBase
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
         InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
-        var effectCodes =
-            InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(
-                EffectCodeInheritFlag.UseOnCombatStart);
-        EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
+        {
+            var effectCodes =
+                InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(
+                    EffectCodeInheritFlag.UseOnCombatStart);
+            EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
+        }
 
         StartAsync().Forget();
     }
