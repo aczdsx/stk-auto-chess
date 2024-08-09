@@ -146,7 +146,8 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate * (1 + owner.DEF / _defValue), 0, tile.OccupiedCharacter, codeId, true);
+                float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.DEF / _defValue);
+                var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
 
                 tile.OccupiedCharacter.GetDamaged(damage, owner);

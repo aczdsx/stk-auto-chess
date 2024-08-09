@@ -18,8 +18,8 @@ public static class StringUtil
     
     public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon)
     {
-        
-        return (trialDungeon.step == 1) ? $"{trialDungeon.trial_type}" : $"{trialDungeon.trial_type}{trialDungeon.step}";
+        string message = LanguageManager.Instance.GetLanguageText("UI_TRIAL_STAGE_TITLE");
+        return (trialDungeon.step == 1) ? string.Format(message, $"{trialDungeon.grade}") : string.Format(message, $"{trialDungeon.grade}-{trialDungeon.step}");
     }
 
     public static string BigIntToShortString(BigInteger value)
