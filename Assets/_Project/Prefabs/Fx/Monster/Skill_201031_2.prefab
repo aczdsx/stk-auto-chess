@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864279925345476945}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.39145654, y: 0.58886474, z: 0.39145684, w: 0.58886474}
+  m_LocalRotation: {x: 0, y: 0, z: 0.5536023, w: 0.8327812}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1248825025141817845}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 67.229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 67.229}
 --- !u!198 &1430772735747421819
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4901,7 +4901,7 @@ GameObject:
   - component: {fileID: 5042166020954434603}
   - component: {fileID: 2690057331098570837}
   - component: {fileID: 5952869960641531964}
-  - component: {fileID: 3234515043883039339}
+  - component: {fileID: 6466065824519191229}
   m_Layer: 3
   m_Name: Skill_201031_2
   m_TagString: Untagged
@@ -9744,7 +9744,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3234515043883039339
+--- !u!114 &6466065824519191229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9753,10 +9753,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8059217424757677714}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
 --- !u!1 &8834184989597785975
 GameObject:
   m_ObjectHideFlags: 0
