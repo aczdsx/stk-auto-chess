@@ -17,9 +17,11 @@ public class EffectCodeSynergyElementLight : EffectCodeCharacterBase
         base.Initialize(codeInfo, container, source);
         statValue = codeInfo.GetCodeStatToFloat(0);
         
-        Span<double> buffStats = stackalloc double[1];
+        Span<double> buffStats = stackalloc double[3];
         buffStats.Clear();
-        buffStats[0] = statValue;
+        buffStats[0] = codeId;
+        buffStats[1] = statValue;
+        buffStats[2] = 1;
         
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
     }

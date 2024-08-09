@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
@@ -85,19 +86,44 @@ public class EffectCodeSkill1402011 : EffectCodeCharacterBase
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
-        //[TODO] 미사 스킬 구현 필요
         base.OnSkillExecute(executeIndex, totalLength);
 
         if (owner.Target == null)
             return;
 
-        AllianceType allianceType =
-            owner.AllianceType == AllianceType.Player ? AllianceType.Enemy : AllianceType.Player;
-
-        var characterList = InGameObjectManager.Instance.GetCharacterList(allianceType);
-        var characterWithHighestAD = characterList.OrderByDescending(c => c.AD).FirstOrDefault();
+        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(owner.AllianceType, false);
+        if (characterControllers.Count > 0)
+        {
+            var characterController = characterControllers[0];
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, characterController.CurrentTile);
+            
+            {
+                Span<double> eccStats = stackalloc double[1];
+                eccStats.Clear();
+                eccStats[0] = _time;
         
-        // characterWithHighestAD
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.MISA_RESTRAINT, characterController, eccStats, source);
+            }
+            
+            {
+                Span<double> eccStats = stackalloc double[3];
+                eccStats.Clear();
+                eccStats[0] = codeId;
+                eccStats[1] = _time;
+                eccStats[2] = 0;
+        
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_MISA, characterController, eccStats, source);
+            }
+
+            {
+                Span<double> eccStats = stackalloc double[1];
+                eccStats.Clear();
+                eccStats[0] = _time;
+        
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, characterController, eccStats, source);
+            }
+        }
+        
         IsSkillActivated = false;
     }
 

@@ -76,6 +76,7 @@ namespace CookApps.AutoBattler
         DEBUFF_AIRBORNE = 2100000008,
         DEBUFF_DEF_PERCENT_DOWN = 2100000009,
         DEBUFF_HEAL_RATE_DOWN = 2100000010,
+        DEBUFF_MISA  = 2100000011,
     }
 
     public enum GradeType
@@ -449,6 +450,9 @@ namespace CookApps.AutoBattler
         fx_common_trap_airborne = 180,
         Skill_405011_1 = 181,
         TargetLineRenderer = 182,
+        Skill_402011_1 = 183,
+        fx_common_debuff_misa_01 = 184,
+        fx_common_debuff_misa_02 = 185,
     }
 
     public enum GlobalEffectProviderType

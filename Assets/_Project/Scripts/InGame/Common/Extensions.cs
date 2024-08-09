@@ -72,6 +72,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Provocation => "",
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",
+                BuffDebuffType.Misa => InGameVfxNameType.fx_common_debuff_misa_01,
                 _ => InGameVfxNameType.NONE
             };
         }
@@ -112,6 +113,7 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.Provocation => InGameVfxNameType.fx_common_buff_provoke_01,
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",
+                BuffDebuffType.Misa => InGameVfxNameType.fx_common_debuff_misa_02,
                 BuffDebuffType.Airborne => InGameVfxNameType.fx_common_commander_skill_03,
                 _ => InGameVfxNameType.NONE
             };

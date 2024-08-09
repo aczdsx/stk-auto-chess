@@ -18,6 +18,8 @@ public class TargetLineRenderer : MonoBehaviour
     [SerializeField] ParticleSystem _otherFx;
     [SerializeField] GameObject _arrowFx;
     [SerializeField] TrailRenderer _trailRenderer;
+    [SerializeField] Color _ownTrailColor;
+    [SerializeField] Color _otherTrailColor;
 
     private CharacterController _startCharacter;
     private CharacterController _targetCharacter;
@@ -27,15 +29,19 @@ public class TargetLineRenderer : MonoBehaviour
     {
         if (isOwn)
         {
-            _lineRenderer.startColor = Color.green;
-            _lineRenderer.endColor = Color.green;
-            _trailRenderer.startColor = Color.green;
+            _lineRenderer.startColor = _ownTrailColor;
+            _lineRenderer.endColor = _ownTrailColor;
+            _trailRenderer.startColor = _ownTrailColor;
+        
+            _ownFx.Play();
         }
         else
         {
-            _lineRenderer.startColor = Color.red;
-            _lineRenderer.endColor = Color.red;
-            _trailRenderer.startColor = Color.red;
+            _lineRenderer.startColor = _otherTrailColor;
+            _lineRenderer.endColor = _otherTrailColor;
+            _trailRenderer.startColor = _otherTrailColor;
+        
+            _otherFx.Play();
             // _arrowFx.transform.localScale = new Vector3(-1.5f, 0.7f, 1.5f);
         }
 
@@ -52,7 +58,7 @@ public class TargetLineRenderer : MonoBehaviour
     private IEnumerator DrawGuideLine(CharacterController startCharacter, CharacterController targetCharacter, bool isOwn,
         Action OnComplete = null)
     {
-        WaitForEndOfFrame waitTime = new WaitForEndOfFrame(); // GC����
+        WaitForEndOfFrame waitTime = new WaitForEndOfFrame();
     
         Vector3 startPos = startCharacter.Position3D;
         Vector3 targetPos = targetCharacter.Position3D;

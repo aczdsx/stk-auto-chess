@@ -125,6 +125,7 @@ namespace CookApps.BattleSystem
         Trap,
         Silence,
         Airborne,
+        Misa,
         MAX
     }
 

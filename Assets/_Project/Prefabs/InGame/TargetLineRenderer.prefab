@@ -19831,6 +19831,8 @@ MonoBehaviour:
   _otherFx: {fileID: 2261792373660622568}
   _arrowFx: {fileID: 1043002862780777773}
   _trailRenderer: {fileID: 1534274702694238206}
+  _ownTrailColor: {r: 0, g: 1, b: 0, a: 1}
+  _otherTrailColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &989813614783139377
 MonoBehaviour:
   m_ObjectHideFlags: 0

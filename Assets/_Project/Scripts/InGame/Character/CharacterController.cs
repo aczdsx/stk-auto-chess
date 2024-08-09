@@ -1181,18 +1181,22 @@ namespace CookApps.BattleSystem
             }
         }
         
-        public void SetLine(CharacterController character, bool isOwn, Action onComplete = null)
+        public InGameVfxTargetLine SetLine(CharacterController character, bool isOwn, Action<InGameVfxTargetLine> onComplete = null)
         {
-            var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TargetLineRenderer,
-                SkillRootTransformFollowable);
+            var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TargetLineRenderer, Position3D);
             if (obj != null)
             {
                 InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
                 targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
                 {
-                    targetLine.Remove();
+                    if (onComplete != null)
+                        onComplete.Invoke(targetLine);
                 });
+
+                return targetLine;
             }
+
+            return null;
         }
     }
 }

@@ -31,6 +31,9 @@ namespace CookApps.BattleSystem
 
         private List<CharacterController> startingPlayerCharacters = new();
         private List<CharacterController> reusableList = new List<CharacterController>();
+        
+        private List<InGameVfxTargetLine> playerTargetLines = new List<InGameVfxTargetLine>();
+        private List<InGameVfxTargetLine> enemyTargetLines = new List<InGameVfxTargetLine>();
 
         private List<InGameVfx> _synergyVfxList = new();
         private double _playerSumMaxHp;
@@ -69,6 +72,7 @@ namespace CookApps.BattleSystem
             ClearAllCharactersInField(AllianceType.Neutral);
             ClearAllCharactersInField(AllianceType.Wall);
             ClearSynergyFx();
+            ClearTargetLine();
         }
 
         public List<CharacterController> GetCharacterList(AllianceType allianceType)
@@ -864,17 +868,31 @@ namespace CookApps.BattleSystem
 
         public void DrawPlayerLine(bool isPlayer)
         {
-            List<CharacterController> characterControllers =
-                (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
+            List<CharacterController> characterControllers = (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
+            List<InGameVfxTargetLine> targetLines = (isPlayer) ? playerTargetLines : enemyTargetLines;
+            
+            // 먼저 기존의 모든 라인을 제거합니다.
+            foreach (var line in targetLines)
+            {
+                line.Remove();
+            }
+            targetLines.Clear();
             
             foreach (var playerCharacter in characterControllers)
             {
                 var target = GetTargetForMove(playerCharacter);
-                playerCharacter.SetLine(target, isPlayer, () =>
-                {
-                    
-                });
+                var targetLine = playerCharacter.SetLine(target, isPlayer,
+                    (targetLine) => { targetLines.Remove(targetLine); });
+
+                if (targetLine != null)
+                    targetLines.Add(targetLine);
             }
+        }
+
+        private void ClearTargetLine()
+        {
+            foreach (var line in playerTargetLines) line.Remove();
+            foreach (var line in enemyTargetLines) line.Remove();
         }
     }
 }

@@ -397,6 +397,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().UnSetFocusSlotUI(isDropFx);
             InGameMain.GetInGameMain().CloseSkillTooltip();
             _isMoveEndAnimation = false;
+            
+            InGameObjectManager.Instance.DrawPlayerLine(true);
+            InGameObjectManager.Instance.DrawPlayerLine(false);
         }
     }
 
