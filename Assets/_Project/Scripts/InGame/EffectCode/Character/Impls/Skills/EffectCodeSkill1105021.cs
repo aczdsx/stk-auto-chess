@@ -1,20 +1,23 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 5챕터 일반 암살자
-// "대상 : 가장 가까운 적
-// 대미지 : 강한 일격을 가해 공격력 {0}%의 대미지를 준다."
+// 타겟 : 가장 가까이에 위치한 적 1명 
+// 대미지 : 공격력 {0}%로 적을 {1}회 베어 대미지를 준다. 
 /// </summary>
 [UseEffectCodeIds(1105021)]
 public class EffectCodeSkill1105021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
+    private ObfuscatorInt _attackCount;
 
     private bool isReadyToActivate;
 
@@ -29,6 +32,7 @@ public class EffectCodeSkill1105021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _attackCount = codeInfo.GetCodeStatToInt(2);
         isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -40,6 +44,7 @@ public class EffectCodeSkill1105021 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _attackCount = codeInfo.GetCodeStatToInt(2);
     }
 
     public override void OnUpdate(float dt)
@@ -105,19 +110,13 @@ public class EffectCodeSkill1105021 : EffectCodeCharacterBase
         if (_targetCharacter == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            _targetCharacter.SkillRootTransformFollowable);
-
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
             _targetCharacter.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
         vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
-        _targetCharacter.GetDamaged(damage, owner);
+        ExecuteSkillRoutine(_attackCount).Forget();
 
         IsSkillActivated = false;
     }
@@ -127,5 +126,19 @@ public class EffectCodeSkill1105021 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+    }
+    
+    private async UniTaskVoid ExecuteSkillRoutine(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                _targetCharacter.SkillRootTransformFollowable);
+            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+            _targetCharacter.GetDamaged(damage, owner);
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
+        }
     }
 }
