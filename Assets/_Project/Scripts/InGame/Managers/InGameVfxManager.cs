@@ -1,4 +1,5 @@
 #define CHECK_POOL_LEAKING
+using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
@@ -260,7 +261,14 @@ namespace CookApps.BattleSystem
                 vfx.CachedGo.SetActive(false);
                 if (pools.TryGetValue(vfx.VfxNameType, out var pool))
                 {
-                    pool.Release(vfx);
+                    try
+                    {
+                        pool.Release(vfx);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError("Error when returning vfx: " + vfx.VfxNameType + "_" + ex.Message);
+                    }
                 }
             }
 

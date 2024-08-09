@@ -104,13 +104,13 @@ public class EffectCodeSkill1103031 : EffectCodeCharacterBase
             return;
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByRow(owner.Target.CurrentTile, 2);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in inGameTiles)
         {
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
         }
 
-        AfterAction(inGameTiles, 1).Forget();
+        AfterAction(inGameTiles, 0.3f).Forget();
     }
 
     public override void OnSkillAnimationEnd()
@@ -120,19 +120,17 @@ public class EffectCodeSkill1103031 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    private async UniTask AfterAction(List<InGameTile> inGameTiles, int second)
+    private async UniTask AfterAction(List<InGameTile> inGameTiles, float second)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(second));
 
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
                 
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
                 float calculatedDamageRate = _damageRate;
 
                 var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
