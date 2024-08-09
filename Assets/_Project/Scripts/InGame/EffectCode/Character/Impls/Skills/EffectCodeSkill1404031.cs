@@ -178,16 +178,17 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
         List<int> targetCharacterList = new();
         foreach (var inGameTile in inGameTiles)
         {
-            if (!targetCharacterList.Contains(inGameTile.OccupiedCharacter.CharacterUId))
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);
+            if (inGameTile.CheckValidTile(owner.AllianceType, false))
             {
-                targetCharacterList.Add(inGameTile.OccupiedCharacter.CharacterUId);
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);
-                if (pivotTile.CheckValidTile(owner.AllianceType, false))
+                if (!targetCharacterList.Contains(inGameTile.OccupiedCharacter.CharacterUId))
                 {
+                    targetCharacterList.Add(inGameTile.OccupiedCharacter.CharacterUId);
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         inGameTile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0, inGameTile.OccupiedCharacter, codeId, true);
+                    var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0,
+                        inGameTile.OccupiedCharacter, codeId, true);
                     owner.PostCalculateDamageAmount(ref damage, inGameTile.OccupiedCharacter);
                     inGameTile.OccupiedCharacter.GetDamaged(damage, owner);
                 }
