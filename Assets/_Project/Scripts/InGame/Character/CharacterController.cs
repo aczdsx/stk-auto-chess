@@ -951,7 +951,7 @@ namespace CookApps.BattleSystem
             // effectCode에게 이벤트 전달
             if (damageInfo.isCritical)
             {
-                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCritical);
+                var effectCodes = attacker.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCritical);
                 EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda);
             }
 
