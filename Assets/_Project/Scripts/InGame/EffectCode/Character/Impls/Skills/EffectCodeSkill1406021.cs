@@ -31,9 +31,9 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _buffRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _buffTime = codeInfo.GetCodeStatToFloat(3);
+        _buffTime = codeInfo.GetCodeStatToFloat(1);
+        _healRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _buffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -46,9 +46,9 @@ public class EffectCodeSkill1406021 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _buffRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _buffTime = codeInfo.GetCodeStatToFloat(3);
+        _buffTime = codeInfo.GetCodeStatToFloat(1);
+        _healRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _buffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)

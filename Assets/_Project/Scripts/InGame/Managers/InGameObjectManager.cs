@@ -894,6 +894,8 @@ namespace CookApps.BattleSystem
         {
             foreach (var line in playerTargetLines) line.Remove();
             foreach (var line in enemyTargetLines) line.Remove();
+            playerTargetLines.Clear();
+            enemyTargetLines.Clear();
         }
     }
 }
