@@ -100,9 +100,9 @@ public class TargetLineRenderer : MonoBehaviour
             if (targetCharacter != null)
             {
                 _arrowFx.gameObject.SetActive(false);
-                _ownFx.gameObject.SetActive(true);
-                _ownFx.transform.position = targetPos;
-                _ownFx.Play();
+                // _ownFx.gameObject.SetActive(true);
+                // _ownFx.transform.position = targetPos;
+                // _ownFx.Play();
             }
         }
         else
@@ -110,17 +110,15 @@ public class TargetLineRenderer : MonoBehaviour
             if (targetCharacter != null)
             {
                 _arrowFx.gameObject.SetActive(false);
-                _otherFx.gameObject.SetActive(true);
-                _otherFx.transform.position = targetPos;
-                _otherFx.Play();
+                // _otherFx.gameObject.SetActive(true);
+                // _otherFx.transform.position = targetPos;
+                // _otherFx.Play();
             }
         }
         
-        OnComplete?.Invoke();
-        
         yield return new WaitForSeconds(1.5f);
         
-        Destroy(gameObject);
+        OnComplete?.Invoke();
     }
     
     

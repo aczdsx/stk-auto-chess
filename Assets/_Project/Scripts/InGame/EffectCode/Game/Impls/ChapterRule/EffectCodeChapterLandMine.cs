@@ -46,6 +46,9 @@ namespace CookApps.BattleSystem
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
         {
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
+                return;
+            
             if (_chapterRuleTiles.ContainsKey(tile))
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,

@@ -862,12 +862,15 @@ namespace CookApps.BattleSystem
             _synergyVfxList.Clear();
         }
 
-        public void DrawPlayerLine()
+        public void DrawPlayerLine(bool isPlayer)
         {
-            foreach (var playerCharacter in charactersInPlaygroundForUpdate)
+            List<CharacterController> characterControllers =
+                (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
+            
+            foreach (var playerCharacter in characterControllers)
             {
                 var target = GetTargetForMove(playerCharacter);
-                playerCharacter.SetLine(target, true, () =>
+                playerCharacter.SetLine(target, isPlayer, () =>
                 {
                     
                 });

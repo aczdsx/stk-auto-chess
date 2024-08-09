@@ -1187,10 +1187,10 @@ namespace CookApps.BattleSystem
                 SkillRootTransformFollowable);
             if (obj != null)
             {
-                TargetLineRenderer targetLine = obj.GetComponent<TargetLineRenderer>();
-                targetLine.DrawLine(this, character, isOwn, () =>
+                InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
+                targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
                 {
-                    onComplete?.Invoke();
+                    targetLine.Remove();
                 });
             }
         }

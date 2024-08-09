@@ -9688,7 +9688,7 @@ GameObject:
   - component: {fileID: 621411205365231833}
   - component: {fileID: 1534274702694238206}
   m_Layer: 5
-  m_Name: Projectile_40306
+  m_Name: Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9703,8 +9703,8 @@ Transform:
   m_GameObject: {fileID: 1043002862780777773}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.096, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1070267408950441499}
@@ -14543,7 +14543,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ae0a351ec33f804ebefaaf4bd20a1d3, type: 2}
+  - {fileID: 2100000, guid: f16f52d3b916a7b46a85bb242f5b303c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14611,7 +14611,7 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 13493
+      atime0: 41249
       atime1: 65535
       atime2: 0
       atime3: 0
@@ -14620,7 +14620,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -19679,7 +19679,7 @@ GameObject:
   - component: {fileID: 2080981125296824962}
   - component: {fileID: 1609745513342542398}
   - component: {fileID: 4157211400542423777}
-  - component: {fileID: -7759860883616777175}
+  - component: {fileID: 989813614783139377}
   m_Layer: 5
   m_Name: TargetLineRenderer
   m_TagString: Untagged
@@ -19714,7 +19714,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080981125296824961}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -19727,7 +19727,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 651cb304b7e73964099f987703016203, type: 2}
+  - {fileID: 2100000, guid: d5966340df7c2df48987517523ebf1f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19825,13 +19825,13 @@ MonoBehaviour:
   _lineRenderer: {fileID: 1609745513342542398}
   _height: 1.5
   _positionCount: 80
-  _lineDruationTime: 1.8
+  _lineDruationTime: 3.5
   _offSet: 5
   _ownFx: {fileID: 3838147306391497134}
   _otherFx: {fileID: 2261792373660622568}
   _arrowFx: {fileID: 1043002862780777773}
   _trailRenderer: {fileID: 1534274702694238206}
---- !u!114 &-7759860883616777175
+--- !u!114 &989813614783139377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19840,9 +19840,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2080981125296824961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
+  m_Script: {fileID: 11500000, guid: efabb071f7034c43972a11836e6d3063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _targetLine: {fileID: 4157211400542423777}
 --- !u!1 &2382680865147395667
 GameObject:
   m_ObjectHideFlags: 0
@@ -83699,7 +83700,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.21
+      value: 0.7
       mode: 0
       spread: 0
       speed:
@@ -84016,7 +84017,7 @@ ParticleSystem:
         m_RotationOrder: 0
     y:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 2
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -84069,7 +84070,7 @@ ParticleSystem:
         m_RotationOrder: 4
     z:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 2
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -87773,7 +87774,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97eea4c96c1db0d478935b6b7cd70eee, type: 2}
+  - {fileID: 2100000, guid: a0c77882fdb5a1d47af794c1175c46c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
