@@ -12,7 +12,6 @@ namespace CookApps.AutoBattler
 {
     public class LobbyBottomStageSlot : CachedMonoBehaviour
     {
-        [FormerlySerializedAs("_noramlStateHeight")]
         [Header("[Stage - Common]")]
         [SerializeField] private int _normalStateHeight;        // 일반 스테이지 높이
         [SerializeField] private int _doneStateHeight;          // 완료 스테이지 높이
@@ -27,6 +26,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _normalNextStageCheckObject;
         [SerializeField] private TextMeshProUGUI _normalStageNumberText;
         [SerializeField] private List<GameObject> _normalStarObjectList;
+        
+        [Header("[State - Perfect Clear]")]
+        [SerializeField] private GameObject _perfectClearLayerObject;
+        [SerializeField] private GameObject _perfectClearCharacterLayerObject;
+        [SerializeField] private GameObject _perfectClearNextStageCheckObject;
+        [SerializeField] private TextMeshProUGUI _perfectClearStageNumberText;
 
         [Header("[State - Elite/Boss]")]
         [SerializeField] private GameObject _bossLayerObject;
@@ -91,11 +96,19 @@ namespace CookApps.AutoBattler
 
             _resultCustomHeight = _isClearStage ? _doneStateHeight : (_isCurrentStage ? _currentStateHeight : _normalStateHeight);
             _isValidStage = _userStageData != null && _userStageData.StarCount > 0;
+            bool isPerfectClear = _isValidStage && _userStageData.StarCount >= 3;
 
             switch (_specStageData.stage_type)
             {
                 case StageType.BATTLE_NORMAL:
-                    SetNormalLayerState();
+                    if (isPerfectClear)
+                    {
+                        SetPerfectClearLayerState();
+                    }
+                    else
+                    {
+                        SetNormalLayerState();
+                    }
                     break;
                 case StageType.BATTLE_ELITE:
                     SetBossLayerState();
@@ -129,6 +142,19 @@ namespace CookApps.AutoBattler
             _normalCharacterLayerObject.SetActive(_isCurrentStage);
             _normalClearCheckObject.SetActive(_isClearStage);
             _normalNextStageCheckObject.SetActive(_isLatestPlayableStage);
+        }
+
+        private void SetPerfectClearLayerState()
+        {
+            _perfectClearStageNumberText.text = _specStageData.stage_number.ToString();
+
+            var originNormalSizeDelta = _perfectClearLayerObject.GetComponent<RectTransform>().sizeDelta;
+            _perfectClearLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originNormalSizeDelta.x, _resultCustomHeight);
+
+            _perfectClearLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_NORMAL || _specStageData.stage_type == StageType.CHEST);
+
+            _perfectClearCharacterLayerObject.SetActive(_isCurrentStage);
+            _perfectClearNextStageCheckObject.SetActive(_isLatestPlayableStage);
         }
 
         private void SetBossLayerState()
