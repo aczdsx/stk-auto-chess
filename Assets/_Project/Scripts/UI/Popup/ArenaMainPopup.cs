@@ -224,6 +224,12 @@ namespace CookApps.AutoBattler
                         if (dailyRewardList != null && dailyRewardList.Count > 0)
                         {
                             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(dailyRewardList).Forget();
+                            var resultPopup = SceneUILayerManager.Instance.GetUILayer<RewardResultPopup>();
+                            if (resultPopup != null)
+                            {
+                                string titleText = LanguageManager.Instance.GetLanguageText("PVP_DAILY_REWARD_TITLE");
+                                resultPopup.SetPopupTitleText(titleText);
+                            }
                             
                             UserDataManager.Instance.IncreaseRewardItemList(dailyRewardList, true);
                         }

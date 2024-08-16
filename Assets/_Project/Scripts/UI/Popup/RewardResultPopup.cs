@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using TMPro;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -9,6 +10,7 @@ namespace CookApps.AutoBattler
     public class RewardResultPopup : UILayer
     {
         [SerializeField] private CAButton _okButton;
+        [SerializeField] private TextMeshProUGUI _titleText;
 
         [Header("Reward Slot Layer")]
         [SerializeField] private GameObject _rewardSlotListLayerObject;
@@ -40,6 +42,14 @@ namespace CookApps.AutoBattler
             _rewardItemList = param as List<RewardItem>;
 
             SetRewardSlotList();
+        }
+
+        public void SetPopupTitleText(string text)
+        {
+            if (_titleText == null) return;
+            if (string.IsNullOrWhiteSpace(text)) return;
+            
+            _titleText.text = text;
         }
 
         private void SetRewardSlotList()

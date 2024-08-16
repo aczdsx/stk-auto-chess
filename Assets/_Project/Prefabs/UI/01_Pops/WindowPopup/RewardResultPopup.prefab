@@ -700,6 +700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
   _okButton: {fileID: 1633853506321525573}
+  _titleText: {fileID: 239789951517675343}
   _rewardSlotListLayerObject: {fileID: 6940876279994007171}
   _rewardItemSlotObject: {fileID: 5695118181277146868}
 --- !u!95 &4229340546588344415
