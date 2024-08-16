@@ -1,4 +1,5 @@
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -218,6 +219,16 @@ namespace CookApps.AutoBattler
                 case PVPTimeRefreshType.DAILY_REWARD:
                     if (UserDataManager.Instance.UserPVP.DailyRewardResetTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
                     {
+                        // 일일 보상 지급
+                        var dailyRewardList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_DAILY, UserDataManager.Instance.UserPVP.RankId);
+                        if (dailyRewardList != null && dailyRewardList.Count > 0)
+                        {
+                            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(dailyRewardList).Forget();
+                            
+                            UserDataManager.Instance.IncreaseRewardItemList(dailyRewardList, true);
+                        }
+                        
+                        // 일일 보상 데이터 처리
                         UserDataManager.Instance.UserPVP.DailyRewardCnt = 0;
                         UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.DAILY_REWARD, true);
                         result = true;
