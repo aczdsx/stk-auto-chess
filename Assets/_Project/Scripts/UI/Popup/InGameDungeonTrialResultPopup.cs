@@ -144,6 +144,7 @@ namespace CookApps.AutoBattler
             _gradeUpObj.SetActive(_isVictory && InGameManager.Instance.SpecDungeonTrial.is_grade_up);
             if (!InGameManager.Instance.SpecDungeonTrial.is_grade_up)
             {
+                List<RewardItem> resultItemList = new List<RewardItem>();   // 보상 지급용 리워드 리스트
                 var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
 
                 foreach (var rewardData in rewardDataList)
@@ -152,7 +153,14 @@ namespace CookApps.AutoBattler
                     RewardItemSlot newSlot = newSlotObject.GetComponent<RewardItemSlot>();
 
                     RewardItem newRewardItem = new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count);
+                    resultItemList.Add(newRewardItem);
                     newSlot?.SetRewardSlot(newRewardItem);
+                }
+                
+                // 보상 데이터 저장
+                if (rewardDataList.Count > 0)
+                {
+                    UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
                 }
             }
         }
