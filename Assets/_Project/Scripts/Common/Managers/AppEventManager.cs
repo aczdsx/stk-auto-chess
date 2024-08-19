@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using CookApps.AnalyticsLite;
 using CookApps.TeamBattle;
 using UnityEngine;
@@ -26,6 +27,55 @@ namespace CookApps.AutoBattler
                 return true;
             }
         }
+        
+        #region [AppEvent Common Function]
+        
+        // 특정 데이터를 앱이벤트용 문자열로 변환
+        public string GetAppEventCustomDataList(params int[] dataList)
+        {
+            StringBuilder sbCharList = new StringBuilder();
+
+            for (int i = 0; i < dataList.Length; ++i)
+            {
+                sbCharList.Append($"{dataList[i]};");
+            }
+
+            return sbCharList.ToString();
+        }
+        
+        // 해당 덱의 캐릭터 리스트를 앱이벤트용 문자열로 변환
+        public string GetAppEventTargetDeckList(InGameType targetType)
+        {
+            StringBuilder sbCharList = new StringBuilder();
+
+            var targetDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(targetType);
+
+            for (int i = 0; i < targetDeckList.Count; ++i)
+            {
+                sbCharList.Append($"{i};");
+                sbCharList.Append($"{targetDeckList[i].CharacterId};");
+            }
+
+            return sbCharList.ToString();
+        }
+        
+        // 현재 장착 중인 지휘자 스킬 리스트를 앱이벤트용 문자열로 변환
+        public string GetAppEventEquipCommandSkillList()
+        {
+            StringBuilder sbCharList = new StringBuilder();
+
+            var targetSkillList = UserDataManager.Instance.GetAllEquippedCommanderSkillIDList();
+
+            for (int i = 0; i < targetSkillList.Count; ++i)
+            {
+                sbCharList.Append($"{targetSkillList[i]};");
+            }
+
+            return sbCharList.ToString();
+        }
+        
+        #endregion
+        
 
         /// <summary>
         /// 이벤트 전송
@@ -84,33 +134,69 @@ namespace CookApps.AutoBattler
             return appEventParameter;
         }
 
-        /// <summary>
-        /// 스테이지 클리어 이벤트
-        /// </summary>
-        /// <param name="stage_id">스테이지 아이디</param>
-        /// <param name="chapter_id">스테이지 아이디</param>
-        /// <param name="stage_number">스테이지 아이디</param>
-        /// <param name="stage_type">스테이지 아이디</param>
-        /// <param name="stage_star">스테이지 아이디</param>
-        /// <param name="is_win">스테이지 아이디</param>
-        // public void StageClear(int stage_id, int chapter_id, int stage_number, StageType stage_type, int stage_star, bool is_win)
-        // {
-        //     AppEventParameter appEventParameter = CreateCommonParam();
-        //     appEventParameter.Add(AppEventStringConst.STAGE_ID, stage_id);
-        //     appEventParameter.Add(AppEventStringConst.CHAPTER_ID, chapter_id);
-        //     appEventParameter.Add(AppEventStringConst.STAGE_NUMBER, stage_number);
-        //     appEventParameter.Add(AppEventStringConst.STAGE_TYPE, stage_type.ToString());
-        //     appEventParameter.Add(AppEventStringConst.STAGE_STAR, stage_star);
-        //     appEventParameter.Add(AppEventStringConst.IS_WIN, is_win);
-        //
-        //     SendEvent(AppEventStringConst.STAGE_CLEAR, appEventParameter);
-        // }
-        
-        // 가이드 미션 통과 (가이드 미션 완료 시 전송)
-        public void GuideMissionClear(int guide_id)
+        // 스테이지 종료 시 호출 (클리어 또는 패배 모두 적용)
+        public void StageEnd(int stageID, int playTime, int squadCount, int power, int enemy_power, string result,
+            string reason, string clearCondition)
         {
             AppEventParameter appEventParameter = CreateCommonParam();
-            appEventParameter.Add(AppEventStringConst.GUIDE_MISSION_ID, guide_id);
+            appEventParameter.Add(AppEventStringConst.STAGE_ID, stageID);
+            appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
+            appEventParameter.Add(AppEventStringConst.SQUAD_COUNT, squadCount);
+            appEventParameter.Add(AppEventStringConst.POWER, power);
+            appEventParameter.Add(AppEventStringConst.ENEMY_POWER, enemy_power);
+            appEventParameter.Add(AppEventStringConst.RESULT, result);
+            appEventParameter.Add(AppEventStringConst.REASON, reason);
+            appEventParameter.Add(AppEventStringConst.CLEAR_CONDITION, clearCondition);
+            appEventParameter.Add(AppEventStringConst.COMMANDER_SKILL, GetAppEventEquipCommandSkillList());
+            appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.STAGE));
+        
+            SendEvent("STAGE_END", appEventParameter);
+        }
+        
+        // 던전 종료 시 호출 (클리어 또는 패배 모두 적용)
+        public void DungeonEnd(DungeonType dungeonType, int dungeonID, int playTime, int squadCount, int power, int enemy_power, string result,
+            string reason, string clearCondition)
+        {
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.TYPE, dungeonType.ToString());
+            appEventParameter.Add(AppEventStringConst.STAGE_ID, dungeonID);
+            appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
+            appEventParameter.Add(AppEventStringConst.SQUAD_COUNT, squadCount);
+            appEventParameter.Add(AppEventStringConst.POWER, power);
+            appEventParameter.Add(AppEventStringConst.ENEMY_POWER, enemy_power);
+            appEventParameter.Add(AppEventStringConst.RESULT, result);
+            appEventParameter.Add(AppEventStringConst.REASON, reason);
+            appEventParameter.Add(AppEventStringConst.CLEAR_CONDITION, clearCondition);
+            appEventParameter.Add(AppEventStringConst.COMMANDER_SKILL, GetAppEventEquipCommandSkillList());
+            appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.TRIAL));
+        
+            SendEvent("DUNGEON_END", appEventParameter);
+        }
+        
+        // PVP 종료 시 호출 (승리 또는 패배 모두 적용)
+        public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, int playTime, string result, int power)
+        {
+            string battleType = isRevenge ? "revenge" : "normal";
+            
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.SEASON, season);
+            appEventParameter.Add(AppEventStringConst.TYPE, battleType);
+            appEventParameter.Add(AppEventStringConst.GRADE, tierType.ToString());
+            appEventParameter.Add(AppEventStringConst.RANKING, ranking);
+            appEventParameter.Add(AppEventStringConst.POINT, rankPoint);
+            appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
+            appEventParameter.Add(AppEventStringConst.RESULT, result);
+            appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.PVP));
+            appEventParameter.Add(AppEventStringConst.POWER, power);
+        
+            SendEvent("PVP_END", appEventParameter);
+        }
+        
+        // 가이드 미션 통과 (가이드 미션 완료 시 전송)
+        public void GuideMissionClear(int guideID)
+        {
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.GUIDE_MISSION_ID, guideID);
         
             SendEvent("GUIDE_MISSION_PASS", appEventParameter);
         }

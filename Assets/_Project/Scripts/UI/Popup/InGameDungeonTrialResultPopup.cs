@@ -109,6 +109,9 @@ namespace CookApps.AutoBattler
 
             _afterGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(nextDungeonTrialData.trial_type, false);
             _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData);
+            
+            // 앱이벤트 전송 
+            SendDungeonEndAppEvent();
         }
 
         private void OnClickExitButton()
@@ -163,6 +166,23 @@ namespace CookApps.AutoBattler
                     UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
                 }
             }
+        }
+        
+        // 앱이벤트 - 던전 종료
+        private void SendDungeonEndAppEvent()
+        {
+            // 앱 이벤트 처리
+            var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.TRIAL);
+            int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
+        
+            int starNum1 = _isVictory ? 1 : 0;
+            string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1);
+        
+            string result = _isVictory ? "clear" : "fail";
+            string reason = _isVictory ? "clear" : "dead";
+            
+            AppEventManager.Instance.DungeonEnd(InGameManager.Instance.SpecDungeonTrial.dungeon_type, InGameManager.Instance.SpecDungeonTrial.dungeon_id, 0, myDeck.Count, 
+                myDeckPower, 0, result, reason, clearCondition);
         }
     }
 }
