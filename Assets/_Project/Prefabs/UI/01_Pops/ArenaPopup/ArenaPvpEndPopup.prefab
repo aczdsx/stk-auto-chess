@@ -29078,6 +29078,7 @@ MonoBehaviour:
   baseAnimator: {fileID: 259945115954755132}
   _okButton: {fileID: 5820830992953344849}
   _tierImage: {fileID: 6215398437015069863}
+  _tierAfterImage: {fileID: 3751492185952206318}
   _tierSecondImage: {fileID: 3627080833815091187}
   _tierSlider: {fileID: 7139821356662394170}
   _tierNameText: {fileID: 2399465421059331000}

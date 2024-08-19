@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler
 
         [Header("Tier Info Layer")] 
         [SerializeField] private Image _tierImage;
+        [SerializeField] private Image _tierAfterImage;
         [SerializeField] private Image _tierSecondImage;
         [SerializeField] private UICircle _tierSlider;
         [SerializeField] private TextMeshProUGUI _tierNameText;
@@ -63,10 +64,10 @@ namespace CookApps.AutoBattler
             // 등급 변화 체크
             bool isTierChanage = false;
             int checkScore = _matchResultData.MyCurrentScore + _matchResultData.MyDeltaScore;
-            var checkSpecTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, checkScore);
-            if (checkSpecTierData != null && specTierData != null)
+            var afterSpecTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, checkScore);
+            if (afterSpecTierData != null && specTierData != null)
             {
-                isTierChanage = specTierData.ranking_id != checkSpecTierData.ranking_id;
+                isTierChanage = specTierData.ranking_id != afterSpecTierData.ranking_id;
             }
             
             // 애니메이션 연출 적용
@@ -83,6 +84,7 @@ namespace CookApps.AutoBattler
             
             // 일반 데이터 세팅
             _tierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
+            _tierAfterImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(afterSpecTierData.pvp_tier_type);
             _tierSecondImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
             _tierNameText.text = LanguageManager.Instance.GetPVPTierText(specTierData.pvp_tier_type);
             _tierPointText.text = _matchResultData.MyCurrentScore.ToString("n0");
