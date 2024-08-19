@@ -29,5 +29,10 @@ public static class AppEventStringConst
     public const string COMMANDER_SKILL = "COMMANDER_SKILL";
     public const string DECK = "DECK";
     
+    public const string SEASON = "SEASON";
+    public const string GRADE = "GRADE";
+    public const string POINT = "POINT";
+    public const string RANKING = "RANKING";
+    
     public const string GUIDE_MISSION_ID = "GUIDE_MISSION_ID";
 }

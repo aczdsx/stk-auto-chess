@@ -32,6 +32,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _rewardItemSlotObject;
         
         private bool _isVictory = false;
+        private bool _isRevenge = false;
         
         private UserPVPBattleDetailData _detailData;
         private MatchPvpResponse _matchResultData;
@@ -61,6 +62,9 @@ namespace CookApps.AutoBattler
             
             var specTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
 
+            var detailDeckData = InGameManager.Instance.UserPvpBattleDeckList;
+            _isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
+            
             // 등급 변화 체크
             bool isTierChanage = false;
             int checkScore = _matchResultData.MyCurrentScore + _matchResultData.MyDeltaScore;
@@ -113,6 +117,15 @@ namespace CookApps.AutoBattler
             {
                 UserDataManager.Instance.IncreaseRewardItemList(pvpRewardList, true);
             }
+            
+            // 앱 이벤트 처리
+            var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.PVP);
+            int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
+        
+            string result = _isVictory ? "win" : "lose";
+            
+            AppEventManager.Instance.PVPEnd(1, _isRevenge, specTierData.pvp_tier_type, _matchResultData.MyCurrentRank, 
+                _matchResultData.MyCurrentScore, 0, result, myDeckPower);
         }
         
         private async void OnClickCloseButton()
@@ -145,6 +158,12 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_rewardContentObject.transform);
             
             _tierLevelObjectList?.ForEach(obj => obj.SetActive(false));
+        }
+        
+        // 앱이벤트 - PVP 종료
+        private void SendPVPEndAppEvent()
+        {
+            
         }
     }
 }

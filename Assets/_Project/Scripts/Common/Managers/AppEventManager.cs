@@ -173,6 +173,25 @@ namespace CookApps.AutoBattler
             SendEvent("DUNGEON_END", appEventParameter);
         }
         
+        // PVP 종료 시 호출 (승리 또는 패배 모두 적용)
+        public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, int playTime, string result, int power)
+        {
+            string battleType = isRevenge ? "revenge" : "normal";
+            
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.SEASON, season);
+            appEventParameter.Add(AppEventStringConst.TYPE, battleType);
+            appEventParameter.Add(AppEventStringConst.GRADE, tierType.ToString());
+            appEventParameter.Add(AppEventStringConst.RANKING, ranking);
+            appEventParameter.Add(AppEventStringConst.POINT, rankPoint);
+            appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
+            appEventParameter.Add(AppEventStringConst.RESULT, result);
+            appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.PVP));
+            appEventParameter.Add(AppEventStringConst.POWER, power);
+        
+            SendEvent("PVP_END", appEventParameter);
+        }
+        
         // 가이드 미션 통과 (가이드 미션 완료 시 전송)
         public void GuideMissionClear(int guideID)
         {
