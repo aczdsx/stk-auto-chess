@@ -67,7 +67,7 @@ public class FlowStateStageReady : StateReadyBase
             var tile = InGameObjectManager.Instance.GetInGameTile(gridID);
             int2 coordinate = new int2(tile.X, tile.Y);
 
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Neutral,
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
                 typeof(CharacterStateReady), false, HpBarType.None));
         }
 

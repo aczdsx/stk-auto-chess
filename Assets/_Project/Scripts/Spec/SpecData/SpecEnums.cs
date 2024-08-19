@@ -568,4 +568,11 @@ namespace CookApps.AutoBattler
         AP_USE = 6,
         SUMMON = 7,
     }
+
+    public enum ItemCategoryType
+    {
+        CURRENCY = 1,
+        CHARACTER = 2,
+        ETC = 3,
+    }
 }

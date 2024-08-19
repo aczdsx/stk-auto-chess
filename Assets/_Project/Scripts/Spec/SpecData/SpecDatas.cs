@@ -705,6 +705,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 아이템 타입 이름
         public global::CookApps.AutoBattler.ItemType item_type;
+        /// 아이템 분류
+        public global::CookApps.AutoBattler.ItemCategoryType item_category_type;
         /// 보상 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 보상 이름 토큰
