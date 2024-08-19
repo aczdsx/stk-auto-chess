@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using System;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
@@ -63,8 +64,24 @@ namespace CookApps.AutoBattler
         private void OnClickExitButton()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer(this);
-            InGameMainFlowManager.Instance.AddNextState(_failType);
+
+            // 전투 준비 중일 경우 분기 처리
+            if (InGameMainFlowManager.Instance.CurrentFlowState is StateReadyBase)
+            {
+                InGameManager.Instance.EndInGame();
+                
+                int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+                var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+
+                var transition = SceneTransition_FadeInOut.Create();
+                SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
+            }
+            else
+            {
+                InGameMainFlowManager.Instance.AddNextState(_failType);
+            }
         }
     }
 }
