@@ -105,7 +105,7 @@ public class TargetLineRenderer : MonoBehaviour
         {
             if (targetCharacter != null)
             {
-                _arrowFx.gameObject.SetActive(false);
+                // _arrowFx.gameObject.SetActive(false);
                 // _ownFx.gameObject.SetActive(true);
                 // _ownFx.transform.position = targetPos;
                 // _ownFx.Play();
@@ -115,7 +115,7 @@ public class TargetLineRenderer : MonoBehaviour
         {
             if (targetCharacter != null)
             {
-                _arrowFx.gameObject.SetActive(false);
+                // _arrowFx.gameObject.SetActive(false);
                 // _otherFx.gameObject.SetActive(true);
                 // _otherFx.transform.position = targetPos;
                 // _otherFx.Play();
