@@ -30767,6 +30767,7 @@ MonoBehaviour:
   _hpValueText: {fileID: 8531214056250195429}
   _apDefText: {fileID: 1240461993025769676}
   _adDefText: {fileID: 507397342094708883}
+  _pieceLayerObject: {fileID: 8780456361221956500}
   _pieceIconImage: {fileID: 5171209563572631313}
   _pieceAmountText: {fileID: 226682705828106483}
   _pieceSlider: {fileID: 4701482468506332315}
@@ -30791,6 +30792,7 @@ MonoBehaviour:
   - {fileID: 6101121587673692813}
   - {fileID: 5523329027734130464}
   - {fileID: 5645103984099166335}
+  _transcendenceLayerObject: {fileID: 8591088892580374325}
   _activeTranscendenceButton: {fileID: 2900139848915768678}
   _inactiveTranscendenceButton: {fileID: 1778168970378381546}
   _transcendenceItemCurrencyUIItem: {fileID: 5269287235358008954}

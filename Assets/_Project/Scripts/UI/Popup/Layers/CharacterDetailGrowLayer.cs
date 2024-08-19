@@ -24,6 +24,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _adDefText;
 
         [Header("Piece Layer")]
+        [SerializeField] private GameObject _pieceLayerObject;
         [SerializeField] private Image _pieceIconImage;
         [SerializeField] private TextMeshProUGUI _pieceAmountText;
         [SerializeField] private Slider _pieceSlider;
@@ -44,6 +45,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<ParticleSystem> _levelupEffectObjectList_2;
 
         [Header("Transcendence Layer")]
+        [SerializeField] private GameObject _transcendenceLayerObject;
         [SerializeField] private CAButton _activeTranscendenceButton;
         [SerializeField] private CAButton _inactiveTranscendenceButton;
 
@@ -151,6 +153,10 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
+            _pieceLayerObject.SetActive(_isHaveCharacter);
+            
+            if (_isHaveCharacter == false) return;
+
             _pieceIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
             _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterData.need_piece}";
 
@@ -191,6 +197,10 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
+            _transcendenceLayerObject.SetActive(_isHaveCharacter);
+            
+            if (_isHaveCharacter == false) return;
+            
             // 초월 가능 여부 체크
             var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.element_type, _specCharacterData.grade_type);
             _maxTranscendenceLevel = transcendenceDataList.Max(data => data.transcendence_lv);
