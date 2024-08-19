@@ -692,6 +692,11 @@ namespace CookApps.AutoBattler
         {
             return SpecCommanderSkillList.Find(data => data.commander_skill_id == commanderSkillID && data.skill_value_type == type);
         }
+        
+        public SpecItem GetSpecItemData(ItemType itemType)
+        {
+            return SpecItemList.Find(data => data.item_type == itemType);
+        }
 
         public SpecCharacter GetSpecCharacter(int characterID)
         {

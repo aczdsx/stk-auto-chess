@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +11,8 @@ namespace CookApps.AutoBattler
 {
     public class RewardItemSlot : CachedMonoBehaviour
     {
+        [SerializeField] private CAButton _rewardSlotButton;
+        
         [Header("Reward - Item")]
         [SerializeField] private GameObject _rewardItemLayerObject;
         [SerializeField] private Image _rewardItemImage;
@@ -27,6 +31,20 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _rewardCharacterNameText;
         [SerializeField] private SynergyUI _rewardElementSynergyUI;
         [SerializeField] private SynergyUI _rewardClassSynergyUI;
+
+        private SpecItem _specItemData;
+        
+        private void Awake()
+        {
+            _rewardSlotButton.onClick.AddListener(OnClickRewardSlotButton);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            
+            _rewardSlotButton.onClick.RemoveListener(OnClickRewardSlotButton);
+        }
 
         public void SetRewardSlot(RewardItem reward)
         {
@@ -51,6 +69,8 @@ namespace CookApps.AutoBattler
 
             ClearSlot();
 
+            _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardItem.Type);
+            
             _rewardItemImage.sprite = ImageManager.Instance.GetItemSprite(rewardItem.Type);
             _rewardItemCountText.text = $"x{rewardItem.Count}";
 
@@ -64,6 +84,8 @@ namespace CookApps.AutoBattler
             if (rewardPiece == null) return;
 
             ClearSlot();
+            
+            _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Type);
 
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardPiece.Key);
             if (specCharacterData == null) return;
@@ -85,6 +107,8 @@ namespace CookApps.AutoBattler
             if (rewardCharacter == null) return;
 
             ClearSlot();
+            
+            _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardCharacter.Type);
 
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardCharacter.Key);
             if (specCharacterData == null) return;
@@ -103,6 +127,13 @@ namespace CookApps.AutoBattler
             _checkObj.SetActive(isActive);
         }
 
+        private void OnClickRewardSlotButton()
+        {
+            if (_specItemData == null) return;
+            
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemTooltipPopup>(_specItemData);
+        }
+        
         private void ClearSlot()
         {
             _rewardItemLayerObject.SetActive(false);
