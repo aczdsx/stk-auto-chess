@@ -62,6 +62,8 @@ public class TargetLineRenderer : MonoBehaviour
     
         Vector3 startPos = startCharacter.Position3D;
         Vector3 targetPos = targetCharacter.Position3D;
+        startPos.y += 0.5f;
+        targetPos.y += 0.5f;
         List<Vector3> result = new List<Vector3>();
         for (int i = 0; i < _positionCount; i++)
         {
