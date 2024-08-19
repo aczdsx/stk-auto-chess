@@ -4,6 +4,7 @@ public static class AppEventStringConst
 {
     public const string USER_ID = "USER_ID";
     public const string PLAYER_ID = "PLAYER_ID";
+    public const string NICKNAME = "NICKNAME";
     public const string SERVER = "SERVER";
     public const string TOTAL_PLAY_TIME = "TOTAL_PLAY_TIME";
     public const string DAILY_VISIT_COUNT = "DAILY_VISIT_COUNT";

@@ -170,6 +170,9 @@ namespace CookApps.AutoBattler
                 // 세션 타임 기록 unitask 실행
                 await RecordSessionTime();
                 
+                // 앱이벤트 전송
+                AppEventManager.Instance.Login();
+                
                 // int lastChapter = 1;
                 // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
             }

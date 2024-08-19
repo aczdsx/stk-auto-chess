@@ -133,6 +133,15 @@ namespace CookApps.AutoBattler
 
             return appEventParameter;
         }
+        
+        // 로그인 시 호출
+        public void Login()
+        {
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.NICKNAME, UserDataManager.Instance.UserBasicData.Nickname);
+            
+            SendEvent("LOGIN", appEventParameter);
+        }
 
         // 스테이지 종료 시 호출 (클리어 또는 패배 모두 적용)
         public void StageEnd(int stageID, int playTime, int squadCount, int power, int enemy_power, string result,
