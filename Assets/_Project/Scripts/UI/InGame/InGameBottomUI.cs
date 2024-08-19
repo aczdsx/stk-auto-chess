@@ -35,6 +35,9 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected ParticleSystem _commanderFx;
     [SerializeField] protected GameObject _characterTipObj;
     
+    [SerializeField] protected GameObject _speedUpObjOn;
+    [SerializeField] protected GameObject _speedUpObjOff;
+    
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     protected bool _isOpenCommanderSkill;
     protected SpecUserGrade _specUserGrade;
@@ -85,6 +88,9 @@ public class InGameBottomUI : MonoBehaviour
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         Preference.SavePreference(Pref.IS_SPEED_UP, !isSpeedUp);
         InGameMainFlowManager.Instance.SetInGameSpeed(!isSpeedUp);
+        
+        _speedUpObjOn.SetActive(!isSpeedUp);
+        _speedUpObjOff.SetActive(isSpeedUp);
     }
     
     protected async void RecommendAction()
@@ -167,10 +173,6 @@ public class InGameBottomUI : MonoBehaviour
         UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
-        
-        //[TODO] 차후에 UI도 처리 필요
-        bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
-        InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
     }
 
     public void CheckNewCharacter()
@@ -263,6 +265,15 @@ public class InGameBottomUI : MonoBehaviour
                 _commanderSkillUIList[i].SetData(skillData);
             }
         }
+    }
+
+    public void InitSpeedUpSetting()
+    {
+        bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
+        InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
+        
+        _speedUpObjOn.SetActive(isSpeedUp);
+        _speedUpObjOff.SetActive(!isSpeedUp);
     }
 
     public void UpdateData()
