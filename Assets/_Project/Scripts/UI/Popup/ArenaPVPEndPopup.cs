@@ -6,7 +6,6 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 
@@ -59,8 +58,6 @@ namespace CookApps.AutoBattler
             
             (_isVictory, _detailData, _matchResultData) = ((bool, UserPVPBattleDetailData, MatchPvpResponse))param;
             
-            
-
             var specTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
 
             // 등급 변화 체크
@@ -98,14 +95,21 @@ namespace CookApps.AutoBattler
                 _tierLevelObjectList[i].SetActive(true);
             }
             
-            // 시즌 보상 리스트
-            var seasonRewardList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_SEASON, specTierData.ranking_id);
-            foreach (var rewardData in seasonRewardList)
+            // 보상 데이터 세팅
+            PvpRewardType targetRewardType = _isVictory ? PvpRewardType.PVP_REWARD_VICTORY : PvpRewardType.PVP_REWARD_LOSE;
+            var pvpRewardList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(targetRewardType, specTierData.ranking_id);
+            foreach (var rewardData in pvpRewardList)
             {
                 GameObject newObject = Instantiate(_rewardItemSlotObject, _rewardContentObject.transform);
                 var rewardSlot = newObject.GetComponent<RewardItemSlot>();
                 
                 rewardSlot.SetRewardSlot(rewardData);
+            }
+            
+            // 보상 지급 처리
+            if (pvpRewardList != null && pvpRewardList.Count > 0)
+            {
+                UserDataManager.Instance.IncreaseRewardItemList(pvpRewardList, true);
             }
         }
         
