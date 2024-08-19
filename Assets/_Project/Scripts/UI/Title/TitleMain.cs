@@ -315,6 +315,9 @@ namespace CookApps.AutoBattler
                 await UniTask.Delay(1000 * 60);
 
                 UserDataManager.Instance.SetUserEventActionCount(specEventData.event_id, 1, true, true);
+
+                // 앱이벤트용 플레이 타임 데이터 기록
+                UserDataManager.Instance.SetUserTotalPlayTime(1, true);
             }
         }
     }

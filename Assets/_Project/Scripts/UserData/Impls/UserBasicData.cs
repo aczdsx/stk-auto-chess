@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
                     UserIconId = 40101,
                     LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp(),
                     MaxSquadCount = SpecDataManager.Instance.GetGameConfig<int>("default_max_squad_count"),
+                    UserInstallDate = TimeManager.Instance.UtcNowTimeStamp(),
 
                     TotalGachaCount = 0,
                 };
@@ -71,6 +72,16 @@ namespace CookApps.AutoBattler
         public bool IsHaveLoginData()
         {
             return UserBasicData.Uid > 0 && UserBasicData.ServerId > 0 && !string.IsNullOrWhiteSpace(UserBasicData.PlayerId);
+        }
+        
+        public void SetUserTotalPlayTime(int minute, bool needSave)
+        {
+            UserBasicData.TotalPlayTime += minute;
+
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
         }
         
         public void RefreshLastLoginTimestamp(bool needSave)

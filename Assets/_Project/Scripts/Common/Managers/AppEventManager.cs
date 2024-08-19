@@ -50,12 +50,13 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
             appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, UserDataManager.Instance.UserBasicData.DailyVisitCount);
             appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, UserDataManager.Instance.UserBasicData.SinceJoinDate);
-            appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, UserDataManager.Instance.UserBasicData.UserInstallDate);
-            appEventParameter.Add(AppEventStringConst.BEST_STAGE, UserDataManager.Instance.UserBasicData.PlayerId); // [TODO] BEST_STAGE
+            appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, TimeManager.Instance.TimeStampToDateTime(UserDataManager.Instance.UserBasicData.UserInstallDate));
+            appEventParameter.Add(AppEventStringConst.BEST_STAGE, UserDataManager.Instance.GetLatestClearUserStageID());
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, UserDataManager.Instance.GetCurrentGuideMissionData().MissionId);
+            appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, UserDataManager.Instance.UserBasicData.Level);
             appEventParameter.Add(AppEventStringConst.USER_GRADE, UserDataManager.Instance.UserBasicData.MaxSquadCount);
-            appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, UserDataManager.Instance.UserBasicData.PlayerId); // [TODO] USER_STAR_AMOUNT
+            appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, UserDataManager.Instance.GetAllTotalChapterStarCount());
             appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, UserDataManager.Instance.UserWallet.Ap);
 
             // yyyyMMddHHmm 에서 뒤에 4자리를 잘라서 yyyyMMdd 바꾸는 부분
@@ -104,5 +105,14 @@ namespace CookApps.AutoBattler
         //
         //     SendEvent(AppEventStringConst.STAGE_CLEAR, appEventParameter);
         // }
+        
+        // 가이드 미션 통과 (가이드 미션 완료 시 전송)
+        public void GuideMissionClear(int guide_id)
+        {
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.GUIDE_MISSION_ID, guide_id);
+        
+            SendEvent("GUIDE_MISSION_PASS", appEventParameter);
+        }
     }
 }

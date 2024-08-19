@@ -55,6 +55,26 @@ namespace CookApps.AutoBattler
             return userCharacterGroup.UserCharacters.Keys.ToArray();
         }
 
+        // 현재 보유중인 모든 캐릭터의 전투력을 반환
+        public int GetAllCharacterBattlePower()
+        {
+            double battlePower = 0;
+
+            foreach (var deckCharacter in GetAllUserCharacterList())
+            {
+                var userCharacterData = GetUserCharacter(deckCharacter.CharacterId);
+                if (userCharacterData != null)
+                {
+                    var characterStat = new CharacterStatData(userCharacterData.CharacterId, userCharacterData.Level,
+                        GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+                    
+                    battlePower += characterStat.GetAttrValue();
+                }
+            }
+
+            return (int)battlePower;
+        }
+        
         // 해당 전투 덱의 전투력을 계산 (일반)
         public int GetDeckBattlePower(UserCharacterBattleDeckList targetDeckList)
         {
