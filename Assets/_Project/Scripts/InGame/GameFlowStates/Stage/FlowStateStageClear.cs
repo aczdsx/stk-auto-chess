@@ -13,10 +13,10 @@ public class FlowStateStageClear : StateBase
     {
         var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameManager.Instance.EndInGame();
-        bool start2 = InGameMain.GetInGameMain().InGameTime >= 30;
-        bool start3 = InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive();
+        bool star2 = InGameMain.GetInGameMain().InGameTime >= 30;
+        bool star3 = InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive();
 
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, start2, start3, _mvpCharacterData));
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star2, star3, _mvpCharacterData));
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
