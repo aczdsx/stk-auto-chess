@@ -50,6 +50,10 @@ namespace CookApps.AutoBattler
             return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
         }
 
+        protected override void OnBackButton(ref bool offPrevUI)
+        {
+        }
+        
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
