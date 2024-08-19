@@ -38,6 +38,9 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected GameObject _speedUpObjOn;
     [SerializeField] protected GameObject _speedUpObjOff;
     
+    [SerializeField] protected GameObject _recommendObjOn;
+    [SerializeField] protected GameObject _recommendObjOff;
+    
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     protected bool _isOpenCommanderSkill;
     protected SpecUserGrade _specUserGrade;
@@ -96,8 +99,11 @@ public class InGameBottomUI : MonoBehaviour
     
     private async void RecommendAction()
     {
-        if (_isRunningRecommend == false)
+        if (_isRunningRecommend == false && _recommendObjOn.activeSelf)
         {
+            _recommendObjOff.SetActive(true);
+            _recommendObjOn.SetActive(false);
+            
             _isRunningRecommend = true;
             var charactersOnField = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).ToList();
             InGameObjectManager.Instance.ClearSynergyFx();
@@ -170,6 +176,7 @@ public class InGameBottomUI : MonoBehaviour
     public void ChangeStatisticsButtonActiveState(bool isOn)
     {
         _statisticButton.gameObject.SetActive(isOn);
+        _speedUpButton.gameObject.SetActive(isOn);
     }
 
     public void InitReadyStateUI(Type combatType, List<UserCharacterBattleDeck> battleDeckList)
@@ -435,6 +442,11 @@ public class InGameBottomUI : MonoBehaviour
 
         string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
+
+        bool isAvailableRecommend = maximumCount != characterCount;
+        
+        _recommendObjOff.SetActive(!isAvailableRecommend);
+        _recommendObjOn.SetActive(isAvailableRecommend);
     }
 
     public void SetFocusCharacterUI(SpecCharacter spec)

@@ -37591,8 +37591,10 @@ MonoBehaviour:
   _characterCountText: {fileID: 9123894062618672810}
   _commanderFx: {fileID: 2162868930111231704}
   _characterTipObj: {fileID: 0}
-  _speedUpObjOn: {fileID: 0}
-  _speedUpObjOff: {fileID: 0}
+  _speedUpObjOn: {fileID: 1045704469992180812}
+  _speedUpObjOff: {fileID: 7172889056316767470}
+  _recommendObjOn: {fileID: 6376048791476543334}
+  _recommendObjOff: {fileID: 4191846529727544151}
 --- !u!1 &3811274703280264828
 GameObject:
   m_ObjectHideFlags: 0
