@@ -17,6 +17,7 @@ public static class AppEventStringConst
     public const string USER_STAR_AMOUNT = "USER_STAR_AMOUNT";
     public const string USER_ENERGY_AMOUNT = "USER_ENERGY_AMOUNT";
     
+    public const string TYPE = "TYPE";
     public const string STAGE_ID = "STAGE_ID";
     public const string PLAY_TIME = "PLAY_TIME";
     public const string SQUAD_COUNT = "SQUAD_COUNT";

@@ -153,6 +153,26 @@ namespace CookApps.AutoBattler
             SendEvent("STAGE_END", appEventParameter);
         }
         
+        // 던전 종료 시 호출 (클리어 또는 패배 모두 적용)
+        public void DungeonEnd(DungeonType dungeonType, int dungeonID, int playTime, int squadCount, int power, int enemy_power, string result,
+            string reason, string clearCondition)
+        {
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.TYPE, dungeonType.ToString());
+            appEventParameter.Add(AppEventStringConst.STAGE_ID, dungeonID);
+            appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
+            appEventParameter.Add(AppEventStringConst.SQUAD_COUNT, squadCount);
+            appEventParameter.Add(AppEventStringConst.POWER, power);
+            appEventParameter.Add(AppEventStringConst.ENEMY_POWER, enemy_power);
+            appEventParameter.Add(AppEventStringConst.RESULT, result);
+            appEventParameter.Add(AppEventStringConst.REASON, reason);
+            appEventParameter.Add(AppEventStringConst.CLEAR_CONDITION, clearCondition);
+            appEventParameter.Add(AppEventStringConst.COMMANDER_SKILL, GetAppEventEquipCommandSkillList());
+            appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.TRIAL));
+        
+            SendEvent("DUNGEON_END", appEventParameter);
+        }
+        
         // 가이드 미션 통과 (가이드 미션 완료 시 전송)
         public void GuideMissionClear(int guideID)
         {

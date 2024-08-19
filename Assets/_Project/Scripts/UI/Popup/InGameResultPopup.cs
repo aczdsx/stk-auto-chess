@@ -330,6 +330,7 @@ namespace CookApps.AutoBattler
             }
         }
 
+        // 앱이벤트 - 스테이지 종료
         private void SendStageEndAppEvent()
         {
             // 앱 이벤트 처리
@@ -341,8 +342,11 @@ namespace CookApps.AutoBattler
             int starNum3 = _star >= 3 ? 1 : 0;
             string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1, starNum2, starNum3);
         
+            string result = _isVictory ? "clear" : "fail";
+            string reason = _isVictory ? "clear" : "dead";
+            
             AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.stage_id, 0, myDeck.Count, 
-                myDeckPower, 0, "clear", "clear", clearCondition);
+                myDeckPower, 0, result, reason, clearCondition);
         }
     }
 }
