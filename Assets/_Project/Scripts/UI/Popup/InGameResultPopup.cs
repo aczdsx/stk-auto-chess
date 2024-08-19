@@ -179,6 +179,9 @@ namespace CookApps.AutoBattler
 
             string buttonStringKey = _isPlayingLastStage ? "UI_CHAPTER_NEXT_MOVE" : "UI_STAGE_NEXT_MOVE";
             _nextStageButtonText.text = LanguageManager.Instance.GetLanguageText(buttonStringKey);
+            
+            // 앱이벤트 전송
+            SendStageEndAppEvent();
         }
 
         private void OnExitButtonClicked()
@@ -325,6 +328,21 @@ namespace CookApps.AutoBattler
                 // 가이드 미션 체크
                 GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,currentStageID, 1);
             }
+        }
+
+        private void SendStageEndAppEvent()
+        {
+            // 앱 이벤트 처리
+            var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
+            int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
+        
+            int starNum1 = _isVictory ? 1 : 0;
+            int starNum2 = _star >= 2 ? 1 : 0;
+            int starNum3 = _star >= 3 ? 1 : 0;
+            string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1, starNum2, starNum3);
+        
+            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.stage_id, 0, myDeck.Count, 
+                myDeckPower, 0, "clear", "clear", clearCondition);
         }
     }
 }

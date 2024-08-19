@@ -120,6 +120,10 @@ namespace CookApps.AutoBattler
             _userAccountLayerButton.onClick.RemoveListener(OnClickUserAccountLayerButton);
         }
 
+        protected override void OnBackButton(ref bool offPrevUI)
+        {
+        }
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);

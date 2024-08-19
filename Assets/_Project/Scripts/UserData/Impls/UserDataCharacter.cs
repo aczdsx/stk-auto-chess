@@ -76,11 +76,11 @@ namespace CookApps.AutoBattler
         }
         
         // 해당 전투 덱의 전투력을 계산 (일반)
-        public int GetDeckBattlePower(UserCharacterBattleDeckList targetDeckList)
+        public int GetDeckBattlePower(List<UserCharacterBattleDeck> targetDeckList)
         {
             double battlePower = 0;
 
-            foreach (var deckCharacter in targetDeckList.UserCharacterBattleDecks)
+            foreach (var deckCharacter in targetDeckList)
             {
                 var userCharacterData = GetUserCharacter(deckCharacter.CharacterId);
                 if (userCharacterData != null)
