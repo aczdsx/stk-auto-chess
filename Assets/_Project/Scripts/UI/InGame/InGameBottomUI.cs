@@ -45,6 +45,7 @@ public class InGameBottomUI : MonoBehaviour
     
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
+    private bool _isRunningRecommend;
     private bool _isStartRunningProcess = false;
 
     protected void Awake()
@@ -93,35 +94,41 @@ public class InGameBottomUI : MonoBehaviour
         _speedUpObjOff.SetActive(isSpeedUp);
     }
     
-    protected async void RecommendAction()
+    private async void RecommendAction()
     {
-        var charactersOnField = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).ToList();
-        InGameObjectManager.Instance.ClearSynergyFx();
-        foreach (var character in charactersOnField)
+        if (_isRunningRecommend == false)
         {
-            character.CurrentTile.SetUnoccupied();
-            InGameObjectManager.Instance.RemoveCharacterFromField(character);
-            InGameMain.GetInGameMain().ReturnCharacterUI(character);
-        }
-        _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
+            _isRunningRecommend = true;
+            var charactersOnField = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).ToList();
+            InGameObjectManager.Instance.ClearSynergyFx();
+            foreach (var character in charactersOnField)
+            {
+                character.CurrentTile.SetUnoccupied();
+                InGameObjectManager.Instance.RemoveCharacterFromField(character);
+                InGameMain.GetInGameMain().ReturnCharacterUI(character);
+            }
+            _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
     
-        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount); 
-        int maximumCharacterCount = userGrade.maximum_character_count;
+            var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount); 
+            int maximumCharacterCount = userGrade.maximum_character_count;
 
-        int addCharacterCount = _characterItemList.Count >= maximumCharacterCount ? maximumCharacterCount : _characterItemList.Count;
-        List<InGameCharacterItem> selectedCharacterItemList = _characterItemList.GetRange(0, addCharacterCount);
-        List<CharacterStatData> statDataList = selectedCharacterItemList.Select(item => item.StatData).ToList();
+            int addCharacterCount = _characterItemList.Count >= maximumCharacterCount ? maximumCharacterCount : _characterItemList.Count;
+            List<InGameCharacterItem> selectedCharacterItemList = _characterItemList.GetRange(0, addCharacterCount);
+            List<CharacterStatData> statDataList = selectedCharacterItemList.Select(item => item.StatData).ToList();
         
-        foreach (var statData in statDataList)
-        {
-            _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+            foreach (var statData in statDataList)
+            {
+                _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+            }
+            UpdateData();
+        
+            await AddCharacterToTile(statDataList);
+
+            InGameManager.Instance.UpdateSynergyAndAttr();
+            SetCharacterCountText();
+
+            _isRunningRecommend = false;
         }
-        UpdateData();
-        
-        await AddCharacterToTile(statDataList);
-
-        InGameManager.Instance.UpdateSynergyAndAttr();
-        SetCharacterCountText();
     }
 
 
