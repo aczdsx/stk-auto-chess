@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 15138814
+    rgba: 4293328894
   m_fontColor: {r: 0.9943291, g: 1, b: 0.9009434, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 2
@@ -30975,10 +30975,10 @@ MonoBehaviour:
   m_Gloss: 1
   m_EffectArea: 0
   m_Player:
-    play: 0
+    play: 1
     initialPlayDelay: 0
     duration: 1
-    loop: 0
+    loop: 1
     loopDelay: 0
     updateMode: 0
 --- !u!114 &5665417576890137602
@@ -89077,7 +89077,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 2
@@ -90507,7 +90507,7 @@ RectTransform:
   m_Father: {fileID: 3844381500791617857}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -1, y: 0}
   m_SizeDelta: {x: -2, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -91009,7 +91009,7 @@ RectTransform:
   m_Father: {fileID: 3545949531453781265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.25}
   m_SizeDelta: {x: -6, y: -4.5}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -96233,7 +96233,7 @@ RectTransform:
   m_Father: {fileID: 6925748278858500457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 1, y: 0}
   m_SizeDelta: {x: -2, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -102653,7 +102653,7 @@ RectTransform:
   m_Father: {fileID: 9197956153592287743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.25}
   m_SizeDelta: {x: -6, y: -4.5}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -120771,7 +120771,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16773109
+    rgba: 4294963189
   m_fontColor: {r: 0.9616745, g: 0.9386792, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 2
