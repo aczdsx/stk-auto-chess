@@ -56,6 +56,7 @@ namespace CookApps.AutoBattler
             _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(_specItemData.item_type);
             _itemNameText.text = LanguageManager.Instance.GetLanguageText(_specItemData.name_token);
             _itemDescText.text = LanguageManager.Instance.GetLanguageText(_specItemData.desc_token);
+            _itemCategoryText.text = LanguageManager.Instance.GetItemCategoryText(_specItemData.item_category_type);
         }
         
         private void OnClickCloseButton()

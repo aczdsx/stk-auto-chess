@@ -378,14 +378,14 @@ namespace CookApps.AutoBattler
             }
 
             // 재료 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterTranscendenceData.item_type, 0, _specCharacterTranscendenceData.char_transcendence_count, true))
+            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count, true))
             {
                 return;
             }
 
             // 재료 아이템 소진
             List<RewardItem> recipeItemList = new List<RewardItem>();
-            recipeItemList.Add(new RewardItem(_specCharacterTranscendenceData.item_type, 0, _specCharacterTranscendenceData.char_transcendence_count));
+            recipeItemList.Add(new RewardItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count));
 
             UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
 

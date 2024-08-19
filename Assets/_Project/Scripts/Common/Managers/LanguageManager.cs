@@ -54,6 +54,21 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public string GetItemCategoryText(ItemCategoryType type)
+        {
+            switch (type)
+            {
+                case ItemCategoryType.CURRENCY:
+                    return GetLanguageText("UI_ITEM_CATEGORY_NAME_1");
+                case ItemCategoryType.CHARACTER:
+                    return GetLanguageText("UI_ITEM_CATEGORY_NAME_2");
+                case ItemCategoryType.ETC:
+                    return GetLanguageText("UI_ITEM_CATEGORY_NAME_3");
+                default:
+                    return string.Empty;
+            }
+        }
+        
         public string GetGradeText(GradeType type)
         {
             switch (type)
