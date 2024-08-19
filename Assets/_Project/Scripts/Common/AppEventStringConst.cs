@@ -11,6 +11,7 @@ public static class AppEventStringConst
     public const string USER_INSTALL_DATE = "USER_INSTALL_DATE";
     public const string BEST_STAGE = "BEST_STAGE";
     public const string BEST_MISSION = "BEST_MISSION";
+    public const string USER_POWER = "USER_POWER";
     public const string USER_LEVEL = "USER_LEVEL";
     public const string USER_GRADE = "USER_GRADE";
     public const string USER_STAR_AMOUNT = "USER_STAR_AMOUNT";
