@@ -84,7 +84,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4510342778308168594}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3412710765033546133}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.BattleStatisticsPopup, Assembly-CSharp
+        m_MethodName: OnClickTabToggleButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
@@ -361,6 +373,7 @@ MonoBehaviour:
   _dimImg: {fileID: 5547279661320057692}
   _popup: {fileID: 8862883998844050001}
   _canvasGroup: {fileID: 2255819810445555778}
+  _buttonAnimation: {fileID: 8150901455772205394}
 --- !u!1 &1679105477644016752
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +856,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4709343251961911032}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3412710765033546133}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.BattleStatisticsPopup, Assembly-CSharp
+        m_MethodName: OnClickTabToggleButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
@@ -2859,7 +2884,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7706274707311934154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3412710765033546133}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.BattleStatisticsPopup, Assembly-CSharp
+        m_MethodName: OnClickTabToggleButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0

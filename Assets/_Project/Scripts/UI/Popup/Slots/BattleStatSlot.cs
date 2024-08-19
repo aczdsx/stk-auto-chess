@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
     public class BattleStatSlot : CachedMonoBehaviour
     {
         public int CharacterID => _currentCharacterID;
-        public double AttackDamageAmount => _attackDamageAmount;
+        public double BattleValue => _battleValue;
         [Header("Base Info")]
         [SerializeField] private Image _characterIconImage;
         [SerializeField] private TextMeshProUGUI _damageAmountText;
@@ -26,8 +26,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private UIEffect _characterIconEffect;
 
         private int _currentCharacterID;
+        private int _currentCharacterUID;
         private SpecCharacter _specCharacterData;
-        private double _attackDamageAmount;
+        private double _battleValue;
 
         public void SetDeadCharacter()
         {
@@ -36,9 +37,10 @@ namespace CookApps.AutoBattler
             _characterIconImage.color = new Color(grayColor, grayColor, grayColor, 1);
         }
 
-        public void SetBattleStatSlot(int targetCharacterID)
+        public void SetBattleStatSlot(int targetCharacterID, int targetCharacterUID)
         {
             _currentCharacterID = targetCharacterID;
+            _currentCharacterUID = targetCharacterUID;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(_currentCharacterID);
 
@@ -49,32 +51,47 @@ namespace CookApps.AutoBattler
                 SetDeadCharacter();
         }
 
-        public async UniTask RefreshBattleStatSlotSmooth(float duration)
+        public async UniTask RefreshBattleStatSlotSmooth(BattleStatisticsTabType tabType, float duration)
         {
             if (InGameStatistics.Instance == null) return;
 
-            var totalDamageAmount = InGameStatistics.Instance.GetTotalAttackDamageAmount();
-            var targetAttackDamageAmount = InGameStatistics.Instance.GetAttackDamageAmount(_currentCharacterID);
+            double totalValue = 0;
+            double value = 0;
+            switch (tabType)
+            {
+                case BattleStatisticsTabType.GIVENDAMAGE:
+                    totalValue = InGameStatistics.Instance.GetTotalAmount(ActionType.Damaged, true);
+                    value = InGameStatistics.Instance.GetAttackDamageAmount(_currentCharacterUID);
+                    break;
+                case BattleStatisticsTabType.TAKENDAMAGED:
+                    totalValue = InGameStatistics.Instance.GetTotalAmount(ActionType.Damaged, false);
+                    value = InGameStatistics.Instance.GetTakenDamageAmount(_currentCharacterUID);
+                    break;
+                case BattleStatisticsTabType.HEAL:
+                    totalValue = InGameStatistics.Instance.GetTotalAmount(ActionType.Healed, true);
+                    value = InGameStatistics.Instance.GetGivenHealAmount(_currentCharacterUID);
+                    break;
+            }
 
             float startTime = Time.time;
-            float startAttackDamageAmount = (float)_attackDamageAmount;
+            float startAttackDamageAmount = (float)_battleValue;
 
             while (Time.time < startTime + duration)
             {
                 float t = (Time.time - startTime) / duration;
-                _attackDamageAmount = Mathf.Lerp(startAttackDamageAmount, (float)targetAttackDamageAmount, t);
+                _battleValue = Mathf.Lerp(startAttackDamageAmount, (float)value, t);
 
-                _damageAmountSlider.maxValue = (int)totalDamageAmount;
-                _damageAmountSlider.value = (int)_attackDamageAmount;
+                _damageAmountSlider.maxValue = (int)totalValue;
+                _damageAmountSlider.value = (int)_battleValue;
 
-                _damageAmountText.text = _attackDamageAmount.ToString("N0");
+                _damageAmountText.text = _battleValue.ToString("N0");
 
                 await UniTask.Yield();
             }
 
-            _attackDamageAmount = targetAttackDamageAmount;
-            _damageAmountSlider.value = (int)_attackDamageAmount;
-            _damageAmountText.text = _attackDamageAmount.ToString("N0");
+            _battleValue = value;
+            _damageAmountSlider.value = (int)_battleValue;
+            _damageAmountText.text = _battleValue.ToString("N0");
         }
 
         private void ClearSlot()

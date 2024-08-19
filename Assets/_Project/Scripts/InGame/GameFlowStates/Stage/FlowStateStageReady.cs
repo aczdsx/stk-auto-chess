@@ -101,7 +101,7 @@ public class FlowStateStageReady : StateReadyBase
         await UniTask.WhenAll(addCharacterTasks);
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
         
-        StartDrawingLinesAsync(4.0f).Forget();
+        StartDrawingLinesAsync(2.0f).Forget();
     }
     
     private async UniTaskVoid StartDrawingLinesAsync(float intervalITime)

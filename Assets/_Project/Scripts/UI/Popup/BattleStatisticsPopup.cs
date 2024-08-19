@@ -10,8 +10,14 @@ using DG.Tweening;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Modal, "Prefabs/UI/InGame/BattleStatisticsPopup.prefab")]
+    public enum BattleStatisticsTabType
+    {
+        GIVENDAMAGE,
+        TAKENDAMAGED,
+        HEAL,
+    }
 
+    [RegisterUILayer(UILayerType.Modal, "Prefabs/UI/InGame/BattleStatisticsPopup.prefab")]
     public class BattleStatisticsPopup : UILayer
     {
         private const int STATISTICS_UPDATE_TIME = 500; // 밀리 세컨즈
@@ -22,6 +28,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _dimImg;
         [SerializeField] private GameObject _popup;
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private Animator _buttonAnimation;
         /*
         [Space(10)]
         [Header("Exit Button")]
@@ -36,6 +43,8 @@ namespace CookApps.AutoBattler
         private List<BattleStatSlot> _battleStatSlotList = new List<BattleStatSlot>();
 
         private InGameBottomUI _parentUI;
+        
+        private BattleStatisticsTabType _currentTabType = BattleStatisticsTabType.GIVENDAMAGE;
 
         protected override void Awake()
         {
@@ -60,10 +69,9 @@ namespace CookApps.AutoBattler
 
             _parentUI = param as InGameBottomUI;
 
+            _currentTabType = BattleStatisticsTabType.GIVENDAMAGE;
             SetBattleStatisticsPopup();
-
             PlayPopupOpenAnimation();
-
             _parentUI?.ChangeStatisticsButtonActiveState(false);
         }
 
@@ -76,6 +84,28 @@ namespace CookApps.AutoBattler
             PlayPopupCloseAnimation();
 
             _parentUI?.ChangeStatisticsButtonActiveState(true);
+        }
+        
+        public void OnClickTabToggleButton(int tabIndex)
+        {
+            _currentTabType = (BattleStatisticsTabType)tabIndex;
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
+            StartBattleStatistcs().AttachExternalCancellation(this.GetCancellationTokenOnDestroy());;
+            
+            switch (_currentTabType)
+            {
+                case BattleStatisticsTabType.GIVENDAMAGE:
+                    _buttonAnimation.SetTrigger("SetDamage");
+                    break;
+                case BattleStatisticsTabType.TAKENDAMAGED:
+                    _buttonAnimation.SetTrigger("SetTank");
+                    break;
+                case BattleStatisticsTabType.HEAL:
+                    _buttonAnimation.SetTrigger("SetHeal");
+                    break;
+            }
         }
 
         public void PlayPopupOpenAnimation()
@@ -131,7 +161,7 @@ namespace CookApps.AutoBattler
             {
                 GameObject newSlot = Instantiate(_statisticsListSlotObject, _statisticsListParentObject.transform);
                 BattleStatSlot battleStatSlot = newSlot.GetComponent<BattleStatSlot>();
-                battleStatSlot.SetBattleStatSlot(battleCharacter.CharacterId);
+                battleStatSlot.SetBattleStatSlot(battleCharacter.CharacterId, battleCharacter.CharacterUId);
 
                 _battleStatSlotList.Add(battleStatSlot);
             }
@@ -143,13 +173,14 @@ namespace CookApps.AutoBattler
         {
             while (InGameManager.Instance.IsInGamePlaying)
             {
-                _battleStatSlotList.Sort((a, b) => { return b.AttackDamageAmount.CompareTo(a.AttackDamageAmount); });
+                _battleStatSlotList.ForEach(slot => slot.RefreshBattleStatSlotSmooth(_currentTabType, STATISTICS_UPDATE_TIME * 0.001f).Forget());
+                
+                _battleStatSlotList.Sort((a, b) => b.BattleValue.CompareTo(a.BattleValue));
+
                 for (int i = 0; i < _battleStatSlotList.Count; i++)
                 {
                     _battleStatSlotList[i].gameObject.transform.SetSiblingIndex(i);
                 }
-
-                _battleStatSlotList.ForEach(slot => slot.RefreshBattleStatSlotSmooth(STATISTICS_UPDATE_TIME * 0.001f).Forget());
 
                 await UniTask.Delay(STATISTICS_UPDATE_TIME);
             }

@@ -65,11 +65,11 @@ namespace CookApps.BattleSystem
         public void AddCombatDamage(CharacterController attacker, CharacterController receiver, double damageAmount, double currHp, long source)
         {
             // var realDamageAmount = damageAmount + (currHp > 0 ? 0 : currHp);
-            if (attacker != null)
-            {
-                if(attacker.AllianceType == AllianceType.Enemy)
-                    return;
-            }
+            // if (attacker != null)
+            // {
+            //     if(attacker.AllianceType == AllianceType.Enemy)
+            //         return;
+            // }
 
             bool isPlayerCharacter = attacker?.AllianceType == AllianceType.Player;
 
@@ -119,7 +119,7 @@ namespace CookApps.BattleSystem
             var damageAmount = 0d;
             foreach (var log in statisticsData.combatLogs)
             {
-                if (log.srcCharacterId == id && log.actionType == ActionType.Damaged)
+                if (log.srcCharacterUId == id && log.actionType == ActionType.Damaged)
                 {
                     damageAmount += log.value;
                 }
@@ -128,16 +128,16 @@ namespace CookApps.BattleSystem
             return damageAmount;
         }
 
-        public double GetTotalAttackDamageAmount()
+        public double GetTotalAmount(ActionType type, bool isPlayerCharacter)
         {
-            var damageAmount = 0d;
+            var totalAmount = 0d;
             foreach (var log in statisticsData.combatLogs)
             {
-                if (log.isPlayerCharacter && log.actionType == ActionType.Damaged)
-                    damageAmount += log.value;
+                if (log.isPlayerCharacter == isPlayerCharacter && log.actionType == type)
+                    totalAmount += log.value;
             }
 
-            return damageAmount;
+            return totalAmount;
         }
 
         public double GetTakenDamageAmount(int id)
