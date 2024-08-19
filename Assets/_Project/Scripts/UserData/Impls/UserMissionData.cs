@@ -126,6 +126,9 @@ namespace CookApps.AutoBattler
                 {
                     UserMissionData.GuideMissionCurrentOrder++;
                     ClearToastPopupFlag = false;
+                    
+                    // 앱이벤트 처리
+                    AppEventManager.Instance.GuideMissionClear(specMissionData.order);
                 }
 
                 // 모든 가이드 미션 클리어 상태 체크

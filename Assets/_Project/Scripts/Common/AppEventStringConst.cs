@@ -16,4 +16,7 @@ public static class AppEventStringConst
     public const string USER_GRADE = "USER_GRADE";
     public const string USER_STAR_AMOUNT = "USER_STAR_AMOUNT";
     public const string USER_ENERGY_AMOUNT = "USER_ENERGY_AMOUNT";
+    
+    // 가이드 미션
+    public const string GUIDE_MISSION_ID = "GUIDE_MISSION_ID";
 }

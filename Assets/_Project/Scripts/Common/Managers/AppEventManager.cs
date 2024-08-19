@@ -105,5 +105,14 @@ namespace CookApps.AutoBattler
         //
         //     SendEvent(AppEventStringConst.STAGE_CLEAR, appEventParameter);
         // }
+        
+        // 가이드 미션 통과 (가이드 미션 완료 시 전송)
+        public void GuideMissionClear(int guide_id)
+        {
+            AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.GUIDE_MISSION_ID, guide_id);
+        
+            SendEvent("GUIDE_MISSION_PASS", appEventParameter);
+        }
     }
 }
