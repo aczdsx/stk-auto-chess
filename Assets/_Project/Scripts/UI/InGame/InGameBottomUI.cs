@@ -89,6 +89,17 @@ public class InGameBottomUI : MonoBehaviour
     
     protected void OnClickSpeedUp()
     {
+        var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+        int missionOrder = 5;
+        if (userGuideMissionData.MissionId <= missionOrder)
+        {
+            var missionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(missionOrder);
+            string msg = LanguageManager.Instance.GetLanguageText("MSG_CONTENT_UNLOCK");
+            string titleName = LanguageManager.Instance.GetLanguageText(missionData.name_token);
+            ToastManager.Instance.ShowToast(string.Format(msg, titleName));
+            return;
+        }
+        
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         Preference.SavePreference(Pref.IS_SPEED_UP, !isSpeedUp);
         InGameMainFlowManager.Instance.SetInGameSpeed(!isSpeedUp);
