@@ -483,9 +483,11 @@ namespace CookApps.AutoBattler
             if(isSkipGet == true)
                 return;
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
+            
             if (cnt > _datas.Count - 1)
             {
-                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
+                //SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_gacha_open_cha001);
                 foreach (var obj in GachItems)
                 {
                     // obj.ShowItem();
@@ -626,7 +628,7 @@ namespace CookApps.AutoBattler
                 Destroy(fx);
                 fx = null;
             }
-            //SoundManager.Instance.StopAllSound();
+            SoundManager.Instance.StopAllSound();
             if (IsOne)
             {
 
