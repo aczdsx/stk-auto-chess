@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Modal, "Prefabs/UI/InGame/BattleStatisticsPopup.prefab")]
     public class BattleStatisticsPopup : UILayer
     {
-        private const int STATISTICS_UPDATE_TIME = 500; // 밀리 세컨즈
+        private const int STATISTICS_UPDATE_TIME = 300; // 밀리 세컨즈
 
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private GameObject _statisticsListParentObject;
@@ -91,8 +91,6 @@ namespace CookApps.AutoBattler
             _currentTabType = (BattleStatisticsTabType)tabIndex;
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
-            StartBattleStatistcs().AttachExternalCancellation(this.GetCancellationTokenOnDestroy());;
             
             switch (_currentTabType)
             {
@@ -106,6 +104,8 @@ namespace CookApps.AutoBattler
                     _buttonAnimation.SetTrigger("SetHeal");
                     break;
             }
+
+            StartBattleStatistcs().AttachExternalCancellation(this.GetCancellationTokenOnDestroy());;
         }
 
         public void PlayPopupOpenAnimation()

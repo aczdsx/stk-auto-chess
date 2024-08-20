@@ -55,7 +55,7 @@ namespace CookApps.AutoBattler
             if (!isAlive)
                 SetDeadCharacter();
         }
-
+        
         public async UniTask RefreshBattleStatSlotSmooth(BattleStatisticsTabType tabType, float duration)
         {
             if (InGameStatistics.Instance == null) return;
@@ -80,7 +80,7 @@ namespace CookApps.AutoBattler
                     _fillImage.color = _fillHealColor;
                     break;
             }
-
+            
             float startTime = Time.time;
             float startAttackDamageAmount = (float)_battleValue;
 
@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
 
                 await UniTask.Yield();
             }
-
+            
             _battleValue = value;
             _damageAmountSlider.value = (int)_battleValue;
             _damageAmountText.text = _battleValue.ToString("N0");
