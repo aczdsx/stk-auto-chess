@@ -30,6 +30,12 @@ public static class AppEventStringConst
     public const string COMMANDER_SKILL = "COMMANDER_SKILL";
     public const string DECK = "DECK";
     
+    public const string ENEMY_PLAYER_ID = "ENEMY_PLAYER_ID";
+    public const string ENEMY_POINT = "ENEMY_POINT";
+    public const string ENEMY_GRADE = "ENEMY_GRADE";
+    public const string ENEMY_DECK = "ENEMY_DECK";
+    public const string ENEMY_DECK_POWER = "ENEMY_DECK_POWER";
+    
     public const string SEASON = "SEASON";
     public const string GRADE = "GRADE";
     public const string POINT = "POINT";
