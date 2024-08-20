@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CookApps.AnalyticsLite;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -42,6 +44,20 @@ namespace CookApps.AutoBattler
 
             return sbCharList.ToString();
         }
+
+        // PVP 덱의 캐릭터 리스트를 앱이벤트용 문자열로 변환
+        public string GetAppEventTargetDeckList(List<UserPVPCharacterBattleDeck> targetDeckList)
+        {
+            StringBuilder sbCharList = new StringBuilder();
+
+            for (int i = 0; i < targetDeckList.Count; ++i)
+            {
+                sbCharList.Append($"{i};");
+                sbCharList.Append($"{targetDeckList[i].Id};");
+            }
+
+            return sbCharList.ToString();
+        }
         
         // 해당 덱의 캐릭터 리스트를 앱이벤트용 문자열로 변환
         public string GetAppEventTargetDeckList(InGameType targetType)
@@ -74,6 +90,14 @@ namespace CookApps.AutoBattler
             return sbCharList.ToString();
         }
         
+        // 최초 접속 가입 이후 경과일 계산
+        public int GetSinceJoinDate()
+        {
+            var joinTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserBasicData.UserInstallDate);
+
+            return joinTimeSpan.Days;
+        }
+        
         #endregion
         
 
@@ -99,7 +123,7 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.SERVER, UserDataManager.Instance.UserBasicData.ServerId);
             appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
             appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, UserDataManager.Instance.UserBasicData.DailyVisitCount);
-            appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, UserDataManager.Instance.UserBasicData.SinceJoinDate);
+            appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
             appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, TimeManager.Instance.TimeStampToDateTime(UserDataManager.Instance.UserBasicData.UserInstallDate));
             appEventParameter.Add(AppEventStringConst.BEST_STAGE, UserDataManager.Instance.GetLatestClearUserStageID());
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, UserDataManager.Instance.GetCurrentGuideMissionData().MissionId);
@@ -183,9 +207,11 @@ namespace CookApps.AutoBattler
         }
         
         // PVP 종료 시 호출 (승리 또는 패배 모두 적용)
-        public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, int playTime, string result, int power)
+        public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, int playTime, string result, int myPower
+                            ,UserPVPBattleDetailData enemyData)
         {
             string battleType = isRevenge ? "revenge" : "normal";
+            var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
             
             AppEventParameter appEventParameter = CreateCommonParam();
             appEventParameter.Add(AppEventStringConst.SEASON, season);
@@ -196,7 +222,13 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
             appEventParameter.Add(AppEventStringConst.RESULT, result);
             appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.PVP));
-            appEventParameter.Add(AppEventStringConst.POWER, power);
+            appEventParameter.Add(AppEventStringConst.POWER, myPower);
+            
+            appEventParameter.Add(AppEventStringConst.ENEMY_PLAYER_ID, enemyData.PlayerId);
+            appEventParameter.Add(AppEventStringConst.ENEMY_POINT, enemyData.RankPoint);
+            appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
+            appEventParameter.Add(AppEventStringConst.ENEMY_DECK, GetAppEventTargetDeckList(enemyData.PvpDeckList.PvpCharacterDecks.ToList()));
+            appEventParameter.Add(AppEventStringConst.ENEMY_DECK_POWER, enemyData.BattlePoint);
         
             SendEvent("PVP_END", appEventParameter);
         }
