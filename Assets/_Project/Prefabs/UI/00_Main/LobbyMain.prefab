@@ -13095,19 +13095,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562671852489667294, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor.b
-      value: 0.49392906
+      value: 0.55568975
       objectReference: {fileID: 0}
     - target: {fileID: 4562671852489667294, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor.g
-      value: 0.4704966
+      value: 0.54294235
       objectReference: {fileID: 0}
     - target: {fileID: 4562671852489667294, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor.r
-      value: 0.9150943
+      value: 0.7830189
       objectReference: {fileID: 0}
     - target: {fileID: 4562671852489667294, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4286478569
+      value: 4287531720
       objectReference: {fileID: 0}
     - target: {fileID: 5155805048566286368, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_Name
@@ -13123,19 +13123,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8916061803699911180, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor.b
-      value: 0.7738519
+      value: 0.7609469
       objectReference: {fileID: 0}
     - target: {fileID: 8916061803699911180, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor.g
-      value: 0.86326313
+      value: 0.7930434
       objectReference: {fileID: 0}
     - target: {fileID: 8916061803699911180, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor.r
-      value: 0.8867924
+      value: 0.9433962
       objectReference: {fileID: 0}
     - target: {fileID: 8916061803699911180, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4291157218
+      value: 4290956017
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
