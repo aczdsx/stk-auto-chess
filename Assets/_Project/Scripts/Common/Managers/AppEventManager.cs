@@ -168,7 +168,7 @@ namespace CookApps.AutoBattler
         }
 
         // 스테이지 종료 시 호출 (클리어 또는 패배 모두 적용)
-        public void StageEnd(int stageID, int playTime, int squadCount, int power, int enemy_power, string result,
+        public void StageEnd(int stageID, float playTime, int squadCount, int power, int enemy_power, string result,
             string reason, string clearCondition)
         {
             AppEventParameter appEventParameter = CreateCommonParam();
@@ -187,7 +187,7 @@ namespace CookApps.AutoBattler
         }
         
         // 던전 종료 시 호출 (클리어 또는 패배 모두 적용)
-        public void DungeonEnd(DungeonType dungeonType, int dungeonID, int playTime, int squadCount, int power, int enemy_power, string result,
+        public void DungeonEnd(DungeonType dungeonType, int dungeonID, float playTime, int squadCount, int power, int enemy_power, string result,
             string reason, string clearCondition)
         {
             AppEventParameter appEventParameter = CreateCommonParam();
@@ -207,7 +207,7 @@ namespace CookApps.AutoBattler
         }
         
         // PVP 종료 시 호출 (승리 또는 패배 모두 적용)
-        public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, int playTime, string result, int myPower
+        public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, float playTime, string result, int myPower
                             ,UserPVPBattleDetailData enemyData)
         {
             string battleType = isRevenge ? "revenge" : "normal";
