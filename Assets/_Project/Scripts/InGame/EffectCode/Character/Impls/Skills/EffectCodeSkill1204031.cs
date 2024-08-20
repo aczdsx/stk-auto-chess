@@ -117,8 +117,7 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
         else if (_count == 3)
         {
             var inGameTiles =
-                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeXInRange(owner.Target.CurrentTile, 5);
-            inGameTiles = inGameTiles.OrderByDescending(t => t.Y).ToList();
+                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3).FindAll(l => l.View.ID %2 == 1);
             ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
         }
 
