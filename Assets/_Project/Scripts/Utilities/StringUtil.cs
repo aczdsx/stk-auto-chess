@@ -20,7 +20,8 @@ public static class StringUtil
     {
         if (isOnlyNumber)
         {
-            return $"{trialDungeon.grade}-{trialDungeon.step}";
+            string message = LanguageManager.Instance.GetLanguageText("UI_STAGE_TITLE");
+            return (trialDungeon.step == 1) ? string.Format(message, $"{trialDungeon.grade}") : string.Format(message, $"{trialDungeon.grade}-{trialDungeon.step}");
         }
         else
         {
