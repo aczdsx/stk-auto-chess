@@ -309,7 +309,11 @@ namespace CookApps.AutoBattler
             sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
 
             var quoteData = SpecDataManager.Instance.GetCharacterQuotesDataByPrefabID(_specCharacter.prefab_id);
-            OpenText.text = LanguageManager.Instance.GetLanguageText(quoteData.dialog_token);
+            if (quoteData != null)
+            {
+                OpenText.text = LanguageManager.Instance.GetLanguageText(quoteData.dialog_token);
+            }
+            
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
