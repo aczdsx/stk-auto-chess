@@ -103,7 +103,7 @@ public class TargetLineRenderer : MonoBehaviour
             yield return waitTime;
         }
         
-        yield return new WaitForSeconds(1.5f);
+        // yield return new WaitForSeconds(1.5f);
         
         OnComplete?.Invoke();
     }

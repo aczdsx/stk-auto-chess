@@ -24,6 +24,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _buffListSlotObject;
 
         [SerializeField] private UIEffect _characterIconEffect;
+        [SerializeField] Image _fillImage;
+        
+        [SerializeField] Color _fillGivenDamageColor;
+        [SerializeField] Color _fillTakenDamageColor;
+        [SerializeField] Color _fillHealColor;
 
         private int _currentCharacterID;
         private int _currentCharacterUID;
@@ -62,14 +67,17 @@ namespace CookApps.AutoBattler
                 case BattleStatisticsTabType.GIVENDAMAGE:
                     totalValue = InGameStatistics.Instance.GetTotalAmount(ActionType.Damaged, true);
                     value = InGameStatistics.Instance.GetAttackDamageAmount(_currentCharacterUID);
+                    _fillImage.color = _fillGivenDamageColor;
                     break;
                 case BattleStatisticsTabType.TAKENDAMAGED:
                     totalValue = InGameStatistics.Instance.GetTotalAmount(ActionType.Damaged, false);
                     value = InGameStatistics.Instance.GetTakenDamageAmount(_currentCharacterUID);
+                    _fillImage.color = _fillTakenDamageColor;
                     break;
                 case BattleStatisticsTabType.HEAL:
                     totalValue = InGameStatistics.Instance.GetTotalAmount(ActionType.Healed, true);
                     value = InGameStatistics.Instance.GetGivenHealAmount(_currentCharacterUID);
+                    _fillImage.color = _fillHealColor;
                     break;
             }
 

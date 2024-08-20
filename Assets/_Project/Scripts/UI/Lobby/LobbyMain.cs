@@ -6,9 +6,11 @@ using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -68,6 +70,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _normalRewardFillImage;
         [SerializeField] private GameObject _fullRewardStateObject;
         [SerializeField] private TextMeshProUGUI _idleRewardStateText;
+        [SerializeField] private ParticleSystem _dropFx;
 
         [Header("Red dot")]
         [SerializeField] private GameObject _characterReddotObject;
@@ -721,6 +724,13 @@ namespace CookApps.AutoBattler
             _EnterArenaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.PVP));
             _sessionEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SESSION_TIME));
             _consumeAPEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.AP_USE));
+        }
+
+        public void PlayDropFx()
+        {
+            _dropFx.gameObject.SetActive(true);
+            _dropFx.Stop();
+            _dropFx.Play();
         }
     }
 }
