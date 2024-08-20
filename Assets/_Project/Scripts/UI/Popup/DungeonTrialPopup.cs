@@ -161,7 +161,7 @@ namespace CookApps.AutoBattler
             }
             
             _currentStepImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonTrialData.trial_type, false);
-            _currentStepName.text = StringUtil.GetTrialDungeonString(_specDungeonTrialData);
+            _currentStepName.text = StringUtil.GetTrialDungeonString(_specDungeonTrialData, true);
             _currentStepAttr.text = attr.ToString("n0");
 
             BMUtil.RemoveChildObjects(_characterImageParentObject.transform);

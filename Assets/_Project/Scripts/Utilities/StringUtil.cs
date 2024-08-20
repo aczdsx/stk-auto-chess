@@ -16,10 +16,17 @@ public static class StringUtil
         return $"스테이지 {stage.chapter_id}-{stage.stage_number}";
     }
     
-    public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon)
+    public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon, bool isOnlyNumber = false)
     {
-        string message = LanguageManager.Instance.GetLanguageText("UI_TRIAL_STAGE_TITLE");
-        return (trialDungeon.step == 1) ? string.Format(message, $"{trialDungeon.grade}") : string.Format(message, $"{trialDungeon.grade}-{trialDungeon.step}");
+        if (isOnlyNumber)
+        {
+            return $"{trialDungeon.grade}-{trialDungeon.step}";
+        }
+        else
+        {
+            string message = LanguageManager.Instance.GetLanguageText("UI_TRIAL_STAGE_TITLE");
+            return (trialDungeon.step == 1) ? string.Format(message, $"{trialDungeon.grade}") : string.Format(message, $"{trialDungeon.grade}-{trialDungeon.step}");
+        }
     }
 
     public static string BigIntToShortString(BigInteger value)
