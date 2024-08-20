@@ -1223,7 +1223,10 @@ namespace CookApps.BattleSystem
                 targetLine.TargetLine.DrawLine(Position3D, worldPos, () =>
                 {
                     if (onComplete != null)
+                    {
                         onComplete.Invoke(targetLine);
+                        LobbyMain.GetLobbyMain().PlayDropFx();
+                    }
                 });
 
                 return targetLine;

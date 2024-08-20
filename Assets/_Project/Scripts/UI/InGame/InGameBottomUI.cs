@@ -20,7 +20,7 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected CAButton _statisticButton;
     [SerializeField] protected CAButton _recommendButton;
     [SerializeField] protected CAButton _speedUpButton;
-    
+
     [SerializeField] protected List<CAButton> _CommanderSkillButtonList;
     [SerializeField] protected Transform _characterSelectedTransform;
     [SerializeField] protected Transform _rightTransform;
@@ -34,18 +34,18 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI _characterCountText;
     [SerializeField] protected ParticleSystem _commanderFx;
     [SerializeField] protected GameObject _characterTipObj;
-    
+
     [SerializeField] protected GameObject _speedUpObjOn;
     [SerializeField] protected GameObject _speedUpObjOff;
-    
+
     [SerializeField] protected GameObject _recommendObjOn;
     [SerializeField] protected GameObject _recommendObjOff;
-    
+
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     protected bool _isOpenCommanderSkill;
     protected SpecUserGrade _specUserGrade;
     protected Type _combatType;
-    
+
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
     private bool _isRunningRecommend;
@@ -57,8 +57,9 @@ public class InGameBottomUI : MonoBehaviour
         _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
         _isStartRunningProcess = false;
-        
-        _specUserGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+
+        _specUserGrade =
+            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
         if (_specUserGrade != null)
         {
             for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
@@ -86,7 +87,7 @@ public class InGameBottomUI : MonoBehaviour
     {
         RecommendAction();
     }
-    
+
     protected void OnClickSpeedUp()
     {
         var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
@@ -99,22 +100,22 @@ public class InGameBottomUI : MonoBehaviour
             ToastManager.Instance.ShowToast(string.Format(msg, titleName));
             return;
         }
-        
+
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         Preference.SavePreference(Pref.IS_SPEED_UP, !isSpeedUp);
         InGameMainFlowManager.Instance.SetInGameSpeed(!isSpeedUp);
-        
+
         _speedUpObjOn.SetActive(!isSpeedUp);
         _speedUpObjOff.SetActive(isSpeedUp);
     }
-    
+
     private async void RecommendAction()
     {
         if (_isRunningRecommend == false && _recommendObjOn.activeSelf)
         {
             _recommendObjOff.SetActive(true);
             _recommendObjOn.SetActive(false);
-            
+
             _isRunningRecommend = true;
             var charactersOnField = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).ToList();
             InGameObjectManager.Instance.ClearSynergyFx();
@@ -124,21 +125,26 @@ public class InGameBottomUI : MonoBehaviour
                 InGameObjectManager.Instance.RemoveCharacterFromField(character);
                 InGameMain.GetInGameMain().ReturnCharacterUI(character);
             }
+
             _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
-    
-            var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount); 
+
+            var userGrade =
+                SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
             int maximumCharacterCount = userGrade.maximum_character_count;
 
-            int addCharacterCount = _characterItemList.Count >= maximumCharacterCount ? maximumCharacterCount : _characterItemList.Count;
+            int addCharacterCount = _characterItemList.Count >= maximumCharacterCount
+                ? maximumCharacterCount
+                : _characterItemList.Count;
             List<InGameCharacterItem> selectedCharacterItemList = _characterItemList.GetRange(0, addCharacterCount);
             List<CharacterStatData> statDataList = selectedCharacterItemList.Select(item => item.StatData).ToList();
-        
+
             foreach (var statData in statDataList)
             {
                 _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
             }
+
             UpdateData();
-        
+
             await AddCharacterToTile(statDataList);
 
             InGameManager.Instance.UpdateSynergyAndAttr();
@@ -186,8 +192,10 @@ public class InGameBottomUI : MonoBehaviour
 
     public void ChangeStatisticsButtonActiveState(bool isOn)
     {
-        _statisticButton.gameObject.SetActive(isOn);
-        _speedUpButton.gameObject.SetActive(isOn);
+        if (_statisticButton)
+            _statisticButton.gameObject.SetActive(isOn);
+        if (_speedUpButton)
+            _speedUpButton.gameObject.SetActive(isOn);
     }
 
     public void InitReadyStateUI(Type combatType, List<UserCharacterBattleDeck> battleDeckList)
@@ -262,7 +270,7 @@ public class InGameBottomUI : MonoBehaviour
             _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
-        
+
         _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
 
         foreach (var characterStat in _characterStats)
@@ -296,9 +304,11 @@ public class InGameBottomUI : MonoBehaviour
     {
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
-        
-        _speedUpObjOn.SetActive(isSpeedUp);
-        _speedUpObjOff.SetActive(!isSpeedUp);
+
+        if (_speedUpObjOn)
+            _speedUpObjOn.SetActive(isSpeedUp);
+        if (_speedUpObjOff)
+            _speedUpObjOff.SetActive(!isSpeedUp);
     }
 
     public void UpdateData()
@@ -357,11 +367,11 @@ public class InGameBottomUI : MonoBehaviour
     {
         _characterStats.Add(controller.GetCharacterStat());
         _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
-        
+
         UpdateData();
         SetCharacterCountText();
     }
-    
+
     public virtual void ReturnObstacle(CharacterController controller)
     {
     }
@@ -372,9 +382,11 @@ public class InGameBottomUI : MonoBehaviour
             return;
 
         _isRunningAddCharacter = true;
-        
-        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
-        if (userGrade.maximum_character_count <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+
+        var userGrade =
+            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        if (userGrade.maximum_character_count <=
+            InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
         }
@@ -399,7 +411,7 @@ public class InGameBottomUI : MonoBehaviour
 
         _isRunningAddCharacter = false;
     }
-    
+
     private async UniTask AddCharacterToTile(List<CharacterStatData> statDataList)
     {
         if (_isRunningAddCharacter)
@@ -407,8 +419,10 @@ public class InGameBottomUI : MonoBehaviour
 
         _isRunningAddCharacter = true;
 
-        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
-        if (userGrade.maximum_character_count <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        var userGrade =
+            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        if (userGrade.maximum_character_count <=
+            InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
         }
@@ -446,8 +460,9 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetCharacterCountText()
     {
-        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
-        
+        var userGrade =
+            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+
         int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
         int maximumCount = userGrade.maximum_character_count;
 
@@ -455,9 +470,11 @@ public class InGameBottomUI : MonoBehaviour
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
 
         bool isAvailableRecommend = maximumCount != characterCount;
-        
-        _recommendObjOff.SetActive(!isAvailableRecommend);
-        _recommendObjOn.SetActive(isAvailableRecommend);
+
+        if (_recommendObjOff != null)
+            _recommendObjOff.SetActive(!isAvailableRecommend);
+        if (_recommendObjOn != null)
+            _recommendObjOn.SetActive(isAvailableRecommend);
     }
 
     public void SetFocusCharacterUI(SpecCharacter spec)
@@ -496,13 +513,14 @@ public class InGameBottomUI : MonoBehaviour
                 }
                 else
                 {
-                    RearrangeCharacterList(); 
+                    RearrangeCharacterList();
                 }
+
                 return;
             }
         }
     }
-    
+
     [ContextMenu("User Deck Json Data Test")]
     public void UserDeckJsonDataTest()
     {
@@ -517,26 +535,26 @@ public class InGameBottomUI : MonoBehaviour
         newUserPvpBattleData.PlayerLv = 30;
 
         newUserPvpBattleData.PvpDeckList = new UserPVPBattleDeckList();
-        
+
         // 덱 정보 (캐릭터)
-        
-        
+
+
         // 덱 정보 (장애물)
         UserPVPObstacleBattleDeck obstacle1 = new UserPVPObstacleBattleDeck();
         obstacle1.Id = 1001;
         obstacle1.PosX = 100;
         obstacle1.PosY = 100;
-        
+
         UserPVPObstacleBattleDeck obstacle2 = new UserPVPObstacleBattleDeck();
         obstacle1.Id = 2001;
         obstacle1.PosX = 200;
         obstacle1.PosY = 200;
-        
+
         UserPVPObstacleBattleDeck obstacle3 = new UserPVPObstacleBattleDeck();
         obstacle1.Id = 3001;
         obstacle1.PosX = 300;
         obstacle1.PosY = 300;
-        
+
         newUserPvpBattleData.PvpDeckList.PvpObstacleDecks.Add(obstacle1);
         newUserPvpBattleData.PvpDeckList.PvpObstacleDecks.Add(obstacle2);
         newUserPvpBattleData.PvpDeckList.PvpObstacleDecks.Add(obstacle3);
@@ -545,7 +563,7 @@ public class InGameBottomUI : MonoBehaviour
         UnityEngine.Debug.Log("<<UserDeckJsonDataTest>> RESULT :: ");
         UnityEngine.Debug.Log(result);
     }
-    
+
     [ContextMenu("User Simple Deck Json Data Test")]
     public void UserSimpleDeckJsonDataTest()
     {
@@ -564,10 +582,10 @@ public class InGameBottomUI : MonoBehaviour
             TestSimpleCharacterData newCharacter = new TestSimpleCharacterData();
             newCharacter.id = 1001 + i;
             newCharacter.lv = 1 + i;
-            
+
             newSimplePvpBattleData.char_list.Add(newCharacter);
         }
-        
+
         var result = JsonConvert.SerializeObject(newSimplePvpBattleData);
         UnityEngine.Debug.Log("<<UserSimpleDeckJsonDataTest>> RESULT :: ");
         UnityEngine.Debug.Log(result);
