@@ -61,14 +61,15 @@ namespace CookApps.AutoBattler
 
             _battlePointText.text = _statData.GetAttrValue().ToString("N0");
             _atkText.text = _statData.AD.ToString("N0");
+            //_atkSpdText.text = ((float)_statData.AttackSpeed * 100).ToString("0.##");
             _atkSpdText.text = _statData.AttackSpeed.ToString("0.##");
             _hpText.text = _statData.HP.ToString("N0");
-            _criRateText.text = $"{_statData.CriticalProb.ToString("0.##")}%";
-            _criDamageText.text = $"{_statData.CriticalDamageRate.ToString("0.##")}%";
+            _criRateText.text = $"{((float)_statData.CriticalProb * 100).ToString("0.##")}%";
+            _criDamageText.text = $"{((float)_statData.CriticalDamageRate * 100).ToString("0.##")}%";
             _defText.text = _statData.DEF.ToString("N0");
             _resText.text = _statData.RES.ToString("N0");
-            _defPenText.text = $"{_statData.DEFPenetration.ToString("0.##")}%";
-            _resPenText.text = $"{_statData.RESPenetration.ToString("0.##")}%";
+            _defPenText.text = $"{((float)_statData.DEFPenetration  * 100).ToString("0.##")}%";
+            _resPenText.text = $"{((float)_statData.RESPenetration * 100).ToString("0.##")}%";
         }
 
         private void OnClickCloseButton()
