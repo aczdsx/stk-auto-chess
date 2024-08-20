@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
             _matchRefreshButton.onClick.RemoveListener(OnClickMatchingRefreshButton);
         }
 
-        public async void InitLayer(ArenaMainPopup parent)
+        public void InitLayer(ArenaMainPopup parent)
         {
             _parentPopup = parent;
 
@@ -62,6 +62,8 @@ namespace CookApps.AutoBattler
             _matchingScrollRect.verticalNormalizedPosition = 1;
 
             RefreshLayer();
+
+            CheckAllBattleFinishState();
         }
         
         public async void RefreshLayer()
@@ -164,6 +166,19 @@ namespace CookApps.AutoBattler
             _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
 
             _isAvailRefresh = false;
+        }
+
+        // 모든 리스트가 전투완료 상태인지 체크
+        private void CheckAllBattleFinishState()
+        {
+            _currentServerMatchingDataList = UserDataManager.Instance.GetPVPMatchingDataList();
+
+            bool availBattle = _currentServerMatchingDataList.Exists(data => data.MatchResult == 0);
+            
+            if (availBattle == false)
+            {
+                _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
+            }
         }
         
         private void ClearLayer()

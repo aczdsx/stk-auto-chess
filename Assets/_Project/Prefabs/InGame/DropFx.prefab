@@ -14564,7 +14564,7 @@ TrailRenderer:
   m_SortingLayerID: -1742781553
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Time: 0.75
+  m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -14574,7 +14574,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.534729
+        value: 0.7229004
         inSlope: 1.6984366
         outSlope: 1.6984366
         tangentMode: 0
@@ -19825,7 +19825,7 @@ MonoBehaviour:
   _lineRenderer: {fileID: 1609745513342542398}
   _height: 4
   _positionCount: 80
-  _lineDruationTime: 1.25
+  _lineDruationTime: 0.45
   _offSet: 5
   _ownFx: {fileID: 3838147306391497134}
   _otherFx: {fileID: 2261792373660622568}
