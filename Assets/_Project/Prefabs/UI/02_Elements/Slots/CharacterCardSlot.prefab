@@ -1530,6 +1530,7 @@ MonoBehaviour:
   - {fileID: 4561192024793349012}
   _characterSliderImage: {fileID: 5144593224637611278}
   _characterSliderText: {fileID: 1131480714714275120}
+  _fadeCharacterColor: {r: 0.76862746, g: 0.7882353, b: 0.9529412, a: 0.69803923}
 --- !u!114 &1078707308649889360
 MonoBehaviour:
   m_ObjectHideFlags: 0

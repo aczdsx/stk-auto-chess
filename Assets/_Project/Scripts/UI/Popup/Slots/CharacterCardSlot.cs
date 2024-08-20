@@ -39,6 +39,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _characterSliderImage;
         [SerializeField] private TextMeshProUGUI _characterSliderText;
 
+        [Header("Fade Setting")] 
+        [SerializeField] private Color _fadeCharacterColor;
+
 
         private SpecCharacter _specCharacterData;
         private UserCharacter _userCharacterData;
@@ -93,7 +96,9 @@ namespace CookApps.AutoBattler
                 if (uiCharacter != null)
                 {
                     uiCharacter.SetGrayCharacter(!haveCharacter);
-
+                    Color targetColor = haveCharacter ? Color.white : _fadeCharacterColor;
+                    uiCharacter.SetCharacterImageColor(targetColor);
+                    
                     if (!haveCharacter)
                     {
                         // var newColor = BMUtil.ChangeColorAlpha(newObject.GetComponentInChildren<Image>().color, 0.46f);
