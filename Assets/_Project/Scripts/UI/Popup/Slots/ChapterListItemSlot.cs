@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _dimmedLayerObject;
         [SerializeField] private CAButton _chapterButton;
         [SerializeField] private CAButton _dimmedButton;
+        [SerializeField] private GameObject _reddotObject;
 
         [Space(10)]
         [SerializeField] private Image _chapterImage;
@@ -78,6 +79,9 @@ namespace CookApps.AutoBattler
             int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
+            
+            // 레드닷 세팅
+            UpdateReddotState();
         }
 
         public void SetSelectedLayer(int selectedChapterID)
@@ -96,6 +100,32 @@ namespace CookApps.AutoBattler
             {
                 _baseAnimator.SetTrigger("SetDefault");
             }
+        }
+
+        public void UpdateReddotState()
+        {
+            bool isAvailGetChapterReward = false;
+            
+            int totalChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+            if (totalChapterStarCount > 0)
+            {
+                var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _specChapterData.chapter_id, _specChapterData.difficulty_type);
+                foreach (var rewardInfoData in rewardInfoList)
+                {
+                    bool checkGetReward = totalChapterStarCount >= rewardInfoData.sub_value;
+
+                    bool checkAlreadyGetReward = UserDataManager.Instance.IsGetStageAccReward(rewardInfoData.content_key_value,
+                        rewardInfoData.difficulty_type, rewardInfoData.sub_value);
+
+                    if (checkGetReward && !checkAlreadyGetReward)
+                    {
+                        isAvailGetChapterReward = true;
+                        break;
+                    }
+                }
+            }
+            
+            _reddotObject.SetActive(isAvailGetChapterReward);
         }
 
         private void OnClickChapter()

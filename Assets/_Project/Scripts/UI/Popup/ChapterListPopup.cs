@@ -89,6 +89,11 @@ namespace CookApps.AutoBattler
                 }
             }
         }
+        
+        public void RefreshChapterListReddot()
+        {
+            _chapterSlotList.ForEach(slot => slot.UpdateReddotState());
+        }
 
         public void SetSelectedChapterData(int targetChapterID, bool isFirstInit)
         {

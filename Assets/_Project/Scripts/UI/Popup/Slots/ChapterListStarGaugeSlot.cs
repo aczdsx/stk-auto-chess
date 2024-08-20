@@ -110,6 +110,7 @@ namespace CookApps.AutoBattler
             if (chapterListPopup != null)
             {
                 chapterListPopup.RefreshRewardLayer();
+                chapterListPopup.RefreshChapterListReddot();
             }
         }
 
