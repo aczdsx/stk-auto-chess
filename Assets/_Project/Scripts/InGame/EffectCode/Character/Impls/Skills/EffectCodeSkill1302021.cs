@@ -148,7 +148,7 @@ public class EffectCodeSkill1302021 : EffectCodeCharacterBase
                     
                     Span<double> eccStats = stackalloc double[3];
                     eccStats.Clear();
-                    eccStats[0] = 0.3f;
+                    eccStats[0] = 0.15f;
                     eccStats[1] = 0.3f;
                     eccStats[2] = inGameTile.View.ID;
 
