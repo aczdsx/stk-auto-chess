@@ -66,35 +66,40 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
 
     private async UniTask StartAsync()
     {
-        // 전투 시작 후 1초는 대기
         await UniTask.Delay(1000);
 
-        // 모든 캐릭터 락 해제
-        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
-        foreach (CharacterController charac in characters)
+        if (InGameManager.Instance.SpecDungeonTrial.dungeon_map_id == 1)
         {
-            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
-                charac.AddNextState<CharacterStateAssassinFirstMove>();
-            else
-                charac.AddNextState<CharacterStateIdle>();
-
-            charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
+            HandleCharacters(AllianceType.Player, idleState: true);
+            HandleCharacters(AllianceType.Enemy, idleState: true);
+            HandleCharacters(AllianceType.Neutral, idleState: true, findTarget: false);
         }
-        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
-        foreach (CharacterController charac in characters)
+        else
         {
-            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
-                charac.AddNextState<CharacterStateAssassinFirstMove>();
-            else
-                charac.AddNextState<CharacterStateIdle>();
-
-            charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
+            HandleCharacters(AllianceType.Player, idleState: false);
+            HandleCharacters(AllianceType.Enemy, idleState: false);
+            HandleCharacters(AllianceType.Neutral, idleState: true, findTarget: false);
         }
+    }
 
-        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Neutral, characters);
+    private void HandleCharacters(AllianceType allianceType, bool idleState, bool findTarget = true)
+    {
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(allianceType, characters);
         foreach (CharacterController charac in characters)
         {
-            charac.AddNextState<CharacterStateIdle>();
+            if (idleState || charac.SpecCharacter.character_position_type != CharacterPositionType.ASSASSIN)
+            {
+                charac.AddNextState<CharacterStateIdle>();
+            }
+            else
+            {
+                charac.AddNextState<CharacterStateAssassinFirstMove>();
+            }
+
+            if (findTarget)
+            {
+                charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
+            }
         }
     }
 
