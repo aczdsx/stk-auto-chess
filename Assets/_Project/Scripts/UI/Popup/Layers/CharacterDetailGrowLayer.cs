@@ -107,14 +107,12 @@ namespace CookApps.AutoBattler
             // 스탯 표시 처리
             SetUserStatLayer();
 
-            // 조각 관련 처리
-            SetPieceLayer();
-
             // 레벨업 기능 관련 처리
             SetLevelupLayer();
 
             // 초월 기능 관련 처리
             SetTranscendenceLayer();
+            SetTranscendencePieceLayer();
             
             // 리셋 기능 관련 처리
             SetLevelResetLayer();
@@ -125,10 +123,11 @@ namespace CookApps.AutoBattler
         public void RefreshLayer()
         {
             SetUserStatLayer();
-            SetPieceLayer();
             SetLevelupLayer();
-            SetTranscendenceLayer();
             SetLevelResetLayer();
+            
+            SetTranscendenceLayer();
+            SetTranscendencePieceLayer();   // SetTranscendenceLayer 이후 호출되어야 함
         }
 
         private void SetUserStatLayer()
@@ -149,18 +148,19 @@ namespace CookApps.AutoBattler
             _adDefText.text = _userStatData.DEF.ToString("N0");
         }
 
-        private void SetPieceLayer()
+        private void SetTranscendencePieceLayer()
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
+            if (_specCharacterTranscendenceData == null) return;
 
             _pieceLayerObject.SetActive(_isHaveCharacter);
             
             if (_isHaveCharacter == false) return;
 
             _pieceIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
-            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterData.need_piece}";
+            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterTranscendenceData.char_transcendence_count}";
 
-            _pieceSlider.maxValue = _specCharacterData.need_piece;
+            _pieceSlider.maxValue = _specCharacterTranscendenceData.char_transcendence_count;
             _pieceSlider.value = _userCharacterData.CharacterPiece;
         }
 
