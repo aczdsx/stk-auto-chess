@@ -36,7 +36,7 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _defValue = codeInfo.GetCodeStatToFloat(2);
-        _stunTime = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(3);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -49,7 +49,7 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _defValue = codeInfo.GetCodeStatToFloat(2);
-        _stunTime = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(3);
     }
 
     public override void OnUpdate(float dt)
