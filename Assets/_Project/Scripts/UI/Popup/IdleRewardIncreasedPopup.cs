@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
             {
                 double baseAmount = item.min_count;
                 double addAmount = item.add_count * (double)totalStageClearCount;
-                double totalAmount = baseAmount + addAmount;
+                double totalAmount = (baseAmount + addAmount) * 60;
                 
                 switch (item.item_type)
                 {
