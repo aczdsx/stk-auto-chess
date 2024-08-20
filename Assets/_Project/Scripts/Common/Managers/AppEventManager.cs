@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CookApps.AnalyticsLite;
+using CookApps.Analytics;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using UnityEngine;
@@ -108,7 +108,7 @@ namespace CookApps.AutoBattler
         /// <param name="appEventParameter">이벤트 파라메터</param>
         private void SendEvent(string eventName, AppEventParameter appEventParameter)
         {
-            CAppEventLite.ReportCustom(eventName, appEventParameter);
+            CAppEvent.ReportCustom(eventName, appEventParameter);
         }
 
         /// <summary>
