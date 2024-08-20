@@ -32,7 +32,8 @@ namespace CookApps.AutoBattler
         [Header("LevelUp Layer")]
         [SerializeField] private CAButton _activeLevelUpButton;
         [SerializeField] private CAButton _inactiveLevelUpButton;
-        [SerializeField] private CAButton _resetLevelUpButton;
+        [SerializeField] private CAButton _activeResetLevelUpButton;
+        [SerializeField] private CAButton _inactiveResetLevelUpButton;
         [SerializeField] private TextMeshProUGUI _resetCountText;
 
         [Space(10)]
@@ -73,7 +74,8 @@ namespace CookApps.AutoBattler
 
             // 레벨업
             _activeLevelUpButton.onClick.AddListener(OnClickLevelupButton);
-            _resetLevelUpButton.onClick.AddListener(OnClickCharacterResetButton);
+            _activeResetLevelUpButton.onClick.AddListener(OnClickCharacterResetButton);
+            _inactiveResetLevelUpButton.onClick.AddListener(OnClickDimmedResetButton);
 
             // 초월
             _activeTranscendenceButton.onClick.AddListener(OnClickTranscendenceButton);
@@ -87,7 +89,8 @@ namespace CookApps.AutoBattler
 
             // 레벨업
             _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
-            _resetLevelUpButton.onClick.RemoveListener(OnClickCharacterResetButton);
+            _activeResetLevelUpButton.onClick.RemoveListener(OnClickCharacterResetButton);
+            _inactiveResetLevelUpButton.onClick.RemoveListener(OnClickDimmedResetButton);
 
             // 초월
             _activeTranscendenceButton.onClick.RemoveListener(OnClickTranscendenceButton);
@@ -158,7 +161,7 @@ namespace CookApps.AutoBattler
             if (_isHaveCharacter == false) return;
 
             _pieceIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
-            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterTranscendenceData.char_transcendence_count}";
+            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.char_transcendence_count}</color>";
 
             _pieceSlider.maxValue = _specCharacterTranscendenceData.char_transcendence_count;
             _pieceSlider.value = _userCharacterData.CharacterPiece;
@@ -225,7 +228,12 @@ namespace CookApps.AutoBattler
 
             int resultCount = maxResetCount - resetCount;
             
-            _resetCountText.text = resultCount.ToString();
+            _resetCountText.text = $"레벨 초기화 ({resultCount})";
+
+            bool isAvailReset = resultCount > 0;
+            
+            _activeResetLevelUpButton.gameObject.SetActive(isAvailReset);
+            _inactiveResetLevelUpButton.gameObject.SetActive(!isAvailReset);
         }
 
         private void PlayLevelUpEffect()
@@ -368,6 +376,11 @@ namespace CookApps.AutoBattler
             });
 
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+        }
+
+        private void OnClickDimmedResetButton()
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_END_GUIDE");
         }
 
         private void OnClickTranscendenceButton()
