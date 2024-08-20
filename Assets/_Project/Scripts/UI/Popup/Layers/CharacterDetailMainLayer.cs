@@ -90,6 +90,7 @@ namespace CookApps.AutoBattler
         public void OnClickSkillLayerTabButton()
         {
             if (_parentCollectionPopup == null) return;
+            if (UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id) == false) return;
 
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.SKILL);
         }
@@ -100,6 +101,9 @@ namespace CookApps.AutoBattler
 
             _growLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.GROW;
             _skillLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.SKILL;
+            
+            bool isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
+            _skillLayerTabButton.interactable = isHaveCharacter;
         }
 
         private void SetCharacterInfo()
