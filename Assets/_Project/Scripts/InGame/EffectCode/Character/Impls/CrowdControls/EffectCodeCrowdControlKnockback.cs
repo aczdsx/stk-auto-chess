@@ -50,7 +50,6 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 
         if (owner.SpecCharacter.is_knock_back)
         {
-                
             owner.ChangeOccupiedTile(_inGameTile);
             Tween.Custom(
                 owner.Position3D,
@@ -93,7 +92,6 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 
         if (owner.SpecCharacter.is_knock_back)
         {
-                
             owner.ChangeOccupiedTile(_inGameTile);
             Tween.Custom(
                 owner.Position3D,

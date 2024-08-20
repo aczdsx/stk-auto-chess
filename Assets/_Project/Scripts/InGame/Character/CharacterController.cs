@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.Obfuscator;
@@ -427,14 +428,26 @@ namespace CookApps.BattleSystem
         
         public void AddCrowdControl(CrowdControlType type)
         {
-            _crowdControlType = _crowdControlType | type;
-            AddBuffDebuffType(type.ToBuffDebuffType());
+            if (_statData.Spec != null)
+            {
+                if (_statData.Spec.is_taken_cc)
+                {
+                    _crowdControlType = _crowdControlType | type;
+                    AddBuffDebuffType(type.ToBuffDebuffType());
+                }
+            }
         }
 
         public void RemoveCrowdControl(CrowdControlType type)
         {
-            _crowdControlType = _crowdControlType & ~type;
-            RemoveBuffDebuffType(type.ToBuffDebuffType());
+            if (_statData.Spec != null)
+            {
+                if (_statData.Spec.is_taken_cc)
+                {
+                    _crowdControlType = _crowdControlType & ~type;
+                    RemoveBuffDebuffType(type.ToBuffDebuffType());
+                }
+            }
         }
 
         public void LookAtTarget()

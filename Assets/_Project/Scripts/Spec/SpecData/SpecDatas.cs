@@ -129,6 +129,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat height;
         /// 넉백 가능 여부
         public bool is_knock_back;
+        /// cc 가능 여부
+        public bool is_taken_cc;
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id
