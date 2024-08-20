@@ -1,6 +1,7 @@
 using CookApps.AutoBattler;
 using CookApps.gRPC.Universal;
 using Cookapps.Stkauto.V1;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Tech.Universal.V2;
 using UnityEngine.Pool;
@@ -18,6 +19,17 @@ namespace GrpcGame
             var response = await GameService.GetPvpInfoAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
@@ -32,6 +44,17 @@ namespace GrpcGame
             var response = await GameService.GetPvpProfileAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
@@ -44,6 +67,17 @@ namespace GrpcGame
             var response = await GameService.GetPvpMatchListAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
@@ -57,6 +91,17 @@ namespace GrpcGame
             var response = await GameService.GetPvpRankListAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
@@ -70,6 +115,17 @@ namespace GrpcGame
             var response = await GameService.GetPvpMatchHistoryAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
@@ -86,6 +142,17 @@ namespace GrpcGame
             var response = await GameService.UpdatePvpProfileAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
@@ -106,6 +173,17 @@ namespace GrpcGame
             var response = await GameService.MatchPvpAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
@@ -121,6 +199,17 @@ namespace GrpcGame
             var response = await GameService.CheckPvpPowerUpdatedAsync(request);
             if (response == null)
                 throw new System.Exception("response is canceled!");
+            
+            // 벤 유저 체크
+            if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+            
             return response;
         } 
         
