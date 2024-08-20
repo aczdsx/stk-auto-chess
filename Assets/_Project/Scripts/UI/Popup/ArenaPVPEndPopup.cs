@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
             var afterSpecTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, checkScore);
             if (afterSpecTierData != null && specTierData != null)
             {
-                isTierChanage = specTierData.ranking_id != afterSpecTierData.ranking_id;
+                isTierChanage = specTierData.pvp_tier_type != afterSpecTierData.pvp_tier_type;
             }
             
             // 애니메이션 연출 적용
