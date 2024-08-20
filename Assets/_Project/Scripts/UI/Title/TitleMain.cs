@@ -238,6 +238,14 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // 벤 유저 체크
+            if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                return;
+            }
+            
             // 로그인 진행
             OnClickTouchToStart();
         }
@@ -290,6 +298,14 @@ namespace CookApps.AutoBattler
             if (resp.IsError)
             {
                 //FinishWithServerError();
+                return;
+            }
+            
+            // 벤 유저 체크
+            if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
                 return;
             }
             
