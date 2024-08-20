@@ -40,31 +40,35 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
         float distance = Vector3.Distance(owner.Position3D, _inGameTile.View.Position);
-
-        var halfDuration = duration * distance * 0.5f;
-        upFactor = (startY - height) / (halfDuration * halfDuration);
-        downFactor = -height / (halfDuration * halfDuration);
-
-        owner.AddCrowdControl(CrowdControlType.KnockBack);
-        elapsedTime = 0;
-
-        if (owner.SpecCharacter.is_knock_back)
+        if (distance > 0)
         {
-            owner.ChangeOccupiedTile(_inGameTile);
-            Tween.Custom(
-                owner.Position3D,
-                _inGameTile.View.Position,
-                duration * distance,
-                (Vector3 value) =>
-                {
-                    if (owner != null)
-                        owner.Position3D = value;
-                }, ease: Ease.InCirc).OnComplete(this, target =>
-                {
-                    if (owner != null)
-                        owner.AddNextState<CharacterStateIdle>();
-                }
-            );
+            distance = Mathf.Min(1.0f, distance);
+
+            var halfDuration = duration * distance * 0.5f;
+            upFactor = (startY - height) / (halfDuration * halfDuration);
+            downFactor = -height / (halfDuration * halfDuration);
+
+            owner.AddCrowdControl(CrowdControlType.KnockBack);
+            elapsedTime = 0;
+
+            if (owner.SpecCharacter.is_knock_back)
+            {
+                owner.ChangeOccupiedTile(_inGameTile);
+                Tween.Custom(
+                    owner.Position3D,
+                    _inGameTile.View.Position,
+                    duration * distance,
+                    (Vector3 value) =>
+                    {
+                        if (owner != null)
+                            owner.Position3D = value;
+                    }, ease: Ease.InCirc).OnComplete(this, target =>
+                    {
+                        if (owner != null)
+                            owner.AddNextState<CharacterStateIdle>();
+                    }
+                );
+            }
         }
     }
 
@@ -82,31 +86,35 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
         float distance = Vector3.Distance(owner.Position3D, _inGameTile.View.Position);
-
-        var halfDuration = duration * distance * 0.5f;
-        upFactor = (startY - height) / (halfDuration * halfDuration);
-        downFactor = -height / (halfDuration * halfDuration);
-
-        owner.AddCrowdControl(CrowdControlType.KnockBack);
-        elapsedTime = 0;
-
-        if (owner.SpecCharacter.is_knock_back)
+        if (distance > 0)
         {
-            owner.ChangeOccupiedTile(_inGameTile);
-            Tween.Custom(
-                owner.Position3D,
-                _inGameTile.View.Position,
-                duration * distance,
-                (Vector3 value) =>
-                {
-                    if (owner != null)
-                        owner.Position3D = value;
-                }, ease: Ease.InCirc).OnComplete(this, target =>
-                {
-                    if (owner != null)
-                        owner.AddNextState<CharacterStateIdle>();
-                }
-            );
+            distance = Mathf.Min(1.0f, distance);
+
+            var halfDuration = duration * distance * 0.5f;
+            upFactor = (startY - height) / (halfDuration * halfDuration);
+            downFactor = -height / (halfDuration * halfDuration);
+
+            owner.AddCrowdControl(CrowdControlType.KnockBack);
+            elapsedTime = 0;
+
+            if (owner.SpecCharacter.is_knock_back)
+            {
+                owner.ChangeOccupiedTile(_inGameTile);
+                Tween.Custom(
+                    owner.Position3D,
+                    _inGameTile.View.Position,
+                    duration * distance,
+                    (Vector3 value) =>
+                    {
+                        if (owner != null)
+                            owner.Position3D = value;
+                    }, ease: Ease.InCirc).OnComplete(this, target =>
+                    {
+                        if (owner != null)
+                            owner.AddNextState<CharacterStateIdle>();
+                    }
+                );
+            }
         }
     }
 
