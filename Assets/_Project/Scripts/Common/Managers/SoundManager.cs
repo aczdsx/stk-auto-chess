@@ -84,17 +84,18 @@ public enum SoundFX
     snd_sfx_skill_405021,
     snd_sfx_skill_406011,
 
-    // Monster Skill
-    snd_sfx_monster_101011 = 501,
-    snd_sfx_monster_101021,
-    snd_sfx_monster_104011,
-    snd_sfx_monster_202011,
-    snd_sfx_monster_104021,
-    snd_sfx_monster_103011,
-    snd_sfx_monster_202021,
-    snd_sfx_monster_201011,
-    snd_sfx_monster_203011,
-    snd_sfx_monster_202031,
+    // Monster Skill 
+    // 스킬 효과음 재생 로직에 맞춰 몬스터 스킬 효과음도 snd_sfx_skill_로 시작하도록 변경하고 폴더로 구분합니다.
+    //snd_sfx_monster_101011 = 501,
+    //snd_sfx_monster_101021,
+    //snd_sfx_monster_104011,
+    //snd_sfx_monster_202011,
+    //snd_sfx_monster_104021,
+    //snd_sfx_monster_103011,
+    //snd_sfx_monster_202021,
+    //snd_sfx_monster_201011,
+    //snd_sfx_monster_203011,
+    //snd_sfx_monster_202031,
 }
 
 

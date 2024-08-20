@@ -2606,7 +2606,7 @@ MonoBehaviour:
     _parentCategoryName: 
     AudioObjectPrefab: {fileID: 0}
     AudioItems:
-    - Name: snd_sfx_monster_102011
+    - Name: snd_sfx_skill_102011
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2646,7 +2646,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_202011
+    - Name: snd_sfx_skill_202011
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2686,7 +2686,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_202031
+    - Name: snd_sfx_skill_202031
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2726,7 +2726,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_201011
+    - Name: snd_sfx_skill_201011
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2766,7 +2766,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_101011
+    - Name: snd_sfx_skill_101011
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2806,7 +2806,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_202021
+    - Name: snd_sfx_skill_202021
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2846,7 +2846,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_103011
+    - Name: snd_sfx_skill_103011
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2886,7 +2886,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_104021
+    - Name: snd_sfx_skill_104021
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2926,7 +2926,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_203011
+    - Name: snd_sfx_skill_203011
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2966,7 +2966,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_104011
+    - Name: snd_sfx_skill_104011
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -3006,7 +3006,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_201031_01
+    - Name: snd_sfx_skill_201031_01
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -3046,7 +3046,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_201031_02
+    - Name: snd_sfx_skill_201031_02
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -3086,7 +3086,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_202061
+    - Name: snd_sfx_skill_202061
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -3126,7 +3126,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_monster_202051
+    - Name: snd_sfx_skill_202051
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -3952,8 +3952,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 6
-    currentItemIndex: 0
+    currentCategoryIndex: 4
+    currentItemIndex: 8
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
