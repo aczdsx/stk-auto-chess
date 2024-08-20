@@ -344,8 +344,10 @@ namespace CookApps.AutoBattler
         
             string result = _isVictory ? "clear" : "fail";
             string reason = _isVictory ? "clear" : "dead";
+
+            var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
             
-            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.stage_id, 0, myDeck.Count, 
+            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count, 
                 myDeckPower, 0, result, reason, clearCondition);
         }
     }

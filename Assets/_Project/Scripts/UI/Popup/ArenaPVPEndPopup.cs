@@ -124,8 +124,10 @@ namespace CookApps.AutoBattler
         
             string result = _isVictory ? "win" : "lose";
             
+            var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
+            
             AppEventManager.Instance.PVPEnd(1, _isRevenge, specTierData.pvp_tier_type, _matchResultData.MyCurrentRank, 
-                _matchResultData.MyCurrentScore, 0, result, myDeckPower, _detailData);
+                _matchResultData.MyCurrentScore, battleTime, result, myDeckPower, _detailData);
         }
         
         private async void OnClickCloseButton()
