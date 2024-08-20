@@ -25,6 +25,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
     public class LobbyMain : UILayer
     {
+        public Transform GetIdleRewardTransform => _idleRewardButton.transform;
+        
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
         [SerializeField] private CAButton _shopButton;
@@ -84,6 +86,11 @@ namespace CookApps.AutoBattler
         private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
 
         private bool _isIdleRewardFullState = false;
+
+        public static LobbyMain GetLobbyMain()
+        {
+            return SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+        }
 
         protected override void Awake()
         {

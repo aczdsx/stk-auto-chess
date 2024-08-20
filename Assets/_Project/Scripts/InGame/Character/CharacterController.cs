@@ -980,6 +980,16 @@ namespace CookApps.BattleSystem
                 if (!deathInfo.isUseCustomState)
                 {
                     ForceSetNextState<CharacterStateDead>();
+
+                    if (LobbyMain.GetLobbyMain() != null)
+                    {
+                        SpawnDropFx((targetLine) =>
+                        {
+                            if (targetLine != null)
+                                targetLine.Remove();
+                        });
+                        
+                    }
                 }
 
                 return DamageReturnType.Killed;
@@ -1188,6 +1198,29 @@ namespace CookApps.BattleSystem
             {
                 InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
                 targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
+                {
+                    if (onComplete != null)
+                        onComplete.Invoke(targetLine);
+                });
+
+                return targetLine;
+            }
+
+            return null;
+        }
+        
+        public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)
+        {
+            var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.DropFx, Position3D);
+            if (obj != null)
+            {
+                InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
+
+                Transform targetPos = LobbyMain.GetLobbyMain().GetIdleRewardTransform;
+                Camera mainCamera = Camera.main;
+                Vector3 screenPos = new Vector3(targetPos.position.x, targetPos.position.y, mainCamera.nearClipPlane);
+                Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
+                targetLine.TargetLine.DrawLine(Position3D, worldPos, () =>
                 {
                     if (onComplete != null)
                         onComplete.Invoke(targetLine);

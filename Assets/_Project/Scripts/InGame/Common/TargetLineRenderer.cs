@@ -51,19 +51,24 @@ public class TargetLineRenderer : MonoBehaviour
 
         if (gameObject.activeInHierarchy)
         {
-            StartCoroutine(DrawGuideLine(_startCharacter, _targetCharacter, isOwn, OnComplete));
+            Vector3 startPos = _startCharacter.Position3D;
+            Vector3 targetPos = _targetCharacter.Position3D;
+            startPos.y += 0.5f;
+            targetPos.y += 0.5f;
+            
+            StartCoroutine(DrawGuideLine(startPos, targetPos, OnComplete));
         }
     }
 
-    private IEnumerator DrawGuideLine(CharacterController startCharacter, CharacterController targetCharacter, bool isOwn,
-        Action OnComplete = null)
+    public void DrawLine(Vector3 startPos, Vector3 targetPos, Action OnComplete = null)
+    {
+        StartCoroutine(DrawGuideLine(startPos, targetPos, OnComplete));
+    }
+
+    private IEnumerator DrawGuideLine(Vector3 startPos, Vector3 targetPos, Action OnComplete = null)
     {
         WaitForEndOfFrame waitTime = new WaitForEndOfFrame();
     
-        Vector3 startPos = startCharacter.Position3D;
-        Vector3 targetPos = targetCharacter.Position3D;
-        startPos.y += 0.5f;
-        targetPos.y += 0.5f;
         List<Vector3> result = new List<Vector3>();
         for (int i = 0; i < _positionCount; i++)
         {
@@ -87,11 +92,6 @@ public class TargetLineRenderer : MonoBehaviour
 
         while (time < _lineDruationTime)
         {
-            if (startCharacter == null || targetCharacter == null)
-            {
-                Destroy(gameObject);
-            }
-    
             time += Time.unscaledDeltaTime;
             float value = time / _lineDruationTime;
 
@@ -101,27 +101,6 @@ public class TargetLineRenderer : MonoBehaviour
             // _lineRenderer.material.SetFloat("_ClipUvUp", 1 - value);
 
             yield return waitTime;
-        }
-
-        if (isOwn)
-        {
-            if (targetCharacter != null)
-            {
-                // _arrowFx.gameObject.SetActive(false);
-                // _ownFx.gameObject.SetActive(true);
-                // _ownFx.transform.position = targetPos;
-                // _ownFx.Play();
-            }
-        }
-        else
-        {
-            if (targetCharacter != null)
-            {
-                // _arrowFx.gameObject.SetActive(false);
-                // _otherFx.gameObject.SetActive(true);
-                // _otherFx.transform.position = targetPos;
-                // _otherFx.Play();
-            }
         }
         
         yield return new WaitForSeconds(1.5f);
