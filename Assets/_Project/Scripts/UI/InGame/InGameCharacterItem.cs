@@ -37,7 +37,8 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public void SetData(InGameBottomUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
     {
-        _guideFx.gameObject.SetActive(false);
+        if(_guideFx)
+            _guideFx.gameObject.SetActive(false);
         _parentUI = parent;
         _statData = characterStat;
         bool isExsist = _statData != null;
