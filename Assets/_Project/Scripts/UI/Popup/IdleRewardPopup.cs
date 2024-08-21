@@ -20,6 +20,8 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private GameObject _emptyLayerObject;
         [SerializeField] private TextMeshProUGUI _accTimeGuideText;
+        [SerializeField] private Slider _accTimeSlider;
+        [SerializeField] private TextMeshProUGUI _accTimeSliderText;
 
         [Space(10)]
         [SerializeField] private GameObject _rewardGridLayerObject;
@@ -109,6 +111,11 @@ namespace CookApps.AutoBattler
                 {
                     _accTimeGuideText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
 
+                    _accTimeSlider.maxValue = maxTimeLimitMinute;
+                    _accTimeSlider.value = (float)currentRewardTimeSpan.TotalMinutes;
+                    
+                    _accTimeSliderText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")} / 08:00:00";
+                    
                     await UniTask.Delay(1000, cancellationToken:token);
 
                     currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
