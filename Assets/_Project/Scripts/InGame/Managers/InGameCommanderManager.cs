@@ -57,6 +57,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     private List<CommanderSkillData> _commandSkillDataList = new List<CommanderSkillData>();
     private CommanderSkillData _selectedCommanderSkillData;
     private bool isCanUseCommanderSkill = false;
+    private Vector2 _offset = new Vector2(-10, 10);
 
     public void Initialize()
     {
@@ -73,8 +74,13 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
         if (eventData.pointerCurrentRaycast.gameObject == null)
             return;
-        
-        if (!eventData.pointerCurrentRaycast.gameObject.TryGetComponent<CommanderSkillUI>(out var commanderSkillUI))
+    
+        Vector2 adjustedPosition = eventData.pointerCurrentRaycast.screenPosition + _offset;
+
+        RaycastResult newRaycastResult = eventData.pointerCurrentRaycast;
+        newRaycastResult.screenPosition = adjustedPosition;
+
+        if (!newRaycastResult.gameObject.TryGetComponent<CommanderSkillUI>(out var commanderSkillUI))
             return;
 
         _selectedCommanderSkillData = _commandSkillDataList.Find(l => l.Spec.id == commanderSkillUI.Data.Spec.id);
@@ -95,21 +101,23 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     {
         if (_isDragging)
         {
-            float distance = Vector2.Distance(eventData.position, _dragStartPosition);
+            Vector2 adjustedPosition = eventData.position + _offset;
+            
+            float distance = Vector2.Distance(adjustedPosition, _dragStartPosition);
 
             float normalizedDistance = Mathf.Clamp01(distance / switchThreshold);
             float fadeAlpha = Mathf.Lerp(0f, maxFadeAlpha, normalizedDistance);
 
             if (distance >= switchThreshold)
             {
-                Vector3 worldPos = HandleRuntimeDrag(eventData);
+                Vector3 worldPos = HandleRuntimeDrag(adjustedPosition);
                 if (switchObj != null)
                 {
                     switchObj.SetActive(true);
                     switchObj.transform.position = worldPos;
                 }
 
-                CheckSkillTile(eventData, true);
+                CheckSkillTile(adjustedPosition, true);
             }
             else
             {
@@ -126,6 +134,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (_selectedCommanderSkillData == null)
             return;
 
+        Vector2 adjustedPosition = eventData.position + _offset;
+        
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
 
@@ -141,7 +151,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
         if (_hitTileView == null)
         {
-            bool isHitTileView = CheckSkillTile(eventData, false);
+            bool isHitTileView = CheckSkillTile(adjustedPosition, false);
             if (!isHitTileView)
             {
                 // 타일을 다시 설정해주세요.
@@ -176,9 +186,9 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         }
     }
 
-    Vector3 HandleRuntimeDrag(PointerEventData eventData)
+    Vector3 HandleRuntimeDrag(Vector2 adjustedPosition)
     {
-        return _mainCamera.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y,
+        return _mainCamera.ScreenToWorldPoint(new Vector3(adjustedPosition.x, adjustedPosition.y,
             _mainCamera.nearClipPlane));
     }
 
@@ -227,9 +237,9 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         _commandSkillDataList.Clear();
     }
 
-    private bool CheckSkillTile(PointerEventData eventData, bool isNavigate)
+    private bool CheckSkillTile(Vector2 adjustedPosition, bool isNavigate)
     {
-        RaycastHit[] hits = Physics.RaycastAll(_mainCamera.ScreenPointToRay(eventData.position));
+        RaycastHit[] hits = Physics.RaycastAll(_mainCamera.ScreenPointToRay(adjustedPosition));
         foreach (RaycastHit hit in hits)
         {
             if (hit.transform.gameObject.CompareTag("Slot"))

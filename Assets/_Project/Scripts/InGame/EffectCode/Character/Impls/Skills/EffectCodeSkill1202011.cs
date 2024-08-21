@@ -142,11 +142,11 @@ public class EffectCodeSkill1202011 : EffectCodeCharacterBase
                         1);
 
                 long effectCodeID = (long)EffectCodeNameType.KNOCKBACK;
-                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.3f, 0.3f, inGameTile.View.ID);
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, 0.15f, 0.3f, inGameTile.View.ID);
                 tile.OccupiedCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, owner);
             }
 
-            await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기
+            await UniTask.Delay(TimeSpan.FromSeconds(second));
         }
 
         IsSkillActivated = false;

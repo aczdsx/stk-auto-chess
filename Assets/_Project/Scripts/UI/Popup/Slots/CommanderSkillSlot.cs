@@ -75,6 +75,11 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.SetEquippedCommanderSkill(_parentPopup.Index, _specCommanderSkillData.commander_skill_id);
 
             _parentPopup.RefreshSkillSlot();
+
+            string msg = LanguageManager.Instance.GetLanguageText("GUIDE_MISSION_CLEAR_MSG");
+            string skillNameText = LanguageManager.Instance.GetLanguageText(_specCommanderSkillData.name_token);
+            
+            ToastManager.Instance.ShowToast(string.Format(msg, skillNameText));
         }
 
         private void OnClickSkillInfoButton()

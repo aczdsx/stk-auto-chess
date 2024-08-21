@@ -266,6 +266,13 @@ public class InGameTopUI : MonoBehaviour
 
     private void OnClickPauseButton()
     {
+        // 챕터 1 (튜토리얼 스테이지) 관련 처리
+        if (InGameManager.Instance.SpecStage.chapter_id == 1 && !UserDataManager.Instance.IsClearStage(InGameManager.Instance.SpecStage.stage_id))
+        {
+            ToastManager.Instance.ShowToast("TUTORIAL_PLAYING_ALERT");
+            return;
+        }
+        
         SceneUILayerManager.Instance.PushUILayerAsync<InGameExitPopup>(_failType).Forget();
     }
 

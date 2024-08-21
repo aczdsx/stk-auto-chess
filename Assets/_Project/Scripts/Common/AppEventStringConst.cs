@@ -4,6 +4,7 @@ public static class AppEventStringConst
 {
     public const string USER_ID = "USER_ID";
     public const string PLAYER_ID = "PLAYER_ID";
+    public const string NICKNAME = "NICKNAME";
     public const string SERVER = "SERVER";
     public const string TOTAL_PLAY_TIME = "TOTAL_PLAY_TIME";
     public const string DAILY_VISIT_COUNT = "DAILY_VISIT_COUNT";
@@ -28,6 +29,12 @@ public static class AppEventStringConst
     public const string CLEAR_CONDITION = "CLEAR_CONDITION";
     public const string COMMANDER_SKILL = "COMMANDER_SKILL";
     public const string DECK = "DECK";
+    
+    public const string ENEMY_PLAYER_ID = "ENEMY_PLAYER_ID";
+    public const string ENEMY_POINT = "ENEMY_POINT";
+    public const string ENEMY_GRADE = "ENEMY_GRADE";
+    public const string ENEMY_DECK = "ENEMY_DECK";
+    public const string ENEMY_DECK_POWER = "ENEMY_DECK_POWER";
     
     public const string SEASON = "SEASON";
     public const string GRADE = "GRADE";

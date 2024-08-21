@@ -3777,21 +3777,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1885647263517995911}
     m_Modifications:
-    - target: {fileID: 849789246209369287, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
+    - target: {fileID: 352242471037293447, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
+      propertyPath: _fillHealColor.a
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 849789246209369287, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
+    - target: {fileID: 352242471037293447, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
+      propertyPath: _fillGivenDamageColor.a
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 849789246209369287, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 849789246209369287, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
+    - target: {fileID: 352242471037293447, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
+      propertyPath: _fillTakenDamageColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1656948565672230901, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
       propertyPath: m_Pivot.x
@@ -3878,27 +3874,7 @@ PrefabInstance:
       value: BattleStatSlot
       objectReference: {fileID: 0}
     - target: {fileID: 2004946379568838083, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2004946379568838083, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8893583329116391816, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8893583329116391816, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8893583329116391816, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8893583329116391816, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

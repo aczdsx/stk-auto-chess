@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -155,8 +156,15 @@ public class FlowStateStageCombat : StateCombatBase
 
     private async UniTask ChangeNextState(bool isWin)
     {
+        if (isWin)
+        {
+            bool isUsePopup = InGameManager.Instance.SpecStage.chapter_id > 1;
+            if (isUsePopup)
+                SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
+        }
+        
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
-        await UniTask.Delay(1200);
+        await UniTask.Delay(1500);
         InGameMainFlowManager.Instance.SetInGameSpeed(false);
         if (isWin)
         {

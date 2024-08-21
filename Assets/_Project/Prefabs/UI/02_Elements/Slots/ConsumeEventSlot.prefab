@@ -23858,9 +23858,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968a9c217f4890d4894600f780817ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rewardSlotButton: {fileID: 6307559406379328357}
   _rewardItemLayerObject: {fileID: 7928493953442597170}
   _rewardItemImage: {fileID: 89866650840730810}
   _rewardItemCountText: {fileID: 1914277312769638735}
+  _checkObj: {fileID: 0}
   _rewardPieceLayerObject: {fileID: 7502069980466776901}
   _rewardPieceImage: {fileID: 6157817804598141883}
   _rewardPieceSliderImage: {fileID: 2425957274289934939}

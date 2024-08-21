@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "com.coffee.ui-effect": "https://github.com/mob-sakai/UIEffect.git",
-    "com.cookapps.analytics-lite": "1.2.2",
+    "com.cookapps.analytics": "1.6.0",
+    "com.cookapps.auth": "1.0.5",
     "com.cookapps.build": "1.1.1",
     "com.cookapps.dependency": "1.2.3",
     "com.cookapps.facebook": "1.2.1",

@@ -141,11 +141,11 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
             InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
                 4);
 
-        float knockBackTime = 0.3f;
+        float knockBackTime = 0.15f;
         Span<double> eccStats = stackalloc double[3];
         eccStats.Clear();
         eccStats[0] = knockBackTime;
-        eccStats[1] = 0.3f;
+        eccStats[1] = 0.2f;
         eccStats[2] = inGameTile.View.ID;
         
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);

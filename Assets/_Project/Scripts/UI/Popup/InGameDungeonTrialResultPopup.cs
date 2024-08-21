@@ -74,12 +74,16 @@ namespace CookApps.AutoBattler
             _afterLoseObj.SetActive(!_isVictory);
             _beforeLoseObj.SetActive(!_isVictory);
             if (_isVictory)
+            {
                 _victoryStageText.text =
-                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial) + " 승급 성공";
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + " 승급 성공";
+
+                SetRewardInfo();
+            }
             else
             {
                 _failStageText.text =
-                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial) + " 승급 실패";
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + " 승급 실패";
             }
 
             if (_specCharacter != null)
@@ -93,8 +97,6 @@ namespace CookApps.AutoBattler
             // 애니메이션 연출 적용
             string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
             baseAnimator.SetTrigger(animKey);
-
-            SetRewardInfo();
             // _rewardObj.SetActive(!InGameManager.Instance.SpecDungeonTrial.is_grade_up);
 
             var currentDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(InGameManager.Instance.SpecDungeonTrial.dungeon_id - 1);
@@ -104,11 +106,11 @@ namespace CookApps.AutoBattler
             if (currentDungeonTrialData != null)
             {
                 _beforeGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(currentDungeonTrialData.trial_type, false);
-                _beforeGradeText.text = StringUtil.GetTrialDungeonString(currentDungeonTrialData);
+                _beforeGradeText.text = StringUtil.GetTrialDungeonString(currentDungeonTrialData, true);
             }
 
             _afterGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(nextDungeonTrialData.trial_type, false);
-            _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData);
+            _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData, true);
             
             // 앱이벤트 전송 
             SendDungeonEndAppEvent();
@@ -181,7 +183,9 @@ namespace CookApps.AutoBattler
             string result = _isVictory ? "clear" : "fail";
             string reason = _isVictory ? "clear" : "dead";
             
-            AppEventManager.Instance.DungeonEnd(InGameManager.Instance.SpecDungeonTrial.dungeon_type, InGameManager.Instance.SpecDungeonTrial.dungeon_id, 0, myDeck.Count, 
+            var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
+            
+            AppEventManager.Instance.DungeonEnd(InGameManager.Instance.SpecDungeonTrial.dungeon_type, InGameManager.Instance.SpecDungeonTrial.dungeon_id, battleTime, myDeck.Count, 
                 myDeckPower, 0, result, reason, clearCondition);
         }
     }

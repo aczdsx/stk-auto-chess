@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CookApps.Auth;
 using CookApps.gRPC.Universal;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -122,12 +123,12 @@ namespace CookApps.AutoBattler
         {
             if (isLogin == false) return;
             
-            // if (LocalUserDataManager.Instance.GetIsFirstGame() == true)
-            // {
-            //     LocalUserDataManager.Instance.SaveFirstGame();
-            //     SceneUILayerManager.Instance.ChangeScene("Intro", null);
-            // }
-            // else
+            // 앱이벤트 Init
+            InitCookAppsAuth();
+                
+            // 앱이벤트 전송
+            AppEventManager.Instance.Login();
+            
             {
                 //var transition = SceneTransition_FadeInOut.Create();
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.
@@ -235,6 +236,14 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // 벤 유저 체크
+            if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                return;
+            }
+            
             // 로그인 진행
             OnClickTouchToStart();
         }
@@ -290,6 +299,14 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // 벤 유저 체크
+            if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                
+                return;
+            }
+            
             Debug.Log("UID ++++> " + UniversalGrpcManager.Instance.Uid);
             
             // 유저 로그인 정보 저장
@@ -319,6 +336,17 @@ namespace CookApps.AutoBattler
                 // 앱이벤트용 플레이 타임 데이터 기록
                 UserDataManager.Instance.SetUserTotalPlayTime(1, true);
             }
+        }
+
+        private void InitCookAppsAuth()
+        {
+#if SERVER_REAL
+        CAppAuth.SetServer(EnumServer.PRODUCTION);
+#else
+            CAppAuth.SetServer(EnumServer.DEV);
+#endif
+            
+            CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);
         }
     }
 }

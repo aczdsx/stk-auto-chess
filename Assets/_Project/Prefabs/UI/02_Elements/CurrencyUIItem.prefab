@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemIconImage: {fileID: 7481166718225625822}
   itemAmountText: {fileID: 7000978025849195057}
+  enoughColor: {r: 1, g: 1, b: 1, a: 1}
+  notEnoughColor: {r: 0.94509804, g: 0.5176471, b: 0.49411765, a: 1}
 --- !u!1001 &1742836730093162887
 PrefabInstance:
   m_ObjectHideFlags: 0

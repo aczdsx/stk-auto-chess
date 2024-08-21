@@ -652,8 +652,8 @@ RectTransform:
   m_GameObject: {fileID: 4596751075746011607}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1559930053788873311}
   m_Father: {fileID: 6385095295153808282}
@@ -1354,7 +1354,7 @@ GameObject:
   - component: {fileID: 2343746741497357288}
   - component: {fileID: 690132817122876909}
   - component: {fileID: 1272349375768008826}
-  - component: {fileID: 833783017361971222}
+  - component: {fileID: 3725677968740246417}
   m_Layer: 5
   m_Name: Dim
   m_TagString: Untagged
@@ -1429,14 +1429,14 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 833783017361971222}
+  m_TargetGraphic: {fileID: 3725677968740246417}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
---- !u!114 &833783017361971222
+--- !u!114 &3725677968740246417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1445,13 +1445,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 7692212638765834371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.101960786, g: 0.10980392, b: 0.12156863, a: 0.9098039}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: dda490fa21550574aa98bcb5a4b9e10d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8113732943959803485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,7 +1846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 435951405177591292, guid: 9272b6842bcbe034c8f0e33097d71928, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 435951405177591292, guid: 9272b6842bcbe034c8f0e33097d71928, type: 3}
       propertyPath: m_Pivot.y
@@ -1892,7 +1906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 435951405177591292, guid: 9272b6842bcbe034c8f0e33097d71928, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 217
+      value: 176
       objectReference: {fileID: 0}
     - target: {fileID: 435951405177591292, guid: 9272b6842bcbe034c8f0e33097d71928, type: 3}
       propertyPath: m_AnchoredPosition.y

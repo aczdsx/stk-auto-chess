@@ -155,7 +155,7 @@ namespace CookApps.BattleSystem
         {
             if (isSpeedUp)
             {
-                SetPlaySpeed(Preference.LoadPreference(Pref.IS_SPEED_UP, 1.5f));
+                SetPlaySpeed(Preference.LoadPreference(Pref.IS_SPEED_UP, 1.4f));
             }
             else
             {

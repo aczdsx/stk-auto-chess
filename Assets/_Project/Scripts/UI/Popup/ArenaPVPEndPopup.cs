@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
             var afterSpecTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, checkScore);
             if (afterSpecTierData != null && specTierData != null)
             {
-                isTierChanage = specTierData.ranking_id != afterSpecTierData.ranking_id;
+                isTierChanage = specTierData.pvp_tier_type != afterSpecTierData.pvp_tier_type;
             }
             
             // 애니메이션 연출 적용
@@ -124,8 +124,10 @@ namespace CookApps.AutoBattler
         
             string result = _isVictory ? "win" : "lose";
             
+            var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
+            
             AppEventManager.Instance.PVPEnd(1, _isRevenge, specTierData.pvp_tier_type, _matchResultData.MyCurrentRank, 
-                _matchResultData.MyCurrentScore, 0, result, myDeckPower);
+                _matchResultData.MyCurrentScore, battleTime, result, myDeckPower, _detailData);
         }
         
         private async void OnClickCloseButton()
@@ -158,12 +160,6 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_rewardContentObject.transform);
             
             _tierLevelObjectList?.ForEach(obj => obj.SetActive(false));
-        }
-        
-        // 앱이벤트 - PVP 종료
-        private void SendPVPEndAppEvent()
-        {
-            
         }
     }
 }

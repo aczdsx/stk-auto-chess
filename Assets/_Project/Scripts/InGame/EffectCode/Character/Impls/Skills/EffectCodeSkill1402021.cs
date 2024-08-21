@@ -28,6 +28,8 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
 
     private SpecSkill _specSkill;
 
+    private List<CharacterController> _hitCharacters = new List<CharacterController>();
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -36,7 +38,7 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _defValue = codeInfo.GetCodeStatToFloat(2);
-        _stunTime = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(3);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -49,7 +51,7 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _defValue = codeInfo.GetCodeStatToFloat(2);
-        _stunTime = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _stunTime = codeInfo.GetCodeStatToFloat(3);
     }
 
     public override void OnUpdate(float dt)
@@ -87,6 +89,7 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
     {
         base.Activate();
 
+        _hitCharacters.Clear();
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -143,19 +146,25 @@ public class EffectCodeSkill1402021 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.DEF / _defValue);
-                var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    float damageRate = (float) (owner.AD * _damageRate) * (1.0f + (float) owner.DEF / _defValue);
+                    var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
 
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                double[] eccStats = new double[1];
-                eccStats[0] = _stunTime;
+                    double[] eccStats = new double[1];
+                    eccStats[0] = _stunTime;
+
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats,
+                        source);
                     
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
+                    _hitCharacters.Add(tile.OccupiedCharacter);
+                }
             }
         }
                     

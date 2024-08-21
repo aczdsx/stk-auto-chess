@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.Obfuscator;
@@ -427,14 +428,26 @@ namespace CookApps.BattleSystem
         
         public void AddCrowdControl(CrowdControlType type)
         {
-            _crowdControlType = _crowdControlType | type;
-            AddBuffDebuffType(type.ToBuffDebuffType());
+            if (_statData.Spec != null)
+            {
+                if (_statData.Spec.is_taken_cc)
+                {
+                    _crowdControlType = _crowdControlType | type;
+                    AddBuffDebuffType(type.ToBuffDebuffType());
+                }
+            }
         }
 
         public void RemoveCrowdControl(CrowdControlType type)
         {
-            _crowdControlType = _crowdControlType & ~type;
-            RemoveBuffDebuffType(type.ToBuffDebuffType());
+            if (_statData.Spec != null)
+            {
+                if (_statData.Spec.is_taken_cc)
+                {
+                    _crowdControlType = _crowdControlType & ~type;
+                    RemoveBuffDebuffType(type.ToBuffDebuffType());
+                }
+            }
         }
 
         public void LookAtTarget()
@@ -980,6 +993,16 @@ namespace CookApps.BattleSystem
                 if (!deathInfo.isUseCustomState)
                 {
                     ForceSetNextState<CharacterStateDead>();
+
+                    if (LobbyMain.GetLobbyMain() != null)
+                    {
+                        SpawnDropFx((targetLine) =>
+                        {
+                            if (targetLine != null)
+                                targetLine.Remove();
+                        });
+                        
+                    }
                 }
 
                 return DamageReturnType.Killed;
@@ -1191,6 +1214,32 @@ namespace CookApps.BattleSystem
                 {
                     if (onComplete != null)
                         onComplete.Invoke(targetLine);
+                });
+
+                return targetLine;
+            }
+
+            return null;
+        }
+        
+        public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)
+        {
+            var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.DropFx, Position3D);
+            if (obj != null)
+            {
+                InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
+
+                Transform targetPos = LobbyMain.GetLobbyMain().GetIdleRewardTransform;
+                Camera mainCamera = Camera.main;
+                Vector3 screenPos = new Vector3(targetPos.position.x, targetPos.position.y, mainCamera.nearClipPlane);
+                Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
+                targetLine.TargetLine.DrawLine(Position3D, worldPos, () =>
+                {
+                    if (onComplete != null)
+                    {
+                        onComplete.Invoke(targetLine);
+                        LobbyMain.GetLobbyMain().PlayDropFx();
+                    }
                 });
 
                 return targetLine;

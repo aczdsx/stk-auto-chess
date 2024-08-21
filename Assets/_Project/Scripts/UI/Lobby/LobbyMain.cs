@@ -6,9 +6,11 @@ using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -25,6 +27,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
     public class LobbyMain : UILayer
     {
+        public Transform GetIdleRewardTransform => _idleRewardButton.transform;
+        
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
         [SerializeField] private CAButton _shopButton;
@@ -66,6 +70,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _normalRewardFillImage;
         [SerializeField] private GameObject _fullRewardStateObject;
         [SerializeField] private TextMeshProUGUI _idleRewardStateText;
+        [SerializeField] private ParticleSystem _dropFx;
 
         [Header("Red dot")]
         [SerializeField] private GameObject _characterReddotObject;
@@ -84,6 +89,11 @@ namespace CookApps.AutoBattler
         private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
 
         private bool _isIdleRewardFullState = false;
+
+        public static LobbyMain GetLobbyMain()
+        {
+            return SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+        }
 
         protected override void Awake()
         {
@@ -714,6 +724,13 @@ namespace CookApps.AutoBattler
             _EnterArenaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.PVP));
             _sessionEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SESSION_TIME));
             _consumeAPEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.AP_USE));
+        }
+
+        public void PlayDropFx()
+        {
+            _dropFx.gameObject.SetActive(true);
+            _dropFx.Stop();
+            _dropFx.Play();
         }
     }
 }

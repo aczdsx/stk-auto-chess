@@ -103,20 +103,6 @@ public class FlowStateStageReady : StateReadyBase
         
         StartDrawingLinesAsync(2.0f).Forget();
     }
-    
-    private async UniTaskVoid StartDrawingLinesAsync(float intervalITime)
-    {
-        while ((InGameMainFlowManager.Instance.CurrentFlowState is StateReadyBase))
-        {
-            InGameObjectManager.Instance.DrawPlayerLine(true);
-            
-            await UniTask.Delay(TimeSpan.FromSeconds(intervalITime));
-            
-            InGameObjectManager.Instance.DrawPlayerLine(false);
-
-            await UniTask.Delay(TimeSpan.FromSeconds(intervalITime));
-        }
-    }
 
     public override void StateStart()
     {

@@ -11,6 +11,8 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Image _itemIconImage;
         [SerializeField] private TextMeshProUGUI itemAmountText;
+        [SerializeField] private Color enoughColor;
+        [SerializeField] private Color notEnoughColor;
 
         public void SetUIItem(ItemType type, int key, int amount)
         {
@@ -25,6 +27,23 @@ namespace CookApps.AutoBattler
                 _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(type);
             }
 
+            itemAmountText.text = amount.ToString("N0");
+        }
+        
+        public void SetUIItem(ItemType type, int key, int amount, bool isEnough)
+        {
+            if (type == ItemType.CHARACTER_PIECE)
+            {
+                var specCharacterData = SpecDataManager.Instance.GetCharacterData(key);
+
+                _itemIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(specCharacterData.prefab_id);
+            }
+            else
+            {
+                _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(type);
+            }
+
+            itemAmountText.color = isEnough ? enoughColor : notEnoughColor;
             itemAmountText.text = amount.ToString("N0");
         }
     }
