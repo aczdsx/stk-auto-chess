@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
                 // 모든 가이드 미션 클리어 상태 체크
                 if (userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder())
                 {
-                    SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
+                    //SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
                 }
 
                 SaveUserMissionData();
