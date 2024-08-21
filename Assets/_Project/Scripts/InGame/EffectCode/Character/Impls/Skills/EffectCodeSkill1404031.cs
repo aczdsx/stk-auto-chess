@@ -162,6 +162,7 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
     {
         InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, pivotTile);
 
+        List<int> targetCharacterList = new();
         if (pivotTile.CheckValidTile(owner.AllianceType, false))
         {
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
@@ -170,12 +171,12 @@ public class EffectCodeSkill1404031 : EffectCodeCharacterBase
             var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, pivotTile.OccupiedCharacter, codeId, true);
             owner.PostCalculateDamageAmount(ref damage, pivotTile.OccupiedCharacter);
             pivotTile.OccupiedCharacter.GetDamaged(damage, owner);
+            targetCharacterList.Add(pivotTile.OccupiedCharacter.CharacterUId);
         }
 
         var vfxBoom = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], pivotTile.View.CachedTr.position);
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(pivotTile, 1);
-        List<int> targetCharacterList = new();
         foreach (var inGameTile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);
