@@ -22,6 +22,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _accTimeGuideText;
         [SerializeField] private Slider _accTimeSlider;
         [SerializeField] private TextMeshProUGUI _accTimeSliderText;
+        [SerializeField] private GameObject _fullRewardSliderLayerObject;
+        [SerializeField] private GameObject _fullRewardBoxLayerObject;
 
         [Space(10)]
         [SerializeField] private GameObject _rewardGridLayerObject;
@@ -100,6 +102,9 @@ namespace CookApps.AutoBattler
         {
             var token = this.GetCancellationTokenOnDestroy();
 
+            _fullRewardSliderLayerObject.SetActive(false);
+            _fullRewardBoxLayerObject.SetActive(false);
+            
             TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
 
             int maxTimeLimitMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
@@ -114,7 +119,7 @@ namespace CookApps.AutoBattler
                     _accTimeSlider.maxValue = maxTimeLimitMinute;
                     _accTimeSlider.value = (float)currentRewardTimeSpan.TotalMinutes;
                     
-                    _accTimeSliderText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")} / 08:00:00";
+                    _accTimeSliderText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")} / {(maxTimeLimitMinute/60).ToString("D2")}:00:00";
                     
                     await UniTask.Delay(1000, cancellationToken:token);
 
@@ -131,6 +136,13 @@ namespace CookApps.AutoBattler
                 if (maxTimeLimitMinute <= currentRewardTimeSpan.TotalMinutes)
                 {
                     _accTimeGuideText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00";
+                    _accTimeSliderText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00 / {(maxTimeLimitMinute/60).ToString("D2")}:00:00";
+                    
+                    _accTimeSlider.maxValue = maxTimeLimitMinute;
+                    _accTimeSlider.value = (float)currentRewardTimeSpan.TotalMinutes;
+                    
+                    _fullRewardSliderLayerObject.SetActive(true);
+                    _fullRewardBoxLayerObject.SetActive(true);
                 }
             }
             catch (Exception e)
