@@ -49,6 +49,10 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             _SynergyClassImage.sprite = ImageManager.Instance.GetPositionSprite(_statData.Spec.character_position_type);
             _lvText.text = $"{_statData.Level}";
         }
+        else
+        {
+            _lvText.text = $"0";
+        }
         _onSelected = onSelected;
     }
 
