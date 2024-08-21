@@ -152,7 +152,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
     private async UniTask ChangeNextState(bool isWin)
     {
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
-        await UniTask.Delay(1200);
+        await UniTask.Delay(1500);
         InGameMainFlowManager.Instance.SetInGameSpeed(false);
         if (isWin)
         {

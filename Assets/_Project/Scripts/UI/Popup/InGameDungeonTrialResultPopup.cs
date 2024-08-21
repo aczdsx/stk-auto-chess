@@ -74,8 +74,12 @@ namespace CookApps.AutoBattler
             _afterLoseObj.SetActive(!_isVictory);
             _beforeLoseObj.SetActive(!_isVictory);
             if (_isVictory)
+            {
                 _victoryStageText.text =
                     StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + " 승급 성공";
+
+                SetRewardInfo();
+            }
             else
             {
                 _failStageText.text =
@@ -93,8 +97,6 @@ namespace CookApps.AutoBattler
             // 애니메이션 연출 적용
             string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
             baseAnimator.SetTrigger(animKey);
-
-            SetRewardInfo();
             // _rewardObj.SetActive(!InGameManager.Instance.SpecDungeonTrial.is_grade_up);
 
             var currentDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(InGameManager.Instance.SpecDungeonTrial.dungeon_id - 1);
