@@ -236,6 +236,7 @@ public class InGameBottomUI : MonoBehaviour
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
                 characterItem.SetData(this, characterStat, AddCharacterToTile);
+                characterItem.SetAlert();
                 _characterStats.Add(characterStat);
             }
         }

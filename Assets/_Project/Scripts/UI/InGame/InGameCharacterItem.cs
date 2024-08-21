@@ -23,6 +23,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     [SerializeField] private Image _focusImage;
     [SerializeField] private Animation _dropFxAnimation;
     [SerializeField] private TextMeshProUGUI _focusText;
+    [SerializeField] private ParticleSystem _guideFx;
 
     private Action<CharacterStatData> _onSelected;
     private CharacterStatData _statData;
@@ -36,6 +37,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public void SetData(InGameBottomUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
     {
+        _guideFx.gameObject.SetActive(false);
         _parentUI = parent;
         _statData = characterStat;
         bool isExsist = _statData != null;
@@ -119,6 +121,12 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         {
             return 0; 
         }
+    }
+    
+    public void SetAlert()
+    {
+        _guideFx.gameObject.SetActive(true);
+        _guideFx.Play();
     }
 
     void Update()

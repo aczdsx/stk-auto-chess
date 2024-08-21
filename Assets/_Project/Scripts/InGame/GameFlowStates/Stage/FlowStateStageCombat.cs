@@ -157,7 +157,11 @@ public class FlowStateStageCombat : StateCombatBase
     private async UniTask ChangeNextState(bool isWin)
     {
         if (isWin)
-            SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
+        {
+            bool isUsePopup = InGameManager.Instance.SpecStage.chapter_id > 1;
+            if (isUsePopup)
+                SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
+        }
         
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
         await UniTask.Delay(1500);
