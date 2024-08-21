@@ -38,6 +38,7 @@ namespace CookApps.AutoBattler
             {
                 versionCode = 1000;
             }
+            
 #if SERVER_REAL
             var param = new GrpcInitializeParam(
                 url : "stkauto.prod.cookappsgames.com",
@@ -47,9 +48,10 @@ namespace CookApps.AutoBattler
                 bundleVersion: versionCode,
 #else
             var param = new GrpcInitializeParam(
-                url : "stkauto-adfjk.cookappsgames.com",
+                url : "stkauto-adfjk.dev.cookappsgames.com",
                 port: 443,
                 channelCredentials: EnumChannelCredentials.SECURE_SSL,
+                // channelCredentials: EnumChannelCredentials.INSECURE,
                 bundleVersion: versionCode,
 #endif
                 
