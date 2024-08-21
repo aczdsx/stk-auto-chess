@@ -7043,6 +7043,10 @@ PrefabInstance:
       propertyPath: m_EffectFactor
       value: 0.32450143
       objectReference: {fileID: 0}
+    - target: {fileID: 2710740242353681188, guid: cefa3af907895a74cac958f4e56b5bb1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2911763679344931164, guid: cefa3af907895a74cac958f4e56b5bb1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7130,6 +7134,10 @@ PrefabInstance:
     - target: {fileID: 4586888279536952738, guid: cefa3af907895a74cac958f4e56b5bb1, type: 3}
       propertyPath: m_Name
       value: CharacterCardSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153121469489173945, guid: cefa3af907895a74cac958f4e56b5bb1, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

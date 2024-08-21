@@ -9,33 +9,26 @@ namespace CookApps.AutoBattler
     {
         private const float GUIDE_ALERT_TIME = 2.0f;    // 가이드 알림 노출 시간
 
+        [SerializeField] private bool _useOnEnable = true;
         [SerializeField] private GuideMissionType _guideMissionType;
+
+        public int TargetSubKey { get; set; } = 0;
 
         [Space(10)]
         [SerializeField] private GameObject _guideAlertObject;
 
         private bool _isPlayingGuideAlert = false;
 
-        private void Start()
+        private void OnEnable()
         {
+            if (_useOnEnable == false) return;
+            
             if (GuideMissionManager.Instance != null)
             {
                 GuideMissionManager.Instance.OnGuideAlertUpdated += UpdateAlert;
             }
 
-            bool isActive = false;
-            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            if (userGuideMissionData.MissionStateType == (int)MissionStateType.NONE)
-            {
-                var specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userGuideMissionData.MissionId);
-                if (specGuideMissionData != null && specGuideMissionData.guide_mission_type == _guideMissionType)
-                {
-               
-                    isActive = true;
-                }
-            }
-
-            _guideAlertObject.SetActive(isActive);
+            UpdateAlert();
         }
 
         private void OnDestroy()
@@ -46,6 +39,20 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void InitAlert()
+        {
+            gameObject.SetActive(true);
+            
+            UpdateAlert();
+        }
+        
+        public void InitAlertWithSubKey(int subKey)
+        {
+            TargetSubKey = subKey;
+
+            InitAlert();
+        }
+
         private void UpdateAlert()
         {
             if (_guideAlertObject == null) return;
@@ -53,24 +60,45 @@ namespace CookApps.AutoBattler
 
             _guideAlertObject.SetActive(false);
 
-            var currentGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(currentGuideMissionData.MissionId);
+            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(userGuideMissionData.MissionId);
 
             if (specGuideMissionData != null)
             {
-                if (specGuideMissionData.guide_mission_type == _guideMissionType)
+                bool isValidType = specGuideMissionData.guide_mission_type == _guideMissionType;
+                bool isValidState = userGuideMissionData.MissionStateType != (int)MissionStateType.REWARD && userGuideMissionData.MissionStateType != (int)MissionStateType.CLEAR;
+                
+                bool isHaveSubKey = TargetSubKey > 0;
+                bool isValidSubKey = isHaveSubKey && specGuideMissionData.sub_key == TargetSubKey;
+                
+                if (isValidType && isValidState)
                 {
-                    _isPlayingGuideAlert = true;
-
-                    _guideAlertObject.SetActive(true);
-
-                    Invoke(nameof(OffAlert), GUIDE_ALERT_TIME);
-
-                    //SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+                    if (isHaveSubKey)
+                    {
+                        if (isValidSubKey)
+                        {
+                            OnAlert();    
+                        }
+                    }
+                    else
+                    {
+                        OnAlert();
+                    }
                 }
             }
         }
 
+        private void OnAlert()
+        {
+            _isPlayingGuideAlert = true;
+
+            _guideAlertObject.SetActive(true);
+
+            Invoke(nameof(OffAlert), GUIDE_ALERT_TIME);
+
+            //SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+        }
+        
         private void OffAlert()
         {
             _isPlayingGuideAlert = false;

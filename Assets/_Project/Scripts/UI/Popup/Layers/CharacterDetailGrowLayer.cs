@@ -14,6 +14,8 @@ namespace CookApps.AutoBattler
 {
     public class CharacterDetailGrowLayer : CachedMonoBehaviour
     {
+        [SerializeField] private GuideAlert _levelupButtonGuideAlert;
+        
         [Header("Stat Info")]
         [SerializeField] private CAButton _detailStatButton;
         [SerializeField] private TextMeshProUGUI _levelText;
@@ -119,6 +121,9 @@ namespace CookApps.AutoBattler
             
             // 리셋 기능 관련 처리
             SetLevelResetLayer();
+            
+            // 가이드 알림 처리
+            SetGuideAlert();
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
@@ -257,6 +262,13 @@ namespace CookApps.AutoBattler
             });
 
             _isPlayingLevelupEffect = false;
+        }
+
+        private void SetGuideAlert()
+        {
+            if (_levelupButtonGuideAlert == null) return;
+            
+            _levelupButtonGuideAlert.InitAlertWithSubKey(_specCharacterData.character_id);
         }
 
         private void OnClickDetailStatButton()
