@@ -138,6 +138,9 @@ namespace CookApps.AutoBattler
                     _accTimeGuideText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00";
                     _accTimeSliderText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00 / {(maxTimeLimitMinute/60).ToString("D2")}:00:00";
                     
+                    _accTimeSlider.maxValue = maxTimeLimitMinute;
+                    _accTimeSlider.value = (float)currentRewardTimeSpan.TotalMinutes;
+                    
                     _fullRewardSliderLayerObject.SetActive(true);
                     _fullRewardBoxLayerObject.SetActive(true);
                 }
