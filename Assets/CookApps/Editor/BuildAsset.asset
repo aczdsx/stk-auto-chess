@@ -28,7 +28,7 @@ MonoBehaviour:
         Version: 0.1.3
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3164
+        VersionCode: 3186
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -37,8 +37,8 @@ MonoBehaviour:
         - Guid: 8029178524cba4055adeed793914bebd
         AddDefine:
         - SERVER_DEV
-        RemoveDefine:
         - ENABLE_CHEAT
+        RemoveDefine:
         - SERVER_REAL
         BuildOptions: 0
         TargetSdkVersion: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
         Version: 0.1.2
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3164
+        VersionCode: 3186
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
