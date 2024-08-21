@@ -245,7 +245,7 @@ namespace CookApps.AutoBattler
 
                 isLogin =  await UniversalGrpcManager.Instance.AutoLoginAsync();
             }
-            
+
             Debug.Log("UID ++++> " + UniversalGrpcManager.Instance.Uid);
             
             var resp = await UniversalGrpcManager.Instance.SelectServerAndPlayerAsync(UserDataManager.Instance.UserBasicData.ServerId, UserDataManager.Instance.UserBasicData.PlayerId);
@@ -361,13 +361,14 @@ namespace CookApps.AutoBattler
 
         private void InitCookAppsAuth()
         {
+            CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);
+            
 #if SERVER_REAL
-        CAppAuth.SetServer(EnumServer.PRODUCTION);
+            CAppAuth.SetServer(EnumServer.PRODUCTION);
 #else
             CAppAuth.SetServer(EnumServer.DEV);
 #endif
             
-            CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);
         }
     }
 }
