@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293714386
-  m_fontColor: {r: 0.8235294, g: 0.88235295, b: 0.9254902, a: 1}
+    rgba: 4293132031
+  m_fontColor: {r: 1, g: 0.9967112, b: 0.8915094, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 2
   m_fontColorGradient:
@@ -226,19 +226,19 @@ MonoBehaviour:
   _blendMode: 2
   _modifyVertices: 1
   _offset: -0.573
-  _zoom: 1
+  _zoom: 1.67
   _effectGradient:
     serializedVersion: 2
     key0: {r: 0.49803922, g: 0.5411765, b: 0.6156863, a: 1}
-    key1: {r: 0.6247775, g: 0.8257522, b: 0.9811321, a: 1}
-    key2: {r: 0.81501424, g: 0.87162495, b: 0.9339623, a: 1}
+    key1: {r: 0.98039216, g: 0.62352943, b: 0.9661187, a: 1}
+    key2: {r: 1, g: 0.9756289, b: 0.8537736, a: 1}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 41827
+    ctime1: 42405
     ctime2: 65535
     ctime3: 0
     ctime4: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 41827
+    atime1: 52621
     atime2: 65535
     atime3: 0
     atime4: 0
