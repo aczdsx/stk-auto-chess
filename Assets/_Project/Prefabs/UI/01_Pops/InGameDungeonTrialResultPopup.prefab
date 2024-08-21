@@ -430,6 +430,7 @@ MonoBehaviour:
   _afterGradeImage: {fileID: 1209912318015158376}
   _beforeLoseObj: {fileID: 3414340588835055956}
   _afterLoseObj: {fileID: 2247351102348556382}
+  _afterArrow: {fileID: 1909534014986859753}
   _beforeGradeText: {fileID: 8258906130991624331}
   _afterGradeText: {fileID: 4814235958942261633}
 --- !u!95 &1765230210626122500
@@ -7592,6 +7593,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1909534014986859753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 831947758167362523, guid: 9cb64a42cc64f9d44ba8d47af52db385, type: 3}
+  m_PrefabInstance: {fileID: 1228263364789976882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2247351102348556382 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1025583688793966444, guid: 9cb64a42cc64f9d44ba8d47af52db385, type: 3}

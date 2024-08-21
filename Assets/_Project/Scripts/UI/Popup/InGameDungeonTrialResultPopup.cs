@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _beforeLoseObj;
         [SerializeField] private GameObject _afterLoseObj;
         
+        [SerializeField] private GameObject _afterArrow;
         [SerializeField] private TextMeshProUGUI _beforeGradeText;
         [SerializeField] private TextMeshProUGUI _afterGradeText;
         
@@ -111,6 +112,7 @@ namespace CookApps.AutoBattler
 
             _afterGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(nextDungeonTrialData.trial_type, false);
             _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData, true);
+            _afterArrow.SetActive(_beforeObj.activeSelf);
             
             // 앱이벤트 전송 
             SendDungeonEndAppEvent();
