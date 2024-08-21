@@ -125,8 +125,11 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     
     public void SetAlert()
     {
-        _guideFx.gameObject.SetActive(true);
-        _guideFx.Play();
+        if (_guideFx)
+        {
+            _guideFx.gameObject.SetActive(true);
+            _guideFx.Play();
+        }
     }
 
     void Update()
