@@ -44,10 +44,6 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         {
             distance = Mathf.Min(1.0f, distance);
 
-            var halfDuration = duration * distance * 0.5f;
-            upFactor = (startY - height) / (halfDuration * halfDuration);
-            downFactor = -height / (halfDuration * halfDuration);
-
             owner.AddCrowdControl(CrowdControlType.KnockBack);
             elapsedTime = 0;
 
@@ -65,7 +61,13 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
                     }, ease: Ease.InCirc).OnComplete(this, target =>
                     {
                         if (owner != null)
+                        {
                             owner.AddNextState<CharacterStateIdle>();
+                            var pos = owner.ViewPosition3D;
+                            pos.y = 0;
+                            owner.ViewPosition3D = pos;
+                            RemoveFromContainer();
+                        }
                     }
                 );
             }
@@ -90,10 +92,6 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         {
             distance = Mathf.Min(1.0f, distance);
 
-            var halfDuration = duration * distance * 0.5f;
-            upFactor = (startY - height) / (halfDuration * halfDuration);
-            downFactor = -height / (halfDuration * halfDuration);
-
             owner.AddCrowdControl(CrowdControlType.KnockBack);
             elapsedTime = 0;
 
@@ -111,39 +109,16 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
                     }, ease: Ease.InCirc).OnComplete(this, target =>
                     {
                         if (owner != null)
+                        {
                             owner.AddNextState<CharacterStateIdle>();
+                            var pos = owner.ViewPosition3D;
+                            pos.y = 0;
+                            owner.ViewPosition3D = pos;
+                            RemoveFromContainer();
+                        }
                     }
                 );
             }
-        }
-    }
-
-    public override void OnUpdate(float dt)
-    {
-        elapsedTime += dt;
-        if (elapsedTime > duration)
-        {
-            var pos = owner.ViewPosition3D;
-            pos.y = 0;
-            owner.ViewPosition3D = pos;
-            RemoveFromContainer();
-            return;
-        }
-
-        var x = elapsedTime - duration * 0.5f;
-        if (x < 0)
-        {
-            isGoingUp = true;
-            var pos = owner.ViewPosition3D;
-            pos.y = upFactor * x * x + height;
-            owner.ViewPosition3D = pos;
-        }
-        else
-        {
-            isGoingUp = false;
-            var pos = owner.ViewPosition3D;
-            pos.y = downFactor * x * x + height;
-            owner.ViewPosition3D = pos;
         }
     }
 

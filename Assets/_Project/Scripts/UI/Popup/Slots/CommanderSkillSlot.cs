@@ -76,7 +76,7 @@ namespace CookApps.AutoBattler
 
             _parentPopup.RefreshSkillSlot();
 
-            string msg = LanguageManager.Instance.GetLanguageText("GUIDE_MISSION_CLEAR_MSG");
+            string msg = LanguageManager.Instance.GetLanguageText("MSG_EQUIP_COMMAND_SKILL");
             string skillNameText = LanguageManager.Instance.GetLanguageText(_specCommanderSkillData.name_token);
             
             ToastManager.Instance.ShowToast(string.Format(msg, skillNameText));

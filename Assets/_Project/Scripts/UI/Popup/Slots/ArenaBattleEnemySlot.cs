@@ -48,6 +48,7 @@ namespace CookApps.AutoBattler
         private PvpMatchHistoryData _pvpMatchHistoryData;
 
         private SpecPVPTier _specTierData;
+        private ArenaMainPopup _parentPopup;
         
         private bool _isBattleLogSlot = false;
         private bool _isDummyUser = false;
@@ -64,11 +65,12 @@ namespace CookApps.AutoBattler
             _revengeButton.onClick.RemoveListener(OnClickRevengeButton);
         }
 
-        public void InitMatchSlot(UserPVPBattleSimpleData data)
+        public void InitMatchSlot(UserPVPBattleSimpleData data, ArenaMainPopup parentPopup)
         {
             if (data == null) return;
 
             _isBattleLogSlot = false;
+            _parentPopup = parentPopup;
             
             _userPVPBattleSimpleData = data;       
             _pvpMatchHistoryData = null;
@@ -190,6 +192,7 @@ namespace CookApps.AutoBattler
             var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
             if (defenseDeckList == null || defenseDeckList.Count <= 0)
             {
+                _parentPopup.PlayGuide();
                 ToastManager.Instance.ShowToastByTokenKey("MSG_PVP_SET_DEF_DECK");
                 return;
             }

@@ -37,8 +37,6 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
 
     public void SetData(InGameBottomUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
     {
-        if(_guideFx)
-            _guideFx.gameObject.SetActive(false);
         _parentUI = parent;
         _statData = characterStat;
         bool isExsist = _statData != null;
@@ -56,6 +54,9 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         {
             _lvText.text = $"0";
         }
+
+        if (_guideFx)
+            _guideFx.gameObject.SetActive(false);
         _onSelected = onSelected;
     }
 
@@ -82,6 +83,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             _focusText.text = "0";
             _lvText.text = "0";
         }
+
         _focusObj.SetActive(isActiveFocus);
     }
 
@@ -120,10 +122,10 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         }
         else
         {
-            return 0; 
+            return 0;
         }
     }
-    
+
     public void SetAlert()
     {
         if (_guideFx)

@@ -30,6 +30,8 @@ namespace CookApps.AutoBattler
 
         [Space(10)] 
         [SerializeField] private CAButton _settingDefenseDeckButton;
+        [SerializeField] private ParticleSystem _defenseDeckGuideFx;
+        [SerializeField] private GameObject _defenseDeckRedDot;
 
         private ArenaMainPopup _parentPopup;
 
@@ -84,11 +86,21 @@ namespace CookApps.AutoBattler
                 
                 rewardSlot.SetRewardSlot(rewardData);
             }
+            
+            var defenseDeckList = UserDataManager.Instance.GetPVPDefenseCharacterDeckDataList();
+            bool isDefenseDeckEmpty = defenseDeckList == null || defenseDeckList.Count <= 0;
+            _defenseDeckRedDot.SetActive(isDefenseDeckEmpty);
         }
 
         public void RefreshLayer()
         {
             _currentUserPVPData = UserDataManager.Instance.UserPVP;
+        }
+
+        public void PlayGuideFx()
+        {
+            _defenseDeckGuideFx.gameObject.SetActive(true);
+            _defenseDeckGuideFx.Play();
         }
 
         private void UpdateLayer()

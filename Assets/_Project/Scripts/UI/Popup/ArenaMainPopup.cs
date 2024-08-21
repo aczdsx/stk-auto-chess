@@ -281,5 +281,10 @@ namespace CookApps.AutoBattler
             _pvpRankTabLayer.gameObject.SetActive(false);
             _pvpSeasonRewardTabLayer.gameObject.SetActive(false);
         }
+
+        public void PlayGuide()
+        {
+            _myPVPInfoLayer.PlayGuideFx();
+        }
     }
 }
