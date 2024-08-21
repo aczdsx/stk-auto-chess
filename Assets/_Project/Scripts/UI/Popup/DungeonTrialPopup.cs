@@ -146,18 +146,29 @@ namespace CookApps.AutoBattler
             var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
             double attr = 0;
             CharacterStatData topStatData = null;
+            
+            List<CharacterStatData> dataList = new List<CharacterStatData>();
             foreach (var monsterData in monsterDataList)
             {
-                var statData = new CharacterStatData(monsterData.monster_id, monsterData.monster_lv, monsterData.multiple_atk,
-                    monsterData.multiple_hp);
+                var statData = new CharacterStatData(monsterData.monster_id, monsterData.monster_lv,
+                    monsterData.multiple_atk, monsterData.multiple_hp);
                 
+                dataList.Add((statData));
+            }
+
+            dataList.Sort((a, b) => b.GetAttrValue().CompareTo(a.GetAttrValue()));
+            foreach (var monsterData in dataList)
+            {
                 GameObject newSlotObject = Instantiate(_monsterInfoSlotObject, _monsterInfoScrollRect.content);
                 DungeonMonsterInfoSlot newSlot = newSlotObject.GetComponent<DungeonMonsterInfoSlot>();
-                newSlot?.SetMonsterInfoSlot(statData);
-                attr += statData.GetAttrValue();
+                newSlot?.SetMonsterInfoSlot(monsterData);
+    
+                double attrValue = monsterData.GetAttrValue();
 
-                if (topStatData == null || topStatData.GetAttrValue() < statData.GetAttrValue())
-                    topStatData = statData;
+                attr += attrValue;
+
+                if (topStatData == null || topStatData.GetAttrValue() < attrValue)
+                    topStatData = monsterData;
             }
             
             _currentStepImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonTrialData.trial_type, false);
