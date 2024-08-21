@@ -160,6 +160,9 @@ namespace CookApps.AutoBattler
                 
                 string resultText = isWin  ? "승리" : "패배";
                 _battleResultText.text = resultText;
+
+                string resultString = LanguageManager.Instance.GetTimeSpanFromNowText(_userPVPBattleSimpleData.RefreshTimestamp);
+                _battleResultTimeText.text = resultString;
             }
         }
 

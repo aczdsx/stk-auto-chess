@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using CookApps.TeamBattle;
 using UnityEngine;
 
@@ -116,6 +118,27 @@ namespace CookApps.AutoBattler
                 default:
                     return string.Empty;
             }
+        }
+
+        public string GetTimeSpanFromNowText(long targetTimestamp)
+        {
+            var timeSpanData = TimeManager.Instance.GetTimeSpanFromNow(targetTimestamp);
+            
+            StringBuilder timeTextList = new StringBuilder();
+
+            if (timeSpanData.Days > 0)
+            {
+                timeTextList.Append($"{timeSpanData.Days}일");
+            }
+            
+            if (timeSpanData.Hours > 0)
+            {
+                timeTextList.Append($"{timeSpanData.Hours}시간");
+            }
+            
+            timeTextList.Append($"{timeSpanData.Minutes}분 전");
+            
+            return timeTextList.ToString();
         }
     }
 }
