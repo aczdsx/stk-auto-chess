@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CookAppsAuth
   m_EditorClassIdentifier: 
   _token: 47e7352532f1b287f0fe4efa96c1f6dc
-  _enableServerAuth: 0
+  _enableServerAuth: 1
   _urlDev: https://w8ycb0k5d8.execute-api.ap-northeast-2.amazonaws.com
   _urlProduction: https://auth.cookappsgames.com
