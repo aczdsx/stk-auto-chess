@@ -12,8 +12,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 범위 : 전방 일직선 (현재 위치에서 즉발)
 // 대미지 : 관통하는 레이저 발사해 공격력 {0}%의 대미지를 준다.
 /// </summary>
-[UseEffectCodeIds(1204061)]
-public class EffectCodeSkill1204061 : EffectCodeCharacterBase
+[UseEffectCodeIds(1104061)]
+public class EffectCodeSkill1104061 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 
