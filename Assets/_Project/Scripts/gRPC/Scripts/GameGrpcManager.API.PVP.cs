@@ -23,7 +23,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);
@@ -48,7 +48,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);
@@ -71,7 +71,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);
@@ -95,7 +95,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);
@@ -119,7 +119,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);
@@ -146,7 +146,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);
@@ -177,7 +177,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);
@@ -203,7 +203,7 @@ namespace GrpcGame
             // 벤 유저 체크
             if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 var transition = SceneTransition_FadeInOut.Create();
                 await SceneLoading.GoToNextScene("Title", null, transition);

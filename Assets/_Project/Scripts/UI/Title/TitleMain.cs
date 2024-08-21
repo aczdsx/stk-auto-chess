@@ -252,13 +252,14 @@ namespace CookApps.AutoBattler
             if (resp.IsError)
             {
                 //FinishWithServerError();
+                ToastManager.Instance.ShowToastByTokenKey("SERVER_ACCESS_FAIL");
                 return;
             }
             
             // 벤 유저 체크
             if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 return;
             }
@@ -315,13 +316,14 @@ namespace CookApps.AutoBattler
             if (resp.IsError)
             {
                 //FinishWithServerError();
+                ToastManager.Instance.ShowToastByTokenKey("SERVER_ACCESS_FAIL");
                 return;
             }
             
             // 벤 유저 체크
             if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToast("BANNED_USER_ALERT");
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
                 
                 return;
             }
