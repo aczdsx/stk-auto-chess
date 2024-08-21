@@ -454,9 +454,16 @@ namespace CookApps.AutoBattler
                 var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
                     _specCharacterData.element_type, _specCharacterData.grade_type,
                     _userCharacterData.TranscendenceLevel + 1);
-                string msg =
-                    $"{LanguageManager.Instance.GetLanguageText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_lv} -> {afterTranscenenceData.max_lv}";
-                ToastManager.Instance.ShowToast(msg);
+                if (afterTranscenenceData != null)
+                {
+                    string msg =
+                        $"{LanguageManager.Instance.GetLanguageText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_lv} -> {afterTranscenenceData.max_lv}";
+                    ToastManager.Instance.ShowToast(msg);
+                }
+                else
+                {
+                    ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_UP");
+                }
             });
             
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
