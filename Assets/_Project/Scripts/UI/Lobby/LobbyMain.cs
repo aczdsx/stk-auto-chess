@@ -553,7 +553,8 @@ namespace CookApps.AutoBattler
                             return;
                         }
 
-                        if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
+                        if (!(specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE ||
+                             specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_TRIAL))
                         {
                             ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
                             return;
