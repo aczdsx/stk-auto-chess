@@ -71,7 +71,14 @@ public class InGameCamera : MonoBehaviour
             _mainCamera.transform.position = targetPosition;
         });
 
-        await UniTask.WaitUntil(() => Mathf.Approximately(_mainCamera.orthographicSize, targetSize) && Mathf.Approximately(_mainCamera.transform.position.y, targetPosition.y));
+        await UniTask.WaitUntil(() =>
+        {
+            if (_mainCamera == null)
+                return true;
+            
+            return Mathf.Approximately(_mainCamera.orthographicSize, targetSize) &&
+                   Mathf.Approximately(_mainCamera.transform.position.y, targetPosition.y);
+        });
     }
 
     private async UniTaskVoid Shake(float duration, float magnitude, CancellationToken cancellationToken)

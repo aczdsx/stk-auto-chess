@@ -116,14 +116,11 @@ public class EffectCodeSkill1202031 : EffectCodeCharacterBase
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
 
-
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-
                 var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
                     codeId, true);
                 owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
