@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             itemAmountText.text = amount.ToString("N0");
         }
         
-        public void SetUIItem(ItemType type, int key, int amount, bool isNotEnough)
+        public void SetUIItem(ItemType type, int key, int amount, bool isEnough)
         {
             if (type == ItemType.CHARACTER_PIECE)
             {
@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
                 _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(type);
             }
 
-            itemAmountText.color = isNotEnough ? Color.red : Color.white;
+            itemAmountText.color = isEnough ? Color.white : Color.red;
             itemAmountText.text = amount.ToString("N0");
         }
     }

@@ -392,9 +392,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1479889276437169492}
   - {fileID: 4406922424097107534}
   - {fileID: 9191352124984052048}
-  - {fileID: 1479889276437169492}
   m_Father: {fileID: 6349021338934841971}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -65696,7 +65696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectFactor: 0.5
+  m_EffectFactor: 0
   m_Width: 0.187
   m_Rotation: 26
   m_Softness: 1
