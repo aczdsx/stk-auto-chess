@@ -2779,6 +2779,8 @@ MonoBehaviour:
   _accTimeGuideText: {fileID: 6798921602546287972}
   _accTimeSlider: {fileID: 6159027385896711683}
   _accTimeSliderText: {fileID: 2512245694488917944}
+  _fullRewardSliderLayerObject: {fileID: 3134624139073097011}
+  _fullRewardBoxLayerObject: {fileID: 5621180951939096561}
   _rewardGridLayerObject: {fileID: 8014037919631172006}
   _rewardSlotObject: {fileID: 2618787470769635390}
 --- !u!1 &6164313079755661171
