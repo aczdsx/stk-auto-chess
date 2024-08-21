@@ -12,6 +12,9 @@ namespace CookApps.AutoBattler
 {
     public class CharacterCardSlot : CachedMonoBehaviour
     {
+        [SerializeField] private GuideAlert _characterGuideAlert;
+        
+        [Space(10)]
         [SerializeField] private CAButton _characterCardButton;
 
         [Header("BG Layer")]
@@ -125,6 +128,9 @@ namespace CookApps.AutoBattler
             _lockBGLayerObject.SetActive(!haveCharacter);
             _normalBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type != GradeType.LEGEND);
             _SSRBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type == GradeType.LEGEND);
+            
+            // 가이드 알림 세팅
+            SetGuideAlert();
         }
 
         private void SetStarObject(GradeType gradeType, bool isHaveCharacter)
@@ -134,6 +140,13 @@ namespace CookApps.AutoBattler
                 _starObjectList[i].SetActive(i <= (int)gradeType);
                 _starObjectList[i].GetComponent<CharacterGradeStar>().SetStar(isHaveCharacter);
             }
+        }
+        
+        private void SetGuideAlert()
+        {
+            if (_characterGuideAlert == null) return;
+            
+            _characterGuideAlert.InitAlertWithSubKey(_specCharacterData.character_id);
         }
 
         private void OnClickCardSlot()
