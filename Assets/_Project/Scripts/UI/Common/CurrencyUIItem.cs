@@ -27,5 +27,22 @@ namespace CookApps.AutoBattler
 
             itemAmountText.text = amount.ToString("N0");
         }
+        
+        public void SetUIItem(ItemType type, int key, int amount, bool isNotEnough)
+        {
+            if (type == ItemType.CHARACTER_PIECE)
+            {
+                var specCharacterData = SpecDataManager.Instance.GetCharacterData(key);
+
+                _itemIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(specCharacterData.prefab_id);
+            }
+            else
+            {
+                _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(type);
+            }
+
+            itemAmountText.color = isNotEnough ? Color.red : Color.white;
+            itemAmountText.text = amount.ToString("N0");
+        }
     }
 }
