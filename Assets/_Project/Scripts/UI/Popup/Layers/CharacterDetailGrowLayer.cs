@@ -425,8 +425,9 @@ namespace CookApps.AutoBattler
             {
                 return;
             }
-            
-            string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
+
+            string characterName = LanguageManager.Instance.GetLanguageText(_specCharacterData.name_token);
+            string contentText = string.Format(LanguageManager.Instance.GetLanguageText("MSG_TRANSCENDENCE_ASK"), characterName);
 
             SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
             newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () =>
@@ -449,6 +450,13 @@ namespace CookApps.AutoBattler
                 RefreshLayer();
                 // 이펙트 실행
                 PlayLevelUpEffect();
+                
+                var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
+                    _specCharacterData.element_type, _specCharacterData.grade_type,
+                    _userCharacterData.TranscendenceLevel + 1);
+                string msg =
+                    $"{LanguageManager.Instance.GetLanguageText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_lv} -> {afterTranscenenceData.max_lv}";
+                ToastManager.Instance.ShowToast(msg);
             });
             
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
