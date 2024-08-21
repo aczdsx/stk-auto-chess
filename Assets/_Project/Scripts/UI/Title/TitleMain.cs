@@ -29,6 +29,8 @@ namespace CookApps.AutoBattler
         
         bool isLogin = false;
         bool isLoginProcess = false;
+
+        private bool loginDelay = true;
         
         [SerializeField] private TMP_InputField _guestIDInputField;
         [SerializeField] private TextMeshProUGUI _currentGuestIDText;
@@ -49,13 +51,29 @@ namespace CookApps.AutoBattler
             var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
             haveGuestID = string.IsNullOrEmpty(playerID) == false;
             
+            Invoke(nameof(LoginDelay), 3.0f);
+            
             _createGuestButtonLayer.SetActive(!haveGuestID);
             //_loginGuestButtonLayer.SetActive(haveGuestID);
             
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
         }
+        
 
+        private void Start()
+        {
+            var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
+            haveGuestID = string.IsNullOrEmpty(playerID) == false;
+            
+            Invoke(nameof(LoginDelay), 2.0f);
+        }
+
+        private void LoginDelay()
+        {
+            loginDelay = false;
+        }
+            
         private async UniTask RunAllTasks()
         {
             await UniTask.NextFrame();
@@ -178,8 +196,9 @@ namespace CookApps.AutoBattler
 
         public void OnClickGuestLoginButton()
         {
-            if (isLoginProcess)
-                return;
+            if (isLoginProcess) return;
+            if (haveGuestID == false) return;
+            if (loginDelay) return;
 
             _loadingPopupObject.SetActive(true);
             isLoginProcess = true;
@@ -192,9 +211,9 @@ namespace CookApps.AutoBattler
 
         public void OnClickCrateGuestIDButton()
         {
-            if (isLoginProcess)
-                return;
-
+            if (isLoginProcess) return;
+            if (loginDelay) return;
+            
             _loadingPopupObject.SetActive(true);
             isLoginProcess = true;
             CreateGuestAccount().ContinueWith(() =>
