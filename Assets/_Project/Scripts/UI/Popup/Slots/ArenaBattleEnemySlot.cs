@@ -233,6 +233,8 @@ namespace CookApps.AutoBattler
                 }
             }
             
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            
             // 인게임 씬 집입
             InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
@@ -259,14 +261,14 @@ namespace CookApps.AutoBattler
                 return;
             }
             
-            // todo.. 상대방 덱 업데이트 서버 체크
-            
             // 서버로 부터 상대방 덱 정보 로드 및 체크
             var pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
             if (pvpProfileData == null || pvpProfileData.DetailData == null)
             {
                 return;
             }
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             
             // 인게임 씬 집입
             InGameManager.Instance.EndInGame();
