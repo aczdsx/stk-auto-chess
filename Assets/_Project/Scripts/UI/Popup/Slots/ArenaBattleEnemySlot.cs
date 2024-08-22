@@ -40,6 +40,7 @@ namespace CookApps.AutoBattler
         
         [Header("Revenge Layer")]
         [SerializeField] private GameObject _revengeLayer;
+        [SerializeField] private GameObject _revengeTierLayer;
         [SerializeField] private CAButton _revengeButton;
         [SerializeField] private Image _revengeRankTierImage;
         [SerializeField] private TextMeshProUGUI _revengeRankPointText;
@@ -172,6 +173,9 @@ namespace CookApps.AutoBattler
             
             _revengeLayer.SetActive(_isBattleLogSlot);
             _revengeButton.gameObject.SetActive(isLoseBattle);
+            
+            float tierLayerScale = isLoseBattle ? 1.0f : 1.5f;
+            _revengeTierLayer.GetComponent<RectTransform>().localScale = new Vector3(tierLayerScale, tierLayerScale, tierLayerScale);
 
             if (_isBattleLogSlot)
             {
