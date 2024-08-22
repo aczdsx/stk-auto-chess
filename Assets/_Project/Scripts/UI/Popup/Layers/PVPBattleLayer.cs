@@ -129,7 +129,7 @@ namespace CookApps.AutoBattler
                 if (currentRewardTimeSpan.TotalSeconds <= 0)
                 {
                     _isAvailRefresh = true;
-                    _matchRefreshRemainTimeText.text = LanguageManager.Instance.GetLanguageText("ARENA_MATCH_REFRESH_DESC");
+                    _matchRefreshRemainTimeText.text = LanguageManager.Instance.GetLanguageText("ARENA_MATCH_REFRESH_AVAIL");
                     
                     _matchFreeRefreshButton.gameObject.SetActive(_isAvailRefresh);
                     _matchRefreshButton.gameObject.SetActive(!_isAvailRefresh);
