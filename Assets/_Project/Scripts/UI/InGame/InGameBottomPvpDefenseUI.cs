@@ -29,9 +29,17 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     [SerializeField] protected InGameObstacleItem _ingameObstacleItemPrefab;
     [SerializeField] protected Transform _inGameObstacleItemTransform;
     [SerializeField] protected GameObject _obstacleListBody;
-    [SerializeField] protected CAButton _changeButton;
-    [SerializeField] protected GameObject _obstacleTipObj;
     [SerializeField] protected TextMeshProUGUI _obstacleCountText;
+    [SerializeField] protected TextMeshProUGUI _descText;
+    
+    [Space]
+    [SerializeField] protected CAButton _characterButton;
+    [SerializeField] protected CAButton _obstacleButton;
+    
+    [SerializeField] protected GameObject _characterOffObj;
+    [SerializeField] protected GameObject _obstacleOffObj;
+    [SerializeField] protected GameObject _characterOnObj;
+    [SerializeField] protected GameObject _obstacleOnObj;
 
     private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
     private List<TestObstacle> _obstacleDataList = new List<TestObstacle>();
@@ -44,10 +52,12 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     protected void Awake()
     {
         _startButton?.onClick.AddListener(OnPvPSaveButtonClicked);
-        _changeButton?.onClick.AddListener(OnChangeButtonClicked);
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
         _recommendButton?.onClick.AddListener(OnClickRecommend);
         _speedUpButton?.onClick.AddListener(OnClickSpeedUp);
+        
+        _characterButton?.onClick.AddListener(OnChangeCharacterClicked);
+        _obstacleButton?.onClick.AddListener(OnChangeObstacleClicked);
     }
 
     public override void InitData()
@@ -91,7 +101,8 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
             else
                 _obstacleDataList.RemoveAt(_obstacleDataList.Count - 1);
         }
-        UpdateObstacleData();
+        UpdateObstacleData(false);
+        SetCharacterCountText();
     }
     
     public override void ReturnObstacle(CharacterController controller)
@@ -133,15 +144,38 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
     }
 
-    private void OnChangeButtonClicked()
+    private void OnChangeObstacleClicked()
     {
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-        _obstacleListBody.SetActive(!_obstacleListBody.activeSelf);
-        _characterListBody.SetActive(!_characterListBody.activeSelf);
+        _obstacleListBody.SetActive(true);
+        _characterListBody.SetActive(false);
+        
+        _obstacleOnObj.SetActive(true);
+        _characterOnObj.SetActive(false);
+        
+        _obstacleOffObj.SetActive(false);
+        _characterOffObj.SetActive(true);
 
-        _obstacleTipObj.SetActive(!_obstacleTipObj.activeSelf);
-        _characterTipObj.SetActive(!_characterTipObj.activeSelf);
+        SetObstacleCountText();
+        _descText.text = LanguageManager.Instance.GetLanguageText("UI_PVP_DECK_OBSTACLE_SET");
+    }
+    
+    private void OnChangeCharacterClicked()
+    {
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
+        _obstacleListBody.SetActive(false);
+        _characterListBody.SetActive(true);
+        
+        _obstacleOnObj.SetActive(false);
+        _characterOnObj.SetActive(true);
+        
+        _obstacleOffObj.SetActive(true);
+        _characterOffObj.SetActive(false);
+
+        SetCharacterCountText();
+        _descText.text = LanguageManager.Instance.GetLanguageText("UI_PVP_DECK_CHARACTER_SET");
     }
 
     private async UniTask PvPSaveProcess()
@@ -235,7 +269,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         _isRunningAddObstacle = false;
     }
 
-    public void UpdateObstacleData()
+    public void UpdateObstacleData(bool isUpdateCount = true)
     {
         for (int i = 0; i < _obstacleItemList.Count; i++)
         {

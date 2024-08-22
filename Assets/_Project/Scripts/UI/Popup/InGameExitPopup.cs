@@ -80,6 +80,9 @@ namespace CookApps.AutoBattler
             }
             else
             {
+                InGameManager.Instance.AppEventResult = "fail";
+                InGameManager.Instance.AppEventReason = "exit";
+                
                 InGameMainFlowManager.Instance.AddNextState(_failType);
             }
         }

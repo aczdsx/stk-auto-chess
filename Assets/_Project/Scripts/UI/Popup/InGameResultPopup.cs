@@ -182,7 +182,7 @@ namespace CookApps.AutoBattler
             _nextStageButtonText.text = LanguageManager.Instance.GetLanguageText(buttonStringKey);
             
             // 앱이벤트 전송
-            SendStageEndAppEvent();
+            SendStageEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
         }
 
         private void OnExitButtonClicked()
@@ -332,24 +332,22 @@ namespace CookApps.AutoBattler
         }
 
         // 앱이벤트 - 스테이지 종료
-        private void SendStageEndAppEvent()
+        private void SendStageEndAppEvent(string result, string reason)
         {
             // 앱 이벤트 처리
             var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
             int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
+            int enemyPower = (int)InGameObjectManager.Instance.GetStartingEnemiesAttr();
         
             int starNum1 = _isVictory ? 1 : 0;
             int starNum2 = _star >= 2 ? 1 : 0;
             int starNum3 = _star >= 3 ? 1 : 0;
             string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1, starNum2, starNum3);
-        
-            string result = _isVictory ? "clear" : "fail";
-            string reason = _isVictory ? "clear" : "dead";
 
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
             
             AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count, 
-                myDeckPower, 0, result, reason, clearCondition);
+                myDeckPower, enemyPower, result, reason, clearCondition);
         }
     }
 }

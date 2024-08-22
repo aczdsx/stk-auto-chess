@@ -20,6 +20,7 @@ namespace CookApps.BattleSystem
         public InGameGrid InGameGrid => _grid;
         public InGameStage InGameStage => _stage;
         public List<CharacterController> StartingPlayerCharacters => startingPlayerCharacters;
+        public List<CharacterController> StartingEnemiesCharacters => startingEnemiesCharacters;
         public List<CharacterController> EnemiesInPlaygroundForUpdate => enemiesInPlaygroundForUpdate;
 
         private InGameGrid _grid;
@@ -30,6 +31,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> nonStatObstacleInPlaygroundForUpdate = new();
 
         private List<CharacterController> startingPlayerCharacters = new();
+        private List<CharacterController> startingEnemiesCharacters = new();
         private List<CharacterController> reusableList = new List<CharacterController>();
         
         private List<InGameVfxTargetLine> playerTargetLines = new List<InGameVfxTargetLine>();
@@ -56,6 +58,7 @@ namespace CookApps.BattleSystem
 
             playground = GameObject.FindWithTag("Playground").GetComponent<Transform>();
             startingPlayerCharacters = new();
+            startingEnemiesCharacters = new List<CharacterController>();
 
             _stage = stage;
             InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
@@ -334,6 +337,9 @@ namespace CookApps.BattleSystem
 
         public void SaveStartingPlayerCharacter()
         {
+            startingEnemiesCharacters.Clear();
+            startingEnemiesCharacters.AddRange(enemiesInPlaygroundForUpdate);
+            
             startingPlayerCharacters.Clear();
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
             UserDataManager.Instance.SetUserCharaceterBattleDeckList(InGameResourceHolder.InGameType, startingPlayerCharacters);
@@ -342,6 +348,8 @@ namespace CookApps.BattleSystem
                 .OrderBy(character => character.SpecCharacter.atk_range).ToList();
             enemiesInPlaygroundForUpdate =
                 enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
+            
+            
         }
 
         public bool IsCheckAllPlayerCharacterAlive()
@@ -811,6 +819,16 @@ namespace CookApps.BattleSystem
                 attrValue += character.GetCharacterStat().GetAttrValue();
             }
 
+            return attrValue;
+        }
+
+        public double GetStartingEnemiesAttr()
+        {
+            double attrValue = 0;
+            foreach (var character in startingEnemiesCharacters)
+            {
+                attrValue += character.GetCharacterStat().GetAttrValue();
+            }
             return attrValue;
         }
 

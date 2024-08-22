@@ -118,6 +118,8 @@ public class FlowStateStageCombat : StateCombatBase
         {
             isEndCombat = true;
             isWin = false;
+            InGameManager.Instance.AppEventResult = "fail";
+            InGameManager.Instance.AppEventReason = "dead";
         }
 
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
@@ -125,6 +127,8 @@ public class FlowStateStageCombat : StateCombatBase
         {
             isEndCombat = true;
             isWin = true;
+            InGameManager.Instance.AppEventResult = "clear or pass"; // [TODO] clear or pass
+            InGameManager.Instance.AppEventReason = "clear or pass"; // [TODO] clear or pass
         }
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)
@@ -132,6 +136,8 @@ public class FlowStateStageCombat : StateCombatBase
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_TIME_OVER");
             isEndCombat = true;
             isWin = false;
+            InGameManager.Instance.AppEventResult = "fail";
+            InGameManager.Instance.AppEventReason = "time_out";
         }
 
         if (isEndCombat)

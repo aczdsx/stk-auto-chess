@@ -7,6 +7,7 @@ using CookApps.TeamBattle;
 using PrimeTween;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 namespace CookApps.BattleSystem
@@ -23,6 +24,9 @@ namespace CookApps.BattleSystem
 
         private EffectCodeContainer ecc;
         public EffectCodeContainer EffectCodeContainer => ecc;
+        
+        public string AppEventResult = string.Empty;
+        public string AppEventReason = string.Empty;
 
         public void ResetRandomGeneratorSeed()
         {
@@ -48,6 +52,8 @@ namespace CookApps.BattleSystem
             SpecStage = specStage;
             IsInGamePlaying = true;
             IsInGameCombat = true;
+            AppEventResult = string.Empty;
+            AppEventReason = string.Empty;
             ecc = new EffectCodeContainer(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specStage);
             InitializeInGameComponents(specStage);
@@ -58,6 +64,8 @@ namespace CookApps.BattleSystem
             SpecDungeonTrial = specDungeonTrial;
             IsInGamePlaying = true;
             IsInGameCombat = true;
+            AppEventResult = string.Empty;
+            AppEventReason = string.Empty;
             ecc = new EffectCodeContainer(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specDungeonTrial);
             InitializeInGameComponents(specDungeonTrial);
@@ -68,6 +76,8 @@ namespace CookApps.BattleSystem
             UserPvpBattleDeckList = pvpBattleDeck;
             IsInGamePlaying = true;
             IsInGameCombat = true;
+            AppEventResult = string.Empty;
+            AppEventReason = string.Empty;
             ecc = new EffectCodeContainer(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(pvpBattleDeck);
             InitializeInGameComponents(pvpBattleDeck);

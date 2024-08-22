@@ -114,8 +114,8 @@ namespace CookApps.AutoBattler
             _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData, true);
             _afterArrow.SetActive(_beforeObj.activeSelf);
             
-            // 앱이벤트 전송 
-            SendDungeonEndAppEvent();
+            // 앱이벤트 전송
+            SendDungeonEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
         }
 
         private void OnClickExitButton()
@@ -173,7 +173,7 @@ namespace CookApps.AutoBattler
         }
         
         // 앱이벤트 - 던전 종료
-        private void SendDungeonEndAppEvent()
+        private void SendDungeonEndAppEvent(string result, string reason)
         {
             // 앱 이벤트 처리
             var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.TRIAL);
@@ -181,9 +181,6 @@ namespace CookApps.AutoBattler
         
             int starNum1 = _isVictory ? 1 : 0;
             string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1);
-        
-            string result = _isVictory ? "clear" : "fail";
-            string reason = _isVictory ? "clear" : "dead";
             
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
             
