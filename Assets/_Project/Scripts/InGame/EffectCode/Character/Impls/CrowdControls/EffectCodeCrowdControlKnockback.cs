@@ -67,6 +67,10 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
                 }
             );
         }
+        else
+        {
+            RemoveFromContainer();
+        }
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -114,6 +118,9 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
+        if (!owner.SpecCharacter.is_knock_back)
+            return;
+
         elapsedTime += dt;
         if (elapsedTime > duration)
         {
