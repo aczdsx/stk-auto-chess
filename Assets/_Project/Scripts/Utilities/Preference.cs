@@ -13,6 +13,7 @@ public enum Pref
     FIRST_TRIAL,
     GUEST_ID,
     IS_SPEED_UP,
+    SHOW_SURVEY_POPUP,
 }
 
 public class Preference

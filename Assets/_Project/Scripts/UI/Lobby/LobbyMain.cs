@@ -168,6 +168,7 @@ namespace CookApps.AutoBattler
                     CheckUserAccountLevelUp();
                     UpdateReddotState();
                     UpdateOpenCondition();
+                    CheckShowSurveyPopup();
                     break;
                 case LobbyMainRefreshType.STAGE:
                     SetBottomStageUI();
@@ -348,6 +349,20 @@ namespace CookApps.AutoBattler
             }
         }
 
+        private void CheckShowSurveyPopup()
+        {
+            bool isShowSurvey = Preference.LoadPreference(Pref.SHOW_SURVEY_POPUP, 0) == 1;
+            if (isShowSurvey) return;
+            
+            int surveyVisitCount = SpecDataManager.Instance.GetGameConfig<int>("USER_SURVEY_NOTI_ACC_DATE");
+            if (UserDataManager.Instance.UserBasicData.DailyVisitCount >= surveyVisitCount)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
+                
+                Preference.SavePreference(Pref.SHOW_SURVEY_POPUP, 1);
+            }
+        }
+        
         private void CheckNewChapterClear()
         {
             if (UserDataManager.Instance.NewChapterOpenAlert == false) return;
