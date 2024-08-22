@@ -674,6 +674,11 @@ namespace CookApps.AutoBattler
 
         public List<SpecCommanderSkill> GetCommanderSkillList(int chapterID)
         {
+            return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id == chapterID);
+        }
+        
+        public List<SpecCommanderSkill> GetCommanderSkillIncludeList(int chapterID)
+        {
             return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id <= chapterID);
         }
 

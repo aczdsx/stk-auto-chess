@@ -197,7 +197,7 @@ namespace CookApps.AutoBattler
             // 지휘자 스킬 추가
             if (NewChapterOpenAlert)
             {
-                var commanderList = SpecDataManager.Instance.GetCommanderSkillList(lastTargetStageData.chapter_id + 1);
+                var commanderList = SpecDataManager.Instance.GetCommanderSkillIncludeList(lastTargetStageData.chapter_id + 1);
 
                 foreach (var commander in commanderList)
                 {
