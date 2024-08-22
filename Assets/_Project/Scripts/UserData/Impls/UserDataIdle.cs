@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
                 userIdleData = new UserIdleData
                 {
                     //LastRewardGetTimestamp = 1718582400,
-                    LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStamp(),
+                    LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStampLocal(),
                 };
 
                 SaveUserIdle();
@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
         // 현재 시간을 기준으로 보상 수령 시간 갱신
         public void RefreshLastRewardGetTime()
         {
-            UserIdleData.LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStamp();
+            UserIdleData.LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
             SaveUserIdle();
         }

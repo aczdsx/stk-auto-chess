@@ -849,7 +849,7 @@ namespace CookApps.AutoBattler
                 var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
                 var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
 
-                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
                 if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
                 {
@@ -879,7 +879,7 @@ namespace CookApps.AutoBattler
                 var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
                 var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
 
-                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
                 if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
                 {

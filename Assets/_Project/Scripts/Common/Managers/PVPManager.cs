@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             {
                 Debug.Log("***PVP UPDATE CHECK!!***");
                 
-                if (UserDataManager.Instance.UserPVP.AutoRefreshProfileTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                if (UserDataManager.Instance.UserPVP.AutoRefreshProfileTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                 {
                     UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.AUTO_PROFILE, true);
                     

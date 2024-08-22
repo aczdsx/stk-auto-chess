@@ -84,7 +84,7 @@ namespace CookApps.AutoBattler
         private void CheckQuestRefreshState()
         {
             // 일일 퀘스트 체크
-            if (UserDataManager.Instance.UserQuest.NextDailyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+            if (UserDataManager.Instance.UserQuest.NextDailyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
             {
                 UserDataManager.Instance.UpdateNextRefreshTimeStamp(TermType.DAILY, true);
 
@@ -92,7 +92,7 @@ namespace CookApps.AutoBattler
             }
 
             // 주간 퀘스트 체크
-            if (UserDataManager.Instance.UserQuest.NextWeeklyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+            if (UserDataManager.Instance.UserQuest.NextWeeklyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
             {
                 UserDataManager.Instance.UpdateNextRefreshTimeStamp(TermType.WEEKLY, true);
 

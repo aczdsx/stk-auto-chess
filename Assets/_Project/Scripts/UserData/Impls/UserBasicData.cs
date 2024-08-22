@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
                     Exp = 0,
                     Nickname = "StellaKnights",
                     UserIconId = 40101,
-                    LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp(),
+                    LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStampLocal(),
                     MaxSquadCount = SpecDataManager.Instance.GetGameConfig<int>("default_max_squad_count"),
                     UserInstallDate = TimeManager.Instance.UtcNowTimeStamp(),
 
@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
         
         public void RefreshLastLoginTimestamp(bool needSave)
         {
-            UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp();
+            UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
             if (needSave)
             {
@@ -104,7 +104,7 @@ namespace CookApps.AutoBattler
         
         public void UpdateDailyVisitCount(bool needSave)
         {
-            if (UserBasicData.DailyVisitCountTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+            if (UserBasicData.DailyVisitCountTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
             {
                 UserBasicData.DailyVisitCount++;
                 UserBasicData.DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStamp();
@@ -222,7 +222,7 @@ namespace CookApps.AutoBattler
         public void UpdateResetCharacterCount()
         {
             // 현재 날짜가 리셋 날짜보다 크거나 같으면 초기화
-            if (UserBasicData.ResetCharacterTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+            if (UserBasicData.ResetCharacterTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
             {
                 SetResetCharacterCount(0, false, false);
 

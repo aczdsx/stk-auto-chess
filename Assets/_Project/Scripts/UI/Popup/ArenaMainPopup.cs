@@ -211,7 +211,7 @@ namespace CookApps.AutoBattler
                 case PVPTimeRefreshType.MATCHING_LIST:
                     break;
                 case PVPTimeRefreshType.MATCHING_REFRESH_COUNT:
-                    if (UserDataManager.Instance.UserPVP.RefreshMatchingCntTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    if (UserDataManager.Instance.UserPVP.RefreshMatchingCntTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         UserDataManager.Instance.UserPVP.MatchRefreshCnt = 0;
                         UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_REFRESH_COUNT, true);
@@ -219,7 +219,7 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case PVPTimeRefreshType.RANKING_LIST:
-                    if (UserDataManager.Instance.UserPVP.RefreshRankingTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    if (UserDataManager.Instance.UserPVP.RefreshRankingTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.RANKING_LIST, true);
                         result = true;
@@ -228,7 +228,7 @@ namespace CookApps.AutoBattler
                 case PVPTimeRefreshType.AUTO_PROFILE:
                     break;
                 case PVPTimeRefreshType.DAILY_REWARD:
-                    if (UserDataManager.Instance.UserPVP.DailyRewardResetTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    if (UserDataManager.Instance.UserPVP.DailyRewardResetTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         // 일일 보상 지급
                         var dailyRewardList = SpecDataManager.Instance.GetRewardItemListByPVPRewardList(PvpRewardType.PVP_REWARD_DAILY, UserDataManager.Instance.UserPVP.RankId);
@@ -252,7 +252,7 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case PVPTimeRefreshType.BUY_TICKET:
-                    if (UserDataManager.Instance.UserPVP.BuyTicketResetTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    if (UserDataManager.Instance.UserPVP.BuyTicketResetTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         UserDataManager.Instance.UserPVP.BuyTicketCnt = 0;
                         UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.BUY_TICKET, true);
@@ -260,7 +260,7 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case PVPTimeRefreshType.REFILL_TICKET:
-                    if (UserDataManager.Instance.UserPVP.PvpTicketTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+                    if (UserDataManager.Instance.UserPVP.PvpTicketTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         int maxTicket = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
                         UserDataManager.Instance.SetItemCount(ItemType.PVP_TICKET, 0, maxTicket, true, false);

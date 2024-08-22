@@ -19,6 +19,7 @@ public static class AppEventStringConst
     public const string USER_ENERGY_AMOUNT = "user_energy_amount";
     
     public const string TYPE = "type";
+    public const string STAGE = "stage";
     public const string STAGE_ID = "stage_id";
     public const string PLAY_TIME = "play_time";
     public const string SQUAD_COUNT = "squad_count";
@@ -41,5 +42,5 @@ public static class AppEventStringConst
     public const string POINT = "point";
     public const string RANKING = "ranking";
     
-    public const string GUIDE_MISSION_ID = "guide_mission_id";
+    public const string GUIDE_MISSION_ID = "id";
 }

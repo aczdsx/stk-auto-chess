@@ -178,14 +178,15 @@ namespace CookApps.AutoBattler
             // 앱 이벤트 처리
             var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.TRIAL);
             int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
+            int enemyPower = (int)InGameObjectManager.Instance.GetStartingEnemiesAttr();
         
             int starNum1 = _isVictory ? 1 : 0;
             string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1);
             
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
             
-            AppEventManager.Instance.DungeonEnd(InGameManager.Instance.SpecDungeonTrial.dungeon_type, InGameManager.Instance.SpecDungeonTrial.dungeon_id, battleTime, myDeck.Count, 
-                myDeckPower, 0, result, reason, clearCondition);
+            AppEventManager.Instance.DungeonEnd(InGameManager.Instance.SpecDungeonTrial.dungeon_type, InGameManager.Instance.SpecDungeonTrial.id, battleTime, myDeck.Count, 
+                myDeckPower, enemyPower, result, reason, clearCondition);
         }
     }
 }
