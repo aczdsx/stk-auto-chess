@@ -265,6 +265,7 @@ namespace CookApps.AutoBattler
         FIRST_IN = 3,
         STAGE_START = 4,
         GUIDE_START = 5,
+        FAIL = 6,
     }
 
     public enum InGameVfxNameType

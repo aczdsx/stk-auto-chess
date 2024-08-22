@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
@@ -33,6 +34,7 @@ namespace CookApps.AutoBattler
 
         private int currentDialogueSeq = 0;
         private int _dialogueGroupID = 0;
+        private Action _onComplete;
 
         protected override void Awake()
         {
@@ -55,7 +57,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
-            _dialogueGroupID = (int)param;
+            (_dialogueGroupID, _onComplete) = ((int, Action))param;
             _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(_dialogueGroupID);
 
             _characterNameText.font = temTMPFontAsset;
@@ -136,6 +138,8 @@ namespace CookApps.AutoBattler
                     // 가이드 미션 가이드 효과 재생
                     GuideMissionManager.Instance.UpdateGuideMissionAlert();
                 }
+                
+                _onComplete?.Invoke();
 
                 SceneUILayerManager.Instance.PopUILayer(this);
                 return;
@@ -156,7 +160,5 @@ namespace CookApps.AutoBattler
             _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
             _dialogueTextRect.DOSizeDelta(_tweenVector,0.3f).SetEase(Ease.OutQuad).From();
         }
-
-
     }
 }

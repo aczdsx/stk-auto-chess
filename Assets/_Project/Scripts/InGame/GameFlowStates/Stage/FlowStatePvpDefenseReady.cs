@@ -86,7 +86,7 @@ public class FlowStatePvpDefenseReady : StateReadyBase
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
 
         if (_pvpBattleDeckList.PvpDeckList.PvpCharacterDecks.Count == 0)
-            ToastManager.Instance.ShowToastByTokenKey("MSG_PVP_CHAR_OBSTACLE_SET");
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "1");
     }
 
     public override void StateStart()

@@ -68,6 +68,7 @@ namespace CookApps.AutoBattler
                 _victoryStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
             else
                 _failStageText.text =  StringUtil.GetStageString(InGameManager.Instance.SpecStage);
+            
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);

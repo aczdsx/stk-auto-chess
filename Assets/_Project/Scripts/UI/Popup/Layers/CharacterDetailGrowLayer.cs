@@ -305,6 +305,7 @@ namespace CookApps.AutoBattler
             int maxLevel = UserDataManager.Instance.GetCharacterMaxLevel(_userCharacterData.CharacterId);
             if (_userCharacterData.Level >= maxLevel)
             {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_NEED_TRANSCENDENCE");
                 return;
             }
 

@@ -60,7 +60,10 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
                 }, ease: Ease.InCirc).OnComplete(this, target =>
                 {
                     if (owner != null)
+                    {
                         owner.AddNextState<CharacterStateIdle>();
+                        owner.Position3D = _inGameTile.View.Position;
+                    }
                 }
             );
         }
@@ -117,6 +120,7 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
             var pos = owner.ViewPosition3D;
             pos.y = 0;
             owner.ViewPosition3D = pos;
+            owner.Position3D = _inGameTile.View.Position;
             RemoveFromContainer();
             return;
         }

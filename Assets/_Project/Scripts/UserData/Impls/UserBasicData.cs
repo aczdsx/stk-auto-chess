@@ -1,6 +1,8 @@
 using Cookapps.Stkauto.V1;
 using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
+using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
@@ -104,6 +106,36 @@ namespace CookApps.AutoBattler
             if (needSave)
             {
                 SaveUserBasic();
+            }
+            
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FAIL, Instance.UserBasicData.UserStageLoseCount.ToString(),
+                () =>
+                {
+                    if (UserBasicData.UserStageLoseCount == 1)
+                    {
+                        HandleLoseAsync().Forget();
+                    }
+                });
+        }
+        
+        private async UniTask HandleLoseAsync()
+        {
+            int lastPlayStageID = GetLastPlayStageID();
+            var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+            var transition = SceneTransition_FadeInOut.Create();
+
+            await SceneLoading.GoToNextScene("Lobby", (int) specLastStageData.chapter_id, transition);
+
+            SceneUILayerManager.OnSceneLoadedEvent += OpenCharacterCollectionPopupAction;
+        }
+        
+        private void OpenCharacterCollectionPopupAction(string scenename)
+        {
+            if (scenename == "Lobby")
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
+            
+                SceneUILayerManager.OnSceneLoadedEvent -= OpenCharacterCollectionPopupAction;
             }
         }
         

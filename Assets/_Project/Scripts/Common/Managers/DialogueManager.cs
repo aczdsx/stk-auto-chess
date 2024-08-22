@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
@@ -10,7 +11,7 @@ namespace CookApps.AutoBattler
     public class DialogueManager : Singleton<DialogueManager>
     {
         // 다이얼로그 이벤트 체크 후 실행
-        public void UpdateDialogueEvent(DialogueEventType eventType, string subKeyValue)
+        public void UpdateDialogueEvent(DialogueEventType eventType, string subKeyValue, Action onComplete = null)
         {
             int dialogueGroupID = SpecDataManager.Instance.GetDialgueGroupIDByEventType(eventType, subKeyValue);
             if (dialogueGroupID <= 0) return;
@@ -29,31 +30,30 @@ namespace CookApps.AutoBattler
             switch (eventType)
             {
                 case DialogueEventType.FIRST_IN:
-                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((dialogueGroupID, onComplete)).Forget();
                     break;
                 case DialogueEventType.POPUP_OPEN:
                     if (SceneUILayerManager.Instance.GetUILayer(subKeyValue) != null)
                     {
-                        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((dialogueGroupID, onComplete)).Forget();
                     }
-
                     break;
                 case DialogueEventType.GUIDE_START:
                     var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
                     var specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userGuideMissionData.MissionId);
                     if (specGuideMissionData.id.ToString().Equals(subKeyValue))
                     {
-                        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((dialogueGroupID, onComplete)).Forget();
                     }
-
                     break;
-
                 case DialogueEventType.STAGE_CLEAR:
-                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
-
+                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((dialogueGroupID, onComplete)).Forget();
                     break;
                 case DialogueEventType.STAGE_START:
-                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>(dialogueGroupID).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((dialogueGroupID, onComplete)).Forget();
+                    break;
+                case DialogueEventType.FAIL:
+                    SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((dialogueGroupID, onComplete)).Forget();
                     break;
             }
         }
