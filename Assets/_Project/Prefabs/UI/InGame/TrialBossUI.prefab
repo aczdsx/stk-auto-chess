@@ -75558,8 +75558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseButton: {fileID: 268897065094819146}
   _timeText: {fileID: 6322966525138341785}
-  _playerAttrText: {fileID: 8823470244969925167}
-  _enemyAttrText: {fileID: 8375667327741280532}
+  _playerAttrText: {fileID: 69818645454830397}
+  _enemyAttrText: {fileID: 7641703784369361170}
   _playerHpRate: {fileID: 8578137047488509562}
   _enemyHpRate: {fileID: 8825466962934970754}
   _enemySlider: {fileID: 6764942143694763260}
@@ -75608,8 +75608,8 @@ MonoBehaviour:
   - {fileID: 6070720963722053216}
   - {fileID: 5720047815211013809}
   - {fileID: 5299592178891479545}
-  _combatPlayerAttr: {fileID: 69818645454830397}
-  _combatEnemyAttr: {fileID: 7641703784369361170}
+  _combatPlayerAttr: {fileID: 8823470244969925167}
+  _combatEnemyAttr: {fileID: 8375667327741280532}
   _myName: {fileID: 5742008445028290392}
   _stageName: {fileID: 4748512183126632229}
   _killLogRootTransform: {fileID: 0}
