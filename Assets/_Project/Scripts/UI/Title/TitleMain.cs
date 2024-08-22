@@ -382,8 +382,8 @@ namespace CookApps.AutoBattler
 
             while (true)
             {
-                // var userDataValue = UserDataManager.Instance.GetUserEventData(specEventData.event_id).ActionCount;
-                // Debug.Log("***********************RecordSessionTime Test***********************   =>  " + userDataValue);
+                //var userDataValue = UserDataManager.Instance.GetUserEventData(specEventData.event_id).ActionCount;
+                //Debug.Log("***********************RecordSessionTime Test***********************   =>  " + userDataValue);
 
                 await UniTask.Delay(1000 * 60);
 

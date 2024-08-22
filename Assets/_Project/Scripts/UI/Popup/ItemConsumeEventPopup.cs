@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
     {
         [Header("Common")]
         [SerializeField] private CAButton _closeButton;
+        [SerializeField] private CAButton _dimCloseButton;
         [SerializeField] private TextMeshProUGUI _eventTitleText;
         [SerializeField] private TextMeshProUGUI _eventDescText;
 
@@ -31,6 +32,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _closeButton.onClick.AddListener(OnClickCloseButton);
+            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
         }
 
         protected override void OnDestroy()
@@ -38,6 +40,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
 
             _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
         }
 
         protected override void OnPreEnter(object param)
