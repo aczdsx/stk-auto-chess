@@ -90,7 +90,11 @@ namespace CookApps.AutoBattler
         public void OnClickSkillLayerTabButton()
         {
             if (_parentCollectionPopup == null) return;
-            if (UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id) == false) return;
+            if (UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id) == false)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_HAVE_CHARACTER");
+                return;
+            }
 
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.SKILL);
         }
