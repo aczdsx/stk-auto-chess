@@ -78,21 +78,29 @@ namespace CookApps.AutoBattler
         public void OnClickBattleTabButton()
         {
             ChangeTabType(ArenaMainPopupTabType.PVP_BATTLE, false);
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
         
         public void OnClickBattleLogTabButton()
         {
             ChangeTabType(ArenaMainPopupTabType.PVP_BATTLE_LOG, false);
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
         
         public void OnClickRankTabButton()
         {
             ChangeTabType(ArenaMainPopupTabType.PVP_RANK, false);
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
         
         public void OnClickSeasonRewardTabButton()
         {
             ChangeTabType(ArenaMainPopupTabType.PVP_SEASON_REWARD, false);
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
 
         public void ChangeTabType(ArenaMainPopupTabType tabType, bool isFirstEnter)

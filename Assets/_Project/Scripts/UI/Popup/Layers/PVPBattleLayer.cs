@@ -165,6 +165,8 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_LIST, true);
 
             _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             _isAvailRefresh = false;
         }
@@ -194,6 +196,8 @@ namespace CookApps.AutoBattler
             // 매칭 리스트 갱신 시간 처리
             //UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_LIST, true);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            
             _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
 
             //_isAvailRefresh = false;

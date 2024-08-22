@@ -79,12 +79,16 @@ namespace CookApps.AutoBattler
                 _victoryStageText.text =
                     StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + " 승급 성공";
 
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
+                
                 SetRewardInfo();
             }
             else
             {
                 _failStageText.text =
                     StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + " 승급 실패";
+                
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
             }
 
             if (_specCharacter != null)
