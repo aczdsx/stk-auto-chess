@@ -402,8 +402,8 @@ namespace CookApps.AutoBattler
 
             _characterReddotObject.SetActive(isReadyNewCharacter);
 
-            // 가챠 버튼 레드닷 (티켓이 1장 이상일 경우)
-            bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket > 0;
+            // 가챠 버튼 레드닷 (티켓이 1장 이상일 경우) -> 10개 이상으로 변경
+            bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket >= 10;
             _gachaReddotObject.SetActive(isHaveGachaTicket);
 
             // 방치 보상 레드닷 (가득 찼을 경우)
