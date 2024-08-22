@@ -6,7 +6,6 @@ using CookApps.Analytics;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace CookApps.AutoBattler
 {

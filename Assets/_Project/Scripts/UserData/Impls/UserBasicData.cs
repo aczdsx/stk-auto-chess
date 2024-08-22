@@ -32,6 +32,8 @@ namespace CookApps.AutoBattler
                     MaxSquadCount = SpecDataManager.Instance.GetGameConfig<int>("default_max_squad_count"),
                     UserInstallDate = TimeManager.Instance.UtcNowTimeStamp(),
 
+                    DailyVisitCount = 1,
+                    DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStamp(),
                     TotalGachaCount = 0,
                     UserStageLoseCount = 0,
                     UserDungeonLoseCount = 0,
@@ -46,6 +48,8 @@ namespace CookApps.AutoBattler
             PrevAccountLevel = userBasicData.Level;
 
             RefreshLastLoginTimestamp(true);
+            
+            UpdateDailyVisitCount(true);
             UpdateResetCharacterCount();
         }
 
@@ -95,6 +99,20 @@ namespace CookApps.AutoBattler
             if (needSave)
             {
                 SaveUserBasic();
+            }
+        }
+        
+        public void UpdateDailyVisitCount(bool needSave)
+        {
+            if (UserBasicData.DailyVisitCountTimestamp <= TimeManager.Instance.UtcNowTimeStamp())
+            {
+                UserBasicData.DailyVisitCount++;
+                UserBasicData.DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                
+                if (needSave)
+                {
+                    SaveUserBasic();
+                }
             }
         }
 
