@@ -1019,7 +1019,14 @@ namespace CookApps.AutoBattler
         // }
         public bool GetIsOpenCondition(OpenConditionType conditionType)
         {
+            // 모든 가이드 미션 클리어 체크
+            if (UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder > GetGuideMissionMaxOrder())
+            {
+                return true;
+            }
+            
             var guideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            
             int currMissionID = guideMissionData.MissionId;
             var openCondition = SpecOpenConditionList.Find(l => l.open_condition_Type == conditionType);
             return openCondition.guide_mission_id <= currMissionID;

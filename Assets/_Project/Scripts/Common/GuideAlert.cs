@@ -61,6 +61,8 @@ namespace CookApps.AutoBattler
             _guideAlertObject.SetActive(false);
 
             var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            if (userGuideMissionData == null) return;
+            
             var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(userGuideMissionData.MissionId);
 
             if (specGuideMissionData != null)
