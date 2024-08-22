@@ -51,11 +51,18 @@ namespace CookApps.BattleSystem
         {
             updateHandlers.Clear();
             lateUpdateHandlers.Clear();
-            flowState.StateEnd(true);
-            nextStates.Clear();
-            flowState = null;
-            StatePool.Instance.Clear();
-            Tween.GlobalTimeScale(1f, new TweenSettings());
+            if (flowState != null)
+            {
+                flowState.StateEnd(true);
+                nextStates.Clear();
+                flowState = null;
+                StatePool.Instance.Clear();
+                Tween.GlobalTimeScale(1f, new TweenSettings());
+            }
+            else
+            {
+                Debug.LogError("StopInGameMainLoop >> flowState is null");
+            }
         }
 
         #region Managing update loop

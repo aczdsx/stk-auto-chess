@@ -271,7 +271,6 @@ namespace CookApps.AutoBattler
 
             // todo.. 던전 입장 처리
 
-
             InGameManager.Instance.EndInGame();
             var transition = SceneTransition_FadeInOut.Create();
 

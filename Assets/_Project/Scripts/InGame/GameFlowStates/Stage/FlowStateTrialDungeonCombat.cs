@@ -136,7 +136,10 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         }
 
         if (isEndCombat)
+        {
+            InGameManager.Instance.IsInGameCombat = false;
             ChangeNextState(isWin).Forget();
+        }
     }
 
     public override void StateEnd(bool isForced)

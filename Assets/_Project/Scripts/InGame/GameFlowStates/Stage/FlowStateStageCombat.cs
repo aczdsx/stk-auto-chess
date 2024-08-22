@@ -142,7 +142,10 @@ public class FlowStateStageCombat : StateCombatBase
         }
 
         if (isEndCombat)
+        {
+            InGameManager.Instance.IsInGameCombat = false;
             ChangeNextState(isWin).Forget();
+        }
     }
 
     public override void StateEnd(bool isForced)
@@ -169,8 +172,6 @@ public class FlowStateStageCombat : StateCombatBase
             if (isUsePopup)
                 SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
         }
-
-        InGameManager.Instance.IsInGameCombat = false;
         
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
         await UniTask.Delay(1500);
