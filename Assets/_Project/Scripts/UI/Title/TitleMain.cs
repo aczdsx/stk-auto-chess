@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using CookApps.Auth;
 using CookApps.gRPC.Universal;
 using CookApps.TeamBattle;
@@ -278,10 +279,17 @@ namespace CookApps.AutoBattler
         {
             // if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
             //     return;
-        
-            if (string.IsNullOrWhiteSpace(_guestIDInputField.text))
+
+            // 게스트 아이디 유효성 체크
+            int minGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("min_user_name_length");
+            int maxGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("max_user_name_length");
+            
+            int guestIDByte = Encoding.UTF8.GetByteCount(_guestIDInputField.text);
+            
+            if (guestIDByte < minGuestIDLength || guestIDByte > maxGuestIDLength)
             {
-                Debug.LogError("게스트 아이디가 공백임");
+                var toastStirng = LanguageManager.Instance.GetLanguageText("ERROR_SERVER_NICKNAME_LENGTH");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
                 isLoginProcess = false;
                 return;
             }
