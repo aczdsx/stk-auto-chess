@@ -28,7 +28,7 @@ MonoBehaviour:
         Version: 0.1.3
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3218
+        VersionCode: 3237
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -38,6 +38,7 @@ MonoBehaviour:
         AddDefine:
         - SERVER_DEV
         - ENABLE_CHEAT
+        - DEV_COOKAPPS_ANALYTICS
         RemoveDefine:
         - SERVER_REAL
         BuildOptions: 0
@@ -66,7 +67,7 @@ MonoBehaviour:
         Version: 0.2.1
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3235
+        VersionCode: 3236
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -92,7 +93,7 @@ MonoBehaviour:
         Version: 0.1.3
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3218
+        VersionCode: 3237
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -101,8 +102,9 @@ MonoBehaviour:
         - Guid: 8029178524cba4055adeed793914bebd
         AddDefine:
         - SERVER_DEV
-        RemoveDefine:
+        - DEV_COOKAPPS_ANALYTICS
         - ENABLE_CHEAT
+        RemoveDefine:
         - SERVER_REAL
         BuildOptions: 0
         SigningTeamID: K7TNH5SGYC

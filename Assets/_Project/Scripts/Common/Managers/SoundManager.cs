@@ -41,7 +41,10 @@ public enum SoundFX
     snd_sfx_ui_clear_star,
     snd_sfx_ingame_result_defeat_001,
     snd_sfx_ui_btn_splash,
-
+    snd_sfx_ui_transition,
+    snd_sfx_ui_btn_battle_start,
+    snd_sfx_pvp_result_victory,
+    snd_sfx_pvp_result_defeat,
 
     // Gacha
     snd_sfx_gacha_start_001 = 201,
