@@ -122,8 +122,8 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         {
             isEndCombat = true;
             isWin = true;
-            InGameManager.Instance.AppEventResult = "clear or pass"; // [TODO] clear or pass
-            InGameManager.Instance.AppEventReason = "clear or pass"; // [TODO] clear or pass
+            InGameManager.Instance.AppEventResult = "pass";
+            InGameManager.Instance.AppEventReason = "pass";
         }
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)

@@ -125,10 +125,11 @@ public class FlowStateStageCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
+            bool isClearStage = UserDataManager.Instance.IsClearStage(InGameManager.Instance.SpecStage.stage_id);
             isEndCombat = true;
             isWin = true;
-            InGameManager.Instance.AppEventResult = "clear or pass"; // [TODO] clear or pass
-            InGameManager.Instance.AppEventReason = "clear or pass"; // [TODO] clear or pass
+            InGameManager.Instance.AppEventResult = (isClearStage) ? "clear" : "pass"; 
+            InGameManager.Instance.AppEventReason =  (isClearStage) ? "clear" : "pass"; 
         }
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)
