@@ -67,6 +67,9 @@ namespace CookApps.AutoBattler
 
             SceneUILayerManager.Instance.PopUILayer(this);
 
+            if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase && InGameManager.Instance.IsInGameCombat))
+                return;
+
             // 전투 준비 중일 경우 분기 처리
             if (InGameMainFlowManager.Instance.CurrentFlowState is StateReadyBase)
             {
