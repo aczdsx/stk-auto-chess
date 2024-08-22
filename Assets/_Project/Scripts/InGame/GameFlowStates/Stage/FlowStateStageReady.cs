@@ -73,10 +73,19 @@ public class FlowStateStageReady : StateReadyBase
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
         List<ObfuscatorInt> tileIDList = _specStage.obstacle_grid_id.ToList();
+        List<ObfuscatorInt> neutralTileIDList = _specStage.neutral_grid_id.ToList();
 
         battleDeckList.RemoveAll(l =>
         {
             return tileIDList.Exists(t =>
+                t.Value == InGameObjectManager.Instance.InGameGrid.GetTile(new int2(l.PositionTileX, l.PositionTileY))
+                    .View
+                    .ID);
+        });
+        
+        battleDeckList.RemoveAll(l =>
+        {
+            return neutralTileIDList.Exists(t =>
                 t.Value == InGameObjectManager.Instance.InGameGrid.GetTile(new int2(l.PositionTileX, l.PositionTileY))
                     .View
                     .ID);
