@@ -71,9 +71,9 @@ namespace CookApps.AutoBattler
             _tierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
             _tierSecondImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);
             _tierNameText.text = LanguageManager.Instance.GetPVPTierText(specTierData.pvp_tier_type);
-            if(_matchResultData.MyDeltaScore > 0)
+            if (_matchResultData.MyDeltaScore > 0)
                 _tierPointChangeText.text = $"(+{_matchResultData.MyDeltaScore.ToString("n0")})";
-            else if(_matchResultData.MyDeltaScore < 0)
+            else if (_matchResultData.MyDeltaScore < 0)
                 _tierPointChangeText.text = $"({_matchResultData.MyDeltaScore.ToString("n0")})";
 
             float duration = 1.0f;
@@ -150,39 +150,41 @@ namespace CookApps.AutoBattler
 
         private async UniTask AnimateSliderProgressAsync(int currentScore, int deltaScore, float totalDuration)
         {
-            var beforeTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
-            var afterTierData =
-                SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, currentScore + deltaScore);
-            
-            bool isTierChanage = false;
+            var beforeTierData =
+                SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, currentScore - deltaScore);
+            var afterTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
+
+            bool isTierChange = false;
             if (afterTierData != null && beforeTierData != null)
             {
-                isTierChanage = beforeTierData.pvp_tier_type != afterTierData.pvp_tier_type;
+                isTierChange = beforeTierData.pvp_tier_type != afterTierData.pvp_tier_type;
             }
 
             string animKey = "";
-            if (isTierChanage)
+            if (isTierChange)
             {
                 animKey = _isVictory ? "SetTierUp" : "SetTierDown";
                 _tierAfterImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(afterTierData.pvp_tier_type);
             }
             else
+            {
                 animKey = _isVictory ? "SetUp" : "SetDown";
+            }
 
             baseAnimator.SetTrigger(animKey);
-            
+
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
 
             float beforeRankingMin = Mathf.Max(950, beforeTierData.ranking_min);
             float afterRankingMin = Mathf.Max(950, afterTierData.ranking_min);
 
-            float startValue = (float) (currentScore - beforeRankingMin) /
+            float startValue = (float) (currentScore - deltaScore - beforeRankingMin) /
                                (beforeTierData.ranking_max - beforeRankingMin);
-            float endValue = (float) (currentScore + deltaScore - afterRankingMin) /
+            float endValue = (float) (currentScore - afterRankingMin) /
                              (afterTierData.ranking_max - afterRankingMin);
 
-            int startScore = currentScore;
-            int endScore = currentScore + deltaScore;
+            int startScore = currentScore - deltaScore;
+            int endScore = currentScore;
 
             if (beforeTierData == afterTierData)
             {
@@ -199,7 +201,9 @@ namespace CookApps.AutoBattler
 
                 await AnimateSliderAndScore(startValue, 1.0f, startScore, beforeTierData.ranking_max,
                     firstSegmentDuration);
-                
+
+                _tierNameText.text = LanguageManager.Instance.GetPVPTierText(afterTierData.pvp_tier_type);
+
                 _tierSlider.Progress = 0f;
                 await AnimateSliderAndScore(0f, endValue, afterTierData.ranking_min, endScore, secondSegmentDuration);
             }
@@ -215,8 +219,8 @@ namespace CookApps.AutoBattler
                 float t = elapsedTime / duration;
                 _tierSlider.Progress = Mathf.Lerp(startValue, endValue, t);
 
-                float currentScore = (int)Mathf.Lerp(startScore, endScore, t);
-                _tierPointText.text = currentScore.ToString("n0");;
+                float currentScore = (int) Mathf.Lerp(startScore, endScore, t);
+                _tierPointText.text = currentScore.ToString("n0");
 
                 await UniTask.Yield();
             }
