@@ -1425,6 +1425,7 @@ MonoBehaviour:
   _battleResultText: {fileID: 3781711512127952785}
   _battleResultTimeText: {fileID: 3222916627409754875}
   _revengeLayer: {fileID: 5874500177572052695}
+  _revengeTierLayer: {fileID: 4713413440886740631}
   _revengeButton: {fileID: 2797652447777616738}
   _revengeRankTierImage: {fileID: 5157669502426657992}
   _revengeRankPointText: {fileID: 8558530604342327376}
