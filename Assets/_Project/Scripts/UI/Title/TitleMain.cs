@@ -283,14 +283,16 @@ namespace CookApps.AutoBattler
                 return;
             }
             
-            var authId = await UniversalGrpcManager.Instance.GenerateUuidAsync();
-            if(string.IsNullOrEmpty(authId))
-            {
-                CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
-                isLoginProcess = false;
-                return;
-            }
-            await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Guest, authId);
+            // var authId = await UniversalGrpcManager.Instance.GenerateUuidAsync();
+            // if(string.IsNullOrEmpty(authId))
+            // {
+            //     CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
+            //     isLoginProcess = false;
+            //     return;
+            // }
+            
+            // 디바이스 ID로 authID 저장
+            await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Guest, SystemInfo.deviceUniqueIdentifier);
             
             // 아래를 호출하지 않으면 에러 발생
             if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
