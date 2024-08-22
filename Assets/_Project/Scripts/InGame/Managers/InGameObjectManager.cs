@@ -879,7 +879,16 @@ namespace CookApps.BattleSystem
             
             foreach (var playerCharacter in characterControllers)
             {
-                var target = GetTargetForMove(playerCharacter);
+                var target = new CharacterController();
+                if (playerCharacter.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
+                {
+                    target = GetFarthestTargetByOnce(playerCharacter);
+                }
+                else
+                {
+                    target = GetNearestTargetOnce(playerCharacter);
+                }
+                
                 if (target != null)
                 {
                     var targetLine = playerCharacter.SetLine(target, isPlayer,

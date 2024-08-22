@@ -315,7 +315,8 @@ namespace CookApps.AutoBattler
             if (UserPVP.CurrentPvpMatchingDic.ContainsKey(targetPlayerID) == false) return;
             
             UserPVP.CurrentPvpMatchingDic[targetPlayerID].MatchResult = (int)resultType;
-
+            UserPVP.CurrentPvpMatchingDic[targetPlayerID].RefreshTimestamp = TimeManager.Instance.UtcNowTimeStamp();
+            
             if (needSave)
             {
                 SaveUserPVPData();

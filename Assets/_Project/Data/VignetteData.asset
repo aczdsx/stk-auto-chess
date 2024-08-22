@@ -28,7 +28,7 @@ MonoBehaviour:
   - InGameType: 5
     ID: 0
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
-    Color: {r: 0, g: 0, b: 0, a: 0}
+    Color: {r: 0.18431824, g: 0.19072083, b: 0.35849056, a: 0}
   - InGameType: 1
     ID: 1
     Material: {fileID: 2100000, guid: cb66fc5cd88444d44a2942a2244f553a, type: 2}
@@ -48,7 +48,7 @@ MonoBehaviour:
   - InGameType: 1
     ID: 5
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
-    Color: {r: 0.23282307, g: 0.34723434, b: 0.4528302, a: 1}
+    Color: {r: 0.043137256, g: 0.105882354, b: 0.13725491, a: 1}
   - InGameType: 1
     ID: 6
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}

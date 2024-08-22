@@ -63,6 +63,8 @@ namespace CookApps.AutoBattler
 
         private void Start()
         {
+            isLoginProcess = false;
+            
             var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
             haveGuestID = string.IsNullOrEmpty(playerID) == false;
             
@@ -245,7 +247,7 @@ namespace CookApps.AutoBattler
 
                 isLogin =  await UniversalGrpcManager.Instance.AutoLoginAsync();
             }
-            
+
             Debug.Log("UID ++++> " + UniversalGrpcManager.Instance.Uid);
             
             var resp = await UniversalGrpcManager.Instance.SelectServerAndPlayerAsync(UserDataManager.Instance.UserBasicData.ServerId, UserDataManager.Instance.UserBasicData.PlayerId);
@@ -253,6 +255,7 @@ namespace CookApps.AutoBattler
             {
                 //FinishWithServerError();
                 ToastManager.Instance.ShowToastByTokenKey("SERVER_ACCESS_FAIL");
+                isLoginProcess = false;
                 return;
             }
             
@@ -260,7 +263,7 @@ namespace CookApps.AutoBattler
             if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
-                
+                isLoginProcess = false;
                 return;
             }
             
@@ -276,6 +279,7 @@ namespace CookApps.AutoBattler
             if (string.IsNullOrWhiteSpace(_guestIDInputField.text))
             {
                 Debug.LogError("게스트 아이디가 공백임");
+                isLoginProcess = false;
                 return;
             }
             
@@ -283,6 +287,7 @@ namespace CookApps.AutoBattler
             if(string.IsNullOrEmpty(authId))
             {
                 CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
+                isLoginProcess = false;
                 return;
             }
             await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Guest, authId);
@@ -307,6 +312,7 @@ namespace CookApps.AutoBattler
             if (newPlayerResponse.IsError)
             {
                 //FinishWithServerError();
+                isLoginProcess = false;
                 return;
             }
             
@@ -317,6 +323,7 @@ namespace CookApps.AutoBattler
             {
                 //FinishWithServerError();
                 ToastManager.Instance.ShowToastByTokenKey("SERVER_ACCESS_FAIL");
+                isLoginProcess = false;
                 return;
             }
             
@@ -324,7 +331,7 @@ namespace CookApps.AutoBattler
             if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
-                
+                isLoginProcess = false;
                 return;
             }
             
@@ -361,13 +368,14 @@ namespace CookApps.AutoBattler
 
         private void InitCookAppsAuth()
         {
+            CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);
+            
 #if SERVER_REAL
-        CAppAuth.SetServer(EnumServer.PRODUCTION);
+            CAppAuth.SetServer(EnumServer.PRODUCTION);
 #else
             CAppAuth.SetServer(EnumServer.DEV);
 #endif
             
-            CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);
         }
     }
 }

@@ -76,6 +76,7 @@ namespace CookApps.AutoBattler
 
             // 레벨업
             _activeLevelUpButton.onClick.AddListener(OnClickLevelupButton);
+            _inactiveLevelUpButton.onClick.AddListener(OnClickLevelupButton);
             _activeResetLevelUpButton.onClick.AddListener(OnClickCharacterResetButton);
             _inactiveResetLevelUpButton.onClick.AddListener(OnClickDimmedResetButton);
 
@@ -91,6 +92,7 @@ namespace CookApps.AutoBattler
 
             // 레벨업
             _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
+            _inactiveLevelUpButton.onClick.AddListener(OnClickLevelupButton);
             _activeResetLevelUpButton.onClick.RemoveListener(OnClickCharacterResetButton);
             _inactiveResetLevelUpButton.onClick.RemoveListener(OnClickDimmedResetButton);
 
