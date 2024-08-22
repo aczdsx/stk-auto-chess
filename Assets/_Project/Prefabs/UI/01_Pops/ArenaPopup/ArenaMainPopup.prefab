@@ -3562,6 +3562,7 @@ MonoBehaviour:
   _pvpRankTabLayer: {fileID: 8947658791070572824}
   _pvpSeasonRewardTabLayer: {fileID: 7052041096955579640}
   _myPVPInfoLayer: {fileID: 718864724432595758}
+  _remainTimeText: {fileID: 5168210341623549744}
 --- !u!1 &6743763147240265581
 GameObject:
   m_ObjectHideFlags: 0
@@ -5746,6 +5747,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1140681508827667675, guid: f0bb670d46a92c94b978a2e1f847da5c, type: 3}
   m_PrefabInstance: {fileID: 1800543370359769036}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5168210341623549744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6865169509624465660, guid: f0bb670d46a92c94b978a2e1f847da5c, type: 3}
+  m_PrefabInstance: {fileID: 1800543370359769036}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2558816065127544067
 PrefabInstance:
   m_ObjectHideFlags: 0

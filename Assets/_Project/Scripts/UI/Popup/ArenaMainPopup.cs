@@ -1,6 +1,9 @@
+using System;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -32,6 +35,12 @@ namespace CookApps.AutoBattler
 
         [Header("My PVP Info Layer")] 
         [SerializeField] private PVPMyInfoLayer _myPVPInfoLayer;
+
+
+        [Header("Top Layer")]
+        [SerializeField] 
+        private TextMeshProUGUI _remainTimeText;
+        private readonly DateTime _targetTime = new DateTime(2024, 9, 1, 0, 0, 0, DateTimeKind.Utc);
         
         public ArenaMainPopupTabType CurrentTabType { get; private set; } = ArenaMainPopupTabType.PVP_BATTLE;
         
@@ -62,6 +71,8 @@ namespace CookApps.AutoBattler
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.BUY_TICKET);
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.DAILY_REWARD);
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.REFILL_TICKET);
+            
+            StartCountdown().Forget();
         }
 
         public void OnClickBattleTabButton()
@@ -285,6 +296,45 @@ namespace CookApps.AutoBattler
         public void PlayGuide()
         {
             _myPVPInfoLayer.PlayGuideFx();
+        }
+        
+        private async UniTaskVoid StartCountdown()
+        {
+            while (true)
+            {
+                DateTime currentTime = DateTime.UtcNow;
+
+                TimeSpan timeRemaining = _targetTime - currentTime;
+
+                int days = timeRemaining.Days;
+                int hours = timeRemaining.Hours;
+                int minutes = timeRemaining.Minutes;
+
+                string timeString = "";
+
+                if (days > 0)
+                {
+                    timeString += $"{days}일 ";
+                }
+                if (hours > 0)
+                {
+                    timeString += $"{hours}시간 ";
+                }
+                if (minutes > 0 || timeString == "")
+                {
+                    timeString += $"{minutes}분";
+                }
+
+                _remainTimeText.text = timeString;
+
+                if (timeRemaining.TotalSeconds <= 0)
+                {
+                    _remainTimeText.text = "종료되었습니다.";
+                    break;
+                }
+
+                await UniTask.Delay(TimeSpan.FromSeconds(1));
+            }
         }
     }
 }
