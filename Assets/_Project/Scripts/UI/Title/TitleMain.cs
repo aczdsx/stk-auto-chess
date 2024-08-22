@@ -26,6 +26,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _createGuestButtonLayer;
         [SerializeField] private GameObject _loginGuestButtonLayer;
         [SerializeField] private GameObject _loadingPopupObject;
+        [SerializeField] private ToastSystemPopup _toastPopupObject;
         
         bool isLogin = false;
         bool isLoginProcess = false;
@@ -254,7 +255,8 @@ namespace CookApps.AutoBattler
             if (resp.IsError)
             {
                 //FinishWithServerError();
-                ToastManager.Instance.ShowToastByTokenKey("SERVER_ACCESS_FAIL");
+                var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
                 isLoginProcess = false;
                 return;
             }
@@ -262,7 +264,8 @@ namespace CookApps.AutoBattler
             // 벤 유저 체크
             if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
+                var toastStirng = LanguageManager.Instance.GetLanguageText("BANNED_USER_ALERT");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
                 isLoginProcess = false;
                 return;
             }
@@ -283,14 +286,16 @@ namespace CookApps.AutoBattler
                 return;
             }
             
-            var authId = await UniversalGrpcManager.Instance.GenerateUuidAsync();
-            if(string.IsNullOrEmpty(authId))
-            {
-                CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
-                isLoginProcess = false;
-                return;
-            }
-            await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Guest, authId);
+            // var authId = await UniversalGrpcManager.Instance.GenerateUuidAsync();
+            // if(string.IsNullOrEmpty(authId))
+            // {
+            //     CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
+            //     isLoginProcess = false;
+            //     return;
+            // }
+            
+            // 디바이스 ID로 authID 저장
+            await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Guest, SystemInfo.deviceUniqueIdentifier);
             
             // 아래를 호출하지 않으면 에러 발생
             if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
@@ -309,9 +314,22 @@ namespace CookApps.AutoBattler
             
             // 플레이어 데이터 생성
             var newPlayerResponse = await UniversalGrpcManager.Instance.CreatePlayerAsync(1, _guestIDInputField.text);
+
+            // 닉네임 중복 체크
+            if (newPlayerResponse.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_FAIL_NICKNAME_ALREADY_EXIST)
+            {
+                var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ALREADY_USE_NICKNAME");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
+                isLoginProcess = false;
+                return;
+            }
+            
+            // 서버 에러 체크
             if (newPlayerResponse.IsError)
             {
                 //FinishWithServerError();
+                var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
                 isLoginProcess = false;
                 return;
             }
@@ -322,7 +340,8 @@ namespace CookApps.AutoBattler
             if (resp.IsError)
             {
                 //FinishWithServerError();
-                ToastManager.Instance.ShowToastByTokenKey("SERVER_ACCESS_FAIL");
+                var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
                 isLoginProcess = false;
                 return;
             }
@@ -330,7 +349,8 @@ namespace CookApps.AutoBattler
             // 벤 유저 체크
             if (resp.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
             {
-                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
+                var toastStirng = LanguageManager.Instance.GetLanguageText("BANNED_USER_ALERT");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
                 isLoginProcess = false;
                 return;
             }

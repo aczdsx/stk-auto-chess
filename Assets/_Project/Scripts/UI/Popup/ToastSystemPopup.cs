@@ -37,6 +37,17 @@ namespace CookApps.AutoBattler
 
             SetToastSystemPopup();
         }
+        
+        // 수동으로 토스트팝업을 제어
+        public void SetToastSystemPopupByManual(string message, float duration)
+        {
+            _messageString = message;
+            _messageText.text = _messageString;
+            
+            gameObject.SetActive(true);
+            
+            Invoke(nameof(ClosePopupManual), duration);
+        }
 
         private async void SetToastSystemPopup()
         {
@@ -57,6 +68,11 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PopUILayer(this);
 
             ToastManager.Instance.IsShowingToast = false;
+        }
+
+        private void ClosePopupManual()
+        {
+            gameObject.SetActive(false);
         }
     }
 }
