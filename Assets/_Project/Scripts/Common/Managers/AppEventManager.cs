@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < targetDeckList.Count; ++i)
             {
-                sbCharList.Append($"{i};");
+                //sbCharList.Append($"{i};");
                 sbCharList.Append($"{targetDeckList[i].Id};");
             }
 
@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < targetDeckList.Count; ++i)
             {
-                sbCharList.Append($"{i};");
+                //sbCharList.Append($"{i};");
                 sbCharList.Append($"{targetDeckList[i].CharacterId};");
             }
 
@@ -123,8 +123,10 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
             appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, UserDataManager.Instance.UserBasicData.DailyVisitCount);
             appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
-            appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, TimeManager.Instance.TimeStampToDateTime(UserDataManager.Instance.UserBasicData.UserInstallDate));
-            appEventParameter.Add(AppEventStringConst.BEST_STAGE, UserDataManager.Instance.GetLatestClearUserStageID());
+            var installDateTime = TimeManager.Instance.TimeStampToDateTime(UserDataManager.Instance.UserBasicData.UserInstallDate);
+            appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
+            var specBestStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLatestClearUserStageID());
+            appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, UserDataManager.Instance.GetCurrentGuideMissionData().MissionId);
             appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, UserDataManager.Instance.UserBasicData.Level);
@@ -167,10 +169,11 @@ namespace CookApps.AutoBattler
         }
 
         // 스테이지 종료 시 호출 (클리어 또는 패배 모두 적용)
-        public void StageEnd(int stageID, float playTime, int squadCount, int power, int enemy_power, string result,
+        public void StageEnd(int id, int stageID, float playTime, int squadCount, int power, int enemy_power, string result,
             string reason, string clearCondition)
         {
             AppEventParameter appEventParameter = CreateCommonParam();
+            appEventParameter.Add(AppEventStringConst.STAGE, id);
             appEventParameter.Add(AppEventStringConst.STAGE_ID, stageID);
             appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
             appEventParameter.Add(AppEventStringConst.SQUAD_COUNT, squadCount);
@@ -191,7 +194,7 @@ namespace CookApps.AutoBattler
         {
             AppEventParameter appEventParameter = CreateCommonParam();
             appEventParameter.Add(AppEventStringConst.TYPE, dungeonType.ToString());
-            appEventParameter.Add(AppEventStringConst.STAGE_ID, dungeonID);
+            appEventParameter.Add(AppEventStringConst.STAGE, dungeonID);
             appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
             appEventParameter.Add(AppEventStringConst.SQUAD_COUNT, squadCount);
             appEventParameter.Add(AppEventStringConst.POWER, power);

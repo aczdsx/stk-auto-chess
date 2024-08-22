@@ -20,6 +20,11 @@ namespace CookApps.AutoBattler
 
         public long UtcNowTimeStamp()
         {
+            return DateTimeToTimeStamp(UtcNow());
+        }
+        
+        public long UtcNowTimeStampLocal()
+        {
             return DateTimeToTimeStamp(UtcNowLocal());
         }
 

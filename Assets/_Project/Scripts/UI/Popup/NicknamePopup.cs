@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
@@ -43,9 +44,15 @@ namespace CookApps.AutoBattler
 
         private void OnClickConfirmButton()
         {
-            // 닉네임 검사
-            if (string.IsNullOrWhiteSpace(_nicknameInputField.text))
+            // 닉네임 유효성 체크
+            int minGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("min_user_name_length");
+            int maxGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("max_user_name_length");
+            
+            int guestIDByte = Encoding.UTF8.GetByteCount(_nicknameInputField.text);
+            
+            if (guestIDByte < minGuestIDLength || guestIDByte > maxGuestIDLength)
             {
+                ToastManager.Instance.ShowToastByTokenKey("ERROR_SERVER_NICKNAME_LENGTH");
                 return;
             }
             

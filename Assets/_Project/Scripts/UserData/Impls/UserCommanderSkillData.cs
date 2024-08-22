@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
             var lastStageData = SpecDataManager.Instance.GetStageData(lastStageID);
             if (lastStageData != null)
             {
-                var commanderList = SpecDataManager.Instance.GetCommanderSkillList(lastStageData.chapter_id);
+                var commanderList = SpecDataManager.Instance.GetCommanderSkillIncludeList(lastStageData.chapter_id);
 
                 foreach (var commander in commanderList)
                 {

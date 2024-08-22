@@ -346,7 +346,7 @@ namespace CookApps.AutoBattler
 
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
             
-            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count, 
+            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count, 
                 myDeckPower, enemyPower, result, reason, clearCondition);
         }
     }

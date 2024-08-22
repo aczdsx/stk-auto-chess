@@ -674,6 +674,11 @@ namespace CookApps.AutoBattler
 
         public List<SpecCommanderSkill> GetCommanderSkillList(int chapterID)
         {
+            return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id == chapterID);
+        }
+        
+        public List<SpecCommanderSkill> GetCommanderSkillIncludeList(int chapterID)
+        {
             return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id <= chapterID);
         }
 
@@ -849,7 +854,7 @@ namespace CookApps.AutoBattler
                 var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
                 var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
 
-                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
                 if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
                 {
@@ -879,7 +884,7 @@ namespace CookApps.AutoBattler
                 var startAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.start_at);
                 var endAtTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(eventData.end_at);
 
-                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStamp();
+                var nowTimeStamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
                 if (startAtTimeStamp <= nowTimeStamp && nowTimeStamp <= endAtTimeStamp)
                 {

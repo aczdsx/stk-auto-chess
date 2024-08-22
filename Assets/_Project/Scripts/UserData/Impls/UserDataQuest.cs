@@ -63,7 +63,7 @@ namespace CookApps.AutoBattler
 
         public void UpdateLastQuestRefreshTimeStamp(bool needSave)
         {
-            userQuest.LastQuestRefreshTimestamp = TimeManager.Instance.UtcNowTimeStamp();
+            userQuest.LastQuestRefreshTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
             if (needSave)
             {
