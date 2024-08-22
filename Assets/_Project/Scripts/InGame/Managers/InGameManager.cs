@@ -31,6 +31,7 @@ namespace CookApps.BattleSystem
 
         private bool isGameInfoLoaded;
         public bool IsInGamePlaying { get; private set; }
+        public bool IsInGameCombat { get; set; }
 
         public void Clear()
         {
@@ -46,6 +47,7 @@ namespace CookApps.BattleSystem
         {
             SpecStage = specStage;
             IsInGamePlaying = true;
+            IsInGameCombat = true;
             ecc = new EffectCodeContainer(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specStage);
             InitializeInGameComponents(specStage);
@@ -55,6 +57,7 @@ namespace CookApps.BattleSystem
         {
             SpecDungeonTrial = specDungeonTrial;
             IsInGamePlaying = true;
+            IsInGameCombat = true;
             ecc = new EffectCodeContainer(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specDungeonTrial);
             InitializeInGameComponents(specDungeonTrial);
@@ -64,6 +67,7 @@ namespace CookApps.BattleSystem
         {
             UserPvpBattleDeckList = pvpBattleDeck;
             IsInGamePlaying = true;
+            IsInGameCombat = true;
             ecc = new EffectCodeContainer(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(pvpBattleDeck);
             InitializeInGameComponents(pvpBattleDeck);

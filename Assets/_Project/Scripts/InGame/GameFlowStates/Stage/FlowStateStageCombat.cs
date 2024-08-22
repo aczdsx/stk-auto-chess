@@ -162,10 +162,13 @@ public class FlowStateStageCombat : StateCombatBase
             if (isUsePopup)
                 SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
         }
+
+        InGameManager.Instance.IsInGameCombat = false;
         
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
         await UniTask.Delay(1500);
         InGameMainFlowManager.Instance.SetInGameSpeed(false);
+        
         if (isWin)
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();

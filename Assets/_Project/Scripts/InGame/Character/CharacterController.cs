@@ -941,6 +941,9 @@ namespace CookApps.BattleSystem
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
             bool isFirstDamage = true)
         {
+            if (!InGameManager.Instance.IsInGameCombat)
+                return DamageReturnType.Damaging;
+            
             // 로비 전투 상황일 때
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
             {
