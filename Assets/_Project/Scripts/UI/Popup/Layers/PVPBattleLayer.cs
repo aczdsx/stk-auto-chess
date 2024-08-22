@@ -86,7 +86,7 @@ namespace CookApps.AutoBattler
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.Log(e);
+                //UnityEngine.Debug.Log(e);
             }
         }
         
@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                //Debug.LogError(e);
             }
         }
 
