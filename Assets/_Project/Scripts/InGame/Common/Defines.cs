@@ -25,5 +25,6 @@ public static class Defines
     public const int TOAST_POPUP_DURATION = 2000;
     
     // 서버 관련
+    public const int UNIVERSAL_RESPONSE_CODE_FAIL_NICKNAME_ALREADY_EXIST = 407;
     public const int UNIVERSAL_RESPONSE_CODE_BANNED = 520;
 }
