@@ -18,6 +18,9 @@ public class FlowStateStageFail : StateBase
 
         // 행동력 소모 처리
         //UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true, false);
+        
+        // 패배 카운트 증가
+        UserDataManager.Instance.AddUserStageLoseCount(true);
     }
 
     public override void StateRunning(float dt)

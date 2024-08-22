@@ -15,6 +15,22 @@ public partial class SROptions
     #region 유저 정보 관련
 
     [Category("유저 정보 관련")]
+    public void 스테이지패배카운트초기화()
+    {
+        UserDataManager.Instance.UserBasicData.UserStageLoseCount = 0;
+
+        UserDataManager.Instance.SaveUserBasic();
+    }
+    
+    [Category("유저 정보 관련")]
+    public void 던전패배카운트초기화()
+    {
+        UserDataManager.Instance.UserBasicData.UserDungeonLoseCount = 0;
+
+        UserDataManager.Instance.SaveUserBasic();
+    }
+    
+    [Category("유저 정보 관련")]
     public void 방치보상최대상태로변경()
     {
         UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp = TimeManager.Instance.DefaultTimeStamp();

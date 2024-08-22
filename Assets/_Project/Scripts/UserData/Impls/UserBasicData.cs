@@ -31,6 +31,8 @@ namespace CookApps.AutoBattler
                     UserInstallDate = TimeManager.Instance.UtcNowTimeStamp(),
 
                     TotalGachaCount = 0,
+                    UserStageLoseCount = 0,
+                    UserDungeonLoseCount = 0,
                 };
                 PrevAccountLevel = userBasicData.Level;
 
@@ -88,6 +90,28 @@ namespace CookApps.AutoBattler
         {
             UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStamp();
 
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
+        }
+
+        // 유저 스테이지 패배 횟수 증가
+        public void AddUserStageLoseCount(bool needSave)
+        {
+            UserBasicData.UserStageLoseCount++;
+            
+            if (needSave)
+            {
+                SaveUserBasic();
+            }
+        }
+        
+        // 유저 던전 패배 횟수 증가
+        public void AddUserDungeonLoseCount(bool needSave)
+        {
+            UserBasicData.UserDungeonLoseCount++;
+            
             if (needSave)
             {
                 SaveUserBasic();
