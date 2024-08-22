@@ -2950,6 +2950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
   _closeButton: {fileID: 9204684409239048285}
+  _dimCloseButton: {fileID: 2367797206452409562}
   _eventTitleText: {fileID: 4239534676589880997}
   _eventDescText: {fileID: 3159818152717181143}
   _eventSlotScrollRect: {fileID: 3318662141522149825}
