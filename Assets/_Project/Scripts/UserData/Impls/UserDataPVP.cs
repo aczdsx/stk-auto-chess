@@ -67,6 +67,16 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void AddMatchRefreshCount(bool needSave)
+        {
+            UserPVP.MatchRefreshCnt++;
+            
+            if (needSave)
+            {
+                SaveUserPVPData();
+            }
+        }
+
         // 유저 공격덱 데이터 반환
         public List<UserCharacterBattleDeck> GetPVPAttackDeckDataList()
         {

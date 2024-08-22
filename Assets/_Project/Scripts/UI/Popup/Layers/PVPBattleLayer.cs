@@ -20,6 +20,7 @@ namespace CookApps.AutoBattler
         
         [Header("Refresh Maching List")]
         [SerializeField] private CAButton _matchRefreshButton;
+        [SerializeField] private CAButton _matchFreeRefreshButton;
         [SerializeField] private Image _matchRefreshItemImage;
         [SerializeField] private TextMeshProUGUI _matchRefreshItemAmountText;
         [SerializeField] private TextMeshProUGUI _matchRefreshRemainTimeText;
@@ -42,6 +43,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _matchRefreshButton.onClick.AddListener(OnClickMatchingRefreshButton);
+            _matchFreeRefreshButton.onClick.AddListener(OnClickFreeMatchingRefreshButton);
         }
 
         protected override void OnDestroy()
@@ -49,6 +51,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
             
             _matchRefreshButton.onClick.RemoveListener(OnClickMatchingRefreshButton);
+            _matchFreeRefreshButton.onClick.RemoveListener(OnClickFreeMatchingRefreshButton);
         }
 
         public void InitLayer(ArenaMainPopup parent)
@@ -58,6 +61,7 @@ namespace CookApps.AutoBattler
             _currentUserPVPData = UserDataManager.Instance.UserPVP;
 
             _refreshPrice = SpecDataManager.Instance.GetGameConfig<int>("PVP_REFRESH_MATCHING_LIST_COST");
+            _matchRefreshItemAmountText.text = $"x{_refreshPrice}";
 
             _matchingScrollRect.verticalNormalizedPosition = 1;
 
@@ -104,6 +108,9 @@ namespace CookApps.AutoBattler
         private async UniTask CheckRefreshMatchListTime(CancellationToken cancelToken)
         {
             _isAvailRefresh = false;
+
+            _matchFreeRefreshButton.gameObject.SetActive(_isAvailRefresh);
+            _matchRefreshButton.gameObject.SetActive(!_isAvailRefresh);
             
             TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpan(UserDataManager.Instance.UserPVP.NextRefreshMatchingListTimestamp);
 
@@ -123,6 +130,9 @@ namespace CookApps.AutoBattler
                 {
                     _isAvailRefresh = true;
                     _matchRefreshRemainTimeText.text = LanguageManager.Instance.GetLanguageText("ARENA_MATCH_REFRESH_DESC");
+                    
+                    _matchFreeRefreshButton.gameObject.SetActive(_isAvailRefresh);
+                    _matchRefreshButton.gameObject.SetActive(!_isAvailRefresh);
                 }
             }
             catch (Exception e)
@@ -130,9 +140,17 @@ namespace CookApps.AutoBattler
                 Debug.LogError(e);
             }
         }
-        
-        private void OnClickMatchingRefreshButton()
+
+        private void OnClickFreeMatchingRefreshButton()
         {
+            // 리프레쉬 가능 최대 횟수 체크
+            int maxCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_MATCHING_LIST_REFRESH_MAX_COUNT");
+            if (UserDataManager.Instance.UserPVP.MatchRefreshCnt >= maxCount)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_ARENA_MATCH_RESET_END_GUIDE");
+                return;
+            }
+            
             // 리프레쉬 가능 상태 체크
             if (_isAvailRefresh == false)
             {
@@ -140,11 +158,24 @@ namespace CookApps.AutoBattler
                 return;
             }
             
+            // 초기화 진행 횟수 처리
+            UserDataManager.Instance.AddMatchRefreshCount(false); // 저장은 UpdateNextRefreshTimeStamp 에서 처리
+            
+            // 매칭 리스트 갱신 시간 처리
+            UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_LIST, true);
+
+            _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
+
+            _isAvailRefresh = false;
+        }
+        
+        private void OnClickMatchingRefreshButton()
+        {
             // 리프레쉬 가능 최대 횟수 체크
             int maxCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_MATCHING_LIST_REFRESH_MAX_COUNT");
             if (UserDataManager.Instance.UserPVP.MatchRefreshCnt >= maxCount)
             {
-                ToastManager.Instance.ShowToast("TEST - 더 이상 갱신할 수 없습니다.");
+                ToastManager.Instance.ShowToastByTokenKey("MSG_ARENA_MATCH_RESET_END_GUIDE");
                 return;
             }
             
@@ -158,14 +189,14 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.DecreaseItem(ItemType.GOLD, 0, _refreshPrice, true, false);
             
             // 초기화 진행 횟수 처리
-            UserDataManager.Instance.UserPVP.MatchRefreshCnt++;
+            UserDataManager.Instance.AddMatchRefreshCount(true);   
             
             // 매칭 리스트 갱신 시간 처리
-            UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_LIST, true);
+            //UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_LIST, true);
 
             _parentPopup?.RefreshTabLayer(ArenaMainPopupTabType.PVP_BATTLE);
 
-            _isAvailRefresh = false;
+            //_isAvailRefresh = false;
         }
 
         // 모든 리스트가 전투완료 상태인지 체크
