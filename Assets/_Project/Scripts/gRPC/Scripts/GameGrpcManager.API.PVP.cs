@@ -164,6 +164,8 @@ namespace GrpcGame
             request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
             request.MatchResult = result;
             request.OpponentPlayerId = opponentPlayerID;
+            var userPVPSimpleData = UserDataManager.Instance.GetCurrentPVPSimpleProfileData(false);
+            request.MySimpleInfo = BMUtil.ConvertToJsonSerialize(userPVPSimpleData);
             if (string.IsNullOrWhiteSpace(matchID) == false)
             {
                 request.MatchId = matchID;
