@@ -65,8 +65,6 @@ namespace CookApps.AutoBattler
 
             CurrentTabType = param as ArenaMainPopupTabType? ?? ArenaMainPopupTabType.PVP_BATTLE;
             
-            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
-            
             LoadPVPInfoData();
             
             CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.MATCHING_REFRESH_COUNT, false);
