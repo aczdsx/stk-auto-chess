@@ -5,28 +5,25 @@ namespace CookApps.AutoBattler
         public static string GetKey()
         {
             // encrypted with https://www.stringencrypt.com (v1.4.0) [C#]
-            // key = "tb$temp#gg"
-            var key = "\u0F5B\u402A\u41D9\u2F58\u2FCF\u5F8E\u5FB5\u91D1\u8FF0\uBFEF";
+            // key = "stella_secretkey"
+            var key = "\uB0F6\uAF0E\uADA6\uAB6E\uA90E\uA7C6\uA5B6\uA2F6\uA186\u9F96\u9D1E\u9B46\u98CE\u9716\u9566\u86A6";
 
-            for (int dDBjV = 0, GCyDB = 0; dDBjV < 10; dDBjV++)
+            for (int WuPLv = 0, ptryo = 0; WuPLv < 16; WuPLv++)
             {
-                GCyDB = key[dDBjV];
-                GCyDB = ~GCyDB;
-                GCyDB -= dDBjV;
-                GCyDB -= 0x15BA;
-                GCyDB = ((GCyDB << 6) | ((GCyDB & 0xFFFF) >> 10)) & 0xFFFF;
-                GCyDB ^= 0x9419;
-                GCyDB++;
-                GCyDB -= dDBjV;
-                GCyDB ^= 0x22B6;
-                GCyDB = ~GCyDB;
-                GCyDB -= 0xF672;
-                GCyDB -= dDBjV;
-                GCyDB ^= 0x8066;
-                GCyDB += 0x6C1F;
-                GCyDB = (((GCyDB & 0xFFFF) >> 9) | (GCyDB << 7)) & 0xFFFF;
-                GCyDB--;
-                key = key.Substring(0, dDBjV) + (char) (GCyDB & 0xFFFF) + key.Substring(dDBjV + 1);
+                ptryo = key[WuPLv];
+                ptryo = (((ptryo & 0xFFFF) >> 9) | (ptryo << 7)) & 0xFFFF;
+                ptryo --;
+                ptryo += WuPLv;
+                ptryo = ((ptryo << 6) | ( (ptryo & 0xFFFF) >> 10)) & 0xFFFF;
+                ptryo ^= 0x88BF;
+                ptryo ++;
+                ptryo += WuPLv;
+                ptryo += 0x5E8B;
+                ptryo ^= 0xCF46;
+                ptryo -= 0x7439;
+                ptryo -= WuPLv;
+                ptryo ++;
+                key = key.Substring(0, WuPLv) + (char)(ptryo & 0xFFFF) + key.Substring(WuPLv + 1);
             }
 
             return key;

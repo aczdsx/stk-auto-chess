@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
     {
         private bool isComplete;
         private bool hasError;
+        private bool serverConnectFail;
         private CheckVersionResult checkVersionResult;
 
         public ITitleTaskPriority Priority => ITitleTaskPriority.Step_2;
@@ -72,6 +73,15 @@ namespace CookApps.AutoBattler
             var hacheryParam = new GrpcInitializeParam(true);
             HatcheryGrpcManager.Instance.Initialize(hacheryParam);
             
+            var tryCount = 0;
+            do
+            {
+                checkVersionResult = await UniversalGrpcManager.Instance.CheckVersionAsync();
+                if (checkVersionResult.IsError)
+                    Debug.LogError("CheckVersionAsync Error!!");
+                tryCount++;
+            } while (checkVersionResult.IsError && tryCount < 3);
+
             progressCallback.Invoke(GetHashCode(), 1f);
         }
 
