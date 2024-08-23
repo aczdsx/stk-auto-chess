@@ -399,7 +399,7 @@ MonoBehaviour:
   baseAnimator: {fileID: 0}
   _canvasGroup: {fileID: 849336694505683053}
   _delayDuration: 0.8
-  _fadeDuration: 1
+  _fadeDuration: 1.2
   _endDuration: 3
   _hideDuration: 0.4
 --- !u!1 &4291476831496001578
@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 1948757579275772008}
   - component: {fileID: 5352605920588703186}
   - component: {fileID: 849336694505683053}
+  - component: {fileID: 3463356329987694415}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -460,14 +461,14 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 32767
   m_TargetDisplay: 0
 --- !u!225 &849336694505683053
 CanvasGroup:
@@ -478,9 +479,26 @@ CanvasGroup:
   m_GameObject: {fileID: 4291476831496001578}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
+  m_Interactable: 0
   m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  m_IgnoreParentGroups: 1
+--- !u!114 &3463356329987694415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4291476831496001578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &5485423504835511340
 GameObject:
   m_ObjectHideFlags: 0
