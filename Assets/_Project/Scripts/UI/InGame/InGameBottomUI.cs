@@ -17,6 +17,7 @@ using Random = Unity.Mathematics.Random;
 
 public class InGameBottomUI : MonoBehaviour
 {
+    public bool IsSpeedUpRedDot => _speedUpRedDot != null && _speedUpRedDot.activeSelf;
     [SerializeField] protected CAButton _startButton;
     [SerializeField] protected CAButton _statisticButton;
     [SerializeField] protected CAButton _recommendButton;

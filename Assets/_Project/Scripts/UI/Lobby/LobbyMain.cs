@@ -229,7 +229,7 @@ namespace CookApps.AutoBattler
             var userBasicData = UserDataManager.Instance.UserBasicData;
 
             //_userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
-            _userNameText.text = userBasicData.Nickname;
+            _userNameText.text = (userBasicData.Nickname.Length > 25) ? "닉네임을 설정해주세요." : userBasicData.Nickname;
 
             int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
             _userLevelText.text = $"Lv.{userLevel}";

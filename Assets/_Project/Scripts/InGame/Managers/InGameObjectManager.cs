@@ -113,7 +113,23 @@ namespace CookApps.BattleSystem
 
             return characterList.OrderByDescending(c => c.AD).ToList();
         }
-        
+
+        public int GetAverageAD(AllianceType allianceType, bool isOwnCharacter)
+        {
+            double averageAD = 0;
+            List<CharacterController> list = isOwnCharacter 
+                ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
+                : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
+            
+            foreach (var character in list)
+            {
+                averageAD += character.AD;
+            }
+            averageAD /= list.Count;
+            
+            return Convert.ToInt32(averageAD);
+        }
+
         public List<CharacterController> GetCharacterListSortedByDistance(CharacterController character, bool isOwnCharacter)
         {
             List<CharacterController> characterList = isOwnCharacter 

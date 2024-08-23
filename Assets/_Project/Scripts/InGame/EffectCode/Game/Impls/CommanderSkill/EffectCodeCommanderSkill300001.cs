@@ -50,17 +50,13 @@ namespace CookApps.BattleSystem
                     if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
                     {
                         targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
-                        var playerCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(AllianceType.Player, true);
-                        if (playerCharacterList.Count > 0)
-                        {
-                            var strongestCharacter = playerCharacterList.First();
+                        var averageAD = InGameObjectManager.Instance.GetAverageAD(AllianceType.Player, true);
 
-                            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                            damageInfo.damageAmount = damageInfo.damageAmount =
-                                (int) Math.Ceiling(strongestCharacter.AD * _damageRate);
+                        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+                        damageInfo.damageAmount = damageInfo.damageAmount =
+                            (int) Math.Ceiling(averageAD * _damageRate);
 
-                            tile.OccupiedCharacter.GetDamaged(damageInfo, null);
-                        }
+                        tile.OccupiedCharacter.GetDamaged(damageInfo, null);
                     }
                 }
             }

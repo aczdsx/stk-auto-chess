@@ -112,7 +112,7 @@ namespace CookApps.AutoBattler
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
             
             bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
-            if (isOpenStatisticPop)
+            if (isOpenStatisticPop && !_inGameUI.BottomUI.IsSpeedUpRedDot)
                 SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(_inGameUI.BottomUI).Forget();
         }
 
