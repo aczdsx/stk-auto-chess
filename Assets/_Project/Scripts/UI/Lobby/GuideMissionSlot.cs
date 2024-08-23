@@ -74,7 +74,12 @@ namespace CookApps.AutoBattler
             SetGuideMissionSlot();
 
             // 다이얼로그 팝업 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString());
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString(),
+                () =>
+                {
+                    if (_specGuideMissionData.id == 1)
+                        SceneUILayerManager.Instance.PushUILayerAsync<NicknamePopup>(true).Forget();
+                });
         }
 
         private void SetGuideMissionSlot()

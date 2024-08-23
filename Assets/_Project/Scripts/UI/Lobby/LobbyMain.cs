@@ -139,7 +139,9 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0");
+            // DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0", () =>
+            // {
+            // });
 
             // 전투 진행
             int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
@@ -721,7 +723,7 @@ namespace CookApps.AutoBattler
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-            SceneUILayerManager.Instance.PushUILayerAsync<NicknamePopup>().Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<NicknamePopup>(false).Forget();
         }
 
         private void ClearBottomSlotLayer()

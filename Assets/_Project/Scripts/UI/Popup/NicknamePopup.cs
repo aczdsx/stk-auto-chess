@@ -17,6 +17,8 @@ namespace CookApps.AutoBattler
         
         [Space(10)]
         [SerializeField] private TMP_InputField _nicknameInputField;
+
+        private bool _isFirst;
         
         private void Awake()
         {
@@ -35,6 +37,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+            _isFirst = (bool) param;
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.PVP_Ticket);
 
             _nicknameInputField.text = "";
@@ -69,8 +72,13 @@ namespace CookApps.AutoBattler
         
         private void OnClickCloseButton()
         {
+            if (_isFirst)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("FIRST_NICKNAME_ALERT");
+                return;
+            }
+            
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }
