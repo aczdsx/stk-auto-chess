@@ -157,6 +157,7 @@ namespace CookApps.AutoBattler
 
         public void OnClickRefreshTextTween()
         {
+            _dialogueText.DOFade(0, 0f);
             _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
             _dialogueTextRect.DOSizeDelta(_tweenVector,0.3f).SetEase(Ease.OutQuad).From();
         }
