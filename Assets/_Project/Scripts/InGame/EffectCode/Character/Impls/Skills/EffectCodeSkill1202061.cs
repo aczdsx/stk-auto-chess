@@ -127,7 +127,7 @@ public class EffectCodeSkill1202061 : EffectCodeCharacterBase
         MoveDown(moveTime, distance).Forget();
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],owner.CurrentTile.View.CachedTr.position);
         
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
         var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
         foreach (var tile in inGameTiles)
         {
