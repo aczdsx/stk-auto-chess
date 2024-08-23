@@ -251,9 +251,16 @@ public partial class SROptions
         foreach (var stageData in tutoStageDataList)
         {
             UserDataManager.Instance.SetUserStage(stageData.stage_id, 3);
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, stageData.stage_id,
-                1);
+            //GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, stageData.stage_id, 1);
         }
+        
+        InGameManager.Instance.EndInGame();
+                
+        int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+        var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+
+        var transition = SceneTransition_FadeInOut.Create();
+        SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
     }
 
     [Category("스테이지 관련")] public int 원하는스테이지ID { get; set; } = 0;
