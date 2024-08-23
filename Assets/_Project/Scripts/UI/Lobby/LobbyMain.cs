@@ -168,6 +168,8 @@ namespace CookApps.AutoBattler
                     SetUserInfoLayer();     // 유저 정보 갱신
                     CheckNewChapterClear();
                     CheckUserAccountLevelUp();
+                    UpdateAttendanceData();
+                    
                     UpdateReddotState();
                     UpdateOpenCondition();
                     CheckShowSurveyPopup();
@@ -387,6 +389,21 @@ namespace CookApps.AutoBattler
             }
         }
 
+        // 출석부 상태 갱신
+        private void UpdateAttendanceData()
+        {
+            var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ATTENDANCE);
+            var currentUserEventData = UserDataManager.Instance.GetUserEventData(specEventData.event_id);
+            if (currentUserEventData != null)
+            {
+                if (currentUserEventData.EventExtraRefreshTimestamp < TimeManager.Instance.UtcNowTimeStampLocal())
+                {
+                    UserDataManager.Instance.SetUserEventActionCount(currentUserEventData.EventId, 1, true, true);
+                    UserDataManager.Instance.UpdateEventTimeData(currentUserEventData.EventId);
+                }
+            }
+        }
+
         private void UpdateReddotState()
         {
             // 캐릭터 버튼 레드닷
@@ -474,13 +491,16 @@ namespace CookApps.AutoBattler
             // 출석 레드닷
             bool isAvailAttendanceReward = false;
             var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ATTENDANCE);
-            var userEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specEventData.event_id);
-            if (userEventConditionList != null && userEventConditionList.Count > 0)
+            if (specEventData != null)
             {
-                isAvailAttendanceReward = userEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
-            }
+                var userEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specEventData.event_id);
+                if (userEventConditionList != null && userEventConditionList.Count > 0)
+                {
+                    isAvailAttendanceReward = userEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
+                }
             
-            _attendanceReddotObject.SetActive(isAvailAttendanceReward);
+                _attendanceReddotObject.SetActive(isAvailAttendanceReward);
+            }
             
             // 세션타임 이벤트 레드닷
             bool isAvailSessionTimeEventReward = false;
