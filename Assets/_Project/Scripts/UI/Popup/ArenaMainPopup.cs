@@ -241,6 +241,12 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case PVPTimeRefreshType.RANKING_LIST:
+                    // 랭킹이 없을 경우 바로 갱신 -> 서버에서 부담된다고 하니 일단 주석처리함
+                    // if (PVPManager.Instance.CurrentPVPRankListData == null || PVPManager.Instance.CurrentPVPRankListData.PvpRankers.Count <= 0)
+                    // {
+                    //     result = true;
+                    // }
+                    
                     if (UserDataManager.Instance.UserPVP.RefreshRankingTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.RANKING_LIST, needPVPDateSave);
