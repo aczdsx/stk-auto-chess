@@ -487,10 +487,9 @@ namespace CookApps.AutoBattler
         
         private async UniTaskVoid StartCountdown()
         {
-            DateTime currentTime = DateTime.UtcNow;
-            DateTime nextDayTime = DateTime.Today;
-            nextDayTime = nextDayTime.AddDays(1);
-
+            DateTime currentTime = TimeManager.Instance.UtcNow();
+            DateTime nextDayTime = TimeManager.Instance.TommorrowToUtc();
+            
             string msg = LanguageManager.Instance.GetLanguageText("LV_RESET_REMAIN_TIME");
             while (true)
             {

@@ -44,6 +44,13 @@ namespace CookApps.AutoBattler
             return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(1);
         }
         
+        public DateTime TommorrowToUtc()
+        {
+            DateTime now = UtcNow();
+            DateTime nextDay = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(1);
+            return nextDay;
+        }
+        
         public DateTime AddMinute(double minute)
         {
             DateTime now = UtcNow();
