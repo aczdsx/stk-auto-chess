@@ -11720,7 +11720,7 @@ MonoBehaviour:
   Arc: 0.75
   ArcSteps: 380
   ArcRotation: 315
-  Progress: 0.357
+  Progress: 0.167
   ProgressColor: {r: 0.98039216, g: 0.9647059, b: 0.7529412, a: 1}
   Fill: 0
   Thickness: 14
@@ -29036,7 +29036,7 @@ GameObject:
   - component: {fileID: 5153186811575593137}
   - component: {fileID: 259945115954755132}
   m_Layer: 5
-  m_Name: ArenaPVPEndPopup
+  m_Name: ArenaPvpEndPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29088,6 +29088,7 @@ MonoBehaviour:
   - {fileID: 4931289663728114160}
   - {fileID: 8026212846884253605}
   - {fileID: 1342193662504187995}
+  _tierFx: {fileID: 2111736696533857937}
   _rewardContentObject: {fileID: 1905210006171377452}
   _rewardItemSlotObject: {fileID: 693939285823181458}
 --- !u!95 &259945115954755132

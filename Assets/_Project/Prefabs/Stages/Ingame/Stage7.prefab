@@ -70975,8 +70975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridSize:
-    x: 5
-    y: 6
+    x: 7
+    y: 9
   _tileViews:
   - {fileID: 0}
   - {fileID: 0}
