@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
             else if (_matchResultData.MyDeltaScore < 0)
                 _tierPointChangeText.text = $"({_matchResultData.MyDeltaScore.ToString("n0")})";
 
-            float duration = 1.3f;
+            float duration = 1.2f;
             AnimateSliderProgressAsync(_matchResultData.MyCurrentScore, _matchResultData.MyDeltaScore, duration)
                 .Forget();
 
@@ -197,7 +197,7 @@ namespace CookApps.AutoBattler
 
             _tierSlider.SetProgress(startRate);
             
-            await UniTask.Delay(TimeSpan.FromSeconds(1.2f));
+            await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
 
             if (beforeTierData == afterTierData)
             {
