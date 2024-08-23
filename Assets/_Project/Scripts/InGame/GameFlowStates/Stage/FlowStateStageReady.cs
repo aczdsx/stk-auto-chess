@@ -111,9 +111,23 @@ public class FlowStateStageReady : StateReadyBase
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
         
         StartDrawingLinesAsync(2.0f).Forget();
+
+        SpawnRuleTiles();
     }
 
     public override void StateStart()
+    {
+    }
+
+    public override void StateRunning(float dt)
+    {
+    }
+
+    public override void StateEnd(bool isForced)
+    {
+    }
+
+    private void SpawnRuleTiles()
     {
         if (_specStage.effect_code_rule_tile.Length > 0)
         {
@@ -159,13 +173,5 @@ public class FlowStateStageReady : StateReadyBase
             var effectCodeID = new EffectCodeInfo((long) _specStage.effect_code_name_3, 0, debuffStats);
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
         }
-    }
-
-    public override void StateRunning(float dt)
-    {
-    }
-
-    public override void StateEnd(bool isForced)
-    {
     }
 }

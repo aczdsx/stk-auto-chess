@@ -23,8 +23,13 @@ namespace CookApps.BattleSystem
                 var tileID = codeInfo.GetCodeStatToInt(i);
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
                 _chapterRuleTiles.Add(inGameTile);
-
                 InGameVfxManager.Instance.AddInGameVfx(vnt, inGameTile.View.CachedTr.position);
+
+                if (inGameTile.CheckValidTile(AllianceType.Enemy, true) ||
+                    inGameTile.CheckValidTile(AllianceType.Player, true))
+                {
+                    OnTileCharacterEnter(inGameTile, inGameTile.OccupiedCharacter);
+                }
             }
         }
 
@@ -34,6 +39,7 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
             _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             _chapterRuleTiles.Clear();
+            _characterControllers.Clear();
             
             SetRuleTileByInfo(codeInfo, InGameVfxNameType.fx_common_bufftrap_ad);
         }
@@ -43,6 +49,7 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
             _atkUpRate = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             _chapterRuleTiles.Clear();
+            _characterControllers.Clear();
             SetRuleTileByInfo(codeInfo, InGameVfxNameType.fx_common_bufftrap_ad);
         }
 
