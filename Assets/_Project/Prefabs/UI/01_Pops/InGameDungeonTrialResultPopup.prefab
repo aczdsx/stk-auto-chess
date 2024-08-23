@@ -425,11 +425,13 @@ MonoBehaviour:
   _rewardsTransform: {fileID: 1297750880359944485}
   _rewardItemSlotObj: {fileID: 3080100132656617581}
   _gradeUpObj: {fileID: 8754625958432693668}
+  _afterObj: {fileID: 2454579738387565347}
   _beforeObj: {fileID: 1315743797439699497}
   _beforeGradeImage: {fileID: 2348738877408078178}
   _afterGradeImage: {fileID: 1209912318015158376}
   _beforeLoseObj: {fileID: 3414340588835055956}
   _afterLoseObj: {fileID: 2247351102348556382}
+  _beforeArrow: {fileID: 3085557653912839651}
   _afterArrow: {fileID: 1909534014986859753}
   _beforeGradeText: {fileID: 8258906130991624331}
   _afterGradeText: {fileID: 4814235958942261633}
@@ -7603,6 +7605,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1025583688793966444, guid: 9cb64a42cc64f9d44ba8d47af52db385, type: 3}
   m_PrefabInstance: {fileID: 1228263364789976882}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2454579738387565347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3682748508656956433, guid: 9cb64a42cc64f9d44ba8d47af52db385, type: 3}
+  m_PrefabInstance: {fileID: 1228263364789976882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4814235958942261633 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6036003400288886451, guid: 9cb64a42cc64f9d44ba8d47af52db385, type: 3}
@@ -7966,6 +7973,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3085557653912839651 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 831947758167362523, guid: 9cb64a42cc64f9d44ba8d47af52db385, type: 3}
+  m_PrefabInstance: {fileID: 2403152273217285688}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3414340588835055956 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1025583688793966444, guid: 9cb64a42cc64f9d44ba8d47af52db385, type: 3}

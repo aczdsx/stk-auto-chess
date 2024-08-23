@@ -31,12 +31,14 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _rewardItemSlotObj;
         
         [SerializeField] private GameObject _gradeUpObj;
+        [SerializeField] private GameObject _afterObj;
         [SerializeField] private GameObject _beforeObj;
         [SerializeField] private Image _beforeGradeImage;
         [SerializeField] private Image _afterGradeImage;
         [SerializeField] private GameObject _beforeLoseObj;
         [SerializeField] private GameObject _afterLoseObj;
         
+        [SerializeField] private GameObject _beforeArrow;
         [SerializeField] private GameObject _afterArrow;
         [SerializeField] private TextMeshProUGUI _beforeGradeText;
         [SerializeField] private TextMeshProUGUI _afterGradeText;
@@ -107,6 +109,8 @@ namespace CookApps.AutoBattler
             var currentDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(InGameManager.Instance.SpecDungeonTrial.dungeon_id - 1);
             var nextDungeonTrialData = InGameManager.Instance.SpecDungeonTrial;
 
+            _beforeArrow.SetActive(_isVictory);
+            _afterObj.SetActive(_isVictory);
             _beforeObj.SetActive(currentDungeonTrialData != null);
             if (currentDungeonTrialData != null)
             {
