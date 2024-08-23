@@ -1253,14 +1253,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.9166667
+  - time: 2.5
     functionName: PlaySfx
     data: snd_sfx_monster_204031_appear_02
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 5.4333334
+  - time: 5
     functionName: PlaySfx
     data: snd_sfx_monster_204031_appear_03
     objectReferenceParameter: {fileID: 0}
