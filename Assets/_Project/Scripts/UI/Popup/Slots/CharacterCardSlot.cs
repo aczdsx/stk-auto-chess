@@ -114,8 +114,13 @@ namespace CookApps.AutoBattler
             SetStarObject(_specCharacterData.grade_type, haveCharacter);
 
             // 캐릭터 조각 슬라이더 관련 처리
-            _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{_specCharacterData.need_piece}";
-            _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / _specCharacterData.need_piece;
+            var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+
+            if (specCharacterTranscendenceData != null)
+            {
+                _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{specCharacterTranscendenceData.char_transcendence_count}";
+                _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / specCharacterTranscendenceData.char_transcendence_count;
+            }
 
             // 캐릭터 보유 여부 관련 처리
             _shadowObject.SetActive(haveCharacter);
