@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
             _myRankingPointText.text = $"{_currentUserPVPData.RankPoint}<color=#ACB2C0>/{_specPVPTierData.ranking_max}</color>";
             _myBattlePointText.text = UserDataManager.Instance.GetPVPDeckBattlePower(true).ToString("n0");
 
-            var firstTierMinRankPoint = Mathf.Max(_specPVPTierData.ranking_min, 800);
+            var firstTierMinRankPoint = Mathf.Max(_specPVPTierData.ranking_min, 1000);
             float sliderMinRankPoint = Mathf.Max(_currentUserPVPData.RankPoint - firstTierMinRankPoint, 0);
             float sliderMaxRankPoint = _specPVPTierData.ranking_max - firstTierMinRankPoint;
             _myTierSlider.SetProgress(sliderMinRankPoint / sliderMaxRankPoint);
