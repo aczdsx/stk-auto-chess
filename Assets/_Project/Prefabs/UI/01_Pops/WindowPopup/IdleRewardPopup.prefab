@@ -4566,7 +4566,7 @@ MonoBehaviour:
     initialPlayDelay: 0
     duration: 1
     loop: 1
-    loopDelay: 4
+    loopDelay: 0.5
     updateMode: 0
 --- !u!1 &8972236114910468534
 GameObject:
