@@ -205,22 +205,22 @@ namespace CookApps.AutoBattler
 
             if (haveGuestID)
             {
-                _loadingPopupObject.SetActive(true);
+                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+                
                 isLoginProcess = true;
                 LoginGuest().ContinueWith(() =>
                 {
-                    //isLoginProcess = false;
-                    _loadingPopupObject.SetActive(false);
+                    SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
                 }).Forget();
             }
             else
             {
-                _loadingPopupObject.SetActive(true);
+                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+                
                 isLoginProcess = true;
                 CreateGuestAccount().ContinueWith(() =>
                 {
-                    //isLoginProcess = false;
-                    _loadingPopupObject.SetActive(false);
+                    SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
                 }).Forget();
             }
         }
