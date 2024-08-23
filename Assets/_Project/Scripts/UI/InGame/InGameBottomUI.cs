@@ -95,7 +95,7 @@ public class InGameBottomUI : MonoBehaviour
     protected void OnClickSpeedUp()
     {
         var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-        int missionOrder = 5;
+        int missionOrder = 6;
         if (userGuideMissionData.MissionId <= missionOrder)
         {
             var missionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(missionOrder);
@@ -313,7 +313,7 @@ public class InGameBottomUI : MonoBehaviour
         if (_speedUpRedDot)
         {
             var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            int missionOrder = 5;
+            int missionOrder = 6;
             bool isGuide = userGuideMissionData.MissionId == missionOrder;
 
             _speedUpRedDot.SetActive(isSpeedUp && isGuide);
