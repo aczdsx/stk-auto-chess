@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Cookapps.Stkauto.V1;
+using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -56,6 +57,24 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void ShowLoadingPopup(bool isOn)
+        {
+            // 중복 생성 방지
+            if (SceneUILayerManager.Instance.GetUILayer<LoadingPopup>() != null && isOn)
+            {
+                return;
+            }
+            
+            if (isOn)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            }
+            else
+            {
+                SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+            }
+        }
+        
         public UserPVPBattleSimpleData ChangeDetailDataToSimpleData(UserPVPBattleDetailData targetData)
         {
             UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
@@ -89,7 +108,9 @@ namespace CookApps.AutoBattler
         {
             var response = await GrpcGame.GameGrpcManager.Instance.GetPvpProfileAsync(playerID, profileType);
             if (response.IsError)
+            {
                 return null;
+            }
 
             PVPProfileData newProfileData = new PVPProfileData();
             newProfileData.SimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(response.SimpleInfo);
@@ -103,8 +124,10 @@ namespace CookApps.AutoBattler
         {
             var response = await GrpcGame.GameGrpcManager.Instance.GetPvpInfoAsync();
             if (response.IsError)
+            {
                 return;
-
+            }
+            
             CurrentPVPInfo = response;
         }
         
@@ -113,7 +136,9 @@ namespace CookApps.AutoBattler
         {
             var response = await GrpcGame.GameGrpcManager.Instance.GetPvpMatchListAsync();
             if (response.IsError)
+            {
                 return;
+            }
 
             CurrentPVPMatchListData = response;
             
@@ -128,10 +153,12 @@ namespace CookApps.AutoBattler
             
             var response = await GrpcGame.GameGrpcManager.Instance.GetPvpRankListAsync(showRankCount);
             if (response.IsError)
+            {
                 return;
+            }
 
             CurrentPVPRankListData = response;
-            
+
             // todo.. 내 랭킹 데이터 업데이트
         } 
         
@@ -142,8 +169,10 @@ namespace CookApps.AutoBattler
             
             var response = await GrpcGame.GameGrpcManager.Instance.GetPvpMatchHistory(showCount);
             if (response.IsError)
+            {
                 return;
-
+            }
+            
             CurrentPVPHistoryListData = response;
         }
         
@@ -170,7 +199,9 @@ namespace CookApps.AutoBattler
             
             var response = await GrpcGame.GameGrpcManager.Instance.UpdatePvpProfile(battlePower, serializedSimpleData, serializedDetailData);
             if (response.IsError)
+            {
                 return;
+            }
             
             Debug.Log("UpdatePVPProfileData --- Success");
         }
@@ -188,8 +219,10 @@ namespace CookApps.AutoBattler
         {
             var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData, "");
             if (response.IsError)
+            {
                 return null;
-
+            }
+            
             // 복수가 아닌 일반 매칭일 경우 매칭 결과 데이터 세팅
             UserDataManager.Instance.SetPVPMatchingResultData(opponentPlayerID, result, false);     // 저장은 SetPVPBattleResultData에서 같이 처리
             
@@ -203,8 +236,10 @@ namespace CookApps.AutoBattler
         {
             var response = await GrpcGame.GameGrpcManager.Instance.MatchPvp(result, opponentPlayerID, opponentSimpleData, matchID);
             if (response.IsError)
+            {
                 return null;
-
+            }
+            
             // 유저 데이터에 결과 저장
             UserDataManager.Instance.SetPVPBattleResultData(response, true);
             
@@ -216,8 +251,10 @@ namespace CookApps.AutoBattler
         {
             var response = await GrpcGame.GameGrpcManager.Instance.CheckPvpPowerUpdated(opponentPlayerID, opponentBattlePower);
             if (response.IsError)
+            {
                 return null;
-
+            }
+            
             return response;
         }
     }
