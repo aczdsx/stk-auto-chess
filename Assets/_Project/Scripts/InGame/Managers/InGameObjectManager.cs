@@ -878,8 +878,11 @@ namespace CookApps.BattleSystem
         {
             _synergyVfxList.ForEach(vfx =>
             {
-                vfx.transform.SetParent(Playground);
-                vfx.Remove();
+                if (vfx != null)
+                {
+                    vfx.transform.SetParent(Playground);
+                    vfx.Remove();
+                }
             });
             _synergyVfxList.Clear();
         }
