@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: -3
+    m_Left: 60
     m_Right: 0
     m_Top: 14
     m_Bottom: 350
@@ -4346,6 +4346,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2004946379568838083, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133297736606739249, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
+      propertyPath: m_Value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8893583329116391816, guid: f51fe070482c9f649963daceec3a5cc6, type: 3}
