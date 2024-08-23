@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
         private ArenaMainPopup _parentPopup;
         
         private UserPVP _currentUserPVPData;
-        private List<PvpMatchHistoryData> _currentServerLogDataList;
+        private List<PvpMatchHistoryData> _currentServerLogDataList = new();
 
         public void InitLayer(ArenaMainPopup parent)
         {
@@ -68,6 +68,8 @@ namespace CookApps.AutoBattler
         
         private void ClearLayer()
         {
+            _currentServerLogDataList.Clear();
+            
             BMUtil.RemoveChildObjects(_logScrollRect.content);
         }
     }   
