@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _activeResetLevelUpButton;
         [SerializeField] private CAButton _inactiveResetLevelUpButton;
         [SerializeField] private TextMeshProUGUI _resetCountText;
+        [SerializeField] private TextMeshProUGUI _inactiveResetCountText;
 
         [Space(10)]
         [SerializeField] private CurrencyUIItem _baseExpItemCurrencyUIItem;
@@ -249,6 +250,12 @@ namespace CookApps.AutoBattler
             
             _activeResetLevelUpButton.gameObject.SetActive(isAvailReset);
             _inactiveResetLevelUpButton.gameObject.SetActive(!isAvailReset);
+
+            if (!isAvailReset)
+            {
+                _inactiveResetCountText.ToString();
+                StartCountdown().Forget();
+            }
         }
 
         private void PlayLevelUpEffect()
@@ -476,6 +483,42 @@ namespace CookApps.AutoBattler
         {
             _levelupEffectObjectList_1.ForEach(effect => effect.gameObject.SetActive(false));
             _levelupEffectObjectList_2.ForEach(effect => effect.gameObject.SetActive(false));
+        }
+        
+        private async UniTaskVoid StartCountdown()
+        {
+            DateTime currentTime = DateTime.UtcNow;
+            DateTime nextDayTime = DateTime.Today;
+            nextDayTime = nextDayTime.AddDays(1);
+
+            string msg = LanguageManager.Instance.GetLanguageText("LV_RESET_REMAIN_TIME");
+            while (true)
+            {
+                TimeSpan timeRemaining = nextDayTime - currentTime;
+
+                int days = timeRemaining.Days;
+                int hours = timeRemaining.Hours;
+                int minutes = timeRemaining.Minutes;
+
+                string timeString = "";
+
+                if (days > 0)
+                {
+                    timeString += $"{days}일 ";
+                }
+                if (hours > 0)
+                {
+                    timeString += $"{hours}시간 ";
+                }
+                if (minutes > 0 || timeString == "")
+                {
+                    timeString += $"{minutes}분";
+                }
+                
+                _inactiveResetCountText.text = string.Format(msg, timeString);
+
+                await UniTask.Delay(TimeSpan.FromSeconds(1));
+            }
         }
     }
 }
