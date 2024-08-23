@@ -129,24 +129,21 @@ public class EffectCodeSkill1202061 : EffectCodeCharacterBase
         
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
         var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
-        foreach (var character in characterControllers)
+        foreach (var tile in inGameTiles)
         {
-            float calculatedDamageRate = _damageRate;
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
                 characterControllers[0].CurrentTile);
 
-            var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                character, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, character);
-            character.GetDamaged(damage, owner);
-
-            // 주변 타겟
-            inGameTiles.Remove(characterControllers[0].CurrentTile);
-            foreach (var tile in inGameTiles)
+            if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-
-                StunCharacter(character);
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                    tile.OccupiedCharacter.SkillRootTransformFollowable);
+                
+                var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                
+                StunCharacter(tile.OccupiedCharacter);
             }
         }
 
