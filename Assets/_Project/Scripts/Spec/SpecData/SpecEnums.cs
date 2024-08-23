@@ -455,6 +455,7 @@ namespace CookApps.AutoBattler
         fx_common_debuff_misa_01 = 184,
         fx_common_debuff_misa_02 = 185,
         DropFx = 186,
+        Skill_202061_1 = 187,
     }
 
     public enum GlobalEffectProviderType

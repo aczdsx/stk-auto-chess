@@ -218,17 +218,26 @@ namespace CookApps.AutoBattler
                 var specDummyData = SpecDataManager.Instance.GetPVPDummyData(_userPVPBattleSimpleData.PlayerId);
                 if (specDummyData == null)
                 {
+                    ToastManager.Instance.ShowToastByTokenKey("PVP_OPPONENT_DATA_ERROR");
                     return;
                 }
                 
                 pvpProfileData.SimpleData = BMUtil.ConvertFromJsonDeserialize<UserPVPBattleSimpleData>(specDummyData.dummy_simple_info);
                 pvpProfileData.DetailData = BMUtil.ConvertFromJsonDeserialize<UserPVPBattleDetailData>(specDummyData.dummy_heavy_info);
+                
+                // 데이터 유효성 검증
+                if (pvpProfileData.SimpleData == null || pvpProfileData.DetailData == null)
+                {
+                    ToastManager.Instance.ShowToastByTokenKey("PVP_OPPONENT_DATA_ERROR");
+                    return;
+                }
             }
             else
             {
                 pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
                 if (pvpProfileData == null || pvpProfileData.DetailData == null)
                 {
+                    ToastManager.Instance.ShowToastByTokenKey("PVP_OPPONENT_DATA_ERROR");
                     return;
                 }
             }
@@ -265,6 +274,7 @@ namespace CookApps.AutoBattler
             var pvpProfileData = await PVPManager.Instance.GetPVPProfileData(_userPVPBattleSimpleData.PlayerId, 2);
             if (pvpProfileData == null || pvpProfileData.DetailData == null)
             {
+                ToastManager.Instance.ShowToastByTokenKey("PVP_OPPONENT_DATA_ERROR");
                 return;
             }
             
