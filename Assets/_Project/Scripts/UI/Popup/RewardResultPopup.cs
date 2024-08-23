@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _rewardItemSlotObject;
 
         private List<RewardItem> _rewardItemList;
+        private string _titleToken;
 
         protected override void Awake()
         {
@@ -39,8 +40,10 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_item_reward);
 
-            _rewardItemList = param as List<RewardItem>;
-
+            (_titleToken, _rewardItemList) = ((string, List<RewardItem>))param;
+            
+            SetPopupTitleText(_titleToken);
+            
             SetRewardSlotList();
         }
 
@@ -49,7 +52,7 @@ namespace CookApps.AutoBattler
             if (_titleText == null) return;
             if (string.IsNullOrWhiteSpace(text)) return;
             
-            _titleText.text = text;
+            _titleText.text = LanguageManager.Instance.GetLanguageText(text);
         }
 
         private void SetRewardSlotList()

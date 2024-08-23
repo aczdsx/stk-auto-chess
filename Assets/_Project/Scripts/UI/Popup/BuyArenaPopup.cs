@@ -87,7 +87,7 @@ namespace CookApps.AutoBattler
             
             UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
             
             // 구매 횟수 증가
             UserDataManager.Instance.UserPVP.BuyTicketCnt++;

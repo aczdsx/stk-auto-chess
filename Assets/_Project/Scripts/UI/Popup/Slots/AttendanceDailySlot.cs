@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
             // 보상 데이터 저장
             UserDataManager.Instance.IncreaseRewardItemList(_attendanceRewardItemList, true);
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(_attendanceRewardItemList).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", _attendanceRewardItemList)).Forget();
 
             RefreshSlot(true);
 

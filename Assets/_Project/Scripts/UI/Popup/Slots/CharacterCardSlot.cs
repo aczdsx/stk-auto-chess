@@ -163,7 +163,7 @@ namespace CookApps.AutoBattler
                     RewardItem newCharacter = new RewardItem(ItemType.CHARACTER, _userCharacterData.CharacterId, 1);
                     List<RewardItem> rewardList = new List<RewardItem> { newCharacter };
 
-                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardList).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardList)).Forget();
 
                     UserDataManager.Instance.AddNewCharacter(_userCharacterData.CharacterId);
                     UserDataManager.Instance.DecreaseKnightPieceCount(_userCharacterData.CharacterId, _specCharacterData.need_piece);

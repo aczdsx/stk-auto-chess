@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
                     var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(_currentSpecDialogueData.reward_id);
                     var rewardItemList = SpecDataManager.Instance.GetRewardItemListByRewadInfoList(rewardInfoList);
 
-                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList, callback =>
+                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
                     {
                         // 가이드 미션 가이드 효과 재생
                         GuideMissionManager.Instance.UpdateGuideMissionAlert();

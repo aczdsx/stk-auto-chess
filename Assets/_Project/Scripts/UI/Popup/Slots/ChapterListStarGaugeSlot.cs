@@ -97,7 +97,7 @@ namespace CookApps.AutoBattler
             List<RewardItem> rewardItemList = new List<RewardItem>();
             rewardItemList.Add(new RewardItem(_specRewardInfo.item_type, _specRewardInfo.item_key, _specRewardInfo.item_count));
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 
             // 보상 수령 데이터 처리
             UserDataManager.Instance.SetStageAccRewardState(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);

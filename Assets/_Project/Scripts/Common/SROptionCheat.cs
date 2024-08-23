@@ -231,7 +231,7 @@ public partial class SROptions
         // 보상 데이터 저장
         if (rewardList.Count > 0) UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
 
-        SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(rewardItemList).Forget();
+        SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 
         // 행동력 소모 처리
         UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, targetSpecStageData.need_ap, true, false);

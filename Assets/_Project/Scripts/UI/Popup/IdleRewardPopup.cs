@@ -164,7 +164,7 @@ namespace CookApps.AutoBattler
             // 보상 수령
             UserDataManager.Instance.IncreaseRewardItemList(_currentIdleRewardItemList, true);
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(_currentIdleRewardItemList).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", _currentIdleRewardItemList)).Forget();
 
             // 방치 보상 데이터 갱신
             UserDataManager.Instance.RefreshLastRewardGetTime();

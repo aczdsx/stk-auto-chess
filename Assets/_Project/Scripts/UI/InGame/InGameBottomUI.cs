@@ -80,7 +80,7 @@ public class InGameBottomUI : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-        if (IsCheckStartBattle())
+        if (IsCheckStartBattle() && !_isRunningRecommend)
             StartInGameBattle(_combatType);
     }
 

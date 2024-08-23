@@ -390,7 +390,7 @@ namespace CookApps.AutoBattler
 
                 // 레벨업에 소모된 아이템 반환 적용 처리
                 UserDataManager.Instance.IncreaseRewardItemList(resetRewardItemList, true);
-                SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(resetRewardItemList).Forget();
+                SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", resetRewardItemList)).Forget();
 
                 // 팝업 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
