@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             SessionCount++;
             progressDict.Clear();
-            touchToStart.SetActive(false);
+            //touchToStart.SetActive(false);
             
             RunAllTasks().Forget();
 
@@ -55,7 +55,7 @@ namespace CookApps.AutoBattler
             
             Invoke(nameof(LoginDelay), 3.0f);
             
-            _createGuestButtonLayer.SetActive(!haveGuestID);
+            //_createGuestButtonLayer.SetActive(!haveGuestID);
             //_loginGuestButtonLayer.SetActive(haveGuestID);
             
             // bgm on
@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
 
                 await RunSubTasks(tasks);
 
-                touchToStart.SetActive(haveGuestID);
+                //touchToStart.SetActive(haveGuestID);
             }
         }
 
@@ -201,16 +201,28 @@ namespace CookApps.AutoBattler
         public void OnClickGuestLoginButton()
         {
             if (isLoginProcess) return;
-            if (haveGuestID == false) return;
             if (loginDelay) return;
 
-            _loadingPopupObject.SetActive(true);
-            isLoginProcess = true;
-            LoginGuest().ContinueWith(() =>
+            if (haveGuestID)
             {
-                //isLoginProcess = false;
-                _loadingPopupObject.SetActive(false);
-            }).Forget();
+                _loadingPopupObject.SetActive(true);
+                isLoginProcess = true;
+                LoginGuest().ContinueWith(() =>
+                {
+                    //isLoginProcess = false;
+                    _loadingPopupObject.SetActive(false);
+                }).Forget();
+            }
+            else
+            {
+                _loadingPopupObject.SetActive(true);
+                isLoginProcess = true;
+                CreateGuestAccount().ContinueWith(() =>
+                {
+                    //isLoginProcess = false;
+                    _loadingPopupObject.SetActive(false);
+                }).Forget();
+            }
         }
 
         public void OnClickCrateGuestIDButton()
@@ -281,26 +293,26 @@ namespace CookApps.AutoBattler
             //     return;
 
             // 게스트 아이디 유효성 체크
-            int minGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("min_user_name_length");
-            int maxGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("max_user_name_length");
-            
-            int guestIDByte = Encoding.UTF8.GetByteCount(_guestIDInputField.text);
-            
-            if (guestIDByte < minGuestIDLength || guestIDByte > maxGuestIDLength)
-            {
-                var toastStirng = LanguageManager.Instance.GetLanguageText("ERROR_SERVER_NICKNAME_LENGTH");
-                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-                isLoginProcess = false;
-                return;
-            }
-            
-            // var authId = await UniversalGrpcManager.Instance.GenerateUuidAsync();
-            // if(string.IsNullOrEmpty(authId))
+            // int minGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("min_user_name_length");
+            // int maxGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("max_user_name_length");
+            //
+            // int guestIDByte = Encoding.UTF8.GetByteCount(_guestIDInputField.text);
+            //
+            // if (guestIDByte < minGuestIDLength || guestIDByte > maxGuestIDLength)
             // {
-            //     CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
+            //     var toastStirng = LanguageManager.Instance.GetLanguageText("ERROR_SERVER_NICKNAME_LENGTH");
+            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
             //     isLoginProcess = false;
             //     return;
             // }
+            
+            var uuID = await UniversalGrpcManager.Instance.GenerateUuidAsync();
+            if(string.IsNullOrEmpty(uuID))
+            {
+                CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
+                isLoginProcess = false;
+                return;
+            }
             
             // 디바이스 ID로 authID 저장
             await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Guest, SystemInfo.deviceUniqueIdentifier);
@@ -321,7 +333,7 @@ namespace CookApps.AutoBattler
             }
             
             // 플레이어 데이터 생성
-            var newPlayerResponse = await UniversalGrpcManager.Instance.CreatePlayerAsync(1, _guestIDInputField.text);
+            var newPlayerResponse = await UniversalGrpcManager.Instance.CreatePlayerAsync(1, uuID);
 
             // 닉네임 중복 체크
             if (newPlayerResponse.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_FAIL_NICKNAME_ALREADY_EXIST)
@@ -368,7 +380,7 @@ namespace CookApps.AutoBattler
             // 유저 로그인 정보 저장
             var commonLoginData = UniversalGrpcManager.Instance.GetCommonRequestParam();
             var gameLoginData = UniversalGrpcManager.Instance.GetGameRequestParam();
-            UserDataManager.Instance.SetUserLoginData(commonLoginData.Uid, gameLoginData.ServerId, gameLoginData.PlayerId, _guestIDInputField.text);
+            UserDataManager.Instance.SetUserLoginData(commonLoginData.Uid, gameLoginData.ServerId, gameLoginData.PlayerId, uuID);
             
             // 로그인 진행
             OnClickTouchToStart();
