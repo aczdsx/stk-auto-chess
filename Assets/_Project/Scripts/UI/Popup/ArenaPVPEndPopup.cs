@@ -87,6 +87,15 @@ namespace CookApps.AutoBattler
                 _tierLevelObjectList[i].SetActive(true);
             }
 
+            if (_isVictory)
+            {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
+            }
+
             // 보상 데이터 세팅
             PvpRewardType targetRewardType =
                 _isVictory ? PvpRewardType.PVP_REWARD_VICTORY : PvpRewardType.PVP_REWARD_LOSE;
