@@ -65,12 +65,16 @@ namespace CookApps.AutoBattler
 
             CurrentTabType = param as ArenaMainPopupTabType? ?? ArenaMainPopupTabType.PVP_BATTLE;
             
+            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>().Forget();
+            
             LoadPVPInfoData();
             
-            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.MATCHING_REFRESH_COUNT);
-            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.BUY_TICKET);
-            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.DAILY_REWARD);
-            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.REFILL_TICKET);
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.MATCHING_REFRESH_COUNT, false);
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.BUY_TICKET, false);
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.DAILY_REWARD, false);
+            CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.REFILL_TICKET, false);
+            
+            UserDataManager.Instance.SaveUserPVPData(); // 여기서 한번에 저장처리
             
             StartCountdown().Forget();
         }
@@ -106,7 +110,7 @@ namespace CookApps.AutoBattler
         public void ChangeTabType(ArenaMainPopupTabType tabType, bool isFirstEnter)
         {
             if (CurrentTabType == tabType && isFirstEnter == false) return;
-
+            
             ClearLayer();
             
             CurrentTabType = tabType;
@@ -200,7 +204,7 @@ namespace CookApps.AutoBattler
         
         private async void LoadPVPRankData()
         {
-            bool isNeedRefresh = CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.RANKING_LIST);
+            bool isNeedRefresh = CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType.RANKING_LIST, true);
             if (isNeedRefresh)
             {
                 await PVPManager.Instance.UpdatePVPRankList();
@@ -210,7 +214,7 @@ namespace CookApps.AutoBattler
         }
 
         // PVP 팝업 갱신 시간 업데이트 및 체크 (result - true: 갱신 필요)
-        private bool CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType timeType)
+        private bool CheckAndUpdatePVPDataRefreshTime(PVPTimeRefreshType timeType, bool needPVPDateSave)
         {
             bool result = false;
             
@@ -222,14 +226,14 @@ namespace CookApps.AutoBattler
                     if (UserDataManager.Instance.UserPVP.RefreshMatchingCntTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         UserDataManager.Instance.UserPVP.MatchRefreshCnt = 0;
-                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_REFRESH_COUNT, true);
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.MATCHING_REFRESH_COUNT, needPVPDateSave);
                         result = true;
                     }
                     break;
                 case PVPTimeRefreshType.RANKING_LIST:
                     if (UserDataManager.Instance.UserPVP.RefreshRankingTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
-                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.RANKING_LIST, true);
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.RANKING_LIST, needPVPDateSave);
                         result = true;
                     }
                     break;
@@ -249,7 +253,7 @@ namespace CookApps.AutoBattler
                         
                         // 일일 보상 데이터 처리
                         UserDataManager.Instance.UserPVP.DailyRewardCnt = 0;
-                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.DAILY_REWARD, true);
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.DAILY_REWARD, needPVPDateSave);
                         result = true;
                     }
                     break;
@@ -257,7 +261,7 @@ namespace CookApps.AutoBattler
                     if (UserDataManager.Instance.UserPVP.BuyTicketResetTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
                     {
                         UserDataManager.Instance.UserPVP.BuyTicketCnt = 0;
-                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.BUY_TICKET, true);
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.BUY_TICKET, needPVPDateSave);
                         result = true;
                     }
                     break;
@@ -266,7 +270,7 @@ namespace CookApps.AutoBattler
                     {
                         int maxTicket = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
                         UserDataManager.Instance.SetItemCount(ItemType.PVP_TICKET, 0, maxTicket, true, false);
-                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.REFILL_TICKET, true);
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.REFILL_TICKET, needPVPDateSave);
                         result = true;
                     }
                     break;
