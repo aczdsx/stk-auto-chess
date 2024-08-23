@@ -1412,6 +1412,8 @@ MonoBehaviour:
   _battleButton: {fileID: 7147999440199709006}
   _enableBattleButtonObject: {fileID: 3474606518619994725}
   _disableBattleButtonObject: {fileID: 6929404760923633074}
+  _winGradient2: {fileID: 7220735811835457487}
+  _loseGradient2: {fileID: 7273037106587342794}
   _enemyLevelText: {fileID: 3147002936191576324}
   _enemyNicknameText: {fileID: 8492518175296798706}
   _enemyBattlePowerText: {fileID: 975610086486004449}
@@ -1424,6 +1426,7 @@ MonoBehaviour:
   _battleResultLoseObject: {fileID: 7679966230831832266}
   _battleResultText: {fileID: 3781711512127952785}
   _battleResultTimeText: {fileID: 3222916627409754875}
+  _battleResultImageGradient2: {fileID: 3586896527096464493}
   _revengeLayer: {fileID: 5874500177572052695}
   _revengeTierLayer: {fileID: 4713413440886740631}
   _revengeButton: {fileID: 2797652447777616738}

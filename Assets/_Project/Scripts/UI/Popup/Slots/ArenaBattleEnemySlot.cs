@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -19,6 +20,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _battleButton;
         [SerializeField] private GameObject _enableBattleButtonObject;
         [SerializeField] private GameObject _disableBattleButtonObject;
+        [SerializeField] private Gradient2 _winGradient2;
+        [SerializeField] private Gradient2 _loseGradient2;
         
         [Header("Enemy Info")]
         [SerializeField] private TextMeshProUGUI _enemyLevelText;
@@ -37,6 +40,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _battleResultLoseObject;
         [SerializeField] private TextMeshProUGUI _battleResultText;
         [SerializeField] private TextMeshProUGUI _battleResultTimeText;
+        [SerializeField] private Gradient2 _battleResultImageGradient2;
         
         [Header("Revenge Layer")]
         [SerializeField] private GameObject _revengeLayer;
@@ -159,9 +163,12 @@ namespace CookApps.AutoBattler
                 _battleResultWinObject.SetActive(isWin);
                 _battleResultLoseObject.SetActive(isLose);
                 
+                _battleResultImageGradient2.EffectGradient = isWin ? _winGradient2.EffectGradient : _loseGradient2.EffectGradient;
+                
                 string resultText = isWin  ? "승리" : "패배";
                 _battleResultText.text = resultText;
 
+                _battleResultText.color = isWin ? _winGradient2.EffectGradient.colorKeys[0].color : _loseGradient2.EffectGradient.colorKeys[0].color;
 
                 string resultString = "";
                 if (_userPVPBattleSimpleData.RefreshTimestamp > 0)
@@ -169,6 +176,8 @@ namespace CookApps.AutoBattler
                     resultString = LanguageManager.Instance.GetTimeSpanFromNowText(_userPVPBattleSimpleData.RefreshTimestamp);
                 }
                 _battleResultTimeText.text = resultString;
+                
+                _battleResultTimeText.color = isWin ? _winGradient2.EffectGradient.colorKeys[0].color : _loseGradient2.EffectGradient.colorKeys[0].color;
             }
         }
 
