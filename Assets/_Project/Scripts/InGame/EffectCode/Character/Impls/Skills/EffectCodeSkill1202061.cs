@@ -19,7 +19,6 @@ public class EffectCodeSkill1202061 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _time;
     private ObfuscatorFloat _damageRate;
-    private ObfuscatorFloat _additionalDamageRate;
     private ObfuscatorFloat _stunTime;
 
     private bool _isReadyToActivate;
@@ -34,8 +33,7 @@ public class EffectCodeSkill1202061 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _time = codeInfo.GetCodeStatToFloat(1);
         _damageRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _additionalDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
-        _stunTime = codeInfo.GetCodeStatToFloat(4);
+        _stunTime = codeInfo.GetCodeStatToFloat(3);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -48,8 +46,7 @@ public class EffectCodeSkill1202061 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _time = codeInfo.GetCodeStatToFloat(1);
         _damageRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _additionalDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
-        _stunTime = codeInfo.GetCodeStatToFloat(4);
+        _stunTime = codeInfo.GetCodeStatToFloat(3);
     }
 
     public override void OnUpdate(float dt)
