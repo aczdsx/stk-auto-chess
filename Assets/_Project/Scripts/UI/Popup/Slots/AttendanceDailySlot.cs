@@ -48,6 +48,8 @@ namespace CookApps.AutoBattler
             if (eventData == null) return;
             if (conditionData == null) return;
 
+            ClearSlot();
+            
             _parentAttendancePopup = parent;
 
             _currentUserEventData = eventData;
@@ -99,6 +101,11 @@ namespace CookApps.AutoBattler
             RefreshSlot(true);
 
             //_parentAttendancePopup?.RefreshPopup();
+        }
+
+        private void ClearSlot()
+        {
+            _attendanceRewardItemList.Clear();
         }
     }
 }
