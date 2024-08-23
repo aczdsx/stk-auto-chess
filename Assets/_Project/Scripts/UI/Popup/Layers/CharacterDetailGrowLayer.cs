@@ -244,7 +244,7 @@ namespace CookApps.AutoBattler
 
             int resultCount = maxResetCount - resetCount;
             
-            _resetCountText.text = $"레벨 초기화 ({resultCount})";
+            _resetCountText.text = $"레벨 초기화 <color=#C35B79><b>({resultCount})</b></color>";
 
             bool isAvailReset = resultCount > 0;
             

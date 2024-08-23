@@ -380,10 +380,13 @@ MonoBehaviour:
   baseAnimator: {fileID: 0}
   _closeButton: {fileID: 7895684120799162544}
   _dimButton: {fileID: 1272349375768008826}
+  _itemInfoObj: {fileID: 9080570289696862061}
   _itemIconImage: {fileID: 2607329984651085669}
   _itemNameText: {fileID: 2519229887985395199}
   _itemDescText: {fileID: 6046540803503233719}
   _itemCategoryText: {fileID: 4962611232128719572}
+  _characterInfoObj: {fileID: 3539243734392086870}
+  _characterIconImage: {fileID: 5183159572374491177}
 --- !u!1 &2893971333906931306
 GameObject:
   m_ObjectHideFlags: 0

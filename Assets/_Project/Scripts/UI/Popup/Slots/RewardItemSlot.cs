@@ -33,6 +33,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _rewardClassSynergyUI;
 
         private SpecItem _specItemData;
+        private int _rewardKey;
         
         private void Awake()
         {
@@ -86,6 +87,7 @@ namespace CookApps.AutoBattler
             ClearSlot();
             
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Type);
+            _rewardKey = rewardPiece.Key;
 
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardPiece.Key);
             if (specCharacterData == null) return;
@@ -113,6 +115,7 @@ namespace CookApps.AutoBattler
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardCharacter.Key);
             if (specCharacterData == null) return;
 
+            _rewardKey = rewardCharacter.Key;
             _rewardCharacterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id);
             _rewardCharacterNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
             _rewardElementSynergyUI.SetSynergyUI(specCharacterData.element_type);
@@ -131,7 +134,7 @@ namespace CookApps.AutoBattler
         {
             if (_specItemData == null) return;
             
-            SceneUILayerManager.Instance.PushUILayerAsync<ItemTooltipPopup>(_specItemData);
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemTooltipPopup>((_specItemData, _rewardKey));
         }
         
         private void ClearSlot()
