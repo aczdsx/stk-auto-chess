@@ -387,6 +387,8 @@ MonoBehaviour:
   _itemCategoryText: {fileID: 4962611232128719572}
   _characterInfoObj: {fileID: 3539243734392086870}
   _characterIconImage: {fileID: 5183159572374491177}
+  _characterSynergyUI1: {fileID: 7074106614785964301}
+  _characterSynergyUI2: {fileID: 5571898685559955768}
 --- !u!1 &2893971333906931306
 GameObject:
   m_ObjectHideFlags: 0

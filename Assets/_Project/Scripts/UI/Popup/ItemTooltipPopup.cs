@@ -23,6 +23,8 @@ namespace CookApps.AutoBattler
         [Header("Item Info")] 
         [SerializeField] private GameObject _characterInfoObj;
         [SerializeField] private Image _characterIconImage;
+        [SerializeField] private SynergyUI _characterSynergyUI1;
+        [SerializeField] private SynergyUI _characterSynergyUI2;
 
         private SpecItem _specItemData;
         private int _rewardKey;
@@ -69,13 +71,19 @@ namespace CookApps.AutoBattler
             {
                 var specCharacterData = SpecDataManager.Instance.GetCharacterData(_rewardKey);
                 _characterIconImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id);
+                _itemNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
+                _itemDescText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.desc_token);
+                _characterSynergyUI1.SetSynergyUI(specCharacterData.element_type);
+                _characterSynergyUI2.SetPositionSynergyUI(specCharacterData.character_position_type);
             }
             else
+            {
                 _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(_specItemData.item_type);
+                _itemNameText.text = LanguageManager.Instance.GetLanguageText(_specItemData.name_token);
+                _itemDescText.text = LanguageManager.Instance.GetLanguageText(_specItemData.desc_token);
+            }
             
             _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(_specItemData.item_type);
-            _itemNameText.text = LanguageManager.Instance.GetLanguageText(_specItemData.name_token);
-            _itemDescText.text = LanguageManager.Instance.GetLanguageText(_specItemData.desc_token);
             _itemCategoryText.text = LanguageManager.Instance.GetItemCategoryText(_specItemData.item_category_type);
         }
         

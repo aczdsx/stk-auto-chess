@@ -36375,6 +36375,7 @@ MonoBehaviour:
   _speedUpObjOff: {fileID: 2423026558480646996}
   _recommendObjOn: {fileID: 8098470228540427319}
   _recommendObjOff: {fileID: 5122876128781826491}
+  _speedUpRedDot: {fileID: 3304185047196005405}
 --- !u!1 &3811274703280264828
 GameObject:
   m_ObjectHideFlags: 0

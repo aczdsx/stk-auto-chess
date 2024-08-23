@@ -41,6 +41,8 @@ public class InGameBottomUI : MonoBehaviour
 
     [SerializeField] protected GameObject _recommendObjOn;
     [SerializeField] protected GameObject _recommendObjOff;
+    
+    [SerializeField] protected GameObject _speedUpRedDot;
 
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     protected bool _isOpenCommanderSkill;
@@ -307,6 +309,15 @@ public class InGameBottomUI : MonoBehaviour
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
 
+        if (_speedUpRedDot)
+        {
+            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            int missionOrder = 5;
+            bool isGuide = userGuideMissionData.MissionId == missionOrder;
+
+            _speedUpRedDot.SetActive(isSpeedUp && isGuide);
+        }
+        
         if (_speedUpObjOn)
             _speedUpObjOn.SetActive(isSpeedUp);
         if (_speedUpObjOff)
