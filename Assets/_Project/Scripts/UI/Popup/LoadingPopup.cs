@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             await FadeInCanvasGroup(_fadeDuration, cancellationToken);
             await UniTask.Delay(TimeSpan.FromSeconds(_endDuration), cancellationToken: cancellationToken);
             await FadeOutCanvasGroup(_hideDuration, cancellationToken);
-            ToastManager.Instance.ShowToastByTokenKey("MSG_NETWORK_WRONG");
+            //ToastManager.Instance.ShowToastByTokenKey("MSG_NETWORK_WRONG");
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 

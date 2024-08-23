@@ -180,7 +180,11 @@ namespace CookApps.AutoBattler
             var getUserPVPDataList = UserDataManager.Instance.GetPVPMatchingDataList();
             if (getUserPVPDataList == null || getUserPVPDataList.Count <= 0)    // 매칭 데이터가 없을 경우 새로 갱신
             {
+                PVPManager.Instance.ShowLoadingPopup(true);
+                
                 await PVPManager.Instance.UpdatePVPMatchList();
+                
+                PVPManager.Instance.ShowLoadingPopup(false);
             }
             
             _pvpBattleTabLayer?.InitLayer(this);
@@ -188,16 +192,24 @@ namespace CookApps.AutoBattler
         
         private async void RefreshPVPMatchingData()
         {
+            PVPManager.Instance.ShowLoadingPopup(true);
+            
             await PVPManager.Instance.UpdatePVPMatchList();
             
             _pvpBattleTabLayer?.RefreshLayer();
+            
+            PVPManager.Instance.ShowLoadingPopup(false);
         }
         
         private async void LoadPVPLogHistoryData()
         {
+            PVPManager.Instance.ShowLoadingPopup(true);
+            
             await PVPManager.Instance.UpdatePVPHistoryList();
             
             _pvpBattleLogTabLayer.InitLayer(this);
+
+            PVPManager.Instance.ShowLoadingPopup(false);
         }
         
         private async void LoadPVPRankData()
