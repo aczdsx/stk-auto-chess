@@ -86,6 +86,11 @@ public enum SoundFX
     snd_sfx_skill_305011,
     snd_sfx_skill_405021,
     snd_sfx_skill_406011,
+    
+    // 시련
+    snd_sfx_monster_204031_appear_01,
+    snd_sfx_monster_204031_appear_02,
+    snd_sfx_monster_204031_appear_03,
 
     // Monster Skill 
     // 스킬 효과음 재생 로직에 맞춰 몬스터 스킬 효과음도 snd_sfx_skill_로 시작하도록 변경하고 폴더로 구분합니다.

@@ -70,11 +70,14 @@ namespace CookApps.AutoBattler
 
         public void ManagedUpdate(float dt)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase && InGameManager.Instance.IsInGameCombat)
+            if (InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase)
             {
                 _updateTimer += dt;
-                InGameMain.GetInGameMain().SetInGameTime(InGameMain.GetInGameMain().InGameTime - dt);
-                _inGameUI.BottomUI.UpdateCommanderSkillCoolTime();
+                if (InGameManager.Instance.IsInGameCombat)
+                {
+                    InGameMain.GetInGameMain().SetInGameTime(InGameMain.GetInGameMain().InGameTime - dt);
+                    _inGameUI.BottomUI.UpdateCommanderSkillCoolTime();
+                }
 
                 if (_updateTimer >= UpdateInterval)
                 {
