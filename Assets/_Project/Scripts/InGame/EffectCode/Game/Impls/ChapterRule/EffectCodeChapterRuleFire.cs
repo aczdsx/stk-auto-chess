@@ -58,6 +58,7 @@ namespace CookApps.BattleSystem
                 damage.damageAmount = _effectCodeStat;
 
                 character.GetDamaged(damage, null);
+                InGameVfxManager.Instance.AddInGameTileFx(ElementType.FIRE, tile);
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_03,
                     tile.View.CachedTr.position);
 
@@ -82,6 +83,7 @@ namespace CookApps.BattleSystem
                         damage.damageAmount = _effectCodeStat;
 
                         ruleTile.OccupiedCharacter.GetDamaged(damage, null);
+                        InGameVfxManager.Instance.AddInGameTileFx(ElementType.FIRE, ruleTile);
                         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_03,
                             ruleTile.View.CachedTr.position);
                         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_fire);

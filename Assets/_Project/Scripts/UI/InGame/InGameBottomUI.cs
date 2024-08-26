@@ -111,8 +111,7 @@ public class InGameBottomUI : MonoBehaviour
         Preference.SavePreference(Pref.IS_SPEED_UP, !isSpeedUp);
         InGameMainFlowManager.Instance.SetInGameSpeed(!isSpeedUp);
 
-        _speedUpObjOn.SetActive(!isSpeedUp);
-        _speedUpObjOff.SetActive(isSpeedUp);
+        UpdateSpeedUpBtn(!isSpeedUp);
     }
 
     private async void RecommendAction()
@@ -244,7 +243,7 @@ public class InGameBottomUI : MonoBehaviour
                 characterItem.SetData(this, characterStat, AddCharacterToTile);
                 characterItem.SetAlert();
                 _characterStats.Add(characterStat);
-                UpdateData();
+                PlayStageBattleFx();
             }
         }
     }
@@ -313,19 +312,7 @@ public class InGameBottomUI : MonoBehaviour
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
 
-        if (_speedUpRedDot)
-        {
-            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            int missionOrder = 6;
-            bool isGuide = userGuideMissionData.MissionId == missionOrder;
-
-            _speedUpRedDot.SetActive(isSpeedUp && isGuide);
-        }
-        
-        if (_speedUpObjOn)
-            _speedUpObjOn.SetActive(isSpeedUp);
-        if (_speedUpObjOff)
-            _speedUpObjOff.SetActive(!isSpeedUp);
+        UpdateSpeedUpBtn(isSpeedUp);
     }
 
     public void UpdateData()
@@ -342,13 +329,7 @@ public class InGameBottomUI : MonoBehaviour
             }
         }
 
-        if (_stageBattleFx)
-        {
-            var isPlayFx = _characterStats.Count == 0;
-            _stageBattleFx.gameObject.SetActive(isPlayFx);
-            if (isPlayFx)
-                _stageBattleFx.Play();
-        }
+        PlayStageBattleFx();
     }
 
     public void HideCharacterSelectUI(Action continuation)
@@ -544,6 +525,35 @@ public class InGameBottomUI : MonoBehaviour
                 return;
             }
         }
+    }
+    
+    private void PlayStageBattleFx()
+    {
+        if (_stageBattleFx)
+        {
+            var isPlayFx = _characterStats.Count == 0;
+            _stageBattleFx.gameObject.SetActive(isPlayFx);
+            if (isPlayFx)
+                _stageBattleFx.Play();
+        }
+    }
+
+    private void UpdateSpeedUpBtn(bool isSpeedUp)
+    {
+        if (_speedUpRedDot)
+        {
+            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            int minMissionOrder = 7;
+            int maxMissionOrder = 9;
+            bool isGuide = userGuideMissionData.MissionId >= minMissionOrder && userGuideMissionData.MissionId <= maxMissionOrder;
+
+            _speedUpRedDot.SetActive(!isSpeedUp && isGuide);
+        }
+        
+        if (_speedUpObjOn)
+            _speedUpObjOn.SetActive(isSpeedUp);
+        if (_speedUpObjOff)
+            _speedUpObjOff.SetActive(!isSpeedUp);
     }
 
     [ContextMenu("User Simple Deck Json Data Test")]

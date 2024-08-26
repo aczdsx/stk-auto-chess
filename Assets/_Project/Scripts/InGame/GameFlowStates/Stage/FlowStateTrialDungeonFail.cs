@@ -18,7 +18,8 @@ public class FlowStateTrialDungeonFail : StateBase
         SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>((false, mvpCharacterData));
         
         // 패배 카운트 증가
-        UserDataManager.Instance.AddUserDungeonLoseCount(true);
+        if (InGameManager.Instance.AppEventReason != "exit")
+            UserDataManager.Instance.AddUserDungeonLoseCount(true);
     }
 
     public override void StateRunning(float dt)

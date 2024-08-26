@@ -550,6 +550,29 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecStageMonster
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 챕터 id
+        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
+        /// 난이도
+        public global::CookApps.AutoBattler.DifficultyType difficulty_type;
+        /// 스테이지 번호
+        public CookApps.Obfuscator.ObfuscatorInt stage_number;
+        /// 좌표값 (x,y)
+        public string coordinate;
+        /// 몬스터 id
+        public CookApps.Obfuscator.ObfuscatorInt monster_id;
+        /// 몬스터 레벨
+        public CookApps.Obfuscator.ObfuscatorInt monster_lv;
+        /// 공격력 멀티플
+        public CookApps.Obfuscator.ObfuscatorFloat multiple_atk;
+        /// 체력 멀티플
+        public CookApps.Obfuscator.ObfuscatorFloat multiple_hp;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecSkill
     {
         /// 유니크 id
@@ -577,29 +600,6 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 스킬 계수
         public CookApps.Obfuscator.ObfuscatorFloat base_rate;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecStageMonster
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 챕터 id
-        public CookApps.Obfuscator.ObfuscatorInt chapter_id;
-        /// 난이도
-        public global::CookApps.AutoBattler.DifficultyType difficulty_type;
-        /// 스테이지 번호
-        public CookApps.Obfuscator.ObfuscatorInt stage_number;
-        /// 좌표값 (x,y)
-        public string coordinate;
-        /// 몬스터 id
-        public CookApps.Obfuscator.ObfuscatorInt monster_id;
-        /// 몬스터 레벨
-        public CookApps.Obfuscator.ObfuscatorInt monster_lv;
-        /// 공격력 멀티플
-        public CookApps.Obfuscator.ObfuscatorFloat multiple_atk;
-        /// 체력 멀티플
-        public CookApps.Obfuscator.ObfuscatorFloat multiple_hp;
     }
 
     [GeneratorSpecData]
@@ -799,6 +799,18 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecOpenCondition
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// #origin
+        public global::CookApps.AutoBattler.OpenConditionType open_condition_Type;
+        /// 가이드 미션 아이디
+        public CookApps.Obfuscator.ObfuscatorInt guide_mission_id;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecPVPTier
     {
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
@@ -901,17 +913,5 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.ItemType item_type;
         public CookApps.Obfuscator.ObfuscatorInt item_id;
         public CookApps.Obfuscator.ObfuscatorLong item_count;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecOpenCondition
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// #origin
-        public global::CookApps.AutoBattler.OpenConditionType open_condition_Type;
-        /// 가이드 미션 아이디
-        public CookApps.Obfuscator.ObfuscatorInt guide_mission_id;
     }
 }

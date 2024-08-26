@@ -166,6 +166,15 @@ namespace CookApps.AutoBattler
             {
                 SaveUserBasic();
             }
+            
+            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FAIL, Instance.UserBasicData.UserStageLoseCount.ToString(),
+                () =>
+                {
+                    if (UserBasicData.UserStageLoseCount == 1)
+                    {
+                        HandleLoseAsync().Forget();
+                    }
+                });
         }
 
         public void AddUserLevelExp(int exp)
