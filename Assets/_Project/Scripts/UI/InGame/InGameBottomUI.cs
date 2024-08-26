@@ -529,12 +529,15 @@ public class InGameBottomUI : MonoBehaviour
     
     private void PlayStageBattleFx()
     {
-        if (_stageBattleFx)
+        if (InGameManager.Instance.SpecStage != null)
         {
-            var isPlayFx = _characterStats.Count == 0;
-            _stageBattleFx.gameObject.SetActive(isPlayFx);
-            if (isPlayFx)
-                _stageBattleFx.Play();
+            if (_stageBattleFx && InGameManager.Instance.SpecStage.chapter_id == 1)
+            {
+                var isPlayFx = _characterStats.Count == 0;
+                _stageBattleFx.gameObject.SetActive(isPlayFx);
+                if (isPlayFx)
+                    _stageBattleFx.Play();
+            }
         }
     }
 
