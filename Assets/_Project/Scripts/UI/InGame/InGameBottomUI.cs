@@ -44,6 +44,8 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected GameObject _recommendObjOff;
     
     [SerializeField] protected GameObject _speedUpRedDot;
+    
+    [SerializeField] protected ParticleSystem _stageBattleFx;
 
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     protected bool _isOpenCommanderSkill;
@@ -242,6 +244,7 @@ public class InGameBottomUI : MonoBehaviour
                 characterItem.SetData(this, characterStat, AddCharacterToTile);
                 characterItem.SetAlert();
                 _characterStats.Add(characterStat);
+                UpdateData();
             }
         }
     }
@@ -337,6 +340,14 @@ public class InGameBottomUI : MonoBehaviour
             {
                 _characterItemList[i].SetData(this, null, null);
             }
+        }
+
+        if (_stageBattleFx)
+        {
+            var isPlayFx = _characterStats.Count == 0;
+            _stageBattleFx.gameObject.SetActive(isPlayFx);
+            if (isPlayFx)
+                _stageBattleFx.Play();
         }
     }
 
