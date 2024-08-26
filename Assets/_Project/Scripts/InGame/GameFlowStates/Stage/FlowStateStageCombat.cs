@@ -12,8 +12,9 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class FlowStateStageCombat : StateCombatBase
 {
     private List<CharacterController> characters;
-    private bool isEndCombat;
-    private bool isWin;
+    private bool _isEndCombat;
+    private bool _isWin;
+    private bool _isClearStage;
 
     public override void StateInit(object target)
     {
@@ -110,14 +111,14 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateRunning(float dt)
     {
-        if (isEndCombat)
+        if (_isEndCombat)
             return;
 
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         if (characters.Count == 0)
         {
-            isEndCombat = true;
-            isWin = false;
+            _isEndCombat = true;
+            _isWin = false;
             InGameManager.Instance.AppEventResult = "fail";
             InGameManager.Instance.AppEventReason = "dead";
         }
@@ -125,26 +126,26 @@ public class FlowStateStageCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
-            bool isClearStage = UserDataManager.Instance.IsClearStage(InGameManager.Instance.SpecStage.stage_id);
-            isEndCombat = true;
-            isWin = true;
-            InGameManager.Instance.AppEventResult = (isClearStage) ? "clear" : "pass"; 
-            InGameManager.Instance.AppEventReason =  (isClearStage) ? "clear" : "pass"; 
+            _isClearStage = UserDataManager.Instance.IsClearStage(InGameManager.Instance.SpecStage.stage_id);
+            _isEndCombat = true;
+            _isWin = true;
+            InGameManager.Instance.AppEventResult = (_isClearStage) ? "clear" : "pass"; 
+            InGameManager.Instance.AppEventReason =  (_isClearStage) ? "clear" : "pass"; 
         }
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_TIME_OVER");
-            isEndCombat = true;
-            isWin = false;
+            _isEndCombat = true;
+            _isWin = false;
             InGameManager.Instance.AppEventResult = "fail";
             InGameManager.Instance.AppEventReason = "time_out";
         }
 
-        if (isEndCombat)
+        if (_isEndCombat)
         {
             InGameManager.Instance.IsInGameCombat = false;
-            ChangeNextState(isWin).Forget();
+            ChangeNextState(_isWin).Forget();
         }
     }
 
@@ -166,7 +167,7 @@ public class FlowStateStageCombat : StateCombatBase
 
     private async UniTask ChangeNextState(bool isWin)
     {
-        if (isWin)
+        if (isWin && !_isClearStage)
         {
             bool isUsePopup = InGameManager.Instance.SpecStage.chapter_id > 1;
             if (isUsePopup)
