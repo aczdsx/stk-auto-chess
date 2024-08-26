@@ -339,6 +339,21 @@ public partial class SROptions
         GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type,
             currentGuideMission.sub_key, MissionStateType.REWARD);
     }
+    
+    [Category("미션 관련")]
+    public void 설정오더까지가이드미션클리어()
+    {
+        var guideList = SpecDataManager.Instance.GetGuideMissionDataList(대상가이드오더);
+
+        foreach (var guideData in guideList)
+        {
+            UserDataManager.Instance.SetGuideMissionState(guideData.guide_mission_type, guideData.sub_key, MissionStateType.CLEAR);
+        }
+        
+        GuideMissionManager.Instance.RefreshGuideMissionUI();
+    }
+    
+    [Category("미션 관련")] public int 대상가이드오더 { get; set; } = 0;
 
     #endregion
 

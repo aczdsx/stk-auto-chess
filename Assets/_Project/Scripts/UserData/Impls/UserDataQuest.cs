@@ -18,6 +18,9 @@ namespace CookApps.AutoBattler
             {
                 userQuest = new UserQuest();
 
+                userQuest.NextDailyRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                userQuest.NextWeeklyRefreshTimestamp = TimeManager.Instance.NextMondayTimeStamp();
+                
                 // 전체 퀘스트 리스트 생성 (일일)
                 var allDailyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.DAILY, true);
                 foreach (var questData in allDailyQuestList)
@@ -91,6 +94,8 @@ namespace CookApps.AutoBattler
         // 유저 퀘스트 데이터 세팅 (행동 횟수) - 퀘스트 타입
         public void SetUserQuestActionCount(QuestType questType, int actionValue, bool isAdd, bool needSave)
         {
+            if (SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.QUEST) == false) return;  // 컨텐츠 해방 여부 체크
+            
             var specQuestDataList = SpecDataManager.Instance.GetSpecQuestList(questType);
 
             foreach (var questData in specQuestDataList)
@@ -148,6 +153,8 @@ namespace CookApps.AutoBattler
         // 유저 퀘스트 데이터 세팅 (행동 횟수) - 퀘스트 ID
         public void SetUserQuestActionCount(int questID, int actionValue, bool isAdd, bool needSave)
         {
+            if (SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.QUEST) == false) return;  // 컨텐츠 해방 여부 체크
+            
             SpecQuest specQuestData = SpecDataManager.Instance.GetSpecQuestData(questID);
 
             if (specQuestData.term_type == TermType.DAILY)
@@ -202,6 +209,8 @@ namespace CookApps.AutoBattler
         // 유저 퀘스트 데이터 세팅 (현재 퀘스트 상태) - 퀘스트 ID
         public void SetUserQuestState(int questID, QuestStateType stateType, bool needSave)
         {
+            if (SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.QUEST) == false) return;  // 컨텐츠 해방 여부 체크
+            
             SpecQuest specQuestData = SpecDataManager.Instance.GetSpecQuestData(questID);
 
             if (specQuestData.term_type == TermType.DAILY)
