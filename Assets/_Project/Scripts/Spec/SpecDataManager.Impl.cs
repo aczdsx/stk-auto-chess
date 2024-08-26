@@ -743,6 +743,11 @@ namespace CookApps.AutoBattler
             return SpecGuideMissionList.Find(data => data.order == order);
         }
 
+        public List<SpecGuideMission> GetGuideMissionDataList(int order)
+        {
+            return SpecGuideMissionList.FindAll(data => data.order <= order);
+        }
+
         // 가이드 미션 order 최대치 반환
         public int GetGuideMissionMaxOrder()
         {
@@ -1029,7 +1034,7 @@ namespace CookApps.AutoBattler
             
             int currMissionID = guideMissionData.MissionId;
             var openCondition = SpecOpenConditionList.Find(l => l.open_condition_Type == conditionType);
-            return openCondition.guide_mission_id <= currMissionID;
+            return openCondition != null && openCondition.guide_mission_id <= currMissionID;
         }
     }
 }
