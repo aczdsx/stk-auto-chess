@@ -2,6 +2,13 @@ using System;
 
 namespace CookApps.AutoBattler
 {
+    public enum LanguageType
+    {
+        NONE,
+        KR,
+        EN,
+    }
+    
     public enum MissionStateType
     {
         NONE, // 진행중 아님
