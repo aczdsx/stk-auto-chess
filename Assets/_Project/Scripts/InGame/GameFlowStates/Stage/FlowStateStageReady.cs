@@ -18,7 +18,8 @@ public class FlowStateStageReady : StateReadyBase
     {
         base.SetStateData(data);
         _specStage = data as SpecStage;
-        SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
+        SoundManager.Instance.PlayBGM((SoundBGM) Enum.Parse(typeof(SoundBGM),
+            $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
         InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
     }
 
@@ -42,7 +43,8 @@ public class FlowStateStageReady : StateReadyBase
             int y = int.Parse(coordinates[1]);
             int2 coordinate = new int2(x, y);
 
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
+                AllianceType.Enemy,
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
@@ -55,7 +57,9 @@ public class FlowStateStageReady : StateReadyBase
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)
         {
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddNonStatObstacleToField(gridID, _specStage.obstacle_id, AllianceType.Wall));
+            addCharacterTasks.Add(
+                InGameObjectManager.Instance.AddNonStatObstacleToField(gridID, _specStage.obstacle_id,
+                    AllianceType.Wall));
         }
 
         // 체력이 있는 장애물 설치
@@ -67,7 +71,8 @@ public class FlowStateStageReady : StateReadyBase
             var tile = InGameObjectManager.Instance.GetInGameTile(gridID);
             int2 coordinate = new int2(tile.X, tile.Y);
 
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate, AllianceType.Enemy,
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
+                AllianceType.Enemy,
                 typeof(CharacterStateReady), false, HpBarType.None));
         }
 
@@ -82,7 +87,7 @@ public class FlowStateStageReady : StateReadyBase
                     .View
                     .ID);
         });
-        
+
         battleDeckList.RemoveAll(l =>
         {
             return neutralTileIDList.Exists(t =>
@@ -90,6 +95,11 @@ public class FlowStateStageReady : StateReadyBase
                     .View
                     .ID);
         });
+
+        if (_specStage.chapter_id == 2 && _specStage.stage_number == 6)
+        {
+            battleDeckList.RemoveAll(l => l.CharacterId == 130601);
+        }
 
         foreach (var character in battleDeckList)
         {
@@ -109,10 +119,31 @@ public class FlowStateStageReady : StateReadyBase
 
         await UniTask.WhenAll(addCharacterTasks);
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
-        
+
         StartDrawingLinesAsync(2.0f).Forget();
 
         SpawnRuleTiles();
+
+        if (_specStage.chapter_id == 2 && _specStage.stage_number == 5)
+        {
+            var startTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(2, 2));
+            var endTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(3, 2));
+            if (startTile.OccupiedCharacter != null && endTile.OccupiedCharacter == null)
+                InGameMain.GetInGameMain().SetObjectMover(startTile, endTile);
+        }
+
+        if (_specStage.chapter_id == 2)
+        {
+            if (_specStage.stage_number == 6)
+            {
+                battleDeckList.RemoveAll(l => l.CharacterId == 130601);
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(130301);
+            }
+            else if (_specStage.stage_number == 11)
+            {
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(140601);
+            }
+        }
     }
 
     public override void StateStart()

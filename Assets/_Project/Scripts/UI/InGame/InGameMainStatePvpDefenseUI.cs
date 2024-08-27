@@ -113,6 +113,11 @@ namespace CookApps.AutoBattler
             _inGameUI.TopUI.AddKillLog(kill, death, isPlayerKill);
         }
 
+        public void SetAlertBottomCharacter(int characterID)
+        {
+            _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);
+        }
+
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
             return;

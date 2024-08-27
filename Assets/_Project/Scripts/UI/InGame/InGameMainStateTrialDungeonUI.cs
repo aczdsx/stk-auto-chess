@@ -31,6 +31,8 @@ namespace CookApps.AutoBattler
                 var fxResource = await Addressables.LoadAssetAsync<GameObject>($"VFX/Prefab/Prefab_Dungeon_Boss_01.prefab").Task;
                 var animator = Object.Instantiate(fxResource).GetComponent<Animator>();
                 await WaitUntilAnimationFinished(animator, "Prefab_Dungeon_Boss_01");
+                
+                DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "1");
             }
 
             GameObject stageUIObj = null;
@@ -134,6 +136,11 @@ namespace CookApps.AutoBattler
         public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
         {
             _inGameUI.TopUI.AddKillLog(kill, death, isPlayerKill);
+        }
+        
+        public void SetAlertBottomCharacter(int characterID)
+        {
+            _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);
         }
 
         private async UniTask WaitUntilAnimationFinished(Animator animator, string animationName)

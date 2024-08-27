@@ -15,7 +15,7 @@ using UnityEngine.Pool;
 public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 {
     private bool _touchLocked = false;
-
+    
     private CharacterController _selectedCharacterController = null;
     private InGameTileView _selectedTileView = null;
     private List<InGameTile> _attackRangeTileList = new List<InGameTile>();

@@ -590,11 +590,23 @@ namespace CookApps.AutoBattler
                             return;
                         }
 
-                        if (!(specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE ||
-                             specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_TRIAL))
+                        if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
                         {
-                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
-                            return;
+                            if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_TRIAL)
+                            {
+                                if (specGuideMissionData.sub_key == 10001 || specGuideMissionData.sub_key == 10004)
+                                {
+                                    ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
+                                    GuideMissionManager.Instance.UpdateGuideMissionAlert();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
+                                GuideMissionManager.Instance.UpdateGuideMissionAlert();
+                                return;
+                            }
                         }
                     }
                 }

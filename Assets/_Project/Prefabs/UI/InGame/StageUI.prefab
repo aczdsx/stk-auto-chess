@@ -22133,7 +22133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6978720736976873843}
-  - component: {fileID: 3136239124886555135}
+  - component: {fileID: 5312665253475243133}
   m_Layer: 5
   m_Name: MasterSkillGuideArrowFX
   m_TagString: Untagged
@@ -22163,22 +22163,27 @@ RectTransform:
   m_AnchoredPosition: {x: 6, y: -3}
   m_SizeDelta: {x: 210, y: 230}
   m_Pivot: {x: 1, y: 0}
---- !u!111 &3136239124886555135
-Animation:
+--- !u!95 &5312665253475243133
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924291019342732122}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 231adf106d4be584082634281d46b314, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 231adf106d4be584082634281d46b314, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ae9e1572f53ceb4ca933993c7d3e2e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1968435447919896416
 GameObject:
   m_ObjectHideFlags: 0
@@ -23743,7 +23748,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2841158317121414830}
-  - component: {fileID: 2377224234620312617}
+  - component: {fileID: 5375646190906852520}
   m_Layer: 5
   m_Name: MasterSkillGuideArrowFX
   m_TagString: Untagged
@@ -23773,22 +23778,27 @@ RectTransform:
   m_AnchoredPosition: {x: 6, y: -3}
   m_SizeDelta: {x: 210, y: 230}
   m_Pivot: {x: 1, y: 0}
---- !u!111 &2377224234620312617
-Animation:
+--- !u!95 &5375646190906852520
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2478690976850318506}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 231adf106d4be584082634281d46b314, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 231adf106d4be584082634281d46b314, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ae9e1572f53ceb4ca933993c7d3e2e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2531061249818032713
 GameObject:
   m_ObjectHideFlags: 0
@@ -37820,7 +37830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6458011893373789852}
-  - component: {fileID: 1943660235473406386}
+  - component: {fileID: 4046026534694012427}
   m_Layer: 5
   m_Name: MasterSkillGuideArrowFX
   m_TagString: Untagged
@@ -37850,22 +37860,27 @@ RectTransform:
   m_AnchoredPosition: {x: 6, y: -3}
   m_SizeDelta: {x: 210, y: 230}
   m_Pivot: {x: 1, y: 0}
---- !u!111 &1943660235473406386
-Animation:
+--- !u!95 &4046026534694012427
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3994344878908772197}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 231adf106d4be584082634281d46b314, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 231adf106d4be584082634281d46b314, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ae9e1572f53ceb4ca933993c7d3e2e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3997575675260399548
 GameObject:
   m_ObjectHideFlags: 0

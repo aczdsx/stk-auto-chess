@@ -131,7 +131,10 @@ public class InGameBottomUI : MonoBehaviour
                 InGameMain.GetInGameMain().ReturnCharacterUI(character);
             }
 
-            _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
+            _characterStats = _characterStats
+                .OrderByDescending(stat => stat.Level)
+                .ThenByDescending(stat => stat.CharacterID)
+                .ToList();
 
             var userGrade =
                 SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
@@ -248,6 +251,13 @@ public class InGameBottomUI : MonoBehaviour
         }
     }
 
+    public void SetAlertBottomCharacter(int characterID)
+    {
+        var item = _characterItemList.Find(l => l.StatData != null && l.StatData.CharacterId == characterID);
+        if (item)
+            item.SetAlert();
+    }
+
     public void SetCommanderSkillUI(int index, int id)
     {
         var image = ImageManager.Instance.GetCommanderSkillSprite(id);
@@ -279,7 +289,7 @@ public class InGameBottomUI : MonoBehaviour
         }
 
         _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
-
+        
         foreach (var characterStat in _characterStats)
         {
             bool isExist = _characterItemList.Exists(l =>

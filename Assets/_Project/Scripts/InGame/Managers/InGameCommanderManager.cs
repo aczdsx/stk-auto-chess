@@ -39,9 +39,10 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     IEndDragHandler
 {
     public InGameCamera InGameCamera => _inGameCamera;
+    public Canvas MainCanvas => _mainCanvas;
 
-    [SerializeField]
-    private InGameCamera _inGameCamera;
+    [SerializeField] private InGameCamera _inGameCamera;
+    [SerializeField] private Canvas _mainCanvas;
 
     //[TODO] switchObj 필요
     public GameObject switchObj;
@@ -183,6 +184,11 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         foreach (var commanderSkillData in _commandSkillDataList)
         {
             commanderSkillData.ElapsedTime += dt;
+
+            if (commanderSkillData.ElapsedTime >= commanderSkillData.DurationTime)
+            {
+                InGameMainFlowManager.Instance.SetPlaySpeed(0);
+            }
         }
     }
 

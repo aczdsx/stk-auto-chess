@@ -13,8 +13,7 @@ namespace CookApps.AutoBattler
         public EffectCodeContainer EffectCodeContainer { get; }
         public SpecCharacter Spec => _spec;
         public int Level => _level;
-
-        private int characterId;
+        public int CharacterID => _spec?.character_id ?? 0;
         private SpecCharacter _spec;
         private int _level;
 
@@ -36,16 +35,10 @@ namespace CookApps.AutoBattler
 
             return CP;
         }
-
-        public CharacterStatData(int characterId)
-        {
-            this.characterId = characterId;
-        }
         
         public CharacterStatData(int characterId, int level, float multiAd, float multiHp, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             Debug.LogColor("characterID : " + characterId);
-            this.characterId = characterId;
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
             _level = level;
@@ -107,7 +100,6 @@ namespace CookApps.AutoBattler
         public CharacterStatData(int characterId, int level, RepeatedField<EffectCodeInfoProto> protos, RepeatedField<EffectCodeInfoProto> globalEffectCodeInfos = null)
         {
             Debug.LogColor("characterID : " + characterId);
-            this.characterId = characterId;
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
             _level = level;
@@ -305,7 +297,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public ObfuscatorInt CharacterId => characterId;
+        public ObfuscatorInt CharacterId => _spec?.character_id ?? 0;
 
         public ObfuscatorDouble HP { get; private set; }
 

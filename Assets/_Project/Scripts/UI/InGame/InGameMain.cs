@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
         void UnSetFocusSlotUI(bool isDropFx);
         bool IsCheckTouchTile(InGameTile tile);
         void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill);
+        void SetAlertBottomCharacter(int characterID);
     }
 
     [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
@@ -41,6 +42,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
         [SerializeField] private VignetteSO _vignetteData;
 
+        [SerializeField] private UIObjectMover _uiObjectMover;
+
         private float _inGameTime = 0f;
         private IGameStateUI _currentGameStateUI;
         private InGameType _inGameType;
@@ -48,6 +51,18 @@ namespace CookApps.AutoBattler
         public static InGameMain GetInGameMain()
         {
             return SceneUILayerManager.Instance.GetUILayer<InGameMain>();
+        }
+
+        public void SetObjectMover(InGameTile startTile, InGameTile endTile)
+        {
+            if (_uiObjectMover)
+                _uiObjectMover.SetMover(startTile, endTile);
+        }
+        
+        public void SetActiveObjectMover(bool isActive)
+        {
+            if (_uiObjectMover)
+                _uiObjectMover.gameObject.SetActive(isActive);
         }
 
         protected override void OnBackButton(ref bool offPrevUI)
@@ -168,6 +183,11 @@ namespace CookApps.AutoBattler
         public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
         {
             _currentGameStateUI.AddKillLog(kill, death, isPlayerKill);
+        }
+
+        public void SetAlertBottomCharacter(int characterID)
+        {
+            _currentGameStateUI.SetAlertBottomCharacter(characterID);
         }
     }
 }
