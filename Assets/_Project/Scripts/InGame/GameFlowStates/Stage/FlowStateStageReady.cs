@@ -134,7 +134,11 @@ public class FlowStateStageReady : StateReadyBase
 
         if (_specStage.chapter_id == 2)
         {
-            if (_specStage.stage_number == 6)
+            if (_specStage.stage_number == 1)
+            {
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(130201);
+            }
+            else if (_specStage.stage_number == 6)
             {
                 battleDeckList.RemoveAll(l => l.CharacterId == 130601);
                 InGameMain.GetInGameMain().SetAlertBottomCharacter(130301);

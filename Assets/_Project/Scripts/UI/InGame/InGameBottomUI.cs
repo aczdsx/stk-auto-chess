@@ -288,7 +288,10 @@ public class InGameBottomUI : MonoBehaviour
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
 
-        _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
+        _characterStats = _characterStats
+            .OrderByDescending(stat => stat.Level)
+            .ThenByDescending(stat => stat.CharacterID)
+            .ToList();
         
         foreach (var characterStat in _characterStats)
         {
