@@ -59,6 +59,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     private CommanderSkillData _selectedCommanderSkillData;
     private bool isCanUseCommanderSkill = false;
     private Vector2 _offset = new Vector2(-10, 10);
+    
+    private bool _isCommanderGuideStage;
 
     public void Initialize()
     {
@@ -66,6 +68,9 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
         InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
             ManagedUpdate);
+
+        var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+        _isCommanderGuideStage = userGuideMissionData.MissionId == 17;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -185,9 +190,13 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         {
             commanderSkillData.ElapsedTime += dt;
 
-            if (commanderSkillData.ElapsedTime >= commanderSkillData.DurationTime)
+            if (_isCommanderGuideStage)
             {
-                InGameMainFlowManager.Instance.SetPlaySpeed(0);
+                if (commanderSkillData.ElapsedTime >= commanderSkillData.DurationTime)
+                {
+                    InGameMainFlowManager.Instance.SetPlaySpeed(0.1f);
+                    ToastManager.Instance.ShowToastByTokenKey("MSG_FIRST_COMMANDER_SKILL");
+                }
             }
         }
     }
