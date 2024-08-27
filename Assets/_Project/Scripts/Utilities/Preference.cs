@@ -14,6 +14,7 @@ public enum Pref
     GUEST_ID,
     IS_SPEED_UP,
     SHOW_SURVEY_POPUP,
+    LANGUAGE,
 }
 
 public class Preference
