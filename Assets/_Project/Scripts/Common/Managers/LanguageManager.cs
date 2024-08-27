@@ -140,5 +140,16 @@ namespace CookApps.AutoBattler
             
             return timeTextList.ToString();
         }
+        
+        public LanguageType GetSystemLanguageType()
+        {
+            switch (Application.systemLanguage)
+            {
+                case SystemLanguage.Korean:
+                    return LanguageType.KR;
+                default:
+                    return LanguageType.EN;
+            }
+        }
     }
 }

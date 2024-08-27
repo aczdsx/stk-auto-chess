@@ -50,6 +50,15 @@ namespace CookApps.AutoBattler
 
             Debug.Log("TitleMain OnPreEnter --> " + gameObject.name);
 
+            // 언어 설정
+            var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
+            if (settingLanguage == (int)LanguageType.NONE)
+            {
+                var currentLanugageType = LanguageManager.Instance.GetSystemLanguageType();
+                Preference.SavePreference(Pref.LANGUAGE, (int)currentLanugageType);
+            }
+            
+            // 유저 로그인 기록 체크
             var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
             haveGuestID = string.IsNullOrEmpty(playerID) == false;
             
