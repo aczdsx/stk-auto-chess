@@ -153,6 +153,8 @@ namespace CookApps.AutoBattler
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
             
+                ToastManager.Instance.ShowToastByTokenKey("MSG_GROWTH_CHARACTER");
+                
                 SceneUILayerManager.OnSceneLoadedEvent -= OpenCharacterCollectionPopupAction;
             }
         }

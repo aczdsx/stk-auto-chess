@@ -113,10 +113,13 @@ public class EffectCodeSkill1105021 : EffectCodeCharacterBase
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
             _targetCharacter.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        if (directionTile.Count > 0)
+        {
+            Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-        ExecuteSkillRoutine(_attackCount).Forget();
+            ExecuteSkillRoutine(_attackCount).Forget();
+        }
 
         IsSkillActivated = false;
     }

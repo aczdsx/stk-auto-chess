@@ -577,8 +577,8 @@ public class InGameBottomUI : MonoBehaviour
     {
         int rankingPoint = 1000 + UnityEngine.Random.Range(-50, 50);
         var tierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, rankingPoint);
-        int averageLv = 6;
-        int playerLv = 16;
+        int averageLv = 5;
+        int playerLv = 15;
         
         var characterControllers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
         List<UserPVPObstacleBattleDeck> obstacleDeck = new();
@@ -606,21 +606,21 @@ public class InGameBottomUI : MonoBehaviour
         UserPVPBattleDetailData detailData = new UserPVPBattleDetailData();
         simpleData.PlayerId = "DUMMY_1";
         simpleData.Nickname = "무명기사";
-        simpleData.PlayerLv = playerLv + UnityEngine.Random.Range(-3, 3);
+        simpleData.PlayerLv = playerLv + UnityEngine.Random.Range(-2, 2);
         simpleData.RankPoint = rankingPoint;
         simpleData.RankId = tierData.ranking_id;
         simpleData.ServerId = 1;
         
         detailData.PlayerId = "DUMMY_1";
         detailData.Nickname = "무명기사";
-        detailData.PlayerLv = playerLv + UnityEngine.Random.Range(-3, 3);
+        detailData.PlayerLv = simpleData.PlayerLv;
         detailData.RankPoint = rankingPoint;
         detailData.RankId = tierData.ranking_id;
         detailData.ServerId = 1;
         detailData.PvpDeckList = new UserPVPBattleDeckList();
         foreach (var character in characterControllers)
         {
-            int lv = averageLv + UnityEngine.Random.Range(-4, 4);
+            int lv = averageLv + UnityEngine.Random.Range(-3, 3);
             {
                 UserPVPCharacterSimpleDeck deck = new UserPVPCharacterSimpleDeck();
                 deck.Id = character.SpecCharacter.character_id;

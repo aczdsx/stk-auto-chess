@@ -129,29 +129,32 @@ public class EffectCodeSkill1401021 : EffectCodeCharacterBase
 
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        if (directionTile.Count > 0)
+        {
+            Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
         
-        float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.RES / _resRate);
-        var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
-        _targetCharacter.GetDamaged(damage, owner);
+            float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.RES / _resRate);
+            var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+            _targetCharacter.GetDamaged(damage, owner);
         
-        var inGameTile =
-            InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
-                4);
+            var inGameTile =
+                InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
+                    4);
 
-        float knockBackTime = 0.3f;
-        Span<double> eccStats = stackalloc double[3];
-        eccStats.Clear();
-        eccStats[0] = knockBackTime;
-        eccStats[1] = 0.2f;
-        eccStats[2] = inGameTile.View.ID;
+            float knockBackTime = 0.3f;
+            Span<double> eccStats = stackalloc double[3];
+            eccStats.Clear();
+            eccStats[0] = knockBackTime;
+            eccStats[1] = 0.2f;
+            eccStats[2] = inGameTile.View.ID;
         
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
         
-        // 스턴
-        ApplyStunEffectAsync(inGameTile, knockBackTime).Forget();
+            // 스턴
+            ApplyStunEffectAsync(inGameTile, knockBackTime).Forget();
+        }
 
         IsSkillActivated = false;
     }

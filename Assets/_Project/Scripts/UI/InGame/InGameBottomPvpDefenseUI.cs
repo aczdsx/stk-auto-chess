@@ -243,7 +243,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
             
             UpdateObstacleData();
 
-            var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile();
+            var ingameTile = InGameObjectManager.Instance.InGameGrid.GetPriorityEmptyTile();
             int2 pos = new int2(ingameTile.X, ingameTile.Y);
 
             if (specObstacles[0].obstacle_type == ObstacleType.WALL)
@@ -251,7 +251,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
                 await UniTask.WhenAll(new[]
                 {
                     InGameObjectManager.Instance.AddNonStatObstacleToField(ingameTile.View.ID, obstacleData.ID,
-                        AllianceType.Wall)
+                        AllianceType.Wall, true)
                 });
             }
             else

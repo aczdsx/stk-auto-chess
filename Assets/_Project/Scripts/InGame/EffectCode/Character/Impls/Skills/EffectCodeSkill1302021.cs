@@ -119,40 +119,43 @@ public class EffectCodeSkill1302021 : EffectCodeCharacterBase
         if (_targetCharacter == null)
             return;
         
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-        
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.CurrentTile, 1);
-        List<int> targetCharacterList = new();
-        foreach (var tile in inGameTiles)
+        if (directionTile.Count > 0)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
-                {
-                    targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
-                    
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+            Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
         
-                    var inGameTile =
-                        InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
-                            1);
+            var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.CurrentTile, 1);
+            List<int> targetCharacterList = new();
+            foreach (var tile in inGameTiles)
+            {
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                if (tile.CheckValidTile(owner.AllianceType, false))
+                {
+                    if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
+                    {
+                        targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
                     
-                    Span<double> eccStats = stackalloc double[3];
-                    eccStats.Clear();
-                    eccStats[0] = 0.3f;
-                    eccStats[1] = 0.3f;
-                    eccStats[2] = inGameTile.View.ID;
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                            tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, tile.OccupiedCharacter, eccStats, source);
+                        var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                        tile.OccupiedCharacter.GetDamaged(damage, owner);
+        
+                        var inGameTile =
+                            InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
+                                1);
+                    
+                        Span<double> eccStats = stackalloc double[3];
+                        eccStats.Clear();
+                        eccStats[0] = 0.3f;
+                        eccStats[1] = 0.3f;
+                        eccStats[2] = inGameTile.View.ID;
+
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, tile.OccupiedCharacter, eccStats, source);
+                    }
                 }
             }
         }

@@ -61,6 +61,17 @@ namespace CookApps.BattleSystem
             int randomIndex = random.Next(emptyTiles.Count);
             return emptyTiles[randomIndex];
         }
+        
+        public InGameTile GetPriorityEmptyTile(AllianceType? allianceType = null)
+        {
+            var emptyTiles = _tiles
+                .Where(t => (!allianceType.HasValue || t.View.AllianceType == allianceType.Value) && t.OccupiedCharacter == null)
+                .OrderByDescending(t => t.Y)
+                .ThenByDescending(t => t.X)
+                .ToList();
+
+            return emptyTiles.FirstOrDefault();
+        }
 
         public InGameTile GetRecommandedTile(SpecCharacter spec)
         {

@@ -266,7 +266,7 @@ namespace CookApps.BattleSystem
         }
 
         public async UniTask<CharacterController> AddNonStatObstacleToField(ObfuscatorInt gridID, ObfuscatorInt chapterID,
-            AllianceType allianceType)
+            AllianceType allianceType, bool isSpawnFx = false)
         {
             var characCtrl = new CharacterController();
             var tile = InGameGrid.GetTile(gridID);
@@ -274,7 +274,12 @@ namespace CookApps.BattleSystem
             {
                 await characCtrl.Initialize(tile, Playground, chapterID, allianceType);
                 nonStatObstacleInPlaygroundForUpdate.Add(characCtrl);
+
+                if (isSpawnFx)
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_summon_awful,
+                        tile.View.CachedTr.position);
             }
+
             return characCtrl;
         }
 

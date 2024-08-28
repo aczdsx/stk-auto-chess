@@ -105,21 +105,23 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
             return;
 
         InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, owner.Target.CurrentTile);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        if (directionTile.Count > 0)
+        {
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+            Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                owner.Target.SkillRootTransformFollowable);
 
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            owner.Target.SkillRootTransformFollowable);
+            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, owner.Target);
+            var type = owner.Target.GetDamaged(damage, owner);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, owner.Target);
-        var type = owner.Target.GetDamaged(damage, owner);
-
-        if (type == DamageReturnType.Killed)
-            isKilled = true;
+            if (type == DamageReturnType.Killed)
+                isKilled = true;
+        }
 
         IsSkillActivated = false;
     }
