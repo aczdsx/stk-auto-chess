@@ -489,8 +489,7 @@ namespace CookApps.BattleSystem
 
         public List<InGameTile> GetTileListByAllianceType(AllianceType type, int count)
         {
-            var tiles = _tiles.Where(t => t.OccupiedCharacter != null && t.OccupiedCharacter.AllianceType == type)
-                .ToList();
+            var tiles = _tiles.Where(t => t.CheckValidTile(type, true)).ToList();
             if (tiles.Count == 0)
             {
                 return null;

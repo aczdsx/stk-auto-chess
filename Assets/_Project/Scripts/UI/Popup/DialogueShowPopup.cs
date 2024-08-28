@@ -51,6 +51,11 @@ namespace CookApps.AutoBattler
             _blockLayerButton.onClick.RemoveListener(OnClickNextDialogue);
             _blockLayerButton.onClick.RemoveListener(OnClickRefreshTextTween);
         }
+        
+        protected override void OnBackButton(ref bool offPrevUI)
+        {
+            OnClickNextDialogue();
+        }
 
         protected override void OnPreEnter(object param)
         {

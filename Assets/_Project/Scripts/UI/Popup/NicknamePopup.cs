@@ -44,6 +44,15 @@ namespace CookApps.AutoBattler
             
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
+        
+        protected override void OnBackButton(ref bool offPrevUI)
+        {
+            if (_isFirst)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("FIRST_NICKNAME_ALERT");
+                return;
+            }
+        }
 
         private void OnClickConfirmButton()
         {

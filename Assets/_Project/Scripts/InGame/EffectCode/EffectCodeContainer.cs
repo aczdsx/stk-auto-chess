@@ -65,6 +65,8 @@ namespace CookApps.BattleSystem
         /// <returns></returns>
         public EffectCodeBase AddOrMergeEffectCode(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
+            if (effectCodes == null)
+                return null;
             // 같은 코드가 있는지 체크
             EffectCodeBase effectCode = null;
             for (var i = 0; i < effectCodes.Count; i++)

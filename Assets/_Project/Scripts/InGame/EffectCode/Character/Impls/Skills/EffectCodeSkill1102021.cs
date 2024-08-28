@@ -110,27 +110,31 @@ public class EffectCodeSkill1102021 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
             _targetCharacter.SkillRootTransformFollowable);
 
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            owner.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        if (directionTile.Count > 0)
+        {
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
+                owner.SkillRootTransformFollowable);
+            
+            Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
-        var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-        owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
-        _targetCharacter.GetDamaged(damage, owner);
+            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+            owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+            _targetCharacter.GetDamaged(damage, owner);
 
-        var inGameTile =
-            InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
-                1);
+            var inGameTile =
+                InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
+                    1);
 
-        Span<double> eccStats = stackalloc double[3];
-        eccStats.Clear();
-        eccStats[0] = 0.3f;
-        eccStats[1] = 0.3f;
-        eccStats[2] = inGameTile.View.ID;
+            Span<double> eccStats = stackalloc double[3];
+            eccStats.Clear();
+            eccStats[0] = 0.3f;
+            eccStats[1] = 0.3f;
+            eccStats[2] = inGameTile.View.ID;
         
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
+        }
 
         IsSkillActivated = false;
     }
