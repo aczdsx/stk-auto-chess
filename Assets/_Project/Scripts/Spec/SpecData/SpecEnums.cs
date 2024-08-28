@@ -578,4 +578,10 @@ namespace CookApps.AutoBattler
         CHARACTER = 2,
         ETC = 3,
     }
+
+    public enum CommanderTargetType
+    {
+        TARGET_PLAYER = 1,
+        TARGET_ENEMY = 2,
+    }
 }

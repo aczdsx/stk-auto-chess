@@ -15,8 +15,18 @@ public class CommanderSkillUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coolTimeText;
     [SerializeField] private GameObject _guideObj;
     [SerializeField] private ParticleSystem _activeFx;
+    [SerializeField] private GameObject _autoObj;
+    [SerializeField] private GameObject _autoActiveObj;
 
     private CommanderSkillData _data;
+    private Pref _preference;
+
+    public void OnClickAuto()
+    {
+        bool isActive = !_autoActiveObj.activeSelf;
+        Preference.SavePreference(_preference, isActive);
+        SetActiveAuto(isActive);
+    }
 
     public void SetIcon(Sprite sprite)
     {
@@ -50,8 +60,23 @@ public class CommanderSkillUI : MonoBehaviour
             _activeFx.Play();
     }
 
-    public void SetData(CommanderSkillData data)
+    public void SetData(CommanderSkillData data, Pref pref)
     {
         _data = data;
+        _preference = pref;
+
+         bool isActiveAuto = Preference.LoadPreference(_preference, false);
+        SetActiveAuto(isActiveAuto);
+        _autoObj.SetActive(true);
+    }
+
+    public void SetAutoObj(bool isActive)
+    {
+        _autoActiveObj.SetActive(isActive);
+    }
+    
+    public void SetActiveAuto(bool isActive)
+    {
+        _autoActiveObj.SetActive(isActive);
     }
 }

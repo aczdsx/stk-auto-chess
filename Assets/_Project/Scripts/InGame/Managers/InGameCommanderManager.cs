@@ -186,13 +186,25 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (isCanUseCommanderSkill)
             return;
 
-        foreach (var commanderSkillData in _commandSkillDataList)
+        for (int i = 0; i < _commandSkillDataList.Count; i++)
         {
-            commanderSkillData.ElapsedTime += dt;
+            _commandSkillDataList[i].ElapsedTime += dt;
 
-            if (_isCommanderGuideStage)
+            if (_commandSkillDataList[i].ElapsedTime >= _commandSkillDataList[i].DurationTime)
             {
-                if (commanderSkillData.ElapsedTime >= commanderSkillData.DurationTime)
+                string preferenceKey = $"COMMANDER_AUTO_{(int) (i + 1)}";
+
+                bool isActiveAuto = false;
+                if (Enum.TryParse(preferenceKey, out Pref prefEnum))
+                    isActiveAuto = Preference.LoadPreference(prefEnum, false);
+
+                if (isActiveAuto)
+                {
+                    AutoSkill(_commandSkillDataList[i]);
+                    return;
+                }
+
+                if (_isCommanderGuideStage)
                 {
                     InGameMainFlowManager.Instance.SetPlaySpeed(0.1f);
                     ToastManager.Instance.ShowToastByTokenKey("MSG_FIRST_COMMANDER_SKILL");
@@ -296,5 +308,41 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         }
 
         return _hitTileView != null;
+    }
+
+    private void AutoSkill(CommanderSkillData commanderSkillData)
+    {
+        InGameTileView hitTileView = null;
+        switch (commanderSkillData.Spec.commander_target_type)
+        {
+            case CommanderTargetType.TARGET_ENEMY:
+            {
+                var tileList = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(AllianceType.Player, false);
+                if (tileList.Count > 0)
+                    hitTileView = tileList[0].CurrentTile.View;
+                break;
+            }
+            case CommanderTargetType.TARGET_PLAYER:
+            {
+                var tileList = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(AllianceType.Player, true);
+                if (tileList.Count > 0)
+                    hitTileView = tileList[0].CurrentTile.View;
+                break;
+            }
+        }
+
+        if (hitTileView != null)
+        {
+            isCanUseCommanderSkill = true;
+            double[] eccStat = new double[2];
+            eccStat[0] = hitTileView.ID;
+            eccStat[1] = (double) commanderSkillData.StatValue;
+            var effectCodeInfo = new EffectCodeInfo(commanderSkillData.Spec.commander_skill_id, 0, eccStat);
+
+            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
+            commanderSkillData.ElapsedTime = 0;
+        }
+        
+        isCanUseCommanderSkill = false;
     }
 }

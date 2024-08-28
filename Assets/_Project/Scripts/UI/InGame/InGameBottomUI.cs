@@ -315,7 +315,13 @@ public class InGameBottomUI : MonoBehaviour
             {
                 var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
                 CommanderSkillData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(data);
-                _commanderSkillUIList[i].SetData(skillData);
+
+                string preferenceKey = $"COMMANDER_AUTO_{(int)(i + 1)}";
+
+                if (Enum.TryParse(preferenceKey, out Pref prefEnum))
+                {
+                    _commanderSkillUIList[i].SetData(skillData, prefEnum);
+                }
             }
         }
     }

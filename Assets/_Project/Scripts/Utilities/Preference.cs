@@ -15,6 +15,11 @@ public enum Pref
     IS_SPEED_UP,
     SHOW_SURVEY_POPUP,
     LANGUAGE,
+    COMMANDER_AUTO_1,
+    COMMANDER_AUTO_2,
+    COMMANDER_AUTO_3,
+    COMMANDER_AUTO_4,
+    COMMANDER_AUTO_5,
 }
 
 public class Preference
