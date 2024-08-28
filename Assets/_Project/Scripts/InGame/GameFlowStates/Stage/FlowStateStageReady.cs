@@ -148,6 +148,13 @@ public class FlowStateStageReady : StateReadyBase
                 InGameMain.GetInGameMain().SetAlertBottomCharacter(140601);
             }
         }
+        else if (_specStage.chapter_id == 3)
+        {
+            if (_specStage.stage_number == 6)
+            {
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(130501);
+            }
+        }
     }
 
     public override void StateStart()

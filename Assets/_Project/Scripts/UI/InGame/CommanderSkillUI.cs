@@ -23,9 +23,12 @@ public class CommanderSkillUI : MonoBehaviour
 
     public void OnClickAuto()
     {
-        bool isActive = !_autoActiveObj.activeSelf;
-        Preference.SavePreference(_preference, isActive);
-        SetActiveAuto(isActive);
+        if (_autoObj != null && _autoObj.activeSelf)
+        {
+            bool isActive = !_autoActiveObj.activeSelf;
+            Preference.SavePreference(_preference, isActive);
+            SetActiveAuto(isActive);
+        }
     }
 
     public void SetIcon(Sprite sprite)
@@ -67,12 +70,11 @@ public class CommanderSkillUI : MonoBehaviour
 
          bool isActiveAuto = Preference.LoadPreference(_preference, false);
         SetActiveAuto(isActiveAuto);
-        _autoObj.SetActive(true);
-    }
-
-    public void SetAutoObj(bool isActive)
-    {
-        _autoActiveObj.SetActive(isActive);
+        
+        var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+        bool _isCanAutoSkill = userGuideMissionData.MissionId >= 28;
+        
+        _autoObj.SetActive(_isCanAutoSkill);
     }
     
     public void SetActiveAuto(bool isActive)
