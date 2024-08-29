@@ -3,6 +3,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using CookApps.Auth;
 using CookApps.Build;
 using CookApps.gRPC;
 using CookApps.gRPC.Hatchery;
@@ -16,6 +17,8 @@ namespace CookApps.AutoBattler
 {
     public class TitleTask_ConnectWithServer : ITitleTask
     {
+        private bool isLogin = false;
+        
         private bool isComplete;
         private bool hasError;
         private bool serverConnectFail;
@@ -73,6 +76,7 @@ namespace CookApps.AutoBattler
             var hacheryParam = new GrpcInitializeParam(true);
             HatcheryGrpcManager.Instance.Initialize(hacheryParam);
             
+            // 버전 체크
             var tryCount = 0;
             do
             {
@@ -83,6 +87,45 @@ namespace CookApps.AutoBattler
             } while (checkVersionResult.IsError && tryCount < 3);
 
             progressCallback.Invoke(GetHashCode(), 1f);
+            
+            // 로그인 체크
+            if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Apple))
+            {
+                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            else if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Google))
+            {
+                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            else if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Facebook))
+            {
+                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            else if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
+            {
+                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            else
+            {
+                // login.SetActive(true);
+                // taskSlider.gameObject.SetActive(false);
+            
+                while (!LoginManager.Instance.CheckIsLoggedIn())
+                {
+                    await UniTask.Yield();
+                }
+
+                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            }
+            
+            // 앱 이벤트 Auth 설정
+            CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);
+            
+#if SERVER_REAL
+            CAppAuth.SetServer(EnumServer.PRODUCTION);
+#else
+            CAppAuth.SetServer(EnumServer.DEV);
+#endif
         }
 
         public (bool, string) HasError()
