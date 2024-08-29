@@ -292,7 +292,8 @@ namespace CookApps.AutoBattler
         public async void ProcessAppleLogin()
         {
             isLoginProcess = true;
-            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            //SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            _loadingPopupObject.SetActive(true);
             
             var result = await LoginManager.Instance.LoginApple();
 
@@ -300,7 +301,8 @@ namespace CookApps.AutoBattler
             {
                 CreateNewAccount(AuthPlatform.Apple).ContinueWith(() =>
                 {
-                    SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                    //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                    _loadingPopupObject.SetActive(false);
                     isLoginProcess = false;
                 }).Forget();
             }
@@ -308,7 +310,8 @@ namespace CookApps.AutoBattler
             {
                 LoginPlatform(AuthPlatform.Apple).ContinueWith(() =>
                 {
-                    SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                    //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                    _loadingPopupObject.SetActive(false);
                     isLoginProcess = false;
                 }).Forget();
             }
