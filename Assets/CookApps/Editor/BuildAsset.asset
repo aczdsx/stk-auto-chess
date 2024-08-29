@@ -67,7 +67,7 @@ MonoBehaviour:
         Version: 0.2.5
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3400
+        VersionCode: 3428
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -90,10 +90,10 @@ MonoBehaviour:
         Name: ios-dev
         Target: 9
         Identifier: com.mintry.stk
-        Version: 0.1.3
+        Version: 0.2.6
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3306
+        VersionCode: 3428
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
