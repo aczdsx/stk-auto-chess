@@ -125,6 +125,7 @@ public class GeneratePixelResources : Editor
                 if (textureImporter != null)
                 {
                     textureImporter.filterMode = FilterMode.Point;
+                    textureImporter.textureCompression = TextureImporterCompression.Uncompressed;
                     textureImporter.SaveAndReimport(); // 변경 사항 저장 및 다시 가져오기
                 }
             }
