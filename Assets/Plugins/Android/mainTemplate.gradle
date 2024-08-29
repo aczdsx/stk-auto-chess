@@ -13,6 +13,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-gamingservices:[17.0.0,18)' // Packages/com.cookapps.facebook/FacebookSDK/Plugins/Editor/Dependencies.xml:9
     implementation 'com.facebook.android:facebook-login:[17.0.0,18)' // Packages/com.cookapps.facebook/FacebookSDK/Plugins/Editor/Dependencies.xml:7
     implementation 'com.facebook.android:facebook-share:[17.0.0,18)' // Packages/com.cookapps.facebook/FacebookSDK/Plugins/Editor/Dependencies.xml:8
+    implementation 'com.google.android.gms:play-services-auth:20+' // Packages/com.cookapps.platform.auth/GoogleSignIn/Editor/GoogleSignInDependencies.xml:10
+    implementation 'com.google.signin:google-signin-support:1.0.4' // Packages/com.cookapps.platform.auth/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:10
     implementation 'com.parse.bolts:bolts-android:1.4.0' // Packages/com.cookapps.facebook/FacebookSDK/Plugins/Editor/Dependencies.xml:4
 // Android Resolver Dependencies End
 **DEPS**}
