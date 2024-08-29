@@ -18,6 +18,12 @@ dependencyResolutionManagement {
         mavenCentral()
 // Android Resolver Repos Start
         def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
+        maven {
+            url (unityProjectPath + "/Assets/GeneratedLocalRepo/GoogleSignIn/Editor/m2repository") // Packages/com.cookapps.platform.auth/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:10
+        }
+        maven {
+            url (unityProjectPath + "/Assets/Package/GoogleSignIn/Editor/m2repository") // Packages/com.cookapps.platform.auth/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:10
+        }
         mavenLocal()
 // Android Resolver Repos End
         flatDir {
