@@ -47,8 +47,8 @@ namespace CookApps.AutoBattler
         
         
         private bool _isVictory = false;
-        
         private SpecCharacter _specCharacter;
+        private SpecDungeonTrial _currentSpecDungeonTrial;
         
         private void Awake()
         {
@@ -106,16 +106,16 @@ namespace CookApps.AutoBattler
             baseAnimator.SetTrigger(animKey);
             // _rewardObj.SetActive(!InGameManager.Instance.SpecDungeonTrial.is_grade_up);
 
-            var currentDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(InGameManager.Instance.SpecDungeonTrial.dungeon_id - 1);
+            _currentSpecDungeonTrial = SpecDataManager.Instance.GetSpecDungeonTrialData(InGameManager.Instance.SpecDungeonTrial.dungeon_id - 1);
             var nextDungeonTrialData = InGameManager.Instance.SpecDungeonTrial;
 
             _beforeArrow.SetActive(_isVictory);
             _afterObj.SetActive(_isVictory);
-            _beforeObj.SetActive(currentDungeonTrialData != null);
-            if (currentDungeonTrialData != null)
+            _beforeObj.SetActive(_currentSpecDungeonTrial != null);
+            if (_currentSpecDungeonTrial != null)
             {
-                _beforeGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(currentDungeonTrialData.trial_type, false);
-                _beforeGradeText.text = StringUtil.GetTrialDungeonString(currentDungeonTrialData, true);
+                _beforeGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_currentSpecDungeonTrial.trial_type, false);
+                _beforeGradeText.text = StringUtil.GetTrialDungeonString(_currentSpecDungeonTrial, true);
             }
 
             _afterGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(nextDungeonTrialData.trial_type, false);
@@ -135,8 +135,10 @@ namespace CookApps.AutoBattler
             
             var transition = SceneTransition_FadeInOut.Create();
             SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
-            
-            SceneUILayerManager.OnSceneLoadedEvent += OpenDungeonTrialPopupAction;
+
+            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
+            if (userGuideMissionData.MissionStateType != (int)MissionStateType.REWARD)
+                SceneUILayerManager.OnSceneLoadedEvent += OpenDungeonTrialPopupAction;
         }
         
         private void OpenDungeonTrialPopupAction(string scenename)
