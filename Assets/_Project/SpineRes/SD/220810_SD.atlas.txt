@@ -1,0 +1,41 @@
+220810_SD.png
+size:512,512
+filter:Linear,Linear
+pma:true
+scale:0.47
+1
+bounds:346,430,125,80
+2
+bounds:211,457,64,53
+3
+bounds:81,11,138,117
+4
+bounds:351,118,152,138
+rotate:90
+L BLeg 2
+bounds:2,12,101,65
+L BLeg 3
+bounds:411,58,143,99
+rotate:90
+L BLeg Eye
+bounds:2,407,94,97
+L FLeg 1
+bounds:235,123,67,81
+rotate:90
+L FLeg 2
+bounds:348,7,128,108
+rotate:180
+Layer 2
+bounds:2,125,178,211
+rotate:180
+R BLeg 1
+bounds:2,102,125,101
+rotate:270
+R BLeg 2
+bounds:266,13,142,82
+rotate:90
+R FLeg
+bounds:174,79,133,148
+rotate:180
+Upper Jaw
+bounds:2,193,490,317
