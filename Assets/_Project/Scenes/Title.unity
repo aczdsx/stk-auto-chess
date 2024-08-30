@@ -655,6 +655,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4514318737290697546, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: startingLoop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514318737290697546, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+      propertyPath: meshGenerator.settings.zSpacing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4561338570688833651, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: touchToStart
       value: 
