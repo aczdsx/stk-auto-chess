@@ -41,13 +41,6 @@ namespace CookApps.AutoBattler
         
         [SerializeField] private TMP_InputField _guestIDInputField;
         [SerializeField] private TextMeshProUGUI _currentGuestIDText;
-        
-        private bool haveGuestID = false;
-
-        private void OnEnable()
-        {
-            InitTitleMain();
-        }
 
         protected override void OnPreEnter(object param)
         {
@@ -57,9 +50,11 @@ namespace CookApps.AutoBattler
         private void Start()
         {
             isLoginProcess = false;
+
+            ClearTitleMain();
+            progressDict.Clear();
             
-            var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
-            haveGuestID = string.IsNullOrEmpty(playerID) == false;
+            RunAllTasks().Forget();
             
             Invoke(nameof(LoginDelay), 2.0f);
         }
@@ -67,29 +62,29 @@ namespace CookApps.AutoBattler
         private void InitTitleMain()
         {
             SessionCount++;
-            progressDict.Clear();
-            //touchToStart.SetActive(false);
-            
-            RunAllTasks().Forget();
 
             Debug.Log("TitleMain OnPreEnter --> " + gameObject.name);
 
+            isLogin = LoginManager.Instance.CheckIsLoggedIn();
+
+            touchToStart.SetActive(isLogin);
+            
 #if UNITY_ANDROID
-            // if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(false);
-            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(true);    // TEST
-            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(true);
-            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(false);
-            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(true);
+            // if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);    // TEST
+            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
 #elif UNITY_IOS
-            _appleLoginButtonLayer?.SetActive(true);
-            _googleLoginButtonLayer?.SetActive(true);
-            _facebookLoginButtonLayer?.SetActive(false);
-            _loginGuestButtonLayer?.SetActive(true);
+            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
 #else
-            _appleLoginButtonLayer?.SetActive(true);
-            _googleLoginButtonLayer?.SetActive(true);
-            _facebookLoginButtonLayer?.SetActive(false);
-            _loginGuestButtonLayer?.SetActive(true);
+            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
 #endif
             
             // 언어 설정
@@ -101,8 +96,8 @@ namespace CookApps.AutoBattler
             }
             
             // 유저 로그인 기록 체크
-            var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
-            haveGuestID = string.IsNullOrEmpty(playerID) == false;
+            // var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
+            // haveGuestID = string.IsNullOrEmpty(playerID) == false;
             
             Invoke(nameof(LoginDelay), 3.0f);
             
@@ -148,9 +143,11 @@ namespace CookApps.AutoBattler
                 }
 
                 await RunSubTasks(tasks);
-
+                
                 //touchToStart.SetActive(haveGuestID);
             }
+            
+            InitTitleMain();
         }
 
         private async UniTask RunSubTasks(ITitleTask[] tasks)
@@ -238,12 +235,40 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void OnClickCommonLoginButton()
+        {
+            if (isLoginProcess) return;
+            if (loginDelay) return;
+            if (isLogin == false) return;
+
+            var authPlatform = Preference.LoadPreference(Pref.LOGIN_PLATFORM_TYPE, 0);
+
+            if (authPlatform == 0)
+            {
+                Debug.LogError("로그인 플랫폼이 설정되지 않았습니다.");
+                return;
+            }
+            else
+            {
+                isLoginProcess = true;
+                //SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+                _loadingPopupObject.SetActive(true);
+                
+                LoginPlatform((AuthPlatform)authPlatform).ContinueWith(() =>
+                {
+                    //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                    _loadingPopupObject.SetActive(false);
+                    isLoginProcess = false;
+                }).Forget();
+            }
+        }
+
         public void OnClickGuestLoginButton()
         {
             if (isLoginProcess) return;
             if (loginDelay) return;
 
-            if (haveGuestID)
+            if (isLogin)
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
                 
@@ -296,7 +321,6 @@ namespace CookApps.AutoBattler
             _loadingPopupObject.SetActive(true);
             
             var result = await LoginManager.Instance.LoginApple();
-
             if (result)
             {
                 CreateNewAccount(AuthPlatform.Apple).ContinueWith(() =>
@@ -461,7 +485,7 @@ namespace CookApps.AutoBattler
             // 유저 로그인 정보 저장
             var commonLoginData = UniversalGrpcManager.Instance.GetCommonRequestParam();
             var gameLoginData = UniversalGrpcManager.Instance.GetGameRequestParam();
-            UserDataManager.Instance.SetUserLoginData(commonLoginData.Uid, gameLoginData.ServerId, gameLoginData.PlayerId, uuID);
+            UserDataManager.Instance.SetUserLoginData(authPlatform, commonLoginData.Uid, gameLoginData.ServerId, gameLoginData.PlayerId, uuID);
             
             // 로그인 진행
             OnClickTouchToStart();
@@ -487,16 +511,12 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void InitCookAppsAuth()
+        private void ClearTitleMain()
         {
-            CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);
-            
-#if SERVER_REAL
-            CAppAuth.SetServer(EnumServer.PRODUCTION);
-#else
-            CAppAuth.SetServer(EnumServer.DEV);
-#endif
-            
+            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(false);    
+            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(false);
+            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(false);
+            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(false);
         }
     }
 }

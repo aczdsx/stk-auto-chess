@@ -105,18 +105,18 @@ namespace CookApps.AutoBattler
             {
                 isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
             }
-            else
-            {
-                // login.SetActive(true);
-                // taskSlider.gameObject.SetActive(false);
-            
-                while (!LoginManager.Instance.CheckIsLoggedIn())
-                {
-                    await UniTask.Yield();
-                }
-
-                isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
-            }
+            // else
+            // {
+            //     // login.SetActive(true);
+            //     // taskSlider.gameObject.SetActive(false);
+            //
+            //     while (!LoginManager.Instance.CheckIsLoggedIn())
+            //     {
+            //         await UniTask.Yield();
+            //     }
+            //
+            //     isLogin = await UniversalGrpcManager.Instance.AutoLoginAsync();
+            // }
             
             // 앱 이벤트 Auth 설정
             CAppAuth.SetUID(UniversalGrpcManager.Instance.Uid);

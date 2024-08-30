@@ -538,7 +538,7 @@ PrefabInstance:
     - target: {fileID: 697865440549132607, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: _loginGuestButtonLayer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1620322814}
     - target: {fileID: 697865440549132607, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: _createGuestButtonLayer
       value: 
@@ -713,7 +713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9167341032682312037, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: OnClickCommonLoginButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -728,6 +728,11 @@ GameObject:
 --- !u!1 &1620322813 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6912974175550860025, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
+  m_PrefabInstance: {fileID: 1620322811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1620322814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4058421663751716091, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
   m_PrefabInstance: {fileID: 1620322811}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1824850557
