@@ -93,7 +93,7 @@ RectTransform:
   m_GameObject: {fileID: 2921775705916391250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.6, y: 2.6, z: 2.6}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7224211407584552012}
@@ -101,13 +101,13 @@ RectTransform:
   - {fileID: 7538222164848789042}
   - {fileID: 2293274019566652933}
   - {fileID: 8950954898028416499}
-  m_Father: {fileID: 699428046168064679}
+  m_Father: {fileID: 7368872982337023501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 207, y: -2409}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.78}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 257, y: -1489}
+  m_SizeDelta: {x: 2534, y: 2384}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8017292979613724265
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   timeScale: 1
   freeze: 0
   layoutScaleMode: 0
-  referenceSize: {x: 3290.37, y: 3989.315}
+  referenceSize: {x: 2534, y: 2384}
   referenceScale: 1
   rectTransformSize: {x: 2529, y: 1204}
   editReferenceRect: 0
@@ -222,12 +222,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3216853969495700251}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 699428046168064679}
+  - {fileID: 8075807136646064698}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -401,7 +402,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.78}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1995287406780884207
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -525,8 +526,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8075807136646064698}
+  m_Children: []
   m_Father: {fileID: 7368872982337023501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

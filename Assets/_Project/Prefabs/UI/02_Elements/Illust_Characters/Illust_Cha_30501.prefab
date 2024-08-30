@@ -95,8 +95,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1065971463648031192}
+  m_Children: []
   m_Father: {fileID: 5373096087607296036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -241,11 +240,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5778268236048408052}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1065971463648031192}
   - {fileID: 5039181167752114923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -282,7 +282,7 @@ RectTransform:
   m_GameObject: {fileID: 5921127826221079489}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2.7, y: 2.7, z: 2.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 864836834521267911}
@@ -290,13 +290,13 @@ RectTransform:
   - {fileID: 988944963965270673}
   - {fileID: 8804314608249749441}
   - {fileID: 5453558832774335911}
-  m_Father: {fileID: 5039181167752114923}
+  m_Father: {fileID: 5373096087607296036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1, y: -2830}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.78}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 104, y: -1876}
+  m_SizeDelta: {x: 2534, y: 2384}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5583358898497110443
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   timeScale: 1
   freeze: 0
   layoutScaleMode: 0
-  referenceSize: {x: 3290.37, y: 3989.315}
+  referenceSize: {x: 2534, y: 2384}
   referenceScale: 1
   rectTransformSize: {x: 2529, y: 1204}
   editReferenceRect: 0
@@ -554,7 +554,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.78}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2512784518662586145
 CanvasRenderer:
   m_ObjectHideFlags: 0
