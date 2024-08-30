@@ -687,7 +687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -122, y: -1365}
+  m_AnchoredPosition: {x: 307, y: -1365}
   m_SizeDelta: {x: 2534, y: 2384}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7363624094477308994
@@ -718,14 +718,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  skeletonDataAsset: {fileID: 11400000, guid: b0f58aa863545d6478872b327c2bf29f, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 8006f977b5129db4781d37497e0aceb5, type: 2}
   additiveMaterial: {fileID: 0}
   multiplyMaterial: {fileID: 2100000, guid: e74a1f8978a7da348a721508d0d58834, type: 2}
   screenMaterial: {fileID: 2100000, guid: bab24c479f34eec45be6ea8595891569, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
-  startingAnimation: normal
+  startingAnimation: idle
   startingLoop: 1
   timeScale: 1
   freeze: 0
@@ -775,9 +775,9 @@ MonoBehaviour:
   skeletonGraphic: {fileID: 5865517151079023433}
   customMaterialOverrides:
   - overrideEnabled: 0
-    originalTexture: {fileID: 2800000, guid: 22b148fba886dda499d72c07c944c82f, type: 3}
+    originalTexture: {fileID: 2800000, guid: 1e5f333fd6931914e9215c3ff14d758f, type: 3}
     replacementMaterial: {fileID: 2100000, guid: bf375008afdf2b74dbe49a1361115fe3, type: 2}
   customTextureOverrides:
   - overrideEnabled: 0
-    originalTexture: {fileID: 2800000, guid: 22b148fba886dda499d72c07c944c82f, type: 3}
+    originalTexture: {fileID: 2800000, guid: 1e5f333fd6931914e9215c3ff14d758f, type: 3}
     replacementTexture: {fileID: 0}

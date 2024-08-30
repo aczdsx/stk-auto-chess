@@ -718,14 +718,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  skeletonDataAsset: {fileID: 11400000, guid: f60aa58ff49380a4da2b75bd5e357299, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 5a2519055161153468b01abe696fa300, type: 2}
   additiveMaterial: {fileID: 0}
   multiplyMaterial: {fileID: 2100000, guid: e74a1f8978a7da348a721508d0d58834, type: 2}
   screenMaterial: {fileID: 2100000, guid: bab24c479f34eec45be6ea8595891569, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
-  startingAnimation: normal
+  startingAnimation: idle
   startingLoop: 1
   timeScale: 1
   freeze: 0
@@ -775,9 +775,9 @@ MonoBehaviour:
   skeletonGraphic: {fileID: 6021948204421626089}
   customMaterialOverrides:
   - overrideEnabled: 0
-    originalTexture: {fileID: 2800000, guid: 549a5022a1b59be41949d0ba2132c31f, type: 3}
+    originalTexture: {fileID: 2800000, guid: 20653d2e0bc71464e9dfe342cc9a5aa4, type: 3}
     replacementMaterial: {fileID: 2100000, guid: bf375008afdf2b74dbe49a1361115fe3, type: 2}
   customTextureOverrides:
   - overrideEnabled: 0
-    originalTexture: {fileID: 2800000, guid: 549a5022a1b59be41949d0ba2132c31f, type: 3}
+    originalTexture: {fileID: 2800000, guid: 20653d2e0bc71464e9dfe342cc9a5aa4, type: 3}
     replacementTexture: {fileID: 0}

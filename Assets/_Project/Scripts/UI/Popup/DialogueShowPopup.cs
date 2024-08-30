@@ -76,10 +76,13 @@ namespace CookApps.AutoBattler
         private void SetDialogueData(int seq)
         {
             if (_dialogueList == null || _dialogueList.Count == 0) return;
-
+            
+            bool isChangePrefab = _currentSpecDialogueData == null || _currentSpecDialogueData.prefab_id != _dialogueList[seq].prefab_id;
+            
             _currentSpecDialogueData = _dialogueList[seq];
 
-            BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
+            if (isChangePrefab)
+                BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
 
             // 추가 배경 설정
             _extraBGObj.SetActive(false);
@@ -94,10 +97,10 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            if (_currentSpecDialogueData.prefab_id > 0)
+            if (_currentSpecDialogueData.prefab_id > 0 && isChangePrefab)
             {
                 string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _currentSpecDialogueData.prefab_id);
-                AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
+                var gameObject = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
             }
 
             _characterNameText.text = LanguageManager.Instance.GetLanguageText(_currentSpecDialogueData.character_name_token);

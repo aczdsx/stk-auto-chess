@@ -334,6 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 397175465437100271}
+  - component: {fileID: 6428718542608527197}
   m_Layer: 5
   m_Name: Illust_Cha_30201
   m_TagString: Untagged
@@ -362,6 +363,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6428718542608527197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702842857522393947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9167aed5bd4b66246b8ce82fa69be479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 3843696935785243087}
+  _skeletonGraphic: {fileID: 2459704545103382427}
 --- !u!1 &6221756826476745494
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,14 +448,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  skeletonDataAsset: {fileID: 11400000, guid: a13492a6e89cbdf4cb1bfe12c5a8e6e5, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 1fdce717145048548baf13040bbfa59d, type: 2}
   additiveMaterial: {fileID: 0}
   multiplyMaterial: {fileID: 2100000, guid: e74a1f8978a7da348a721508d0d58834, type: 2}
   screenMaterial: {fileID: 2100000, guid: bab24c479f34eec45be6ea8595891569, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
-  startingAnimation: normal
+  startingAnimation: idle
   startingLoop: 1
   timeScale: 1
   freeze: 0
@@ -490,11 +505,11 @@ MonoBehaviour:
   skeletonGraphic: {fileID: 2459704545103382427}
   customMaterialOverrides:
   - overrideEnabled: 0
-    originalTexture: {fileID: 2800000, guid: c3471e20ffd622f40b659a6be845a0ce, type: 3}
+    originalTexture: {fileID: 2800000, guid: cfc41458c20ab8745b7d34604a09bdd8, type: 3}
     replacementMaterial: {fileID: 2100000, guid: bf375008afdf2b74dbe49a1361115fe3, type: 2}
   customTextureOverrides:
   - overrideEnabled: 0
-    originalTexture: {fileID: 2800000, guid: c3471e20ffd622f40b659a6be845a0ce, type: 3}
+    originalTexture: {fileID: 2800000, guid: cfc41458c20ab8745b7d34604a09bdd8, type: 3}
     replacementTexture: {fileID: 0}
 --- !u!1 &8376244012504811643
 GameObject:

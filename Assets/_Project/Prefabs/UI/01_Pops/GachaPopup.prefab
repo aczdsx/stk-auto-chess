@@ -30240,6 +30240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Illust_Cha_40402
       objectReference: {fileID: 0}
+    - target: {fileID: 2538141769170662711, guid: f9ecac29d67789546add8420ba3b224f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5420388522329935740, guid: f9ecac29d67789546add8420ba3b224f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 2083.542
@@ -32314,6 +32318,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5162681193468883102}
     m_Modifications:
+    - target: {fileID: 379974664912136125, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5039181167752114923, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
       propertyPath: m_SizeDelta.x
       value: 1927.6924
@@ -32414,6 +32422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Illust_Cha_40601
       objectReference: {fileID: 0}
+    - target: {fileID: 5992092012561683723, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32432,6 +32444,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1699051281284132478}
     m_Modifications:
+    - target: {fileID: 2892676130578877408, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3649268610510914558, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -32511,6 +32527,10 @@ PrefabInstance:
     - target: {fileID: 3649268610510914558, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4393473410696796005, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8190040276376889529, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
       propertyPath: m_Name
@@ -33380,6 +33400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Illust_Cha_40502
       objectReference: {fileID: 0}
+    - target: {fileID: 2080013278897347081, guid: f566a0c1138f1b144a9fa29a21660a6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5420388522329935740, guid: f566a0c1138f1b144a9fa29a21660a6d, type: 3}
       propertyPath: m_SizeDelta.x
       value: 1954.4917
@@ -33476,6 +33500,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9190768253203156198, guid: f566a0c1138f1b144a9fa29a21660a6d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33494,6 +33522,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3922697932901904663}
     m_Modifications:
+    - target: {fileID: 2511097229436609268, guid: e51b1eb690a480a4eab7880148950733, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3762923832235501488, guid: e51b1eb690a480a4eab7880148950733, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -33839,6 +33871,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4354268998354154645}
     m_Modifications:
+    - target: {fileID: 1890018624289409407, guid: ceab8fe119968a8429503d9db9ecde12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2416811335103363480, guid: ceab8fe119968a8429503d9db9ecde12, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -33918,6 +33954,10 @@ PrefabInstance:
     - target: {fileID: 2416811335103363480, guid: ceab8fe119968a8429503d9db9ecde12, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458457105554579955, guid: ceab8fe119968a8429503d9db9ecde12, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3458457105554579955, guid: ceab8fe119968a8429503d9db9ecde12, type: 3}
       propertyPath: m_Material
