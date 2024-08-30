@@ -12,6 +12,16 @@ using Cysharp.Threading.Tasks;
 [Serializable]
 public partial class SROptions
 {
+    #region 계정 관련
+
+    [Category("계정 관련")]
+    public void 계정로그아웃()
+    {
+        LoginManager.Instance.LogOut();
+    }
+    
+    #endregion
+    
     #region 유저 정보 관련
 
     [Category("유저 정보 관련")]

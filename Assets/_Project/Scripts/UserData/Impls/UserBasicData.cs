@@ -3,6 +3,7 @@ using CookApps.gRPC.Hatchery;
 using CookApps.gRPC.Universal;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Universal.V2;
 
 namespace CookApps.AutoBattler
 {
@@ -64,14 +65,14 @@ namespace CookApps.AutoBattler
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
         }
 
-        public void SetUserLoginData(int UID, int serverID, string playerID, string username)
+        public void SetUserLoginData(AuthPlatform authPlatformm, int UID, int serverID, string playerID, string username)
         {
             UserBasicData.Uid = UID;
             UserBasicData.ServerId = serverID;
             UserBasicData.PlayerId = playerID;
             UserBasicData.Nickname = username;
             
-            Preference.SavePreference(Pref.GUEST_ID, UserBasicData.PlayerId);   // 기기자체에도 저장 (첫 로그인 판별용)
+            Preference.SavePreference(Pref.LOGIN_PLATFORM_TYPE, (int)authPlatformm);   // 기기자체에도 저장 (첫 로그인 판별용)
             
             SaveUserBasic();
         }
