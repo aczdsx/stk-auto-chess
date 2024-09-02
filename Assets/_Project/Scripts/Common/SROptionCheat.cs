@@ -255,6 +255,57 @@ public partial class SROptions
     }
 
     [Category("스테이지 관련")]
+    public void 해당스테이지까지클리어()
+    {
+        if (원하는스테이지ID <= 0) return;
+        if (스테이지클리어별갯수 <= 0) return;
+
+        var targetSpecStageData = SpecDataManager.Instance.GetStageData(원하는스테이지ID);
+
+        // 행동력 검사
+        // if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, targetSpecStageData.need_ap, false))
+        // {
+        //     ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
+        //     return;
+        // }
+
+        List<RewardItem> rewardItemList = new();
+
+        var prevStageList = SpecDataManager.Instance.GetPrevStageList(원하는스테이지ID);
+        foreach (var stageData in prevStageList)
+        {
+            if (UserDataManager.Instance.IsClearStage(stageData.stage_id)) continue;
+            
+            // 스테이지 데이터저장
+            UserDataManager.Instance.SetUserStage(stageData.stage_id, 스테이지클리어별갯수);
+            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, stageData.stage_id, 1);
+
+            // 보상 지급
+            var rewardList = SpecDataManager.Instance.GetSpecStageReward(targetSpecStageData.reward_id)
+                .FindAll(l => l.difficulty_type == targetSpecStageData.difficulty_type);
+
+            rewardItemList.AddRange(SpecDataManager.Instance.GetRewardItemListByStageRewardList(rewardList));
+        }
+
+        // 보상 데이터 저장
+        if (rewardItemList.Count > 0)
+        {
+            UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
+        }
+
+        // 행동력 소모 처리
+        //UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, targetSpecStageData.need_ap, true, false);
+
+        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+        if (lobbyMain != null)
+        {
+            lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+            lobbyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
+        }
+    }
+
+    [Category("스테이지 관련")]
     public void 튜토리얼스테이지클리어()
     {
         var tutoStageDataList = SpecDataManager.Instance.GetStageList(1);

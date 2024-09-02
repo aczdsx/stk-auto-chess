@@ -500,6 +500,36 @@ namespace CookApps.AutoBattler
 
             return null;
         }
+        
+        // 타겟 스테이지 아래의 모든 스테이지 리스트 반환
+        public List<SpecStage> GetPrevStageList(int targetStageID)
+        {
+            SpecStage targetStageData = GetStageData(targetStageID);
+            if (targetStageData == null) return null;
+
+            List<SpecStage> resultStageList = new List<SpecStage>();
+
+            var targetChapterData = GetChapterDataByStageID(targetStageID);
+            if (targetChapterData == null) return null;
+
+            List<SpecStage> totalStageList = new();
+            for (int chapter = 1; chapter <= targetStageData.chapter_id; chapter++)
+            {
+                var stageList = GetStageList(chapter, targetStageData.difficulty_type);
+                totalStageList.AddRange(stageList);
+            }
+
+            foreach (var stage in totalStageList)
+            {
+                if (stage.chapter_id < targetStageData.chapter_id ||
+                    (stage.chapter_id == targetStageData.chapter_id && stage.stage_number <= targetStageData.stage_number))
+                {
+                    resultStageList.Add(stage);
+                }
+            }
+
+            return resultStageList;
+        }
 
         public int GetStageCount(int chapter, DifficultyType difficulty)
         {
