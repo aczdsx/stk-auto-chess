@@ -90,6 +90,7 @@ namespace CookApps.AutoBattler
 
     public enum ItemType
     {
+        NONE = 0,
         JEWEL = 1,
         GOLD = 2,
         SOUL = 3,
@@ -583,5 +584,51 @@ namespace CookApps.AutoBattler
     {
         TARGET_PLAYER = 1,
         TARGET_ENEMY = 2,
+    }
+
+    public enum PriceType
+    {
+        ITEM = 0,
+        CASH = 1,
+    }
+
+    public enum ShopMainGroupType
+    {
+        NONE = 0,
+        SHOP_MAIN = 1,
+        BANNER = 2,
+    }
+
+    public enum ShopSubGroupType
+    {
+        NONE = 0,
+        COMMON = 1,
+        PACKAGE = 2,
+    }
+
+    public enum ShopTermType
+    {
+        NONE = 0,
+        PERIOD = 1,
+        TIME = 2,
+    }
+
+    public enum ShopBannerConditionType
+    {
+        NONE = 0,
+        FIRST_STAGE_LOSE = 1,
+        STAGE_CLEAR = 2,
+        FIRST_DUNGEON_LOSE = 3,
+        DUNGEON_CLEAR = 4,
+        FIRST_PVP_LOSE = 5,
+        ENTER_SHOP_POP = 6,
+        ENTER_GACHA_POP = 7,
+    }
+
+    public enum ShopBannerShowType
+    {
+        NONE = 0,
+        IMMEDIATE = 1,
+        LOBBY = 2,
     }
 }

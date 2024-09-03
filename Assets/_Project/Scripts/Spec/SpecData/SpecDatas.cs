@@ -673,6 +673,52 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecShop
+    {
+        /// 아이디
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 상점 id
+        public CookApps.Obfuscator.ObfuscatorInt shop_id;
+        /// 보상id
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 메인 그룹 타입
+        public global::CookApps.AutoBattler.ShopMainGroupType shop_main_group_type;
+        /// 서브 그룹 타입
+        public global::CookApps.AutoBattler.ShopSubGroupType shop_sub_group_type;
+        /// 구매 재화 타입
+        public global::CookApps.AutoBattler.PriceType price_type;
+        public global::CookApps.AutoBattler.ItemType price_item_type;
+        public CookApps.Obfuscator.ObfuscatorInt price_item_count;
+        /// 판매 기간 유형
+        public global::CookApps.AutoBattler.ShopTermType shop_term_type;
+        /// 상품 판매 시작 시간
+        [GeneratorDateTime(nameof(start_at))]
+        public string start_at;
+        /// 상품 판매 종료 시간
+        [GeneratorDateTime(nameof(end_at))]
+        public string end_at;
+        /// 상품 판매 유지 시간(분)
+        public CookApps.Obfuscator.ObfuscatorInt duration_time;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecShopBanner
+    {
+        /// 아이디
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 상점 id
+        public CookApps.Obfuscator.ObfuscatorInt shop_id;
+        /// 등장 타이밍 타입
+        public global::CookApps.AutoBattler.ShopBannerShowType shop_banner_show_type;
+        /// 등장 조건 타입
+        public global::CookApps.AutoBattler.ShopBannerConditionType shop_banner_condition_type;
+        /// 등장 조건 키
+        public CookApps.Obfuscator.ObfuscatorInt condition_key;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecTutorial
     {
         /// 유니크 id
