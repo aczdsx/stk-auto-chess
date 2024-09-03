@@ -8,6 +8,7 @@ namespace CookApps.AutoBattler
 {
 	public partial class SpecDataManager
 	{
+		public List<SpecOption> SpecOptionList {get; private set;}
 		public List<SpecAccountLevelExp> SpecAccountLevelExpList {get; private set;}
 		public List<SpecChapter> SpecChapterList {get; private set;}
 		public List<SpecCharacter> SpecCharacterList {get; private set;}
@@ -17,6 +18,9 @@ namespace CookApps.AutoBattler
 		public List<SpecCharacterQuotes> SpecCharacterQuotesList {get; private set;}
 		public List<SpecCommanderSkill> SpecCommanderSkillList {get; private set;}
 		public List<SpecDialogue> SpecDialogueList {get; private set;}
+		public List<SpecDungeonTrial> SpecDungeonTrialList {get; private set;}
+		public List<SpecDungeonMonster> SpecDungeonMonsterList {get; private set;}
+		public List<SpecDungeonReward> SpecDungeonRewardList {get; private set;}
 		public List<SpecEvent> SpecEventList {get; private set;}
 		public List<SpecEventCondition> SpecEventConditionList {get; private set;}
 		public List<SpecLanguage> SpecLanguageList {get; private set;}
@@ -24,29 +28,31 @@ namespace CookApps.AutoBattler
 		public List<SpecGachaScenario> SpecGachaScenarioList {get; private set;}
 		public List<SpecGuideMission> SpecGuideMissionList {get; private set;}
 		public List<SpecQuest> SpecQuestList {get; private set;}
-		public List<SpecSkill> SpecSkillList {get; private set;}
 		public List<SpecStage> SpecStageList {get; private set;}
 		public List<SpecStageMonster> SpecStageMonsterList {get; private set;}
+		public List<SpecSkill> SpecSkillList {get; private set;}
 		public List<SpecStageReward> SpecStageRewardList {get; private set;}
-		public List<SpecDungeonTrial> SpecDungeonTrialList {get; private set;}
-		public List<SpecDungeonMonster> SpecDungeonMonsterList {get; private set;}
-		public List<SpecDungeonReward> SpecDungeonRewardList {get; private set;}
+		public List<SpecUserGrade> SpecUserGradeList {get; private set;}
 		public List<SpecSynergy> SpecSynergyList {get; private set;}
+		public List<SpecShop> SpecShopList {get; private set;}
+		public List<SpecShopBanner> SpecShopBannerList {get; private set;}
 		public List<SpecTutorial> SpecTutorialList {get; private set;}
 		public List<SpecItem> SpecItemList {get; private set;}
 		public List<SpecIdleReward> SpecIdleRewardList {get; private set;}
 		public List<SpecInGameVfx> SpecInGameVfxList {get; private set;}
 		public List<SpecRewardInfo> SpecRewardInfoList {get; private set;}
+		public List<SpecObstacle> SpecObstacleList {get; private set;}
+		public List<SpecOpenCondition> SpecOpenConditionList {get; private set;}
 		public List<SpecPVPTier> SpecPVPTierList {get; private set;}
 		public List<SpecPvpReward> SpecPvpRewardList {get; private set;}
 		public List<SpecPVPRanking> SpecPVPRankingList {get; private set;}
 		public List<SpecPVPConfig> SpecPVPConfigList {get; private set;}
 		public List<SpecPVPDummy> SpecPVPDummyList {get; private set;}
 		public List<SpecReward> SpecRewardList {get; private set;}
-		public List<SpecOpenCondition> SpecOpenConditionList {get; private set;}
 
 		private void GenerateCacheSpecData()
 		{
+			SpecOptionList = SpecOption.All.ToList();
 			SpecAccountLevelExpList = SpecAccountLevelExp.All.ToList();
 			SpecChapterList = SpecChapter.All.ToList();
 			SpecCharacterList = SpecCharacter.All.ToList();
@@ -56,6 +62,9 @@ namespace CookApps.AutoBattler
 			SpecCharacterQuotesList = SpecCharacterQuotes.All.ToList();
 			SpecCommanderSkillList = SpecCommanderSkill.All.ToList();
 			SpecDialogueList = SpecDialogue.All.ToList();
+			SpecDungeonTrialList = SpecDungeonTrial.All.ToList();
+			SpecDungeonMonsterList = SpecDungeonMonster.All.ToList();
+			SpecDungeonRewardList = SpecDungeonReward.All.ToList();
 			SpecEventList = SpecEvent.All.ToList();
 			SpecEventConditionList = SpecEventCondition.All.ToList();
 			SpecLanguageList = SpecLanguage.All.ToList();
@@ -63,26 +72,27 @@ namespace CookApps.AutoBattler
 			SpecGachaScenarioList = SpecGachaScenario.All.ToList();
 			SpecGuideMissionList = SpecGuideMission.All.ToList();
 			SpecQuestList = SpecQuest.All.ToList();
-			SpecSkillList = SpecSkill.All.ToList();
 			SpecStageList = SpecStage.All.ToList();
 			SpecStageMonsterList = SpecStageMonster.All.ToList();
+			SpecSkillList = SpecSkill.All.ToList();
 			SpecStageRewardList = SpecStageReward.All.ToList();
-			SpecDungeonTrialList = SpecDungeonTrial.All.ToList();
-			SpecDungeonMonsterList = SpecDungeonMonster.All.ToList();
-			SpecDungeonRewardList = SpecDungeonReward.All.ToList();
+			SpecUserGradeList = SpecUserGrade.All.ToList();
 			SpecSynergyList = SpecSynergy.All.ToList();
+			SpecShopList = SpecShop.All.ToList();
+			SpecShopBannerList = SpecShopBanner.All.ToList();
 			SpecTutorialList = SpecTutorial.All.ToList();
 			SpecItemList = SpecItem.All.ToList();
 			SpecIdleRewardList = SpecIdleReward.All.ToList();
 			SpecInGameVfxList = SpecInGameVfx.All.ToList();
 			SpecRewardInfoList = SpecRewardInfo.All.ToList();
+			SpecObstacleList = SpecObstacle.All.ToList();
+			SpecOpenConditionList = SpecOpenCondition.All.ToList();
 			SpecPVPTierList = SpecPVPTier.All.ToList();
 			SpecPvpRewardList = SpecPvpReward.All.ToList();
 			SpecPVPRankingList = SpecPVPRanking.All.ToList();
 			SpecPVPConfigList = SpecPVPConfig.All.ToList();
 			SpecPVPDummyList = SpecPVPDummy.All.ToList();
 			SpecRewardList = SpecReward.All.ToList();
-			SpecOpenConditionList = SpecOpenCondition.All.ToList();
 		}
 	}
 }
