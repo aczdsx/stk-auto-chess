@@ -718,6 +718,8 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.ShopBannerConditionType shop_banner_condition_type;
         /// 등장 조건 키
         public CookApps.Obfuscator.ObfuscatorInt condition_key;
+        /// 등장 조건 카운트
+        public CookApps.Obfuscator.ObfuscatorInt condition_count;
     }
 
     [GeneratorSpecData]

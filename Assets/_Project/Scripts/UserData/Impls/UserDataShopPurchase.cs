@@ -109,6 +109,14 @@ namespace CookApps.AutoBattler
                 UserShopPurchase.UserShopBannerDatas[shopID].ShowConditionValue = value;
             }
             
+            // 컨디션에 따른 상태 업데이트
+            var specShopBannerData = SpecDataManager.Instance.GetShopBannerData(shopID);
+            if (specShopBannerData != null &&
+                UserShopPurchase.UserShopBannerDatas[shopID].ShowConditionValue >= specShopBannerData.condition_count)
+            {
+                SetShopBanneraStateType(shopID, ShopBannerStateType.ACTIVE, false);
+            }
+            
             if (needSave)
             {
                 SaveUserShopPurchaseData();
