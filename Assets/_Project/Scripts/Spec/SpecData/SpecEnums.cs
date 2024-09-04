@@ -611,6 +611,7 @@ namespace CookApps.AutoBattler
         NONE = 0,
         PERIOD = 1,
         TIME = 2,
+        PERIOD_TIME = 3,
     }
 
     public enum ShopBannerConditionType
