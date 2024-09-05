@@ -14,6 +14,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text _textCritDamage;
         [SerializeField] private TMP_Text _healDamage;
         [SerializeField] private TMP_Text _shieldDamage;
+        
+        [SerializeField] private GameObject _weakObj;
+        [SerializeField] private GameObject _resistObj;
 
         [SerializeField] private Transform _root;
         [SerializeField] private Animator _animator;
@@ -27,8 +30,10 @@ namespace CookApps.AutoBattler
         private static readonly int Heal = Animator.StringToHash("Heal");
         private static readonly int Shield = Animator.StringToHash("Shield");
 
-        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isDoubleCritical)
+        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isResist, bool isWeak)
         {
+            _weakObj.SetActive(isWeak);
+            _resistObj.SetActive(isResist);
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
             _damageText.text = $"{damage}";
 
