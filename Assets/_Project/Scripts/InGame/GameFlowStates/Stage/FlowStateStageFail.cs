@@ -24,7 +24,7 @@ public class FlowStateStageFail : StateBase
             UserDataManager.Instance.AddUserStageLoseCount(true);
         
         // 상점 배너 팝업 체크
-        ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.FIRST_STAGE_LOSE, 1, false);
+        ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.FIRST_STAGE_LOSE, 0, 1, false);
     }
 
     public override void StateRunning(float dt)

@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             // 상점 배너 팝업 체크
-            ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.ENTER_GACHA_POP, 1, false);
+            ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.ENTER_GACHA_POP, 0,  1, false);
             ShopPurchaseManager.Instance.ShowShopBannerPopup(ShopBannerShowType.IMMEDIATE);
             
             // test

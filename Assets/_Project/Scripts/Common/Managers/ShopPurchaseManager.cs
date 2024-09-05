@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
         }
         
         // 현재 상점 배너의 전체 상태를 체크
-        public void UpdateShopBannerConditionValue(ShopBannerConditionType conditionType, int value, bool isAdd)
+        public void UpdateShopBannerConditionValue(ShopBannerConditionType conditionType, int conditionKey, int value, bool isAdd)
         {
             var userShopBannerList = UserDataManager.Instance.GetAllShopBannerDataList();
 
@@ -39,7 +39,9 @@ namespace CookApps.AutoBattler
             foreach (var userShopBannerData in userShopBannerList)
             {
                 var specShopBannerData = SpecDataManager.Instance.GetShopBannerData(userShopBannerData.ShopId);
-                if (specShopBannerData != null && specShopBannerData.shop_banner_condition_type == conditionType)
+                if (specShopBannerData != null && 
+                    specShopBannerData.shop_banner_condition_type == conditionType &&
+                    specShopBannerData.condition_key == conditionKey)
                 {
                     UserDataManager.Instance.SetShopBannerConditionValue(userShopBannerData.ShopId, value, isAdd, false);
                     needSave = true;
