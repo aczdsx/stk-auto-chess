@@ -632,4 +632,18 @@ namespace CookApps.AutoBattler
         IMMEDIATE = 1,
         LOBBY = 2,
     }
+
+    public enum GachaType
+    {
+        NONE = 0,
+        COMMON_CHARACTER = 1,
+        COMMON_WEAPON = 2,
+        PICK_UP_CHARACTER = 3,
+    }
+
+    public enum GachaTermType
+    {
+        NONE = 0,
+        PERIOD = 1,
+    }
 }

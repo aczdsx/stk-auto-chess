@@ -428,6 +428,46 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecGacha
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 가챠 id
+        public CookApps.Obfuscator.ObfuscatorInt gacha_id;
+        /// 가챠 타입
+        public global::CookApps.AutoBattler.GachaType gacha_type;
+        /// 가챠 카운트
+        public CookApps.Obfuscator.ObfuscatorInt gacha_count;
+        /// 가챠 코스트 아이템 타입
+        public global::CookApps.AutoBattler.ItemType gacha_cost_item_type;
+        /// 가챠 코스트
+        public CookApps.Obfuscator.ObfuscatorInt gacha_cost;
+        /// 가챠 기간 타입
+        public global::CookApps.AutoBattler.GachaTermType gacha_term_type;
+        /// 가챠 시작 시간
+        [GeneratorDateTime(nameof(start_at))]
+        public string start_at;
+        /// 가챠 종료 시간
+        [GeneratorDateTime(nameof(end_at))]
+        public string end_at;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecGachaContent
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 가챠 id
+        public CookApps.Obfuscator.ObfuscatorInt gacha_id;
+        /// 가챠 결과물  id
+        public CookApps.Obfuscator.ObfuscatorInt gacha_result_id;
+        /// 확률
+        public CookApps.Obfuscator.ObfuscatorInt weight;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecGachaScenario
     {
         /// 유니크 id
@@ -757,6 +797,8 @@ namespace CookApps.AutoBattler
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 아이템 ID
+        public CookApps.Obfuscator.ObfuscatorInt item_id;
         /// 아이템 타입 이름
         public global::CookApps.AutoBattler.ItemType item_type;
         /// 아이템 분류
