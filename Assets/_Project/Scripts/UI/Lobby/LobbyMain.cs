@@ -173,6 +173,7 @@ namespace CookApps.AutoBattler
                     UpdateReddotState();
                     UpdateOpenCondition();
                     CheckShowSurveyPopup();
+                    CheckShopBannerPopup();
                     break;
                 case LobbyMainRefreshType.STAGE:
                     SetBottomStageUI();
@@ -353,6 +354,13 @@ namespace CookApps.AutoBattler
             }
         }
 
+        // 상점 배너 팝업 노출 여부 체크
+        private void CheckShopBannerPopup()
+        {
+            ShopPurchaseManager.Instance.ShowShopBannerPopup(ShopBannerShowType.LOBBY);
+        }
+        
+        // 설문 팝업 노출 여부 체크
         private void CheckShowSurveyPopup()
         {
             bool isShowSurvey = Preference.LoadPreference(Pref.SHOW_SURVEY_POPUP, 0) == 1;
@@ -366,6 +374,7 @@ namespace CookApps.AutoBattler
                 Preference.SavePreference(Pref.SHOW_SURVEY_POPUP, 1);
             }
         }
+        
         
         private void CheckNewChapterClear()
         {

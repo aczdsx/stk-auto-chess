@@ -22,6 +22,9 @@ public class FlowStateStageFail : StateBase
         // 패배 카운트 증가
         if (InGameManager.Instance.AppEventReason != "exit")
             UserDataManager.Instance.AddUserStageLoseCount(true);
+        
+        // 상점 배너 팝업 체크
+        ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.FIRST_STAGE_LOSE, 1, false);
     }
 
     public override void StateRunning(float dt)

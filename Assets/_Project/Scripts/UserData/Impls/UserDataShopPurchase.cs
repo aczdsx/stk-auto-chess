@@ -166,6 +166,21 @@ namespace CookApps.AutoBattler
             }
         }
         
+        public void ResetShopBannerData(int shopID, bool needSave)
+        {
+            if (UserShopPurchase.UserShopBannerDatas.ContainsKey(shopID) == false) return;
+
+            UserShopPurchase.UserShopBannerDatas[shopID].ShowConditionValue = 0;
+            UserShopPurchase.UserShopBannerDatas[shopID].ShowCount = 0;
+            UserShopPurchase.UserShopBannerDatas[shopID].ShopBannerStateType = (int)ShopBannerStateType.INACTIVE;
+            UserShopPurchase.UserShopBannerDatas[shopID].EndPurchaseTimestamp = 0;
+
+            if (needSave)
+            {
+                SaveUserShopPurchaseData();
+            }
+        }
+        
         // 상품 배너 데이터를 최신상태로 업데이트
         private void UpdateShopBannerData(bool needSave)
         {

@@ -406,8 +406,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4626751649019843731}
+  - component: {fileID: 7685145008000921455}
   m_Layer: 5
-  m_Name: BannerLayer_3001
+  m_Name: ShopBannerLayer_3001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,6 +434,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7685145008000921455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475765767064254520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e137d0b8df0535c4098e16c3896505a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopID: 3001
 --- !u!1 &1636095089487663313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2964,8 +2978,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4412376910111057871}
+  - component: {fileID: 439935603008904895}
   m_Layer: 5
-  m_Name: BannerLayer_4001
+  m_Name: ShopBannerLayer_4001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2991,6 +3006,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &439935603008904895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7732839293152895933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e137d0b8df0535c4098e16c3896505a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopID: 4001
 --- !u!1 &7822431376958553501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3043,7 +3071,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
   _closeButton: {fileID: 9204684409239048285}
-  _bannerLayerObjectList: []
+  _bannerLayerList:
+  - {fileID: 7685145008000921455}
+  - {fileID: 439935603008904895}
+  - {fileID: 5756886716162193139}
 --- !u!1 &7864869370111546049
 GameObject:
   m_ObjectHideFlags: 0
@@ -3053,8 +3084,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 203838141341557337}
+  - component: {fileID: 5756886716162193139}
   m_Layer: 5
-  m_Name: BannerLayer_5001
+  m_Name: ShopBannerLayer_5001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3080,6 +3112,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5756886716162193139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7864869370111546049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e137d0b8df0535c4098e16c3896505a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopID: 5001
 --- !u!1 &8213532986486451612
 GameObject:
   m_ObjectHideFlags: 0
