@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
             {
                 userQuest = new UserQuest();
 
-                userQuest.NextDailyRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                userQuest.NextDailyRefreshTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                 userQuest.NextWeeklyRefreshTimestamp = TimeManager.Instance.NextMondayTimeStamp();
                 
                 // 전체 퀘스트 리스트 생성 (일일)
@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
         {
             if (termType == TermType.DAILY)
             {
-                userQuest.NextDailyRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                userQuest.NextDailyRefreshTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
             }
             else if (termType == TermType.WEEKLY)
             {

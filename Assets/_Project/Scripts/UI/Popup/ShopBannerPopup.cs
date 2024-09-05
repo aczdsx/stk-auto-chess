@@ -52,11 +52,13 @@ namespace CookApps.AutoBattler
 
             ClearPopup();
             
-            foreach (var bannerLayerObject in _bannerLayerList)
+            foreach (var bannerLayer in _bannerLayerList)
             {
-                if (bannerLayerObject.ShopID != _specShopData.shop_id) continue;
+                if (bannerLayer.ShopID != _specShopData.shop_id) continue;
                 
-                bannerLayerObject.gameObject.SetActive(true);
+                bannerLayer.gameObject.SetActive(true);
+                bannerLayer.SetShopBannerLayer(this);
+                
                 UserDataManager.Instance.SetShopBannerShowCount(_specShopBannerData.shop_id, 1, true, true);
 
                 break;

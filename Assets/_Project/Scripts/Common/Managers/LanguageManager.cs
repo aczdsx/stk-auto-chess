@@ -141,6 +141,46 @@ namespace CookApps.AutoBattler
             return timeTextList.ToString();
         }
         
+        public string GetTimeSpanFromTargetText(long targetTimestamp)
+        {
+            var timeSpanData = TimeManager.Instance.GetTimeSpanFromTarget(targetTimestamp);
+            
+            StringBuilder timeTextList = new StringBuilder();
+
+            if (timeSpanData.Days > 0)
+            {
+                timeTextList.Append($"{timeSpanData.Days}일");
+            }
+            
+            if (timeSpanData.Hours > 0)
+            {
+                timeTextList.Append($"{timeSpanData.Hours}시간");
+            }
+            
+            timeTextList.Append($"{timeSpanData.Minutes}분 남음");
+            
+            return timeTextList.ToString();
+        }
+
+        public string GetRemainTimeText(TimeSpan targetTimeSpan)
+        {
+            StringBuilder timeTextList = new StringBuilder();
+
+            if (targetTimeSpan.Days > 0)
+            {
+                timeTextList.Append($"{targetTimeSpan.Days}일");
+            }
+            
+            if (targetTimeSpan.Hours > 0)
+            {
+                timeTextList.Append($"{targetTimeSpan.Hours}시간");
+            }
+            
+            timeTextList.Append($"{targetTimeSpan.Minutes}분 남음");
+            
+            return timeTextList.ToString();
+        }
+        
         public LanguageType GetSystemLanguageType()
         {
             switch (Application.systemLanguage)

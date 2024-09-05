@@ -115,6 +115,15 @@ namespace CookApps.AutoBattler
                 UserShopPurchase.UserShopBannerDatas[shopID].ShowConditionValue >= specShopBannerData.condition_count)
             {
                 SetShopBanneraStateType(shopID, ShopBannerStateType.ACTIVE, false);
+                
+                // 판매 종료 시간이 있는 타입일 경우 처리
+                var specShopData = SpecDataManager.Instance.GetShopData(shopID);
+                if (specShopData != null && 
+                    (specShopData.shop_term_type == ShopTermType.TIME || specShopData.shop_term_type == ShopTermType.PERIOD_TIME))
+                {
+                    var endTimeStamp = TimeManager.Instance.AddMinuteTimeStamp(specShopData.duration_time);
+                    SetShopBannerEndPurchaseTime(shopID, endTimeStamp, false);
+                }
             }
             
             if (needSave)

@@ -252,7 +252,7 @@ namespace CookApps.AutoBattler
                     UserPVP.NextRefreshMatchingListTimestamp = TimeManager.Instance.AddSecondsTimeStamp(nextMatchingRefreshTime);
                     break;
                 case PVPTimeRefreshType.MATCHING_REFRESH_COUNT:
-                    UserPVP.RefreshMatchingCntTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    UserPVP.RefreshMatchingCntTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
                 case PVPTimeRefreshType.RANKING_LIST:
                     var nextRankingRefreshTime = SpecDataManager.Instance.GetGameConfig<int>("PVP_RANKING_LIST_REFRESH_TIME");
@@ -263,13 +263,13 @@ namespace CookApps.AutoBattler
                     UserPVP.AutoRefreshProfileTimestamp = TimeManager.Instance.AddSecondsTimeStamp(autoRefreshTime);
                     break;
                 case PVPTimeRefreshType.DAILY_REWARD:
-                    UserPVP.DailyRewardResetTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    UserPVP.DailyRewardResetTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
                 case PVPTimeRefreshType.BUY_TICKET:
-                    UserPVP.BuyTicketResetTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    UserPVP.BuyTicketResetTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
                 case PVPTimeRefreshType.REFILL_TICKET:
-                    UserPVP.PvpTicketTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    UserPVP.PvpTicketTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
             }
 

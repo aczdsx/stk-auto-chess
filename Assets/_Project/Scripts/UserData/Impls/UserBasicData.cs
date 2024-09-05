@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
                     UserInstallDate = TimeManager.Instance.UtcNowTimeStamp(),
 
                     DailyVisitCount = 1,
-                    DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStamp(),
+                    DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStampLocal(),
                     TotalGachaCount = 0,
                     UserStageLoseCount = 0,
                     UserDungeonLoseCount = 0,
@@ -108,7 +108,7 @@ namespace CookApps.AutoBattler
             if (UserBasicData.DailyVisitCountTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
             {
                 UserBasicData.DailyVisitCount++;
-                UserBasicData.DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                UserBasicData.DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                 
                 if (needSave)
                 {
@@ -238,7 +238,7 @@ namespace CookApps.AutoBattler
             {
                 SetResetCharacterCount(0, false, false);
 
-                UserBasicData.ResetCharacterTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                UserBasicData.ResetCharacterTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
 
                 SaveUserBasic();
             }

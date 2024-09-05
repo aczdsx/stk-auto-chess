@@ -123,7 +123,7 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
             appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, UserDataManager.Instance.UserBasicData.DailyVisitCount);
             appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
-            var installDateTime = TimeManager.Instance.TimeStampToDateTime(UserDataManager.Instance.UserBasicData.UserInstallDate);
+            var installDateTime = TimeManager.Instance.TimeStampToDateTimeLocal(UserDataManager.Instance.UserBasicData.UserInstallDate);
             appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
             var specBestStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLatestClearUserStageID());
             appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);

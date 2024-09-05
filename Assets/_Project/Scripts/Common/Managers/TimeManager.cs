@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
             return UtcNowLocal().DayOfWeek;
         }
 
-        public DateTime Tommorrow()
+        public DateTime TommorrowLocal()
         {
             DateTime now = UtcNowLocal();
             return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc).AddDays(1);
@@ -57,15 +57,27 @@ namespace CookApps.AutoBattler
             return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, DateTimeKind.Utc).AddMinutes(minute);
         }
         
+        public DateTime AddMinuteLocal(double minute)
+        {
+            DateTime now = UtcNowLocal();
+            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, DateTimeKind.Utc).AddMinutes(minute);
+        }
+        
         public DateTime AddSeconds(double seconds)
         {
             DateTime now = UtcNow();
             return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, DateTimeKind.Utc).AddSeconds(seconds);
         }
-
-        public long TommorrowTimeStamp()
+        
+        public DateTime AddSecondsLocal(double seconds)
         {
-            return DateTimeToTimeStamp(Tommorrow());
+            DateTime now = UtcNowLocal();
+            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, DateTimeKind.Utc).AddSeconds(seconds);
+        }
+
+        public long TommorrowTimeStampLocal()
+        {
+            return DateTimeToTimeStamp(TommorrowLocal());
         }
         
         public long AddMinuteTimeStamp(double minute)
@@ -73,9 +85,19 @@ namespace CookApps.AutoBattler
             return DateTimeToTimeStamp(AddMinute(minute));
         }
         
+        public long AddMinuteTimeStampLocal(double minute)
+        {
+            return DateTimeToTimeStamp(AddMinuteLocal(minute));
+        }
+        
         public long AddSecondsTimeStamp(double seconds)
         {
             return DateTimeToTimeStamp(AddSeconds(seconds));
+        }
+        
+        public long AddSecondsTimeStampLocal(double seconds)
+        {
+            return DateTimeToTimeStamp(AddSecondsLocal(seconds));
         }
 
         public DateTime NextMonday()
@@ -100,17 +122,22 @@ namespace CookApps.AutoBattler
 
         public TimeSpan GetTimeSpan(long targetTimeStamp)
         {
-            return TimeStampToDateTime(targetTimeStamp) - UtcNowLocal();
+            return TimeStampToDateTimeLocal(targetTimeStamp) - UtcNowLocal();
         }
         
         public TimeSpan GetTimeSpan(long baseTimeStamp, long targetTimeStamp)
         {
-            return TimeStampToDateTime(targetTimeStamp) - TimeStampToDateTime(baseTimeStamp);
+            return TimeStampToDateTimeLocal(targetTimeStamp) - TimeStampToDateTimeLocal(baseTimeStamp);
         }
 
         public TimeSpan GetTimeSpanFromNow(long targetTimeStamp)
         {
-            return UtcNowLocal() - TimeStampToDateTime(targetTimeStamp);
+            return UtcNowLocal() - TimeStampToDateTimeLocal(targetTimeStamp);
+        }
+        
+        public TimeSpan GetTimeSpanFromTarget(long targetTimeStamp)
+        {
+            return TimeStampToDateTimeLocal(targetTimeStamp) - UtcNowLocal();
         }
 
         public long GetLeftTimestampFromNow(long targetTimestamp)
@@ -121,7 +148,7 @@ namespace CookApps.AutoBattler
         public DateTime GetLeftDateTimeFromNow(long targetTimestamp)
         {
             var leftTimestamp = GetLeftTimestampFromNow(targetTimestamp);
-            return TimeStampToDateTime(leftTimestamp);
+            return TimeStampToDateTimeLocal(leftTimestamp);
         }
 
         public long DateTimeToTimeStamp(DateTime value)
@@ -130,6 +157,14 @@ namespace CookApps.AutoBattler
         }
 
         public DateTime TimeStampToDateTime(long value)
+        {
+            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dt = dt.AddSeconds(value);
+            
+            return dt;
+        }
+        
+        public DateTime TimeStampToDateTimeLocal(long value)
         {
             DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dt = dt.AddSeconds(value);
