@@ -1042,6 +1042,30 @@ namespace CookApps.AutoBattler
         
         #endregion
 
+        #region Shop
+
+        public SpecShop GetShopData(int shopID)
+        {
+            return SpecShopList.Find(data => data.shop_id == shopID);
+        }
+        
+        public List<SpecShop> GetShopDataList(ShopMainGroupType mainGroupType)
+        {
+            return SpecShopList.FindAll(data => data.shop_main_group_type == mainGroupType);
+        }
+        
+        public List<SpecShop> GetShopDataList(ShopMainGroupType mainGroupType, ShopSubGroupType subGroupType)
+        {
+            return SpecShopList.FindAll(data => data.shop_main_group_type == mainGroupType && data.shop_sub_group_type == subGroupType);
+        }
+        
+        public SpecShopBanner GetShopBannerData(int shopID)
+        {
+            return SpecShopBannerList.Find(data => data.shop_id == shopID);
+        }
+        
+        #endregion
+
 
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
         // {

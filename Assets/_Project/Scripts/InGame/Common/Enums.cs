@@ -8,6 +8,12 @@ namespace CookApps.AutoBattler
         KR,
         EN,
     }
+
+    public enum ShopBannerStateType
+    {
+        INACTIVE,
+        ACTIVE,
+    }
     
     public enum MissionStateType
     {

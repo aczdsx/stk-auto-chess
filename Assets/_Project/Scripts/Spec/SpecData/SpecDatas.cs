@@ -700,6 +700,8 @@ namespace CookApps.AutoBattler
         public string end_at;
         /// 상품 판매 유지 시간(분)
         public CookApps.Obfuscator.ObfuscatorInt duration_time;
+        /// 최대 구매 가능 횟수
+        public CookApps.Obfuscator.ObfuscatorInt buy_limit_count;
     }
 
     [GeneratorSpecData]
@@ -716,6 +718,8 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.ShopBannerConditionType shop_banner_condition_type;
         /// 등장 조건 키
         public CookApps.Obfuscator.ObfuscatorInt condition_key;
+        /// 등장 조건 카운트
+        public CookApps.Obfuscator.ObfuscatorInt condition_count;
     }
 
     [GeneratorSpecData]
