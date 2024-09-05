@@ -148,6 +148,7 @@ public class EffectCodeSkill1204031 : EffectCodeCharacterBase
         
         foreach (var tile in tiles.FindAll(l => l.View.AllianceType == AllianceType.Player))
         {
+            InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.18f, 0.1f);
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
             if (tile.CheckValidTile(owner.AllianceType, false))
