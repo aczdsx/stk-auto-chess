@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _closeButton;
 
         [Space(10)] 
-        [SerializeField] private List<GameObject> _bannerLayerObjectList;
+        [SerializeField] private List<ShopBannerLayer> _bannerLayerList;
 
         private SpecShop _specShopData;
         private SpecShopBanner _specShopBannerData;
@@ -50,11 +50,18 @@ namespace CookApps.AutoBattler
             if (_specShopData == null) return;
             if (_specShopBannerData == null) return;
 
-            string targetLayerName = $"BannerLayer_{_specShopBannerData.shop_id}";
+            ClearPopup();
             
-            foreach (var bannerLayerObject in _bannerLayerObjectList)
+            foreach (var bannerLayer in _bannerLayerList)
             {
-                bannerLayerObject.SetActive(bannerLayerObject.gameObject.name == targetLayerName);
+                if (bannerLayer.ShopID != _specShopData.shop_id) continue;
+                
+                bannerLayer.gameObject.SetActive(true);
+                bannerLayer.SetShopBannerLayer(this);
+                
+                UserDataManager.Instance.SetShopBannerShowCount(_specShopBannerData.shop_id, 1, true, true);
+
+                break;
             }
         }
         
@@ -63,6 +70,14 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
             SceneUILayerManager.Instance.PopUILayer(this);
+        }
+
+        private void ClearPopup()
+        {
+            foreach (var bannerLayerObject in _bannerLayerList)
+            {
+                bannerLayerObject.gameObject.SetActive(false);
+            }
         }
     }   
 }

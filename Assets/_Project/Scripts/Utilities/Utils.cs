@@ -92,6 +92,29 @@ namespace BiniLab
             int pick = UnityEngine.Random.Range(0, list.Count);
             return list[pick];
         }
+        
+        public static T RandomRatePick<T>(
+            this IEnumerable<T> list,
+            Func<T, double> selector)
+        {
+            double sum = list.Sum(selector);
+
+            Random random = new System.Random();
+            double randomValue = random.NextDouble() * sum;
+
+            foreach (T item in list)
+            {
+                double rate = selector(item);
+                if (rate > randomValue)
+                {
+                    return item;
+                }
+
+                randomValue -= rate;
+            }
+
+            return default(T);
+        }
 
         public static float RoundFloat(float v, int c = 2)
         {

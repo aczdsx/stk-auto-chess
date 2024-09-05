@@ -209,7 +209,7 @@ namespace CookApps.AutoBattler
                 // 출석 이벤트 처리
                 if (currentEventData.event_type == EventType.ATTENDANCE)
                 {
-                    long extraRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    long extraRefreshTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
 
                     UserEvent.UserEventDatas[currentEventData.event_id].EventExtraRefreshTimestamp = extraRefreshTimestamp;
                 }
@@ -217,7 +217,7 @@ namespace CookApps.AutoBattler
                 // 나머지 기간제 이벤트 처리
                 if (currentEventData.term_type == TermType.DAILY)
                 {
-                    UserEvent.UserEventDatas[currentEventData.event_id].EventRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    UserEvent.UserEventDatas[currentEventData.event_id].EventRefreshTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                 }
                 else if (currentEventData.term_type == TermType.WEEKLY)
                 {
@@ -240,7 +240,7 @@ namespace CookApps.AutoBattler
                 // 출석 이벤트 처리
                 if (currentEventData.event_type == EventType.ATTENDANCE)
                 {
-                    long extraRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    long extraRefreshTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     if (isFirstInit)
                     {
                         extraRefreshTimestamp = TimeManager.Instance.DefaultTimeStamp();
@@ -252,7 +252,7 @@ namespace CookApps.AutoBattler
                 // 나머지 기간제 이벤트 처리
                 if (currentEventData.term_type == TermType.DAILY)
                 {
-                    UserEvent.UserEventDatas[currentEventData.event_id].EventRefreshTimestamp = TimeManager.Instance.TommorrowTimeStamp();
+                    UserEvent.UserEventDatas[currentEventData.event_id].EventRefreshTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                 }
                 else if (currentEventData.term_type == TermType.WEEKLY)
                 {

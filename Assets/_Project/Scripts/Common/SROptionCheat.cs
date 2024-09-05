@@ -547,5 +547,27 @@ public partial class SROptions
     [Category("던전 관련")] public int 대상던전ID { get; set; } = 0;
 
     #endregion
+    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    
+    #region 상점 관련
+    
+    [Category("상점 관련")]
+    
+    public void 상점배너데이터초기화()
+    {
+        var userShopBannerDataList = UserDataManager.Instance.GetAllShopBannerDataList();
+
+        foreach (var bannerData in userShopBannerDataList)
+        {
+            UserDataManager.Instance.ResetShopBannerData(bannerData.ShopId, false);
+        }
+        
+        UserDataManager.Instance.SaveUserShopPurchaseData();
+        
+        ToastManager.Instance.ShowToast("치트 - 사용완료");
+    }
+    
+    #endregion
 }
 #endif
