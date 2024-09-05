@@ -98,6 +98,12 @@ namespace CookApps.AutoBattler
         {
             if (_currentUserShopBannerData == null) return;
 
+            if (UserDataManager.Instance.CheckPurchaseLimitCount(_currentUserShopBannerData.ShopId) == false)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_PURCHASE_COUNT_OVER");
+                return;
+            }
+            
             if (UserDataManager.Instance.CheckValidShopTime(_currentUserShopBannerData.ShopId) == false)
             {
                 ToastManager.Instance.ShowToastByTokenKey("PURCHASE_TIME_OVER_ALERT");
