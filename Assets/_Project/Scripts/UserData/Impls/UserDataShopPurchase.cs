@@ -84,6 +84,22 @@ namespace CookApps.AutoBattler
             return UserShopPurchase.UserPurchaseDatas[shopID];
         }
 
+        public void SetPurchaseCount(int shopID, int value, bool isAdd)
+        {
+            if (UserShopPurchase.UserPurchaseDatas.ContainsKey(shopID) == false) return;
+
+            if (isAdd)
+            {
+                UserShopPurchase.UserPurchaseDatas[shopID].PurchaseCount += value;
+            }
+            else
+            {
+                UserShopPurchase.UserPurchaseDatas[shopID].PurchaseCount = value;
+            }
+            
+            UserShopPurchase.UserPurchaseDatas[shopID].PurchaseTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
+        }
+
         public bool CheckPurchaseLimitCount(int shopID)
         {
             if (UserShopPurchase.UserPurchaseDatas.ContainsKey(shopID) == false) return false;
