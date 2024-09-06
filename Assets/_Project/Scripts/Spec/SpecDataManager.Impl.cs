@@ -1086,6 +1086,39 @@ namespace CookApps.AutoBattler
             return resultList;
         }
         
+        // 가챠 항목에서 랜덤으로 아이템을 뽑아 RewardItem 형태로 반환
+        public List<RewardItem> GetRandomPickGachaRewardItemList(int gachaID, int count)
+        {
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+
+            var targetList = GetGachaContentDataList(gachaID);
+            if (targetList != null && targetList.Count > 0)
+            {
+                for (int i = 0; i < count; ++i)
+                {
+                    SpecGachaContent selectedData = targetList.RandomRatePick(content => content.weight);
+                    if (selectedData != null)
+                    {
+                        rewardItemList.Add(new RewardItem(selectedData.result_item_type, selectedData.result_item_key, selectedData.result_item_count));
+                    }
+                }
+            }
+
+            return rewardItemList;
+        }
+        
+        // 가챠 결과 데이터를 RewardItem 리스트로 변환
+        public List<RewardItem> GetRewardItemListByGachaContentList(List<SpecGachaContent> gachaContentList)
+        {
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            foreach (var gachaContent in gachaContentList)
+            {
+                rewardItemList.Add(new RewardItem(gachaContent.result_item_type, gachaContent.result_item_key, gachaContent.result_item_count));
+            }
+
+            return rewardItemList;
+        }
+        
         // 시나리오 가챠 데이터 반환
         public List<SpecGachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
         {

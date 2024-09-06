@@ -461,8 +461,12 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt id;
         /// 가챠 id
         public CookApps.Obfuscator.ObfuscatorInt gacha_id;
-        /// 가챠 결과물  id
-        public CookApps.Obfuscator.ObfuscatorInt gacha_result_id;
+        /// 가챠 결과 아이템 타입
+        public global::CookApps.AutoBattler.ItemType result_item_type;
+        /// 가챠 결과 아이템  id
+        public CookApps.Obfuscator.ObfuscatorInt result_item_key;
+        /// 가챠 결과 아이템 갯수
+        public CookApps.Obfuscator.ObfuscatorInt result_item_count;
         /// 확률
         public CookApps.Obfuscator.ObfuscatorInt weight;
     }
