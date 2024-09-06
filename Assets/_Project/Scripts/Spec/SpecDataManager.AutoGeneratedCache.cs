@@ -25,6 +25,8 @@ namespace CookApps.AutoBattler
 		public List<SpecEventCondition> SpecEventConditionList {get; private set;}
 		public List<SpecLanguage> SpecLanguageList {get; private set;}
 		public List<SpecGameConfig> SpecGameConfigList {get; private set;}
+		public List<SpecGacha> SpecGachaList {get; private set;}
+		public List<SpecGachaContent> SpecGachaContentList {get; private set;}
 		public List<SpecGachaScenario> SpecGachaScenarioList {get; private set;}
 		public List<SpecGuideMission> SpecGuideMissionList {get; private set;}
 		public List<SpecQuest> SpecQuestList {get; private set;}
@@ -69,6 +71,8 @@ namespace CookApps.AutoBattler
 			SpecEventConditionList = SpecEventCondition.All.ToList();
 			SpecLanguageList = SpecLanguage.All.ToList();
 			SpecGameConfigList = SpecGameConfig.All.ToList();
+			SpecGachaList = SpecGacha.All.ToList();
+			SpecGachaContentList = SpecGachaContent.All.ToList();
 			SpecGachaScenarioList = SpecGachaScenario.All.ToList();
 			SpecGuideMissionList = SpecGuideMission.All.ToList();
 			SpecQuestList = SpecQuest.All.ToList();

@@ -6,6 +6,7 @@ using CookApps.LocalData;
 #endif
 using System.Collections.Generic;
 using System.Linq;
+using BiniLab;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
@@ -637,27 +638,6 @@ namespace CookApps.AutoBattler
                                                       && data.difficulty_type == difficultyType);
         }
 
-        // 시나리오 가챠 데이터 반환
-        public List<SpecGachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
-        {
-            int maxCount = SpecGachaScenarioList.Count;
-            int resultCount = currentCount + gachaCount > maxCount ? maxCount - currentCount : gachaCount;
-
-            return SpecGachaScenarioList.GetRange(currentCount, resultCount);
-        }
-
-        // 시나리오 가챠 데이터를 RewardItem 리스트로 변환
-        public List<RewardItem> GetRewardItemListByGachaScenarioList(List<SpecGachaScenario> gachaScenarioList)
-        {
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-            foreach (var gachaScenario in gachaScenarioList)
-            {
-                rewardItemList.Add(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count));
-            }
-
-            return rewardItemList;
-        }
-
         // 스테이지 보상 데이터를 RewardItem 리스트로 변환
         public List<RewardItem> GetRewardItemListByStageRewardList(List<SpecStageReward> stageRewardList)
         {
@@ -1066,6 +1046,68 @@ namespace CookApps.AutoBattler
         
         #endregion
 
+        #region Gacha
+
+        public SpecGacha GetGachaData(int gachaID)
+        {
+            return SpecGachaList.Find(data => data.gacha_id == gachaID);
+        }
+        
+        public SpecGacha GetGachaData(GachaType gachaType, int gachaCount)
+        {
+            return SpecGachaList.Find(data => data.gacha_type == gachaType && data.gacha_count == gachaCount);
+        }
+        
+        public List<SpecGacha> GetGachaDataList(GachaType gachaType)
+        {
+            return SpecGachaList.FindAll(data => data.gacha_type == gachaType);
+        }
+
+        public List<SpecGachaContent> GetGachaContentDataList(int gachaID)
+        {
+            return SpecGachaContentList.FindAll(data => data.gacha_id == gachaID);
+        }
+
+        // 가챠 항목에서 랜덤으로 아이템을 뽑아 갯수만큼 반환
+        public List<SpecGachaContent> GetRandomPickGachaContentList(int gachaID, int count)
+        {
+            List<SpecGachaContent> resultList = new List<SpecGachaContent>();
+
+            var targetList = GetGachaContentDataList(gachaID);
+            if (targetList != null && targetList.Count > 0)
+            {
+                for (int i = 0; i < count; ++i)
+                {
+                    SpecGachaContent selectedData = targetList.RandomRatePick(content => content.weight);
+                    resultList.Add(selectedData);
+                }
+            }
+
+            return resultList;
+        }
+        
+        // 시나리오 가챠 데이터 반환
+        public List<SpecGachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
+        {
+            int maxCount = SpecGachaScenarioList.Count;
+            int resultCount = currentCount + gachaCount > maxCount ? maxCount - currentCount : gachaCount;
+
+            return SpecGachaScenarioList.GetRange(currentCount, resultCount);
+        }
+
+        // 시나리오 가챠 데이터를 RewardItem 리스트로 변환
+        public List<RewardItem> GetRewardItemListByGachaScenarioList(List<SpecGachaScenario> gachaScenarioList)
+        {
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            foreach (var gachaScenario in gachaScenarioList)
+            {
+                rewardItemList.Add(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count));
+            }
+
+            return rewardItemList;
+        }
+
+        #endregion
 
         // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
         // {
