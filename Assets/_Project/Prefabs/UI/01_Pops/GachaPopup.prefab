@@ -341,8 +341,9 @@ GameObject:
   - component: {fileID: 1375122737185137985}
   - component: {fileID: 3435743359366595344}
   - component: {fileID: 6661360822230390733}
+  - component: {fileID: 8628662271491571982}
   m_Layer: 6
-  m_Name: PopupGacha
+  m_Name: PopupGachaTabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,8 +362,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 858287121935712621}
-  - {fileID: 6826115405470000749}
   - {fileID: 1543810977227138357}
+  - {fileID: 6826115405470000749}
   - {fileID: 4334406472670507854}
   - {fileID: 2168599543079987098}
   - {fileID: 6439016646343672898}
@@ -407,6 +408,26 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8628662271491571982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50768549350461285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8171a5e1f10546a1b5adc1dba16ccd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowSwitchOff: 0
+  onToggleGroupChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onToggleGroupToggleChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  selectedToggle: {fileID: 0}
 --- !u!1 &79989343577356734
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,9 +437,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1543810977227138357}
-  - component: {fileID: 339631544182187191}
+  - component: {fileID: 8268042558840452767}
+  - component: {fileID: 3862417998633201016}
+  - component: {fileID: 3737124032677805483}
   m_Layer: 6
-  m_Name: Normal
+  m_Name: CommonCharacterTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,7 +468,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 326, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &339631544182187191
+--- !u!114 &8268042558840452767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -454,7 +477,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 79989343577356734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3862417998633201016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79989343577356734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d9fe483ff76484fa86ee94fb811324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -485,13 +524,25 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1399646993260506621}
-  m_OnClick:
+  m_TargetGraphic: {fileID: 8268042558840452767}
+  toggleTransition: 1
+  activateGraphics: []
+  inactivateGraphics: []
+  activateCanvasGroup: {fileID: 1454465342564336597}
+  inactivateCanvasGroup: {fileID: 0}
+  m_Group: {fileID: 8628662271491571982}
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onToggleChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onToggleOn:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PopupGacha, Assembly-CSharp
-        m_MethodName: OnClickNormalGacha
+      - m_Target: {fileID: 2039025371989645973}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.GachaPopup, Assembly-CSharp
+        m_MethodName: OnClickCommonCharacterLayerTabButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -501,6 +552,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_IsOn: 1
+  useDefaultClickSound: 0
+--- !u!222 &3737124032677805483
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79989343577356734}
+  m_CullTransparentMesh: 1
 --- !u!1 &125949197561932076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,7 +2889,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &820146212485247191
@@ -4115,7 +4176,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1125627590539404045
@@ -5742,7 +5803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130, y: -165}
+  m_AnchoredPosition: {x: 130, y: -135}
   m_SizeDelta: {x: 260, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8188782553554387124
@@ -6292,14 +6353,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6826115405470000749}
-  - component: {fileID: 7364989312011794830}
+  - component: {fileID: 3843348976223935011}
+  - component: {fileID: 366314070024943464}
+  - component: {fileID: 3732870584452114204}
   m_Layer: 6
-  m_Name: StartDash
+  m_Name: PickUpCharacterTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6826115405470000749
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6315,12 +6378,20 @@ RectTransform:
   - {fileID: 6280006455624596254}
   m_Father: {fileID: 1375122737185137985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 163, y: -200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 326, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7364989312011794830
+--- !u!222 &3843348976223935011
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877895768256851396}
+  m_CullTransparentMesh: 1
+--- !u!114 &366314070024943464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6329,7 +6400,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1877895768256851396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3732870584452114204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877895768256851396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d9fe483ff76484fa86ee94fb811324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -6360,13 +6447,25 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1971130184727295005}
-  m_OnClick:
+  m_TargetGraphic: {fileID: 366314070024943464}
+  toggleTransition: 1
+  activateGraphics: []
+  inactivateGraphics: []
+  activateCanvasGroup: {fileID: 4966043868168033818}
+  inactivateCanvasGroup: {fileID: 0}
+  m_Group: {fileID: 8628662271491571982}
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onToggleChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onToggleOn:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PopupGacha, Assembly-CSharp
-        m_MethodName: OnClickStartDashGacha
+      - m_Target: {fileID: 2039025371989645973}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.GachaPopup, Assembly-CSharp
+        m_MethodName: OnClickPickUpCharacterLayerTabButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6376,6 +6475,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_IsOn: 0
+  useDefaultClickSound: 0
 --- !u!1 &1881019133480301741
 GameObject:
   m_ObjectHideFlags: 0
@@ -9890,8 +9991,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
   _backButton: {fileID: 8336901803180182353}
-  _gacha1Button: {fileID: 867604230840064932}
-  _gacha10Button: {fileID: 7972183021802121014}
+  _gachaCommonCharacterTab: {fileID: 79989343577356734}
+  _gachaPickUpCharacterTab: {fileID: 1877895768256851396}
+  _gachaCommonCharacterLayer: {fileID: 7685183097084280974}
+  _gachaPickUpCharacterLayer: {fileID: 8565426902345232906}
 --- !u!95 &1547582427566992942
 Animator:
   serializedVersion: 5
@@ -11239,6 +11342,7 @@ GameObject:
   - component: {fileID: 9149715882922377035}
   - component: {fileID: 4179896155187815489}
   - component: {fileID: 1998307420482429465}
+  - component: {fileID: 4966043868168033818}
   m_Layer: 6
   m_Name: Select
   m_TagString: Untagged
@@ -11303,6 +11407,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &4966043868168033818
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592146473131686850}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3598673589218009107
 GameObject:
   m_ObjectHideFlags: 0
@@ -11731,7 +11847,7 @@ GameObject:
   - component: {fileID: 4388368917275392293}
   - component: {fileID: 6920197562576010098}
   m_Layer: 6
-  m_Name: BaseBody
+  m_Name: GachaLayers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13774,6 +13890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7316417999420435040}
   - component: {fileID: 764324574597656921}
+  - component: {fileID: 1454465342564336597}
   m_Layer: 6
   m_Name: Select
   m_TagString: Untagged
@@ -13810,6 +13927,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4239816527266917193}
   m_CullTransparentMesh: 1
+--- !u!225 &1454465342564336597
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239816527266917193}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4279080005237880633
 GameObject:
   m_ObjectHideFlags: 0
@@ -14092,7 +14221,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4346370711395607844
@@ -14659,7 +14788,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4512448342239607297
@@ -16204,7 +16333,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5009091006322510213
@@ -19081,7 +19210,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5908067658164035292
@@ -21685,7 +21814,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6683627717984119670
@@ -23963,8 +24092,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5650457803307274604}
+  - component: {fileID: 7685183097084280974}
   m_Layer: 6
-  m_Name: NormalGacha
+  m_Name: CommonCharacterLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23991,6 +24121,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7685183097084280974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334627265486222692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fadbdc11fed3971479a9b0a463e5ae6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gachaType: 1
+  _gacha1Button: {fileID: 867604230840064932}
+  _gacha10Button: {fileID: 7972183021802121014}
 --- !u!1 &7369729989799188110
 GameObject:
   m_ObjectHideFlags: 0
@@ -24521,7 +24666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 444, y: -60}
+  m_AnchoredPosition: {x: 250, y: -66.02325}
   m_SizeDelta: {x: 260, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398619793871413960
@@ -28105,7 +28250,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8567609512516366359
@@ -28497,8 +28642,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4725992816645367969}
+  - component: {fileID: 8565426902345232906}
   m_Layer: 6
-  m_Name: StartDashGacha
+  m_Name: PickUpCharacterLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28525,6 +28671,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8565426902345232906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622959075048585140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a554bcbcf6b5e449fefe0b62477e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gachaType: 3
+  _gacha1Button: {fileID: 0}
+  _gacha10Button: {fileID: 0}
 --- !u!1 &8669064155149198928
 GameObject:
   m_ObjectHideFlags: 0
@@ -32929,7 +33090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3430488017780487408, guid: 8b448a8342762044a975b3aef392d795, type: 3}
       propertyPath: m_Name
-      value: Btn_Summon_Primary
+      value: Btn_Summon_Ten
       objectReference: {fileID: 0}
     - target: {fileID: 6538524656145683922, guid: 8b448a8342762044a975b3aef392d795, type: 3}
       propertyPath: m_SizeDelta.x
@@ -33159,7 +33320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8069576848523995371, guid: 1dce9723216b6e841ae8cf651279091f, type: 3}
       propertyPath: m_Name
-      value: Btn_Summon_Default
+      value: Btn_Summon_One
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

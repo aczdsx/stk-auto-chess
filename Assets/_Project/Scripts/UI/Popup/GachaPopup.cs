@@ -8,21 +8,29 @@ using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
+    public enum GachaPopupTabType
+    {
+        CommonCharacter,
+        PickUpCharacter,
+    }
+    
     [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/GachaPopup.prefab")]
     public class GachaPopup : UILayer
     {
         [SerializeField] private CAButton _backButton;
 
-        private Canvas cc;
-
-        [Space(10)]
-        [SerializeField] private CAButton _gacha1Button;
-        [SerializeField] private CAButton _gacha10Button;
-
+        [Header("Gacha Tabs")]
+        [SerializeField] private GameObject _gachaCommonCharacterTab;
+        [SerializeField] private GameObject _gachaPickUpCharacterTab;
+        
+        [Header("Gacha Layers")]
+        [SerializeField] private GachaCommonCharacterLayer _gachaCommonCharacterLayer;
+        [SerializeField] private GachaPickUpCharacterLayer _gachaPickUpCharacterLayer;
+        
+        private GachaPopupTabType _currentTabType = GachaPopupTabType.CommonCharacter;
+        
         private void Awake()
         {
-            _gacha1Button.onClick.AddListener(OnClickGacha1Button);
-            _gacha10Button.onClick.AddListener(OnClickGacha10Button);
             _backButton.onClick.AddListener(OnClickCloseButton);
         }
 
@@ -30,8 +38,6 @@ namespace CookApps.AutoBattler
         {
             base.OnDestroy();
 
-            _gacha1Button.onClick.RemoveListener(OnClickGacha1Button);
-            _gacha10Button.onClick.RemoveListener(OnClickGacha10Button);
             _backButton.onClick.RemoveListener(OnClickCloseButton);
         }
 
@@ -42,6 +48,15 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
+            _currentTabType = GachaPopupTabType.CommonCharacter;
+            if (param != null)
+            {
+                _currentTabType = (GachaPopupTabType)param;
+            }
+
+            InitTabLayer();
+            ChangeTabLayer(_currentTabType);
+            
             // 상점 배너 팝업 체크
             ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.ENTER_GACHA_POP, 0,  1, false);
             ShopPurchaseManager.Instance.ShowShopBannerPopup(ShopBannerShowType.IMMEDIATE);
@@ -55,102 +70,35 @@ namespace CookApps.AutoBattler
             GameObject.Find("MainCanvas").GetComponent<Canvas>().targetDisplay = targetDisplay;
         }
 
-        private void OnClickGacha1Button()
+        private void InitTabLayer()
         {
-            // 재화 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.C_TICKET, 0, Defines.GACHA_1_TIME_COUNT, true))
-            {
-                return;
-            }
-
-            // SpecCharacter result = SpecDataManager.Instance.GetCharacterData(40101);
-            // List<SpecCharacter> tempResultList = new List<SpecCharacter>();
-            // tempResultList.Add(result);
-
-            int currentGachaCount = UserDataManager.Instance.UserBasicData.TotalGachaCount;
-
-            // 최대 가챠 횟수 체크 (임시)
-            // if (currentGachaCount >= SpecDataManager.Instance.SpecGachaScenario.All.Count)
-            // {
-            //     return;
-            // }
-
-            var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, Defines.GACHA_1_TIME_COUNT);
-            var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
-
-            // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
-            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList, true);
-
-            // 가챠 티켓 소모
-            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_1_TIME_COUNT, true, true);
-
-            // 가챠 결과 아이템 저장
-            UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
-
-            // 가챠 진행횟수 유저 데이터 저장
-            UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_1_TIME_COUNT);
-
-            // 가이드 미션 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_1_TIME_COUNT);
-
-            // 퀘스트 데이터 갱신
-            UserDataManager.Instance.SetUserQuestActionCount(QuestType.SUMMON_CHARACTER, Defines.GACHA_1_TIME_COUNT, true, true);
-
-            SoundManager.Instance.StopBGM();
-            SoundManager.Instance.IsPlayingGacha = true;
-
-            SetCanvasTargetDisplay(1);
+            _gachaCommonCharacterLayer.SetGachaLayer(this);
+            _gachaPickUpCharacterLayer.SetGachaLayer(this);
         }
-
-        private void OnClickGacha10Button()
+        
+        public void OnClickCommonCharacterLayerTabButton()
         {
-            // 재화 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.C_TICKET, 0, Defines.GACHA_10_TIME_COUNT, true))
+            ChangeTabLayer(GachaPopupTabType.CommonCharacter);
+        }
+        
+        public void OnClickPickUpCharacterLayerTabButton()
+        {
+            ChangeTabLayer(GachaPopupTabType.PickUpCharacter);
+        }
+        
+        private void ChangeTabLayer(GachaPopupTabType targetTabType)
+        {
+            ClearTabLayer();
+
+            switch (targetTabType)
             {
-                return;
+                case GachaPopupTabType.CommonCharacter:
+                    _gachaCommonCharacterLayer.gameObject.SetActive(true);
+                    break;
+                case GachaPopupTabType.PickUpCharacter:
+                    _gachaPickUpCharacterLayer.gameObject.SetActive(true);
+                    break;
             }
-
-            // var gacahaScenarios = SpecDataManager.Instance.SpecGachaScenario.All.ToList();
-            // List<RewardItem> tempResultList = new List<RewardItem>();
-            // for (int i = 0; i < 10; ++i)
-            // {
-            //     RewardItem newItem = new RewardItem(gacahaScenarios[i].item_type, gacahaScenarios[i].item_key, gacahaScenarios[i].item_count);
-            //     tempResultList.Add(newItem);
-            // }
-
-            int currentGachaCount = UserDataManager.Instance.UserBasicData.TotalGachaCount;
-
-            // 최대 가챠 횟수 체크 (임시)
-            // if (currentGachaCount >= SpecDataManager.Instance.SpecGachaScenario.All.Count)
-            // {
-            //     return;
-            // }
-
-            var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, Defines.GACHA_10_TIME_COUNT);
-            var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
-
-            //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
-            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList);
-
-            // 가챠 티켓 소모
-            UserDataManager.Instance.DecreaseItem(ItemType.C_TICKET, 0, Defines.GACHA_10_TIME_COUNT, true, true);
-
-            // 가챠 결과 아이템 저장
-            UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
-
-            // 가챠 진행횟수 유저 데이터 저장
-            UserDataManager.Instance.AddUserGachaCount(Defines.GACHA_10_TIME_COUNT);
-
-            // 가이드 미션 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, Defines.GACHA_10_TIME_COUNT);
-
-            // 퀘스트 데이터 갱신
-            UserDataManager.Instance.SetUserQuestActionCount(QuestType.SUMMON_CHARACTER, Defines.GACHA_10_TIME_COUNT, true, true);
-
-            SoundManager.Instance.StopBGM();
-            SoundManager.Instance.IsPlayingGacha = true;
-
-            SetCanvasTargetDisplay(1);
         }
 
         private void OnClickCloseButton()
@@ -158,6 +106,15 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneUILayerManager.Instance.PopUILayer(this);
+        }
+        
+        private void ClearTabLayer()
+        {
+            //_gachaCommonCharacterTab.SetActive(false);
+            //_gachaPickUpCharacterTab.SetActive(false);
+            
+            _gachaCommonCharacterLayer.gameObject.SetActive(false);
+            _gachaPickUpCharacterLayer.gameObject.SetActive(false);
         }
     }
 }
