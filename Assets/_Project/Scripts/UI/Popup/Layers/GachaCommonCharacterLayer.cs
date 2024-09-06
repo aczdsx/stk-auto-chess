@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -11,9 +13,15 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private GachaType gachaType;
         
-        [Space(10)]
+        [Header("Button")]
         [SerializeField] private CAButton _gacha1Button;
+        [SerializeField] private Image _gacha1ButtonCostImage;
+        [SerializeField] private TextMeshProUGUI _gacha1ButtonCostText;
+        
+        [Space(10)]
         [SerializeField] private CAButton _gacha10Button;
+        [SerializeField] private Image _gacha10ButtonCostImage;
+        [SerializeField] private TextMeshProUGUI _gacha10ButtonCostText;
 
         private SpecGacha _specGachaDataOneTime;
         private SpecGacha _specGachaDataTenTime;
@@ -40,6 +48,12 @@ namespace CookApps.AutoBattler
             
             _specGachaDataOneTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_1_TIME_COUNT);
             _specGachaDataTenTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_10_TIME_COUNT);
+
+            _gacha1ButtonCostImage.sprite = ImageManager.Instance.GetItemSprite(_specGachaDataOneTime.gacha_cost_item_type);
+            _gacha1ButtonCostText.text = $"x{_specGachaDataOneTime.gacha_cost}";
+            
+            _gacha10ButtonCostImage.sprite = ImageManager.Instance.GetItemSprite(_specGachaDataTenTime.gacha_cost_item_type);
+            _gacha10ButtonCostText.text = $"x{_specGachaDataTenTime.gacha_cost}";
         }
         
         private void OnClickGacha1Button()
