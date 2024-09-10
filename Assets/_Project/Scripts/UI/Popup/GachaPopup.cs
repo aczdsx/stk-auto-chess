@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.C_Ticket);
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.C_Ticket, TopPanelType.Jewel);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 

@@ -47,8 +47,6 @@ namespace CookApps.AutoBattler
             _parentShopBannerPopup = parentPopup;
             _currentUserShopBannerData = UserDataManager.Instance.GetShopBannerData(ShopID);
 
-            
-            
             SetPurchaseRemainTime();
         }
 

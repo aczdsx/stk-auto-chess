@@ -1,17 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
     public class GachaPickUpCharacterLayer : GachaBaseLayer
     {
-        [Space(10)]
+        [Header("Button")]
         [SerializeField] private CAButton _gacha1Button;
+        [SerializeField] private Image _gacha1ButtonCostImage;
+        [SerializeField] private TextMeshProUGUI _gacha1ButtonCostText;
+        
+        [Space(10)]
         [SerializeField] private CAButton _gacha10Button;
+        [SerializeField] private Image _gacha10ButtonCostImage;
+        [SerializeField] private TextMeshProUGUI _gacha10ButtonCostText;
+        
+        [Space(10)]
+        [SerializeField] private TextMeshProUGUI _remainTimeText;
 
+        private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
+        
         private void OnEnable()
         {
             _gacha1Button?.onClick.AddListener(OnClickGacha1Button);
@@ -30,6 +45,58 @@ namespace CookApps.AutoBattler
             
             _specGachaDataOneTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_1_TIME_COUNT);
             _specGachaDataTenTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_10_TIME_COUNT);
+
+            _gacha1ButtonCostImage.sprite = ImageManager.Instance.GetItemSprite(_specGachaDataOneTime.gacha_cost_item_type);
+            _gacha1ButtonCostText.text = $"x{_specGachaDataOneTime.gacha_cost}";
+            
+            _gacha10ButtonCostImage.sprite = ImageManager.Instance.GetItemSprite(_specGachaDataTenTime.gacha_cost_item_type);
+            _gacha10ButtonCostText.text = $"x{_specGachaDataTenTime.gacha_cost}";
+            
+            SetGachaRemainTime();
+        }
+        
+        private async void SetGachaRemainTime()
+        {
+            try
+            {
+                _unitaskCancelToken.Cancel();
+                _unitaskCancelToken = new CancellationTokenSource();
+                
+                await UpdateRemainTime(_unitaskCancelToken.Token).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.Log(e);
+            }
+        }
+        
+        private async UniTask UpdateRemainTime(CancellationToken cancelToken)
+        {
+            var endTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(_specGachaDataOneTime.end_at);
+            
+            TimeSpan remainTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(endTimeStamp);
+
+            try
+            {
+                while (remainTimeSpan.TotalSeconds > 0)
+                {
+                    _remainTimeText.text = LanguageManager.Instance.GetRemainTimeText(remainTimeSpan);
+
+                    await UniTask.Delay(1000, cancellationToken: cancelToken);
+
+                    remainTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(endTimeStamp);
+                }
+
+                // 시간이 경과하였을 경우 처리
+                if (remainTimeSpan.TotalSeconds <= 0)
+                {
+                    _remainTimeText.text = LanguageManager.Instance.GetLanguageText("PURCHASE_TIME_OVER_ALERT");
+                }
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.Log(e);
+            }
         }
         
        private void OnClickGacha1Button()

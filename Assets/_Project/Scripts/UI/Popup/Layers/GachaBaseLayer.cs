@@ -26,10 +26,21 @@ namespace CookApps.AutoBattler
         public GachaType CurrentGachaType => gachaType;
 
         // 유효 기간이 있는 가챠 타입인 경우 체크
-        // public bool CheckGachaPeriod()
-        // {
-        //     
-        // }
+        public bool CheckValidGachaPeriod(GachaCountType gachaCountType)
+        {
+            SetGachaData(gachaCountType);
+            
+            if (_currentSpecGachaData == null) return false;
+
+            // 기간 타입 체크
+            if (_currentSpecGachaData.gacha_term_type != GachaTermType.PERIOD) return true;
+            
+            // 유효 기간 체크
+            var startTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(_currentSpecGachaData.start_at);
+            var endTimeStamp = TimeManager.Instance.ChangeDateStringToTimeStamp(_currentSpecGachaData.end_at);
+            
+            return TimeManager.Instance.IsValidTimeNow(startTimeStamp, endTimeStamp);
+        }
         
         // 캐릭터 가챠 프로세스 진행
         public void ProcessCharacterGacha(GachaCountType gachaCountType)
