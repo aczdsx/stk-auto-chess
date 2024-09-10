@@ -20,8 +20,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _backButton;
 
         [Header("Gacha Tabs")]
-        [SerializeField] private GameObject _gachaCommonCharacterTab;
-        [SerializeField] private GameObject _gachaPickUpCharacterTab;
+        [SerializeField] private CAToggle _gachaCommonCharacterTabToggle;
+        [SerializeField] private CAToggle _gachaPickUpCharacterTabToggle;
         
         [Header("Gacha Layers")]
         [SerializeField] private GachaCommonCharacterLayer _gachaCommonCharacterLayer;
@@ -93,9 +93,11 @@ namespace CookApps.AutoBattler
             switch (targetTabType)
             {
                 case GachaPopupTabType.CommonCharacter:
+                    _gachaCommonCharacterTabToggle.isOn = true;
                     _gachaCommonCharacterLayer.gameObject.SetActive(true);
                     break;
                 case GachaPopupTabType.PickUpCharacter:
+                    _gachaPickUpCharacterTabToggle.isOn = true;
                     _gachaPickUpCharacterLayer.gameObject.SetActive(true);
                     break;
             }

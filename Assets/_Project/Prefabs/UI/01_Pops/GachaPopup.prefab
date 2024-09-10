@@ -10482,8 +10482,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseAnimator: {fileID: 0}
   _backButton: {fileID: 8336901803180182353}
-  _gachaCommonCharacterTab: {fileID: 79989343577356734}
-  _gachaPickUpCharacterTab: {fileID: 1877895768256851396}
+  _gachaCommonCharacterTabToggle: {fileID: 3862417998633201016}
+  _gachaPickUpCharacterTabToggle: {fileID: 3732870584452114204}
   _gachaCommonCharacterLayer: {fileID: 7685183097084280974}
   _gachaPickUpCharacterLayer: {fileID: 8565426902345232906}
 --- !u!95 &1547582427566992942
