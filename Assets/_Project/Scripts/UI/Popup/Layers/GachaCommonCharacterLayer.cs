@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class GachaCommonCharacterLayer : MonoBehaviour
+    public class GachaCommonCharacterLayer : GachaBaseLayer
     {
-        [SerializeField] private GachaType gachaType;
-        
         [Header("Button")]
         [SerializeField] private CAButton _gacha1Button;
         [SerializeField] private Image _gacha1ButtonCostImage;
@@ -22,13 +19,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _gacha10Button;
         [SerializeField] private Image _gacha10ButtonCostImage;
         [SerializeField] private TextMeshProUGUI _gacha10ButtonCostText;
-
-        private SpecGacha _specGachaDataOneTime;
-        private SpecGacha _specGachaDataTenTime;
-        
-        private GachaPopup _parentGachaPopup;
-        
-        public GachaType CurrentGachaType => gachaType;
 
         private void OnEnable()
         {
@@ -60,84 +50,14 @@ namespace CookApps.AutoBattler
         {
             if (_specGachaDataOneTime == null) return;
             
-            // 재화 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(_specGachaDataOneTime.gacha_cost_item_type, 0, _specGachaDataOneTime.gacha_cost, true))
-            {
-                return;
-            }
-
-            // 가챠 시나리오 테이블 사용 시 코드 (old)
-            // int currentGachaCount = UserDataManager.Instance.UserBasicData.TotalGachaCount;
-            // var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, Defines.GACHA_1_TIME_COUNT);
-            // var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
-
-            var resultGachaList = SpecDataManager.Instance.GetRandomPickGachaRewardItemList(_specGachaDataOneTime.gacha_id, _specGachaDataOneTime.gacha_count);
-            if (resultGachaList == null || resultGachaList.Count <= 0) return;
-            
-            // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
-            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList, true);
-
-            // 가챠 아이템 소모
-            UserDataManager.Instance.DecreaseItem(_specGachaDataOneTime.gacha_cost_item_type, 0, _specGachaDataOneTime.gacha_cost, true, true);
-
-            // 가챠 결과 아이템 저장
-            UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
-
-            // 가챠 진행횟수 유저 데이터 저장
-            UserDataManager.Instance.AddUserGachaCount(_specGachaDataOneTime.gacha_count);
-
-            // 가이드 미션 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, _specGachaDataOneTime.gacha_count);
-
-            // 퀘스트 데이터 갱신
-            UserDataManager.Instance.SetUserQuestActionCount(QuestType.SUMMON_CHARACTER, _specGachaDataOneTime.gacha_count, true, true);
-
-            SoundManager.Instance.StopBGM();
-            SoundManager.Instance.IsPlayingGacha = true;
-
-            _parentGachaPopup.SetCanvasTargetDisplay(1);
+            ProcessCharacterGacha(GachaCountType.ONE);
         }
 
         private void OnClickGacha10Button()
         {
             if (_specGachaDataTenTime == null) return;
             
-            // 재화 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(_specGachaDataTenTime.gacha_cost_item_type, 0, _specGachaDataTenTime.gacha_cost, true))
-            {
-                return;
-            }
-
-            // int currentGachaCount = UserDataManager.Instance.UserBasicData.TotalGachaCount;
-            // var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, Defines.GACHA_10_TIME_COUNT);
-            // var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
-
-            var resultGachaList = SpecDataManager.Instance.GetRandomPickGachaRewardItemList(_specGachaDataTenTime.gacha_id, _specGachaDataTenTime.gacha_count);
-            if (resultGachaList == null || resultGachaList.Count <= 0) return;
-            
-            //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
-            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList);
-
-            // 가챠 아이템 소모
-            UserDataManager.Instance.DecreaseItem(_specGachaDataTenTime.gacha_cost_item_type, 0, _specGachaDataTenTime.gacha_cost, true, true);
-
-            // 가챠 결과 아이템 저장
-            UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);
-
-            // 가챠 진행횟수 유저 데이터 저장
-            UserDataManager.Instance.AddUserGachaCount(_specGachaDataTenTime.gacha_count);
-
-            // 가이드 미션 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, _specGachaDataTenTime.gacha_count);
-
-            // 퀘스트 데이터 갱신
-            UserDataManager.Instance.SetUserQuestActionCount(QuestType.SUMMON_CHARACTER, _specGachaDataTenTime.gacha_count, true, true);
-
-
-            SoundManager.Instance.StopBGM();
-            SoundManager.Instance.IsPlayingGacha = true;
-
-            _parentGachaPopup.SetCanvasTargetDisplay(1);
+            ProcessCharacterGacha(GachaCountType.TEN);
         }
     }
 }
