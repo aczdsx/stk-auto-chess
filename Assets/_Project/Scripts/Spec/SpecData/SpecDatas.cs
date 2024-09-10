@@ -433,6 +433,8 @@ namespace CookApps.AutoBattler
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 가챠 그룹 id
+        public CookApps.Obfuscator.ObfuscatorInt gacha_group_id;
         /// 가챠 id
         public CookApps.Obfuscator.ObfuscatorInt gacha_id;
         /// 가챠 타입
@@ -459,8 +461,8 @@ namespace CookApps.AutoBattler
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        /// 가챠 id
-        public CookApps.Obfuscator.ObfuscatorInt gacha_id;
+        /// 가챠  그룹 id
+        public CookApps.Obfuscator.ObfuscatorInt gacha_group_id;
         /// 가챠 결과 아이템 타입
         public global::CookApps.AutoBattler.ItemType result_item_type;
         /// 가챠 결과 아이템  id

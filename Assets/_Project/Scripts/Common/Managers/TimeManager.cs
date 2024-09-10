@@ -194,5 +194,15 @@ namespace CookApps.AutoBattler
                        (DateTime.UtcNow.Day);
             }
         }
+
+        public bool IsValidTimeNow(long startTimeStamp, long endTimeStamp)
+        {
+            return startTimeStamp > UtcNowTimeStamp() && UtcNowTimeStamp() < endTimeStamp;
+        }
+        
+        public bool IsValidTimeNowLocal(long startTimeStamp, long endTimeStamp)
+        {
+            return startTimeStamp > UtcNowTimeStampLocal() && UtcNowTimeStampLocal() < endTimeStamp;
+        }
     }
 }

@@ -24,6 +24,12 @@ namespace CookApps.AutoBattler
         private SpecGacha _currentSpecGachaData;
         
         public GachaType CurrentGachaType => gachaType;
+
+        // 유효 기간이 있는 가챠 타입인 경우 체크
+        // public bool CheckGachaPeriod()
+        // {
+        //     
+        // }
         
         // 캐릭터 가챠 프로세스 진행
         public void ProcessCharacterGacha(GachaCountType gachaCountType)
@@ -45,7 +51,7 @@ namespace CookApps.AutoBattler
 
             bool isOneTime = gachaCountType == GachaCountType.ONE;
             
-            var resultGachaList = SpecDataManager.Instance.GetRandomPickGachaRewardItemList(_currentSpecGachaData.gacha_id, _currentSpecGachaData.gacha_count);
+            var resultGachaList = SpecDataManager.Instance.GetRandomPickGachaRewardItemList(_currentSpecGachaData.gacha_group_id, _currentSpecGachaData.gacha_count);
             if (resultGachaList == null || resultGachaList.Count <= 0) return;
             
             // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);

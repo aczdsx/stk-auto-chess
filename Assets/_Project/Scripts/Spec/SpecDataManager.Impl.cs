@@ -1063,17 +1063,17 @@ namespace CookApps.AutoBattler
             return SpecGachaList.FindAll(data => data.gacha_type == gachaType);
         }
 
-        public List<SpecGachaContent> GetGachaContentDataList(int gachaID)
+        public List<SpecGachaContent> GetGachaContentDataList(int gachaGroupID)
         {
-            return SpecGachaContentList.FindAll(data => data.gacha_id == gachaID);
+            return SpecGachaContentList.FindAll(data => data.gacha_group_id == gachaGroupID);
         }
 
         // 가챠 항목에서 랜덤으로 아이템을 뽑아 갯수만큼 반환
-        public List<SpecGachaContent> GetRandomPickGachaContentList(int gachaID, int count)
+        public List<SpecGachaContent> GetRandomPickGachaContentList(int gachaGroupID, int count)
         {
             List<SpecGachaContent> resultList = new List<SpecGachaContent>();
 
-            var targetList = GetGachaContentDataList(gachaID);
+            var targetList = GetGachaContentDataList(gachaGroupID);
             if (targetList != null && targetList.Count > 0)
             {
                 for (int i = 0; i < count; ++i)
@@ -1087,11 +1087,11 @@ namespace CookApps.AutoBattler
         }
         
         // 가챠 항목에서 랜덤으로 아이템을 뽑아 RewardItem 형태로 반환
-        public List<RewardItem> GetRandomPickGachaRewardItemList(int gachaID, int count)
+        public List<RewardItem> GetRandomPickGachaRewardItemList(int gachaGroupID, int count)
         {
             List<RewardItem> rewardItemList = new List<RewardItem>();
 
-            var targetList = GetGachaContentDataList(gachaID);
+            var targetList = GetGachaContentDataList(gachaGroupID);
             if (targetList != null && targetList.Count > 0)
             {
                 for (int i = 0; i < count; ++i)
