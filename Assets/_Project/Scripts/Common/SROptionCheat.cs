@@ -19,9 +19,9 @@ public partial class SROptions
     {
         LoginManager.Instance.LogOut();
     }
-    
+
     #endregion
-    
+
     #region 유저 정보 관련
 
     [Category("유저 정보 관련")]
@@ -31,7 +31,7 @@ public partial class SROptions
 
         UserDataManager.Instance.SaveUserBasic();
     }
-    
+
     [Category("유저 정보 관련")]
     public void 던전패배카운트초기화()
     {
@@ -39,7 +39,7 @@ public partial class SROptions
 
         UserDataManager.Instance.SaveUserBasic();
     }
-    
+
     [Category("유저 정보 관련")]
     public void 방치보상최대상태로변경()
     {
@@ -47,7 +47,7 @@ public partial class SROptions
 
         UserDataManager.Instance.SaveUserIdle();
     }
-    
+
     [Category("유저 정보 관련")]
     public void 유저계정레벨최대()
     {
@@ -275,7 +275,7 @@ public partial class SROptions
         foreach (var stageData in prevStageList)
         {
             if (UserDataManager.Instance.IsClearStage(stageData.stage_id)) continue;
-            
+
             // 스테이지 데이터저장
             UserDataManager.Instance.SetUserStage(stageData.stage_id, 스테이지클리어별갯수);
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, stageData.stage_id, 1);
@@ -309,19 +309,15 @@ public partial class SROptions
     public void 튜토리얼스테이지클리어()
     {
         var tutoStageDataList = SpecDataManager.Instance.GetStageList(1);
-        foreach (var stageData in tutoStageDataList)
-        {
-            UserDataManager.Instance.SetUserStage(stageData.stage_id, 3);
-            //GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, stageData.stage_id, 1);
-        }
-        
+        foreach (var stageData in tutoStageDataList) UserDataManager.Instance.SetUserStage(stageData.stage_id, 3);
+        //GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, stageData.stage_id, 1);
         InGameManager.Instance.EndInGame();
-                
-        int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+
+        var lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
         var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
         var transition = SceneTransition_FadeInOut.Create();
-        SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
+        SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition).Forget();
     }
 
     [Category("스테이지 관련")] public int 원하는스테이지ID { get; set; } = 0;
@@ -373,12 +369,11 @@ public partial class SROptions
         var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All.ToList();
 
         foreach (var guideMission in allGuideMissionList)
-        {
             if (guideMission.id >= 30)
             {
                 UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
                     MissionStateType.NONE);
-                if(guideMission.id == 30)
+                if (guideMission.id == 30)
                     UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
                         MissionStateType.REWARD);
             }
@@ -387,7 +382,6 @@ public partial class SROptions
                 UserDataManager.Instance.SetGuideMissionState(guideMission.guide_mission_type, guideMission.sub_key,
                     MissionStateType.CLEAR);
             }
-        }
     }
 
     [Category("미션 관련")]
@@ -400,20 +394,18 @@ public partial class SROptions
         GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type,
             currentGuideMission.sub_key, MissionStateType.REWARD);
     }
-    
+
     [Category("미션 관련")]
     public void 설정오더까지가이드미션클리어()
     {
         var guideList = SpecDataManager.Instance.GetGuideMissionDataList(대상가이드오더);
 
         foreach (var guideData in guideList)
-        {
             UserDataManager.Instance.SetGuideMissionState(guideData.guide_mission_type, guideData.sub_key, MissionStateType.CLEAR);
-        }
-        
+
         GuideMissionManager.Instance.RefreshGuideMissionUI();
     }
-    
+
     [Category("미션 관련")] public int 대상가이드오더 { get; set; } = 0;
 
     #endregion
@@ -474,7 +466,7 @@ public partial class SROptions
     public async void 유저PVP전체프로필초기화()
     {
         // 심플 정보 세팅
-        UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
+        var simpleData = new UserPVPBattleSimpleData();
         simpleData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
         simpleData.ServerId = UserDataManager.Instance.UserBasicData.ServerId;
         simpleData.RankId = UserDataManager.Instance.UserPVP.RankId;
@@ -483,9 +475,9 @@ public partial class SROptions
         simpleData.Nickname = UserDataManager.Instance.UserBasicData.Nickname;
         simpleData.PlayerLv = UserDataManager.Instance.UserBasicData.Level;
         var serializedSimpleData = BMUtil.ConvertToJsonSerialize(simpleData);
-            
+
         // 디테일 정보 세팅
-        UserPVPBattleDetailData detailData = new UserPVPBattleDetailData();
+        var detailData = new UserPVPBattleDetailData();
         detailData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
         detailData.ServerId = UserDataManager.Instance.UserBasicData.ServerId;
         detailData.RankId = UserDataManager.Instance.UserPVP.RankId;
@@ -497,8 +489,8 @@ public partial class SROptions
 
         detailData.PvpDeckList = new UserPVPBattleDeckList();
         var serializedDetailData = BMUtil.ConvertToJsonSerialize(detailData);
-            
-        var response = await GrpcGame.GameGrpcManager.Instance.UpdatePvpProfile(0, serializedSimpleData, serializedDetailData);
+
+        var response = await GrpcManager.Instance.StkAutoPvpService.UpdatePvpProfile(0, serializedSimpleData, serializedDetailData);
         if (response.IsError)
             return;
     }
@@ -507,14 +499,14 @@ public partial class SROptions
     public void 매칭리스트갱신횟수초기화()
     {
         UserDataManager.Instance.UserPVP.MatchRefreshCnt = 0;
-        
+
         UserDataManager.Instance.SaveUserPVPData();
     }
 
     #endregion
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////
-    
+
     #region 스킬 관련
 
     [Category("스킬 관련")]
@@ -531,43 +523,39 @@ public partial class SROptions
     }
 
     #endregion
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////
-    
+
     #region 던전 관련
 
     [Category("던전 관련")]
     public void 타겟던전클리어()
     {
         UserDataManager.Instance.SetTrialDungeonData(대상던전ID, DungeonStateType.CLEAR, true);
-        
+
         ToastManager.Instance.ShowToast("치트 - 사용완료");
     }
-    
+
     [Category("던전 관련")] public int 대상던전ID { get; set; } = 0;
 
     #endregion
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////
-    
+
     #region 상점 관련
-    
+
     [Category("상점 관련")]
-    
     public void 상점배너데이터초기화()
     {
         var userShopBannerDataList = UserDataManager.Instance.GetAllShopBannerDataList();
 
-        foreach (var bannerData in userShopBannerDataList)
-        {
-            UserDataManager.Instance.ResetShopBannerData(bannerData.ShopId, false);
-        }
-        
+        foreach (var bannerData in userShopBannerDataList) UserDataManager.Instance.ResetShopBannerData(bannerData.ShopId, false);
+
         UserDataManager.Instance.SaveUserShopPurchaseData();
-        
+
         ToastManager.Instance.ShowToast("치트 - 사용완료");
     }
-    
+
     #endregion
 }
 #endif

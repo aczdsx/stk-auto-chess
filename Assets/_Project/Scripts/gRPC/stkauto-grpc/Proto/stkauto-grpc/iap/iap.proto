@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+service IapService {
+  /**
+   * 결제 검증
+   */
+  rpc Verify(IapVerifyRequest) returns (IapVerifyResponse) {}
+
+  /**
+   * 결제 상태 확인
+   */
+  rpc CheckStatus(IapCheckStatusRequest) returns (IapCheckStatusResponse) {}
+}
+
+enum IapResponseStatus {
+  IAP_RESPONSE_UNDEFINED = 0; // 미사용
+  IAP_ERROR = 1400;            // 결제 오류
+  IAP_INVALID_ERROR = 1401;    // Store측에서 Invalid 응답이 오는 경우
+  DUPLICATE_ORDER_ID = 1402;   // 중복된 Order ID
+  INVALID_ORDER_ID = 1403;     // 유효하지 않은 Order ID
+}
+
+message IapVerifyRequest {
+  /**
+   * 결제 정보
+   * 1: Google Play
+   * 2: One Store
+   * 3: Amazon
+   * 4: Apple App Store
+   * 5: Galaxy Store
+   */
+  uint32 store = 1;             
+  string receipt = 2;         // 결제 영수증
+  string product_id = 3;      // 스토어에 등록된 상품 ID
+  string order_id = 4;        // 구글:오더ID, 애플:트랜잭션ID
+  string currency_price = 5;  // 결제 금액
+  string currency_code = 6;   // ex. KRW, USD
+  optional string ingame_product_id = 7; // 게임 내 상품 ID
+}
+
+message IapVerifyData {
+  string order_id = 1;    // Order ID ex. 구글=GPA-XXX.. 애플=트랜잭션ID
+  string product_id = 2;  // Product ID
+  bool is_test = 3;       // 테스트 결제 여부
+}
+
+message IapVerifyResponse {
+  ResponseStatus status = 1;
+  IapVerifyData data = 2;
+}
+
+message IapCheckStatusRequest {
+  string order_id = 1;        // 구글:오더ID, 애플:트랜잭션ID
+}
+
+enum IapValidationStatus {
+  IAP_VALIDATION_STATUS_UNSPECIFIED = 0; // 미사용
+  IAP_VALIDATION_STATUS_COMPLETED = 1; // 두 번 검증 완료
+  IAP_VALIDATION_STATUS_PENDING = 2; // 한 번 검증 완료
+  IAP_VALIDATION_STATUS_NEW = 3; // 검증 전(새로운 영수증). 테스트 결제 여부 알 수 없음.
+}
+
+message IapCheckStatusData {
+  optional string order_id = 1;
+  optional string product_id = 2;
+  bool is_test = 3;
+  optional string ingame_product_id = 4;
+  IapValidationStatus validation_status = 5;
+  bool is_reward = 6;
+}
+
+message IapCheckStatusResponse {
+  ResponseStatus status = 1;
+  IapCheckStatusData data = 2;
+}

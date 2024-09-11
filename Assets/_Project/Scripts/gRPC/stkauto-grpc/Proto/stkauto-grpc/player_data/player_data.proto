@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+enum PlayerDataResponseStatus {
+  PLAYER_DATA_UNDEFINED = 0; // 미사용
+  PLAYER_DATA_NOT_FOUND = 1600; // 데이터 없음
+}
+
+service PlayerDataService {
+  /**
+   * 플레이어 데이터 목록을 조회합니다.
+   */
+  rpc List(PlayerDataListRequest) returns (PlayerDataListResponse) {}
+
+  /**
+   * 플레이어 데이터를 조회합니다.
+   */
+  rpc Get(PlayerDataGetRequest) returns (PlayerDataGetResponse) {}
+  
+  /**
+   * 플레이어 데이터를 수정합니다. (덮어쓰기)
+   */
+  rpc Set(PlayerDataSetRequest) returns (PlayerDataSetResponse) {}
+}
+
+message PlayerDataListRequest {
+  repeated string categories = 1; 
+}
+
+message PlayerDataBase{
+  string category = 1;
+  string data = 2;
+}
+
+message PlayerDataGetRequest {
+  string category = 1;
+}
+
+message PlayerDataGet {
+  string playerId = 1;
+  PlayerDataBase item = 2;
+}
+
+message PlayerDataGetResponse {
+  ResponseStatus status = 1;
+  PlayerDataGet data = 2;
+}
+
+message PlayerDataList {
+  string playerId = 1;
+  repeated PlayerDataBase itemList = 2;
+}
+
+message PlayerDataListResponse {
+  ResponseStatus status = 1;
+  PlayerDataList data = 2;
+}
+
+message PlayerDataSetRequest {
+  map<string, string> playerDatas = 1; //key: category, value: message
+}
+
+message PlayerDataSetResponse {
+  ResponseStatus status = 1;
+}

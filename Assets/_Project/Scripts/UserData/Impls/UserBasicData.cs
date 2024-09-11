@@ -1,9 +1,8 @@
+using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
-using CookApps.gRPC.Hatchery;
-using CookApps.gRPC.Universal;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using Tech.Universal.V2;
+using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
@@ -13,7 +12,7 @@ namespace CookApps.AutoBattler
 
         public UserBasicData UserBasicData => userBasicData;
 
-        public int PrevAccountLevel { get; set; } = 1;      // 유저 계정 레벨업 체크용 이전 레벨 데이터
+        public int PrevAccountLevel { get; set; } = 1; // 유저 계정 레벨업 체크용 이전 레벨 데이터
 
         [Initialize(DataCategory.UserData)]
         private void Initialize_BasicData(string data)
@@ -37,7 +36,7 @@ namespace CookApps.AutoBattler
                     DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStampLocal(),
                     TotalGachaCount = 0,
                     UserStageLoseCount = 0,
-                    UserDungeonLoseCount = 0,
+                    UserDungeonLoseCount = 0
                 };
                 PrevAccountLevel = userBasicData.Level;
 
@@ -49,7 +48,7 @@ namespace CookApps.AutoBattler
             PrevAccountLevel = userBasicData.Level;
 
             RefreshLastLoginTimestamp(true);
-            
+
             UpdateDailyVisitCount(true);
             UpdateResetCharacterCount();
         }
@@ -62,18 +61,18 @@ namespace CookApps.AutoBattler
 
         public void SaveUserBasic()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
+            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
         }
 
-        public void SetUserLoginData(AuthPlatform authPlatformm, int UID, int serverID, string playerID, string username)
+        public void SetUserLoginData(AuthPlatform authPlatformm, uint UID, int serverID, string playerID, string username)
         {
-            UserBasicData.Uid = UID;
+            UserBasicData.Uid = (int)UID;
             UserBasicData.ServerId = serverID;
             UserBasicData.PlayerId = playerID;
             UserBasicData.Nickname = username;
-            
-            Preference.SavePreference(Pref.LOGIN_PLATFORM_TYPE, (int)authPlatformm);   // 기기자체에도 저장 (첫 로그인 판별용)
-            
+
+            Preference.SavePreference(Pref.LOGIN_PLATFORM_TYPE, (int)authPlatformm); // 기기자체에도 저장 (첫 로그인 판별용)
+
             SaveUserBasic();
         }
 
@@ -82,38 +81,29 @@ namespace CookApps.AutoBattler
         {
             return UserBasicData.Uid > 0 && UserBasicData.ServerId > 0 && !string.IsNullOrWhiteSpace(UserBasicData.PlayerId);
         }
-        
+
         public void SetUserTotalPlayTime(int minute, bool needSave)
         {
             UserBasicData.TotalPlayTime += minute;
 
-            if (needSave)
-            {
-                SaveUserBasic();
-            }
+            if (needSave) SaveUserBasic();
         }
-        
+
         public void RefreshLastLoginTimestamp(bool needSave)
         {
             UserBasicData.LastLoginTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
 
-            if (needSave)
-            {
-                SaveUserBasic();
-            }
+            if (needSave) SaveUserBasic();
         }
-        
+
         public void UpdateDailyVisitCount(bool needSave)
         {
             if (UserBasicData.DailyVisitCountTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
             {
                 UserBasicData.DailyVisitCount++;
                 UserBasicData.DailyVisitCountTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
-                
-                if (needSave)
-                {
-                    SaveUserBasic();
-                }
+
+                if (needSave) SaveUserBasic();
             }
         }
 
@@ -121,75 +111,60 @@ namespace CookApps.AutoBattler
         public void AddUserStageLoseCount(bool needSave)
         {
             UserBasicData.UserStageLoseCount++;
-            
-            if (needSave)
-            {
-                SaveUserBasic();
-            }
-            
+
+            if (needSave) SaveUserBasic();
+
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FAIL, Instance.UserBasicData.UserStageLoseCount.ToString(),
                 () =>
                 {
-                    if (UserBasicData.UserStageLoseCount == 1)
-                    {
-                        HandleLoseAsync().Forget();
-                    }
+                    if (UserBasicData.UserStageLoseCount == 1) HandleLoseAsync().Forget();
                 });
         }
-        
+
         private async UniTask HandleLoseAsync()
         {
-            int lastPlayStageID = GetLastPlayStageID();
+            var lastPlayStageID = GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
             var transition = SceneTransition_FadeInOut.Create();
 
-            await SceneLoading.GoToNextScene("Lobby", (int) specLastStageData.chapter_id, transition);
+            await SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition);
 
             SceneUILayerManager.OnSceneLoadedEvent += OpenCharacterCollectionPopupAction;
         }
-        
+
         private void OpenCharacterCollectionPopupAction(string scenename)
         {
             if (scenename == "Lobby")
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
-            
+
                 ToastManager.Instance.ShowToastByTokenKey("MSG_GROWTH_CHARACTER");
-                
+
                 SceneUILayerManager.OnSceneLoadedEvent -= OpenCharacterCollectionPopupAction;
             }
         }
-        
+
         // 유저 던전 패배 횟수 증가
         public void AddUserDungeonLoseCount(bool needSave)
         {
             UserBasicData.UserDungeonLoseCount++;
-            
-            if (needSave)
-            {
-                SaveUserBasic();
-            }
-            
+
+            if (needSave) SaveUserBasic();
+
             DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FAIL, Instance.UserBasicData.UserDungeonLoseCount.ToString(),
                 () =>
                 {
-                    if (UserBasicData.UserDungeonLoseCount == 1)
-                    {
-                        HandleLoseAsync().Forget();
-                    }
+                    if (UserBasicData.UserDungeonLoseCount == 1) HandleLoseAsync().Forget();
                 });
         }
 
         public void AddUserLevelExp(int exp)
         {
-            if (UserBasicData.Level >= SpecDataManager.Instance.GetAccountMaxLevel())
-            {
-                return;
-            }
+            if (UserBasicData.Level >= SpecDataManager.Instance.GetAccountMaxLevel()) return;
 
             UserBasicData.Exp += exp;
 
-            int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
+            var userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
 
             UserBasicData.Level = userLevel;
 
@@ -207,27 +182,17 @@ namespace CookApps.AutoBattler
         {
             UserBasicData.MaxSquadCount = count;
 
-            if (needSave)
-            {
-                SaveUserBasic();
-            }
+            if (needSave) SaveUserBasic();
         }
 
         public void SetResetCharacterCount(int count, bool isAdd, bool needSave)
         {
             if (isAdd)
-            {
                 UserBasicData.ResetCharacterCount += count;
-            }
             else
-            {
                 UserBasicData.ResetCharacterCount = count;
-            }
 
-            if (needSave)
-            {
-                SaveUserBasic();
-            }
+            if (needSave) SaveUserBasic();
         }
 
         // 캐릭터 초기화 카운트 및 시간 갱신

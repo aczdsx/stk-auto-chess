@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Cookapps.Stkauto.V1;
-using CookApps.gRPC.Hatchery;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using Tech.Hatchery.V2;
-using GetPlayerDataResponse = Tech.Hatchery.V2.GetPlayerDataResponse;
+using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
@@ -26,6 +24,7 @@ namespace CookApps.AutoBattler
                 Category = category;
                 Priority = 0;
             }
+
             public InitializeAttribute(DataCategory category, int priority)
             {
                 Category = category;
@@ -37,13 +36,15 @@ namespace CookApps.AutoBattler
         /// 해당 어트리뷰트 사용하는 함수는 반드시 private 으로 선언할 것!
         /// </summary>
         private class AfterInitializeAttribute : Attribute
-        { }
+        {
+        }
 
         /// <summary>
         /// 해당 어트리뷰트 사용하는 함수는 반드시 private 으로 선언할 것!
         /// </summary>
         private class ClearAttribute : Attribute
-        { }
+        {
+        }
 
         public async UniTask<bool> Initialize()
         {
@@ -64,78 +65,52 @@ namespace CookApps.AutoBattler
                 }
 
                 var afterInitializeAttribute = method.GetCustomAttribute<AfterInitializeAttribute>(false);
-                if (afterInitializeAttribute != null)
-                {
-                    afterInitializeMethods.Add(method);
-                }
+                if (afterInitializeAttribute != null) afterInitializeMethods.Add(method);
             }
 
             var tryCount = 0;
-            GetPlayerDataResponse resp;
-            List<DataCategory> allCategories = Enum.GetValues(typeof(DataCategory)).Cast<DataCategory>().ToList();
+            PlayerDataListResponse resp;
+            var allCategories = Enum.GetValues(typeof(DataCategory)).Cast<DataCategory>().ToList();
             do
             {
-                resp = await HatcheryGrpcManager.Instance.GetPlayerDatasAsync(allCategories.Select(x => x.ToCategoryString()));
+                resp = await GrpcManager.Instance.PlayerData.ListAsync(allCategories.Select(x => x.ToCategoryString()));
                 tryCount++;
             } while (resp.IsError && tryCount < 3);
 
-            if (resp.IsError)
-            {
-                return false;
-            }
+            if (resp.IsError) return false;
 
             // 받은 정보 중에 없는 카테고리는 기본값으로 채워준다.
-            Dictionary<string, string> userDatas = new ();
+            Dictionary<string, string> userDatas = new();
             {
-                foreach ((string category, string respData) in resp.PlayerDatas)
+                foreach (var palyerData in resp.Data.ItemList)
                 {
-                    string data = respData;
-                    if (string.IsNullOrEmpty(data))
-                    {
-                        continue;
-                    }
+                    if (string.IsNullOrEmpty(palyerData.Data)) continue;
 
                     for (var i = 0; i < allCategories.Count; i++)
-                    {
-                        if (allCategories[i].ToCategoryString() == category)
+                        if (allCategories[i].ToCategoryString() == palyerData.Category)
                         {
                             allCategories.RemoveAt(i);
                             break;
                         }
-                    }
 
-                    userDatas.Add(category, data);
+                    userDatas.Add(palyerData.Category, palyerData.Data);
                 }
 
-                foreach (DataCategory category in allCategories)
-                {
-                    userDatas.Add(category.ToCategoryString(), string.Empty);
-                }
+                foreach (var category in allCategories) userDatas.Add(category.ToCategoryString(), string.Empty);
             }
 
             methods.Sort((x, y) => x.priority - y.priority);
-            foreach ((var category, var _, var method) in methods)
-            {
+            foreach (var (category, _, method) in methods)
                 if (category == DataCategory.None)
                 {
-                    if (method.Invoke(this, Array.Empty<object>()) is UniTask task)
-                    {
-                        await task;
-                    }
+                    if (method.Invoke(this, Array.Empty<object>()) is UniTask task) await task;
                 }
                 else
                 {
-                    if (method.Invoke(this, new object[] {userDatas[category.ToCategoryString()]}) is UniTask task)
-                    {
-                        await task;
-                    }
+                    if (method.Invoke(this, new object[] { userDatas[category.ToCategoryString()] }) is UniTask task) await task;
                 }
-            }
 
-            foreach (var method in afterInitializeMethods)
-            {
-                method.Invoke(this, null);
-            }
+            foreach (var method in afterInitializeMethods) method.Invoke(this, null);
 
             return true;
         }
@@ -147,16 +122,10 @@ namespace CookApps.AutoBattler
             foreach (var method in allMethods)
             {
                 var attributes = method.GetCustomAttributes(typeof(ClearAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    methods.Add(method);
-                }
+                if (attributes.Length > 0) methods.Add(method);
             }
 
-            foreach (var method in methods)
-            {
-                method.Invoke(this, null);
-            }
+            foreach (var method in methods) method.Invoke(this, null);
         }
     }
 }

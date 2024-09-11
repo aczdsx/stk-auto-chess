@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
-using CookApps.gRPC.Hatchery;
-using CookApps.gRPC.Universal;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -37,17 +36,14 @@ namespace CookApps.AutoBattler
 
         public void SaveUserDungeonData()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserDungeon.ToCategoryString(), userDungeon);
+            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserDungeon.ToCategoryString(), userDungeon);
         }
 
         #region Trial Dungeon (시련던전)
 
         public UserTrialDungeonData GetTrialDungeonData(int dungeonID)
         {
-            if (userDungeon.UserTrialDungeonDatas.ContainsKey(dungeonID))
-            {
-                return userDungeon.UserTrialDungeonDatas[dungeonID];
-            }
+            if (userDungeon.UserTrialDungeonDatas.ContainsKey(dungeonID)) return userDungeon.UserTrialDungeonDatas[dungeonID];
 
             return null;
         }
@@ -61,13 +57,10 @@ namespace CookApps.AutoBattler
             if (clearDungeonList == null || clearDungeonList.Count <= 0)
             {
                 var firstDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialDataByOrder(1);
-                if (firstDungeonData != null)
-                {
-                    return GetTrialDungeonData(firstDungeonData.dungeon_id);
-                }
+                if (firstDungeonData != null) return GetTrialDungeonData(firstDungeonData.dungeon_id);
             }
 
-            int maxOrder = clearDungeonList.Max(data => data.Order);
+            var maxOrder = clearDungeonList.Max(data => data.Order);
             var lastDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialDataByOrder(maxOrder);
             var dungeonData = GetTrialDungeonData(lastDungeonData.dungeon_id + 1) ?? GetTrialDungeonData(lastDungeonData.dungeon_id);
             return dungeonData;
@@ -89,17 +82,12 @@ namespace CookApps.AutoBattler
                 {
                     var specDungeonData = SpecDataManager.Instance.GetSpecDungeonTrialData(dungeonID);
                     if (specDungeonData != null)
-                    {
                         // 최대 배치 기사 수 증가
                         SetMaxSquadCount(specDungeonData.grade, needSave);
-                    }
                 }
             }
 
-            if (needSave)
-            {
-                SaveUserDungeonData();
-            }
+            if (needSave) SaveUserDungeonData();
         }
 
         private void CreateDungeonTrialDataList()
@@ -114,7 +102,7 @@ namespace CookApps.AutoBattler
                 {
                     DungeonId = dungeonData.dungeon_id,
                     Order = dungeonData.order,
-                    DungeonStateType = (int)DungeonStateType.WAIT,
+                    DungeonStateType = (int)DungeonStateType.WAIT
                 });
             }
         }
@@ -122,4 +110,3 @@ namespace CookApps.AutoBattler
         #endregion
     }
 }
-

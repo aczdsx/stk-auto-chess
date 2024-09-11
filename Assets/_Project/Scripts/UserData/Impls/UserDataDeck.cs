@@ -1,7 +1,6 @@
 using System.Linq;
+using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
-using CookApps.gRPC.Hatchery;
-using CookApps.gRPC.Universal;
 using Google.Protobuf.Collections;
 
 namespace CookApps.AutoBattler
@@ -21,8 +20,8 @@ namespace CookApps.AutoBattler
                     {
                         new UserDeckLine(),
                         new UserDeckLine(),
-                        new UserDeckLine(),
-                    },
+                        new UserDeckLine()
+                    }
                 };
                 return;
             }
@@ -43,13 +42,9 @@ namespace CookApps.AutoBattler
 
         public bool IsDeployed(int characterId)
         {
-            foreach (UserDeckLine userDeckLine in userDeck.LineCharacters)
-            {
+            foreach (var userDeckLine in userDeck.LineCharacters)
                 if (userDeckLine.CharacterIds.Contains(characterId))
-                {
                     return true;
-                }
-            }
 
             return false;
         }
@@ -71,7 +66,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserDeck()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserDeck.ToCategoryString(), userDeck);
+            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserDeck.ToCategoryString(), userDeck);
         }
     }
 }

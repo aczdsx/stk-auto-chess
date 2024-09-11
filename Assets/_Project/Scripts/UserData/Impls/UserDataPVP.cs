@@ -1,25 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
-using CookApps.gRPC.Hatchery;
-using CookApps.gRPC.Universal;
+using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
     // PVP 시간 갱신 타입
     public enum PVPTimeRefreshType
     {
-        MATCHING_LIST,              // 매칭 리스트 갱신
-        MATCHING_REFRESH_COUNT,     // 매칭 리스트 갱신 카운트
-        AUTO_MATCHING_REFRESH_COUNT,     // 매칭 리스트 갱신 카운트
-        RANKING_LIST,               // 랭킹 리스트 갱신
-        AUTO_PROFILE,               // 자동 프로필 갱신
-        DAILY_REWARD,               // 일일 보상 갱신
-        BUY_TICKET,                 // 티켓 구매 갱신
-        REFILL_TICKET,              // 티켓 충전
+        MATCHING_LIST, // 매칭 리스트 갱신
+        MATCHING_REFRESH_COUNT, // 매칭 리스트 갱신 카운트
+        AUTO_MATCHING_REFRESH_COUNT, // 매칭 리스트 갱신 카운트
+        RANKING_LIST, // 랭킹 리스트 갱신
+        AUTO_PROFILE, // 자동 프로필 갱신
+        DAILY_REWARD, // 일일 보상 갱신
+        BUY_TICKET, // 티켓 구매 갱신
+        REFILL_TICKET // 티켓 충전
     }
-    
+
     public partial class UserDataManager
     {
         private UserPVP userPVP;
@@ -35,8 +35,8 @@ namespace CookApps.AutoBattler
                 userPVP.RecentSeasonId = 1;
                 userPVP.Ranking = 0;
 
-                UpdateUserRankData(0, false);   // 랭크 데이터 업데이트
-                
+                UpdateUserRankData(0, false); // 랭크 데이터 업데이트
+
                 return;
             }
 
@@ -51,30 +51,24 @@ namespace CookApps.AutoBattler
 
         public void SaveUserPVPData()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserPvp.ToCategoryString(), userPVP);
+            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserPvp.ToCategoryString(), userPVP);
         }
 
         // PVP 전투 결과 데이터를 유저데이터에 반영
-        public void SetPVPBattleResultData(MatchPvpResponse data, bool needSave)
+        public void SetPVPBattleResultData(PvpMatchResponse data, bool needSave)
         {
             UserPVP.Ranking = data.MyCurrentRank;
             UserPVP.RankPoint = data.MyCurrentScore;
             UserPVP.RankId = data.MyCurrentTier;
 
-            if (needSave)
-            {
-                SaveUserPVPData();
-            }
+            if (needSave) SaveUserPVPData();
         }
 
         public void AddMatchRefreshCount(bool needSave)
         {
             UserPVP.MatchRefreshCnt++;
-            
-            if (needSave)
-            {
-                SaveUserPVPData();
-            }
+
+            if (needSave) SaveUserPVPData();
         }
 
         // 유저 공격덱 데이터 반환
@@ -82,13 +76,13 @@ namespace CookApps.AutoBattler
         {
             return GetUserCharacterBattleDeckList(InGameType.PVP);
         }
-        
+
         // 유저 방어덱 데이터 반환 (캐릭터)
         public List<UserPVPCharacterBattleDeck> GetPVPDefenseCharacterDeckDataList()
         {
             return UserPVP?.MyPvpDefenseDeckList?.PvpCharacterDecks.ToList();
         }
-        
+
         // 유저 방어덱 데이터 반환 (장애물)
         public List<UserPVPObstacleBattleDeck> GetPVPDefenseObstacleDeckDataList()
         {
@@ -98,7 +92,7 @@ namespace CookApps.AutoBattler
         // 현재 정보를 기준으로 유저 데이터를 서버에 보낼 수 있는 SimpleData로 변환
         public UserPVPBattleSimpleData GetCurrentPVPSimpleProfileData(bool isDefenseDeck)
         {
-            UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
+            var simpleData = new UserPVPBattleSimpleData();
             simpleData.PlayerId = UserBasicData.PlayerId;
             simpleData.ServerId = UserBasicData.ServerId;
             simpleData.RankId = UserPVP.RankId;
@@ -112,46 +106,42 @@ namespace CookApps.AutoBattler
             {
                 var getPVPDefenseDeckList = GetPVPDefenseCharacterDeckDataList();
                 if (getPVPDefenseDeckList != null && getPVPDefenseDeckList.Count > 0)
-                {
                     foreach (var deckData in getPVPDefenseDeckList)
                     {
                         var characterData = GetUserCharacter(deckData.Id);
                         if (characterData == null) continue;
-                
-                        UserPVPCharacterSimpleDeck newSimpleData = new UserPVPCharacterSimpleDeck();
+
+                        var newSimpleData = new UserPVPCharacterSimpleDeck();
                         newSimpleData.Id = characterData.CharacterId;
                         newSimpleData.Lv = characterData.Level;
-                
+
                         simpleData.SimpleDeckList.Add(newSimpleData);
                     }
-                }
             }
             else
             {
                 var getPVPAttackDeckList = GetPVPAttackDeckDataList();
                 if (getPVPAttackDeckList != null && getPVPAttackDeckList.Count > 0)
-                {
                     foreach (var deckData in getPVPAttackDeckList)
                     {
                         var characterData = GetUserCharacter(deckData.CharacterId);
                         if (characterData == null) continue;
-                
-                        UserPVPCharacterSimpleDeck newSimpleData = new UserPVPCharacterSimpleDeck();
+
+                        var newSimpleData = new UserPVPCharacterSimpleDeck();
                         newSimpleData.Id = characterData.CharacterId;
                         newSimpleData.Lv = characterData.Level;
-                
+
                         simpleData.SimpleDeckList.Add(newSimpleData);
                     }
-                }
             }
-            
+
             return simpleData;
         }
-        
+
         // 현재 정보를 기준으로 유저 데이터를 서버에 보낼 수 있는 DetailData로 변환
         public UserPVPBattleDetailData GetCurrentPVPDetailProfileData(bool isDefenseDeck)
         {
-            UserPVPBattleDetailData detailData = new UserPVPBattleDetailData();
+            var detailData = new UserPVPBattleDetailData();
             detailData.PlayerId = UserBasicData.PlayerId;
             detailData.ServerId = UserBasicData.ServerId;
             detailData.RankId = UserPVP.RankId;
@@ -162,71 +152,58 @@ namespace CookApps.AutoBattler
             detailData.BattlePoint = GetPVPDeckBattlePower(isDefenseDeck);
 
             detailData.PvpDeckList = new UserPVPBattleDeckList();
-            
+
             // 유저 캐릭터 덱 데이터 세팅
             if (isDefenseDeck)
             {
                 var getPVPDefenseDeckList = GetPVPDefenseCharacterDeckDataList();
                 if (getPVPDefenseDeckList != null && getPVPDefenseDeckList.Count > 0)
-                {
                     foreach (var deckData in getPVPDefenseDeckList)
-                    {
                         detailData.PvpDeckList.PvpCharacterDecks.Add(deckData);
-                    }
-                }
-                
-                
+
+
                 var getPVPDefenseDeckObstacleList = GetPVPDefenseObstacleDeckDataList();
                 if (getPVPDefenseDeckObstacleList != null && getPVPDefenseDeckObstacleList.Count > 0)
-                {
                     foreach (var deckData in getPVPDefenseDeckObstacleList)
-                    {
                         detailData.PvpDeckList.PvpObstacleDecks.Add(deckData);
-                    }
-                }
             }
             else
             {
                 var getPVPAttackDeckList = GetPVPAttackDeckDataList();
                 if (getPVPAttackDeckList != null && getPVPAttackDeckList.Count > 0)
-                {
                     foreach (var deckData in getPVPAttackDeckList)
                     {
                         var characterData = GetUserCharacter(deckData.CharacterId);
                         if (characterData == null) continue;
-                
-                        UserPVPCharacterBattleDeck characterDeckData = new UserPVPCharacterBattleDeck();
+
+                        var characterDeckData = new UserPVPCharacterBattleDeck();
                         characterDeckData.Id = characterData.CharacterId;
                         characterDeckData.Lv = characterData.Level;
                         characterDeckData.PosX = deckData.PositionTileX;
                         characterDeckData.PosY = deckData.PositionTileY;
-                
+
                         detailData.PvpDeckList.PvpCharacterDecks.Add(characterDeckData);
                     }
-                }
             }
-            
+
             return detailData;
         }
 
-        public void SetPVPDefenseDeck(List<CookApps.BattleSystem.CharacterController> characterList, IEnumerable<UserPVPObstacleBattleDeck> obstacleDeck)
+        public void SetPVPDefenseDeck(List<BattleSystem.CharacterController> characterList, IEnumerable<UserPVPObstacleBattleDeck> obstacleDeck)
         {
             if (characterList == null || characterList.Count <= 0) return;
 
-            if (UserPVP.MyPvpDefenseDeckList == null)
-            {
-                UserPVP.MyPvpDefenseDeckList = new UserPVPBattleDeckList();
-            }
-            
+            if (UserPVP.MyPvpDefenseDeckList == null) UserPVP.MyPvpDefenseDeckList = new UserPVPBattleDeckList();
+
             // 초기화
             UserPVP.MyPvpDefenseDeckList.PvpCharacterDecks.Clear();
             UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Clear();
             UserPVP.MyPvpDefenseDeckList.EffectCodeInfos.Clear();
-            
+
             // 캐릭터 데이터 세팅
             foreach (var character in characterList)
             {
-                UserPVPCharacterBattleDeck newUserBattleDeck = new UserPVPCharacterBattleDeck();
+                var newUserBattleDeck = new UserPVPCharacterBattleDeck();
 
                 newUserBattleDeck.Id = character.CharacterId;
                 newUserBattleDeck.Lv = character.GetCharacterStat().Level;
@@ -235,13 +212,13 @@ namespace CookApps.AutoBattler
 
                 UserPVP.MyPvpDefenseDeckList.PvpCharacterDecks.Add(newUserBattleDeck);
             }
-            
+
             // 캐릭터 데이터 세팅
             UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.AddRange(obstacleDeck);
-            
+
             SaveUserPVPData();
         }
-        
+
         // PVP와 관련있는 갱신 시간 데이터를 업데이트
         public void UpdateNextRefreshTimeStamp(PVPTimeRefreshType timeType, bool needSave)
         {
@@ -273,12 +250,9 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            if (needSave)
-            {
-                SaveUserPVPData();
-            }
+            if (needSave) SaveUserPVPData();
         }
-        
+
         public void UpdateUserRankData(int rankPoint, bool needSave)
         {
             var specTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, rankPoint);
@@ -286,53 +260,45 @@ namespace CookApps.AutoBattler
 
             UserPVP.RankPoint = rankPoint;
             UserPVP.RankId = specTierData.ranking_id;
-            
-            if (needSave)
-            {
-                SaveUserPVPData();
-            }
+
+            if (needSave) SaveUserPVPData();
         }
-        
+
+
         // 유저 PVP 매칭 데이터를 타겟 매치 데이터를 기준으로 새로 업데이트
-        public void UpdatePVPMatchingListData(GetPvpMatchListResponse targetMatchData, bool needSave)
+        public void UpdatePVPMatchingListData(PvpListMatchResponse targetMatchData, bool needSave)
         {
             if (targetMatchData == null) return;
-            
+
             var matchDataList = targetMatchData.MatchInfo.ToList();
-            
+
             UserPVP.CurrentPvpMatchingDic.Clear();
             foreach (var matchData in matchDataList)
             {
                 if (UserPVP.CurrentPvpMatchingDic.ContainsKey(matchData.PlayerId)) continue;
-                
-                UserPVPBattleSimpleData newPVPSimpleData = new UserPVPBattleSimpleData();
+
+                var newPVPSimpleData = new UserPVPBattleSimpleData();
 
                 newPVPSimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(matchData.SimpleInfo);
-                
+
                 UserPVP.CurrentPvpMatchingDic.Add(matchData.PlayerId, newPVPSimpleData);
             }
-            
-            if (needSave)
-            {
-                SaveUserPVPData();
-            }
+
+            if (needSave) SaveUserPVPData();
         }
-        
+
         // PVP 매칭 리스트 결과데이터 업데이트
         public void SetPVPMatchingResultData(string targetPlayerID, PvpMatchResult resultType, bool needSave)
         {
             if (UserPVP.CurrentPvpMatchingDic == null || UserPVP.CurrentPvpMatchingDic.Count <= 0) return;
             if (UserPVP.CurrentPvpMatchingDic.ContainsKey(targetPlayerID) == false) return;
-            
+
             UserPVP.CurrentPvpMatchingDic[targetPlayerID].MatchResult = (int)resultType;
             UserPVP.CurrentPvpMatchingDic[targetPlayerID].RefreshTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
-            
-            if (needSave)
-            {
-                SaveUserPVPData();
-            }
+
+            if (needSave) SaveUserPVPData();
         }
-        
+
         // 매칭 리스트에서 데이터 반환 (단일)
         public UserPVPBattleSimpleData GetPVPMatchingData(string playerID)
         {
@@ -341,7 +307,7 @@ namespace CookApps.AutoBattler
 
             return UserPVP.CurrentPvpMatchingDic[playerID];
         }
-        
+
         // 매칭 리스트에서 데이터 반환 (전체)
         public List<UserPVPBattleSimpleData> GetPVPMatchingDataList()
         {

@@ -1,8 +1,8 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 
 public class FlowStatePvpClear : StateBase
 {
@@ -10,34 +10,32 @@ public class FlowStatePvpClear : StateBase
     {
     }
 
-    public async override void StateStart()
+    public override async void StateStart()
     {
         var detailDeckData = InGameManager.Instance.UserPvpBattleDeckList;
         var simpleDeckData = PVPManager.Instance.ChangeDetailDataToSimpleData(detailDeckData);
-        
-        string resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
+
+        var resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
         //string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
-        
-        bool isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
-        
+
+        var isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
+
         // 전투 종료 API
-        MatchPvpResponse matchResultData = null;
+        PvpMatchResponse matchResultData = null;
         if (isRevenge)
-        {
-            matchResultData = await PVPManager.Instance.SendMatchPVPRevengeResult(PvpMatchResult.RevengeWin, detailDeckData.PlayerId, resultSimpleData, detailDeckData.MatchId);
-        }
+            matchResultData =
+                await PVPManager.Instance.SendMatchPVPRevengeResult(PvpMatchResult.RevengeWin, detailDeckData.PlayerId, resultSimpleData,
+                    detailDeckData.MatchId);
         else
-        {
             matchResultData = await PVPManager.Instance.SendMatchPVPBattleResult(PvpMatchResult.Win, detailDeckData.PlayerId, resultSimpleData);
-        }
-        
+
         InGameManager.Instance.EndInGame();
-        
+
         SceneUILayerManager.Instance.PushUILayerAsync<ArenaPVPEndPopup>((true, detailDeckData, matchResultData));
-        
+
         // 가이드 미션 체크
         GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.PLAY_PVP, 0, 1);
-        
+
         // 퀘스트 데이터 갱신
         UserDataManager.Instance.SetUserQuestActionCount(QuestType.BATTLE_PVP, 1, true, true);
     }

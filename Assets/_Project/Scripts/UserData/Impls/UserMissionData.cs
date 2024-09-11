@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
+using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
-using CookApps.gRPC.Hatchery;
-using CookApps.gRPC.Universal;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf.Collections;
@@ -16,8 +15,8 @@ namespace CookApps.AutoBattler
         public UserMissionData UserMissionData => userMissionData;
         public MapField<int, UserGuideMission> UserGuideMissionDic => UserMissionData.UserGuideMissions;
 
-        public bool ClearToastPopupFlag { get; set; }   // 클리어 안내 토스트 팝업 노출 제어 플래그
-        
+        public bool ClearToastPopupFlag { get; set; } // 클리어 안내 토스트 팝업 노출 제어 플래그
+
         [Initialize(DataCategory.UserMissionData)]
         private void Initialize_MissionData(string data)
         {
@@ -25,20 +24,18 @@ namespace CookApps.AutoBattler
             {
                 userMissionData = new UserMissionData
                 {
-                    GuideMissionCurrentOrder = 1,
+                    GuideMissionCurrentOrder = 1
                 };
 
                 // 가이드 미션 전체 리스트 생성
                 var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All;
                 foreach (var guideMission in allGuideMissionList)
-                {
                     userMissionData.UserGuideMissions.Add(guideMission.order, new UserGuideMission
                     {
                         MissionId = guideMission.id,
                         MissionStateType = guideMission.order == 1 ? (int)MissionStateType.WAIT : (int)MissionStateType.NONE,
-                        ActionCount = 0,
+                        ActionCount = 0
                     });
-                }
 
                 return;
             }
@@ -55,23 +52,20 @@ namespace CookApps.AutoBattler
         public UserGuideMission GetCurrentGuideMissionData()
         {
             UserGuideMission resultData = null;
-            if (UserGuideMissionDic.TryGetValue(UserMissionData.GuideMissionCurrentOrder, out resultData))
-            {
-                return resultData;
-            }
+            if (UserGuideMissionDic.TryGetValue(UserMissionData.GuideMissionCurrentOrder, out resultData)) return resultData;
 
             return resultData;
         }
 
         public void SaveUserMissionData()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserMissionData.ToCategoryString(), userMissionData);
+            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserMissionData.ToCategoryString(), userMissionData);
         }
 
         // 현재 가이드 미션 상태 세팅 (행동 횟수)
         public void SetGuideMissionActionValue(GuideMissionType missionType, int subKey, int actionValue)
         {
-            bool isGuideMissionAllClear = userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder();
+            var isGuideMissionAllClear = userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder();
             if (isGuideMissionAllClear) return;
 
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
@@ -103,7 +97,7 @@ namespace CookApps.AutoBattler
         // 현재 가이드 미션 상태 세팅 (미션 상태)
         public void SetGuideMissionState(GuideMissionType missionType, int subKey, MissionStateType stateType)
         {
-            bool isGuideMissionAllClear = userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder();
+            var isGuideMissionAllClear = userMissionData.GuideMissionCurrentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder();
             if (isGuideMissionAllClear) return;
 
             if (UserGuideMissionDic.ContainsKey(UserMissionData.GuideMissionCurrentOrder))
@@ -126,7 +120,7 @@ namespace CookApps.AutoBattler
                 {
                     UserMissionData.GuideMissionCurrentOrder++;
                     ClearToastPopupFlag = false;
-                    
+
                     // 앱이벤트 처리
                     AppEventManager.Instance.GuideMissionClear(specMissionData.order);
                 }
@@ -151,15 +145,11 @@ namespace CookApps.AutoBattler
             {
                 case GuideMissionType.END_DIALOGUE:
                     if (CheckDialogHistory(specGuideMissionData.dialogue))
-                    {
                         SetGuideMissionState(GuideMissionType.END_DIALOGUE, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                    }
                     break;
                 case GuideMissionType.CLEAR_STAGE:
                     if (IsClearStage(specGuideMissionData.sub_key))
-                    {
                         SetGuideMissionState(GuideMissionType.CLEAR_STAGE, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                    }
                     break;
                 case GuideMissionType.LEVELUP_CHARACTER_TARGET:
                     var userCharacterData = GetUserCharacter(specGuideMissionData.sub_key);
@@ -173,36 +163,36 @@ namespace CookApps.AutoBattler
                             ClearToastPopupFlag = true;
                         }
                     }
+
                     break;
                 case GuideMissionType.SET_LV_CHARACTER_TARGET:
                     var userCharacterData1 = GetUserCharacter(specGuideMissionData.sub_key);
                     if (userCharacterData1 != null && userCharacterData1.Level >= specGuideMissionData.need_count)
                     {
                         SetGuideMissionState(GuideMissionType.SET_LV_CHARACTER_TARGET, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                        
+
                         if (ClearToastPopupFlag == false)
                         {
                             ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
                             ClearToastPopupFlag = true;
                         }
                     }
+
                     break;
                 case GuideMissionType.CLEAR_TRIAL:
                     var trialDungeonData = GetTrialDungeonData(specGuideMissionData.sub_key);
                     if (trialDungeonData != null && trialDungeonData.DungeonStateType > 0)
-                    {
                         SetGuideMissionState(GuideMissionType.CLEAR_TRIAL, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                    }
                     break;
                 case GuideMissionType.SUM_CHARACTER_LEVEL:
                     var allUserCharacterList = GetAllUserCharacterList();
                     if (allUserCharacterList != null && allUserCharacterList.Count > 0)
                     {
-                        int totalLevel = allUserCharacterList.Sum(data => data.Level);
+                        var totalLevel = allUserCharacterList.Sum(data => data.Level);
                         if (totalLevel >= specGuideMissionData.need_count)
                         {
                             SetGuideMissionState(GuideMissionType.SUM_CHARACTER_LEVEL, specGuideMissionData.sub_key, MissionStateType.REWARD);
-                            
+
                             if (ClearToastPopupFlag == false)
                             {
                                 ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_CLEAR_MSG");
@@ -210,6 +200,7 @@ namespace CookApps.AutoBattler
                             }
                         }
                     }
+
                     break;
             }
         }
