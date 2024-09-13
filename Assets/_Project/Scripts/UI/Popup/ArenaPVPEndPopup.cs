@@ -5,6 +5,7 @@ using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _tierPointText;
         [SerializeField] private TextMeshProUGUI _tierPointChangeText;
         [SerializeField] private List<GameObject> _tierLevelObjectList;
-        
+
         [SerializeField] private ParticleSystem _tierFx;
 
         [Header("Reward Layer")] [SerializeField]
@@ -39,7 +40,7 @@ namespace CookApps.AutoBattler
         private bool _isRevenge = false;
 
         private UserPVPBattleDetailData _detailData;
-        private MatchPvpResponse _matchResultData;
+        private PvpMatchResponse _matchResultData;
 
         private void Awake()
         {
@@ -62,7 +63,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _detailData, _matchResultData) = ((bool, UserPVPBattleDetailData, MatchPvpResponse)) param;
+            (_isVictory, _detailData, _matchResultData) = ((bool, UserPVPBattleDetailData, PvpMatchResponse))param;
 
             var specTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
 
@@ -78,48 +79,38 @@ namespace CookApps.AutoBattler
             else if (_matchResultData.MyDeltaScore < 0)
                 _tierPointChangeText.text = $"({_matchResultData.MyDeltaScore.ToString("n0")})";
 
-            float duration = 1.2f;
+            var duration = 1.2f;
             AnimateSliderProgressAsync(_matchResultData.MyCurrentScore, _matchResultData.MyDeltaScore, duration)
                 .Forget();
 
-            for (int i = 0; i < specTierData.tier_order; i++)
-            {
-                _tierLevelObjectList[i].SetActive(true);
-            }
+            for (var i = 0; i < specTierData.tier_order; i++) _tierLevelObjectList[i].SetActive(true);
 
             if (_isVictory)
-            {
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
-            }
             else
-            {
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
-            }
 
             // 보상 데이터 세팅
-            PvpRewardType targetRewardType =
+            var targetRewardType =
                 _isVictory ? PvpRewardType.PVP_REWARD_VICTORY : PvpRewardType.PVP_REWARD_LOSE;
             var pvpRewardList =
                 SpecDataManager.Instance.GetRewardItemListByPVPRewardList(targetRewardType, specTierData.ranking_id);
             foreach (var rewardData in pvpRewardList)
             {
-                GameObject newObject = Instantiate(_rewardItemSlotObject, _rewardContentObject.transform);
+                var newObject = Instantiate(_rewardItemSlotObject, _rewardContentObject.transform);
                 var rewardSlot = newObject.GetComponent<RewardItemSlot>();
 
                 rewardSlot.SetRewardSlot(rewardData);
             }
 
             // 보상 지급 처리
-            if (pvpRewardList != null && pvpRewardList.Count > 0)
-            {
-                UserDataManager.Instance.IncreaseRewardItemList(pvpRewardList, true);
-            }
+            if (pvpRewardList != null && pvpRewardList.Count > 0) UserDataManager.Instance.IncreaseRewardItemList(pvpRewardList, true);
 
             // 앱 이벤트 처리
             var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.PVP);
-            int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
+            var myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
 
-            string result = _isVictory ? "win" : "lose";
+            var result = _isVictory ? "win" : "lose";
 
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
 
@@ -134,10 +125,10 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PopUILayer(this);
 
             //InGameManager.Instance.EndInGame();
-            int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+            var lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
             var transition = SceneTransition_FadeInOut.Create();
-            await SceneLoading.GoToNextScene("Lobby", (int) specLastStageData.chapter_id, transition);
+            await SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition);
 
             SceneUILayerManager.OnSceneLoadedEvent += OpenArenaMainPopupAction;
         }
@@ -165,13 +156,10 @@ namespace CookApps.AutoBattler
                 SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, currentScore - deltaScore);
             var afterTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
 
-            bool isTierChange = false;
-            if (afterTierData != null && beforeTierData != null)
-            {
-                isTierChange = beforeTierData.pvp_tier_type != afterTierData.pvp_tier_type;
-            }
+            var isTierChange = false;
+            if (afterTierData != null && beforeTierData != null) isTierChange = beforeTierData.pvp_tier_type != afterTierData.pvp_tier_type;
 
-            string animKey = "";
+            var animKey = "";
             if (isTierChange)
             {
                 animKey = _isVictory ? "SetTierUp" : "SetTierDown";
@@ -186,17 +174,17 @@ namespace CookApps.AutoBattler
 
             float beforeRankingMin = Mathf.Max(1000, beforeTierData.ranking_min);
             float afterRankingMin = Mathf.Max(1000, afterTierData.ranking_min);
-            
-            int startScore = currentScore - deltaScore;
-            int endScore = currentScore;
-            
-            float startRate = (float) (startScore - beforeRankingMin) /
-                               (beforeTierData.ranking_max - beforeRankingMin);
-            float endRate = (float) (endScore - afterRankingMin) /
-                             (afterTierData.ranking_max - afterRankingMin);
+
+            var startScore = currentScore - deltaScore;
+            var endScore = currentScore;
+
+            var startRate = (float)(startScore - beforeRankingMin) /
+                            (beforeTierData.ranking_max - beforeRankingMin);
+            var endRate = (float)(endScore - afterRankingMin) /
+                          (afterTierData.ranking_max - afterRankingMin);
 
             _tierSlider.SetProgress(startRate);
-            
+
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
 
             if (beforeTierData == afterTierData)
@@ -205,12 +193,12 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                float firstSegmentProgress = 1.0f - startRate;
-                float secondSegmentProgress = endRate;
-                float totalProgress = firstSegmentProgress + secondSegmentProgress;
+                var firstSegmentProgress = 1.0f - startRate;
+                var secondSegmentProgress = endRate;
+                var totalProgress = firstSegmentProgress + secondSegmentProgress;
 
-                float firstSegmentDuration = totalDuration * (firstSegmentProgress / totalProgress);
-                float secondSegmentDuration = totalDuration * (secondSegmentProgress / totalProgress);
+                var firstSegmentDuration = totalDuration * (firstSegmentProgress / totalProgress);
+                var secondSegmentDuration = totalDuration * (secondSegmentProgress / totalProgress);
 
                 await AnimateSliderAndScore(startRate, 1.0f, startScore, beforeTierData.ranking_max,
                     firstSegmentDuration);
@@ -226,14 +214,14 @@ namespace CookApps.AutoBattler
         private async UniTask AnimateSliderAndScore(float startValue, float endValue, int startScore, int endScore,
             float duration)
         {
-            float elapsedTime = 0f;
+            var elapsedTime = 0f;
             while (elapsedTime < duration)
             {
                 elapsedTime += Time.deltaTime;
-                float t = elapsedTime / duration;
+                var t = elapsedTime / duration;
                 _tierSlider.SetProgress(Mathf.Lerp(startValue, endValue, t));
 
-                float currentScore = (int) Mathf.Lerp(startScore, endScore, t);
+                float currentScore = (int)Mathf.Lerp(startScore, endScore, t);
                 _tierPointText.text = currentScore.ToString("n0");
 
                 await UniTask.Yield();

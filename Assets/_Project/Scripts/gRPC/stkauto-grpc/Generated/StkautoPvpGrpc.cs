@@ -69,6 +69,10 @@ namespace Tech.Hive.V1 {
     static readonly grpc::Marshaller<global::Tech.Hive.V1.PvpUpdateProfileRequest> __Marshaller_tech_hive_v1_PvpUpdateProfileRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.PvpUpdateProfileRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.PvpUpdateProfileResponse> __Marshaller_tech_hive_v1_PvpUpdateProfileResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.PvpUpdateProfileResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.PvpListPvpRankRequest> __Marshaller_tech_hive_v1_PvpListPvpRankRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.PvpListPvpRankRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.PvpListPvpRankResponse> __Marshaller_tech_hive_v1_PvpListPvpRankResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.PvpListPvpRankResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.PvpGetInfoRequest, global::Tech.Hive.V1.PvpGetInfoResponse> __Method_GetInfo = new grpc::Method<global::Tech.Hive.V1.PvpGetInfoRequest, global::Tech.Hive.V1.PvpGetInfoResponse>(
@@ -118,6 +122,14 @@ namespace Tech.Hive.V1 {
         __Marshaller_tech_hive_v1_PvpUpdateProfileRequest,
         __Marshaller_tech_hive_v1_PvpUpdateProfileResponse);
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Tech.Hive.V1.PvpListPvpRankRequest, global::Tech.Hive.V1.PvpListPvpRankResponse> __Method_ListPvpRank = new grpc::Method<global::Tech.Hive.V1.PvpListPvpRankRequest, global::Tech.Hive.V1.PvpListPvpRankResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ListPvpRank",
+        __Marshaller_tech_hive_v1_PvpListPvpRankRequest,
+        __Marshaller_tech_hive_v1_PvpListPvpRankResponse);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -143,7 +155,7 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// aocl tkdydwk 
+      /// 매칭 목록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
@@ -156,7 +168,7 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// pvp 결과를 전달할때 사용합니다.
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
@@ -169,7 +181,7 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// 매칭 기록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
@@ -182,7 +194,7 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
@@ -195,13 +207,26 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 갱신합니다.
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.PvpUpdateProfileResponse> UpdateProfile(global::Tech.Hive.V1.PvpUpdateProfileRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      ///*
+      /// PVP 랭킹 정보를 가져옵니다.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.PvpListPvpRankResponse> ListPvpRank(global::Tech.Hive.V1.PvpListPvpRankRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -289,7 +314,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// aocl tkdydwk 
+      /// 매칭 목록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -303,7 +328,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// aocl tkdydwk 
+      /// 매칭 목록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -315,7 +340,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// aocl tkdydwk 
+      /// 매칭 목록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -329,7 +354,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// aocl tkdydwk 
+      /// 매칭 목록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -341,7 +366,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// pvp 결과를 전달할때 사용합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -355,7 +380,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// pvp 결과를 전달할때 사용합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -367,7 +392,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// pvp 결과를 전달할때 사용합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -381,7 +406,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// pvp 결과를 전달할때 사용합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -393,7 +418,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// 매칭 기록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -407,7 +432,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// 매칭 기록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -419,7 +444,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// 매칭 기록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -433,7 +458,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// 매칭 기록을 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -445,7 +470,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -459,7 +484,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -471,7 +496,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -485,7 +510,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 가지고 옵니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -497,7 +522,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 갱신합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -511,7 +536,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 갱신합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -523,7 +548,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 갱신합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -537,7 +562,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// PVP 랭킹 정보를 가져옵니다.
+      /// PVP 프로필 정보를 갱신합니다.
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -546,6 +571,58 @@ namespace Tech.Hive.V1 {
       public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.PvpUpdateProfileResponse> UpdateProfileAsync(global::Tech.Hive.V1.PvpUpdateProfileRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_UpdateProfile, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// PVP 랭킹 정보를 가져옵니다.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.PvpListPvpRankResponse ListPvpRank(global::Tech.Hive.V1.PvpListPvpRankRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListPvpRank(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// PVP 랭킹 정보를 가져옵니다.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.PvpListPvpRankResponse ListPvpRank(global::Tech.Hive.V1.PvpListPvpRankRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ListPvpRank, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// PVP 랭킹 정보를 가져옵니다.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.PvpListPvpRankResponse> ListPvpRankAsync(global::Tech.Hive.V1.PvpListPvpRankRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListPvpRankAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// PVP 랭킹 정보를 가져옵니다.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.PvpListPvpRankResponse> ListPvpRankAsync(global::Tech.Hive.V1.PvpListPvpRankRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ListPvpRank, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -566,7 +643,8 @@ namespace Tech.Hive.V1 {
           .AddMethod(__Method_Match, serviceImpl.Match)
           .AddMethod(__Method_ListMatchHistory, serviceImpl.ListMatchHistory)
           .AddMethod(__Method_GetProfile, serviceImpl.GetProfile)
-          .AddMethod(__Method_UpdateProfile, serviceImpl.UpdateProfile).Build();
+          .AddMethod(__Method_UpdateProfile, serviceImpl.UpdateProfile)
+          .AddMethod(__Method_ListPvpRank, serviceImpl.ListPvpRank).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -582,6 +660,7 @@ namespace Tech.Hive.V1 {
       serviceBinder.AddMethod(__Method_ListMatchHistory, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.PvpListMatchHistoryRequest, global::Tech.Hive.V1.PvpListMatchHistoryResponse>(serviceImpl.ListMatchHistory));
       serviceBinder.AddMethod(__Method_GetProfile, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.PvpGetProfileRequest, global::Tech.Hive.V1.PvpGetProfileResponse>(serviceImpl.GetProfile));
       serviceBinder.AddMethod(__Method_UpdateProfile, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.PvpUpdateProfileRequest, global::Tech.Hive.V1.PvpUpdateProfileResponse>(serviceImpl.UpdateProfile));
+      serviceBinder.AddMethod(__Method_ListPvpRank, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.PvpListPvpRankRequest, global::Tech.Hive.V1.PvpListPvpRankResponse>(serviceImpl.ListPvpRank));
     }
 
   }

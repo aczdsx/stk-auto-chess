@@ -75,30 +75,26 @@ namespace CookApps.gRPC
             return response;
         }
 
-        //  TODO : 구현 필요
         // PVP 랭킹 리스트를 서버로부터 가져옴
-        // public async UniTask<GetPvpRankListResponse> GetPvpRankListAsync(int showRankCount)
-        // {
-        //     using var _ = GenericPool<GetPvpRankListRequest>.Get(out var request);
-        //     request.CommonRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetCommonRequestParam();
-        //     request.GameRequestParam = IsClientOnly ? null : UniversalGrpcManager.Instance.GetGameRequestParam();
-        //     request.RankerCount = showRankCount;
-        //     var response = await GameService.GetPvpRankListAsync(request);
-        //     if (response == null)
-        //         throw new System.Exception("response is canceled!");
-        //
-        //     // 벤 유저 체크
-        //     if (response.CommonResponseData.StatusCode == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
-        //     {
-        //         ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
-        //
-        //         var transition = SceneTransition_FadeInOut.Create();
-        //         await SceneLoading.GoToNextScene("Title", null, transition);
-        //         return null;
-        //     }
-        //
-        //     return response;
-        // }
+        public async UniTask<PvpListPvpRankResponse> ListPvpRankAsync(int showRankCount)
+        {
+            using var _ = GenericPool<PvpListPvpRankRequest>.Get(out var request);
+            var response = await ListPvpRankAsync(request);
+            if (response == null)
+                throw new System.Exception("response is canceled!");
+
+            // 벤 유저 체크
+            if (response.Status.Code == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
+
+                var transition = SceneTransition_FadeInOut.Create();
+                await SceneLoading.GoToNextScene("Title", null, transition);
+                return null;
+            }
+
+            return response;
+        }
 
         // PVP 전투 히스토리 리스트를 서버로부터 가져옴
         public async UniTask<PvpListMatchHistoryResponse> GetPvpMatchHistory(int showCount)

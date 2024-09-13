@@ -64,23 +64,29 @@ namespace Tech.Hive.V1 {
             "ChdQdnBVcGRhdGVQcm9maWxlUmVxdWVzdBINCgVwb3dlchgBIAEoCRITCgtz",
             "aW1wbGVfaW5mbxgCIAEoCRISCgpoZWF2eV9pbmZvGAMgASgJIkgKGFB2cFVw",
             "ZGF0ZVByb2ZpbGVSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhp",
-            "dmUudjEuUmVzcG9uc2VTdGF0dXMqLQoYU3RrYXV0b1BWUFJlc3BvbnNlU3Rh",
-            "dHVzEhEKDVBWUF9VTkRFRklORUQQACphCg5QdnBNYXRjaFJlc3VsdBIPCgtV",
-            "TlNQRUNJRklFRBAAEgcKA1dJThABEggKBExPU0UQAhIICgREUkFXEAMSDwoL",
-            "UkVWRU5HRV9XSU4QBBIQCgxSRVZFTkdFX0xPU0UQBTKpBAoRU3RrYXV0b1B2",
-            "cFNlcnZpY2USTgoHR2V0SW5mbxIfLnRlY2guaGl2ZS52MS5QdnBHZXRJbmZv",
-            "UmVxdWVzdBogLnRlY2guaGl2ZS52MS5QdnBHZXRJbmZvUmVzcG9uc2UiABJU",
-            "CglMaXN0TWF0Y2gSIS50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoUmVxdWVz",
-            "dBoiLnRlY2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hSZXNwb25zZSIAEkgKBU1h",
-            "dGNoEh0udGVjaC5oaXZlLnYxLlB2cE1hdGNoUmVxdWVzdBoeLnRlY2guaGl2",
-            "ZS52MS5QdnBNYXRjaFJlc3BvbnNlIgASaQoQTGlzdE1hdGNoSGlzdG9yeRIo",
-            "LnRlY2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hIaXN0b3J5UmVxdWVzdBopLnRl",
-            "Y2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hIaXN0b3J5UmVzcG9uc2UiABJXCgpH",
-            "ZXRQcm9maWxlEiIudGVjaC5oaXZlLnYxLlB2cEdldFByb2ZpbGVSZXF1ZXN0",
-            "GiMudGVjaC5oaXZlLnYxLlB2cEdldFByb2ZpbGVSZXNwb25zZSIAEmAKDVVw",
-            "ZGF0ZVByb2ZpbGUSJS50ZWNoLmhpdmUudjEuUHZwVXBkYXRlUHJvZmlsZVJl",
-            "cXVlc3QaJi50ZWNoLmhpdmUudjEuUHZwVXBkYXRlUHJvZmlsZVJlc3BvbnNl",
-            "IgBiBnByb3RvMw=="));
+            "dmUudjEuUmVzcG9uc2VTdGF0dXMiFwoVUHZwTGlzdFB2cFJhbmtSZXF1ZXN0",
+            "IrMBChZQdnBMaXN0UHZwUmFua1Jlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
+            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIxCgtwdnBfcmFua2VycxgC",
+            "IAMoCzIcLnRlY2guaGl2ZS52MS5QdnBSYW5raW5nRGF0YRI4ChBteV9wdnBf",
+            "cmFua19kYXRhGAMgASgLMh4udGVjaC5oaXZlLnYxLk15UHZwUmFua2luZ0Rh",
+            "dGEqLQoYU3RrYXV0b1BWUFJlc3BvbnNlU3RhdHVzEhEKDVBWUF9VTkRFRklO",
+            "RUQQACphCg5QdnBNYXRjaFJlc3VsdBIPCgtVTlNQRUNJRklFRBAAEgcKA1dJ",
+            "ThABEggKBExPU0UQAhIICgREUkFXEAMSDwoLUkVWRU5HRV9XSU4QBBIQCgxS",
+            "RVZFTkdFX0xPU0UQBTKFBQoRU3RrYXV0b1B2cFNlcnZpY2USTgoHR2V0SW5m",
+            "bxIfLnRlY2guaGl2ZS52MS5QdnBHZXRJbmZvUmVxdWVzdBogLnRlY2guaGl2",
+            "ZS52MS5QdnBHZXRJbmZvUmVzcG9uc2UiABJUCglMaXN0TWF0Y2gSIS50ZWNo",
+            "LmhpdmUudjEuUHZwTGlzdE1hdGNoUmVxdWVzdBoiLnRlY2guaGl2ZS52MS5Q",
+            "dnBMaXN0TWF0Y2hSZXNwb25zZSIAEkgKBU1hdGNoEh0udGVjaC5oaXZlLnYx",
+            "LlB2cE1hdGNoUmVxdWVzdBoeLnRlY2guaGl2ZS52MS5QdnBNYXRjaFJlc3Bv",
+            "bnNlIgASaQoQTGlzdE1hdGNoSGlzdG9yeRIoLnRlY2guaGl2ZS52MS5QdnBM",
+            "aXN0TWF0Y2hIaXN0b3J5UmVxdWVzdBopLnRlY2guaGl2ZS52MS5QdnBMaXN0",
+            "TWF0Y2hIaXN0b3J5UmVzcG9uc2UiABJXCgpHZXRQcm9maWxlEiIudGVjaC5o",
+            "aXZlLnYxLlB2cEdldFByb2ZpbGVSZXF1ZXN0GiMudGVjaC5oaXZlLnYxLlB2",
+            "cEdldFByb2ZpbGVSZXNwb25zZSIAEmAKDVVwZGF0ZVByb2ZpbGUSJS50ZWNo",
+            "LmhpdmUudjEuUHZwVXBkYXRlUHJvZmlsZVJlcXVlc3QaJi50ZWNoLmhpdmUu",
+            "djEuUHZwVXBkYXRlUHJvZmlsZVJlc3BvbnNlIgASWgoLTGlzdFB2cFJhbmsS",
+            "Iy50ZWNoLmhpdmUudjEuUHZwTGlzdFB2cFJhbmtSZXF1ZXN0GiQudGVjaC5o",
+            "aXZlLnYxLlB2cExpc3RQdnBSYW5rUmVzcG9uc2UiAGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.StkautoPVPResponseStatus), typeof(global::Tech.Hive.V1.PvpMatchResult), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -99,7 +105,9 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetProfileRequest), global::Tech.Hive.V1.PvpGetProfileRequest.Parser, new[]{ "Type", "OpponentPlayerId" }, new[]{ "OpponentPlayerId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetProfileResponse), global::Tech.Hive.V1.PvpGetProfileResponse.Parser, new[]{ "Status", "SimpleInfo", "HeavyInfo" }, new[]{ "SimpleInfo", "HeavyInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileRequest), global::Tech.Hive.V1.PvpUpdateProfileRequest.Parser, new[]{ "Power", "SimpleInfo", "HeavyInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileResponse), global::Tech.Hive.V1.PvpUpdateProfileResponse.Parser, new[]{ "Status" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileResponse), global::Tech.Hive.V1.PvpUpdateProfileResponse.Parser, new[]{ "Status" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankRequest), global::Tech.Hive.V1.PvpListPvpRankRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankResponse), global::Tech.Hive.V1.PvpListPvpRankResponse.Parser, new[]{ "Status", "PvpRankers", "MyPvpRankData" }, null, null, null, null)
           }));
     }
     #endregion
@@ -4497,6 +4505,430 @@ namespace Tech.Hive.V1 {
               Status = new global::Tech.Hive.V1.ResponseStatus();
             }
             input.ReadMessage(Status);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class PvpListPvpRankRequest : pb::IMessage<PvpListPvpRankRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PvpListPvpRankRequest> _parser = new pb::MessageParser<PvpListPvpRankRequest>(() => new PvpListPvpRankRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PvpListPvpRankRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[16]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpListPvpRankRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpListPvpRankRequest(PvpListPvpRankRequest other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpListPvpRankRequest Clone() {
+      return new PvpListPvpRankRequest(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PvpListPvpRankRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PvpListPvpRankRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PvpListPvpRankRequest other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class PvpListPvpRankResponse : pb::IMessage<PvpListPvpRankResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PvpListPvpRankResponse> _parser = new pb::MessageParser<PvpListPvpRankResponse>(() => new PvpListPvpRankResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PvpListPvpRankResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[17]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpListPvpRankResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpListPvpRankResponse(PvpListPvpRankResponse other) : this() {
+      status_ = other.status_ != null ? other.status_.Clone() : null;
+      pvpRankers_ = other.pvpRankers_.Clone();
+      myPvpRankData_ = other.myPvpRankData_ != null ? other.myPvpRankData_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpListPvpRankResponse Clone() {
+      return new PvpListPvpRankResponse(this);
+    }
+
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 1;
+    private global::Tech.Hive.V1.ResponseStatus status_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.ResponseStatus Status {
+      get { return status_; }
+      set {
+        status_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "pvp_rankers" field.</summary>
+    public const int PvpRankersFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.PvpRankingData> _repeated_pvpRankers_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.PvpRankingData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.PvpRankingData> pvpRankers_ = new pbc::RepeatedField<global::Tech.Hive.V1.PvpRankingData>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Tech.Hive.V1.PvpRankingData> PvpRankers {
+      get { return pvpRankers_; }
+    }
+
+    /// <summary>Field number for the "my_pvp_rank_data" field.</summary>
+    public const int MyPvpRankDataFieldNumber = 3;
+    private global::Tech.Hive.V1.MyPvpRankingData myPvpRankData_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.MyPvpRankingData MyPvpRankData {
+      get { return myPvpRankData_; }
+      set {
+        myPvpRankData_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PvpListPvpRankResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PvpListPvpRankResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Status, other.Status)) return false;
+      if(!pvpRankers_.Equals(other.pvpRankers_)) return false;
+      if (!object.Equals(MyPvpRankData, other.MyPvpRankData)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (status_ != null) hash ^= Status.GetHashCode();
+      hash ^= pvpRankers_.GetHashCode();
+      if (myPvpRankData_ != null) hash ^= MyPvpRankData.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      pvpRankers_.WriteTo(output, _repeated_pvpRankers_codec);
+      if (myPvpRankData_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MyPvpRankData);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      pvpRankers_.WriteTo(ref output, _repeated_pvpRankers_codec);
+      if (myPvpRankData_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MyPvpRankData);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (status_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
+      }
+      size += pvpRankers_.CalculateSize(_repeated_pvpRankers_codec);
+      if (myPvpRankData_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MyPvpRankData);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PvpListPvpRankResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.status_ != null) {
+        if (status_ == null) {
+          Status = new global::Tech.Hive.V1.ResponseStatus();
+        }
+        Status.MergeFrom(other.Status);
+      }
+      pvpRankers_.Add(other.pvpRankers_);
+      if (other.myPvpRankData_ != null) {
+        if (myPvpRankData_ == null) {
+          MyPvpRankData = new global::Tech.Hive.V1.MyPvpRankingData();
+        }
+        MyPvpRankData.MergeFrom(other.MyPvpRankData);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            pvpRankers_.AddEntriesFrom(input, _repeated_pvpRankers_codec);
+            break;
+          }
+          case 26: {
+            if (myPvpRankData_ == null) {
+              MyPvpRankData = new global::Tech.Hive.V1.MyPvpRankingData();
+            }
+            input.ReadMessage(MyPvpRankData);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            pvpRankers_.AddEntriesFrom(ref input, _repeated_pvpRankers_codec);
+            break;
+          }
+          case 26: {
+            if (myPvpRankData_ == null) {
+              MyPvpRankData = new global::Tech.Hive.V1.MyPvpRankingData();
+            }
+            input.ReadMessage(MyPvpRankData);
             break;
           }
         }

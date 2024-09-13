@@ -15,29 +15,35 @@ service StkautoPvpService {
   rpc GetInfo(PvpGetInfoRequest) returns (PvpGetInfoResponse) {}
 
   /**
-    * aocl tkdydwk 
+    * 매칭 목록을 가지고 옵니다.
     */
   rpc ListMatch(PvpListMatchRequest) returns (PvpListMatchResponse) {}
 
   /**
-    * PVP 랭킹 정보를 가져옵니다.
+    * pvp 결과를 전달할때 사용합니다.
     */
   rpc Match(PvpMatchRequest) returns (PvpMatchResponse) {}
 
   /**
-    * PVP 랭킹 정보를 가져옵니다.
+    * 매칭 기록을 가지고 옵니다.
     */
   rpc ListMatchHistory(PvpListMatchHistoryRequest) returns (PvpListMatchHistoryResponse) {}
 
   /**
-    * PVP 랭킹 정보를 가져옵니다.
+    * PVP 프로필 정보를 가지고 옵니다.
     */
   rpc GetProfile(PvpGetProfileRequest) returns (PvpGetProfileResponse) {}
 
   /**
-    * PVP 랭킹 정보를 가져옵니다.
+    * PVP 프로필 정보를 갱신합니다.
     */
   rpc UpdateProfile(PvpUpdateProfileRequest) returns (PvpUpdateProfileResponse) {}
+
+  /**
+    * PVP 랭킹 정보를 가져옵니다.
+    */
+  rpc ListPvpRank(PvpListPvpRankRequest) returns (PvpListPvpRankResponse) {}
+  
 }
 
 
@@ -148,3 +154,16 @@ message PvpUpdateProfileRequest {
 message PvpUpdateProfileResponse {
   ResponseStatus status = 1;
 }
+
+
+message PvpListPvpRankRequest {
+  
+}
+
+
+message PvpListPvpRankResponse {
+  ResponseStatus status = 1;
+  repeated PvpRankingData pvp_rankers = 2;
+  MyPvpRankingData my_pvp_rank_data = 3;
+}
+

@@ -23,8 +23,10 @@ namespace CookApps.AutoBattler
         private const double PVP_PROFILE_REFRESH_TIME = 300; // PVP 프로필 정보 갱신 시간 (초)
 
         public PvpGetInfoResponse CurrentPVPInfo { get; private set; } // 현재 PVP INFO
+
         public PvpListMatchResponse CurrentPVPMatchListData { get; private set; } // 현재 PVP 매치 리스트
-        public GetPvpRankListResponse CurrentPVPRankListData { get; private set; } // 현재 PVP 랭킹 리스트
+
+        public PvpListPvpRankResponse CurrentPVPRankListData { get; private set; } // 현재 PVP 랭킹 리스트
         public PvpListMatchHistoryResponse CurrentPVPHistoryListData { get; private set; } // 현재 PVP 전투 히스토리 리스트
 
         private double profileUpdateTime = 0;
@@ -130,7 +132,7 @@ namespace CookApps.AutoBattler
         {
             var showRankCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_RANKING_LIST_COUNT");
 
-            var response = await GrpcManager.Instance.StkAutoPvpService.GetPvpRankListAsync(showRankCount);
+            var response = await GrpcManager.Instance.StkAutoPvpService.ListPvpRankAsync(showRankCount);
             if (response.IsError) return;
 
             CurrentPVPRankListData = response;
