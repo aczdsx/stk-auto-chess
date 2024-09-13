@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
                 bundleVersion: versionCode,
 #else
             var initializeParam = new GrpcInitializeParam(
-                "stkauto-adfjk.dev.cookappsgames.com",
+                "stkauto-gyc71v.dev.cookappsgames.com",
                 443,
                 ChannelCredentials.SecureSSL,
                 versionCode,
