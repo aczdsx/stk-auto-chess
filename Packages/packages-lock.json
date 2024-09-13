@@ -52,7 +52,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.coroutineutils": {
-      "version": "1.0.2",
+      "version": "1.0.5",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -105,18 +105,19 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.grpc": {
-      "version": "6.4.1",
+      "version": "file:C:/Work/Git/tech-grpc/Assets/Package",
       "depth": 0,
-      "source": "registry",
+      "source": "local",
       "dependencies": {
         "com.cookapps.inspector": "1.0.2",
         "com.cookapps.package.window": "1.3.3",
         "com.cookapps.utility": "1.0.3",
-        "com.cookapps.local.data": "4.3.0",
+        "com.cookapps.local.data": "5.0.1",
         "com.cookapps.link-xml-resolver": "1.0.1",
-        "com.cookapps.obfuscator": "1.1.13"
-      },
-      "url": "http://packages.tech.cookapps.com"
+        "com.cookapps.obfuscator": "1.1.13",
+        "com.cookapps.nuget.common": "1.0.0",
+        "com.cookapps.coroutineutils": "1.0.5"
+      }
     },
     "com.cookapps.iap": {
       "version": "2.2.2",
@@ -144,8 +145,8 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.local.data": {
-      "version": "4.3.0",
-      "depth": 0,
+      "version": "5.0.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
@@ -164,6 +165,13 @@
         "com.cookapps.debug": "1.1.6",
         "com.unity.modules.unitywebrequesttexture": "1.0.0"
       },
+      "url": "http://packages.tech.cookapps.com"
+    },
+    "com.cookapps.nuget.common": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.obfuscator": {

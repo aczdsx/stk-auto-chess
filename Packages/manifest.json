@@ -7,7 +7,7 @@
     "com.cookapps.dependency": "1.2.3",
     "com.cookapps.facebook": "1.2.1",
     "com.cookapps.favorites": "1.0.2",
-    "com.cookapps.grpc": "6.4.1",
+    "com.cookapps.grpc": "file:C:/Work/Git/tech-grpc/Assets/Package",
     "com.cookapps.iap": "2.2.2",
     "com.cookapps.local.data": "4.3.0",
     "com.cookapps.obfuscator": "1.1.5",
