@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+enum PlayerResponseStatus {
+  PLAYER_UNDEFINED = 0; // 미사용
+  PLAYER_UID_IS_NULL = 1500; // 사용자 uid가 없음
+  PLAYER_NOT_FOUND = 1502; // 사용자를 찾을 수 없음
+  PLAYER_ALREADY_DELETED = 1503; // 이미 삭제된 사용자
+  PLAYER_SERVER_ID_NOT_MATCHED = 1504; // 서버 아이디가 일치하지 않음
+  PLAYER_NICKNAME_NOT_CHANGED = 1505; // 닉네임이 변경되지 않음
+  PLAYER_NICKNAME_ALREADY_EXIST = 1506; // 이미 존재하는 닉네임
+}
+
+service PlayerService {
+  /**
+   * 플레이어 목록을 조회합니다.
+   */
+  rpc List(PlayerListRequest) returns (PlayerListResponse) {}
+
+  /**
+   * 마지막으로 선택된 플레이어를 조회합니다.
+   */
+  rpc GetLastSelected(GetLastSelectedRequest) returns (GetLastSelectedResponse) {}
+
+  /**
+   * 플레이어를 조회합니다.
+   */
+  rpc Get(PlayerGetRequest) returns (PlayerGetResponse) {}
+
+  /**
+   * 플레이어를 생성합니다.
+   */
+  rpc Create(PlayerCreateRequest) returns (PlayerCreateResponse) {}
+
+  /**
+   * 플레이어를 삭제합니다. (SoftDelete 입니다.)
+   */
+  rpc Delete(PlayerDeleteRequest) returns (PlayerDeleteResponse) {}
+
+  /**
+   * 플레이어를 수정합니다.
+   */
+  rpc Patch(PlayerPatchRequest) returns (PlayerPatchResponse) {}
+
+  /**
+   * 닉네임 사용 가능 여부를 확인합니다. (중복 검사)
+   */
+  rpc CheckNickname(PlayerCheckNicknameRequest) returns (PlayerCheckNicknameResponse) {}
+}
+
+message PlayerListRequest {
+  PaginationInfo pagination = 1;
+}
+
+message PlayerInfo {
+  string player_id = 1;
+  optional string nickname = 2;
+  uint32 server_id = 3;
+}
+
+
+message PlayerListResponse {
+  ResponseStatus status = 1;
+  PaginationMeta meta = 2;
+  repeated PlayerInfo item_list = 3;
+}
+
+message GetLastSelectedRequest {}
+
+message GetLastSelectedResponse {
+  ResponseStatus status = 1;
+  optional PlayerInfo item = 2;
+}
+
+
+message PlayerGetRequest {
+  string player_id = 1;
+}
+
+message PlayerGetResponse {
+  ResponseStatus status = 1;
+  PlayerInfo item = 2;
+}
+
+
+message PlayerCreateRequest {
+  string nickname = 1;
+  uint32 server_id = 2;
+}
+
+
+message PlayerCreateResponse {
+  ResponseStatus status = 1;
+  string player_id = 2;
+}
+
+message PlayerDeleteRequest {
+  string player_id = 1;
+  uint32 server_id = 2;
+}
+
+message PlayerDeleteResponse {
+  ResponseStatus status = 1;
+}
+
+message PlayerPatchRequest {
+  string player_id = 1;
+  uint32 server_id = 2;
+  optional string nickname = 3;
+}
+
+
+message PlayerPatchResponse {
+  ResponseStatus status = 1;
+}
+
+message PlayerCheckNicknameRequest {
+  uint32 server_id = 2;
+  string nickname = 3;
+}
+
+
+message PlayerCheckNicknameResponse {
+  ResponseStatus status = 1;
+  bool is_available = 2; // 사용 가능 여부
+}

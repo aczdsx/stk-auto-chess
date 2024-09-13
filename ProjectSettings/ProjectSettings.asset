@@ -161,9 +161,9 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.cookapps.tech.sampleteambattle
-    Standalone: com.DefaultCompany.2DProject
-    iPhone: com.mintry.p
+    Android: com.mintry.stk
+    Standalone: com.mintry.stk
+    iPhone: com.mintry.stk
   buildNumber:
     Standalone: 0
     VisionOS: 0

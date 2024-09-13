@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+service ServerRankingService {
+  /**
+   * 플레이어 서버 랭킹 정보를 조회합니다.
+   */
+  rpc GetPlayer(ServerRankingGetPlayerRequest) returns (ServerRankingGetPlayerResponse) {}
+
+  /**
+   * 서버 랭킹 플레이어 목록을 조회합니다.
+   */
+  rpc ListPlayer(ServerRankingListPlayerRequest) returns (ServerRankingListPlayerResponse) {}
+
+  /**
+   * 서버 랭킹 플레이어 정보를 수정합니다.
+   */
+  rpc SetPlayer(ServerRankingSetPlayerRequest) returns (ServerRankingSetPlayerResponse) {}
+}
+
+enum ServerRankingResponseStatus {
+  SERVER_RANKING_UNDEFINED = 0; // 미사용
+  SERVER_RANK_NOT_FOUND = 2000; // 랭크 자체가 없음.
+  NOT_FOUND_PLAYER = 2001; // 플레이어 데이터가 없음.
+  SERVER_RANK_READONLY = 2002; // 읽기 전용 서버 랭킹
+}
+
+message ServerRankingGetPlayerRequest {
+  string player_id = 1;
+  string player_server_rank_id = 2;
+}
+
+message ServerRankingGetPlayerResponse {
+  ResponseStatus status = 1;
+  ServerPlayerRanking data = 2;
+}
+
+message ServerRankingListPlayerRequest {
+  CursorInfo cursor = 1;
+  string player_server_rank_id = 2;
+}
+
+message ServerPlayerRanking {
+  string player_id = 1;
+  float score = 2;
+  string player_server_rank_id = 3;
+  uint32 rank = 4;
+}
+
+message ServerRankingListPlayerResponse {
+  ResponseStatus status = 1;
+  CursorMeta meta = 2;
+  repeated ServerPlayerRanking item_list = 3;
+}
+
+message ServerRankingSetPlayerRequest {
+  string player_id = 1;
+  float score = 2;
+  string player_server_rank_id = 3;
+}
+
+message ServerRankingSetPlayerResponse {
+  ResponseStatus status = 1;
+}

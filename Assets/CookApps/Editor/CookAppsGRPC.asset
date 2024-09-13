@@ -14,8 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ignoreList:
   - universal
-  _ignoreFolders: []
-  _items:
-  - _srcPath: Assets/_Project/Scripts/gRPC/grpc-proto/Proto
-    _destPath: Assets/_Project/Scripts/gRPC/grpc-proto/dist/csharp
-  _crrentStep: 0
+  _rootPath: Assets/_Project/Scripts/gRPC/stkauto-grpc
+  _currentStep: 0

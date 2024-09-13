@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+service CurrencyService {
+  /**
+   * 사용자가 거래한 목록을 조회합니다.
+   */
+  rpc ListTransaction(CurrencyListTransactionRequest) returns (CurrencyListTransactionResponse) {}
+
+  /**
+   * 거래하지 않은 거래를 수행합니다. 
+   hard, premium currency는 이미 서버에서 적용됐기 때문에 soft currency를 Client에서 처리하고 쏘면 됩니다.
+   */
+  rpc Transaction(CurrencyTransactionRequest) returns (CurrencyTransactionResponse) {}
+}
+
+enum CurrencyResponseStatus {
+  CURRENCY_RESPONSE_UNDEFINED = 0;
+  CURRENCY_INVALID_ERROR = 1201;
+  
+  /**
+   * 이미 보상을 받은 transaction을 다시 보상을 받으려고 할 때
+   */
+  ALREADY_REWARDED = 1202;
+
+  /**
+   * 해당하는 transaction을 찾을 수 없을 때
+   */
+  NOT_FOUND_TRANSACTION = 1203;
+}
+
+message CurrencyListTransactionRequest {
+  PaginationInfo pagination = 1;
+}
+
+enum CurrencyType {
+  SOFT = 0;
+  HARD = 1;
+  PREMIUM = 2;
+}
+
+message CurrencyTransactionItemWithType {
+  uint32 id = 1;
+  uint32 count = 2;
+  CurrencyType type = 3;
+}
+
+message CurrencyTransactionInfo {
+  string id = 1;
+  string player_id = 2;
+  repeated CurrencyTransactionItemWithType rewards = 3;
+  repeated CurrencyTransactionItemWithType consumes = 4;
+  optional string rewarded_at = 5;
+  string created_at = 6;
+}
+
+message CurrencyListTransactionResponse {
+  ResponseStatus status = 1;
+  PaginationMeta meta = 2;
+  repeated CurrencyTransactionInfo item_list = 3;
+}
+
+message CurrencyTransactionRequest {
+  string id = 1;
+}
+
+message CurrencyTransactionResponse {
+  ResponseStatus status = 1;
+  CurrencyTransactionInfo item = 2;
+}

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
-using CookApps.gRPC.Hatchery;
-using CookApps.gRPC.Universal;
 using Google.Protobuf.Collections;
 
 namespace CookApps.AutoBattler
@@ -128,7 +127,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserCommanderSKillData()
         {
-            HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserCommanderSkillData.ToCategoryString(),
+            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserCommanderSkillData.ToCategoryString(),
                 userCommanderSkillData);
         }
     }
