@@ -9,6 +9,26 @@ namespace CookApps.AutoBattler
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
+        public LanguageType CurrentLanguageType { get; private set; } = LanguageType.NONE;
+
+        // 언어 환경 세팅
+        public void InitLanguage()
+        {
+            var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
+            if (settingLanguage == (int)LanguageType.NONE)
+            {
+                var currentLanugageType = GetSystemLanguageType();
+                SetGameLanguage(currentLanugageType);
+            }
+        }
+        
+        public void SetGameLanguage(LanguageType type)
+        {
+            Preference.SavePreference(Pref.LANGUAGE, (int)type);
+            
+            CurrentLanguageType = type;
+        }
+        
         public string GetLanguageText(string tokenKey)
         {
             return SpecDataManager.Instance.GetLanguageText(tokenKey);
