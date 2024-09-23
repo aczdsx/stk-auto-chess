@@ -17,7 +17,7 @@ public partial class SROptions
     [Category("시스템 관련")]
     public void 게임언어변경()
     {
-        Preference.SavePreference(Pref.LANGUAGE, (int)원하는언어);
+        LanguageManager.Instance.SetGameLanguage(원하는언어);
         
         ToastManager.Instance.ShowToast("TEST - 치트 적용");
                 

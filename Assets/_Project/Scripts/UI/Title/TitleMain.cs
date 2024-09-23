@@ -88,12 +88,7 @@ namespace CookApps.AutoBattler
 #endif
             
             // 언어 설정
-            var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
-            if (settingLanguage == (int)LanguageType.NONE)
-            {
-                var currentLanugageType = LanguageManager.Instance.GetSystemLanguageType();
-                Preference.SavePreference(Pref.LANGUAGE, (int)currentLanugageType);
-            }
+            LanguageManager.Instance.InitLanguage();
             
             // 유저 로그인 기록 체크
             // var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
