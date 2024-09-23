@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipInGamePopup.prefab")]
+    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipPopup.prefab")]
     public class SynergyTooltipInGamePopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;
@@ -17,9 +17,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _synergyUI;
         [SerializeField] private TextMeshProUGUI _synergyNameText;
         [SerializeField] private TextMeshProUGUI _synergyDescText;
+        
+        [Header("Vertical Layout Group")]
+        [SerializeField] private List<TextMeshProUGUI> _synergyEffectList;
 
         private List<SpecSynergy> _synergyList = new List<SpecSynergy>();
-        private int grade = 0;
 
         protected override void Awake()
         {
@@ -44,7 +46,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            (_synergyList, grade) = ((List<SpecSynergy>, int))param;
+            _synergyList = param as List<SpecSynergy>;
 
             SetSynergyInfo();
         }
@@ -66,6 +68,16 @@ namespace CookApps.AutoBattler
 
             _synergyNameText.text = LanguageManager.Instance.GetLanguageText(baseSynergyData.name_token);
             _synergyDescText.text = LanguageManager.Instance.GetLanguageText(baseSynergyData.desc_token);
+
+            for (int i = 0; i < _synergyEffectList.Count; i++)
+            {
+                _synergyEffectList[i].gameObject.SetActive(_synergyList.Count > i);
+                if (_synergyEffectList[i].gameObject.activeSelf)
+                {
+                    string text = LanguageManager.Instance.GetLanguageText(_synergyList[i].desc_token);
+                    _synergyEffectList[i].text = $"({_synergyList[i].min_count}) {string.Format(text, (_synergyList[i].stat_value * 100f) + "%")}";
+                }
+            }
         }
 
         private void OnClickCloseButton()
