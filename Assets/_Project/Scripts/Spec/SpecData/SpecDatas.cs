@@ -411,6 +411,7 @@ namespace CookApps.AutoBattler
         public string token_key;
         /// 값
         public string language_kr;
+        public string language_en;
     }
 
     [GeneratorSpecData]

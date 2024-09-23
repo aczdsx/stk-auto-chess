@@ -15,11 +15,13 @@ namespace CookApps.AutoBattler
         public void InitLanguage()
         {
             var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
+            
             if (settingLanguage == (int)LanguageType.NONE)
             {
-                var currentLanugageType = GetSystemLanguageType();
-                SetGameLanguage(currentLanugageType);
+                settingLanguage = (int)GetSystemLanguageType();
             }
+            
+            SetGameLanguage((LanguageType)settingLanguage);
         }
         
         public void SetGameLanguage(LanguageType type)
@@ -31,7 +33,7 @@ namespace CookApps.AutoBattler
         
         public string GetLanguageText(string tokenKey)
         {
-            return SpecDataManager.Instance.GetLanguageText(tokenKey);
+            return SpecDataManager.Instance.GetLanguageText(tokenKey, CurrentLanguageType);
         }
 
         public string GetSynergyText(ElementType type)
