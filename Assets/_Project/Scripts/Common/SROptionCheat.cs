@@ -12,6 +12,24 @@ using Cysharp.Threading.Tasks;
 [Serializable]
 public partial class SROptions
 {
+    #region 시스템 관련
+
+    [Category("시스템 관련")]
+    public void 게임언어변경()
+    {
+        Preference.SavePreference(Pref.LANGUAGE, (int)원하는언어);
+        
+        ToastManager.Instance.ShowToast("TEST - 치트 적용");
+                
+        var transition = SceneTransition_FadeInOut.Create();
+        SceneLoading.GoToNextScene("Title", null, transition);
+    }
+    
+    [Category("시스템 관련")]
+    public LanguageType 원하는언어 { get; set; } = LanguageType.KR;
+
+    #endregion
+    
     #region 계정 관련
 
     [Category("계정 관련")]
