@@ -30,10 +30,8 @@ namespace CookApps.AutoBattler
         private static readonly int Heal = Animator.StringToHash("Heal");
         private static readonly int Shield = Animator.StringToHash("Shield");
 
-        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, bool isResist, bool isWeak)
+        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical)
         {
-            _weakObj.SetActive(isWeak);
-            _resistObj.SetActive(isResist);
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
             _damageText.text = $"{damage}";
 

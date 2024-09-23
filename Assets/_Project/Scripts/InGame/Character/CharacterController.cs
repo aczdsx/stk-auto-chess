@@ -974,9 +974,7 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
             
-            bool isResist = attacker != null && (attacker.SpecCharacter.character_position_type == CharacterPositionType.WIZARD && SpecCharacter.character_position_type == CharacterPositionType.GUARDIAN);
-            bool isWeak = attacker != null && (attacker.SpecCharacter.character_position_type == CharacterPositionType.WIZARD && SpecCharacter.character_position_type == CharacterPositionType.TANK);
-            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.isDoubleCritical, isResist, isWeak).Forget();
+            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
 
             _currHp -= damageAmount.damageAmount.Value;
 
@@ -1111,14 +1109,14 @@ namespace CookApps.BattleSystem
             return true;
         }
 
-        private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical, bool isResist, bool isWeak)
+        private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
         {
             if (amount == 0)
             {
                 return;
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, isResist, isWeak);
+            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical);
         }
 
         private async UniTask ShowHealText(double amount)
