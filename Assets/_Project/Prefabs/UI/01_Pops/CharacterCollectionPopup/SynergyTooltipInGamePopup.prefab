@@ -527,6 +527,13 @@ MonoBehaviour:
   _synergyUI: {fileID: 89505910197158069}
   _synergyNameText: {fileID: 2519229887985395199}
   _synergyDescText: {fileID: 5601838390893151523}
+  _synergyEffectList:
+  - {fileID: 345817591064903935}
+  - {fileID: 5950686358903348811}
+  - {fileID: 2698968785849473054}
+  - {fileID: 4472481011389764748}
+  - {fileID: 1890219298549261460}
+  - {fileID: 4767856892339961004}
 --- !u!1 &2328043492589486244
 GameObject:
   m_ObjectHideFlags: 0
