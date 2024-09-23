@@ -120,6 +120,8 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.USER_ID, UserDataManager.Instance.UserBasicData.Uid);
             appEventParameter.Add(AppEventStringConst.PLAYER_ID, UserDataManager.Instance.UserBasicData.PlayerId);
             appEventParameter.Add(AppEventStringConst.SERVER, UserDataManager.Instance.UserBasicData.ServerId);
+            var targetLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
+            appEventParameter.Add(AppEventStringConst.LANGUAGE, targetLanguage.ToString());
             appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
             appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, UserDataManager.Instance.UserBasicData.DailyVisitCount);
             appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
