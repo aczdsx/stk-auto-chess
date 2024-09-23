@@ -180,7 +180,7 @@ namespace CookApps.AutoBattler
 
         public async void OnClickTouchToStart()
         {
-            if (isLogin == false) return;
+            //if (isLogin == false) return;
             
             // 앱이벤트 Init
             //InitCookAppsAuth();
@@ -517,6 +517,12 @@ namespace CookApps.AutoBattler
             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(false);
             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(false);
             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(false);
+        }
+        
+        ///////////////// TEST
+        public void TempEnterButton()
+        {
+            OnClickTouchToStart();
         }
     }
 }
