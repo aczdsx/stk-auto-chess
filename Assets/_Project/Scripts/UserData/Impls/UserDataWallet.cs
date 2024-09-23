@@ -369,6 +369,18 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public bool IsItemMaxCount(ItemType targetItemType)
+        {
+            switch (targetItemType)
+            {
+                case ItemType.PVP_TICKET:
+                    var maxCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
+                    return maxCount >= UserWallet.PvpTicket;
+                default:
+                    return false;
+            }
+        }
+
         public void SaveUserWallet()
         {
             HatcheryGrpcManager.Instance.SetPlayerDataAsync(DataCategory.UserWallet.ToCategoryString(), userWallet);

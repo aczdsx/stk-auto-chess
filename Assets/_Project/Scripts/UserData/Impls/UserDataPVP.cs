@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -269,8 +270,51 @@ namespace CookApps.AutoBattler
                     UserPVP.BuyTicketResetTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
                 case PVPTimeRefreshType.REFILL_TICKET:
-                    UserPVP.PvpTicketTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
+                    //UserPVP.PvpTicketNextTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
+            }
+
+            if (needSave)
+            {
+                SaveUserPVPData();
+            }
+        }
+
+        // pvp 티켓 데이터 관련 갱신 (다음 티켓 충전 시간 및 티켓 지급)
+        public void UpdatePVPTicketData(bool needSave)
+        {
+            var pvpTicketMaxValue = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
+            var pvpChargeTimeValue = SpecDataManager.Instance.GetGameConfig<int>("PVP_TICKET_CHARGE_TIME");
+
+            bool checkMaxTicketCount = UserWallet.PvpTicket >= pvpTicketMaxValue; // 티켓 최대 갯수 이상인지 체크
+            bool checkNextTicketTime = UserPVP.PvpTicketNextTimestamp >= TimeManager.Instance.UtcNowTimeStampLocal(); // 다음 티켓 충전시간이 지났는지 체크
+
+            if (checkMaxTicketCount)
+            {
+                UserPVP.PvpTicketNextTimestamp = 0;
+            }
+            else
+            {
+                if (UserPVP.PvpTicketNextTimestamp == 0)
+                {
+                    UserPVP.PvpTicketRefreshTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
+                    UserPVP.PvpTicketNextTimestamp = TimeManager.Instance.AddSecondsTimeStamp(pvpChargeTimeValue);
+                }
+                else
+                {
+                    // TimeSpan remainTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserPVP.PvpTicketNextTimestamp);
+                    //
+                    // if (remainTimeSpan.TotalSeconds >= pvpChargeTimeValue)
+                    // {
+                    //     var calcTimeValue = remainTimeSpan.TotalSeconds / pvpChargeTimeValue;
+                    //     int calcTicketCount = (int)Math.Truncate(calcTimeValue);
+                    //
+                    //     if (calcTicketCount > 0)
+                    //     {
+                    //         IncreaseItem(ItemType.PVP_TICKET, 0, calcTicketCount, true, false);
+                    //     }
+                    // }
+                }
             }
 
             if (needSave)

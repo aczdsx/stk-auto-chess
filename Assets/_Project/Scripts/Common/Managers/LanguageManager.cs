@@ -143,21 +143,33 @@ namespace CookApps.AutoBattler
         
         public string GetTimeSpanFromTargetText(long targetTimestamp)
         {
-            var timeSpanData = TimeManager.Instance.GetTimeSpanFromTarget(targetTimestamp);
+            var targetTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(targetTimestamp);
             
             StringBuilder timeTextList = new StringBuilder();
 
-            if (timeSpanData.Days > 0)
+            bool hasDays = targetTimeSpan.Days > 0;
+            bool hasHours = targetTimeSpan.Hours > 0;
+            bool hasMinutes = targetTimeSpan.Minutes > 0;
+            
+            if (hasDays)
             {
-                timeTextList.Append($"{timeSpanData.Days}일");
+                timeTextList.Append($"{targetTimeSpan.Days}일");
             }
             
-            if (timeSpanData.Hours > 0)
+            if (hasHours)
             {
-                timeTextList.Append($"{timeSpanData.Hours}시간");
+                timeTextList.Append($"{targetTimeSpan.Hours}시간");
             }
-            
-            timeTextList.Append($"{timeSpanData.Minutes}분 남음");
+
+            if (hasMinutes)
+            {
+                timeTextList.Append($"{targetTimeSpan.Minutes}분 남음");
+            }
+
+            if (!hasDays && !hasHours) // 1시간 미만으로 남은 경우 초 단위 표시
+            {
+                timeTextList.Append($"{targetTimeSpan.Seconds}초 남음");
+            }
             
             return timeTextList.ToString();
         }
@@ -166,17 +178,29 @@ namespace CookApps.AutoBattler
         {
             StringBuilder timeTextList = new StringBuilder();
 
-            if (targetTimeSpan.Days > 0)
+            bool hasDays = targetTimeSpan.Days > 0;
+            bool hasHours = targetTimeSpan.Hours > 0;
+            bool hasMinutes = targetTimeSpan.Minutes > 0;
+            
+            if (hasDays)
             {
                 timeTextList.Append($"{targetTimeSpan.Days}일");
             }
             
-            if (targetTimeSpan.Hours > 0)
+            if (hasHours)
             {
                 timeTextList.Append($"{targetTimeSpan.Hours}시간");
             }
-            
-            timeTextList.Append($"{targetTimeSpan.Minutes}분 남음");
+
+            if (hasMinutes)
+            {
+                timeTextList.Append($"{targetTimeSpan.Minutes}분 남음");
+            }
+
+            if (!hasDays && !hasHours) // 1시간 미만으로 남은 경우 초 단위 표시
+            {
+                timeTextList.Append($"{targetTimeSpan.Seconds}초 남음");
+            }
             
             return timeTextList.ToString();
         }
