@@ -44,7 +44,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         owner.AddBuffDebuffType(BuffDebuffType.Shield);
         owner.UpdateHpBar();
         
-        owner.ShowNormalText("보호막 적용", hexColor : "#5DC9FFFF").Forget();
+        owner.ShowNormalText("보호막 적용", hexColor : "5DC9FFFF").Forget();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -62,7 +62,7 @@ public class EffectCodeBuffShield : EffectCodeBuffBase
         shields.Add(shieldData);
 
         owner.UpdateHpBar();
-        owner.ShowNormalText("보호막 적용", hexColor : "#5DC9FFFF").Forget();
+        owner.ShowNormalText("보호막 적용", hexColor : "5#5DC9FFFF").Forget();
     }
 
     public override void OnPreRemoved()

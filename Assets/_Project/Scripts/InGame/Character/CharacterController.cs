@@ -720,6 +720,14 @@ namespace CookApps.BattleSystem
             if (sfxName != SoundFX.NONE)
                 SoundManager.Instance.PlaySFX(sfxName);
 
+            var affectText = type.GetAffectToken();
+            if (!string.IsNullOrEmpty(affectText))
+            {
+                string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
+                ShowNormalText(affectText, hexColor: hexColor).Forget();
+            }
+
+
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {
                 _buffDebuffRefCountDict[type] += 1;
@@ -1252,10 +1260,12 @@ namespace CookApps.BattleSystem
             return null;
         }
 
-        public async UniTask ShowNormalText(string text, string hexColor = null)
+        public async UniTask ShowNormalText(string token, string hexColor = null)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
+            
+            string convertText = LanguageManager.Instance.GetLanguageText(token);
+            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
         }
     }
 }
