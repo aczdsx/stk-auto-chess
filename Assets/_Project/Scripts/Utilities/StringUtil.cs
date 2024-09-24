@@ -13,7 +13,8 @@ public static class StringUtil
 
     public static string GetStageString(SpecStage stage)
     {
-        return $"스테이지 {stage.chapter_id}-{stage.stage_number}";
+        string titleString = LanguageManager.Instance.GetLanguageText("UI_STAGE");
+        return $"{titleString} {stage.chapter_id}-{stage.stage_number}";
     }
     
     public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon, bool isOnlyNumber = false)

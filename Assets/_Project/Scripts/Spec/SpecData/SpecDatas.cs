@@ -706,7 +706,9 @@ namespace CookApps.AutoBattler
         /// 시너지 이름 토큰
         public string name_token;
         /// 시너지 효과 설명 토큰
-        public string desc_token;
+        public string desc_token_1;
+        /// 시너지 효과 설명 토큰
+        public string desc_token_2;
         /// 시너지 단계
         public CookApps.Obfuscator.ObfuscatorInt grade;
         /// 단계 발동 최소 명수 조건
@@ -987,6 +989,18 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecReward
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// dim=중복
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        public global::CookApps.AutoBattler.ItemType item_type;
+        public CookApps.Obfuscator.ObfuscatorInt item_id;
+        public CookApps.Obfuscator.ObfuscatorLong item_count;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecPVPDummy
     {
         /// 아이디
@@ -1002,17 +1016,5 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt power;
         /// PVP 점수
         public CookApps.Obfuscator.ObfuscatorInt point;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecReward
-    {
-        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
-        public CookApps.Obfuscator.ObfuscatorInt id;
-        /// dim=중복
-        public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        public global::CookApps.AutoBattler.ItemType item_type;
-        public CookApps.Obfuscator.ObfuscatorInt item_id;
-        public CookApps.Obfuscator.ObfuscatorLong item_count;
     }
 }
