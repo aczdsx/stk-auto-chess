@@ -21,6 +21,7 @@ public partial class SROptions
         
         ToastManager.Instance.ShowToast("TEST - 치트 적용");
                 
+        InGameManager.Instance.EndInGame();
         var transition = SceneTransition_FadeInOut.Create();
         SceneLoading.GoToNextScene("Title", null, transition);
     }
