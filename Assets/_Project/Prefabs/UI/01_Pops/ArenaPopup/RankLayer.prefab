@@ -762,6 +762,7 @@ GameObject:
   - component: {fileID: 3747253363271001953}
   - component: {fileID: 1271316840488333766}
   - component: {fileID: 8155010474624063354}
+  - component: {fileID: 3527467977233428719}
   m_Layer: 5
   m_Name: Text_Guide
   m_TagString: Untagged
@@ -816,8 +817,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB7AD\uD0B9\uC5D0 \uB4F1\uB85D\uB418\uC5B4 \uC788\uB294 \uC720\uC800\uAC00
-    \uC5C6\uC2B5\uB2C8\uB2E4."
+  m_text: "\uB7AD\uD0B9 \uAE30\uB85D \uB85C\uB4DC\uC911\uC785\uB2C8\uB2E4.\r\n10\uBD84
+    \uC774\uB0B4 \uAC31\uC2E0\uB429\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b84630ebe0d5bf546b2c07e0f76fb537, type: 2}
@@ -886,6 +887,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3527467977233428719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6577924315911965904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: ARENA_RANKING_LOAD_ALERT
 --- !u!1 &7054613775812834636
 GameObject:
   m_ObjectHideFlags: 0

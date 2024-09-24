@@ -28,7 +28,8 @@ namespace CookApps.AutoBattler
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _inGameUI.TopUI.SetMyName("PVP 방어덱 세팅");
+            string defString = LanguageManager.Instance.GetLanguageText("UI_ARENA_DEF_DECK_SETTING");
+            _inGameUI.TopUI.SetMyName(defString);
 
             InGameManager.Instance.StartInGame<FlowStatePvpDefenseReady>(data);
         }

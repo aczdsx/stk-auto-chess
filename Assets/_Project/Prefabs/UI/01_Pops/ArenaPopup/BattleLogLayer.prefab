@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 555583933980306710}
   - component: {fileID: 5590783666294255750}
   - component: {fileID: 7532499118223550243}
+  - component: {fileID: 7075724677591652691}
   m_Layer: 5
   m_Name: Text_BattleLog
   m_TagString: Untagged
@@ -260,7 +261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC804\uD22C \uAE30\uB85D"
+  m_text: "\uC804\uC801"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   m_sharedMaterial: {fileID: -2439792414735106144, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
@@ -329,6 +330,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7075724677591652691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355465866257270318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: UI_BATTLE_LOG
 --- !u!1 &549437517505213277
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +429,7 @@ GameObject:
   - component: {fileID: 5043143775552961037}
   - component: {fileID: 2447004130931951322}
   - component: {fileID: 8576934322087900845}
+  - component: {fileID: 4870113671388268970}
   m_Layer: 5
   m_Name: Text_Guide
   m_TagString: Untagged
@@ -538,6 +553,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4870113671388268970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441148596377864033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: 'UI_BATTLE_LOG_EMPTY_ALERT '
 --- !u!1 &2454204369617328608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1099,7 @@ MonoBehaviour:
   _emptyLayerObject: {fileID: 2455012255486741288}
   _logScrollRect: {fileID: 2241640572080999157}
   _logSlotObject: {fileID: 3694972473787554894}
+  _maxLoadCountDescText: {fileID: 4543337498403163427}
 --- !u!1 &7728167975403501470
 GameObject:
   m_ObjectHideFlags: 0
