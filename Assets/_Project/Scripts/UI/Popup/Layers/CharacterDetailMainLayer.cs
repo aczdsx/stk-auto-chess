@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -175,7 +176,8 @@ namespace CookApps.AutoBattler
             var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.element_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
-                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+                var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
             }
         }
 
@@ -184,9 +186,11 @@ namespace CookApps.AutoBattler
             var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_position_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
-                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+                var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
             }
         }
+
 
         private void ClearLayer()
         {

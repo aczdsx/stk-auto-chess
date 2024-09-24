@@ -36,6 +36,7 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _durationTime = codeInfo.GetCodeStatToFloat(2);
         _dotDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _effectTiles = new List<InGameTile>();
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -49,6 +50,7 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _durationTime = codeInfo.GetCodeStatToFloat(2);
         _dotDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _effectTiles = new List<InGameTile>();
     }
 
     public override void OnUpdate(float dt)
@@ -59,12 +61,16 @@ public class EffectCodeSkill1403011 : EffectCodeCharacterBase
             _dotDamageElapsedTime += elapsedTime;
             foreach (var tile in _effectTiles)
             {
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
                 if (tile.OccupiedCharacter != null)
                 {
                     if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
                     {
                         if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
                         {
+                            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                                tile.OccupiedCharacter.SkillRootTransformFollowable);
+                            
                             var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate,
                                 tile.OccupiedCharacter,
                                 codeId, true);

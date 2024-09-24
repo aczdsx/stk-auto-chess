@@ -649,9 +649,13 @@ namespace CookApps.AutoBattler
 
     public enum ImageInfoType
     {
-        WATER_SYNERGE = 0,
-        MAGICIAN_TYPE = 1,
-        FIRE_TILE = 2,
-        OBSTACLE_TILE = 3,
+        FIRE_TILE = 0,
+        OBSTACLE_TILE = 1,
+        SYNERGY_WATER = 2,
+        BOSS_SKILL_RANGE = 3,
+        ADD_CHARACTER_COUNT = 4,
+        POSITION_MAGICIAN = 5,
+        POSITION_ASSASSIN = 6,
+        COMMANDER_SKILL = 7,
     }
 }
