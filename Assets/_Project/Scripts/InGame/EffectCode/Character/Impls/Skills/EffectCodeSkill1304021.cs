@@ -2,6 +2,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -120,7 +121,10 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
             var type = owner.Target.GetDamaged(damage, owner);
 
             if (type == DamageReturnType.Killed)
+            {
+                owner.ShowNormalText("스킬 쿨타임 초기화").Forget();
                 isKilled = true;
+            }
         }
 
         IsSkillActivated = false;

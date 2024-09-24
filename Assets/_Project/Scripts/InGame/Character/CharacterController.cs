@@ -939,7 +939,7 @@ namespace CookApps.BattleSystem
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
-            bool isFirstDamage = true)
+            bool isFirstDamage = true, string hexColor = null)
         {
             if (!InGameManager.Instance.IsInGameCombat)
                 return DamageReturnType.Damaging;
@@ -973,8 +973,8 @@ namespace CookApps.BattleSystem
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
-            
-            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.isDoubleCritical).Forget();
+
+            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, hexColor).Forget();
 
             _currHp -= damageAmount.damageAmount.Value;
 
@@ -1109,14 +1109,14 @@ namespace CookApps.BattleSystem
             return true;
         }
 
-        private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical)
+        private async UniTask ShowDamageText(double amount, bool isCritical, string hexColor = null)
         {
             if (amount == 0)
             {
                 return;
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical);
+            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, hexColor);
         }
 
         private async UniTask ShowHealText(double amount)
@@ -1250,6 +1250,12 @@ namespace CookApps.BattleSystem
             }
 
             return null;
+        }
+
+        public async UniTask ShowNormalText(string text, string hexColor = null)
+        {
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
+            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
         }
     }
 }

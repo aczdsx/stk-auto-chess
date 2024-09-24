@@ -14,9 +14,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text _textCritDamage;
         [SerializeField] private TMP_Text _healDamage;
         [SerializeField] private TMP_Text _shieldDamage;
-        
-        [SerializeField] private GameObject _weakObj;
-        [SerializeField] private GameObject _resistObj;
+        [SerializeField] private TMP_Text _normalText;
 
         [SerializeField] private Transform _root;
         [SerializeField] private Animator _animator;
@@ -24,17 +22,23 @@ namespace CookApps.AutoBattler
         [SerializeField] private float _heightOffset = 0.3f;
         [SerializeField] private float _xOffset = 0.0f;
 
+        [SerializeField] private Color defaultColor;
+
         private TMP_Text _damageText;
         private static readonly int Critical = Animator.StringToHash("Critical");
         private static readonly int Normal = Animator.StringToHash("Normal");
         private static readonly int Heal = Animator.StringToHash("Heal");
         private static readonly int Shield = Animator.StringToHash("Shield");
+        private static readonly int NormalText = Animator.StringToHash("NormalText");
 
-        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical)
+        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, string hexColor = null)
         {
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
             _damageText.text = $"{damage}";
-
+            _damageText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color) 
+                ? color 
+                : defaultColor;
+            
             _xOffset = Random.Range(-0.5f, 0.5f);
 
             Vector3 initialPosition = position + Vector3.up * (characterHeight  + _heightOffset);
@@ -55,6 +59,20 @@ namespace CookApps.AutoBattler
             }
 
             // await WaitForAnimationEnd();
+        }
+        
+        public async UniTask ShowNormalText(Vector3 position, float characterHeight, string text, string hexColor = null)
+        {
+            _normalText.text = $"{text}";
+            _normalText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color) 
+                ? color 
+                : defaultColor;
+            
+            _xOffset = Random.Range(-0.5f, 0.5f);
+
+            Vector3 initialPosition = position + Vector3.up * (characterHeight * 0.5f);
+            _root.position = initialPosition;
+            _animator.SetTrigger(NormalText);
         }
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
