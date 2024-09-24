@@ -44,6 +44,14 @@ namespace CookApps.AutoBattler
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.PVP_Ticket);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+
+            InitSettingPop();
+        }
+
+        private void InitSettingPop()
+        {
+            _bgmSlider.value = Preference.LoadPreference(Pref.BGM_V, 1f);
+            _sfxSlider.value = Preference.LoadPreference(Pref.SFX_V, 1f);
         }
 
         private void ChangeLanguage(LanguageType targetType)
@@ -65,12 +73,14 @@ namespace CookApps.AutoBattler
 
         public void OnBGMValueChanged()
         {
-            
+            SoundManager.Instance.SetBGMVolume(_bgmSlider.value);
+            Preference.SavePreference(Pref.BGM_V, _bgmSlider.value);
         }
 
         public void OnSFXValueChanged()
         {
-            
+            SoundManager.Instance.SetSFXVolume(_sfxSlider.value);
+            Preference.SavePreference(Pref.SFX_V, _sfxSlider.value);
         }
 
         private void OnClickLanguageKrButton()
