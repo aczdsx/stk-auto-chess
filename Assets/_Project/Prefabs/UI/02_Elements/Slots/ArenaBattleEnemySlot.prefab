@@ -1766,6 +1766,7 @@ GameObject:
   - component: {fileID: 8878110452700513069}
   - component: {fileID: 710917286662212507}
   - component: {fileID: 2367092196402305554}
+  - component: {fileID: 6567047999716751194}
   m_Layer: 5
   m_Name: Text_Battle
   m_TagString: Untagged
@@ -1889,6 +1890,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6567047999716751194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833318491933361695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: UI_BATTLE
 --- !u!1 &2877897803954035916
 GameObject:
   m_ObjectHideFlags: 0
@@ -4772,6 +4786,7 @@ GameObject:
   - component: {fileID: 3095981674603834958}
   - component: {fileID: 3348787946435382355}
   - component: {fileID: 1483863522705551809}
+  - component: {fileID: 3205196625609515899}
   m_Layer: 5
   m_Name: Text_Battle
   m_TagString: Untagged
@@ -4895,6 +4910,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3205196625609515899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6395076354300974348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: UI_REVENGE
 --- !u!1 &6426985842393348086
 GameObject:
   m_ObjectHideFlags: 0
@@ -5926,6 +5954,7 @@ GameObject:
   - component: {fileID: 4472741473885329429}
   - component: {fileID: 5910332564781189953}
   - component: {fileID: 8069342860050448486}
+  - component: {fileID: 7099035041579636977}
   m_Layer: 5
   m_Name: Text_Battle
   m_TagString: Untagged
@@ -6049,6 +6078,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7099035041579636977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7452961723538523365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: UI_BATTLE
 --- !u!1 &7679966230831832266
 GameObject:
   m_ObjectHideFlags: 0

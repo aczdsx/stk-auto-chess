@@ -57,8 +57,12 @@ namespace CookApps.AutoBattler
             _ticketCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_TICKET_PURCHASE_COUNT");
             _ticketLimitCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_TICKET_PURCHASE_LIMIT_COUNT");
 
-            _ticketDescText.text = $"{_ticketPrice}골드를 소모해서\n아레나 입장권 {_ticketCount}장 구매하세요.";
-            _ticketBuyCountText.text = $"구매가능 횟수: {UserDataManager.Instance.UserPVP.BuyTicketCnt}/{_ticketLimitCount}";
+            string buyDescString = LanguageManager.Instance.GetLanguageText("BUY_ARENA_TICKET_DESC");
+            _ticketDescText.text = string.Format(buyDescString, _ticketPrice, _ticketCount);
+
+            string buyCountString = LanguageManager.Instance.GetLanguageText("BUY_COUNT_MSG");
+            _ticketBuyCountText.text = string.Format(buyCountString, UserDataManager.Instance.UserPVP.BuyTicketCnt, _ticketLimitCount);
+            
             _ticketPriceButtonText.text = $"x{_ticketPrice}";
         }
 

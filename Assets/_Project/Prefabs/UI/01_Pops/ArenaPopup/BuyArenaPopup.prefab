@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 1095212581148722443}
   - component: {fileID: 8207468442977124103}
   - component: {fileID: 9120038289934301815}
+  - component: {fileID: 5551395225211583991}
   m_Layer: 5
   m_Name: Text_SynergyName
   m_TagString: Untagged
@@ -420,6 +421,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5551395225211583991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841638864314617268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: BUY_ARENA_TICKET_TITLE
 --- !u!1 &1965406458811208813
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,7 +2291,7 @@ MonoBehaviour:
   isValid: 1
   target: {fileID: 3968910185484071693}
   animationType: 7
-  targetType: 2
+  targetType: 3
   forcedTargetType: 2
   autoPlay: 1
   useTargetAsV3: 0
@@ -2871,6 +2885,7 @@ GameObject:
   - component: {fileID: 3614081008578244623}
   - component: {fileID: 2193471285482944388}
   - component: {fileID: 6765886027278010789}
+  - component: {fileID: 4464580048758184339}
   m_Layer: 5
   m_Name: Text_
   m_TagString: Untagged
@@ -2994,3 +3009,16 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4464580048758184339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8925916678708564081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: PURCHASE_MSG

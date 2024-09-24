@@ -5,6 +5,7 @@ using System.Linq;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ namespace CookApps.AutoBattler
         [Header("Log List")]
         [SerializeField] private ScrollRect _logScrollRect;
         [SerializeField] private GameObject _logSlotObject;
+        [SerializeField] private TextMeshProUGUI _maxLoadCountDescText;
         
         private ArenaMainPopup _parentPopup;
         
@@ -31,6 +33,10 @@ namespace CookApps.AutoBattler
             _currentUserPVPData = UserDataManager.Instance.UserPVP;
 
             CreateLogScrollList();
+
+            int maxLoadCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_SHOW_BATTLE_LOG_COUNT");;
+            string maxLoadString = LanguageManager.Instance.GetLanguageText("ARENA_LIST_COUNT_MSG");
+            _maxLoadCountDescText.text = string.Format(maxLoadString, maxLoadCount);
             
             _emptyLayerObject?.SetActive(_currentServerLogDataList == null || _currentServerLogDataList.Count == 0);
             
