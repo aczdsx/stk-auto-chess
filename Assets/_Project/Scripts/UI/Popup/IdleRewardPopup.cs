@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -20,6 +19,7 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private GameObject _emptyLayerObject;
         [SerializeField] private TextMeshProUGUI _accTimeGuideText;
+        [SerializeField] private TextMeshProUGUI _maxTimeGuideText;
         [SerializeField] private Slider _accTimeSlider;
         [SerializeField] private TextMeshProUGUI _accTimeSliderText;
         [SerializeField] private GameObject _fullRewardSliderLayerObject;
@@ -62,6 +62,10 @@ namespace CookApps.AutoBattler
 
         private async void InitIdleRewardData()
         {
+            string maxTimeGuideString = LanguageManager.Instance.GetLanguageText("UI_IDLE_REWARD_MAX_TIME_GUIDE");
+            int maxMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
+            _maxTimeGuideText.text = string.Format(maxTimeGuideString, maxMinute / 60);
+            
             RefreshIdleRewardData();
 
             await CalculateIdleRewardTime();

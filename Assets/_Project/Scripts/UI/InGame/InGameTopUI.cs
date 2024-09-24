@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using System.Threading;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;

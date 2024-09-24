@@ -67,14 +67,14 @@ namespace CookApps.AutoBattler
             }
 
             _synergyNameText.text = LanguageManager.Instance.GetLanguageText(baseSynergyData.name_token);
-            _synergyDescText.text = LanguageManager.Instance.GetLanguageText(baseSynergyData.desc_token);
+            _synergyDescText.text = LanguageManager.Instance.GetLanguageText(baseSynergyData.desc_token_1);
 
             for (int i = 0; i < _synergyEffectList.Count; i++)
             {
                 _synergyEffectList[i].gameObject.SetActive(_synergyList.Count > i);
                 if (_synergyEffectList[i].gameObject.activeSelf)
                 {
-                    string text = LanguageManager.Instance.GetLanguageText(_synergyList[i].desc_token);
+                    string text = LanguageManager.Instance.GetLanguageText(_synergyList[i].desc_token_1);
                     _synergyEffectList[i].text = $"({_synergyList[i].min_count}) {string.Format(text, (_synergyList[i].stat_value * 100f) + "%")}";
                 }
             }
