@@ -34,61 +34,62 @@ namespace Tech.Hive.V1 {
             "bWF0Y2hfdGltZRgCIAEoAxIsCgZyZXN1bHQYAyABKA4yHC50ZWNoLmhpdmUu",
             "djEuUHZwTWF0Y2hSZXN1bHQSFwoPbXlfYmVmb3JlX3Njb3JlGAQgASgFEhYK",
             "Dm15X2FmdGVyX3Njb3JlGAUgASgFEhwKFG9wcG9uZW50X3NpbXBsZV9pbmZv",
-            "GAYgASgJIhMKEVB2cEdldEluZm9SZXF1ZXN0IpkBChJQdnBHZXRJbmZvUmVz",
-            "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
-            "U3RhdHVzEhkKEWN1cnJlbnRfc2Vhc29uX2lkGAIgASgJEhQKDGN1cnJlbnRf",
-            "dGllchgDIAEoBRIRCglwcmV2X3JhbmsYBCABKAUSEQoJcHJldl90aWVyGAUg",
-            "ASgFIisKE1B2cExpc3RNYXRjaFJlcXVlc3QSFAoMcmFua2VyX2NvdW50GAEg",
-            "ASgFInkKFFB2cExpc3RNYXRjaFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
-            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIzCgptYXRjaF9pbmZvGAIg",
-            "AygLMh8udGVjaC5oaXZlLnYxLk15UHZwTWF0Y2hpbmdEYXRhIrsBCg9QdnBN",
-            "YXRjaFJlcXVlc3QSMgoMbWF0Y2hfcmVzdWx0GAEgASgOMhwudGVjaC5oaXZl",
-            "LnYxLlB2cE1hdGNoUmVzdWx0EhoKEm9wcG9uZW50X3BsYXllcl9pZBgCIAEo",
-            "CRIcChRvcHBvbmVudF9zaW1wbGVfaW5mbxgDIAEoCRIVCghtYXRjaF9pZBgE",
-            "IAEoCUgAiAEBEhYKDm15X3NpbXBsZV9pbmZvGAUgASgJQgsKCV9tYXRjaF9p",
-            "ZCLiAQoQUHZwTWF0Y2hSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNo",
-            "LmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSFgoObXlfZGVsdGFfc2NvcmUYAiAB",
-            "KAUSGAoQbXlfY3VycmVudF9zY29yZRgDIAEoBRIXCg9teV9jdXJyZW50X3Jh",
-            "bmsYBCABKAUSFwoPbXlfY3VycmVudF90aWVyGAUgASgFEhwKFG9wcG9uZW50",
-            "X2RlbHRhX3Njb3JlGAYgASgFEh4KFm9wcG9uZW50X2N1cnJlbnRfc2NvcmUY",
-            "ByABKAUiTgoaUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3QSMAoKcGFnaW5h",
-            "dGlvbhgBIAEoCzIcLnRlY2guaGl2ZS52MS5QYWdpbmF0aW9uSW5mbyKtAQob",
-            "UHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
-            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIqCgRtZXRhGAIgASgLMhwu",
-            "dGVjaC5oaXZlLnYxLlBhZ2luYXRpb25NZXRhEjQKCWl0ZW1fbGlzdBgDIAMo",
-            "CzIhLnRlY2guaGl2ZS52MS5QdnBNYXRjaEhpc3RvcnlEYXRhIlwKFFB2cEdl",
-            "dFByb2ZpbGVSZXF1ZXN0EgwKBHR5cGUYASABKAUSHwoSb3Bwb25lbnRfcGxh",
-            "eWVyX2lkGAIgASgJSACIAQFCFQoTX29wcG9uZW50X3BsYXllcl9pZCKXAQoV",
-            "UHZwR2V0UHJvZmlsZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2gu",
-            "aGl2ZS52MS5SZXNwb25zZVN0YXR1cxIYCgtzaW1wbGVfaW5mbxgCIAEoCUgA",
-            "iAEBEhcKCmhlYXZ5X2luZm8YAyABKAlIAYgBAUIOCgxfc2ltcGxlX2luZm9C",
-            "DQoLX2hlYXZ5X2luZm8iUQoXUHZwVXBkYXRlUHJvZmlsZVJlcXVlc3QSDQoF",
-            "cG93ZXIYASABKAkSEwoLc2ltcGxlX2luZm8YAiABKAkSEgoKaGVhdnlfaW5m",
-            "bxgDIAEoCSJIChhQdnBVcGRhdGVQcm9maWxlUmVzcG9uc2USLAoGc3RhdHVz",
-            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzIhcKFVB2cExp",
-            "c3RQdnBSYW5rUmVxdWVzdCKzAQoWUHZwTGlzdFB2cFJhbmtSZXNwb25zZRIs",
-            "CgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMS",
-            "MQoLcHZwX3JhbmtlcnMYAiADKAsyHC50ZWNoLmhpdmUudjEuUHZwUmFua2lu",
-            "Z0RhdGESOAoQbXlfcHZwX3JhbmtfZGF0YRgDIAEoCzIeLnRlY2guaGl2ZS52",
-            "MS5NeVB2cFJhbmtpbmdEYXRhKi0KGFN0a2F1dG9QVlBSZXNwb25zZVN0YXR1",
-            "cxIRCg1QVlBfVU5ERUZJTkVEEAAqYQoOUHZwTWF0Y2hSZXN1bHQSDwoLVU5T",
-            "UEVDSUZJRUQQABIHCgNXSU4QARIICgRMT1NFEAISCAoERFJBVxADEg8KC1JF",
-            "VkVOR0VfV0lOEAQSEAoMUkVWRU5HRV9MT1NFEAUyhQUKEVN0a2F1dG9QdnBT",
-            "ZXJ2aWNlEk4KB0dldEluZm8SHy50ZWNoLmhpdmUudjEuUHZwR2V0SW5mb1Jl",
-            "cXVlc3QaIC50ZWNoLmhpdmUudjEuUHZwR2V0SW5mb1Jlc3BvbnNlIgASVAoJ",
-            "TGlzdE1hdGNoEiEudGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaFJlcXVlc3Qa",
-            "Ii50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoUmVzcG9uc2UiABJICgVNYXRj",
-            "aBIdLnRlY2guaGl2ZS52MS5QdnBNYXRjaFJlcXVlc3QaHi50ZWNoLmhpdmUu",
-            "djEuUHZwTWF0Y2hSZXNwb25zZSIAEmkKEExpc3RNYXRjaEhpc3RvcnkSKC50",
-            "ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3QaKS50ZWNo",
-            "LmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNlIgASVwoKR2V0",
-            "UHJvZmlsZRIiLnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVxdWVzdBoj",
-            "LnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVzcG9uc2UiABJgCg1VcGRh",
-            "dGVQcm9maWxlEiUudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2ZpbGVSZXF1",
-            "ZXN0GiYudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2ZpbGVSZXNwb25zZSIA",
-            "EloKC0xpc3RQdnBSYW5rEiMudGVjaC5oaXZlLnYxLlB2cExpc3RQdnBSYW5r",
-            "UmVxdWVzdBokLnRlY2guaGl2ZS52MS5QdnBMaXN0UHZwUmFua1Jlc3BvbnNl",
-            "IgBiBnByb3RvMw=="));
+            "GAYgASgJIhMKEVB2cEdldEluZm9SZXF1ZXN0ImsKElB2cEdldEluZm9SZXNw",
+            "b25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VT",
+            "dGF0dXMSJwoIcHZwX2luZm8YAiABKAsyFS50ZWNoLmhpdmUudjEuUHZwSW5m",
+            "byJgCgdQdnBJbmZvEhkKEWN1cnJlbnRfc2Vhc29uX2lkGAEgASgJEhQKDGN1",
+            "cnJlbnRfdGllchgCIAEoBRIRCglwcmV2X3JhbmsYAyABKAUSEQoJcHJldl90",
+            "aWVyGAQgASgFIisKE1B2cExpc3RNYXRjaFJlcXVlc3QSFAoMcmFua2VyX2Nv",
+            "dW50GAEgASgFInkKFFB2cExpc3RNYXRjaFJlc3BvbnNlEiwKBnN0YXR1cxgB",
+            "IAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIzCgptYXRjaF9p",
+            "bmZvGAIgAygLMh8udGVjaC5oaXZlLnYxLk15UHZwTWF0Y2hpbmdEYXRhIrsB",
+            "Cg9QdnBNYXRjaFJlcXVlc3QSMgoMbWF0Y2hfcmVzdWx0GAEgASgOMhwudGVj",
+            "aC5oaXZlLnYxLlB2cE1hdGNoUmVzdWx0EhoKEm9wcG9uZW50X3BsYXllcl9p",
+            "ZBgCIAEoCRIcChRvcHBvbmVudF9zaW1wbGVfaW5mbxgDIAEoCRIVCghtYXRj",
+            "aF9pZBgEIAEoCUgAiAEBEhYKDm15X3NpbXBsZV9pbmZvGAUgASgJQgsKCV9t",
+            "YXRjaF9pZCLiAQoQUHZwTWF0Y2hSZXNwb25zZRIsCgZzdGF0dXMYASABKAsy",
+            "HC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSFgoObXlfZGVsdGFfc2Nv",
+            "cmUYAiABKAUSGAoQbXlfY3VycmVudF9zY29yZRgDIAEoBRIXCg9teV9jdXJy",
+            "ZW50X3JhbmsYBCABKAUSFwoPbXlfY3VycmVudF90aWVyGAUgASgFEhwKFG9w",
+            "cG9uZW50X2RlbHRhX3Njb3JlGAYgASgFEh4KFm9wcG9uZW50X2N1cnJlbnRf",
+            "c2NvcmUYByABKAUiTgoaUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3QSMAoK",
+            "cGFnaW5hdGlvbhgBIAEoCzIcLnRlY2guaGl2ZS52MS5QYWdpbmF0aW9uSW5m",
+            "byKtAQobUHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNlEiwKBnN0YXR1cxgB",
+            "IAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIqCgRtZXRhGAIg",
+            "ASgLMhwudGVjaC5oaXZlLnYxLlBhZ2luYXRpb25NZXRhEjQKCWl0ZW1fbGlz",
+            "dBgDIAMoCzIhLnRlY2guaGl2ZS52MS5QdnBNYXRjaEhpc3RvcnlEYXRhIlwK",
+            "FFB2cEdldFByb2ZpbGVSZXF1ZXN0EgwKBHR5cGUYASABKAUSHwoSb3Bwb25l",
+            "bnRfcGxheWVyX2lkGAIgASgJSACIAQFCFQoTX29wcG9uZW50X3BsYXllcl9p",
+            "ZCKXAQoVUHZwR2V0UHJvZmlsZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
+            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIYCgtzaW1wbGVfaW5mbxgC",
+            "IAEoCUgAiAEBEhcKCmhlYXZ5X2luZm8YAyABKAlIAYgBAUIOCgxfc2ltcGxl",
+            "X2luZm9CDQoLX2hlYXZ5X2luZm8iUQoXUHZwVXBkYXRlUHJvZmlsZVJlcXVl",
+            "c3QSDQoFcG93ZXIYASABKAkSEwoLc2ltcGxlX2luZm8YAiABKAkSEgoKaGVh",
+            "dnlfaW5mbxgDIAEoCSJIChhQdnBVcGRhdGVQcm9maWxlUmVzcG9uc2USLAoG",
+            "c3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzIhcK",
+            "FVB2cExpc3RQdnBSYW5rUmVxdWVzdCKzAQoWUHZwTGlzdFB2cFJhbmtSZXNw",
+            "b25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VT",
+            "dGF0dXMSMQoLcHZwX3JhbmtlcnMYAiADKAsyHC50ZWNoLmhpdmUudjEuUHZw",
+            "UmFua2luZ0RhdGESOAoQbXlfcHZwX3JhbmtfZGF0YRgDIAEoCzIeLnRlY2gu",
+            "aGl2ZS52MS5NeVB2cFJhbmtpbmdEYXRhKi0KGFN0a2F1dG9QVlBSZXNwb25z",
+            "ZVN0YXR1cxIRCg1QVlBfVU5ERUZJTkVEEAAqYQoOUHZwTWF0Y2hSZXN1bHQS",
+            "DwoLVU5TUEVDSUZJRUQQABIHCgNXSU4QARIICgRMT1NFEAISCAoERFJBVxAD",
+            "Eg8KC1JFVkVOR0VfV0lOEAQSEAoMUkVWRU5HRV9MT1NFEAUyhQUKEVN0a2F1",
+            "dG9QdnBTZXJ2aWNlEk4KB0dldEluZm8SHy50ZWNoLmhpdmUudjEuUHZwR2V0",
+            "SW5mb1JlcXVlc3QaIC50ZWNoLmhpdmUudjEuUHZwR2V0SW5mb1Jlc3BvbnNl",
+            "IgASVAoJTGlzdE1hdGNoEiEudGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaFJl",
+            "cXVlc3QaIi50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoUmVzcG9uc2UiABJI",
+            "CgVNYXRjaBIdLnRlY2guaGl2ZS52MS5QdnBNYXRjaFJlcXVlc3QaHi50ZWNo",
+            "LmhpdmUudjEuUHZwTWF0Y2hSZXNwb25zZSIAEmkKEExpc3RNYXRjaEhpc3Rv",
+            "cnkSKC50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3Qa",
+            "KS50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNlIgAS",
+            "VwoKR2V0UHJvZmlsZRIiLnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVx",
+            "dWVzdBojLnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVzcG9uc2UiABJg",
+            "Cg1VcGRhdGVQcm9maWxlEiUudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2Zp",
+            "bGVSZXF1ZXN0GiYudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2ZpbGVSZXNw",
+            "b25zZSIAEloKC0xpc3RQdnBSYW5rEiMudGVjaC5oaXZlLnYxLlB2cExpc3RQ",
+            "dnBSYW5rUmVxdWVzdBokLnRlY2guaGl2ZS52MS5QdnBMaXN0UHZwUmFua1Jl",
+            "c3BvbnNlIgBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.StkautoPVPResponseStatus), typeof(global::Tech.Hive.V1.PvpMatchResult), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -97,7 +98,8 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.MyPvpMatchingData), global::Tech.Hive.V1.MyPvpMatchingData.Parser, new[]{ "PlayerId", "Score", "SimpleInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpMatchHistoryData), global::Tech.Hive.V1.PvpMatchHistoryData.Parser, new[]{ "MatchId", "MatchTime", "Result", "MyBeforeScore", "MyAfterScore", "OpponentSimpleInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetInfoRequest), global::Tech.Hive.V1.PvpGetInfoRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetInfoResponse), global::Tech.Hive.V1.PvpGetInfoResponse.Parser, new[]{ "Status", "CurrentSeasonId", "CurrentTier", "PrevRank", "PrevTier" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetInfoResponse), global::Tech.Hive.V1.PvpGetInfoResponse.Parser, new[]{ "Status", "PvpInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpInfo), global::Tech.Hive.V1.PvpInfo.Parser, new[]{ "CurrentSeasonId", "CurrentTier", "PrevRank", "PrevTier" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListMatchRequest), global::Tech.Hive.V1.PvpListMatchRequest.Parser, new[]{ "RankerCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListMatchResponse), global::Tech.Hive.V1.PvpListMatchResponse.Parser, new[]{ "Status", "MatchInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpMatchRequest), global::Tech.Hive.V1.PvpMatchRequest.Parser, new[]{ "MatchResult", "OpponentPlayerId", "OpponentSimpleInfo", "MatchId", "MySimpleInfo" }, new[]{ "MatchId" }, null, null, null),
@@ -1530,10 +1532,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PvpGetInfoResponse(PvpGetInfoResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      currentSeasonId_ = other.currentSeasonId_;
-      currentTier_ = other.currentTier_;
-      prevRank_ = other.prevRank_;
-      prevTier_ = other.prevTier_;
+      pvpInfo_ = other.pvpInfo_ != null ? other.pvpInfo_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1555,63 +1554,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "current_season_id" field.</summary>
-    public const int CurrentSeasonIdFieldNumber = 2;
-    private string currentSeasonId_ = "";
-    /// <summary>
-    /// 이번 시즌 id
-    /// </summary>
+    /// <summary>Field number for the "pvp_info" field.</summary>
+    public const int PvpInfoFieldNumber = 2;
+    private global::Tech.Hive.V1.PvpInfo pvpInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CurrentSeasonId {
-      get { return currentSeasonId_; }
+    public global::Tech.Hive.V1.PvpInfo PvpInfo {
+      get { return pvpInfo_; }
       set {
-        currentSeasonId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "current_tier" field.</summary>
-    public const int CurrentTierFieldNumber = 3;
-    private int currentTier_;
-    /// <summary>
-    /// 현재 티어
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CurrentTier {
-      get { return currentTier_; }
-      set {
-        currentTier_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "prev_rank" field.</summary>
-    public const int PrevRankFieldNumber = 4;
-    private int prevRank_;
-    /// <summary>
-    /// 이전 시즌 랭크 (0: 이전 시즌 미참여)
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int PrevRank {
-      get { return prevRank_; }
-      set {
-        prevRank_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "prev_tier" field.</summary>
-    public const int PrevTierFieldNumber = 5;
-    private int prevTier_;
-    /// <summary>
-    /// 이전 시즌 티어 (0: 이전 시즌 미참여)
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int PrevTier {
-      get { return prevTier_; }
-      set {
-        prevTier_ = value;
+        pvpInfo_ = value;
       }
     }
 
@@ -1631,10 +1582,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (CurrentSeasonId != other.CurrentSeasonId) return false;
-      if (CurrentTier != other.CurrentTier) return false;
-      if (PrevRank != other.PrevRank) return false;
-      if (PrevTier != other.PrevTier) return false;
+      if (!object.Equals(PvpInfo, other.PvpInfo)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1643,10 +1591,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (CurrentSeasonId.Length != 0) hash ^= CurrentSeasonId.GetHashCode();
-      if (CurrentTier != 0) hash ^= CurrentTier.GetHashCode();
-      if (PrevRank != 0) hash ^= PrevRank.GetHashCode();
-      if (PrevTier != 0) hash ^= PrevTier.GetHashCode();
+      if (pvpInfo_ != null) hash ^= PvpInfo.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1669,21 +1614,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (CurrentSeasonId.Length != 0) {
+      if (pvpInfo_ != null) {
         output.WriteRawTag(18);
-        output.WriteString(CurrentSeasonId);
-      }
-      if (CurrentTier != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(CurrentTier);
-      }
-      if (PrevRank != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(PrevRank);
-      }
-      if (PrevTier != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(PrevTier);
+        output.WriteMessage(PvpInfo);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1699,21 +1632,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (CurrentSeasonId.Length != 0) {
+      if (pvpInfo_ != null) {
         output.WriteRawTag(18);
-        output.WriteString(CurrentSeasonId);
-      }
-      if (CurrentTier != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(CurrentTier);
-      }
-      if (PrevRank != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(PrevRank);
-      }
-      if (PrevTier != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(PrevTier);
+        output.WriteMessage(PvpInfo);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1728,6 +1649,306 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
+      if (pvpInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PvpInfo);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PvpGetInfoResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.status_ != null) {
+        if (status_ == null) {
+          Status = new global::Tech.Hive.V1.ResponseStatus();
+        }
+        Status.MergeFrom(other.Status);
+      }
+      if (other.pvpInfo_ != null) {
+        if (pvpInfo_ == null) {
+          PvpInfo = new global::Tech.Hive.V1.PvpInfo();
+        }
+        PvpInfo.MergeFrom(other.PvpInfo);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            if (pvpInfo_ == null) {
+              PvpInfo = new global::Tech.Hive.V1.PvpInfo();
+            }
+            input.ReadMessage(PvpInfo);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            if (pvpInfo_ == null) {
+              PvpInfo = new global::Tech.Hive.V1.PvpInfo();
+            }
+            input.ReadMessage(PvpInfo);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class PvpInfo : pb::IMessage<PvpInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PvpInfo> _parser = new pb::MessageParser<PvpInfo>(() => new PvpInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PvpInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpInfo(PvpInfo other) : this() {
+      currentSeasonId_ = other.currentSeasonId_;
+      currentTier_ = other.currentTier_;
+      prevRank_ = other.prevRank_;
+      prevTier_ = other.prevTier_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PvpInfo Clone() {
+      return new PvpInfo(this);
+    }
+
+    /// <summary>Field number for the "current_season_id" field.</summary>
+    public const int CurrentSeasonIdFieldNumber = 1;
+    private string currentSeasonId_ = "";
+    /// <summary>
+    /// 이번 시즌 id
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CurrentSeasonId {
+      get { return currentSeasonId_; }
+      set {
+        currentSeasonId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "current_tier" field.</summary>
+    public const int CurrentTierFieldNumber = 2;
+    private int currentTier_;
+    /// <summary>
+    /// 현재 티어
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CurrentTier {
+      get { return currentTier_; }
+      set {
+        currentTier_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "prev_rank" field.</summary>
+    public const int PrevRankFieldNumber = 3;
+    private int prevRank_;
+    /// <summary>
+    /// 이전 시즌 랭크 (0: 이전 시즌 미참여)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int PrevRank {
+      get { return prevRank_; }
+      set {
+        prevRank_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "prev_tier" field.</summary>
+    public const int PrevTierFieldNumber = 4;
+    private int prevTier_;
+    /// <summary>
+    /// 이전 시즌 티어 (0: 이전 시즌 미참여)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int PrevTier {
+      get { return prevTier_; }
+      set {
+        prevTier_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PvpInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PvpInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CurrentSeasonId != other.CurrentSeasonId) return false;
+      if (CurrentTier != other.CurrentTier) return false;
+      if (PrevRank != other.PrevRank) return false;
+      if (PrevTier != other.PrevTier) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CurrentSeasonId.Length != 0) hash ^= CurrentSeasonId.GetHashCode();
+      if (CurrentTier != 0) hash ^= CurrentTier.GetHashCode();
+      if (PrevRank != 0) hash ^= PrevRank.GetHashCode();
+      if (PrevTier != 0) hash ^= PrevTier.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (CurrentSeasonId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CurrentSeasonId);
+      }
+      if (CurrentTier != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CurrentTier);
+      }
+      if (PrevRank != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(PrevRank);
+      }
+      if (PrevTier != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(PrevTier);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (CurrentSeasonId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(CurrentSeasonId);
+      }
+      if (CurrentTier != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CurrentTier);
+      }
+      if (PrevRank != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(PrevRank);
+      }
+      if (PrevTier != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(PrevTier);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
       if (CurrentSeasonId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(CurrentSeasonId);
       }
@@ -1748,15 +1969,9 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(PvpGetInfoResponse other) {
+    public void MergeFrom(PvpInfo other) {
       if (other == null) {
         return;
-      }
-      if (other.status_ != null) {
-        if (status_ == null) {
-          Status = new global::Tech.Hive.V1.ResponseStatus();
-        }
-        Status.MergeFrom(other.Status);
       }
       if (other.CurrentSeasonId.Length != 0) {
         CurrentSeasonId = other.CurrentSeasonId;
@@ -1786,25 +2001,18 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
             CurrentSeasonId = input.ReadString();
             break;
           }
-          case 24: {
+          case 16: {
             CurrentTier = input.ReadInt32();
             break;
           }
-          case 32: {
+          case 24: {
             PrevRank = input.ReadInt32();
             break;
           }
-          case 40: {
+          case 32: {
             PrevTier = input.ReadInt32();
             break;
           }
@@ -1824,25 +2032,18 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
             CurrentSeasonId = input.ReadString();
             break;
           }
-          case 24: {
+          case 16: {
             CurrentTier = input.ReadInt32();
             break;
           }
-          case 32: {
+          case 24: {
             PrevRank = input.ReadInt32();
             break;
           }
-          case 40: {
+          case 32: {
             PrevTier = input.ReadInt32();
             break;
           }
@@ -1868,7 +2069,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2061,7 +2262,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2289,7 +2490,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2654,7 +2855,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3093,7 +3294,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3292,7 +3493,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3563,7 +3764,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3808,7 +4009,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4111,7 +4312,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[14]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4384,7 +4585,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[15]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4583,7 +4784,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[16]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4736,7 +4937,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[17]; }
+      get { return global::Tech.Hive.V1.StkautoPvpReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

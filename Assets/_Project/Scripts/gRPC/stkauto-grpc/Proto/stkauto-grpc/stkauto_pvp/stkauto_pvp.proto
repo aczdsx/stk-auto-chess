@@ -88,10 +88,14 @@ message PvpGetInfoRequest {}
 
 message PvpGetInfoResponse {
   ResponseStatus status = 1;
-  string current_season_id = 2; // 이번 시즌 id
-  int32 current_tier = 3; // 현재 티어
-  int32 prev_rank = 4; // 이전 시즌 랭크 (0: 이전 시즌 미참여)
-  int32 prev_tier = 5; // 이전 시즌 티어 (0: 이전 시즌 미참여)
+  PvpInfo pvp_info = 2;
+}
+
+message PvpInfo{
+  string current_season_id = 1; // 이번 시즌 id
+  int32 current_tier = 2; // 현재 티어
+  int32 prev_rank = 3; // 이전 시즌 랭크 (0: 이전 시즌 미참여)
+  int32 prev_tier = 4; // 이전 시즌 티어 (0: 이전 시즌 미참여)
 }
 
 message PvpListMatchRequest {
