@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Coffee.UIEffects;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -27,6 +28,15 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _extraBGImage;
         [SerializeField] private TextMeshProUGUI _dialogueText;
         [SerializeField] private RectTransform _dialogueTextRect;
+        
+        [SerializeField] private GameObject _maskObj;
+        [SerializeField] private RectTransform _unmaskTransform;
+        [SerializeField] private AnimationCurve scaleCurve;
+        
+        [SerializeField] private UIEffect _uiEffect;
+
+        [SerializeField]
+        private float animationDuration = 1.0f;  // 애니메이션 시간
         private Vector2 _tweenVector = new Vector2(1550f, 192f);
 
         private SpecDialogue _currentSpecDialogueData;
@@ -91,9 +101,17 @@ namespace CookApps.AutoBattler
                 var targetSprite = ImageManager.Instance.GetCutSceneSprite(_currentSpecDialogueData.bg_image);
                 if (targetSprite != null)
                 {
-                    _extraBGImage.sprite = targetSprite;
-
                     _extraBGObj.SetActive(true);
+                    _extraBGImage.sprite = targetSprite;
+                    if (_currentSpecDialogueData.bg_image == "Bg_introCha")
+                    {
+                        if (_currentSpecDialogueData.id == 3)
+                            StartCoroutine(ScaleWithAnimationCurve(animationDuration));
+                    }
+                    else
+                    {
+                        _maskObj.SetActive(false);
+                    }
                 }
             }
 
@@ -171,6 +189,29 @@ namespace CookApps.AutoBattler
             _dialogueText.DOFade(0, 0f);
             _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
             _dialogueTextRect.DOSizeDelta(_tweenVector,0.3f).SetEase(Ease.OutQuad).From();
+        }
+        
+        private IEnumerator ScaleWithAnimationCurve(float duration)
+        {
+            _maskObj.SetActive(true);
+            Vector3 initialScale = new Vector3(0, 0, 0);
+            Vector3 finalScale = new Vector3(3, 2.5f, 3);
+        
+            _unmaskTransform.localScale = initialScale;
+            
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float curveValue = scaleCurve.Evaluate(elapsed / duration); 
+                _unmaskTransform.localScale = Vector3.Lerp(initialScale, finalScale, curveValue);
+                _uiEffect.blurFactor = 1 - curveValue;
+                yield return null;
+            }
+
+            _unmaskTransform.localScale = finalScale;
+            _maskObj.SetActive(false);
         }
     }
 }
