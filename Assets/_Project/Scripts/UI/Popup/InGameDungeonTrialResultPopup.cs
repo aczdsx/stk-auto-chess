@@ -80,7 +80,7 @@ namespace CookApps.AutoBattler
             {
                 string successString = LanguageManager.Instance.GetLanguageText("TIER_UPGRADE_SUCCESS_MSG");
                 _victoryStageText.text =
-                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + successString;
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial) + " " + successString;
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
                 
@@ -90,7 +90,7 @@ namespace CookApps.AutoBattler
             {
                 string failString = LanguageManager.Instance.GetLanguageText("TIER_UPGRADE_FAIL_MSG");
                 _failStageText.text =
-                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + failString;
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial)+ " " + failString;
                 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
             }
@@ -117,11 +117,11 @@ namespace CookApps.AutoBattler
             if (_currentSpecDungeonTrial != null)
             {
                 _beforeGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_currentSpecDungeonTrial.trial_type, false);
-                _beforeGradeText.text = StringUtil.GetTrialDungeonString(_currentSpecDungeonTrial, true);
+                _beforeGradeText.text = StringUtil.GetTrialDungeonString(_currentSpecDungeonTrial);
             }
 
             _afterGradeImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(nextDungeonTrialData.trial_type, false);
-            _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData, true);
+            _afterGradeText.text = StringUtil.GetTrialDungeonString(nextDungeonTrialData);
             _afterArrow.SetActive(_beforeObj.activeSelf);
             
             // 앱이벤트 전송
