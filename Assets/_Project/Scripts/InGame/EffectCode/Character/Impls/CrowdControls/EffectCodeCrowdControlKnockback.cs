@@ -38,16 +38,19 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 
         startY = owner.ViewPosition3D.y;
 
-        var halfDuration = duration * 0.5f;
-        upFactor = (startY - height) / (halfDuration * halfDuration);
-        downFactor = -height / (halfDuration * halfDuration);
-
         owner.AddCrowdControl(CrowdControlType.KnockBack);
         elapsedTime = 0;
 
         if (owner.SpecCharacter.is_knock_back)
         {
             _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+
+            duration *= Vector3.Distance(_inGameTile.View.Position, owner.Position3D) * 0.4f;
+            
+            var halfDuration = duration * 0.5f;
+            upFactor = (startY - height) / (halfDuration * halfDuration);
+            downFactor = -height / (halfDuration * halfDuration);
+            
             owner.ChangeOccupiedTile(_inGameTile);
             Tween.Custom(
                 owner.Position3D,
