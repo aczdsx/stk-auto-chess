@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/InGameInfoPop.prefab")]
-    public class InGameInfoPop : UILayer
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/ImageInfoPop.prefab")]
+    public class ImageInfoPop : UILayer
     {
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private TextMeshProUGUI _descText;
@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
         
         [SerializeField] private Image _infoImage;
 
-        private string _surveyURL = "";
+        private SpecImageInfo _specImageInfo;
 
         protected override void Awake()
         {
@@ -41,23 +41,17 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
+            int imageInfoID = (int) param;
+
+            _specImageInfo = SpecDataManager.Instance.GetImageInfoData(imageInfoID);
+            
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            _titleText.text = LanguageManager.Instance.GetLanguageText("END_TEST_GAME_SURVEY_TITLE");
-            _descText.text = LanguageManager.Instance.GetLanguageText("END_TEST_GAME_SURVEY_DESC");
-
-            _surveyURL = SpecDataManager.Instance.GetGameConfig<string>("survey_link_url");
+            _infoImage.sprite = ImageManager.Instance.GetInfoImageSprite(_specImageInfo.image_info_id);
+            _titleText.text = LanguageManager.Instance.GetLanguageText(_specImageInfo.title_token);
+            _descText.text = LanguageManager.Instance.GetLanguageText(_specImageInfo.desc_token);
         }
-
-        private void OnClickSurveyButton()
-        {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
-
-            Application.OpenURL(_surveyURL);
-
-            SceneUILayerManager.Instance.PopUILayer(this);
-        }
-
+        
         private void OnClickCloseButton()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);

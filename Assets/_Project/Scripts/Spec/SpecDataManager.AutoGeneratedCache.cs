@@ -49,8 +49,9 @@ namespace CookApps.AutoBattler
 		public List<SpecPvpReward> SpecPvpRewardList {get; private set;}
 		public List<SpecPVPRanking> SpecPVPRankingList {get; private set;}
 		public List<SpecPVPConfig> SpecPVPConfigList {get; private set;}
-		public List<SpecPVPDummy> SpecPVPDummyList {get; private set;}
 		public List<SpecReward> SpecRewardList {get; private set;}
+		public List<SpecPVPDummy> SpecPVPDummyList {get; private set;}
+		public List<SpecImageInfo> SpecImageInfoList {get; private set;}
 
 		private void GenerateCacheSpecData()
 		{
@@ -95,8 +96,9 @@ namespace CookApps.AutoBattler
 			SpecPvpRewardList = SpecPvpReward.All.ToList();
 			SpecPVPRankingList = SpecPVPRanking.All.ToList();
 			SpecPVPConfigList = SpecPVPConfig.All.ToList();
-			SpecPVPDummyList = SpecPVPDummy.All.ToList();
 			SpecRewardList = SpecReward.All.ToList();
+			SpecPVPDummyList = SpecPVPDummy.All.ToList();
+			SpecImageInfoList = SpecImageInfo.All.ToList();
 		}
 	}
 }

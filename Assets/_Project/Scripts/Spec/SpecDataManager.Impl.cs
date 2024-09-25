@@ -1171,5 +1171,10 @@ namespace CookApps.AutoBattler
             var openCondition = SpecOpenConditionList.Find(l => l.open_condition_Type == conditionType);
             return openCondition != null && openCondition.guide_mission_id <= currMissionID;
         }
+        
+        public SpecImageInfo GetImageInfoData(int infoID)
+        {
+            return SpecImageInfoList.Find(dat => dat.image_info_id == infoID);
+        }
     }
 }

@@ -5,6 +5,7 @@ public static class Defines
     public const string UI_BANNER_ATLAS_NAME = "UI_Banner";
     public const string UI_ATLAS_CHARACTER_PIECE = "UI_Character_Piece";
     public const string UI_CUT_SCENE_ATLAS = "UI_CutScene";
+    public const string UI_INFO_IMAGE = "UI_InfoImage";
     public const string GACHA_ATLAS_NAME = "Atlas_Gacha";
     public const string STIGMA_ATLAS_NAME = "Atlas_Icon_Stigma";
     public const string STELLA_ICON_ATLAS_NAME = "Atlas_Stella_Icon";
