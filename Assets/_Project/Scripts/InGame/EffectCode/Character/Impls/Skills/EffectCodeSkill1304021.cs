@@ -122,7 +122,7 @@ public class EffectCodeSkill1304021 : EffectCodeCharacterBase
 
             if (type == DamageReturnType.Killed)
             {
-                owner.ShowNormalText("스킬 쿨타임 초기화").Forget();
+                owner.ShowNormalText("INGAME_UI_BUFF_COOLDOWN_RESET").Forget();
                 isKilled = true;
             }
         }

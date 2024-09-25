@@ -11,7 +11,6 @@ namespace CookApps.AutoBattler
                 case CrowdControlType.Entangle:
                     return BuffDebuffType.Entangle;
                 case CrowdControlType.Airborne:
-                case CrowdControlType.KnockBack:
                 case CrowdControlType.Stun:
                     return BuffDebuffType.Stun;
                 case CrowdControlType.Slowing:
@@ -20,6 +19,7 @@ namespace CookApps.AutoBattler
                     return BuffDebuffType.Provocation;
                 case CrowdControlType.Freezing:
                     return BuffDebuffType.Freezing;
+                case CrowdControlType.KnockBack:
                 default:
                     return BuffDebuffType.None;
             }

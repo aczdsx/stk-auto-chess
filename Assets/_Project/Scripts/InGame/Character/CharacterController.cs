@@ -723,8 +723,16 @@ namespace CookApps.BattleSystem
             var affectText = type.GetAffectToken();
             if (!string.IsNullOrEmpty(affectText))
             {
-                string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
-                ShowNormalText(affectText, hexColor: hexColor).Forget();
+                if (type == BuffDebuffType.Shield)
+                {
+                    string hexColor = "#00ABFF";
+                    ShowNormalText(affectText, hexColor: hexColor).Forget();
+                }
+                else
+                {
+                    string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
+                    ShowNormalText(affectText, hexColor: hexColor).Forget();
+                }
             }
 
 
