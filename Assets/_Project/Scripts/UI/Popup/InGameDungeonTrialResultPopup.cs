@@ -78,8 +78,9 @@ namespace CookApps.AutoBattler
             _beforeLoseObj.SetActive(!_isVictory);
             if (_isVictory)
             {
+                string successString = LanguageManager.Instance.GetLanguageText("TIER_UPGRADE_SUCCESS_MSG");
                 _victoryStageText.text =
-                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + " 승급 성공";
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + successString;
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
                 
@@ -87,8 +88,9 @@ namespace CookApps.AutoBattler
             }
             else
             {
+                string failString = LanguageManager.Instance.GetLanguageText("TIER_UPGRADE_FAIL_MSG");
                 _failStageText.text =
-                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + " 승급 실패";
+                    StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial, true) + failString;
                 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
             }
