@@ -324,6 +324,8 @@ namespace CookApps.AutoBattler
         
         private async UniTaskVoid StartCountdown()
         {
+            string seasonTimeString = LanguageManager.Instance.GetLanguageText("UI_SEASON_TIME_GUIDE");
+            
             while (true)
             {
                 DateTime currentTime = DateTime.UtcNow;
@@ -338,22 +340,23 @@ namespace CookApps.AutoBattler
 
                 if (days > 0)
                 {
-                    timeString += $"{days}일 ";
+                    timeString += LanguageManager.Instance.GetTimeText(days, TimeType.DAY, false);
                 }
                 if (hours > 0)
                 {
-                    timeString += $"{hours}시간 ";
+                    timeString += LanguageManager.Instance.GetTimeText(hours, TimeType.HOUR, false);
                 }
                 if (minutes > 0 || timeString == "")
                 {
-                    timeString += $"{minutes}분";
+                    timeString += LanguageManager.Instance.GetTimeText(minutes, TimeType.MINUTE, false);
                 }
 
-                _remainTimeText.text = timeString;
+                _remainTimeText.text = string.Format(seasonTimeString, timeString);
 
                 if (timeRemaining.TotalSeconds <= 0)
                 {
-                    _remainTimeText.text = "종료되었습니다.";
+                    string endString = LanguageManager.Instance.GetLanguageText("UI_SEASON_END_GUIDE");
+                    _remainTimeText.text = string.Format(seasonTimeString, endString);
                     break;
                 }
 
