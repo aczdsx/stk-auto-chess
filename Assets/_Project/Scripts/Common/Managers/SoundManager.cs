@@ -113,6 +113,10 @@ public class SoundManager : Singleton<SoundManager>
     // public
 
     public bool IsReady => this.isReady;
+    
+    public float BGMVolume { get; set; } = 1.0f;
+    public float SFXVolume { get; set; } = 1.0f;
+    
     public bool IsPlayingGacha { get; set; } = false;
 
     [SerializeField] private AudioMixer _mixer;
@@ -258,27 +262,39 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetBGMVolume(float v)
     {
-        int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
-        if (this.isReady)
-            _mixer.SetFloat("BGM", volume);
-        if (v == 0)
-            _mixer.SetFloat("BGM", -80f);
+        BGMVolume = v;
+        
+        Preference.SavePreference(Pref.BGM_V, BGMVolume);
+        
+        AudioController.SetCategoryVolume("BGM", BGMVolume);
+        
+        // int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
+        // if (this.isReady)
+        //     _mixer.SetFloat("BGM", volume);
+        // if (v == 0)
+        //     _mixer.SetFloat("BGM", -80f);
     }
 
     public void SetSFXVolume(float v)
     {
-        int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
-        if (this.isReady)
-        {
-            _mixer.SetFloat("SFX", volume);
-            _mixer.SetFloat("AMB", volume);
-        }
-
-        if (v == 0)
-        {
-            _mixer.SetFloat("SFX", -80f);
-            _mixer.SetFloat("AMB", -80f);
-        }
+        SFXVolume = v;
+        
+        Preference.SavePreference(Pref.SFX_V, SFXVolume);
+        
+        AudioController.SetCategoryVolume("SFX", SFXVolume);
+        
+        // int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
+        // if (this.isReady)
+        // {
+        //     _mixer.SetFloat("SFX", volume);
+        //     _mixer.SetFloat("AMB", volume);
+        // }
+        //
+        // if (v == 0)
+        // {
+        //     _mixer.SetFloat("SFX", -80f);
+        //     _mixer.SetFloat("AMB", -80f);
+        // }
     }
 
     public void SetVOXVolume(float v)
@@ -329,9 +345,12 @@ public class SoundManager : Singleton<SoundManager>
 
     public void UpdateOption()
     {
-        this.onBGM = Preference.LoadPreference(Pref.BGM_V, true);
-        this.onSFX = Preference.LoadPreference(Pref.SFX_V, true);
-        this.onSFX = Preference.LoadPreference(Pref.VOX_V, true);
+        // this.onBGM = Preference.LoadPreference(Pref.BGM_V, true);
+        // this.onSFX = Preference.LoadPreference(Pref.SFX_V, true);
+        // this.onSFX = Preference.LoadPreference(Pref.VOX_V, true);
+        
+        BGMVolume = Preference.LoadPreference(Pref.BGM_V, 1.0f);
+        SFXVolume = Preference.LoadPreference(Pref.SFX_V, 1.0f);
     }
 
 
@@ -382,7 +401,7 @@ public class SoundManager : Singleton<SoundManager>
 
         AudioController.StopMusic();
 
-        return AudioController.PlayMusic(audioID);
+        return AudioController.PlayMusic(audioID, BGMVolume);
     }
 
     private ClockStone.AudioObject PlaySFX(string audioID)
@@ -395,7 +414,7 @@ public class SoundManager : Singleton<SoundManager>
         if (this.isSilence)
             return AudioController.Play(audioID, 0.2f);
         else
-            return AudioController.Play(audioID);
+            return AudioController.Play(audioID, SFXVolume);
     }
 
     private ClockStone.AudioObject PlayAMB(string audioID)

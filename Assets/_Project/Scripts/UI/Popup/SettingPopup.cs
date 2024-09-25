@@ -74,13 +74,11 @@ namespace CookApps.AutoBattler
         public void OnBGMValueChanged()
         {
             SoundManager.Instance.SetBGMVolume(_bgmSlider.value);
-            Preference.SavePreference(Pref.BGM_V, _bgmSlider.value);
         }
 
         public void OnSFXValueChanged()
         {
             SoundManager.Instance.SetSFXVolume(_sfxSlider.value);
-            Preference.SavePreference(Pref.SFX_V, _sfxSlider.value);
         }
 
         private void OnClickLanguageKrButton()
