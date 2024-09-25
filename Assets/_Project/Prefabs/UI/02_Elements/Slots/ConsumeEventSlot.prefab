@@ -18190,6 +18190,7 @@ GameObject:
   - component: {fileID: 2994849019719850230}
   - component: {fileID: 6645946367392732213}
   - component: {fileID: 3460835734690555683}
+  - component: {fileID: 5634478371256936626}
   m_Layer: 5
   m_Name: Text_Claim
   m_TagString: Untagged
@@ -18313,6 +18314,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5634478371256936626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543628040591132918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageToken: UI_GET_ITEM
 --- !u!1 &5565430365325708106
 GameObject:
   m_ObjectHideFlags: 0
@@ -23872,6 +23886,7 @@ MonoBehaviour:
   _rewardCharacterNameText: {fileID: 5044827880667548507}
   _rewardElementSynergyUI: {fileID: 2284480277236773605}
   _rewardClassSynergyUI: {fileID: 3515904605951093456}
+  _gradeImage: {fileID: 0}
 --- !u!1 &6671992114262083510
 GameObject:
   m_ObjectHideFlags: 0
