@@ -14,7 +14,6 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Image _iconImage;
         [SerializeField] private TextMeshProUGUI _countText;
-        [SerializeField] private ParticleSystem _activeFx;
         private ElementType _elementType;
         private CharacterPositionType _positionType;
         private bool _isElementType;
@@ -27,13 +26,6 @@ namespace CookApps.AutoBattler
         public void SetSynergy(ElementType type, int count, int step, bool isActive = true)
         {
             _elementType = type;
-            
-            if (step != 0)
-            {
-                _activeFx.Play();
-                ParticleSystem.MainModule mainModule = _activeFx.main;
-                mainModule.startColor = _colorList[step];
-            }
             
             _step = step;
             _count = count;
@@ -49,13 +41,6 @@ namespace CookApps.AutoBattler
         public void SetPositionSynergy(CharacterPositionType type, int count, int step, bool isActive = true)
         {
             _positionType = type;
-            
-            if (step != 0)
-            {
-                _activeFx.Play();
-                ParticleSystem.MainModule mainModule = _activeFx.main;
-                mainModule.startColor = _colorList[step];
-            }
 
             _step = step;
             _count = count;
