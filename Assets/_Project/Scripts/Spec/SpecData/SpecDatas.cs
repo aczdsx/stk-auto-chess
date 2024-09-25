@@ -275,6 +275,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat bg_image_scale;
         /// 대화 종료 시 reward_id
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 대화 종료 시 imageinfo_id
+        public CookApps.Obfuscator.ObfuscatorInt image_info_id;
     }
 
     [GeneratorSpecData]
@@ -1016,5 +1018,19 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorInt power;
         /// PVP 점수
         public CookApps.Obfuscator.ObfuscatorInt point;
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecImageInfo
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// 인포 아이디
+        public CookApps.Obfuscator.ObfuscatorInt image_info_id;
+        /// 제목
+        public string title_token;
+        /// 설명
+        public string desc_token;
     }
 }
