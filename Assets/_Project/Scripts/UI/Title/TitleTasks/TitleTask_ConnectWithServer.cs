@@ -84,7 +84,14 @@ namespace CookApps.AutoBattler
                 isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
             else if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Facebook))
                 isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
-            else if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Guest)) isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
+            else if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Guest))
+                isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
+            else
+            {
+                // todo : grpc 이하 상황에 맞게 처리하세요
+                var generateUuid = await GrpcManager.Instance.Lobby.GenerateUuidAsync();
+                isLogin = await GrpcManager.Instance.Auth.CreateAsync(AuthPlatform.Guest, generateUuid);
+            }
             // else
             // {
             //     // login.SetActive(true);

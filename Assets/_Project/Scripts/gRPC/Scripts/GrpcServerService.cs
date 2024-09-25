@@ -13,9 +13,8 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 전체 서버리스트와 서버의 플레이어 정보를 반환합니다.
         /// </summary>
-        /// <param name="uid"></param>
         /// <returns></returns>
-        public async Task<ServerListResponse> ListAsync(uint uid)
+        public async Task<ServerListResponse> ListAsync()
         {
             using PooledObject<ServerListRequest> _ = GenericPool<ServerListRequest>.Get(out ServerListRequest request);
             ServerListResponse response = await ListAsync(request);
