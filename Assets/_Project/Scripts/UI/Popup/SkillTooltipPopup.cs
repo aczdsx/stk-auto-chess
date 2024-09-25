@@ -69,7 +69,8 @@ namespace CookApps.AutoBattler
             var extraSkillData = SpecDataManager.Instance.GetSkillData(skillData.skill_id, SkillValueType.COOL);
             if (extraSkillData != null)
             {
-                _skillCoolTimeText.text = $"{extraSkillData.base_rate}초";
+                string cooltimeString = LanguageManager.Instance.GetLanguageText("SKILL_COOLTIME");
+                _skillCoolTimeText.text = string.Format(cooltimeString, extraSkillData.base_rate);
                 Run.NextFrame(() =>
                 {
                     _sizeFitter.enabled = false;
