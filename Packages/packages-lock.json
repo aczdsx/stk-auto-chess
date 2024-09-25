@@ -105,7 +105,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.grpc": {
-      "version": "file:com.cookapps.grpc-8.0.0-preview.1.tgz",
+      "version": "file:com.cookapps.grpc-8.0.0-preview.2.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -116,7 +116,8 @@
         "com.cookapps.link-xml-resolver": "1.0.1",
         "com.cookapps.obfuscator": "1.1.13",
         "com.cookapps.nuget.common": "1.0.0",
-        "com.cookapps.coroutineutils": "1.0.5"
+        "com.cookapps.coroutineutils": "1.0.5",
+        "com.cookapps.nuget.codeanalysis.csharp": "1.0.0"
       }
     },
     "com.cookapps.iap": {
@@ -164,6 +165,15 @@
       "dependencies": {
         "com.cookapps.debug": "1.1.6",
         "com.unity.modules.unitywebrequesttexture": "1.0.0"
+      },
+      "url": "http://packages.tech.cookapps.com"
+    },
+    "com.cookapps.nuget.codeanalysis.csharp": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.nuget.common": "1.0.0"
       },
       "url": "http://packages.tech.cookapps.com"
     },

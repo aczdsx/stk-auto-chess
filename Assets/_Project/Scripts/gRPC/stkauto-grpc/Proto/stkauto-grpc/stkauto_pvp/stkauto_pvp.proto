@@ -124,13 +124,14 @@ message PvpMatchResponse {
 
 
 message PvpListMatchHistoryRequest {
-  int32 history_count = 1; // 보여줄 히스토리 수 (핵 값 조작 염려 서버에서 최대 20으로 제한)
+  PaginationInfo pagination = 1;
 }
 
 
 message PvpListMatchHistoryResponse {
   ResponseStatus status = 1;
-  repeated PvpMatchHistoryData pvp_match_histories = 2;
+  PaginationMeta meta = 2;
+  repeated PvpMatchHistoryData item_list = 3;
 }
 
 message PvpGetProfileRequest {

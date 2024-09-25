@@ -490,7 +490,7 @@ public partial class SROptions
         detailData.PvpDeckList = new UserPVPBattleDeckList();
         var serializedDetailData = BMUtil.ConvertToJsonSerialize(detailData);
 
-        var response = await GrpcManager.Instance.StkAutoPvpService.UpdatePvpProfile(0, serializedSimpleData, serializedDetailData);
+        var response = await GrpcManager.Instance.StkautoPvp.UpdatePvpProfile(0, serializedSimpleData, serializedDetailData);
         if (response.IsError)
             return;
     }

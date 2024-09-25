@@ -51,42 +51,44 @@ namespace Tech.Hive.V1 {
             "KAUSGAoQbXlfY3VycmVudF9zY29yZRgDIAEoBRIXCg9teV9jdXJyZW50X3Jh",
             "bmsYBCABKAUSFwoPbXlfY3VycmVudF90aWVyGAUgASgFEhwKFG9wcG9uZW50",
             "X2RlbHRhX3Njb3JlGAYgASgFEh4KFm9wcG9uZW50X2N1cnJlbnRfc2NvcmUY",
-            "ByABKAUiMwoaUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3QSFQoNaGlzdG9y",
-            "eV9jb3VudBgBIAEoBSKLAQobUHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNl",
-            "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
-            "cxI+ChNwdnBfbWF0Y2hfaGlzdG9yaWVzGAIgAygLMiEudGVjaC5oaXZlLnYx",
-            "LlB2cE1hdGNoSGlzdG9yeURhdGEiXAoUUHZwR2V0UHJvZmlsZVJlcXVlc3QS",
-            "DAoEdHlwZRgBIAEoBRIfChJvcHBvbmVudF9wbGF5ZXJfaWQYAiABKAlIAIgB",
-            "AUIVChNfb3Bwb25lbnRfcGxheWVyX2lkIpcBChVQdnBHZXRQcm9maWxlUmVz",
-            "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
-            "U3RhdHVzEhgKC3NpbXBsZV9pbmZvGAIgASgJSACIAQESFwoKaGVhdnlfaW5m",
-            "bxgDIAEoCUgBiAEBQg4KDF9zaW1wbGVfaW5mb0INCgtfaGVhdnlfaW5mbyJR",
-            "ChdQdnBVcGRhdGVQcm9maWxlUmVxdWVzdBINCgVwb3dlchgBIAEoCRITCgtz",
-            "aW1wbGVfaW5mbxgCIAEoCRISCgpoZWF2eV9pbmZvGAMgASgJIkgKGFB2cFVw",
-            "ZGF0ZVByb2ZpbGVSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhp",
-            "dmUudjEuUmVzcG9uc2VTdGF0dXMiFwoVUHZwTGlzdFB2cFJhbmtSZXF1ZXN0",
-            "IrMBChZQdnBMaXN0UHZwUmFua1Jlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
-            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIxCgtwdnBfcmFua2VycxgC",
-            "IAMoCzIcLnRlY2guaGl2ZS52MS5QdnBSYW5raW5nRGF0YRI4ChBteV9wdnBf",
-            "cmFua19kYXRhGAMgASgLMh4udGVjaC5oaXZlLnYxLk15UHZwUmFua2luZ0Rh",
-            "dGEqLQoYU3RrYXV0b1BWUFJlc3BvbnNlU3RhdHVzEhEKDVBWUF9VTkRFRklO",
-            "RUQQACphCg5QdnBNYXRjaFJlc3VsdBIPCgtVTlNQRUNJRklFRBAAEgcKA1dJ",
-            "ThABEggKBExPU0UQAhIICgREUkFXEAMSDwoLUkVWRU5HRV9XSU4QBBIQCgxS",
-            "RVZFTkdFX0xPU0UQBTKFBQoRU3RrYXV0b1B2cFNlcnZpY2USTgoHR2V0SW5m",
-            "bxIfLnRlY2guaGl2ZS52MS5QdnBHZXRJbmZvUmVxdWVzdBogLnRlY2guaGl2",
-            "ZS52MS5QdnBHZXRJbmZvUmVzcG9uc2UiABJUCglMaXN0TWF0Y2gSIS50ZWNo",
-            "LmhpdmUudjEuUHZwTGlzdE1hdGNoUmVxdWVzdBoiLnRlY2guaGl2ZS52MS5Q",
-            "dnBMaXN0TWF0Y2hSZXNwb25zZSIAEkgKBU1hdGNoEh0udGVjaC5oaXZlLnYx",
-            "LlB2cE1hdGNoUmVxdWVzdBoeLnRlY2guaGl2ZS52MS5QdnBNYXRjaFJlc3Bv",
-            "bnNlIgASaQoQTGlzdE1hdGNoSGlzdG9yeRIoLnRlY2guaGl2ZS52MS5QdnBM",
-            "aXN0TWF0Y2hIaXN0b3J5UmVxdWVzdBopLnRlY2guaGl2ZS52MS5QdnBMaXN0",
-            "TWF0Y2hIaXN0b3J5UmVzcG9uc2UiABJXCgpHZXRQcm9maWxlEiIudGVjaC5o",
-            "aXZlLnYxLlB2cEdldFByb2ZpbGVSZXF1ZXN0GiMudGVjaC5oaXZlLnYxLlB2",
-            "cEdldFByb2ZpbGVSZXNwb25zZSIAEmAKDVVwZGF0ZVByb2ZpbGUSJS50ZWNo",
-            "LmhpdmUudjEuUHZwVXBkYXRlUHJvZmlsZVJlcXVlc3QaJi50ZWNoLmhpdmUu",
-            "djEuUHZwVXBkYXRlUHJvZmlsZVJlc3BvbnNlIgASWgoLTGlzdFB2cFJhbmsS",
-            "Iy50ZWNoLmhpdmUudjEuUHZwTGlzdFB2cFJhbmtSZXF1ZXN0GiQudGVjaC5o",
-            "aXZlLnYxLlB2cExpc3RQdnBSYW5rUmVzcG9uc2UiAGIGcHJvdG8z"));
+            "ByABKAUiTgoaUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3QSMAoKcGFnaW5h",
+            "dGlvbhgBIAEoCzIcLnRlY2guaGl2ZS52MS5QYWdpbmF0aW9uSW5mbyKtAQob",
+            "UHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
+            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIqCgRtZXRhGAIgASgLMhwu",
+            "dGVjaC5oaXZlLnYxLlBhZ2luYXRpb25NZXRhEjQKCWl0ZW1fbGlzdBgDIAMo",
+            "CzIhLnRlY2guaGl2ZS52MS5QdnBNYXRjaEhpc3RvcnlEYXRhIlwKFFB2cEdl",
+            "dFByb2ZpbGVSZXF1ZXN0EgwKBHR5cGUYASABKAUSHwoSb3Bwb25lbnRfcGxh",
+            "eWVyX2lkGAIgASgJSACIAQFCFQoTX29wcG9uZW50X3BsYXllcl9pZCKXAQoV",
+            "UHZwR2V0UHJvZmlsZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2gu",
+            "aGl2ZS52MS5SZXNwb25zZVN0YXR1cxIYCgtzaW1wbGVfaW5mbxgCIAEoCUgA",
+            "iAEBEhcKCmhlYXZ5X2luZm8YAyABKAlIAYgBAUIOCgxfc2ltcGxlX2luZm9C",
+            "DQoLX2hlYXZ5X2luZm8iUQoXUHZwVXBkYXRlUHJvZmlsZVJlcXVlc3QSDQoF",
+            "cG93ZXIYASABKAkSEwoLc2ltcGxlX2luZm8YAiABKAkSEgoKaGVhdnlfaW5m",
+            "bxgDIAEoCSJIChhQdnBVcGRhdGVQcm9maWxlUmVzcG9uc2USLAoGc3RhdHVz",
+            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzIhcKFVB2cExp",
+            "c3RQdnBSYW5rUmVxdWVzdCKzAQoWUHZwTGlzdFB2cFJhbmtSZXNwb25zZRIs",
+            "CgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMS",
+            "MQoLcHZwX3JhbmtlcnMYAiADKAsyHC50ZWNoLmhpdmUudjEuUHZwUmFua2lu",
+            "Z0RhdGESOAoQbXlfcHZwX3JhbmtfZGF0YRgDIAEoCzIeLnRlY2guaGl2ZS52",
+            "MS5NeVB2cFJhbmtpbmdEYXRhKi0KGFN0a2F1dG9QVlBSZXNwb25zZVN0YXR1",
+            "cxIRCg1QVlBfVU5ERUZJTkVEEAAqYQoOUHZwTWF0Y2hSZXN1bHQSDwoLVU5T",
+            "UEVDSUZJRUQQABIHCgNXSU4QARIICgRMT1NFEAISCAoERFJBVxADEg8KC1JF",
+            "VkVOR0VfV0lOEAQSEAoMUkVWRU5HRV9MT1NFEAUyhQUKEVN0a2F1dG9QdnBT",
+            "ZXJ2aWNlEk4KB0dldEluZm8SHy50ZWNoLmhpdmUudjEuUHZwR2V0SW5mb1Jl",
+            "cXVlc3QaIC50ZWNoLmhpdmUudjEuUHZwR2V0SW5mb1Jlc3BvbnNlIgASVAoJ",
+            "TGlzdE1hdGNoEiEudGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaFJlcXVlc3Qa",
+            "Ii50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoUmVzcG9uc2UiABJICgVNYXRj",
+            "aBIdLnRlY2guaGl2ZS52MS5QdnBNYXRjaFJlcXVlc3QaHi50ZWNoLmhpdmUu",
+            "djEuUHZwTWF0Y2hSZXNwb25zZSIAEmkKEExpc3RNYXRjaEhpc3RvcnkSKC50",
+            "ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3QaKS50ZWNo",
+            "LmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNlIgASVwoKR2V0",
+            "UHJvZmlsZRIiLnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVxdWVzdBoj",
+            "LnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVzcG9uc2UiABJgCg1VcGRh",
+            "dGVQcm9maWxlEiUudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2ZpbGVSZXF1",
+            "ZXN0GiYudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2ZpbGVSZXNwb25zZSIA",
+            "EloKC0xpc3RQdnBSYW5rEiMudGVjaC5oaXZlLnYxLlB2cExpc3RQdnBSYW5r",
+            "UmVxdWVzdBokLnRlY2guaGl2ZS52MS5QdnBMaXN0UHZwUmFua1Jlc3BvbnNl",
+            "IgBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.StkautoPVPResponseStatus), typeof(global::Tech.Hive.V1.PvpMatchResult), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -100,8 +102,8 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListMatchResponse), global::Tech.Hive.V1.PvpListMatchResponse.Parser, new[]{ "Status", "MatchInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpMatchRequest), global::Tech.Hive.V1.PvpMatchRequest.Parser, new[]{ "MatchResult", "OpponentPlayerId", "OpponentSimpleInfo", "MatchId", "MySimpleInfo" }, new[]{ "MatchId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpMatchResponse), global::Tech.Hive.V1.PvpMatchResponse.Parser, new[]{ "Status", "MyDeltaScore", "MyCurrentScore", "MyCurrentRank", "MyCurrentTier", "OpponentDeltaScore", "OpponentCurrentScore" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListMatchHistoryRequest), global::Tech.Hive.V1.PvpListMatchHistoryRequest.Parser, new[]{ "HistoryCount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListMatchHistoryResponse), global::Tech.Hive.V1.PvpListMatchHistoryResponse.Parser, new[]{ "Status", "PvpMatchHistories" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListMatchHistoryRequest), global::Tech.Hive.V1.PvpListMatchHistoryRequest.Parser, new[]{ "Pagination" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListMatchHistoryResponse), global::Tech.Hive.V1.PvpListMatchHistoryResponse.Parser, new[]{ "Status", "Meta", "ItemList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetProfileRequest), global::Tech.Hive.V1.PvpGetProfileRequest.Parser, new[]{ "Type", "OpponentPlayerId" }, new[]{ "OpponentPlayerId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetProfileResponse), global::Tech.Hive.V1.PvpGetProfileResponse.Parser, new[]{ "Status", "SimpleInfo", "HeavyInfo" }, new[]{ "SimpleInfo", "HeavyInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileRequest), global::Tech.Hive.V1.PvpUpdateProfileRequest.Parser, new[]{ "Power", "SimpleInfo", "HeavyInfo" }, null, null, null, null),
@@ -3111,7 +3113,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PvpListMatchHistoryRequest(PvpListMatchHistoryRequest other) : this() {
-      historyCount_ = other.historyCount_;
+      pagination_ = other.pagination_ != null ? other.pagination_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3121,18 +3123,15 @@ namespace Tech.Hive.V1 {
       return new PvpListMatchHistoryRequest(this);
     }
 
-    /// <summary>Field number for the "history_count" field.</summary>
-    public const int HistoryCountFieldNumber = 1;
-    private int historyCount_;
-    /// <summary>
-    /// 보여줄 히스토리 수 (핵 값 조작 염려 서버에서 최대 20으로 제한)
-    /// </summary>
+    /// <summary>Field number for the "pagination" field.</summary>
+    public const int PaginationFieldNumber = 1;
+    private global::Tech.Hive.V1.PaginationInfo pagination_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int HistoryCount {
-      get { return historyCount_; }
+    public global::Tech.Hive.V1.PaginationInfo Pagination {
+      get { return pagination_; }
       set {
-        historyCount_ = value;
+        pagination_ = value;
       }
     }
 
@@ -3151,7 +3150,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (HistoryCount != other.HistoryCount) return false;
+      if (!object.Equals(Pagination, other.Pagination)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3159,7 +3158,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (HistoryCount != 0) hash ^= HistoryCount.GetHashCode();
+      if (pagination_ != null) hash ^= Pagination.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3178,9 +3177,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (HistoryCount != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(HistoryCount);
+      if (pagination_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Pagination);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -3192,9 +3191,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (HistoryCount != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(HistoryCount);
+      if (pagination_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Pagination);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -3206,8 +3205,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (HistoryCount != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(HistoryCount);
+      if (pagination_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Pagination);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3221,8 +3220,11 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.HistoryCount != 0) {
-        HistoryCount = other.HistoryCount;
+      if (other.pagination_ != null) {
+        if (pagination_ == null) {
+          Pagination = new global::Tech.Hive.V1.PaginationInfo();
+        }
+        Pagination.MergeFrom(other.Pagination);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3239,8 +3241,11 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            HistoryCount = input.ReadInt32();
+          case 10: {
+            if (pagination_ == null) {
+              Pagination = new global::Tech.Hive.V1.PaginationInfo();
+            }
+            input.ReadMessage(Pagination);
             break;
           }
         }
@@ -3258,8 +3263,11 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            HistoryCount = input.ReadInt32();
+          case 10: {
+            if (pagination_ == null) {
+              Pagination = new global::Tech.Hive.V1.PaginationInfo();
+            }
+            input.ReadMessage(Pagination);
             break;
           }
         }
@@ -3305,7 +3313,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PvpListMatchHistoryResponse(PvpListMatchHistoryResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      pvpMatchHistories_ = other.pvpMatchHistories_.Clone();
+      meta_ = other.meta_ != null ? other.meta_.Clone() : null;
+      itemList_ = other.itemList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3327,15 +3336,27 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "pvp_match_histories" field.</summary>
-    public const int PvpMatchHistoriesFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.PvpMatchHistoryData> _repeated_pvpMatchHistories_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.PvpMatchHistoryData.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.PvpMatchHistoryData> pvpMatchHistories_ = new pbc::RepeatedField<global::Tech.Hive.V1.PvpMatchHistoryData>();
+    /// <summary>Field number for the "meta" field.</summary>
+    public const int MetaFieldNumber = 2;
+    private global::Tech.Hive.V1.PaginationMeta meta_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.PvpMatchHistoryData> PvpMatchHistories {
-      get { return pvpMatchHistories_; }
+    public global::Tech.Hive.V1.PaginationMeta Meta {
+      get { return meta_; }
+      set {
+        meta_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "item_list" field.</summary>
+    public const int ItemListFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.PvpMatchHistoryData> _repeated_itemList_codec
+        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.PvpMatchHistoryData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.PvpMatchHistoryData> itemList_ = new pbc::RepeatedField<global::Tech.Hive.V1.PvpMatchHistoryData>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Tech.Hive.V1.PvpMatchHistoryData> ItemList {
+      get { return itemList_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3354,7 +3375,8 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if(!pvpMatchHistories_.Equals(other.pvpMatchHistories_)) return false;
+      if (!object.Equals(Meta, other.Meta)) return false;
+      if(!itemList_.Equals(other.itemList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3363,7 +3385,8 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      hash ^= pvpMatchHistories_.GetHashCode();
+      if (meta_ != null) hash ^= Meta.GetHashCode();
+      hash ^= itemList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3386,7 +3409,11 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      pvpMatchHistories_.WriteTo(output, _repeated_pvpMatchHistories_codec);
+      if (meta_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Meta);
+      }
+      itemList_.WriteTo(output, _repeated_itemList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3401,7 +3428,11 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      pvpMatchHistories_.WriteTo(ref output, _repeated_pvpMatchHistories_codec);
+      if (meta_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Meta);
+      }
+      itemList_.WriteTo(ref output, _repeated_itemList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3415,7 +3446,10 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      size += pvpMatchHistories_.CalculateSize(_repeated_pvpMatchHistories_codec);
+      if (meta_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Meta);
+      }
+      size += itemList_.CalculateSize(_repeated_itemList_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -3434,7 +3468,13 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      pvpMatchHistories_.Add(other.pvpMatchHistories_);
+      if (other.meta_ != null) {
+        if (meta_ == null) {
+          Meta = new global::Tech.Hive.V1.PaginationMeta();
+        }
+        Meta.MergeFrom(other.Meta);
+      }
+      itemList_.Add(other.itemList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3458,7 +3498,14 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            pvpMatchHistories_.AddEntriesFrom(input, _repeated_pvpMatchHistories_codec);
+            if (meta_ == null) {
+              Meta = new global::Tech.Hive.V1.PaginationMeta();
+            }
+            input.ReadMessage(Meta);
+            break;
+          }
+          case 26: {
+            itemList_.AddEntriesFrom(input, _repeated_itemList_codec);
             break;
           }
         }
@@ -3484,7 +3531,14 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            pvpMatchHistories_.AddEntriesFrom(ref input, _repeated_pvpMatchHistories_codec);
+            if (meta_ == null) {
+              Meta = new global::Tech.Hive.V1.PaginationMeta();
+            }
+            input.ReadMessage(Meta);
+            break;
+          }
+          case 26: {
+            itemList_.AddEntriesFrom(ref input, _repeated_itemList_codec);
             break;
           }
         }

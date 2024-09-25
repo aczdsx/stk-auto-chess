@@ -12,7 +12,5 @@ namespace CookApps.AutoBattler
         private GrpcManager()
         {
         }
-
-        public GrpcStkAutoPvpService StkAutoPvpService { get; private set; }
     }
 }

@@ -14,5 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ignoreList:
   - universal
+  - post
+  - iap
+  - chat
+  - shap
+  - hard_currency
+  - currency
   _rootPath: Assets/_Project/Scripts/gRPC/stkauto-grpc
+  _projectName: stkauto-grpc
+  _namespaceName: CookApps.AutoBattler
   _currentStep: 0

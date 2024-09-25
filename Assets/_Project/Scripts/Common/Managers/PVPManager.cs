@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
         // 상대방 PVP 프로필 정보를 서버로부터 가져옴
         public async UniTask<PVPProfileData> GetPVPProfileData(string playerID, int profileType)
         {
-            var response = await GrpcManager.Instance.StkAutoPvpService.GetPvpProfileAsync(playerID, profileType);
+            var response = await GrpcManager.Instance.StkautoPvp.GetPvpProfileAsync(playerID, profileType);
             if (response.IsError) return null;
 
             var newProfileData = new PVPProfileData();
@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
         // PVP 정보를 서버로 부터 최신화
         public async UniTask UpdatePVPInfo()
         {
-            var response = await GrpcManager.Instance.StkAutoPvpService.GetPvpInfoAsync();
+            var response = await GrpcManager.Instance.StkautoPvp.GetPvpInfoAsync();
             if (response.IsError) return;
 
             CurrentPVPInfo = response;
@@ -118,7 +118,7 @@ namespace CookApps.AutoBattler
         // PVP 정보를 서버로 부터 최신화
         public async UniTask UpdatePVPMatchList()
         {
-            var response = await GrpcManager.Instance.StkAutoPvpService.GetPvpMatchListAsync();
+            var response = await GrpcManager.Instance.StkautoPvp.GetPvpMatchListAsync();
             if (response.IsError) return;
 
             CurrentPVPMatchListData = response;
@@ -132,7 +132,7 @@ namespace CookApps.AutoBattler
         {
             var showRankCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_RANKING_LIST_COUNT");
 
-            var response = await GrpcManager.Instance.StkAutoPvpService.ListPvpRankAsync(showRankCount);
+            var response = await GrpcManager.Instance.StkautoPvp.ListPvpRankAsync(showRankCount);
             if (response.IsError) return;
 
             CurrentPVPRankListData = response;
@@ -144,8 +144,11 @@ namespace CookApps.AutoBattler
         public async UniTask UpdatePVPHistoryList()
         {
             var showCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_SHOW_BATTLE_LOG_COUNT");
-
-            var response = await GrpcManager.Instance.StkAutoPvpService.GetPvpMatchHistory(showCount);
+            
+            uint page = 0;
+            uint limit = (uint)showCount;
+            
+            var response = await GrpcManager.Instance.StkautoPvp.GetPvpMatchHistory(page, limit);
             if (response.IsError) return;
 
             CurrentPVPHistoryListData = response;
@@ -172,7 +175,7 @@ namespace CookApps.AutoBattler
             var userPVPDetailData = UserDataManager.Instance.GetCurrentPVPDetailProfileData(true);
             var serializedDetailData = BMUtil.ConvertToJsonSerialize(userPVPDetailData);
 
-            var response = await GrpcManager.Instance.StkAutoPvpService.UpdatePvpProfile(battlePower, serializedSimpleData, serializedDetailData);
+            var response = await GrpcManager.Instance.StkautoPvp.UpdatePvpProfile(battlePower, serializedSimpleData, serializedDetailData);
             if (response.IsError) return;
 
             Debug.Log("UpdatePVPProfileData --- Success");
@@ -190,7 +193,7 @@ namespace CookApps.AutoBattler
         // PVP 전투 결과를 전송
         public async UniTask<PvpMatchResponse> SendMatchPVPBattleResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
         {
-            var response = await GrpcManager.Instance.StkAutoPvpService.MatchPvp(result, opponentPlayerID, opponentSimpleData, "");
+            var response = await GrpcManager.Instance.StkautoPvp.MatchPvp(result, opponentPlayerID, opponentSimpleData, "");
             if (response.IsError) return null;
 
             // 복수가 아닌 일반 매칭일 경우 매칭 결과 데이터 세팅
@@ -205,7 +208,7 @@ namespace CookApps.AutoBattler
         public async UniTask<PvpMatchResponse> SendMatchPVPRevengeResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData,
             string matchID)
         {
-            var response = await GrpcManager.Instance.StkAutoPvpService.MatchPvp(result, opponentPlayerID, opponentSimpleData, matchID);
+            var response = await GrpcManager.Instance.StkautoPvp.MatchPvp(result, opponentPlayerID, opponentSimpleData, matchID);
             if (response.IsError) return null;
 
             // 유저 데이터에 결과 저장

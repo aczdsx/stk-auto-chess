@@ -27,149 +27,42 @@ namespace CookApps.AutoBattler
                 callback.Invoke(GrpcFailAction.Skip);
                 return;
             }
-
-            // TODO-tech : 적절한 처리.
-            switch ((PlayerDataResponseStatus)responseStatus.Code)
+            
+            switch (responseStatus.Code)
             {
-                case PlayerDataResponseStatus.PlayerDataNotFound:
+                case GrpcResponseStatusCode.Auth_InvalidAuthPlatform:
+                case GrpcResponseStatusCode.Auth_Banned:
+                case GrpcResponseStatusCode.Auth_CannotDeleteAuth:
+                case GrpcResponseStatusCode.Auth_NotFoundUser:
+                case GrpcResponseStatusCode.PlayerData_PlayerDataNotFound:
+                case GrpcResponseStatusCode.Player_PlayerUidIsNull:
+                case GrpcResponseStatusCode.Player_PlayerNotFound:
+                case GrpcResponseStatusCode.Player_PlayerAlreadyDeleted:
+                case GrpcResponseStatusCode.Player_PlayerServerIdNotMatched:
+                case GrpcResponseStatusCode.Player_PlayerNicknameNotChanged:
+                case GrpcResponseStatusCode.Player_PlayerNicknameAlreadyExist:
+                case GrpcResponseStatusCode.PremiumCurrency_PremiumCurrencyInvalidError:
+                case GrpcResponseStatusCode.PremiumCurrency_PremiumCurrencyNotFound:
+                case GrpcResponseStatusCode.ServerRanking_ServerRankNotFound:
+                case GrpcResponseStatusCode.ServerRanking_NotFoundPlayer:
+                case GrpcResponseStatusCode.ServerRanking_ServerRankReadonly:
+                case GrpcResponseStatusCode.Server_ServerListEmpty:
+                case GrpcResponseStatusCode.Server_ServerNotJoinable:
+                case GrpcResponseStatusCode.Server_ServerPlayerNotFound:
+                case GrpcResponseStatusCode.Server_ServerPlayerDeleted:
+                case GrpcResponseStatusCode.Shop_ShopItemNotFound:
+                case GrpcResponseStatusCode.Shop_ShopItemNotEnabled:
+                case GrpcResponseStatusCode.Shop_RequiredCashCheck:
+                case GrpcResponseStatusCode.Shop_ShopIapInvalidError:
+                case GrpcResponseStatusCode.Spec_SpecNotFound:
+                {
+                    // todo : 상황에 맞게 처리하는 로직을 추가한 후 완료되면 callback을 호출하세요.
                     callback.Invoke(GrpcFailAction.Skip);
-                    // await PlayerDataManager.Instance.InitSetPlayerDatas();  // 플레이어 데이터가 아직 존재하지 않습니다. PlayerData를 먼저 서버에 저장해주세요.
-                    break;
+                    break;   
+                }
             }
-
-            switch ((AuthResponseStatus)responseStatus.Code)
-            {
-                case AuthResponseStatus.InvalidAuthPlatform:
-                    break;
-                case AuthResponseStatus.Banned:
-                    break;
-                case AuthResponseStatus.CannotDeleteAuth:
-                    break;
-                case AuthResponseStatus.InactiveUser:
-                    // TODO : 탈퇴한 유저의 경우 처리
-                    // if (await DialogWindow.DisplayDialog("알림", "이미 탈퇴한 유저입니다.", "확인"))
-                    // {
-                    //     callback.Invoke(GrpcFailAction.Skip);
-                    // }
-                    break;
-                case AuthResponseStatus.NotFoundUser:
-                    break;
-            }
-
-            switch ((ChatResponseStatus)responseStatus.Code)
-            {
-                case ChatResponseStatus.ChatServerNotConfigured:
-                    break;
-            }
-
-            switch ((HardCurrencyResponseStatus)responseStatus.Code)
-            {
-                case HardCurrencyResponseStatus.HardCurrencyInvalidError:
-                    break;
-                case HardCurrencyResponseStatus.HardCurrencyNotFound:
-                    break;
-            }
-
-            switch ((IapResponseStatus)responseStatus.Code)
-            {
-                case IapResponseStatus.IapError:
-                    break;
-                case IapResponseStatus.IapInvalidError:
-                    break;
-                case IapResponseStatus.DuplicateOrderId:
-                    break;
-                case IapResponseStatus.InvalidOrderId:
-                    break;
-            }
-
-            switch ((PlayerResponseStatus)responseStatus.Code)
-            {
-                case PlayerResponseStatus.PlayerUidIsNull:
-                    break;
-                case PlayerResponseStatus.PlayerNotFound:
-                    break;
-                case PlayerResponseStatus.PlayerAlreadyDeleted:
-                    break;
-                case PlayerResponseStatus.PlayerServerIdNotMatched:
-                    break;
-                case PlayerResponseStatus.PlayerNicknameNotChanged:
-                    // TODO : 닉네임 변경이 되지 않은 경우 처리
-                    // if (await DialogWindow.DisplayDialog("알림", "닉네임이 변경되지 않았습니다.", "확인"))
-                    // {
-                    //     callback.Invoke(GrpcFailAction.Skip);
-                    // }
-                    break;
-                case PlayerResponseStatus.PlayerNicknameAlreadyExist:
-                    // TODO : 이미 존재하는 닉네임인 경우 처리
-                    // if (await DialogWindow.DisplayDialog("알림", "이미 존재하는 닉네임입니다.", "확인"))
-                    // {
-                    //     callback.Invoke(GrpcFailAction.Skip);
-                    // }
-                    break;
-            }
-
-            switch ((PlayerDataResponseStatus)responseStatus.Code)
-            {
-                case PlayerDataResponseStatus.PlayerDataNotFound:
-                    break;
-            }
-
-            switch ((PostResponseStatus)responseStatus.Code)
-            {
-                case PostResponseStatus.PostAlreadyRead:
-                    break;
-            }
-
-            switch ((ServerResponseStatus)responseStatus.Code)
-            {
-                case ServerResponseStatus.ServerListEmpty:
-                    break;
-                case ServerResponseStatus.ServerNotJoinable:
-                    break;
-                case ServerResponseStatus.ServerPlayerNotFound:
-                    break;
-                case ServerResponseStatus.ServerPlayerDeleted:
-                    break;
-            }
-
-            switch ((ServerRankingResponseStatus)responseStatus.Code)
-            {
-                case ServerRankingResponseStatus.ServerRankNotFound:
-                    break;
-                case ServerRankingResponseStatus.NotFoundPlayer:
-                    break;
-                case ServerRankingResponseStatus.ServerRankReadonly:
-                    break;
-            }
-
-            switch ((SpecResponseStatus)responseStatus.Code)
-            {
-                case SpecResponseStatus.SpecNotFound:
-                    break;
-            }
-
-            switch ((CurrencyResponseStatus)responseStatus.Code)
-            {
-                case CurrencyResponseStatus.CurrencyInvalidError:
-                    break;
-            }
-
-            switch ((PremiumCurrencyResponseStatus)responseStatus.Code)
-            {
-                case PremiumCurrencyResponseStatus.PremiumCurrencyInvalidError:
-                    break;
-                case PremiumCurrencyResponseStatus.PremiumCurrencyNotFound:
-                    break;
-            }
-
-            switch ((HardCurrencyResponseStatus)responseStatus.Code)
-            {
-                case HardCurrencyResponseStatus.HardCurrencyInvalidError:
-                    break;
-                case HardCurrencyResponseStatus.HardCurrencyNotFound:
-                    break;
-            }
-
+            // 위의 responseStatus.Code는 PlayerDataResponseStatus, AuthResponseStatus, PlayerResponseStatus... 모든 등의 응답 코드를 의미합니다.
+          
             //어떠한 case에도 속하지 않는다면 기본처리
             if (callback.IsInvoked == false)
             {

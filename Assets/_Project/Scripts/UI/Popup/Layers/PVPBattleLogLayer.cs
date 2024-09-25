@@ -47,7 +47,7 @@ namespace CookApps.AutoBattler
             var logInfo = PVPManager.Instance.CurrentPVPHistoryListData;
             if (logInfo != null)
             {
-                _currentServerLogDataList = logInfo.PvpMatchHistories.ToList();
+                _currentServerLogDataList = logInfo.ItemList.ToList();
 
                 foreach (var logData in _currentServerLogDataList)
                 {

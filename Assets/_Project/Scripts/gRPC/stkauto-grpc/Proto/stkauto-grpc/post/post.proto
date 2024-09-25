@@ -19,18 +19,23 @@ service PostService {
    * 우편을 읽습니다.
    */
   rpc Read(PostReadRequest) returns (PostReadResponse) {}
+
+  /**
+   * 우편 보상을 받습니다.
+   */
+  rpc Reward(PostRewardRequest) returns (PostRewardResponse) {}
 }
 
 message PostListRequest {
   PaginationInfo pagination = 2;
 }
 
-message PostInfo{
+message PostInfo {
   int32 id = 1;
   string post_type = 2; // 보상 타입 (default: 0)
   optional string title = 3;
   optional string message = 4;
-  optional string items = 5; 
+  repeated CurrencyTransactionItem items = 5; 
   int32 post_status = 6; // 0:읽지 않음, 1:읽음, 2:보상 받음
   int32 expired_timestamp = 7; // 만료 시간
 }
@@ -47,5 +52,13 @@ message PostReadRequest{
 }
 
 message PostReadResponse{
+  ResponseStatus status = 1;
+}
+
+message PostRewardRequest{
+  int32 id = 1;
+}
+
+message PostRewardResponse{
   ResponseStatus status = 1;
 }
