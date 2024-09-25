@@ -280,11 +280,17 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public string GetLanguageText(string tokenKey)
+        public string GetLanguageText(string tokenKey, LanguageType targetLanguageType)
         {
             if (languageDic.TryGetValue(tokenKey, out SpecLanguage languageData))
             {
-                return languageData.language_kr;
+                switch (targetLanguageType)
+                {
+                    case LanguageType.KR:
+                        return languageData.language_kr;
+                    case LanguageType.EN:
+                        return languageData.language_en;
+                }
             }
 
             return string.Empty;
@@ -1164,6 +1170,11 @@ namespace CookApps.AutoBattler
             int currMissionID = guideMissionData.MissionId;
             var openCondition = SpecOpenConditionList.Find(l => l.open_condition_Type == conditionType);
             return openCondition != null && openCondition.guide_mission_id <= currMissionID;
+        }
+        
+        public SpecImageInfo GetImageInfoData(int infoID)
+        {
+            return SpecImageInfoList.Find(dat => dat.image_info_id == infoID);
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e0265751f0aa64ba65ed97b7e4e9dd, type: 3}
   m_Name: CookAppsAuth
   m_EditorClassIdentifier: 
-  _token: 47e7352532f1b287f0fe4efa96c1f6dc
+  _token: da00ee5b5653fa2f6b09ae982368c31a
   _enableServerAuth: 1
   _urlDev: https://w8ycb0k5d8.execute-api.ap-northeast-2.amazonaws.com
   _urlProduction: https://auth.cookappsgames.com

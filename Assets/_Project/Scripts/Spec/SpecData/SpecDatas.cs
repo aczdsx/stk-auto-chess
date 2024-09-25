@@ -275,6 +275,8 @@ namespace CookApps.AutoBattler
         public CookApps.Obfuscator.ObfuscatorFloat bg_image_scale;
         /// 대화 종료 시 reward_id
         public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        /// 대화 종료 시 imageinfo_id
+        public CookApps.Obfuscator.ObfuscatorInt image_info_id;
     }
 
     [GeneratorSpecData]
@@ -411,6 +413,7 @@ namespace CookApps.AutoBattler
         public string token_key;
         /// 값
         public string language_kr;
+        public string language_en;
     }
 
     [GeneratorSpecData]
@@ -705,7 +708,9 @@ namespace CookApps.AutoBattler
         /// 시너지 이름 토큰
         public string name_token;
         /// 시너지 효과 설명 토큰
-        public string desc_token;
+        public string desc_token_1;
+        /// 시너지 효과 설명 토큰
+        public string desc_token_2;
         /// 시너지 단계
         public CookApps.Obfuscator.ObfuscatorInt grade;
         /// 단계 발동 최소 명수 조건
@@ -986,6 +991,18 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecReward
+    {
+        [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
+        public CookApps.Obfuscator.ObfuscatorInt id;
+        /// dim=중복
+        public CookApps.Obfuscator.ObfuscatorInt reward_id;
+        public global::CookApps.AutoBattler.ItemType item_type;
+        public CookApps.Obfuscator.ObfuscatorInt item_id;
+        public CookApps.Obfuscator.ObfuscatorLong item_count;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecPVPDummy
     {
         /// 아이디
@@ -1004,14 +1021,16 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecReward
+    public partial class SpecImageInfo
     {
+        /// 유니크 id
         [GeneratorId(nameof(id), typeof(CookApps.Obfuscator.ObfuscatorInt))]
         public CookApps.Obfuscator.ObfuscatorInt id;
-        /// dim=중복
-        public CookApps.Obfuscator.ObfuscatorInt reward_id;
-        public global::CookApps.AutoBattler.ItemType item_type;
-        public CookApps.Obfuscator.ObfuscatorInt item_id;
-        public CookApps.Obfuscator.ObfuscatorLong item_count;
+        /// 인포 아이디
+        public CookApps.Obfuscator.ObfuscatorInt image_info_id;
+        /// 제목
+        public string title_token;
+        /// 설명
+        public string desc_token;
     }
 }

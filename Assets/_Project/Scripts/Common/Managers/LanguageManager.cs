@@ -9,27 +9,72 @@ namespace CookApps.AutoBattler
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
+        public LanguageType CurrentLanguageType { get; private set; } = LanguageType.NONE;
+
+        // 언어 환경 세팅
+        public void InitLanguage()
+        {
+            var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
+            
+            if (settingLanguage == (int)LanguageType.NONE)
+            {
+                settingLanguage = (int)GetSystemLanguageType();
+            }
+            
+            SetGameLanguage((LanguageType)settingLanguage);
+        }
+        
+        public void SetGameLanguage(LanguageType type)
+        {
+            Preference.SavePreference(Pref.LANGUAGE, (int)type);
+            
+            CurrentLanguageType = type;
+        }
+        
         public string GetLanguageText(string tokenKey)
         {
-            return SpecDataManager.Instance.GetLanguageText(tokenKey);
+            return SpecDataManager.Instance.GetLanguageText(tokenKey, CurrentLanguageType);
         }
 
+        public string GetTimeText(int targetTimeValue, TimeType type, bool isRemain)
+        {
+            string formatString = String.Empty;
+            
+            switch (type)
+            {
+                case TimeType.DAY:
+                    formatString = isRemain ? GetLanguageText("TIME_DAY_REMAIN") : GetLanguageText("TIME_DAY");
+                    return string.Format(formatString, targetTimeValue);
+                case TimeType.HOUR:
+                    formatString = isRemain ? GetLanguageText("TIME_HOUR_REMAIN") : GetLanguageText("TIME_HOUR");
+                    return string.Format(formatString, targetTimeValue);
+                case TimeType.MINUTE:
+                    formatString = isRemain ? GetLanguageText("TIME_MINUTE_REMAIN") : GetLanguageText("TIME_MINUTE");
+                    return string.Format(formatString, targetTimeValue);
+                case TimeType.SECOND:
+                    formatString = isRemain ? GetLanguageText("TIME_SECOND_REMAIN") : GetLanguageText("TIME_SECOND");
+                    return string.Format(formatString, targetTimeValue);
+            }
+
+            return String.Empty;
+        }
+        
         public string GetSynergyText(ElementType type)
         {
             switch (type)
             {
                 case ElementType.FIRE:
-                    return "불";
+                    return GetLanguageText("SYNERGY_FIRE");
                 case ElementType.WATER:
-                    return "물";
+                    return GetLanguageText("SYNERGY_WATER");
                 case ElementType.EARTH:
-                    return "대지";
+                    return GetLanguageText("SYNERGY_EARTH");
                 case ElementType.WIND:
-                    return "바람";
+                    return GetLanguageText("SYNERGY_WIND");
                 case ElementType.LIGHT:
-                    return "빛";
+                    return GetLanguageText("SYNERGY_LIGHT");
                 case ElementType.DARK:
-                    return "어둠";
+                    return GetLanguageText("SYNERGY_DARK");
                 default:
                     return string.Empty;
             }
@@ -40,17 +85,17 @@ namespace CookApps.AutoBattler
             switch (type)
             {
                 case CharacterPositionType.TANK:
-                    return "탱커";
+                    return GetLanguageText("CLASS_TANK");
                 case CharacterPositionType.GUARDIAN:
-                    return "전사";
+                    return GetLanguageText("CLASS_GUARDIAN");
                 case CharacterPositionType.RANGER:
-                    return "레인저";
+                    return GetLanguageText("CLASS_RANGER");
                 case CharacterPositionType.WIZARD:
-                    return "마법사";
+                    return GetLanguageText("CLASS_WIZARD");
                 case CharacterPositionType.SUPPORTER:
-                    return "서포터";
+                    return GetLanguageText("CLASS_SUPPORTER");
                 case CharacterPositionType.ASSASSIN:
-                    return "암살자";
+                    return GetLanguageText("CLASS_ASSASSIN");
                 default:
                     return string.Empty;
             }
@@ -93,15 +138,15 @@ namespace CookApps.AutoBattler
             switch (type)
             {
                 case PVPTierType.BRONZE:
-                    return "브론즈";
+                    return GetLanguageText("TIER_BRONZE");
                 case PVPTierType.SILVER:
-                    return "실버";
+                    return GetLanguageText("TIER_SILVER");
                 case PVPTierType.GOLD:
-                    return "골드";
+                    return GetLanguageText("TIER_GOLD");
                 case PVPTierType.PLATINUM:
-                    return "플래티넘";
+                    return GetLanguageText("TIER_PLATINUM");
                 case PVPTierType.DIAMOND:
-                    return "다이아몬드";
+                    return GetLanguageText("TIER_DIAMOND");
                 default:
                     return string.Empty;
             }
@@ -112,9 +157,9 @@ namespace CookApps.AutoBattler
             switch (type)
             {
                 case AtkType.AP:
-                    return "마법";
+                    return GetLanguageText("UI_TYPE_MAGICAL");
                 case AtkType.AD:
-                    return "물리";
+                    return GetLanguageText("UI_TYPE_PHYSICAL");
                 default:
                     return string.Empty;
             }
@@ -128,36 +173,48 @@ namespace CookApps.AutoBattler
 
             if (timeSpanData.Days > 0)
             {
-                timeTextList.Append($"{timeSpanData.Days}일");
+                timeTextList.Append(GetTimeText(timeSpanData.Days, TimeType.DAY, false));
             }
             
             if (timeSpanData.Hours > 0)
             {
-                timeTextList.Append($"{timeSpanData.Hours}시간");
+                timeTextList.Append(GetTimeText(timeSpanData.Hours, TimeType.HOUR, false));
             }
             
-            timeTextList.Append($"{timeSpanData.Minutes}분 전");
+            timeTextList.Append(GetTimeText(timeSpanData.Minutes, TimeType.MINUTE, true));
             
             return timeTextList.ToString();
         }
         
         public string GetTimeSpanFromTargetText(long targetTimestamp)
         {
-            var timeSpanData = TimeManager.Instance.GetTimeSpanFromTarget(targetTimestamp);
+            var targetTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(targetTimestamp);
             
             StringBuilder timeTextList = new StringBuilder();
 
-            if (timeSpanData.Days > 0)
+            bool hasDays = targetTimeSpan.Days > 0;
+            bool hasHours = targetTimeSpan.Hours > 0;
+            bool hasMinutes = targetTimeSpan.Minutes > 0;
+            
+            if (hasDays)
             {
-                timeTextList.Append($"{timeSpanData.Days}일");
+                timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.DAY, false));
             }
             
-            if (timeSpanData.Hours > 0)
+            if (hasHours)
             {
-                timeTextList.Append($"{timeSpanData.Hours}시간");
+                timeTextList.Append(GetTimeText(targetTimeSpan.Hours, TimeType.HOUR, false));
             }
-            
-            timeTextList.Append($"{timeSpanData.Minutes}분 남음");
+
+            if (hasMinutes)
+            {
+                timeTextList.Append(GetTimeText(targetTimeSpan.Minutes, TimeType.MINUTE, true));
+            }
+
+            if (!hasDays && !hasHours) // 1시간 미만으로 남은 경우 초 단위 표시
+            {
+                timeTextList.Append(GetTimeText(targetTimeSpan.Seconds, TimeType.SECOND, true));
+            }
             
             return timeTextList.ToString();
         }
@@ -166,17 +223,29 @@ namespace CookApps.AutoBattler
         {
             StringBuilder timeTextList = new StringBuilder();
 
-            if (targetTimeSpan.Days > 0)
+            bool hasDays = targetTimeSpan.Days > 0;
+            bool hasHours = targetTimeSpan.Hours > 0;
+            bool hasMinutes = targetTimeSpan.Minutes > 0;
+            
+            if (hasDays)
             {
-                timeTextList.Append($"{targetTimeSpan.Days}일");
+                timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.DAY, false));
             }
             
-            if (targetTimeSpan.Hours > 0)
+            if (hasHours)
             {
-                timeTextList.Append($"{targetTimeSpan.Hours}시간");
+                timeTextList.Append(GetTimeText(targetTimeSpan.Hours, TimeType.HOUR, false));
             }
-            
-            timeTextList.Append($"{targetTimeSpan.Minutes}분 남음");
+
+            if (hasMinutes)
+            {
+                timeTextList.Append(GetTimeText(targetTimeSpan.Minutes, TimeType.MINUTE, true));
+            }
+
+            if (!hasDays && !hasHours) // 1시간 미만으로 남은 경우 초 단위 표시
+            {
+                timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.SECOND, true));
+            }
             
             return timeTextList.ToString();
         }

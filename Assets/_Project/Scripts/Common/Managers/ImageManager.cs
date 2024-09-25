@@ -216,6 +216,11 @@ namespace CookApps.AutoBattler
         {
             return AtlasManager.Instance.GetSprite(Defines.CHAR_BUFF_DEBUFF_ICON_NAME, $"BuffDebuffIcon_{codeID}");
         }
+        
+        public Sprite GetInfoImageSprite(int infoID)
+        {
+            return AtlasManager.Instance.GetSprite(Defines.UI_INFO_IMAGE, $"InfoImage_{infoID}");
+        }
 
         public Color GetGradeTypeColor(GradeType GradeType)
         {

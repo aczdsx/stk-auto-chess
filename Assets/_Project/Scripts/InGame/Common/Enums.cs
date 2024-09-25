@@ -2,6 +2,14 @@ using System;
 
 namespace CookApps.AutoBattler
 {
+    public enum TimeType
+    {
+        DAY,
+        HOUR,
+        MINUTE,
+        SECOND
+    }
+    
     public enum LanguageType
     {
         NONE,

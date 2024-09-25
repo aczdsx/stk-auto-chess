@@ -6,6 +6,7 @@ public static class AppEventStringConst
     public const string PLAYER_ID = "player_id";
     public const string NICKNAME = "nickname";
     public const string SERVER = "server";
+    public const string LANGUAGE = "language";
     public const string TOTAL_PLAY_TIME = "total_play_time";
     public const string DAILY_VISIT_COUNT = "daily_visit_count";
     public const string SINCE_JOIN_DATE = "since_join_date";

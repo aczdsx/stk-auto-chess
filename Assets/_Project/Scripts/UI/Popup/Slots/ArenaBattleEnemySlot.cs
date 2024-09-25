@@ -166,7 +166,7 @@ namespace CookApps.AutoBattler
                 
                 _battleResultImageGradient2.EffectGradient = isWin ? _winGradient2.EffectGradient : _loseGradient2.EffectGradient;
                 
-                string resultText = isWin  ? "승리" : "패배";
+                string resultText = isWin  ? LanguageManager.Instance.GetLanguageText("UI_WIN") : LanguageManager.Instance.GetLanguageText("UI_LOSE");
                 _battleResultText.text = resultText;
 
                 _battleResultText.color = isWin ? _winGradient2.EffectGradient.colorKeys[0].color : _loseGradient2.EffectGradient.colorKeys[0].color;

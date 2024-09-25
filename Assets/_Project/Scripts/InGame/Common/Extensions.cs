@@ -158,5 +158,45 @@ namespace CookApps.BattleSystem
                 _ => SoundFX.NONE
             };
         }
+
+        public static string GetAffectToken(this BuffDebuffType type)
+        {
+            return type switch
+            {
+                // BuffDebuffType.Meditation => "",
+                BuffDebuffType.Shield => "",
+                // BuffDebuffType.Bleeding => "",
+                // BuffDebuffType.Poison => "",
+                // BuffDebuffType.Burn => "",
+                BuffDebuffType.AttackUp => "",
+                BuffDebuffType.AttackDown => "",
+                BuffDebuffType.AttackSpeedUp => "",
+                BuffDebuffType.CoolTimeUp =>"",
+                BuffDebuffType.AbilityPowerUp => "",
+                BuffDebuffType.Immune => "",
+                // BuffDebuffType.CoolTimeDown => "",
+                // BuffDebuffType.AbilityPowerUp => "", 
+                // BuffDebuffType.DefenceUp => "", 
+                // BuffDebuffType.ResistanceUp => "",
+                // BuffDebuffType.AttackDown => "",
+                // BuffDebuffType.DefenceDown => "",
+                // BuffDebuffType.ResistanceDown => "",
+                // BuffDebuffType.AttackSpeedUp => "",
+                BuffDebuffType.AttackSpeedDown => "",
+                BuffDebuffType.Trap =>"",
+                BuffDebuffType.DefenceDown =>"",
+                BuffDebuffType.HealDown =>"",
+                // BuffDebuffType.CriticalProbUp => "",
+                // BuffDebuffType.CriticalProbDown => "",
+                // BuffDebuffType.Slow => "",
+                // BuffDebuffType.Entangle => "",
+                // BuffDebuffType.Freezing => "",
+                // BuffDebuffType.Stun => "",
+                // BuffDebuffType.Provocation => "",
+                // BuffDebuffType.Sleep => "",
+                // BuffDebuffType.Invincibility => "",
+                _ => "",
+            };
+        }
     }
 }

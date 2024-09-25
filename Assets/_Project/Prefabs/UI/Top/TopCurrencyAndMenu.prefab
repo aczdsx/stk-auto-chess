@@ -12028,6 +12028,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7044488858435377981}
     m_Modifications:
+    - target: {fileID: 691707201562687197, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1517234416706368358, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -12323,6 +12327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyText: {fileID: 5444616538889115962}
   _topPanelButton: {fileID: 7878288426066367683}
+  _remainTimeText: {fileID: 8174561310681838607}
 --- !u!222 &718252321790975123
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12394,6 +12399,17 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+--- !u!114 &8174561310681838607 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4730922604019690695, guid: 12fadf101825f0c4a9c10bc889c437b8, type: 3}
+  m_PrefabInstance: {fileID: 3519137844576786632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5760914079424392148
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -122,7 +122,8 @@ namespace CookApps.AutoBattler
             }
 
             // 팝업 관련 처리 (하단 정보, 슬라이더)
-            _chapterNumberText.text = string.Format("챕터-{0}-{1}", _currentChapterData.chapter_id, _currentChapterData.difficulty_type);
+            string chapterString = LanguageManager.Instance.GetLanguageText("UI_CHAPTER");
+            _chapterNumberText.text = $"{chapterString}-{_currentChapterData.chapter_id}-{_currentChapterData.difficulty_type}";
             _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_currentChapterData.name_token);
 
             int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_currentChapterData.chapter_id, _currentChapterData.difficulty_type);

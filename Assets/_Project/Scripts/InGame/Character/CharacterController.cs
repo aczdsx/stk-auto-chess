@@ -720,6 +720,14 @@ namespace CookApps.BattleSystem
             if (sfxName != SoundFX.NONE)
                 SoundManager.Instance.PlaySFX(sfxName);
 
+            var affectText = type.GetAffectToken();
+            if (!string.IsNullOrEmpty(affectText))
+            {
+                string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
+                ShowNormalText(affectText, hexColor: hexColor).Forget();
+            }
+
+
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {
                 _buffDebuffRefCountDict[type] += 1;
@@ -939,7 +947,7 @@ namespace CookApps.BattleSystem
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
-            bool isFirstDamage = true)
+            bool isFirstDamage = true, string hexColor = null)
         {
             if (!InGameManager.Instance.IsInGameCombat)
                 return DamageReturnType.Damaging;
@@ -973,10 +981,8 @@ namespace CookApps.BattleSystem
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
-            
-            bool isResist = attacker != null && (attacker.SpecCharacter.character_position_type == CharacterPositionType.WIZARD && SpecCharacter.character_position_type == CharacterPositionType.GUARDIAN);
-            bool isWeak = attacker != null && (attacker.SpecCharacter.character_position_type == CharacterPositionType.WIZARD && SpecCharacter.character_position_type == CharacterPositionType.TANK);
-            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.isDoubleCritical, isResist, isWeak).Forget();
+
+            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, hexColor).Forget();
 
             _currHp -= damageAmount.damageAmount.Value;
 
@@ -1111,14 +1117,14 @@ namespace CookApps.BattleSystem
             return true;
         }
 
-        private async UniTask ShowDamageText(double amount, bool isCritical, bool isDoubleCritical, bool isResist, bool isWeak)
+        private async UniTask ShowDamageText(double amount, bool isCritical, string hexColor = null)
         {
             if (amount == 0)
             {
                 return;
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, isResist, isWeak);
+            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, hexColor);
         }
 
         private async UniTask ShowHealText(double amount)
@@ -1252,6 +1258,14 @@ namespace CookApps.BattleSystem
             }
 
             return null;
+        }
+
+        public async UniTask ShowNormalText(string token, string hexColor = null)
+        {
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
+            
+            string convertText = LanguageManager.Instance.GetLanguageText(token);
+            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
         }
     }
 }

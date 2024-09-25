@@ -282,13 +282,15 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case PVPTimeRefreshType.REFILL_TICKET:
-                    if (UserDataManager.Instance.UserPVP.PvpTicketTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
-                    {
-                        int maxTicket = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
-                        UserDataManager.Instance.SetItemCount(ItemType.PVP_TICKET, 0, maxTicket, true, false);
-                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.REFILL_TICKET, needPVPDateSave);
-                        result = true;
-                    }
+                    // old - 일일 충전 방식
+                    // if (UserDataManager.Instance.UserPVP.PvpTicketTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
+                    // {
+                    //     int maxTicket = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
+                    //     UserDataManager.Instance.SetItemCount(ItemType.PVP_TICKET, 0, maxTicket, true, false);
+                    //     UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.REFILL_TICKET, needPVPDateSave);
+                    //     result = true;
+                    // }
+                    
                     break;
             }
 

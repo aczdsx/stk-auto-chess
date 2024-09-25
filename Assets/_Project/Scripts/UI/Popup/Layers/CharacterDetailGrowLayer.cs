@@ -243,8 +243,9 @@ namespace CookApps.AutoBattler
             int resetCount = UserDataManager.Instance.UserBasicData.ResetCharacterCount;
 
             int resultCount = maxResetCount - resetCount;
-            
-            _resetCountText.text = $"레벨 초기화 <color=#C35B79><b>({resultCount})</b></color>";
+
+            string levelResetString = LanguageManager.Instance.GetLanguageText("UI_LEVEL_RESET");
+            _resetCountText.text = $"{levelResetString} <color=#C35B79><b>({resultCount})</b></color>";
 
             bool isAvailReset = resultCount > 0;
             

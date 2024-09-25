@@ -87,12 +87,7 @@ namespace CookApps.AutoBattler
 #endif
 
             // 언어 설정
-            var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
-            if (settingLanguage == (int)LanguageType.NONE)
-            {
-                var currentLanugageType = LanguageManager.Instance.GetSystemLanguageType();
-                Preference.SavePreference(Pref.LANGUAGE, (int)currentLanugageType);
-            }
+            LanguageManager.Instance.InitLanguage();
 
             // 유저 로그인 기록 체크
             // var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
@@ -167,7 +162,7 @@ namespace CookApps.AutoBattler
 
         public async void OnClickTouchToStart()
         {
-            if (isLogin == false) return;
+            //if (isLogin == false) return;
 
             // 앱이벤트 Init
             //InitCookAppsAuth();
@@ -490,6 +485,12 @@ namespace CookApps.AutoBattler
             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(false);
             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(false);
             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(false);
+        }
+        
+        ///////////////// TEST
+        public void TempEnterButton()
+        {
+            OnClickTouchToStart();
         }
     }
 }

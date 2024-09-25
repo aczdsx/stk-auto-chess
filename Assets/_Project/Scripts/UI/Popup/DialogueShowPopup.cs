@@ -146,6 +146,9 @@ namespace CookApps.AutoBattler
                     // 가이드 미션 가이드 효과 재생
                     GuideMissionManager.Instance.UpdateGuideMissionAlert();
                 }
+
+                if (_currentSpecDialogueData.image_info_id != 0)
+                    SceneUILayerManager.Instance.PushUILayerAsync<ImageInfoPop>((int)_currentSpecDialogueData.image_info_id).Forget();
                 
                 _onComplete?.Invoke();
 

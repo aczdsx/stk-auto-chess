@@ -31,6 +31,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _rewardCharacterNameText;
         [SerializeField] private SynergyUI _rewardElementSynergyUI;
         [SerializeField] private SynergyUI _rewardClassSynergyUI;
+        [SerializeField] private Image _gradeImage;
 
         private SpecItem _specItemData;
         private int _rewardKey;
@@ -120,6 +121,8 @@ namespace CookApps.AutoBattler
             _rewardCharacterNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
             _rewardElementSynergyUI.SetSynergyUI(specCharacterData.element_type);
             _rewardClassSynergyUI.SetPositionSynergyUI(specCharacterData.character_position_type);
+            
+            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(specCharacterData.grade_type);
 
             // 레이어 활성화
             _rewardCharacterLayerObject.SetActive(true);

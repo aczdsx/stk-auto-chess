@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -13,22 +14,34 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Image _iconImage;
         [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private ParticleSystem _activeFx;
         private ElementType _elementType;
         private CharacterPositionType _positionType;
         private bool _isElementType;
         private int _step;
-        private readonly Color _grayColor = new Color(0.35f, 0.35f, 0.35f, 0.8f);
+        private int _count;
+        
+        [SerializeField] private List<Color> _colorList;
 
         // 캐릭터 속성 시너지 세팅
         public void SetSynergy(ElementType type, int count, int step, bool isActive = true)
         {
             _elementType = type;
+            
+            if (step != 0)
+            {
+                _activeFx.Play();
+                ParticleSystem.MainModule mainModule = _activeFx.main;
+                mainModule.startColor = _colorList[step];
+            }
+            
             _step = step;
+            _count = count;
             _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
             _countText.text = count.ToString();
 
-            _iconImage.color = (step > 0) ? Color.white : _grayColor;
-            _countText.color = (step > 0) ? Color.white : _grayColor;
+            _iconImage.color = (_step > 0) ? Color.white : _colorList[0];
+            _countText.color = _colorList[_step];
             _isElementType = true;
         }
 
@@ -36,11 +49,21 @@ namespace CookApps.AutoBattler
         public void SetPositionSynergy(CharacterPositionType type, int count, int step, bool isActive = true)
         {
             _positionType = type;
+            
+            if (step != 0)
+            {
+                _activeFx.Play();
+                ParticleSystem.MainModule mainModule = _activeFx.main;
+                mainModule.startColor = _colorList[step];
+            }
+
+            _step = step;
+            _count = count;
             _iconImage.sprite = ImageManager.Instance.GetPositionSprite(type, isActive);
             _countText.text = count.ToString();
 
-            _iconImage.color = (step > 0) ? Color.white : _grayColor;
-            _countText.color = (step > 0) ? Color.white : _grayColor;
+            _iconImage.color = (_step > 0) ? Color.white : _colorList[0];
+            _countText.color = _colorList[_step];
             _isElementType = false;
         }
 
@@ -51,7 +74,8 @@ namespace CookApps.AutoBattler
                 var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_elementType);
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
-                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((specSynergyDataList, _step)).Forget();
+                    var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _step, _count)).Forget();
                 }
             }
             else
@@ -59,7 +83,8 @@ namespace CookApps.AutoBattler
                 var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_positionType);
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
-                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((specSynergyDataList, _step)).Forget();
+                    var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _step, _count)).Forget();
                 }
             }
         }

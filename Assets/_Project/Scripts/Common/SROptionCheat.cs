@@ -12,6 +12,25 @@ using Cysharp.Threading.Tasks;
 [Serializable]
 public partial class SROptions
 {
+    #region 시스템 관련
+
+    [Category("시스템 관련")]
+    public void 게임언어변경()
+    {
+        LanguageManager.Instance.SetGameLanguage(원하는언어);
+        
+        ToastManager.Instance.ShowToast("TEST - 치트 적용");
+                
+        InGameManager.Instance.EndInGame();
+        var transition = SceneTransition_FadeInOut.Create();
+        SceneLoading.GoToNextScene("Title", null, transition);
+    }
+    
+    [Category("시스템 관련")]
+    public LanguageType 원하는언어 { get; set; } = LanguageType.KR;
+
+    #endregion
+    
     #region 계정 관련
 
     [Category("계정 관련")]
@@ -556,6 +575,24 @@ public partial class SROptions
         ToastManager.Instance.ShowToast("치트 - 사용완료");
     }
 
+    #endregion
+    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    
+    #region 팝업 테스트
+    
+    [Category("팝업 테스트")]
+    
+    public void 이미지인포팝테스트()
+    {
+        Action onComplete = null;
+        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((다이얼로그아이디, onComplete)).Forget();
+        
+        ToastManager.Instance.ShowToast("치트 - 사용완료");
+    }
+    
+    [Category("팝업 테스트")] public int 다이얼로그아이디 { get; set; } = 0;
+    
     #endregion
 }
 #endif
