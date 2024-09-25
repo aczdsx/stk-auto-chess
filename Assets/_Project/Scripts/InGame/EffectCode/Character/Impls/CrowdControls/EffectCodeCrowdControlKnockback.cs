@@ -45,7 +45,9 @@ public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         {
             _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-            duration *= Vector3.Distance(_inGameTile.View.Position, owner.Position3D) * 0.4f;
+            float distance = Vector3.Distance(_inGameTile.View.Position, owner.Position3D);
+
+            duration += distance * 0.1f;
             
             var halfDuration = duration * 0.5f;
             upFactor = (startY - height) / (halfDuration * halfDuration);
