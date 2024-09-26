@@ -12,6 +12,9 @@ namespace CookApps.AutoBattler
         //  현재 상점 배너의 상태를 체크 (팝업을 띄울지 여부)
         public void ShowShopBannerPopup(ShopBannerShowType showType)
         {
+            // 24.09.26 - 상점 배너 팝업 임시 off
+            return;
+            
             var userShopBannerList = UserDataManager.Instance.GetAllShopBannerDataList();
             
             foreach (var userShopBannerData in userShopBannerList)
@@ -33,6 +36,9 @@ namespace CookApps.AutoBattler
         // 현재 상점 배너의 전체 상태를 체크
         public void UpdateShopBannerConditionValue(ShopBannerConditionType conditionType, int conditionKey, int value, bool isAdd)
         {
+            // 24.09.26 - 상점 배너 팝업 임시 off
+            return;
+            
             var userShopBannerList = UserDataManager.Instance.GetAllShopBannerDataList();
 
             bool needSave = false;
