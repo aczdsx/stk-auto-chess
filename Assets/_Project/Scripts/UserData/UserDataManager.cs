@@ -110,8 +110,8 @@ namespace CookApps.AutoBattler
                     {
                         if (allCategories[i].ToCategoryString() == playerData.Category)
                         {
-                            allCategories.RemoveAt(i);
                             category = allCategories[i];
+                            allCategories.RemoveAt(i);
                             break;
                         }
                     }
