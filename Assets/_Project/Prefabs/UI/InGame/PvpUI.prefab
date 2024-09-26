@@ -154547,6 +154547,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4561218646814158994, guid: 1cedabf321b254645b1ede3588afa872, type: 3}
+      propertyPath: _myName
+      value: 
+      objectReference: {fileID: 7634972631463957299}
     - target: {fileID: 5200733449808197385, guid: 1cedabf321b254645b1ede3588afa872, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -154670,6 +154674,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _languageToken: UI_BATTLE_POWER
+--- !u!114 &7634972631463957299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5811827314400576803, guid: 1cedabf321b254645b1ede3588afa872, type: 3}
+  m_PrefabInstance: {fileID: 4130677231259178512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8923025253433220487 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4794056786800102295, guid: 1cedabf321b254645b1ede3588afa872, type: 3}

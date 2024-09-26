@@ -8,7 +8,7 @@ namespace <#= Namespace #>
 
 partial class <#=Name#>
 {
-    private CookApps.BattleSystem.EffectCodeBase CreateEffectCodeInternal(int codeId)
+    private CookApps.BattleSystem.EffectCodeBase CreateEffectCodeInternal(long codeId)
     {
         switch (codeId)
         {

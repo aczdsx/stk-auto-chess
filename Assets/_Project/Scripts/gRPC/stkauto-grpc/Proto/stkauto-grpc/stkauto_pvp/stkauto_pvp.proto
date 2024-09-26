@@ -168,7 +168,8 @@ message PvpListPvpRankRequest {
 
 message PvpListPvpRankResponse {
   ResponseStatus status = 1;
-  repeated PvpRankingData pvp_rankers = 2;
-  MyPvpRankingData my_pvp_rank_data = 3;
+  CursorMeta meta = 2;
+  repeated PvpRankingData pvp_rankers = 3;
+  MyPvpRankingData my_pvp_rank_data = 4;
 }
 

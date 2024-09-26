@@ -509,12 +509,12 @@ namespace CookApps.BattleSystem
                 result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
             }
 
-            if (result.HasFlag(CharacterStateRunningResult.CanCallMove))
+            if ((result & CharacterStateRunningResult.CanCallMove) == CharacterStateRunningResult.CanCallMove)
             {
                 _view.UpdatePosition(position, ViewPosition3D, SelectedOffSet);
             }
             
-            if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnUpdate))
+            if ((result & CharacterStateRunningResult.CanCallEffectCodeOnUpdate) == CharacterStateRunningResult.CanCallEffectCodeOnUpdate)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnUpdate);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnUpdateLambda, dt);
@@ -527,7 +527,7 @@ namespace CookApps.BattleSystem
 
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCooltime);
-                if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeOnCooltime))
+                if ((result & CharacterStateRunningResult.CanCallEffectCodeOnCooltime) == CharacterStateRunningResult.CanCallEffectCodeOnCooltime)
                 {
                     if (!isSilence && !isMisaRestraint)
                     {
@@ -549,7 +549,7 @@ namespace CookApps.BattleSystem
                 }
             }
 
-            if (result.HasFlag(CharacterStateRunningResult.CanCallEffectCodeActivate))
+            if ((result & CharacterStateRunningResult.CanCallEffectCodeActivate) == CharacterStateRunningResult.CanCallEffectCodeActivate)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
                 EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);

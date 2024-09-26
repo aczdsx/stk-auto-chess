@@ -67,29 +67,30 @@ namespace Tech.Hive.V1 {
             "c3QSDQoFcG93ZXIYASABKAkSEwoLc2ltcGxlX2luZm8YAiABKAkSEgoKaGVh",
             "dnlfaW5mbxgDIAEoCSJIChhQdnBVcGRhdGVQcm9maWxlUmVzcG9uc2USLAoG",
             "c3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzIhcK",
-            "FVB2cExpc3RQdnBSYW5rUmVxdWVzdCKzAQoWUHZwTGlzdFB2cFJhbmtSZXNw",
+            "FVB2cExpc3RQdnBSYW5rUmVxdWVzdCLbAQoWUHZwTGlzdFB2cFJhbmtSZXNw",
             "b25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VT",
-            "dGF0dXMSMQoLcHZwX3JhbmtlcnMYAiADKAsyHC50ZWNoLmhpdmUudjEuUHZw",
-            "UmFua2luZ0RhdGESOAoQbXlfcHZwX3JhbmtfZGF0YRgDIAEoCzIeLnRlY2gu",
-            "aGl2ZS52MS5NeVB2cFJhbmtpbmdEYXRhKi0KGFN0a2F1dG9QVlBSZXNwb25z",
-            "ZVN0YXR1cxIRCg1QVlBfVU5ERUZJTkVEEAAqYQoOUHZwTWF0Y2hSZXN1bHQS",
-            "DwoLVU5TUEVDSUZJRUQQABIHCgNXSU4QARIICgRMT1NFEAISCAoERFJBVxAD",
-            "Eg8KC1JFVkVOR0VfV0lOEAQSEAoMUkVWRU5HRV9MT1NFEAUyhQUKEVN0a2F1",
-            "dG9QdnBTZXJ2aWNlEk4KB0dldEluZm8SHy50ZWNoLmhpdmUudjEuUHZwR2V0",
-            "SW5mb1JlcXVlc3QaIC50ZWNoLmhpdmUudjEuUHZwR2V0SW5mb1Jlc3BvbnNl",
-            "IgASVAoJTGlzdE1hdGNoEiEudGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaFJl",
-            "cXVlc3QaIi50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoUmVzcG9uc2UiABJI",
-            "CgVNYXRjaBIdLnRlY2guaGl2ZS52MS5QdnBNYXRjaFJlcXVlc3QaHi50ZWNo",
-            "LmhpdmUudjEuUHZwTWF0Y2hSZXNwb25zZSIAEmkKEExpc3RNYXRjaEhpc3Rv",
-            "cnkSKC50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlcXVlc3Qa",
-            "KS50ZWNoLmhpdmUudjEuUHZwTGlzdE1hdGNoSGlzdG9yeVJlc3BvbnNlIgAS",
-            "VwoKR2V0UHJvZmlsZRIiLnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVx",
-            "dWVzdBojLnRlY2guaGl2ZS52MS5QdnBHZXRQcm9maWxlUmVzcG9uc2UiABJg",
-            "Cg1VcGRhdGVQcm9maWxlEiUudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2Zp",
-            "bGVSZXF1ZXN0GiYudGVjaC5oaXZlLnYxLlB2cFVwZGF0ZVByb2ZpbGVSZXNw",
-            "b25zZSIAEloKC0xpc3RQdnBSYW5rEiMudGVjaC5oaXZlLnYxLlB2cExpc3RQ",
-            "dnBSYW5rUmVxdWVzdBokLnRlY2guaGl2ZS52MS5QdnBMaXN0UHZwUmFua1Jl",
-            "c3BvbnNlIgBiBnByb3RvMw=="));
+            "dGF0dXMSJgoEbWV0YRgCIAEoCzIYLnRlY2guaGl2ZS52MS5DdXJzb3JNZXRh",
+            "EjEKC3B2cF9yYW5rZXJzGAMgAygLMhwudGVjaC5oaXZlLnYxLlB2cFJhbmtp",
+            "bmdEYXRhEjgKEG15X3B2cF9yYW5rX2RhdGEYBCABKAsyHi50ZWNoLmhpdmUu",
+            "djEuTXlQdnBSYW5raW5nRGF0YSotChhTdGthdXRvUFZQUmVzcG9uc2VTdGF0",
+            "dXMSEQoNUFZQX1VOREVGSU5FRBAAKmEKDlB2cE1hdGNoUmVzdWx0Eg8KC1VO",
+            "U1BFQ0lGSUVEEAASBwoDV0lOEAESCAoETE9TRRACEggKBERSQVcQAxIPCgtS",
+            "RVZFTkdFX1dJThAEEhAKDFJFVkVOR0VfTE9TRRAFMoUFChFTdGthdXRvUHZw",
+            "U2VydmljZRJOCgdHZXRJbmZvEh8udGVjaC5oaXZlLnYxLlB2cEdldEluZm9S",
+            "ZXF1ZXN0GiAudGVjaC5oaXZlLnYxLlB2cEdldEluZm9SZXNwb25zZSIAElQK",
+            "CUxpc3RNYXRjaBIhLnRlY2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hSZXF1ZXN0",
+            "GiIudGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaFJlc3BvbnNlIgASSAoFTWF0",
+            "Y2gSHS50ZWNoLmhpdmUudjEuUHZwTWF0Y2hSZXF1ZXN0Gh4udGVjaC5oaXZl",
+            "LnYxLlB2cE1hdGNoUmVzcG9uc2UiABJpChBMaXN0TWF0Y2hIaXN0b3J5Eigu",
+            "dGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaEhpc3RvcnlSZXF1ZXN0GikudGVj",
+            "aC5oaXZlLnYxLlB2cExpc3RNYXRjaEhpc3RvcnlSZXNwb25zZSIAElcKCkdl",
+            "dFByb2ZpbGUSIi50ZWNoLmhpdmUudjEuUHZwR2V0UHJvZmlsZVJlcXVlc3Qa",
+            "Iy50ZWNoLmhpdmUudjEuUHZwR2V0UHJvZmlsZVJlc3BvbnNlIgASYAoNVXBk",
+            "YXRlUHJvZmlsZRIlLnRlY2guaGl2ZS52MS5QdnBVcGRhdGVQcm9maWxlUmVx",
+            "dWVzdBomLnRlY2guaGl2ZS52MS5QdnBVcGRhdGVQcm9maWxlUmVzcG9uc2Ui",
+            "ABJaCgtMaXN0UHZwUmFuaxIjLnRlY2guaGl2ZS52MS5QdnBMaXN0UHZwUmFu",
+            "a1JlcXVlc3QaJC50ZWNoLmhpdmUudjEuUHZwTGlzdFB2cFJhbmtSZXNwb25z",
+            "ZSIAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.StkautoPVPResponseStatus), typeof(global::Tech.Hive.V1.PvpMatchResult), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -111,7 +112,7 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileRequest), global::Tech.Hive.V1.PvpUpdateProfileRequest.Parser, new[]{ "Power", "SimpleInfo", "HeavyInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileResponse), global::Tech.Hive.V1.PvpUpdateProfileResponse.Parser, new[]{ "Status" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankRequest), global::Tech.Hive.V1.PvpListPvpRankRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankResponse), global::Tech.Hive.V1.PvpListPvpRankResponse.Parser, new[]{ "Status", "PvpRankers", "MyPvpRankData" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankResponse), global::Tech.Hive.V1.PvpListPvpRankResponse.Parser, new[]{ "Status", "Meta", "PvpRankers", "MyPvpRankData" }, null, null, null, null)
           }));
     }
     #endregion
@@ -4958,6 +4959,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PvpListPvpRankResponse(PvpListPvpRankResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
+      meta_ = other.meta_ != null ? other.meta_.Clone() : null;
       pvpRankers_ = other.pvpRankers_.Clone();
       myPvpRankData_ = other.myPvpRankData_ != null ? other.myPvpRankData_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -4981,10 +4983,22 @@ namespace Tech.Hive.V1 {
       }
     }
 
+    /// <summary>Field number for the "meta" field.</summary>
+    public const int MetaFieldNumber = 2;
+    private global::Tech.Hive.V1.CursorMeta meta_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.CursorMeta Meta {
+      get { return meta_; }
+      set {
+        meta_ = value;
+      }
+    }
+
     /// <summary>Field number for the "pvp_rankers" field.</summary>
-    public const int PvpRankersFieldNumber = 2;
+    public const int PvpRankersFieldNumber = 3;
     private static readonly pb::FieldCodec<global::Tech.Hive.V1.PvpRankingData> _repeated_pvpRankers_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.PvpRankingData.Parser);
+        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.PvpRankingData.Parser);
     private readonly pbc::RepeatedField<global::Tech.Hive.V1.PvpRankingData> pvpRankers_ = new pbc::RepeatedField<global::Tech.Hive.V1.PvpRankingData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -4993,7 +5007,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "my_pvp_rank_data" field.</summary>
-    public const int MyPvpRankDataFieldNumber = 3;
+    public const int MyPvpRankDataFieldNumber = 4;
     private global::Tech.Hive.V1.MyPvpRankingData myPvpRankData_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -5020,6 +5034,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
+      if (!object.Equals(Meta, other.Meta)) return false;
       if(!pvpRankers_.Equals(other.pvpRankers_)) return false;
       if (!object.Equals(MyPvpRankData, other.MyPvpRankData)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -5030,6 +5045,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
+      if (meta_ != null) hash ^= Meta.GetHashCode();
       hash ^= pvpRankers_.GetHashCode();
       if (myPvpRankData_ != null) hash ^= MyPvpRankData.GetHashCode();
       if (_unknownFields != null) {
@@ -5054,9 +5070,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
+      if (meta_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Meta);
+      }
       pvpRankers_.WriteTo(output, _repeated_pvpRankers_codec);
       if (myPvpRankData_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(MyPvpRankData);
       }
       if (_unknownFields != null) {
@@ -5073,9 +5093,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
+      if (meta_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Meta);
+      }
       pvpRankers_.WriteTo(ref output, _repeated_pvpRankers_codec);
       if (myPvpRankData_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(MyPvpRankData);
       }
       if (_unknownFields != null) {
@@ -5090,6 +5114,9 @@ namespace Tech.Hive.V1 {
       int size = 0;
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
+      }
+      if (meta_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Meta);
       }
       size += pvpRankers_.CalculateSize(_repeated_pvpRankers_codec);
       if (myPvpRankData_ != null) {
@@ -5112,6 +5139,12 @@ namespace Tech.Hive.V1 {
           Status = new global::Tech.Hive.V1.ResponseStatus();
         }
         Status.MergeFrom(other.Status);
+      }
+      if (other.meta_ != null) {
+        if (meta_ == null) {
+          Meta = new global::Tech.Hive.V1.CursorMeta();
+        }
+        Meta.MergeFrom(other.Meta);
       }
       pvpRankers_.Add(other.pvpRankers_);
       if (other.myPvpRankData_ != null) {
@@ -5143,10 +5176,17 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            pvpRankers_.AddEntriesFrom(input, _repeated_pvpRankers_codec);
+            if (meta_ == null) {
+              Meta = new global::Tech.Hive.V1.CursorMeta();
+            }
+            input.ReadMessage(Meta);
             break;
           }
           case 26: {
+            pvpRankers_.AddEntriesFrom(input, _repeated_pvpRankers_codec);
+            break;
+          }
+          case 34: {
             if (myPvpRankData_ == null) {
               MyPvpRankData = new global::Tech.Hive.V1.MyPvpRankingData();
             }
@@ -5176,10 +5216,17 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            pvpRankers_.AddEntriesFrom(ref input, _repeated_pvpRankers_codec);
+            if (meta_ == null) {
+              Meta = new global::Tech.Hive.V1.CursorMeta();
+            }
+            input.ReadMessage(Meta);
             break;
           }
           case 26: {
+            pvpRankers_.AddEntriesFrom(ref input, _repeated_pvpRankers_codec);
+            break;
+          }
+          case 34: {
             if (myPvpRankData_ == null) {
               MyPvpRankData = new global::Tech.Hive.V1.MyPvpRankingData();
             }

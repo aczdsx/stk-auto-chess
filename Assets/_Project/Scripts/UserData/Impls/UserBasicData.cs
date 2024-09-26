@@ -64,14 +64,13 @@ namespace CookApps.AutoBattler
             GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
         }
 
-        public void SetUserLoginData(AuthPlatform authPlatformm, uint UID, int serverID, string playerID, string username)
+        public void SetUserLoginData(uint UID, int serverID, string playerID)
         {
             UserBasicData.Uid = (int)UID;
             UserBasicData.ServerId = serverID;
             UserBasicData.PlayerId = playerID;
-            UserBasicData.Nickname = username;
 
-            Preference.SavePreference(Pref.LOGIN_PLATFORM_TYPE, (int)authPlatformm); // 기기자체에도 저장 (첫 로그인 판별용)
+            //Preference.SavePreference(Pref.LOGIN_PLATFORM_TYPE, (int)authPlatformm); // 기기자체에도 저장 (첫 로그인 판별용)
 
             SaveUserBasic();
         }

@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
         [Header("Top Layer")]
         [SerializeField] 
         private TextMeshProUGUI _remainTimeText;
-        private readonly DateTime _targetTime = new DateTime(2024, 9, 1, 0, 0, 0, DateTimeKind.Utc);
+        private readonly DateTime _targetTime = new DateTime(2024, 10, 15, 0, 0, 0, DateTimeKind.Utc);
         
         public ArenaMainPopupTabType CurrentTabType { get; private set; } = ArenaMainPopupTabType.PVP_BATTLE;
         
@@ -282,14 +282,14 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case PVPTimeRefreshType.REFILL_TICKET:
-                    // old - 일일 충전 방식
-                    // if (UserDataManager.Instance.UserPVP.PvpTicketTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
-                    // {
-                    //     int maxTicket = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
-                    //     UserDataManager.Instance.SetItemCount(ItemType.PVP_TICKET, 0, maxTicket, true, false);
-                    //     UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.REFILL_TICKET, needPVPDateSave);
-                    //     result = true;
-                    // }
+                    // 일일 충전 방식
+                    if (UserDataManager.Instance.UserPVP.PvpTicketNextTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
+                    {
+                        int maxTicket = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
+                        UserDataManager.Instance.SetItemCount(ItemType.PVP_TICKET, 0, maxTicket, true, false);
+                        UserDataManager.Instance.UpdateNextRefreshTimeStamp(PVPTimeRefreshType.REFILL_TICKET, needPVPDateSave);
+                        result = true;
+                    }
                     
                     break;
             }
