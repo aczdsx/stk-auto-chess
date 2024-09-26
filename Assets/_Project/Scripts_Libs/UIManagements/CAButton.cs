@@ -40,11 +40,50 @@ namespace CookApps.TeamBattle.UIManagements
         private TweenLerp<float> tweenScaleXValue;
         private SimpleTweener tweenScaleY = new SimpleTweener();
         private TweenLerp<float> tweenScaleYValue;
+        private bool isPressed = false;
 
         protected override void Start()
         {
             base.Start();
             initialScale = this.transform.localScale;
+        }
+        
+        public override void OnPointerDown(PointerEventData eventData)
+        {
+            base.OnPointerDown(eventData);
+
+            if (!SelectableBlockerManager.Instance.IsAllowSelectable(name))
+                return;
+
+            // 버튼을 누르고 있는 동안 축소
+            if (reactionType == ReactionType.Punch || reactionType == ReactionType.Punch_Small)
+            {
+                StopAllCoroutines(); // 기존 애니메이션 중단
+                isPressed = true;
+                StartCoroutine(TweenScale(new Vector3(0.95f, 0.95f, 1f), 0.1f));  // 버튼을 눌렀을 때 크기를 축소
+            }
+        }
+
+        public override void OnPointerUp(PointerEventData eventData)
+        {
+            base.OnPointerUp(eventData);
+
+            if (!SelectableBlockerManager.Instance.IsAllowSelectable(name))
+                return;
+
+            if (reactionType == ReactionType.Punch || reactionType == ReactionType.Punch_Small)
+            {
+                // 버튼을 뗄 때 Punch 효과
+                isPressed = false;
+                StartCoroutine(PunchEffect());
+            }
+        }
+
+        private IEnumerator PunchEffect()
+        {
+            // 눌렀을 때 축소되었던 것을 되돌린 후 Punch 효과 적용
+            yield return TweenScale(new Vector3(1.05f, 1.05f, 1f), 0.1f);  // 팡팡 튀는 효과
+            yield return TweenScale(initialScale, 0.1f);  // 원래 크기로 복귀
         }
 
         public override void OnPointerClick(PointerEventData eventData)
@@ -105,7 +144,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         private IEnumerator PunchTween()
         {
-            yield return TweenScale(new Vector3(1.1f, 1.1f, 1f), 0.15f);
+            yield return TweenScale(new Vector3(1.08f, 1.08f, 1f), 0.15f);
             BackToNormal();
         }
 

@@ -755,6 +755,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &63198401578875611
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,6 +2367,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &281281107916129602
 GameObject:
   m_ObjectHideFlags: 0
@@ -3790,6 +3792,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &529994796046160977
 GameObject:
   m_ObjectHideFlags: 0
@@ -4222,6 +4225,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &640251977166070949
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,6 +5169,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &780624305278208352
 GameObject:
   m_ObjectHideFlags: 0
@@ -5252,6 +5257,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!222 &4663027688401327718
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5422,6 +5428,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &800152175825083023
 GameObject:
   m_ObjectHideFlags: 0
@@ -6802,6 +6809,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &982431305827171120
 GameObject:
   m_ObjectHideFlags: 0
@@ -22423,6 +22431,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &1693014363175440858
 GameObject:
   m_ObjectHideFlags: 0
@@ -47242,6 +47251,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &2524033247251441186
 GameObject:
   m_ObjectHideFlags: 0
@@ -47670,6 +47680,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!114 &7553420971824824527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49801,6 +49812,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &2939476937550966145
 GameObject:
   m_ObjectHideFlags: 0
@@ -51534,6 +51546,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &3042784545220048996
 GameObject:
   m_ObjectHideFlags: 0
@@ -66588,6 +66601,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &3791613198755604856
 GameObject:
   m_ObjectHideFlags: 0
@@ -68193,6 +68207,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &3959110640954096496
 GameObject:
   m_ObjectHideFlags: 0
@@ -77335,6 +77350,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &4647264144638667561
 GameObject:
   m_ObjectHideFlags: 0
@@ -77786,6 +77802,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &4744628858966411366
 GameObject:
   m_ObjectHideFlags: 0
@@ -78575,6 +78592,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &4898198604611225955
 GameObject:
   m_ObjectHideFlags: 0
@@ -79864,6 +79882,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &5061537497081170189
 GameObject:
   m_ObjectHideFlags: 0
@@ -80184,6 +80203,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &5143778986757937055
 GameObject:
   m_ObjectHideFlags: 0
@@ -80794,6 +80814,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &5215780847528538075
 GameObject:
   m_ObjectHideFlags: 0
@@ -95219,6 +95240,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!114 &2513622513905588267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108005,6 +108027,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &6900958271219562463
 GameObject:
   m_ObjectHideFlags: 0
@@ -117073,6 +117096,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &7497645436655757139
 GameObject:
   m_ObjectHideFlags: 0
@@ -117398,6 +117422,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &7512978252825793942
 GameObject:
   m_ObjectHideFlags: 0
@@ -120042,6 +120067,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &7904810412391463505
 GameObject:
   m_ObjectHideFlags: 0
@@ -122356,6 +122382,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!225 &488273190815746589
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -122701,6 +122728,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!222 &4383545830273581797
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -141399,6 +141427,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &8755390960715302691
 GameObject:
   m_ObjectHideFlags: 0
@@ -146943,6 +146972,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &8885695775867814394
 GameObject:
   m_ObjectHideFlags: 0
@@ -152214,6 +152244,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!114 &3275581806438154555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153185,6 +153216,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!114 &1886295050217338571
 MonoBehaviour:
   m_ObjectHideFlags: 0
