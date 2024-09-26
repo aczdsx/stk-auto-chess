@@ -1,4 +1,4 @@
-//#define USE_SERVER_SPEC
+#define USE_SERVER_SPEC
 
 #if USE_SERVER_SPEC
 using CookApps.LocalData;
@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
             {
                 do
                 {
-                    json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion, GrpcSpecService.DataLoadingMethod.Rest);
+                    json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
                 } while (string.IsNullOrEmpty(json));
 
                 localData.Save(json, "SpecData");
@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
                 {
                     do
                     {
-                        json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion, GrpcSpecService.DataLoadingMethod.Rest);
+                        json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
                     } while (string.IsNullOrEmpty(json));
 
                     localData.Save(json, "SpecData");
