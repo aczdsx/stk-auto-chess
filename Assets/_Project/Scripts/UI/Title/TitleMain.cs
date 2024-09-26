@@ -52,6 +52,10 @@ namespace CookApps.AutoBattler
 
         private void Start()
         {
+#if !RELEASE && ENABLE_CHEAT
+            SRDebug.Init();
+#endif
+            
             isLoginProcess = false;
 
             ClearTitleMain();
