@@ -186,7 +186,7 @@ namespace Cookapps.Stkauto.V1 {
             "ZBhmIAEoBRIPCgdyYW5rX2lkGGcgASgFEhIKCnJhbmtfcG9pbnQYaCABKAUS",
             "DwoHcmFua2luZxhpIAEoBRIQCghuaWNrbmFtZRhqIAEoCRIRCglwbGF5ZXJf",
             "bHYYbCABKAUSFAoMYmF0dGxlX3BvaW50GG0gASgFEhkKEXJlZnJlc2hfdGlt",
-            "ZXN0YW1wGG4gASgDEhAKCG1hdGNoX2lkGG8gASgJEkIKDXB2cF9kZWNrX2xp",
+            "ZXN0YW1wGG4gASgDEhAKCG1hdGNoX2lkGG8gASgFEkIKDXB2cF9kZWNrX2xp",
             "c3QYggEgASgLMiouY29va2FwcHMuc3RrYXV0by52MS5Vc2VyUFZQQmF0dGxl",
             "RGVja0xpc3Qi9gEKFVVzZXJQVlBCYXR0bGVEZWNrTGlzdBJMChNwdnBfY2hh",
             "cmFjdGVyX2RlY2tzGGUgAygLMi8uY29va2FwcHMuc3RrYXV0by52MS5Vc2Vy",
@@ -10893,16 +10893,16 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "match_id" field.</summary>
     public const int MatchIdFieldNumber = 111;
-    private string matchId_ = "";
+    private CookApps.Obfuscator.ObfuscatorInt matchId_;
     /// <summary>
     /// 매치 아이디 (매치 결과 저장용)
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string MatchId {
+    public int MatchId {
       get { return matchId_; }
       set {
-        matchId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        matchId_ = value;
       }
     }
 
@@ -10963,7 +10963,7 @@ namespace Cookapps.Stkauto.V1 {
       if (PlayerLv != 0) hash ^= PlayerLv.GetHashCode();
       if (BattlePoint != 0) hash ^= BattlePoint.GetHashCode();
       if (RefreshTimestamp != 0L) hash ^= RefreshTimestamp.GetHashCode();
-      if (MatchId.Length != 0) hash ^= MatchId.GetHashCode();
+      if (MatchId != 0) hash ^= MatchId.GetHashCode();
       if (pvpDeckList_ != null) hash ^= PvpDeckList.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -11019,9 +11019,9 @@ namespace Cookapps.Stkauto.V1 {
         output.WriteRawTag(240, 6);
         output.WriteInt64(RefreshTimestamp);
       }
-      if (MatchId.Length != 0) {
-        output.WriteRawTag(250, 6);
-        output.WriteString(MatchId);
+      if (MatchId != 0) {
+        output.WriteRawTag(248, 6);
+        output.WriteInt32(MatchId);
       }
       if (pvpDeckList_ != null) {
         output.WriteRawTag(146, 8);
@@ -11073,9 +11073,9 @@ namespace Cookapps.Stkauto.V1 {
         output.WriteRawTag(240, 6);
         output.WriteInt64(RefreshTimestamp);
       }
-      if (MatchId.Length != 0) {
-        output.WriteRawTag(250, 6);
-        output.WriteString(MatchId);
+      if (MatchId != 0) {
+        output.WriteRawTag(248, 6);
+        output.WriteInt32(MatchId);
       }
       if (pvpDeckList_ != null) {
         output.WriteRawTag(146, 8);
@@ -11118,8 +11118,8 @@ namespace Cookapps.Stkauto.V1 {
       if (RefreshTimestamp != 0L) {
         size += 2 + pb::CodedOutputStream.ComputeInt64Size(RefreshTimestamp);
       }
-      if (MatchId.Length != 0) {
-        size += 2 + pb::CodedOutputStream.ComputeStringSize(MatchId);
+      if (MatchId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(MatchId);
       }
       if (pvpDeckList_ != null) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(PvpDeckList);
@@ -11163,7 +11163,7 @@ namespace Cookapps.Stkauto.V1 {
       if (other.RefreshTimestamp != 0L) {
         RefreshTimestamp = other.RefreshTimestamp;
       }
-      if (other.MatchId.Length != 0) {
+      if (other.MatchId != 0) {
         MatchId = other.MatchId;
       }
       if (other.pvpDeckList_ != null) {
@@ -11223,8 +11223,8 @@ namespace Cookapps.Stkauto.V1 {
             RefreshTimestamp = input.ReadInt64();
             break;
           }
-          case 890: {
-            MatchId = input.ReadString();
+          case 888: {
+            MatchId = input.ReadInt32();
             break;
           }
           case 1042: {
@@ -11285,8 +11285,8 @@ namespace Cookapps.Stkauto.V1 {
             RefreshTimestamp = input.ReadInt64();
             break;
           }
-          case 890: {
-            MatchId = input.ReadString();
+          case 888: {
+            MatchId = input.ReadInt32();
             break;
           }
           case 1042: {

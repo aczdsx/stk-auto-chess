@@ -393,14 +393,13 @@ namespace CookApps.AutoBattler
             var matches = Regex.Matches(BuildInfo.GetVersionCode(), @"\d+");
             var res = ZString.Join("", matches.Select(x => x.Value));
             if (!int.TryParse(res, out var versionCode)) versionCode = 1000;
-
+            
 #if SERVER_REAL
             var initializeParam = new GrpcInitializeParam(
-                url : "stkauto.prod.cookappsgames.com",
+                "stkauto.prod.cookappsgames.com",
                 port: 443,
-                channelCredentials: ChannelCredentials.SecureSSL,
-                // channelCredentials: EnumChannelCredentials.INSECURE,
-                bundleVersion: versionCode,
+                ChannelCredentials.SecureSSL,
+                versionCode,
 #else
             var initializeParam = new GrpcInitializeParam(
                 "stkauto-gyc71v.dev.cookappsgames.com",

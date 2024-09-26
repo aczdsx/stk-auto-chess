@@ -30,7 +30,7 @@ namespace Tech.Hive.V1 {
             "bmZvGAQgASgJIi8KEE15UHZwUmFua2luZ0RhdGESDQoFc2NvcmUYASABKAUS",
             "DAoEcmFuaxgCIAEoBSJKChFNeVB2cE1hdGNoaW5nRGF0YRIRCglwbGF5ZXJf",
             "aWQYASABKAkSDQoFc2NvcmUYAiABKAUSEwoLc2ltcGxlX2luZm8YAyABKAki",
-            "uAEKE1B2cE1hdGNoSGlzdG9yeURhdGESEAoIbWF0Y2hfaWQYASABKAkSEgoK",
+            "uAEKE1B2cE1hdGNoSGlzdG9yeURhdGESEAoIbWF0Y2hfaWQYASABKAUSEgoK",
             "bWF0Y2hfdGltZRgCIAEoAxIsCgZyZXN1bHQYAyABKA4yHC50ZWNoLmhpdmUu",
             "djEuUHZwTWF0Y2hSZXN1bHQSFwoPbXlfYmVmb3JlX3Njb3JlGAQgASgFEhYK",
             "Dm15X2FmdGVyX3Njb3JlGAUgASgFEhwKFG9wcG9uZW50X3NpbXBsZV9pbmZv",
@@ -46,7 +46,7 @@ namespace Tech.Hive.V1 {
             "Cg9QdnBNYXRjaFJlcXVlc3QSMgoMbWF0Y2hfcmVzdWx0GAEgASgOMhwudGVj",
             "aC5oaXZlLnYxLlB2cE1hdGNoUmVzdWx0EhoKEm9wcG9uZW50X3BsYXllcl9p",
             "ZBgCIAEoCRIcChRvcHBvbmVudF9zaW1wbGVfaW5mbxgDIAEoCRIVCghtYXRj",
-            "aF9pZBgEIAEoCUgAiAEBEhYKDm15X3NpbXBsZV9pbmZvGAUgASgJQgsKCV9t",
+            "aF9pZBgEIAEoBUgAiAEBEhYKDm15X3NpbXBsZV9pbmZvGAUgASgJQgsKCV9t",
             "YXRjaF9pZCLiAQoQUHZwTWF0Y2hSZXNwb25zZRIsCgZzdGF0dXMYASABKAsy",
             "HC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSFgoObXlfZGVsdGFfc2Nv",
             "cmUYAiABKAUSGAoQbXlfY3VycmVudF9zY29yZRgDIAEoBRIXCg9teV9jdXJy",
@@ -66,31 +66,34 @@ namespace Tech.Hive.V1 {
             "X2luZm9CDQoLX2hlYXZ5X2luZm8iUQoXUHZwVXBkYXRlUHJvZmlsZVJlcXVl",
             "c3QSDQoFcG93ZXIYASABKAkSEwoLc2ltcGxlX2luZm8YAiABKAkSEgoKaGVh",
             "dnlfaW5mbxgDIAEoCSJIChhQdnBVcGRhdGVQcm9maWxlUmVzcG9uc2USLAoG",
-            "c3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzIhcK",
-            "FVB2cExpc3RQdnBSYW5rUmVxdWVzdCLbAQoWUHZwTGlzdFB2cFJhbmtSZXNw",
-            "b25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VT",
-            "dGF0dXMSJgoEbWV0YRgCIAEoCzIYLnRlY2guaGl2ZS52MS5DdXJzb3JNZXRh",
-            "EjEKC3B2cF9yYW5rZXJzGAMgAygLMhwudGVjaC5oaXZlLnYxLlB2cFJhbmtp",
-            "bmdEYXRhEjgKEG15X3B2cF9yYW5rX2RhdGEYBCABKAsyHi50ZWNoLmhpdmUu",
-            "djEuTXlQdnBSYW5raW5nRGF0YSotChhTdGthdXRvUFZQUmVzcG9uc2VTdGF0",
-            "dXMSEQoNUFZQX1VOREVGSU5FRBAAKmEKDlB2cE1hdGNoUmVzdWx0Eg8KC1VO",
-            "U1BFQ0lGSUVEEAASBwoDV0lOEAESCAoETE9TRRACEggKBERSQVcQAxIPCgtS",
-            "RVZFTkdFX1dJThAEEhAKDFJFVkVOR0VfTE9TRRAFMoUFChFTdGthdXRvUHZw",
-            "U2VydmljZRJOCgdHZXRJbmZvEh8udGVjaC5oaXZlLnYxLlB2cEdldEluZm9S",
-            "ZXF1ZXN0GiAudGVjaC5oaXZlLnYxLlB2cEdldEluZm9SZXNwb25zZSIAElQK",
-            "CUxpc3RNYXRjaBIhLnRlY2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hSZXF1ZXN0",
-            "GiIudGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaFJlc3BvbnNlIgASSAoFTWF0",
-            "Y2gSHS50ZWNoLmhpdmUudjEuUHZwTWF0Y2hSZXF1ZXN0Gh4udGVjaC5oaXZl",
-            "LnYxLlB2cE1hdGNoUmVzcG9uc2UiABJpChBMaXN0TWF0Y2hIaXN0b3J5Eigu",
-            "dGVjaC5oaXZlLnYxLlB2cExpc3RNYXRjaEhpc3RvcnlSZXF1ZXN0GikudGVj",
-            "aC5oaXZlLnYxLlB2cExpc3RNYXRjaEhpc3RvcnlSZXNwb25zZSIAElcKCkdl",
-            "dFByb2ZpbGUSIi50ZWNoLmhpdmUudjEuUHZwR2V0UHJvZmlsZVJlcXVlc3Qa",
-            "Iy50ZWNoLmhpdmUudjEuUHZwR2V0UHJvZmlsZVJlc3BvbnNlIgASYAoNVXBk",
-            "YXRlUHJvZmlsZRIlLnRlY2guaGl2ZS52MS5QdnBVcGRhdGVQcm9maWxlUmVx",
-            "dWVzdBomLnRlY2guaGl2ZS52MS5QdnBVcGRhdGVQcm9maWxlUmVzcG9uc2Ui",
-            "ABJaCgtMaXN0UHZwUmFuaxIjLnRlY2guaGl2ZS52MS5QdnBMaXN0UHZwUmFu",
-            "a1JlcXVlc3QaJC50ZWNoLmhpdmUudjEuUHZwTGlzdFB2cFJhbmtSZXNwb25z",
-            "ZSIAYgZwcm90bzM="));
+            "c3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzImcK",
+            "FVB2cExpc3RQdnBSYW5rUmVxdWVzdBIoCgZjdXJzb3IYASABKAsyGC50ZWNo",
+            "LmhpdmUudjEuQ3Vyc29ySW5mbxIWCglzZWFzb25faWQYAiABKAlIAIgBAUIM",
+            "Cgpfc2Vhc29uX2lkItsBChZQdnBMaXN0UHZwUmFua1Jlc3BvbnNlEiwKBnN0",
+            "YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxImCgRt",
+            "ZXRhGAIgASgLMhgudGVjaC5oaXZlLnYxLkN1cnNvck1ldGESMQoLcHZwX3Jh",
+            "bmtlcnMYAyADKAsyHC50ZWNoLmhpdmUudjEuUHZwUmFua2luZ0RhdGESOAoQ",
+            "bXlfcHZwX3JhbmtfZGF0YRgEIAEoCzIeLnRlY2guaGl2ZS52MS5NeVB2cFJh",
+            "bmtpbmdEYXRhKm4KGFN0a2F1dG9QVlBSZXNwb25zZVN0YXR1cxIRCg1QVlBf",
+            "VU5ERUZJTkVEEAASIwoeUFZQX1JFVkVOR0VfTk9UX0ZPVU5EX01BVENIX0lE",
+            "ELZ/EhoKFVBWUF9QUk9GSUxFX05PVF9GT1VORBCtfyphCg5QdnBNYXRjaFJl",
+            "c3VsdBIPCgtVTlNQRUNJRklFRBAAEgcKA1dJThABEggKBExPU0UQAhIICgRE",
+            "UkFXEAMSDwoLUkVWRU5HRV9XSU4QBBIQCgxSRVZFTkdFX0xPU0UQBTKFBQoR",
+            "U3RrYXV0b1B2cFNlcnZpY2USTgoHR2V0SW5mbxIfLnRlY2guaGl2ZS52MS5Q",
+            "dnBHZXRJbmZvUmVxdWVzdBogLnRlY2guaGl2ZS52MS5QdnBHZXRJbmZvUmVz",
+            "cG9uc2UiABJUCglMaXN0TWF0Y2gSIS50ZWNoLmhpdmUudjEuUHZwTGlzdE1h",
+            "dGNoUmVxdWVzdBoiLnRlY2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hSZXNwb25z",
+            "ZSIAEkgKBU1hdGNoEh0udGVjaC5oaXZlLnYxLlB2cE1hdGNoUmVxdWVzdBoe",
+            "LnRlY2guaGl2ZS52MS5QdnBNYXRjaFJlc3BvbnNlIgASaQoQTGlzdE1hdGNo",
+            "SGlzdG9yeRIoLnRlY2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hIaXN0b3J5UmVx",
+            "dWVzdBopLnRlY2guaGl2ZS52MS5QdnBMaXN0TWF0Y2hIaXN0b3J5UmVzcG9u",
+            "c2UiABJXCgpHZXRQcm9maWxlEiIudGVjaC5oaXZlLnYxLlB2cEdldFByb2Zp",
+            "bGVSZXF1ZXN0GiMudGVjaC5oaXZlLnYxLlB2cEdldFByb2ZpbGVSZXNwb25z",
+            "ZSIAEmAKDVVwZGF0ZVByb2ZpbGUSJS50ZWNoLmhpdmUudjEuUHZwVXBkYXRl",
+            "UHJvZmlsZVJlcXVlc3QaJi50ZWNoLmhpdmUudjEuUHZwVXBkYXRlUHJvZmls",
+            "ZVJlc3BvbnNlIgASWgoLTGlzdFB2cFJhbmsSIy50ZWNoLmhpdmUudjEuUHZw",
+            "TGlzdFB2cFJhbmtSZXF1ZXN0GiQudGVjaC5oaXZlLnYxLlB2cExpc3RQdnBS",
+            "YW5rUmVzcG9uc2UiAGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.StkautoPVPResponseStatus), typeof(global::Tech.Hive.V1.PvpMatchResult), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -111,7 +114,7 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpGetProfileResponse), global::Tech.Hive.V1.PvpGetProfileResponse.Parser, new[]{ "Status", "SimpleInfo", "HeavyInfo" }, new[]{ "SimpleInfo", "HeavyInfo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileRequest), global::Tech.Hive.V1.PvpUpdateProfileRequest.Parser, new[]{ "Power", "SimpleInfo", "HeavyInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpUpdateProfileResponse), global::Tech.Hive.V1.PvpUpdateProfileResponse.Parser, new[]{ "Status" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankRequest), global::Tech.Hive.V1.PvpListPvpRankRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankRequest), global::Tech.Hive.V1.PvpListPvpRankRequest.Parser, new[]{ "Cursor", "SeasonId" }, new[]{ "SeasonId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.PvpListPvpRankResponse), global::Tech.Hive.V1.PvpListPvpRankResponse.Parser, new[]{ "Status", "Meta", "PvpRankers", "MyPvpRankData" }, null, null, null, null)
           }));
     }
@@ -124,6 +127,14 @@ namespace Tech.Hive.V1 {
     /// 미사용
     /// </summary>
     [pbr::OriginalName("PVP_UNDEFINED")] PvpUndefined = 0,
+    /// <summary>
+    /// 복수전 상대방 매치 아이디가 없음  
+    /// </summary>
+    [pbr::OriginalName("PVP_REVENGE_NOT_FOUND_MATCH_ID")] PvpRevengeNotFoundMatchId = 16310,
+    /// <summary>
+    /// 프로필을 찾을 수 없음
+    /// </summary>
+    [pbr::OriginalName("PVP_PROFILE_NOT_FOUND")] PvpProfileNotFound = 16301,
   }
 
   public enum PvpMatchResult {
@@ -1006,13 +1017,13 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "match_id" field.</summary>
     public const int MatchIdFieldNumber = 1;
-    private string matchId_ = "";
+    private int matchId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string MatchId {
+    public int MatchId {
       get { return matchId_; }
       set {
-        matchId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        matchId_ = value;
       }
     }
 
@@ -1119,7 +1130,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (MatchId.Length != 0) hash ^= MatchId.GetHashCode();
+      if (MatchId != 0) hash ^= MatchId.GetHashCode();
       if (MatchTime != 0L) hash ^= MatchTime.GetHashCode();
       if (Result != global::Tech.Hive.V1.PvpMatchResult.Unspecified) hash ^= Result.GetHashCode();
       if (MyBeforeScore != 0) hash ^= MyBeforeScore.GetHashCode();
@@ -1143,9 +1154,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (MatchId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(MatchId);
+      if (MatchId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MatchId);
       }
       if (MatchTime != 0L) {
         output.WriteRawTag(16);
@@ -1177,9 +1188,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (MatchId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(MatchId);
+      if (MatchId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MatchId);
       }
       if (MatchTime != 0L) {
         output.WriteRawTag(16);
@@ -1211,8 +1222,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (MatchId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MatchId);
+      if (MatchId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MatchId);
       }
       if (MatchTime != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(MatchTime);
@@ -1241,7 +1252,7 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.MatchId.Length != 0) {
+      if (other.MatchId != 0) {
         MatchId = other.MatchId;
       }
       if (other.MatchTime != 0L) {
@@ -1274,8 +1285,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            MatchId = input.ReadString();
+          case 8: {
+            MatchId = input.ReadInt32();
             break;
           }
           case 16: {
@@ -1313,8 +1324,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            MatchId = input.ReadString();
+          case 8: {
+            MatchId = input.ReadInt32();
             break;
           }
           case 16: {
@@ -2484,6 +2495,7 @@ namespace Tech.Hive.V1 {
   {
     private static readonly pb::MessageParser<PvpMatchRequest> _parser = new pb::MessageParser<PvpMatchRequest>(() => new PvpMatchRequest());
     private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<PvpMatchRequest> Parser { get { return _parser; } }
@@ -2511,6 +2523,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PvpMatchRequest(PvpMatchRequest other) : this() {
+      _hasBits0 = other._hasBits0;
       matchResult_ = other.matchResult_;
       opponentPlayerId_ = other.opponentPlayerId_;
       opponentSimpleInfo_ = other.opponentSimpleInfo_;
@@ -2572,29 +2585,30 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "match_id" field.</summary>
     public const int MatchIdFieldNumber = 4;
-    private string matchId_;
+    private int matchId_;
     /// <summary>
     /// 복수일경우 원래 전투 매치 아이디
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string MatchId {
-      get { return matchId_ ?? ""; }
+    public int MatchId {
+      get { if ((_hasBits0 & 1) != 0) { return matchId_; } else { return 0; } }
       set {
-        matchId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        _hasBits0 |= 1;
+        matchId_ = value;
       }
     }
     /// <summary>Gets whether the "match_id" field is set</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool HasMatchId {
-      get { return matchId_ != null; }
+      get { return (_hasBits0 & 1) != 0; }
     }
     /// <summary>Clears the value of the "match_id" field</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void ClearMatchId() {
-      matchId_ = null;
+      _hasBits0 &= ~1;
     }
 
     /// <summary>Field number for the "my_simple_info" field.</summary>
@@ -2675,8 +2689,8 @@ namespace Tech.Hive.V1 {
         output.WriteString(OpponentSimpleInfo);
       }
       if (HasMatchId) {
-        output.WriteRawTag(34);
-        output.WriteString(MatchId);
+        output.WriteRawTag(32);
+        output.WriteInt32(MatchId);
       }
       if (MySimpleInfo.Length != 0) {
         output.WriteRawTag(42);
@@ -2705,8 +2719,8 @@ namespace Tech.Hive.V1 {
         output.WriteString(OpponentSimpleInfo);
       }
       if (HasMatchId) {
-        output.WriteRawTag(34);
-        output.WriteString(MatchId);
+        output.WriteRawTag(32);
+        output.WriteInt32(MatchId);
       }
       if (MySimpleInfo.Length != 0) {
         output.WriteRawTag(42);
@@ -2732,7 +2746,7 @@ namespace Tech.Hive.V1 {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(OpponentSimpleInfo);
       }
       if (HasMatchId) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MatchId);
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MatchId);
       }
       if (MySimpleInfo.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(MySimpleInfo);
@@ -2791,8 +2805,8 @@ namespace Tech.Hive.V1 {
             OpponentSimpleInfo = input.ReadString();
             break;
           }
-          case 34: {
-            MatchId = input.ReadString();
+          case 32: {
+            MatchId = input.ReadInt32();
             break;
           }
           case 42: {
@@ -2826,8 +2840,8 @@ namespace Tech.Hive.V1 {
             OpponentSimpleInfo = input.ReadString();
             break;
           }
-          case 34: {
-            MatchId = input.ReadString();
+          case 32: {
+            MatchId = input.ReadInt32();
             break;
           }
           case 42: {
@@ -4805,6 +4819,8 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PvpListPvpRankRequest(PvpListPvpRankRequest other) : this() {
+      cursor_ = other.cursor_ != null ? other.cursor_.Clone() : null;
+      seasonId_ = other.seasonId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -4812,6 +4828,45 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PvpListPvpRankRequest Clone() {
       return new PvpListPvpRankRequest(this);
+    }
+
+    /// <summary>Field number for the "cursor" field.</summary>
+    public const int CursorFieldNumber = 1;
+    private global::Tech.Hive.V1.CursorInfo cursor_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.CursorInfo Cursor {
+      get { return cursor_; }
+      set {
+        cursor_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "season_id" field.</summary>
+    public const int SeasonIdFieldNumber = 2;
+    private string seasonId_;
+    /// <summary>
+    /// 시즌 아이디
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string SeasonId {
+      get { return seasonId_ ?? ""; }
+      set {
+        seasonId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+    /// <summary>Gets whether the "season_id" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasSeasonId {
+      get { return seasonId_ != null; }
+    }
+    /// <summary>Clears the value of the "season_id" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearSeasonId() {
+      seasonId_ = null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4829,6 +4884,8 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(Cursor, other.Cursor)) return false;
+      if (SeasonId != other.SeasonId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4836,6 +4893,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (cursor_ != null) hash ^= Cursor.GetHashCode();
+      if (HasSeasonId) hash ^= SeasonId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4854,6 +4913,14 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (cursor_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Cursor);
+      }
+      if (HasSeasonId) {
+        output.WriteRawTag(18);
+        output.WriteString(SeasonId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -4864,6 +4931,14 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (cursor_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Cursor);
+      }
+      if (HasSeasonId) {
+        output.WriteRawTag(18);
+        output.WriteString(SeasonId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -4874,6 +4949,12 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (cursor_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Cursor);
+      }
+      if (HasSeasonId) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SeasonId);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -4885,6 +4966,15 @@ namespace Tech.Hive.V1 {
     public void MergeFrom(PvpListPvpRankRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.cursor_ != null) {
+        if (cursor_ == null) {
+          Cursor = new global::Tech.Hive.V1.CursorInfo();
+        }
+        Cursor.MergeFrom(other.Cursor);
+      }
+      if (other.HasSeasonId) {
+        SeasonId = other.SeasonId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4901,6 +4991,17 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10: {
+            if (cursor_ == null) {
+              Cursor = new global::Tech.Hive.V1.CursorInfo();
+            }
+            input.ReadMessage(Cursor);
+            break;
+          }
+          case 18: {
+            SeasonId = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -4916,6 +5017,17 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 10: {
+            if (cursor_ == null) {
+              Cursor = new global::Tech.Hive.V1.CursorInfo();
+            }
+            input.ReadMessage(Cursor);
+            break;
+          }
+          case 18: {
+            SeasonId = input.ReadString();
+            break;
+          }
         }
       }
     }

@@ -427,7 +427,7 @@ message UserPVPBattleDetailData{
   int32 player_lv = 108;       // 플레이어 레벨
   int32 battle_point = 109;       // 전투력
   int64 refresh_timestamp = 110;  // 갱신 시간
-  string match_id = 111;           // 매치 아이디 (매치 결과 저장용)
+  int32 match_id = 111;           // 매치 아이디 (매치 결과 저장용)
 
   UserPVPBattleDeckList pvp_deck_list = 130; // 유저 PVP 전투 배치 관련 정보 리스트
 }

@@ -193,7 +193,7 @@ namespace CookApps.AutoBattler
         // PVP 전투 결과를 전송
         public async UniTask<PvpMatchResponse> SendMatchPVPBattleResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData)
         {
-            var response = await GrpcManager.Instance.StkautoPvp.MatchPvp(result, opponentPlayerID, opponentSimpleData, "");
+            var response = await GrpcManager.Instance.StkautoPvp.MatchPvp(result, opponentPlayerID, opponentSimpleData, 0);
             if (response.IsError) return null;
 
             // 복수가 아닌 일반 매칭일 경우 매칭 결과 데이터 세팅
@@ -206,7 +206,7 @@ namespace CookApps.AutoBattler
         }
 
         public async UniTask<PvpMatchResponse> SendMatchPVPRevengeResult(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData,
-            string matchID)
+            int matchID)
         {
             var response = await GrpcManager.Instance.StkautoPvp.MatchPvp(result, opponentPlayerID, opponentSimpleData, matchID);
             if (response.IsError) return null;

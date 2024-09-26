@@ -6,6 +6,9 @@ import "base.proto";
 
 enum StkautoPVPResponseStatus {
   PVP_UNDEFINED = 0; // 미사용
+  
+  PVP_REVENGE_NOT_FOUND_MATCH_ID = 16310; // 복수전 상대방 매치 아이디가 없음  
+  PVP_PROFILE_NOT_FOUND = 16301; // 프로필을 찾을 수 없음
 }
 
 service StkautoPvpService {
@@ -75,7 +78,7 @@ enum PvpMatchResult {
 }
 
 message PvpMatchHistoryData {
-  string match_id = 1;
+  int32 match_id = 1;
   int64 match_time = 2; // UTC unix timestamp in seconds
   PvpMatchResult result = 3; // 전투 결과
   int32 my_before_score = 4; // 전투 전의 점수
@@ -112,7 +115,7 @@ message PvpMatchRequest {
   PvpMatchResult match_result = 1; // 전투 결과
   string opponent_player_id = 2; // 상대 플레이어 아이디
   string opponent_simple_info = 3; // 상대 간단 정보(전투이력용) / 매칭,전투이력 리스트에 사용 / 영웅,전투력,닉네임 등 기본정보포함 (gzip compressed) 
-  optional string match_id = 4; // 복수일경우 원래 전투 매치 아이디
+  optional int32 match_id = 4; // 복수일경우 원래 전투 매치 아이디
   string my_simple_info = 5; // 내 간단 정보(전투이력용) / 전투이력 리스트에 사용 / 영웅,전투력,닉네임 등 기본정보포함 (gzip compressed) 
 }
 
@@ -162,7 +165,8 @@ message PvpUpdateProfileResponse {
 
 
 message PvpListPvpRankRequest {
-  
+  CursorInfo cursor = 1;
+  optional string season_id = 2; // 시즌 아이디
 }
 
 

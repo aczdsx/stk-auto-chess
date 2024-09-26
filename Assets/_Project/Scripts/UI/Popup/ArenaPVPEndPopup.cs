@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
             var specTierData = SpecDataManager.Instance.GetPVPTierData(_matchResultData.MyCurrentTier);
 
             var detailDeckData = InGameManager.Instance.UserPvpBattleDeckList;
-            _isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
+            _isRevenge = detailDeckData.MatchId != 0;
 
             // 일반 데이터 세팅
             _tierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(specTierData.pvp_tier_type);

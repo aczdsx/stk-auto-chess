@@ -21,7 +21,7 @@ public class FlowStatePvpFail : StateBase
             var resultSimpleData = BMUtil.ConvertToJsonSerialize(simpleDeckData);
             //string gzipSimpleData = BMUtil.CompressStringToGzip(resultSimpleData);
 
-            var isRevenge = string.IsNullOrEmpty(detailDeckData.MatchId) == false;
+            var isRevenge = detailDeckData.MatchId > 0;
             // 전투 종료 API
             PvpMatchResponse matchResultData = null;
             if (isRevenge)

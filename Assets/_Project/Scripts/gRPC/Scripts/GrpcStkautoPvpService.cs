@@ -142,14 +142,14 @@ namespace CookApps.AutoBattler
         }
 
         // PVP 전투 결과 전송
-        public async UniTask<PvpMatchResponse> MatchPvp(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData, string matchID)
+        public async UniTask<PvpMatchResponse> MatchPvp(PvpMatchResult result, string opponentPlayerID, string opponentSimpleData, int matchID)
         {
             using var _ = GenericPool<PvpMatchRequest>.Get(out var request);
             request.MatchResult = result;
             request.OpponentPlayerId = opponentPlayerID;
             var userPVPSimpleData = UserDataManager.Instance.GetCurrentPVPSimpleProfileData(false);
             request.MySimpleInfo = BMUtil.ConvertToJsonSerialize(userPVPSimpleData);
-            if (string.IsNullOrWhiteSpace(matchID) == false) request.MatchId = matchID;
+            request.MatchId = matchID;
             request.OpponentSimpleInfo = BMUtil.CompressStringToGzip(opponentSimpleData);
 
             var response = await MatchAsync(request);

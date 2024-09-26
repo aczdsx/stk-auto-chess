@@ -258,7 +258,7 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.EndInGame();
             SceneTransition_Animator transition = SceneTransition_Animator.Create();
             UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
-            data.MatchId = "";
+            data.MatchId = 0;
             SceneLoading.GoToNextScene("InGame",
                 (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
                 transition).Forget();

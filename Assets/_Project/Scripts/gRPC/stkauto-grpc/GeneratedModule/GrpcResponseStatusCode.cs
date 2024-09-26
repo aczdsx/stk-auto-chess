@@ -65,6 +65,10 @@ namespace CookApps.AutoBattler
         /// 스펙 데이터가 없음
         public const uint Spec_SpecNotFound = 2100;
         // StkautoPVPResponseStatus ----------------------------------------------------
+        /// 복수전 상대방 매치 아이디가 없음
+        public const uint StkautoPVP_PvpRevengeNotFoundMatchId = 16310;
+        /// 프로필을 찾을 수 없음
+        public const uint StkautoPVP_PvpProfileNotFound = 16301;
         /// Response Status Code에 대한 설명을 반환합니다.
         public static string GetDescription(uint code) => code switch
         {
@@ -95,6 +99,8 @@ namespace CookApps.AutoBattler
             3002 => "Shop_RequiredCashCheck",
             3003 => "Shop_ShopIapInvalidError",
             2100 => "Spec_SpecNotFound",
+            16310 => "StkautoPVP_PvpRevengeNotFoundMatchId",
+            16301 => "StkautoPVP_PvpProfileNotFound",
             _ => "Unknown",
         };
         /// Response Status Code가 존재하는지 확인합니다.
@@ -127,6 +133,8 @@ namespace CookApps.AutoBattler
             Shop_RequiredCashCheck => true,
             Shop_ShopIapInvalidError => true,
             Spec_SpecNotFound => true,
+            StkautoPVP_PvpRevengeNotFoundMatchId => true,
+            StkautoPVP_PvpProfileNotFound => true,
             _ => false,
         };
     }
