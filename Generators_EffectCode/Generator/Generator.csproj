@@ -101,6 +101,16 @@
         <DesignTime>True</DesignTime>
         <DependentUpon>TemplateInheritOverrideFlagCollector.tt</DependentUpon>
       </Compile>
+      <Compile Update="CustomAttribute\T4\TemplateClassCollector.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>TemplateClassCollector.tt</DependentUpon>
+      </Compile>
+      <Compile Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagCollector.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>TemplateInheritOverrideFlagCollector.tt</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

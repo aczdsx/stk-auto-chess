@@ -319,7 +319,7 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (!statEffectCode.GetFlag().HasFlag(flag))
+                if (!statEffectCode.GetFlag().IsIncludeFlag(flag))
                 {
                     continue;
                 }
