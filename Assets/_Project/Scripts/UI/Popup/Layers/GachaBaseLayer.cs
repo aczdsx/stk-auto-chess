@@ -55,15 +55,17 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 가챠 시나리오 테이블 사용 시 코드 (old)
-            // int currentGachaCount = UserDataManager.Instance.UserBasicData.TotalGachaCount;
-            // var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, Defines.GACHA_1_TIME_COUNT);
-            // var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
+            // 가챠 시나리오 테이블 사용 시 코드
+            int currentGachaCount = UserDataManager.Instance.UserBasicData.TotalGachaCount;
+            var gachaScenarioList = SpecDataManager.Instance.GetGachaScenarioList(currentGachaCount, _currentSpecGachaData.gacha_count);
+            var resultGachaList = SpecDataManager.Instance.GetRewardItemListByGachaScenarioList(gachaScenarioList);
 
-            bool isOneTime = gachaCountType == GachaCountType.ONE;
+            // 일반 확률 가챠 테이블 사용 시 코드
+            //var resultGachaList = SpecDataManager.Instance.GetRandomPickGachaRewardItemList(_currentSpecGachaData.gacha_group_id, _currentSpecGachaData.gacha_count);
             
-            var resultGachaList = SpecDataManager.Instance.GetRandomPickGachaRewardItemList(_currentSpecGachaData.gacha_group_id, _currentSpecGachaData.gacha_count);
             if (resultGachaList == null || resultGachaList.Count <= 0) return;
+            
+            bool isOneTime = gachaCountType == GachaCountType.ONE;
             
             // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
             Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList, isOneTime);
