@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             
             _topPanelButton.onClick.AddListener(OnClickTopPanelButton);
 
-            SetRemainTime();
+            //SetRemainTime();
         }
 
         private void OnDisable()
