@@ -17283,6 +17283,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1316044614009244480}
     m_Modifications:
+    - target: {fileID: 3498240444815974087, guid: a2b9fc4e0ff009a4fa485a3ef1fa9e63, type: 3}
+      propertyPath: reactionType
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5512686988534721207, guid: a2b9fc4e0ff009a4fa485a3ef1fa9e63, type: 3}
       propertyPath: m_SizeDelta.x
       value: 75

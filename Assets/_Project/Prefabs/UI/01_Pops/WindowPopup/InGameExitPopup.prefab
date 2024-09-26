@@ -425,6 +425,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &2988061508088815798
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +513,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!222 &1391928033088728671
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -948,7 +950,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -6, y: 50.800003}
+  m_AnchoredPosition: {x: -9, y: 50.800003}
   m_SizeDelta: {x: 410, y: 86}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7007262699037072802
@@ -1022,6 +1024,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &6302261656983624323
 GameObject:
   m_ObjectHideFlags: 0
