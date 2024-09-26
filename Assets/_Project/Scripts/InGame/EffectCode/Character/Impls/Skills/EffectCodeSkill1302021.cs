@@ -17,7 +17,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // (최대 3명까지만 적용) "
 /// </summary>
 [UseEffectCodeIds(1302021)]
-public class EffectCodeSkill1302021 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1302021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _buffTime;

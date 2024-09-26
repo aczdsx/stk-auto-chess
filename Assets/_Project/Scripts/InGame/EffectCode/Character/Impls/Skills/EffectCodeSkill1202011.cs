@@ -16,7 +16,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 넉백 포함
 /// </summary>
 [UseEffectCodeIds(1202011)]
-public class EffectCodeSkill1202011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1202011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 

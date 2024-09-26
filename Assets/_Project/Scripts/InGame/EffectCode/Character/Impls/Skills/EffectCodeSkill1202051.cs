@@ -15,7 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //  그 주변 범위에는 작은 가시를 소환해 {2}%의 대미지를 준다. 
 /// </summary>
 [UseEffectCodeIds(1202051)]
-public class EffectCodeSkill1202051 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1202051 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _time;
     private ObfuscatorFloat _damageRate;

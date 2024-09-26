@@ -15,7 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 대미지 : 공격력 {0}%의 마법 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(1203011)]
-public class EffectCodeSkill1203011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1203011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
 

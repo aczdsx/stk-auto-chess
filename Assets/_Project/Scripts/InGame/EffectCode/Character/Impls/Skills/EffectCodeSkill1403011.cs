@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : 공격 범위에 잔열이 남아, {1}초 동안 초당 {2}%의 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(1403011)]
-public class EffectCodeSkill1403011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1403011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _durationTime;

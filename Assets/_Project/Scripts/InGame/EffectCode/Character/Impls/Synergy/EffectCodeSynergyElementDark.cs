@@ -8,7 +8,7 @@ using CookApps.BattleSystem;
 // 적군 스킬 쿹타임 감소 속도 {0}%감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyElementDark : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementDark : EffectCodeCharacterBase
 {
     public const int CodeId = 220401;
     private ObfuscatorFloat _statValue;

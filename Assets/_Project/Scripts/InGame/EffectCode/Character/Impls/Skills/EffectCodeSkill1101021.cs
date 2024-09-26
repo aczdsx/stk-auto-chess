@@ -12,7 +12,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 대미지 : 강한 일격을 가해 공격력 {0}%의 대미지를 준다."
 /// </summary>
 [UseEffectCodeIds(1101021)]
-public class EffectCodeSkill1101021 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1101021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 

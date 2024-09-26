@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 대미지 : 공격력 {0}%로 적을 {1}회 베어 대미지를 준다. 
 /// </summary>
 [UseEffectCodeIds(1105011)]
-public class EffectCodeSkill1105011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1105011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
     private ObfuscatorInt _attackCount;

@@ -7,7 +7,7 @@ using CookApps.BattleSystem;
 ///빛 시너지 캐릭터 특정 시간 동안 모든 상태 이상 면역
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyElementLight : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementLight : EffectCodeCharacterBase
 {
     public const int CodeId = 220301;
     private ObfuscatorFloat statValue;

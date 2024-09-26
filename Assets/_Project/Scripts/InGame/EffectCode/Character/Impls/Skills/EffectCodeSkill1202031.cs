@@ -16,7 +16,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : {1}초 동안 피격된 적의 공격속도를 {2}% 감소시킨다.
 /// </summary>
 [UseEffectCodeIds(1202031)]
-public class EffectCodeSkill1202031 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1202031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _durationTime;

@@ -1,0 +1,23 @@
+<#@ template debug="false" hostspecific="false" language="C#" linePragmas="false" #>
+<#@ import namespace="System.Linq" #>
+
+<# // 네임스페이스 적용 #>
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+namespace <#= Namespace #>
+{
+<# } #>
+
+partial class <#=Name#>
+{
+    private <#=EnumFlagName#> ____flag_generated = <#=EnumFlagName#>.None;
+    public override <#=EnumFlagName#> GetFlag()
+    {
+        if (____flag_generated == <#=EnumFlagName#>.None)
+            ____flag_generated = <# var lastFlag = Flags.Last(); foreach (var flag in Flags) { #> <#=EnumFlagName#>.<#=flag#><# if (flag != lastFlag) { #> | <# } #><# } #>;
+        return ____flag_generated;
+    }
+}
+
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+}
+<# } #>

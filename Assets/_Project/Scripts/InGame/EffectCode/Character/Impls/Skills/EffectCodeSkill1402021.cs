@@ -16,7 +16,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     개발용 대미지 계산식 : 아드리아 공격력*{0}*(1+물리 방어력/{1})
 /// </summary>
 [UseEffectCodeIds(1402021)]
-public class EffectCodeSkill1402021 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1402021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _defValue;

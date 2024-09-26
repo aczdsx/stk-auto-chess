@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeDebffHealRateDown : EffectCodeBuffBase
+public partial class EffectCodeDebffHealRateDown : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.HealDown;

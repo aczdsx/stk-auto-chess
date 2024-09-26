@@ -12,7 +12,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 효과 : 체력을 공격력 {0}%만큼 회복시킨다.
 /// </summary>
 [UseEffectCodeIds(1106041)]
-public class EffectCodeSkill1106041 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1106041 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
 

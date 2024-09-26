@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeDebffSilence : EffectCodeBuffBase
+public partial class EffectCodeDebffSilence : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.DEBUFF_SILENCE;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.Silence;

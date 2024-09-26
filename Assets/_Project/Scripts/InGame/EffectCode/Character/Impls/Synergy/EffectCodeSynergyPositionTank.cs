@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///탱커 타입 캐릭터 피격 시 스킬 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyPositionTank : EffectCodeCharacterBase
+public partial class EffectCodeSynergyPositionTank : EffectCodeCharacterBase
 {
     public const int CodeId = 210101;
     private ObfuscatorFloat statValue;

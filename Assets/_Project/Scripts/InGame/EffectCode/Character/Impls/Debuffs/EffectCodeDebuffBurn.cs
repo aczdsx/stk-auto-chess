@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeDebuffBurn : EffectCodeBuffBase
+public partial class EffectCodeDebuffBurn : EffectCodeBuffBase
 {
     public const int CodeId = (int) EffectCodeNameType.DEBUFF_FIRE;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.Burn;

@@ -19,7 +19,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// </summary>
 /// 
 [UseEffectCodeIds(1202071)]
-public class EffectCodeSkill1202071 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1202071 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _additionalDefValue;

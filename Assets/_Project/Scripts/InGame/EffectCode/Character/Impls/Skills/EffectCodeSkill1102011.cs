@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 특수 효과 : 뒤로 1칸 넉백 시킨다.
 /// </summary>
 [UseEffectCodeIds(1102011)]
-public class EffectCodeSkill1102011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1102011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 

@@ -19,7 +19,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     개발 사이드 필요 내용 : 튕긴 적에게 다시 튕기지는 않는다. "
 /// </summary>
 [UseEffectCodeIds(1405011)]
-public class EffectCodeSkill1405011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1405011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _decreasedPowerRate;

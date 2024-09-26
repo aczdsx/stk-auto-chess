@@ -15,7 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // *침묵 : 스킬 사용 불가능, 스킬 쿨타임 감소 정지
 /// </summary>
 [UseEffectCodeIds(1305011)]
-public class EffectCodeSkill1305011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1305011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _debuffRate;

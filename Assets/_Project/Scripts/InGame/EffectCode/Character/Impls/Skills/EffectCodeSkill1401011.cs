@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : 검기는 맵 끝까지 지속된다.
 /// </summary>
 [UseEffectCodeIds(1401011)]
-public class EffectCodeSkill1401011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1401011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 

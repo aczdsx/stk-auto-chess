@@ -6,7 +6,7 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlAirborne : EffectCodeCharacterBase
 {
     public const int CodeId = (int) EffectCodeNameType.AIRBORNE;
     public override bool IsRemoveWithSource => false;

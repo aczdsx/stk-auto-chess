@@ -9,7 +9,7 @@ using UnityEngine;
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
-    public class EffectCodeChapterRuleIce : EffectCodeGameBase
+    public partial class EffectCodeChapterRuleIce : EffectCodeGameBase
     {
         public class CharacterInfo
         {

@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 물리/마법 방어력을 {2}% 감소시킨다."
 /// </summary>
 [UseEffectCodeIds(1406021)]
-public class EffectCodeSkill1406021 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1406021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _healRate;
     private ObfuscatorFloat _buffTime;

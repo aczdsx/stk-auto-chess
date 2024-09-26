@@ -8,7 +8,7 @@ using UnityEngine.Pool;
 // 검기 대미지 : 공격력의 {0}%"
 /// </summary>
 [UseEffectCodeIds(401012, 401013)]
-public class EffectCodeSkillAura : EffectCodeCharacterBase
+public partial class EffectCodeSkillAura : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat power;

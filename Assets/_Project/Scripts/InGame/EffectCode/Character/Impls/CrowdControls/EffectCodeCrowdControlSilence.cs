@@ -3,7 +3,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeCrowdControlSilence : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlSilence : EffectCodeCharacterBase
 {
     public const int CodeId = (int)EffectCodeNameType.SILENCE;
     public override bool IsRemoveWithSource { get => false; }

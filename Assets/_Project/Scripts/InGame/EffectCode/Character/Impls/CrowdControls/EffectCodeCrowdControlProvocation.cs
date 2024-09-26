@@ -4,7 +4,7 @@ using CookApps.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-public class EffectCodeCrowdControlProvocation : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlProvocation : EffectCodeCharacterBase
 {
     public override bool IsRemoveWithSource { get => true; }
     public override EffectCodeType Type { get => EffectCodeType.CrowdControl; }

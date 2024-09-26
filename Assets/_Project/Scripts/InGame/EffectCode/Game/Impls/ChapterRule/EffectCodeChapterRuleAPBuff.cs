@@ -6,7 +6,7 @@ using CookApps.Obfuscator;
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
-    public class EffectCodeChapterRuleAP : EffectCodeGameBase
+    public partial class EffectCodeChapterRuleAP : EffectCodeGameBase
     {
         private float _abilUpRate;
         private const EffectCodeNameType BuffEffectCodeID = EffectCodeNameType.BUFF_AP_PERCENT_UP;

@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     독침은 적에게 피격될 시 후방으로 다시 분열되어 날라가 {3}%의 대미지를 준다. "
 /// </summary>
 [UseEffectCodeIds(1201031)]
-public class EffectCodeSkill1201031 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1201031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _debuffTime;

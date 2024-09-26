@@ -2,7 +2,7 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-public class EffectCodeCrowdControlSlowing : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlSlowing : EffectCodeCharacterBase
 {
     public override bool IsRemoveWithSource { get => false; }
     public override EffectCodeType Type { get => EffectCodeType.CrowdControl; }

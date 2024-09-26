@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 효과 : 아군 전체의 체력을 엔키 공격력 {0}%만큼 회복시키고 {1}초 동안 공격 속도를 {2}% 만큼 증가시킨다.
 /// </summary>
 [UseEffectCodeIds(1406011)]
-public class EffectCodeSkill1406011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1406011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _healRate;
     private ObfuscatorFloat _buffTime;

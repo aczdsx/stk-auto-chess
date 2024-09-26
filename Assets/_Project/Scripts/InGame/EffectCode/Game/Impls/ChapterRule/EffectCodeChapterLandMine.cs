@@ -6,7 +6,7 @@ using CookApps.Obfuscator;
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
-    public class EffectCodeChapterLandMine : EffectCodeGameBase
+    public partial class EffectCodeChapterLandMine : EffectCodeGameBase
     {
         private const int CodeId = (int) EffectCodeNameType.CHAPTER_LANDMINE;
         Dictionary<InGameTile, InGameVfx> _chapterRuleTiles = new Dictionary<InGameTile, InGameVfx>();

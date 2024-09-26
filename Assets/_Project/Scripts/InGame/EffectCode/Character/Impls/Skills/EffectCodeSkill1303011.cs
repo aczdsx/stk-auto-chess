@@ -15,7 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : 적이 디버프 상태인 경우, 공격력 {1}%의 추가 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(1303011)]
-public class EffectCodeSkill1303011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1303011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _additionalDamageRate;

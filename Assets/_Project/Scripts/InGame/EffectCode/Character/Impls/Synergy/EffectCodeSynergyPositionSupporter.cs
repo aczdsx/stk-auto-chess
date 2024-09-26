@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///서포터 타입 스킬 사용 공격력 가장 높은 아군 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyPositionSupporter : EffectCodeCharacterBase
+public partial class EffectCodeSynergyPositionSupporter : EffectCodeCharacterBase
 {
     public const int CodeId = 210501;
     private ObfuscatorFloat statValue;

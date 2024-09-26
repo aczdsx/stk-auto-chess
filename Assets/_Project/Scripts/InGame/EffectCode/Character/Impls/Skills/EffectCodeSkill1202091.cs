@@ -16,7 +16,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 개발 관련 사항 : 5챕터 몬스터와 스킬 완전 동일"
 /// </summary>
 [UseEffectCodeIds(1202091)]
-public class EffectCodeSkill1202091 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _time;
     private ObfuscatorFloat _damageRate;

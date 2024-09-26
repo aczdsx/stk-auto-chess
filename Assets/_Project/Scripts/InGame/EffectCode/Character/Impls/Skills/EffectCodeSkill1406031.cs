@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 효과 : 아란 공격력 {0}%만큼 체력을 회복시키고, 물리, 마법 방어력을 {1}만큼 추가한다. "
 /// </summary>
 [UseEffectCodeIds(1406031)]
-public class EffectCodeSkill1406031 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1406031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _healRate;
     private ObfuscatorFloat _buffTime;

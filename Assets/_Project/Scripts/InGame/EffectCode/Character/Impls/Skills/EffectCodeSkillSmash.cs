@@ -8,7 +8,7 @@ using UnityEngine.Pool;
 /// {0}초마다 적을 강타하여 공격력의 {1}%의 물리 피해를 입히고, 주변 적에게는 공격력의 {2}%의 물리 피해를 입힙니다.
 /// </summary>
 [UseEffectCodeIds(10101)]
-public class EffectCodeSkillSmash : EffectCodeCharacterBase
+public partial class EffectCodeSkillSmash : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat power;

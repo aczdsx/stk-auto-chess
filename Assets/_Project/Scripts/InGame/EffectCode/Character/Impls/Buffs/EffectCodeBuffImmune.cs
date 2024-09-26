@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeBuffImmune : EffectCodeBuffBase
+public partial class EffectCodeBuffImmune : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.BUFF_IMMUNE;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.Immune;

@@ -22,7 +22,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     아군에게는 대미지와 스턴이 적용되지 않음. "
 /// </summary>
 [UseEffectCodeIds(1401021)]
-public class EffectCodeSkill1401021 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1401021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _resRate;

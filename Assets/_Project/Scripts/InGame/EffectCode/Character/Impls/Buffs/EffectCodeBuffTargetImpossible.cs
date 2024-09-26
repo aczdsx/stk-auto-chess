@@ -6,7 +6,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeBuffTargetImpossible : EffectCodeBuffBase
+public partial class EffectCodeBuffTargetImpossible : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.TARGET_IMPOSSIBLE;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.TargetImpossible;

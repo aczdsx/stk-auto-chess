@@ -15,7 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 대미지 : 바닥에서 가시를 소환해 공격력 {0}%의 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(1103041)]
-public class EffectCodeSkill1103041 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1103041 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
 

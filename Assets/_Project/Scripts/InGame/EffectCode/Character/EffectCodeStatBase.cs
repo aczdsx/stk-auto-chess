@@ -55,41 +55,17 @@ namespace CookApps.BattleSystem
         UseOnSkill = 1L << 53,
         UseOnCombatStart = 1L << 54,
         #endregion
+        MAX = 1L << 55,
     };
 
     public static class EffectCodeInheritFlagExtensions
     {
-        private static Dictionary<Type, EffectCodeInheritFlag> flagDict = new ();
         private static EffectCodeInheritFlag[] allFlagTypes;
         private static EffectCodeInheritFlag allFlags = EffectCodeInheritFlag.None;
 
-        public static EffectCodeInheritFlag GetFlag(this EffectCodeStatBase src)
+        public static bool IsIncludeFlag(this EffectCodeInheritFlag src, EffectCodeInheritFlag flag)
         {
-            if (flagDict.TryGetValue(src.GetType(), out EffectCodeInheritFlag flag))
-            {
-                return flag;
-            }
-
-            flag = EffectCodeInheritFlag.None;
-            Type type = src.GetType();
-            MethodInfo[] methods = type.GetMethods();
-            foreach (MethodInfo method in methods)
-            {
-                if (method.DeclaringType != method.GetBaseDefinition().DeclaringType)
-                {
-                    object[] attrs = method.GetCustomAttributes(typeof(AssignEffectCodeFlagAttribute), true);
-                    if (attrs.Length <= 0)
-                    {
-                        continue;
-                    }
-
-                    var attr = attrs[0] as AssignEffectCodeFlagAttribute;
-                    flag |= attr?.Flag ?? EffectCodeInheritFlag.None;
-                }
-            }
-
-            flagDict.Add(src.GetType(), flag);
-            return flag;
+            return (src & flag) == flag;
         }
 
         public static void AddFlag(this ref EffectCodeInheritFlag src, EffectCodeInheritFlag flag)
@@ -106,16 +82,19 @@ namespace CookApps.BattleSystem
         {
             return allFlagTypes ??= Enum.GetValues(typeof(EffectCodeInheritFlag)).Cast<EffectCodeInheritFlag>().ToArray();
         }
-
-        public static IEnumerable<EffectCodeInheritFlag> GetUniqueFlags(this EffectCodeInheritFlag src)
+    
+        public static void GetUniqueFlags(this EffectCodeInheritFlag src, List<EffectCodeInheritFlag> result)
         {
-            IReadOnlyList<EffectCodeInheritFlag> allFlagTypes = GetAllFlagTypes();
-            foreach (EffectCodeInheritFlag flagType in allFlagTypes)
+            ulong flagInt = 1;
+            while (flagInt != (ulong)EffectCodeInheritFlag.MAX)
             {
-                if (src.HasFlag(flagType))
+                var flag = (EffectCodeInheritFlag)flagInt;
+                if (src.IsIncludeFlag(flag))
                 {
-                    yield return flagType;
+                    result.Add(flag);
                 }
+
+                flagInt <<= 1;
             }
         }
 
@@ -138,16 +117,18 @@ namespace CookApps.BattleSystem
 
     public class AssignEffectCodeFlagAttribute : Attribute
     {
-        public EffectCodeInheritFlag Flag { get; private set; }
-
         public AssignEffectCodeFlagAttribute(EffectCodeInheritFlag flag)
         {
-            Flag = flag;
         }
     }
 
     public abstract class EffectCodeStatBase : EffectCodeBase
     {
+        public virtual EffectCodeInheritFlag GetFlag()
+        {
+            return EffectCodeInheritFlag.None;
+        }
+
         public override EffectCodeType Type => EffectCodeType.Stat;
         public virtual int CalcOrder => 0;
 

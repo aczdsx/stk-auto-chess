@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 /// {0}초마다 {1}초간 {2} {3} 범위에 있는 동료의 공격력을 {4}% 증가시킵니다.
 /// </summary>
 [UseEffectCodeIds(10103)]
-public class EffectCodeSkillBless : EffectCodeCharacterBase
+public partial class EffectCodeSkillBless : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat buffDuration;

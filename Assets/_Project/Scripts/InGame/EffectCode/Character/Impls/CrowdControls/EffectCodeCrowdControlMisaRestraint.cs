@@ -6,7 +6,7 @@ using UnityEngine;
 using Vector3 = System.Numerics.Vector3;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeCrowdControlMisaRestraint : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlMisaRestraint : EffectCodeCharacterBase
 {
     public const int CodeId = (int)EffectCodeNameType.MISA_RESTRAINT;
     public override bool IsRemoveWithSource { get => false; }

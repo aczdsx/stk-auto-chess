@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 특수 효과 : 피격된 적은 두 칸 거리만큼 넉백된다.
 /// </summary>
 [UseEffectCodeIds(1404021)]
-public class EffectCodeSkill1404021 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1404021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 

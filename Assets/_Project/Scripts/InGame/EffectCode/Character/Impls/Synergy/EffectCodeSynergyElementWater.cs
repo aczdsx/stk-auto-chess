@@ -8,7 +8,7 @@ using CookApps.BattleSystem;
 ///평균 공격력 {0}%의 보호막 생성
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyElementWater : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementWater : EffectCodeCharacterBase
 {
     public const int CodeId = 220201;
     private ObfuscatorFloat _statValue;

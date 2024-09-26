@@ -1,0 +1,117 @@
+<#@ template debug="false" hostspecific="false" language="C#" linePragmas="false" #>
+
+<# // 네임스페이스 적용 #>
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+namespace <#= Namespace #>
+{
+<# } #>
+<#
+var hasAsync = false;
+for (var i = 0; i < Source.InitializeAttributes.Count; i++)
+{
+    if (Source.InitializeAttributes[i].IsAsync)
+    {
+        hasAsync = true;
+        break;
+    }
+}
+#>
+
+partial class <#=Name#>
+{
+    private 
+<#if (hasAsync) {#>
+async <# if (HasUniTask) { #>Cysharp.Threading.Tasks.UniTask<# } else { #>System.Threading.Tasks.Task<# } #>
+<# } else { #>
+void
+<# } #>
+CallAllInitialize(System.Collections.Generic.Dictionary<<#=DataCategoryEnumName#>, string> data)
+    {
+<#
+        foreach (var method in Source.InitializeAttributes)
+        {
+#>
+        {
+<#
+                if (method.Category == "DataCategory.None")
+                {
+#>
+<#
+                        if (method.IsAsync)
+                        {
+#>
+            // priority : <#=method.Priority#>
+            await <#=method.MethodName#>();
+        
+<#
+                        }
+                        else
+                        {
+#>
+            // priority : <#=method.Priority#>
+            <#=method.MethodName#>();
+<#
+                        }
+#>
+<#
+                }
+                else
+                {
+#>
+            data.TryGetValue(<# if (!string.IsNullOrEmpty(DataCategoryEnumNamespace)) {#><#=DataCategoryEnumNamespace#>.<# } #><#=method.Category#>, out var value);
+<#
+                        if (method.IsAsync)
+                        {
+#>
+            // priority : <#=method.Priority#>
+            await <#=method.MethodName#>(value);
+        
+<#
+                        }
+                        else
+                        {
+#>
+            // priority : <#=method.Priority#>
+            <#=method.MethodName#>(value);
+<#
+                        }
+#>
+<#
+                }
+#>
+        }
+<#
+        }
+#>
+    }
+
+    private void CallAllInitializeEffectCode()
+    {
+<#
+        foreach (var method in Source.InitializeEffectCodeAttributes)
+        {
+#>
+        // priority : <#=method.Priority#>
+        <#=method.MethodName#>();
+<#
+        }
+#>
+    }
+
+    private void CallAllInitializeOwnContents()
+    {
+<#
+        foreach (var method in Source.InitializeOwnContentsAttributes)
+        {
+#>
+        // priority : <#=method.Priority#>
+        <#=method.MethodName#>();
+<#
+        }
+#>
+    }
+}
+
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+}
+<# } #>

@@ -5,7 +5,7 @@ using CookApps.BattleSystem;
 ///
 /// </summary>
 [UseEffectCodeIds()]
-public class EffectCodeSkillTemplate : EffectCodeCharacterBase
+public partial class EffectCodeSkillTemplate : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
 

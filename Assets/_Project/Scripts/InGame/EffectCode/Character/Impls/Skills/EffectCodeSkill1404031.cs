@@ -17,7 +17,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 추가 효과 : 범위 내 적이 1명인 경우 적에게 모든 포탄을 발사한다. 
 /// </summary>
 [UseEffectCodeIds(1404031)]
-public class EffectCodeSkill1404031 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1404031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
     private ObfuscatorFloat _additionalDamageRate;

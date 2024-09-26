@@ -9,6 +9,11 @@ using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
+    [AttributeUsage(AttributeTargets.Class)]
+    public class GenerateUserDataInitializerAttribute : Attribute
+    { }
+
+    [GenerateUserDataInitializer]
     public partial class UserDataManager : Singleton<UserDataManager>
     {
         /// <summary>
@@ -33,10 +38,33 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 으로 선언할 것!
+        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 로 선언할 것!
+        /// UniTask 비동기 반환 필요합니다.
+        /// Initialize 다음에 호출됩니다.
         /// </summary>
-        private class AfterInitializeAttribute : Attribute
+        [AttributeUsage(AttributeTargets.Method)]
+        public class InitializeEffectCodeAttribute : Attribute
         {
+            public int Priority { get; }
+            public InitializeEffectCodeAttribute(int priority = 0)
+            {
+                Priority = priority;
+            }
+        }
+
+        /// <summary>
+        /// 해당 어트리뷰트 사용하는 함수는 반드시 private 로 선언할 것!
+        /// InitializeEffectCode 다음에 호출됩니다.
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Method)]
+        public class InitializeOwnContentsAttribute : Attribute
+        {
+            public int Priority { get; }
+
+            public InitializeOwnContentsAttribute(int priority = 0)
+            {
+                Priority = priority;
+            }
         }
 
         /// <summary>
@@ -61,11 +89,7 @@ namespace CookApps.AutoBattler
                     var priority = initializeAttribute.Priority;
 
                     methods.Add((category, priority, method));
-                    continue;
                 }
-
-                var afterInitializeAttribute = method.GetCustomAttribute<AfterInitializeAttribute>(false);
-                if (afterInitializeAttribute != null) afterInitializeMethods.Add(method);
             }
 
             var tryCount = 0;
@@ -75,38 +99,33 @@ namespace CookApps.AutoBattler
                 return false;
 
             // 받은 정보 중에 없는 카테고리는 기본값으로 채워준다.
-            Dictionary<string, string> userDatas = new();
+            Dictionary<DataCategory, string> userDatas = new();
             {
-                foreach (var palyerData in resp.Data.ItemList)
+                foreach (var playerData in resp.Data.ItemList)
                 {
-                    if (string.IsNullOrEmpty(palyerData.Data)) continue;
+                    if (string.IsNullOrEmpty(playerData.Data)) continue;
 
+                    DataCategory category = DataCategory.None;
                     for (var i = 0; i < allCategories.Count; i++)
-                        if (allCategories[i].ToCategoryString() == palyerData.Category)
+                    {
+                        if (allCategories[i].ToCategoryString() == playerData.Category)
                         {
                             allCategories.RemoveAt(i);
+                            category = allCategories[i];
                             break;
                         }
+                    }
 
-                    userDatas.Add(palyerData.Category, palyerData.Data);
+                    if (category != DataCategory.None)
+                        userDatas.Add(category, playerData.Data);
                 }
 
-                foreach (var category in allCategories) userDatas.Add(category.ToCategoryString(), string.Empty);
+                foreach (var category in allCategories) userDatas.Add(category, string.Empty);
             }
 
-            methods.Sort((x, y) => x.priority - y.priority);
-            foreach (var (category, _, method) in methods)
-                if (category == DataCategory.None)
-                {
-                    if (method.Invoke(this, Array.Empty<object>()) is UniTask task) await task;
-                }
-                else
-                {
-                    if (method.Invoke(this, new object[] { userDatas[category.ToCategoryString()] }) is UniTask task) await task;
-                }
-
-            foreach (var method in afterInitializeMethods) method.Invoke(this, null);
-
+            CallAllInitialize(userDatas);
+            CallAllInitializeEffectCode();
+            CallAllInitializeEffectCode();
             return true;
         }
         

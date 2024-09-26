@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 대미지 : 검기를 날려 범위 내 적들에게 공격력 {0}%의 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(1101031)]
-public class EffectCodeSkill1101031 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1101031 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
 

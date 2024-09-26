@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeBuffAtkSpeedUp : EffectCodeBuffBase
+public partial class EffectCodeBuffAtkSpeedUp : EffectCodeBuffBase
 {
     private const int CodeId = (int)EffectCodeNameType.BUFF_ATK_SPEED_UP;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.AttackSpeedUp;

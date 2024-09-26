@@ -6,7 +6,7 @@ using CookApps.Obfuscator;
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
-    public class EffectCodeTileFire : EffectCodeTileBase
+    public partial class EffectCodeTileFire : EffectCodeTileBase
     {
         private const int CodeId = (int)EffectCodeNameType.TILE_BURN;
         private ObfuscatorInt _ownerUID;

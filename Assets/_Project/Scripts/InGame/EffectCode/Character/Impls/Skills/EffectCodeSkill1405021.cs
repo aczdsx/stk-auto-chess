@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : 피격된 적에게 보호막이 있을 경우, 보호막이 즉시 파괴된다.
 /// </summary>
 [UseEffectCodeIds(1405021)]
-public class EffectCodeSkill1405021 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1405021 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
 

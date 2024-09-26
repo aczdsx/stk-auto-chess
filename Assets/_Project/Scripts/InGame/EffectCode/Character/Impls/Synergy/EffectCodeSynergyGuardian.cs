@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///가디언 타입 캐릭터 공격 시 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyGuardian : EffectCodeCharacterBase
+public partial class EffectCodeSynergyGuardian : EffectCodeCharacterBase
 {
     public const int CodeId = 210001;
     private ObfuscatorFloat statValue;

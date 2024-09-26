@@ -7,7 +7,7 @@ using CookApps.BattleSystem;
 ///공격력 {0}% 추가 타격
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyElementFire : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementFire : EffectCodeCharacterBase
 {
     public const int CodeId = 220001;
     private ObfuscatorFloat statValue;

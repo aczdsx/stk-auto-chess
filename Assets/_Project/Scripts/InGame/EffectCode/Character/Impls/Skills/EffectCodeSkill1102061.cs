@@ -14,7 +14,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : {1}초 동안 스턴시킨다.
 /// </summary>
 [UseEffectCodeIds(1102061)]
-public class EffectCodeSkill1102061 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1102061 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _durationTime;

@@ -15,7 +15,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // {2}초 동안 스턴 상태를 부여한다. 
 /// </summary>
 [UseEffectCodeIds(1202061)]
-public class EffectCodeSkill1202061 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1202061 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _time;
     private ObfuscatorFloat _damageRate;

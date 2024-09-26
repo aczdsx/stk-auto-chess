@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///암살자 타입 캐릭터 적 처치 시 스킬 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
+public partial class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
 {
     public const int CodeId = 210401;
     private ObfuscatorFloat statValue;

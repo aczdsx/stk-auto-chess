@@ -8,7 +8,7 @@ using UnityEngine.TextCore.Text;
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
-    public class EffectCodeChapterRuleAD : EffectCodeGameBase
+    public partial class EffectCodeChapterRuleAD : EffectCodeGameBase
     {
         private float _atkUpRate;
         private const int CodeId = (int)EffectCodeNameType.RULE_AD;

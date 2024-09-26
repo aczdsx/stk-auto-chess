@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeBuffShield : EffectCodeBuffBase
+public partial class EffectCodeBuffShield : EffectCodeBuffBase
 {
     public const int CodeId = (int)EffectCodeNameType.SHIELD;
 

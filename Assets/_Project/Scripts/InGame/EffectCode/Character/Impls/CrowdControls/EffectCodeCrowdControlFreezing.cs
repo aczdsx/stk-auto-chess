@@ -6,7 +6,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
 
-public class EffectCodeCrowdControlFreezing : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlFreezing : EffectCodeCharacterBase
 {
     public override bool IsRemoveWithSource { get => true; }
     public override EffectCodeType Type { get => EffectCodeType.CrowdControl; }

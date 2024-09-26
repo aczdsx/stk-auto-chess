@@ -10,7 +10,7 @@ using UnityEngine.Pool;
 /// {0}초마다 크게 소리쳐 {1}초간 {2} {3} 범위의 적들의 방어력을 {4}% 감소시킵니다.
 /// </summary>
 [UseEffectCodeIds(10102)]
-public class EffectCodeSkillHowling : EffectCodeCharacterBase
+public partial class EffectCodeSkillHowling : EffectCodeCharacterBase
 {
     private ObfuscatorFloat cooltime;
     private ObfuscatorFloat debuffDuration;

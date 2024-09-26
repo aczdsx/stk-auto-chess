@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 효과 : 공격력을 {0}초 동안 {1}% 증가시킨다.
 /// </summary>
 [UseEffectCodeIds(1306011)]
-public class EffectCodeSkill1306011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1306011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _duration;
     private ObfuscatorFloat _atkUpRate;

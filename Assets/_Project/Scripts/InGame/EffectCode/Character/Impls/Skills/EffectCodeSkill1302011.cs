@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 // 효과 : 아군에게 {0}초 동안 멘샤 공격력 {1}%의 실드를 부여한다.
 /// </summary>
 [UseEffectCodeIds(1302011)]
-public class EffectCodeSkill1302011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1302011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _shieldRate;
     private ObfuscatorFloat _shieldDurationTime;

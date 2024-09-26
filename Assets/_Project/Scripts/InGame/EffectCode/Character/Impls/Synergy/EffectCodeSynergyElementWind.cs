@@ -8,7 +8,7 @@ using CookApps.BattleSystem;
 // (물리, 마법) 방어력 증가   
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyElementWind : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementWind : EffectCodeCharacterBase
 {
     public const int CodeId = 220501;
     private ObfuscatorFloat _statValue;

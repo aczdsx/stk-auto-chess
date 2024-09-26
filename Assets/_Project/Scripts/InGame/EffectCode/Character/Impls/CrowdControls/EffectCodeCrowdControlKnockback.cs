@@ -6,7 +6,7 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 {
     public const int CodeId = (int) EffectCodeNameType.KNOCKBACK;
     public override bool IsRemoveWithSource => false;

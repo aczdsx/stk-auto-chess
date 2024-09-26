@@ -3,7 +3,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
 [UseEffectCodeIds((int)EffectCodeNameType.AD_PERCENT_UP)]
-public class EffectCodeStatIncreaseADPercent : EffectCodeStatBase
+public partial class EffectCodeStatIncreaseADPercent : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }
 

@@ -6,7 +6,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
 
-public class EffectCodeCrowdControlEntangle : EffectCodeCharacterBase
+public partial class EffectCodeCrowdControlEntangle : EffectCodeCharacterBase
 {
     public override bool IsRemoveWithSource { get => false; }
     public override EffectCodeType Type { get => EffectCodeType.CrowdControl; }

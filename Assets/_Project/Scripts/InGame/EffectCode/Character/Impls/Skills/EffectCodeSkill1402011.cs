@@ -12,7 +12,7 @@ using UnityEngine;
 // 스킬 쿨타임이 흐르지 않는다. 
 /// </summary>
 [UseEffectCodeIds(1402011)]
-public class EffectCodeSkill1402011 : EffectCodeCharacterBase
+public partial class EffectCodeSkill1402011 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _time;
 

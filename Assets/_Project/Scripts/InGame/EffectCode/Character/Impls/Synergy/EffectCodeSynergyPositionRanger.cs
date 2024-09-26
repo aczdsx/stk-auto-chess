@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///저격수 타입 캐릭터 공격 시 스킬 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public class EffectCodeSynergyPositionRanger : EffectCodeCharacterBase
+public partial class EffectCodeSynergyPositionRanger : EffectCodeCharacterBase
 {
     public const int CodeId = 210301;
     private ObfuscatorFloat statValue;

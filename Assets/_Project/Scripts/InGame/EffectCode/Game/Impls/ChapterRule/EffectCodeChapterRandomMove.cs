@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
-    public class EffectCodeChapterRandomMove : EffectCodeGameBase
+    public partial class EffectCodeChapterRandomMove : EffectCodeGameBase
     {
         private const int CodeId = (int) EffectCodeNameType.CHAPTER_RANDOM_MOVE;
         Dictionary<InGameTile, InGameVfx> _chapterRuleTiles = new Dictionary<InGameTile, InGameVfx>();

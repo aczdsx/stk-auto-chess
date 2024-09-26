@@ -1,8 +1,9 @@
-namespace ConsoleApp;
-
-public class Program
+namespace ConsoleApp
 {
-    public static void Main()
+    public class Program
     {
+        public static void Main()
+        {
+        }
     }
 }
