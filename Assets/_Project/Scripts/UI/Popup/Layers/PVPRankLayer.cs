@@ -79,6 +79,8 @@ namespace CookApps.AutoBattler
 
                 foreach (var rankData in _currentServerRankingDataList)
                 {
+                    if (string.IsNullOrEmpty(rankData.PlayerId) || rankData.Rank <= 0) continue;
+                    
                     var newSlotObject = Instantiate(_rankSlotObject, _rankScrollRect.content);
                     var rankSlot = newSlotObject.GetComponent<ArenaRankSlot>();
 

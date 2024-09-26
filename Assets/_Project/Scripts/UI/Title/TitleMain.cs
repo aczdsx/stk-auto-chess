@@ -187,7 +187,7 @@ namespace CookApps.AutoBattler
             }
             // var commonLoginData = UniversalGrpcManager.Instance.GetCommonRequestParam();
             // var gameLoginData = UniversalGrpcManager.Instance.GetGameRequestParam();
-            // UserDataManager.Instance.SetUserLoginData(authPlatform, GrpcManager.Instance.Auth.AuthenticateData.Uid, 1, playerId, userNickName);
+            UserDataManager.Instance.SetUserLoginData(GrpcManager.Instance.Auth.AuthenticateData.Uid, 1, playerId, userNickName);
 
             // 앱이벤트 Init
             //InitCookAppsAuth();
@@ -407,6 +407,13 @@ namespace CookApps.AutoBattler
                 443,
                 ChannelCredentials.SecureSSL,
                 versionCode,
+            
+            // 재상님 로컬
+            // var initializeParam = new GrpcInitializeParam(
+            //     "192.168.2.65",
+            //     50051,
+            //     ChannelCredentials.Insecure,
+            //     versionCode,
 #endif
 
 #if UNITY_IOS
