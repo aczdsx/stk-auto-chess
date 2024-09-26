@@ -76,22 +76,6 @@ namespace CookApps.AutoBattler
 
         public async UniTask<bool> Initialize()
         {
-            // Get All Initialize Method
-            var allMethods = typeof(UserDataManager).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
-            var methods = new List<(DataCategory category, int priority, MethodInfo methodInfo)>();
-            var afterInitializeMethods = new List<MethodInfo>();
-            foreach (var method in allMethods)
-            {
-                var initializeAttribute = method.GetCustomAttribute<InitializeAttribute>(false);
-                if (initializeAttribute != null)
-                {
-                    var category = initializeAttribute.Category;
-                    var priority = initializeAttribute.Priority;
-
-                    methods.Add((category, priority, method));
-                }
-            }
-
             var tryCount = 0;
             var allCategories = Enum.GetValues(typeof(DataCategory)).Cast<DataCategory>().ToList();
             var resp = await GrpcManager.Instance.PlayerData.ListAsync(allCategories.Select(x => x.ToCategoryString()));

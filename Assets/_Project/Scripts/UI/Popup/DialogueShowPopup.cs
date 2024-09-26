@@ -86,8 +86,9 @@ namespace CookApps.AutoBattler
         private void SetDialogueData(int seq)
         {
             if (_dialogueList == null || _dialogueList.Count == 0) return;
-            
-            bool isChangePrefab = _currentSpecDialogueData == null || _currentSpecDialogueData.prefab_id != _dialogueList[seq].prefab_id;
+
+            bool isChangePrefab = (seq == 0) || (_currentSpecDialogueData == null ||
+                                              _currentSpecDialogueData.prefab_id != _dialogueList[seq].prefab_id);
             
             _currentSpecDialogueData = _dialogueList[seq];
 

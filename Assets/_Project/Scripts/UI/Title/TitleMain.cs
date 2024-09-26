@@ -187,7 +187,7 @@ namespace CookApps.AutoBattler
             }
             // var commonLoginData = UniversalGrpcManager.Instance.GetCommonRequestParam();
             // var gameLoginData = UniversalGrpcManager.Instance.GetGameRequestParam();
-            UserDataManager.Instance.SetUserLoginData(GrpcManager.Instance.Auth.AuthenticateData.Uid, 1, playerId, userNickName);
+            UserDataManager.Instance.SetUserLoginData(GrpcManager.Instance.Auth.AuthenticateData.Uid, 1, playerId);
 
             // 앱이벤트 Init
             //InitCookAppsAuth();
