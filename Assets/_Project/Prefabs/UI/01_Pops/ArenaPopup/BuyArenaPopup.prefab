@@ -1265,6 +1265,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &3564022740481350919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1510,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!114 &3249811426427645568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,6 +1778,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!222 &3558944799611980231
 CanvasRenderer:
   m_ObjectHideFlags: 0

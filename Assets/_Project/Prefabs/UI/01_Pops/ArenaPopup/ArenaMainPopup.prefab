@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectFactor: 0.17235823
+  m_EffectFactor: 0.7991382
   m_Width: 0.038
   m_Rotation: -145
   m_Softness: 1
@@ -1450,6 +1450,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!1 &2081343334273294274
 GameObject:
   m_ObjectHideFlags: 0
@@ -10613,19 +10614,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907795831944177606, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2907795831944177606, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2907795831944177606, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 146
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2907795831944177606, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2911813260039648877, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_SortingLayer
@@ -10701,7 +10702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729868787302615725, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_EffectFactor
-      value: 0
+      value: 0.002770136
       objectReference: {fileID: 0}
     - target: {fileID: 4988701719038483252, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10869,19 +10870,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7975740739405651344, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7975740739405651344, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7975740739405651344, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 254
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7975740739405651344, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8021065629890541831, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_Color.b
@@ -10898,6 +10899,10 @@ PrefabInstance:
     - target: {fileID: 8082099270218890479, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8264775663920944990, guid: d49106265fc4181418ed746b55b046f4, type: 3}
+      propertyPath: reactionType
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8334655569257923091, guid: d49106265fc4181418ed746b55b046f4, type: 3}
       propertyPath: m_IsActive

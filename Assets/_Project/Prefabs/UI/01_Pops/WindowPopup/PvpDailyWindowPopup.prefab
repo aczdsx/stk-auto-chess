@@ -1000,6 +1000,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 11
 --- !u!222 &4479181083885417218
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1264,7 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectFactor: 0.267
+  m_EffectFactor: 0.0324736
   m_Width: 0.25
   m_Rotation: 135
   m_Softness: 1

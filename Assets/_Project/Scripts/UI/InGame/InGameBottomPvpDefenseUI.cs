@@ -135,8 +135,8 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_CHAR_NOT_SET");
             return;
         }
-        
-        string contentText = "방어덱을 저장하시겠습니까?";
+
+        string contentText = LanguageManager.Instance.GetLanguageText("MSG_PVP_DEF_DECK_ASK");
 
         SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
         newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () => { PvPSaveProcess().Forget(); });
