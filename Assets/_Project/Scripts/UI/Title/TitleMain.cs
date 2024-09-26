@@ -97,10 +97,6 @@ namespace CookApps.AutoBattler
             // 언어 설정
             LanguageManager.Instance.InitLanguage();
 
-            // 유저 로그인 기록 체크
-            // var playerID = Preference.LoadPreference(Pref.GUEST_ID, "");
-            // haveGuestID = string.IsNullOrEmpty(playerID) == false;
-
             Invoke(nameof(LoginDelay), 3.0f);
 
             //_createGuestButtonLayer.SetActive(!haveGuestID);
@@ -120,9 +116,12 @@ namespace CookApps.AutoBattler
             await UniTask.NextFrame();
             
             await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
+            
             SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
             SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
+            
             await ConnectWithServer();
+            
             InitTitleMain();
         }
 
@@ -239,9 +238,6 @@ namespace CookApps.AutoBattler
 
                 // 세션 타임 기록 unitask 실행
                 await RecordSessionTime();
-
-                // int lastChapter = 1;
-                // SceneLoading.GoToNextScene("Lobby", lastChapter, transition).Forget();
             }
         }
 
@@ -340,13 +336,6 @@ namespace CookApps.AutoBattler
 
         public async UniTask LoginPlatform(AuthPlatform authPlatform)
         {
-            // 처음 로그인 인지 체크
-            // if (UserDataManager.Instance.IsHaveLoginData() == false)
-            // {
-            //     Debug.LogError("게스트 아이디를 생성해주세요.");
-            //     return;
-            // }
-
             if (GrpcManager.Instance.Auth.IsLoggedIn(authPlatform))
             {
                 isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
@@ -386,23 +375,6 @@ namespace CookApps.AutoBattler
 
         public async UniTask CreateNewAccount(AuthPlatform authPlatform)
         {
-            // if (UniversalGrpcManager.Instance.IsLoggedIn(AuthPlatform.Guest))
-            //     return;
-
-            // 게스트 아이디 유효성 체크
-            // int minGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("min_user_name_length");
-            // int maxGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("max_user_name_length");
-            //
-            // int guestIDByte = Encoding.UTF8.GetByteCount(_guestIDInputField.text);
-            //
-            // if (guestIDByte < minGuestIDLength || guestIDByte > maxGuestIDLength)
-            // {
-            //     var toastStirng = LanguageManager.Instance.GetLanguageText("ERROR_SERVER_NICKNAME_LENGTH");
-            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-            //     isLoginProcess = false;
-            //     return;
-            // }
-
             if (authPlatform == AuthPlatform.Guest)
             {
                 // 디바이스 ID로 authID 저장
@@ -411,8 +383,56 @@ namespace CookApps.AutoBattler
             }
 
             isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
+            
             // 로그인 진행
             OnClickTouchToStart();
+        }
+        
+        public async UniTask ConnectWithServer()
+        {
+            var matches = Regex.Matches(BuildInfo.GetVersionCode(), @"\d+");
+            var res = ZString.Join("", matches.Select(x => x.Value));
+            if (!int.TryParse(res, out var versionCode)) versionCode = 1000;
+
+#if SERVER_REAL
+            var initializeParam = new GrpcInitializeParam(
+                url : "stkauto.prod.cookappsgames.com",
+                port: 443,
+                channelCredentials: ChannelCredentials.SecureSSL,
+                // channelCredentials: EnumChannelCredentials.INSECURE,
+                bundleVersion: versionCode,
+#else
+            var initializeParam = new GrpcInitializeParam(
+                "stkauto-gyc71v.dev.cookappsgames.com",
+                443,
+                ChannelCredentials.SecureSSL,
+                versionCode,
+#endif
+
+#if UNITY_IOS
+                store:StoreMap.AppStore,
+#else
+                StoreMap.GooglePlay,
+#endif
+                GrpcExceptionHandler.HandleSuccess,
+                GrpcExceptionHandler.HandleServerException,
+                GrpcExceptionHandler.HandleGrpcException,
+                true
+            );
+
+            GrpcManager.Instance.StartUp(initializeParam);
+
+            // 버전 체크
+            var checkVersionResponse = await GrpcManager.Instance.Lobby.CheckVersionAsync();
+            if (checkVersionResponse.IsError)
+            {
+                // TODO: 버전 체크 실패시 처리
+            }
+            // TODO: 업데이트 필요하면 업데이트 팝업 띄우기
+            // checkVersionResponse.Data.UpdateStatus = CheckVersionUpdateStatus.UpdateStatusForce
+
+            await SpecDataManager.Instance.Initialize(checkVersionResponse.Data.SpecVersion);
+            GlobalEffectCodeManager.Instance.Initialize(); // userdatamanager.initialize보다 먼저 호출되어야함
         }
 
         /*
@@ -494,60 +514,6 @@ namespace CookApps.AutoBattler
             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(false);
             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(false);
             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(false);
-        }
-        
-        ///////////////// TEST
-        public void TempEnterButton()
-        {
-            OnClickTouchToStart();
-        }
-        
-        
-        public async UniTask ConnectWithServer()
-        {
-            var matches = Regex.Matches(BuildInfo.GetVersionCode(), @"\d+");
-            var res = ZString.Join("", matches.Select(x => x.Value));
-            if (!int.TryParse(res, out var versionCode)) versionCode = 1000;
-
-#if SERVER_REAL
-            var initializeParam = new GrpcInitializeParam(
-                url : "stkauto.prod.cookappsgames.com",
-                port: 443,
-                channelCredentials: ChannelCredentials.SecureSSL,
-                // channelCredentials: EnumChannelCredentials.INSECURE,
-                bundleVersion: versionCode,
-#else
-            var initializeParam = new GrpcInitializeParam(
-                "stkauto-gyc71v.dev.cookappsgames.com",
-                443,
-                ChannelCredentials.SecureSSL,
-                versionCode,
-#endif
-
-#if UNITY_IOS
-                store:StoreMap.AppStore,
-#else
-                StoreMap.GooglePlay,
-#endif
-                GrpcExceptionHandler.HandleSuccess,
-                GrpcExceptionHandler.HandleServerException,
-                GrpcExceptionHandler.HandleGrpcException,
-                true
-            );
-
-            GrpcManager.Instance.StartUp(initializeParam);
-
-            // 버전 체크
-            var checkVersionResponse = await GrpcManager.Instance.Lobby.CheckVersionAsync();
-            if (checkVersionResponse.IsError)
-            {
-                // TODO: 버전 체크 실패시 처리
-            }
-            // TODO: 업데이트 필요하면 업데이트 팝업 띄우기
-            // checkVersionResponse.Data.UpdateStatus = CheckVersionUpdateStatus.UpdateStatusForce
-
-            await SpecDataManager.Instance.Initialize(checkVersionResponse.Data.SpecVersion);
-            GlobalEffectCodeManager.Instance.Initialize(); // userdatamanager.initialize보다 먼저 호출되어야함
         }
     }
 }
