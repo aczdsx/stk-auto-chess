@@ -378,8 +378,8 @@ namespace CookApps.AutoBattler
             if (authPlatform == AuthPlatform.Guest)
             {
                 // 디바이스 ID로 authID 저장
-                var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();
-                await GrpcManager.Instance.Auth.CreateAsync(authPlatform, uuID);
+                // var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();
+                await GrpcManager.Instance.Auth.CreateAsync(authPlatform, DeviceIdHolder.DeviceId);
             }
 
             isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
