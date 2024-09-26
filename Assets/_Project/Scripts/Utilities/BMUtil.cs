@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -94,5 +95,38 @@ public static class BMUtil
         
             return ConvertFromJsonDeserialize<T>(resultString);
         }
+    }
+    
+    public static string GenerateRandomId(int length)
+    {
+        string charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        char[] outputChars = new char[length];
+
+        using RandomNumberGenerator rng = RandomNumberGenerator.Create();
+        int minIndex = 0;
+        int maxIndexExclusive = charset.Length;
+        int diff = maxIndexExclusive - minIndex;
+
+        long upperBound = uint.MaxValue / diff * diff;
+
+        byte[] randomBuffer = new byte[sizeof(int)];
+
+        for (int i = 0; i < outputChars.Length; i++)
+        {
+            // Generate a fair, random number between minIndex and maxIndex
+            uint randomUInt;
+            do
+            {
+                rng.GetBytes(randomBuffer);
+                randomUInt = BitConverter.ToUInt32(randomBuffer, 0);
+            }
+            while (randomUInt >= upperBound);
+            int charIndex = (int)(randomUInt % diff);
+
+            // Set output character based on random index
+            outputChars[i] = charset[charIndex];
+        }
+
+        return new string(outputChars);
     }
 }

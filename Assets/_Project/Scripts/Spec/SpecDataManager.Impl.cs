@@ -1,7 +1,6 @@
 //#define USE_SERVER_SPEC
 
 #if USE_SERVER_SPEC
-using CookApps.gRPC.Universal;
 using CookApps.LocalData;
 #endif
 using System.Collections.Generic;
@@ -31,16 +30,17 @@ namespace CookApps.AutoBattler
 
     public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
     {
-        public async UniTask Initialize()
+        public async UniTask Initialize(uint serverSpecVersion)
         {
 #if USE_SERVER_SPEC
             var localData = new CookAppsLocalData(SecretKey.GetKey());
             string json;
-            if (UniversalGrpcManager.Instance.IsSpecUpdated)
+            var localSpecVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
+            if (localSpecVersion != serverSpecVersion)
             {
                 do
                 {
-                    json = await UniversalGrpcManager.Instance.GetSpecDataAsync(UniversalGrpcManager.EnumDataLoadingMethod.REST);
+                    json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion, GrpcSpecService.DataLoadingMethod.Rest);
                 } while (string.IsNullOrEmpty(json));
 
                 localData.Save(json, "SpecData");
@@ -51,12 +51,13 @@ namespace CookApps.AutoBattler
                 {
                     do
                     {
-                        json = await UniversalGrpcManager.Instance.GetSpecDataAsync(UniversalGrpcManager.EnumDataLoadingMethod.REST);
+                        json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion, GrpcSpecService.DataLoadingMethod.Rest);
                     } while (string.IsNullOrEmpty(json));
 
                     localData.Save(json, "SpecData");
                 }
             }
+            Preference.SavePreference(Pref.LOCAL_SPEC_VERSION, serverSpecVersion);
 #else
             string json = SpecDataResourceLoader.LoadSpecData();
             await UniTask.Yield();

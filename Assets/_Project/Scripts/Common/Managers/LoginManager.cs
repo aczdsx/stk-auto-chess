@@ -12,14 +12,33 @@ namespace CookApps.AutoBattler
 {
     public class LoginManager : Singleton<LoginManager>
     {
+        public AuthPlatform CurrentAuthPlatform { get; private set; }
         public bool CheckIsLoggedIn()
         {
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Guest) ||
-                GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Apple) ||
-                GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Facebook) ||
-                GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Google))
+            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Guest))
+            {
+                CurrentAuthPlatform = AuthPlatform.Guest;
                 return true;
+            }
 
+            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Apple))
+            {
+                CurrentAuthPlatform = AuthPlatform.Apple;
+                return true;
+            }
+            
+            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Facebook))
+            {
+                CurrentAuthPlatform = AuthPlatform.Facebook;
+                return true;
+            }
+            
+            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Google))
+            {
+                CurrentAuthPlatform = AuthPlatform.Google;
+                return true;
+            }
+            
             return false;
         }
 
@@ -128,7 +147,7 @@ namespace CookApps.AutoBattler
             {
                 isLoginProcessComplete = false;
                 cachedUserId = null;
-                return false;
+                return true;
             }
 
             // var popupData = new PopupAlertData("Popup_Social_Login_Check_Title", "Popup_Social_Login_Check_Desc", false, "Popup_Social_Login_Check_Button_Yes", "Common_Cancel", true);
@@ -181,7 +200,7 @@ namespace CookApps.AutoBattler
             {
                 isLoginProcessComplete = false;
                 cachedUserId = null;
-                return false;
+                return true;
             }
 
             // var popupData = new PopupAlertData("Popup_Social_Login_Check_Title", "Popup_Social_Login_Check_Desc", false, "Popup_Social_Login_Check_Button_Yes", "Common_Cancel", true);
