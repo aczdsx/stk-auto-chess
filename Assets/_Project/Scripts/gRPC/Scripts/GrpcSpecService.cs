@@ -64,10 +64,6 @@ namespace CookApps.AutoBattler
         /// <returns>json string으로 반환합니다</returns>
         public async Task<string> GetSpecDataAsync(uint version, DataLoadingMethod dataLoadingMethod = DataLoadingMethod.Grpc)
         {
-            if (version <= DefaultVersion)
-            {
-                return string.Empty;
-            }
             string jsonString = dataLoadingMethod == DataLoadingMethod.Grpc
                 ? await GetDataAsync(GetSpecDataAsync, version)
                 : await GetSpecLinkAsync(SpecType.Game, version);
