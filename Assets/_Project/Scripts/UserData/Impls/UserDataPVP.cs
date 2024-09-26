@@ -247,7 +247,7 @@ namespace CookApps.AutoBattler
                     UserPVP.BuyTicketResetTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
                 case PVPTimeRefreshType.REFILL_TICKET:
-                    //UserPVP.PvpTicketNextTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
+                    UserPVP.PvpTicketNextTimestamp = TimeManager.Instance.TommorrowTimeStampLocal();
                     break;
             }
 
