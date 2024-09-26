@@ -1,0 +1,174 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+enum StkautoPVPResponseStatus {
+  PVP_UNDEFINED = 0; // 미사용
+}
+
+service StkautoPvpService {
+  /**
+    * PVP 랭킹 정보를 가져옵니다.
+    */
+  rpc GetInfo(PvpGetInfoRequest) returns (PvpGetInfoResponse) {}
+
+  /**
+    * 매칭 목록을 가지고 옵니다.
+    */
+  rpc ListMatch(PvpListMatchRequest) returns (PvpListMatchResponse) {}
+
+  /**
+    * pvp 결과를 전달할때 사용합니다.
+    */
+  rpc Match(PvpMatchRequest) returns (PvpMatchResponse) {}
+
+  /**
+    * 매칭 기록을 가지고 옵니다.
+    */
+  rpc ListMatchHistory(PvpListMatchHistoryRequest) returns (PvpListMatchHistoryResponse) {}
+
+  /**
+    * PVP 프로필 정보를 가지고 옵니다.
+    */
+  rpc GetProfile(PvpGetProfileRequest) returns (PvpGetProfileResponse) {}
+
+  /**
+    * PVP 프로필 정보를 갱신합니다.
+    */
+  rpc UpdateProfile(PvpUpdateProfileRequest) returns (PvpUpdateProfileResponse) {}
+
+  /**
+    * PVP 랭킹 정보를 가져옵니다.
+    */
+  rpc ListPvpRank(PvpListPvpRankRequest) returns (PvpListPvpRankResponse) {}
+  
+}
+
+
+message PvpRankingData {
+  string player_id = 1;  // 플레이어 아이디
+  int32 score = 2; // 해당 멤버의 score
+  int32 rank = 3; // 해당 멤버의 rank (1위 : 1)
+  string simple_info = 4; // 간단 정보. 매칭,전투이력,랭킹 리스트에 사용 / 영웅,전투력,닉네임 등 기본정보포함 (gzip compressed)
+}
+
+message MyPvpRankingData {
+  int32 score = 1;  // 호출한 클라이언트의 score
+  int32 rank = 2;   // 호출한 클라이언트의 rank (1위 : 1)
+}
+
+message MyPvpMatchingData {
+  string player_id = 1;  
+  int32 score = 2;  // 호출한 클라이언트의 pvp score
+  string simple_info = 3; // 간단 정보. 매칭,전투이력,랭킹 리스트에 사용 / 영웅,전투력,닉네임 등 기본정보포함 (gzip compressed)
+}
+
+enum PvpMatchResult {
+  UNSPECIFIED = 0;
+  WIN = 1;
+  LOSE = 2;
+  DRAW = 3;
+  REVENGE_WIN = 4;
+  REVENGE_LOSE = 5;
+}
+
+message PvpMatchHistoryData {
+  string match_id = 1;
+  int64 match_time = 2; // UTC unix timestamp in seconds
+  PvpMatchResult result = 3; // 전투 결과
+  int32 my_before_score = 4; // 전투 전의 점수
+  int32 my_after_score = 5; // 전투 후의 점수
+  string opponent_simple_info = 6; // 상대 간단 정보 (matchPVP로 보낸 상대간단정보) / 매칭,전투이력 리스트에 사용 / 영웅,전투력,닉네임 등 기본정보포함 (gzip compressed) 
+}
+
+
+message PvpGetInfoRequest {}
+
+message PvpGetInfoResponse {
+  ResponseStatus status = 1;
+  PvpInfo pvp_info = 2;
+}
+
+message PvpInfo{
+  string current_season_id = 1; // 이번 시즌 id
+  int32 current_tier = 2; // 현재 티어
+  int32 prev_rank = 3; // 이전 시즌 랭크 (0: 이전 시즌 미참여)
+  int32 prev_tier = 4; // 이전 시즌 티어 (0: 이전 시즌 미참여)
+}
+
+message PvpListMatchRequest {
+  int32 ranker_count = 1; // 보여줄 랭커 수 (핵 값 조작 염려 서버에서 최대 200명으로 제한)
+}
+
+message PvpListMatchResponse {
+  ResponseStatus status = 1;
+  repeated MyPvpMatchingData match_info = 2; // PVP 매칭 정보
+}
+
+
+message PvpMatchRequest {
+  PvpMatchResult match_result = 1; // 전투 결과
+  string opponent_player_id = 2; // 상대 플레이어 아이디
+  string opponent_simple_info = 3; // 상대 간단 정보(전투이력용) / 매칭,전투이력 리스트에 사용 / 영웅,전투력,닉네임 등 기본정보포함 (gzip compressed) 
+  optional string match_id = 4; // 복수일경우 원래 전투 매치 아이디
+  string my_simple_info = 5; // 내 간단 정보(전투이력용) / 전투이력 리스트에 사용 / 영웅,전투력,닉네임 등 기본정보포함 (gzip compressed) 
+}
+
+message PvpMatchResponse {
+  ResponseStatus status = 1;
+  int32 my_delta_score = 2; // 변동된 점수
+  int32 my_current_score = 3; // 현재 점수
+  int32 my_current_rank = 4; // 현재 랭킹
+  int32 my_current_tier = 5; // 현재 티어
+  int32 opponent_delta_score = 6; // 상대방 변동된 점수
+  int32 opponent_current_score = 7; // 상대방 현재 점수
+}
+
+
+message PvpListMatchHistoryRequest {
+  PaginationInfo pagination = 1;
+}
+
+
+message PvpListMatchHistoryResponse {
+  ResponseStatus status = 1;
+  PaginationMeta meta = 2;
+  repeated PvpMatchHistoryData item_list = 3;
+}
+
+message PvpGetProfileRequest {
+  int32 type = 1; // 1: 간단정보만, 2: 무거운정보만
+  optional string opponent_player_id = 2; // 상대 플레이어 아이디 없는 경우에는 본인 아이디로 대체
+}
+
+message PvpGetProfileResponse {
+  ResponseStatus status = 1;
+  optional string simple_info = 2; // 간단 정보. 매칭,전투이력 리스트에 사용 (gzip compressed) 
+  optional string heavy_info = 3; // 무거운 정보. 실 전투 진입시 사용될 데이터 (gzip compressed) 
+}
+
+message PvpUpdateProfileRequest {
+  string power = 1; // 전투력  ex> "123456" / 전투력이 0일때는 "0" 으로 보내주세요
+  string simple_info = 2; // 간단 정보. 매칭,전투이력 리스트에 사용 (gzip compressed) / empty 값이면 "{}"를 grip 압축한값을 보내주세요. 아예 empty string은 갱신 안되요
+  string heavy_info = 3; // 무거운 정보. 실 전투 진입시 사용될 데이터 (gzip compressed)  / empty 값이면 "{}"를 grip 압축한값을 보내주세요. 아예 empty string은 갱신 안되요
+}
+
+
+message PvpUpdateProfileResponse {
+  ResponseStatus status = 1;
+}
+
+
+message PvpListPvpRankRequest {
+  
+}
+
+
+message PvpListPvpRankResponse {
+  ResponseStatus status = 1;
+  repeated PvpRankingData pvp_rankers = 2;
+  MyPvpRankingData my_pvp_rank_data = 3;
+}
+

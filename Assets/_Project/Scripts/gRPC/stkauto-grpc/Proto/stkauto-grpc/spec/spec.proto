@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+enum SpecType {
+  SPEC_TYPE_UNSPECIFIED = 0;
+  SPEC_TYPE_GAME = 1;
+  SPEC_TYPE_LANGUAGE = 2;
+  SPEC_TYPE_POST_LANGUAGE = 3;
+}
+
+enum SpecResponseStatus {
+  SPEC_UNDEFINED = 0; // 미사용
+  SPEC_NOT_FOUND = 2100; // 스펙 데이터가 없음
+}
+
+service SpecService {
+  /**
+   * 스펙 데이터를 조회합니다.
+   */
+  rpc GetSpecData(SpecDataRequest) returns (SpecDataResponse) {}
+
+  /**
+   * 언어 데이터를 조회합니다.
+   */
+  rpc GetLanguageData(SpecDataRequest) returns (SpecDataResponse) {}
+
+  /**
+   * 우편 언어 데이터를 조회합니다.
+   */
+  rpc GetPostLanguageData(SpecDataRequest) returns (SpecDataResponse) {}
+
+  /**
+   * 스펙 링크를 조회합니다.
+   */
+  rpc GetSpecLink(SpecLinkRequest) returns (SpecLinkResponse) {}
+}
+
+message SpecDataRequest {
+ uint32 version = 1;
+}
+
+message SpecData {
+  string spec = 1;
+  uint32 version = 2;
+}
+
+message SpecDataResponse {
+  ResponseStatus status = 1;
+  SpecData data = 2;
+}
+
+message SpecLinkRequest {
+  SpecType spec_type = 1; // 요청하는 스펙 타입
+  uint32 version = 2; // 요청하는 스펙 버전
+}
+
+message SpecLinkData {
+  string url = 2; // CDN URL
+  string key = 3; // AES-256-CBC 암호화 키
+}
+
+message SpecLinkResponse {
+  ResponseStatus status = 1;
+  SpecLinkData data = 2;
+}
