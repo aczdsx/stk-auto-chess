@@ -257,6 +257,7 @@ namespace CookApps.AutoBattler
         SUM_CHARACTER_LEVEL = 12,
         SET_PVP_DEF_DECK = 13,
         PLAY_PVP = 14,
+        CLICK_ATTENDANCE = 15,
     }
 
     public enum DialogueEventType
