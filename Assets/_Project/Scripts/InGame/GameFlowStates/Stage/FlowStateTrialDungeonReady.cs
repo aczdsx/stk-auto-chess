@@ -88,6 +88,11 @@ public class FlowStateTrialDungeonReady : StateReadyBase
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
         
         StartDrawingLinesAsync(2.0f).Forget();
+
+        if (_specDungeonTrial.order == 2)
+        {
+            InGameMain.GetInGameMain().SetAlertBottomCharacter(140601);
+        }
     }
 
     public override void StateStart()
