@@ -693,7 +693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6403466947355506466, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: m_text
-      value: STAR LIGHT
+      value: Dawn of Twilight
       objectReference: {fileID: 0}
     - target: {fileID: 6888863724227499472, guid: f94abf99adf954845a7e308b788b1a5d, type: 3}
       propertyPath: m_IsActive
