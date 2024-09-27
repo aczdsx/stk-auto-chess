@@ -426,7 +426,7 @@ namespace CookApps.AutoBattler
 #endif
 
 #if UNITY_IOS
-                store:StoreMap.AppStore,
+                store:StoreMap.AppleAppStore,
 #else
                 StoreMap.GooglePlay,
 #endif
