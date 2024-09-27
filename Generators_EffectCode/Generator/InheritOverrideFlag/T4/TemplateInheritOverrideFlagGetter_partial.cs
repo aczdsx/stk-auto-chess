@@ -2,7 +2,7 @@
 
 namespace Generator.InheritOverrideFlag.T4
 {
-    partial class TemplateInheritOverrideFlagCollector
+    partial class TemplateInheritOverrideFlagGetter
     {
         public string Namespace { get; set; }
         public string Name { get; set; }

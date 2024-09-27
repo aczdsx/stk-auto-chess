@@ -8,11 +8,11 @@
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
-		<AssemblyName>EffectCodeIds.Generator</AssemblyName>
-		<PackageId>EffectCodeIds.Generator</PackageId>
+		<AssemblyName>EffectCode.Generator</AssemblyName>
+		<PackageId>EffectCode.Generator</PackageId>
 		<Authors>Taewoo Han</Authors>
 		<Company>CookApps</Company>
-		<Product>EffectCodeIds.Generator</Product>
+		<Product>EffectCode.Generator</Product>
     </PropertyGroup>
 
     <ItemGroup>
@@ -37,13 +37,17 @@
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>TemplateGrpcV2Manager.cs</LastGenOutput>
       </None>
-      <None Update="CustomAttribute\T4\TemplateClassCollector.tt">
+      <None Update="CustomAttribute\T4\TemplateEffectCodeFactory.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>TemplateClassCollector.cs</LastGenOutput>
+        <LastGenOutput>TemplateEffectCodeFactory.cs</LastGenOutput>
       </None>
-      <None Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagCollector.tt">
+      <None Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagGetter.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>TemplateInheritOverrideFlagCollector.cs</LastGenOutput>
+        <LastGenOutput>TemplateInheritOverrideFlagGetter.cs</LastGenOutput>
+      </None>
+      <None Update="EffectCodeFactory\T4\TemplateEffectCodeFactory.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TemplateEffectCodeFactory.cs</LastGenOutput>
       </None>
     </ItemGroup>
 
@@ -74,17 +78,9 @@
         <DependentUpon>TemplateGameServiceClient.tt</DependentUpon>
       </Compile>
       <Compile Update="CustomAttribute\T4\TemplateClassCollector.cs">
-        <DependentUpon>TemplateClassCollector.tt</DependentUpon>
-      </Compile>
-      <Compile Update="CustomAttribute\T4\TemplateClassCollector.cs">
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
         <DependentUpon>TemplateClassCollector.tt</DependentUpon>
-      </Compile>
-      <Compile Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagCollector.cs">
-        <DependentUpon>TemplateInheritOverrideFlagCollector.tt</DependentUpon>
-        <AutoGen>True</AutoGen>
-        <DesignTime>True</DesignTime>
       </Compile>
       <Compile Update="InheritOverrideFlag\T4\TemplateClassCollector.cs">
         <DependentUpon>TemplateClassCollector.tt</DependentUpon>
@@ -110,6 +106,19 @@
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
         <DependentUpon>TemplateInheritOverrideFlagCollector.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CustomAttribute\T4\TemplateEffectCodeFactory.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>TemplateEffectCodeFactory.tt</DependentUpon>
+      </Compile>
+      <Compile Update="EffectCodeFactory\T4\TemplateEffectCodeFactory.cs">
+        <DependentUpon>TemplateEffectCodeFactory.tt</DependentUpon>
+      </Compile>
+      <Compile Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagGetter.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>TemplateInheritOverrideFlagGetter.tt</DependentUpon>
       </Compile>
     </ItemGroup>
 

@@ -1,5 +1,8 @@
 using System;
 
+public class EffectCodeFactoryAttribute : Attribute
+{ }
+
 public class UseEffectCodeIdsAttribute : Attribute
 {
     public int[] CodeIds { get; }

@@ -2,16 +2,17 @@ using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
+using Generator.Util;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace Generator.UserData
+namespace Generator.UserDataInitializer
 {
     [Generator]
-    public class UserDataInitializerGenerator : ISourceGenerator
+    public class SourceGenerator : ISourceGenerator
     {
         public void Initialize(GeneratorInitializationContext context)
         {
-            context.RegisterForSyntaxNotifications(() => new UserDataInitializerReceiver());
+            context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
         }
         
         public void Execute(GeneratorExecutionContext context)
@@ -19,7 +20,7 @@ namespace Generator.UserData
             FileLogging.WriteLog($"start! {context.Compilation.AssemblyName}");
             try
             {
-                if (context.SyntaxReceiver is not UserDataInitializerReceiver receiver)
+                if (context.SyntaxReceiver is not SyntaxReceiver receiver)
                 {
                     FileLogging.WriteLog($"receiver not exist {context.Compilation.AssemblyName}");
                     return;
@@ -79,7 +80,7 @@ namespace Generator.UserData
                     enumName = $"{enumSymbol.ContainingNamespace.ToDisplayString()}.{enumName}";
                 }
 
-                var tt = new T4.UserDataInitializerTemplate()
+                var tt = new T4.TemplateUserDataInitializer()
                 {
                     Source = source,
                     HasUniTask = hasUniTask,

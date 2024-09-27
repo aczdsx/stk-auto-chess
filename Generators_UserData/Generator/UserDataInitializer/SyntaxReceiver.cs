@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Generator.Util;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Generator.UserData
+namespace Generator.UserDataInitializer
 {    public class InitializeAttributeInfo
     {
         public string MethodName { get; set; }
@@ -37,7 +38,7 @@ namespace Generator.UserData
 
     }
     
-    public class UserDataInitializerReceiver : ISyntaxReceiver
+    public class SyntaxReceiver : ISyntaxReceiver
     {
         private string UserDataManagerAttributeName = "GenerateUserDataInitializer";
         private string InitializeAttributeName = "Initialize";
