@@ -70,7 +70,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
             ManagedUpdate);
 
         var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-        _isCommanderGuideStage = userGuideMissionData.MissionId == 17;
+        _isCommanderGuideStage = userGuideMissionData.MissionId == 18;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
