@@ -22,6 +22,8 @@ namespace CookApps.AutoBattler
     [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/Title/TitleMain.prefab")]
     public class TitleMain : UILayer
     {
+        const float LOGIN_DELAY_TIME = 3.0f;
+        
         public static int SessionCount { get; private set; }
 
         private Dictionary<int, float> progressDict = new();
@@ -63,7 +65,7 @@ namespace CookApps.AutoBattler
 
             RunAllTasks().Forget();
 
-            Invoke(nameof(LoginDelay), 2.0f);
+            Invoke(nameof(LoginDelay), LOGIN_DELAY_TIME);
         }
 
         private void InitTitleMain()
@@ -74,25 +76,27 @@ namespace CookApps.AutoBattler
 
             isLogin = LoginManager.Instance.CheckIsLoggedIn();
 
-            touchToStart.SetActive(isLogin);
-
-#if UNITY_ANDROID
-            // if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin); // TEST
-            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-#elif UNITY_IOS
-            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-#else
-            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-#endif
+            //touchToStart.SetActive(isLogin);
+            touchToStart.SetActive(true);   // 게스트 로그인 only
+            
+// 24.9.27 - 게스트 로그인 only
+// #if UNITY_ANDROID
+//             // if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+//             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin); // TEST
+//             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+//             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+//             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
+// #elif UNITY_IOS
+//             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+//             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+//             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+//             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
+// #else
+//             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+//             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+//             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+//             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
+// #endif
 
             // 언어 설정
             LanguageManager.Instance.InitLanguage();
