@@ -127,14 +127,13 @@ namespace CookApps.AutoBattler
 
         public async void OnClickTouchToStart()
         {
-            //if (isLogin == false) return;
+            if (isLogin == false) return;
 
             // 없으면 첫번째 서버에 플레이어를 생성
             var userNickName = BMUtil.GenerateRandomId(10);
             var playerId = await GetServerPlayerId(userNickName);
             if (string.IsNullOrEmpty(playerId))
             {
-                
                 return;
             }
             // 닉네임 중복 체크
@@ -256,7 +255,7 @@ namespace CookApps.AutoBattler
             {
                 //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
                 _loadingPopupObject.SetActive(false);
-                isLoginProcess = false;
+                //isLoginProcess = false;
             }).Forget();
         }
 
@@ -267,24 +266,31 @@ namespace CookApps.AutoBattler
 
             if (isLogin)
             {
-                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+                // SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
 
                 isLoginProcess = true;
+                _loadingPopupObject.SetActive(true);
+                
                 LoginPlatform(AuthPlatform.Guest).ContinueWith(() =>
                 {
-                    SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                    isLoginProcess = false;
+                    // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                    _loadingPopupObject.SetActive(false);
+                    //isLoginProcess = false;
                 }).Forget();
             }
             else
             {
-                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+                // SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
 
                 isLoginProcess = true;
+                _loadingPopupObject.SetActive(true);
+                
                 CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
                 {
-                    SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                    isLoginProcess = false;
+                    // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
+                    _loadingPopupObject.SetActive(false);
+                    //isLoginProcess = false;
+                    
                 }).Forget();
             }
         }
@@ -298,7 +304,6 @@ namespace CookApps.AutoBattler
             isLoginProcess = true;
             CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
             {
-                //isLoginProcess = false;
                 _loadingPopupObject.SetActive(false);
             }).Forget();
         }
@@ -323,14 +328,14 @@ namespace CookApps.AutoBattler
                 await CreateNewAccount(AuthPlatform.Apple);
                 //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
                 _loadingPopupObject.SetActive(false);
-                isLoginProcess = false;
+                //isLoginProcess = false;
             }
             else
             {
                 await LoginPlatform(AuthPlatform.Apple);
                 //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
                 _loadingPopupObject.SetActive(false);
-                isLoginProcess = false;
+                //isLoginProcess = false;
             }
         }
 
