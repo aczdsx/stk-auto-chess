@@ -32,7 +32,7 @@ namespace CookApps.TeamBattle.UIManagements
         [SerializeField] private bool isBlockDrag = false;
         [SerializeField] private bool useDefaultClickSound = true;
         [SerializeField] private DefaultClickSoundType defaultClickSoundType;
-        [SerializeField] private ReactionType reactionType = ReactionType.Punch;
+        [SerializeField] private ReactionType reactionType = ReactionType.None;
         public static event Action<DefaultClickSoundType> OnPlayDefaultClickSound;
 
         private Vector3 initialScale;
