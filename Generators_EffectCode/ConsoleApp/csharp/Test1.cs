@@ -1,7 +1,7 @@
-using CookApps.BattleSystem;
+
 
 [UseEffectCodeIds(1)]
-public partial class Test1 : EffectCodeStatBase
+public partial class Test1 : CookApps.BattleSystem.EffectCodeStatBase
 {
     public override void Test22()
     {

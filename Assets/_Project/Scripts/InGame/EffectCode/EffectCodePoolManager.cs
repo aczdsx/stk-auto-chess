@@ -9,19 +9,19 @@ using CookApps.TeamBattle.Utility;
 
 namespace CookApps.BattleSystem
 {
+    public class EffectCodeFactoryAttribute : Attribute
+    { }
+
     public class UseEffectCodeIdsAttribute : Attribute
     {
-        public List<ObfuscatorInt> CodeIds { get; }
-
         public UseEffectCodeIdsAttribute(params int[] codeIds)
-        {
-            CodeIds = codeIds.Select(id => new ObfuscatorInt(id)).ToList();
-        }
+        { }
     }
 
     /// <summary>
     /// 이펙트 코드들을 재사용하는 풀링 매니저
     /// </summary>
+    [EffectCodeFactory]
     public partial class EffectCodePoolManager : Singleton<EffectCodePoolManager>
     {
         #region Effect Code Datas

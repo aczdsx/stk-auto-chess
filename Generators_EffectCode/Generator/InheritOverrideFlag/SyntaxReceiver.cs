@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Generator.InheritOverrideFlag
 {
-    public class EffectCodeStatClassSyntaxReceiver : ISyntaxReceiver
+    public class SyntaxReceiver : ISyntaxReceiver
     {
         public ClassDeclarationSyntax EffectCodeStatBaseClassDeclaration { get; private set; }
         public EnumDeclarationSyntax EnumDeclaration { get; private set; }

@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Generator.UserData
+namespace Generator.Util
 {
     public static class FileLogging
     {

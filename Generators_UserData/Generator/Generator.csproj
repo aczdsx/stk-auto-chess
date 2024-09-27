@@ -12,7 +12,7 @@
 		<PackageId>UserData.Generator</PackageId>
 		<Authors>Taewoo Han</Authors>
 		<Company>CookApps</Company>
-		<Product>Test.Generator</Product>
+		<Product>UserData.Generator</Product>
     </PropertyGroup>
 
     <ItemGroup>
@@ -41,9 +41,13 @@
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>TemplateClassCollector.cs</LastGenOutput>
       </None>
-      <None Update="UserData\T4\UserDataInitializerTemplate.tt">
+      <None Update="UserData\T4\TemplateUserDataInitializer.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>UserDataInitializerTemplate.cs</LastGenOutput>
+        <LastGenOutput>TemplateUserDataInitializer.cs</LastGenOutput>
+      </None>
+      <None Update="UserDataInitializer\T4\TemplateUserDataInitializer.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TemplateUserDataInitializer.cs</LastGenOutput>
       </None>
     </ItemGroup>
 
@@ -91,10 +95,13 @@
         <DesignTime>True</DesignTime>
         <DependentUpon>UserDataInitializerTemplate.tt</DependentUpon>
       </Compile>
-      <Compile Update="UserData\T4\UserDataInitializerTemplate.cs">
+      <Compile Update="UserData\T4\TemplateUserDataInitializer.cs">
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
-        <DependentUpon>UserDataInitializerTemplate.tt</DependentUpon>
+        <DependentUpon>TemplateUserDataInitializer.tt</DependentUpon>
+      </Compile>
+      <Compile Update="UserDataInitializer\T4\TemplateUserDataInitializer.cs">
+        <DependentUpon>TemplateUserDataInitializer.tt</DependentUpon>
       </Compile>
     </ItemGroup>
 

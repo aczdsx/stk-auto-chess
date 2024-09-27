@@ -7,16 +7,16 @@ using Microsoft.CodeAnalysis.CSharp;
 namespace Generator.InheritOverrideFlag
 {
     [Generator]
-    internal class InheritOverrideFlagCollector : ISourceGenerator
+    internal class SourceGenerator : ISourceGenerator
     {
         public void Initialize(GeneratorInitializationContext context)
         {
-            context.RegisterForSyntaxNotifications(() => new EffectCodeStatClassSyntaxReceiver());
+            context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
         }
 
         public void Execute(GeneratorExecutionContext context)
         {
-            if (context.SyntaxReceiver is not EffectCodeStatClassSyntaxReceiver receiver)
+            if (context.SyntaxReceiver is not SyntaxReceiver receiver)
                 return;
             
             if (!receiver.IsValid())
@@ -117,7 +117,7 @@ namespace Generator.InheritOverrideFlag
                     if (namespaceName == "<global namespace>")
                         namespaceName = string.Empty;
                     
-                    var tt = new T4.TemplateInheritOverrideFlagCollector()
+                    var tt = new T4.TemplateInheritOverrideFlagGetter()
                     {
                         Namespace = namespaceName,
                         Name = classDeclaration.Identifier.ToString(),

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Generator.UserData.T4
+namespace Generator.UserDataInitializer.T4
 {
-    partial class UserDataInitializerTemplate
+    partial class TemplateUserDataInitializer
     {
         public string Namespace { get; set; }
         public string Name { get; set; }
