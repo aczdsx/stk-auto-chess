@@ -222,6 +222,7 @@ namespace CookApps.AutoBattler
                     if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
 
                     isLoginProcess = false;
+                    _loadingPopupObject.SetActive(false);
 
                     SceneLoading.GoToNextScene("InGame",
                         (InGameType.STAGE, (IGameStateUI)new InGameMainStateUIStageUI(), (int)specStageData.stage_id)).Forget();
@@ -231,6 +232,7 @@ namespace CookApps.AutoBattler
                     var transition = SceneTransition_FadeInOut.Create();
 
                     isLoginProcess = false;
+                    _loadingPopupObject.SetActive(false);
 
                     var lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
@@ -258,7 +260,7 @@ namespace CookApps.AutoBattler
             LoginPlatform(LoginManager.Instance.CurrentAuthPlatform).ContinueWith(() =>
             {
                 //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                _loadingPopupObject.SetActive(false);
+                //_loadingPopupObject.SetActive(false);
                 //isLoginProcess = false;
             }).Forget();
         }
@@ -278,7 +280,7 @@ namespace CookApps.AutoBattler
                 LoginPlatform(AuthPlatform.Guest).ContinueWith(() =>
                 {
                     // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                    _loadingPopupObject.SetActive(false);
+                    //_loadingPopupObject.SetActive(false);
                     //isLoginProcess = false;
                 }).Forget();
             }
@@ -292,7 +294,7 @@ namespace CookApps.AutoBattler
                 CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
                 {
                     // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                    _loadingPopupObject.SetActive(false);
+                    //_loadingPopupObject.SetActive(false);
                     //isLoginProcess = false;
                     
                 }).Forget();
@@ -308,7 +310,7 @@ namespace CookApps.AutoBattler
             isLoginProcess = true;
             CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
             {
-                _loadingPopupObject.SetActive(false);
+                //_loadingPopupObject.SetActive(false);
             }).Forget();
         }
 
@@ -331,14 +333,14 @@ namespace CookApps.AutoBattler
             {
                 await CreateNewAccount(AuthPlatform.Apple);
                 //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                _loadingPopupObject.SetActive(false);
+                //_loadingPopupObject.SetActive(false);
                 //isLoginProcess = false;
             }
             else
             {
                 await LoginPlatform(AuthPlatform.Apple);
                 //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                _loadingPopupObject.SetActive(false);
+                //_loadingPopupObject.SetActive(false);
                 //isLoginProcess = false;
             }
         }

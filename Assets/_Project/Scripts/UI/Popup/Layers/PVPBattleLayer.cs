@@ -111,6 +111,8 @@ namespace CookApps.AutoBattler
 
             _matchFreeRefreshButton.gameObject.SetActive(_isAvailRefresh);
             _matchRefreshButton.gameObject.SetActive(!_isAvailRefresh);
+
+            string timeFormatString = LanguageManager.Instance.GetLanguageText("UI_ARENA_MATCH_REFRESH_TIME_DESC");
             
             TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpan(UserDataManager.Instance.UserPVP.NextRefreshMatchingListTimestamp);
 
@@ -118,7 +120,8 @@ namespace CookApps.AutoBattler
             {
                 while (currentRewardTimeSpan.TotalSeconds > 0)
                 {
-                    _matchRefreshRemainTimeText.text = $"다음 갱신 까지:{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
+                    string timeString = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
+                    _matchRefreshRemainTimeText.text = string.Format(timeFormatString, timeString);
 
                     await UniTask.Delay(1000, cancellationToken:cancelToken);
 
