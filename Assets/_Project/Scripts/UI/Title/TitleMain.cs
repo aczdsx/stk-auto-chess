@@ -387,8 +387,8 @@ namespace CookApps.AutoBattler
             if (authPlatform == AuthPlatform.Guest)
             {
                 // 디바이스 ID로 authID 저장
-                var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
-                //var uuID = DeviceIdHolder.DeviceId; // 앱 삭제에도 유지 ver
+                //var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
+                var uuID = DeviceIdHolder.DeviceId; // 앱 삭제에도 유지 ver
                 await GrpcManager.Instance.Auth.CreateAsync(authPlatform, uuID);
             }
 
@@ -442,7 +442,10 @@ namespace CookApps.AutoBattler
             var checkVersionResponse = await GrpcManager.Instance.Lobby.CheckVersionAsync();
             if (checkVersionResponse.IsError)
             {
-                // TODO: 버전 체크 실패시 처리
+                // 버전 체크 실패시 처리
+                var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
+                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
+                return;
             }
             // TODO: 업데이트 필요하면 업데이트 팝업 띄우기
             // checkVersionResponse.Data.UpdateStatus = CheckVersionUpdateStatus.UpdateStatusForce
