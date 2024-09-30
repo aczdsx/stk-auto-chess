@@ -67,13 +67,16 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         if (_statData != null && !_isShowLongPressFunc)
         {
-            if (_guideFx.gameObject.activeSelf && _statData.CharacterID == 130301)
+            if (_guideFx != null)
             {
-                var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(ElementType.WATER);
-                if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+                if (_guideFx.gameObject.activeSelf && _statData.CharacterID == 130301)
                 {
-                    var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, 1, 2)).Forget();
+                    var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(ElementType.WATER);
+                    if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+                    {
+                        var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+                        SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, 1, 2)).Forget();
+                    }
                 }
             }
             
