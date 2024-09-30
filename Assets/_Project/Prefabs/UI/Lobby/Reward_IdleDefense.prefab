@@ -352,7 +352,7 @@ RectTransform:
   m_GameObject: {fileID: 1066257829458203169}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.34, y: 1.34, z: 1.34}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8497190149214011027}
@@ -802,7 +802,7 @@ RectTransform:
   m_GameObject: {fileID: 4033284229627002466}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.34, y: 1.34, z: 1.34}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6402571215207864334}
@@ -1592,6 +1592,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
 --- !u!1 &8670228735055649494
 GameObject:
   m_ObjectHideFlags: 0
