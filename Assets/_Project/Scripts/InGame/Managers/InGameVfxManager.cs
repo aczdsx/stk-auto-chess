@@ -33,7 +33,8 @@ namespace CookApps.BattleSystem
             removeWaitingInGameVfxs.Clear(); // 여기에 든거는 runningEffects에도 들어있음.
             foreach (var effect in runningEffects)
             {
-                InGameVfxPool.Return(effect);
+                if (effect != null)
+                    InGameVfxPool.Return(effect);
             }
             runningEffects.Clear();
             InGameVfxPool.Clear();
