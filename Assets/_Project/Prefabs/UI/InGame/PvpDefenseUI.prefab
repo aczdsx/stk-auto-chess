@@ -140337,6 +140337,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8431146253163695968}
     m_Modifications:
+    - target: {fileID: 1039371382959176970, guid: c8a64104fe56b1f4fa26499053e78b29, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 130
+      objectReference: {fileID: 0}
     - target: {fileID: 2836829323552087153, guid: c8a64104fe56b1f4fa26499053e78b29, type: 3}
       propertyPath: m_text
       value: "\uBC29\uD574\uBB3C"
@@ -140449,6 +140453,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b76ea20f80fbc44469fa367540bc5ad1, type: 3}
+    - target: {fileID: 7295594395287383843, guid: c8a64104fe56b1f4fa26499053e78b29, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 130
+      objectReference: {fileID: 0}
     - target: {fileID: 7992597624775644600, guid: c8a64104fe56b1f4fa26499053e78b29, type: 3}
       propertyPath: m_text
       value: "\uBC29\uD574\uBB3C"
