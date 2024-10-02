@@ -35,7 +35,8 @@ namespace CookApps.AutoBattler
             _currentRankingData = data;
             _userPVPBattleSimpleData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(_currentRankingData.SimpleInfo);
 
-            _specPVPTierData = SpecDataManager.Instance.GetPVPTierData(_userPVPBattleSimpleData.RankId);
+            //_specPVPTierData = SpecDataManager.Instance.GetPVPTierData(_userPVPBattleSimpleData.RankId);
+            _specPVPTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, _currentRankingData.Score);
 
             _rankTierImage.sprite = ImageManager.Instance.GetPVPTierIconSprite(_specPVPTierData.pvp_tier_type);
             _rankText.text = _currentRankingData.Rank.ToString();

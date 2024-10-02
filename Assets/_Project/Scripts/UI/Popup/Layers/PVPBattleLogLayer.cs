@@ -57,10 +57,16 @@ namespace CookApps.AutoBattler
 
                 foreach (var logData in _currentServerLogDataList)
                 {
-                    var newSlotObject = Instantiate(_logSlotObject, _logScrollRect.content);
-                    var logSlot = newSlotObject.GetComponent<ArenaBattleEnemySlot>();
+                    var opponentData = BMUtil.DecompressGzipToDataClass<UserPVPBattleSimpleData>(logData.OpponentSimpleInfo);
+                    if (opponentData != null)
+                    {
+                        if (opponentData.PlayerId == UserDataManager.Instance.UserBasicData.PlayerId) continue; // 자신의 전투 기록 제외
+                    
+                        var newSlotObject = Instantiate(_logSlotObject, _logScrollRect.content);
+                        var logSlot = newSlotObject.GetComponent<ArenaBattleEnemySlot>();
 
-                    logSlot?.InitBattleLogSlot(logData);
+                        logSlot?.InitBattleLogSlot(logData);
+                    }
                 }
             }
         }

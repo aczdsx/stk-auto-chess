@@ -98,6 +98,8 @@ namespace CookApps.AutoBattler
             
             foreach (var matchData in _currentServerMatchingDataList)
             {
+                if (matchData.PlayerId == UserDataManager.Instance.UserBasicData.PlayerId) continue; // 자신의 전투 기록 제외
+                
                 GameObject newSlotObject = Instantiate(_matchingSlotObject, _matchingScrollRect.content);
                 var matchingSlot = newSlotObject.GetComponent<ArenaBattleEnemySlot>();
                     
