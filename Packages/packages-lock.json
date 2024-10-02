@@ -112,7 +112,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.grpc": {
-      "version": "file:com.cookapps.grpc-8.0.0-preview.2.tgz",
+      "version": "file:com.cookapps.grpc-8.0.0-preview.3.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
