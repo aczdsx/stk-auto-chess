@@ -110,6 +110,12 @@ namespace CookApps.AutoBattler
             //어떠한 case에도 속하지 않는다면 기본처리
             if (callback.IsInvoked == false)
             {
+                // 서버 내부의 internal error 경우 retry를 하지 않는다. (다시 시도해도 같은 오류 발생, 실패 처리) 
+                if (statusCode == StatusCode.Internal)
+                {
+                    callback.Invoke(GrpcFailAction.Skip);
+                    return;
+                }
                 var isRetry = true; // TODO : 상황에 맞게 처리하는 로직을 추가한 후 완료되면 callback을 호출하세요.
 
                 //확인 버튼 후 다음 처리
