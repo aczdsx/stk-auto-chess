@@ -49,6 +49,9 @@ public class TargetLineRenderer : MonoBehaviour
         _targetCharacter = targetCharacter;
         _lineRenderer.gameObject.SetActive(_targetCharacter != null);
 
+        // 트레일 초기화
+        _trailRenderer.Clear();
+
         if (gameObject.activeInHierarchy)
         {
             Vector3 startPos = _startCharacter.Position3D;

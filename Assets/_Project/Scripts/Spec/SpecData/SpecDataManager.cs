@@ -8,12 +8,12 @@ using CookApps.SpecData.Generator;
 
 namespace CookApps.AutoBattler
 {
-    [GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_NET)]
+    [GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_UNITY)]
     public partial class SpecDataManager
     {
     }
 
-    [GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_NET | EnumSpecDataManagerType.VALIDATOR)]
+    [GeneratorSpecDataManager(EnumSpecDataManagerType.JSON_UNITY | EnumSpecDataManagerType.VALIDATOR)]
     public partial class SpecDataValidManager
     {
     }

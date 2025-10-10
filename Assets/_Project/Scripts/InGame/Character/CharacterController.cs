@@ -425,7 +425,7 @@ namespace CookApps.BattleSystem
         {
             return (_crowdControlType & type) == type;
         }
-        
+
         public void AddCrowdControl(CrowdControlType type)
         {
             if (_statData.Spec != null)
@@ -498,7 +498,7 @@ namespace CookApps.BattleSystem
             var isEntangle = HasCrowdControl(CrowdControlType.Entangle);
             var isSilence = HasCrowdControl(CrowdControlType.Silence);
             var isMisaRestraint = HasCrowdControl(CrowdControlType.MisaRestraint);
-            
+
             if (isAirborne || isFreezing || isKnockBack || isStun || isEntangle || isMisaRestraint)
             {
                 result &= ~CharacterStateRunningResult.CanCallMove;
@@ -513,7 +513,7 @@ namespace CookApps.BattleSystem
             {
                 _view.UpdatePosition(position, ViewPosition3D, SelectedOffSet);
             }
-            
+
             if ((result & CharacterStateRunningResult.CanCallEffectCodeOnUpdate) == CharacterStateRunningResult.CanCallEffectCodeOnUpdate)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnUpdate);
@@ -577,7 +577,7 @@ namespace CookApps.BattleSystem
             {
                 if (_currState.IsBlockingChangeState)
                     return;
-                
+
                 _currState.StateEnd(false);
                 StatePool.Instance.Return(_currState);
                 _currState = _nextState;
@@ -625,7 +625,7 @@ namespace CookApps.BattleSystem
 #if UNITY_EDITOR
             Debug.Log($"AddNextState >> {Time.frameCount}, {stateType}");
 #endif
-            
+
             var state = StatePool.Instance.Get(stateType) as CharacterStateBase;
             if (state == null)
                 return null;
@@ -635,7 +635,7 @@ namespace CookApps.BattleSystem
                 StatePool.Instance.Return(state);
                 return null;
             }
-            
+
             state.SetStateData(stateData);
             _nextState = state;
 
@@ -650,13 +650,13 @@ namespace CookApps.BattleSystem
             var state = StatePool.Instance.Get<T>();
             if (state == null)
                 return null;
-            
+
             if (_nextState != null && state.StatePriority < _nextState.StatePriority)
             {
                 StatePool.Instance.Return(state);
                 return null;
             }
-            
+
             state.SetStateData(stateData);
             _nextState = state;
             return state;
@@ -667,7 +667,7 @@ namespace CookApps.BattleSystem
             var state = StatePool.Instance.Get<T>();
             if (state == null)
                 return null;
-            
+
             _currState?.ClearBlockingChangeState();
             state.SetStateData(stateData);
             _nextState = state;
@@ -746,7 +746,7 @@ namespace CookApps.BattleSystem
                 var loopVfxName = type.GetLoopVfxName();
                 if (loopVfxName != InGameVfxNameType.NONE)
                 {
-                    bool isUseOffset = loopVfxName == InGameVfxNameType.fx_common_debuff_stun ||  loopVfxName == InGameVfxNameType.fx_common_debuff_silence;
+                    bool isUseOffset = loopVfxName == InGameVfxNameType.fx_common_debuff_stun || loopVfxName == InGameVfxNameType.fx_common_debuff_silence;
                     bool isNotFollowable = loopVfxName == InGameVfxNameType.fx_common_commander_skill_03;
                     if (isUseOffset)
                     {
@@ -810,7 +810,7 @@ namespace CookApps.BattleSystem
         {
             if (_buffDebuffRefCountDict == null)
                 return false;
-            
+
             if (_buffDebuffRefCountDict.TryGetValue(type, out ObfuscatorInt count))
             {
                 return count > 0;
@@ -840,7 +840,7 @@ namespace CookApps.BattleSystem
         {
             if (codeID == 0)
                 return;
-            
+
             _buffDebuffs.Add((codeID, buffStackData));
             _hpBarView.RestructBuffIcon(_buffDebuffs);
         }
@@ -850,7 +850,7 @@ namespace CookApps.BattleSystem
             _buffDebuffs.RemoveAll(x => x.buffStackData == buffStackData);
             _hpBarView.RestructBuffIcon(_buffDebuffs);
         }
-        
+
         public void RemoveBuffStackData(long codeID)
         {
             _buffDebuffs.RemoveAll(x => x.codeID == codeID);
@@ -933,7 +933,7 @@ namespace CookApps.BattleSystem
             // 최소 대미지량 적용
             damageInfo.damageAmount = Math.Floor(Math.Max(minDamageAmount, damageInfo.damageAmount));
 
-            if(ecc != null)
+            if (ecc != null)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageAmount);
                 damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda, damageInfo.damageAmount.Value);
@@ -959,7 +959,7 @@ namespace CookApps.BattleSystem
         {
             if (!InGameManager.Instance.IsInGameCombat)
                 return DamageReturnType.Damaging;
-            
+
             // 로비 전투 상황일 때
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
             {
@@ -1006,7 +1006,7 @@ namespace CookApps.BattleSystem
                     attacker.IncreaseKillCount(this);
                 }
 
-                var deathInfo = new DeathInfo {attacker = attacker};
+                var deathInfo = new DeathInfo { attacker = attacker };
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDead);
                 deathInfo = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDeadLambda, deathInfo);
 
@@ -1021,7 +1021,7 @@ namespace CookApps.BattleSystem
                             if (targetLine != null)
                                 targetLine.Remove();
                         });
-                        
+
                     }
                 }
 
@@ -1162,7 +1162,7 @@ namespace CookApps.BattleSystem
                 AddNextState<CharacterStateCC>();
                 return;
             }
-            
+
             if (isInRange)
             {
                 AddNextState<CharacterStateIdle>();
@@ -1175,14 +1175,14 @@ namespace CookApps.BattleSystem
                 AddNextState<CharacterStateIdle>();
                 return;
             }
-             
+
             var isNewTargetInRange = InGameObjectManager.Instance.IsInRange(this, Target);
             if (isNewTargetInRange)
             {
                 AddNextState<CharacterStateIdle>();
                 return;
             }
-             
+
             InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
             if (bestTile == CurrentTile)
             {
@@ -1223,13 +1223,14 @@ namespace CookApps.BattleSystem
                 AddNextState<CharacterStateMove>();
             }
         }
-        
+
         public InGameVfxTargetLine SetLine(CharacterController character, bool isOwn, Action<InGameVfxTargetLine> onComplete = null)
         {
             var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TargetLineRenderer, Position3D);
             if (obj != null)
             {
                 InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
+                targetLine.SetActiveObject(true);
                 targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
                 {
                     if (onComplete != null)
@@ -1241,7 +1242,7 @@ namespace CookApps.BattleSystem
 
             return null;
         }
-        
+
         public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)
         {
             var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.DropFx, Position3D);
@@ -1271,7 +1272,7 @@ namespace CookApps.BattleSystem
         public async UniTask ShowNormalText(string token, string hexColor = null)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            
+
             string convertText = LanguageManager.Instance.GetLanguageText(token);
             await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
         }

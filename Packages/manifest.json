@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "appsflyer-unity-plugin": "https://github.com/AppsFlyerSDK/appsflyer-unity-plugin.git#upm",
+    "com.boxqkrtm.ide.cursor": "https://github.com/boxqkrtm/com.unity.ide.cursor.git",
     "com.coffee.ui-effect": "https://github.com/mob-sakai/UIEffect.git",
     "com.coffee.unmask": "https://github.com/mob-sakai/UnmaskForUGUI.git",
     "com.cookapps.analytics": "1.6.0",
@@ -16,7 +18,7 @@
     "com.cookapps.postprocessor": "1.0.7",
     "com.cookapps.reloaddomain": "1.0.2",
     "com.cookapps.scene.helper": "1.0.8",
-    "com.cookapps.specdatamanager": "1.0.21",
+    "com.cookapps.specdatamanager": "1.0.28",
     "com.cookapps.unitysettings": "2.0.5",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.google.external-dependency-manager": "file:../Assets/Plugins/GoogleDependency/com.google.external-dependency-manager-1.2.181.tgz",

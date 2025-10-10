@@ -32,36 +32,36 @@ namespace CookApps.AutoBattler
     {
         public async UniTask Initialize(uint serverSpecVersion)
         {
-#if USE_SERVER_SPEC
-            var localData = new CookAppsLocalData(SecretKey.GetKey());
-            string json;
-            var localSpecVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
-            if (localSpecVersion != serverSpecVersion)
-            {
-                do
-                {
-                    json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
-                } while (string.IsNullOrEmpty(json));
+// #if USE_SERVER_SPEC
+//             var localData = new CookAppsLocalData(SecretKey.GetKey());
+//             string json;
+//             var localSpecVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
+//             if (localSpecVersion != serverSpecVersion)
+//             {
+//                 do
+//                 {
+//                     json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
+//                 } while (string.IsNullOrEmpty(json));
 
-                localData.Save(json, "SpecData");
-            }
-            else
-            {
-                if (!localData.TryLoad("SpecData", out json))
-                {
-                    do
-                    {
-                        json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
-                    } while (string.IsNullOrEmpty(json));
+//                 localData.Save(json, "SpecData");
+//             }
+//             else
+//             {
+//                 if (!localData.TryLoad("SpecData", out json))
+//                 {
+//                     do
+//                     {
+//                         json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
+//                     } while (string.IsNullOrEmpty(json));
 
-                    localData.Save(json, "SpecData");
-                }
-            }
-            Preference.SavePreference(Pref.LOCAL_SPEC_VERSION, serverSpecVersion);
-#else
+//                     localData.Save(json, "SpecData");
+//                 }
+//             }
+//             Preference.SavePreference(Pref.LOCAL_SPEC_VERSION, serverSpecVersion);
+// #else
             string json = SpecDataResourceLoader.LoadSpecData();
             await UniTask.Yield();
-#endif
+// #endif
             Load(json);
             await UniTask.Yield();
             GenerateCacheSpecData();

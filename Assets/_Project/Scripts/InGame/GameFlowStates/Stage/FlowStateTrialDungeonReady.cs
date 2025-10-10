@@ -58,7 +58,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
                 new Vector3(0f, 1.5f, -10), 1.0f).Forget();
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameResourceHolder.InGameType);
-        List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.ToList();
+        List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.Select(x => new ObfuscatorInt(x)).ToList();
 
         battleDeckList.RemoveAll(l =>
         {

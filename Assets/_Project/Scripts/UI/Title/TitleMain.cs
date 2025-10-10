@@ -16,6 +16,7 @@ using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using AppsFlyerSDK;
 
 namespace CookApps.AutoBattler
 {
@@ -23,7 +24,7 @@ namespace CookApps.AutoBattler
     public class TitleMain : UILayer
     {
         const float LOGIN_DELAY_TIME = 3.0f;
-        
+
         public static int SessionCount { get; private set; }
 
         private Dictionary<int, float> progressDict = new();
@@ -57,7 +58,7 @@ namespace CookApps.AutoBattler
 #if !RELEASE && ENABLE_CHEAT
             SRDebug.Init();
 #endif
-            
+
             isLoginProcess = false;
 
             ClearTitleMain();
@@ -78,25 +79,25 @@ namespace CookApps.AutoBattler
 
             //touchToStart.SetActive(isLogin);
             touchToStart.SetActive(true);   // 게스트 로그인 only
-            
-// 24.9.27 - 게스트 로그인 only
-// #if UNITY_ANDROID
-//             // if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-//             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin); // TEST
-//             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-//             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-//             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-// #elif UNITY_IOS
-//             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-//             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-//             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-//             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-// #else
-//             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-//             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-//             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-//             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-// #endif
+
+            // 24.9.27 - 게스트 로그인 only
+            // #if UNITY_ANDROID
+            //             // if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin); // TEST
+            //             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
+            // #elif UNITY_IOS
+            //             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
+            // #else
+            //             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
+            //             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
+            // #endif
 
             // 언어 설정
             LanguageManager.Instance.InitLanguage();
@@ -118,14 +119,16 @@ namespace CookApps.AutoBattler
         private async UniTask RunAllTasks()
         {
             await UniTask.NextFrame();
-            
+
             await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
-            
+
             SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
             SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
-            
+
+            await ConnectAppsflyer();
+
             await ConnectWithServer();
-            
+
             InitTitleMain();
         }
 
@@ -181,7 +184,7 @@ namespace CookApps.AutoBattler
             // }
 
             Debug.Log("UID ++++> " + GrpcManager.Instance.Auth.AuthenticateData.Uid);
-            
+
             // 유저 로그인 정보 저장
             bool res = await UserDataManager.Instance.Initialize();
             if (!res)
@@ -255,7 +258,7 @@ namespace CookApps.AutoBattler
             isLoginProcess = true;
             //SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
             _loadingPopupObject.SetActive(true);
-            
+
 
             LoginPlatform(LoginManager.Instance.CurrentAuthPlatform).ContinueWith(() =>
             {
@@ -276,7 +279,7 @@ namespace CookApps.AutoBattler
 
                 isLoginProcess = true;
                 _loadingPopupObject.SetActive(true);
-                
+
                 LoginPlatform(AuthPlatform.Guest).ContinueWith(() =>
                 {
                     // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
@@ -290,13 +293,13 @@ namespace CookApps.AutoBattler
 
                 isLoginProcess = true;
                 _loadingPopupObject.SetActive(true);
-                
+
                 CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
                 {
                     // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
                     //_loadingPopupObject.SetActive(false);
                     //isLoginProcess = false;
-                    
+
                 }).Forget();
             }
         }
@@ -354,7 +357,7 @@ namespace CookApps.AutoBattler
             else
             {
                 while (!GrpcManager.Instance.Auth.IsLoggedIn(authPlatform)) await UniTask.Yield();
-            
+
                 isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
             }
             //
@@ -395,17 +398,30 @@ namespace CookApps.AutoBattler
             }
 
             isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
-            
+
             // 로그인 진행
             OnClickTouchToStart();
         }
-        
+
+        private async UniTask ConnectAppsflyer()
+        {
+            await AppsFlyerManager.Instance.InitializeAsync(
+                devKey: "rpPWfG9Nbc8v2Rk7fYm783",
+                iosAppId: "6504894635",
+                oneLinkId: "uOUl",
+                debug: false
+            );
+
+            // 초기화 완료 대기
+            await UniTask.NextFrame();
+        }
+
         public async UniTask ConnectWithServer()
         {
             var matches = Regex.Matches(BuildInfo.GetVersionCode(), @"\d+");
             var res = ZString.Join("", matches.Select(x => x.Value));
             if (!int.TryParse(res, out var versionCode)) versionCode = 1000;
-            
+
 #if SERVER_REAL
             var initializeParam = new GrpcInitializeParam(
                 "stkauto.prod.cookappsgames.com",
@@ -418,13 +434,13 @@ namespace CookApps.AutoBattler
                 443,
                 ChannelCredentials.SecureSSL,
                 versionCode,
-            
-            // 재상님 로컬
-            // var initializeParam = new GrpcInitializeParam(
-            //     "192.168.2.65",
-            //     50051,
-            //     ChannelCredentials.Insecure,
-            //     versionCode,
+
+                // 재상님 로컬
+                // var initializeParam = new GrpcInitializeParam(
+                //     "192.168.2.65",
+                //     50051,
+                //     ChannelCredentials.Insecure,
+                //     versionCode,
 #endif
 
 #if UNITY_IOS
@@ -476,28 +492,28 @@ namespace CookApps.AutoBattler
 
             // 서버 리스트를 받아온다.
             var serverListResponse = await GrpcManager.Instance.Server.ListAsync();
-            if (serverListResponse.IsError) 
+            if (serverListResponse.IsError)
                 return string.Empty;
-            
+
             // 서버의 유저 정보에서 첫번째 선택 ( 서버에 플레이어가 여러명일 경우 처리 방법은 다를 수 있음 )
             UserServerData userServerData = serverListResponse.Data.UserServerList.FirstOrDefault();
             // 서버에서 유저 정보가 있으면 해당 서버의 플레이어 ServerJoin 이후 Id 반환
             if (userServerData != null)
             {
-                return await ServerJoin(userServerData.ServerId, userServerData.PlayerId);   
+                return await ServerJoin(userServerData.ServerId, userServerData.PlayerId);
             }
-            
+
             // IsJoinable 가능한 첫번째 서버 ( 서버 선택 UI를 통해 선택하게 할 수도 있음 )
             var firstServer = serverListResponse.Data.ServerList.FirstOrDefault(x => x.IsJoinable);
             if (firstServer == null)
-            {   
+            {
                 // 서버가 없음 서버팀에 문의 해 주세요!!!
                 return string.Empty;
             }
-            
+
             uint selectedServerId = firstServer.ServerId;
             PlayerCreateResponse createResponse = await GrpcManager.Instance.Player.CreateAsync(firstServer.ServerId, nickName);
-            if(createResponse.IsError) 
+            if (createResponse.IsError)
                 return string.Empty;
             return await ServerJoin(selectedServerId, createResponse.PlayerId);
 

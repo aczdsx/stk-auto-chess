@@ -1,9 +1,13 @@
 <dependencies>
   <packages>
+    <package>com.android.installreferrer:installreferrer:2.1</package>
     <package>com.android.support:appcompat-v7:25.3.1</package>
     <package>com.android.support:cardview-v7:25.3.1</package>
     <package>com.android.support:customtabs:25.3.1</package>
     <package>com.android.support:support-v4:25.3.1</package>
+    <package>com.appsflyer:af-android-sdk:6.17.3</package>
+    <package>com.appsflyer:purchase-connector:2.1.0</package>
+    <package>com.appsflyer:unity-wrapper:6.17.3</package>
     <package>com.facebook.android:facebook-applinks:[17.0.0,18)</package>
     <package>com.facebook.android:facebook-core:[17.0.0,18)</package>
     <package>com.facebook.android:facebook-gamingservices:[17.0.0,18)</package>
@@ -19,7 +23,7 @@
   </files>
   <settings>
     <setting name="androidAbis" value="arm64-v8a" />
-    <setting name="bundleId" value="com.mintry.stk" />
+    <setting name="bundleId" value="com.cookapps.tech.sampleteambattle" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradlePropertiesTemplateEnabled" value="True" />

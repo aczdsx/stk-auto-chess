@@ -2,17 +2,38 @@
 <!--CookApps 패키지 자동 생성 (수정하지 마세요!!)-->
 <linker>
   <!--CookApps 내부 패키지-->
-  <assembly fullname="CookApps.AnalyticsLite" preserve="all" />
+  <assembly fullname="CookApps.Analytics" preserve="all" />
+  <assembly fullname="CookApps.Auth" preserve="all" />
   <assembly fullname="CookApps.Build" preserve="all" />
+  <assembly fullname="CookApps.Facebook" preserve="all" />
   <assembly fullname="CookApps.gRPC" preserve="all" />
-  <assembly fullname="CookApps.gRPC.Hatchery" preserve="all" />
+  <assembly fullname="Cysharp.Net.Http.YetAnotherHttpHandler" preserve="all" />
+  <assembly fullname="GrpcWebSocketBridge" preserve="all" />
   <assembly fullname="CookApps.Iap" preserve="all" />
-  <assembly fullname="CookApps.Local.Data" preserve="all" />
+  <assembly fullname="AppleAuth" preserve="all" />
+  <assembly fullname="CookApps.PlatformAuth" preserve="all" />
+  <assembly fullname="CookApps.GoogleSignIn" preserve="all" />
   <assembly fullname="CookApps.SpecData" preserve="all" />
   <assembly fullname="CookApps.UnitySettings" preserve="all" />
-  <assembly fullname="CookApps.TechDebug" preserve="all" />
   <assembly fullname="CookApps.Inspector" preserve="all" />
-  <assembly fullname="CookApps.Utility" preserve="all" />
   <assembly fullname="CookApps.Obfuscator" preserve="all" />
   <assembly fullname="CookApps.Code.Obfuscator" preserve="all" />
+  <assembly fullname="CookApps.TechDebug" preserve="all" />
+  <assembly fullname="CookApps.Utility" preserve="all" />
+  <assembly fullname="CookApps.Local.Data" preserve="all" />
+  <assembly fullname="CookApps.Coroutine" preserve="all" />
+  <assembly fullname="CookApps.Network" preserve="all" />
+  <!--CookApps 외부 패키지-->
+  <assembly fullname="Facebook.Unity.Android" ignoreIfMissing="1">
+    <type fullname="Facebook.Unity.Android.*" preserve="all" />
+  </assembly>
+  <assembly fullname="Facebook.Unity.IOS" ignoreIfMissing="1">
+    <type fullname="Facebook.Unity.IOS.*" preserve="all" />
+  </assembly>
+  <assembly fullname="Facebook.Unity.Canvas" ignoreIfMissing="1">
+    <type fullname="Facebook.Unity.Canvas.*" preserve="all" />
+  </assembly>
+  <assembly fullname="CookApps.PlatformAuth">
+    <type fullname="CookApps.PlatformAuth.*" preserve="all" />
+  </assembly>
 </linker>

@@ -33,7 +33,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> startingPlayerCharacters = new();
         private List<CharacterController> startingEnemiesCharacters = new();
         private List<CharacterController> reusableList = new List<CharacterController>();
-        
+
         private List<InGameVfxTargetLine> playerTargetLines = new List<InGameVfxTargetLine>();
         private List<InGameVfxTargetLine> enemyTargetLines = new List<InGameVfxTargetLine>();
 
@@ -92,22 +92,22 @@ namespace CookApps.BattleSystem
             {
                 return nonStatObstacleInPlaygroundForUpdate;
             }
-            
+
             return neutralInPlaygroundForUpdate;
         }
 
         public List<CharacterController> GetCharacterListSortedByHpRate(AllianceType allianceType, bool isOwnCharacter)
         {
-            List<CharacterController> characterList = isOwnCharacter 
+            List<CharacterController> characterList = isOwnCharacter
                 ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
             return characterList.OrderBy(c => c.CurrentHp).ToList();
         }
-        
+
         public List<CharacterController> GetCharacterListSortedByADDescending(AllianceType allianceType, bool isOwnCharacter)
         {
-            List<CharacterController> characterList = isOwnCharacter 
+            List<CharacterController> characterList = isOwnCharacter
                 ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
@@ -117,31 +117,31 @@ namespace CookApps.BattleSystem
         public int GetAverageAD(AllianceType allianceType, bool isOwnCharacter)
         {
             double averageAD = 0;
-            List<CharacterController> list = isOwnCharacter 
+            List<CharacterController> list = isOwnCharacter
                 ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
-            
+
             foreach (var character in list)
             {
                 averageAD += character.AD;
             }
             averageAD /= list.Count;
-            
+
             return Convert.ToInt32(averageAD);
         }
 
         public List<CharacterController> GetCharacterListSortedByDistance(CharacterController character, bool isOwnCharacter)
         {
-            List<CharacterController> characterList = isOwnCharacter 
+            List<CharacterController> characterList = isOwnCharacter
                 ? (character.AllianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (character.AllianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
             return characterList.OrderBy(c => Vector3.Distance(character.Position, c.Position)).ToList();
         }
-        
+
         public List<CharacterController> GetCharacterListSortedByDistanceDescending(CharacterController character, bool isOwnCharacter)
         {
-            List<CharacterController> characterList = isOwnCharacter 
+            List<CharacterController> characterList = isOwnCharacter
                 ? (character.AllianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (character.AllianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
@@ -319,12 +319,12 @@ namespace CookApps.BattleSystem
         {
             return _grid.GetTile(id);
         }
-        
+
         public InGameTile GetInGameTile(int2 pos)
         {
             return _grid.GetTile(pos);
         }
-        
+
         public int2 GetInOppositePosition(int2 pos)
         {
             int x = _grid.Width - pos.x - 1;
@@ -360,7 +360,7 @@ namespace CookApps.BattleSystem
         {
             startingEnemiesCharacters.Clear();
             startingEnemiesCharacters.AddRange(enemiesInPlaygroundForUpdate);
-            
+
             startingPlayerCharacters.Clear();
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
             UserDataManager.Instance.SetUserCharaceterBattleDeckList(InGameResourceHolder.InGameType, startingPlayerCharacters);
@@ -369,8 +369,8 @@ namespace CookApps.BattleSystem
                 .OrderBy(character => character.SpecCharacter.atk_range).ToList();
             enemiesInPlaygroundForUpdate =
                 enemiesInPlaygroundForUpdate.OrderBy(enemy => enemy.SpecCharacter.atk_range).ToList();
-            
-            
+
+
         }
 
         public bool IsCheckAllPlayerCharacterAlive()
@@ -445,7 +445,7 @@ namespace CookApps.BattleSystem
             for (var i = 0; i < reusableList.Count; i++)
             {
                 CharacterController other = reusableList[i];
-                if (other is not {IsAlive: true})
+                if (other is not { IsAlive: true })
                 {
                     continue;
                 }
@@ -502,7 +502,7 @@ namespace CookApps.BattleSystem
 
             return target;
         }
-        
+
         public CharacterController GetNearestTargetByManhattanDistance(CharacterController pivot)
         {
             CharacterController target = null;
@@ -583,7 +583,7 @@ namespace CookApps.BattleSystem
                 {
                     distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
                 }
-                
+
                 if (minDistance > distance)
                 {
                     minDistance = distance;
@@ -756,7 +756,7 @@ namespace CookApps.BattleSystem
             double maxHp = (type == AllianceType.Player) ? _playerSumMaxHp : _enemySumMaxHp;
             double currentHp = targetList.Sum(character => character.CurrentHp);
 
-            return (float) (currentHp / maxHp);
+            return (float)(currentHp / maxHp);
         }
 
         public void UpdateSumMaxHp(AllianceType type)
@@ -827,7 +827,7 @@ namespace CookApps.BattleSystem
 
             return attrValue.ToString($"n0");
         }
-        
+
         public double GetAttr(AllianceType type)
         {
             double attrValue = 0;
@@ -912,13 +912,13 @@ namespace CookApps.BattleSystem
         {
             List<CharacterController> characterControllers = (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
             List<InGameVfxTargetLine> targetLines = (isPlayer) ? playerTargetLines : enemyTargetLines;
-            
+
             foreach (var line in targetLines)
             {
                 line.Remove();
             }
             targetLines.Clear();
-            
+
             foreach (var playerCharacter in characterControllers)
             {
                 var target = new CharacterController();
@@ -930,11 +930,15 @@ namespace CookApps.BattleSystem
                 {
                     target = GetNearestTargetOnce(playerCharacter);
                 }
-                
+
                 if (target != null)
                 {
                     var targetLine = playerCharacter.SetLine(target, isPlayer,
-                        (targetLine) => { targetLines.Remove(targetLine); });
+                        (targetLine) =>
+                        {
+                            targetLine.SetActiveObject(false);
+                            targetLines.Remove(targetLine);
+                        });
 
                     targetLines.Add(targetLine);
                 }
