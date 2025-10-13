@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
     public class LobbyMain : UILayer
     {
         public Transform GetIdleRewardTransform => _idleRewardButton.transform;
-        
+
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
         [SerializeField] private CAButton _shopButton;
@@ -172,7 +172,7 @@ namespace CookApps.AutoBattler
                     CheckNewChapterClear();
                     CheckUserAccountLevelUp();
                     UpdateAttendanceData();
-                    
+
                     UpdateReddotState();
                     UpdateOpenCondition();
                     CheckShowSurveyPopup();
@@ -242,7 +242,7 @@ namespace CookApps.AutoBattler
             if (specLevelData != null)
             {
                 long leftExp = userBasicData.Exp - specLevelData.exp_start;
-                float resultValue = leftExp / (float) specLevelData.exp_need;
+                float resultValue = leftExp / (float)specLevelData.exp_need;
 
                 _userExpSlider.value = resultValue;
                 _userExpText.text = string.Format("{0:N2}%", resultValue * 100);
@@ -268,13 +268,22 @@ namespace CookApps.AutoBattler
 
             _apCostText.text = $"x{specStageData.need_ap}";
 
+            RectTransform currentStageRect = null;
             for (int i = 0; i < stageList.Count; i++)
             {
                 GameObject newSlotObject = Instantiate(_stageSelectSlotObject, _stageSelectScrollRect.content);
                 LobbyBottomStageSlot slot = newSlotObject.GetComponent<LobbyBottomStageSlot>();
-                slot.SetStageItemSlot(stageList[i]);
+
+                bool isCurrentStage = stageList[i].stage_id == currentStagdId;
+
+                slot.SetStageItemSlot(stageList[i], isCurrentStage);
 
                 _stageSlotList.Add(slot);
+
+                if (isCurrentStage)
+                {
+                    currentStageRect = newSlotObject.GetComponent<RectTransform>();
+                }
             }
 
             // 보스 스테이지 관련
@@ -295,6 +304,79 @@ namespace CookApps.AutoBattler
 
             // Vignette 세팅
             SetVignetteColor(specChapterData.chapter_id);
+
+            // 현재 스테이지 슬롯을 뷰포트 중앙으로 정렬
+            if (currentStageRect != null)
+            {
+                CenterOnStageSlot(currentStageRect);
+            }
+        }
+
+        private void CenterOnStageSlot(RectTransform target)
+        {
+            if (_stageSelectScrollRect == null || target == null) return;
+
+            var scrollRect = _stageSelectScrollRect;
+            var content = scrollRect.content;
+            var viewport = scrollRect.viewport != null ? scrollRect.viewport : (RectTransform)scrollRect.transform;
+
+            // 레이아웃 강제 갱신 후 계산
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+
+            // 타겟과 콘텐츠의 월드 코너를 콘텐츠 로컬 공간으로 가져옴
+            Vector3[] itemWorldCorners = new Vector3[4];
+            Vector3[] contentWorldCorners = new Vector3[4];
+            target.GetWorldCorners(itemWorldCorners);
+            content.GetWorldCorners(contentWorldCorners);
+
+            // 콘텐츠 로컬 좌표계로 변환
+            for (int i = 0; i < 4; i++)
+            {
+                itemWorldCorners[i] = content.InverseTransformPoint(itemWorldCorners[i]);
+                contentWorldCorners[i] = content.InverseTransformPoint(contentWorldCorners[i]);
+            }
+
+            float contentWidth = content.rect.width;
+            float contentHeight = content.rect.height;
+            float viewportWidth = viewport.rect.width;
+            float viewportHeight = viewport.rect.height;
+
+            // 콘텐츠의 좌측/상단 기준치 (pivot 보정)
+            float contentLeft = -content.rect.width * content.pivot.x;
+            float contentTop = content.rect.height * (1f - content.pivot.y);
+
+            // 아이템 중심 좌표 (콘텐츠 로컬)
+            float itemLeft = itemWorldCorners[0].x;
+            float itemRight = itemWorldCorners[3].x;
+            float itemBottom = itemWorldCorners[0].y;
+            float itemTop = itemWorldCorners[1].y;
+            float itemCenterX = (itemLeft + itemRight) * 0.5f;
+            float itemCenterY = (itemTop + itemBottom) * 0.5f;
+
+            // 좌측으로부터의 거리 (pivot 0 보정값 사용)
+            float itemCenterFromLeft = itemCenterX - contentLeft;
+            // 상단으로부터의 거리 (Unity는 위가 +Y 이므로 top 기준 계산)
+            float itemCenterFromTop = contentTop - itemCenterY;
+
+            if (scrollRect.horizontal && contentWidth > viewportWidth)
+            {
+                float targetLeftForCenter = itemCenterFromLeft - viewportWidth * 0.5f;
+                float maxLeft = contentWidth - viewportWidth; // 스크롤 가능한 최대치
+                float normalized = Mathf.Clamp01(targetLeftForCenter / Mathf.Max(1f, maxLeft));
+                scrollRect.horizontalNormalizedPosition = normalized;
+            }
+
+            if (scrollRect.vertical && contentHeight > viewportHeight)
+            {
+                // ScrollRect의 verticalNormalizedPosition은 1=top, 0=bottom 기준
+                float targetTopForCenter = itemCenterFromTop - viewportHeight * 0.5f;
+                float maxTop = contentHeight - viewportHeight;
+                float normalized = 1f - Mathf.Clamp01(targetTopForCenter / Mathf.Max(1f, maxTop));
+                scrollRect.verticalNormalizedPosition = normalized;
+            }
+
+            Canvas.ForceUpdateCanvases();
         }
 
         private void SetVignetteColor(int targetChapter)
@@ -362,23 +444,23 @@ namespace CookApps.AutoBattler
         {
             ShopPurchaseManager.Instance.ShowShopBannerPopup(ShopBannerShowType.LOBBY);
         }
-        
+
         // 설문 팝업 노출 여부 체크
         private void CheckShowSurveyPopup()
         {
             bool isShowSurvey = Preference.LoadPreference(Pref.SHOW_SURVEY_POPUP, 0) == 1;
             if (isShowSurvey) return;
-            
+
             int surveyVisitCount = SpecDataManager.Instance.GetGameConfig<int>("USER_SURVEY_NOTI_ACC_DATE");
             if (UserDataManager.Instance.UserBasicData.DailyVisitCount >= surveyVisitCount)
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
-                
+
                 Preference.SavePreference(Pref.SHOW_SURVEY_POPUP, 1);
             }
         }
-        
-        
+
+
         private void CheckNewChapterClear()
         {
             if (UserDataManager.Instance.NewChapterOpenAlert == false) return;
@@ -479,25 +561,25 @@ namespace CookApps.AutoBattler
                 var userQuestData = UserDataManager.Instance.GetUserQuestData(questData.quest_id);
                 if (userQuestData == null) continue;
 
-                if (userQuestData.QuestStateType == (int) QuestStateType.REWARD)
+                if (userQuestData.QuestStateType == (int)QuestStateType.REWARD)
                 {
                     isAvailDailyQuestReward = true;
                     break;
                 }
             }
-            
+
             foreach (var questData in weeklyQuestList)
             {
                 var userQuestData = UserDataManager.Instance.GetUserQuestData(questData.quest_id);
                 if (userQuestData == null) continue;
 
-                if (userQuestData.QuestStateType == (int) QuestStateType.REWARD)
+                if (userQuestData.QuestStateType == (int)QuestStateType.REWARD)
                 {
                     isAvailWeeklyQuestReward = true;
                     break;
                 }
             }
-            
+
             _questReddotObject.SetActive(isAvailDailyQuestReward || isAvailWeeklyQuestReward);
 
             // 출석 레드닷
@@ -510,10 +592,10 @@ namespace CookApps.AutoBattler
                 {
                     isAvailAttendanceReward = userEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
                 }
-            
+
                 _attendanceReddotObject.SetActive(isAvailAttendanceReward);
             }
-            
+
             // 세션타임 이벤트 레드닷
             bool isAvailSessionTimeEventReward = false;
             var specSessionEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ACC_PLAY_TIME);
@@ -522,7 +604,7 @@ namespace CookApps.AutoBattler
             {
                 isAvailSessionTimeEventReward = userSessionEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
             }
-            
+
             _sessionTimeEventReddotObject.SetActive(isAvailSessionTimeEventReward);
 
 
@@ -534,7 +616,7 @@ namespace CookApps.AutoBattler
             {
                 isAvailUseAPReward = userUseAPEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
             }
-            
+
             _useAPEventReddotObject.SetActive(isAvailUseAPReward);
 
             // 시련 던전 레드닷
@@ -556,7 +638,7 @@ namespace CookApps.AutoBattler
                     }
                 }
             }
-            
+
             _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
 
             // 아레나 PVP 레드닷
@@ -627,10 +709,10 @@ namespace CookApps.AutoBattler
                 InGameManager.Instance.EndInGame();
                 SceneTransition_Animator transition = SceneTransition_Animator.Create();
                 SceneLoading.GoToNextScene("InGame",
-                    (InGameType.STAGE, (IGameStateUI) new InGameMainStateUIStageUI(), (int) currentStageData.stage_id),
+                    (InGameType.STAGE, (IGameStateUI)new InGameMainStateUIStageUI(), (int)currentStageData.stage_id),
                     transition).Forget();
-                
-                
+
+
                 // [TODO] 방어 덱 설정 진입 테스트 코드 (나중에 삭제)
                 // SceneTransition_Animator transition = SceneTransition_Animator.Create();
                 // UserPVPBattleDetailData data = null;
@@ -645,7 +727,7 @@ namespace CookApps.AutoBattler
                 // SceneLoading.GoToNextScene("InGame",
                 //     (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
                 //     transition).Forget();
-                
+
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             }
         }

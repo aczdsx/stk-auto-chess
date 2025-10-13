@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _normalNextStageCheckObject;
         [SerializeField] private TextMeshProUGUI _normalStageNumberText;
         [SerializeField] private List<GameObject> _normalStarObjectList;
-        
+
         [Header("[State - Perfect Clear]")]
         [SerializeField] private GameObject _perfectClearLayerObject;
         [SerializeField] private GameObject _perfectClearCharacterLayerObject;
@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
             _bottomStageSlotButton.onClick.RemoveListener(OnClickBottomStageSlot);
         }
 
-        public void SetStageItemSlot(SpecStage data)
+        public void SetStageItemSlot(SpecStage data, bool isCurrentStage)
         {
             if (data == null) return;
 
@@ -73,7 +73,7 @@ namespace CookApps.AutoBattler
             _userStageData = UserDataManager.Instance.GetUserStage(_specStageData.stage_id);
 
             _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.stage_id);
-            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.stage_id;
+            _isCurrentStage = isCurrentStage;
 
             int lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
             var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
@@ -116,9 +116,9 @@ namespace CookApps.AutoBattler
                 case StageType.BATTLE_BOSS:
                     SetBossLayerState();
                     break;
-                // case StageType.CHEST:
-                //     SetNormalLayerState();  // temp..임시처리
-                //     break;
+                    // case StageType.CHEST:
+                    //     SetNormalLayerState();  // temp..임시처리
+                    //     break;
             }
         }
 
