@@ -43,7 +43,14 @@ namespace CookApps.AutoBattler
             _titleText.text = LanguageManager.Instance.GetLanguageText("END_TEST_GAME_SURVEY_TITLE");
             _descText.text = LanguageManager.Instance.GetLanguageText("END_TEST_GAME_SURVEY_DESC");
 
-            _surveyURL = SpecDataManager.Instance.GetGameConfig<string>("survey_link_url");
+            if (LanguageManager.Instance.CurrentLanguageType == LanguageType.KR)
+            {
+                _surveyURL = SpecDataManager.Instance.GetGameConfig<string>("survey_link_url");
+            }
+            else
+            {
+                _surveyURL = SpecDataManager.Instance.GetGameConfig<string>("survey_link_url_en");
+            }
         }
 
         private void OnClickSurveyButton()
