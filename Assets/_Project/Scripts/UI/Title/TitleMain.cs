@@ -393,7 +393,7 @@ namespace CookApps.AutoBattler
             {
                 // 디바이스 ID로 authID 저장
                 //var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
-                var uuID = DeviceIdHolder.DeviceId; // 앱 삭제에도 유지 ver
+                var uuID = DeviceIdHolder.DeviceId + 1; // 앱 삭제에도 유지 ver
                 await GrpcManager.Instance.Auth.CreateAsync(authPlatform, uuID);
             }
 
@@ -408,7 +408,7 @@ namespace CookApps.AutoBattler
             await AppsFlyerManager.Instance.InitializeAsync(
                 devKey: "rpPWfG9Nbc8v2Rk7fYm783",
                 iosAppId: "6504894635",
-                oneLinkId: "uOUl",
+                oneLinkId: "", // 미정
                 debug: false
             );
 

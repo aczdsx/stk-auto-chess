@@ -1063,6 +1063,16 @@ namespace CookApps.BattleSystem
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
             }
+            // else
+            // {
+            //     bool isPlayer = _allianceType == AllianceType.Player;
+            //     if (isPlayer)
+            //     {
+            //         InGameMain.GetInGameMain().AddKillLog(this, deadCharacter, isPlayer);
+            //         var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
+            //         EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
+            //     }
+            // }
         }
 
         /// <summary>

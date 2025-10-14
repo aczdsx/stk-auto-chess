@@ -143,53 +143,54 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                SpecGuideMission specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(_specGuideMissionData.id);
-
-                SpecStage guideStageData = SpecDataManager.Instance.GetStageData(_specGuideMissionData.sub_key);
-                SpecStage currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
-
-                bool isMatchChapter = guideStageData.chapter_id == currentStageData.chapter_id;
-
-                if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE && !isMatchChapter)
+                if (_specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
                 {
-                    // 스테이지 데이터 세팅
-                    var lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
-                    var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
-                    var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
+                    SpecGuideMission specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(_specGuideMissionData.id);
 
-                    // 가장 최신 챕터를 확인하고 플레이 가능한 최대 스테이지 넘버로 이동
-                    int targetStageNumber = 1;
-                    if (lastestSpecStageData != null && lastestSpecStageData.chapter_id == guideStageData.chapter_id)
+                    SpecStage guideStageData = SpecDataManager.Instance.GetStageData(_specGuideMissionData.sub_key);
+                    SpecStage currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
+
+                    bool isMatchChapter = guideStageData.chapter_id == currentStageData.chapter_id;
+
+                    if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE && !isMatchChapter)
                     {
-                        if (nextStageData != null)
+                        // 스테이지 데이터 세팅
+                        var lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+                        var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
+                        var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
+
+                        // 가장 최신 챕터를 확인하고 플레이 가능한 최대 스테이지 넘버로 이동
+                        int targetStageNumber = 1;
+                        if (lastestSpecStageData != null && lastestSpecStageData.chapter_id == guideStageData.chapter_id)
                         {
-                            targetStageNumber = nextStageData.stage_number;
+                            if (nextStageData != null)
+                            {
+                                targetStageNumber = nextStageData.stage_number;
+                            }
                         }
+                        // 스테이지 데이터 세팅
+                        var targetSpecStage = SpecDataManager.Instance.GetStageData(nextStageData.chapter_id, targetStageNumber, nextStageData.difficulty_type);
+                        UserDataManager.Instance.SetLastPlayStageID(targetSpecStage.stage_id, true);
+
+
+                        // 로비 배경 전환
+                        InGameManager.Instance.EndInGame();
+                        // 로비 배경 전환 및 챕터 이동
+                        var sceneTransition = SceneTransition_FadeInOut.Create();
+                        SceneLoading.GoToNextScene("Lobby", (int)guideStageData.chapter_id, sceneTransition).Forget();
+
+                        // 로비 메인 하단 스테이지 UI 갱신
+                        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+                        if (lobbyMain != null)
+                        {
+                            lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+                        }
+
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+                        return;
                     }
-                    // 스테이지 데이터 세팅
-                    var targetSpecStage = SpecDataManager.Instance.GetStageData(nextStageData.chapter_id, targetStageNumber, nextStageData.difficulty_type);
-                    UserDataManager.Instance.SetLastPlayStageID(targetSpecStage.stage_id, true);
-
-
-                    // 로비 배경 전환
-                    InGameManager.Instance.EndInGame();
-                    // 로비 배경 전환 및 챕터 이동
-                    var sceneTransition = SceneTransition_FadeInOut.Create();
-                    SceneLoading.GoToNextScene("Lobby", (int)guideStageData.chapter_id, sceneTransition).Forget();
-
-                    // 로비 메인 하단 스테이지 UI 갱신
-                    var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-                    if (lobbyMain != null)
-                    {
-                        lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
-                    }
-
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
                 }
-                else
-                {
-                    GuideMissionManager.Instance.UpdateGuideMissionAlert();
-                }
+                GuideMissionManager.Instance.UpdateGuideMissionAlert();
             }
         }
     }
