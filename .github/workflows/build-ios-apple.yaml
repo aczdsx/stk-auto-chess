@@ -1,0 +1,170 @@
+name: Build for iOS (Apple)
+run-name: Build App for iOS (Apple, ${{ inputs.environment-type }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment-type:
+        description: "Environment type"
+        required: true
+        type: choice
+        default: 'Dev'
+        options:
+          - Dev
+          - Prod
+      clean-dir:
+        description: "Clean directories before build"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: ci-ios-apple-${{ inputs.environment-type }}
+  cancel-in-progress: true
+
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    name: Build for iOS
+    runs-on:
+      group: unity-runners
+      labels: [macOS, unity-builder]
+    steps:
+      # Prepare variables for each environment
+      #
+      # Note: GitHub Actions Environment feature is not available for private repositories on the Free plan.
+      # If we upgrade to a higher plan, we can replace this logic by using the Environment feature.
+      - name: Prepare env
+        id: build-env
+        env:
+          ENVIRONMENT_TYPE: ${{ inputs.environment-type }}
+        run: |
+          if [[ "$ENVIRONMENT_TYPE" == "Dev" ]]; then
+            name=ios-apple-dev
+            release=false
+          elif [[ "$ENVIRONMENT_TYPE" == "Prod" ]]; then
+            name=ios-apple-prod
+            release=true
+          else
+            echo "::error ::Unknown environment type"
+            exit 1
+          fi
+
+          echo "BUILD_SETTING_NAME=${name}" >> $GITHUB_ENV
+          echo "RELEASE=${release}" >> $GITHUB_ENV
+
+      # Checkout
+      - name: Checkout ${{ github.ref }}
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+          fetch-depth: 0
+          clean: ${{ github.event.inputs.clean-dir == 'true' }}
+      - name: Set up Git LFS
+        run: |
+          git lfs install
+          git lfs pull
+
+      # Unity build
+      - name: Configure floating license
+        uses: cookapps-devops/tech-unity-workflows/.github/actions/configure-unity-license-macos@v1
+        with:
+          license-server-endpoint: ${{ vars.UNITY_LICENSE_SERVER_ENDPOINT }}
+      - name: Build
+        uses: game-ci/unity-builder@v4
+        with:
+          targetPlatform: iOS
+          versioning: None
+          buildMethod: CookApps.Build.CookAppsBuild.BuildBatchMode
+          unityLicensingServer: ${{ format('http://{0}', vars.UNITY_LICENSE_SERVER_ENDPOINT) }}
+          skipActivation: true
+          customParameters: >
+            --acquire-floating
+            -buildName ${{ env.BUILD_SETTING_NAME }}
+            -EnableCacheServer
+            -cacheServerEndpoint ${{ vars.UNITY_ACCELERATOR_ENDPOINT }}
+            -cacheServerNamespacePrefix ${{ github.repository }}
+            -cacheServerEnableDownload true
+            -cacheServerEnableUpload true
+      - name: Extract build summary
+        id: build-summary
+        uses: cookapps-devops/tech-unity-workflows/.github/actions/extract-build-summary@v1
+
+      # Run fastlane
+      - name: Create GitHub app token to access code-signing repository
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.MATCH_GITHUB_APP_ID }}
+          private-key: ${{ secrets.MATCH_GITHUB_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ios-certificates
+      - name: Create basic authorization for fastlane match
+        id: app-auth
+        env:
+          GITHUB_USERNAME: ${{ vars.MATCH_GITHUB_APP_USERNAME }}
+          TOKEN: ${{ steps.app-token.outputs.token }}
+        run: echo "authorization=$(echo -n ${GITHUB_USERNAME}:${TOKEN} | base64)" >> $GITHUB_OUTPUT
+      - name: Run fastlane
+        id: fastlane
+        env:
+          APPLE_CONNECT_EMAIL: ${{ secrets.APPLE_CONNECT_EMAIL }}
+          APPLE_DEVELOPER_EMAIL: ${{ secrets.APPLE_DEVELOPER_EMAIL }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_URL: ${{ secrets.MATCH_URL }}
+          MATCH_GIT_BRANCH: ${{ vars.MATCH_GIT_BRANCH }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ steps.app-auth.outputs.authorization }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
+          IOS_BUILD_PATH: ${{ steps.build-summary.outputs.output-path }}
+          IOS_BUNDLE_ID: ${{ steps.build-summary.outputs.identifier }}
+          CRASHLYTICS_APP_ID: ${{ vars.FIREBASE_IOS_APP_ID }}
+          LIAPP_PACKAGE_SENDER_PATH: ${{ format('{0}/Liapp/LiappPackageSender.jar', github.workspace) }}
+          LIAPP_PACKAGE_SENDER_ENV: ${{ secrets.LIAPP_PACKAGE_SENDER_ENV_APPLE }}
+          LIAPP_PACKAGE_SENDER_ENV_PATH: ${{ format('{0}/Liapp/LiappPackageSender-env.json', github.workspace) }}
+        run: |
+          echo "$LIAPP_PACKAGE_SENDER_ENV" > $LIAPP_PACKAGE_SENDER_ENV_PATH
+          find $IOS_BUILD_PATH -type f -name "**.sh" -exec chmod +x {} \;
+          fastlane ios apple release:${{ env.RELEASE }}
+
+      # Upload build artifacts
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Upload build artifacts
+        id: upload
+        uses: cookapps-devops/tech-unity-workflows/.github/actions/upload-build@v1
+        with:
+          app-path: ${{ steps.fastlane.outputs.app-output-path }}
+          symbol-path: ${{ steps.fastlane.outputs.symbol-output-path }}
+          release: ${{ env.RELEASE }}
+          ios-app-id: ${{ vars.IOS_APP_ID }}
+
+      # Notify Slack
+      - name: Notify Slack
+        if: success() || failure()
+        uses: slackapi/slack-github-action@v2
+        env:
+          SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID }}
+          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+          PLATFORM: ${{ steps.build-summary.outputs.platform }}
+          TARGET: Apple
+          ENVIRONMENT: ${{ inputs.environment-type }}
+          VERSION: ${{ steps.build-summary.outputs.version }}
+          VERSION_CODE: ${{ steps.build-summary.outputs.version-code }}
+          INSTALL_URL: ${{ steps.upload.outputs.install-link }}
+          CLEAN_BUILD: ${{ inputs.clean-dir }}
+        with:
+          errors: true
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload-file-path: ${{ format('.github/slack/payload-slack-content-{0}.yaml', job.status) }}
+          payload-templated: true

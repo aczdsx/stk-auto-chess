@@ -1,0 +1,32 @@
+channel: ${{ env.SLACK_CHANNEL_ID }}
+text: |
+  빌드가 성공적으로 완료되었습니다! :rocket:
+  - <${{ env.INSTALL_URL }}|설치 링크>
+  - <${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}/attempts/${{ env.GITHUB_RUN_ATTEMPT }}|로그>
+attachments:
+  - color: "#00FF00"
+    fields:
+      - title: "Project"
+        short: true
+        value: "<${{env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY}}.git|${{ env.PROJECT_NAME }}>"
+      - title: "Triggered By"
+        short: true
+        value: ${{ env.GITHUB_TRIGGERING_ACTOR }}
+      - title: "Platform"
+        short: true
+        value: ${{ env.PLATFORM }}
+      - title: "Target"
+        short: true
+        value: ${{ env.TARGET }}
+      - title: "Environment"
+        short: true
+        value: ${{ env.ENVIRONMENT }}
+      - title: "Version"
+        short: true
+        value: "${{ env.VERSION }} (${{ env.VERSION_CODE }})"
+      - title: "Ref Name"
+        short: true
+        value: "`${{ env.GITHUB_REF_NAME }}`"
+      - title: "Clean Build"
+        short: true
+        value: "`${{ env.CLEAN_BUILD }}`"
