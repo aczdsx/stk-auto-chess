@@ -321,25 +321,25 @@
       "hash": "fbe0bf85155f42f8832205f7b3ac3df571ada33e"
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Packages_tgz/GooglePackages/com.google.external-dependency-manager-1.2.172.tgz",
+      "version": "file:../Packages_tgz/com.google.external-dependency-manager-1.2.185.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Packages_tgz/GooglePackages/com.google.firebase.analytics-9.6.0.tgz",
+      "version": "file:../Packages_tgz/com.google.firebase.analytics-12.6.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "9.6.0"
+        "com.google.firebase.app": "12.6.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Packages_tgz/GooglePackages/com.google.firebase.app-9.6.0.tgz",
+      "version": "file:../Packages_tgz/com.google.firebase.app-12.6.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.external-dependency-manager": "1.2.172"
+        "com.google.external-dependency-manager": "1.2.185"
       }
     },
     "com.kyrylokuzyk.primetween": {
