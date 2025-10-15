@@ -1009,8 +1009,8 @@ namespace CookApps.BattleSystem
                     if (attacker != null)
                     {
                         attacker.KillEffectCode(this);
+                        InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
                     }
-                    InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
                 }
 
                 var deathInfo = new DeathInfo { attacker = attacker };

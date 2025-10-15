@@ -318,7 +318,9 @@ public class InGameTopUI : MonoBehaviour
                 rt.anchoredPosition = Vector2.LerpUnclamped(startPositions[i], targetPositions[i], t);
             }
 
-            await UniTask.Yield(token);
+            await UniTask.Yield(token).SuppressCancellationThrow();
+            if (token.IsCancellationRequested)
+                return;
         }
 
         for (int i = 0; i < items.Count; i++)
@@ -343,7 +345,11 @@ public class InGameTopUI : MonoBehaviour
             elapsed += Time.unscaledDeltaTime;
             slider.value = Mathf.Lerp(startRatio, targetRatio, elapsed / AnimationDuration);
 
-            await UniTask.Yield(cancellationToken);
+            await UniTask.Yield(cancellationToken).SuppressCancellationThrow();
+            if (cancellationToken.IsCancellationRequested)
+            {
+                break;
+            }
         }
 
         if (!cancellationToken.IsCancellationRequested)
