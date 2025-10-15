@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BuildAsset
   m_EditorClassIdentifier: 
   Assets:
-  - rid: 9161305264687939584
   - rid: 7388922950105694208
+  - rid: 9161305264687939584
   - rid: 7388923239852146688
   references:
     version: 2
@@ -22,13 +22,13 @@ MonoBehaviour:
     - rid: 7388922950105694208
       type: {class: BuildPlatformAndroid, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
       data:
-        Name: aos-dev
+        Name: android-google-dev
         Target: 13
         Identifier: com.cookapps.tech.sampleteambattle
         Version: 0.1.3
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3594
+        VersionCode: 3642
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -38,12 +38,16 @@ MonoBehaviour:
         AddDefine:
         - SERVER_DEV
         - ENABLE_CHEAT
-        - DEV_COOKAPPS_ANALYTICS
         RemoveDefine:
         - SERVER_REAL
+        Parameters: []
+        EnableCodeObfuscator: 0
+        IsProduction: 0
+        StoreMarket: 1
         BuildOptions: 0
         TargetSdkVersion: 0
         CreateSymbols: 0
+        ExportAndroidStudioProject: 0
         IsAAB: 0
         SplitApplicationBinary: 0
         IsMono: 0
@@ -51,23 +55,23 @@ MonoBehaviour:
         CodeGeneration: 0
         ManagedStrippingLevel: 4
         KeyStore:
-          keystoreName: 
-          keystorePass: 
-          keyaliasName: 
-          keyaliasPass: 
+          keystoreName: Assets\cookapps.keystore
+          keystorePass: cookapps1234
+          keyaliasName: cookapps
+          keyaliasPass: cookapps1234
         AppIcon: bc6b55129a251d64da2c6b4be7e9cd33
         AppIconForeground: 
         AppIconBackground: 
     - rid: 7388923239852146688
       type: {class: BuildPlatformIOS, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
       data:
-        Name: ios-prod
+        Name: ios-apple-prod
         Target: 9
         Identifier: com.mintry.stk
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3635
+        VersionCode: 3642
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -79,6 +83,10 @@ MonoBehaviour:
         RemoveDefine:
         - ENABLE_CHEAT
         - SERVER_DEV
+        Parameters: []
+        EnableCodeObfuscator: 0
+        IsProduction: 1
+        StoreMarket: 2
         BuildOptions: 0
         SigningTeamID: K7TNH5SGYC
         CodeGeneration: 0
@@ -87,13 +95,13 @@ MonoBehaviour:
     - rid: 9161305264687939584
       type: {class: BuildPlatformIOS, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
       data:
-        Name: ios-dev
+        Name: ios-apple-dev
         Target: 9
         Identifier: com.mintry.stk
         Version: 0.2.6
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3431
+        VersionCode: 3642
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -102,10 +110,13 @@ MonoBehaviour:
         - Guid: 8029178524cba4055adeed793914bebd
         AddDefine:
         - SERVER_DEV
-        - DEV_COOKAPPS_ANALYTICS
         - ENABLE_CHEAT
         RemoveDefine:
         - SERVER_REAL
+        Parameters: []
+        EnableCodeObfuscator: 0
+        IsProduction: 0
+        StoreMarket: 2
         BuildOptions: 0
         SigningTeamID: K7TNH5SGYC
         CodeGeneration: 0

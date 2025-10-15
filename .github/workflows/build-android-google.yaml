@@ -1,0 +1,157 @@
+name: Build for Android (Google)
+run-name: Build App for Android (Google, ${{ inputs.environment-type }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment-type:
+        description: "Environment type"
+        required: true
+        type: choice
+        default: 'Dev'
+        options:
+          - Dev
+          - Prod
+      clean-dir:
+        description: "Clean directories before build"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: ci-android-google-${{ inputs.environment-type }}
+  cancel-in-progress: true
+
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    name: Build for Android
+    runs-on:
+      group: unity-runners
+      labels: [macOS, unity-builder]
+    steps:
+      # Prepare variables for each environment
+      #
+      # Note: GitHub Actions Environment feature is not available for private repositories on the Free plan.
+      # If we upgrade to a higher plan, we can replace this logic by using the Environment feature.
+      - name: Prepare env
+        id: build-env
+        env:
+          ENVIRONMENT_TYPE: ${{ inputs.environment-type }}
+        run: |
+          if [[ "$ENVIRONMENT_TYPE" == "Dev" ]]; then
+            name=android-google-dev
+            release=false
+          elif [[ "$ENVIRONMENT_TYPE" == "Prod" ]]; then
+            name=android-google-prod
+            release=true
+          else
+            echo "::error ::Unknown environment type"
+            exit 1
+          fi
+
+          echo "BUILD_SETTING_NAME=${name}" >> $GITHUB_ENV
+          echo "RELEASE=${release}" >> $GITHUB_ENV
+
+      # Checkout
+      - name: Checkout ${{ github.ref }}
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+          fetch-depth: 0
+          clean: ${{ github.event.inputs.clean-dir == 'true' }}
+      - name: Set up Git LFS
+        run: |
+          git lfs install
+          git lfs pull
+
+      # Unity build
+      - name: Configure floating license
+        uses: cookapps-devops/tech-unity-workflows/.github/actions/configure-unity-license-macos@v1
+        with:
+          license-server-endpoint: ${{ vars.UNITY_LICENSE_SERVER_ENDPOINT }}
+      - name: Build
+        uses: game-ci/unity-builder@v4
+        with:
+          targetPlatform: Android
+          versioning: None
+          buildMethod: CookApps.Build.CookAppsBuild.BuildBatchMode
+          unityLicensingServer: ${{ format('http://{0}', vars.UNITY_LICENSE_SERVER_ENDPOINT) }}
+          skipActivation: true
+          androidKeystoreName: user.keystore
+          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+          customParameters: >
+            --acquire-floating
+            -buildName ${{ env.BUILD_SETTING_NAME }}
+            -EnableCacheServer
+            -cacheServerEndpoint ${{ vars.UNITY_ACCELERATOR_ENDPOINT }}
+            -cacheServerNamespacePrefix ${{ github.repository }}
+            -cacheServerEnableDownload true
+            -cacheServerEnableUpload true
+      - name: Extract build summary
+        id: build-summary
+        uses: cookapps-devops/tech-unity-workflows/.github/actions/extract-build-summary@v1
+
+      # Run fastlane
+      - name: Run fastlane
+        id: fastlane
+        env:
+          GOOGLE_PLAY_KEY_FILE: ${{ secrets.GOOGLE_PLAY_KEY_FILE }}
+          GOOGLE_PLAY_KEY_FILE_PATH: ${{ format('{0}/fastlane/google-fastlane.json', github.workspace) }}
+          ANDROID_BUILD_FILE_PATH: ${{ steps.build-summary.outputs.output-path }}
+          ANDROID_SYMBOL_FILE_PATH: ${{ steps.build-summary.outputs.symbol-path }}
+          ANDROID_PACKAGE_NAME: ${{ steps.build-summary.outputs.identifier }}
+          CRASHLYTICS_APP_ID: ${{ vars.FIREBASE_ANDROID_APP_ID }}
+          LIAPP_PACKAGE_SENDER_PATH: ${{ format('{0}/Liapp/LiappPackageSender.jar', github.workspace) }}
+          LIAPP_PACKAGE_SENDER_ENV: ${{ secrets.LIAPP_PACKAGE_SENDER_ENV_GOOGLE }}
+          LIAPP_PACKAGE_SENDER_ENV_PATH: ${{ format('{0}/Liapp/LiappPackageSender-env.json', github.workspace) }}
+          LIAPP_KEYSTORE_FILE: ${{ format('{0}/user.keystore', github.workspace) }}
+          LIAPP_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          LIAPP_KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          LIAPP_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+        run: |
+          echo "$GOOGLE_PLAY_KEY_FILE" > $GOOGLE_PLAY_KEY_FILE_PATH
+          echo "$LIAPP_PACKAGE_SENDER_ENV" > $LIAPP_PACKAGE_SENDER_ENV_PATH
+          fastlane android google release:${{ env.RELEASE }}
+
+      # Upload build artifacts
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Upload build artifacts
+        id: upload
+        uses: cookapps-devops/tech-unity-workflows/.github/actions/upload-build@v1
+        with:
+          app-path: ${{ steps.fastlane.outputs.app-output-path }}
+          symbol-path: ${{ steps.fastlane.outputs.symbol-output-path }}
+          release: ${{ env.RELEASE }}
+
+      # Notify Slack
+      - name: Notify Slack
+        if: success() || failure()
+        uses: slackapi/slack-github-action@v2
+        env:
+          SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID }}
+          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+          PLATFORM: ${{ steps.build-summary.outputs.platform }}
+          TARGET: Google
+          ENVIRONMENT: ${{ inputs.environment-type }}
+          VERSION: ${{ steps.build-summary.outputs.version }}
+          VERSION_CODE: ${{ steps.build-summary.outputs.version-code }}
+          INSTALL_URL: ${{ steps.upload.outputs.install-link }}
+          CLEAN_BUILD: ${{ inputs.clean-dir }}
+        with:
+          errors: true
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload-file-path: ${{ format('.github/slack/payload-slack-content-{0}.yaml', job.status) }}
+          payload-templated: true

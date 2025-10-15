@@ -1,0 +1,31 @@
+channel: ${{ env.SLACK_CHANNEL_ID }}
+text: |
+  빌드에 실패했습니다.
+  자세한 내용은 <${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}/attempts/${{ env.GITHUB_RUN_ATTEMPT }}|로그>를 확인해 주세요.
+attachments:
+  - color: "#FF0000"
+    fields:
+      - title: "Project"
+        short: true
+        value: "<${{env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY}}.git|${{ env.PROJECT_NAME }}>"
+      - title: "Triggered By"
+        short: true
+        value: ${{ env.GITHUB_TRIGGERING_ACTOR }}
+      - title: "Platform"
+        short: true
+        value: ${{ env.PLATFORM }}
+      - title: "Target"
+        short: true
+        value: ${{ env.TARGET }}
+      - title: "Environment"
+        short: true
+        value: ${{ env.ENVIRONMENT }}
+      - title: "Version"
+        short: true
+        value: "${{ env.VERSION }} (${{ env.VERSION_CODE }})"
+      - title: "Ref Name"
+        short: true
+        value: "`${{ env.GITHUB_REF_NAME }}`"
+      - title: "Clean Build"
+        short: true
+        value: "`${{ env.CLEAN_BUILD }}`"
