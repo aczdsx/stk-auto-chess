@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "212017077383",
+    "project_id": "stellaknights-416c5",
+    "storage_bucket": "stellaknights-416c5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212017077383:android:f69a45d5e0e9c1867bac22",
+        "android_client_info": {
+          "package_name": "com.mintry.stk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA31twVwHs9UyKyFp6YRICoVXr2P3gqNJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -22,6 +22,9 @@ dependencyResolutionManagement {
             url (unityProjectPath + "/Assets/GeneratedLocalRepo/GoogleSignIn/Editor/m2repository") // Packages/com.cookapps.platform.auth/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:10
         }
         maven {
+            url (unityProjectPath + "/Assets/GeneratedLocalRepo/Firebase/m2repository") // Packages/com.google.firebase.app/Firebase/Editor/AppDependencies.xml:22, Packages/com.google.firebase.analytics/Firebase/Editor/AnalyticsDependencies.xml:18
+        }
+        maven {
             url (unityProjectPath + "/Assets/Package/GoogleSignIn/Editor/m2repository") // Packages/com.cookapps.platform.auth/GoogleSignIn/Editor/GoogleSignInSupportDependencies.xml:10
         }
         mavenLocal()

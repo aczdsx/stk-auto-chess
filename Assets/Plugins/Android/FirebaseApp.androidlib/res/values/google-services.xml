@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
+  <string name="gcm_defaultSenderId" translatable="false">212017077383</string>
+  <string name="google_storage_bucket" translatable="false">stellaknights-416c5.firebasestorage.app</string>
+  <string name="project_id" translatable="false">stellaknights-416c5</string>
+  <string name="google_api_key" translatable="false">AIzaSyA31twVwHs9UyKyFp6YRICoVXr2P3gqNJQ</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA31twVwHs9UyKyFp6YRICoVXr2P3gqNJQ</string>
+  <string name="google_app_id" translatable="false">1:212017077383:android:f69a45d5e0e9c1867bac22</string>
+</resources>
