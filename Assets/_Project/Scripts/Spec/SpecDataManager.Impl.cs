@@ -62,8 +62,6 @@ namespace CookApps.AutoBattler
             string json = SpecDataResourceLoader.LoadSpecData();
             await UniTask.Yield();
 #endif
-            json = SpecDataResourceLoader.LoadSpecData();
-            await UniTask.Yield();
             bool isLoad = Load(json);
             Debug.Log("isLoad : " + isLoad);
             Debug.Log(SpecDataManager.Instance.SpecQuestList);

@@ -11,23 +11,23 @@ namespace CookApps.AutoBattler
     {
         public bool IsShowingToast { get; set; } = false;
 
-        public void ShowToast(string message)
+        public void ShowToast(string message, bool isLongToast = false)
         {
             if (IsShowingToast) return;
 
             IsShowingToast = true;
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)message).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message, isLongToast)).Forget();
         }
 
-        public void ShowToastByTokenKey(string tokenKey)
+        public void ShowToastByTokenKey(string tokenKey, bool isLongToast = false)
         {
             if (IsShowingToast) return;
 
             IsShowingToast = true;
 
             object message = LanguageManager.Instance.GetLanguageText(tokenKey);
-            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>(message).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message, isLongToast)).Forget();
         }
     }
 }
