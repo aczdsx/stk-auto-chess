@@ -2,38 +2,38 @@
 
 platform :android do
   desc "Upload a new Android version to the Google Play Store"
-  lane :internal do
-    upload_to_play_store(
-      track: 'internal',
-      release_status: 'completed',
-      aab: ENV['ANDROID_BUILD_FILE_PATH'],
-      mapping: ENV['ANDROID_SYMBOL_FILE_PATH']
-    )
+  lane :google do |options|
+    if options[:release]
+      apply_liapp_android_for_unity(
+        aab: "#{ENV['ANDROID_BUILD_FILE_PATH']}"
+      )
+
+      upload_to_play_store(
+        track: 'internal',
+        release_status: 'completed',
+        aab: ENV['ANDROID_BUILD_FILE_PATH'],
+        mapping: ENV['ANDROID_SYMBOL_FILE_PATH']
+      )
+
+      sh("firebase", "crashlytics:symbols:upload", "--app=#{ENV['CRASHLYTICS_APP_ID']}", ENV['ANDROID_SYMBOL_FILE_PATH'])
+    end
+
+    if ENV['GITHUB_OUTPUT'].to_s.length > 0
+      sh("echo \"app-output-path=#{ENV['ANDROID_BUILD_FILE_PATH']}\" >> \"$GITHUB_OUTPUT\"")
+      sh("echo \"symbol-output-path=#{ENV['ANDROID_SYMBOL_FILE_PATH']}\" >> \"$GITHUB_OUTPUT\"")
+    end
   end
 end
 
 platform :ios do
-  before_all do |lane, options|
+  desc "Deliver a new iOS version to Apple App Store"
+  lane :apple do |options|
     app_store_connect_api_key(
       key_id: ENV['APPSTORE_KEY_ID'],
       issuer_id: ENV['APPSTORE_ISSUER_ID'],
       key_content: ENV["APPSTORE_P8"]
     )
-  end
 
-  desc "Build a new ad-hoc build"
-  lane :adhoc do
-    build(type: 'adhoc')
-
-    if ENV['GITHUB_OUTPUT'].to_s.length > 0
-      sh("echo \"ipa-output-path=#{Actions.lane_context[SharedValues::IPA_OUTPUT_PATH]}\" >> \"$GITHUB_OUTPUT\"")
-      sh("echo \"dsym-output-path=#{Actions.lane_context[SharedValues::DSYM_OUTPUT_PATH]}\" >> \"$GITHUB_OUTPUT\"")
-    end
-  end
-
-  desc "Deliver a new beta build to Apple TestFlight"
-  lane :beta do
-    # Missing Export Compliance can also be set through Deliverfile
     update_info_plist(
       xcodeproj: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcodeproj",
       plist_path: 'Info.plist',
@@ -42,24 +42,12 @@ platform :ios do
       end
     )
 
-    build(type: 'appstore')
+    setup_ci
 
-    upload_to_testflight(skip_waiting_for_build_processing: true)
-	
-  end
-
-  desc "Create .ipa"
-  private_lane :build do |options|
-	cocoapods(
-      repo_update: true,
-      clean_install: true,
-      podfile: "#{ENV['IOS_BUILD_PATH']}/"
-    )
-    
-	setup_ci
+    profile_type = (options[:release] ? 'appstore' : 'adhoc')
 
     match(
-      type: options[:type],
+      type: profile_type,
       storage_mode: 'git',
       git_url: ENV['MATCH_URL'],
       git_branch: ENV['MATCH_GIT_BRANCH'],
@@ -73,15 +61,14 @@ platform :ios do
       use_automatic_signing: true,
       path: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcodeproj"
     )
-
     update_code_signing_settings(
       use_automatic_signing: false,
-      team_id: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_#{options[:type]}_team-id"],
+      team_id: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_#{profile_type}_team-id"],
       code_sign_identity: 'iPhone Distribution',
       targets: 'Unity-iPhone',
       path: "#{ENV['IOS_BUILD_PATH']}/Unity-iPhone.xcodeproj",
-      profile_name: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_#{options[:type]}_profile-name"],
-      profile_uuid: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_#{options[:type]}"]
+      profile_name: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_#{profile_type}_profile-name"],
+      profile_uuid: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_#{profile_type}"]
     )
 
     build_app(
@@ -89,5 +76,20 @@ platform :ios do
       scheme: 'Unity-iPhone',
       xcargs: '-allowProvisioningUpdates'
     )
+
+    if options[:release]
+      apply_liapp_ios_for_unity(signing_identity: 'Apple Distribution: cookapps')
+      upload_to_testflight(skip_waiting_for_build_processing: true)
+
+      upload_symbols_to_crashlytics(
+        binary_path: "#{ENV['IOS_BUILD_PATH']}/Pods/FirebaseCrashlytics/upload-symbols",
+        app_id: ENV['CRASHLYTICS_APP_ID']
+      )
+    end
+
+    if ENV['GITHUB_OUTPUT'].to_s.length > 0
+      sh("echo \"app-output-path=#{Actions.lane_context[SharedValues::IPA_OUTPUT_PATH]}\" >> \"$GITHUB_OUTPUT\"")
+      sh("echo \"symbol-output-path=#{Actions.lane_context[SharedValues::DSYM_OUTPUT_PATH]}\" >> \"$GITHUB_OUTPUT\"")
+    end
   end
 end
