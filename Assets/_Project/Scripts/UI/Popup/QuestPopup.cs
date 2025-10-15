@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
 
             _currentTabTermType = TermType.DAILY;
 
-            CheckQuestRefreshState();
+            UserDataManager.Instance.CheckQuestRefreshState();
 
             SetQuestPopup(_currentTabTermType);
         }
@@ -78,26 +78,6 @@ namespace CookApps.AutoBattler
             _mileStoneRewardSlotList.ForEach(slot => slot.RefreshSlot(true));
 
             SetQuestMileStoneSlider();
-        }
-
-        // 퀘스트 초기화 시간이 지났는지 체크
-        private void CheckQuestRefreshState()
-        {
-            // 일일 퀘스트 체크
-            if (UserDataManager.Instance.UserQuest.NextDailyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
-            {
-                UserDataManager.Instance.UpdateNextRefreshTimeStamp(TermType.DAILY, true);
-
-                UserDataManager.Instance.ResetQuestDataList(TermType.DAILY);
-            }
-
-            // 주간 퀘스트 체크
-            if (UserDataManager.Instance.UserQuest.NextWeeklyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
-            {
-                UserDataManager.Instance.UpdateNextRefreshTimeStamp(TermType.WEEKLY, true);
-
-                UserDataManager.Instance.ResetQuestDataList(TermType.WEEKLY);
-            }
         }
 
         private void SetQuestPopup(TermType termType)

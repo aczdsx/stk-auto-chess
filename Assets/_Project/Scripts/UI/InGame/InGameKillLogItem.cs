@@ -6,6 +6,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameKillLogItem : MonoBehaviour
 {
+    private RectTransform _rectTransform;
     [SerializeField] private TextMeshProUGUI _killCharacterNameText;
     [SerializeField] private TextMeshProUGUI _deathCharacterNameText;
     
@@ -13,6 +14,16 @@ public class InGameKillLogItem : MonoBehaviour
     [SerializeField] private Image _deathCharacterImage;
 
     [SerializeField] private Animator _animator;
+
+    public System.Action<InGameKillLogItem> OnDespawn;
+
+    private void Awake()
+    {
+        _rectTransform = transform as RectTransform;
+    }
+
+    public RectTransform RectTransform => _rectTransform;
+    public float Height => _rectTransform != null ? _rectTransform.rect.height : 0f;
 
     public void SetData(CharacterController kill, CharacterController death, bool isPlayerKill)
     {
@@ -29,6 +40,9 @@ public class InGameKillLogItem : MonoBehaviour
 
     public void Desytroy()
     {
+        // 애니메이션 이벤트로 호출됨. 상위 스택에 소멸을 알린 다음 파괴한다.
+        try { OnDespawn?.Invoke(this); }
+        catch { }
         Destroy(this.gameObject);
     }
 }

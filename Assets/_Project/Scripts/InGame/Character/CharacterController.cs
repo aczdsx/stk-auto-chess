@@ -1001,9 +1001,16 @@ namespace CookApps.BattleSystem
             {
                 _currHp = 0;
                 IsAlive = false;
-                if (attacker != null)
+
+                if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat
+                    || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+                    || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
                 {
-                    attacker.IncreaseKillCount(this);
+                    if (attacker != null)
+                    {
+                        attacker.KillEffectCode(this);
+                    }
+                    InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
                 }
 
                 var deathInfo = new DeathInfo { attacker = attacker };
@@ -1054,16 +1061,17 @@ namespace CookApps.BattleSystem
         }
         #endregion
 
-        private void IncreaseKillCount(CharacterController deadCharacter)
+        private void KillEffectCode(CharacterController deadCharacter)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat)
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat
+            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
             {
                 bool isPlayer = _allianceType == AllianceType.Player;
-                InGameMain.GetInGameMain().AddKillLog(this, deadCharacter, isPlayer);
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnKill);
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnKillLambda, deadCharacter);
             }
-            // else
+            // else if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
             // {
             //     bool isPlayer = _allianceType == AllianceType.Player;
             //     if (isPlayer)

@@ -25,67 +25,69 @@ namespace CookApps.AutoBattler
             return codeId;
         }
 
-        private static HashSet<long> addedEffectCodeIds = new ();
+        private static HashSet<long> addedEffectCodeIds = new();
     }
 
     public partial class SpecDataManager : SingletonMonoBehaviour<SpecDataManager>
     {
         public async UniTask Initialize(uint serverSpecVersion)
         {
-// #if USE_SERVER_SPEC
-//             var localData = new CookAppsLocalData(SecretKey.GetKey());
-//             string json;
-//             var localSpecVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
-//             if (localSpecVersion != serverSpecVersion)
-//             {
-//                 do
-//                 {
-//                     json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
-//                 } while (string.IsNullOrEmpty(json));
+#if USE_SERVER_SPEC
+            var localData = new CookAppsLocalData(SecretKey.GetKey());
+            string json;
+            var localSpecVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
+            if (localSpecVersion != serverSpecVersion)
+            {
+                do
+                {
+                    json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
+                } while (string.IsNullOrEmpty(json));
 
-//                 localData.Save(json, "SpecData");
-//             }
-//             else
-//             {
-//                 if (!localData.TryLoad("SpecData", out json))
-//                 {
-//                     do
-//                     {
-//                         json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
-//                     } while (string.IsNullOrEmpty(json));
+                localData.Save(json, "SpecData");
+            }
+            else
+            {
+                if (!localData.TryLoad("SpecData", out json))
+                {
+                    do
+                    {
+                        json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
+                    } while (string.IsNullOrEmpty(json));
 
-//                     localData.Save(json, "SpecData");
-//                 }
-//             }
-//             Preference.SavePreference(Pref.LOCAL_SPEC_VERSION, serverSpecVersion);
-// #else
+                    localData.Save(json, "SpecData");
+                }
+            }
+            Preference.SavePreference(Pref.LOCAL_SPEC_VERSION, serverSpecVersion);
+#else
             string json = SpecDataResourceLoader.LoadSpecData();
             await UniTask.Yield();
-// #endif
-            Load(json);
+#endif
+            bool isLoad = Load(json);
+            Debug.Log("isLoad : " + isLoad);
+            Debug.Log(SpecDataManager.Instance.SpecQuestList);
             await UniTask.Yield();
             GenerateCacheSpecData();
             CustomizeSpecData();
         }
 
         // SpecData Dictionary Cache Data
-        private Dictionary<string, SpecLanguage> languageDic = new (); // key : token_key, value : language data
-        private Dictionary<int, List<RewardItem>> chestDic = new (); // key : chest_id, value : chest list
-        private Dictionary<int, List<SpecChapter>> chapterDic = new (); // key : chapter_id, value : chapter list
-        private Dictionary<DifficultyType, List<SpecChapter>> chapterDifficultDic = new (); // key : DifficultyType, value : chapter list
-        private Dictionary<int, List<SpecStage>> stageChapterDic = new (); // key : chapter_id, value : stage list
-        private Dictionary<DifficultyType, List<SpecStage>> stageDifficultDic = new (); // key : DifficultyType, value : stage list
-        private Dictionary<int, List<SpecStageMonster>> stageMonsterDic = new (); // key : chapter_id, value : stage list
-        private Dictionary<int, List<SpecStageReward>> stageRewardDic = new (); // key : reward_id, value : stage list
-        private Dictionary<int, List<SpecCharacter>> characterDic = new (); // key : character_id, value : stage list
-        private Dictionary<string, SpecGameConfig> configDic = new (); // key : config_key, value : game config data
-        private Dictionary<long, List<SpecSkill>> skillDic = new (); // key : skill_id, value : skill list
-        private Dictionary<long, List<SpecSkill>> skillPrefabIDDic = new (); // key : prefab_id, value : skill list
-        private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new (); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
-        private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new (); // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<CharacterPositionType, List<SpecSynergy>> positionSynergyDic = new (); // key : CharacterPositionType, value : SpecSynergy
-        private Dictionary<ElementType, List<SpecSynergy>> elementSynergyDic = new (); // key : ElementType, value : SpecSynergy
-        private Dictionary<int, List<SpecObstacle>> obstacleDic = new (); // key : obstacle_id, value : SpecObstacle
+        private Dictionary<string, SpecLanguage> languageDic = new(); // key : token_key, value : language data
+        private Dictionary<int, List<RewardItem>> chestDic = new(); // key : chest_id, value : chest list
+        private Dictionary<int, List<SpecChapter>> chapterDic = new(); // key : chapter_id, value : chapter list
+        private Dictionary<DifficultyType, List<SpecChapter>> chapterDifficultDic = new(); // key : DifficultyType, value : chapter list
+        private Dictionary<int, List<SpecStage>> stageChapterDic = new(); // key : chapter_id, value : stage list
+        private Dictionary<DifficultyType, List<SpecStage>> stageDifficultDic = new(); // key : DifficultyType, value : stage list
+        private Dictionary<int, List<SpecStageMonster>> stageMonsterDic = new(); // key : chapter_id, value : stage list
+        private Dictionary<int, List<SpecStageReward>> stageRewardDic = new(); // key : reward_id, value : stage list
+        private Dictionary<int, List<SpecCharacter>> characterDic = new(); // key : character_id, value : stage list
+        private Dictionary<string, SpecGameConfig> configDic = new(); // key : config_key, value : game config data
+        private Dictionary<long, List<SpecSkill>> skillDic = new(); // key : skill_id, value : skill list
+        private Dictionary<long, List<SpecSkill>> skillPrefabIDDic = new(); // key : prefab_id, value : skill list
+        private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
+        private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new(); // key : inGameVfxName, value : SpecInGameVfx
+        private Dictionary<CharacterPositionType, List<SpecSynergy>> positionSynergyDic = new(); // key : CharacterPositionType, value : SpecSynergy
+        private Dictionary<ElementType, List<SpecSynergy>> elementSynergyDic = new(); // key : ElementType, value : SpecSynergy
+        private Dictionary<int, List<SpecObstacle>> obstacleDic = new(); // key : obstacle_id, value : SpecObstacle
 
 
 
@@ -508,7 +510,7 @@ namespace CookApps.AutoBattler
 
             return null;
         }
-        
+
         // 타겟 스테이지 아래의 모든 스테이지 리스트 반환
         public List<SpecStage> GetPrevStageList(int targetStageID)
         {
@@ -610,7 +612,7 @@ namespace CookApps.AutoBattler
         {
             if (stageMonsterDic.TryGetValue(chapterID, out List<SpecStageMonster> stageMonster))
             {
-                return stageMonster.Find(s => s.stage_number == stageNumber &&  s.difficulty_type == type);
+                return stageMonster.Find(s => s.stage_number == stageNumber && s.difficulty_type == type);
             }
 
             return null;
@@ -620,7 +622,7 @@ namespace CookApps.AutoBattler
         {
             if (stageMonsterDic.TryGetValue(chapter, out List<SpecStageMonster> stageMonster))
             {
-                return stageMonster.FindAll(s => s.stage_number == stageNumber &&  s.difficulty_type == difficulty);
+                return stageMonster.FindAll(s => s.stage_number == stageNumber && s.difficulty_type == difficulty);
             }
 
             return null;
@@ -693,7 +695,7 @@ namespace CookApps.AutoBattler
         {
             return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id == chapterID);
         }
-        
+
         public List<SpecCommanderSkill> GetCommanderSkillIncludeList(int chapterID)
         {
             return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id <= chapterID);
@@ -714,7 +716,7 @@ namespace CookApps.AutoBattler
         {
             return SpecCommanderSkillList.Find(data => data.commander_skill_id == commanderSkillID && data.skill_value_type == type);
         }
-        
+
         public SpecItem GetSpecItemData(ItemType itemType)
         {
             return SpecItemList.Find(data => data.item_type == itemType);
@@ -941,7 +943,7 @@ namespace CookApps.AutoBattler
         {
             return SpecDungeonTrialList.FindAll(data => data.dungeon_type == dungeonType);
         }
-        
+
         public List<SpecDungeonTrial> GetSpecDungeonTrialDataListByStageStar(int stageStar)
         {
             return SpecDungeonTrialList.FindAll(data => data.need_star <= stageStar);
@@ -958,7 +960,7 @@ namespace CookApps.AutoBattler
             return SpecDungeonRewardList
                 .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
-        
+
         public List<SpecObstacle> GetSpecObstacleList(int obstacleID)
         {
             if (obstacleDic.TryGetValue(obstacleID, out List<SpecObstacle> obstacleList))
@@ -997,7 +999,7 @@ namespace CookApps.AutoBattler
         {
             return SpecPVPDummyList.Find(data => data.dummy_id == dummyID);
         }
-        
+
         public bool IsPVPDummyUser(string playerID)
         {
             return playerID.Contains("DUMMY");
@@ -1007,17 +1009,17 @@ namespace CookApps.AutoBattler
         {
             return SpecPvpRewardList.FindAll(data => data.pvp_reward_type == rewardType);
         }
-        
+
         public List<SpecPvpReward> GetPVPRewardDataList(PvpRewardType rewardType, int ranking_id)
         {
             return SpecPvpRewardList.FindAll(data => data.pvp_reward_type == rewardType && data.ranking_id == ranking_id);
         }
-        
+
         // PVP 보상 데이터를 RewardItem 리스트로 변환
         public List<RewardItem> GetRewardItemListByPVPRewardList(PvpRewardType rewardType, int ranking_id)
         {
             var pvpRewardList = GetPVPRewardDataList(rewardType, ranking_id);
-            
+
             List<RewardItem> rewardItemList = new List<RewardItem>();
             foreach (var pvpReward in pvpRewardList)
             {
@@ -1026,7 +1028,7 @@ namespace CookApps.AutoBattler
 
             return rewardItemList;
         }
-        
+
         #endregion
 
         #region Shop
@@ -1035,22 +1037,22 @@ namespace CookApps.AutoBattler
         {
             return SpecShopList.Find(data => data.shop_id == shopID);
         }
-        
+
         public List<SpecShop> GetShopDataList(ShopMainGroupType mainGroupType)
         {
             return SpecShopList.FindAll(data => data.shop_main_group_type == mainGroupType);
         }
-        
+
         public List<SpecShop> GetShopDataList(ShopMainGroupType mainGroupType, ShopSubGroupType subGroupType)
         {
             return SpecShopList.FindAll(data => data.shop_main_group_type == mainGroupType && data.shop_sub_group_type == subGroupType);
         }
-        
+
         public SpecShopBanner GetShopBannerData(int shopID)
         {
             return SpecShopBannerList.Find(data => data.shop_id == shopID);
         }
-        
+
         #endregion
 
         #region Gacha
@@ -1059,12 +1061,12 @@ namespace CookApps.AutoBattler
         {
             return SpecGachaList.Find(data => data.gacha_id == gachaID);
         }
-        
+
         public SpecGacha GetGachaData(GachaType gachaType, int gachaCount)
         {
             return SpecGachaList.Find(data => data.gacha_type == gachaType && data.gacha_count == gachaCount);
         }
-        
+
         public List<SpecGacha> GetGachaDataList(GachaType gachaType)
         {
             return SpecGachaList.FindAll(data => data.gacha_type == gachaType);
@@ -1092,7 +1094,7 @@ namespace CookApps.AutoBattler
 
             return resultList;
         }
-        
+
         // 가챠 항목에서 랜덤으로 아이템을 뽑아 RewardItem 형태로 반환
         public List<RewardItem> GetRandomPickGachaRewardItemList(int gachaGroupID, int count)
         {
@@ -1113,7 +1115,7 @@ namespace CookApps.AutoBattler
 
             return rewardItemList;
         }
-        
+
         // 가챠 결과 데이터를 RewardItem 리스트로 변환
         public List<RewardItem> GetRewardItemListByGachaContentList(List<SpecGachaContent> gachaContentList)
         {
@@ -1125,7 +1127,7 @@ namespace CookApps.AutoBattler
 
             return rewardItemList;
         }
-        
+
         // 시나리오 가챠 데이터 반환
         public List<SpecGachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
         {
@@ -1165,14 +1167,14 @@ namespace CookApps.AutoBattler
             {
                 return true;
             }
-            
+
             var guideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            
+
             int currMissionID = guideMissionData.MissionId;
             var openCondition = SpecOpenConditionList.Find(l => l.open_condition_Type == conditionType);
             return openCondition != null && openCondition.guide_mission_id <= currMissionID;
         }
-        
+
         public SpecImageInfo GetImageInfoData(int infoID)
         {
             return SpecImageInfoList.Find(dat => dat.image_info_id == infoID);

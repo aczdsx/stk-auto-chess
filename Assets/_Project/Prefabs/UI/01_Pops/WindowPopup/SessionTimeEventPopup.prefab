@@ -878,7 +878,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5237264394738354825}
   - {fileID: 3774085890569191303}
   - {fileID: 4413238886776186074}
   - {fileID: 2748267371580732369}
@@ -1701,6 +1700,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5237264394738354825}
   - {fileID: 2312764649671961468}
   m_Father: {fileID: 982660246673056734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1908,6 +1908,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
 --- !u!1 &5170350736041503203
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,12 +2734,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 257673176779015635}
-  m_Father: {fileID: 2312764649671961468}
+  m_Father: {fileID: 8454665765090930171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 109.99999, y: 171.85019}
-  m_SizeDelta: {x: -220, y: 10}
+  m_AnchoredPosition: {x: 109.99999, y: 90.145004}
+  m_SizeDelta: {x: -249.7, y: 10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3821661345945961657
 CanvasRenderer:
@@ -3034,6 +3035,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
 --- !u!1 &9020045888047301955
 GameObject:
   m_ObjectHideFlags: 0

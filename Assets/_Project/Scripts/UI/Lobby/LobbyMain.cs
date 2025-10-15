@@ -171,6 +171,7 @@ namespace CookApps.AutoBattler
                     SetUserInfoLayer();     // 유저 정보 갱신
                     CheckNewChapterClear();
                     CheckUserAccountLevelUp();
+                    UpdateQuestData();
                     UpdateAttendanceData();
 
                     UpdateReddotState();
@@ -481,6 +482,11 @@ namespace CookApps.AutoBattler
 
                 UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
             }
+        }
+
+        private void UpdateQuestData()
+        {
+            UserDataManager.Instance.CheckQuestRefreshState();
         }
 
         // 출석부 상태 갱신

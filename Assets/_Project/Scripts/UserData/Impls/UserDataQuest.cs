@@ -239,6 +239,23 @@ namespace CookApps.AutoBattler
                 }
         }
 
+        public void CheckQuestRefreshState()
+        {
+            // 일일 퀘스트 체크
+            if (UserQuest.NextDailyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
+            {
+                UpdateNextRefreshTimeStamp(TermType.DAILY, true);
+                ResetQuestDataList(TermType.DAILY);
+            }
+
+            // 주간 퀘스트 체크
+            if (UserQuest.NextWeeklyRefreshTimestamp <= TimeManager.Instance.UtcNowTimeStampLocal())
+            {
+                UpdateNextRefreshTimeStamp(TermType.WEEKLY, true);
+                ResetQuestDataList(TermType.WEEKLY);
+            }
+        }
+
         // 일일/주간 퀘스트 클리어 마일스톤 데이터 업데이트
         private void UpdateQuestClearCount(bool needSave)
         {

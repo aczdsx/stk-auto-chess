@@ -48,6 +48,7 @@ public class InGameTopUI : MonoBehaviour
 
     [SerializeField] private Transform _killLogRootTransform;
     [SerializeField] private InGameKillLogItem _killLogItemPrefab;
+    [SerializeField] private float _killLogItemGapY = 40f; // 킬로그 아이템 간 간격
 
     private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
@@ -233,10 +234,98 @@ public class InGameTopUI : MonoBehaviour
 
     public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
     {
-        if (_killLogRootTransform != null)
+        if (_killLogRootTransform == null || _killLogItemPrefab == null)
+            return;
+
+        var item = Instantiate(_killLogItemPrefab, _killLogRootTransform);
+        item.transform.position = _killLogRootTransform.position;
+        item.RectTransform.SetAsFirstSibling();
+        item.SetData(kill, death, isPlayerKill);
+        item.OnDespawn += HandleKillLogDespawn;
+
+        // 새 항목은 맨 아래(최신이 위로 쌓이게 하려면 Layout을 Top-Down으로 설정)로 추가됨
+        _killLogItems.Insert(0, item);
+        RelayoutKillLogs(animated: true);
+    }
+
+    private readonly List<InGameKillLogItem> _killLogItems = new List<InGameKillLogItem>();
+    private CancellationTokenSource _killLogLayoutCts;
+
+    private void HandleKillLogDespawn(InGameKillLogItem item)
+    {
+        item.OnDespawn -= HandleKillLogDespawn;
+        _killLogItems.Remove(item);
+        // 남은 항목을 위로 슬라이드
+        RelayoutKillLogs(animated: true);
+    }
+
+    private async void RelayoutKillLogs(bool animated)
+    {
+        if (_killLogRootTransform == null)
+            return;
+
+        _killLogLayoutCts?.Cancel();
+        _killLogLayoutCts = new CancellationTokenSource();
+        var token = _killLogLayoutCts.Token;
+
+        // 상단 기준으로 쌓이는 형태를 가정. 항목의 anchoredPosition.y를 음수로 증가시키며 정렬
+        float currentY = 0f;
+        var items = _killLogItems; // 최신 순서 유지
+
+        // 레이아웃 즉시 모드: 애니메이션 없이 위치 지정
+        if (!animated)
         {
-            var killLogItem = Instantiate(_killLogItemPrefab, _killLogRootTransform);
-            killLogItem.SetData(kill, death, isPlayerKill);
+            for (int i = 0; i < items.Count; i++)
+            {
+                var rt = items[i].RectTransform;
+                if (rt == null) continue;
+                rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -currentY);
+                currentY += rt.rect.height + _killLogItemGapY;
+            }
+            return;
+        }
+
+        // 애니메이션 모드: 부드럽게 이동
+        const float slideDuration = 0.2f;
+        float elapsed = 0f;
+
+        // 시작/목표 포지션 캡처
+        var startPositions = new Vector2[items.Count];
+        var targetPositions = new Vector2[items.Count];
+        for (int i = 0; i < items.Count; i++)
+        {
+            var rt = items[i].RectTransform;
+            if (rt == null) continue;
+            startPositions[i] = rt.anchoredPosition;
+            targetPositions[i] = new Vector2(rt.anchoredPosition.x, -currentY);
+            currentY += rt.rect.height + _killLogItemGapY;
+        }
+
+        while (elapsed < slideDuration)
+        {
+            if (token.IsCancellationRequested)
+                return;
+
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / slideDuration);
+            // easeOutCubic
+            t = 1f - Mathf.Pow(1f - t, 3f);
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                var rt = items[i].RectTransform;
+                if (rt == null) continue;
+                rt.anchoredPosition = Vector2.LerpUnclamped(startPositions[i], targetPositions[i], t);
+            }
+
+            await UniTask.Yield(token);
+        }
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            var rt = items[i].RectTransform;
+            if (rt == null) continue;
+            rt.anchoredPosition = targetPositions[i];
         }
     }
 

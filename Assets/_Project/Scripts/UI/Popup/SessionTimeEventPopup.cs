@@ -88,6 +88,7 @@ namespace CookApps.AutoBattler
 
         private void SetProgressBar()
         {
+            _eventProgressBar.minValue = _specEventConditionDataList.Min(data => data.need_count);
             _eventProgressBar.maxValue = _specEventConditionDataList.Max(data => data.need_count);
             _eventProgressBar.value = _currentUserEventData.ActionCount;
         }

@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _dimCloseButton;
         [SerializeField] private TextMeshProUGUI _eventTitleText;
         [SerializeField] private TextMeshProUGUI _eventDescText;
+        [SerializeField] private TextMeshProUGUI _currentConsumeAmountText;
 
         [Header("Event Slot")]
         [SerializeField] private ScrollRect _eventSlotScrollRect;
@@ -72,6 +73,7 @@ namespace CookApps.AutoBattler
 
         private void SetEventPopup()
         {
+            _currentConsumeAmountText.text = $"x{_currentUserEventData.ActionCount}";
             _eventTitleText.text = LanguageManager.Instance.GetLanguageText(_specEventData.name_token);
             _eventDescText.text = LanguageManager.Instance.GetLanguageText(_specEventData.desc_token);
         }

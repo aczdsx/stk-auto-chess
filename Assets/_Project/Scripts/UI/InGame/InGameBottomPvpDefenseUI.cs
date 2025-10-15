@@ -31,11 +31,11 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     [SerializeField] protected GameObject _obstacleListBody;
     [SerializeField] protected TextMeshProUGUI _obstacleCountText;
     [SerializeField] protected TextMeshProUGUI _descText;
-    
+
     [Space]
     [SerializeField] protected CAButton _characterButton;
     [SerializeField] protected CAButton _obstacleButton;
-    
+
     [SerializeField] protected GameObject _characterOffObj;
     [SerializeField] protected GameObject _obstacleOffObj;
     [SerializeField] protected GameObject _characterOnObj;
@@ -44,10 +44,10 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
     private List<TestObstacle> _obstacleDataList = new List<TestObstacle>();
     private bool _isRunningAddObstacle;
-    
+
     private int _wall1ID = 10001;
     private int _wall2ID = 10002;
-    
+
     private int uid = 0;
     protected void Awake()
     {
@@ -55,7 +55,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         _statisticButton?.onClick.AddListener(OnClickStatisticButton);
         _recommendButton?.onClick.AddListener(OnClickRecommend);
         _speedUpButton?.onClick.AddListener(OnClickSpeedUp);
-        
+
         _characterButton?.onClick.AddListener(OnChangeCharacterClicked);
         _obstacleButton?.onClick.AddListener(OnChangeObstacleClicked);
     }
@@ -66,15 +66,15 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         base.InitData();
         _obstacleItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameObstacleItemTransform);
-        
+
         var pvpTierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, UserDataManager.Instance.UserPVP.RankPoint);
-        
+
 
         int wall1Count = pvpTierData.wall_1;
         int wall2Count = pvpTierData.wall_2;
         // int locatedWall1 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall1ID);
         // int locatedWall2 = UserDataManager.Instance.UserPVP.MyPvpDefenseDeckList.PvpObstacleDecks.Count(l => l.Id == _wall2ID);
-        
+
         _obstacleDataList.Clear();
         for (int i = 0; i < wall1Count; i++)
         {
@@ -104,7 +104,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         UpdateObstacleData(false);
         SetCharacterCountText();
     }
-    
+
     public override void ReturnObstacle(CharacterController controller)
     {
         if (controller.CharacterId == _wall1ID)
@@ -129,10 +129,16 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     private void OnPvPSaveButtonClicked()
     {
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-        
+
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == 0)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_CHAR_NOT_SET");
+            return;
+        }
+
+        if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Wall).Count == 0)
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_PVP_OBSTACLE_NOT_SET");
             return;
         }
 
@@ -150,27 +156,27 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
 
         _obstacleListBody.SetActive(true);
         _characterListBody.SetActive(false);
-        
+
         _obstacleOnObj.SetActive(true);
         _characterOnObj.SetActive(false);
-        
+
         _obstacleOffObj.SetActive(false);
         _characterOffObj.SetActive(true);
 
         SetObstacleCountText();
         _descText.text = LanguageManager.Instance.GetLanguageText("UI_PVP_DECK_OBSTACLE_SET");
     }
-    
+
     private void OnChangeCharacterClicked()
     {
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
         _obstacleListBody.SetActive(false);
         _characterListBody.SetActive(true);
-        
+
         _obstacleOnObj.SetActive(false);
         _characterOnObj.SetActive(true);
-        
+
         _obstacleOffObj.SetActive(true);
         _characterOffObj.SetActive(false);
 
@@ -210,22 +216,22 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
 
         // 가이드 미션 체크
         GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SET_PVP_DEF_DECK, 0, 1);
-        
+
         InGameManager.Instance.EndInGame();
         int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
         var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
         var transition = SceneTransition_FadeInOut.Create();
-        await SceneLoading.GoToNextScene("Lobby", (int) specLastStageData.chapter_id, transition);
-        
+        await SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition);
+
         SceneUILayerManager.OnSceneLoadedEvent += OpenArenaMainPopupAction;
     }
-    
+
     private void OpenArenaMainPopupAction(string scenename)
     {
         if (scenename == "Lobby")
         {
             SceneUILayerManager.Instance.PushUILayerAsync<ArenaMainPopup>().Forget();
-        
+
             SceneUILayerManager.OnSceneLoadedEvent -= OpenArenaMainPopupAction;
         }
     }
@@ -240,7 +246,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         if (specObstacles.Count > 0)
         {
             _obstacleDataList.RemoveAll(l => l.UID == obstacleData.UID);
-            
+
             UpdateObstacleData();
 
             var ingameTile = InGameObjectManager.Instance.InGameGrid.GetPriorityEmptyTile();
@@ -285,7 +291,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
 
         SetObstacleCountText();
     }
-    
+
     public void SetObstacleCountText()
     {
         int obstacleCount = _obstacleDataList.Count;

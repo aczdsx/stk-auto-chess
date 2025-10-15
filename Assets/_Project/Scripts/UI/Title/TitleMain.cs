@@ -201,12 +201,12 @@ namespace CookApps.AutoBattler
             // 앱 이벤트 Auth 설정
             CAppAuth.SetUID(GrpcManager.Instance.Auth.AuthenticateData.Uid);
 
-// CAppAuth.SetServer 메서드가 존재하지 않아 주석 처리
-// #if SERVER_REAL
-//             CAppAuth.SetServer(EnumServer.PRODUCTION);
-// #else
-//             CAppAuth.SetServer(EnumServer.DEV);
-// #endif
+//CAppAuth.SetServer 메서드가 존재하지 않아 주석 처리
+#if SERVER_REAL
+            CAppAuth.SetServer(EnumServer.PRODUCTION);
+#else
+            CAppAuth.SetServer(EnumServer.DEV);
+#endif
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 
