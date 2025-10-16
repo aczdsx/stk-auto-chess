@@ -16,7 +16,8 @@ platform :android do
         mapping: ENV['ANDROID_SYMBOL_FILE_PATH']
       )
 
-      sh("firebase", "crashlytics:symbols:upload", "--app=#{ENV['CRASHLYTICS_APP_ID']}", ENV['ANDROID_SYMBOL_FILE_PATH'])
+      # disable crashlytics for now
+      # sh("firebase", "crashlytics:symbols:upload", "--app=#{ENV['CRASHLYTICS_APP_ID']}", ENV['ANDROID_SYMBOL_FILE_PATH'])
     end
 
     if ENV['GITHUB_OUTPUT'].to_s.length > 0
@@ -83,10 +84,11 @@ platform :ios do
       # apply_liapp_ios_for_unity(signing_identity: 'Apple Distribution: cookapps')
       upload_to_testflight(skip_waiting_for_build_processing: true)
 
-      upload_symbols_to_crashlytics(
-        binary_path: "#{ENV['IOS_BUILD_PATH']}/Pods/FirebaseCrashlytics/upload-symbols",
-        app_id: ENV['CRASHLYTICS_APP_ID']
-      )
+      # disable crashlytics for now
+      # upload_symbols_to_crashlytics(
+      #   binary_path: "#{ENV['IOS_BUILD_PATH']}/Pods/FirebaseCrashlytics/upload-symbols",
+      #   app_id: ENV['CRASHLYTICS_APP_ID']
+      # )
     end
 
     if ENV['GITHUB_OUTPUT'].to_s.length > 0
