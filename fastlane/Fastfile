@@ -4,9 +4,10 @@ platform :android do
   desc "Upload a new Android version to the Google Play Store"
   lane :google do |options|
     if options[:release]
-      apply_liapp_android_for_unity(
-        aab: "#{ENV['ANDROID_BUILD_FILE_PATH']}"
-      )
+      # disable liapp for now
+      # apply_liapp_android_for_unity(
+      #   aab: "#{ENV['ANDROID_BUILD_FILE_PATH']}"
+      # )
 
       upload_to_play_store(
         track: 'internal',
@@ -78,7 +79,8 @@ platform :ios do
     )
 
     if options[:release]
-      apply_liapp_ios_for_unity(signing_identity: 'Apple Distribution: cookapps')
+      # disable liapp for now
+      # apply_liapp_ios_for_unity(signing_identity: 'Apple Distribution: cookapps')
       upload_to_testflight(skip_waiting_for_build_processing: true)
 
       upload_symbols_to_crashlytics(
