@@ -29,6 +29,7 @@ namespace CookApps.AutoBattler
             Preference.SavePreference(Pref.LANGUAGE, (int)type);
             
             CurrentLanguageType = type;
+            
         }
         
         public string GetLanguageText(string tokenKey)

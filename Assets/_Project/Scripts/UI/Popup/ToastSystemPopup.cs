@@ -14,7 +14,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private Animator _animator;
 
         private string _messageString;
-        private bool _isLongToast;
 
         protected override void Awake()
         {
@@ -36,41 +35,24 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_negative);
 
             _messageString = param as string;
-            _isLongToast = (bool)param;
-            if (_isLongToast)
-            {
-                _animator.SetTrigger("LongAnim");
-            }
-            else
-            {
-                _animator.SetTrigger("ShortAnim");
-            }
 
             SetToastSystemPopup();
         }
 
         // 수동으로 토스트팝업을 제어
-        public void SetToastSystemPopupByManual(string message, float duration, bool isLongToast = false)
+        public void SetToastSystemLongPopup(string message)
         {
             _messageString = message;
             _messageText.text = _messageString;
-            _isLongToast = isLongToast;
-            if (_isLongToast)
-            {
-                _animator.SetTrigger("LongAnim");
-            }
-            else
-            {
-                _animator.SetTrigger("ShortAnim");
-            }
             gameObject.SetActive(true);
-
-            Invoke(nameof(ClosePopupManual), duration);
+            _animator.SetTrigger("LongAnim");
+            Invoke(nameof(ClosePopupManual), Defines.TOAST_LONG_POPUP_DURATION);
         }
 
         private async void SetToastSystemPopup()
         {
             _messageText.text = _messageString;
+            _animator.SetTrigger("ShortAnim");
 
             await ShowToastPopup();
         }

@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
 
             IsShowingToast = true;
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message, isLongToast)).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message)).Forget();
         }
 
         public void ShowToastByTokenKey(string tokenKey, bool isLongToast = false)
@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
             IsShowingToast = true;
 
             object message = LanguageManager.Instance.GetLanguageText(tokenKey);
-            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message, isLongToast)).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message)).Forget();
         }
     }
 }

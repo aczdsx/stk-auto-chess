@@ -23,7 +23,8 @@ public static class Defines
     public const int GACHA_1_TIME_COUNT = 1;
     public const int GACHA_10_TIME_COUNT = 10;
 
-    public const int TOAST_POPUP_DURATION = 2000;
+    public const int TOAST_POPUP_DURATION = 1500;
+    public const int TOAST_LONG_POPUP_DURATION = 2500;
     
     // 서버 관련
     public const int UNIVERSAL_RESPONSE_CODE_FAIL_NICKNAME_ALREADY_EXIST = 407;

@@ -463,7 +463,7 @@ namespace CookApps.AutoBattler
             {
                 // 버전 체크 실패시 처리
                 var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
-                _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f, true);
+                _toastPopupObject.SetToastSystemLongPopup(toastStirng);
                 return;
             }
             // TODO: 업데이트 필요하면 업데이트 팝업 띄우기
