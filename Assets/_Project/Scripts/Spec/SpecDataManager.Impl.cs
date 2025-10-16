@@ -63,11 +63,10 @@ namespace CookApps.AutoBattler
             await UniTask.Yield();
 #endif
             bool isLoad = Load(json);
-            Debug.Log("isLoad : " + isLoad);
-            Debug.Log(SpecDataManager.Instance.SpecQuestList);
             await UniTask.Yield();
             GenerateCacheSpecData();
             CustomizeSpecData();
+            Debug.Log(SpecDataManager.Instance.SpecLanguageList.Count);
         }
 
         // SpecData Dictionary Cache Data

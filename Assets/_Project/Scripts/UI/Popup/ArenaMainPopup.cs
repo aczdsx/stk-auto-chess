@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
         [Header("Top Layer")]
         [SerializeField] 
         private TextMeshProUGUI _remainTimeText;
-        private readonly DateTime _targetTime = new DateTime(2024, 10, 15, 0, 0, 0, DateTimeKind.Utc);
+        private readonly DateTime _targetTime = new DateTime(2025, 10, 24, 0, 0, 0, DateTimeKind.Utc);
         
         public ArenaMainPopupTabType CurrentTabType { get; private set; } = ArenaMainPopupTabType.PVP_BATTLE;
         
