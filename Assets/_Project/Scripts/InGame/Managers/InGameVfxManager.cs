@@ -214,7 +214,13 @@ namespace CookApps.BattleSystem
                         var go = Addressables.InstantiateAsync(GetAddressablePath(vfxNameType)).WaitForCompletion();
                         return go.GetComponent<InGameVfx>();
                     },
-                    actionOnDestroy: vfx => Addressables.ReleaseInstance(vfx.CachedGo)
+                    actionOnDestroy: vfx => 
+                    {
+                        if (vfx != null && vfx.CachedGo != null)
+                        {
+                            Addressables.ReleaseInstance(vfx.CachedGo);
+                        }
+                    }
                 );
 
                 for (var i = 0; i < warmUpCount; i++)
@@ -245,7 +251,13 @@ namespace CookApps.BattleSystem
                         actionOnGet: vfx => allActivatedVfxs.Add(vfx),
                         actionOnRelease: vfx => allActivatedVfxs.Remove(vfx),
 #endif
-                        actionOnDestroy: vfx => Addressables.ReleaseInstance(vfx.CachedGo)
+                        actionOnDestroy: vfx => 
+                        {
+                            if (vfx != null && vfx.CachedGo != null)
+                            {
+                                Addressables.ReleaseInstance(vfx.CachedGo);
+                            }
+                        }
                     );
                     pools.Add(vfxNameType, pool);
                 }

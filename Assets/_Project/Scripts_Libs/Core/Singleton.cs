@@ -53,19 +53,27 @@ namespace CookApps.TeamBattle
     /// </summary>
     public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static bool _destroyed;
+        private static bool _destroyed = false;
         private static T _instance;
         private static object _lock = new ();
+
+        // 정적 생성자로 _destroyed를 false로 보장
+        static SingletonMonoBehaviour()
+        {
+            Debug.Log($"{typeof(T).Name} Static constructor called - setting _destroyed = false");
+            _destroyed = false;
+        }
 
         public static T Instance
         {
             get
             {
-                if (_destroyed)
-                {
-                    Debug.LogWarning($"{typeof(T).Name} Instance requested but _destroyed is true");
-                    return null;
-                }
+                // if (_destroyed)
+                // {
+                //     Debug.LogWarning($"{typeof(T).Name} Instance requested but _destroyed is true - resetting");
+                //     _destroyed = false;
+                //     _instance = null;
+                // }
 
                 lock (_lock)
                 {
