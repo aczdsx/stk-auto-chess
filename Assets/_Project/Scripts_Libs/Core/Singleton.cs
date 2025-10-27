@@ -93,7 +93,9 @@ namespace CookApps.TeamBattle
         protected virtual void OnDestroy()
         {
             _instance = null;
-            _destroyed = true;
+#if !UNITY_EDITOR
+            _destroyed = true; // 빌드에서만 _destroyed 설정
+#endif
         }
 
         public static bool IsAlive()
