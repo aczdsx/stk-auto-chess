@@ -13,22 +13,10 @@ MonoBehaviour:
   m_Name: Default Local Group
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
-  m_Data:
-    m_SerializedData: []
   m_GUID: c139e0f31ed074a79bb51afa922c7ccc
   m_SerializeEntries:
-  - m_GUID: 61e7bd672efcc4045915939216d08afd
-    m_Address: Lobby
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 82d3b55c0d6944acd81604cfdc57e37e
-    m_Address: SceneLoading
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 76c96ee710c04450dbdb02e5ff8a6cac
-    m_Address: Title
+  - m_GUID: 052c2f93aefb0a743b0c779508223620
+    m_Address: Prefabs/InGame
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -37,28 +25,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8029178524cba4055adeed793914bebd
-    m_Address: InGame
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 052c2f93aefb0a743b0c779508223620
-    m_Address: Prefabs/InGame
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bf66a36bb0cadf946874506890dd414b
-    m_Address: Characters
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 46f4e4165e6300e43ad44acedc6d81e8
     m_Address: Gacha_VFX_Ver_Final_01
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e5767d31317d9ac4e99017232c96c6ad
-    m_Address: GetNewCharacter
+  - m_GUID: 61e7bd672efcc4045915939216d08afd
+    m_Address: Lobby
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -67,8 +40,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76c96ee710c04450dbdb02e5ff8a6cac
+    m_Address: Title
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8029178524cba4055adeed793914bebd
+    m_Address: InGame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82d3b55c0d6944acd81604cfdc57e37e
+    m_Address: SceneLoading
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83987405fb00104499ee6bd75530b4fc
+    m_Address: VFX/Prefab/Prefab_Dungeon_Boss_01.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8bdbd5beaecef844aa5398c8e335965a
     m_Address: Mob
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf66a36bb0cadf946874506890dd414b
+    m_Address: Characters
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -82,8 +80,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 83987405fb00104499ee6bd75530b4fc
-    m_Address: VFX/Prefab/Prefab_Dungeon_Boss_01.prefab
+  - m_GUID: e5767d31317d9ac4e99017232c96c6ad
+    m_Address: GetNewCharacter
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -96,5 +94,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 99bdb621a666042bf85bfc263664fb25, type: 2}
     - {fileID: 11400000, guid: f3b378a23fdc1498d93f82d7f5af7e6c, type: 2}
+    - {fileID: 11400000, guid: 99bdb621a666042bf85bfc263664fb25, type: 2}

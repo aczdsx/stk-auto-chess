@@ -63,6 +63,7 @@ namespace CookApps.TeamBattle
             {
                 if (_destroyed)
                 {
+                    Debug.LogWarning($"{typeof(T).Name} Instance requested but _destroyed is true");
                     return null;
                 }
 
@@ -70,6 +71,7 @@ namespace CookApps.TeamBattle
                 {
                     if (_instance == null)
                     {
+                        Debug.Log($"{typeof(T).Name} Creating new instance");
                         _instance = (T) FindObjectOfType(typeof(T));
                         if (_instance == null)
                         {
@@ -86,15 +88,20 @@ namespace CookApps.TeamBattle
 
         protected virtual void OnApplicationQuit()
         {
+            Debug.Log($"{typeof(T).Name} OnApplicationQuit called - setting _destroyed = true");
             _instance = null;
             _destroyed = true;
         }
 
         protected virtual void OnDestroy()
         {
+            Debug.Log($"{typeof(T).Name} OnDestroy called");
             _instance = null;
 #if !UNITY_EDITOR
+            Debug.Log($"{typeof(T).Name} OnDestroy - setting _destroyed = true (BUILD)");
             _destroyed = true; // 빌드에서만 _destroyed 설정
+#else
+            Debug.Log($"{typeof(T).Name} OnDestroy - keeping _destroyed = false (EDITOR)");
 #endif
         }
 

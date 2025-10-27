@@ -10,18 +10,14 @@ namespace CookApps.AutoBattler
 {
     public class CharacterIllust : CachedMonoBehaviour
     {
-        [SerializeField] private RawImage image;
+        public Material IllustMaterial => _skeletonGraphic.material;
+
         [SerializeField] private SkeletonGraphic _skeletonGraphic;
 
-        public void SetImage()
-        {
-            image.enabled = true;
-            _skeletonGraphic.gameObject.SetActive(false);
-        }
-        
         public void SetCharacterAnimation(string animText)
         {
-            _skeletonGraphic.startingAnimation = animText;
+            _skeletonGraphic.Initialize(true);
+            _skeletonGraphic.AnimationState.SetAnimation(0, animText, true); // 트랙0, 루프
         }
     }
 }

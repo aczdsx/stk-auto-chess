@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
 {
     public class CharacterDetailMainLayer : CachedMonoBehaviour
     {
-        public Material IllustMaterial => _illustMaterial;
+        public Material IllustMaterial => _characterIllust.IllustMaterial;
 
         [SerializeField] private CAButton _backButton;
         [SerializeField] private CAButton _elementSynergyButton;
@@ -46,6 +46,8 @@ namespace CookApps.AutoBattler
         private SpecCharacter _specCharacterData;
 
         private Material _illustMaterial;
+
+        private CharacterIllust _characterIllust;
 
         private void Awake()
         {
@@ -121,7 +123,8 @@ namespace CookApps.AutoBattler
             string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
             var newObject = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
 
-            _illustMaterial = newObject.GetComponentInChildren<RawImage>().material;
+            _characterIllust = newObject.GetComponent<CharacterIllust>();
+            _characterIllust.SetCharacterAnimation("idle");
 
             // 캐릭터 SD 캐릭터 생성
             string sdPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
