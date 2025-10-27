@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,10 @@ namespace CookApps.AutoBattler
         [Header("Sound")] 
         [SerializeField] private Slider _bgmSlider;
         [SerializeField] private Slider _sfxSlider;
-        
+
+        [Header("Version Text")]
+        [SerializeField] private TextMeshProUGUI _versionText;
+
         private void Awake()
         {
             _closeButton.onClick.AddListener(OnClickCloseButton);
@@ -52,6 +56,12 @@ namespace CookApps.AutoBattler
         {
             _bgmSlider.value = Preference.LoadPreference(Pref.BGM_V, 1f);
             _sfxSlider.value = Preference.LoadPreference(Pref.SFX_V, 1f);
+
+            var specVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
+            var appVersion = Application.version;
+            var uuid = Preference.LoadPreference(Pref.GUEST_ID, "");
+
+            _versionText.text = $"{appVersion} ({specVersion} / {uuid})";
         }
 
         private void ChangeLanguage(LanguageType targetType)
