@@ -36,6 +36,7 @@ namespace CookApps.AutoBattler
             var localData = new CookAppsLocalData(SecretKey.GetKey());
             string json;
             var localSpecVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
+            Debug.Log("localSpecVersion: " + localSpecVersion + " serverSpecVersion: " + serverSpecVersion);
             if (localSpecVersion != serverSpecVersion)
             {
                 do
@@ -703,7 +704,7 @@ namespace CookApps.AutoBattler
         public int GetFirstCommanderSkillChapter()
         {
             int openChapterID = SpecCommanderSkillList.Min(data => data.open_key_chapter_id) - 1;
-            return stageChapterDic[openChapterID].Last().stage_id;
+            return stageChapterDic[2].Last().stage_id;
         }
 
         public SpecCommanderSkill GetCommanderSkillData(int skillID)

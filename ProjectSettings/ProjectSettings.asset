@@ -141,7 +141,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.1.3
+  bundleVersion: 0.3.4
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -891,7 +891,7 @@ PlayerSettings:
     WebGL: DOTWEEN
     Windows Store Apps: DOTWEEN
     XboxOne: DOTWEEN
-    iPhone: DOTWEEN;ENABLE_CHEAT;SERVER_REAL;USE_SERVER_SPEC
+    iPhone: DOTWEEN;ENABLE_CHEAT;SERVER_DEV
     tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
