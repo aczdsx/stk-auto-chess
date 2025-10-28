@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SafeAreaPanel : MonoBehaviour
 {
-    public bool IsSafeArea { get => this.isSafeArea; }
+    public bool IsSafeArea { get => _isSafeArea; }
     private RectTransform rectTransform;
 
     private void Awake()
@@ -19,14 +19,14 @@ public class SafeAreaPanel : MonoBehaviour
     {
         SafeAreaDetection.OnSafeAreaChanged += RefreshPanel;
         RefreshPanel(Screen.safeArea);
-        isSafeArea = true;
+        _isSafeArea = true;
     }
 
     private void OnDisable()
     {
         SafeAreaDetection.OnSafeAreaChanged -= RefreshPanel;
         RefreshPanel(Screen.safeArea);
-        isSafeArea = false;
+        _isSafeArea = false;
     }
 
     private void RefreshPanel(Rect safeArea)
@@ -49,5 +49,5 @@ public class SafeAreaPanel : MonoBehaviour
         }
     }
 
-    private bool isSafeArea = false;
+    private bool _isSafeArea = false;
 }

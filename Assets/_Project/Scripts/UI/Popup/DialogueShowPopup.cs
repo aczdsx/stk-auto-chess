@@ -31,12 +31,13 @@ namespace CookApps.AutoBattler
         
         [SerializeField] private GameObject _maskObj;
         [SerializeField] private RectTransform _unmaskTransform;
-        [SerializeField] private AnimationCurve scaleCurve;
+        [SerializeField] private AnimationCurve holeRadiusCurve;
+        [SerializeField] private AnimationCurve aspectRatioCurve;
+        [SerializeField]  float animationDuration = 2.0f;  // 애니메이션 시간
         
         [SerializeField] private UIEffect _uiEffect;
+        [SerializeField] private Image _bgImage;
 
-        [SerializeField]
-        private float animationDuration = 1.0f;  // 애니메이션 시간
         private Vector2 _tweenVector = new Vector2(1550f, 192f);
 
         private SpecDialogue _currentSpecDialogueData;
@@ -191,6 +192,14 @@ namespace CookApps.AutoBattler
             _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
             _dialogueTextRect.DOSizeDelta(_tweenVector,0.3f).SetEase(Ease.OutQuad).From();
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                StartCoroutine(ScaleWithAnimationCurve(animationDuration));
+            }
+        }
         
         private IEnumerator ScaleWithAnimationCurve(float duration)
         {
@@ -200,18 +209,35 @@ namespace CookApps.AutoBattler
         
             _unmaskTransform.localScale = initialScale;
             
+            // 배경 이미지의 종횡비 계산
+            var bgRt = _bgImage.GetComponent<RectTransform>();
+            float aspectRatio = Mathf.Max(0.0001f, bgRt.rect.width / Mathf.Max(0.0001f, bgRt.rect.height));
+            
             float elapsed = 0f;
 
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
-                float curveValue = scaleCurve.Evaluate(elapsed / duration); 
-                _unmaskTransform.localScale = Vector3.Lerp(initialScale, finalScale, curveValue);
-                _uiEffect.blurFactor = 1 - curveValue;
+                float normalizedTime = elapsed / duration;
+                
+                // 각각의 커브로 개별 제어
+                float holeRadiusValue = holeRadiusCurve.Evaluate(normalizedTime);
+                float aspectRatioValue = aspectRatioCurve.Evaluate(normalizedTime);
+                
+                // 블러 효과 (기존 로직 유지)
+                _uiEffect.blurFactor = 1 - holeRadiusValue;
+                
+                // 셰이더 파라미터 설정
+                _bgImage.material.SetFloat("_HoleRadius", holeRadiusValue);
+                _bgImage.material.SetFloat("_AspectRatio", aspectRatio * aspectRatioValue);
+                
                 yield return null;
             }
 
+            // 최종 값 설정
             _unmaskTransform.localScale = finalScale;
+            _bgImage.material.SetFloat("_HoleRadius", holeRadiusCurve.Evaluate(1f));
+            _bgImage.material.SetFloat("_AspectRatio", aspectRatio * aspectRatioCurve.Evaluate(1f));
             _maskObj.SetActive(false);
         }
     }

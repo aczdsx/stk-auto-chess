@@ -50,7 +50,7 @@ public class InGameCamera : MonoBehaviour
         float startSize = _mainCamera.orthographicSize;
         Vector3 startPos = _mainCamera.transform.position;
 
-        Tween.Custom(startSize, targetSize, duration,
+        var sizeTween = Tween.Custom(startSize, targetSize, duration,
             (float newSize) =>
             {
                 _characterCamera.orthographicSize = newSize;
@@ -58,7 +58,7 @@ public class InGameCamera : MonoBehaviour
             },
             ease: Ease.OutQuad);
 
-        Tween.Custom(startPos, targetPosition, duration,
+        var positionTween = Tween.Custom(startPos, targetPosition, duration,
             (Vector3 newPosition) =>
             {
                 _mainCamera.transform.position = newPosition;
@@ -70,6 +70,8 @@ public class InGameCamera : MonoBehaviour
 
             _mainCamera.transform.position = targetPosition;
         });
+
+        await UniTask.WhenAll(sizeTween.ToUniTask(), positionTween.ToUniTask());
 
         await UniTask.WaitUntil(() =>
         {
