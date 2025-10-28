@@ -89,7 +89,7 @@ namespace CookApps.AutoBattler
             var _specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userGuideMissionData.MissionId);
             bool isGuide = false;
             if (_specGuideMissionData != null)
-                isGuide = _specGuideMissionData.guide_mission_type == GuideMissionType.LEVELUP_CHARACTER_TARGET ||  _specGuideMissionData.guide_mission_type == GuideMissionType.SET_LV_CHARACTER_TARGET;
+                isGuide = _specGuideMissionData.guide_mission_type == GuideMissionType.LEVELUP_CHARACTER_TARGET || _specGuideMissionData.guide_mission_type == GuideMissionType.SET_LV_CHARACTER_TARGET;
             if (_guideObj != null)
                 _guideObj.SetActive(isGuide);
 

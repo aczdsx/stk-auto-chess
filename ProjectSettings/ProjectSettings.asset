@@ -170,7 +170,7 @@ PlayerSettings:
   buildNumber:
     Standalone: 0
     VisionOS: 0
-    iPhone: 0
+    iPhone: 3671
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 3636
@@ -891,7 +891,7 @@ PlayerSettings:
     WebGL: DOTWEEN
     Windows Store Apps: DOTWEEN
     XboxOne: DOTWEEN
-    iPhone: DOTWEEN;ENABLE_CHEAT;SERVER_DEV
+    iPhone: DOTWEEN;ENABLE_CHEAT;SERVER_REAL
     tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}

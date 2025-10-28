@@ -23,7 +23,6 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private GameObject _characterIllustParentObject;
         [SerializeField] private GameObject _characterSDParentObject;
-        [SerializeField] private GameObject _unOwnedDimmedLayerObject;
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
         [SerializeField] private TextMeshProUGUI _characterNameText;
@@ -101,6 +100,22 @@ namespace CookApps.AutoBattler
 
             _parentCollectionPopup.ChangeTabType(CharacterCollectionPopupTabType.SKILL);
         }
+        
+        public void OnClickLeftButton()
+        {
+            if (_parentCollectionPopup == null) return;
+
+            var leftCharacterID = SpecDataManager.Instance.GetLeftCharacterID(_specCharacterData.character_id, CharacterType.CHARACTER);
+            InitLayer(leftCharacterID, _parentCollectionPopup);
+        }
+
+        public void OnClickRightButton()
+        {
+            if (_parentCollectionPopup == null) return;
+
+            var rightCharacterID = SpecDataManager.Instance.GetRightCharacterID(_specCharacterData.character_id, CharacterType.CHARACTER);
+            InitLayer(rightCharacterID, _parentCollectionPopup);
+        }
 
         private void SetTabState()
         {
@@ -108,7 +123,7 @@ namespace CookApps.AutoBattler
 
             _growLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.GROW;
             _skillLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.SKILL;
-            
+
             bool isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
             _skillLayerTabButton.interactable = isHaveCharacter;
         }
@@ -140,9 +155,6 @@ namespace CookApps.AutoBattler
             _classSynergyUI.SetPositionSynergyUI(_specCharacterData.character_position_type);
 
             SetStarObject(_specCharacterData.grade_type);
-
-            // 딤드 상태 설정
-            _unOwnedDimmedLayerObject.SetActive(!isHaveCharacter);
         }
 
         private void SetUserCharacterInfo()

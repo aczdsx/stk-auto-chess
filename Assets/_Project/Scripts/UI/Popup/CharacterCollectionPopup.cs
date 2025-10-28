@@ -49,6 +49,24 @@ namespace CookApps.AutoBattler
             ChangeTabType(_currentTabType, true);
         }
 
+        public void OnClickLeftButton()
+        {
+            if (_currentCharacterID == 0) return;
+
+            var leftCharacterID = SpecDataManager.Instance.GetLeftCharacterID(_currentCharacterID, CharacterType.CHARACTER);
+            _currentCharacterID = leftCharacterID;
+            ChangeTabType(_currentTabType, true);
+        }
+
+        public void OnClickRightButton()
+        {
+            if (_currentCharacterID == 0) return;
+
+            var rightCharacterID = SpecDataManager.Instance.GetRightCharacterID(_currentCharacterID, CharacterType.CHARACTER);
+            _currentCharacterID = rightCharacterID;
+            ChangeTabType(_currentTabType, true);
+        }
+
         // 외부 애니메이션 연출용 함수
         public void SetMaterialGlobalAlpha(float duration)
         {

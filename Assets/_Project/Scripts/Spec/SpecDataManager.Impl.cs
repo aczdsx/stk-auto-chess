@@ -726,6 +726,35 @@ namespace CookApps.AutoBattler
         {
             return SpecCharacterList.FirstOrDefault(data => data.character_id == characterID);
         }
+
+        public int GetLeftCharacterID(int characterID, CharacterType characterType)
+        {
+            if (SpecCharacterList == null || SpecCharacterList.Count == 0) return characterID;
+
+            var targetCharacterList = SpecCharacterList.FindAll(c => c.character_type == characterType);
+
+            int idx = targetCharacterList.FindIndex(c => c.character_id == characterID);
+            if (idx < 0)
+                return SpecCharacterList.FindAll(c => c.character_type == characterType)[0].character_id; // 못 찾으면 첫 번째로
+
+            int leftIdx = (idx == 0) ? targetCharacterList.Count - 1 : idx - 1;
+            return targetCharacterList[leftIdx].character_id;
+        }
+
+        public int GetRightCharacterID(int characterID, CharacterType characterType)
+        {
+            if (SpecCharacterList == null || SpecCharacterList.Count == 0) return characterID;
+
+            var targetCharacterList = SpecCharacterList.FindAll(c => c.character_type == characterType);
+
+            int idx = targetCharacterList.FindIndex(c => c.character_id == characterID);
+            if (idx < 0)
+                return SpecCharacterList.FindAll(c => c.character_type == characterType)[0].character_id;
+
+            int rightIdx = (idx == targetCharacterList.Count - 1) ? 0 : idx + 1;
+            return targetCharacterList[rightIdx].character_id;
+        }
+
         public SpecAccountLevelExp GetAccountLevelExpDataByLevel(int level)
         {
             return SpecAccountLevelExpList.Find(data => data.lv == level);
