@@ -14,53 +14,130 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private Image _iconImage;
         [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private List<Image> _stepImageList;
+
+
+        private Color _step0Color = new Color32(139, 139, 139, 255); // 그레이 (Gray)
+        private Color _step1Color = new Color32(205, 127, 50, 255); // 동 (Bronze)
+        private Color _step2Color = new Color32(230, 230, 230, 255); // 은 (Silver)
+        private Color _step3Color = new Color32(255, 215, 0, 255); // 금 (Gold)
+        private Color _step4Color = new Color32(229, 228, 226, 255); // 플래티넘 (Platinum) 
+
         private ElementType _elementType;
         private CharacterPositionType _positionType;
         private bool _isElementType;
-        private int _step;
         private int _count;
-        
-        [SerializeField] private List<Color> _colorList;
+        private SpecSynergy _synergyData;
+        private SpecSynergy _nextSynergyData;
 
         // 캐릭터 속성 시너지 세팅
-        public void SetSynergy(ElementType type, int count, int step, bool isActive = true)
+        public void SetSynergy(ElementType type, int count, SpecSynergy data, SpecSynergy nextData, bool isActive = true)
         {
-            _elementType = type;
-            
-            _step = step;
-            _count = count;
-            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
-            _countText.text = count.ToString();
-
-            _iconImage.color = (_step > 0) ? Color.white : _colorList[0];
-            _countText.color = _colorList[_step];
             _isElementType = true;
+            _elementType = type;
+
+            _synergyData = data;
+            _nextSynergyData = nextData;
+
+            Color color = Color.white;
+            switch (data.grade)
+            {
+                case 0:
+                    color = _step0Color;
+                    break;
+                case 1:
+                    color = _step1Color;
+                    break;
+                case 2:
+                    color = _step2Color;
+                    break;
+                case 3:
+                    color = _step3Color;
+                    break;
+                case 4:
+                    color = _step4Color;
+                    break;
+                default:
+                    color = Color.white;
+                    break;
+            }
+
+            _count = data.min_count;
+            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
+            _countText.text = $"{count}/{nextData.min_count}";
+            _countText.color = color;
+
+
+
+            for (int i = 0; i < _stepImageList.Count; i++)
+            {
+                bool isActiveObject = i <= _synergyData.grade - 1;
+                _stepImageList[i].gameObject.SetActive(isActiveObject);
+                if (isActiveObject)
+                {
+                    _stepImageList[i].color = color;
+                }
+            }
         }
 
-        // 캐릭터 직업 속성 시너지 세팅
-        public void SetPositionSynergy(CharacterPositionType type, int count, int step, bool isActive = true)
+        public void SetPositionSynergy(CharacterPositionType type, int count, SpecSynergy data, SpecSynergy nextData, bool isActive = true)
         {
+            _isElementType = false;
             _positionType = type;
 
-            _step = step;
-            _count = count;
-            _iconImage.sprite = ImageManager.Instance.GetPositionSprite(type, isActive);
-            _countText.text = count.ToString();
+            _synergyData = data;
+            _nextSynergyData = nextData;
 
-            _iconImage.color = (_step > 0) ? Color.white : _colorList[0];
-            _countText.color = _colorList[_step];
-            _isElementType = false;
+            Color color = Color.white;
+            switch (data.grade)
+            {
+                case 0:
+                    color = _step0Color;
+                    break;
+                case 1:
+                    color = _step1Color;
+                    break;
+                case 2:
+                    color = _step2Color;
+                    break;
+                case 3:
+                    color = _step3Color;
+                    break;
+                case 4:
+                    color = _step4Color;
+                    break;
+                default:
+                    color = Color.white;
+                    break;
+            }
+
+            _count = data.min_count;
+            _iconImage.sprite = ImageManager.Instance.GetPositionSprite(type, isActive);
+            _countText.text = $"{count}/{nextData.min_count}";
+            _countText.color = color;
+
+
+
+            for (int i = 0; i < _stepImageList.Count; i++)
+            {
+                bool isActiveObject = i <= _synergyData.grade - 1;
+                _stepImageList[i].gameObject.SetActive(isActiveObject);
+                if (isActiveObject)
+                {
+                    _stepImageList[i].color = color;
+                }
+            }
         }
 
         public void OnClickSynergy()
         {
-            if(_isElementType)
+            if (_isElementType)
             {
                 var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_elementType);
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
                     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _step, _count)).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _count, _synergyData, _nextSynergyData)).Forget();
                 }
             }
             else
@@ -69,7 +146,7 @@ namespace CookApps.AutoBattler
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
                     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _step, _count)).Forget();
+                    SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _count, _synergyData, _nextSynergyData)).Forget();
                 }
             }
         }

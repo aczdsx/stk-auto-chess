@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using TMPro;
@@ -15,7 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimLayerButton;
 
-        [Header("Synergy Info Layer")] 
+        [Header("Synergy Info Layer")]
         [SerializeField] private InGameSynergyUI _synergyUI;
 
         [SerializeField] private TextMeshProUGUI _synergyNameText;
@@ -26,7 +27,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<TextMeshProUGUI> _synergyEffectList;
 
         private List<SpecSynergy> _synergyList = new List<SpecSynergy>();
-        private int _step;
+
+        SpecSynergy _synergyData;
+        SpecSynergy _nextSynergyData;
         private int _count;
 
         protected override void Awake()
@@ -52,7 +55,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            (_synergyList, _step, _count) = ((List<SpecSynergy>, int, int)) param;
+            (_synergyList, _count, _synergyData, _nextSynergyData) = ((List<SpecSynergy>, int, SpecSynergy, SpecSynergy))param;
 
             SetSynergyInfo();
         }
@@ -66,11 +69,11 @@ namespace CookApps.AutoBattler
             // 시너지 UI 설정
             if (baseSynergyData.character_position_type == CharacterPositionType.NONE)
             {
-                _synergyUI.SetSynergy(baseSynergyData.element_type, _count, _step, _step > 0);
+                _synergyUI.SetSynergy(baseSynergyData.element_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
             }
             else if (baseSynergyData.element_type == ElementType.NONE)
             {
-                _synergyUI.SetPositionSynergy(baseSynergyData.character_position_type, _count, _step, _step > 0);
+                _synergyUI.SetPositionSynergy(baseSynergyData.character_position_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
             }
 
             // 시너지 이름 및 설명 설정
@@ -98,7 +101,7 @@ namespace CookApps.AutoBattler
                 _synergyEffectList[i].text = string.Format(text, _synergyList[i].min_count, statValue);
 
                 // 등급에 따라 글꼴 스타일 설정
-                if (_synergyList[i].grade == _step)
+                if (_synergyList[i].grade == _synergyData.grade)
                 {
                     _synergyEffectList[i].fontStyle = FontStyles.Bold;
                 }
@@ -119,7 +122,7 @@ namespace CookApps.AutoBattler
                         for (int j = 0; j < vertexColors.Length; j++)
                         {
                             vertexColors[j] = new Color32(vertexColors[j].r, vertexColors[j].g, vertexColors[j].b,
-                                (byte) (0.5f * 255f));
+                                (byte)(0.5f * 255f));
                         }
                     }
 

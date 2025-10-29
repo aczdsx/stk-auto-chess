@@ -135,31 +135,35 @@ public class InGameTopUI : MonoBehaviour
             {
                 var list = SpecDataManager.Instance.GetSpecSynergyList((CharacterPositionType)synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
+                var nextData = list.Find(l => l.min_count <= synergyCount.Count + 1 && l.max_count >= synergyCount.Count + 1);
 
-                if (data.grade >= 0)
+                // [TODO] 0 등급 임시 시너지 표현 제외 처리
+                if (data.grade > 0)
                 {
                     TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetPositionSynergy((CharacterPositionType)synergyCount.Type, synergyCount.Count, data.grade)
+                        _synergyUIList[uiIndex].SetPositionSynergy((CharacterPositionType)synergyCount.Type, synergyCount.Count, data, nextData, data.grade > 0)
                     );
                 }
             }
             else
             {
-                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType) synergyCount.Type);
+                var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
+                var nextData = list.Find(l => l.min_count <= synergyCount.Count + 1 && l.max_count >= synergyCount.Count + 1);
 
-                if (data.grade >= 0)
+                if (data.grade > 0)
                 {
+                    // [TODO] 0 등급 임시 시너지 표현 제외 처리
                     TrySetSynergyUI(() =>
                         _synergyUIList[uiIndex]
-                            .SetSynergy((ElementType) synergyCount.Type, synergyCount.Count, data.grade)
+                            .SetSynergy((ElementType)synergyCount.Type, synergyCount.Count, data, nextData)
                     );
                 }
 
                 if (!isCombat)
                 {
                     if (data.grade > 0)
-                        InGameObjectManager.Instance.SpawnSynergyFx(type, (ElementType) synergyCount.Type);
+                        InGameObjectManager.Instance.SpawnSynergyFx(type, (ElementType)synergyCount.Type);
                 }
             }
         }
@@ -172,7 +176,7 @@ public class InGameTopUI : MonoBehaviour
         {
             textMesh = type == AllianceType.Player ? _combatPlayerAttr : _combatEnemyAttr;
         }
-    
+
         string attrText = InGameObjectManager.Instance.GetAttrText(type);
         if (type == AllianceType.Player)
         {
@@ -197,10 +201,10 @@ public class InGameTopUI : MonoBehaviour
 
             _playerHpRate.text = rate.ToString("P0");
             _playerSlider.value = rate + 0.01f;
-        
+
             playerAnimationCts?.Cancel();
             playerAnimationCts = new CancellationTokenSource();
-        
+
             AnimateHpBar(_playerDelayedSlider, _playerDelayedSlider.value, rate, playerAnimationCts.Token);
 
             beforePlayerHpRate = rate;
@@ -212,10 +216,10 @@ public class InGameTopUI : MonoBehaviour
 
             _enemyHpRate.text = rate.ToString("P0");
             _enemySlider.value = rate + 0.01f;
-        
+
             enemyAnimationCts?.Cancel();
             enemyAnimationCts = new CancellationTokenSource();
-        
+
             AnimateHpBar(_enemyDelayedSlider, _enemyDelayedSlider.value, rate, enemyAnimationCts.Token);
 
             beforeEnemyHpRate = rate;
@@ -226,7 +230,7 @@ public class InGameTopUI : MonoBehaviour
     {
         _stageName.text = stageName;
     }
-    
+
     public void SetMyName(string stageName)
     {
         _myName.text = stageName;
@@ -354,7 +358,7 @@ public class InGameTopUI : MonoBehaviour
 
         if (!cancellationToken.IsCancellationRequested)
         {
-            slider.value = targetRatio; 
+            slider.value = targetRatio;
         }
     }
 
@@ -366,7 +370,7 @@ public class InGameTopUI : MonoBehaviour
             ToastManager.Instance.ShowToastByTokenKey("TUTORIAL_PLAYING_ALERT");
             return;
         }
-        
+
         SceneUILayerManager.Instance.PushUILayerAsync<InGameExitPopup>(_failType).Forget();
     }
 
