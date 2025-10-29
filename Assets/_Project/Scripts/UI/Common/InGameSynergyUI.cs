@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<Image> _stepImageList;
 
 
-        private Color _step0Color = new Color32(139, 139, 139, 255); // 그레이 (Gray)
+        private Color _step0Color = new Color32(139, 139, 139, 50); // 그레이 (Gray)
         private Color _step1Color = new Color32(205, 127, 50, 255); // 동 (Bronze)
         private Color _step2Color = new Color32(230, 230, 230, 255); // 은 (Silver)
         private Color _step3Color = new Color32(255, 215, 0, 255); // 금 (Gold)
@@ -62,8 +62,9 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            _count = data.min_count;
+            _count = count;
             _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
+            _iconImage.color = (data.grade == 0) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_count}";
             _countText.color = color;
 
@@ -111,8 +112,9 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            _count = data.min_count;
+            _count = count;
             _iconImage.sprite = ImageManager.Instance.GetPositionSprite(type, isActive);
+            _iconImage.color = (data.grade == 0) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_count}";
             _countText.color = color;
 

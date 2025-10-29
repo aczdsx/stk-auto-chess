@@ -201,7 +201,7 @@ namespace CookApps.AutoBattler
             // 앱 이벤트 Auth 설정
             CAppAuth.SetUID(GrpcManager.Instance.Auth.AuthenticateData.Uid);
 
-//CAppAuth.SetServer 메서드가 존재하지 않아 주석 처리
+            // 서버 환경에 따른 앱 이벤트 서버 설정
 #if SERVER_REAL
             CAppAuth.SetServer(EnumServer.PRODUCTION);
 #else
@@ -425,29 +425,18 @@ namespace CookApps.AutoBattler
             var res = ZString.Join("", matches.Select(x => x.Value));
             if (!int.TryParse(res, out var versionCode)) versionCode = 1000;
 
+            GrpcInitializeParam initializeParam;
+            string serverState;
+
 #if SERVER_REAL
-            var initializeParam = new GrpcInitializeParam(
+            // Production 서버 설정
+            initializeParam = new GrpcInitializeParam(
                 "stkauto.prod.cookappsgames.com",
                 port: 443,
                 ChannelCredentials.SecureSSL,
                 versionCode,
-#else
-            var initializeParam = new GrpcInitializeParam(
-                "stkauto-gyc71v.dev.cookappsgames.com",
-                443,
-                ChannelCredentials.SecureSSL,
-                versionCode,
-
-                // 재상님 로컬
-                // var initializeParam = new GrpcInitializeParam(
-                //     "192.168.2.65",
-                //     50051,
-                //     ChannelCredentials.Insecure,
-                //     versionCode,
-#endif
-
 #if UNITY_IOS
-                store:StoreMap.AppleAppStore,
+                store: StoreMap.AppleAppStore,
 #else
                 StoreMap.GooglePlay,
 #endif
@@ -456,7 +445,42 @@ namespace CookApps.AutoBattler
                 GrpcExceptionHandler.HandleGrpcException,
                 true
             );
+            serverState = "PROD";
+#else
+            // Development 서버 설정
+            initializeParam = new GrpcInitializeParam(
+                "stkauto-gyc71v.dev.cookappsgames.com",
+                443,
+                ChannelCredentials.SecureSSL,
+                versionCode,
+#if UNITY_IOS
+                store: StoreMap.AppleAppStore,
+#else
+                StoreMap.GooglePlay,
+#endif
+                GrpcExceptionHandler.HandleSuccess,
+                GrpcExceptionHandler.HandleServerException,
+                GrpcExceptionHandler.HandleGrpcException,
+                true
+            );
+            serverState = "DEV";
 
+            // 로컬 개발 서버 (필요시 주석 해제)
+            // initializeParam = new GrpcInitializeParam(
+            //     "192.168.2.65",
+            //     50051,
+            //     ChannelCredentials.Insecure,
+            //     versionCode,
+            //     StoreMap.GooglePlay,
+            //     GrpcExceptionHandler.HandleSuccess,
+            //     GrpcExceptionHandler.HandleServerException,
+            //     GrpcExceptionHandler.HandleGrpcException,
+            //     true
+            // );
+            // serverState = "LOCAL";
+#endif
+
+            Preference.SavePreference(Pref.SERVER_STATE, serverState);
             GrpcManager.Instance.StartUp(initializeParam);
 
             // 버전 체크

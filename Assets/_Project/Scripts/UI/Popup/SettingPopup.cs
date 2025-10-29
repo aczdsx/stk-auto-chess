@@ -60,8 +60,9 @@ namespace CookApps.AutoBattler
             var specVersion = Preference.LoadPreference(Pref.LOCAL_SPEC_VERSION, 0);
             var appVersion = Application.version;
             var uuid = Preference.LoadPreference(Pref.GUEST_ID, "");
+            var serverState = Preference.LoadPreference(Pref.SERVER_STATE, "");
 
-            _versionText.text = $"{appVersion} ({specVersion} / {uuid})";
+            _versionText.text = $"{appVersion} ({specVersion} / {serverState} / {uuid})";
         }
 
         private void ChangeLanguage(LanguageType targetType)

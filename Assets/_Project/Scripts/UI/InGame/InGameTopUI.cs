@@ -135,10 +135,11 @@ public class InGameTopUI : MonoBehaviour
             {
                 var list = SpecDataManager.Instance.GetSpecSynergyList((CharacterPositionType)synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
-                var nextData = list.Find(l => l.min_count <= synergyCount.Count + 1 && l.max_count >= synergyCount.Count + 1);
+                var nextData = list.Find(l => l.grade == data.grade + 1) ?? data;
 
                 // [TODO] 0 등급 임시 시너지 표현 제외 처리
-                if (data.grade > 0)
+                bool isActiveZeroGrade = (type == AllianceType.Player) ? data.grade >= 0 : data.grade > 0;
+                if (isActiveZeroGrade)
                 {
                     TrySetSynergyUI(() =>
                         _synergyUIList[uiIndex].SetPositionSynergy((CharacterPositionType)synergyCount.Type, synergyCount.Count, data, nextData, data.grade > 0)
@@ -149,11 +150,12 @@ public class InGameTopUI : MonoBehaviour
             {
                 var list = SpecDataManager.Instance.GetSpecSynergyList((ElementType)synergyCount.Type);
                 var data = list.Find(l => l.min_count <= synergyCount.Count && l.max_count >= synergyCount.Count);
-                var nextData = list.Find(l => l.min_count <= synergyCount.Count + 1 && l.max_count >= synergyCount.Count + 1);
+                var nextData = list.Find(l => l.grade == data.grade + 1) ?? data;
 
-                if (data.grade > 0)
+                // [TODO] 0 등급 임시 시너지 표현 제외 처리
+                bool isActiveZeroGrade = (type == AllianceType.Player) ? data.grade >= 0 : data.grade > 0;
+                if (isActiveZeroGrade)
                 {
-                    // [TODO] 0 등급 임시 시너지 표현 제외 처리
                     TrySetSynergyUI(() =>
                         _synergyUIList[uiIndex]
                             .SetSynergy((ElementType)synergyCount.Type, synergyCount.Count, data, nextData)
@@ -162,7 +164,7 @@ public class InGameTopUI : MonoBehaviour
 
                 if (!isCombat)
                 {
-                    if (data.grade > 0)
+                    if (isActiveZeroGrade)
                         InGameObjectManager.Instance.SpawnSynergyFx(type, (ElementType)synergyCount.Type);
                 }
             }
