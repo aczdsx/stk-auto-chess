@@ -41,6 +41,8 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
     [SerializeField] protected GameObject _characterOnObj;
     [SerializeField] protected GameObject _obstacleOnObj;
 
+    [SerializeField] protected ParticleSystem _obstacleGuideFx;
+
     private List<InGameObstacleItem> _obstacleItemList = new List<InGameObstacleItem>();
     private List<TestObstacle> _obstacleDataList = new List<TestObstacle>();
     private bool _isRunningAddObstacle;
@@ -139,6 +141,7 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Wall).Count == 0)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_PVP_OBSTACLE_NOT_SET");
+            PlayGuideFx();
             return;
         }
 
@@ -182,6 +185,12 @@ public class InGameBottomPvpDefenseUI : InGameBottomUI
 
         SetCharacterCountText();
         _descText.text = LanguageManager.Instance.GetLanguageText("UI_PVP_DECK_CHARACTER_SET");
+    }
+
+    private void PlayGuideFx()
+    {
+        _obstacleGuideFx.gameObject.SetActive(true);
+        _obstacleGuideFx.Play();
     }
 
     private async UniTask PvPSaveProcess()
