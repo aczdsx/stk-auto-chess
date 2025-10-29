@@ -77,24 +77,39 @@ public class FlowStateStageReady : StateReadyBase
         }
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
-        List<ObfuscatorInt> tileIDList = _specStage.obstacle_grid_id.Select(x => new ObfuscatorInt(x)).ToList();
-        List<ObfuscatorInt> neutralTileIDList = _specStage.neutral_grid_id.Select(x => new ObfuscatorInt(x)).ToList();
+        List<int> obstacleTileIDs = _specStage.obstacle_grid_id.ToList();
+        List<int> neutralTileIDs = _specStage.neutral_grid_id.ToList();
 
-        battleDeckList.RemoveAll(l =>
+        // 겹치는 캐릭터들을 배치 가능한 위치로 이동
+        for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
-            return tileIDList.Exists(t =>
-                t.Value == InGameObjectManager.Instance.InGameGrid.GetTile(new int2(l.PositionTileX, l.PositionTileY))
-                    .View
-                    .ID);
-        });
-
-        battleDeckList.RemoveAll(l =>
-        {
-            return neutralTileIDList.Exists(t =>
-                t.Value == InGameObjectManager.Instance.InGameGrid.GetTile(new int2(l.PositionTileX, l.PositionTileY))
-                    .View
-                    .ID);
-        });
+            var character = battleDeckList[i];
+            var currentTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(character.PositionTileX, character.PositionTileY));
+            var currentTileID = currentTile.View.ID;
+            
+            // 장애물이나 중립 타일과 겹치는지 확인
+            bool isOverlapping = obstacleTileIDs.Contains(currentTileID) || neutralTileIDs.Contains(currentTileID);
+            
+            if (isOverlapping)
+            {
+                // 현재 위치에서 점진적으로 범위를 넓혀가며 배치 가능한 위치 찾기
+                var emptyTile = InGameObjectManager.Instance.InGameGrid.FindNearestEmptyTile(
+                    character.PositionTileX, character.PositionTileY, obstacleTileIDs, neutralTileIDs);
+                if (emptyTile != null)
+                {
+                    // 새로운 위치로 업데이트
+                    character.PositionTileX = emptyTile.X;
+                    character.PositionTileY = emptyTile.Y;
+                    Debug.LogColor($"캐릭터 {character.CharacterId} 위치 변경: ({character.PositionTileX}, {character.PositionTileY})");
+                }
+                else
+                {
+                    // 배치 가능한 위치가 없으면 제거
+                    Debug.LogColor($"캐릭터 {character.CharacterId} 배치 불가능하여 제거");
+                    battleDeckList.RemoveAt(i);
+                }
+            }
+        }
 
         if (_specStage.chapter_id == 2 && _specStage.stage_number == 6)
         {

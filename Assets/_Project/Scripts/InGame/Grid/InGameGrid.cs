@@ -61,7 +61,7 @@ namespace CookApps.BattleSystem
             int randomIndex = random.Next(emptyTiles.Count);
             return emptyTiles[randomIndex];
         }
-        
+
         public InGameTile GetPriorityEmptyTile(AllianceType? allianceType = null)
         {
             var emptyTiles = _tiles
@@ -182,7 +182,7 @@ namespace CookApps.BattleSystem
 
                     if (neighbor.OccupiedCharacter == null /*|| isDying*/)
                     {
-                        var distance = BFS(neighbor, dest); 
+                        var distance = BFS(neighbor, dest);
                         if (distance <= shortestDistance)
                         {
                             if (distance == shortestDistance)
@@ -450,25 +450,25 @@ namespace CookApps.BattleSystem
 
         public List<InGameTile> GetTileListByShapeX(InGameTile inGameTile)
         {
-            return _tiles.Where(t => t.X == inGameTile.X ||  t.Y == inGameTile.Y).ToList();
+            return _tiles.Where(t => t.X == inGameTile.X || t.Y == inGameTile.Y).ToList();
         }
-        
+
         public List<InGameTile> GetTileListByShapeX(InGameTile inGameTile, int size)
         {
-            return _tiles.Where(t => 
+            return _tiles.Where(t =>
                 (t.X == inGameTile.X && (t.Y == inGameTile.Y + size || t.Y == inGameTile.Y - size)) ||
                 (t.Y == inGameTile.Y && (t.X == inGameTile.X + size || t.X == inGameTile.X - size))
             ).ToList();
         }
-        
+
         public List<InGameTile> GetTileListByShapeXInRange(InGameTile inGameTile, int size)
         {
-            return _tiles.Where(t => 
+            return _tiles.Where(t =>
                 (t.X == inGameTile.X && Math.Abs(t.Y - inGameTile.Y) <= size) ||
                 (t.Y == inGameTile.Y && Math.Abs(t.X - inGameTile.X) <= size)
             ).ToList();
         }
-        
+
         public List<InGameTile> GetTileListByDiagonal(InGameTile ingameTile, int size)
         {
             return _tiles.Where(t =>
@@ -514,7 +514,7 @@ namespace CookApps.BattleSystem
                 return tiles.Take(count).ToList();
             }
         }
-        
+
         public List<InGameTile> GetTileListByColumn(InGameTile tile)
         {
             return _tiles.Where(t => t.X == tile.X).ToList();
@@ -524,7 +524,7 @@ namespace CookApps.BattleSystem
         {
             return _tiles.Where(t => t.Y == tile.Y).ToList();
         }
-        
+
         public List<InGameTile> GetTileListByRow(InGameTile tile, int range)
         {
             int minX = Math.Max(0, tile.X - range);
@@ -605,6 +605,55 @@ namespace CookApps.BattleSystem
             }
 
             return farthestEmptyTile;
+        }
+
+        public InGameTile FindNearestEmptyTile(int startX, int startY, List<int> obstacleTileIDs, List<int> neutralTileIDs)
+        {
+            int maxDistance = Math.Max(Width, Height); // 그리드 크기만큼 최대 거리 설정
+
+            // 거리 1부터 시작해서 점진적으로 범위 확장
+            for (int distance = 1; distance <= maxDistance; distance++)
+            {
+                // 현재 거리에서 가능한 모든 위치 확인
+                for (int dx = -distance; dx <= distance; dx++)
+                {
+                    for (int dy = -distance; dy <= distance; dy++)
+                    {
+                        // 맨하탄 거리가 정확히 distance인 경우만 확인
+                        if (Math.Abs(dx) + Math.Abs(dy) != distance)
+                            continue;
+
+                        int newX = startX + dx;
+                        int newY = startY + dy;
+
+                        // 그리드 범위 내인지 확인
+                        if (newX < 0 || newX >= Width || newY < 0 || newY >= Height)
+                            continue;
+
+                        var tile = GetTile(new int2(newX, newY));
+
+                        if (tile.View.AllianceType != AllianceType.Player)
+                            continue;
+
+                        // 이미 점유된 타일인지 확인
+                        if (tile.OccupiedCharacter != null)
+                            continue;
+
+                        // 장애물이나 중립 타일인지 확인
+                        var tileID = tile.View.ID;
+                        bool isObstacle = obstacleTileIDs.Contains(tileID);
+                        bool isNeutral = neutralTileIDs.Contains(tileID);
+
+                        if (isObstacle || isNeutral)
+                            continue;
+
+                        // 배치 가능한 빈 타일 발견
+                        return tile;
+                    }
+                }
+            }
+
+            return null; // 배치 가능한 위치를 찾지 못함
         }
     }
 }

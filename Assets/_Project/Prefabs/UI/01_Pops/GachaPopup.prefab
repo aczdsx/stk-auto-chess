@@ -34026,7 +34026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c510dc69ae9c53499a30007ab5d2c4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _languageToken: HEROES_NAME_40402
+  _languageToken: HEROES_NAME_40201
 --- !u!224 &8515053594536254247 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6613948716218593514, guid: 230ebaaa9b61fec47a5f108636ac5ded, type: 3}
