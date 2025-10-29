@@ -1,7 +1,9 @@
 using System.IO;
 using CookApps.Build;
 using UnityEditor;
+#if UNITY_IOS
 using UnityEditor.iOS.Xcode;
+#endif
 
 public class PostprocessBuild : IPostprocessBuild
 {
@@ -10,6 +12,7 @@ public class PostprocessBuild : IPostprocessBuild
     {
         if (report.Target == BuildTarget.iOS) // Check if the build is for iOS
         {
+#if UNITY_IOS
             string xcodeProjectPath =  report.OutputPath + "/Unity-iPhone.xcodeproj/project.pbxproj";
 
             PBXProject xcodeProject = new PBXProject();
@@ -42,6 +45,7 @@ public class PostprocessBuild : IPostprocessBuild
             // ...
 
             File.WriteAllText(plistPath, plist.WriteToString()); // Override Info.plist
+#endif
         }
     }
 }
