@@ -50,6 +50,12 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private InGameKillLogItem _killLogItemPrefab;
     [SerializeField] private float _killLogItemGapY = 40f; // 킬로그 아이템 간 간격
 
+    [Space]
+    [SerializeField] private ScrollRect _playerSynergyScrollRect;
+    [SerializeField] private ScrollRect _enemySynergyScrollRect;
+    [SerializeField] private ScrollRect _combatPlayerSynergyScrollRect;
+    [SerializeField] private ScrollRect _combatEnemySynergyScrollRect;
+
     private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
     private float beforeEnemyHpRate = 1.0f;
@@ -64,6 +70,18 @@ public class InGameTopUI : MonoBehaviour
     private void OnDestroy()
     {
         _pauseButton.onClick.RemoveListener(OnClickPauseButton);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            // 테스트: A 키로 즉시 스냅 동작 확인
+            if (_playerSynergyScrollRect != null) SnapRight(_playerSynergyScrollRect);
+            if (_enemySynergyScrollRect != null) SnapLeft(_enemySynergyScrollRect);
+            if (_combatPlayerSynergyScrollRect != null) SnapRight(_combatPlayerSynergyScrollRect);
+            if (_combatEnemySynergyScrollRect != null) SnapLeft(_combatEnemySynergyScrollRect);
+        }
     }
 
     public void UpdateTimeUI(float time)
@@ -169,6 +187,47 @@ public class InGameTopUI : MonoBehaviour
                 }
             }
         }
+
+        if (isCombat)
+        {
+            if (type == AllianceType.Player)
+            {
+                SnapRight(_combatPlayerSynergyScrollRect);
+            }
+            else
+            {
+                SnapLeft(_combatEnemySynergyScrollRect);
+            }
+        }
+        else
+        {
+            if (type == AllianceType.Player)
+            {
+                SnapRight(_playerSynergyScrollRect);
+            }
+            else
+            {
+                SnapLeft(_enemySynergyScrollRect);
+            }
+        }
+    }
+
+    private async void SnapRight(ScrollRect sr)
+    {
+        if (sr == null) return;
+        await UniTask.NextFrame();
+        Canvas.ForceUpdateCanvases();
+        sr.horizontalNormalizedPosition = 1f;
+        sr.velocity = Vector2.zero;
+    }
+
+    private async void SnapLeft(ScrollRect sr)
+    {
+        if (sr == null) return;
+        await UniTask.NextFrame();
+        Canvas.ForceUpdateCanvases();
+        sr.horizontalNormalizedPosition = 0f;
+        sr.velocity = Vector2.zero;
     }
 
     public void UpdateAttrUI(AllianceType type, bool isCombat)
