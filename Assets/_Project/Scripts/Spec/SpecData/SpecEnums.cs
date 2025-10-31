@@ -647,4 +647,13 @@ namespace CookApps.AutoBattler
         NONE = 0,
         PERIOD = 1,
     }
+
+    public enum DialogueAnimationType
+    {
+        NONE = 0,
+        SCALE_UP = 1,
+        SCALE_DOWN = 2,
+        CURVE_ANIMATION = 3,
+        MASK = 4,
+    }
 }

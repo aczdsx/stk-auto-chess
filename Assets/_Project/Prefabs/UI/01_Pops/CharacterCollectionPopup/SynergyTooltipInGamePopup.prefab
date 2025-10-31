@@ -2940,53 +2940,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7754808710544884547}
     m_Modifications:
-    - target: {fileID: 286842332142161875, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 286842332142161875, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500062778550652902, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 4.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500062778550652902, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -7.05
-      objectReference: {fileID: 0}
     - target: {fileID: 1671309228539615714, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2181868438479208588, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4837161343087956518, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6765815422718335547, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_fontSize
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 6765815422718335547, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 7174142290018522756, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8498601450727436384, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_Name
       value: Badge_Synergy_Ingame (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8498601450727436384, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8649078460244670186, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_Pivot.x
@@ -3014,23 +2974,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8649078460244670186, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 40
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 8649078460244670186, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 8649078460244670186, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.2
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 8649078460244670186, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.2
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 8649078460244670186, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.2
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 8649078460244670186, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_LocalPosition.x

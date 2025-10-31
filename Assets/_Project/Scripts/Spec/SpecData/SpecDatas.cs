@@ -271,6 +271,8 @@ namespace CookApps.AutoBattler
         public string text_desc_token;
         /// 다이얼로그 상단 이미지
         public string bg_image;
+        /// 다이얼로그 연출
+        public global::CookApps.AutoBattler.DialogueAnimationType dialogue_animation_type;
         /// 이미지 크기
         public float bg_image_scale;
         /// 대화 종료 시 reward_id

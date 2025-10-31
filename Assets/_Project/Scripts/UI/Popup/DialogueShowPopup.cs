@@ -28,13 +28,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _extraBGImage;
         [SerializeField] private TextMeshProUGUI _dialogueText;
         [SerializeField] private RectTransform _dialogueTextRect;
-        
+
         [SerializeField] private GameObject _maskObj;
         [SerializeField] private RectTransform _unmaskTransform;
         [SerializeField] private AnimationCurve holeRadiusCurve;
         [SerializeField] private AnimationCurve aspectRatioCurve;
-        [SerializeField]  float animationDuration = 2.0f;  // 애니메이션 시간
-        
+        [SerializeField] float animationDuration = 2.0f;  // 애니메이션 시간
+
         [SerializeField] private UIEffect _uiEffect;
         [SerializeField] private Image _bgImage;
 
@@ -46,6 +46,7 @@ namespace CookApps.AutoBattler
         private int currentDialogueSeq = 0;
         private int _dialogueGroupID = 0;
         private Action _onComplete;
+        private bool _isAnimating = false;
 
         protected override void Awake()
         {
@@ -62,7 +63,7 @@ namespace CookApps.AutoBattler
             _blockLayerButton.onClick.RemoveListener(OnClickNextDialogue);
             _blockLayerButton.onClick.RemoveListener(OnClickRefreshTextTween);
         }
-        
+
         protected override void OnBackButton(ref bool offPrevUI)
         {
             OnClickNextDialogue();
@@ -90,7 +91,7 @@ namespace CookApps.AutoBattler
 
             bool isChangePrefab = (seq == 0) || (_currentSpecDialogueData == null ||
                                               _currentSpecDialogueData.prefab_id != _dialogueList[seq].prefab_id);
-            
+
             _currentSpecDialogueData = _dialogueList[seq];
 
             if (isChangePrefab)
@@ -105,16 +106,33 @@ namespace CookApps.AutoBattler
                 {
                     _extraBGObj.SetActive(true);
                     _extraBGImage.sprite = targetSprite;
-                    if (_currentSpecDialogueData.bg_image == "Bg_introCha")
-                    {
-                        if (_currentSpecDialogueData.id == 3)
-                            StartCoroutine(ScaleWithAnimationCurve(animationDuration));
-                    }
-                    else
-                    {
-                        _maskObj.SetActive(false);
-                    }
                 }
+            }
+
+            if (_currentSpecDialogueData.dialogue_animation_type != DialogueAnimationType.NONE)
+            {
+                switch (_currentSpecDialogueData.dialogue_animation_type)
+                {
+                    case DialogueAnimationType.CURVE_ANIMATION:
+                        _isAnimating = true;
+                        StartCoroutine(ScaleWithAnimationCurve(animationDuration));
+                        break;
+                    case DialogueAnimationType.SCALE_DOWN:
+                        _isAnimating = true;
+                        StartCoroutine(ScaleDownHoleRadius(animationDuration));
+                        break;
+                    case DialogueAnimationType.SCALE_UP:
+                        _isAnimating = true;
+                        StartCoroutine(ScaleUpHoleRadius(animationDuration));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                _maskObj.SetActive(false);
+                _isAnimating = false;
             }
 
             if (_currentSpecDialogueData.prefab_id > 0 && isChangePrefab)
@@ -130,6 +148,7 @@ namespace CookApps.AutoBattler
         // 다음 대화로 넘어가기
         private void OnClickNextDialogue()
         {
+            if (_isAnimating) return;
             currentDialogueSeq++;
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_dialogue);
@@ -169,7 +188,7 @@ namespace CookApps.AutoBattler
 
                 if (_currentSpecDialogueData.image_info_id != 0)
                     SceneUILayerManager.Instance.PushUILayerAsync<ImageInfoPop>((int)_currentSpecDialogueData.image_info_id).Forget();
-                
+
                 _onComplete?.Invoke();
 
                 SceneUILayerManager.Instance.PopUILayer(this);
@@ -190,47 +209,39 @@ namespace CookApps.AutoBattler
         {
             _dialogueText.DOFade(0, 0f);
             _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
-            _dialogueTextRect.DOSizeDelta(_tweenVector,0.3f).SetEase(Ease.OutQuad).From();
+            _dialogueTextRect.DOSizeDelta(_tweenVector, 0.3f).SetEase(Ease.OutQuad).From();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                StartCoroutine(ScaleWithAnimationCurve(animationDuration));
-            }
-        }
-        
         private IEnumerator ScaleWithAnimationCurve(float duration)
         {
             _maskObj.SetActive(true);
             Vector3 initialScale = new Vector3(0, 0, 0);
             Vector3 finalScale = new Vector3(3, 2.5f, 3);
-        
+
             _unmaskTransform.localScale = initialScale;
-            
+
             // 배경 이미지의 종횡비 계산
             var bgRt = _bgImage.GetComponent<RectTransform>();
             float aspectRatio = Mathf.Max(0.0001f, bgRt.rect.width / Mathf.Max(0.0001f, bgRt.rect.height));
-            
+
             float elapsed = 0f;
 
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 float normalizedTime = elapsed / duration;
-                
+
                 // 각각의 커브로 개별 제어
                 float holeRadiusValue = holeRadiusCurve.Evaluate(normalizedTime);
                 float aspectRatioValue = aspectRatioCurve.Evaluate(normalizedTime);
-                
+
                 // 블러 효과 (기존 로직 유지)
                 _uiEffect.blurFactor = 1 - holeRadiusValue;
-                
+
                 // 셰이더 파라미터 설정
                 _bgImage.material.SetFloat("_HoleRadius", holeRadiusValue);
                 _bgImage.material.SetFloat("_AspectRatio", aspectRatio * aspectRatioValue);
-                
+
                 yield return null;
             }
 
@@ -238,7 +249,56 @@ namespace CookApps.AutoBattler
             _unmaskTransform.localScale = finalScale;
             _bgImage.material.SetFloat("_HoleRadius", holeRadiusCurve.Evaluate(1f));
             _bgImage.material.SetFloat("_AspectRatio", aspectRatio * aspectRatioCurve.Evaluate(1f));
-            _maskObj.SetActive(false);
+            // _maskObj.SetActive(false);
+            _isAnimating = false;
+        }
+
+        private IEnumerator ScaleUpHoleRadius(float duration)
+        {
+            _maskObj.SetActive(true);
+            if (duration <= 0f)
+            {
+                _bgImage.material.SetFloat("_HoleRadius", 0f);
+                _isAnimating = false;
+                yield break;
+            }
+
+            float start = 0;
+            float end = 1f;
+            float t = 0f;
+            while (t < 1f)
+            {
+                t += Time.unscaledDeltaTime / duration;
+                float v = Mathf.Lerp(start, end, Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t)));
+                _bgImage.material.SetFloat("_HoleRadius", v);
+                yield return null;
+            }
+            _bgImage.material.SetFloat("_HoleRadius", end);
+            _isAnimating = false;
+        }
+
+        private IEnumerator ScaleDownHoleRadius(float duration)
+        {
+            _maskObj.SetActive(true);
+            if (duration <= 0f)
+            {
+                _bgImage.material.SetFloat("_HoleRadius", 1f);
+                _isAnimating = false;
+                yield break;
+            }
+
+            float start = 1;
+            float end = 0f;
+            float t = 0f;
+            while (t < 1f)
+            {
+                t += Time.unscaledDeltaTime / duration;
+                float v = Mathf.Lerp(start, end, Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t)));
+                _bgImage.material.SetFloat("_HoleRadius", v);
+                yield return null;
+            }
+            _bgImage.material.SetFloat("_HoleRadius", end);
+            _isAnimating = false;
         }
     }
 }

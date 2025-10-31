@@ -891,7 +891,7 @@ PlayerSettings:
     WebGL: DOTWEEN
     Windows Store Apps: DOTWEEN
     XboxOne: DOTWEEN
-    iPhone: DOTWEEN;ENABLE_CHEAT;SERVER_REAL
+    iPhone: DOTWEEN;ENABLE_CHEAT;SERVER_DEV
     tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
