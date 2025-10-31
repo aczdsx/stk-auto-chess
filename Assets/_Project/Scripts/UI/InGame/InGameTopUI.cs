@@ -56,6 +56,10 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private ScrollRect _combatPlayerSynergyScrollRect;
     [SerializeField] private ScrollRect _combatEnemySynergyScrollRect;
 
+    [Space]
+    [SerializeField] private ContentSizeFitter _playerSynergyContentFitter;
+    [SerializeField] private ContentSizeFitter _combatPlayerSynergyContentFitter;
+
     private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
     private float beforeEnemyHpRate = 1.0f;
@@ -70,18 +74,6 @@ public class InGameTopUI : MonoBehaviour
     private void OnDestroy()
     {
         _pauseButton.onClick.RemoveListener(OnClickPauseButton);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            // 테스트: A 키로 즉시 스냅 동작 확인
-            if (_playerSynergyScrollRect != null) SnapRight(_playerSynergyScrollRect);
-            if (_enemySynergyScrollRect != null) SnapLeft(_enemySynergyScrollRect);
-            if (_combatPlayerSynergyScrollRect != null) SnapRight(_combatPlayerSynergyScrollRect);
-            if (_combatEnemySynergyScrollRect != null) SnapLeft(_combatEnemySynergyScrollRect);
-        }
     }
 
     public void UpdateTimeUI(float time)
@@ -192,7 +184,7 @@ public class InGameTopUI : MonoBehaviour
         {
             if (type == AllianceType.Player)
             {
-                SnapRight(_combatPlayerSynergyScrollRect);
+                EnsureRightAlign(_combatPlayerSynergyScrollRect, _combatPlayerSynergyContentFitter, true).Forget();
             }
             else
             {
@@ -203,7 +195,7 @@ public class InGameTopUI : MonoBehaviour
         {
             if (type == AllianceType.Player)
             {
-                SnapRight(_playerSynergyScrollRect);
+                EnsureRightAlign(_playerSynergyScrollRect, _playerSynergyContentFitter, true).Forget();
             }
             else
             {
@@ -212,12 +204,42 @@ public class InGameTopUI : MonoBehaviour
         }
     }
 
-    private async void SnapRight(ScrollRect sr)
+    private async UniTask EnsureRightAlign(ScrollRect sr, ContentSizeFitter fitter, bool snapRight)
     {
         if (sr == null) return;
         await UniTask.NextFrame();
         Canvas.ForceUpdateCanvases();
-        sr.horizontalNormalizedPosition = 1f;
+
+        var content = sr.content;
+        var vp = sr.viewport != null ? sr.viewport : sr.transform as RectTransform;
+        if (content == null || vp == null) return;
+
+        bool isShort = content.rect.width <= vp.rect.width + 0.1f;
+
+        if (fitter != null)
+        {
+            if (isShort)
+            {
+                fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+                content.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vp.rect.width);
+            }
+            else
+            {
+                fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            }
+        }
+
+        if (isShort)
+        {
+            var pos = content.anchoredPosition;
+            pos.x = 0f; // Pivot X=1 기준 오른쪽 붙임
+            content.anchoredPosition = pos;
+        }
+        else if (snapRight)
+        {
+            sr.horizontalNormalizedPosition = 1f;
+        }
+
         sr.velocity = Vector2.zero;
     }
 
