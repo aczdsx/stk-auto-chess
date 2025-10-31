@@ -132,7 +132,6 @@ namespace CookApps.AutoBattler
             else
             {
                 _maskObj.SetActive(false);
-                _isAnimating = false;
             }
 
             if (_currentSpecDialogueData.prefab_id > 0 && isChangePrefab)
@@ -148,7 +147,7 @@ namespace CookApps.AutoBattler
         // 다음 대화로 넘어가기
         private void OnClickNextDialogue()
         {
-            if (_isAnimating) return;
+            // if (_isAnimating) return;
             currentDialogueSeq++;
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_dialogue);
@@ -207,6 +206,7 @@ namespace CookApps.AutoBattler
 
         public void OnClickRefreshTextTween()
         {
+            // if (_isAnimating) return;
             _dialogueText.DOFade(0, 0f);
             _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
             _dialogueTextRect.DOSizeDelta(_tweenVector, 0.3f).SetEase(Ease.OutQuad).From();
