@@ -135,8 +135,10 @@ public class CharacterStateAttack : CharacterStateBase
                     return;
                 }
 
+                Transform projectileTransform = characCtrl.GetCharacterView().CachedFront ? characCtrl.GetCharacterView().ProjectileFrontTransform : characCtrl.GetCharacterView().ProjectileBackTransform;
+
                 var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile,
-                    characCtrl.GetCharacterView().ProjectileTransform.position);
+                    projectileTransform.position);
 
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
 

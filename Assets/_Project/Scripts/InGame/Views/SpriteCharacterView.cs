@@ -26,7 +26,10 @@ namespace CookApps.AutoBattler
         private Transform _rotateionRootTransform;
 
         [SerializeField]
-        private Transform _projectileTransform;
+        private Transform _projectileFrontTransform;
+
+        [SerializeField]
+        private Transform _projectileBackTransform;
 
         [SerializeField]
         private Material _defaultMaterial;
@@ -50,7 +53,8 @@ namespace CookApps.AutoBattler
         private static readonly int IsFront = Animator.StringToHash("IsFront");
 
         public Transform SkillRootTransform => _skillRootTransform;
-        public Transform ProjectileTransform => _projectileTransform;
+        public Transform ProjectileFrontTransform => _projectileFrontTransform;
+        public Transform ProjectileBackTransform => _projectileBackTransform;
 
         private void Awake()
         {

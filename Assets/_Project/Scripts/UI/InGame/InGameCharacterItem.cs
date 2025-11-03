@@ -75,7 +75,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
                     if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                     {
                         var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-                        SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, 1, specSynergyDataList[0], specSynergyDataList[1])).Forget();
+                        SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, 2, specSynergyDataList[1], specSynergyDataList[2])).Forget();
                     }
                 }
             }
