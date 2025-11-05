@@ -109,19 +109,21 @@ namespace CookApps.AutoBattler
             return tile.IsOccupied() && tile.View.AllianceType == AllianceType.Player;
         }
 
-        public void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
+        public void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
         {
             _inGameUI.TopUI.AddKillLog(source, death, isPlayerKill);
         }
 
         public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
         {
-            _inGameUI.TopUI.AddKillLog(CookApps.AutoBattler.KillSource.From(kill), death, isPlayerKill);
+            var ks = CookApps.AutoBattler.KillSource.From(kill, isPlayerKill);
+            _inGameUI.TopUI.AddKillLog(ks, death, isPlayerKill);
         }
 
         public void AddKillLog(long source, CharacterController death, bool isPlayerKill)
         {
-            _inGameUI.TopUI.AddKillLog(CookApps.AutoBattler.KillSource.From(source), death, isPlayerKill);
+            var ks = CookApps.AutoBattler.KillSource.From(source, isPlayerKill);
+            _inGameUI.TopUI.AddKillLog(ks, death, isPlayerKill);
         }
         
         public void SetAlertBottomCharacter(int characterID)

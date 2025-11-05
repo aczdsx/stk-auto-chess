@@ -147,17 +147,7 @@ namespace CookApps.AutoBattler
             _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);
         }
 
-        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
-        {
-            _inGameUI.TopUI.AddKillLog(KillSource.From(kill), death, isPlayerKill);
-        }
-
-        public void AddKillLog(long source, CharacterController death, bool isPlayerKill)
-        {
-            _inGameUI.TopUI.AddKillLog(KillSource.From(source), death, isPlayerKill);
-        }
-
-        public void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
+        public void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
         {
             _inGameUI.TopUI.AddKillLog(source, death, isPlayerKill);
         }

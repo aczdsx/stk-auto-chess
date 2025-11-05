@@ -319,7 +319,7 @@ public class InGameTopUI : MonoBehaviour
         _myName.text = stageName;
     }
 
-    public void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
+    public void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
     {
         if (_killLogRootTransform == null || _killLogItemPrefab == null)
             return;

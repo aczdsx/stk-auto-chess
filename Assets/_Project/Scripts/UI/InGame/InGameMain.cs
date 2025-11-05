@@ -17,33 +17,31 @@ namespace CookApps.AutoBattler
     {
         public readonly AttackerType Type;
         public readonly long Id;
-        public readonly CharacterController Character;
-        public readonly SpecCommanderSkill CommanderSkill;
-        public readonly SpecChapterRule ChapterRule;
+        public readonly bool IsPlayerOwned;
+        public readonly CharacterController Character; // 선택적 참조(캐릭터만)
 
-        public KillSource(AttackerType type, long id, CharacterController character = null, SpecCommanderSkill commanderSkill = null, SpecChapterRule chapterRule = null)
+        public KillSource(AttackerType type, long id, bool isPlayerOwned, CharacterController character = null)
         {
             Type = type;
             Id = id;
+            IsPlayerOwned = isPlayerOwned;
             Character = character;
-            CommanderSkill = commanderSkill;
-            ChapterRule = chapterRule;
         }
 
-        public static KillSource From(object source)
+        public static KillSource From(object source, bool isPlayerOwned)
         {
             switch (source)
             {
                 case CharacterController c:
-                    return new KillSource(AttackerType.CHARCTER, c.CharacterId, c);
+                    return new KillSource(AttackerType.CHARCTER, c.CharacterId, isPlayerOwned, c);
                 case SpecCommanderSkill s:
-                    return new KillSource(AttackerType.COMMANDER_SKILL, s.commander_skill_id, null, s);
+                    return new KillSource(AttackerType.COMMANDER_SKILL, s.commander_skill_id, isPlayerOwned);
                 case SpecChapterRule r:
-                    return new KillSource(AttackerType.CHAPTER_RULE, r.effect_code_id, null, null, r);
+                    return new KillSource(AttackerType.CHAPTER_RULE, r.effect_code_id, isPlayerOwned);
                 case long id:
-                    return new KillSource(AttackerType.CHARCTER, id);
+                    return new KillSource(AttackerType.CHARCTER, id, isPlayerOwned);
                 default:
-                    return new KillSource(AttackerType.CHARCTER, 0);
+                    return new KillSource(AttackerType.CHARCTER, 0, isPlayerOwned);
             }
         }
     }
@@ -62,7 +60,7 @@ namespace CookApps.AutoBattler
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
         bool IsCheckTouchTile(InGameTile tile);
-        void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill);
+        void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill);
         void SetAlertBottomCharacter(int characterID);
     }
 
@@ -217,7 +215,7 @@ namespace CookApps.AutoBattler
 
         public void AddKillLog(object source, CharacterController death, bool isPlayerKill)
         {
-            var ks = CookApps.AutoBattler.KillSource.From(source);
+            var ks = CookApps.AutoBattler.KillSource.From(source, isPlayerKill);
             _currentGameStateUI.AddKillLog(ks, death, isPlayerKill);
         }
 

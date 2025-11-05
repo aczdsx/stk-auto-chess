@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CharacterController = CookApps.BattleSystem.CharacterController;
- 
+
 
 namespace CookApps.AutoBattler
 {
@@ -26,13 +26,13 @@ namespace CookApps.AutoBattler
 
             bool isFirstTrial = _specTrialDungeon.dungeon_map_id == 1 &&
                                 Preference.LoadPreference(Pref.FIRST_TRIAL, true);
-            if (isFirstTrial) 
+            if (isFirstTrial)
             {
                 Preference.SavePreference(Pref.FIRST_TRIAL, false);
                 var fxResource = await Addressables.LoadAssetAsync<GameObject>($"VFX/Prefab/Prefab_Dungeon_Boss_01.prefab").Task;
                 var animator = Object.Instantiate(fxResource).GetComponent<Animator>();
                 await WaitUntilAnimationFinished(animator, "Prefab_Dungeon_Boss_01");
-                
+
                 DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "1");
             }
 
@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
                 stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/TrialBossUI.prefab").Task;
             else
                 stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
-            
+
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
         {
             throw new System.NotImplementedException();
         }
-        
+
         public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
         {
             _inGameUI.BottomUI.InitData();
@@ -63,14 +63,14 @@ namespace CookApps.AutoBattler
             _inGameUI.TopUI.InitTopUI(typeof(FlowStateTrialDungeonFail));
             _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateTrialDungeonCombat), battleDeckList);
         }
-        
+
         public void InitCombatStateUI()
         {
             _inGameUI.PlayAnimation("SetBattleEntry");
             _inGameUI.BottomUI.InitCommanderSkill();
             _inGameUI.BottomUI.InitSpeedUpSetting();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
-            
+
             bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
             if (isOpenStatisticPop)
                 SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(_inGameUI.BottomUI).Forget();
@@ -128,27 +128,17 @@ namespace CookApps.AutoBattler
         {
             _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
-        
+
         public bool IsCheckTouchTile(InGameTile tile)
         {
             return tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player;
         }
 
-        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
-        {
-            _inGameUI.TopUI.AddKillLog(KillSource.From(kill), death, isPlayerKill);
-        }
-
-        public void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
+        public void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
         {
             _inGameUI.TopUI.AddKillLog(source, death, isPlayerKill);
         }
 
-        public void AddKillLog(long source, CharacterController death, bool isPlayerKill)
-        {
-            _inGameUI.TopUI.AddKillLog(CookApps.AutoBattler.KillSource.From(source), death, isPlayerKill);
-        }
-        
         public void SetAlertBottomCharacter(int characterID)
         {
             _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);

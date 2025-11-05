@@ -60,18 +60,23 @@ public class InGameKillLogItem : MonoBehaviour
                     _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.Character.SpecCharacter.name_token);
                     _killCharacterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(source.Character.SpecCharacter.prefab_id);
                 }
+                else
+                {
+                    _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.Id.ToString());
+                    _killCharacterImage.sprite = null;
+                }
                 break;
             case AttackerType.COMMANDER_SKILL:
-                if (source.CommanderSkill != null)
                 {
-                    _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.CommanderSkill.name_token);
+                    var data = SpecDataManager.Instance.GetCommanderSkillData((int)source.Id);
+                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data.name_token) : source.Id.ToString();
                     _killCharacterImage.sprite = null;
                 }
                 break;
             case AttackerType.CHAPTER_RULE:
-                if (source.ChapterRule != null)
                 {
-                    _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.ChapterRule.name_token);
+                    var data = SpecDataManager.Instance.GetChapterRuleData((int)source.Id);
+                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data.name_token) : source.Id.ToString();
                     _killCharacterImage.sprite = null;
                 }
                 break;
