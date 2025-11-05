@@ -1035,7 +1035,6 @@ namespace CookApps.BattleSystem
                             InGameMain.GetInGameMain().AddKillLog(chapterRule, this, AllianceType != AllianceType.Player);
                             break;
                     }
-                    InGameMain.GetInGameMain().AddKillLog(damageInfo.source, this, AllianceType != AllianceType.Player);
                 }
 
                 var deathInfo = new DeathInfo { attacker = attacker };
