@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
         }
     }
 
-        public interface IGameStateUI
+    public interface IGameStateUICore
     {
         UniTask Initialize(Transform canvasTransform, int id);
         UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data);
@@ -54,13 +54,38 @@ namespace CookApps.AutoBattler
         void InitCombatStateUI();
         void RefreshInGameTopUI(bool isCombat);
         void ManagedUpdate(float dt);
+        bool IsCheckTouchTile(InGameTile tile);
+    }
+
+    // 선택 능력 인터페이스들
+    public interface IReturnCharacterUI
+    {
         void ReturnCharacterUI(CharacterController characterController);
+    }
+
+    public interface ICommanderSkillUI
+    {
         void SetCommanderSkillUI(int index, int equippedCommanderSkillId);
+    }
+
+    public interface IGuideBottomUI
+    {
         void SetInGameBottomUIInGuideUI();
+    }
+
+    public interface IFocusSlotUI
+    {
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
-        bool IsCheckTouchTile(InGameTile tile);
+    }
+
+    public interface IKillLogUI
+    {
         void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill);
+    }
+
+    public interface IAlertBottomCharacterUI
+    {
         void SetAlertBottomCharacter(int characterID);
     }
 
@@ -78,7 +103,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private UIObjectMover _uiObjectMover;
 
         private float _inGameTime = 0f;
-        private IGameStateUI _currentGameStateUI;
+        private IGameStateUICore _currentGameStateUI;
         private InGameType _inGameType;
 
         public static InGameMain GetInGameMain()
@@ -107,12 +132,12 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             switch (param)
             {
-                case (InGameType inGameType, IGameStateUI gameState, int id):
+                case (InGameType inGameType, IGameStateUICore gameState, int id):
                     _inGameType = inGameType;
                     _currentGameStateUI = gameState;
                     _currentGameStateUI.Initialize(_canvasTransform, id).Forget();
                     break;
-                case (InGameType inGameType, IGameStateUI gameState, UserPVPBattleDetailData data):
+                case (InGameType inGameType, IGameStateUICore gameState, UserPVPBattleDetailData data):
                     _inGameType = inGameType;
                     _currentGameStateUI = gameState;
                     _currentGameStateUI.Initialize(_canvasTransform, data).Forget();
@@ -170,12 +195,14 @@ namespace CookApps.AutoBattler
 
         public void ReturnCharacterUI(CharacterController characterController)
         {
-            _currentGameStateUI.ReturnCharacterUI(characterController);
+            if (_currentGameStateUI is IReturnCharacterUI returner)
+                returner.ReturnCharacterUI(characterController);
         }
 
         public void SetInGameBottomUIInGuide()
         {
-            _currentGameStateUI.SetInGameBottomUIInGuideUI();
+            if (_currentGameStateUI is IGuideBottomUI guide)
+                guide.SetInGameBottomUIInGuideUI();
         }
 
         public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
@@ -195,17 +222,20 @@ namespace CookApps.AutoBattler
 
         public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
         {
-            _currentGameStateUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
+            if (_currentGameStateUI is ICommanderSkillUI cmd)
+                cmd.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
 
         public void SetFocusSlotUI(SpecCharacter spec)
         {
-            _currentGameStateUI.SetFocusSlotUI(spec);
+            if (_currentGameStateUI is IFocusSlotUI focus)
+                focus.SetFocusSlotUI(spec);
         }
 
         public void UnSetFocusSlotUI(bool isDropFx)
         {
-            _currentGameStateUI.UnSetFocusSlotUI(isDropFx);
+            if (_currentGameStateUI is IFocusSlotUI focus)
+                focus.UnSetFocusSlotUI(isDropFx);
         }
 
         public bool IsCheckTouchTile(InGameTile tile)
@@ -216,12 +246,14 @@ namespace CookApps.AutoBattler
         public void AddKillLog(object source, CharacterController death, bool isPlayerKill)
         {
             var ks = CookApps.AutoBattler.KillSource.From(source, isPlayerKill);
-            _currentGameStateUI.AddKillLog(ks, death, isPlayerKill);
+            if (_currentGameStateUI is IKillLogUI killLog)
+                killLog.AddKillLog(ks, death, isPlayerKill);
         }
 
         public void SetAlertBottomCharacter(int characterID)
         {
-            _currentGameStateUI.SetAlertBottomCharacter(characterID);
+            if (_currentGameStateUI is IAlertBottomCharacterUI alert)
+                alert.SetAlertBottomCharacter(characterID);
         }
     }
 }

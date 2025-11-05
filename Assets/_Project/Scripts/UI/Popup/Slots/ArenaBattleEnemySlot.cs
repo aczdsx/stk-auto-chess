@@ -260,7 +260,7 @@ namespace CookApps.AutoBattler
             UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
             data.MatchId = 0;
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
+                (InGameType.PVP, (IGameStateUICore) new InGameMainStatePvpUI(), data),
                 transition).Forget();
         }
 
@@ -296,7 +296,7 @@ namespace CookApps.AutoBattler
             UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
             data.MatchId = _pvpMatchHistoryData.MatchId;
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
+                (InGameType.PVP, (IGameStateUICore) new InGameMainStatePvpUI(), data),
                 transition).Forget();
         }
         

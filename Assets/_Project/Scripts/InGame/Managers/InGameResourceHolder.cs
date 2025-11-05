@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
         public static InGameTextView InGameText = null;
         public static InGameType InGameType;
 
-        public static async UniTask LoadResources(InGameType inGameType, IGameStateUI gameStateUI, int id)
+        public static async UniTask LoadResources(InGameType inGameType, IGameStateUICore gameStateUI, int id)
         {
             GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();

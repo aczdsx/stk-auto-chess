@@ -9,12 +9,11 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStatePvpUI : IGameStateUI
+    public class InGameMainStatePvpUI : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI
     {
         private InGameUI _inGameUI;
 
         private float _updateTimer = 0f;
-        private IGameStateUI _gameStateUIImplementation;
         private const float UpdateInterval = 0.2f;
         private const float InGameMaxTime = 60f;
 
@@ -129,11 +128,6 @@ namespace CookApps.AutoBattler
         public void SetAlertBottomCharacter(int characterID)
         {
             _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);
-        }
-
-        public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
-        {
-            _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
     }
 }

@@ -10,13 +10,12 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStateUIStageUI : IGameStateUI
+    public class InGameMainStateUIStageUI : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI
     {
         private InGameUI _inGameUI;
         private SpecStage _specStage;
 
         private float _updateTimer = 0f;
-        private IGameStateUI _gameStateUIImplementation;
         private const float UpdateInterval = 0.3f;
         private const float InGameMaxTime = 60f;
 

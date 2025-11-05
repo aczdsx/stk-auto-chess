@@ -715,7 +715,7 @@ namespace CookApps.AutoBattler
                 InGameManager.Instance.EndInGame();
                 SceneTransition_Animator transition = SceneTransition_Animator.Create();
                 SceneLoading.GoToNextScene("InGame",
-                    (InGameType.STAGE, (IGameStateUI)new InGameMainStateUIStageUI(), (int)currentStageData.stage_id),
+                    (InGameType.STAGE, (IGameStateUICore)new InGameMainStateUIStageUI(), (int)currentStageData.stage_id),
                     transition).Forget();
 
 
