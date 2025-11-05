@@ -31,6 +31,7 @@ namespace CookApps.AutoBattler
 		public List<SpecGuideMission> SpecGuideMissionList {get; private set;}
 		public List<SpecQuest> SpecQuestList {get; private set;}
 		public List<SpecStage> SpecStageList {get; private set;}
+		public List<SpecChapterRule> SpecChapterRuleList {get; private set;}
 		public List<SpecStageMonster> SpecStageMonsterList {get; private set;}
 		public List<SpecSkill> SpecSkillList {get; private set;}
 		public List<SpecStageReward> SpecStageRewardList {get; private set;}
@@ -78,6 +79,7 @@ namespace CookApps.AutoBattler
 			SpecGuideMissionList = SpecGuideMission.All.ToList();
 			SpecQuestList = SpecQuest.All.ToList();
 			SpecStageList = SpecStage.All.ToList();
+			SpecChapterRuleList = SpecChapterRule.All.ToList();
 			SpecStageMonsterList = SpecStageMonster.All.ToList();
 			SpecSkillList = SpecSkill.All.ToList();
 			SpecStageRewardList = SpecStageReward.All.ToList();

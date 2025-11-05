@@ -13,7 +13,42 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public interface IGameStateUI
+    public readonly struct KillSource
+    {
+        public readonly AttackerType Type;
+        public readonly long Id;
+        public readonly CharacterController Character;
+        public readonly SpecCommanderSkill CommanderSkill;
+        public readonly SpecChapterRule ChapterRule;
+
+        public KillSource(AttackerType type, long id, CharacterController character = null, SpecCommanderSkill commanderSkill = null, SpecChapterRule chapterRule = null)
+        {
+            Type = type;
+            Id = id;
+            Character = character;
+            CommanderSkill = commanderSkill;
+            ChapterRule = chapterRule;
+        }
+
+        public static KillSource From(object source)
+        {
+            switch (source)
+            {
+                case CharacterController c:
+                    return new KillSource(AttackerType.CHARCTER, c.CharacterId, c);
+                case SpecCommanderSkill s:
+                    return new KillSource(AttackerType.COMMANDER_SKILL, s.commander_skill_id, null, s);
+                case SpecChapterRule r:
+                    return new KillSource(AttackerType.CHAPTER_RULE, r.effect_code_id, null, null, r);
+                case long id:
+                    return new KillSource(AttackerType.CHARCTER, id);
+                default:
+                    return new KillSource(AttackerType.CHARCTER, 0);
+            }
+        }
+    }
+
+        public interface IGameStateUI
     {
         UniTask Initialize(Transform canvasTransform, int id);
         UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data);
@@ -27,7 +62,7 @@ namespace CookApps.AutoBattler
         void SetFocusSlotUI(SpecCharacter spec);
         void UnSetFocusSlotUI(bool isDropFx);
         bool IsCheckTouchTile(InGameTile tile);
-        void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill);
+        void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill);
         void SetAlertBottomCharacter(int characterID);
     }
 
@@ -58,7 +93,7 @@ namespace CookApps.AutoBattler
             if (_uiObjectMover)
                 _uiObjectMover.SetMover(startTile, endTile);
         }
-        
+
         public void SetActiveObjectMover(bool isActive)
         {
             if (_uiObjectMover)
@@ -68,7 +103,7 @@ namespace CookApps.AutoBattler
         protected override void OnBackButton(ref bool offPrevUI)
         {
         }
-        
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
@@ -87,7 +122,7 @@ namespace CookApps.AutoBattler
                 default:
                     throw new ArgumentException("Invalid parameter type");
             }
-            
+
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
         }
 
@@ -179,10 +214,11 @@ namespace CookApps.AutoBattler
         {
             return _currentGameStateUI.IsCheckTouchTile(tile);
         }
-        
-        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+
+        public void AddKillLog(object source, CharacterController death, bool isPlayerKill)
         {
-            _currentGameStateUI.AddKillLog(kill, death, isPlayerKill);
+            var ks = CookApps.AutoBattler.KillSource.From(source);
+            _currentGameStateUI.AddKillLog(ks, death, isPlayerKill);
         }
 
         public void SetAlertBottomCharacter(int characterID)

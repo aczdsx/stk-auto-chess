@@ -870,11 +870,26 @@ namespace CookApps.BattleSystem
 
         public struct DamageInfo
         {
+            public AttackerType attackerType;
             public ObfuscatorDouble damageAmount;
             public bool isAD;
             public bool isCritical;
             public bool isDoubleCritical;
             public long source;
+
+            // 외부에서 DamageInfo를 생성할 때 사용하는 함수
+            public static DamageInfo Create(double damageAmount, long source, AttackerType attackerType, bool isAD = true, bool isCritical = false, bool isDoubleCritical = false)
+            {
+                return new DamageInfo
+                {
+                    damageAmount = damageAmount,
+                    source = source,
+                    attackerType = attackerType,
+                    isAD = isAD,
+                    isCritical = isCritical,
+                    isDoubleCritical = isDoubleCritical
+                };
+            }
         }
 
         /// <summary>
@@ -892,6 +907,7 @@ namespace CookApps.BattleSystem
             double damage = InGameCalculator.CalculateDefaultDamage(ad, ap, this, target);
 
             var damageInfo = new DamageInfo();
+            damageInfo.attackerType = AttackerType.CHARCTER;
             damageInfo.isAD = true;
 
             if (isSkill)
@@ -954,8 +970,7 @@ namespace CookApps.BattleSystem
         /// 대미지를 입힌 후 상태
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
-        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
-            bool isFirstDamage = true, string hexColor = null)
+        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker, bool isFirstDamage = true, string hexColor = null)
         {
             if (!InGameManager.Instance.IsInGameCombat)
                 return DamageReturnType.Damaging;
@@ -1006,11 +1021,21 @@ namespace CookApps.BattleSystem
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
                 {
-                    if (attacker != null)
+                    switch (damageInfo.attackerType)
                     {
-                        attacker.KillEffectCode(this);
-                        InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
+                        case AttackerType.CHARCTER:
+                            InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
+                            break;
+                        case AttackerType.COMMANDER_SKILL:
+                            var commanderSkill = SpecDataManager.Instance.GetCommanderSkillData((int)damageInfo.source);
+                            InGameMain.GetInGameMain().AddKillLog(commanderSkill, this, AllianceType != AllianceType.Player);
+                            break;
+                        case AttackerType.CHAPTER_RULE:
+                            var chapterRule = SpecDataManager.Instance.GetChapterRuleData((int)damageInfo.source);
+                            InGameMain.GetInGameMain().AddKillLog(chapterRule, this, AllianceType != AllianceType.Player);
+                            break;
                     }
+                    InGameMain.GetInGameMain().AddKillLog(damageInfo.source, this, AllianceType != AllianceType.Player);
                 }
 
                 var deathInfo = new DeathInfo { attacker = attacker };

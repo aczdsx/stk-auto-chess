@@ -319,7 +319,7 @@ public class InGameTopUI : MonoBehaviour
         _myName.text = stageName;
     }
 
-    public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+    public void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
     {
         if (_killLogRootTransform == null || _killLogItemPrefab == null)
             return;
@@ -327,10 +327,9 @@ public class InGameTopUI : MonoBehaviour
         var item = Instantiate(_killLogItemPrefab, _killLogRootTransform);
         item.transform.position = _killLogRootTransform.position;
         item.RectTransform.SetAsFirstSibling();
-        item.SetData(kill, death, isPlayerKill);
+        item.SetData(source, death, isPlayerKill);
         item.OnDespawn += HandleKillLogDespawn;
 
-        // 새 항목은 맨 아래(최신이 위로 쌓이게 하려면 Layout을 Top-Down으로 설정)로 추가됨
         _killLogItems.Insert(0, item);
         RelayoutKillLogs(animated: true);
     }
@@ -372,11 +371,9 @@ public class InGameTopUI : MonoBehaviour
             return;
         }
 
-        // 애니메이션 모드: 부드럽게 이동
         const float slideDuration = 0.2f;
         float elapsed = 0f;
 
-        // 시작/목표 포지션 캡처
         var startPositions = new Vector2[items.Count];
         var targetPositions = new Vector2[items.Count];
         for (int i = 0; i < items.Count; i++)

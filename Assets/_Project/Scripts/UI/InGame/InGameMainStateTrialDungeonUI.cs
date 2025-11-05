@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+ 
 
 namespace CookApps.AutoBattler
 {
@@ -135,7 +136,17 @@ namespace CookApps.AutoBattler
 
         public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
         {
-            _inGameUI.TopUI.AddKillLog(kill, death, isPlayerKill);
+            _inGameUI.TopUI.AddKillLog(KillSource.From(kill), death, isPlayerKill);
+        }
+
+        public void AddKillLog(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
+        {
+            _inGameUI.TopUI.AddKillLog(source, death, isPlayerKill);
+        }
+
+        public void AddKillLog(long source, CharacterController death, bool isPlayerKill)
+        {
+            _inGameUI.TopUI.AddKillLog(CookApps.AutoBattler.KillSource.From(source), death, isPlayerKill);
         }
         
         public void SetAlertBottomCharacter(int characterID)

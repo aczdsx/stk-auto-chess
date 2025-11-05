@@ -656,4 +656,12 @@ namespace CookApps.AutoBattler
         CURVE_ANIMATION = 3,
         MASK = 4,
     }
+
+    public enum AttackerType
+    {
+        NONE = 0,
+        CHARCTER = 1,
+        COMMANDER_SKILL = 2,
+        CHAPTER_RULE = 3,
+    }
 }

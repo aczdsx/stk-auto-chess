@@ -132,7 +132,7 @@ public partial class EffectCodeSkill1404021 : EffectCodeCharacterBase
         eccStats[0] = 0.3f;
         eccStats[1] = 0.3f;
         eccStats[2] = inGameTile.View.ID;
-        
+
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
 
         IsSkillActivated = false;

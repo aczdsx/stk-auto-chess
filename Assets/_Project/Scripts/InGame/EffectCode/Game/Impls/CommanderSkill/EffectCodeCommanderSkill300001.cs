@@ -51,10 +51,8 @@ namespace CookApps.BattleSystem
                     {
                         targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
                         var averageAD = InGameObjectManager.Instance.GetAverageAD(AllianceType.Player, true);
-
-                        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                        damageInfo.damageAmount = damageInfo.damageAmount =
-                            (int) Math.Ceiling(averageAD * _damageRate);
+                        var resultDamage = InGameCalculator.CalculateDefaultDamage(averageAD * _damageRate, 0, tile.OccupiedCharacter, null);
+                        var damageInfo = CharacterController.DamageInfo.Create(resultDamage, codeId, AttackerType.COMMANDER_SKILL);
 
                         tile.OccupiedCharacter.GetDamaged(damageInfo, null);
                     }

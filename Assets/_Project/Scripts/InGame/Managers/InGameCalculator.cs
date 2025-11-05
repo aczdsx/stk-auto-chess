@@ -18,24 +18,24 @@ namespace CookApps.AutoBattler
 
         public static float MinDamageRate => SpecOptionCache.MinDamageRate;
 
-        public static double CalculateDefaultDamage(double ad, double ap, CharacterController attacker, CharacterController target)
+        public static double CalculateDefaultDamage(double ad, double ap, CharacterController target, CharacterController attacker = null)
         {
-            double defPenetration = attacker.DEFPenetration;
-            double resPenetration = attacker.RESPenetration;
-            // 방관이나 마관에 따른 방어력 및 저항력 감소 계산
-            double def = target.DEF * (1f - defPenetration);
-            double res = target.RES * (1f - resPenetration);
+            // 방관이나 마관에 따른 방어력 및 저항력 계산
+            double def = attacker != null 
+                ? target.DEF * (1f - attacker.DEFPenetration) 
+                : target.DEF;
+            
+            double res = attacker != null 
+                ? target.RES * (1f - attacker.RESPenetration) 
+                : target.RES;
 
             double damage = 0;
+            
             if (def >= 0)
-            {
                 damage += ad * 50f / (50f + def);
-            }
 
             if (res >= 0)
-            {
                 damage += ap * 50f / (50f + res);
-            }
 
             // Debug.LogColor($"[{target.SpecCharacter.prefab_id}] {damage} : {ad} : {ap} : {def} : {res}", "cyan");
 

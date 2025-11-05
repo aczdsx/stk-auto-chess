@@ -54,8 +54,7 @@ namespace CookApps.BattleSystem
 
             if (_chapterRuleTiles.Exists(l => l.View.ID == tile.View.ID))
             {
-                CharacterController.DamageInfo damage = new CharacterController.DamageInfo();
-                damage.damageAmount = _effectCodeStat;
+                CharacterController.DamageInfo damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHAPTER_RULE);
 
                 character.GetDamaged(damage, null, hexColor : "#FF470000");
                 InGameVfxManager.Instance.AddInGameTileFx(ElementType.FIRE, tile);
@@ -79,8 +78,7 @@ namespace CookApps.BattleSystem
                 {
                     if (ruleTile.OccupiedCharacter != null)
                     {
-                        CharacterController.DamageInfo damage = new CharacterController.DamageInfo();
-                        damage.damageAmount = _effectCodeStat;
+                        CharacterController.DamageInfo damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHAPTER_RULE);
 
                         ruleTile.OccupiedCharacter.GetDamaged(damage, null, hexColor : "#FF470000");
                         InGameVfxManager.Instance.AddInGameTileFx(ElementType.FIRE, ruleTile);
