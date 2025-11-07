@@ -1,0 +1,107 @@
+@bgm bgm_mad_001
+@back bg_ruins_05 scale:1.38
+@camera offset:0 zoom:0 time:0.2
+@char maya_00.normal pos:70,-272 scale:1.38
+@char uni_00.angry pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 겨우 따돌렸네, 후우.
+@slide uni_00 to:30,-295 time:0.2
+@slide uni_00 to:30,-285 time:0.2
+@char uni_00.happy pos:30,-285 scale:1.38
+
+@camera offset:-1,0.5 zoom:0.3 time:0.2
+uni_00: 괜찮아?! 안 다쳤지??
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 무려 내가 지켜준 거니까, 당연히 안 다쳤겠지만? 그래도 예의상 한번 물어봐 줄게.
+
+@char maya_00.panic pos:70,-272 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+maya_00: …다, 다치지 않긴 했지만 어쩐지 다쳤다고 하고 싶어….
+@spawn ShakeCharacter params:maya_00,2 scale:1
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 고맙다는 인사는 마음으로 받을게?
+
+@char maya_00.angry pos:70,-272 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+maya_00: 또… 무시했어?!
+
+@char uni_00.normal pos:30,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 자, 이제 그만 알려줘.
+
+@char maya_00.panic pos:70,-272 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+maya_00: 뭐, 뭘…?
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 뭐긴 뭐야. 다른 생존자들이 숨어있는 위치 말하는 거지.
+
+@camera offset:1 zoom:0.1 time:0.2
+maya_00: 다, 다른 생존자들이라니? 나, 나는 모르겠어.
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 아까 니 입으로 말했잖아.
+uni_00: "우리끼리" 이대로 살게 내버려달라고.
+
+@char uni_00.happy pos:30,-285 scale:1.38
+uni_00: 너 말고 생존자가 더 있는 거지?
+
+@camera offset:1,0.5 zoom:0.3 time:0.2
+maya_00: <size=50>…시, 싫어!!</size>
+@spawn ShakeCharacter params:maya_00,3 scale:1
+
+@camera offset:1 zoom:0.1 time:0.2
+maya_00: 그런 걸 네가 알아서 뭐 하려고?!
+maya_00: 도, 도와준 건 고맙지만…
+maya_00: 우리한테 관심 두지 않아 주면 좋겠어….
+
+@char uni_00.normal pos:30,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 방금 봤잖아, 나 믿을만한 사람이야.
+
+@char uni_00.angry pos:30,-285 scale:1.38
+@camera offset:-1,0.5 zoom:0.3 time:0.2
+uni_00: 너랑 네 친구들도 안전하게 …윽!
+@spawn ShakeCharacter params:uni_00,2 scale:1
+
+@camera offset:1 zoom:0.1 time:0.2
+maya_00: 왜, 왜그래…?
+maya_00: 설마… 아, 아까 싸우다가 다친 거야…?!
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 아니, 그럴리가!!
+@spawn ShakeCharacter params:uni_00,3 scale:1
+uni_00: 이 유니님께서 네피림 상대로 실수했을 리가 없잖, 윽…
+
+@char maya_00.panic pos:60,-272 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+maya_00: 피, 피 나고 있잖아…!!
+uni_00: 어쩔 수 없지. 일단 너 먼저 도망쳐.
+@spawn ShakeCharacter params:uni_00,3 scale:1
+uni_00: 여기 있다가 또 네피림이랑 마주치기라도 하면…
+uni_00: …그땐, 내가 널 도와주지 못할 수도 있어.
+uni_00: 죽으면 끝이야. 니가 그렇게 아끼는 친구들도 다신 못 보게 되는 거 알지?
+
+maya_00: …우으.
+
+@camera offset:-1,0.5 zoom:0.3 time:0.2
+uni_00: 뭘 그렇게 고민하고 있어?!
+uni_00: 난 금방 동료들이 구하러 와줄 거야. 괜찮아…!!
+
+@camera offset:-1 zoom:0.1 time:0.2
+maya_00: 그, 그치만…
+@spawn ShakeCharacter params:maya_00,2 scale:1
+@hide maya_00
+@char uni_00.normal pos:50,-285 scale:1.38
+
+@camera offset:0,0.5 zoom:0.3 time:0.2
+uni_00: 나는 조금만…
+uni_00: 조금만 자고 있어야겠다…….
+uni_00: …
+
+@hideAll
+
+@end

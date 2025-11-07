@@ -1,0 +1,13 @@
+@back bg_climax_battle_01 
+@char laplace_00.ani_idle_thinking pos:50,-255 scale:1.38 transition:Crossfade time:2
+
+laplace_00: 어리석은 미물이여-
+laplace_00: 나에게 저항하는 것은 부질없는 날개짓에 지나지 않을지니.
+
+@animate laplace_00 posY:-355 scale:1.65|1.65|1.65 wait:true
+@char laplace_00.ani_idle_normal
+
+laplace_00: <size=140%>…저무는 별빛은 비로소 어둠에 삼켜지리라.</size>
+
+@hideAll time:0.5
+@end

@@ -1,0 +1,16 @@
+@spawn cbg_00_00
+@bgm bgm_sad_001 fade:3
+
+atresia_00: …
+atresia_00: 이렇게 급하게 끌고 와서 죄송해요.
+atresia_00: 하지만 이번엔, 저희가 당신을 지켜드릴 차례니까요.
+atresia_00: 지금으로서는 이렇게 하는 수 밖에 없어요.
+atresia_00: 부디 살아주세요. 
+atresia_00: 당신이…우리가 ■■■ ■■, ■■의 ■■이 되는 거에요.
+
+@stopBgm bgm_sad_001 fade:3 wait:false
+@despawn cbg_00_00
+@hidePrinter Dialogue
+@skip false
+
+@end

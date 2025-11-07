@@ -1,0 +1,65 @@
+@bgm bgm_mad_002
+@back bg_ruins_04 scale:1.38
+@char odette_00.normal pos:70,-305 scale:1.38
+@char uni_00.happy pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 이, 이겼다!! 우리 둘이 해치웠어, 아줌마!!
+
+@camera offset:1 zoom:0.1 time:0.2
+odette_00: 휴… 어떻게든 했네. 자, 이제 설명할 시간이야.
+odette_00: 넌 누구니? 왜 여기 있는 거야.
+
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char maya_00.normal pos:50,-272 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 그, 그게… 저, 저는…….
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char odette_00.normal pos:70,-305 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 있잖아, 여긴 엄청 위험한 곳이야. 여기 있지 말고 우리랑 가자.
+uni_00: 안전한 곳으로 갈 수 있어!
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 여기 아줌마가 맨날 몰래 먹는 쿠키도 나눠줄게.
+
+@camera offset:1 zoom:0.1 time:0.2
+odette_00: 뭐?! 내걸 니가 왜 나눠줘!!
+@hideChars
+
+@char maya_00.normal pos:50,-272 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+maya_00: 그, 저, 저는…….
+@camera offset:0,0.5 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:maya_00,2 scale:1
+maya_00: 미, 미안해요…! 저, 저는 괜찮아요.
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char odette_00.normal pos:70,-305 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 어? 어디가?! 거기 서!! 
+
+@camera offset:1 zoom:0.1 time:0.2
+odette_00: 잠시만, 거긴 지반이 약한 곳이야!
+
+@camera offset:0 zoom:0 time:0.2
+k_Nephilim: 키에에엑-!!
+
+@hideChars
+
+@char odette_00.normal pos:50,-305 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 젠장, 언제 또 몰려든거야?!
+@camera offset:0,1 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:odette_00,3 scale:1
+odette_00: 유니!!!
+
+@end

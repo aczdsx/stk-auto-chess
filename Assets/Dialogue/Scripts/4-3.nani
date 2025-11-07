@@ -1,0 +1,140 @@
+@bgm bgm_mad_001
+@back bg_ruins_05 scale:1.38
+@camera offset:0 zoom:0 time:0.2
+@char odette_00.angry pos:30,-305 scale:1.38
+@char atresia_00.normal pos:70,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 대체 혼자 어디까지 간 거야?
+@spawn ShakeCharacter params:odette_00,2 scale:1
+@camera offset:-1,1 zoom:0.3 time:0.2
+odette_00: …바보 같은 꼬맹이. 다시 만나면 입에 슈를 잔뜩 물려주겠어.
+
+@char atresia_00.happy pos:70,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+atresia_00: 발레 슈 말씀하시는 건가요? 후후.
+
+@char odette_00.sad pos:30,-305 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 쿠키 슈 말하는 거야, 쿠키!!
+@spawn ShakeCharacter params:odette_00,2 scale:1
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char philia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0,1 zoom:0.1 time:0.2
+philia_00: 그나저나 정말 큰 건물이군요.
+philia_00: 유니의 신호는 여기서 끊겼습니다.
+
+@hideChars
+@char atresia_00.normal pos:50,-280 scale:1.38
+atresia_00: 아스나, 유니랑 통신은 아직인가요?
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+@char asna_00.thinking pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+asna_00: 네, 그게…(치직-) 위치 정보를 보니 이 건물 안에 있는건 확실해요.
+
+@char asna_00.panic pos:50,-280 scale:1.38
+@camera offset:0,1 zoom:0.3 time:0.2
+asna_00: 근데 이 건물 전반에, 무전을 방해하는 전파가 … 깔린 것 …요.
+asna_00: (치직-) 자세한 …서는 아르케스 성단에 확인 …드려둘게요!
+@char asna_00.worry pos:50,-280 scale:1.38
+asna_00: 모쪼록 조심하세요, …레시아.
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+
+@char atresia_00.normal pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: …고마워요, 아스나.
+
+@char atresia_00.angry pos:50,-280 scale:1.38
+atresia_00: 어쩜 좋죠… 역시 뿔뿔이 흩어져서 찾아보는게 좋을까요?
+
+@choice "\"아니, 그건 위험해.\""
+@stop
+@hideChars
+@char philia_00.normal pos:50,-280 scale:1.38
+
+philia_00: 맞습니다. 통신이 되지 않는다는 건 저희에게도 해당하죠.
+@slide philia_00 to:50,-290 time:0.2
+@slide philia_00 to:50,-280 time:0.2
+
+philia_00: 고립되는 상황은 피하는 것이 맞습니다.
+@camera offset:0 zoom:0 time:0.2
+
+@choice "\"우선 다같이 움직이는게 좋겠어.\""
+@stop
+
+@char philia_00.normal pos:80,-280 scale:1.38
+@char odette_00.normal pos:20,-305 scale:1.38
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 그래, 폐건물이 커 봤자 얼마나 크겠어?
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 그리고 여기…자세히 보니, 병원 건물이네요. 
+atresia_00: 어쩌면 클레이에 대한 단서를 찾을 수 있을지도 모르겠어요.
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 그럼 빨리 출발하자. 큰 병동부터 돌아볼까?
+
+…
+
+
+@char philia_00.normal pos:80,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:philia_00,2 scale:1
+philia_00: 관측자님?
+
+@hideAll
+
+@camera offset:0 zoom:0 time:0.2
+
+(앞이 보이지 않는 캄캄한 어둠.)
+(눈앞에 작은 빛이 아스라이 사라졌다.)
+
+@back bg_ruins_05 scale:1.38
+
+@char philia_00.normal pos:80,-280 scale:1.38
+@char odette_00.normal pos:20,-305 scale:1.38
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 관측자님…?
+
+@choice "\"저쪽으로 가자.\""
+@choice "\"…별이 보였어.\""
+@stop
+
+atresia_00: 별이요?
+
+@char philia_00.normal pos:80,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: …기시감이 드는군요.
+@camera offset:1,1 zoom:0.3 time:0.2
+philia_00: 허블에서는 새로운 <ruby="별스텔라나이츠">별</ruby>을 찾을 때, 파인더를 사용해서 별을 찾습니다.
+@slide philia_00 to:80,-290 time:0.2
+@slide philia_00 to:80,-280 time:0.2
+philia_00: 방금 관측자님의 행동은… 그것과 닮았고요.
+
+@char atresia_00.angry pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: …저는 관측자님을 믿어요.
+atresia_00: 관측자님, 안내해주세요. 길은 저희가 열어드릴게요.
+@char atresia_00.normal pos:50,-290 scale:1.38
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 혼자 뭘 본 건지는 모르겠지만…당신 감이 맞기를 바랄게.
+odette_00: 앞장서, 관측자.
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 엄호하겠습니다.
+
+@camera offset:0 zoom:0 time:0.2
+
+@choice "\"가자.\""
+@stop
+@end

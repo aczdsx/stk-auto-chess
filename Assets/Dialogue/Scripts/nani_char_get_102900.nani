@@ -1,0 +1,31 @@
+@bgm bgm_happy_002
+@back bg_ruins_03 scale:1.38
+@char blin_00.angry pos:50,-275 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+blin_00: 아아─ 이 몸의 오른쪽 눈, 뜨거워지고 있어…….
+
+@choice ?
+@stop
+
+@char blin_00.normal pos:50,-275 scale:1.38
+@camera offset:0 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:blin_00,2 scale:1.38
+blin_00: 네 녀석이냐!! 이 윤회의 세계에서 만난 진정한 나의──!
+
+@char blin_00.panic pos:50,-275 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:blin_00,3 scale:1.38
+blin_00: …이봐, 지금은 처음 만난 절대자끼리 운명의 증표를 교환할 타이밍이란 말이다!!
+
+@camera offset:0 zoom:0.3 time:0.2
+@char blin_00.angry pos:50,-275 scale:1.38
+blin_00: 어쩔 수 없군. 이번 한 번만 이 몸이 가진 걸 나눠주지. 받아라. 「별의 진리」로 만든… 레몬 사탕이다. 중요한 물건이니, 앞으로는 꼭 들고 다니도록.
+@slide blin_00 to:50,-285 time:0.2
+@slide blin_00 to:50,-275 time:0.2
+
+@choice "\"나도 뜨거워지는걸… 잘 부탁하지. 궁극의 절대자여─\""
+@choice "\"고마워, 꼭 가지고 다닐게.\""
+@stop
+
+@end

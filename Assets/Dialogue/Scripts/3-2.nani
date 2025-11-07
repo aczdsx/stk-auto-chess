@@ -1,0 +1,139 @@
+@bgm bgm_happy_002
+@back bg_ruins_04 scale:1.38
+@char uni_00.happy pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 관측자~!! 여기 신기한 거 있어!!
+
+@choice "\"신기한 거?\""
+@stop
+
+@camera offset:0 zoom:0.2 time:0.2
+uni_00: 귀엽지!! 조그맣고 하얀 게.
+uni_00: 꼭 필리가 싫어하는 유령처럼 생겼어!!
+@spawn ShakeCharacter params:uni_00,2 scale:1
+
+@char philia_00.angry pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+
+philia_00: 뭐라고요?
+
+@hideChars
+@char odette_00.normal pos:30,-305 scale:1.38
+@char atresia_00.normal pos:70,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 그냥 헝겊 인형 아니니? 꼬질꼬질하고 조그마한게 딱 너 같네.
+@camera offset:1 zoom:0.1 time:0.2
+atresia_00: 하지만… 이거 정말 귀여운걸요?
+atresia_00: 저도 처음 봐요. 이게 뭔지 아시나요, 관측자님?
+@camera offset:0 zoom:0 time:0.2
+
+(하얀색 천으로 만들어진 헝겊 인형이다.)
+
+@choice "\"비가 내리지 않게 해달라고 \""
+@choice "\"소원을 담는 인형이야.\""
+@stop
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 멋지다!! 소원을 담는 인형. 
+@spawn ShakeCharacter params:uni_00,2 scale:1
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 역시 듣고 싶은 부분만 들으시는군요.
+
+@hideChars
+@char uni_00.normal pos:50,-285 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 이러나저러나 자기 소원을 담았다는 거잖아? 난 마음에 들어, 이거.
+uni_00: 꼭 우리랑 닮은 것 같기도 하고… 
+@camera offset:0,1 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:uni_00,3 scale:1
+uni_00: 좋아! 이 인형은 내가 가진다!!
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+
+@char philia_00.angry pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+philia_00: 여기서 이렇게 노닥거릴 시간 없습니다.
+philia_00: 웃고 있지만 말고 뭐라고 좀 거들어 주세요, 아트레시아.
+@spawn ShakeCharacter params:philia_00,2 scale:1
+
+@char philia_00.angry pos:70,-280 scale:1.38
+@char atresia_00.panic pos:30,-280 scale:1.38
+
+@camera offset:0 zoom:0 time:0.2
+atresia_00: 음…하지만 매일 전투만 치르는 상황이고… 
+
+@char atresia_00.panic pos:20,-280 scale:1.38
+
+atresia_00: 또 클레이 일로 다들 침울해하고 힘들어했는데…….
+
+@char atresia_00.panic pos:10,-280 scale:1.38
+
+atresia_00: 잠시 숨 돌리는 정도는 괜찮지 않을까요??
+@spawn ShakeCharacter params:atresia_00,2 scale:1
+
+@char philia_00.normal pos:70,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: …….
+philia_00: 아트레시아, 일단 손에 들고 계신 책부터 내려놓고 말씀하십시오.
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+
+@spawn cbg_03_01 position:0,0.7 scale:1,0.562
+
+philia_00: 게다가 그 책은 다 찢어져서 너덜거리잖아요!!
+
+philia_00: 대체 어디 쓰려고 그걸 주워온겁니까?!
+
+atresia_00: 하, 하지만 어딘가에 도움이 될지도 몰라요!!
+
+philia_00: 대체 어디에 도움이 되는거죠???
+
+atresia_00: 가령, 가령……훌륭한 장식품이 될 수도 있고!
+
+@despawn cbg_03_01
+
+@char philia_00.angry pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+philia_00: 관측자님, 보고만 있을 겁니까?
+
+@choice "\"(우수에 잠긴 눈으로 먼 곳을 바라본다.)\""
+@stop
+@hideChars
+
+@char philia_00.normal pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.2 time:0.2
+philia_00: ……관측자님.
+
+@choice "\"이걸 보니 옛날 기억이 돌아오는 것 같아.\""
+@stop
+@choice "\"어릴 때 나는 나들이 가기 전날엔 꼭 이런 헝겊 인형을 만들어서…\""
+@stop
+@choice "\"내일 비가 오지 않게 해주세요, 하고 부탁했었어.\""
+@stop
+
+@char philia_00.normal pos:50,-280 scale:1.38
+@camera offset:0,1 zoom:0.3 time:0.2
+philia_00: …………………….
+
+@hideChars
+@char odette_00.normal pos:50,-305 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 너희 개그하니?
+
+@char odette_00.normal pos:30,-305 scale:1.38
+@char philia_00.angry pos:70,-280 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 피곤하군요…
+philia_00: 오늘 밤은 이 근처 건물에서 쉬시죠.
+philia_00: 야영 키트 준비하겠습니다.
+
+@end

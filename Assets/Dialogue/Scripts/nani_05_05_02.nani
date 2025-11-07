@@ -1,0 +1,70 @@
+
+???: 내가 말했잖아, 그들은 거짓말쟁이라니까.
+???: 이들을 구하러 올 거라고 한 건 다 새빨간 거짓말이었어.
+???: 인류 재건에 도움이 되지 않는, 짐짝에 불과한 환자들이라고 버려진 거지. 
+???: 그러니 나에게 모든 걸 맡기렴.
+???: 내가, 너와 네 동생만을 위한 유토피아를 만들어 줄게.
+
+@bgm bgm_happy_001
+@back bg_building_02
+
+(게이트의 바로 앞)
+@char cley_00.angry pos:50,-280 scale:1.38
+
+Cley_00: …
+Cley_00: …하아, 하아….
+Cley_00: 거기 있죠?! 게이트… 아니, 당신이 누구라도 상관없어요. 당신이 하라는 대로 다 했으니까요.
+Cley_00: 그런데 다 녹아버렸어요…! 
+Cley_00: 이게 어떻게 된 일인지 설명해 줘요.
+Cley_00: 대답해 줘요, 제발… 이대로 무너질 수는 없어요.
+
+???: 네 역할은 이미 충분히 해줬어.
+???: 이번도 다를 것 없구나.
+
+Cley_00: …네?
+
+@char uni_00.normal pos:50,-285 scale:1.38
+
+uni_00: 저기 있다!! 클레이, 우리 왔어!!
+
+@hideChars
+@char atresia_00.sad pos:45,-280 scale:1.38
+@char odette_00.normal pos:20,-305 scale:1.38
+@char philia_00.normal pos:80,-280 scale:1.38
+
+atresia_00: 관측자님, 마야와 조금 물러나 주세요! 게이트에서는 어떤 변수가 생길지 몰라요!
+odette_00: 게이트에 저렇게 가까이… 위험해, 내가 당장 데려올게.
+philia_00: 너무 무모합니다, 오데트. 우선 상황을…
+
+@hideChars
+@char cley_00.angry pos:50,-280 scale:1.38
+
+Cley_00: 당신이 원하는 대로 다 해줬잖아….
+Cley_00: …돌려줘, 제발…….
+
+@hideChars
+@char uni_00.normal pos:30,-285 scale:1.38
+
+uni_00: 이미 우리는 안중에도 없어 보이는데? 가서 데려와야 하는 거 아니야?
+
+@char maya_00.normal pos:70,-272 scale:1.38
+
+maya_00: …어, 어…언니!!!
+
+@hideChars
+@char cley_00.angry pos:50,-280 scale:1.38
+
+Cley_00: …!
+Cley_00: 마야…?
+
+@hideChars
+
+(게이트를 중심으로 네피림들이 몰려들기 시작한다.)
+
+@char atresia_00.sad pos:30,-280 scale:1.38
+@char philia_00.normal pos:70,-280 scale:1.38
+
+philia_00: 역시 게이트 주변이라 그런지 네피림들이 자주 보이는군요.
+atresia_00: 우선 네피림부터 정리해야겠어요. 관측자님, 지휘를 부탁드려요!
+
+@end

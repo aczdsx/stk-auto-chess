@@ -1,0 +1,31 @@
+@bgm bgm_happy_001
+@back bg_building_02
+@char cley_00.angry pos:50,-280 scale:1.38
+
+Cley_00: 큿….
+
+@hideChars
+@char maya_00.normal pos:50,-272 scale:1.38
+
+maya_00: 어, 언니….
+
+@char maya_00.normal pos:70,-272 scale:1.38
+@char atresia_00.sad pos:30,-280 scale:1.38
+
+atresia_00: 클레이, 이젠 돌아가요.
+atresia_00: 관측자님도, 마야도, 우리도… 모두 다, 클레이를 기다리고 있었어요.
+
+@hideChars
+@char cley_00.angry pos:50,-280 scale:1.38
+
+Cley_00: …이젠 너무 늦었어요.
+Cley_00: 돌이키기엔… 난….
+
+@hideChars
+@char maya_00.normal pos:50,-272 scale:1.38
+
+maya_00: 언니!! 어디가!! 
+
+@choice 따라가자.
+
+@end

@@ -1,0 +1,27 @@
+@bgm snd_bgm_cha_common_001
+@back bg_ruins_02 scale:1.38
+@char mensha_00.normal pos:50,-275 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+mensha_00: 뭘 봐? 기사답지 않은 기사… 처음 봐?
+
+@slide mensha_00 to:50,-285 time:0.2
+@slide mensha_00 to:50,-275 time:0.2
+mensha_00: 아하, 너. 신입이구나.
+
+@choice "\"많이 추워보이는데…….\""
+@choice "\"잠시만, 가만히 있어줘.\""
+@stop
+
+@char mensha_00.panic pos:50,-275 scale:1.38
+@camera offset:0,1 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:mensha_00,2 scale:1.38
+mensha_00: 너, 너… 뭐 하는 거야…?!
+@spawn ShakeCharacter params:mensha_00,2 scale:1.38
+mensha_00: 어이, 그렇게 지퍼를 마구 올려버리면…!!
+
+@char mensha_00.angry pos:50,-275 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+mensha_00: ……크윽, 단정해졌잖아…….
+
+@end

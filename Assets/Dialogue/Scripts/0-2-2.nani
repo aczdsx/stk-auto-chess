@@ -1,0 +1,17 @@
+@back bg_ruins_02  scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+@char atresia_00.happy pos:70,-280 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+atresia_00: 다행이에요, 이름은 기억하고 계셨군요.
+
+@char uni_00.angry pos:30,-285 scale:1.38
+@camera offset:-1 zoom:0.2 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 근데 나는 기억 못해?! 괘씸하다, 괘씸해!!
+@char atresia_00.normal pos:70,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+atresia_00: 이럴 때가 아니에요. 필리아도 멀지 않은 곳에 계실테니, 빨리 쫓아가는게 좋겠어요.
+@camera offset:0 zoom:0 time:0.1
+@wait 0.5
+@end

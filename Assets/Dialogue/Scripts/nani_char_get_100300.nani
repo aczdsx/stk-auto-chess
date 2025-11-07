@@ -1,0 +1,28 @@
+@bgm snd_bgm_squad_science_001
+@back bg_ruins_00 scale:1.38
+@char rakiu_00.panic pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+rakiu_00: 하아아아암…….
+@char rakiu_00.happy pos:50,-285 scale:1.38
+rakiu_00: 아. 새로운 관측자아? 안 그래도 요즘 시험해 보고 싶은 시약이 있었는데, 잘 됐다.
+
+@choice "\"거절 할 수는 없어…?\""
+@stop
+
+@camera offset:0,1 zoom:0.2 time:0.2
+@spawn ShakeCharacter params:rakiu_00,3 scale:1.38
+rakiu_00: 물론! 불가능하지. 
+rakiu_00: 자아… 
+@slide rakiu_00 to:50,-275 time:0.2
+@camera offset:0,1 zoom:0.3 time:0.2
+@slide rakiu_00 to:50,-285 time:0.2
+
+
+rakiu_00: 피하지 말고 이리 오라고, 모르모트 씨.
+@slide rakiu_00 to:50,-275 time:0.2
+@camera offset:0,1 zoom:0.4 time:0.2
+@slide rakiu_00 to:50,-285 time:0.2
+
+
+@end

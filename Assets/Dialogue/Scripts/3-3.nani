@@ -1,0 +1,102 @@
+@bgm bgm_happy_001
+@back bg_building_01 scale:1.38
+@char odette_00.normal pos:85,-305 scale:1.38
+@char atresia_00.normal pos:50,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+@camera offset:6 zoom:0.1 time:0.2
+odette_00: 후, 이 정도 정리했으면 됐겠지.
+odette_00: 아트레시아. 오늘 불침번은 누구부터라고?
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 음, 먼저 저랑 필리아. 그리고 유니랑 오데트. 이렇게 하면 될 것 같아요.
+
+@char uni_00.panic pos:20,-285 scale:1.38
+
+@camera offset:-6,1 zoom:0.3 time:0.2
+uni_00: <size=60>에에에에엑?</size>
+@spawn ShakeCharacter params:uni_00,5 scale:1
+
+@camera offset:6 zoom:0.1 time:0.2
+odette_00: 표정 풀어, 꼬맹이. 누군 좋은 줄 아니?
+
+@char uni_00.angry pos:20,-285 scale:1.38
+@camera offset:-6 zoom:0.1 time:0.2
+uni_00: 치사해, 아티!! 필리 놀리는 건 내 역할이잖아?!
+@spawn ShakeCharacter params:uni_00,2 scale:1
+
+@camera offset:-6 zoom:0.2 time:0.2
+uni_00: 밤에 유령 소리도 내줘야 한다구!!
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char philia_00.angry pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+philia_00: 조용히 하십시오, 유니.
+philia_00: 유령 같은 건 믿지 않는다고 몇 번을 말해야 합니까?
+philia_00: 일찍 쉬십시오. 이따 깨워드리겠습니다.
+
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char atresia_00.happy pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 관측자님도 쉬세요. 오늘 고생 많으셨어요.
+
+@choice "\"너희도 잘 자.\""
+@stop
+
+@hideAll
+
+@camera offset:0 zoom:0 time:0.2
+@wait 0.5
+@bgm bgm_happy_001
+@back bg_building_01
+
+(몇 시간 뒤, 유니와 오데트의 불침번 시간.)
+
+@char uni_00.normal pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 하아암…아직도 새벽이네.
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 아침까지 뭐하면서 시간을 보내지?
+uni_00: 하얀 아줌마는 따로 망보자면서 가버렸고.
+uni_00: 비가 오니까 몰래 밖에 다녀오기도 좀 그렇고.
+
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 잠시만, 비?
+@char uni_00.happy pos:50,-285 scale:1.38
+@camera offset:0 zoom:0.2 time:0.2
+uni_00: 그러고 보니 아까 이 인형을 달면 비가 그친다고 했지?
+
+@spawn cbg_03_02
+uni_00: 인형아~ 인형아. 소원이 있어.
+uni_00: 내일은 비가 안내리게 해줘.
+uni_00: 그리고 덤으로, 얼른 클레이도 찾게 해주면 좋겠어.
+uni_00: 우리가 많이 걱정하고 있거든.
+uni_00: 무슨 잘못을 했는진 모르겠지만, 정확한 건 클레이한테 들을래.
+uni_00: 아무튼 부탁한다, 인형아!!
+@despawn cbg_03_02
+
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 좋아. 소원도 빌었으니 이제 마음 놓고 놀러 가볼까?
+uni_00: 어차피 이 근처는 오데트가 있을 건데 뭐~
+
+@char uni_00.normal pos:50,-285 scale:1.38
+uni_00: 어?
+uni_00: 창밖에…누구지? 클레이? 
+
+@char uni_00.angry pos:50,-285 scale:1.38
+uni_00: 근데 좀 작은데…?
+@spawn ShakeCharacter params:uni_00,2 scale:1
+@char uni_00.panic pos:50,-285 scale:1.38
+uni_00: 어어, 가지 마!!
+uni_00: 쫓아가고싶은데… 나 혼자 가면 나중에 혼나겠지…?
+
+@camera offset:0 zoom:0.2 time:0.2
+@char uni_00.happy pos:50,-285 scale:1.38
+uni_00: 아, 그렇게 하면 되겠구나!
+
+@end

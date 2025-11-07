@@ -1,0 +1,186 @@
+@bgm bgm_happy_001
+@back bg_ruins_02 scale:1.38
+
+@char philia_00.normal pos:95,-280 scale:1.38
+@char atresia_00.normal pos:50,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+
+uni_00: 휴우…….
+uni_00: 변종이라서 그런가, 다른 녀석들보다 더 강한 것 같아.
+
+@camera offset:2 zoom:0.1 time:0.2
+
+philia_00: 방금 쓰러뜨린 녀석은 확실히… 그렇군요.
+
+@camera offset:1 zoom:0.1 time:0.2
+atresia_00: 그래도 쓰러뜨렸네요. 우리가 더 강해졌다는 증거 아닐까요?
+atresia_00: 관측자님도 많이 익숙해지신 것 같고요.
+@camera offset:1 zoom:0 time:0.2
+@slide atresia_00 to:50,-290 time:0.2
+@slide atresia_00 to:50,-280 time:0.2
+atresia_00: 그럼, 이제 연구소 안으로 들어가 볼까요? 목표는 연구소 탈환이었으니까요.
+
+@hideChars
+
+(덜컹-)
+
+@char philia_00.normal pos:95,-280 scale:1.38
+@char atresia_00.angry pos:50,-280 scale:1.38
+@char uni_00.angry pos:20,-285 scale:1.38
+
+@camera offset:2 zoom:0.1 time:0.2
+philia_00: !!
+
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 네피림인가?!
+
+@camera offset:1 zoom:0.1 time:0.2
+atresia_00: 아뇨, 저건……
+
+@hideChars
+
+@camera offset:1 zoom:0.1 time:0.2
+@char seira_00 pos:80,-280 scale:1.38
+seira_00: 음, 이번에도 완벽했습니다.
+
+@camera offset:0 zoom:0.1 time:0.2
+@char alice_00.normal pos:50,-280 scale:1.38
+alice_00: 후, 후아아~ 드디어 밖으로 나왔네요.
+
+@camera offset:-1 zoom:0.1 time:0.2
+@char vane_00 pos:15,-285 scale:1.38
+vane_00: 얼른 돌아가서 맥주한잔 하고 싶군.
+
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@choice "\"저들은 누구지?\""
+@stop
+
+@char atresia_00.sad pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 메시에41성단…….
+atresia_00: 저희랑 그렇게 사이가 좋은 기사들은 아니에요.
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char uni_00.angry pos:30,-285 scale:1.38
+@char odette_00.happy pos:70,-305 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+odette_00: 어머, 아직 안 갔구나.
+
+@camera offset:-1 zoom:0.1 time:0.2
+
+uni_00: 너네가 왜 여기 있는 거야?! 이 연구소 탈환 임무는 우리 거였다구!!
+@spawn ShakeCharacter params:uni_00,3 scale:1.38
+@hide uni_00
+
+@char odette_00.sad pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 임무에 네 거, 내 거가 어디 있니?
+odette_00: 우리가 흘린 녀석들조차도 힘들어 한 주제에.
+odette_00: 도움을 받았으면 감사 인사를 하는 게 먼저란다, 꼬마야.
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char philia_00.angry pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+philia_00: 다른 성단과의 공동 작전이었다는 건 사전에 공유된 적 없습니다.
+philia_00: 작전에 혼선이 생길 위험이 있었단 말입니다.
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char alice_00.happy pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.2 time:0.2
+@spawn ShakeCharacter params:alice_00,2 scale:1.38
+alice_00: 자자, 다들 진정하세요. 제가 설명해 드릴게요~
+@char alice_00.normal pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+alice_00: 원래 이번 임무는 한 성단으로는 수행하기 어려운 임무였어요.
+alice_00: 그래서 허블에서는 저희랑 플레이아데스, 이렇게 두 성단을 작전 수행 성단으로 지정한 거고요.
+alice_00: 그 과정에서 공유가 되지 않은 건, 아마 요즘 간헐적으로 발생하고 있는 허블의 통신장애가 원인이지 않을까 싶어요.
+@char alice_00.happy pos:50,-280 scale:1.38
+@slide alice_00 to:50,-290 time:0.2
+@slide alice_00 to:50,-280 time:0.2
+alice_00: 하지만 그게 저희 메시에41성단의 잘못은 아니잖아요. 그 부분은 본부로 돌아가서 확인해주실래요?
+alice_00: 저희는 정말 플레이아데스를 '지원'하러 온거니까요. 도와줬는데도 이렇게 대하시면 슬퍼요~
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char atresia_00.normal pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 알겠어요. 자세한 내용은 본부에서 확인할게요.
+@slide atresia_00 to:50,-290 time:0.2
+@slide atresia_00 to:50,-280 time:0.2
+atresia_00: 그리고 오늘 일은 플레이아데스의 보고 내용에도 함께 기재해둘게요.
+@camera offset:0 zoom:0 time:0.2
+
+
+@char atresia_00.normal pos:30,-280 scale:1.38
+@char vane_00.happy pos:70,-285 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+vane_00: 아, 그건 메시에41에서 함께 보고 올릴 테니 걱정하지 마.
+vane_00: 플레이아데스는 지금 결원으로 빠듯한 상황이라고 들었거든.
+
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+@char philia_00.angry pos:70,-280 scale:1.38
+@char uni_00.angry pos:30,-285 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 정말 감.사.한. 일이군요.
+philia_00: 아트레시아, 유니. 그리고 관측자님. 이만 돌아가시죠.
+@camera offset:-1 zoom:0.1 time:0.2
+
+uni_00: 다 해준다는데 우리가 마다할 이유는 없지.
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char odette_00.normal pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 아아, 그 전에 그쪽 관측자한테 한가지 줄게 있는데.
+@choice "\"줄 거?\""
+@stop
+@char odette_00.happy pos:50,-305 scale:1.38
+@slide odette_00 to:50,-315 time:0.2
+@slide odette_00 to:50,-305 time:0.2
+odette_00: 자, 당신에게 필요할 것 같아서. 어디서 많이 본 머리장식이지?
+@camera offset:0 zoom:0 time:0.2
+
+@char odette_00.normal pos:70,-305 scale:1.38
+@char atresia_00.normal pos:30,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 이건 클레이의 머리장식이에요. 대체 어디서 찾으신 거죠?!
+@camera offset:1 zoom:0.1 time:0.2
+odette_00: 연구소 지하 구석에 떨어져 있던걸.
+
+@choice "\"이걸 나한테 주는 이유는 뭐야?\""
+@stop
+
+@camera offset:1 zoom:0.1 time:0.2
+odette_00: 글쎄, 그 답은 당신 스스로 찾기를 바라.
+@slide odette_00 to:70,-315 time:0.2
+@slide odette_00 to:70,-305 time:0.2
+odette_00: 그럼 우리는 다음 일정이 있어서 이만.
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:atresia_00,2 scale:1.38
+atresia_00: 그, 그래도 찾아주셔서 감사해요. 잘 사용할게요.
+@hideChars
+
+@camera offset:0 zoom:0 time:0.2
+@char atresia_00.angry pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: …어쩌면 클레이를 찾을 수 있는 단서가 될지도 모르겠어요. 
+atresia_00: 우리도 일단 돌아가요, 관측자님.
+
+@end

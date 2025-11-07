@@ -1,0 +1,33 @@
+@bgm bgm_happy_001
+@back bg_building_02
+@char philia_00.normal pos:70,-280 scale:1.38
+@char odette_00.normal pos:30,-305 scale:1.38
+
+philia_00: 여긴….
+philia_00: 게이트 근처군요.
+odette_00: 클레이는 대체 왜 여기까지 온 거지…?
+philia_00: 게이트의 영향인지 아스나에게 연결도 잘되지 않습니다.
+philia_00: …무슨 생각인 걸까요.
+
+@char odette_00.angry pos:30,-305 scale:1.38
+odette_00: 난 클레이 입으로 직접 들어야 직성이 풀리겠어.
+
+
+@hideChars
+@char atresia_00.sad pos:80,-280 scale:1.38
+@char maya_00.normal pos:50,-272 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+atresia_00: 하지만…우리랑 대화해 줄까요?
+maya_00: 내, 내가… 언니한테 물어볼게요.
+uni_00: 마야, 여기서부턴 정말 위험할 수도 있어. 그래도 괜찮아?
+
+@hideChars
+@char maya_00.normal pos:50,-272 scale:1.38
+
+maya_00: 으, 으응. 괜찮아….
+maya_00: 날 위한거였잖아, 어, 언니는….
+maya_00: 그러니까, 내가 직접… 마, 말해줄래.
+maya_00: 내 진심을….
+
+@end

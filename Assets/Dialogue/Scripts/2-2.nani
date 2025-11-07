@@ -1,0 +1,178 @@
+@bgm bgm_happy_001
+@back bg_ruins_06 scale:1.38
+@char philia_00.normal pos:85,-280 scale:1.38
+@char atresia_00.normal pos:45,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 가는 길이 그렇게 험하진 않아서 다행이네요.
+
+@char uni_00.happy pos:20,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 그래서 우리 어디로 가는거랬지?
+
+@char philia_00.angry pos:85,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 또 브리핑 시간에 주무셨군요. 유령도시, 하솔입니다.
+@camera offset:1 zoom:0.2 time:0.2
+philia_00: 클레이에 대한 조사를 하러 간다고 아까 두 번이나 강조했는데 말이죠.
+
+@char uni_00.normal pos:20,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 으, 잔소리… 그럼, 지원 온다는 임시기사는?
+
+@char atresia_00.happy pos:45,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 어느 분이신지는 아직 모르지만, 바로 따라오실거라고 했어요.
+
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 누가 오려나? 일단 난 그 하얀 아줌마만 아니면 좋겠어.
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+
+@camera offset:0 zoom:0.2 time:0.2
+@char odette_00.angry pos:50,-310 scale:1.38
+
+odette_00: 누구?
+
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+@char philia_00.normal pos:85,-280 scale:1.38
+@char atresia_00.panic pos:45,-280 scale:1.38
+@char uni_00.panic pos:20,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 윽, 이 소리는 설마…….
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: …오데트.
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 설마 했지만, 이렇게 되는군요.
+
+@hideChars
+
+@char odette_00.sad pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+
+odette_00: 나도 마냥 좋아서 온건 아니니까, 그 못생긴 얼굴좀 치워보렴 꼬맹아.
+@spawn ShakeCharacter params:odette_00,2 scale:1.38
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.angry pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 뭐?! 못생긴 얼굴? 말 다 했어?!
+
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 실력이 뛰어난 기사를 보내주시긴 했군요. 그런데 이렇게 와도 괜찮습니까?
+@slide philia_00 to:70,-290 time:0.2
+@slide philia_00 to:70,-280 time:0.2
+philia_00: 그쪽 성단도 당신이 빠지면 곤란할텐데요.
+
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+
+@char odette_00.normal pos:50,-305 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: <ruby="메시에41">우린</ruby> 특별취급이잖니. 그리고 잠깐 자리비운다고 무너질 아이들도 아니고.
+
+@char odette_00.happy pos:50,-305 scale:1.38
+@camera offset:0 zoom:0.2 time:0.2
+odette_00: 안녕, 관측자. 또 만나네.
+
+@choice "\"…….\""
+@choice "\"우리 구면이던가?\""
+@stop
+
+@camera offset:0 zoom:0.1 time:0.2
+@char odette_00.angry pos:50,-305 scale:1.38
+odette_00: …?
+@spawn ShakeCharacter params:odette_00,3 scale:1.38
+odette_00: 설마 기억하지 못하는거야?!
+@wait 1
+
+@spawn cbg_02_01
+odette_00: 직접 말까지 걸어줬잖아, 내가!
+
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+uni_00: 헤에, 본인이 그렇게 인상깊은 사람이라고 생각하는 편?
+philia_00: 자의식 과잉이라고도 하죠.
+
+@hideChars
+
+@char odette_00.sad pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 시, 시끄러워!
+
+@camera offset:0 zoom:0.3 time:0.2
+odette_00: 당신. 나 똑바로 봐. 정말 기억 안나?
+
+@choice "\"농담이야. 기억 나.\""
+@stop
+
+@despawn cbg_02_01
+
+@char odette_00.sad pos:50,-305 scale:1.38
+@camera offset:0,1 zoom:0.3 time:0.2
+odette_00: !!!
+@spawn ShakeCharacter params:odette_00,2 scale:1
+
+odette_00: 무, 무례하긴…!
+odette_00: 감히 날 가지고 놀았겠다…
+
+@char odette_00.angry pos:50,-305 scale:1.38
+odette_00: 앞으로 조심하는게 좋을거야. 이 값은 비싸게 받을테니까.
+
+@choice "\"조심할게.\""
+@stop
+
+@camera offset:0 zoom:0.1 time:0.2
+@char odette_00.sad pos:50,-305 scale:1.38
+odette_00: 윽… 얼른 출발이나 해!
+@spawn ShakeCharacter params:odette_00,3 scale:1
+@wait 1
+@slide odette_00 to:300
+
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+
+@char philia_00.normal pos:85,-280 scale:1.38
+@char atresia_00.happy pos:45,-280 scale:1.38
+@char uni_00.happy pos:20,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: …큽, 크흠. 
+atresia_00: 미안해요, 웃겨서 그만…
+
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 푸하핫!! 대단하다 관측자!! 
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 그 콧대높은 오데트를 놀리시다니.
+philia_00: 덕분에 조금 즐거웠습니다.
+
+@char uni_00.normal pos:20,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 아, 사진 찍어서 십만년은 놀려먹어야 하는데!!
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 역시 관측자님이시네요. 별을 다루시는게 능숙해요.
+@slide atresia_00 to:45,-290 time:0.2
+@slide atresia_00 to:45,-280 time:0.2
+atresia_00: 앞으로도 잘 부탁드릴게요.
+
+@end

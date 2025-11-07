@@ -1,0 +1,63 @@
+@bgm bgm_mad_001
+@camera offset:0 zoom:0 time:0.2
+@back bg_abandoned_hospital_02 scale:1.38
+
+@char philia_00.normal pos:70,-280 scale:1.38
+@char odette_00.sad pos:30,-305 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 아까 들린 그 큰 소리… 심상치 않군요.
+@slide philia_00 to:70,-290 time:0.2
+@slide philia_00 to:70,-280 time:0.2
+philia_00: 한시라도 빨리 유니를 찾아야겠습니다.
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 그 소리 이후로 <ruby="네피림">이녀석</ruby>들, 엄청 몰려들고 있어.
+@spawn ShakeCharacter params:odette_00,2 scale:1
+odette_00: 통신은 아직도 먹통이고… 곤란하네.
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char atresia_00.angry pos:45,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 하지만 찾은 것 같아요…!
+@spawn ShakeCharacter params:atresia_00,2 scale:1
+@camera offset:0,1 zoom:0.3 time:0.2
+atresia_00: 저기, 저 커다란 네피림 앞이요!!!
+
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+
+@char philia_00.normal pos:70,-280 scale:1.38
+@char odette_00.angry pos:30,-305 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 저 바보. 대체 왜 위험한 짓만 골라서 하는거야?!
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 유니!! 들리십니까?!
+@spawn ShakeCharacter params:philia_00,2 scale:1
+
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+@char uni_00.normal pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 어?! 필리?
+uni_00: 필리!! 아티!! 그리고 아줌마!!
+@spawn ShakeCharacter params:uni_00,3 scale:1
+@char uni_00.happy pos:50,-285 scale:1.38
+@camera offset:0,0.5 zoom:0.3 time:0.2
+uni_00: 역시 날 찾고 있을줄 알았어.
+uni_00: 봐, 마야. 내 말이 맞지?
+
+@char maya_00.panic pos:70,-272 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+maya_00: 유, 유니… 앞에!!
+@spawn ShakeCharacter params:maya_00,3 scale:1
+maya_00: 조심해!!!
+
+@end

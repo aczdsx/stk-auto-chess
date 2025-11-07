@@ -1,0 +1,116 @@
+@bgm bgm_happy_001
+@back bg_ruins_05 scale:1.38
+@char philia_00.normal pos:85,-280 scale:1.38
+@char odette_00.happy pos:47,-305 scale:1.38
+@char uni_00.happy pos:20,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 나쁘지 않은 전투였어. 제법인걸?
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 좀 더 순수하게 감탄해줘도 된다구, 엣헴!
+@spawn ShakeCharacter params:uni_00,2 scale:1
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 어느정도 정리가 됐으니 입구까지는 안전할겁니다.
+philia_00: 그나저나 관측자님, 훌륭한 지휘셨습니다.
+@slide philia_00 to:85,-290 time:0.2
+@slide philia_00 to:85,-280 time:0.2
+philia_00: 어떻게 그런 작전을 바로 생각해내신 겁니까?
+@camera offset:0 zoom:0 time:0.2
+
+@choice "\"갑자기 생각이 났어.\""
+@stop
+@hideChars
+@char atresia_00.happy pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 점점 기억이 돌아오고 계신걸지도요.
+@spawn ShakeCharacter params:atresia_00,2 scale:1
+atresia_00: 고생하셨어요, 관측자님.
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+
+@char uni_00.happy pos:50,-285 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 이게 다 내 서포트 덕분이지, 엣헴.
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 그럼 이제 도시 탐험하러 가보자고!
+
+@char uni_00.normal pos:50,-285 scale:1.38
+uni_00: …어?
+@char uni_00.panic pos:50,-285 scale:1.38
+uni_00: 뭐지? 다들 방금 봤어?
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char odette_00.normal pos:30,-305 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 무얼 말입니까?
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 나도 아무것도 못 봤어.
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+
+@char uni_00.panic pos:50,-285 scale:1.38
+@camera offset:0 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:uni_00,3 scale:1
+uni_00: 방금 저기 건물 위에!! 검은색 그림자가 있었어!!
+
+@spawn cbg_02_02
+
+@char atresia_00.normal pos:70,-280 scale:1.38
+@char uni_00.panic pos:30,-285 scale:1.38
+
+atresia_00: 검은 그림자요? 네피림…?
+uni_00: 아니, 사람같았는데!
+uni_00: 아무도 못본거야? 관측자도?!
+
+@choice "\"본 것 같다.\""
+@choice "\"모르겠다.\""
+@stop
+
+uni_00: 헉, 설마 귀신…?!
+
+@hideChars
+
+@char philia_00.angry pos:70,-280 scale:1.38
+@char atresia_00.panic pos:30,-280 scale:1.38
+@camera offset:0 zoom:0 time:0.2
+@despawn cbg_02_02
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 그런게 있을리 없지 않습니까.
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 이 도시에 생존자는 없다고 나와있었어요.
+
+@char atresia_00.angry pos:30,-280 scale:1.38
+@camera offset:-1,1 zoom:0.2 time:0.2
+atresia_00: 만약 누군가가 있다면…
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+
+
+@char odette_00.sad pos:50,-305 scale:1.38
+@camera offset:0,1 zoom:0.3 time:0.2
+odette_00: 클레이.
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 확실해, 그녀일거야.
+@slide odette_00 to:50,-315 time:0.2
+@slide odette_00 to:50,-305 time:0.2
+odette_00: 이 도시, 중앙 쪽에 클레이가 일했던 병원이 있어.
+
+@char atresia_00.angry pos:30,-280 scale:1.38
+@char odette_00.normal pos:70,-305 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 그럼 바로 조사하러 움직여야겠네요.
+atresia_00: 여긴 최신 맵 데이터가 없는 도시에요. 어떻게 변했을지 모르니 다들 조심하세요.
+@spawn ShakeCharacter params:atresia_00,2 scale:1
+atresia_00: 플레이아데스, 도시 진입합니다!
+
+@end

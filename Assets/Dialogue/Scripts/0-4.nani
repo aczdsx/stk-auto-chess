@@ -1,0 +1,84 @@
+@bgm bgm_mad_001
+@back bg_ruins_03 scale:1.38
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 신호를 따라가면 이쪽이 맞는데… 핏자국이 점점 짙어지네요. 두 분 모두 괜찮으실지…….
+@camera offset:0 zoom:0 time:0.1
+
+@hideChars
+@char uni_00.panic pos:30,-285 scale:1.38
+@char philia_00.normal pos:80,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 다, 당연하지! 괜찮을거야.
+uni_00: 분명, 클레이는 그 실종됐다는 군인 한명이랑 같이 무사히 숨어있을거라고.
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 하지만 최근들어 게이트의 발생 빈도도 높아지고, 네피림의 폭력성도 강해지고 있습니다 …괜찮을거라고 마냥 낙관할 수 만은 없다는 뜻입니다.
+philia_00: 상황을 냉정하게 판단하세요, 유니.
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 그치만…….
+
+@camera offset:0 zoom:0 time:0.1
+
+@hideChars
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 괜찮을거에요. 그리고 우선은… 그렇게 믿고 가요. 어쨌든 구조 요청의 신호가 왔으니까요.
+atresia_00: 바로 저 앞이 신호의 발신원이에요. 천천히 접근할게요.
+@camera offset:0 zoom:0 time:0.1
+
+@hideChars
+@char philia_00.normal pos:80,-280 scale:1.38
+@char atresia_00.normal pos:45,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 어, 저기 같은데? 뭔가 있어!!
+uni_00: 저건…
+@camera offset:-1 zoom:0.2 time:0.2
+@char uni_00.happy pos:20,-285 scale:1.38
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 클레이야! 클레이!!!
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 네피림들이 무더기로 모여있는 것 같습니다. 조심하십시오.
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 사람 인영… 클레이가 맞는 것 같아요.
+atresia_00: 그런데 왜 혼자……?
+@camera offset:0 zoom:0 time:0.1
+
+@hideChars
+
+@spawn cbg_00_03
+
+philia_00: …클레이?! 손에 뭔가 들고 있는데…….
+
+atresia_00: 머리에요.
+atresia_00: …실종됐던 군인의.
+atresia_00: 저게, 왜…
+
+uni_00: 뭐야!! 이게 대체 무슨 일이냐고!!
+uni_00: 설마, 클레이가 죽인…그런거 아니지?
+
+philia_00: 손에 들고 있는 것에 대해서 해명해주세요, 클레이.
+
+@spawn cbg_00_04
+
+@despawn cbg_00_03
+
+…알 수 없는 기시감이 느껴진다.
+그녀의 뺨에 흐르고 있는 건……
+눈물?
+
+@choice 클…레이?
+@stop
+
+그러자 그녀의 입술이 작게 달싹였다.
+cley_00: …….
+
+@end

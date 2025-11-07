@@ -1,0 +1,152 @@
+@bgm bgm_mad_001
+@back bg_ruins_04 scale:1.38
+@char atresia_00.sad pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 꽤 옛날에 버려진 곳인가 봐요.
+atresia_00: 여기저기 피난의 흔적도 보이고…
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 오! 이 프라이팬좀 봐.
+@char uni_00.happy pos:30,-285 scale:1.38
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 짜부러진 게 꼭 잔소리하는 필리같지?! 
+
+@char philia_00.angry pos:70,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 혹시 그 프라이팬처럼 되고 싶어서 하시는 말씀입니까?
+
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char atresia_00.happy pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 어질러진 모습이긴 하지만, 도시 구조는 정갈한 모습이 그대로 남아있네요.
+@slide atresia_00 to:50,-290 time:0.2
+@slide atresia_00 to:50,-280 time:0.2
+atresia_00: 클레이는 이런 아름다운 도시에 살았었군요.
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char odette_00.normal pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 아름다운 동시에 잔혹한 도시지.
+
+@choice "\"무슨 뜻이야?\""
+@stop
+
+odette_00: 이 도시는 게이트로부터 거리도 가깝고, 구조도 복잡하게 되어있어.
+@char odette_00.sad pos:50,-305 scale:1.38
+odette_00: 그게 무슨 뜻이겠어?
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char philia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+philia_00: 네피림으로부터 피해가 큰 지역 중 하나…
+philia_00: 인명피해가 컸겠군요.
+
+@hideChars
+@char odette_00.normal pos:50,-305 scale:1.38
+odette_00: 뭐, 안 그런 도시가 있었겠냐만은.
+@slide odette_00 to:50,-315 time:0.2
+@slide odette_00 to:50,-305 time:0.2
+
+@camera offset:0 zoom:0.2 time:0.2
+odette_00: 또 어떤 사람들은, 생존을 위해서 두고 갈 수밖에 없었어.
+@char odette_00.sad pos:50,-305 scale:1.38
+odette_00: 노인, 어린이, 그리고 병원의 환자 같은 사람 말이야.
+odette_00: …그래서 클레이가 이 도시에 남았던거야.
+@spawn ShakeCharacter params:odette_00,2 scale:1
+odette_00: 의사였던 사람으로서, 그들을 외면할 수 없던거지.
+
+@camera offset:0 zoom:0.1 time:0.2
+@char odette_00.normal pos:50,-305 scale:1.38
+odette_00: 물론 나중엔 무사히 구조돼서 우리와 같은 스텔라나이츠가 됐지만.
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+
+@char atresia_00.sad pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 그러네요. 부서진 차, 다 싸지 못한 짐…
+atresia_00: 당시 사람들이 느꼈을 혼란이 그대로 느껴져요.
+
+@choice "\"상처가 많았겠구나.\""
+@stop
+
+@slide atresia_00 to:50,-290 time:0.2
+@slide atresia_00 to:50,-280 time:0.2
+atresia_00: 네. 이 도시도, 클레이도… 아마 상처가 많을 거예요.
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.happy pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 그래? 그럼 간단하네!
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 치료해 주면 되지, 둘 다.
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 비유적 표현입니다. 도시에 정말 생채기가 났다는 의미가 아니라.
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 하지만…좋은 표현이네요.
+atresia_00: 상처가 나면 약으로 상처 부위를 소독하고 치료하잖아요?
+@char atresia_00.happy pos:50,-280 scale:1.38
+atresia_00: 저희가 그 역할을 하는 거죠.
+@slide atresia_00 to:50,-290 time:0.2
+@slide atresia_00 to:50,-280 time:0.2
+atresia_00: 네피림들을 몰아내고, 도시를 재건할 수 있도록.
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+@char odette_00.normal pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: …당연한 말을.
+@wait 0.5
+
+@char odette_00.happy pos:50,-305 scale:1.38
+odette_00: 얼른 움직이자, 이러다 해 지겠어.
+@wait 0.5
+
+@camera offset:0 zoom:0 time:0.2
+@slide odette_00 to:300
+
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 엣헴.
+@spawn ShakeCharacter params:uni_00,2 scale:1
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 말은 아트레시아가 다 했는데 왜 생색은 유니가 냅니까?
+
+@camera offset:-1,1 zoom:0.3 time:0.2
+uni_00: 엣헴- 엣헤엠-!!!
+@slide uni_00 to:50
+
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1
+philia_00: 아트레시아, 오데트, 관측자님!! 유니 좀 떼어 주십시오!!!
+@spawn ShakeCharacter params:philia_00,2 scale:1
+@slide philia_00 to:90
+
+@end

@@ -1,0 +1,47 @@
+@bgm bgm_mad_001
+@back bg_ruins_04 scale:1.38
+@camera offset:0 zoom:0 time:0.2
+@char philia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+philia_00: 그러니까, 유니가 그 소녀를 구하다가 잘못 휘말렸고…
+@spawn ShakeCharacter params:philia_00,2 scale:1
+philia_00: 그대로 사라졌다는 말씀이십니까?
+
+@char philia_00.normal pos:70,-280 scale:1.38
+@char odette_00.sad pos:30,-305 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+odette_00: 네피림이 숨어있을 거란 생각은 못했어.
+odette_00: 바로 붙잡으려고 했는데, 타이밍 좋게 건물도 무너져서…
+@slide odette_00 to:30,-315 time:0.2
+@slide odette_00 to:30,-305 time:0.2
+odette_00: …다 변명이네. 내 실책이니 그 꼬맹이는 책임지고 찾아낼게.
+
+@choice "\"오데트는 최선을 다 했잖아.\""
+@stop
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char atresia_00.angry pos:30,-280 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 원래 종잡을 수 없는 아이입니다.
+philia_00: 지금은 시시비비를 가리는 것 보단 움직일 때죠.
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 생존자가 있었다는 것도 놀랍네요.
+atresia_00: 유니도, 그 생존자 소녀도 구하려면 빨리 움직여야겠어요.
+atresia_00: 아스나, 유니의 이동 경로를 보여주세요.
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char asna_00.panic pos:50,-280 scale:1.38
+
+asna_00: 원래 경로는 건물이 무너지면서 막혔어요.
+@slide asna_00 to:50,-290 time:0.2
+@slide asna_00 to:50,-280 time:0.2
+asna_00: 최대한 빠른 우회 경로 안내드릴게요!
+
+@choice "\"그렇게 멀리 가진 못했을거야. 바로 찾으러 가자.\""
+@stop
+@end

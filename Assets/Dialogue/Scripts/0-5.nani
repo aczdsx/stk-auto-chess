@@ -1,0 +1,67 @@
+@bgm bgm_mad_002
+@back bg_ruins_03 scale:1.38
+@char atresia_00.angry pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: …….
+
+@hideChars
+@char philia_00.normal pos:50,-280 scale:1.38
+
+philia_00: …….
+
+@hideChars
+@char uni_00.angry pos:50,-285 scale:1.38
+@spawn ShakeCharacter params:uni_00,3 scale:1.38
+uni_00: 클레이, 클레이!! 
+uni_00: 어디갔어!!! 
+
+@camera offset:0 zoom:0 time:0.1
+
+@char uni_00.angry pos:30,-285 scale:1.38
+@char philia_00.normal pos:70,-280 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 네피림들과 대치하는 사이에 이미……사라진 것 같습니다.
+philia_00: 그리고, 시간 상 이제는 정말 귀환해야만 합니다.
+
+
+@char uni_00.panic pos:30,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,3 scale:1.38
+uni_00: 이대로 그냥 가면 어떡해?! 우리 아무도 못 구했잖아!!
+
+@camera offset:0 zoom:0 time:0.1
+
+@hideChars
+
+@char atresia_00.angry pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: ……남은 시체라도, 회수……하죠.
+atresia_00: 아스나,
+@camera offset:0 zoom:0 time:0.1
+
+@char atresia_00.angry pos:30,-280 scale:1.38
+@char asna_00.normal pos:80,-280 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+asna_00: 네, 아트레시아님.
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 플레이아데스 부대, 귀환할게요. 
+@slide atresia_00 to:30,-290 time:0.2
+@slide atresia_00 to:30,-280 time:0.2
+atresia_00: ……자세한 보고는 돌아가서 드리겠습니다.
+
+@camera offset:1 zoom:0.1 time:0.1
+asna_00: 알겠습니다! 그럼 귀환준비 도와드리겠습니다.
+
+@hideChars
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 고마워요, 부탁드릴게요.
+@camera offset:0 zoom:0 time:0.1
+
+@end

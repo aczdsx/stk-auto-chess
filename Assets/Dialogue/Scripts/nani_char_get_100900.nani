@@ -1,0 +1,28 @@
+@bgm bgm_happy_002
+@back bg_ruins_00 scale:1.38
+@char ridia_00.normal pos:50,-275 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:ridia_00,3 scale:1.38
+ridia_00: 안녕하세요, 관측자님! 팔을 다치셨나요?! 트럼플러의 기사, 리디아!! 
+
+@camera offset:0,1 zoom:0.3 time:0.2
+ridia_00: 열과 성을 다해 상처를 치료해 드리겠습니다아!!
+
+@hideAll
+
+@back bg_ruins_00 scale:1.38
+@char ridia_00.panic pos:50,-275 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:ridia_00,3 scale:1.38
+ridia_00: 어라?! 어라라?! 안돼, 붕대가 다 풀어져 버려…! 미안해요, 관측자님!! 역시 저는 손재주가 없나봐요오!!
+
+@choice "\"괜찮아, 진정해 리디아. 눈에 감긴 붕대만 좀 풀어줄래?\""
+@stop
+
+@camera offset:0,1 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:ridia_00,3 scale:1.38
+ridia_00: 미안해요, 미안해요 관측자니이임!!! 
+
+@end

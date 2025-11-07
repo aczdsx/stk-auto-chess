@@ -1,0 +1,164 @@
+@bgm bgm_happy_001
+@back bg_ruins_06 scale:1.38
+@char philia_00.normal pos:80,-280 scale:1.38
+@char atresia_00.normal pos:45,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 여기서 잠시 재정비하고 움직일까요?
+@slide atresia_00 to:45,-290 time:0.2
+@slide atresia_00 to:45,-280 time:0.2
+atresia_00: 다들 계속된 전투로 지쳤을테고요.
+
+@char uni_00.happy pos:20,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 난 찬성!! 우리 너무 전투만 했어.
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 그나저나 입만 살았던 건 아니군요.
+philia_00: 예상보다 훨씬 더 빠르게 움직이고 있습니다.
+
+@hideChars
+@camera offset:0 zoom:0 time:0.2
+
+@char odette_00.happy pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 그냥 순수하게 감탄하렴. 메시에41성단이 괜히 유명한게 아니니까.
+
+@char odette_00.normal pos:70,-305 scale:1.38
+@char atresia_00.happy pos:30,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 네, 정말 놀랐어요.
+atresia_00: 군더더기 없는 움직임에 확실한 뒷처리까지…….
+@slide atresia_00 to:30,-290 time:0.2
+@slide atresia_00 to:30,-280 time:0.2
+atresia_00: 메시에41성단의 명성은 거저가 아니었군요.
+
+@camera offset:1 zoom:0.1 time:0.2
+odette_00: …흥.
+@spawn ShakeCharacter params:odette_00,2 scale:1
+odette_00: 거기까지 해. 더 하면 아부야.
+
+@camera offset:0 zoom:0 time:0.2
+@hide atresia_00
+@char odette_00.normal pos:50,-305 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: 그러고보니 관측자. 클레이의 머리장식에 대해서는 좀 생각해봤어?
+
+@choice "\"어떤 생각?\""
+@stop
+
+@camera offset:0 zoom:0.2 time:0.2
+@char odette_00.sad pos:50,-305 scale:1.38
+odette_00: 이렇게 답답해서야…….
+odette_00: 그런 장소에서 발견된 것도 그렇고, 의심스럽잖아?
+@spawn ShakeCharacter params:odette_00,2 scale:1
+odette_00: 앞으로 더 위험한 일을 저지를지도 모르니 빨리 찾아야지.
+
+@choice "\"그녀에게 관심이 많아보이네.\""
+@stop
+
+@camera offset:0 zoom:0.1 time:0.2
+odette_00: …….
+odette_00: 별로? 스텔라나이츠의 명예를 더럽힌 기사를 용서할 수 없을 뿐이야.
+@camera offset:0 zoom:0 time:0.2
+@wait 2
+
+odette_00: …옷이 좀 더러워졌네. 잠시 정비좀 하고올게.
+@slide odette_00 to:50,-315 time:0.2
+@slide odette_00 to:50,-305 time:0.2
+
+@slide odette_00 to:300
+
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 내 생각엔, 오데트도 필리만큼 솔직하지 못해.
+
+@char philia_00.angry pos:70,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 혹시 남기고 싶은 말은 그게 끝입니까, 유니?
+
+@camera offset:0 zoom:0 time:0.2
+@char uni_00.happy pos:30,-285 scale:1.38
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 도와줘 아티~~!! 
+@slide uni_00 to:-300
+
+@hideChars
+
+@char atresia_00.normal pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+
+atresia_00: …음, 아마 오데트는 클레이가 많이 신경쓰일거에요.
+
+@choice "\"왜?\""
+@stop
+
+@char atresia_00.panic pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:atresia_00,2 scale:1
+atresia_00: 클레이는 원래 메시에41성단의 별이었거든요.
+
+@char atresia_00.normal pos:50,-280 scale:1.38
+atresia_00: 그러니까, 클레이는 메시에41성단에서 퇴출당해 저희 플레이아데스 성단으로 온거에요.
+atresia_00: 구체적인 사정은 모르지만…
+@slide atresia_00 to:50,-290 time:0.2
+@slide atresia_00 to:50,-280 time:0.2
+atresia_00: 아마 풀리지 않은 감정이 남아있는게 아닐까요?
+
+@camera offset:0 zoom:0 time:0.2
+
+@char philia_00.normal pos:70,-280 scale:1.38
+@char atresia_00.normal pos:30,-280 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 그 당시에는 성단 내 불화… 라고만 공지됐습니다.
+@char philia_00.angry pos:70,-280 scale:1.38
+@spawn ShakeCharacter params:philia_00,2 scale:1
+philia_00: 메시에41성단이 플레이아데스성단을 노골적으로 무시하기 시작한 것도 그 때 부터였죠.
+
+@char philia_00.normal pos:70,-280 scale:1.38
+philia_00: 뭐, 상관없긴 합니다. 
+philia_00: 뒷 배경이 어찌됐든 지금 그녀는 플레이아데스 성단이니까요.
+
+@camera offset:0 zoom:0 time:0.2
+
+@hideChars
+
+@char philia_00.normal pos:80,-280 scale:1.38
+@char atresia_00.normal pos:45,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 으음~ 그러니까 우리가 클레이랑 잘 지내니까 질투하는거구나?
+@char uni_00.happy pos:20,-285 scale:1.38
+@camera offset:-1 zoom:0.2 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1
+uni_00: 하여간 다들 아직 어리다니까. 나처럼 어른스러우면 좀 좋아.
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 슬슬 다시 움직여야겠군요.
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 으응, 그럴까요. 오데트를 불러올게요.
+
+@camera offset:-1 zoom:0.1 time:0.2
+@char uni_00.panic pos:20,-285 scale:1.38
+@spawn ShakeCharacter params:uni_00,3 scale:1
+uni_00: 저기? 내 말에 공감해줄사람?!
+
+@choice "\"준비 됐으면 가자.\"" 
+@stop
+
+@camera offset:-6,1 zoom:0.4 time:0.2
+@spawn ShakeCharacter params:uni_00,3 scale:1
+uni_00: 다들 너무해!!!
+
+@end

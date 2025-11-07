@@ -1,0 +1,94 @@
+@bgm bgm_mad_001
+
+@char asna_00.panic pos:50,-280 scale:1.38
+@wait 0.5
+@slide asna_00.panic to:50,-290 time:0.2
+@slide asna_00.panic to:50,-280 time:0.2
+asna_00: 플레이아데스, 들리나요?! 급한 사안이에요. 대답해 주세요!!
+
+@camera offset:0 zoom:0 time:0.2
+@char atresia_00.normal pos:30,-280 scale:1.38
+@char asna_00.normal pos:70,-280 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 아스나…? 들려요, 바로 이야기해 주세요.
+
+@char asna_00.worry pos:70,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+asna_00: 연구소 근처에서 대량의 네피림들을 감지했어요.
+@spawn ShakeCharacter params:asna_00,2 scale:1.38
+asna_00: 숫자가 너무 많아요, 우회 경로를 안내할 테니 멈춰주세요!
+
+@hideChars
+@char uni_00.normal pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 어…….
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 그게 말이지.
+
+@camera offset:0 zoom:0.2 time:0.2
+@back bg_ruins_02 scale:1.38
+@slide uni_00 to:50,-295 time:0.2
+@slide uni_00 to:50,-285 time:0.2
+uni_00: 벌써 연구소에 도착해 버렸어, 헤헤.
+@camera offset:0 zoom:0.1 time:0.2
+
+@char philia_00.angry pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 더 정확히 전달해야죠.
+@wait 1
+@spawn cbg_01_02
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 아스나, 현재 플레이아데스는 연구소에 도착했고, 그곳에 숨어있던 네피림들에게 포위당했습니다.
+
+@hideChars
+@char atresia_00.normal pos:50,-280 scale:1.38
+
+atresia_00: 미안해요, 바로 연락해 주신 것 같은데…타이밍이 나빴네요.
+atresia_00: 지금 저희 눈앞에 보이는 네피림들이 연구소에서 나온 네피림들이란 뜻이죠?
+
+@camera offset:0 zoom:0 time:0.2
+asna_00: 맞아요, 이미 마주치셨군요…….
+asna_00: 도착하신 연구소 지하에는 막대한 양의 에너지 클러스터가 매장되어 있는데, 그게 문제였어요.
+asna_00: 네피림들이 그 클러스터 덩어리로 모두 몰려들었던 거예요.
+asna_00: 지하에 몰려있던 게… 아무래도 저희 쪽 데이터에 잡히지 않았던 이유 같아요.
+@hideChars
+@despawn cbg_01_02
+
+@char uni_00.angry pos:50,-285 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 그러니까 저 연구소 안에는 이것보다 더 많이 숨어있을 거란 이야기지?
+uni_00: 이럴 줄 알았어. 이게 다 관측자 때문이야!
+@spawn ShakeCharacter params:uni_00,3
+
+@choice …….
+@stop
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@char philia_00.normal pos:80,-280 scale:1.38
+@char atresia_00.normal pos:45,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 관측자님 때문은 아닌 것 같은데요…
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 그럼 아티 때문인걸로 하자!
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 시끄럽습니다, 유니.
+@slide philia_00 to:80,-290 time:0.2
+@slide philia_00 to:80,-280 time:0.2
+philia_00: 어차피 연구소를 탈환하려면 이대로 둘 수도 없는 노릇이니, 바로 정리하시죠.
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 바로 전투 돌입할게요.
+@camera offset:0 zoom:0.2 time:0.2
+atresia_00: 관측자님, 지휘 부탁드립니다!!
+
+@end

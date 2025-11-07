@@ -1,0 +1,110 @@
+@bgm bgm_happy_001
+@back bg_ruins_00 scale:1.38
+@char uni_00.angry pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+uni_00: 근데 우리는 작전 끝내고 돌아온 지 얼마 되지도 않았는데…
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 또 이렇게 일하러 나와야 하는 거야?! 
+@camera offset:0 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 이게 뭐야, 이런 법이 어디 있어! 추가수당 달라고 해야 해!!
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 허블의 기사 노동법!! 주 40시간을 보장하라!!!
+@camera offset:0 zoom:0.0 time:0.2
+
+@hideChars
+@char philia_00.angry pos:70,-280 scale:1.38
+@char atresia_00.normal pos:30,-280 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 그런 건 없습니다, 유니.
+philia_00: 또 은근슬쩍 투정 부리면서 저랑 아트레시아에게 업혀 갈 생각이라면 관두십시오.
+
+@camera offset:1 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:philia_00,1 scale:1.38
+philia_00: 애초에, 우리가 노동자입니까?
+
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: 음…엄밀히 따지고 보면…….
+atresia_00: 공무직……군인에 가깝죠.
+atresia_00: 그러니까 유니가 주장하는 내용은 받아들여지기 어려울 수도 있겠네요. 
+@slide atresia_00 to:30,-290 time:0.2
+@slide atresia_00 to:30,-280 time:0.2
+
+@camera offset:0 zoom:0 time:0.2
+@hideChars
+@spawn cbg_01_01 position:0,0.7 scale:1,0.562
+uni_00: 윽. 
+uni_00: 그게 뭐가 달라!! 다 똑같은 거 아냐?! 
+uni_00: 아무튼 보장해!! 
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCamera
+uni_00: 이것저것 보장해라!!!
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCamera
+uni_00: 아무거나 규탄한다!!!
+@despawn cbg_01_01
+
+@camera offset:0 zoom:0 time:0.2
+@char atresia_00.normal pos:50,-280 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 그래도 연달아 내려온 작전 치고는 꽤 쉬운 편이네요.
+atresia_00: 도시 내부에 보이는 네피림 개체수도 적고요.
+atresia_00: 아스나, 저희 임무는 이 도시의 연구소 탈환이었죠?
+@camera offset:0 zoom:0 time:0.2
+
+@char atresia_00.normal pos:30,-280 scale:1.38
+@char asna_00.normal pos:70,-280 scale:1.38
+
+@camera offset:0 zoom:0 time:0.2
+asna_00: (칙-) 맞아요, 아트레시아.
+asna_00: 게이트에서 쏟아져나온 네피림들때문에 잠시 버려졌지만, 이 도시의 연구소는 중요한 기술을 연구 중이었거든요.
+asna_00: 탈환하고 나면 인류에게 큰 도움이 될 거예요! 
+
+@hideChars
+@char philia_00.normal pos:80,-280 scale:1.38
+@char atresia_00.normal pos:45,-280 scale:1.38
+@char uni_00.normal pos:20,-285 scale:1.38
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 그런데... 뭔가 이상하지 않습니까?
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 응? 뭐가 이상해?
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 습격 때문에 중요한 요충지를 버리고 갔다기엔, 이곳을 점령한 네피림 숫자가 너무 적습니다.
+
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 그건... 확실히 이상하네요.
+@slide atresia_00 to:45,-290 time:0.2
+@slide atresia_00 to:45,-280 time:0.2
+atresia_00: 다른 작전 때보다도 적은 숫자인 것도 맞고요.
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 아까 그 분홍머리 사령관이 쉬운 임무일거라고 했잖아. 너무 어렵게 생각하지 말자.
+@camera offset:-1 zoom:0.2 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 빨리 끝내고 돌아가서 케이크 먹고 싶단 말이야~
+@slide uni_00 to:-200,-285 time:0.3
+
+@camera offset:0 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:atresia_00,2 scale:1.38
+atresia_00: 유, 유니!! 그렇게 먼저 가버리면 위험해요!!
+@slide atresia_00 to:-200,-280 time:0.3
+
+@camera offset:1 zoom:0.1 time:0.2
+@slide philia_00 to:80,-290 time:0.2
+@slide philia_00 to:80,-280 time:0.2
+philia_00: 이래서야 원… 가시죠, %player%님. 저 두 사람 페이스에 말려들면 끝도 없습니다.
+
+@choice "\"보기 좋은걸.\""
+@stop
+@char philia_00.happy pos:80,-280 scale:1.38
+@camera offset:1 zoom:0.2 time:0.2
+philia_00: …이런 점은 여전하시군요.
+philia_00: 가시죠, 놓치겠습니다.
+
+
+@end

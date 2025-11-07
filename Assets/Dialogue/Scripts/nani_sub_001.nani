@@ -1,0 +1,92 @@
+@bgm bgm_mad_002
+@back bg_abandoned_hospital_01 scale:1.38
+
+
+(어느 버려진 연구소의, 데이터 전산실 안)
+
+@char cley_00.sad pos:45,-285 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+cley_00: 어, 어쩌지… 저질러 버렸어.….
+cley_00: 이제…
+cley_00: 이젠… 돌아갈 수 없겠구나.
+cley_00: 모두에게는 미안하지만…….
+@camera offset:0 zoom:0.1 time:0.2
+cley_00: …다,
+cley_00: 이게 다, …를 위해서니까.
+@camera offset:0 zoom:0 time:0.1
+
+@hideAll
+@wait 1
+@stopBgm
+
+@bgm bgm_happy_001 fade:2
+@back bg_ruins_01 scale:1.38
+@char atresia_00.happy pos:50,-285 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+@forceHighlight atresia_00 enable:false tint:white time:0
+
+atresia_00: 그래도 다행이에요.
+
+@choice 응?
+@stop
+
+atresia_00: 부사령관님은 꽤 칼 같은 분이시니까요.
+atresia_00: 관측자님이 아니었다면, 분명 즉결 처분 명령이 떨어졌겠죠.
+@slide atresia_00 to:50,-295 time:0.2
+@slide atresia_00 to:50,-285 time:0.2
+
+atresia_00: 저는… 그런 결말을 바라진 않았어요.
+@camera offset:0 zoom:0 time:0.1
+
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char uni_00.normal pos:30,-285 scale:1.38
+
+@camera offset:-1 zoom:0.1 time:0.2
+uni_00: 난 클레이가 아무 이유도 없이 그렇게 했다고 생각 안 해!
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 맞습니다. 유니처럼 아무 생각이 없는 바보가 아니니까요.
+
+@char uni_00.angry pos:30,-285 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 뭐!!! 말 다 했어, 필리?!
+@wait 0.5
+
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 어쨋건 살인은 살인입니다. 저지른 일에 대한 책임은 다해야겠죠.
+
+@camera offset:-1 zoom:0.1 time:0.2
+@spawn ShakeCharacter params:uni_00,3 scale:1.38
+uni_00: 이젠 무시하기야?!!
+@camera offset:0 zoom:0 time:0.2
+
+@choice "\"조금이라도 더 나은 결말을 만들어 보자.\""
+@stop
+
+@camera offset:0 zoom:0.1 time:0.2
+@hideChars
+@char philia_00.normal pos:70,-280 scale:1.38
+@char atresia_00.normal pos:30,-280 scale:1.38
+
+@char atresia_00.happy pos:30,-280 scale:1.38
+@camera offset:-1 zoom:0.1 time:0.2
+atresia_00: …네!
+
+@char philia_00.happy pos:70,-280 scale:1.38
+@camera offset:1 zoom:0.1 time:0.2
+philia_00: 좋습니다.
+
+@camera offset:0 zoom:0.1 time:0.2
+
+@hideChars
+
+@char uni_00.panic pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.3 time:0.2
+@spawn ShakeCharacter params:uni_00,2 scale:1.38
+uni_00: 다들 너무해애!!
+
+
+@end

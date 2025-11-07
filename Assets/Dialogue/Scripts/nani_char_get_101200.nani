@@ -1,0 +1,22 @@
+@bgm snd_bgm_squad_hyades_001
+@back bg_hubble_01 scale:1.38
+@char kara_00.normal pos:50,-285 scale:1.38
+
+@camera offset:0 zoom:0.1 time:0.2
+kara_00: 처음 뵙겠습니다, 관측자님. 히아데스의 카라라고 해요.
+@char kara_00.happy pos:50,-285 scale:1.38
+@slide kara_00 to:50,-295 time:0.2
+@slide kara_00 to:50,-285 time:0.2
+
+kara_00: 방금 향이 좋은 커피를 막 내렸답니다. 한잔하시겠어요? 
+
+@choice "\"커피 내리는 솜씨가 좋네.\""
+@choice "\"커피는 자주 마셔?\""
+@stop
+
+@char kara_00.normal pos:50,-285 scale:1.38
+kara_00: 매일 마시는 편이에요. 야근할 때라던가, 추가 근무할 때라던가, 철야할 때 정도…? 
+@char kara_00.happy pos:50,-285 scale:1.38
+kara_00: 후후, 걱정 마세요. 일은 제 삶의 즐거움이랍니다.
+
+@end
