@@ -917,3 +917,5 @@ MonoBehaviour:
     - name: Dialogue/Localization/ko/Scripts/4-5(1)
       pathPrefix: Scripts
       guid: 8fc622bffb4b3a948a8ba2ba1340e7f0
+  - Id: CharacterAvatars
+    Resources: []

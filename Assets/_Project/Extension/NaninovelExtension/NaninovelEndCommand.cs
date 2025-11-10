@@ -6,7 +6,7 @@ using UnityEngine;
 
 [CommandAlias("end")]
 public class NaninovelEndCommand : Command
-{   public override UniTask Execute (AsyncToken token = default)
+{   public override UniTask ExecuteAsync (AsyncToken asyncToken = default)
     {
         // var runScriptName = DataManager.TestDialogueScriptName; // ToDo:나중에는 스크립트 인덱스로 처리하도록 변경 예정 choiJE.230523
         
