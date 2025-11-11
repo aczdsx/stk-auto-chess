@@ -228,6 +228,22 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecChapterRule
+    {
+        /// 유니크 id
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 기믹 id
+        public global::CookApps.AutoBattler.EffectCodeNameType chapter_rule_effect_code_type;
+        /// #이펙트 코드 id
+        public long effect_code_id;
+        /// 챕터 룰 이름
+        public string name_token;
+        /// 챕터 룰 설명
+        public string desc_token;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecCommanderSkill
     {
         /// 유니크 id
@@ -600,22 +616,6 @@ namespace CookApps.AutoBattler
         public float effect_code_stat_3;
         /// 챕터 룰3
         public int[] effect_code_rule_tile_3 = global::System.Array.Empty<int>();
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecChapterRule
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 기믹 id
-        public global::CookApps.AutoBattler.EffectCodeNameType chapter_rule_effect_code_type;
-        /// #이펙트 코드 id
-        public long effect_code_id;
-        /// 챕터 룰 이름
-        public string name_token;
-        /// 챕터 룰 설명
-        public string desc_token;
     }
 
     [GeneratorSpecData]

@@ -64,23 +64,27 @@ public class SceneDialog : MonoBehaviour
             return;
         }
 
-        // 스크립트 경로 형식 확인 (Naninovel은 "Scripts/" 경로 사용, 확장자 제거)
+        // 스크립트 경로 형식: PathPrefix("Scripts") 제외, 확장자 제거
+        // 예: "0-1" 또는 "Scripts/0-1" 또는 "0-1.nani" → "0-1"
         var scriptPath = testScriptName;
-        if (!scriptPath.StartsWith("Scripts/"))
-        {
-            scriptPath = $"Scripts/{scriptPath}";
-        }
-        if (scriptPath.EndsWith(".nani"))
-        {
-            scriptPath = scriptPath.Substring(0, scriptPath.Length - 5);
-        }
+        
+        // "Scripts/" 접두사 제거
+        // if (scriptPath.StartsWith("Scripts/"))
+        // {
+        //     scriptPath = scriptPath.Substring(7); // "Scripts/".Length = 7
+        // }
+        
+        // // 확장자 제거
+        // if (scriptPath.EndsWith(".nani"))
+        // {
+        //     scriptPath = scriptPath.Substring(0, scriptPath.Length - 5);
+        // }
         
         Debug.Log($"Playing script: {scriptPath}");
 
         try
         {
-            // Naninovel 1.20: MainTrack.LoadAndPlay 사용 (스크립트 로드 + 재생)
-            // await scriptPlayer.MainTrack.LoadAndPlay(scriptPath);
+            await scriptPlayer.LoadAndPlay(scriptPath);
             Debug.Log($"Script playing: {scriptPlayer.Playing}");
         }
         catch (System.Exception ex)
