@@ -53,7 +53,7 @@ public class SceneDialog : MonoBehaviour
         Debug.Log($"locale {locale}");
         await localizationManager.SelectLocale(locale);
         
-        // Naninovel 1.21: LoadAndPlay가 IScriptTrack로 이동됨
+        // Naninovel 1.21: MainTrack.LoadAndPlay 사용
         // 1.18: await scriptPlayer.PreloadAndPlayAsync(testScriptName);
         // 1.21: scriptPlayer.MainTrack.LoadAndPlay(scriptPath) 사용
         var scriptPlayer = Engine.GetService<IScriptPlayer>();
@@ -65,24 +65,27 @@ public class SceneDialog : MonoBehaviour
         }
 
         // 스크립트 경로 형식 확인 (Naninovel은 "Scripts/" 경로 사용, 확장자 제거)
-        // var scriptPath = testScriptName;
-        // if (!scriptPath.StartsWith("Scripts/"))
-        // {
-        //     scriptPath = $"Scripts/{scriptPath}";
-        // }
-        // Debug.Log($"Playing script: {scriptPath}");
+        var scriptPath = testScriptName;
+        if (!scriptPath.StartsWith("Scripts/"))
+        {
+            scriptPath = $"Scripts/{scriptPath}";
+        }
+        if (scriptPath.EndsWith(".nani"))
+        {
+            scriptPath = scriptPath.Substring(0, scriptPath.Length - 5);
+        }
+        
+        Debug.Log($"Playing script: {scriptPath}");
 
         try
         {
             // Naninovel 1.21: MainTrack.LoadAndPlay 사용 (스크립트 로드 + 재생)
-            // 1.18: await scriptPlayer.PreloadAndPlayAsync(testScriptName);
-            // 1.21: scriptPlayer.MainTrack.LoadAndPlay(scriptPath)
-            _ = scriptPlayer.MainTrack.LoadAndPlay(testScriptName);
-            Debug.Log($"MainTrack.Playing: {scriptPlayer.MainTrack.Playing}");
+            // await scriptPlayer.MainTrack.LoadAndPlay(scriptPath);
+            Debug.Log($"Script playing: {scriptPlayer.Playing}");
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"스크립트 재생 실패: {ex.Message}\n스크립트 경로: {testScriptName}\n원본 이름: {testScriptName}");
+            Debug.LogError($"스크립트 재생 실패: {ex.Message}\n스크립트 경로: {scriptPath}\n원본 이름: {testScriptName}");
         }
 
         eventStartTime = Time.realtimeSinceStartup;

@@ -1,7 +1,7 @@
-# Naninovel 1.18 → 1.21 업그레이드 가이드
+# Naninovel 1.18 → 1.20 업그레이드 가이드
 
 ## 개요
-이 문서는 Naninovel 1.18에서 1.21로 업그레이드할 때 필요한 주요 변경사항을 정리한 가이드입니다.
+이 문서는 Naninovel 1.18에서 1.20로 업그레이드할 때 필요한 주요 변경사항을 정리한 가이드입니다.
 
 ## 주요 Breaking Changes
 
@@ -20,11 +20,11 @@ public class NaninovelEndCommand : Command
 }
 ```
 
-#### 1.21 현재
+#### 1.20 현재
 ```csharp
 public class NaninovelEndCommand : Command
 {
-    public UniTask ExecuteAsync()
+    public override UniTask Execute(AsyncToken token = default)
     {
         // 구현
         return UniTask.CompletedTask;
@@ -34,8 +34,8 @@ public class NaninovelEndCommand : Command
 
 **변경사항:**
 - `[CommandAlias]` 속성 제거 (클래스 이름으로 자동 인식)
-- `Execute(ExecutionContext ctx)` → `ExecuteAsync()` (파라미터 없음)
-- `override` 키워드 제거
+- `Execute(ExecutionContext ctx)` → `Execute(AsyncToken token = default)`
+- `override` 키워드 유지
 
 ### 2. 텍스트 시스템 변경 (1.19)
 
@@ -166,7 +166,7 @@ public class NaninovelEndCommand : Command
 
 ### 필수 작업
 - [ ] `Naninovel` 폴더 삭제 후 새 버전 임포트
-- [ ] 커스텀 Command 클래스의 `Execute` → `ExecuteAsync()` 변경
+- [ ] 커스텀 Command 클래스의 `Execute(ExecutionContext ctx)` → `Execute(AsyncToken token = default)` 변경
 - [ ] 커스텀 UI의 uGUI 텍스트 → TMPro 변경
 - [ ] 스크립트 로컬라이제이션 문서 재생성
 - [ ] Voice Map 재매핑
@@ -203,11 +203,11 @@ public class NaninovelEndCommand : Command
 }
 ```
 
-**After (1.21):**
+**After (1.20):**
 ```csharp
 public class NaninovelEndCommand : Command
 {
-    public UniTask ExecuteAsync()
+    public override UniTask Execute(AsyncToken token = default)
     {
         // 구현
         return UniTask.CompletedTask;
@@ -242,7 +242,6 @@ MainCharacter: Hello  // Display Name 사용
 ## 참고 링크
 - [Naninovel 1.19 Release Notes](https://pre.naninovel.com/releases/1.19)
 - [Naninovel 1.20 Release Notes](https://pre.naninovel.com/releases/1.20)
-- [Naninovel 1.21 Release Notes](https://pre.naninovel.com/releases/1.21)
 
 ## 프로젝트별 수정 가이드
 
@@ -264,7 +263,7 @@ MainCharacter: Hello  // Display Name 사용
 cley_00: 怎，怎麼辦…糟了…。
 ```
 
-**새 형식 (1.21):**
+**새 형식 (1.20):**
 ```
 ; 로컬라이제이션 가능한 텍스트만 포함
 （在某個廢棄研究所的數據電算室內）
@@ -287,7 +286,8 @@ cley_00: 怎，怎麼辦…糟了…。
 
 #### 2. 커스텀 Command 확인
 **확인된 파일:** `Assets/_Project/Extension/NaninovelExtension/NaninovelEndCommand.cs`
-- ✅ 이미 `ExecuteAsync()` 형태로 수정됨
+- ✅ 이미 `Execute(AsyncToken token = default)` 형태로 수정됨
+- ✅ `override` 키워드 사용
 - ✅ `[CommandAlias]` 제거됨
 
 #### 3. 로컬라이제이션 사용 코드

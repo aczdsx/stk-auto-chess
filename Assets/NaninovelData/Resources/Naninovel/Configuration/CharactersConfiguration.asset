@@ -67,8 +67,54 @@ MonoBehaviour:
     Poses: []
     Anchors: []
   Metadata:
-    ids: []
-    metas: []
+    ids:
+    - atresia_00
+    metas:
+    - Implementation: Naninovel.PlaceholderCharacter, Elringus.Naninovel.Runtime,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      Loader:
+        PathPrefix: Characters
+        ProviderTypes:
+        - Naninovel.AddressableResourceProvider, Elringus.Naninovel.Runtime, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        - Naninovel.ProjectResourceProvider, Elringus.Naninovel.Runtime, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      guid: 97730980-6691-4698-b6da-9388d226f1d6
+      customData:
+        rid: 5994533232991797588
+      Pivot: {x: 0.5, y: 0}
+      PixelsPerUnit: 100
+      FilterMode: 2
+      EnableDepthPass: 1
+      DepthAlphaCutoff: 0.5
+      CustomTextureMaterial: {fileID: 0}
+      CustomSpriteMaterial: {fileID: 0}
+      RenderTexture: {fileID: 0}
+      RenderRectangle:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1
+        height: 1
+      BakedLookDirection: 1
+      HasName: 1
+      DisplayName: 
+      UseCharacterColor: 0
+      NameColor: {r: 1, g: 1, b: 1, a: 1}
+      MessageColor: {r: 1, g: 1, b: 1, a: 1}
+      HighlightWhenSpeaking: 0
+      HighlightCharacterCount: 0
+      SpeakingPose: 
+      NotSpeakingPose: 
+      PlaceOnTop: 1
+      HighlightDuration: 0.35
+      HighlightEasing: 1
+      MessageSound: 
+      MessageSoundPlayback: 0
+      VoiceSource: {fileID: 0}
+      LinkedPrinter: 
+      Poses: []
+      Anchors: []
   AvatarLoader:
     PathPrefix: CharacterAvatars
     ProviderTypes:
@@ -104,3 +150,26 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 5994533232991797588
+      type: {class: PlaceholderCharacterMetadata, ns: Naninovel, asm: Elringus.Naninovel.Runtime}
+      data:
+        PlaceholderAppearances:
+        - Neutral
+        - Happy
+        - Sad
+        - Angry
+        - Surprised
+        - Confused
+        - Excited
+        - Shy
+        - Embarrassed
+        - Thinking
+        - Serious
+        - Sleepy
+        - Tired
+        - Worried
+        - Scared
+        - Laughing
+        - Crying
+        - Blushing
+        - Determined
