@@ -79,7 +79,7 @@ public class SceneDialog : MonoBehaviour
 
         try
         {
-            // Naninovel 1.21: MainTrack.LoadAndPlay 사용 (스크립트 로드 + 재생)
+            // Naninovel 1.20: MainTrack.LoadAndPlay 사용 (스크립트 로드 + 재생)
             // await scriptPlayer.MainTrack.LoadAndPlay(scriptPath);
             Debug.Log($"Script playing: {scriptPlayer.Playing}");
         }
