@@ -321,9 +321,9 @@
       "hash": "fbe0bf85155f42f8832205f7b3ac3df571ada33e"
     },
     "com.elringus.naninovel": {
-      "version": "https://github.com/naninovel/upm.git#1.20",
+      "version": "file:com.elringus.naninovel",
       "depth": 0,
-      "source": "git",
+      "source": "embedded",
       "dependencies": {
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.video": "1.0.0",
@@ -334,8 +334,7 @@
         "com.unity.ugui": "1.0.0",
         "com.unity.textmeshpro": "3.0.9",
         "com.unity.nuget.newtonsoft-json": "3.2.1"
-      },
-      "hash": "ab8163a84d40b275ea2d16d79ac43d1fce6c8cff"
+      }
     },
     "com.esotericsoftware.spine.urp-shaders": {
       "version": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Modules/com.esotericsoftware.spine.urp-shaders#4.1",
