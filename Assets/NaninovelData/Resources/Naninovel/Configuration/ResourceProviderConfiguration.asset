@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: ResourceProviderConfiguration
   m_EditorClassIdentifier: 
   ResourcePolicy: 0
+  LazyBuffer: 25
+  LazyPriority: 1
   RemoveActors: 1
   LogResourceLoading: 0
-  EnableBuildProcessing: 1
+  EnableBuildProcessing: 0
   UseAddressables: 1
-  AutoBuildBundles: 1
-  AllowAddressableInEditor: 1
+  AutoBuildBundles: 0
   LabelByScripts: 1
-  GroupByCategory: 0
   ExtraLabels: []
   LocalRootPath: '%DATA%/StellaKnights/Dialogue'
   VideoStreamExtension: .mp4
+  ReloadScripts: 1
   ProjectRootPath: Naninovel

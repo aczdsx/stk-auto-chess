@@ -39,6 +39,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26d4d1122b4fac34ab3666aa82f8b6f6
+    m_Address: Naninovel/Audio/bgm_cozy_001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2c06362383b16f347a6760c26172b478
     m_Address: Naninovel/Characters/object_02
     m_ReadOnly: 0
@@ -54,7 +59,8 @@ MonoBehaviour:
   - m_GUID: 32078a69862bdf44fa857d72a6aff90e
     m_Address: Naninovel/Backgrounds/bg_ruins_04.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 32a65bd9420b96b40ae66c70d725e94f
     m_Address: Naninovel/Scripts/0-1
@@ -71,6 +77,12 @@ MonoBehaviour:
   - m_GUID: 48c9391c234ac6246a17e584f5890e4f
     m_Address: Naninovel/Backgrounds/bg_climax_battle_01.jpg
     m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4fae4fcfe7ea86b4d96027fdd87816a2
+    m_Address: Naninovel/Audio/bgm_sad_001
+    m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 666cacdf07569064fae5d75e9823222a
@@ -79,10 +91,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 695d9ecd9605bd048bfc612cf0770f30
+    m_Address: Naninovel/Audio/bgm_mad_002
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 69996c98389b3e04e8097e3915001512
     m_Address: Naninovel/Backgrounds/bg_building_03.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 71e9159a7240e2c4a811cf04e098dd8b
     m_Address: Naninovel/Characters/laplace_00
@@ -96,20 +114,29 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a617e3eab614ff088d77eb311026935
+    m_Address: Naninovel/ChoiceHandlers/ChatReply
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c6fcb6f5a7574f459d2f059aa521fac
     m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_02.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80b22520bb6b5304fad1e1604b96d8b1
     m_Address: Naninovel/Backgrounds/bg_ruins_00.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 82e3d7cd7eaea0d48b03821dcf05f560
     m_Address: Naninovel/Backgrounds/bg_ruins_03.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 887d4c2a5ce4abb48b95070cbddab801
     m_Address: Naninovel/Characters/may_00
@@ -126,15 +153,23 @@ MonoBehaviour:
   - m_GUID: 9d7b081000edb124b9ce3ff871e8e0d2
     m_Address: Naninovel/Backgrounds/bg_hubble_02.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dab2ac41e0b7064ea0531c689d60b2a
     m_Address: NaninovelBackgrounds/bg_hubble_01.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dcc814883d7e4c4592e0515aa9caf5e
     m_Address: Naninovel/Backgrounds/bg_past_ruins_01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dce942294325d1498c9dadcbc5d131f
+    m_Address: Naninovel/Audio/bgm_happy_001
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -143,6 +178,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a055098d0d2b0f648b687d11ecc8e046
+    m_Address: Naninovel/Audio/bgm_happy_002
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a11d48ced2dc51140a92b94d8ba0da27
     m_Address: Naninovel/Characters/atresia_00
@@ -180,6 +220,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c319dce9a5f44573bd7eae01f3136f9c
+    m_Address: Naninovel/ChoiceHandlers/ButtonArea
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c906d757e64442643a74f5c80cf52f44
     m_Address: Naninovel/Characters/cley_00
     m_ReadOnly: 0
@@ -189,17 +235,26 @@ MonoBehaviour:
   - m_GUID: c9d6a8f3940aa894e963407fd36ab0ab
     m_Address: Naninovel/Backgrounds/bg_ruins_05.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb67eab82ec679b4c81d29eda502eece
     m_Address: Naninovel/Backgrounds/bg_building_01.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb7b2e8624913aa4fa0282c8838afc7e
+    m_Address: Naninovel/Scripts/0-2-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cbc30cebc967bbd4b8c5cdadda65c3f6
     m_Address: Naninovel/Backgrounds/bg_ruins_02.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ccf7bf98fb3db6a49be07712e55c4f6c
     m_Address: Naninovel/Characters/vane_00
@@ -207,10 +262,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cfce8ae1af125084bace55296053e940
+    m_Address: Naninovel/Audio/bgm_mad_001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d5737ca3e4944c94e82667fb70de917c
     m_Address: Naninovel/Backgrounds/bg_ruins_06.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: da76faecfa789fa49ae42631d5b3021d
     m_Address: Naninovel/Characters/object_01
@@ -218,20 +279,35 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc05b5e21b8649f49b5d83d50d84d8b7
+    m_Address: Naninovel/ChoiceHandlers/ButtonList
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ded85b5cfa9633d4f85bbc3c6244bace
     m_Address: Naninovel/Backgrounds/bg_building_02.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e029f94e0658d6a48b2c761cc84b480b
     m_Address: Naninovel/Backgrounds/bg_ruins_01.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5a91d0fba3e65140b63288f4e385a6f
+    m_Address: Naninovel/ChoiceHandlers/ChoiceHandlerButton
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6b73c59482faa04da12319a04df9b4c
     m_Address: Naninovel/Backgrounds/bg_hubble_03.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f4a356dfa5a3140489f97b9983fc67ac
     m_Address: Naninovel/Characters/kara_00
