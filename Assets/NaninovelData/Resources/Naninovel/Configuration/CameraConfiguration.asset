@@ -16,9 +16,9 @@ MonoBehaviour:
   ReferencePPU: 100
   MatchScreenWidth: 0
   InitialPosition: {x: 0, y: 0, z: -10}
-  CustomCameraPrefab: {fileID: 4277520663879333964, guid: 688631389097c27408afc5ed65aaffec, type: 3}
+  CustomCameraPrefab: {fileID: 0}
   UseUICamera: 1
-  CustomUICameraPrefab: {fileID: 621190934650178626, guid: d78e30d97029b2e49ad4e8201d528004, type: 3}
+  CustomUICameraPrefab: {fileID: 0}
   DefaultDuration: 0.35
   DefaultEasing: 0
   ThumbnailResolution: {x: 240, y: 140}

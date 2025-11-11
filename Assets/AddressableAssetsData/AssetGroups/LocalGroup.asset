@@ -1,0 +1,253 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: LocalGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: LocalGroup
+  m_GUID: f4f609c3630134130b54e550aa50526c
+  m_SerializeEntries:
+  - m_GUID: 01e6a422fd3a75f4bbfb16867da6d678
+    m_Address: Naninovel/Characters/uni_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 033d77ef5c7b616488d17af8967eb742
+    m_Address: Naninovel/Characters/ayami_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 063225faa980648419adc8d28248d0af
+    m_Address: Naninovel/Characters/odette_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15db89af570d8f24ab9dc30aa1490825
+    m_Address: Naninovel/Characters/jeacline_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c06362383b16f347a6760c26172b478
+    m_Address: Naninovel/Characters/object_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3190d3d48bc5b254095955cf9342d700
+    m_Address: Naninovel/Characters/mensha_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32078a69862bdf44fa857d72a6aff90e
+    m_Address: Naninovel/Backgrounds/bg_ruins_04.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32a65bd9420b96b40ae66c70d725e94f
+    m_Address: Naninovel/Scripts/0-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a413678f70313844aba1212a77529b8
+    m_Address: Naninovel/Characters/seira_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48c9391c234ac6246a17e584f5890e4f
+    m_Address: Naninovel/Backgrounds/bg_climax_battle_01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 666cacdf07569064fae5d75e9823222a
+    m_Address: Naninovel/Characters/asna_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69996c98389b3e04e8097e3915001512
+    m_Address: Naninovel/Backgrounds/bg_building_03.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71e9159a7240e2c4a811cf04e098dd8b
+    m_Address: Naninovel/Characters/laplace_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a512ea30eef16446833d2d016cbf02e
+    m_Address: Naninovel/Characters/alice_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c6fcb6f5a7574f459d2f059aa521fac
+    m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_02.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80b22520bb6b5304fad1e1604b96d8b1
+    m_Address: Naninovel/Backgrounds/bg_ruins_00.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82e3d7cd7eaea0d48b03821dcf05f560
+    m_Address: Naninovel/Backgrounds/bg_ruins_03.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 887d4c2a5ce4abb48b95070cbddab801
+    m_Address: Naninovel/Characters/may_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99dbbdc076fc135498003192804da833
+    m_Address: Naninovel/Characters/philia_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d7b081000edb124b9ce3ff871e8e0d2
+    m_Address: Naninovel/Backgrounds/bg_hubble_02.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dab2ac41e0b7064ea0531c689d60b2a
+    m_Address: NaninovelBackgrounds/bg_hubble_01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dcc814883d7e4c4592e0515aa9caf5e
+    m_Address: Naninovel/Backgrounds/bg_past_ruins_01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fada380c24e1ce49a6f1a78831bc158
+    m_Address: Naninovel/Characters/ridia_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a11d48ced2dc51140a92b94d8ba0da27
+    m_Address: Naninovel/Characters/atresia_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a17bc3e5eb174dc48859dac3ff17c9ea
+    m_Address: Naninovel/Characters/atresia_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4f3bc0c71316cf4c92cfb5bcb35a91c
+    m_Address: Naninovel/Backgrounds/MainBackground/bg_atresia_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad3c5505442117249a57d5d146f06764
+    m_Address: Naninovel/Characters/maya_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bad156cd8563b9446814025d5cf6b19a
+    m_Address: Naninovel/Characters/rakiu_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be9cf0d4428c9154b8325ca8e400f8a1
+    m_Address: Naninovel/Backgrounds/MainBackground/bg_abandoned_hospital_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c906d757e64442643a74f5c80cf52f44
+    m_Address: Naninovel/Characters/cley_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9d6a8f3940aa894e963407fd36ab0ab
+    m_Address: Naninovel/Backgrounds/bg_ruins_05.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb67eab82ec679b4c81d29eda502eece
+    m_Address: Naninovel/Backgrounds/bg_building_01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbc30cebc967bbd4b8c5cdadda65c3f6
+    m_Address: Naninovel/Backgrounds/bg_ruins_02.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ccf7bf98fb3db6a49be07712e55c4f6c
+    m_Address: Naninovel/Characters/vane_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5737ca3e4944c94e82667fb70de917c
+    m_Address: Naninovel/Backgrounds/bg_ruins_06.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da76faecfa789fa49ae42631d5b3021d
+    m_Address: Naninovel/Characters/object_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ded85b5cfa9633d4f85bbc3c6244bace
+    m_Address: Naninovel/Backgrounds/bg_building_02.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e029f94e0658d6a48b2c761cc84b480b
+    m_Address: Naninovel/Backgrounds/bg_ruins_01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6b73c59482faa04da12319a04df9b4c
+    m_Address: Naninovel/Backgrounds/bg_hubble_03.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4a356dfa5a3140489f97b9983fc67ac
+    m_Address: Naninovel/Characters/kara_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8a8f136f9f2c3e41bfac00cfe24ae82
+    m_Address: Naninovel/Characters/blin_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4c510bfa0d7f8422aa4da37b7d5c42ea, type: 2}
+    - {fileID: 11400000, guid: 061aa700d119b40a5a463475000d842a, type: 2}

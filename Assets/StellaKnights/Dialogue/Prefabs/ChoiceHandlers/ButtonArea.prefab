@@ -35,7 +35,6 @@ RectTransform:
   m_Children:
   - {fileID: 224198401566905306}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -94,8 +93,14 @@ MonoBehaviour:
   hideInThumbnail: 0
   saveVisibilityState: 1
   blockInputWhenVisible: 0
-  allowedSamplers: []
+  allowedInputs: []
+  disableBlockedInputFeatures: 1
+  adaptToInputMode: 1
   modalUI: 0
+  modalGroup: 
+  buttonControls: {fileID: 0}
+  keyboardControls: {fileID: 0}
+  gamepadControls: {fileID: 0}
   fontChangeConfiguration: []
   buttonsContainer: {fileID: 224198401566905306}
   defaultButtonPrefab: {fileID: 114935234543976500, guid: e5a91d0fba3e65140b63288f4e385a6f, type: 3}
@@ -151,7 +156,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 8183
+    m_Bits: 247
 --- !u!1 &1916852858651444
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +186,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224251318736265298}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

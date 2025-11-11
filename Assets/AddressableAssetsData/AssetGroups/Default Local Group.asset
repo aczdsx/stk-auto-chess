@@ -65,6 +65,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9014e799097a65c42b5e8f5b72dc2517
+    m_Address: Naninovel/Scripts/0-0(Closing)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf66a36bb0cadf946874506890dd414b
     m_Address: Characters
     m_ReadOnly: 0

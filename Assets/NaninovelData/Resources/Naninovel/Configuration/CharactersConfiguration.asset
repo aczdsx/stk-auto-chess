@@ -35,6 +35,7 @@ MonoBehaviour:
       rid: -2
     Pivot: {x: 0.5, y: 0}
     PixelsPerUnit: 100
+    FilterMode: 2
     EnableDepthPass: 1
     DepthAlphaCutoff: 0.5
     CustomTextureMaterial: {fileID: 0}
@@ -64,6 +65,7 @@ MonoBehaviour:
     VoiceSource: {fileID: 0}
     LinkedPrinter: 
     Poses: []
+    Anchors: []
   Metadata:
     ids: []
     metas: []
@@ -74,7 +76,29 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - Naninovel.ProjectResourceProvider, Elringus.Naninovel.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  SharedPoses: []
+  SharedPoses:
+  - name: Talk
+    actorState:
+      appearance: 
+      visible: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+      scale: {x: 0, y: 0, z: 0}
+      tintColor: {r: 1, g: 1, b: 1, a: 1}
+      lookDirection: 0
+    overriddenProperties:
+    - tintColor
+  - name: Tint
+    actorState:
+      appearance: 
+      visible: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+      scale: {x: 0, y: 0, z: 0}
+      tintColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+      lookDirection: 0
+    overriddenProperties:
+    - tintColor
   references:
     version: 2
     RefIds:

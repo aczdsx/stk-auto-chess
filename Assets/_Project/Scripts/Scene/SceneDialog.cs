@@ -15,16 +15,32 @@ public class SceneDialog : MonoBehaviour
     
     private async void Start()
     {
-        // await RuntimeInitializer.InitializeAsync();
+        try
+        {
+            await RuntimeInitializer.Initialize();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Naninovel 초기화 실패: {ex.Message}\n{ex.StackTrace}");
+            // Camera 설정 문제일 수 있음 - CameraConfiguration 확인 필요
+            Debug.LogError("CameraConfiguration의 CustomCameraPrefab과 CustomUICameraPrefab이 올바르게 설정되어 있는지 확인하세요.");
+            return;
+        }
 
-        // var localizationManager = Engine.GetService<ILocalizationManager>();
+        if (!Engine.Initialized)
+        {
+            Debug.LogError("Naninovel 엔진이 초기화되지 않았습니다!");
+            return;
+        }
+
+        var localizationManager = Engine.GetService<ILocalizationManager>();
 
         // var lanCode = Language.TC.ToString();
         
         // if(DataManager.Instance.localSaveData != null)
         //     lanCode = DataManager.Instance.UserData.LanguageCodeValue;
         
-        // var locale = "en"; 
+        var locale = "en"; 
         // if(lanCode == Language.TC.ToString())
         //     locale = "zh-TW";
         // else if (lanCode == Language.SC.ToString())
@@ -34,14 +50,41 @@ public class SceneDialog : MonoBehaviour
         // else if(lanCode == Language.JP.ToString())
         //     locale = "ja";
 
-        // Debug.Log($"locale {locale}");
-        // await localizationManager.SelectLocaleAsync(locale);
-        // //await localizationManager.SelectLocaleAsync(localizationManager.Configuration.DefaultLocale);
+        Debug.Log($"locale {locale}");
+        await localizationManager.SelectLocale(locale);
         
-        // var scriptPlayer = Engine.GetService<IScriptPlayer>();
-        // // choiJE.230522 일단은 다이얼로그 테스트를 위하여 임시 처리 해둔다.
-        // await scriptPlayer.PreloadAndPlayAsync(string.IsNullOrEmpty(DataManager.TestDialogueScriptName) ? testScriptName : DataManager.TestDialogueScriptName);
+        // Naninovel 1.21: LoadAndPlay가 IScriptTrack로 이동됨
+        // 1.18: await scriptPlayer.PreloadAndPlayAsync(testScriptName);
+        // 1.21: scriptPlayer.MainTrack.LoadAndPlay(scriptPath) 사용
+        var scriptPlayer = Engine.GetService<IScriptPlayer>();
+        
+        if (string.IsNullOrEmpty(testScriptName))
+        {
+            Debug.LogError("testScriptName이 비어있습니다!");
+            return;
+        }
 
-        // eventStartTime = Time.realtimeSinceStartup;
+        // 스크립트 경로 형식 확인 (Naninovel은 "Scripts/" 경로 사용, 확장자 제거)
+        // var scriptPath = testScriptName;
+        // if (!scriptPath.StartsWith("Scripts/"))
+        // {
+        //     scriptPath = $"Scripts/{scriptPath}";
+        // }
+        // Debug.Log($"Playing script: {scriptPath}");
+
+        try
+        {
+            // Naninovel 1.21: MainTrack.LoadAndPlay 사용 (스크립트 로드 + 재생)
+            // 1.18: await scriptPlayer.PreloadAndPlayAsync(testScriptName);
+            // 1.21: scriptPlayer.MainTrack.LoadAndPlay(scriptPath)
+            _ = scriptPlayer.MainTrack.LoadAndPlay(testScriptName);
+            Debug.Log($"MainTrack.Playing: {scriptPlayer.MainTrack.Playing}");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"스크립트 재생 실패: {ex.Message}\n스크립트 경로: {testScriptName}\n원본 이름: {testScriptName}");
+        }
+
+        eventStartTime = Time.realtimeSinceStartup;
     }
 }
