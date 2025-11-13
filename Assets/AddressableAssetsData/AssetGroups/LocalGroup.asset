@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09593713a1deab84eb1dad5675928def
+    m_Address: Naninovel/Localization/ko/Scripts/0-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15db89af570d8f24ab9dc30aa1490825
     m_Address: Naninovel/Characters/jeacline_00
     m_ReadOnly: 0
@@ -114,12 +120,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7a617e3eab614ff088d77eb311026935
-    m_Address: Naninovel/ChoiceHandlers/ChatReply
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c6fcb6f5a7574f459d2f059aa521fac
     m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_02.jpg
     m_ReadOnly: 0
@@ -140,6 +140,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 887d4c2a5ce4abb48b95070cbddab801
     m_Address: Naninovel/Characters/may_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 947c8d30ce50a2d42800b9403c37c577
+    m_Address: Naninovel/TextPrinters/CutScene
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -184,12 +190,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a11d48ced2dc51140a92b94d8ba0da27
-    m_Address: Naninovel/Characters/atresia_00
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a17bc3e5eb174dc48859dac3ff17c9ea
     m_Address: Naninovel/Characters/atresia_00
     m_ReadOnly: 0
@@ -216,12 +216,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be9cf0d4428c9154b8325ca8e400f8a1
     m_Address: Naninovel/Backgrounds/MainBackground/bg_abandoned_hospital_01
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c319dce9a5f44573bd7eae01f3136f9c
-    m_Address: Naninovel/ChoiceHandlers/ButtonArea
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -273,14 +267,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: da76faecfa789fa49ae42631d5b3021d
-    m_Address: Naninovel/Characters/object_01
+  - m_GUID: d9b2b0d0164958e499709e80cc2a8df4
+    m_Address: Naninovel/TextPrinters/ControlPanel
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dc05b5e21b8649f49b5d83d50d84d8b7
-    m_Address: Naninovel/ChoiceHandlers/ButtonList
+  - m_GUID: da76faecfa789fa49ae42631d5b3021d
+    m_Address: Naninovel/Characters/object_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
