@@ -169,10 +169,21 @@ public partial class SROptions
         UserDataManager.Instance.AddNewCharacter(원하는캐릭터ID);
     }
 
-    [Category("캐릭터 관련")]
+    [Category("캐릭터 획득 관련")]
     public void 모든캐릭터획득()
     {
-        // UserDataManager.Instance.AddAllCharacters();
+        var userCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
+        userCharacterList.RemoveAll(c => c.weight == 0);
+
+        var level = 원하는캐릭터레벨_획득;
+
+        foreach (var userCharacter in userCharacterList)
+        {
+            if (UserDataManager.Instance.IsHaveCharacter(userCharacter.character_id) == false)
+                UserDataManager.Instance.AddNewCharacter(userCharacter.character_id);
+
+            UserDataManager.Instance.SetCharacterLevel(userCharacter.character_id, level);
+        }
     }
 
 
@@ -223,6 +234,7 @@ public partial class SROptions
 
     [Category("캐릭터 관련")] public int 원하는캐릭터조각갯수 { get; set; } = 0;
     [Category("캐릭터 관련")] public int 원하는캐릭터레벨 { get; set; } = 0;
+    [Category("캐릭터 획득 관련")] public int 원하는캐릭터레벨_획득 { get; set; } = 0;
     [Category("캐릭터 관련")] public int 원하는캐릭터초월레벨 { get; set; } = 0;
 
     #endregion
