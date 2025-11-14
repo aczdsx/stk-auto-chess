@@ -248,6 +248,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4949868984269996688, guid: e9d33feaca00daf4d9de51ffb37884f6, type: 3}
+      propertyPath: m_CameraType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6624142128581794474, guid: e9d33feaca00daf4d9de51ffb37884f6, type: 3}
       propertyPath: m_Name
       value: CutSceneCamera

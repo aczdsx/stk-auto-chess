@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: m_ClearFlags
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 621190934650178626, guid: e9d33feaca00daf4d9de51ffb37884f6, type: 3}
+      propertyPath: near clip plane
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4080296936187145461, guid: e9d33feaca00daf4d9de51ffb37884f6, type: 3}
       propertyPath: m_RootOrder
       value: 0
