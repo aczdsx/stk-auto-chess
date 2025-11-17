@@ -13,36 +13,32 @@ namespace CookApps.BattleSystem
         Dictionary<InGameTile, InGameVfx> _chapterRuleTiles = new Dictionary<InGameTile, InGameVfx>();
         private float _effectCodeStat;
 
+        protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
+        {
+            int tileID = codeInfo.GetCodeStatToInt(0);
+            InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
+                inGameTile.View.CachedTr.position);
+            _chapterRuleTiles.Add(inGameTile, vfx);
+        }
+
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _effectCodeStat = codeInfo.GetCodeStatToInt(0);
+            _effectCodeStat = codeInfo.GetCodeStatToInt(1);
             _chapterRuleTiles.Clear();
-            for (int i = 1; i < codeInfo.StatsLength; i++)
-            {
-                int tileID = codeInfo.GetCodeStatToInt(i);
-                InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-                var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
-                    inGameTile.View.CachedTr.position);
-                _chapterRuleTiles.Add(inGameTile, vfx);
-            }
+            SetRuleTileByInfo(codeInfo);
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _effectCodeStat = codeInfo.GetCodeStatToInt(0);
-            for (int i = 0; i < codeInfo.StatsLength; i++)
-            {
-                int tileID = codeInfo.GetCodeStatToInt(i);
-                InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
-
-                var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
-                    inGameTile.View.CachedTr.position);
-                _chapterRuleTiles.Add(inGameTile, vfx);
-            }
+            _effectCodeStat = codeInfo.GetCodeStatToInt(1);
+            
+            SetRuleTileByInfo(codeInfo);
         }
 
         public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)

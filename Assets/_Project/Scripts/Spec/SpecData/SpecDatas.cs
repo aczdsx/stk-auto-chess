@@ -599,23 +599,37 @@ namespace CookApps.AutoBattler
         /// 장애물 id
         public int neutral_wall_id;
         /// 이펙트 코드
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
-        /// 이텍트 코드 스텟
-        public float effect_code_stat;
+        public int effect_code_id;
         /// 챕터 룰
         public int[] effect_code_rule_tile = global::System.Array.Empty<int>();
         /// 이펙트 코드2
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_2;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_2;
+        public int effect_code_id_2;
         /// 챕터 룰2
         public int[] effect_code_rule_tile_2 = global::System.Array.Empty<int>();
         /// 이펙트 코드3
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_3;
-        /// 이텍트 코드 스텟3
-        public float effect_code_stat_3;
+        public int effect_code_id_3;
         /// 챕터 룰3
         public int[] effect_code_rule_tile_3 = global::System.Array.Empty<int>();
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecTileEffectCode
+    {
+        /// 전체 ID
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 이펙트 코드
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
+        /// 이름
+        public string name_token;
+        /// 설명
+        public string desc_token;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_1;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_2;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_3;
     }
 
     [GeneratorSpecData]

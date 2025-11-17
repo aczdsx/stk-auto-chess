@@ -9,48 +9,49 @@ namespace CookApps.BattleSystem
     public partial class EffectCodeChapterRuleDEFBuff : EffectCodeGameBase
     {
         private float _defUpRate;
+        private float _maxRemainBuffTime;
+
         private const EffectCodeNameType BuffEffectCodeID = EffectCodeNameType.BUFF_DEF_PERCENT_UP;
         private const int CodeId = (int)EffectCodeNameType.RULE_DEF;
 
         private List<InGameTile> _chapterRuleTiles = new();
         private List<CharacterController> _characterControllers = new();
 
-        private void SetRuleTileByInfo(EffectCodeInfo codeInfo, InGameVfxNameType vnt)
+        protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
         {
-            for (var i = 1; i < codeInfo.StatsLength; i++)
+            _defUpRate = codeInfo.GetCodeStatToInt(1) * 0.01f;
+            _maxRemainBuffTime = codeInfo.GetCodeStatToFloat(2);
+            _chapterRuleTiles.Clear();
+            _characterControllers.Clear();
+
+            var tileID = codeInfo.GetCodeStatToInt(0);
+            var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
+            _chapterRuleTiles.Add(inGameTile);
+
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_bufftrap_defense, inGameTile.View.CachedTr.position);
+
+            if (inGameTile.CheckValidTile(AllianceType.Enemy, true) ||
+                inGameTile.CheckValidTile(AllianceType.Player, true))
             {
-                var tileID = codeInfo.GetCodeStatToInt(i);
-                var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
-                _chapterRuleTiles.Add(inGameTile);
-
-                InGameVfxManager.Instance.AddInGameVfx(vnt, inGameTile.View.CachedTr.position);
-
-                if (inGameTile.CheckValidTile(AllianceType.Enemy, true) ||
-                    inGameTile.CheckValidTile(AllianceType.Player, true))
-                {
-                    OnTileCharacterEnter(inGameTile, inGameTile.OccupiedCharacter);
-                }
+                OnTileCharacterEnter(inGameTile, inGameTile.OccupiedCharacter);
             }
+
         }
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _defUpRate = codeInfo.GetCodeStatToInt(0) * 0.01f;
-            _chapterRuleTiles.Clear();
-            _characterControllers.Clear();
-            SetRuleTileByInfo(codeInfo, InGameVfxNameType.fx_common_bufftrap_defense);
+
+            SetRuleTileByInfo(codeInfo);
             // EffectCharacterByRules();
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _defUpRate = codeInfo.GetCodeStatToInt(0) * 0.01f;
-            _chapterRuleTiles.Clear();
-            _characterControllers.Clear();
-            SetRuleTileByInfo(codeInfo, InGameVfxNameType.fx_common_bufftrap_defense);
+
+            SetRuleTileByInfo(codeInfo);
             // EffectCharacterByRules();
         }
 
@@ -64,7 +65,7 @@ namespace CookApps.BattleSystem
                     eccStats[0] = CodeId;
                     eccStats[1] = 99999f;
                     eccStats[2] = _defUpRate;
-                    
+
                     EffectCodeHelper.AddOrMergeEffectCode(BuffEffectCodeID, character, eccStats, source);
 
                     _characterControllers.Add(character);
@@ -89,7 +90,22 @@ namespace CookApps.BattleSystem
                 if (character.AllianceType != AllianceType.Wall)
                 {
                     if (_characterControllers.Exists(c => c.CharacterUId == character.CharacterUId))
-                        character.GetEffectCodeContainer().RemoveEffectCode((long)BuffEffectCodeID);
+                    {
+                        if (!(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat))
+                        {
+                            character.GetEffectCodeContainer().RemoveEffectCode((long)BuffEffectCodeID);
+                        }
+                        else
+                        {
+                            Span<double> eccStats = stackalloc double[3];
+                            eccStats.Clear();
+                            eccStats[0] = CodeId;
+                            eccStats[1] = _maxRemainBuffTime;
+                            eccStats[2] = _defUpRate;
+
+                            EffectCodeHelper.AddOrMergeEffectCode(BuffEffectCodeID, character, eccStats, source);
+                        }
+                    }
                     _characterControllers.Remove(character);
                 }
         }

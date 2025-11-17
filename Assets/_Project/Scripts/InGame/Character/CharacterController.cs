@@ -8,6 +8,8 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Pool;
+using Unity.Mathematics;
+using UnityEngine.Tilemaps;
 
 namespace CookApps.BattleSystem
 {
@@ -18,6 +20,19 @@ namespace CookApps.BattleSystem
         public SpecCharacter SpecCharacter => _statData.Spec;
 
         private EffectCodeContainer ecc;
+        /// <summary>
+        /// 타일 이동 종료 시 호출되는 함수입니다.
+        /// 현재 CharacterStateMove의 StateEnd
+        /// CharacterController의 MoveTile의 새로운 타일로 CurrentTile을 변경하기 전에 호출합니다.
+        /// </summary>
+        public void OnTileMoveEnd()
+        {
+            if (CurrentTile.EffectCodeContainer.GetEffectCode((int)EffectCodeNameType.CHAPTER_TRAP)
+                                                is EffectCodeGameBase effectCodeGameBase)
+            {
+                effectCodeGameBase.OnTileMoveEnd(CurrentTile, this);
+            }
+        }
 
         public EffectCodeContainer GetEffectCodeContainer()
         {
@@ -398,6 +413,7 @@ namespace CookApps.BattleSystem
 
         public void ChangeOccupiedTile(InGameTile newTile)
         {
+
             if (CurrentTile != null)
             {
                 if (CurrentTile.OccupiedCharacter != null && CurrentTile.OccupiedCharacter == this)
@@ -592,7 +608,7 @@ namespace CookApps.BattleSystem
         {
             FollowHpBar();
         }
-
+    
         private ObfuscatorFloat _recoveryHPElapsedTime;
         private void RecoverHP(float dt)
         {
@@ -1200,26 +1216,26 @@ namespace CookApps.BattleSystem
         public void MoveCharacter(bool isInRange)
         {
             if (NeedToBeCrowdControlState())
-            {
+            {//이건 cc기 당했다면 cc상태로 변환
                 AddNextState<CharacterStateCC>();
                 return;
             }
 
             if (isInRange)
-            {
+            {//타겟과의 거리가 범위안에있다면 idle로 변환
                 AddNextState<CharacterStateIdle>();
                 return;
             }
 
             Target = InGameObjectManager.Instance.GetTargetForMove(this);
-            if (Target == null)
+            if (Target == null)//타겟이 없다면 idle로 변환
             {
                 AddNextState<CharacterStateIdle>();
                 return;
             }
 
             var isNewTargetInRange = InGameObjectManager.Instance.IsInRange(this, Target);
-            if (isNewTargetInRange)
+            if (isNewTargetInRange)//타겟과의 거리가 범위안에있다면 idle로 변환
             {
                 AddNextState<CharacterStateIdle>();
                 return;
@@ -1227,7 +1243,7 @@ namespace CookApps.BattleSystem
 
             InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
             if (bestTile == CurrentTile)
-            {
+            {//이 경우는 다음 타일로 움직이고있는 중이라는 뜻 같다. 근데 얼리리턴함.
                 if (_notFoundTargetFx == null)
                     _notFoundTargetFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
                         SkillRootTransformFollowable);
@@ -1260,6 +1276,7 @@ namespace CookApps.BattleSystem
         {
             if (SpecCharacter.move_speed > 0)
             {
+                OnTileMoveEnd();
                 GetCharacterView().LookAt(CurrentTile, tile);
                 ChangeOccupiedTile(tile);
                 AddNextState<CharacterStateMove>();

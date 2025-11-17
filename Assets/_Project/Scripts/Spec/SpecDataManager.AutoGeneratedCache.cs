@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
 		public List<SpecCharacterTranscendence> SpecCharacterTranscendenceList {get; private set;}
 		public List<SpecCharacterEnhance> SpecCharacterEnhanceList {get; private set;}
 		public List<SpecCharacterQuotes> SpecCharacterQuotesList {get; private set;}
+		public List<SpecChapterRule> SpecChapterRuleList {get; private set;}
 		public List<SpecCommanderSkill> SpecCommanderSkillList {get; private set;}
 		public List<SpecDialogue> SpecDialogueList {get; private set;}
 		public List<SpecDungeonTrial> SpecDungeonTrialList {get; private set;}
@@ -31,7 +32,7 @@ namespace CookApps.AutoBattler
 		public List<SpecGuideMission> SpecGuideMissionList {get; private set;}
 		public List<SpecQuest> SpecQuestList {get; private set;}
 		public List<SpecStage> SpecStageList {get; private set;}
-		public List<SpecChapterRule> SpecChapterRuleList {get; private set;}
+		public List<SpecTileEffectCode> SpecTileEffectCodeList {get; private set;}
 		public List<SpecStageMonster> SpecStageMonsterList {get; private set;}
 		public List<SpecSkill> SpecSkillList {get; private set;}
 		public List<SpecStageReward> SpecStageRewardList {get; private set;}
@@ -64,6 +65,7 @@ namespace CookApps.AutoBattler
 			SpecCharacterTranscendenceList = SpecCharacterTranscendence.All.ToList();
 			SpecCharacterEnhanceList = SpecCharacterEnhance.All.ToList();
 			SpecCharacterQuotesList = SpecCharacterQuotes.All.ToList();
+			SpecChapterRuleList = SpecChapterRule.All.ToList();
 			SpecCommanderSkillList = SpecCommanderSkill.All.ToList();
 			SpecDialogueList = SpecDialogue.All.ToList();
 			SpecDungeonTrialList = SpecDungeonTrial.All.ToList();
@@ -79,7 +81,7 @@ namespace CookApps.AutoBattler
 			SpecGuideMissionList = SpecGuideMission.All.ToList();
 			SpecQuestList = SpecQuest.All.ToList();
 			SpecStageList = SpecStage.All.ToList();
-			SpecChapterRuleList = SpecChapterRule.All.ToList();
+			SpecTileEffectCodeList = SpecTileEffectCode.All.ToList();
 			SpecStageMonsterList = SpecStageMonster.All.ToList();
 			SpecSkillList = SpecSkill.All.ToList();
 			SpecStageRewardList = SpecStageReward.All.ToList();

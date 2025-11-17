@@ -1213,5 +1213,10 @@ namespace CookApps.AutoBattler
         {
             return SpecImageInfoList.Find(dat => dat.image_info_id == infoID);
         }
+
+        public List<SpecTileEffectCode> GetSpecTileEffectCodeList()
+        {
+            return SpecTileEffectCodeList;
+        }
     }
 }
