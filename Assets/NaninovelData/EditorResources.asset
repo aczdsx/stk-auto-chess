@@ -21,7 +21,7 @@ MonoBehaviour:
   - Id: TextPrinters/679f2001-4f0e-4541-a16c-50b7b1678083
     Resources:
     - name: Fullscreen
-      pathPrefix: 
+      pathPrefix: TextPrinters
       guid: c87cebd3f0d4f174789cd351ce9591c4
   - Id: TextPrinters/21b16e57-5c1f-4deb-ac86-b9917f53f825
     Resources:
@@ -957,3 +957,10 @@ MonoBehaviour:
     - name: bgm_happy_001
       pathPrefix: Audio
       guid: 9dce942294325d1498c9dadcbc5d131f
+  - Id: TextPrinters/8b9e022e-51ad-4b4c-90ac-e65372924d6c
+    Resources:
+    - name: CutScene
+      pathPrefix: TextPrinters
+      guid: 947c8d30ce50a2d42800b9403c37c577
+  - Id: Movies
+    Resources: []

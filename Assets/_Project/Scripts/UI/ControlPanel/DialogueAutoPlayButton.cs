@@ -28,8 +28,8 @@ public class DialogueAutoPlayButton : ScriptableButton
 
     protected override void OnButtonClick ()
     {
-        // player.SetAutoPlayEnabled(!player.AutoPlayActive);
-        // SceneDialog.isAuto = player.AutoPlayActive;
+        player.SetAutoPlayEnabled(!player.AutoPlayActive);
+        SceneDialog.isAuto = player.AutoPlayActive;
     }
 
     private void HandleAutoModeChange (bool enabled)

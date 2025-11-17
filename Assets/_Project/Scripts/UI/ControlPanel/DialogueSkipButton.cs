@@ -28,8 +28,8 @@ public class DialogueSkipButton : ScriptableButton
 
     protected override void OnButtonClick ()
     {
-        // player.SetSkipEnabled(!player.SkipActive);
-        // SceneDialog.isSkip = player.SkipActive;
+        player.SetSkipEnabled(!player.SkipActive);
+        SceneDialog.isSkip = player.SkipActive;
     }
 
     private void HandleSkipModeChange (bool enabled)
