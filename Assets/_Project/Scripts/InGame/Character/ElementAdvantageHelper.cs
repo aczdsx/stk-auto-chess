@@ -1,0 +1,109 @@
+using System;
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+using CookApps.BattleSystem;
+using CookApps.TeamBattle;
+
+public static class ElementAdvantageHelper
+{
+    public enum ElementAdvantageResult
+    {
+        NONE = 0,
+        ADVANTAGE = 1,  // 유리 (공격자가 방어자에게 유리)
+        RESIST = 2      // 불리 (공격자가 방어자에게 불리)
+    }
+
+    /// <summary>
+    /// 속성 상성 체인 순서: Fire → Wind → Light → Earth → Water → Fire (순환)
+    /// </summary>
+    private static readonly ElementType[] _advantageChain = new ElementType[]
+    {
+        ElementType.FIRE,
+        ElementType.WIND,
+        ElementType.LIGHT,
+        ElementType.EARTH,
+        ElementType.WATER
+    };
+    private static readonly string[] _elementAdvantageTexts = new string[] { "WEAK!", "RESIST!" };
+
+    public const float ADVANTAGE_MULTIPLIER = 1.1f;
+    public const float RESIST_MULTIPLIER = 0.9f;
+
+    /// <summary>
+    /// 공격자와 방어자의 속성 상성 관계를 반환합니다.
+    /// </summary>
+    /// <param name="attacker">공격자의 속성</param>
+    /// <param name="defender">방어자의 속성</param>
+    /// <returns>상성 관계 결과</returns>
+    public static ElementAdvantageResult GetElementAdvantageResult(ElementType attacker, ElementType defender)
+    {
+        if (!IsInChain(attacker) || !IsInChain(defender))
+        {
+            return ElementAdvantageResult.NONE;
+        }
+
+        if (GetNextInChain(attacker) == defender)
+        {
+            return ElementAdvantageResult.ADVANTAGE;
+        }
+        else if (GetPreviousInChain(attacker) == defender)
+        {
+            return ElementAdvantageResult.RESIST;
+        }
+
+        return ElementAdvantageResult.NONE;
+    }
+
+    public static string GetElementAdvantageText(ElementAdvantageResult elementAdvantageResult)
+    {
+        if (elementAdvantageResult == ElementAdvantageResult.ADVANTAGE)
+        {
+            return _elementAdvantageTexts[0];
+        }
+        else if (elementAdvantageResult == ElementAdvantageResult.RESIST)
+        {
+            return _elementAdvantageTexts[1];
+        }
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// 속성이 체인에 포함되어 있는지 확인
+    /// </summary>
+    private static bool IsInChain(ElementType element)
+    {
+        return Array.IndexOf(_advantageChain, element) >= 0;
+    }
+
+       /// <summary>
+    /// 체인에서 주어진 속성의 우위 속성 반환
+    /// Fire → Wind → Light → Earth → Water → Fire (순환)
+    /// </summary>
+    private static ElementType GetNextInChain(ElementType element)
+    {
+        if (!IsInChain(element))
+            return ElementType.NONE;
+        
+        int currentIndex = Array.IndexOf(_advantageChain, element);
+        int nextIndex = (currentIndex + 1) % _advantageChain.Length;
+        
+        return _advantageChain[nextIndex];
+    }
+    
+    /// <summary>
+    /// 체인에서 주어진 속성의 역상성 속성 반환
+    /// Fire ← Wind ← Light ← Earth ← Water ← Fire (역순환)
+    /// </summary>
+    private static ElementType GetPreviousInChain(ElementType element)
+    {
+        if (!IsInChain(element))
+            return ElementType.NONE;
+        
+        int currentIndex = Array.IndexOf(_advantageChain, element);
+        int previousIndex = (currentIndex - 1 + _advantageChain.Length) % _advantageChain.Length;
+        
+        return _advantageChain[previousIndex];
+    }
+
+
+}

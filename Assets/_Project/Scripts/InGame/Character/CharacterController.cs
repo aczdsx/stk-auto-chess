@@ -608,7 +608,7 @@ namespace CookApps.BattleSystem
         {
             FollowHpBar();
         }
-    
+
         private ObfuscatorFloat _recoveryHPElapsedTime;
         private void RecoverHP(float dt)
         {
@@ -891,6 +891,7 @@ namespace CookApps.BattleSystem
             public bool isAD;
             public bool isCritical;
             public bool isDoubleCritical;
+            public ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult;
             public long source;
 
             // 외부에서 DamageInfo를 생성할 때 사용하는 함수
@@ -961,7 +962,7 @@ namespace CookApps.BattleSystem
             // 대미지 증감에 따른 최종 대미지 계산
             damageInfo.damageAmount = damageInfo.damageAmount * AttackDamageRate * (target?.TakenDamageRate ?? 1f);
             // 추가로 종족, 크기, 속성에 따른 대미지 계산이 필요하다면 여기서 할 것
-
+            CalculateElementAdvantageDamage(ref damageInfo, target);
             // 최소 대미지량 적용
             damageInfo.damageAmount = Math.Floor(Math.Max(minDamageAmount, damageInfo.damageAmount));
 
@@ -1021,7 +1022,7 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
 
-            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, hexColor).Forget();
+            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
 
             _currHp -= damageAmount.damageAmount.Value;
 
@@ -1123,6 +1124,25 @@ namespace CookApps.BattleSystem
             // }
         }
 
+        private void CalculateElementAdvantageDamage(ref DamageInfo damageInfo, CharacterController target = null)
+        {
+            damageInfo.elementAdvantageResult = ElementAdvantageHelper.ElementAdvantageResult.NONE;
+            if (target == null)
+                return;
+
+            damageInfo.elementAdvantageResult = ElementAdvantageHelper.GetElementAdvantageResult(this.SpecCharacter.element_type,
+                                                                                        target.SpecCharacter.element_type);
+            switch (damageInfo.elementAdvantageResult)
+            {
+                case ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE:
+                    damageInfo.damageAmount *= ElementAdvantageHelper.ADVANTAGE_MULTIPLIER;
+                    return;
+                case ElementAdvantageHelper.ElementAdvantageResult.RESIST:
+                    damageInfo.damageAmount *= ElementAdvantageHelper.RESIST_MULTIPLIER;
+                    return;
+            }
+        }
+
         /// <summary>
         /// 회복량 계산
         /// </summary>
@@ -1183,7 +1203,9 @@ namespace CookApps.BattleSystem
             return true;
         }
 
-        private async UniTask ShowDamageText(double amount, bool isCritical, string hexColor = null)
+        private async UniTask ShowDamageText(double amount, bool isCritical,
+                                            ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult,
+                                            string hexColor = null)
         {
             if (amount == 0)
             {
@@ -1191,6 +1213,13 @@ namespace CookApps.BattleSystem
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, hexColor);
+
+            if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.NONE)
+            {
+                return;
+            }
+            InGameTextView AdvantageTextView = InGameTextViewPool.Instance.Get();
+            await AdvantageTextView.ShowElementAdvantageText(GetCharacterView().CachedTr.position, _statData.Spec.height, elementAdvantageResult);
         }
 
         private async UniTask ShowHealText(double amount)
