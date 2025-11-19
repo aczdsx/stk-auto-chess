@@ -39,15 +39,11 @@ namespace CookApps.AutoBattler
             return SimpleSwapType.Grade_0 + ((int) grade - 1);
         }
 
-        public static SimpleSwapType ToSimpleSwapType(this ElementType type)
+        public static SimpleSwapType ToSimpleSwapType(this SynergyType type)
         {
             return SimpleSwapType.Custom_0 + ((int) type - 1);
         }
 
-        public static SimpleSwapType ToSimpleSwapType(this CharacterPositionType pos)
-        {
-            return SimpleSwapType.Custom_0 + ((int) pos - 1);
-        }
 
         public static BattleSystem.AttackRangeShape ToInGameAttackRangeShape(this AttackRangeShape type)
         {

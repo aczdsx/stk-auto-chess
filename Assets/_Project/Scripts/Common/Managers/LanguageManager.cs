@@ -60,42 +60,42 @@ namespace CookApps.AutoBattler
             return String.Empty;
         }
         
-        public string GetSynergyText(ElementType type)
+        public string GetSynergyText(SynergyType elementType)
         {
-            switch (type)
+            switch (elementType)
             {
-                case ElementType.FIRE:
+                case SynergyType.FIRE:
                     return GetLanguageText("SYNERGY_FIRE");
-                case ElementType.WATER:
+                case SynergyType.WATER:
                     return GetLanguageText("SYNERGY_WATER");
-                case ElementType.EARTH:
+                case SynergyType.EARTH:
                     return GetLanguageText("SYNERGY_EARTH");
-                case ElementType.WIND:
+                case SynergyType.WIND:
                     return GetLanguageText("SYNERGY_WIND");
-                case ElementType.LIGHT:
+                case SynergyType.LIGHT:
                     return GetLanguageText("SYNERGY_LIGHT");
-                case ElementType.DARK:
+                case SynergyType.DARK:
                     return GetLanguageText("SYNERGY_DARK");
                 default:
                     return string.Empty;
             }
         }
 
-        public string GetClassText(CharacterPositionType type)
+        public string GetClassText(SynergyType positionType)
         {
-            switch (type)
+            switch (positionType)
             {
-                case CharacterPositionType.TANK:
+                case SynergyType.TANK:
                     return GetLanguageText("CLASS_TANK");
-                case CharacterPositionType.GUARDIAN:
+                case SynergyType.GUARDIAN:
                     return GetLanguageText("CLASS_GUARDIAN");
-                case CharacterPositionType.RANGER:
+                case SynergyType.RANGER:
                     return GetLanguageText("CLASS_RANGER");
-                case CharacterPositionType.WIZARD:
+                case SynergyType.WIZARD:
                     return GetLanguageText("CLASS_WIZARD");
-                case CharacterPositionType.SUPPORTER:
+                case SynergyType.SUPPORTER:
                     return GetLanguageText("CLASS_SUPPORTER");
-                case CharacterPositionType.ASSASSIN:
+                case SynergyType.ASSASSIN:
                     return GetLanguageText("CLASS_ASSASSIN");
                 default:
                     return string.Empty;

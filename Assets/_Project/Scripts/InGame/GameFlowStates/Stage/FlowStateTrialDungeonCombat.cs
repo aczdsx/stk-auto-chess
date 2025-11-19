@@ -87,7 +87,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(allianceType, characters);
         foreach (CharacterController charac in characters)
         {
-            if (idleState || charac.SpecCharacter.character_position_type != CharacterPositionType.ASSASSIN)
+            if (idleState || charac.SpecCharacter.character_position_type != SynergyType.ASSASSIN)
             {
                 charac.AddNextState<CharacterStateIdle>();
             }

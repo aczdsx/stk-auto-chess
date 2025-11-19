@@ -133,7 +133,7 @@ public class InGameTopUI : MonoBehaviour
             .Concat(elementTypeCounts)
             .Where(x => x.Count > 0);
 
-        synergyCounts = synergyCounts.OrderByDescending(x => x.Count).Take(9);
+        synergyCounts = synergyCounts.OrderByDescending(x => x.Count).Take(9);// 최대 9개까지 가져오겠단는의미
         if (!isDescending)
             synergyCounts = synergyCounts.OrderBy(x => x.Count);
 

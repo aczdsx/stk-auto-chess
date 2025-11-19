@@ -10,6 +10,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
+using Unity.Android.Gradle;
 
 namespace CookApps.AutoBattler
 {
@@ -85,8 +86,8 @@ namespace CookApps.AutoBattler
         private Dictionary<long, List<SpecSkill>> skillPrefabIDDic = new(); // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new(); // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<CharacterPositionType, List<SpecSynergy>> positionSynergyDic = new(); // key : CharacterPositionType, value : SpecSynergy
-        private Dictionary<ElementType, List<SpecSynergy>> elementSynergyDic = new(); // key : ElementType, value : SpecSynergy
+        private Dictionary<SynergyType, List<SpecSynergy>> positionSynergyDic = new(); // key : SynergyType, value : SpecSynergy
+        private Dictionary<SynergyType, List<SpecSynergy>> elementSynergyDic = new(); // key : SynergyType, value : SpecSynergy
         private Dictionary<int, List<SpecObstacle>> obstacleDic = new(); // key : obstacle_id, value : SpecObstacle
 
 
@@ -338,14 +339,14 @@ namespace CookApps.AutoBattler
             return SpecCharacterLevelExpList.FindAll(data => data.level <= level);
         }
 
-        public SpecCharacterTranscendence GetCharacterTranscendenceData(ElementType elementType, GradeType gradeType, int transcendenceLevel)
+        public SpecCharacterTranscendence GetCharacterTranscendenceData(SynergyType elementType, GradeType gradeType, int transcendenceLevel)
         {
             return SpecCharacterTranscendenceList.Find(data => data.element_type == elementType
                                                                     && data.grade_type == gradeType
                                                                     && data.transcendence_lv == transcendenceLevel);
         }
 
-        public List<SpecCharacterTranscendence> GetCharacterTranscendenceDataList(ElementType elementType, GradeType gradeType)
+        public List<SpecCharacterTranscendence> GetCharacterTranscendenceDataList(SynergyType elementType, GradeType gradeType)
         {
             return SpecCharacterTranscendenceList.FindAll(data => data.element_type == elementType
                                                                         && data.grade_type == gradeType);
@@ -822,7 +823,7 @@ namespace CookApps.AutoBattler
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
 
-        public List<SpecSynergy> GetSpecSynergyList(ElementType elementType)
+        public List<SpecSynergy> GetSpecSynergyListByElementType(SynergyType elementType)
         {
             if (elementSynergyDic.TryGetValue(elementType, out List<SpecSynergy> synergyList))
             {
@@ -832,13 +833,26 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public List<SpecSynergy> GetSpecSynergyList(CharacterPositionType positionType)
+        public List<SpecSynergy> GetSpecSynergyListByPositionType(SynergyType positionType)
         {
             if (positionSynergyDic.TryGetValue(positionType, out List<SpecSynergy> synergyList))
             {
                 return synergyList;
             }
 
+            return null;
+        }
+        // 전부 찾는 코드
+        public List<SpecSynergy> GetSpecSynergyListInAll(SynergyType synergyType)
+        {
+            if(elementSynergyDic.ContainsKey(synergyType))
+            {
+                return GetSpecSynergyListByElementType(synergyType);
+            }
+            else if(positionSynergyDic.ContainsKey(synergyType))
+            {
+                return GetSpecSynergyListByPositionType(synergyType);
+            }
             return null;
         }
 

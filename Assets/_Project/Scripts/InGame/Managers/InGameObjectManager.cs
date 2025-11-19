@@ -169,7 +169,7 @@ namespace CookApps.BattleSystem
             return null;
         }
 
-        public int GetCharacterSynergyCount(AllianceType allianceType, ElementType type)
+        public int GetCharacterSynergyElementTypeCount(AllianceType allianceType, SynergyType elementType)
         {
             int value = 0;
 
@@ -178,13 +178,13 @@ namespace CookApps.BattleSystem
                 : enemiesInPlaygroundForUpdate;
             foreach (var character in targetList)
             {
-                value += character.GetCharacterStat().Spec.element_type == type ? 1 : 0;
+                value += character.GetCharacterStat().Spec.element_type == elementType ? 1 : 0;
             }
 
             return value;
         }
 
-        public int GetCharacterSynergyCount(AllianceType allianceType, CharacterPositionType type)
+        public int GetCharacterSynergyPositionTypeCount(AllianceType allianceType, SynergyType positionType)
         {
             int value = 0;
 
@@ -194,7 +194,7 @@ namespace CookApps.BattleSystem
 
             foreach (var character in targetList)
             {
-                value += character.GetCharacterStat().Spec.character_position_type == type ? 1 : 0;
+                value += character.GetCharacterStat().Spec.character_position_type == positionType ? 1 : 0;
             }
 
             return value;
@@ -620,7 +620,7 @@ namespace CookApps.BattleSystem
             foreach (var enemy in reusableList)
             {
                 if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
-                    CharacterPositionType.ASSASSIN)
+                    SynergyType.ASSASSIN)
                 {
                     continue;
                 }
@@ -666,7 +666,7 @@ namespace CookApps.BattleSystem
             foreach (var enemy in sortedTargets)
             {
                 if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
-                    CharacterPositionType.ASSASSIN)
+                    SynergyType.ASSASSIN)
                 {
                     continue;
                 }
@@ -853,7 +853,7 @@ namespace CookApps.BattleSystem
             return attrValue;
         }
 
-        public void SpawnSynergyFx(AllianceType type, ElementType elementType)
+        public void SpawnSynergyFx(AllianceType type, SynergyType elementType)
         {
             List<CharacterController> targetList = (type == AllianceType.Player)
                 ? charactersInPlaygroundForUpdate
@@ -862,27 +862,27 @@ namespace CookApps.BattleSystem
             foreach (var character in targetList)
             {
                 InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
-                if (elementType == ElementType.FIRE)
+                if (elementType == SynergyType.FIRE)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
                 }
-                else if (elementType == ElementType.WATER)
+                else if (elementType == SynergyType.WATER)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
                 }
-                else if (elementType == ElementType.DARK)
+                else if (elementType == SynergyType.DARK)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
                 }
-                else if (elementType == ElementType.LIGHT)
+                else if (elementType == SynergyType.LIGHT)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_light;
                 }
-                else if (elementType == ElementType.EARTH)
+                else if (elementType == SynergyType.EARTH)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
                 }
-                else if (elementType == ElementType.WIND)
+                else if (elementType == SynergyType.WIND)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
                 }
@@ -922,7 +922,7 @@ namespace CookApps.BattleSystem
             foreach (var playerCharacter in characterControllers)
             {
                 var target = new CharacterController();
-                if (playerCharacter.GetCharacterStat().Spec.character_position_type == CharacterPositionType.ASSASSIN)
+                if (playerCharacter.GetCharacterStat().Spec.character_position_type == SynergyType.ASSASSIN)
                 {
                     target = GetFarthestTargetByOnce(playerCharacter);
                 }

@@ -71,7 +71,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             {
                 if (_guideFx.gameObject.activeSelf && _statData.CharacterID == 130301)
                 {
-                    var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(ElementType.WATER);
+                    var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByElementType(elementType: SynergyType.WATER);
                     if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                     {
                         var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();

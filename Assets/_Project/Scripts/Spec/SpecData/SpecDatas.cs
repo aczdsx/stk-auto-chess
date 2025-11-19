@@ -86,9 +86,9 @@ namespace CookApps.AutoBattler
         /// 개체 타입
         public global::CookApps.AutoBattler.CharacterType character_type;
         /// 속성 시너지
-        public global::CookApps.AutoBattler.ElementType element_type;
+        public global::CookApps.AutoBattler.SynergyType element_type;
         /// 포지션 시너지
-        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        public global::CookApps.AutoBattler.SynergyType character_position_type;
         /// 일반 공격 AP AD 판정 유무
         public global::CookApps.AutoBattler.AtkType atk_type;
         /// 사이즈
@@ -176,7 +176,7 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 시너지 종류
-        public global::CookApps.AutoBattler.ElementType element_type;
+        public global::CookApps.AutoBattler.SynergyType element_type;
         /// 캐릭터 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 캐릭터 초월 레벨
@@ -298,7 +298,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecDialogueEvent
+    public partial class SpecTutorialDialogue
     {
         /// 유니크 ID
         [GeneratorId(nameof(id), typeof(int))]
@@ -760,9 +760,9 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 시너지 시너지
-        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        public global::CookApps.AutoBattler.SynergyType character_position_type;
         /// 포지션 시너지
-        public global::CookApps.AutoBattler.ElementType element_type;
+        public global::CookApps.AutoBattler.SynergyType element_type;
         /// 시너지 이름 토큰
         public string name_token;
         /// 시너지 효과 설명 토큰

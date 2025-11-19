@@ -67,11 +67,11 @@ namespace CookApps.AutoBattler
             var baseSynergyData = _synergyList[0];
 
             // 시너지 UI 설정
-            if (baseSynergyData.character_position_type == CharacterPositionType.NONE)
+            if (baseSynergyData.character_position_type == SynergyType.NONE)
             {
                 _synergyUI.SetSynergy(baseSynergyData.element_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
             }
-            else if (baseSynergyData.element_type == ElementType.NONE)
+            else if (baseSynergyData.element_type == SynergyType.NONE)
             {
                 _synergyUI.SetPositionSynergy(baseSynergyData.character_position_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
             }
