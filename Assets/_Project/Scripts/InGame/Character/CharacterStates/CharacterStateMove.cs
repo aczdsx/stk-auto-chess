@@ -69,6 +69,7 @@ public class CharacterStateMove : CharacterStateBase
 
     public override void StateEnd(bool isForced)
     {
+        characCtrl.OnTileMoveEnd();
         base.StateEnd(isForced);
         moveTween.Stop();
     }

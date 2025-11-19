@@ -298,6 +298,32 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecDialogueEvent
+    {
+        /// 유니크 ID
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 그룹
+        public int group;
+        /// 순서
+        public int sequence;
+        /// 딜레이
+        public int dialogue_delay_ms;
+        /// 파라메터1
+        public string param1;
+        /// 파라메터2
+        public string param2;
+        /// 다이얼로그
+        public int dialogue_id;
+        /// 딜레이
+        public int after_action_delay_ms;
+        /// 파라메터1
+        public string after_param1;
+        /// 파라메터2
+        public string after_param2;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecDungeonTrial
     {
         /// 전체 ID
@@ -599,23 +625,37 @@ namespace CookApps.AutoBattler
         /// 장애물 id
         public int neutral_wall_id;
         /// 이펙트 코드
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
-        /// 이텍트 코드 스텟
-        public float effect_code_stat;
+        public int effect_code_id;
         /// 챕터 룰
         public int[] effect_code_rule_tile = global::System.Array.Empty<int>();
         /// 이펙트 코드2
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_2;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_2;
+        public int effect_code_id_2;
         /// 챕터 룰2
         public int[] effect_code_rule_tile_2 = global::System.Array.Empty<int>();
         /// 이펙트 코드3
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name_3;
-        /// 이텍트 코드 스텟3
-        public float effect_code_stat_3;
+        public int effect_code_id_3;
         /// 챕터 룰3
         public int[] effect_code_rule_tile_3 = global::System.Array.Empty<int>();
+    }
+
+    [GeneratorSpecData]
+    public partial class SpecTileEffectCode
+    {
+        /// 전체 ID
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 이펙트 코드
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
+        /// 이름
+        public string name_token;
+        /// 설명
+        public string desc_token;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_1;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_2;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_3;
     }
 
     [GeneratorSpecData]
@@ -735,10 +775,16 @@ namespace CookApps.AutoBattler
         public int min_count;
         /// 단계 발동 최대 명수 조건
         public int max_count;
+        /// 시너지 적용 범위와 조건
+        public global::CookApps.AutoBattler.SynergyAffectType synergy_affect_type;
         /// 계수 타입
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 계수
         public float stat_value;
+        /// 계수 타입2
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
+        /// 계수2
+        public float stat_value_2;
     }
 
     [GeneratorSpecData]

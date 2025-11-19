@@ -135,13 +135,7 @@ namespace CookApps.AutoBattler
                 _cachedFront = true;
             }
 
-            Vector3 scale = _rootTransform.localScale;
-            scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-            _rootTransform.localScale = scale;
-
-            Vector3 skillScale = _skillRootTransform.localScale;
-            skillScale.x = _cachedFlipX ? -Mathf.Abs(skillScale.x) : Mathf.Abs(skillScale.x);
-            _skillRootTransform.localScale = skillScale;
+            SetFlipOrNot();
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
@@ -295,6 +289,19 @@ namespace CookApps.AutoBattler
                 _cachedFront = false;
             }
 
+            SetFlipOrNot();
+        }
+        public void AddViewScale(float viewScale)
+        {
+            Vector3 scale = _rotateionRootTransform.localScale;
+            scale.x += viewScale;
+            scale.y += viewScale;
+            scale.z += viewScale;
+            _rotateionRootTransform.localScale = scale;
+        }
+
+        private void SetFlipOrNot()
+        {
             Vector3 scale = _rootTransform.localScale;
             scale.x = _cachedFlipX ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
             _rootTransform.localScale = scale;

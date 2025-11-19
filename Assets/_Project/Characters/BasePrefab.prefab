@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6888232810305479873}
   m_Layer: 0
-  m_Name: RotationRoot
+  m_Name: BaseRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

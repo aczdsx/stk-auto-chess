@@ -95,6 +95,9 @@ namespace CookApps.AutoBattler
                 case CharacterPositionType.ASSASSIN:
                     spriteName = isActive ? "Icon_Position_Assassin_Active" : "Icon_Position_Assassin_Locked";
                     break;
+                case CharacterPositionType.NOBLESSE:
+                    spriteName = isActive ? "Icon_Position_Noblesse_Active" : "Icon_Position_Noblesse_Locked";
+                    break;
             }
 
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
@@ -125,7 +128,7 @@ namespace CookApps.AutoBattler
 
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
-        
+
         public Sprite GetPVPTierIconSprite(PVPTierType type)
         {
             string spriteName = string.Empty;
@@ -191,7 +194,7 @@ namespace CookApps.AutoBattler
         {
             return AtlasManager.Instance.GetSprite(Defines.CHAR_INGAME_PORTRAIT_ATLAS_NAME, $"IngameObsPortrait_{prefabID}");
         }
-        
+
         public Sprite GetCharacterSmallItemSprite(int prefabID)
         {
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, $"Icon_CharacterSmallItem_{prefabID}");
@@ -216,7 +219,7 @@ namespace CookApps.AutoBattler
         {
             return AtlasManager.Instance.GetSprite(Defines.CHAR_BUFF_DEBUFF_ICON_NAME, $"BuffDebuffIcon_{codeID}");
         }
-        
+
         public Sprite GetInfoImageSprite(int infoID)
         {
             return AtlasManager.Instance.GetSprite(Defines.UI_INFO_IMAGE, $"InfoImage_{infoID}");

@@ -8,6 +8,8 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Pool;
+using Unity.Mathematics;
+using UnityEngine.Tilemaps;
 
 namespace CookApps.BattleSystem
 {
@@ -18,6 +20,19 @@ namespace CookApps.BattleSystem
         public SpecCharacter SpecCharacter => _statData.Spec;
 
         private EffectCodeContainer ecc;
+        /// <summary>
+        /// 타일 이동 종료 시 호출되는 함수입니다.
+        /// 현재 CharacterStateMove의 StateEnd
+        /// CharacterController의 MoveTile의 새로운 타일로 CurrentTile을 변경하기 전에 호출합니다.
+        /// </summary>
+        public void OnTileMoveEnd()
+        {
+            if (CurrentTile.EffectCodeContainer.GetEffectCode((int)EffectCodeNameType.CHAPTER_TRAP)
+                                                is EffectCodeGameBase effectCodeGameBase)
+            {
+                effectCodeGameBase.OnTileMoveEnd(CurrentTile, this);
+            }
+        }
 
         public EffectCodeContainer GetEffectCodeContainer()
         {
@@ -236,6 +251,11 @@ namespace CookApps.BattleSystem
             }
         }
 
+        public void AddViewScaleFactor(float viewScaleValue)
+        {
+            _view.AddViewScale(viewScaleValue);
+        }
+
         public void Clear()
         {
             if (_statData != null)
@@ -303,6 +323,9 @@ namespace CookApps.BattleSystem
                                 var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
                                 ecc.AddOrMergeEffectCode(effectCodeInfo, this);
                             }
+                            // SynergyAffectType.APPLY_EACH_TOGETHER
+                            // SynergyAffectType.APPLY_TEAM_ONCE
+                            // SynergyAffectType.APPLY_EACH
                         }
                     }
                     else
@@ -333,7 +356,7 @@ namespace CookApps.BattleSystem
             {
                 if (positionType == _statData.Spec.character_position_type)
                 {
-                    Span<double> stats = stackalloc double[1];
+                    Span<double> stats = stackalloc double[3];
 
                     int synergyCount =
                         InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
@@ -344,6 +367,8 @@ namespace CookApps.BattleSystem
                         if (data.grade > 0)
                         {
                             stats[0] = data.stat_value;
+                            stats[1] = data.stat_value_2;
+                            stats[2] = data.grade;
 
                             var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
                             ecc.AddOrMergeEffectCode(effectCodeInfo, this);
@@ -398,6 +423,7 @@ namespace CookApps.BattleSystem
 
         public void ChangeOccupiedTile(InGameTile newTile)
         {
+
             if (CurrentTile != null)
             {
                 if (CurrentTile.OccupiedCharacter != null && CurrentTile.OccupiedCharacter == this)
@@ -875,6 +901,7 @@ namespace CookApps.BattleSystem
             public bool isAD;
             public bool isCritical;
             public bool isDoubleCritical;
+            public ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult;
             public long source;
 
             // 외부에서 DamageInfo를 생성할 때 사용하는 함수
@@ -945,7 +972,7 @@ namespace CookApps.BattleSystem
             // 대미지 증감에 따른 최종 대미지 계산
             damageInfo.damageAmount = damageInfo.damageAmount * AttackDamageRate * (target?.TakenDamageRate ?? 1f);
             // 추가로 종족, 크기, 속성에 따른 대미지 계산이 필요하다면 여기서 할 것
-
+            CalculateElementAdvantageDamage(ref damageInfo, target);
             // 최소 대미지량 적용
             damageInfo.damageAmount = Math.Floor(Math.Max(minDamageAmount, damageInfo.damageAmount));
 
@@ -1005,7 +1032,7 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
 
-            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, hexColor).Forget();
+            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
 
             _currHp -= damageAmount.damageAmount.Value;
 
@@ -1107,6 +1134,25 @@ namespace CookApps.BattleSystem
             // }
         }
 
+        private void CalculateElementAdvantageDamage(ref DamageInfo damageInfo, CharacterController target = null)
+        {
+            damageInfo.elementAdvantageResult = ElementAdvantageHelper.ElementAdvantageResult.NONE;
+            if (target == null)
+                return;
+
+            damageInfo.elementAdvantageResult = ElementAdvantageHelper.GetElementAdvantageResult(this.SpecCharacter.element_type,
+                                                                                        target.SpecCharacter.element_type);
+            switch (damageInfo.elementAdvantageResult)
+            {
+                case ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE:
+                    damageInfo.damageAmount *= ElementAdvantageHelper.ADVANTAGE_MULTIPLIER;
+                    return;
+                case ElementAdvantageHelper.ElementAdvantageResult.RESIST:
+                    damageInfo.damageAmount *= ElementAdvantageHelper.RESIST_MULTIPLIER;
+                    return;
+            }
+        }
+
         /// <summary>
         /// 회복량 계산
         /// </summary>
@@ -1167,7 +1213,9 @@ namespace CookApps.BattleSystem
             return true;
         }
 
-        private async UniTask ShowDamageText(double amount, bool isCritical, string hexColor = null)
+        private async UniTask ShowDamageText(double amount, bool isCritical,
+                                            ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult,
+                                            string hexColor = null)
         {
             if (amount == 0)
             {
@@ -1175,6 +1223,13 @@ namespace CookApps.BattleSystem
             }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, hexColor);
+
+            if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.NONE)
+            {
+                return;
+            }
+            InGameTextView AdvantageTextView = InGameTextViewPool.Instance.Get();
+            await AdvantageTextView.ShowElementAdvantageText(GetCharacterView().CachedTr.position, _statData.Spec.height, elementAdvantageResult);
         }
 
         private async UniTask ShowHealText(double amount)
@@ -1200,26 +1255,26 @@ namespace CookApps.BattleSystem
         public void MoveCharacter(bool isInRange)
         {
             if (NeedToBeCrowdControlState())
-            {
+            {//이건 cc기 당했다면 cc상태로 변환
                 AddNextState<CharacterStateCC>();
                 return;
             }
 
             if (isInRange)
-            {
+            {//타겟과의 거리가 범위안에있다면 idle로 변환
                 AddNextState<CharacterStateIdle>();
                 return;
             }
 
             Target = InGameObjectManager.Instance.GetTargetForMove(this);
-            if (Target == null)
+            if (Target == null)//타겟이 없다면 idle로 변환
             {
                 AddNextState<CharacterStateIdle>();
                 return;
             }
 
             var isNewTargetInRange = InGameObjectManager.Instance.IsInRange(this, Target);
-            if (isNewTargetInRange)
+            if (isNewTargetInRange)//타겟과의 거리가 범위안에있다면 idle로 변환
             {
                 AddNextState<CharacterStateIdle>();
                 return;
@@ -1227,7 +1282,7 @@ namespace CookApps.BattleSystem
 
             InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
             if (bestTile == CurrentTile)
-            {
+            {//이 경우는 다음 타일로 움직이고있는 중이라는 뜻 같다. 근데 얼리리턴함.
                 if (_notFoundTargetFx == null)
                     _notFoundTargetFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
                         SkillRootTransformFollowable);
@@ -1260,6 +1315,7 @@ namespace CookApps.BattleSystem
         {
             if (SpecCharacter.move_speed > 0)
             {
+                OnTileMoveEnd();
                 GetCharacterView().LookAt(CurrentTile, tile);
                 ChangeOccupiedTile(tile);
                 AddNextState<CharacterStateMove>();

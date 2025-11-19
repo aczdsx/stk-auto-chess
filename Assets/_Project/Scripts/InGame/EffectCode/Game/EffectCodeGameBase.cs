@@ -18,6 +18,18 @@ namespace CookApps.BattleSystem
         public virtual void OnUpdate(float dt)
         {
         }
+        /// <summary>
+        /// CharacterController에서 해당 타일에 완전히 진입하였을때에 호출됩니다.
+        /// </summary>
+        public virtual void OnTileMoveEnd(InGameTile tile, CharacterController character)
+        {
+
+        }
+
+        protected virtual void SetRuleTileByInfo(EffectCodeInfo codeInfo)
+        {
+
+        }
     }
 
     public static class EffectCodeGameLambda

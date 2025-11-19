@@ -35,13 +35,13 @@ namespace CookApps.AutoBattler
         {
             _damageText = (isCritical) ? _textCritDamage : _txtDamage;
             _damageText.text = $"{damage}";
-            _damageText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color) 
-                ? color 
+            _damageText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color)
+                ? color
                 : defaultColor;
-            
+
             _xOffset = Random.Range(-0.5f, 0.5f);
 
-            Vector3 initialPosition = position + Vector3.up * (characterHeight  + _heightOffset);
+            Vector3 initialPosition = position + Vector3.up * (characterHeight + _heightOffset);
             initialPosition.x += _xOffset;
             _root.position = initialPosition;
             _animator.SetTrigger(isCritical ? Critical : Normal);
@@ -101,6 +101,20 @@ namespace CookApps.AutoBattler
             initialPosition.x += _xOffset;
             _root.position = initialPosition;
             _animator.SetTrigger(Shield);
+
+            // await WaitForAnimationEnd();
+        }
+
+        public async UniTask ShowElementAdvantageText(Vector3 position, float characterHeight, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        {
+            _damageText = _txtDamage;
+            _damageText.text = ElementAdvantageHelper.GetElementAdvantageText(elementAdvantageResult);
+
+            _xOffset = Random.Range(-0.5f, 0.5f);
+            Vector3 initialPosition = position + Vector3.up * (characterHeight + (_heightOffset));
+            initialPosition.x += _xOffset;
+            _root.position = initialPosition;
+            _animator.SetTrigger(Normal);
 
             // await WaitForAnimationEnd();
         }
