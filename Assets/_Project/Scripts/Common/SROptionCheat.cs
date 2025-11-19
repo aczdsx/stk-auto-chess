@@ -598,7 +598,7 @@ public partial class SROptions
     public void 이미지인포팝테스트()
     {
         Action onComplete = null;
-        SceneUILayerManager.Instance.PushUILayerAsync<DialogueShowPopup>((다이얼로그아이디, onComplete)).Forget();
+        SceneUILayerManager.Instance.PushUILayerAsync<DialoguePopup>((다이얼로그아이디, onComplete)).Forget();
         
         ToastManager.Instance.ShowToast("치트 - 사용완료");
     }
