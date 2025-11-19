@@ -251,6 +251,11 @@ namespace CookApps.BattleSystem
             }
         }
 
+        public void AddViewScaleFactor(float viewScaleValue)
+        {
+            _view.AddViewScale(viewScaleValue);
+        }
+
         public void Clear()
         {
             if (_statData != null)
@@ -318,6 +323,9 @@ namespace CookApps.BattleSystem
                                 var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
                                 ecc.AddOrMergeEffectCode(effectCodeInfo, this);
                             }
+                            // SynergyAffectType.APPLY_EACH_TOGETHER
+                            // SynergyAffectType.APPLY_TEAM_ONCE
+                            // SynergyAffectType.APPLY_EACH
                         }
                     }
                     else
@@ -348,7 +356,7 @@ namespace CookApps.BattleSystem
             {
                 if (positionType == _statData.Spec.character_position_type)
                 {
-                    Span<double> stats = stackalloc double[1];
+                    Span<double> stats = stackalloc double[3];
 
                     int synergyCount =
                         InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
@@ -359,6 +367,8 @@ namespace CookApps.BattleSystem
                         if (data.grade > 0)
                         {
                             stats[0] = data.stat_value;
+                            stats[1] = data.stat_value_2;
+                            stats[2] = data.grade;
 
                             var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
                             ecc.AddOrMergeEffectCode(effectCodeInfo, this);

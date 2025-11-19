@@ -298,6 +298,32 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecDialogueEvent
+    {
+        /// 유니크 ID
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 그룹
+        public int group;
+        /// 순서
+        public int sequence;
+        /// 딜레이
+        public int dialogue_delay_ms;
+        /// 파라메터1
+        public string param1;
+        /// 파라메터2
+        public string param2;
+        /// 다이얼로그
+        public int dialogue_id;
+        /// 딜레이
+        public int after_action_delay_ms;
+        /// 파라메터1
+        public string after_param1;
+        /// 파라메터2
+        public string after_param2;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecDungeonTrial
     {
         /// 전체 ID
@@ -749,10 +775,16 @@ namespace CookApps.AutoBattler
         public int min_count;
         /// 단계 발동 최대 명수 조건
         public int max_count;
+        /// 시너지 적용 범위와 조건
+        public global::CookApps.AutoBattler.SynergyAffectType synergy_affect_type;
         /// 계수 타입
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 계수
         public float stat_value;
+        /// 계수 타입2
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
+        /// 계수2
+        public float stat_value_2;
     }
 
     [GeneratorSpecData]

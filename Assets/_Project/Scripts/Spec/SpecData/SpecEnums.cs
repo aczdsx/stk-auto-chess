@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
         HP_RECOVERY_PERCENT_UP = 16,
         MOVESPEED_UP = 17,
         MOVESPEED_PERCENT_UP = 18,
+        VIEW_SCALE_UP = 19,
         TILE_BURN = 1000000001,
         STUN = 1100000001,
         SHIELD = 1100000002,
@@ -129,6 +130,7 @@ namespace CookApps.AutoBattler
         RANGER = 4,
         ASSASSIN = 5,
         SUPPORTER = 6,
+        NOBLESSE = 7,
     }
 
     public enum AttackRangeShape
@@ -661,5 +663,36 @@ namespace CookApps.AutoBattler
         CHARCTER = 1,
         COMMANDER_SKILL = 2,
         CHAPTER_RULE = 3,
+    }
+
+    public enum DialogueEventConditionType
+    {
+        NONE = 0,
+        POPUP_OPEN = 1,
+        POPUP_CLOSE = 2,
+        LOBBY = 3,
+        BATTLE_ENCOUNT = 4,
+        BATTLE_END = 5,
+        SKILL_READY = 6,
+        SKILL_END = 7,
+        CHARACTER_DEAD = 8,
+        TUTORIAL_END = 9,
+        GUIDE_MISSION_START = 10,
+        GUIDE_MISSION_CLEAR = 11,
+    }
+
+    public enum DialogueEventAfterActionType
+    {
+        NONE = 0,
+        NANINOVEL = 1,
+        TUTORIAL = 2,
+        ACTION_SKILL_AFTER = 3,
+    }
+
+    public enum SynergyAffectType
+    {
+        APPLY_EACH = 0,
+        APPLY_EACH_TOGETHER = 1,
+        APPLY_TEAM_ONCE = 2,
     }
 }
