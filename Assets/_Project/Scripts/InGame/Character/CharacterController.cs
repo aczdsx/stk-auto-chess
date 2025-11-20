@@ -299,111 +299,75 @@ namespace CookApps.BattleSystem
             }
         }
 
-        //[TODO] 나중에 리펙토링 필요
-        public void AddSynergyEffectCode()
+        // public void AddSynergyEachTogether(SynergyType targetSynergyType)
+        // {
+        //     //해당 함수는 add성공 시 계속 수행해야하고, 실패 시 다음 리스트까지 continue해도 됩니다.
+        //     var inGameObjectManagerInstance = InGameObjectManager.Instance;
+
+        //     var isElementSynergyType = DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType);
+
+        //     var targetSynergyCharacterCount = isElementSynergyType ?
+        //         inGameObjectManagerInstance.GetCharacterSynergyElementTypeCount(_allianceType, targetSynergyType) :
+        //         inGameObjectManagerInstance.GetCharacterSynergyPositionTypeCount(_allianceType, targetSynergyType);
+
+        //     if (targetSynergyCharacterCount <= 0)
+        //         return;
+
+        //     var canSynergy = SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
+        //     out var outSynergyData, out var outSynergyList);
+        //     if(!canSynergy)
+        //         return false;
+
+
+        //     Span<double> stats = stackalloc double[1];
+        //     stats[0] = outSynergyData.stat_value;
+        //     var effectCodeInfo = new EffectCodeInfo(outSynergyList[0].id, 0, stats);
+        //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+
+        //     return true;
+        // }
+
+        public void InjectSynergy(long effectCodeID, SpecSynergy synergyData)
         {
-            foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
-            {
-                if (elementType != ElementType.NONE && elementType != ElementType.DARK)
-                {
-                    bool isEffectAllCharacter = elementType == ElementType.WATER;
-                    if (isEffectAllCharacter)
-                    {
-                        Span<double> stats = stackalloc double[1];
+            Span<double> stats = stackalloc double[3];
+            stats[0] = synergyData.stat_value;
+            stats[1] = synergyData.stat_value_2;
+            stats[2] = synergyData.grade;
+            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+        }
 
-                        int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
-                        if (synergyCount > 0)
-                        {
-                            var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
-                            var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
-                            if (data.grade > 0)
-                            {
-                                stats[0] = data.stat_value;
-
-                                var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
-                                ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-                            }
-                            // SynergyAffectType.APPLY_EACH_TOGETHER
-                            // SynergyAffectType.APPLY_TEAM_ONCE
-                            // SynergyAffectType.APPLY_EACH
-                        }
-                    }
-                    else
-                    {
-                        if (elementType == _statData.Spec.element_type)
-                        {
-                            Span<double> stats = stackalloc double[1];
-
-                            int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
-                            if (synergyCount > 0)
-                            {
-                                var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
-                                var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
-                                if (data.grade > 0)
-                                {
-                                    stats[0] = data.stat_value;
-
-                                    var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
-                                    ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
-            {
-                if (positionType == _statData.Spec.character_position_type)
-                {
-                    Span<double> stats = stackalloc double[3];
-
-                    int synergyCount =
-                        InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
-                    if (synergyCount > 0)
-                    {
-                        var list = SpecDataManager.Instance.GetSpecSynergyList(positionType);
-                        var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
-                        if (data.grade > 0)
-                        {
-                            stats[0] = data.stat_value;
-                            stats[1] = data.stat_value_2;
-                            stats[2] = data.grade;
-
-                            var effectCodeInfo = new EffectCodeInfo(list[0].id, 0, stats);
-                            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-                        }
-                    }
-                }
-            }
+        public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, SpecSynergy synergyData)
+        {
+            //이건좀 고민
+            if (targetSynergyType != _statData.Spec.element_type
+            || targetSynergyType != _statData.Spec.character_position_type)
+                return;
+            InjectSynergy(effectCodeID, synergyData);
         }
 
         public void RemoveSynergyEffectCode()
         {
-            foreach (ElementType elementType in Enum.GetValues(typeof(ElementType)))
+            for (int i = 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
             {
-                int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, elementType);
-                if (synergyCount > 0)
-                {
-                    var list = SpecDataManager.Instance.GetSpecSynergyList(elementType);
-                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                SynergyType targetSynergyType = (SynergyType)i;
+            
+                var inGameObjectManagerInstance = InGameObjectManager.Instance;
 
-                    if (data.grade > 0)
-                        ecc.RemoveEffectCode(list[0].id);
-                }
-            }
+                var isElementSynergyType = DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType);
 
-            foreach (CharacterPositionType positionType in Enum.GetValues(typeof(CharacterPositionType)))
-            {
-                int synergyCount = InGameObjectManager.Instance.GetCharacterSynergyCount(_allianceType, positionType);
-                if (synergyCount > 0)
-                {
-                    var list = SpecDataManager.Instance.GetSpecSynergyList(positionType);
-                    var data = list.Find(l => l.min_count <= synergyCount && l.max_count >= synergyCount);
+                var targetSynergyCharacterCount = isElementSynergyType ?
+                    inGameObjectManagerInstance.GetCharacterSynergyElementTypeCount(_allianceType, targetSynergyType) :
+                    inGameObjectManagerInstance.GetCharacterSynergyPositionTypeCount(_allianceType, targetSynergyType);
 
-                    if (data.grade > 0)
-                        ecc.RemoveEffectCode(list[0].id);
-                }
+                if (targetSynergyCharacterCount < 1)
+                    continue;
+
+                if (!SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
+                out var outSynergyData, out var outSynergyList))
+                    continue;
+
+                ecc.RemoveEffectCode(outSynergyList[0].id);
             }
         }
 

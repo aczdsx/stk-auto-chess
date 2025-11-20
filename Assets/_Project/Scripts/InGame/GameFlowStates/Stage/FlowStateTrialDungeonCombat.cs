@@ -36,15 +36,16 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
 
     public override void StateStart()
     {
+        base.AddSynergy(AllianceType.Player);
+        base.AddSynergy(AllianceType.Enemy);
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
-            character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
-            character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
@@ -52,9 +53,6 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
-
-        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
-        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
         var effectCodes =
             InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(

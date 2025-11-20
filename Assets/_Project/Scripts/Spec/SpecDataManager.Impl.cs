@@ -856,6 +856,23 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
+            out SpecSynergy outSynergyData, out List<SpecSynergy> outSynergyList)
+        {
+            outSynergyData = null;
+            outSynergyList = GetSpecSynergyListInAll(synergyType);
+            if(outSynergyList == null)
+            {
+                return false;
+            }
+            outSynergyData = outSynergyList.Find(l => l.min_count <= count && l.max_count >= count);
+            if (outSynergyData == null || outSynergyData.grade < 1)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public SpecQuest GetSpecQuestData(int questID)
         {
             return SpecQuestList.Find(data => data.quest_id == questID);

@@ -188,7 +188,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickElementSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.element_type);
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByElementType(_specCharacterData.element_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
                 var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
@@ -198,7 +198,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickClassSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_position_type);
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByPositionType(_specCharacterData.character_position_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
                 var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();

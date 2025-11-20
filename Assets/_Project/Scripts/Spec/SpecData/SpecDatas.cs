@@ -283,6 +283,10 @@ namespace CookApps.AutoBattler
         public int prefab_id;
         /// 발화자 이름 토큰
         public string character_name_token;
+        /// 캐릭터 위치
+        public string character_pos;
+        /// 캐릭터 id, 감정
+        public string character_img_id_n_emotion;
         /// 다이얼로그 토큰
         public string text_desc_token;
         /// 다이얼로그 상단 이미지

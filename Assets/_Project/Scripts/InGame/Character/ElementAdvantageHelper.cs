@@ -105,5 +105,4 @@ public static class ElementAdvantageHelper
         return _advantageElementChain[previousIndex];
     }
 
-
 }
