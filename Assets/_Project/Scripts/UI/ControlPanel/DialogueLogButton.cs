@@ -14,7 +14,6 @@ public class DialogueLogButton : ScriptableButton
 
     protected override void OnButtonClick ()
     {
-        Debug.Log("DialogueLogButton / OnButtonClick ()");
         uiManager.GetUI<IPauseUI>()?.Hide();
         uiManager.GetUI<IBacklogUI>()?.Show();
     }

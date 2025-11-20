@@ -18,8 +18,8 @@ MonoBehaviour:
   EnableBuildProcessing: 0
   UseAddressables: 1
   AutoBuildBundles: 0
-  AllowAddressableInEditor: 0
-  LabelByScripts: 1
+  AllowAddressableInEditor: 1
+  LabelByScripts: 0
   GroupByCategory: 0
   ExtraLabels: []
   LocalRootPath: '%DATA%/StellaKnights/Dialogue'

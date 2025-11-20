@@ -40,7 +40,7 @@ public class SceneDialog : MonoBehaviour
         // if(DataManager.Instance.localSaveData != null)
         //     lanCode = DataManager.Instance.UserData.LanguageCodeValue;
         
-        var locale = "en"; 
+        var locale = "ko"; 
         // if(lanCode == Language.TC.ToString())
         //     locale = "zh-TW";
         // else if (lanCode == Language.SC.ToString())
@@ -90,6 +90,7 @@ public class SceneDialog : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"스크립트 재생 실패: {ex.Message}\n스크립트 경로: {scriptPath}\n원본 이름: {testScriptName}");
+            Debug.LogError(ex.ToString());
         }
 
         eventStartTime = Time.realtimeSinceStartup;

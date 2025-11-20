@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using Coffee.UIEffects;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Spine.Unity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +15,8 @@ using UnityEngine.TextCore.Text;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/DialogueShowPopup.prefab")]
-    public class DialogueShowPopup : UILayer
+    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/DialoguePopup.prefab")]
+    public class DialoguePopup : UILayer
     {
         [SerializeField]
         private TMP_FontAsset temTMPFontAsset;
@@ -93,6 +96,7 @@ namespace CookApps.AutoBattler
                                               _currentSpecDialogueData.prefab_id != _dialogueList[seq].prefab_id);
 
             _currentSpecDialogueData = _dialogueList[seq];
+            SetCharacters(_currentSpecDialogueData);
 
             if (isChangePrefab)
                 BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
@@ -299,6 +303,110 @@ namespace CookApps.AutoBattler
             }
             _bgImage.material.SetFloat("_HoleRadius", end);
             _isAnimating = false;
+        }
+
+        private string GetAnimationType(string type)
+        {
+            string result = "normal";
+            if (type == "1")
+            {
+                result = "happy";
+            }
+            else if (type == "2")
+            {
+                result = "angry";
+            }
+            else if (type == "3")
+            {
+                result = "panic";
+            }
+            else if (type == "4")
+            {
+                result = "thinking";
+            }
+            else if (type == "5")
+            {
+                result = "worry";
+            }
+            else if (type == "6")
+            {
+                result = "sad";
+            }
+
+
+            return result;
+        }
+
+        private void SetCharacters(SpecDialogue dialogueData)
+        {
+            List<string> CharacterIds = new List<string>();
+            List<string> CharacterFace = new List<string>();
+            List<int> charPosX = new List<int>();
+            List<int> charPosY = new List<int>();
+            List<int> charPosDir = new List<int>();
+
+            // for (int i = CharacterTransform.transform.childCount - 1; i > 0; i--)
+            // {
+            //     Destroy(CharacterTransform.transform.GetChild(i).gameObject);
+            // }
+            for (int i = _characeterIllustParentObject.transform.childCount - 1; i >= 0; i--)
+            {
+                UnityEngine.Object.DestroyImmediate(_characeterIllustParentObject.transform.GetChild(i).gameObject);
+            }
+
+            // string[] chStrings = dialogueData.character_img_id_n_emotion.Split(',');
+            // for (int i = 0; i < chStrings.Length; i++)
+            // {
+            //     string[] chfStrings = chStrings[i].Split('_');
+            //     CharacterIds.Add(chfStrings[0]);
+            //     CharacterFace.Add(chfStrings[1]);
+            // }
+
+            string[] chPosStrings = dialogueData.character_pos.Split(',');
+            for (int i = 0; i < chPosStrings.Length; i++)
+            {
+                string[] chfStrings = chPosStrings[i].Split('_');
+                charPosX.Add(int.Parse(chfStrings[0], CultureInfo.InvariantCulture));
+                charPosY.Add(int.Parse(chfStrings[1], CultureInfo.InvariantCulture));
+                charPosDir.Add(int.Parse(chfStrings[2], CultureInfo.InvariantCulture));
+            }
+
+            List<GameObject> chaObjs = new List<GameObject>();
+            for (int i = 0; i < chPosStrings.Length; i++)
+            {
+                GameObject obj = AddressablesUtil.Instantiate($"{CharacterIds[i]}_Static", _characeterIllustParentObject.transform);
+                if (obj != null)
+                {
+                    obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(charPosX[i], charPosY[i]);
+                    if (charPosDir[i] == 0)
+                    {
+
+                        obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                    }
+                    else
+                    {
+                        obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
+                    }
+
+                    Color color = Color.white;
+                    obj.GetComponent<SkeletonGraphic>().AnimationState.SetAnimation(0, GetAnimationType(CharacterFace[i]), true);
+                    if (CharacterIds[i] != dialogueData.prefab_id.ToString())
+                    {
+                        ColorUtility.TryParseHtmlString("#A1A1A1", out color);
+                    }
+
+                    obj.GetComponent<SkeletonGraphic>().color = color;
+                }
+                chaObjs.Add(obj);
+            }
+
+            for (int i = 0; i < chaObjs.Count; i++)
+            {
+                if (CharacterIds[i] == dialogueData.prefab_id.ToString())
+                {
+                    chaObjs[i].transform.SetAsLastSibling();
+                }
+            }
         }
     }
 }

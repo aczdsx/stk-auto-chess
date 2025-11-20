@@ -21,7 +21,7 @@ MonoBehaviour:
   AutoArrangeOnAdd: 1
   ArrangeRange: {x: 0, y: 1}
   DefaultMetadata:
-    Implementation: Naninovel.SpriteCharacter, Elringus.Naninovel.Runtime, Version=0.0.0.0,
+    Implementation: Naninovel.SpineCharacter, Elringus.Naninovel.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     Loader:
       PathPrefix: Characters
@@ -32,10 +32,9 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     guid: 4cf662ae-2a0d-4f9a-b512-fb6ec693dbed
     customData:
-      rid: -2
+      rid: 5994533232991797588
     Pivot: {x: 0.5, y: 0}
     PixelsPerUnit: 100
-    FilterMode: 2
     EnableDepthPass: 1
     DepthAlphaCutoff: 0.5
     CustomTextureMaterial: {fileID: 0}
@@ -65,13 +64,12 @@ MonoBehaviour:
     VoiceSource: {fileID: 0}
     LinkedPrinter: 
     Poses: []
-    Anchors: []
   Metadata:
     ids:
     - atresia_00
     metas:
-    - Implementation: Naninovel.PlaceholderCharacter, Elringus.Naninovel.Runtime,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - Implementation: Naninovel.SpineCharacter, Elringus.Naninovel.Runtime, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       Loader:
         PathPrefix: Characters
         ProviderTypes:
@@ -81,10 +79,9 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 97730980-6691-4698-b6da-9388d226f1d6
       customData:
-        rid: 5994533232991797588
+        rid: -2
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
-      FilterMode: 2
       EnableDepthPass: 1
       DepthAlphaCutoff: 0.5
       CustomTextureMaterial: {fileID: 0}
@@ -114,7 +111,6 @@ MonoBehaviour:
       VoiceSource: {fileID: 0}
       LinkedPrinter: 
       Poses: []
-      Anchors: []
   AvatarLoader:
     PathPrefix: CharacterAvatars
     ProviderTypes:

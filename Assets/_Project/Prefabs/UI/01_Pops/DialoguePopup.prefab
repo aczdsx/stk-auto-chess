@@ -1593,7 +1593,7 @@ GameObject:
   - component: {fileID: 5902469807974354044}
   - component: {fileID: 5913895176186469053}
   m_Layer: 5
-  m_Name: DialogueShowPopup
+  m_Name: DialoguePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
