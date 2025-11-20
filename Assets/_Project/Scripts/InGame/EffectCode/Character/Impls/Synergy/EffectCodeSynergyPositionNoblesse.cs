@@ -34,32 +34,28 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
-    {   //머지가 필요한지는 모르겟으.
+    {
         base.Merge(codeInfo, source);
         _statValue_1 = codeInfo.GetCodeStatToFloat(0);
         _statValue_2 = codeInfo.GetCodeStatToFloat(1);
         _synergyGrade = (NoblesseGrade)codeInfo.GetCodeStatToInt(2);
-        //ApplyNoblesseEffect(source);
+        ApplyNoblesseEffect(source);
     }
 
     private void ApplyNoblesseEffect(IEffectCodeSource source)
     {
-        for (NoblesseGrade i = NoblesseGrade.NONE + 1; i <= _synergyGrade; i++)
+        switch (_synergyGrade)
         {
-            switch (i)
-            {
-                case NoblesseGrade.SCALE_PERCENT_UP_AD_PERCENT_UP:
-                    ScaleUpAttackPowerUp(source);
-                    break;
-                case NoblesseGrade.SHIELD_GENERATION:
-                    ShieldGeneration(source);
-                    break;
-                case NoblesseGrade.IMMUNE_ALL_DEBUFF:
-                    ImmuneAllDebuff(source);
-                    break;
-            }
+            case NoblesseGrade.SCALE_PERCENT_UP_AD_PERCENT_UP:
+                ScaleUpAttackPowerUp(source);
+                break;
+            case NoblesseGrade.SHIELD_GENERATION:
+                ShieldGeneration(source);
+                break;
+            case NoblesseGrade.IMMUNE_ALL_DEBUFF:
+                ImmuneAllDebuff(source);
+                break;
         }
-
     }
     private void ScaleUpAttackPowerUp(IEffectCodeSource source)
     {
@@ -85,7 +81,6 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
         stats[0] = 99999f;
         stats[1] = owner.HP * _statValue_1;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, owner, stats, source);
-
     }
     private void ImmuneAllDebuff(IEffectCodeSource source)
     {

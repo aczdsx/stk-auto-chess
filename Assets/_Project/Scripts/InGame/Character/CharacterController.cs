@@ -341,8 +341,9 @@ namespace CookApps.BattleSystem
         {
             //이건좀 고민
             if (targetSynergyType != _statData.Spec.element_type
-            || targetSynergyType != _statData.Spec.character_position_type)
+            && targetSynergyType != _statData.Spec.character_position_type)
                 return;
+                
             InjectSynergy(effectCodeID, synergyData);
         }
 

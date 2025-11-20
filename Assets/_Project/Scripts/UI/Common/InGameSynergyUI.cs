@@ -113,7 +113,7 @@ namespace CookApps.AutoBattler
             }
 
             _count = count;
-            _iconImage.sprite = ImageManager.Instance.GetPositionSprite(positionType, isActive);
+            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(positionType, isActive);
             _iconImage.color = (data.grade == 0) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_count}";
             _countText.color = color;

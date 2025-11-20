@@ -23,20 +23,25 @@ namespace CookApps.BattleSystem
             for (int i = (int)synergyType + 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
             {
                 synergyType = (SynergyType)i;
-                if (!CanAddSynergy(callerAllianceType, synergyType, out var outSynergyData, out var outSynergyList))
+                if (!CanAddSynergy(callerAllianceType, synergyType, out var outMaxGradeSynergyData, out var outTargetSynergyDataList))
                     continue;
 
-                switch (outSynergyData.synergy_affect_type)
+                //모든 시너지관련 이펙트코드는 1단계에서 최대까지 호출한다.
+                for (int j = 1; j <= outMaxGradeSynergyData.grade; j++)
                 {
-                    case SynergyAffectType.APPLY_EACH:
-                        AddSynergyEach(callerAllianceType, outSynergyList[0].id, outSynergyData, synergyType);
-                        break;
-                    case SynergyAffectType.APPLY_EACH_TOGETHER:
-                        AddSynergyEachTogether(callerAllianceType, outSynergyList[0].id, outSynergyData);
-                        break;
-                    case SynergyAffectType.APPLY_TEAM_ONCE:
-                        AddSynergyTeamOnce(callerAllianceType, outSynergyList[0].id, outSynergyData);
-                        break;
+                    var synergyData = outTargetSynergyDataList[j];
+                    switch (synergyData.synergy_affect_type)
+                    {
+                        case SynergyAffectType.APPLY_IF_MYSYNERGY://본인의 엘리먼트나 포지션에 비교하여 맞는다면 수행
+                            AddSynergyEach(callerAllianceType, outTargetSynergyDataList[0].id, synergyData, synergyType);
+                            break;
+                        case SynergyAffectType.APPLY_ALL_MEMBER://모든 캐릭터에 주입
+                            AddSynergyEachTogether(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
+                            break;
+                        case SynergyAffectType.APPLY_OTHER_TEAM_ONCE:
+                            AddSynergyTeamOnce(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
+                            break;
+                    }
                 }
             }
         }

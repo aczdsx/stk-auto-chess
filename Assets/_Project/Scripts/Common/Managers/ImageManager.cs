@@ -66,17 +66,6 @@ namespace CookApps.AutoBattler
                 case SynergyType.DARK:
                     spriteName = isActive ? "Icon_Dark_Active" : "Icon_Dark_Locked";
                     break;
-            }
-
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
-        }
-
-        public Sprite GetPositionSprite(SynergyType positionType, bool isActive = true)
-        {
-            string spriteName = string.Empty;
-
-            switch (positionType)
-            {
                 case SynergyType.TANK:
                     spriteName = isActive ? "Icon_Position_Tank_Active" : "Icon_Position_Tank_Locked";
                     break;

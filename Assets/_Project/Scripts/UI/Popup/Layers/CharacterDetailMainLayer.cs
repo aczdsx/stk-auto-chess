@@ -152,7 +152,7 @@ namespace CookApps.AutoBattler
             _characterGradeImageObject_SSR.SetActive(_specCharacterData.grade_type == GradeType.LEGEND);
 
             _elementSynergyUI.SetSynergyUI(_specCharacterData.element_type);
-            _classSynergyUI.SetPositionSynergyUI(_specCharacterData.character_position_type);
+            _classSynergyUI.SetSynergyUI(_specCharacterData.character_position_type);
 
             SetStarObject(_specCharacterData.grade_type);
         }
@@ -188,7 +188,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickElementSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByElementType(_specCharacterData.element_type);
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListInAll(_specCharacterData.element_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
                 var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
@@ -198,7 +198,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickClassSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByPositionType(_specCharacterData.character_position_type);
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListInAll(_specCharacterData.character_position_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
                 var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();

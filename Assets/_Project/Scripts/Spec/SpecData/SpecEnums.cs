@@ -686,8 +686,8 @@ namespace CookApps.AutoBattler
 
     public enum SynergyAffectType
     {
-        APPLY_EACH = 0,
-        APPLY_EACH_TOGETHER = 1,
-        APPLY_TEAM_ONCE = 2,
+        APPLY_IF_MYSYNERGY = 0,
+        APPLY_ALL_MEMBER = 1,
+        APPLY_OTHER_TEAM_ONCE = 2,
     }
 }

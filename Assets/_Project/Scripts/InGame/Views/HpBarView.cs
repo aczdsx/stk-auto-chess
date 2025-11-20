@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
             {
                 _elementSynergySprite.sprite = ImageManager.Instance.GetSynergySprite(statData.Spec.element_type);
                 _positionSynergySprite.sprite =
-                    ImageManager.Instance.GetPositionSprite(statData.Spec.character_position_type);
+                    ImageManager.Instance.GetSynergySprite(statData.Spec.character_position_type);
             }
         }
 
