@@ -23,6 +23,8 @@ public class FlowStatePrologueCombat : StateCombatBase
     private CharacterController _artesiaCharacter;  // 아트레시아
     private CharacterController _marieCharacter;    // 마리에
     private CharacterController _witchCharacter;    // 라플라스 마녀
+    
+    private InGameVfx _witchAttackPrepareFx;       // 마녀 공격 준비 이펙트
 
     public override void StateInit(object target)
     {
@@ -308,7 +310,7 @@ public class FlowStatePrologueCombat : StateCombatBase
                 break;
             case PrologueActionType.None:
             default:
-                await UniTask.Delay(3000); // 기본 대기 시간 (3초)
+                await UniTask.Delay(1000); // 기본 대기 시간 (1초)
                 break;
         }
     }
@@ -318,11 +320,13 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         if (_witchCharacter == null) return;
 
-        // 라플라스 마녀의 공격 준비 이펙트 Loop 시작
-        // [TODO] 실제 이펙트 시스템 연동 필요
-        // 예: _witchCharacter.GetCharacterView().PlayEffect("WitchAttackPrepareLoop");
+        // 라플라스 마녀의 공격 준비 이펙트 생성 및 캐릭터에 붙이기
+        // 다크 속성 캐스팅 이펙트 사용 (필요시 다른 이펙트로 변경 가능)
+        _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
+            InGameVfxNameType.fx_common_cast_darkness, 
+            _witchCharacter.SkillRootTransformFollowable);
 
-        await UniTask.Delay(3000); // 3초 대기
+        await UniTask.Delay(1000); // 1초 대기
     }
 
     // 2단계: 클레이 스킬 + 마녀 공격/준비 이펙트 Off
@@ -352,11 +356,14 @@ public class FlowStatePrologueCombat : StateCombatBase
             Debug.LogWarning("클레이 스킬을 찾을 수 없습니다.");
         }
 
-        // 마녀 공격 + 준비 이펙트 Off
-        // [TODO] 실제 이펙트 시스템 연동 필요
-        // 예: _witchCharacter.GetCharacterView().StopEffect("WitchAttackPrepareLoop");
+        // 마녀 공격 준비 이펙트 제거
+        if (_witchAttackPrepareFx != null)
+        {
+            InGameVfxManager.Instance.RemoveInGameVfx(_witchAttackPrepareFx);
+            _witchAttackPrepareFx = null;
+        }
 
-        await UniTask.Delay(3000); // 스킬 애니메이션 대기 (3초)
+        await UniTask.Delay(1000); // 스킬 애니메이션 대기 (1초)
     }
 
     // 3단계: 마녀 공격2 + 클레이 죽음
@@ -389,7 +396,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             _clayCharacter.AddNextState<CharacterStateDead>();
         }
 
-        await UniTask.Delay(2000); // 총 3초 대기
+        await UniTask.Delay(2000); // 총 1초 대기
     }
 
     // 4단계: 유니/필리아 스킬 + 마녀 그로기 + HP 1
@@ -447,7 +454,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             Debug.LogColor("라플라스 마녀 그로기 상태, HP 1로 설정");
         }
 
-        await UniTask.Delay(1000); // 총 3초 대기
+        await UniTask.Delay(1000); // 총 1초 대기
     }
 
     // 5단계: 마녀 광역 공격 + 유니/필리아 죽음 + 마리에 합류
@@ -550,7 +557,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             Debug.LogColor($"마리에 이미 필드에 존재, 타겟 설정 완료");
         }
 
-        await UniTask.Delay(1000); // 총 3초 대기
+        await UniTask.Delay(1000); // 총 1초 대기
     }
 
     // 6단계: 마리에 스킬 + 아트레시아 초신성 모드
@@ -593,7 +600,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // [TODO] 초신성 모드 활성화 (버프/이펙트 등)
         // 예: _artesiaCharacter.GetEffectCodeContainer().AddEffectCode(...);
 
-        await UniTask.Delay(2000); // 총 3초 대기
+        await UniTask.Delay(2000); // 총 1초 대기
     }
 
     // 7단계: 아트레시아 스킬
@@ -610,7 +617,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             }
         }
 
-        await UniTask.Delay(3000); // 3초 대기
+        await UniTask.Delay(1000); // 1초 대기
     }
 
     // 8단계: 마녀 최종 공격 준비 이펙트
@@ -622,7 +629,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // [TODO] 실제 이펙트 시스템 연동 필요
         // 예: _witchCharacter.GetCharacterView().PlayEffect("WitchFinalPrepare");
 
-        await UniTask.Delay(3000); // 3초 대기
+        await UniTask.Delay(1000); // 1초 대기
     }
 
     public override void StateRunning(float dt)
@@ -645,6 +652,13 @@ public class FlowStatePrologueCombat : StateCombatBase
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
             character.RemoveSynergyEffectCode();
+        }
+
+        // 마녀 공격 준비 이펙트 정리
+        if (_witchAttackPrepareFx != null)
+        {
+            InGameVfxManager.Instance.RemoveInGameVfx(_witchAttackPrepareFx);
+            _witchAttackPrepareFx = null;
         }
 
         ListPool<CharacterController>.Release(characters);

@@ -552,9 +552,10 @@ namespace CookApps.AutoBattler
             return 0;
         }
 
-        // 해당 챕터의 마지막 스테이지 데이터 반환
+    // 해당 챕터의 마지막 스테이지 데이터 반환
         public SpecStage GetLastStageData(int chapterID, DifficultyType difficulty)
         {
+            Debug.LogColor($"GetLastStageData chapterID: {chapterID}, difficulty: {difficulty}");
             if (stageChapterDic.TryGetValue(chapterID, out List<SpecStage> stageList))
             {
                 var targetStageList = stageList.FindAll(stage => stage.difficulty_type == difficulty);

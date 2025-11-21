@@ -140,9 +140,9 @@ namespace CookApps.AutoBattler
 
     public enum DifficultyType
     {
-        NORMAL = 1,
-        HARD = 2,
-        NONE = 3,
+        NONE = 1,
+        NORMAL = 2,
+        HARD = 3,
     }
 
     public enum StageType
