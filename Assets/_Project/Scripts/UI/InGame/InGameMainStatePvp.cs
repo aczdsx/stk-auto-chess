@@ -7,13 +7,11 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStateTrialDungeonUI : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI
+    public class InGameMainStatePvp : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI
     {
         private InGameUI _inGameUI;
-        private SpecDungeonTrial _specTrialDungeon;
 
         private float _updateTimer = 0f;
         private const float UpdateInterval = 0.2f;
@@ -21,55 +19,27 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
-            _specTrialDungeon = SpecDataManager.Instance.GetSpecDungeonTrialData(id);
+        }
 
-            bool isFirstTrial = _specTrialDungeon.dungeon_map_id == 1 &&
-                                Preference.LoadPreference(Pref.FIRST_TRIAL, true);
-            if (isFirstTrial)
-            {
-                Preference.SavePreference(Pref.FIRST_TRIAL, false);
-                var fxResource = await Addressables.LoadAssetAsync<GameObject>($"VFX/Prefab/Prefab_Dungeon_Boss_01.prefab").Task;
-                var animator = Object.Instantiate(fxResource).GetComponent<Animator>();
-                await WaitUntilAnimationFinished(animator, "Prefab_Dungeon_Boss_01");
-
-                DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "1");
-            }
-
-            GameObject stageUIObj = null;
-            if (_specTrialDungeon.dungeon_map_id == 1)
-                stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/TrialBossUI.prefab").Task;
-            else
-                stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
-
+        public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
+        {
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PvpUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
             _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
-            _inGameUI.TopUI.SetStageName(StringUtil.GetTrialDungeonString(_specTrialDungeon));
-            InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
-        }
+            _inGameUI.TopUI.SetStageName(data.Nickname);
 
-        public UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
-        {
-            _inGameUI.BottomUI.InitData();
-            RefreshInGameTopUI(false);
-            InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
-            _inGameUI.TopUI.InitTopUI(typeof(FlowStateTrialDungeonFail));
-            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateTrialDungeonCombat), battleDeckList);
+            InGameManager.Instance.StartInGame<FlowStatePvpReady>(data);
         }
 
         public void InitCombatStateUI()
         {
             _inGameUI.PlayAnimation("SetBattleEntry");
-            _inGameUI.BottomUI.InitCommanderSkill();
+            // _inGameUI.BottomUI.InitCommanderSkill();
             _inGameUI.BottomUI.InitSpeedUpSetting();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
-
+            
             bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
             if (isOpenStatisticPop)
                 SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(_inGameUI.BottomUI).Forget();
@@ -113,6 +83,15 @@ namespace CookApps.AutoBattler
                 }
             }
         }
+        
+        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
+        {
+            _inGameUI.BottomUI.InitData();
+            RefreshInGameTopUI(false);
+            InGameMain.GetInGameMain().SetInGameTime(InGameMaxTime);
+            _inGameUI.TopUI.InitTopUI(typeof(FlowStatePvpFail));
+            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStatePvpCombat), battleDeckList);
+        }
 
         public void SetFocusSlotUI(SpecCharacter spec)
         {
@@ -123,14 +102,10 @@ namespace CookApps.AutoBattler
         {
             _inGameUI.BottomUI.UnSetFocusCharacterUI(isDropFx);
         }
-        public void SetCommanderSkillUI(int index, int equippedCommanderSkillId)
-        {
-            _inGameUI.BottomUI.SetCommanderSkillUI(index, equippedCommanderSkillId);
-        }
 
         public bool IsCheckTouchTile(InGameTile tile)
         {
-            return tile.IsOccupied() && tile.OccupiedCharacter.AllianceType == AllianceType.Player;
+            return tile.IsOccupied() && tile.View.AllianceType == AllianceType.Player;
         }
 
         public void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
@@ -138,14 +113,21 @@ namespace CookApps.AutoBattler
             _inGameUI.TopUI.AddKillLog(source, death, isPlayerKill);
         }
 
+        public void AddKillLog(CharacterController kill, CharacterController death, bool isPlayerKill)
+        {
+            var ks = CookApps.AutoBattler.KillSource.From(kill, isPlayerKill);
+            _inGameUI.TopUI.AddKillLog(ks, death, isPlayerKill);
+        }
+
+        public void AddKillLog(long source, CharacterController death, bool isPlayerKill)
+        {
+            var ks = CookApps.AutoBattler.KillSource.From(source, isPlayerKill);
+            _inGameUI.TopUI.AddKillLog(ks, death, isPlayerKill);
+        }
+        
         public void SetAlertBottomCharacter(int characterID)
         {
             _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);
-        }
-
-        private async UniTask WaitUntilAnimationFinished(Animator animator, string animationName)
-        {
-            await UniTask.WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
         }
     }
 }
