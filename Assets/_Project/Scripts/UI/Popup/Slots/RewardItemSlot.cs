@@ -120,7 +120,7 @@ namespace CookApps.AutoBattler
             _rewardCharacterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id);
             _rewardCharacterNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
             _rewardElementSynergyUI.SetSynergyUI(specCharacterData.element_type);
-            _rewardClassSynergyUI.SetSynergyUI(specCharacterData.character_position_type);
+            _rewardClassSynergyUI.SetSynergyUI(specCharacterData.asterism_type);
             
             _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(specCharacterData.grade_type);
 

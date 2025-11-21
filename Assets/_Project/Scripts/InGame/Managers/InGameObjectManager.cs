@@ -169,22 +169,7 @@ namespace CookApps.BattleSystem
             return null;
         }
 
-        public int GetCharacterSynergyElementTypeCount(AllianceType allianceType, SynergyType elementType)
-        {
-            int value = 0;
-
-            List<CharacterController> targetList = (allianceType == AllianceType.Player)
-                ? charactersInPlaygroundForUpdate
-                : enemiesInPlaygroundForUpdate;
-            foreach (var character in targetList)
-            {
-                value += character.GetCharacterStat().Spec.element_type == elementType ? 1 : 0;
-            }
-
-            return value;
-        }
-
-        public int GetCharacterSynergyPositionTypeCount(AllianceType allianceType, SynergyType positionType)
+        public int GetCharacterSynergyCount(AllianceType allianceType, SynergyType synergyType)
         {
             int value = 0;
 
@@ -192,11 +177,20 @@ namespace CookApps.BattleSystem
                 ? charactersInPlaygroundForUpdate
                 : enemiesInPlaygroundForUpdate;
 
-            foreach (var character in targetList)
+            if (DistinguishSynergyTypeHelper.IsElementSynergyType(synergyType))
             {
-                value += character.GetCharacterStat().Spec.character_position_type == positionType ? 1 : 0;
+                foreach (var character in targetList)
+                {
+                    value += character.GetCharacterStat().Spec.element_type == synergyType ? 1 : 0;
+                }
             }
-
+            else if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType))
+            {
+                foreach (var character in targetList)
+                {
+                    value += character.GetCharacterStat().Spec.asterism_type == synergyType ? 1 : 0;
+                }
+            }
             return value;
         }
 
@@ -618,9 +612,8 @@ namespace CookApps.BattleSystem
 
             var minDistance = float.MaxValue;
             foreach (var enemy in reusableList)
-            {
-                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
-                    SynergyType.ASSASSIN)
+            {//여기 어쎄신 예외처리 되어있었ㅇ므.
+                if (enemy.IsAlive == false)
                 {
                     continue;
                 }
@@ -665,8 +658,7 @@ namespace CookApps.BattleSystem
 
             foreach (var enemy in sortedTargets)
             {
-                if (enemy.IsAlive == false || enemy.GetCharacterStat().Spec.character_position_type ==
-                    SynergyType.ASSASSIN)
+                if (enemy.IsAlive == false)
                 {
                     continue;
                 }
@@ -922,11 +914,12 @@ namespace CookApps.BattleSystem
             foreach (var playerCharacter in characterControllers)
             {
                 var target = new CharacterController();
-                if (playerCharacter.GetCharacterStat().Spec.character_position_type == SynergyType.ASSASSIN)
-                {
-                    target = GetFarthestTargetByOnce(playerCharacter);
-                }
-                else
+                //여기 어쎄신 예외처리 되어있었음.
+                // if (playerCharacter.GetCharacterStat().Spec.character_position_type == SynergyType.ASSASSIN)
+                // {
+                //     target = GetFarthestTargetByOnce(playerCharacter);
+                // }
+                // else
                 {
                     target = GetNearestTargetOnce(playerCharacter);
                 }

@@ -85,7 +85,7 @@ namespace CookApps.AutoBattler
             _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_specCharacterData.grade_type, haveCharacter);
 
             _synergyUI.SetSynergyUI(_specCharacterData.element_type, haveCharacter);
-            _positionSynergyUI.SetSynergyUI(_specCharacterData.character_position_type, haveCharacter);
+            _positionSynergyUI.SetSynergyUI(_specCharacterData.asterism_type, haveCharacter);
 
             _chracterLevelText.gameObject.SetActive(haveCharacter);
             if (haveCharacter)

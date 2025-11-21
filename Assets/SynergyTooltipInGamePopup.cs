@@ -66,15 +66,17 @@ namespace CookApps.AutoBattler
 
             var baseSynergyData = _synergyList[0];
 
-            // 시너지 UI 설정
-            if (baseSynergyData.character_position_type == SynergyType.NONE)
-            {
-                _synergyUI.SetSynergy(baseSynergyData.element_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
-            }
-            else if (baseSynergyData.element_type == SynergyType.NONE)
-            {
-                _synergyUI.SetPositionSynergy(baseSynergyData.character_position_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
-            }
+            // // 시너지 UI 설정
+            // if (baseSynergyData.character_position_type == SynergyType.NONE)
+            // {
+            //     _synergyUI.SetSynergy(baseSynergyData.element_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
+            // }
+            // else if (baseSynergyData.element_type == SynergyType.NONE)
+            // {
+            //     _synergyUI.SetPositionSynergy(baseSynergyData.character_position_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
+            // }
+
+            _synergyUI.SetSynergy(baseSynergyData.synergy_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
 
             // 시너지 이름 및 설명 설정
             string synergyName = LanguageManager.Instance.GetLanguageText(baseSynergyData.name_token);

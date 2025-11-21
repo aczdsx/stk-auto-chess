@@ -81,18 +81,18 @@ namespace CookApps.BattleSystem
                 .ToArray();
             int yPosition = 0;
 
-            if (spec.character_position_type == SynergyType.TANK ||
-                spec.character_position_type == SynergyType.GUARDIAN)
+            if (spec.position_type == PositionType.GUARDIAN ||
+                spec.position_type == PositionType.STRIKER)
             {
                 yPosition = 2;
             }
-            else if (spec.character_position_type == SynergyType.WIZARD ||
-                     spec.character_position_type == SynergyType.SUPPORTER)
+            else if (spec.position_type == PositionType.ESPER ||
+                     spec.position_type == PositionType.ORACLE)
             {
                 yPosition = 1;
             }
-            else if (spec.character_position_type == SynergyType.RANGER ||
-                     spec.character_position_type == SynergyType.ASSASSIN)
+            else if (spec.position_type == PositionType.SHARPSHOOTER ||
+                     spec.position_type == PositionType.GHOST)
             {
                 yPosition = 0;
             }

@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backButton: {fileID: 6404934870462075026}
   _elementSynergyButton: {fileID: 86309272675376800}
-  _classSynergyButton: {fileID: 5812121265961647136}
+  _asterismSynergyButton: {fileID: 5812121265961647136}
   _characterIllustParentObject: {fileID: 4405909491956130362}
   _characterSDParentObject: {fileID: 7419105263243773269}
   _elementSynergyUI: {fileID: 1873847877183615232}

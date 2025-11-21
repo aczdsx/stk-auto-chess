@@ -86,11 +86,9 @@ namespace CookApps.AutoBattler
         private Dictionary<long, List<SpecSkill>> skillPrefabIDDic = new(); // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new(); // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<SynergyType, List<SpecSynergy>> positionSynergyDic = new(); // key : SynergyType, value : SpecSynergy
-        private Dictionary<SynergyType, List<SpecSynergy>> elementSynergyDic = new(); // key : SynergyType, value : SpecSynergy
+        private Dictionary<SynergyType, List<SpecSynergy>> synergyDic = new(); // key : SynergyType, value : SpecSynergy
         private Dictionary<int, List<SpecObstacle>> obstacleDic = new(); // key : obstacle_id, value : SpecObstacle
-
-
+        private Dictionary<int, List<SpecPassive>> passiveDic = new(); // key : passive_id, value : SpecPassive
 
         private void CustomizeSpecData()
         {
@@ -243,35 +241,35 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // Element Synergy Dic
-            elementSynergyDic.Clear();
+            // Element && Asterism Synergy Dic
+            synergyDic.Clear();
             foreach (SpecSynergy synergy in SpecSynergy.All)
             {
-                if (!elementSynergyDic.TryGetValue(synergy.element_type, out var list))
+                if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
                 {
                     list = new List<SpecSynergy>();
-                    elementSynergyDic.Add(synergy.element_type, list);
+                    synergyDic.Add(synergy.synergy_type, list);
                 }
 
                 list.Add(synergy);
             }
 
-            // Position Synergy Dic
-            positionSynergyDic.Clear();
-            foreach (SpecSynergy synergy in SpecSynergy.All)
+            // Passive Dic
+            passiveDic.Clear();
+            foreach (SpecPassive passive in SpecPassive.All)
             {
-                if (!positionSynergyDic.TryGetValue(synergy.character_position_type, out var list))
+                if (!passiveDic.TryGetValue(passive.passieve_id, out var list))
                 {
-                    list = new List<SpecSynergy>();
-                    positionSynergyDic.Add(synergy.character_position_type, list);
+                    list = new List<SpecPassive>();
+                    passiveDic.Add(passive.passieve_id, list);
                 }
-
-                list.Add(synergy);
+                list.Add(passive);
             }
+
+
             #endregion
 
-            // Element Synergy Dic
-            obstacleDic.Clear();
+                obstacleDic.Clear();
             foreach (SpecObstacle obstacle in SpecObstacle.All)
             {
                 if (!obstacleDic.TryGetValue(obstacle.obstacle_id, out var list))
@@ -823,44 +821,21 @@ namespace CookApps.AutoBattler
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
 
-        public List<SpecSynergy> GetSpecSynergyListByElementType(SynergyType elementType)
+        public List<SpecSynergy> GetSpecSynergyList(SynergyType synergyType)
         {
-            if (elementSynergyDic.TryGetValue(elementType, out List<SpecSynergy> synergyList))
+            if (synergyDic.TryGetValue(synergyType, out List<SpecSynergy> synergyList))
             {
                 return synergyList;
             }
 
             return null;
         }
-
-        public List<SpecSynergy> GetSpecSynergyListByPositionType(SynergyType positionType)
-        {
-            if (positionSynergyDic.TryGetValue(positionType, out List<SpecSynergy> synergyList))
-            {
-                return synergyList;
-            }
-
-            return null;
-        }
-        // 전부 찾는 코드
-        public List<SpecSynergy> GetSpecSynergyListInAll(SynergyType synergyType)
-        {
-            if(elementSynergyDic.ContainsKey(synergyType))
-            {
-                return GetSpecSynergyListByElementType(synergyType);
-            }
-            else if(positionSynergyDic.ContainsKey(synergyType))
-            {
-                return GetSpecSynergyListByPositionType(synergyType);
-            }
-            return null;
-        }
-
+        
         public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
             out SpecSynergy outSynergyData, out List<SpecSynergy> outSynergyList)
         {
             outSynergyData = null;
-            outSynergyList = GetSpecSynergyListInAll(synergyType);
+            outSynergyList = GetSpecSynergyList(synergyType);
             if(outSynergyList == null)
             {
                 return false;
@@ -871,6 +846,16 @@ namespace CookApps.AutoBattler
                 return false;
             }
             return true;
+        }
+
+        public List<SpecPassive> GetSpecPassiveList(int passieveID)
+        {
+            if (passiveDic.TryGetValue(passieveID, out List<SpecPassive> passiveList))
+            {
+                return passiveList;
+            }
+
+            return null;
         }
 
         public SpecQuest GetSpecQuestData(int questID)

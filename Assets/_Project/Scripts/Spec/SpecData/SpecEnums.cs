@@ -128,6 +128,17 @@ namespace CookApps.AutoBattler
         NOBLESSE = 14,
     }
 
+    public enum PositionType
+    {
+        NONE = 0,
+        STRIKER = 1,
+        GUARDIAN = 2,
+        SHARPSHOOTER = 3,
+        ESPER = 4,
+        ORACLE = 5,
+        GHOST = 6,
+    }
+
     public enum AttackRangeShape
     {
         Rectangle = 1,
@@ -140,9 +151,9 @@ namespace CookApps.AutoBattler
 
     public enum DifficultyType
     {
-        NORMAL = 1,
-        HARD = 2,
-        NONE = 3,
+        NONE = 1,
+        NORMAL = 3,
+        HARD = 4,
     }
 
     public enum StageType
@@ -531,6 +542,7 @@ namespace CookApps.AutoBattler
         PVP = 3,
         PVP_DEFENSE = 4,
         TRIAL_BOSS = 5,
+        TURORIAL = 6,
     }
 
     public enum UserGradeType

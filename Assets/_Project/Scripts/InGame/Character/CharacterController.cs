@@ -341,7 +341,7 @@ namespace CookApps.BattleSystem
         {
             //이건좀 고민
             if (targetSynergyType != _statData.Spec.element_type
-            && targetSynergyType != _statData.Spec.character_position_type)
+            && targetSynergyType != _statData.Spec.asterism_type)
                 return;
                 
             InjectSynergy(effectCodeID, synergyData);
@@ -355,11 +355,7 @@ namespace CookApps.BattleSystem
             
                 var inGameObjectManagerInstance = InGameObjectManager.Instance;
 
-                var isElementSynergyType = DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType);
-
-                var targetSynergyCharacterCount = isElementSynergyType ?
-                    inGameObjectManagerInstance.GetCharacterSynergyElementTypeCount(_allianceType, targetSynergyType) :
-                    inGameObjectManagerInstance.GetCharacterSynergyPositionTypeCount(_allianceType, targetSynergyType);
+                var targetSynergyCharacterCount = inGameObjectManagerInstance.GetCharacterSynergyCount(_allianceType, targetSynergyType);
 
                 if (targetSynergyCharacterCount < 1)
                     continue;

@@ -127,10 +127,8 @@ public class InGameTopUI : MonoBehaviour
         for (int i = synergyTypeCount - 1; i > 0; i--)
         {
             SynergyType synergyType = (SynergyType)i;
-            var isPositionType = DistinguishSynergyTypeHelper.IsPositionSynergyType(synergyType);
 
-            var count = isPositionType ? inGameObjectManagerInstance.GetCharacterSynergyPositionTypeCount(type, synergyType)
-                                        : inGameObjectManagerInstance.GetCharacterSynergyElementTypeCount(type, synergyType);
+            var count = inGameObjectManagerInstance.GetCharacterSynergyCount(type, synergyType);
             if (count > 0)
             {
                 synergyCountDataList.Add(new SynergyCountData(
@@ -152,38 +150,28 @@ public class InGameTopUI : MonoBehaviour
             //Enemy ui의 경우 오름차순으로 출력되어야합니다.
             synergyCountDataList.Reverse();
         }
-        
+
         var specDataManagerInstance = SpecDataManager.Instance;
 
         foreach (var synergyCountData in synergyCountDataList)
         {
             var CanSynergy = specDataManagerInstance.TryGetSynergyDataByCount(synergyCountData.Type, synergyCountData.Count,
             out var outSynergyData, out var outSynergyList);
-            
+
             if (CanSynergy)
             {
                 var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
                 bool isActiveZeroGrade = (type == AllianceType.Player) ? outSynergyData.grade >= 0 : outSynergyData.grade > 0;
                 if (isActiveZeroGrade)
                 {
-                    if (DistinguishSynergyTypeHelper.IsPositionSynergyType(synergyCountData.Type))
-                    {
-                        TrySetSynergyUI(() =>
-                            _synergyUIList[uiIndex].SetPositionSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData)
-                        );
+                    TrySetSynergyUI(() =>
+                        _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData)
+                    );
+                            
+                    if (!isCombat && DistinguishSynergyTypeHelper.IsElementSynergyType(synergyCountData.Type))
+                    {//엘리먼트 타입 달성시에만 fx를 생성한다.
+                        InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type);
                     }
-                    if (DistinguishSynergyTypeHelper.IsElementSynergyType(synergyCountData.Type))
-                    {
-                        TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData));
-
-                        if (!isCombat)
-                        {
-                            if (isActiveZeroGrade)
-                                InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type);
-                        }
-                    }
-
                 }
             }
         }

@@ -42,11 +42,11 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetSynergySprite(SynergyType elementType, bool isActive = true)
+        public Sprite GetSynergySprite(SynergyType synergyType, bool isActive = true)
         {
             string spriteName = string.Empty;
 
-            switch (elementType)
+            switch (synergyType)
             {
                 case SynergyType.FIRE:
                     spriteName = isActive ? "Icon_Fire_Active" : "Icon_Fire_Locked";

@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
         [Space] 
         [SerializeField] private Image _characterImage;
         [SerializeField] private SynergyUI _elementSynergyUI;
-        [SerializeField] private SynergyUI _classSynergyUI;
+        [SerializeField] private SynergyUI _asterismSynergyUI;
 
         private CharacterStatData _statData;
 
@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
 
             _characterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(_statData.Spec.prefab_id);
             _elementSynergyUI.SetSynergyUI(_statData.Spec.element_type);
-            _classSynergyUI.SetSynergyUI(_statData.Spec.character_position_type);
+            _asterismSynergyUI.SetSynergyUI(_statData.Spec.asterism_type);
         }
     }
 }

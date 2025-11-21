@@ -49,7 +49,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         {
             _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
             _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.element_type);
-            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.character_position_type);
+            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.asterism_type);
             _lvText.text = $"{_statData.Level}";
         }
         else
@@ -71,7 +71,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             {
                 if (_guideFx.gameObject.activeSelf && _statData.CharacterID == 130301)
                 {
-                    var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByElementType(elementType: SynergyType.WATER);
+                    var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(SynergyType.WATER);
                     if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                     {
                         var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();

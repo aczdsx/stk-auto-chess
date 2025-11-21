@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private CAButton _backButton;
         [SerializeField] private CAButton _elementSynergyButton;
-        [SerializeField] private CAButton _classSynergyButton;
+        [SerializeField] private CAButton _asterismSynergyButton;
 
         [Space(10)]
         [SerializeField] private GameObject _characterIllustParentObject;
@@ -52,7 +52,7 @@ namespace CookApps.AutoBattler
         {
             _backButton.onClick.AddListener(OnClickBackButton);
             _elementSynergyButton.onClick.AddListener(OnClickElementSynergyButton);
-            _classSynergyButton.onClick.AddListener(OnClickClassSynergyButton);
+            _asterismSynergyButton.onClick.AddListener(OnClickAsterismSynergyButton);
         }
 
         protected override void OnDestroy()
@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
 
             _backButton.onClick.RemoveListener(OnClickBackButton);
             _elementSynergyButton.onClick.RemoveListener(OnClickElementSynergyButton);
-            _classSynergyButton.onClick.RemoveListener(OnClickClassSynergyButton);
+            _asterismSynergyButton.onClick.RemoveListener(OnClickAsterismSynergyButton);
         }
 
         public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
@@ -152,7 +152,7 @@ namespace CookApps.AutoBattler
             _characterGradeImageObject_SSR.SetActive(_specCharacterData.grade_type == GradeType.LEGEND);
 
             _elementSynergyUI.SetSynergyUI(_specCharacterData.element_type);
-            _classSynergyUI.SetSynergyUI(_specCharacterData.character_position_type);
+            _classSynergyUI.SetSynergyUI(_specCharacterData.asterism_type);
 
             SetStarObject(_specCharacterData.grade_type);
         }
@@ -188,7 +188,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickElementSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListInAll(_specCharacterData.element_type);
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.element_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
                 var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
@@ -196,9 +196,9 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void OnClickClassSynergyButton()
+        private void OnClickAsterismSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListInAll(_specCharacterData.character_position_type);
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.asterism_type);
             if (specSynergyDataList != null && specSynergyDataList.Count > 0)
             {
                 var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();

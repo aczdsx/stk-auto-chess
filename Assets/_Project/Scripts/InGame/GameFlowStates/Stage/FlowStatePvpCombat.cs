@@ -65,9 +65,6 @@ public class FlowStatePvpCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
-            if (charac.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
-                charac.AddNextState<CharacterStateAssassinFirstMove>();
-            else
                 charac.AddNextState<CharacterStateIdle>();
 
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
@@ -75,9 +72,6 @@ public class FlowStatePvpCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
-            if (charac.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
-                charac.AddNextState<CharacterStateAssassinFirstMove>();
-            else
                 charac.AddNextState<CharacterStateIdle>();
 
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);

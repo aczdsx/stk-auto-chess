@@ -77,11 +77,9 @@ namespace CookApps.BattleSystem
             outSynergyList = null;
             var inGameObjectManagerInstance = InGameObjectManager.Instance;
 
-            var isElementSynergyType = DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType);
 
-            var targetSynergyCharacterCount = isElementSynergyType ?
-                inGameObjectManagerInstance.GetCharacterSynergyElementTypeCount(allianceType, targetSynergyType) :
-                inGameObjectManagerInstance.GetCharacterSynergyPositionTypeCount(allianceType, targetSynergyType);
+            var targetSynergyCharacterCount =
+                inGameObjectManagerInstance.GetCharacterSynergyCount(allianceType, targetSynergyType);
 
             if (targetSynergyCharacterCount < 1)
                 return false;

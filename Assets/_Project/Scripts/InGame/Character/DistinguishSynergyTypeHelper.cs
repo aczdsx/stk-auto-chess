@@ -11,7 +11,7 @@ using CookApps.TeamBattle;
 /// </summary>
 public static class DistinguishSynergyTypeHelper
 {
-    private static readonly SynergyType[] _positionSynergyTypes = new SynergyType[]
+    private static readonly SynergyType[] _asterismSynergyTypes = new SynergyType[]
     {
             SynergyType.TANK,
             SynergyType.WIZARD,
@@ -30,11 +30,11 @@ public static class DistinguishSynergyTypeHelper
             SynergyType.LIGHT,
             SynergyType.MACHINE,
     };
-    public static bool IsPositionSynergyType(SynergyType synergyType)
+    public static bool IsAsterismSynergyType(SynergyType synergyType)
     {
-        foreach (var positionSynergyType in _positionSynergyTypes)
+        foreach (var asterismSynergyType in _asterismSynergyTypes)
         {
-            if (positionSynergyType == synergyType)
+            if (asterismSynergyType == synergyType)
             {
                 return true;
             }
@@ -53,9 +53,9 @@ public static class DistinguishSynergyTypeHelper
         return false;
     }
 
-    public static int CountPositionSynergyType()
+    public static int CountAsterismSynergyType()
     {
-        return _positionSynergyTypes.Length;
+        return _asterismSynergyTypes.Length;
     }
     public static int CountElementSynergyType()
     {

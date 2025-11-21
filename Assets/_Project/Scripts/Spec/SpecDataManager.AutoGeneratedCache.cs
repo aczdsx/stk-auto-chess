@@ -33,9 +33,10 @@ namespace CookApps.AutoBattler
 		public List<SpecGuideMission> SpecGuideMissionList {get; private set;}
 		public List<SpecQuest> SpecQuestList {get; private set;}
 		public List<SpecStage> SpecStageList {get; private set;}
-		public List<SpecTileEffectCode> SpecTileEffectCodeList {get; private set;}
 		public List<SpecStageMonster> SpecStageMonsterList {get; private set;}
+		public List<SpecTileEffectCode> SpecTileEffectCodeList {get; private set;}
 		public List<SpecSkill> SpecSkillList {get; private set;}
+		public List<SpecPassive> SpecPassiveList {get; private set;}
 		public List<SpecStageReward> SpecStageRewardList {get; private set;}
 		public List<SpecUserGrade> SpecUserGradeList {get; private set;}
 		public List<SpecSynergy> SpecSynergyList {get; private set;}
@@ -83,9 +84,10 @@ namespace CookApps.AutoBattler
 			SpecGuideMissionList = SpecGuideMission.All.ToList();
 			SpecQuestList = SpecQuest.All.ToList();
 			SpecStageList = SpecStage.All.ToList();
-			SpecTileEffectCodeList = SpecTileEffectCode.All.ToList();
 			SpecStageMonsterList = SpecStageMonster.All.ToList();
+			SpecTileEffectCodeList = SpecTileEffectCode.All.ToList();
 			SpecSkillList = SpecSkill.All.ToList();
+			SpecPassiveList = SpecPassive.All.ToList();
 			SpecStageRewardList = SpecStageReward.All.ToList();
 			SpecUserGradeList = SpecUserGrade.All.ToList();
 			SpecSynergyList = SpecSynergy.All.ToList();
