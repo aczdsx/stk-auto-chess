@@ -32,15 +32,16 @@ public class FlowStatePvpCombat : StateCombatBase
 
     public override void StateStart()
     {
+        base.AddSynergy(AllianceType.Player);
+        base.AddSynergy(AllianceType.Enemy);
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
-            character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
-            character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
@@ -48,9 +49,6 @@ public class FlowStatePvpCombat : StateCombatBase
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
-
-        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
-        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
         var effectCodes = InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCombatStart);
         EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
@@ -67,7 +65,7 @@ public class FlowStatePvpCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
-            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
+            if (charac.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
                 charac.AddNextState<CharacterStateAssassinFirstMove>();
             else
                 charac.AddNextState<CharacterStateIdle>();
@@ -77,7 +75,7 @@ public class FlowStatePvpCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
-            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
+            if (charac.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
                 charac.AddNextState<CharacterStateAssassinFirstMove>();
             else
                 charac.AddNextState<CharacterStateIdle>();

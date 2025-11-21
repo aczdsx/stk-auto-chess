@@ -74,7 +74,7 @@ namespace CookApps.AutoBattler
                 _itemNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
                 _itemDescText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.desc_token);
                 _characterSynergyUI1.SetSynergyUI(specCharacterData.element_type);
-                _characterSynergyUI2.SetPositionSynergyUI(specCharacterData.character_position_type);
+                _characterSynergyUI2.SetSynergyUI(specCharacterData.character_position_type);
             }
             else
             {

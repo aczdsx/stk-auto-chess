@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
         OBSTACLE = 14,
     }
 
-    public enum ElementType
+    public enum SynergyType
     {
         NONE = 0,
         EARTH = 1,
@@ -119,18 +119,13 @@ namespace CookApps.AutoBattler
         DARK = 5,
         LIGHT = 6,
         MACHINE = 7,
-    }
-
-    public enum CharacterPositionType
-    {
-        NONE = 0,
-        GUARDIAN = 1,
-        TANK = 2,
-        WIZARD = 3,
-        RANGER = 4,
-        ASSASSIN = 5,
-        SUPPORTER = 6,
-        NOBLESSE = 7,
+        GUARDIAN = 8,
+        TANK = 9,
+        WIZARD = 10,
+        RANGER = 11,
+        ASSASSIN = 12,
+        SUPPORTER = 13,
+        NOBLESSE = 14,
     }
 
     public enum AttackRangeShape
@@ -692,8 +687,8 @@ namespace CookApps.AutoBattler
 
     public enum SynergyAffectType
     {
-        APPLY_EACH = 0,
-        APPLY_EACH_TOGETHER = 1,
-        APPLY_TEAM_ONCE = 2,
+        APPLY_IF_MYSYNERGY = 0,
+        APPLY_ALL_MEMBER = 1,
+        APPLY_OTHER_TEAM_ONCE = 2,
     }
 }

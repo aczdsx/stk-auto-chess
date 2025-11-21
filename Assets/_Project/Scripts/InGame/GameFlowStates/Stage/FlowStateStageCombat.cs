@@ -40,9 +40,11 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateStart()
     {
+        base.AddSynergy(AllianceType.Player);
+        base.AddSynergy(AllianceType.Enemy);
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
-            character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
             var effectCodes =character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
                 EffectCodeInheritFlag.UseOnCombatStart);
@@ -51,7 +53,6 @@ public class FlowStateStageCombat : StateCombatBase
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
-            character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
             var effectCodes =character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
                 EffectCodeInheritFlag.UseOnCombatStart);
@@ -62,9 +63,6 @@ public class FlowStateStageCombat : StateCombatBase
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
-
-        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
-        InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
         {
             var effectCodes =
@@ -85,7 +83,7 @@ public class FlowStateStageCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
-            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
+            if (charac.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
                 charac.AddNextState<CharacterStateAssassinFirstMove>();
             else
                 charac.AddNextState<CharacterStateIdle>();
@@ -95,7 +93,7 @@ public class FlowStateStageCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
-            if (charac.SpecCharacter.character_position_type == CharacterPositionType.ASSASSIN)
+            if (charac.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
                 charac.AddNextState<CharacterStateAssassinFirstMove>();
             else
                 charac.AddNextState<CharacterStateIdle>();

@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
 
             _characterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(_statData.Spec.prefab_id);
             _elementSynergyUI.SetSynergyUI(_statData.Spec.element_type);
-            _classSynergyUI.SetPositionSynergyUI(_statData.Spec.character_position_type);
+            _classSynergyUI.SetSynergyUI(_statData.Spec.character_position_type);
         }
     }
 }

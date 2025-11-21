@@ -58,13 +58,13 @@ namespace CookApps.AutoBattler
 
             var baseSynergyData = _synergyList[0];
 
-            if (baseSynergyData.character_position_type == CharacterPositionType.NONE)
+            if (baseSynergyData.character_position_type == SynergyType.NONE)
             {
                 _synergyUI.SetSynergyUI(baseSynergyData.element_type);
             }
-            else if (baseSynergyData.element_type == ElementType.NONE)
+            else if (baseSynergyData.element_type == SynergyType.NONE)
             {
-                _synergyUI.SetPositionSynergyUI(baseSynergyData.character_position_type);
+                _synergyUI.SetSynergyUI(baseSynergyData.character_position_type);
             }
 
             string synergyName = LanguageManager.Instance.GetLanguageText(baseSynergyData.name_token);

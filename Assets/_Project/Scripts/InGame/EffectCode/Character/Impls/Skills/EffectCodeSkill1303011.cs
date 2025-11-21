@@ -151,7 +151,7 @@ public partial class EffectCodeSkill1303011 : EffectCodeCharacterBase
                             tile.OccupiedCharacter.SkillRootTransformFollowable);
                 
                         float calculatedDamageRate = _damageRate;
-                        if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == ElementType.FIRE)
+                        if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == SynergyType.FIRE)
                             calculatedDamageRate += _additionalDamageRate;
 
                         var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,

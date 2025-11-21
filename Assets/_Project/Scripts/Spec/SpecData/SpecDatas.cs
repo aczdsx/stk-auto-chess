@@ -85,10 +85,10 @@ namespace CookApps.AutoBattler
         public int need_piece;
         /// 개체 타입
         public global::CookApps.AutoBattler.CharacterType character_type;
-        /// 포지션 타입
-        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
         /// 속성 시너지
-        public global::CookApps.AutoBattler.ElementType element_type;
+        public global::CookApps.AutoBattler.SynergyType element_type;
+        /// 포지션 시너지
+        public global::CookApps.AutoBattler.SynergyType character_position_type;
         /// 일반 공격 AP AD 판정 유무
         public global::CookApps.AutoBattler.AtkType atk_type;
         /// 사이즈
@@ -176,7 +176,7 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 시너지 종류
-        public global::CookApps.AutoBattler.ElementType element_type;
+        public global::CookApps.AutoBattler.SynergyType element_type;
         /// 캐릭터 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 캐릭터 초월 레벨
@@ -643,6 +643,26 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class SpecTileEffectCode
+    {
+        /// 전체 ID
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 이펙트 코드
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
+        /// 이름
+        public string name_token;
+        /// 설명
+        public string desc_token;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_1;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_2;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_3;
+    }
+
+    [GeneratorSpecData]
     public partial class SpecStageMonster
     {
         [GeneratorId(nameof(id), typeof(int))]
@@ -663,26 +683,6 @@ namespace CookApps.AutoBattler
         public float multiple_atk;
         /// 체력 멀티플
         public float multiple_hp;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecTileEffectCode
-    {
-        /// 전체 ID
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 이펙트 코드
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
-        /// 이름
-        public string name_token;
-        /// 설명
-        public string desc_token;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_1;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_2;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_3;
     }
 
     [GeneratorSpecData]
@@ -711,22 +711,6 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
         /// #변수 의미
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 스킬 계수
-        public float base_rate;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecPassive
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// AP AD 판정 유무
-        public global::CookApps.AutoBattler.AtkType atk_type;
-        /// 스킬 이름 토큰
-        public string skill_name_token;
-        /// 스킬 설명 토큰
-        public string skill_desc_token;
         /// 스킬 계수
         public float base_rate;
     }
@@ -780,9 +764,9 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 시너지 시너지
-        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        public global::CookApps.AutoBattler.SynergyType character_position_type;
         /// 포지션 시너지
-        public global::CookApps.AutoBattler.ElementType element_type;
+        public global::CookApps.AutoBattler.SynergyType element_type;
         /// 시너지 이름 토큰
         public string name_token;
         /// 시너지 효과 설명 토큰

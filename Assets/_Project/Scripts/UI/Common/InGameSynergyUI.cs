@@ -23,18 +23,18 @@ namespace CookApps.AutoBattler
         private Color _step3Color = new Color32(255, 215, 0, 255); // 금 (Gold)
         private Color _step4Color = new Color32(229, 228, 226, 255); // 플래티넘 (Platinum) 
 
-        private ElementType _elementType;
-        private CharacterPositionType _positionType;
+        private SynergyType _elementType;
+        private SynergyType _positionType;
         private bool _isElementType;
         private int _count;
         private SpecSynergy _synergyData;
         private SpecSynergy _nextSynergyData;
 
         // 캐릭터 속성 시너지 세팅
-        public void SetSynergy(ElementType type, int count, SpecSynergy data, SpecSynergy nextData, bool isActive = true)
+        public void SetSynergy(SynergyType elementType, int count, SpecSynergy data, SpecSynergy nextData, bool isActive = true)
         {
             _isElementType = true;
-            _elementType = type;
+            _elementType = elementType;
 
             _synergyData = data;
             _nextSynergyData = nextData;
@@ -63,7 +63,7 @@ namespace CookApps.AutoBattler
             }
 
             _count = count;
-            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(type, isActive);
+            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(elementType, isActive);
             _iconImage.color = (data.grade == 0) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_count}";
             _countText.color = color;
@@ -81,10 +81,10 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetPositionSynergy(CharacterPositionType type, int count, SpecSynergy data, SpecSynergy nextData, bool isActive = true)
+        public void SetPositionSynergy(SynergyType positionType, int count, SpecSynergy data, SpecSynergy nextData, bool isActive = true)
         {
             _isElementType = false;
-            _positionType = type;
+            _positionType = positionType;
 
             _synergyData = data;
             _nextSynergyData = nextData;
@@ -113,7 +113,7 @@ namespace CookApps.AutoBattler
             }
 
             _count = count;
-            _iconImage.sprite = ImageManager.Instance.GetPositionSprite(type, isActive);
+            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(positionType, isActive);
             _iconImage.color = (data.grade == 0) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_count}";
             _countText.color = color;
@@ -135,7 +135,7 @@ namespace CookApps.AutoBattler
         {
             if (_isElementType)
             {
-                var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_elementType);
+                var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByElementType(_elementType);
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
                     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
@@ -144,7 +144,7 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_positionType);
+                var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyListByPositionType(_positionType);
                 if (specSynergyDataList != null && specSynergyDataList.Count > 0)
                 {
                     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
