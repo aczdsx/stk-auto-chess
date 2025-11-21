@@ -62,7 +62,7 @@ public class FlowStatePrologueReady : StateReadyBase
         // 마리에 (130501)는 나중에 합류하므로 초기에는 소환하지 않음
 
         // 기본 레벨 설정 (필요시 조정)
-        int prologueCharacterLevel = 99;
+        int prologueCharacterLevel = 10;
 
         // 프롤로그 플레이어 캐릭터 위치 (플레이어 진영 앞쪽)
         var prologueCharacterPositions = new Dictionary<int, int2>
@@ -96,7 +96,7 @@ public class FlowStatePrologueReady : StateReadyBase
 
         Debug.LogColor($"라플라스 마녀 추가 : {laplaceWitchId} at ({witchPosition.x}, {witchPosition.y})");
 
-        var witchStat = new CharacterStatData(laplaceWitchId, 99, 0.0f, 1.0f);
+        var witchStat = new CharacterStatData(laplaceWitchId, 99, 0.0f, 20.0f);
 
         addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(witchStat, witchPosition,
             AllianceType.Enemy,
