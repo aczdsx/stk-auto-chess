@@ -23,7 +23,7 @@ public class FlowStatePrologueCombat : StateCombatBase
     private CharacterController _artesiaCharacter;  // 아트레시아
     private CharacterController _marieCharacter;    // 마리에
     private CharacterController _witchCharacter;    // 라플라스 마녀
-    
+
     private InGameVfx _witchAttackPrepareFx;       // 마녀 공격 준비 이펙트
 
     public override void StateInit(object target)
@@ -122,7 +122,7 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         // 전투 시작 후 1초는 대기
         await UniTask.Delay(1000);
-        
+
         // 플레이어 캐릭터들 멈춤
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
@@ -179,6 +179,37 @@ public class FlowStatePrologueCombat : StateCombatBase
             }
         }
         return null;
+    }
+
+    /// <summary>
+    /// 캐릭터의 스킬을 강제로 활성화합니다.
+    /// </summary>
+    /// <param name="character">스킬을 활성화할 캐릭터</param>
+    /// <param name="warningMessage">스킬을 찾지 못했을 때 출력할 경고 메시지 (null이면 출력하지 않음)</param>
+    /// <returns>스킬 활성화 성공 여부</returns>
+    private bool ActivateCharacterSkill(CharacterController character, string warningMessage = null)
+    {
+        if (character == null) return false;
+
+        foreach (var effectCode in character.GetEffectCodeContainer().EffectCodes)
+        {
+            var characterData = SpecDataManager.Instance.GetCharacterData(character.CharacterId);
+            if (characterData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
+            {
+                if (effectCode is EffectCodeCharacterBase characterEffectCode)
+                {
+                    characterEffectCode.Activate();
+                    return true;
+                }
+            }
+        }
+
+        if (!string.IsNullOrEmpty(warningMessage))
+        {
+            Debug.LogWarning(warningMessage);
+        }
+
+        return false;
     }
 
     struct PrologueScenarioData
@@ -323,7 +354,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 라플라스 마녀의 공격 준비 이펙트 생성 및 캐릭터에 붙이기
         // 다크 속성 캐스팅 이펙트 사용 (필요시 다른 이펙트로 변경 가능)
         _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
-            InGameVfxNameType.fx_common_cast_darkness, 
+            InGameVfxNameType.fx_common_cast_darkness,
             _witchCharacter.SkillRootTransformFollowable);
 
         await UniTask.Delay(1000); // 1초 대기
@@ -335,33 +366,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_clayCharacter == null) return;
 
         // 클레이 스킬 강제 발동
-        bool skillActivated = false;
-        
-        foreach (var effectCode in _clayCharacter.GetEffectCodeContainer().EffectCodes)
-        {
-            var characterData = SpecDataManager.Instance.GetCharacterData(_clayCharacter.CharacterId);
-            if (characterData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
-            {
-                if (effectCode is EffectCodeCharacterBase characterEffectCode)
-                {
-                    characterEffectCode.ForceReadyToActivate();
-                }
-                skillActivated = true;
-                break;
-            }
-        }
-
-        if (!skillActivated)
-        {
-            Debug.LogWarning("클레이 스킬을 찾을 수 없습니다.");
-        }
-
-        // 마녀 공격 준비 이펙트 제거
-        if (_witchAttackPrepareFx != null)
-        {
-            InGameVfxManager.Instance.RemoveInGameVfx(_witchAttackPrepareFx);
-            _witchAttackPrepareFx = null;
-        }
+        ActivateCharacterSkill(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
 
         await UniTask.Delay(1000); // 스킬 애니메이션 대기 (1초)
     }
@@ -371,22 +376,15 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         if (_witchCharacter == null) return;
 
-        // 마녀 공격2 스킬 발동
-        bool skillActivated = false;
-        foreach (var effectCode in _witchCharacter.GetEffectCodeContainer().EffectCodes)
+        // 마녀 공격 준비 이펙트 제거
+        if (_witchAttackPrepareFx != null)
         {
-            if (effectCode is EffectCodeSkillTemplate skill)
-            {
-                skill.Activate();
-                skillActivated = true;
-                break;
-            }
+            InGameVfxManager.Instance.RemoveInGameVfx(_witchAttackPrepareFx);
+            _witchAttackPrepareFx = null;
         }
 
-        if (!skillActivated)
-        {
-            Debug.LogWarning("마녀 공격2 스킬을 찾을 수 없습니다.");
-        }
+        // 마녀 공격2 스킬 발동
+        ActivateCharacterSkill(_witchCharacter, "마녀 공격2 스킬을 찾을 수 없습니다.");
 
         await UniTask.Delay(1000); // 공격 애니메이션 대기
 
@@ -399,56 +397,20 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(2000); // 총 1초 대기
     }
 
-    // 4단계: 유니/필리아 스킬 + 마녀 그로기 + HP 1
+    // 4단계: 유니/필리아 스킬 + 마녀 그로기
     private async UniTask TriggerYuniPhiliaSkillAndWitchGroggy()
     {
         // 유니 스킬 발동
-        bool yuniSkillActivated = false;
-        if (_yuniCharacter != null)
-        {
-            foreach (var effectCode in _yuniCharacter.GetEffectCodeContainer().EffectCodes)
-            {
-                if (effectCode is EffectCodeSkillTemplate skill)
-                {
-                    skill.Activate();
-                    yuniSkillActivated = true;
-                    break;
-                }
-            }
-        }
-
+        ActivateCharacterSkill(_yuniCharacter);
         // 필리아 스킬 발동
-        bool philiaSkillActivated = false;
-        if (_philiaCharacter != null)
-        {
-            foreach (var effectCode in _philiaCharacter.GetEffectCodeContainer().EffectCodes)
-            {
-                if (effectCode is EffectCodeSkillTemplate skill)
-                {
-                    skill.Activate();
-                    philiaSkillActivated = true;
-                    break;
-                }
-            }
-        }
-
+        ActivateCharacterSkill(_philiaCharacter);
         // 다른 캐릭터들도 라플라스 마녀 계속 공격
-        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
-        foreach (var character in characters)
-        {
-            if (character != _yuniCharacter && character != _philiaCharacter && character.IsAlive)
-            {
-                character.Target = _witchCharacter;
-                character.AddNextState<CharacterStateIdle>();
-            }
-        }
+        StartAllCharacters().Forget();
 
         await UniTask.Delay(2000); // 스킬 애니메이션 대기
 
-        // 마녀 그로기 상태 + 체력 1로 설정 (죽지는 않음)
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
-            _witchCharacter.ForceSetHp(1);
             // [TODO] 그로기 상태 애니메이션/이펙트
             // 예: _witchCharacter.GetCharacterView().PlayAnimation("Groggy");
             Debug.LogColor("라플라스 마녀 그로기 상태, HP 1로 설정");
@@ -463,14 +425,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_witchCharacter == null) return;
 
         // 마녀 최종 스킬 발동
-        foreach (var effectCode in _witchCharacter.GetEffectCodeContainer().EffectCodes)
-        {
-            if (effectCode is EffectCodeSkillTemplate skill)
-            {
-                skill.Activate();
-                break;
-            }
-        }
+        ActivateCharacterSkill(_witchCharacter);
 
         await UniTask.Delay(1000); // 스킬 애니메이션 대기
 
@@ -564,37 +519,9 @@ public class FlowStatePrologueCombat : StateCombatBase
     private async UniTask TriggerMarieSkillAndArtesiaSupernova()
     {
         // 마리에 스킬 발동
-        if (_marieCharacter != null)
-        {
-            foreach (var effectCode in _marieCharacter.GetEffectCodeContainer().EffectCodes)
-            {
-                if (effectCode is EffectCodeSkillTemplate skill)
-                {
-                    skill.Activate();
-                    break;
-                }
-            }
-        }
+        ActivateCharacterSkill(_marieCharacter);
 
         await UniTask.Delay(1000);
-
-        // 아트레시아, 마리에 같이 계속 공격하도록 활성화
-        if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
-        {
-            _artesiaCharacter.Target = _witchCharacter;
-            if (_artesiaCharacter.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
-                _artesiaCharacter.AddNextState<CharacterStateAssassinFirstMove>();
-            else
-                _artesiaCharacter.AddNextState<CharacterStateIdle>();
-        }
-        if (_marieCharacter != null && _marieCharacter.IsAlive)
-        {
-            _marieCharacter.Target = _witchCharacter;
-            if (_marieCharacter.SpecCharacter.character_position_type == SynergyType.ASSASSIN)
-                _marieCharacter.AddNextState<CharacterStateAssassinFirstMove>();
-            else
-                _marieCharacter.AddNextState<CharacterStateIdle>();
-        }
 
         // 아트레시아 초신성 모드
         // [TODO] 초신성 모드 활성화 (버프/이펙트 등)
@@ -606,16 +533,7 @@ public class FlowStatePrologueCombat : StateCombatBase
     // 7단계: 아트레시아 스킬
     private async UniTask TriggerArtesiaSkill()
     {
-        if (_artesiaCharacter == null) return;
-
-        foreach (var effectCode in _artesiaCharacter.GetEffectCodeContainer().EffectCodes)
-        {
-            if (effectCode is EffectCodeSkillTemplate skill)
-            {
-                skill.Activate();
-                break;
-            }
-        }
+        ActivateCharacterSkill(_artesiaCharacter);
 
         await UniTask.Delay(1000); // 1초 대기
     }

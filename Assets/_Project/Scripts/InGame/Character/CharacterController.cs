@@ -343,7 +343,7 @@ namespace CookApps.BattleSystem
             if (targetSynergyType != _statData.Spec.element_type
             && targetSynergyType != _statData.Spec.character_position_type)
                 return;
-                
+
             InjectSynergy(effectCodeID, synergyData);
         }
 
@@ -352,7 +352,7 @@ namespace CookApps.BattleSystem
             for (int i = 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
             {
                 SynergyType targetSynergyType = (SynergyType)i;
-            
+
                 var inGameObjectManagerInstance = InGameObjectManager.Instance;
 
                 var isElementSynergyType = DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType);
@@ -498,6 +498,13 @@ namespace CookApps.BattleSystem
             if (isStun || isAirborne || isFreezing || isKnockBack || isSilence || isMisaRestraint)
             {
                 result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
+            }
+
+            var isPrologueMode = InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePrologueCombat;
+            // 프롤로그 모드에서는 쿨타임 동작하지 않음
+            if (isPrologueMode)
+            {
+                result &= ~CharacterStateRunningResult.CanCallEffectCodeOnCooltime;
             }
 
             if ((result & CharacterStateRunningResult.CanCallMove) == CharacterStateRunningResult.CanCallMove)
