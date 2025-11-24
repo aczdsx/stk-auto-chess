@@ -19,6 +19,8 @@ namespace CookApps.BattleSystem
         public int CharacterId => _statData?.CharacterId ?? _characterID;
         public SpecCharacter SpecCharacter => _statData.Spec;
 
+        private Dictionary<Type, Type> _stateTypeMap = new Dictionary<Type, Type>();
+
         private EffectCodeContainer ecc;
         /// <summary>
         /// 타일 이동 종료 시 호출되는 함수입니다.
@@ -249,11 +251,26 @@ namespace CookApps.BattleSystem
                 _currHp = HP;
                 IsAlive = true;
             }
+
+            _stateTypeMap[typeof(CharacterStateAttack)] = typeof(global::CharacterStateAttackDealer);
+
         }
 
         public void AddViewScaleFactor(float viewScaleValue)
         {
             _view.AddViewScale(viewScaleValue);
+        }
+
+        public void SetStateType(Type baseStateType, Type concreteStateType)
+        {
+            if (baseStateType == null || concreteStateType == null)
+                return;
+
+            // concreteStateType이 baseStateType을 상속받는지 확인
+            if (!concreteStateType.IsSubclassOf(baseStateType) && concreteStateType != baseStateType)
+                return;
+
+            _stateTypeMap[baseStateType] = concreteStateType;
         }
 
         public void Clear()
@@ -645,7 +662,19 @@ namespace CookApps.BattleSystem
 #if UNITY_EDITOR
             // Debug.Log($"AddNextState >> {Time.frameCount}, {CharacId}, {CharacUId}, {typeof(T).ToString()}");
 #endif
-            var state = StatePool.Instance.Get<T>();
+            // StateTypeMap에 등록된 타입이 있으면 해당 타입 사용, 없으면 기본 타입 사용
+            CharacterStateBase state;
+            Type requestedType = typeof(T);
+            if (_stateTypeMap.TryGetValue(requestedType, out Type concreteType))
+            {
+                state = StatePool.Instance.Get(concreteType) as CharacterStateBase
+                    ?? StatePool.Instance.Get<T>();
+            }
+            else
+            {
+                state = StatePool.Instance.Get<T>();
+            }
+
             if (state == null)
                 return null;
 
@@ -657,7 +686,7 @@ namespace CookApps.BattleSystem
 
             state.SetStateData(stateData);
             _nextState = state;
-            return state;
+            return state as T;
         }
 
         public T ForceSetNextState<T>(object stateData = null) where T : CharacterStateBase, new()
