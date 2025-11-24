@@ -8,7 +8,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStatePvpDefenseUI : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IAlertBottomCharacterUI
+    public class InGameMainStatePvpDefense : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IAlertBottomCharacterUI
     {
         private InGameUI _inGameUI;
 

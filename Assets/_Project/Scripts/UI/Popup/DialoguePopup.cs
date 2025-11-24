@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
                                               _currentSpecDialogueData.prefab_id != _dialogueList[seq].prefab_id);
 
             _currentSpecDialogueData = _dialogueList[seq];
-            SetCharacters(_currentSpecDialogueData);
+            // SetCharacters(_currentSpecDialogueData);
 
             if (isChangePrefab)
                 BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);

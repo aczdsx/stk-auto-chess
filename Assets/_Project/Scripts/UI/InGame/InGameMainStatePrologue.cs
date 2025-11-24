@@ -9,7 +9,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStatePvpUI : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI
+    public class InGameMainStatePrologue : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI
     {
         private InGameUI _inGameUI;
 
@@ -19,18 +19,18 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
-        }
-
-        public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
-        {
-            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PvpUI.prefab").Task;
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
             _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
-            _inGameUI.TopUI.SetStageName(data.Nickname);
+            _inGameUI.TopUI.SetStageName("프롤로그");
 
-            InGameManager.Instance.StartInGame<FlowStatePvpReady>(data);
+            InGameManager.Instance.StartInGame<FlowStatePrologueReady>(null as SpecStage);
+        }
+
+        public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
+        {
         }
 
         public void InitCombatStateUI()
@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
             // _inGameUI.BottomUI.InitCommanderSkill();
             _inGameUI.BottomUI.InitSpeedUpSetting();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
-            
+
             bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
             if (isOpenStatisticPop)
                 SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(_inGameUI.BottomUI).Forget();
@@ -83,7 +83,7 @@ namespace CookApps.AutoBattler
                 }
             }
         }
-        
+
         public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
         {
             _inGameUI.BottomUI.InitData();
@@ -124,7 +124,7 @@ namespace CookApps.AutoBattler
             var ks = CookApps.AutoBattler.KillSource.From(source, isPlayerKill);
             _inGameUI.TopUI.AddKillLog(ks, death, isPlayerKill);
         }
-        
+
         public void SetAlertBottomCharacter(int characterID)
         {
             _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);

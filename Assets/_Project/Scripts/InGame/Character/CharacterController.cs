@@ -19,6 +19,8 @@ namespace CookApps.BattleSystem
         public int CharacterId => _statData?.CharacterId ?? _characterID;
         public SpecCharacter SpecCharacter => _statData.Spec;
 
+        private Dictionary<Type, Type> _stateTypeMap = new Dictionary<Type, Type>();
+
         private EffectCodeContainer ecc;
         /// <summary>
         /// 타일 이동 종료 시 호출되는 함수입니다.
@@ -249,11 +251,26 @@ namespace CookApps.BattleSystem
                 _currHp = HP;
                 IsAlive = true;
             }
+
+            _stateTypeMap[typeof(CharacterStateAttack)] = typeof(global::CharacterStateAttackDealer);
+
         }
 
         public void AddViewScaleFactor(float viewScaleValue)
         {
             _view.AddViewScale(viewScaleValue);
+        }
+
+        public void SetStateType(Type baseStateType, Type concreteStateType)
+        {
+            if (baseStateType == null || concreteStateType == null)
+                return;
+
+            // concreteStateType이 baseStateType을 상속받는지 확인
+            if (!concreteStateType.IsSubclassOf(baseStateType) && concreteStateType != baseStateType)
+                return;
+
+            _stateTypeMap[baseStateType] = concreteStateType;
         }
 
         public void Clear()
@@ -343,7 +360,7 @@ namespace CookApps.BattleSystem
             if (targetSynergyType != _statData.Spec.element_type
             && targetSynergyType != _statData.Spec.asterism_type)
                 return;
-                
+
             InjectSynergy(effectCodeID, synergyData);
         }
 
@@ -352,7 +369,7 @@ namespace CookApps.BattleSystem
             for (int i = 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
             {
                 SynergyType targetSynergyType = (SynergyType)i;
-            
+
                 var inGameObjectManagerInstance = InGameObjectManager.Instance;
 
                 var targetSynergyCharacterCount = inGameObjectManagerInstance.GetCharacterSynergyCount(_allianceType, targetSynergyType);
@@ -496,6 +513,13 @@ namespace CookApps.BattleSystem
                 result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
             }
 
+            var isPrologueMode = InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePrologueCombat;
+            // 프롤로그 모드에서는 쿨타임 동작하지 않음
+            if (isPrologueMode)
+            {
+                result &= ~CharacterStateRunningResult.CanCallEffectCodeOnCooltime;
+            }
+
             if ((result & CharacterStateRunningResult.CanCallMove) == CharacterStateRunningResult.CanCallMove)
             {
                 _view.UpdatePosition(position, ViewPosition3D, SelectedOffSet);
@@ -634,7 +658,19 @@ namespace CookApps.BattleSystem
 #if UNITY_EDITOR
             // Debug.Log($"AddNextState >> {Time.frameCount}, {CharacId}, {CharacUId}, {typeof(T).ToString()}");
 #endif
-            var state = StatePool.Instance.Get<T>();
+            // StateTypeMap에 등록된 타입이 있으면 해당 타입 사용, 없으면 기본 타입 사용
+            CharacterStateBase state;
+            Type requestedType = typeof(T);
+            if (_stateTypeMap.TryGetValue(requestedType, out Type concreteType))
+            {
+                state = StatePool.Instance.Get(concreteType) as CharacterStateBase
+                    ?? StatePool.Instance.Get<T>();
+            }
+            else
+            {
+                state = StatePool.Instance.Get<T>();
+            }
+
             if (state == null)
                 return null;
 
@@ -646,7 +682,7 @@ namespace CookApps.BattleSystem
 
             state.SetStateData(stateData);
             _nextState = state;
-            return state;
+            return state as T;
         }
 
         public T ForceSetNextState<T>(object stateData = null) where T : CharacterStateBase, new()

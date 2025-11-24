@@ -34,6 +34,10 @@ MonoBehaviour:
     Material: {fileID: 2100000, guid: cb66fc5cd88444d44a2942a2244f553a, type: 2}
     Color: {r: 0.039215688, g: 0.047058824, b: 0.05490196, a: 1}
   - InGameType: 1
+    ID: 6
+    Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
+    Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
+  - InGameType: 1
     ID: 2
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
     Color: {r: 0.16862746, g: 0.03529412, b: 0.015686275, a: 1}

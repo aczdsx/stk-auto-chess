@@ -229,7 +229,7 @@ namespace CookApps.AutoBattler
                     _loadingPopupObject.SetActive(false);
 
                     SceneLoading.GoToNextScene("InGame",
-                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateUIStageUI(), (int)specStageData.stage_id)).Forget();
+                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), (int)specStageData.stage_id)).Forget();
                 }
                 else
                 {
@@ -394,7 +394,8 @@ namespace CookApps.AutoBattler
             {
                 // 디바이스 ID로 authID 저장
                 //var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
-                var uuID = DeviceIdHolder.DeviceId;
+                // var uuID = DeviceIdHolder.DeviceId;
+                var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
                 Preference.SavePreference(Pref.GUEST_ID, uuID);
                 Debug.Log("GUEST_ID ++++> " + uuID);
                 await GrpcManager.Instance.Auth.CreateAsync(authPlatform, uuID);

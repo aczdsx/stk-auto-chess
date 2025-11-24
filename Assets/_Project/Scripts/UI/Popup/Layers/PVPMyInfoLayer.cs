@@ -115,7 +115,7 @@ namespace CookApps.AutoBattler
             UserPVPBattleDetailData data = UserDataManager.Instance.GetCurrentPVPDetailProfileData(true);
             
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.PVP_DEFENSE, (IGameStateUICore) new InGameMainStatePvpDefenseUI(), data),
+                (InGameType.PVP_DEFENSE, (IGameStateUICore) new InGameMainStatePvpDefense(), data),
                 transition).Forget();
         }
 

@@ -229,7 +229,7 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateUIStageUI(), (int)nextStageData.stage_id)).Forget();
+                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), (int)nextStageData.stage_id)).Forget();
         }
 
         private void OnClickRetryStageButton()
@@ -244,7 +244,7 @@ namespace CookApps.AutoBattler
 
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateUIStageUI(), (int)InGameManager.Instance.SpecStage.stage_id)).Forget();
+                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), (int)InGameManager.Instance.SpecStage.stage_id)).Forget();
         }
 
         // 가장 높은 스테이지 클리어 여부 체크
