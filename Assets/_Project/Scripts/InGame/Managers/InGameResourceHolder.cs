@@ -25,6 +25,8 @@ namespace CookApps.AutoBattler
 
             InGameType = inGameType;
 
+            Debug.LogColor($"LoadResources: {inGameType} id: {id}", "blue");
+
             if (inGameType == InGameType.STAGE)
             {
                 var stageData = SpecDataManager.Instance.GetStageData(id);
@@ -54,7 +56,7 @@ namespace CookApps.AutoBattler
             else if (inGameType == InGameType.PROLOGUE)
             {
                 StagePrefab =
-                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/PROLOGUE.prefab");
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Prologue.prefab");
             }
         }
 
