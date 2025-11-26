@@ -56,7 +56,8 @@ public class CharacterStateMove : CharacterStateBase
                 }
 
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
-                characCtrl.MoveCharacter(isInRange);
+                // 만들어둔 로직이 들어가서 다시 찾아야 하나?
+                characCtrl.MoveCharacter(isInRange, characCtrl.Target);
                 isBlockingChangeState = false;
             }
         });

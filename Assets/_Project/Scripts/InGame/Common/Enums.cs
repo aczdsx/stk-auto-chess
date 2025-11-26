@@ -147,6 +147,7 @@ namespace CookApps.BattleSystem
         Silence,
         Airborne,
         Misa,
+        NormalAttackShield,
         MAX
     }
 

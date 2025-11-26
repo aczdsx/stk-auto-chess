@@ -453,6 +453,7 @@ namespace CookApps.BattleSystem
 
         /// <summary>
         /// pivot을 기준으로 가장 가까운 적을 반환
+        /// BFS 기준으로 가장 거리가 짧은 타겟을 반환
         /// </summary>
         /// <param name="pivot"></param>
         /// <returns></returns>
@@ -491,6 +492,58 @@ namespace CookApps.BattleSystem
                 {
                     minDistance = distance;
                     target = enemy;
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// pivot을 기준으로 가장 체력이 낮은 우리 팀을 반환
+        /// </summary>
+        /// <param name="pivot"></param>    
+        /// <returns></returns>
+        public CharacterController GetLowestHPOurTeam(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
+            {
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            else if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
+
+            if (reusableList == null || reusableList.Count == 0)
+            {
+                return null;
+            }
+
+            var minHP = double.MaxValue;
+            foreach (var ourTeamCharacter in reusableList)
+            {
+                if (ourTeamCharacter.IsAlive == false)
+                {
+                    continue;
+                }
+                
+                if (pivot.CurrentTile.X == ourTeamCharacter.CurrentTile.X
+                && pivot.CurrentTile.Y == ourTeamCharacter.CurrentTile.Y)
+                {//나라면 제외.
+                    continue;
+                }
+
+                var curHPvalue = ourTeamCharacter.CurrentHp;
+                if (minHP > curHPvalue)
+                {
+                    minHP = curHPvalue;
+                    target = ourTeamCharacter;
                 }
             }
 
@@ -538,7 +591,8 @@ namespace CookApps.BattleSystem
             return target;
         }
 
-        public CharacterController GetTargetForMove(CharacterController pivot)
+        // 2. 공격 타겟 찾기 + 못 찾았으면 [내가 공격 가능한 범위]까지 [최소한의 이동]으로 갈 수 있는 대상 찾기
+        public CharacterController GetOptimalAttackTarget(CharacterController pivot)
         {
             CharacterController target = null;
 

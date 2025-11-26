@@ -46,6 +46,23 @@ namespace CookApps.BattleSystem
             }
         }
 
+        protected void AddPassive(AllianceType allianceType)
+        {
+            var specDataManagerInstance = SpecDataManager.Instance;
+            int testGrade = 0;
+            foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
+            {
+                var passiveList = specDataManagerInstance.GetPassivePositionList(character.SpecCharacter.position_type);
+                if (passiveList == null || passiveList.Count == 0)
+                    continue;
+
+                foreach (var passive in passiveList)
+                {
+                    character.InjectPassive((long)passive[testGrade].passieve_id, passive[testGrade]);
+                }
+            }
+        }
+
         private void AddSynergyEachTogether(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData)
         {
 

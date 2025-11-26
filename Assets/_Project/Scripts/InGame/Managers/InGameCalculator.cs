@@ -20,17 +20,23 @@ namespace CookApps.AutoBattler
 
         public static double CalculateDefaultDamage(double ad, double ap, CharacterController target, CharacterController attacker = null)
         {
+            double damage = 0;
+
+            if (attacker != null && attacker.PureDamageTest())
+            {
+                damage = ap >= 0 ? ap : ad;
+                return damage;
+            }
             // 방관이나 마관에 따른 방어력 및 저항력 계산
-            double def = attacker != null 
-                ? target.DEF * (1f - attacker.DEFPenetration) 
+            double def = attacker != null
+                ? target.DEF * (1f - attacker.DEFPenetration)
                 : target.DEF;
-            
-            double res = attacker != null 
-                ? target.RES * (1f - attacker.RESPenetration) 
+
+            double res = attacker != null
+                ? target.RES * (1f - attacker.RESPenetration)
                 : target.RES;
 
-            double damage = 0;
-            
+
             if (def >= 0)
                 damage += ad * 50f / (50f + def);
 

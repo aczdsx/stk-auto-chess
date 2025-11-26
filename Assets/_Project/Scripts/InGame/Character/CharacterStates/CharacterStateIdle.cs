@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class CharacterStateIdle : CharacterStateBase
 {
-    private const float ScanTargetInterval = 0.1f;
-    private float scanTargetTime = 0f;
+    protected const float ScanTargetInterval = 0.1f;
+    protected float scanTargetTime = 0f;
 
     public override StatePriority StatePriority => StatePriority.Idle;
-    
+
     public override void StateStart()
     {
         base.StateStart();
@@ -31,10 +31,10 @@ public class CharacterStateIdle : CharacterStateBase
         }
         scanTargetTime = ScanTargetInterval;
 
-        // 2. 타겟 찾기
         if (characCtrl.Target == null)
-            characCtrl.Target = InGameObjectManager.Instance.GetNearestTargetByBFS(characCtrl);
-
+        {
+            characCtrl.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+        }
         if (characCtrl.Target is {IsAlive: false})
         {
             characCtrl.Target = null;
@@ -53,7 +53,7 @@ public class CharacterStateIdle : CharacterStateBase
             }
             else
             {
-                characCtrl.MoveCharacter(isInRange);
+                characCtrl.MoveCharacter(isInRange, characCtrl.Target);
             }
         }
 

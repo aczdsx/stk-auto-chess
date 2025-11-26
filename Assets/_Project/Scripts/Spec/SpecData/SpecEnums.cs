@@ -29,6 +29,14 @@ namespace CookApps.AutoBattler
         MOVESPEED_UP = 17,
         MOVESPEED_PERCENT_UP = 18,
         VIEW_SCALE_UP = 19,
+        PURE_DAMAGE_PROB_UP = 20,
+        PASSIVE_AMBUSH = 3100001,
+        PASSIVE_BASH = 3100002,
+        PASSIVE_CRITICAL_STACK = 3100003,
+        PASSIVE_ENDURE = 3100004,
+        PASSIVE_ESPER = 3100005,
+        PASSIVE_PIERCE = 3100006,
+        PASSIVE_RECOVERY = 3100007,
         TILE_BURN = 1000000001,
         STUN = 1100000001,
         SHIELD = 1100000002,
@@ -68,6 +76,7 @@ namespace CookApps.AutoBattler
         BUFF_ATK_SPEED_UP = 2000000020,
         BUFF_SKILL_POWER_UP = 2000000021,
         BUFF_IMMUNE = 2000000022,
+        BUFF_NORMAL_ATTACK_SHIELD = 2000000023,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -152,8 +161,8 @@ namespace CookApps.AutoBattler
     public enum DifficultyType
     {
         NONE = 1,
-        NORMAL = 3,
-        HARD = 4,
+        NORMAL = 2,
+        HARD = 3,
     }
 
     public enum StageType
@@ -464,6 +473,8 @@ namespace CookApps.AutoBattler
         DropFx = 181,
         Skill_202061_1 = 182,
         fx_common_trap_explosion = 183,
+        fx_common_buff_normal_attack_shield_01 = 184,
+        fx_common_buff_normal_attack_shield_02 = 185,
     }
 
     public enum GlobalEffectProviderType
@@ -543,6 +554,7 @@ namespace CookApps.AutoBattler
         PVP_DEFENSE = 4,
         TRIAL_BOSS = 5,
         TURORIAL = 6,
+        PROLOGUE = 7,
     }
 
     public enum UserGradeType

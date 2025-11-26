@@ -77,7 +77,7 @@ public partial class EffectCodeSkill1304021 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        owner.Target = InGameObjectManager.Instance.GetTargetForMove(owner);
+        owner.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(owner);
 
         var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
         if (!isInRange)

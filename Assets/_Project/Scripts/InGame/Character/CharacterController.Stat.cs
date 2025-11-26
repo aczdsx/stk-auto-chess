@@ -42,7 +42,8 @@ namespace CookApps.BattleSystem
             postGoldGainIndividual,
             postExpGainIndividual,
             postDungeonAttackDamageRateIndividual,
-            postStatusDamageRate;
+            postStatusDamageRate,
+            postPureDamageProb;
 
         private ObfuscatorInt postAttackRange;
 
@@ -349,6 +350,24 @@ namespace CookApps.BattleSystem
                 }
 
                 return postDoubleCriticalDamageRate;
+            }
+        }
+        public float PureDamageProb
+        {
+            get
+            {
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatPureDamageProb) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatPureDamageProb))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatPureDamageProb);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatPureDamageProb);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatPureDamageProb);
+                    postPureDamageProb =
+                        effectCodes.CalculatePureDamageProb(GetCharacterStat().PureDamageProb);
+                }
+
+                return postPureDamageProb;
             }
         }
 

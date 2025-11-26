@@ -95,7 +95,7 @@ public partial class EffectCodeSkill1204011 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
 
-        owner.Target = InGameObjectManager.Instance.GetTargetForMove(owner);
+        owner.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(owner);
 
         if (owner.Target != null)
         {
