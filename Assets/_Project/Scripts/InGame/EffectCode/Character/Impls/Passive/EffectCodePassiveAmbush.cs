@@ -26,6 +26,10 @@ namespace CookApps.BattleSystem
         public override void OnCombatStart()
         {
             base.OnCombatStart();
+            if (InGameManager.Instance.IsBlockAmbush)
+            {
+                return;
+            }
             owner.AddNextState<CharacterStateAssassinFirstMove>(null);
 
         }

@@ -36,6 +36,7 @@ namespace CookApps.BattleSystem
         private bool isGameInfoLoaded;
         public bool IsInGamePlaying { get; private set; }
         public bool IsInGameCombat { get; set; }
+        public bool IsBlockAmbush { get; set; }
 
         public void Clear()
         {
@@ -52,6 +53,7 @@ namespace CookApps.BattleSystem
             SpecStage = specStage;
             IsInGamePlaying = true;
             IsInGameCombat = true;
+            IsBlockAmbush = false;
             AppEventResult = string.Empty;
             AppEventReason = string.Empty;
             ecc = new EffectCodeContainer(this);
@@ -64,6 +66,7 @@ namespace CookApps.BattleSystem
             SpecDungeonTrial = specDungeonTrial;
             IsInGamePlaying = true;
             IsInGameCombat = true;
+            IsBlockAmbush = specDungeonTrial.dungeon_map_id == 1 ? true : false;
             AppEventResult = string.Empty;
             AppEventReason = string.Empty;
             ecc = new EffectCodeContainer(this);
@@ -76,6 +79,7 @@ namespace CookApps.BattleSystem
             UserPvpBattleDeckList = pvpBattleDeck;
             IsInGamePlaying = true;
             IsInGameCombat = true;
+            IsBlockAmbush = false;
             AppEventResult = string.Empty;
             AppEventReason = string.Empty;
             ecc = new EffectCodeContainer(this);
