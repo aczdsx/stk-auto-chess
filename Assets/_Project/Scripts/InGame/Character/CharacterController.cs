@@ -1343,6 +1343,17 @@ namespace CookApps.BattleSystem
 
             return null;
         }
+        public void ReUseLine(InGameVfxTargetLine targetLine, CharacterController character, bool isOwn, Action<InGameVfxTargetLine> onComplete = null)
+        {
+            if (targetLine == null) return;
+            targetLine.SetActiveObject(true);
+            targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
+                {
+                    if (onComplete != null)
+                        onComplete.Invoke(targetLine);
+                });
+            
+        }
 
         public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)
         {

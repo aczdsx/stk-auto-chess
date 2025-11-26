@@ -533,12 +533,6 @@ namespace CookApps.BattleSystem
                     continue;
                 }
 
-                if (pivot.CurrentTile.X == ourTeamCharacter.CurrentTile.X
-                && pivot.CurrentTile.Y == ourTeamCharacter.CurrentTile.Y)
-                {//나라면 제외.
-                    continue;
-                }
-
                 var curHPvalue = ourTeamCharacter.CurrentHp;
                 if (minHP > curHPvalue)
                 {
@@ -725,6 +719,22 @@ namespace CookApps.BattleSystem
             return target;
         }
 
+        public CharacterController GetTargetOnceByPositionType(CharacterController pivot)
+        {
+            var pivotPositionType = pivot.GetCharacterStat().Spec.position_type;
+            if (pivotPositionType == PositionType.GHOST)
+            {
+                return GetFarthestTargetByOnce(pivot);
+            }
+            else if (pivotPositionType == PositionType.ORACLE)
+            {
+                return GetLowestHPOurTeam(pivot);
+            }
+            else
+            {
+                return GetNearestTargetOnce(pivot);
+            }
+        }
         /// <summary>
         /// type과 동일한 모든 캐릭터를 반환
         /// </summary>
@@ -951,35 +961,45 @@ namespace CookApps.BattleSystem
             List<CharacterController> characterControllers = (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
             List<InGameVfxTargetLine> targetLines = (isPlayer) ? playerTargetLines : enemyTargetLines;
 
-            foreach (var line in targetLines)
-            {
-                line.Remove();
-            }
-            targetLines.Clear();
+            // foreach (var line in targetLines)
+            // {
+            //     line.Remove();
+            // }
+            // targetLines.Clear();
 
-            foreach (var playerCharacter in characterControllers)
+            foreach (var anyCharacter in characterControllers)
             {
-                var target = new CharacterController();
-                //여기 어쎄신 예외처리 되어있었음.
-                // if (playerCharacter.GetCharacterStat().Spec.character_position_type == SynergyType.ASSASSIN)
-                // {
-                //     target = GetFarthestTargetByOnce(playerCharacter);
-                // }
-                // else
-                {
-                    target = GetNearestTargetOnce(playerCharacter);
-                }
+                var target = GetTargetOnceByPositionType(anyCharacter);
 
                 if (target != null)
                 {
-                    var targetLine = playerCharacter.SetLine(target, isPlayer,
-                        (targetLine) =>
+                    InGameVfxTargetLine targetLine = null;
+                    foreach (var line in targetLines)
+                    {
+                        if (line.CachedGo.activeSelf == false)
                         {
-                            targetLine.SetActiveObject(false);
-                            targetLines.Remove(targetLine);
-                        });
+                            targetLine = line;
+                            break;
+                        }
+                    }
 
-                    targetLines.Add(targetLine);
+                    if (targetLine == null)
+                    {
+                        targetLine = anyCharacter.SetLine(target, isPlayer,
+                            (targetLine) =>
+                            {
+                                targetLine.SetActiveObject(false); //대기상태로 변경
+                            });
+                        targetLines.Add(targetLine);
+                    }
+                    else
+                    {
+                        anyCharacter.ReUseLine(targetLine, target, isPlayer,
+                            (targetLine) =>
+                            {
+                                targetLine.SetActiveObject(false); //대기상태로 변경
+                            });
+                    }
                 }
             }
         }

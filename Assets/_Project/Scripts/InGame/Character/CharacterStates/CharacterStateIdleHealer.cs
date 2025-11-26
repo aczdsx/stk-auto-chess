@@ -25,13 +25,6 @@ public class CharacterStateIdleHealer : CharacterStateIdle
          (characCtrl.Target.AllianceType != characCtrl.AllianceType))
         {
             characCtrl.Target = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
-            if(characCtrl.Target == null)
-            {
-                characCtrl.Target = characCtrl;
-                characCtrl.AddNextState<CharacterStateAttack>();
-                Debug.Log("Heal Target is Me");
-                return CharacterStateRunningResult.CanCallAllWithoutMove;
-            }
         }
         if (characCtrl.Target is {IsAlive: false})
         {

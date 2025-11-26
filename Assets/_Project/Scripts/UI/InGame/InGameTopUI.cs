@@ -145,9 +145,9 @@ public class InGameTopUI : MonoBehaviour
             synergyCountDataList.RemoveRange(9, synergyCountDataList.Count - 9);
         }
 
-        if (type == AllianceType.Enemy)
+        if (type != AllianceType.Enemy)
         {
-            //Enemy ui의 경우 오름차순으로 출력되어야합니다.
+            //player ui의 경우 오름차순으로 출력되어야합니다.
             synergyCountDataList.Reverse();
         }
 
@@ -158,14 +158,14 @@ public class InGameTopUI : MonoBehaviour
             var CanSynergy = specDataManagerInstance.TryGetSynergyDataByCount(synergyCountData.Type, synergyCountData.Count,
             out var outSynergyData, out var outSynergyList);
 
-            if (CanSynergy)
-            {
+            // if (CanSynergy)
+            // {
                 var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
                 bool isActiveZeroGrade = (type == AllianceType.Player) ? outSynergyData.grade >= 0 : outSynergyData.grade > 0;
                 if (isActiveZeroGrade)
                 {
                     TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData)
+                        _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData,outSynergyData.grade > 0)
                     );
                             
                     if (!isCombat && DistinguishSynergyTypeHelper.IsElementSynergyType(synergyCountData.Type))
@@ -173,7 +173,7 @@ public class InGameTopUI : MonoBehaviour
                         InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type);
                     }
                 }
-            }
+            // }
         }
 
         if (isCombat)
