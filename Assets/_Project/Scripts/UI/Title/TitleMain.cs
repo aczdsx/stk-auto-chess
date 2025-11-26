@@ -211,8 +211,7 @@ namespace CookApps.AutoBattler
             AppEventManager.Instance.Login();
 
             {
-                //var transition = SceneTransition_FadeInOut.Create();
-                // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.
+                // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
 
                 // 현재 PVP 유저 프로필 자동저장
                 await PVPManager.Instance.UpdatePVPProfileData();
@@ -235,12 +234,19 @@ namespace CookApps.AutoBattler
                 {
                     var transition = SceneTransition_FadeInOut.Create();
 
-                    isLoginProcess = false;
-                    _loadingPopupObject.SetActive(false);
+                    // isLoginProcess = false;
+                    // _loadingPopupObject.SetActive(false);
 
-                    var lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
-                    SceneLoading.GoToNextScene("Lobby", (int)specStageData.chapter_id, transition).Forget();
+                    // var lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
+                    // var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
+                    // SceneLoading.GoToNextScene("Lobby", (int)specStageData.chapter_id, transition).Forget();
+
+
+                    var transition1 = SceneTransition_FadeInOut.Create();
+                    // 프롤로그로 진입하게 해줘야함
+                    SceneLoading.GoToNextScene("InGame",
+                            (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0), transition1).Forget();
+                    return;
                 }
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);

@@ -44,7 +44,7 @@ public class CharacterStateIdleHealer : CharacterStateIdle
             }
             else
             {
-                characCtrl.MoveCharacter(isInRange, characCtrl.Target);
+                characCtrl.MoveToCharacter(isInRange, characCtrl.Target);
             }
         }
 

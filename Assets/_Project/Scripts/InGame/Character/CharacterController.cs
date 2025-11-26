@@ -1263,7 +1263,7 @@ namespace CookApps.BattleSystem
             await textView.ShowShieldText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
         }
 
-        public void MoveCharacter(bool isInRange, CharacterController target)
+        public void MoveToCharacter(bool isInRange, CharacterController target)
         {
             if (NeedToBeCrowdControlState())
             {//이건 cc기 당했다면 cc상태로 변환
@@ -1314,6 +1314,45 @@ namespace CookApps.BattleSystem
             MoveTile(bestTile);
         }
 
+        public void MoveToTile(InGameTile targetTile)
+        {
+            if (NeedToBeCrowdControlState())
+            {//이건 cc기 당했다면 cc상태로 변환
+                AddNextState<CharacterStateCC>();
+                return;
+            }
+
+            InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, targetTile);
+            if (bestTile == CurrentTile)
+            {//이 경우는 다음 타일로 움직이고있는 중이라는 뜻 같다. 근데 얼리리턴함.
+                if (_notFoundTargetFx == null)
+                    _notFoundTargetFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
+                        SkillRootTransformFollowable);
+                GetCharacterView().LookAt(CurrentTile, targetTile);
+                AddNextState<CharacterStateIdle>();
+                return;
+            }
+            else
+            {
+                if (_notFoundTargetFx != null)
+                {
+                    _notFoundTargetFx.Remove();
+                    _notFoundTargetFx = null;
+                }
+            }
+
+            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
+            EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
+            if (effectCode is EffectCodeCharacterBase runEffectCode)
+            {
+                GetCharacterView().LookAt(CurrentTile, targetTile);
+                AddNextState<CharacterStateIdle>();
+                return;
+            }
+
+            MoveTile(bestTile);
+        }
+
         public void MoveTile(InGameTile tile)
         {
             if (SpecCharacter.move_speed > 0)
@@ -1352,7 +1391,7 @@ namespace CookApps.BattleSystem
                     if (onComplete != null)
                         onComplete.Invoke(targetLine);
                 });
-            
+
         }
 
         public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)

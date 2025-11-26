@@ -72,6 +72,21 @@ public class FlowStatePrologueCombat : StateCombatBase
             EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }
 
+
+        // 캐릭터 찾기
+        _clayCharacter = FindCharacterById(AllianceType.Player, 140103); // 클레이
+        _yuniCharacter = FindCharacterById(AllianceType.Player, 130601); // 유니
+        _philiaCharacter = FindCharacterById(AllianceType.Player, 130402); // 필리아
+        _artesiaCharacter = FindCharacterById(AllianceType.Player, 140101); // 아트레시아
+        // 마리에는 5단계에서 합류하므로 초기에는 찾지 않음
+
+        // 라플라스 마녀 찾기 (적)
+        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
+        if (characters.Count > 0)
+        {
+            _witchCharacter = characters[0];
+        }
+
         InitializePrologueScenario().Forget();
     }
 
@@ -123,20 +138,6 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask InitializePrologueScenario()
     {
-        // 캐릭터 찾기
-        _clayCharacter = FindCharacterById(AllianceType.Player, 140103); // 클레이
-        _yuniCharacter = FindCharacterById(AllianceType.Player, 130601); // 유니
-        _philiaCharacter = FindCharacterById(AllianceType.Player, 130402); // 필리아
-        _artesiaCharacter = FindCharacterById(AllianceType.Player, 140101); // 아트레시아
-        // 마리에는 5단계에서 합류하므로 초기에는 찾지 않음
-
-        // 라플라스 마녀 찾기 (적)
-        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
-        if (characters.Count > 0)
-        {
-            _witchCharacter = characters[0];
-        }
-
         // 시나리오 시작
         await StartPrologueScenario();
     }
@@ -146,7 +147,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         var characterList = InGameObjectManager.Instance.GetCharacterList(allianceType);
         foreach (var character in characterList)
         {
-            if (character.GetCharacterStat().Spec.id == characterId)
+            if (character.GetCharacterStat().CharacterID == characterId)
             {
                 return character;
             }
@@ -168,11 +169,35 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         int2 targetPosition = new int2(character.CurrentTile.X + deltaX, character.CurrentTile.Y + deltaY);
         InGameTile targetTile = InGameObjectManager.Instance.InGameGrid.GetTile(targetPosition);
-        
-        if (targetTile == null)
-            return false;
 
-        character.MoveTile(targetTile);
+        if (targetTile == null)
+        {
+            Debug.LogWarning($"MoveCharacterToDirection: 타일을 찾을 수 없습니다. ({targetPosition.x}, {targetPosition.y})");
+            return false;
+        }
+
+        // 타일이 이미 점유되어 있는지 확인
+        if (targetTile.OccupiedCharacter != null)
+        {
+            Debug.LogWarning($"MoveCharacterToDirection: 타일이 이미 점유되어 있습니다. ({targetPosition.x}, {targetPosition.y})");
+            return false;
+        }
+
+        // 이동 가능한지 확인 (move_speed > 0)
+        if (character.GetCharacterStat().MoveSpeed <= 0)
+        {
+            Debug.LogWarning($"MoveCharacterToDirection: 캐릭터의 이동 속도가 0입니다. ({character.CharacterId})");
+            return false;
+        }
+
+        // Ready 상태에서 Idle로 변경하여 이동 가능하도록 함
+        if (character.GetCurrentState() is CharacterStateReady)
+        {
+            character.AddNextState<CharacterStateIdle>();
+        }
+
+        // MoveToTile을 사용하여 최적의 경로로 이동
+        character.MoveToTile(targetTile);
         return true;
     }
 
@@ -378,7 +403,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             InGameVfxNameType.fx_common_cast_darkness,
             _witchCharacter.SkillRootTransformFollowable);
 
-        await UniTask.Delay(3000); // 3초 대기
+        await UniTask.Delay(2000); // 2초 대기
     }
 
     // 2단계: 클레이 스킬 + 마녀 공격/준비 이펙트 Off
@@ -386,26 +411,15 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         if (_clayCharacter == null) return;
 
-        // 클레이를 한 칸 오른쪽으로 이동
-        if (MoveCharacterToDirection(_clayCharacter, 1, 0))
+        // 클레이를 y축으로 한 칸 앞으로 이동
+        if (MoveCharacterToDirection(_clayCharacter, 0, 1))
         {
             // 이동 완료 대기
             await WaitForCharacterMoveComplete(_clayCharacter);
-
-            _clayCharacter.Target = _witchCharacter;
-            _clayCharacter.LookAtTarget();
         }
 
-
-
-        _clayCharacter.Target = _witchCharacter;
-        _clayCharacter.LookAtTarget();
-
-        await UniTask.Delay(1000); // 이동 대기
         // 클레이 스킬 강제 발동
         ActivateCharacterSkill(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
-
-        await UniTask.Delay(1000); // 스킬 애니메이션 대기
 
         // 라플라스 마녀 공격 준비 이펙트 종료
         if (_witchAttackPrepareFx != null)
@@ -414,7 +428,15 @@ public class FlowStatePrologueCombat : StateCombatBase
             _witchAttackPrepareFx = null;
         }
 
-        await UniTask.Delay(2000); // 추가 대기 (총 3초)
+        // 라플라스 마녀 스킬 발동
+        ActivateCharacterSkill(_witchCharacter, "마녀 스킬을 찾을 수 없습니다.");
+
+        await UniTask.Delay(1000); // 1초 대기
+
+        // 가이드 문구 토스트 표시
+        ToastManager.Instance.ShowToast("라플라스 마녀의 강력한 공격을 클레이의 스킬로 막아냈습니다. 클레이의 스킬은 쉴드와 회복 효과를 지니고 있습니다.");
+
+        await UniTask.Delay(2000); // 2초 대기
     }
 
     // 3단계: 마녀 공격2 + 클레이 죽음
@@ -433,7 +455,10 @@ public class FlowStatePrologueCombat : StateCombatBase
             _clayCharacter.AddNextState<CharacterStateDead>();
         }
 
-        await UniTask.Delay(2000); // 추가 대기 (총 3초)
+        // 라플라스 마녀는 스킬 반동으로 그로기 상태
+        // [TODO] 그로기 상태 처리
+
+        await UniTask.Delay(2000); // 2초 대기
     }
 
     // 4단계: 유니/필리아 스킬 + 마녀 그로기
@@ -443,26 +468,32 @@ public class FlowStatePrologueCombat : StateCombatBase
         ActivateCharacterSkill(_yuniCharacter, "유니 스킬을 찾을 수 없습니다.");
         // 필리아 스킬 발동
         ActivateCharacterSkill(_philiaCharacter, "필리아 스킬을 찾을 수 없습니다.");
+        
         // 다른 캐릭터들도 라플라스 마녀 계속 공격
         StartAllCharacters().Forget();
 
-        await UniTask.Delay(2000); // 스킬 애니메이션 대기
+        await UniTask.Delay(1000); // 스킬 애니메이션 대기
 
-        if (_witchCharacter != null && _witchCharacter.IsAlive)
-        {
-            // 라플라스 마녀 그로기 상태 설정 (HP 1로 설정)
-            var currentHp = _witchCharacter.CurrentHp;
-            if (currentHp > 1)
-            {
-                _witchCharacter.ForceSetHp(1);
-                Debug.LogColor($"라플라스 마녀 그로기 상태, HP {currentHp} -> 1로 설정");
-            }
+        // 가이드 문구 토스트 표시
+        ToastManager.Instance.ShowToast("라플라스 마녀가 지친 지금이 공격할 타이밍 입니다. 유니와 필리아의 스킬은 강력한 물리/마법 공격력을 지닙니다.");
 
-            // [TODO] 그로기 상태 애니메이션/이펙트
-            // 예: _witchCharacter.GetCharacterView().PlayAnimation("Groggy");
-        }
+        // await UniTask.Delay(1000); // 추가 대기
 
-        await UniTask.Delay(1000); // 추가 대기 (총 3초)
+        // // 라플라스 마녀 여전히 그로기 상태 (HP는 이미 1로 설정되어 있을 수 있음)
+        // if (_witchCharacter != null && _witchCharacter.IsAlive)
+        // {
+        //     var currentHp = _witchCharacter.CurrentHp;
+        //     if (currentHp > 1)
+        //     {
+        //         _witchCharacter.ForceSetHp(1);
+        //         Debug.LogColor($"라플라스 마녀 그로기 상태, HP {currentHp} -> 1로 설정");
+        //     }
+        // }
+
+        await UniTask.Delay(2000); // 2초 대기
+
+        // 다른 캐릭터들 공격 멈춤
+        await StopAllCharacters();
     }
 
     // 5단계: 마녀 광역 공격 + 유니/필리아 죽음 + 마리에 합류
@@ -470,7 +501,10 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         if (_witchCharacter == null) return;
 
-        // 마녀 광역 최종 스킬 발동
+        // 라플라스 마녀 그로기 -> 스킬 모션으로
+        // [TODO] 그로기 상태에서 스킬 모션으로 전환
+
+        // 라플라스 마녀 광역 최종 스킬 발동
         ActivateCharacterSkill(_witchCharacter, "마녀 광역 스킬을 찾을 수 없습니다.");
 
         await UniTask.Delay(1000); // 스킬 애니메이션 대기
@@ -481,51 +515,19 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_philiaCharacter != null && _philiaCharacter.IsAlive)
             _philiaCharacter.AddNextState<CharacterStateDead>();
 
-        await UniTask.Delay(2000); // 추가 대기 (총 3초)
+        await UniTask.Delay(2000); // 2초 대기
 
-        // 마리에 마녀 뒤로 전투 합류 (5단계 종료 후 추가 행동)
-        // 먼저 마리에가 이미 필드에 있는지 확인
+        // 마리에 마녀 뒤쪽에서 전투 합류 (5단계 종료 후 추가 행동)
+        // 스폰 위치: (2, 3)
         _marieCharacter = FindCharacterById(AllianceType.Player, 130501);
 
-        if (_marieCharacter == null && _witchCharacter != null)
+        if (_marieCharacter == null)
         {
-            var witchTile = _witchCharacter.CurrentTile;
-            // 마녀 뒤쪽 위치 계산 (적 진영은 Y가 큰 쪽이 뒤, 플레이어 진영은 Y가 작은 쪽이 앞)
-            // 마녀 위치에서 Y+1 위치를 찾되, 없으면 주변 빈 타일 찾기
-            int2 behindPosition = new int2(witchTile.X, witchTile.Y + 1);
-            InGameTile spawnTile = null;
+            int2 spawnPosition = new int2(2, 3);
+            InGameTile spawnTile = InGameObjectManager.Instance.InGameGrid.GetTile(spawnPosition);
 
-            // 마녀 바로 뒤 타일 확인 (플레이어 진영)
-            if (behindPosition.y < InGameObjectManager.Instance.InGameGrid.Height)
-            {
-                var candidateTile = InGameObjectManager.Instance.InGameGrid.GetTile(behindPosition);
-                if (candidateTile != null && candidateTile.OccupiedCharacter == null &&
-                    candidateTile.View.AllianceType == AllianceType.Player)
-                {
-                    spawnTile = candidateTile;
-                }
-            }
-
-            // 바로 뒤가 없으면 주변 빈 타일 찾기
-            if (spawnTile == null)
-            {
-                // 마녀 주변 1칸 거리 내 빈 타일 찾기
-                var nearbyTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistance(witchTile, 1);
-                foreach (var tile in nearbyTiles)
-                {
-                    if (tile.OccupiedCharacter == null && tile.View.AllianceType == AllianceType.Player)
-                    {
-                        // Y가 더 큰(뒤쪽) 타일 우선
-                        if (spawnTile == null || tile.Y > spawnTile.Y)
-                        {
-                            spawnTile = tile;
-                        }
-                    }
-                }
-            }
-
-            // 여전히 없으면 플레이어 진영의 빈 타일 중 하나 선택
-            if (spawnTile == null)
+            // (2, 3) 위치가 점유되어 있으면 주변 빈 타일 찾기
+            if (spawnTile == null || spawnTile.OccupiedCharacter != null)
             {
                 spawnTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
             }
@@ -568,22 +570,16 @@ public class FlowStatePrologueCombat : StateCombatBase
     // 6단계: 마리에 스킬 + 아트레시아 초신성 모드
     private async UniTask TriggerMarieSkillAndArtesiaSupernova()
     {
+        // 모든 플레이어 캐릭터를 Idle로 변경하여 공격 재개
+        StartAllCharacters().Forget();
+
         // 마리에 디버프 스킬 발동
         ActivateCharacterSkill(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
 
         await UniTask.Delay(1000);
 
-        // 아트레시아 + 마리에 공격 지속
-        if (_artesiaCharacter != null && _witchCharacter != null)
-        {
-            _artesiaCharacter.Target = _witchCharacter;
-            _artesiaCharacter.AddNextState<CharacterStateIdle>();
-        }
-        if (_marieCharacter != null && _witchCharacter != null)
-        {
-            _marieCharacter.Target = _witchCharacter;
-            _marieCharacter.AddNextState<CharacterStateIdle>();
-        }
+        // 가이드 문구 토스트 표시
+        ToastManager.Instance.ShowToast("마리에의 스킬은 적의 공격력과 방어력을 낮추는 효과를 지니고 있습니다.");
 
         // 아트레시아 초신성 모드 진입
         // [TODO] 초신성 모드 활성화 (버프/이펙트 등)
@@ -593,16 +589,19 @@ public class FlowStatePrologueCombat : StateCombatBase
             Debug.LogColor("아트레시아 초신성 모드 진입");
         }
 
-        await UniTask.Delay(2000); // 추가 대기 (총 3초)
+        await UniTask.Delay(2000); // 2초 대기
     }
 
     // 7단계: 아트레시아 스킬
     private async UniTask TriggerArtesiaSkill()
     {
+        // 가이드 문구 토스트 표시
+        ToastManager.Instance.ShowToast("아트레시아의 스킬은 강력한 범위 공격을 진행합니다.");
+
         // 아트레시아 범위 스킬 발동
         ActivateCharacterSkill(_artesiaCharacter, "아트레시아 스킬을 찾을 수 없습니다.");
 
-        await UniTask.Delay(3000); // 3초 대기
+        await UniTask.Delay(2000); // 2초 대기
     }
 
     private InGameVfx _witchFinalPrepareFx; // 마녀 최후의 공격 준비 이펙트
