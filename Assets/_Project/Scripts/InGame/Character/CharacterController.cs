@@ -10,6 +10,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.Pool;
 using Unity.Mathematics;
 using UnityEngine.Tilemaps;
+using Unity.Profiling;
 
 namespace CookApps.BattleSystem
 {
@@ -71,6 +72,7 @@ namespace CookApps.BattleSystem
         public InGameTile CurrentTile { get; set; }
 
         public bool IsAlive { get; set; }
+
 
         public IFollowable SkillRootTransformFollowable => new SimpleSkillTransformFollowable(this);
 
@@ -167,6 +169,9 @@ namespace CookApps.BattleSystem
         private Vector3 SelectedOffSet;
         private InGameVfx _notFoundTargetFx;
 
+        //캐릭터가 가지고있는 스탯 확률을 건드리지않고, 반드시 크리티컬 확률을 증가시키고 싶을 때 사용하는 변수
+        private float _fixedCriticalProb = 0f;
+
         public async UniTask Initialize(InGameTile tile, Transform Playground, int id, AllianceType allianceType)
         {
             _characterID = id;
@@ -252,9 +257,8 @@ namespace CookApps.BattleSystem
                 IsAlive = true;
             }
 
-            _stateTypeMap[typeof(CharacterStateAttack)] = typeof(global::CharacterStateAttackDealer);
-
         }
+
 
         public void AddViewScaleFactor(float viewScaleValue)
         {
@@ -271,6 +275,13 @@ namespace CookApps.BattleSystem
                 return;
 
             _stateTypeMap[baseStateType] = concreteStateType;
+        }
+        public void RemoveStateType(Type baseStateType)
+        {
+            if (_stateTypeMap.TryGetValue(baseStateType, out Type concreteStateType))
+            {
+                _stateTypeMap.Remove(baseStateType);
+            }
         }
 
         public void Clear()
@@ -315,35 +326,6 @@ namespace CookApps.BattleSystem
                 }
             }
         }
-
-        // public void AddSynergyEachTogether(SynergyType targetSynergyType)
-        // {
-        //     //해당 함수는 add성공 시 계속 수행해야하고, 실패 시 다음 리스트까지 continue해도 됩니다.
-        //     var inGameObjectManagerInstance = InGameObjectManager.Instance;
-
-        //     var isElementSynergyType = DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType);
-
-        //     var targetSynergyCharacterCount = isElementSynergyType ?
-        //         inGameObjectManagerInstance.GetCharacterSynergyElementTypeCount(_allianceType, targetSynergyType) :
-        //         inGameObjectManagerInstance.GetCharacterSynergyPositionTypeCount(_allianceType, targetSynergyType);
-
-        //     if (targetSynergyCharacterCount <= 0)
-        //         return;
-
-        //     var canSynergy = SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
-        //     out var outSynergyData, out var outSynergyList);
-        //     if(!canSynergy)
-        //         return false;
-
-
-        //     Span<double> stats = stackalloc double[1];
-        //     stats[0] = outSynergyData.stat_value;
-        //     var effectCodeInfo = new EffectCodeInfo(outSynergyList[0].id, 0, stats);
-        //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-
-        //     return true;
-        // }
-
         public void InjectSynergy(long effectCodeID, SpecSynergy synergyData)
         {
             Span<double> stats = stackalloc double[3];
@@ -383,6 +365,18 @@ namespace CookApps.BattleSystem
 
                 ecc.RemoveEffectCode(outSynergyList[0].id);
             }
+        }
+
+        public void InjectPassive(long effectCodeID, SpecPassive passiveData)
+        {
+            Span<double> stats = stackalloc double[5];
+            stats[0] = (double)passiveData.skill_value_type;
+            stats[1] = passiveData.passive_rate;
+            stats[2] = passiveData.grade;
+            stats[3] = (double)passiveData.skill_value_type_2;
+            stats[4] = passiveData.passive_rate_2;
+            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
         }
 
         public void SetSelectedCharacter(bool isSetSelected)
@@ -758,7 +752,6 @@ namespace CookApps.BattleSystem
                 }
             }
 
-
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {
                 _buffDebuffRefCountDict[type] += 1;
@@ -879,11 +872,30 @@ namespace CookApps.BattleSystem
             _buffDebuffs.RemoveAll(x => x.codeID == codeID);
             _hpBarView.RestructBuffIcon(_buffDebuffs);
         }
+        public void SetBuffStackDataValue(long codeID, double value)
+        {
+            _buffDebuffs.Find(x => x.codeID == codeID).buffStackData.value = value;
+            _hpBarView.RestructBuffIcon(_buffDebuffs);
+        }
         #endregion
 
         private bool CriticalTest()
         {
-            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < CriticalProb * 100; // OK
+            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < (_fixedCriticalProb + CriticalProb) * 100; // OK
+        }
+
+        public void SetFixedCriticalProb(float fixedCriticalProb)
+        {
+            _fixedCriticalProb = fixedCriticalProb;
+        }
+        public void ResetFixedCriticalProb()
+        {
+            _fixedCriticalProb = 0f;
+        }
+
+        public bool PureDamageTest()
+        {
+            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < PureDamageProb * 100; // OK
         }
 
         private bool DoubleCriticalTest()
@@ -941,6 +953,7 @@ namespace CookApps.BattleSystem
                     damageInfo.isAD = false;
             }
 
+
             damageInfo.isCritical = CriticalTest();
             if (damageInfo.isCritical)
             {
@@ -994,7 +1007,8 @@ namespace CookApps.BattleSystem
         /// 대미지를 입힌 후 상태
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
-        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker, bool isFirstDamage = true, string hexColor = null)
+        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
+        bool isFirstDamage = true, string hexColor = null)
         {
             if (!InGameManager.Instance.IsInGameCombat)
                 return DamageReturnType.Damaging;
@@ -1249,7 +1263,7 @@ namespace CookApps.BattleSystem
             await textView.ShowShieldText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
         }
 
-        public void MoveCharacter(bool isInRange)
+        public void MoveCharacter(bool isInRange, CharacterController target)
         {
             if (NeedToBeCrowdControlState())
             {//이건 cc기 당했다면 cc상태로 변환
@@ -1263,27 +1277,19 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            Target = InGameObjectManager.Instance.GetTargetForMove(this);
-            if (Target == null)//타겟이 없다면 idle로 변환
+            if (target == null)//타겟이 없다면 idle로 변환
             {
                 AddNextState<CharacterStateIdle>();
                 return;
             }
 
-            var isNewTargetInRange = InGameObjectManager.Instance.IsInRange(this, Target);
-            if (isNewTargetInRange)//타겟과의 거리가 범위안에있다면 idle로 변환
-            {
-                AddNextState<CharacterStateIdle>();
-                return;
-            }
-
-            InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, Target.CurrentTile);
+            InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, target.CurrentTile);
             if (bestTile == CurrentTile)
             {//이 경우는 다음 타일로 움직이고있는 중이라는 뜻 같다. 근데 얼리리턴함.
                 if (_notFoundTargetFx == null)
                     _notFoundTargetFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
                         SkillRootTransformFollowable);
-                GetCharacterView().LookAt(CurrentTile, Target.CurrentTile);
+                GetCharacterView().LookAt(CurrentTile, target.CurrentTile);
                 AddNextState<CharacterStateIdle>();
                 return;
             }
@@ -1336,6 +1342,17 @@ namespace CookApps.BattleSystem
             }
 
             return null;
+        }
+        public void ReUseLine(InGameVfxTargetLine targetLine, CharacterController character, bool isOwn, Action<InGameVfxTargetLine> onComplete = null)
+        {
+            if (targetLine == null) return;
+            targetLine.SetActiveObject(true);
+            targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
+                {
+                    if (onComplete != null)
+                        onComplete.Invoke(targetLine);
+                });
+            
         }
 
         public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)

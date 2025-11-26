@@ -323,6 +323,8 @@ namespace CookApps.AutoBattler
 
         public ObfuscatorFloat DoubleCriticalDamageRate { get; private set; }
 
+        public ObfuscatorFloat PureDamageProb { get; private set; }
+
         public ObfuscatorFloat MoveSpeed { get; private set; }
 
         public ObfuscatorFloat AttackSpeed { get; private set; }

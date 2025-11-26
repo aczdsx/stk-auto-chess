@@ -1,5 +1,6 @@
 using System;
 using CookApps.AutoBattler;
+using Unity.Mathematics;
 
 namespace CookApps.BattleSystem
 {
@@ -12,6 +13,7 @@ namespace CookApps.BattleSystem
         public int G { set; get; } = -1;
         public int H { set; get; } = -1;
         public InGameTile cameFrom { set; get; } = null;
+        public int2 Int2Index => new int2(X, Y);
 
 
         public InGameTileView View { get; private set; }

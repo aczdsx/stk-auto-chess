@@ -9,14 +9,16 @@ namespace CookApps.BattleSystem
         public ObfuscatorFloat elapsedTime;
         public ObfuscatorFloat duration;
         public IEffectCodeSource source;
+        public bool isShowValue = false;
 
-        public void SetData(int sourceCodeId, float duration, double value, IEffectCodeSource source)
+        public void SetData(int sourceCodeId, float duration, double value, IEffectCodeSource source, bool isShowValue = false)
         {
             this.sourceCodeId = sourceCodeId;
             this.value = value;
             this.duration = duration;
             this.source = source;
             this.elapsedTime = 0;
+            this.isShowValue = isShowValue;
         }
 
         public bool AddDeltaTime(float dt)

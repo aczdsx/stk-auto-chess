@@ -453,6 +453,7 @@ namespace CookApps.BattleSystem
 
         /// <summary>
         /// pivot을 기준으로 가장 가까운 적을 반환
+        /// BFS 기준으로 가장 거리가 짧은 타겟을 반환
         /// </summary>
         /// <param name="pivot"></param>
         /// <returns></returns>
@@ -491,6 +492,52 @@ namespace CookApps.BattleSystem
                 {
                     minDistance = distance;
                     target = enemy;
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// pivot을 기준으로 가장 체력이 낮은 우리 팀을 반환
+        /// </summary>
+        /// <param name="pivot"></param>    
+        /// <returns></returns>
+        public CharacterController GetLowestHPOurTeam(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
+            {
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            else if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
+
+            if (reusableList == null || reusableList.Count == 0)
+            {
+                return null;
+            }
+
+            var minHP = double.MaxValue;
+            foreach (var ourTeamCharacter in reusableList)
+            {
+                if (ourTeamCharacter.IsAlive == false)
+                {
+                    continue;
+                }
+
+                var curHPvalue = ourTeamCharacter.CurrentHp;
+                if (minHP > curHPvalue)
+                {
+                    minHP = curHPvalue;
+                    target = ourTeamCharacter;
                 }
             }
 
@@ -538,7 +585,8 @@ namespace CookApps.BattleSystem
             return target;
         }
 
-        public CharacterController GetTargetForMove(CharacterController pivot)
+        //공격 적 타겟 찾기 + 못 찾았으면 [내가 공격 가능한 범위]까지 [최소한의 이동]으로 갈 수 있는 대상 찾기
+        public CharacterController GetOptimalAttackTarget(CharacterController pivot)
         {
             CharacterController target = null;
 
@@ -559,8 +607,8 @@ namespace CookApps.BattleSystem
             {
                 return null;
             }
-
-            var minDistance = float.MaxValue;
+            _grid.ClearReusableTilesHashSet();
+            var minDistance = int.MaxValue;
             foreach (var enemy in reusableList)
             {
                 if (enemy.IsAlive == false)
@@ -569,14 +617,7 @@ namespace CookApps.BattleSystem
                 }
 
                 int distance = 0;
-                if (pivot.AttackRange == 1)
-                {
-                    distance = _grid.BFS(pivot.CurrentTile, enemy.CurrentTile);
-                }
-                else
-                {
-                    distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
-                }
+                distance = _grid.GetOptimalDistanceByAttackRange(pivot, enemy);
 
                 if (minDistance > distance)
                 {
@@ -584,7 +625,6 @@ namespace CookApps.BattleSystem
                     target = enemy;
                 }
             }
-
             return target;
         }
 
@@ -679,6 +719,22 @@ namespace CookApps.BattleSystem
             return target;
         }
 
+        public CharacterController GetTargetOnceByPositionType(CharacterController pivot)
+        {
+            var pivotPositionType = pivot.GetCharacterStat().Spec.position_type;
+            if (pivotPositionType == PositionType.GHOST)
+            {
+                return GetFarthestTargetByOnce(pivot);
+            }
+            else if (pivotPositionType == PositionType.ORACLE)
+            {
+                return GetLowestHPOurTeam(pivot);
+            }
+            else
+            {
+                return GetNearestTargetOnce(pivot);
+            }
+        }
         /// <summary>
         /// type과 동일한 모든 캐릭터를 반환
         /// </summary>
@@ -905,35 +961,45 @@ namespace CookApps.BattleSystem
             List<CharacterController> characterControllers = (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
             List<InGameVfxTargetLine> targetLines = (isPlayer) ? playerTargetLines : enemyTargetLines;
 
-            foreach (var line in targetLines)
-            {
-                line.Remove();
-            }
-            targetLines.Clear();
+            // foreach (var line in targetLines)
+            // {
+            //     line.Remove();
+            // }
+            // targetLines.Clear();
 
-            foreach (var playerCharacter in characterControllers)
+            foreach (var anyCharacter in characterControllers)
             {
-                var target = new CharacterController();
-                //여기 어쎄신 예외처리 되어있었음.
-                // if (playerCharacter.GetCharacterStat().Spec.character_position_type == SynergyType.ASSASSIN)
-                // {
-                //     target = GetFarthestTargetByOnce(playerCharacter);
-                // }
-                // else
-                {
-                    target = GetNearestTargetOnce(playerCharacter);
-                }
+                var target = GetTargetOnceByPositionType(anyCharacter);
 
                 if (target != null)
                 {
-                    var targetLine = playerCharacter.SetLine(target, isPlayer,
-                        (targetLine) =>
+                    InGameVfxTargetLine targetLine = null;
+                    foreach (var line in targetLines)
+                    {
+                        if (line.CachedGo.activeSelf == false)
                         {
-                            targetLine.SetActiveObject(false);
-                            targetLines.Remove(targetLine);
-                        });
+                            targetLine = line;
+                            break;
+                        }
+                    }
 
-                    targetLines.Add(targetLine);
+                    if (targetLine == null)
+                    {
+                        targetLine = anyCharacter.SetLine(target, isPlayer,
+                            (targetLine) =>
+                            {
+                                targetLine.SetActiveObject(false); //대기상태로 변경
+                            });
+                        targetLines.Add(targetLine);
+                    }
+                    else
+                    {
+                        anyCharacter.ReUseLine(targetLine, target, isPlayer,
+                            (targetLine) =>
+                            {
+                                targetLine.SetActiveObject(false); //대기상태로 변경
+                            });
+                    }
                 }
             }
         }

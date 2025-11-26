@@ -35,7 +35,8 @@ namespace CookApps.BattleSystem
         StatGivenHealRate = 1L << 20,
         StatTakenHealRate = 1L << 21,
         StatCrowdControlImmune = 1L << 22,
-        StatAll = ~(0xffffffffffffff << 22),
+        StatPureDamageProb = 1L << 23,
+        StatAll = ~(0xffffffffffffff << 23),
         #endregion
 
         #region Event
@@ -54,8 +55,9 @@ namespace CookApps.BattleSystem
         UseModifyShieldAmount = 1L << 52,
         UseOnSkill = 1L << 53,
         UseOnCombatStart = 1L << 54,
+        UseOnAttackEnd = 1L << 55,
         #endregion
-        MAX = 1L << 55,
+        MAX = 1L << 56,
     };
 
     public static class EffectCodeInheritFlagExtensions
@@ -392,6 +394,17 @@ namespace CookApps.BattleSystem
         {
             return 0f;
         }
+
+        /// <summary>
+        /// +일 경우 순수 대미지 확률 고정 증가, -일 경우 순수 대미지 확률 고정 감소
+        /// </summary>
+        /// <returns></returns>
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatPureDamageProb)]
+        public virtual float GetIncrementFixedPureDamageProb()
+        {
+            return 0f;
+        }
+
 
         /// <summary>
         /// +일 경우 공격속도 고정 증가, -일 경우 공격속도 고정 감소
@@ -879,6 +892,22 @@ namespace CookApps.BattleSystem
             }
 
             return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
+        }
+        public static float CalculatePureDamageProb<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            float fixedValue = 0;
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+                fixedValue += x.GetIncrementFixedPureDamageProb();
+            }
+
+            return Mathf.Max(0, (basicStat + fixedValue));
         }
 
         public static float CalculateAttackSpeed<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase

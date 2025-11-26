@@ -6,9 +6,7 @@ using CookApps.TeamBattle;
 
 public static class EffectCodeHelper
 {
-    public static void AddOrMergeEffectCode(EffectCodeNameType effectCodeNameType, CharacterController targetCharacter, Span<double> stats, IEffectCodeSource source)
-    {
-        HashSet<EffectCodeNameType> immuneTypes = new HashSet<EffectCodeNameType>
+    static readonly HashSet<EffectCodeNameType> _immuneTypes = new HashSet<EffectCodeNameType>
         {
             EffectCodeNameType.TILE_BURN,
             EffectCodeNameType.STUN,
@@ -31,13 +29,14 @@ public static class EffectCodeHelper
             EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN,
             EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN,
         };
-
-        bool isImmuneType = immuneTypes.Contains(effectCodeNameType);
+    public static void AddOrMergeEffectCode(EffectCodeNameType effectCodeNameType, CharacterController targetCharacter, Span<double> stats, IEffectCodeSource source)
+    {
+        bool isImmuneType = _immuneTypes.Contains(effectCodeNameType);
         bool hasImmuneBuff = targetCharacter.HasBuffDebuffType(BuffDebuffType.Immune) && isImmuneType;
 
         if (!hasImmuneBuff)
         {
-            var effectCodeInfo = new EffectCodeInfo((long) effectCodeNameType, 0, stats);
+            var effectCodeInfo = new EffectCodeInfo((long)effectCodeNameType, 0, stats);
             if (targetCharacter.GetEffectCodeContainer() != null)
                 targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
         }

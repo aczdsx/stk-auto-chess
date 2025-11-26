@@ -36,6 +36,7 @@ namespace CookApps.AutoBattler
 		public List<SpecStageMonster> SpecStageMonsterList {get; private set;}
 		public List<SpecTileEffectCode> SpecTileEffectCodeList {get; private set;}
 		public List<SpecSkill> SpecSkillList {get; private set;}
+		public List<SpecPositionPassive> SpecPositionPassiveList {get; private set;}
 		public List<SpecPassive> SpecPassiveList {get; private set;}
 		public List<SpecStageReward> SpecStageRewardList {get; private set;}
 		public List<SpecUserGrade> SpecUserGradeList {get; private set;}
@@ -87,6 +88,7 @@ namespace CookApps.AutoBattler
 			SpecStageMonsterList = SpecStageMonster.All.ToList();
 			SpecTileEffectCodeList = SpecTileEffectCode.All.ToList();
 			SpecSkillList = SpecSkill.All.ToList();
+			SpecPositionPassiveList = SpecPositionPassive.All.ToList();
 			SpecPassiveList = SpecPassive.All.ToList();
 			SpecStageRewardList = SpecStageReward.All.ToList();
 			SpecUserGradeList = SpecUserGrade.All.ToList();

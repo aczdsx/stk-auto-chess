@@ -42,11 +42,14 @@ public class FlowStateStageCombat : StateCombatBase
     {
         base.AddSynergy(AllianceType.Player);
         base.AddSynergy(AllianceType.Enemy);
+        
+        base.AddPassive(AllianceType.Player);
+        base.AddPassive(AllianceType.Enemy);
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
-            var effectCodes =character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
+            var effectCodes = character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
                 EffectCodeInheritFlag.UseOnCombatStart);
             EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }

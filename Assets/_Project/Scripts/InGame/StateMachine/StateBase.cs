@@ -33,10 +33,10 @@ namespace CookApps.BattleSystem
                     switch (synergyData.synergy_affect_type)
                     {
                         case SynergyAffectType.APPLY_IF_MYSYNERGY://본인의 엘리먼트나 포지션에 비교하여 맞는다면 수행
-                            AddSynergyEach(callerAllianceType, outTargetSynergyDataList[0].id, synergyData, synergyType);
+                            AddSynergyIfMySynergy(callerAllianceType, outTargetSynergyDataList[0].id, synergyData, synergyType);
                             break;
                         case SynergyAffectType.APPLY_ALL_MEMBER://모든 캐릭터에 주입
-                            AddSynergyEachTogether(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
+                            AddSynergyAllMember(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
                             break;
                         case SynergyAffectType.APPLY_OTHER_TEAM_ONCE:
                             AddSynergyTeamOnce(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
@@ -46,7 +46,24 @@ namespace CookApps.BattleSystem
             }
         }
 
-        private void AddSynergyEachTogether(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData)
+        protected void AddPassive(AllianceType allianceType)
+        {
+            var specDataManagerInstance = SpecDataManager.Instance;
+            int testGrade = 0;
+            foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
+            {
+                var passiveList = specDataManagerInstance.GetPassivePositionList(character.SpecCharacter.position_type);
+                if (passiveList == null || passiveList.Count == 0)
+                    continue;
+
+                foreach (var passive in passiveList)
+                {
+                    character.InjectPassive((long)passive[testGrade].passieve_id, passive[testGrade]);
+                }
+            }
+        }
+
+        private void AddSynergyAllMember(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData)
         {
 
             foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
@@ -55,7 +72,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        private void AddSynergyEach(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData, SynergyType targetSynergyType)
+        private void AddSynergyIfMySynergy(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData, SynergyType targetSynergyType)
         {
             foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
             {

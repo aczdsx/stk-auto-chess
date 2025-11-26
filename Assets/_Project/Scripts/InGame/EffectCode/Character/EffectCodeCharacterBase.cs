@@ -254,6 +254,13 @@ namespace CookApps.BattleSystem
         {
             return false;
         }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnAttackEnd)]
+        public virtual void OnAttackEnd(CharacterController target)
+        {
+        }
+
+
         #endregion
 
         #region Skill Animation 또는 State 관련
@@ -338,6 +345,13 @@ namespace CookApps.BattleSystem
                 code.OnAttack();
             }
         };
+        public static Action<EffectCodeStatBase, CharacterController> CallOnAttackEndLambda = (x, target) =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.OnAttackEnd(target);
+            }
+        };    
 
         public static Action<EffectCodeStatBase, EffectCodeBase> CallOnSkillLambda = (x, skillEffectCode) =>
         {

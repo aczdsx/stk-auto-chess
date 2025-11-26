@@ -9,6 +9,7 @@ public class InGameBuffDebuff : MonoBehaviour
     [SerializeField] private SpriteRenderer _baseSprite;
     [SerializeField] private SpriteRenderer _elapsedCheckSprite;
     [SerializeField] private SpriteMask _elapsedCheckMask;
+    [SerializeField] private TextMeshPro _buffSubText;
 
     private int codeID;
     private BuffStackData _buffStackData;
@@ -25,6 +26,16 @@ public class InGameBuffDebuff : MonoBehaviour
         {
             Debug.LogError($"BuffDebuff Sprite is null. CodeId : {codeID}");
             return;
+        }
+
+        if (_buffStackData.isShowValue)
+        {
+            _buffSubText?.gameObject.SetActive(true);
+            _buffSubText.text = $"{(int)_buffStackData.value}";
+        }
+        else
+        {
+            _buffSubText?.gameObject.SetActive(false);
         }
 
         Debug.Log($"BuffDebuff is On. CodeId : {codeID}");

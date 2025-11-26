@@ -26,6 +26,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     [SerializeField] private Animation _dropFxAnimation;
     [SerializeField] private TextMeshProUGUI _focusText;
     [SerializeField] private ParticleSystem _guideFx;
+    [SerializeField] private TextMeshProUGUI _characterPositionTypeText;
 
     private Action<CharacterStatData> _onSelected;
     private CharacterStatData _statData;
@@ -50,6 +51,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
             _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.element_type);
             _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.asterism_type);
+            _characterPositionTypeText.text = _statData.Spec.position_type.ToString();
             _lvText.text = $"{_statData.Level}";
         }
         else

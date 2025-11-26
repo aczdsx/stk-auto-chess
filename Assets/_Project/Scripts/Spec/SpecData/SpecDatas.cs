@@ -725,7 +725,8 @@ namespace CookApps.AutoBattler
         public int id;
         /// 포지션 타입
         public global::CookApps.AutoBattler.PositionType position_type;
-        public int passive_id;
+        /// 패시브 id
+        public global::CookApps.AutoBattler.EffectCodeNameType passive_id;
     }
 
     [GeneratorSpecData]
@@ -735,19 +736,21 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 패시브 id
-        public int passieve_id;
+        public global::CookApps.AutoBattler.EffectCodeNameType passieve_id;
         /// 패시브 이름 토큰
         public string passive_name_token;
         /// 패시브 설명 토큰
         public string passive_desc_token;
-        /// 포지션 타입
-        public global::CookApps.AutoBattler.PositionType position_type;
         /// 단계
         public int grade;
         /// 계수 타입
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 패시브 계수
         public float passive_rate;
+        /// 계수 타입_2
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
+        /// 패시브 계수_2
+        public float passive_rate_2;
     }
 
     [GeneratorSpecData]

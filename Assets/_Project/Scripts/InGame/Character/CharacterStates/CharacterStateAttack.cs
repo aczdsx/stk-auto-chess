@@ -8,7 +8,7 @@ public class CharacterStateAttack : CharacterStateBase
 {
     protected bool isAttackAnimRunning;
     public override StatePriority StatePriority => StatePriority.Attack;
-    
+
     public override void StateStart()
     {
         base.StateStart();
@@ -153,6 +153,8 @@ public class CharacterStateAttack : CharacterStateBase
 
                 void OnReachedTargetHandler()
                 {
+                    OnAttackEndProcess();
+
                     if (characCtrl != null && characCtrl.Target != null)
                         characCtrl.Target.GetDamaged(damageInfo, characCtrl);
                     vfxProjectile.Remove();
@@ -163,10 +165,21 @@ public class CharacterStateAttack : CharacterStateBase
             else
             {
                 // TODO: Effect
+                OnAttackEndProcess();
                 characCtrl.Target.GetDamaged(damageInfo, characCtrl);
             }
         }
     }
+
+    virtual protected void OnAttackEndProcess()
+    {
+        if(characCtrl == null || characCtrl.Target == null || !characCtrl.Target.IsAlive)
+            return;
+        var ctrlEcc = characCtrl?.GetEffectCodeContainer();
+        var effectCodes = ctrlEcc?.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttackEnd);
+        EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnAttackEndLambda, characCtrl.Target);
+    }
+
 
     public override void StateEnd(bool isForced)
     {

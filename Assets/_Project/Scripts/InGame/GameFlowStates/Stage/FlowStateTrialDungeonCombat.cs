@@ -39,6 +39,9 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         base.AddSynergy(AllianceType.Player);
         base.AddSynergy(AllianceType.Enemy);
 
+        base.AddPassive(AllianceType.Player);
+        base.AddPassive(AllianceType.Enemy);
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
@@ -65,38 +68,18 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
     private async UniTask StartAsync()
     {
         await UniTask.Delay(1000);
-
-        if (InGameManager.Instance.SpecDungeonTrial.dungeon_map_id == 1)
-        {
-            HandleCharacters(AllianceType.Player, idleState: true);
-            HandleCharacters(AllianceType.Enemy, idleState: true);
-            HandleCharacters(AllianceType.Neutral, idleState: true, findTarget: false);
-        }
-        else
-        {
-            HandleCharacters(AllianceType.Player, idleState: false);
-            HandleCharacters(AllianceType.Enemy, idleState: false);
-            HandleCharacters(AllianceType.Neutral, idleState: true, findTarget: false);
-        }
+        HandleCharacters(AllianceType.Player);
+        HandleCharacters(AllianceType.Enemy);
+        HandleCharacters(AllianceType.Neutral, findTarget: false);
     }
 
-    private void HandleCharacters(AllianceType allianceType, bool idleState, bool findTarget = true)
+    private void HandleCharacters(AllianceType allianceType, bool findTarget = true)
     {
         //대형몬스터 등장시 어쎄신이 뒤로 날라가면 안돼서 해놓은거임.
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(allianceType, characters);
         foreach (CharacterController charac in characters)
         {
             charac.AddNextState<CharacterStateIdle>();
-
-            // if (idleState || charac.SpecCharacter.asterism_type != SynergyType.ASSASSIN)// 좀더 테스트 해보고 작성.
-            // {//idlestate가 트루이거나 해당 캐릭터가 어쎄신이 아니면 아이들 상태로 전환
-            //     charac.AddNextState<CharacterStateIdle>();
-            // }
-            // else
-            // {//idlestate가 펄스이고 해당 캐릭터가 어쎄신이면 어쎄신 첫 이동 상태로 전환
-            //     charac.AddNextState<CharacterStateAssassinFirstMove>();
-            // }
-
 
             if (findTarget)
             {

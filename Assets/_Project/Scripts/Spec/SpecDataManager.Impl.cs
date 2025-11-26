@@ -88,7 +88,7 @@ namespace CookApps.AutoBattler
         private Dictionary<InGameVfxNameType, SpecInGameVfx> inGameVfxDic = new(); // key : inGameVfxName, value : SpecInGameVfx
         private Dictionary<SynergyType, List<SpecSynergy>> synergyDic = new(); // key : SynergyType, value : SpecSynergy
         private Dictionary<int, List<SpecObstacle>> obstacleDic = new(); // key : obstacle_id, value : SpecObstacle
-        private Dictionary<int, List<SpecPassive>> passiveDic = new(); // key : passive_id, value : SpecPassive
+        private Dictionary<EffectCodeNameType, List<SpecPassive>> passiveDic = new(); // key : EffectCodeNameType, value : SpecPassive
 
         private void CustomizeSpecData()
         {
@@ -849,14 +849,27 @@ namespace CookApps.AutoBattler
             return true;
         }
 
-        public List<SpecPassive> GetSpecPassiveList(int passieveID)
+        public List<List<SpecPassive>> GetPassivePositionList(PositionType positionType)
         {
-            if (passiveDic.TryGetValue(passieveID, out List<SpecPassive> passiveList))
+            if (positionType == PositionType.NONE)
             {
-                return passiveList;
+                return null;
             }
 
-            return null;
+            List<List<SpecPassive>> passiveList = new List<List<SpecPassive>>();
+            foreach (var positionPassive in SpecPositionPassive.All)
+            {
+                if (positionType != positionPassive.position_type)
+                {
+                    continue;
+                }
+                if (passiveDic.TryGetValue(positionPassive.passive_id, out List<SpecPassive> passive))
+                {
+                    passiveList.Add(passive);
+                }
+            }
+           
+            return passiveList;
         }
 
         public SpecQuest GetSpecQuestData(int questID)
