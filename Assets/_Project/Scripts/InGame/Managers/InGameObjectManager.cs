@@ -532,7 +532,7 @@ namespace CookApps.BattleSystem
                 {
                     continue;
                 }
-                
+
                 if (pivot.CurrentTile.X == ourTeamCharacter.CurrentTile.X
                 && pivot.CurrentTile.Y == ourTeamCharacter.CurrentTile.Y)
                 {//나라면 제외.
@@ -591,7 +591,7 @@ namespace CookApps.BattleSystem
             return target;
         }
 
-        // 2. 공격 타겟 찾기 + 못 찾았으면 [내가 공격 가능한 범위]까지 [최소한의 이동]으로 갈 수 있는 대상 찾기
+        //공격 적 타겟 찾기 + 못 찾았으면 [내가 공격 가능한 범위]까지 [최소한의 이동]으로 갈 수 있는 대상 찾기
         public CharacterController GetOptimalAttackTarget(CharacterController pivot)
         {
             CharacterController target = null;
@@ -613,8 +613,8 @@ namespace CookApps.BattleSystem
             {
                 return null;
             }
-
-            var minDistance = float.MaxValue;
+            _grid.ClearReusableTilesHashSet();
+            var minDistance = int.MaxValue;
             foreach (var enemy in reusableList)
             {
                 if (enemy.IsAlive == false)
@@ -623,14 +623,7 @@ namespace CookApps.BattleSystem
                 }
 
                 int distance = 0;
-                if (pivot.AttackRange == 1)
-                {
-                    distance = _grid.BFS(pivot.CurrentTile, enemy.CurrentTile);
-                }
-                else
-                {
-                    distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
-                }
+                distance = _grid.GetOptimalDistanceByAttackRange(pivot, enemy);
 
                 if (minDistance > distance)
                 {
@@ -638,7 +631,6 @@ namespace CookApps.BattleSystem
                     target = enemy;
                 }
             }
-
             return target;
         }
 

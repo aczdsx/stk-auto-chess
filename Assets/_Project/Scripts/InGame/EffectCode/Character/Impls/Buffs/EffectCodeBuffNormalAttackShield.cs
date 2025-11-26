@@ -95,25 +95,6 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
         return damageInfo;
         
     }
-
-    public override bool TryRemoveWithSource(IEffectCodeSource source)
-    {
-        var isRemoved = false;
-        for (var i = 0; i < _stackDatas.Count; i++)
-        {
-            if (_stackDatas[i].source == source)
-            {
-                GenericPool<BuffStackData>.Release(_stackDatas[i]);
-                _stackDatas[i] = null;
-                isRemoved = true;
-            }
-        }
-
-        if (isRemoved)
-            container.SetDirtyFlag(this);
-
-        return false;
-    }
     public override void OnPreRemoved()
     {
         owner.RemoveBuffDebuffType(buffDebuffType);

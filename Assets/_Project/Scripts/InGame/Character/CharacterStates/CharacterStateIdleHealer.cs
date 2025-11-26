@@ -52,12 +52,7 @@ public class CharacterStateIdleHealer : CharacterStateIdle
             else
             {
                 characCtrl.MoveCharacter(isInRange, characCtrl.Target);
-                Debug.Log("Heal Target is not in range");
             }
-        }
-        else
-        {
-            Debug.Log("Heal Target is null");
         }
 
         return CharacterStateRunningResult.CanCallAllWithoutMove;

@@ -55,8 +55,8 @@ public class CharacterStateMove : CharacterStateBase
                     return;
                 }
 
+                characCtrl.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
-                // 만들어둔 로직이 들어가서 다시 찾아야 하나?
                 characCtrl.MoveCharacter(isInRange, characCtrl.Target);
                 isBlockingChangeState = false;
             }

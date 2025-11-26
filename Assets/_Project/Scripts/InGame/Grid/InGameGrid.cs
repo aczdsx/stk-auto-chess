@@ -14,7 +14,8 @@ namespace CookApps.BattleSystem
         public int Height { get; }
 
         private readonly InGameTile[] _tiles;
-
+        private HashSet<int2> _reusableInt2HashSet = new HashSet<int2>();
+//int2
         private static readonly int2[] Directions =
         {
             new int2(0, 1), new int2(0, -1), new int2(1, 0), new int2(-1, 0),
@@ -319,6 +320,35 @@ namespace CookApps.BattleSystem
             return int.MaxValue; // 경로를 찾지 못한 경우
         }
 
+        public int GetOptimalDistanceByAttackRange(CharacterController pivot, CharacterController target)
+        {
+            if (pivot.AttackRange == 1)
+            {
+                return BFS(pivot.CurrentTile, target.CurrentTile);
+            }
+
+            var pivotAttackRangeTiles = GetTileListByManhattanDistanceInRange(target.CurrentTile, pivot.AttackRange);
+            int minMoveCount = int.MaxValue;
+
+            foreach (var tile in pivotAttackRangeTiles)
+            {
+                if (tile.OccupiedCharacter != null || _reusableInt2HashSet.Contains(tile.Int2Index))
+                {
+                    continue;
+                }
+                _reusableInt2HashSet.Add(tile.Int2Index);
+                int moveCount = BFS(pivot.CurrentTile, tile);
+                if (moveCount < minMoveCount)
+                {
+                    minMoveCount = moveCount;
+                }
+            }
+            return minMoveCount;
+        }
+        public void ClearReusableTilesHashSet()
+        {   
+            _reusableInt2HashSet.Clear();
+        }
         private IEnumerable<InGameTile> GetNeighbors(InGameTile tile)
         {
             foreach (var dir in Directions)
