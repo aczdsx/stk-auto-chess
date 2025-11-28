@@ -89,7 +89,6 @@ namespace CookApps.AutoBattler
         void SetAlertBottomCharacter(int characterID);
     }
 
-    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/InGame/InGameMain.prefab")]
     public class InGameMain : UILayer
     {
         public float InGameTime => _inGameTime;

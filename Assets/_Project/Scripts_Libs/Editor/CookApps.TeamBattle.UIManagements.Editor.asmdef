@@ -1,9 +1,10 @@
 {
-    "name": "CookApps.TeamBattle.UIManagements.Editor",
+    "name": "CookApps.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:2762d599d313b434792a88e609374ede",
-        "GUID:69448af7b92c7f342b298e06a37122aa"
+        "CookApps.TeamBattle.UIManagements",
+        "Unity.Addressables.Editor",
+        "CookApps.TeamBattle.Core"
     ],
     "includePlatforms": [
         "Editor"

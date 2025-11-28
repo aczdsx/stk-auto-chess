@@ -20,7 +20,6 @@ using AppsFlyerSDK;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/Title/TitleMain.prefab")]
     public class TitleMain : UILayer
     {
         const float LOGIN_DELAY_TIME = 3.0f;

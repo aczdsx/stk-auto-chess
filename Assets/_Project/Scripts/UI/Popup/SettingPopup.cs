@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/SettingPopup.prefab")]
     public class SettingPopup : UILayer
     {
         [Header("Common")]

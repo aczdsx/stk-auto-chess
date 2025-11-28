@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/ImageInfoPop.prefab")]
     public class ImageInfoPop : UILayer
     {
         [SerializeField] private TextMeshProUGUI _titleText;

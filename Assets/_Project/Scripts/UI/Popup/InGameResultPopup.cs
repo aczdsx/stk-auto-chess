@@ -17,7 +17,6 @@ namespace CookApps.AutoBattler
         public TextMeshProUGUI _conditionText;
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/InGameResultPopup.prefab")]
     public class InGameResultPopup : UILayer
     {
         [SerializeField] private CAButton _exitButton;

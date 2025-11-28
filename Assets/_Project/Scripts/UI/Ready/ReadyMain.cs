@@ -9,7 +9,6 @@ using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Ready/ReadyMain.prefab")]
     public class ReadyMain : UILayer
     {
         // [SerializeField]

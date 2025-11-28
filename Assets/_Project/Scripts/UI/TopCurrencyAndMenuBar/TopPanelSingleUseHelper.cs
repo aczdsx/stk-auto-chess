@@ -26,7 +26,6 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize()
         {
-            await SceneUILayerManager.Instance.PreloadUILayer(typeof(TopCurrencyAndMenuBar));
             GameObject topUIOrigin = await Addressables.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
             topUIOriginTr = topUIOrigin.transform;
             int childCount = topUIOriginTr.childCount;

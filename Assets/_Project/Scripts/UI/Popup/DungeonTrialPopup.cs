@@ -19,7 +19,6 @@ namespace CookApps.AutoBattler
         DUNGEON_INFO,
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/DungeonTrialPopup.prefab")]
     public class DungeonTrialPopup : UILayer
     {
         [Header("Common")]

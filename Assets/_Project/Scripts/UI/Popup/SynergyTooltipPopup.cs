@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipPopup.prefab")]
     public class SynergyTooltipPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;

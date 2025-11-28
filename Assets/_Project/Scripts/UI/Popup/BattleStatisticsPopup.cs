@@ -17,7 +17,6 @@ namespace CookApps.AutoBattler
         HEAL,
     }
 
-    [RegisterUILayer(UILayerType.Modal, "Prefabs/UI/InGame/BattleStatisticsPopup.prefab")]
     public class BattleStatisticsPopup : UILayer
     {
         private const int STATISTICS_UPDATE_TIME = 300; // 밀리 세컨즈

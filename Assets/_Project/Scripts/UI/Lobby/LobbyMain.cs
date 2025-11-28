@@ -24,7 +24,6 @@ namespace CookApps.AutoBattler
         REDDOT,
     }
 
-    [RegisterUILayer(UILayerType.Cover, "Prefabs/UI/Lobby/LobbyMain.prefab")]
     public class LobbyMain : UILayer
     {
         public Transform GetIdleRewardTransform => _idleRewardButton.transform;

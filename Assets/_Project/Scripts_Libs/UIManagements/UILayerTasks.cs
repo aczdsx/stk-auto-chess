@@ -20,7 +20,7 @@ namespace CookApps.TeamBattle.UIManagements
 
     public struct UILayerExitAwaiter : INotifyCompletion
     {
-        private UILayerExitTask task;
+        private readonly UILayerExitTask task;
         private Action continuation;
 
         public UILayerExitAwaiter(in UILayerExitTask task) : this()

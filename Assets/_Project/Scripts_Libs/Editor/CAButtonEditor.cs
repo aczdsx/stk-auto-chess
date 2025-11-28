@@ -1,8 +1,8 @@
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UI;
+using CookApps.TeamBattle.UIManagements;
 
-namespace CookApps.TeamBattle.UIManagements
+namespace CookApps.Editor
 {
     [CustomEditor(typeof(CAButton))]
     public class CAButtonEditor : ButtonEditor
@@ -31,5 +31,3 @@ namespace CookApps.TeamBattle.UIManagements
         }
     }
 }
-
-#endif

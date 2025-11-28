@@ -49,10 +49,7 @@ namespace CookApps.AutoBattler
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             AppLifeCycleEventsDispatcher _ = AppLifeCycleEventsDispatcher.Instance;
 
-            var sceneData = await Addressables.LoadAssetAsync<SceneDatabase>("Data/SceneData.asset");
-            Type[] allUILayers = InheritHelper.GetAllImplementations<UILayer>();
-            SceneUILayerManager.Instance.Initialize(sceneData, allUILayers);
-            Addressables.Release(sceneData);
+            SceneUILayerManager.Instance.Initialize();
 
             Debug.Log("SceneFirstLoad Awake -1");
 

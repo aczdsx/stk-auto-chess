@@ -13,7 +13,6 @@ using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ArenaPopup/ArenaPvpEndPopup.prefab")]
     public class ArenaPVPEndPopup : UILayer
     {
         [Header("Common")] [SerializeField] private CAButton _okButton;

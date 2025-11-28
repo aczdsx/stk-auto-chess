@@ -15,7 +15,6 @@ namespace CookApps.AutoBattler
         PVP_SEASON_REWARD
     }
     
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ArenaPopup/ArenaMainPopup.prefab")]
     public class ArenaMainPopup : UILayer
     {
         [Header("Common")]

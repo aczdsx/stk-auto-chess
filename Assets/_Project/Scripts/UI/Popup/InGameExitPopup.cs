@@ -8,7 +8,6 @@ using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/InGameExitPopup.prefab")]
     public class InGameExitPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;

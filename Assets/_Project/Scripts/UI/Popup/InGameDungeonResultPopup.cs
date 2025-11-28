@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/InGameDungeonResultPopup.prefab")]
     public class InGameDungeonResultPopup : UILayer
     {
         [SerializeField] private CAButton _exitButton;
