@@ -518,6 +518,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
 --- !u!1 &1594757889168535768
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,6 +687,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
 --- !u!114 &5270090723267134203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,6 +891,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
 --- !u!1 &2776773258031856380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,15 +1154,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1309,16 +1314,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startButton: {fileID: 5744844805627353057}
+  _statisticButton: {fileID: 5357806046394153977}
+  _recommendButton: {fileID: 0}
+  _speedUpButton: {fileID: 0}
   _CommanderSkillButtonList:
   - {fileID: 7602166054331994033}
   - {fileID: 4736735698602309996}
   - {fileID: 7655125779067838242}
-  _statisticButton: {fileID: 5357806046394153977}
   _characterSelectedTransform: {fileID: 7821638238050693280}
   _rightTransform: {fileID: 3655056936259310991}
   _returnImage: {fileID: 1030957439315589365}
   _ingameCharacterItemPrefab: {fileID: 4026335543008779542}
   _inGameCharacterItemTransform: {fileID: 7821638238050693280}
+  _characterListBody: {fileID: 0}
   _readyUIObj: {fileID: 7923061279388971395}
   _commanderSkillObj: {fileID: 3370212568872158601}
   _commanderSkillUIList:
@@ -1327,7 +1335,14 @@ MonoBehaviour:
   - {fileID: 620697898303713595}
   _characterCountText: {fileID: 38845547465519505}
   _commanderFx: {fileID: 8972731649867819286}
-  _skillTooltipPopup: {fileID: 0}
+  _characterTipObj: {fileID: 0}
+  _speedUpObjOn: {fileID: 0}
+  _speedUpObjOff: {fileID: 0}
+  _recommendObjOn: {fileID: 0}
+  _recommendObjOff: {fileID: 0}
+  _speedUpRedDot: {fileID: 0}
+  _scrollRect: {fileID: 8815565401101577934}
+  _stageBattleFx: {fileID: 0}
 --- !u!1 &5140591450737330328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,15 +1661,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -2062,6 +2079,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
 --- !u!1 &8603462346994478173
 GameObject:
   m_ObjectHideFlags: 0

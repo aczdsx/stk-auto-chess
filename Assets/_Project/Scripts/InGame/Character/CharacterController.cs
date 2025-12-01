@@ -37,8 +37,6 @@ namespace CookApps.BattleSystem
             }
         }
 
-        private Stack<CharacterStateBase> _stateStack = new Stack<CharacterStateBase>();
-
         public EffectCodeContainer GetEffectCodeContainer()
         {
             return ecc;
@@ -677,12 +675,7 @@ namespace CookApps.BattleSystem
             }
 
             state.SetStateData(stateData);
-            if (_currState.GetType() == typeof(CharacterStateMove) && stateData == typeof(CharacterStateCC))
-            {
-                Debug.LogColor($"[TEST] : {SpecCharacter.prefab_id} 캐릭터가 타일 중간에 멈췄습니다.");
-            }
             _nextState = state;
-
             return state as T;
         }
 

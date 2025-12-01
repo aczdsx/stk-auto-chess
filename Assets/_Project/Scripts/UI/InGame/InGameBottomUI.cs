@@ -42,9 +42,10 @@ public class InGameBottomUI : MonoBehaviour
 
     [SerializeField] protected GameObject _recommendObjOn;
     [SerializeField] protected GameObject _recommendObjOff;
-    
+
     [SerializeField] protected GameObject _speedUpRedDot;
-    
+    [SerializeField] protected ScrollRect _scrollRect;
+
     [SerializeField] protected ParticleSystem _stageBattleFx;
 
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
@@ -283,7 +284,7 @@ public class InGameBottomUI : MonoBehaviour
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
             SetCommanderSkillUI(i, userDataManagerInstance.GetEquippedCommanderSkillID(i));
 
-            
+
         var userCharacters = userDataManagerInstance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
@@ -295,7 +296,7 @@ public class InGameBottomUI : MonoBehaviour
             .OrderByDescending(stat => stat.Level)
             .ThenByDescending(stat => stat.CharacterID)
             .ToList();
-        
+
         foreach (var characterStat in _characterStats)
         {
             bool isExist = _characterItemList.Exists(l =>
@@ -515,7 +516,8 @@ public class InGameBottomUI : MonoBehaviour
             if (characterItem.StatData == null)
             {
                 characterItem.SetFocusCharacter(spec);
-                RearrangeCharacterList();
+                //RearrangeCharacterList();
+                ScrollTo(characterItem.transform as RectTransform);
                 return;
             }
         }
@@ -529,6 +531,18 @@ public class InGameBottomUI : MonoBehaviour
         {
             _characterItemList[i].transform.SetSiblingIndex(i);
         }
+    }
+
+    public void ScrollTo(RectTransform target)
+    {
+        Canvas.ForceUpdateCanvases();
+
+        RectTransform content = _scrollRect.content;
+
+        Vector2 pos = (Vector2)_scrollRect.transform.InverseTransformPoint(content.position)
+                     - (Vector2)_scrollRect.transform.InverseTransformPoint(target.position);
+
+        content.anchoredPosition = pos;
     }
 
     public void UnSetFocusCharacterUI(bool isDropFx)
@@ -551,7 +565,7 @@ public class InGameBottomUI : MonoBehaviour
             }
         }
     }
-    
+
     private void PlayStageBattleFx()
     {
         if (InGameManager.Instance.SpecStage != null)
@@ -577,7 +591,7 @@ public class InGameBottomUI : MonoBehaviour
 
             _speedUpRedDot.SetActive(!isSpeedUp && isGuide);
         }
-        
+
         if (_speedUpObjOn)
             _speedUpObjOn.SetActive(isSpeedUp);
         if (_speedUpObjOff)
@@ -591,7 +605,7 @@ public class InGameBottomUI : MonoBehaviour
         var tierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, rankingPoint);
         int averageLv = 5;
         int playerLv = 15;
-        
+
         var characterControllers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
         List<UserPVPObstacleBattleDeck> obstacleDeck = new();
         var obstacleList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Wall);
@@ -622,7 +636,7 @@ public class InGameBottomUI : MonoBehaviour
         simpleData.RankPoint = rankingPoint;
         simpleData.RankId = tierData.ranking_id;
         simpleData.ServerId = 1;
-        
+
         detailData.PlayerId = "DUMMY_1";
         detailData.Nickname = "무명기사";
         detailData.PlayerLv = simpleData.PlayerLv;
@@ -643,7 +657,7 @@ public class InGameBottomUI : MonoBehaviour
             }
 
             {
-                
+
                 UserPVPCharacterBattleDeck newUserBattleDeck = new UserPVPCharacterBattleDeck();
 
                 newUserBattleDeck.Id = character.CharacterId;
@@ -656,11 +670,11 @@ public class InGameBottomUI : MonoBehaviour
                 detailData.BattlePoint += (int)data.GetAttrValue();
             }
         }
-        
-        
+
+
         detailData.PvpDeckList.PvpObstacleDecks.AddRange(obstacleDeck);
-        
-        
+
+
         var result = JsonConvert.SerializeObject(simpleData);
         UnityEngine.Debug.Log("SIMPLE");
         UnityEngine.Debug.Log("SIMPLE");

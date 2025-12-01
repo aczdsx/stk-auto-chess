@@ -28731,6 +28731,7 @@ MonoBehaviour:
   _recommendObjOn: {fileID: 6376048791476543334}
   _recommendObjOff: {fileID: 4191846529727544151}
   _speedUpRedDot: {fileID: 6433414332505280462}
+  _scrollRect: {fileID: 8472787790796524161}
   _stageBattleFx: {fileID: 3993051509193151421}
 --- !u!1 &3994344878908772197
 GameObject:
