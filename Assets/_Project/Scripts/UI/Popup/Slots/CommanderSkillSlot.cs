@@ -21,6 +21,9 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private Image _skillIconImage;
         [SerializeField] private TextMeshProUGUI _skillNameText;
+        
+        [Space(10)]
+        [SerializeField] private TextMeshProUGUI _skillLevelText;
 
         private CommanderSkillPopup _parentPopup;
         private SpecCommanderSkill _specCommanderSkillData;
@@ -49,6 +52,7 @@ namespace CookApps.AutoBattler
 
             _skillIconImage.sprite = ImageManager.Instance.GetCommanderSkillSprite(_specCommanderSkillData.commander_skill_id);
             _skillNameText.text = LanguageManager.Instance.GetLanguageText(_specCommanderSkillData.name_token);
+            _skillLevelText.text = _specCommanderSkillData.level.ToString();
 
             RefreshSlot();
         }

@@ -18,20 +18,14 @@ public class CommanderSkillData
         set => _elapsedTime = value;
     }
 
-    public float DurationTime => _durationTime;
-    public float StatValue => _statValue;
-
+    public float DurationTime => _spec.cool_time;
     private SpecCommanderSkill _spec;
     private ObfuscatorFloat _elapsedTime;
-    private ObfuscatorFloat _durationTime;
-    private ObfuscatorFloat _statValue;
 
-    public CommanderSkillData(SpecCommanderSkill spec, float durationTime, float statValue)
+    public CommanderSkillData(SpecCommanderSkill spec)
     {
         _spec = spec;
         _elapsedTime = 0f;
-        _durationTime = durationTime;
-        _statValue = statValue;
     }
 }
 
@@ -59,8 +53,10 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     private CommanderSkillData _selectedCommanderSkillData;
     private bool isCanUseCommanderSkill = false;
     private Vector2 _offset = new Vector2(-10, 10);
-    
+
     private bool _isCommanderGuideStage;
+
+    private Dictionary<int, EffectCodeCommanderSkillBase> _effectCodeDictForAutoSkill = null;
 
     public void Initialize()
     {
@@ -71,7 +67,19 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
         var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
         _isCommanderGuideStage = userGuideMissionData.MissionId == 18;
+        if (_effectCodeDictForAutoSkill == null)
+            _effectCodeDictForAutoSkill = new Dictionary<int, EffectCodeCommanderSkillBase>();
+        else
+            _effectCodeDictForAutoSkill.Clear();
     }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        _effectCodeDictForAutoSkill.Clear();
+        _effectCodeDictForAutoSkill = null;
+    }
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -80,7 +88,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
         if (eventData.pointerCurrentRaycast.gameObject == null)
             return;
-    
+
         Vector2 adjustedPosition = eventData.pointerCurrentRaycast.screenPosition + _offset;
 
         RaycastResult newRaycastResult = eventData.pointerCurrentRaycast;
@@ -108,7 +116,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         if (_isDragging)
         {
             Vector2 adjustedPosition = eventData.position + _offset;
-            
+
             float distance = Vector2.Distance(adjustedPosition, _dragStartPosition);
 
             float normalizedDistance = Mathf.Clamp01(distance / switchThreshold);
@@ -141,7 +149,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
             return;
 
         Vector2 adjustedPosition = eventData.position + _offset;
-        
+
         bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
         InGameMainFlowManager.Instance.SetInGameSpeed(isSpeedUp);
 
@@ -169,10 +177,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
         float distance = Vector2.Distance(eventData.position, _dragStartPosition);
         if (distance >= switchThreshold)
         {
-            double[] eccStat = new double[2];
-            eccStat[0] = _hitTileView.ID;
-            eccStat[1] = (double) _selectedCommanderSkillData.StatValue;
-            var effectCodeInfo = new EffectCodeInfo(_selectedCommanderSkillData.Spec.commander_skill_id, 0, eccStat);
+            var effectCodeInfo = EffectCodeCommanderSkillBase.GenerateEffectCodeInfo(_selectedCommanderSkillData.Spec, _hitTileView);
 
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
             _selectedCommanderSkillData.ElapsedTime = 0;
@@ -192,7 +197,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
             if (_commandSkillDataList[i].ElapsedTime >= _commandSkillDataList[i].DurationTime)
             {
-                string preferenceKey = $"COMMANDER_AUTO_{(int) (i + 1)}";
+                string preferenceKey = $"COMMANDER_AUTO_{(int)(i + 1)}";
 
                 bool isActiveAuto = false;
                 if (Enum.TryParse(preferenceKey, out Pref prefEnum))
@@ -240,21 +245,10 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
     public CommanderSkillData InitCommanderSkillData(SpecCommanderSkill data)
     {
-        var coolTimeData = SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.COOL);
-        var statValueData =
-            SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.PERCENT);
-        if (statValueData == null)
-            statValueData =
-                SpecDataManager.Instance.GetCommanderSkillData(data.commander_skill_id, SkillValueType.TIME);
-
-        float stat = statValueData?.base_rate ?? 0;
-
-        var commanderSkillData = new CommanderSkillData(data, coolTimeData.base_rate,stat);
-        //[TODO] 나중에는 성장 스텟으로 빼기
-        commanderSkillData.ElapsedTime = commanderSkillData.DurationTime * 0.5f;
-        _commandSkillDataList.Add(commanderSkillData);
-
-        return commanderSkillData;
+        var commandSkillData = new CommanderSkillData(data);
+        commandSkillData.ElapsedTime = commandSkillData.DurationTime * 0.5f;
+        _commandSkillDataList.Add(commandSkillData);
+        return commandSkillData;
     }
 
     public void Clear()
@@ -272,38 +266,49 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
             if (hit.transform.gameObject.CompareTag("Slot"))
             {
                 _hitTileView = hit.transform.GetComponent<InGameTileView>();
-                if (_hitTileView != null)
+                if (_hitTileView == null)
                 {
-                    InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
-                    var tiles = new List<InGameTile>();
-
-                    // [TODO] 나중에는 데이터에서 처리 필요
-                    if (_selectedCommanderSkillData.Spec.commander_skill_id == 300001)
-                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeXInRange(centerTile, 2));
-                    else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300002)
-                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(centerTile, 1));
-                    else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300004)
-                        tiles.AddRange(
-                            InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
-                    else if (_selectedCommanderSkillData.Spec.commander_skill_id == 300006)
-                        tiles.AddRange(
-                            InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, 1));
-                    else
-                        tiles.Add(centerTile);
-
-                    if (isNavigate)
-                        ClearAndSetActive(tiles);
-                    if (centerTile.OccupiedCharacter != null &&
-                        centerTile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-                    {
-                        Debug.LogColor(
-                            $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
-                    }
-                    else
-                    {
-                        Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y})");
-                    }
+                    continue;
                 }
+
+                InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
+                var tiles = new List<InGameTile>();
+                var targetCommanderSkillData = _selectedCommanderSkillData.Spec;
+                switch (targetCommanderSkillData.commander_range_shape_type)
+                {
+                    case CommanderRangeShapeType.SHAPE_X:
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile, targetCommanderSkillData.commander_range_size / 2));
+                        break;
+                    case CommanderRangeShapeType.SHAPE_SQUARE:
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, targetCommanderSkillData.commander_range_size - 2));
+                        break;
+                    case CommanderRangeShapeType.SHAPE_GARO:
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByColumn(centerTile, targetCommanderSkillData.commander_range_size / 2));
+                        break;
+                    case CommanderRangeShapeType.SHAPE_SERO:
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByRow(centerTile, targetCommanderSkillData.commander_range_size / 2));
+                        break;
+                    case CommanderRangeShapeType.SHAPE_PLUS:
+                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapePlusInRange(centerTile, targetCommanderSkillData.commander_range_size / 2));
+                        break;
+                    case CommanderRangeShapeType.SHAPE_SINGLE:
+                        tiles.Add(centerTile);
+                        break;
+                }
+
+                if (isNavigate)
+                    ClearAndSetActive(tiles);
+                if (centerTile.OccupiedCharacter != null &&
+                    centerTile.OccupiedCharacter.AllianceType != AllianceType.Wall)
+                {
+                    Debug.LogColor(
+                        $"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y}) Occupied :({centerTile.OccupiedCharacter.CharacterId})");
+                }
+                else
+                {
+                    Debug.LogColor($"충돌한 오브젝트 : {centerTile.View.ID} ({centerTile.X}, {centerTile.Y})");
+                }
+
             }
         }
 
@@ -312,37 +317,40 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
     private void AutoSkill(CommanderSkillData commanderSkillData)
     {
-        InGameTileView hitTileView = null;
-        switch (commanderSkillData.Spec.commander_target_type)
+        if (_effectCodeDictForAutoSkill == null)
         {
-            case CommanderTargetType.TARGET_ENEMY:
-            {
-                var tileList = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(AllianceType.Player, false);
-                if (tileList.Count > 0)
-                    hitTileView = tileList[0].CurrentTile.View;
-                break;
-            }
-            case CommanderTargetType.TARGET_PLAYER:
-            {
-                var tileList = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(AllianceType.Player, true);
-                if (tileList.Count > 0)
-                    hitTileView = tileList[0].CurrentTile.View;
-                break;
-            }
+            _effectCodeDictForAutoSkill = new Dictionary<int, EffectCodeCommanderSkillBase>();
         }
 
-        if (hitTileView != null)
+        //해당 커맨드스킬이 없다면 생성한다.
+        if (!_effectCodeDictForAutoSkill.ContainsKey(commanderSkillData.Spec.commander_skill_id))
+        {
+            var effectCode = EffectCodePoolManager.Instance.Get(commanderSkillData.Spec.commander_skill_id);
+            if (effectCode == null)
+            {
+                Debug.LogError($"EffectCodeCommanderSkillBase is not found : {commanderSkillData.Spec.commander_skill_id}");
+                return;
+            }
+            _effectCodeDictForAutoSkill.Add(commanderSkillData.Spec.commander_skill_id, effectCode as EffectCodeCommanderSkillBase);
+        }
+
+        var effectCodeCommanderSkill = _effectCodeDictForAutoSkill[commanderSkillData.Spec.commander_skill_id];
+        var recommendedTile = effectCodeCommanderSkill.GetRecommendedTile(commanderSkillData.Spec);
+        if (recommendedTile == null)
+        {
+            Debug.LogError($"Recommended tiles are not found : {commanderSkillData.Spec.commander_skill_id}");
+            return;
+        }
+
+        var hitTileView = recommendedTile.View;
+        if (hitTileView)
         {
             isCanUseCommanderSkill = true;
-            double[] eccStat = new double[2];
-            eccStat[0] = hitTileView.ID;
-            eccStat[1] = (double) commanderSkillData.StatValue;
-            var effectCodeInfo = new EffectCodeInfo(commanderSkillData.Spec.commander_skill_id, 0, eccStat);
-
+            var effectCodeInfo = EffectCodeCommanderSkillBase.GenerateEffectCodeInfo(commanderSkillData.Spec, hitTileView);
             InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
             commanderSkillData.ElapsedTime = 0;
         }
-        
+
         isCanUseCommanderSkill = false;
     }
 }

@@ -89,6 +89,7 @@ namespace CookApps.AutoBattler
         private Dictionary<SynergyType, List<SpecSynergy>> synergyDic = new(); // key : SynergyType, value : SpecSynergy
         private Dictionary<int, List<SpecObstacle>> obstacleDic = new(); // key : obstacle_id, value : SpecObstacle
         private Dictionary<EffectCodeNameType, List<SpecPassive>> passiveDic = new(); // key : EffectCodeNameType, value : SpecPassive
+        private Dictionary<int, List<SpecCommanderSkill>> commanderSkillDic = new(); // key : commander_skill_id, value : SpecCommanderSkill
 
         private void CustomizeSpecData()
         {
@@ -266,10 +267,21 @@ namespace CookApps.AutoBattler
                 list.Add(passive);
             }
 
+            // Commander Skill Dic
+            commanderSkillDic.Clear();
+            foreach (SpecCommanderSkill commanderSkill in SpecCommanderSkill.All)
+            {
+                if (!commanderSkillDic.TryGetValue(commanderSkill.commander_skill_id, out var list))
+                {
+                    list = new List<SpecCommanderSkill>();
+                    commanderSkillDic.Add(commanderSkill.commander_skill_id, list);
+                }
+                list.Add(commanderSkill);
+            }
 
             #endregion
 
-                obstacleDic.Clear();
+            obstacleDic.Clear();
             foreach (SpecObstacle obstacle in SpecObstacle.All)
             {
                 if (!obstacleDic.TryGetValue(obstacle.obstacle_id, out var list))
@@ -707,14 +719,37 @@ namespace CookApps.AutoBattler
             return stageChapterDic[2].Last().stage_id;
         }
 
-        public SpecCommanderSkill GetCommanderSkillData(int skillID)
+        public List<SpecCommanderSkill> GetCommanderSkillDataList(int commanderSkillID)
         {
-            return SpecCommanderSkillList.FirstOrDefault(data => data.commander_skill_id == skillID);
+            if (commanderSkillDic.TryGetValue(commanderSkillID, out List<SpecCommanderSkill> commanderSkillList))
+            {
+                return commanderSkillList;
+            }
+            return null;
         }
-
-        public SpecCommanderSkill GetCommanderSkillData(int commanderSkillID, SkillValueType type)
+        public SpecCommanderSkill GetCommanderSkillListByUserSkillLevel(int commanderSkillID, int userSkillLevel)
         {
-            return SpecCommanderSkillList.Find(data => data.commander_skill_id == commanderSkillID && data.skill_value_type == type);
+            if (commanderSkillDic.TryGetValue(commanderSkillID, out List<SpecCommanderSkill> commanderSkillList))
+            {
+                foreach (var commanderSkillData in commanderSkillList)
+                {
+                    //해당 스킬에대한 유저 스킬 레벨 체크
+                    if (commanderSkillData.level == userSkillLevel)
+                    {
+                        return commanderSkillData;
+                    }
+                }
+            }
+            return null;
+        }
+        public List<int> GetCommanderSkillCodeIdList()
+        {
+            List<int> outCommanderSkillCodeIdList = new List<int>();
+            foreach (var commanderSkillPair in commanderSkillDic)
+            {
+                outCommanderSkillCodeIdList.Add(commanderSkillPair.Key);
+            }
+            return outCommanderSkillCodeIdList;
         }
 
         public SpecChapterRule GetChapterRuleData(int chapterRuleID)

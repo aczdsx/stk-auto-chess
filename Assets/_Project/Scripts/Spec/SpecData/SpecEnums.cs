@@ -30,6 +30,13 @@ namespace CookApps.AutoBattler
         MOVESPEED_PERCENT_UP = 18,
         VIEW_SCALE_UP = 19,
         PURE_DAMAGE_PROB_UP = 20,
+        COMMANDER_SKILL_EXPLOSION = 300001,
+        COMMANDER_SKILL_FREEZING = 300002,
+        COMMANDER_SKILL_AIRBORNE = 300003,
+        COMMANDER_SKILL_LIFEHEAL = 300004,
+        COMMANDER_SKILL_TELEPORT = 300005,
+        COMMANDER_SKILL_CURSE = 300006,
+        COMMANDER_SKILL_EARTHEN_SOLDIERS = 300300,
         PASSIVE_AMBUSH = 3100001,
         PASSIVE_BASH = 3100002,
         PASSIVE_CRITICAL_STACK = 3100003,
@@ -286,6 +293,7 @@ namespace CookApps.AutoBattler
         STAGE_START = 4,
         GUIDE_START = 5,
         FAIL = 6,
+        PROLOGUE = 7,
     }
 
     public enum InGameVfxNameType
@@ -475,6 +483,9 @@ namespace CookApps.AutoBattler
         fx_common_trap_explosion = 183,
         fx_common_buff_normal_attack_shield_01 = 184,
         fx_common_buff_normal_attack_shield_02 = 185,
+        fx_prologue_boss_prepare_01 = 186,
+        fx_prologue_boss_prepare_02 = 187,
+        fx_common_commander_skill_300 = 188,
     }
 
     public enum GlobalEffectProviderType
@@ -604,6 +615,7 @@ namespace CookApps.AutoBattler
     {
         TARGET_PLAYER = 1,
         TARGET_ENEMY = 2,
+        TARGET_ALL = 3,
     }
 
     public enum PriceType
@@ -713,5 +725,25 @@ namespace CookApps.AutoBattler
         APPLY_IF_MYSYNERGY = 0,
         APPLY_ALL_MEMBER = 1,
         APPLY_OTHER_TEAM_ONCE = 2,
+    }
+
+    public enum PromotionLevelType
+    {
+        PROMOTION_DEFAULT = 0,
+        PROMOTION_SPECIAL_1 = 1,
+        PROMOTION_SPECIAL_2 = 2,
+        PROMOTION_SPECIAL_3 = 3,
+        PROMOTION_SPECIAL_4 = 4,
+    }
+
+    public enum CommanderRangeShapeType
+    {
+        SHAPE_NONE = 0,
+        SHAPE_X = 1,
+        SHAPE_SQUARE = 2,
+        SHAPE_GARO = 3,
+        SHAPE_SERO = 4,
+        SHAPE_PLUS = 5,
+        SHAPE_SINGLE = 6,
     }
 }

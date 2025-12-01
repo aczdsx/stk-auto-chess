@@ -8,10 +8,10 @@ using Cysharp.Threading.Tasks;
 //3*3범위 내의 적의 공격력을 {0}초 동안 {1}% 감소 시킨다.
 namespace CookApps.BattleSystem
 {
-    [UseEffectCodeIds(300006)]
-    public class EffectCodeCommanderSkill300006 : EffectCodeGameBase
+    [UseEffectCodeIds(CodeId)]
+    public class EffectCodeCommanderSkill300006 : EffectCodeCommanderSkillBase
     {
-        private ObfuscatorInt _tileID;
+        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_CURSE;
         private ObfuscatorFloat _powerRate;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -20,8 +20,20 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            int userCommanderSkillLevel = codeInfo.GetCodeStatToInt(1);
+            SpecDataManager specDataManager = SpecDataManager.Instance;
+            _specTargetCommanderSkill = specDataManager.GetCommanderSkillListByUserSkillLevel(CodeId, userCommanderSkillLevel);
 
+            var commanderSkillList = specDataManager.GetCommanderSkillDataList(CodeId);
+            if (commanderSkillList == null || commanderSkillList.Count <= 0)
+            {
+                Debug.LogError($"CommanderSkillDataList is null or empty for CodeId: {CodeId}");
+                return;
+            }
+
+            _powerRate = _specTargetCommanderSkill.base_rate * 0.01f;
+
+            PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
         }
 
@@ -30,12 +42,24 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _powerRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            int userCommanderSkillLevel = codeInfo.GetCodeStatToInt(1);
+            SpecDataManager specDataManager = SpecDataManager.Instance;
+            _specTargetCommanderSkill = specDataManager.GetCommanderSkillListByUserSkillLevel(CodeId, userCommanderSkillLevel);
 
+            var commanderSkillList = specDataManager.GetCommanderSkillDataList(CodeId);
+            if (commanderSkillList == null || commanderSkillList.Count <= 0)
+            {
+                Debug.LogError($"CommanderSkillDataList is null or empty for CodeId: {CodeId}");
+                return;
+            }
+
+            _powerRate = _specTargetCommanderSkill.base_rate * 0.01f;
+
+            PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
         }
 
-        private void SkillAction()
+        protected override void SkillAction()
         {
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
@@ -57,6 +81,18 @@ namespace CookApps.BattleSystem
                     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_AD_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
                 }
             }
+        }
+        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        {
+            InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
+            var enemyList = inGameObjectManagerInstance.GetCharacterListSortedByADDescending(AllianceType.Enemy, false);
+            if (enemyList == null || enemyList.Count <= 0)
+                return null;
+            
+            return enemyList[0].CurrentTile;
+        }
+        protected override void PromotionCommanderSkillCheck(PromotionLevelType firstPromotionLevel, PromotionLevelType secondPromotionLevel)
+        {
         }
     }
 }

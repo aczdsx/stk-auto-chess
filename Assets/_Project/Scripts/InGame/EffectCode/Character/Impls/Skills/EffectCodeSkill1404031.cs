@@ -175,7 +175,9 @@ public partial class EffectCodeSkill1404031 : EffectCodeCharacterBase
             targetCharacterList.Add(pivotTile.OccupiedCharacter.CharacterUId);
         }
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(pivotTile, 1);
+        // var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(pivotTile, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapePlus(pivotTile, 1);
+
         foreach (var inGameTile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);

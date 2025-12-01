@@ -91,11 +91,11 @@ namespace CookApps.AutoBattler
             // 커맨더 스킬은 타입 off
             _skillDamageTypeObject.SetActive(false);
 
-            var extraSkillData = SpecDataManager.Instance.GetCommanderSkillData(skillData.commander_skill_id, SkillValueType.COOL);
+            var extraSkillData = SpecDataManager.Instance.GetCommanderSkillDataList(skillData.commander_skill_id)[0];
             if (extraSkillData != null)
             {
                 string cooltimeString = LanguageManager.Instance.GetLanguageText("SKILL_COOLTIME");
-                _skillCoolTimeText.text = string.Format(cooltimeString, extraSkillData.base_rate);
+                _skillCoolTimeText.text = string.Format(cooltimeString, extraSkillData.cool_time);
             }
         }
 

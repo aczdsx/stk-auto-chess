@@ -265,6 +265,7 @@ public class InGameBottomUI : MonoBehaviour
         {
             _commanderSkillUIList[index].SetIcon(image);
             _commanderSkillUIList[index].SetCommanderFx(false);
+            //요기다ㅏㄱ 해당 커맨더스킬 레벨 기입.
         }
         else
         {
@@ -277,11 +278,13 @@ public class InGameBottomUI : MonoBehaviour
         _characterItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameCharacterItemTransform);
         _characterStats = new List<CharacterStatData>();
+        UserDataManager userDataManagerInstance = UserDataManager.Instance;
 
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
-            SetCommanderSkillUI(i, UserDataManager.Instance.GetEquippedCommanderSkill(i));
+            SetCommanderSkillUI(i, userDataManagerInstance.GetEquippedCommanderSkillID(i));
 
-        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
+            
+        var userCharacters = userDataManagerInstance.GetAllUserCharacterList();
         foreach (var character in userCharacters)
         {
             _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level,
@@ -308,13 +311,16 @@ public class InGameBottomUI : MonoBehaviour
 
     public void InitCommanderSkill()
     {
+        UserDataManager userDataManagerInstance = UserDataManager.Instance;
+        SpecDataManager specDataManagerInstance = SpecDataManager.Instance;
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {
-            int equippedCommanderSkill = UserDataManager.Instance.GetEquippedCommanderSkill(i);
-            if (equippedCommanderSkill != 0)
+            int equippedCommanderSkillID = userDataManagerInstance.GetEquippedCommanderSkillID(i);
+            if (equippedCommanderSkillID != 0)
             {
-                var data = SpecDataManager.Instance.GetCommanderSkillData(equippedCommanderSkill);
-                CommanderSkillData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(data);
+                var userSkillLevel = userDataManagerInstance.GetUserCommanderSkillLevel(equippedCommanderSkillID);
+                var dataList = specDataManagerInstance.GetCommanderSkillDataList(equippedCommanderSkillID);
+                CommanderSkillData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(dataList[userSkillLevel - 1]);
 
                 string preferenceKey = $"COMMANDER_AUTO_{(int)(i + 1)}";
 

@@ -7,19 +7,31 @@ using CookApps.Obfuscator;
 // 십자범위 내 적에게 아군의 최고 공격력의 {0}%만큼의 대미지를 준다
 namespace CookApps.BattleSystem
 {
-    [UseEffectCodeIds(300001)]
-    public class EffectCodeCommanderSkill300001 : EffectCodeGameBase
+    [UseEffectCodeIds(CodeId)]
+    public class EffectCodeCommanderSkill300001 : EffectCodeCommanderSkillBase
     {
-        private ObfuscatorInt _tileID;
         private ObfuscatorFloat _damageRate;
-
+        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_EXPLOSION;
+        
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
 
+            int userCommanderSkillLevel = codeInfo.GetCodeStatToInt(1);
+            SpecDataManager specDataManager = SpecDataManager.Instance;
+            _specTargetCommanderSkill = specDataManager.GetCommanderSkillListByUserSkillLevel(CodeId, userCommanderSkillLevel);
+
+            var commanderSkillList = specDataManager.GetCommanderSkillDataList(CodeId);
+            if (commanderSkillList == null || commanderSkillList.Count <= 0)
+            {
+                Debug.LogError($"CommanderSkillDataList is null or empty for CodeId: {CodeId}");
+                return;
+            }
+
+            _damageRate = _specTargetCommanderSkill.base_rate * 0.01f;
+            
+            PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
         }
 
@@ -27,17 +39,28 @@ namespace CookApps.BattleSystem
         {
             base.Merge(codeInfo, source);
 
-            _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            int userCommanderSkillLevel = codeInfo.GetCodeStatToInt(1);
+            SpecDataManager specDataManager = SpecDataManager.Instance;
+            _specTargetCommanderSkill = specDataManager.GetCommanderSkillListByUserSkillLevel(CodeId, userCommanderSkillLevel);
 
+            var commanderSkillList = specDataManager.GetCommanderSkillDataList(CodeId);
+            if (commanderSkillList == null || commanderSkillList.Count <= 0)
+            {
+                Debug.LogError($"CommanderSkillDataList is null or empty for CodeId: {CodeId}");
+                return;
+            }
+
+            _damageRate = _specTargetCommanderSkill.base_rate * 0.01f;
+            PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
         }
 
-        private void SkillAction()
+        protected override void SkillAction()
         {
             InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
-            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeXInRange(inGameTile, 2);
+            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapePlusInRange(inGameTile,
+            _specTargetCommanderSkill.commander_range_size / 2);
 
             List<int> targetCharacterList = new();
             foreach (var tile in tileList)
@@ -58,6 +81,19 @@ namespace CookApps.BattleSystem
                     }
                 }
             }
+        }
+        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        {
+            InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
+            var enemyCharacterList = inGameObjectManagerInstance.GetCharacterList(AllianceType.Enemy);
+            if (enemyCharacterList == null || enemyCharacterList.Count <= 0)
+                return null;
+
+            return base.GetOptimalTileRangeTypePlus(enemyCharacterList, specCommanderSkillData.commander_range_size);
+        }
+
+        protected override void PromotionCommanderSkillCheck(PromotionLevelType firstPromotionLevel, PromotionLevelType secondPromotionLevel)
+        {
         }
     }
 }

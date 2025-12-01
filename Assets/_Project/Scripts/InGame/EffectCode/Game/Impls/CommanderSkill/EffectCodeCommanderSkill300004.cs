@@ -7,11 +7,11 @@ using CookApps.Obfuscator;
 // 3*3 범위 내에 위치한 적의 체력 아군 평균 공격력의 {0}%만큼 회복시킨다.
 namespace CookApps.BattleSystem
 {
-    [UseEffectCodeIds(300004)]
-    public class EffectCodeCommanderSkill300004 : EffectCodeGameBase
+    [UseEffectCodeIds(CodeId)]
+    public class EffectCodeCommanderSkill300004 : EffectCodeCommanderSkillBase
     {
-        private ObfuscatorInt _tileID;
-        private ObfuscatorFloat _damageRate;
+        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_LIFEHEAL;
+        private ObfuscatorFloat _healRate;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -19,8 +19,19 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1) * 100;
+            int userCommanderSkillLevel = codeInfo.GetCodeStatToInt(1);
+            SpecDataManager specDataManager = SpecDataManager.Instance;
+            _specTargetCommanderSkill = specDataManager.GetCommanderSkillListByUserSkillLevel(CodeId, userCommanderSkillLevel);
 
+            var commanderSkillList = specDataManager.GetCommanderSkillDataList(CodeId);
+            if (commanderSkillList == null || commanderSkillList.Count <= 0)
+            {
+                Debug.LogError($"CommanderSkillDataList is null or empty for CodeId: {CodeId}");
+                return;
+            }
+
+            _healRate = _specTargetCommanderSkill.base_rate * 100;
+            PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
         }
 
@@ -29,24 +40,36 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
 
             _tileID = codeInfo.GetCodeStatToInt(0);
-            _damageRate = codeInfo.GetCodeStatToFloat(1) * 100;
+            int userCommanderSkillLevel = codeInfo.GetCodeStatToInt(1);
+            SpecDataManager specDataManager = SpecDataManager.Instance;
+            _specTargetCommanderSkill = specDataManager.GetCommanderSkillListByUserSkillLevel(CodeId, userCommanderSkillLevel);
 
+            var commanderSkillList = specDataManager.GetCommanderSkillDataList(CodeId);
+            if (commanderSkillList == null || commanderSkillList.Count <= 0)
+            {
+                Debug.LogError($"CommanderSkillDataList is null or empty for CodeId: {CodeId}");
+                return;
+            }
+
+            _healRate = _specTargetCommanderSkill.base_rate * 100;
+            PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
         }
 
-        private void SkillAction()
+        protected override void SkillAction()
         {
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
-            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile, 1);
+            var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile,
+            _specTargetCommanderSkill.commander_range_size / 2);
             double damageAmount = 0;
-            
+
             var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
             if (playerCharacterList != null && playerCharacterList.Count > 0)
             {
                 var strongestCharacter = playerCharacterList.OrderByDescending(c => c.AD).First();
-                damageAmount = strongestCharacter.AD * _damageRate;
+                damageAmount = strongestCharacter.AD * _healRate;
             }
-            
+
             foreach (var tile in tileList)
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_commander_skill_02,
@@ -60,6 +83,18 @@ namespace CookApps.BattleSystem
                     tile.OccupiedCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
                 }
             }
+        }
+        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        {
+            InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
+            var playerCharacterList = inGameObjectManagerInstance.GetCharacterList(AllianceType.Player);
+            if (playerCharacterList == null || playerCharacterList.Count <= 0)
+                return null;
+
+            return base.GetOptimalTileRangeTypeSquare(playerCharacterList, specCommanderSkillData.commander_range_size);
+        }
+        protected override void PromotionCommanderSkillCheck(PromotionLevelType firstPromotionLevel, PromotionLevelType secondPromotionLevel)
+        {
         }
     }
 }

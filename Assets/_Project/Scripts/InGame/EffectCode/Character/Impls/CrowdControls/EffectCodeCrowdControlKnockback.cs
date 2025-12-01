@@ -132,6 +132,8 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
             var pos = owner.ViewPosition3D;
             pos.y = 0;
             owner.ViewPosition3D = pos;
+
+
             owner.Position3D = _inGameTile.View.Position;
             RemoveFromContainer();
             return;

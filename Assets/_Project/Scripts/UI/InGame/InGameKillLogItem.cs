@@ -68,8 +68,8 @@ public class InGameKillLogItem : MonoBehaviour
                 break;
             case AttackerType.COMMANDER_SKILL:
                 {
-                    var data = SpecDataManager.Instance.GetCommanderSkillData((int)source.Id);
-                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data.name_token) : source.Id.ToString();
+                    var data = SpecDataManager.Instance.GetCommanderSkillDataList((int)source.Id);
+                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data[0].name_token) : source.Id.ToString();
                     _killCharacterImage.sprite = null;
                 }
                 break;

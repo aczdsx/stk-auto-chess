@@ -123,17 +123,20 @@ public partial class EffectCodeSkill1402021 : EffectCodeCharacterBase
         IsSkillActivated = false;
         
         List<InGameTile> inGameTiles = null;
+        // inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 1);
+        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapePlusInRange(owner.CurrentTile, 1);
+        await ExecuteSkillStep(inGameTiles);
+        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
+
+        inGameTiles.Clear();
+        // inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByDiagonal(owner.CurrentTile, 1);
         inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 1);
         await ExecuteSkillStep(inGameTiles);
         await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
 
         inGameTiles.Clear();
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByDiagonal(owner.CurrentTile, 1);
-        await ExecuteSkillStep(inGameTiles);
-        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
-
-        inGameTiles.Clear();
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 2);
+        // inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 2);
+        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapePlusInRange(owner.CurrentTile, 2);
         await ExecuteSkillStep(inGameTiles);
         await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
     }

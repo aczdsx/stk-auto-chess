@@ -67,11 +67,24 @@ namespace CookApps.AutoBattler
             SaveUserCommanderSKillData();
         }
 
-        public int GetEquippedCommanderSkill(int targetSlot)
+        public int GetEquippedCommanderSkillID(int targetSlot)
         {
             if (userCommanderSkillData.EquippedCommanderSkillIds.ContainsKey(targetSlot))
+            {
                 return userCommanderSkillData.EquippedCommanderSkillIds[targetSlot];
+            }
+            return 0;
+        }
 
+        public int GetUserCommanderSkillLevel(int commanderSkillID)
+        {
+            foreach(var userCommanderSkill in userCommanderSkillData.UserCommanderSkillList)
+            {
+                if(userCommanderSkill.CommanderSkillId == commanderSkillID)
+                {
+                    return userCommanderSkill.Level;// 승급 5레ㅂㄹ +  어떤스킬 
+                }
+            }
             return 0;
         }
 

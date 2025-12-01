@@ -82,7 +82,8 @@ namespace CookApps.BattleSystem
         Debuff,
         CrowdControl,
         Item,
-        Tile
+        Tile,
+        CommanderSkill
     }
 
     public enum EffectCodeLifeType

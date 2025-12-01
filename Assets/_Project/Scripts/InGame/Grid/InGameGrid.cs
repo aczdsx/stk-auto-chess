@@ -15,7 +15,7 @@ namespace CookApps.BattleSystem
 
         private readonly InGameTile[] _tiles;
         private HashSet<int2> _reusableInt2HashSet = new HashSet<int2>();
-//int2
+        //int2
         private static readonly int2[] Directions =
         {
             new int2(0, 1), new int2(0, -1), new int2(1, 0), new int2(-1, 0),
@@ -346,7 +346,7 @@ namespace CookApps.BattleSystem
             return minMoveCount;
         }
         public void ClearReusableTilesHashSet()
-        {   
+        {
             _reusableInt2HashSet.Clear();
         }
         private IEnumerable<InGameTile> GetNeighbors(InGameTile tile)
@@ -478,12 +478,31 @@ namespace CookApps.BattleSystem
             return tiles;
         }
 
-        public List<InGameTile> GetTileListByShapeX(InGameTile inGameTile)
+        public List<InGameTile> GetTileListByDirectionInRange(InGameTile pivotTile, int dX, int dY, int count)
+        {
+            List<InGameTile> tiles = new List<InGameTile>();
+            for (int i = 1; i <= count; i++)
+            {
+                int2 newPos = new int2(pivotTile.X + dX * i, pivotTile.Y + dY * i);
+                if (IsValidPosition(newPos))
+                {
+                    var tile = GetTile(newPos);
+                    tiles.Add(tile);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return tiles;
+        }
+        public List<InGameTile> GetTileListByShapePlus(InGameTile inGameTile)
         {
             return _tiles.Where(t => t.X == inGameTile.X || t.Y == inGameTile.Y).ToList();
         }
 
-        public List<InGameTile> GetTileListByShapeX(InGameTile inGameTile, int size)
+        public List<InGameTile> GetTileListByShapePlus(InGameTile inGameTile, int size)
         {
             return _tiles.Where(t =>
                 (t.X == inGameTile.X && (t.Y == inGameTile.Y + size || t.Y == inGameTile.Y - size)) ||
@@ -491,7 +510,7 @@ namespace CookApps.BattleSystem
             ).ToList();
         }
 
-        public List<InGameTile> GetTileListByShapeXInRange(InGameTile inGameTile, int size)
+        public List<InGameTile> GetTileListByShapePlusInRange(InGameTile inGameTile, int size)
         {
             return _tiles.Where(t =>
                 (t.X == inGameTile.X && Math.Abs(t.Y - inGameTile.Y) <= size) ||
@@ -499,15 +518,17 @@ namespace CookApps.BattleSystem
             ).ToList();
         }
 
-        public List<InGameTile> GetTileListByDiagonal(InGameTile ingameTile, int size)
+        public List<InGameTile> GetTileListByShapeX(InGameTile ingameTile, int size)
         {
             return _tiles.Where(t =>
                     (t.X == ingameTile.X + size && t.Y == ingameTile.Y + size) || // 우상
                     (t.X == ingameTile.X - size && t.Y == ingameTile.Y + size) || // 좌상
                     (t.X == ingameTile.X + size && t.Y == ingameTile.Y - size) || // 우하
                     (t.X == ingameTile.X - size && t.Y == ingameTile.Y - size)    // 좌하
-            ).ToList();
+                ).ToList();
         }
+
+
 
         public List<InGameTile> GetTileListByShapeSquare(InGameTile pivot, int size)
         {
@@ -544,17 +565,39 @@ namespace CookApps.BattleSystem
                 return tiles.Take(count).ToList();
             }
         }
-
+        /// <summary>
+        /// 가로 타일의 인덱스와 같은 친구들 반환
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <returns></returns>
         public List<InGameTile> GetTileListByColumn(InGameTile tile)
-        {
+        {//행 가로
             return _tiles.Where(t => t.X == tile.X).ToList();
         }
-
-        public List<InGameTile> GetTileListByRow(InGameTile tile)
+        public List<InGameTile> GetTileListByColumn(InGameTile tile, int range)
         {
+            int minY = Math.Max(0, tile.Y - range);
+            int maxY = Math.Min(Height - 1, tile.Y + range);
+            return _tiles.Where(t => t.X == tile.X && t.Y >= minY && t.Y <= maxY).ToList();
+        }
+
+        /// <summary>
+        /// 세로 타일의 인덱스와 같은 친구들 반환
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <returns></returns>
+        public List<InGameTile> GetTileListByRow(InGameTile tile)
+        {//열 세로
             return _tiles.Where(t => t.Y == tile.Y).ToList();
         }
 
+
+        /// <summary>
+        /// 세로 레인지 내의 타일 반환
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="range"></param>
+        /// <returns></returns>
         public List<InGameTile> GetTileListByRow(InGameTile tile, int range)
         {
             int minX = Math.Max(0, tile.X - range);

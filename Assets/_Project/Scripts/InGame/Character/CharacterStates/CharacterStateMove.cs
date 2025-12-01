@@ -39,7 +39,9 @@ public class CharacterStateMove : CharacterStateBase
             (Vector3 value) =>
             {
                 if (characCtrl != null)
+                {
                     characCtrl.Position3D = value;
+                }
             },
             ease: ease).OnComplete(this, target =>
         {
@@ -65,6 +67,13 @@ public class CharacterStateMove : CharacterStateBase
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
+        if (characCtrl.NeedToBeCrowdControlState())
+        {
+            // cc기 당했다면 cc상태로 변환 인데 isblockingchangestate 를 false 로 해야함
+            isBlockingChangeState = false;
+            characCtrl.AddNextState<CharacterStateCC>();
+            return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
+        }
         return CharacterStateRunningResult.CanCallAllWithoutActivate;
     }
 

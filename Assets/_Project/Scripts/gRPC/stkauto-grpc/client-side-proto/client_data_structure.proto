@@ -349,6 +349,8 @@ message UserCommanderSkillData {
 message UserCommanderSkill {
   int32 commander_skill_id = 101; // 스킬 아이디
   int32 level = 102; // 레벨
+  int32 selected_promotion_1 = 103;
+  int32 selected_promotion_2 = 104;
 }
 
 // ---------------------------

@@ -37,6 +37,8 @@ namespace CookApps.BattleSystem
             }
         }
 
+        private Stack<CharacterStateBase> _stateStack = new Stack<CharacterStateBase>();
+
         public EffectCodeContainer GetEffectCodeContainer()
         {
             return ecc;
@@ -675,7 +677,12 @@ namespace CookApps.BattleSystem
             }
 
             state.SetStateData(stateData);
+            if (_currState.GetType() == typeof(CharacterStateMove) && stateData == typeof(CharacterStateCC))
+            {
+                Debug.LogColor($"[TEST] : {SpecCharacter.prefab_id} 캐릭터가 타일 중간에 멈췄습니다.");
+            }
             _nextState = state;
+
             return state as T;
         }
 
@@ -1065,7 +1072,7 @@ namespace CookApps.BattleSystem
                             InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
                             break;
                         case AttackerType.COMMANDER_SKILL:
-                            var commanderSkill = SpecDataManager.Instance.GetCommanderSkillData((int)damageInfo.source);
+                            var commanderSkill = SpecDataManager.Instance.GetCommanderSkillDataList((int)damageInfo.source)[0];
                             InGameMain.GetInGameMain().AddKillLog(commanderSkill, this, AllianceType != AllianceType.Player);
                             break;
                         case AttackerType.CHAPTER_RULE:
@@ -1352,7 +1359,7 @@ namespace CookApps.BattleSystem
                     if (onComplete != null)
                         onComplete.Invoke(targetLine);
                 });
-            
+
         }
 
         public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)

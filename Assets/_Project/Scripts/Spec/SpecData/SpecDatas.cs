@@ -255,16 +255,34 @@ namespace CookApps.AutoBattler
         public int commander_skill_id;
         /// 개방 챕터 id
         public int open_key_chapter_id;
+        /// 레벨
+        public int level;
+        /// 변주 등급
+        public global::CookApps.AutoBattler.PromotionLevelType promotion_level_type;
         /// 지휘자 스킬 이름 토큰
         public string name_token;
         /// 지휘자 스킬 설명 토큰
         public string desc_token;
         /// 적용되는 타입
         public global::CookApps.AutoBattler.CommanderTargetType commander_target_type;
+        /// 적용 그리드
+        public global::CookApps.AutoBattler.CommanderRangeShapeType commander_range_shape_type;
+        /// 적용 그리드 갯수 혹은 범위
+        public int commander_range_size;
+        /// 쿨타임
+        public float cool_time;
         /// 스킬 벨류 타입
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 실제 계수
         public float base_rate;
+        /// 스킬 벨류 타입_2
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
+        /// 실제 계수_2
+        public float base_rate_2;
+        /// 스킬 벨류 타입_3
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type_3;
+        /// 실제 계수_3
+        public float base_rate_3;
     }
 
     [GeneratorSpecData]
