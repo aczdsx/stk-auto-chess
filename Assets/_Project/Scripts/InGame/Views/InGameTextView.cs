@@ -15,6 +15,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text _healDamage;
         [SerializeField] private TMP_Text _shieldDamage;
         [SerializeField] private TMP_Text _normalText;
+        [SerializeField] private TMP_Text _advantageText;
 
         [SerializeField] private Transform _root;
         [SerializeField] private Animator _animator;
@@ -105,23 +106,17 @@ namespace CookApps.AutoBattler
             // await WaitForAnimationEnd();
         }
 
-        public async UniTask ShowElementAdvantageText(Vector3 position, float characterHeight, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        public void AttachElementAdvanageText(ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult, bool isCritical)
         {
-            _damageText = _txtDamage;
-            _damageText.text = ElementAdvantageHelper.GetElementAdvantageText(elementAdvantageResult);
-
-            _xOffset = Random.Range(-0.5f, 0.5f);
-            Vector3 initialPosition = position + Vector3.up * (characterHeight + (_heightOffset));
-            initialPosition.x += _xOffset;
-            _root.position = initialPosition;
-            _animator.SetTrigger(Normal);
-
-            // await WaitForAnimationEnd();
+            _advantageText.gameObject.SetActive(true);
+            var TargetAttachText = (isCritical) ? _textCritDamage : _txtDamage;
+            _advantageText.transform.SetParent(TargetAttachText.transform);
+            _advantageText.text = ElementAdvantageHelper.GetElementAdvantageText(elementAdvantageResult);
         }
-
         public void ReturnTextView()
         {
             InGameTextViewPool.Instance.Return(this);
+            _advantageText.gameObject.SetActive(false);
         }
 
         // private async UniTask WaitForAnimationEnd()

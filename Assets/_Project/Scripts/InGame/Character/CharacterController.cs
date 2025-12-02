@@ -1239,8 +1239,7 @@ namespace CookApps.BattleSystem
             {
                 return;
             }
-            InGameTextView AdvantageTextView = InGameTextViewPool.Instance.Get();
-            await AdvantageTextView.ShowElementAdvantageText(GetCharacterView().CachedTr.position, _statData.Spec.height, elementAdvantageResult);
+            textView.AttachElementAdvanageText(elementAdvantageResult, isCritical);
         }
 
         private async UniTask ShowHealText(double amount)
