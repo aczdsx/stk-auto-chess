@@ -58,8 +58,9 @@ namespace CookApps.AutoBattler
 #if UNITY_EDITOR
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
 #endif
-            var transition = SceneTransition_FadeInOut.Create();
-            await SceneLoading.GoToNextScene("Title", null, transition);
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("Title");
 
             Debug.Log("SceneFirstLoad Awake -2");
         }

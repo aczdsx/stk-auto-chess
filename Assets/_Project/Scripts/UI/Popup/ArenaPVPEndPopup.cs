@@ -126,8 +126,10 @@ namespace CookApps.AutoBattler
             //InGameManager.Instance.EndInGame();
             var lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
-            var transition = SceneTransition_FadeInOut.Create();
-            await SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition);
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id);
 
             SceneUILayerManager.OnSceneLoadedEvent += OpenArenaMainPopupAction;
         }

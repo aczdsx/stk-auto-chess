@@ -630,7 +630,7 @@ namespace CookApps.TeamBattle.UIManagements
         #region Load UI from addressables
         private async UniTask<UILayer> LoadUILayer(string uiLayerName)
         {
-            var address = string.Empty;//UILayerConstants.GetUILayerAddress(uiLayerName);
+            var address = UILayerConstants.GetUILayerAddress(uiLayerName);
             var handle = Addressables.InstantiateAsync(address, mainNode);
             await handle.WaitUntilDone();
             return handle.Result.GetComponent<UILayer>();

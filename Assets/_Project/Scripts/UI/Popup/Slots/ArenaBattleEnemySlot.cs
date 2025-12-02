@@ -256,12 +256,12 @@ namespace CookApps.AutoBattler
             
             // 인게임 씬 집입
             InGameManager.Instance.EndInGame();
-            SceneTransition_Animator transition = SceneTransition_Animator.Create();
             UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
             data.MatchId = 0;
+            SceneTransition.Create<SceneTransition_Animator>();
+            SceneTransition.FadeInAsync().Forget();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.PVP, (IGameStateUICore) new InGameMainStatePvp(), data),
-                transition).Forget();
+                (InGameType.PVP, (IGameStateUICore) new InGameMainStatePvp(), data));
         }
 
         private async void OnClickRevengeButton()
@@ -292,12 +292,12 @@ namespace CookApps.AutoBattler
             
             // 인게임 씬 집입
             InGameManager.Instance.EndInGame();
-            SceneTransition_Animator transition = SceneTransition_Animator.Create();
             UserPVPBattleDetailData data = pvpProfileData.DetailData;   // 상대방 디테일 덱
             data.MatchId = _pvpMatchHistoryData.MatchId;
+            SceneTransition.Create<SceneTransition_Animator>();
+            SceneTransition.FadeInAsync().Forget();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.PVP, (IGameStateUICore) new InGameMainStatePvp(), data),
-                transition).Forget();
+                (InGameType.PVP, (IGameStateUICore) new InGameMainStatePvp(), data));
         }
         
         private void ClearSlot()

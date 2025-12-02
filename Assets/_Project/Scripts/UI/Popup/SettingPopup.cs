@@ -74,8 +74,9 @@ namespace CookApps.AutoBattler
                 LanguageManager.Instance.SetGameLanguage(targetType);
         
                 InGameManager.Instance.EndInGame();
-                var transition = SceneTransition_FadeInOut.Create();
-                SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                SceneTransition.FadeInAsync().Forget();
+                SceneLoading.GoToNextScene("Title");
             });
 
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();

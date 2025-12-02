@@ -217,28 +217,21 @@ namespace CookApps.Editor
             builder.AppendLine("{");
             builder.AppendLine("    internal static class UILayerConstants");
             builder.AppendLine("    {");
-            if (uiLayerAddresses.Count == 0)
+            builder.AppendLine("        public static string GetUILayerAddress(string uiLayerName)");
+            builder.AppendLine("        {");
+            builder.AppendLine("            return uiLayerName switch");
+            builder.AppendLine("            {");
+            foreach (var entry in uiLayerAddresses)
             {
-                builder.AppendLine("        // UILayer가 최상위에 붙은 Addressable Prefab이 없습니다.");
+                builder.Append("                \"");
+                builder.Append(entry.FieldName);
+                builder.Append("\" => \"");
+                builder.Append(entry.Address);
+                builder.AppendLine("\",");
             }
-            else
-            {
-                builder.AppendLine("        public static string GetUILayerAddress(string uiLayerName)");
-                builder.AppendLine("        {");
-                builder.AppendLine("            return uiLayerName switch");
-                builder.AppendLine("            {");
-                foreach (var entry in uiLayerAddresses)
-                {
-                    builder.Append("                \"");
-                    builder.Append(entry.FieldName);
-                    builder.Append("\" => \"");
-                    builder.Append(entry.Address);
-                    builder.AppendLine("\",");
-                }
-                builder.AppendLine("                _ => string.Empty");
-                builder.AppendLine("            };");
-                builder.AppendLine("        }");
-            }
+            builder.AppendLine("                _ => string.Empty");
+            builder.AppendLine("            };");
+            builder.AppendLine("        }");
 
             builder.AppendLine();
             

@@ -134,8 +134,9 @@ namespace CookApps.AutoBattler
             int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
             
-            var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            SceneTransition.FadeInAsync().Forget();
+            SceneLoading.GoToNextScene("Lobby",  specLastStageData.chapter_id);
 
             var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
             if (userGuideMissionData.MissionStateType != (int)MissionStateType.REWARD)

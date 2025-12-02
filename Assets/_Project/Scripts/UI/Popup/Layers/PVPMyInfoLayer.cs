@@ -111,12 +111,11 @@ namespace CookApps.AutoBattler
         private void OnClickSettingDefenseDeckButton()
         {
             InGameManager.Instance.EndInGame();
-            SceneTransition_Animator transition = SceneTransition_Animator.Create();
             UserPVPBattleDetailData data = UserDataManager.Instance.GetCurrentPVPDetailProfileData(true);
-            
+            SceneTransition.Create<SceneTransition_Animator>();
+            SceneTransition.FadeInAsync().Forget();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.PVP_DEFENSE, (IGameStateUICore) new InGameMainStatePvpDefense(), data),
-                transition).Forget();
+                (InGameType.PVP_DEFENSE, (IGameStateUICore) new InGameMainStatePvpDefense(), data));
         }
 
         private void ClearLayer()

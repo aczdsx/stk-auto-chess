@@ -44,8 +44,9 @@ public class FlowStatePvpFail : StateBase
             InGameManager.Instance.EndInGame();
             var lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
-            var transition = SceneTransition_FadeInOut.Create();
-            await SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition);
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
         }
     }
 

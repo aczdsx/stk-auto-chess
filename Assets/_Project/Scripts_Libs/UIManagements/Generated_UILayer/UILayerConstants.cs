@@ -13,7 +13,6 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
-                "TitleMain" => "Prefabs/UI/00_Main/TitleMain.prefab",
                 "ChapterListPopup" => "Prefabs/UI/01_Pops/ChapterListPopup.prefab",
                 "DialoguePopup" => "Prefabs/UI/01_Pops/DialoguePopup.prefab",
                 "DungeonTrialPopup" => "Prefabs/UI/01_Pops/DungeonTrialPopup.prefab",
@@ -53,7 +52,9 @@ namespace CookApps.TeamBattle.UIManagements
                 "ToastSystemPopup" => "Prefabs/UI/01_Pops/WindowPopup/ToastSystemPopup.prefab",
                 "BattleStatisticsPopup" => "Prefabs/UI/InGame/BattleStatisticsPopup.prefab",
                 "SkillTooltipPopup_1" => "Prefabs/UI/InGame/RightSkillTooltipPopup.prefab",
+                "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",
                 "TopCurrencyAndMenuBar" => "Prefabs/UI/Top/TopCurrencyAndMenuBar.prefab",
+                "TitleMain" => "Assets/_Project/Splash_STK/Prefab/SplashUI.prefab",
                 _ => string.Empty
             };
         }
