@@ -475,6 +475,8 @@ namespace CookApps.AutoBattler
         fx_common_trap_explosion = 183,
         fx_common_buff_normal_attack_shield_01 = 184,
         fx_common_buff_normal_attack_shield_02 = 185,
+        fx_prologue_boss_prepare_01 = 186,
+        fx_prologue_boss_prepare_02 = 187,
     }
 
     public enum GlobalEffectProviderType

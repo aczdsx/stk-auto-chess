@@ -400,7 +400,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 라플라스 마녀의 공격 준비 이펙트 생성 및 캐릭터에 붙이기
         // 다크 속성 캐스팅 이펙트 사용 (필요시 다른 이펙트로 변경 가능)
         _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
-            InGameVfxNameType.fx_common_cast_darkness,
+            InGameVfxNameType.fx_prologue_boss_prepare_01,
             _witchCharacter.SkillRootTransformFollowable);
 
         await UniTask.Delay(2000); // 2초 대기
@@ -614,7 +614,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 라플라스 마녀 최후의 공격 준비 이펙트 재생
         // 암흑 힘 응집 이펙트 (마녀를 감싸는 이펙트)
         _witchFinalPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
-            InGameVfxNameType.fx_common_cast_darkness,
+            InGameVfxNameType.fx_prologue_boss_prepare_02,
             _witchCharacter.SkillRootTransformFollowable);
 
         // [TODO] 필요시 더 강력한 이펙트로 변경
