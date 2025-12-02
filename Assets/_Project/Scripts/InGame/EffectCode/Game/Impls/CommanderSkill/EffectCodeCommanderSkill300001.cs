@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
+using CookApps.TeamBattle.Utility;
 
 // 십자범위 내 적에게 아군의 최고 공격력의 {0}%만큼의 대미지를 준다
 namespace CookApps.BattleSystem
@@ -35,7 +36,7 @@ namespace CookApps.BattleSystem
 
         private void SkillAction()
         {
-            InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeXInRange(inGameTile, 2);
 

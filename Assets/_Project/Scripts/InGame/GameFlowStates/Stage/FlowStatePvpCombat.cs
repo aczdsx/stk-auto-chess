@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -25,7 +26,7 @@ public class FlowStatePvpCombat : StateCombatBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
         InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
         
         InGameObjectManager.Instance.ClearTargetLine();
     }

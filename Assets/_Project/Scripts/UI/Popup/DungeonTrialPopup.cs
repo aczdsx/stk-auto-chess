@@ -19,7 +19,6 @@ namespace CookApps.AutoBattler
         DUNGEON_INFO,
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/DungeonTrialPopup.prefab")]
     public class DungeonTrialPopup : UILayer
     {
         [Header("Common")]
@@ -272,11 +271,12 @@ namespace CookApps.AutoBattler
             // todo.. 던전 입장 처리
 
             InGameManager.Instance.EndInGame();
-            var transition = SceneTransition_FadeInOut.Create();
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            SceneTransition.FadeInAsync().Forget();
 
             InGameType inGameType = (_specDungeonTrialData.dungeon_map_id == 1) ? InGameType.TRIAL_BOSS: InGameType.TRIAL;
             SceneLoading.GoToNextScene("InGame",
-                (inGameType, (IGameStateUICore) new InGameMainStateTrialDungeon(), (int)_specDungeonTrialData.dungeon_id), transition).Forget();
+                (inGameType, (IGameStateUICore) new InGameMainStateTrialDungeon(), _specDungeonTrialData.dungeon_id));
         }
 
         private void OnClickCloseButton()

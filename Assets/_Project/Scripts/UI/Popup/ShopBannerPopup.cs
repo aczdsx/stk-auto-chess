@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/ShopBannerPopup.prefab")]
     public class ShopBannerPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;

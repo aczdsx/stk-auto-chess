@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 
 //3*3범위 내의 적의 공격력을 {0}초 동안 {1}% 감소 시킨다.
@@ -37,7 +38,7 @@ namespace CookApps.BattleSystem
 
         private void SkillAction()
         {
-            InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile, 1);
 

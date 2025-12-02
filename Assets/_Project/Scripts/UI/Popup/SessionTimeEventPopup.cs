@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/SessionTimeEventPopup.prefab")]
     public class SessionTimeEventPopup : UILayer
     {
         [Header("Common")]

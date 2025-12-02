@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/IdleRewardPopup.prefab")]
     public class IdleRewardPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;

@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/01_Pops/WindowPopup/ToastSystemPopup.prefab")]
     public class ToastSystemPopup : UILayer
     {
         [SerializeField] private TextMeshProUGUI _messageText;

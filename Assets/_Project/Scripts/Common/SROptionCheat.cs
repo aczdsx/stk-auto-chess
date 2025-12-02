@@ -22,8 +22,9 @@ public partial class SROptions
         ToastManager.Instance.ShowToast("TEST - 치트 적용");
                 
         InGameManager.Instance.EndInGame();
-        var transition = SceneTransition_FadeInOut.Create();
-        SceneLoading.GoToNextScene("Title", null, transition);
+        SceneTransition.Create<SceneTransition_FadeInOut>();
+        SceneTransition.FadeInAsync().Forget();
+        SceneLoading.GoToNextScene("Title");
     }
     
     [Category("시스템 관련")]
@@ -347,8 +348,9 @@ public partial class SROptions
         var lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
         var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
-        var transition = SceneTransition_FadeInOut.Create();
-        SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition).Forget();
+        SceneTransition.Create<SceneTransition_FadeInOut>();
+        SceneTransition.FadeInAsync().Forget();
+        SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
     }
 
     [Category("스테이지 관련")] public int 원하는스테이지ID { get; set; } = 0;

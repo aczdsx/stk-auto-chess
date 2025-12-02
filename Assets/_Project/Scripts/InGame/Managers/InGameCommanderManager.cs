@@ -4,6 +4,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -35,16 +36,10 @@ public class CommanderSkillData
     }
 }
 
-public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
-    IEndDragHandler
+public class InGameCommanderManager : CachedMonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public InGameCamera InGameCamera => _inGameCamera;
-    public Canvas MainCanvas => _mainCanvas;
+    public static InGameCommanderManager Instance { get; private set; }
 
-    [SerializeField] private InGameCamera _inGameCamera;
-    [SerializeField] private Canvas _mainCanvas;
-
-    //[TODO] switchObj 필요
     public GameObject switchObj;
     public float switchThreshold = 50f;
     public float maxFadeAlpha = 0.9f;
@@ -62,9 +57,25 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     
     private bool _isCommanderGuideStage;
 
+    private void Awake()
+    {
+        if (Instance != null)
+            Destroy(gameObject);
+        else
+            Instance = this;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (Instance == this)
+            Instance = null;
+    }
+
     public void Initialize()
     {
-        _mainCamera = Camera.main;
+        _ingameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+        _mainCamera = _ingameCamera.MainCamera;
 
         InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
             ManagedUpdate);

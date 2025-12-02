@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/EndTestgamePopup.prefab")]
     public class EndTestgamePopup : UILayer
     {
         [SerializeField] private TextMeshProUGUI _titleText;

@@ -1,15 +1,26 @@
 using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Cysharp.Threading.Tasks;
 
 namespace CookApps.TeamBattle.UIManagements
 {
     public abstract class UILayer : CachedMonoBehaviour
     {
+        [SerializeField] private UILayerType uiLayerType;
         [SerializeField] protected Animator baseAnimator;
-
+        [SerializeField] private AssetReferenceGameObject[] preloadAddressables;
+        
+        public AssetReferenceGameObject[] PreloadAddressables => preloadAddressables;
+        
         protected event Action<UILayer> EnterEndCallback;
         protected internal event Action<UILayer> ExitEndCallback;
+
+        private const string EnterAnimationKey = "StartEnter"; // 애니메이터 상태 키 (입장 애니메이션)
+        private const string ExitAnimationKey = "StartExit";  // 애니메이터 상태 키 (퇴장 애니메이션)
+
+        private static readonly int EnterAnimationHash = Animator.StringToHash(EnterAnimationKey);
+        private static readonly int ExitAnimationHash = Animator.StringToHash(ExitAnimationKey);
 
         private bool hasEnterAnimation;
         private bool hasExitAnimation;
@@ -17,9 +28,9 @@ namespace CookApps.TeamBattle.UIManagements
         public virtual int Priority => 0;
 
         public string Key { get; set; }
-        public UILayerType UILayerType { get; set; }
+        public UILayerType UILayerType => uiLayerType;
 
-        protected virtual void Awake()
+        protected internal virtual void Awake()
         {
             if (baseAnimator == null)
             {
@@ -30,39 +41,25 @@ namespace CookApps.TeamBattle.UIManagements
                 }
             }
 
-            foreach (AnimationClip clip in baseAnimator.runtimeAnimatorController.animationClips)
-            {
-                if (clip.name == "StartEnter" || clip.name == "StartExit")
-                {
-                    if (clip.name == "StartEnter")
-                    {
-                        hasEnterAnimation = true;
-                    }
-
-                    if (clip.name == "StartExit")
-                    {
-                        hasExitAnimation = true;
-                    }
-
-                    var animationEndEvent = new AnimationEvent();
-                    animationEndEvent.time = clip.length;
-                    animationEndEvent.functionName = "AnimationCompleteHandler";
-                    animationEndEvent.stringParameter = clip.name;
-                    clip.AddEvent(animationEndEvent);
-                }
-            }
+            hasEnterAnimation = baseAnimator.runtimeAnimatorController != null && baseAnimator.HasState(0, EnterAnimationHash);
+            hasExitAnimation = baseAnimator.runtimeAnimatorController != null && baseAnimator.HasState(0, ExitAnimationHash);
         }
 
         protected internal virtual void OnPreEnter(object param)
         {
+            for (var i = 0; i < PreloadAddressables.Length; i++)
+            {
+                PreloadAddressables[i].LoadAssetAsync();
+            }
         }
 
         protected internal virtual void StartEnterAnimation(Action<UILayer> endCallback)
         {
             if (hasEnterAnimation)
             {
-                EnterEndCallback = endCallback;
-                baseAnimator.Play("StartEnter");
+                EnterEndCallback -= endCallback;
+                EnterEndCallback += endCallback;
+                baseAnimator.Play(EnterAnimationKey);
                 return;
             }
 
@@ -81,8 +78,9 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (hasExitAnimation)
             {
-                ExitEndCallback = endCallback;
-                baseAnimator.Play("StartExit");
+                ExitEndCallback -= endCallback;
+                ExitEndCallback += endCallback;
+                baseAnimator.Play(ExitAnimationKey);
                 return;
             }
 
@@ -92,23 +90,27 @@ namespace CookApps.TeamBattle.UIManagements
 
         protected internal virtual void OnPostExit()
         {
+            for (var i = 0; i < PreloadAddressables.Length; i++)
+            {
+                PreloadAddressables[i].ReleaseAsset();
+            }
         }
 
         protected internal virtual void OnBackButton(ref bool offPrevUI)
         {
-            SceneUILayerManager.Instance.PopUILayer(this);
+            CloseThisUILayer();
         }
 
-        private void AnimationCompleteHandler(string name)
+        public void AnimationCompleteHandler(string name)
         {
-            if (name == "StartEnter")
+            if (name == EnterAnimationKey)
             {
                 Action<UILayer> tempAction = EnterEndCallback;
                 EnterEndCallback = null;
                 tempAction?.Invoke(this);
             }
 
-            if (name == "StartExit")
+            if (name == ExitAnimationKey)
             {
                 Action<UILayer> tempAction = ExitEndCallback;
                 ExitEndCallback = null;
@@ -118,13 +120,21 @@ namespace CookApps.TeamBattle.UIManagements
 
         private async UniTask CallAfterDelayFrame(int delayFrame, Action<UILayer> endCallback)
         {
-            await UniTask.DelayFrame(delayFrame);
+            for (int i = 0; i < delayFrame; i++)
+            {
+                await UniTask.Yield();
+            }
             endCallback?.Invoke(this);
         }
 
         public UILayerExitTask WaitForExit()
         {
             return new UILayerExitTask(this);
+        }
+        
+        protected virtual void CloseThisUILayer()
+        {
+            SceneUILayerManager.Instance.PopUILayer(this);
         }
     }
 }

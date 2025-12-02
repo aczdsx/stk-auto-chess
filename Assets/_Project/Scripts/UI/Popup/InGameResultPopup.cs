@@ -17,7 +17,6 @@ namespace CookApps.AutoBattler
         public TextMeshProUGUI _conditionText;
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/InGameResultPopup.prefab")]
     public class InGameResultPopup : UILayer
     {
         [SerializeField] private CAButton _exitButton;
@@ -192,13 +191,15 @@ namespace CookApps.AutoBattler
             int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
-            var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby",  (int)specLastStageData.chapter_id, transition).Forget();
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            SceneTransition.FadeInAsync().Forget();
+            SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
         }
 
         private void OnNextStageButtonClicked()
         {
-            // var transition = SceneTransition_FadeInOut.Create();
+            // SceneTransition.Create<SceneTransition_FadeInOut>();
+SceneTransition.FadeInAsync().Forget();
             // SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
 
             //InGameManager.Instance.EndInGame();
@@ -229,7 +230,7 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), (int)nextStageData.stage_id)).Forget();
+                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), nextStageData.stage_id));
         }
 
         private void OnClickRetryStageButton()
@@ -244,7 +245,7 @@ namespace CookApps.AutoBattler
 
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), (int)InGameManager.Instance.SpecStage.stage_id)).Forget();
+                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), (int)InGameManager.Instance.SpecStage.stage_id));
         }
 
         // 가장 높은 스테이지 클리어 여부 체크

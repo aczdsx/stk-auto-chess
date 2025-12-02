@@ -5,6 +5,7 @@ using System.Resources;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
@@ -64,9 +65,9 @@ public class FlowStateStageReady : StateReadyBase
 
         bool isSize75 = _specStage.chapter_id == 1 || _specStage.chapter_id == 2; // [TODO] 나중에 데이터로 
         if (isSize75)
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
         else
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
 
         // 장애물 설치
         foreach (var gridID in _specStage.obstacle_grid_id)

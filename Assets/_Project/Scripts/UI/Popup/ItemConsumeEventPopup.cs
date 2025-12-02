@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/ItemConsumeEventPopup.prefab")]
     public class ItemConsumeEventPopup : UILayer
     {
         [Header("Common")]

@@ -20,7 +20,6 @@ using AppsFlyerSDK;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Overlay, "Prefabs/UI/Title/TitleMain.prefab")]
     public class TitleMain : UILayer
     {
         const float LOGIN_DELAY_TIME = 3.0f;
@@ -31,37 +30,33 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject touchToStart;
 
-        [SerializeField] private GameObject _createGuestButtonLayer;
-        [SerializeField] private GameObject _loginGuestButtonLayer;
-        [SerializeField] private GameObject _appleLoginButtonLayer;
-        [SerializeField] private GameObject _googleLoginButtonLayer;
-        [SerializeField] private GameObject _facebookLoginButtonLayer;
+        // [SerializeField] private GameObject _createGuestButtonLayer;
+        // [SerializeField] private GameObject _loginGuestButtonLayer;
+        // [SerializeField] private GameObject _appleLoginButtonLayer;
+        // [SerializeField] private GameObject _googleLoginButtonLayer;
+        // [SerializeField] private GameObject _facebookLoginButtonLayer;
 
-        [SerializeField] private GameObject _loadingPopupObject;
-        [SerializeField] private ToastSystemPopup _toastPopupObject;
+        // [SerializeField] private GameObject _loadingPopupObject;
+        // [SerializeField] private ToastSystemPopup _toastPopupObject;
 
         private bool isLogin = false;
         private bool isLoginProcess = false;
 
         private bool loginDelay = true;
 
-        [SerializeField] private TMP_InputField _guestIDInputField;
-        [SerializeField] private TextMeshProUGUI _currentGuestIDText;
+        // [SerializeField] private TMP_InputField _guestIDInputField;
+        // [SerializeField] private TextMeshProUGUI _currentGuestIDText;
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-        }
-
-        private void Start()
-        {
 #if !RELEASE && ENABLE_CHEAT
             SRDebug.Init();
 #endif
 
             isLoginProcess = false;
 
-            ClearTitleMain();
+            // ClearTitleMain();
             progressDict.Clear();
 
             RunAllTasks().Forget();
@@ -120,6 +115,8 @@ namespace CookApps.AutoBattler
         {
             await UniTask.NextFrame();
 
+            await SceneTransition.FadeOutAsync();
+            
             await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
 
             SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
@@ -225,21 +222,22 @@ namespace CookApps.AutoBattler
                     if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
 
                     isLoginProcess = false;
-                    _loadingPopupObject.SetActive(false);
+                    // _loadingPopupObject.SetActive(false);
 
                     SceneLoading.GoToNextScene("InGame",
-                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), (int)specStageData.stage_id)).Forget();
+                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
                 }
                 else
                 {
-                    var transition = SceneTransition_FadeInOut.Create();
+                    SceneTransition.Create<SceneTransition_FadeInOut>();
+SceneTransition.FadeInAsync().Forget();
 
                     isLoginProcess = false;
-                    _loadingPopupObject.SetActive(false);
+                    // _loadingPopupObject.SetActive(false);
 
                     var lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
-                    SceneLoading.GoToNextScene("Lobby", (int)specStageData.chapter_id, transition).Forget();
+                    SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
 
 
                     // var transition1 = SceneTransition_FadeInOut.Create();
@@ -263,8 +261,8 @@ namespace CookApps.AutoBattler
             if (isLogin == false) return;
 
             isLoginProcess = true;
-            //SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
-            _loadingPopupObject.SetActive(true);
+            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            // _loadingPopupObject.SetActive(true);
 
 
             LoginPlatform(LoginManager.Instance.CurrentAuthPlatform).ContinueWith(() =>
@@ -282,10 +280,10 @@ namespace CookApps.AutoBattler
 
             if (isLogin)
             {
-                // SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
 
                 isLoginProcess = true;
-                _loadingPopupObject.SetActive(true);
+                // _loadingPopupObject.SetActive(true);
 
                 LoginPlatform(AuthPlatform.Guest).ContinueWith(() =>
                 {
@@ -296,10 +294,10 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                // SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
 
                 isLoginProcess = true;
-                _loadingPopupObject.SetActive(true);
+                // _loadingPopupObject.SetActive(true);
 
                 CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
                 {
@@ -316,7 +314,8 @@ namespace CookApps.AutoBattler
             if (isLoginProcess) return;
             if (loginDelay) return;
 
-            _loadingPopupObject.SetActive(true);
+            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            // _loadingPopupObject.SetActive(true);
             isLoginProcess = true;
             CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
             {
@@ -335,8 +334,8 @@ namespace CookApps.AutoBattler
         public async void ProcessAppleLogin()
         {
             isLoginProcess = true;
-            //SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
-            _loadingPopupObject.SetActive(true);
+            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            // _loadingPopupObject.SetActive(true);
 
             var result = await LoginManager.Instance.LoginApple();
             if (result)
@@ -495,8 +494,8 @@ namespace CookApps.AutoBattler
             if (checkVersionResponse.IsError)
             {
                 // 버전 체크 실패시 처리
-                var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
-                _toastPopupObject.SetToastSystemLongPopup(toastStirng);
+                var toastString = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
+                SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>(toastString).Forget();
                 return;
             }
             // TODO: 업데이트 필요하면 업데이트 팝업 띄우기
@@ -577,14 +576,6 @@ namespace CookApps.AutoBattler
                 // 앱이벤트용 플레이 타임 데이터 기록
                 UserDataManager.Instance.SetUserTotalPlayTime(1, true);
             }
-        }
-
-        private void ClearTitleMain()
-        {
-            if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(false);
-            if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(false);
-            if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(false);
-            if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(false);
         }
     }
 }

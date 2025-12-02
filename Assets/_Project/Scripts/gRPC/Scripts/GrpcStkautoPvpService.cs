@@ -21,8 +21,9 @@ namespace CookApps.AutoBattler
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
 
-                var transition = SceneTransition_FadeInOut.Create();
-                await SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("Title");
                 return null;
             }
 
@@ -44,8 +45,9 @@ namespace CookApps.AutoBattler
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
 
-                var transition = SceneTransition_FadeInOut.Create();
-                await SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("Title");
                 return null;
             }
 
@@ -65,8 +67,9 @@ namespace CookApps.AutoBattler
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
 
-                var transition = SceneTransition_FadeInOut.Create();
-                await SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("Title");
                 return null;
             }
 
@@ -86,8 +89,9 @@ namespace CookApps.AutoBattler
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
 
-                var transition = SceneTransition_FadeInOut.Create();
-                await SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("Title");
                 return null;
             }
 
@@ -108,8 +112,9 @@ namespace CookApps.AutoBattler
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
 
-                var transition = SceneTransition_FadeInOut.Create();
-                await SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("Title");
                 return null;
             }
 
@@ -133,8 +138,9 @@ namespace CookApps.AutoBattler
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
 
-                var transition = SceneTransition_FadeInOut.Create();
-                await SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("Title");
                 return null;
             }
 
@@ -161,8 +167,9 @@ namespace CookApps.AutoBattler
             {
                 ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
 
-                var transition = SceneTransition_FadeInOut.Create();
-                await SceneLoading.GoToNextScene("Title", null, transition);
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("Title");
                 return null;
             }
 
@@ -187,8 +194,9 @@ namespace CookApps.AutoBattler
         //     {
         //         ToastManager.Instance.ShowToastByTokenKey("BANNED_USER_ALERT");
         //
-        //         var transition = SceneTransition_FadeInOut.Create();
-        //         await SceneLoading.GoToNextScene("Title", null, transition);
+        //         SceneTransition.Create<SceneTransition_FadeInOut>();
+        //         await SceneTransition.FadeInAsync();
+        //         SceneLoading.GoToNextScene("Title");
         //         return null;
         //     }
         //

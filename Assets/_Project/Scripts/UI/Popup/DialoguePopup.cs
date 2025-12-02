@@ -15,7 +15,6 @@ using UnityEngine.TextCore.Text;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/DialoguePopup.prefab")]
     public class DialoguePopup : UILayer
     {
         [SerializeField]

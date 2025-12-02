@@ -10,7 +10,6 @@ using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/CommanderSkillPopup.prefab")]
     public class CommanderSkillPopup : UILayer
     {
         public int Index => _index;
