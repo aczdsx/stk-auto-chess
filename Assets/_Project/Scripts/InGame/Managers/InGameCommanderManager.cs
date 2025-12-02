@@ -57,6 +57,21 @@ public class InGameCommanderManager : CachedMonoBehaviour, IBeginDragHandler, ID
     
     private bool _isCommanderGuideStage;
 
+    private void Awake()
+    {
+        if (Instance != null)
+            Destroy(gameObject);
+        else
+            Instance = this;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (Instance == this)
+            Instance = null;
+    }
+
     public void Initialize()
     {
         _ingameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
