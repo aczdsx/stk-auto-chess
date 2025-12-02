@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -27,9 +28,9 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f, true);
         
         if (InGameManager.Instance.SpecDungeonTrial.dungeon_map_id == 1)
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.0f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
         else
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.0f, new Vector3(0, 3f, -10), 1.0f).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.0f, new Vector3(0, 3f, -10), 1.0f).Forget();
         
         InGameObjectManager.Instance.ClearTargetLine();
     }

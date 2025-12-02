@@ -6,6 +6,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using Cookapps.Stkauto.V1;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
@@ -27,7 +28,7 @@ public class FlowStatePvpDefenseReady : StateReadyBase
 
     public override async void StateInit(object target)
     {;
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(7.0f, new Vector3(-5, 2.5f, -10), 1.0f).Forget();
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(-5, 2.5f, -10), 1.0f).Forget();
         
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         var battleDeckList = new List<UserCharacterBattleDeck>();

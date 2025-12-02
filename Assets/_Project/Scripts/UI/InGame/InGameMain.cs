@@ -4,9 +4,11 @@ using System.Linq;
 using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -100,6 +102,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private VignetteSO _vignetteData;
 
         [SerializeField] private UIObjectMover _uiObjectMover;
+        [SerializeField] private AssetReferenceGameObject _commanderManagerPrefab;
 
         private float _inGameTime = 0f;
         private IGameStateUICore _currentGameStateUI;
@@ -129,6 +132,23 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+            EnterAsync(param).Forget();
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+            InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
+        }
+        
+        private async UniTask EnterAsync(object param)
+        {
+            await UniTask.Yield();
+
+            var handle = _commanderManagerPrefab.InstantiateAsync();
+            await handle.WaitUntilDone();
+            await SceneTransition.FadeOutAsync();
+            
             switch (param)
             {
                 case (InGameType inGameType, IGameStateUICore gameState, int id):
@@ -146,12 +166,6 @@ namespace CookApps.AutoBattler
             }
 
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
-        }
-
-        protected override void OnPreExit()
-        {
-            base.OnPreExit();
-            InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
         }
 
         public void ShowSKillTooltip(CharacterStatData getCharacterStat)

@@ -5,6 +5,7 @@ using System.Resources;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class FlowStatePrologueReady : StateReadyBase
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
 
-        InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f,new Vector3(-1f, 0f, -10), 1.0f).Forget();
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,new Vector3(-1f, 0f, -10), 1.0f).Forget();
 
         SpawnPrologueCharacters(addCharacterTasks);
 

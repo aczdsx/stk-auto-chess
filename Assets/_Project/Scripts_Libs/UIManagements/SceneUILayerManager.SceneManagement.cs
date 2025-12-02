@@ -137,6 +137,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             var defaultUILayerLoader = FindFirstObjectByType<DefaultUILayerLoader>();
             await defaultUILayerLoader.LoadDefaultUILayers(defaultUIData);
+            Destroy(defaultUILayerLoader.CachedGo);
 
             operationWrapper.SetComplete();
 

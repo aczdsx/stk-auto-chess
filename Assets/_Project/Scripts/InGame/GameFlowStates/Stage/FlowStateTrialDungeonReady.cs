@@ -5,6 +5,7 @@ using System.Resources;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
@@ -51,10 +52,10 @@ public class FlowStateTrialDungeonReady : StateReadyBase
         }
 
         if (InGameManager.Instance.SpecDungeonTrial.dungeon_map_id == 1)
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f,
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,
                 new Vector3(-1f, 0f, -10), 1.0f).Forget();
         else
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(8.5f,
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,
                 new Vector3(0f, 1.5f, -10), 1.0f).Forget();
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameResourceHolder.InGameType);
