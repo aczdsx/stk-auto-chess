@@ -14772,7 +14772,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2080981125296824962}
-  - component: {fileID: 492824411874247299}
+  - component: {fileID: 3918805252009531380}
   m_Layer: 5
   m_Name: CommanderSkillTrail
   m_TagString: Untagged
@@ -14796,7 +14796,7 @@ Transform:
   - {fileID: 3737168345541563130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &492824411874247299
+--- !u!114 &3918805252009531380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14805,12 +14805,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2080981125296824961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78b8b459ed578764ea11a6e9730bc0a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 23dbb5cdfd914cc984b2793f04e14556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchObj: {fileID: 0}
-  switchThreshold: 50
-  maxFadeAlpha: 0.9
+  registryKey: 4
 --- !u!1 &2453806910200531685
 GameObject:
   m_ObjectHideFlags: 0

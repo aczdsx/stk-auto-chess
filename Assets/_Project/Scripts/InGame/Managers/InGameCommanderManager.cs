@@ -36,16 +36,12 @@ public class CommanderSkillData
     }
 }
 
-public class InGameCommanderManager : CachedMonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public static InGameCommanderManager Instance { get; private set; }
-
     public GameObject switchObj;
     public float switchThreshold = 50f;
-    public float maxFadeAlpha = 0.9f;
 
-    private InGameCamera _ingameCamera;
-    private Camera _mainCamera;
+    public float maxFadeAlpha = 0.9f;
     private bool _isDragging = false;
     private Vector2 _dragStartPosition;
     private InGameTileView _hitTileView;
@@ -59,29 +55,40 @@ public class InGameCommanderManager : CachedMonoBehaviour, IBeginDragHandler, ID
 
     private void Awake()
     {
-        if (Instance != null)
-            Destroy(gameObject);
-        else
-            Instance = this;
+        ObjectRegistry.Registered += RegisterCommanderSkillTrail;
+        ObjectRegistry.Unregistered += UnregisterCommanderSkillTrail;
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        if (Instance == this)
-            Instance = null;
+        ObjectRegistry.Registered -= RegisterCommanderSkillTrail;
+        ObjectRegistry.Unregistered -= UnregisterCommanderSkillTrail;
     }
 
     public void Initialize()
     {
-        _ingameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
-        _mainCamera = _ingameCamera.MainCamera;
-
         InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
             ManagedUpdate);
 
         var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
         _isCommanderGuideStage = userGuideMissionData.MissionId == 18;
+    }
+    
+    private void RegisterCommanderSkillTrail(RegistryKey key, IRegistrable obj)
+    {
+        if (key != RegistryKey.CommanderSkillTrail)
+            return;
+
+        switchObj = (obj as RegisteredObject)?.gameObject;
+    }
+
+    private void UnregisterCommanderSkillTrail(RegistryKey key, IRegistrable obj)
+    {
+        if (key != RegistryKey.CommanderSkillTrail)
+            return;
+
+        switchObj = null;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -226,8 +233,8 @@ public class InGameCommanderManager : CachedMonoBehaviour, IBeginDragHandler, ID
 
     Vector3 HandleRuntimeDrag(Vector2 adjustedPosition)
     {
-        return _mainCamera.ScreenToWorldPoint(new Vector3(adjustedPosition.x, adjustedPosition.y,
-            _mainCamera.nearClipPlane));
+        return MainCameraHolder.MainCamera.ScreenToWorldPoint(new Vector3(adjustedPosition.x, adjustedPosition.y,
+            MainCameraHolder.MainCamera.nearClipPlane));
     }
 
     private void ClearAndSetActive(IEnumerable<InGameTile> newTiles)
@@ -277,7 +284,7 @@ public class InGameCommanderManager : CachedMonoBehaviour, IBeginDragHandler, ID
 
     private bool CheckSkillTile(Vector2 adjustedPosition, bool isNavigate)
     {
-        RaycastHit[] hits = Physics.RaycastAll(_mainCamera.ScreenPointToRay(adjustedPosition));
+        RaycastHit[] hits = Physics.RaycastAll(MainCameraHolder.MainCamera.ScreenPointToRay(adjustedPosition));
         foreach (RaycastHit hit in hits)
         {
             if (hit.transform.gameObject.CompareTag("Slot"))
