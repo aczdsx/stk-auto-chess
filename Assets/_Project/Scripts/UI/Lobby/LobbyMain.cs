@@ -141,6 +141,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
+            SceneTransition.FadeOutAsync().Forget();
+            
             // DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0", () =>
             // {
             // });
