@@ -142,7 +142,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_selectedCharacterController != null)
             return;
 
-        Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
+        Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
@@ -166,7 +166,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         if (_selectedCharacterController != null)
         {
-            Ray ray = CameraManager.Main.ScreenPointToRay(touchPosition);
+            Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
             {

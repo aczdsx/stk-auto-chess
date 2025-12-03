@@ -17144,7 +17144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19896ff45b7f44969596e80b3a43ee34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiLayerType: 0
+  uiLayerType: 1
   baseAnimator: {fileID: 0}
   preloadAddressables: []
   _playButton: {fileID: 527963977007477802}

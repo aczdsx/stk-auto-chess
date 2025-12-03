@@ -68,29 +68,40 @@ namespace CookApps.TeamBattle
         {
             get
             {
-                // if (_destroyed)
-                // {
-                //     Debug.LogWarning($"{typeof(T).Name} Instance requested but _destroyed is true - resetting");
-                //     _destroyed = false;
-                //     _instance = null;
-                // }
+                if (_destroyed)
+                {
+                    return null;
+                }
 
                 lock (_lock)
                 {
                     if (_instance == null)
                     {
                         Debug.Log($"{typeof(T).Name} Creating new instance");
-                        _instance = (T) FindObjectOfType(typeof(T));
+                        _instance = (T) FindFirstObjectByType(typeof(T));
                         if (_instance == null)
                         {
                             var singleton = new GameObject(typeof(T).ToString());
                             _instance = singleton.AddComponent<T>();
-                            DontDestroyOnLoad(singleton);
                         }
                     }
 
                     return _instance;
                 }
+            }
+        }
+
+        protected virtual void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this as T;
+                _destroyed = false;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (_instance != this)
+            {
+                Destroy(gameObject);
             }
         }
 
@@ -105,12 +116,7 @@ namespace CookApps.TeamBattle
         {
             Debug.Log($"{typeof(T).Name} OnDestroy called");
             _instance = null;
-#if !UNITY_EDITOR
-            Debug.Log($"{typeof(T).Name} OnDestroy - setting _destroyed = true (BUILD)");
-            _destroyed = true; // 빌드에서만 _destroyed 설정
-#else
-            Debug.Log($"{typeof(T).Name} OnDestroy - keeping _destroyed = false (EDITOR)");
-#endif
+            _destroyed = true;
         }
 
         public static bool IsAlive()

@@ -178,7 +178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57406ec0d58251c43a7bf63f1a6178e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 3
   baseAnimator: {fileID: 0}
+  preloadAddressables: []
   _closeButton: {fileID: 8663864041157967431}
   _dimButton: {fileID: 2170989933766470267}
   _skillIconImage: {fileID: 3566912891426130322}

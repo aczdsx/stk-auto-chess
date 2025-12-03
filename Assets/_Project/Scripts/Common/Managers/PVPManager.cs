@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
 
         private double profileUpdateTime = 0;
 
-        private void Awake()
+        protected override void Awake()
         {
         }
 

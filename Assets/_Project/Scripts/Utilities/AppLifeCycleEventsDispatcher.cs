@@ -9,11 +9,6 @@ namespace CookApps.AutoBattler.Utilities
         public static event Action OnPause;
         public static event Action OnFocus;
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
-        }
-
         private void OnApplicationPause(bool pauseStatus)
         {
             if (pauseStatus)

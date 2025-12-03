@@ -2711,7 +2711,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f59abea27716944381d6370416b5e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 3
   baseAnimator: {fileID: 0}
+  preloadAddressables: []
   _closeButton: {fileID: 9204684409239048285}
   _krLanguageButton: {fileID: 1188332439259070526}
   _enLanguageButton: {fileID: 5254086350081480016}

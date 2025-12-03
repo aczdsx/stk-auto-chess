@@ -10,8 +10,6 @@ public class CoroutineHelper : SingletonMonoBehaviour<CoroutineHelper>
     /////////////////////////////////////////////////////////////////
     // public
 
-    //public static CoroutineHelper Instance { get => instance; }
-
     public int RunCount { get => runs.Count; }
 
     public Run Add(Run run)
@@ -24,11 +22,6 @@ public class CoroutineHelper : SingletonMonoBehaviour<CoroutineHelper>
     /////////////////////////////////////////////////////////////////
     // protected
 
-    protected void Awake()
-    {
-        instance = this;
-    }
-
     protected void Update()
     {
         for (int i = this.runs.Count - 1; i >= 0; i--)
@@ -37,10 +30,6 @@ public class CoroutineHelper : SingletonMonoBehaviour<CoroutineHelper>
                 this.runs.RemoveAt(i);
         }
     }
-
-    /////////////////////////////////////////////////////////////////
-    // private
-    private static CoroutineHelper instance;
 
     private List<Run> runs = new List<Run>();
 

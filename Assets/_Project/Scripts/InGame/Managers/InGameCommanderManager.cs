@@ -4,6 +4,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -29,22 +30,13 @@ public class CommanderSkillData
     }
 }
 
-public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
+public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderManager>, IBeginDragHandler, IDragHandler,
     IEndDragHandler
 {
-    public InGameCamera InGameCamera => _inGameCamera;
-    public Canvas MainCanvas => _mainCanvas;
-
-    [SerializeField] private InGameCamera _inGameCamera;
-    [SerializeField] private Canvas _mainCanvas;
-
     //[TODO] switchObj 필요
     public GameObject switchObj;
     public float switchThreshold = 50f;
     public float maxFadeAlpha = 0.9f;
-
-    private InGameCamera _ingameCamera;
-    private Camera _mainCamera;
     private bool _isDragging = false;
     private Vector2 _dragStartPosition;
     private InGameTileView _hitTileView;
@@ -58,10 +50,14 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
     private Dictionary<int, EffectCodeCommanderSkillBase> _effectCodeDictForAutoSkill = null;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        ObjectRegistry.Registered += RegisterCommanderSkillTrail;
+        ObjectRegistry.Unregistered += UnregisterCommanderSkillTrail;
+    }
     public void Initialize()
     {
-        _mainCamera = Camera.main;
-
         InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
             ManagedUpdate);
 
@@ -76,10 +72,26 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        ObjectRegistry.Registered -= RegisterCommanderSkillTrail;
+        ObjectRegistry.Unregistered -= UnregisterCommanderSkillTrail;
         _effectCodeDictForAutoSkill.Clear();
         _effectCodeDictForAutoSkill = null;
     }
+    private void RegisterCommanderSkillTrail(RegistryKey key, IRegistrable obj)
+    {
+        if (key != RegistryKey.CommanderSkillTrail)
+            return;
 
+        switchObj = (obj as RegisteredObject)?.gameObject;
+    }
+
+    private void UnregisterCommanderSkillTrail(RegistryKey key, IRegistrable obj)
+    {
+        if (key != RegistryKey.CommanderSkillTrail)
+            return;
+
+        switchObj = null;
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -220,8 +232,8 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
     Vector3 HandleRuntimeDrag(Vector2 adjustedPosition)
     {
-        return _mainCamera.ScreenToWorldPoint(new Vector3(adjustedPosition.x, adjustedPosition.y,
-            _mainCamera.nearClipPlane));
+        return MainCameraHolder.MainCamera.ScreenToWorldPoint(new Vector3(adjustedPosition.x, adjustedPosition.y,
+            MainCameraHolder.MainCamera.nearClipPlane));
     }
 
     private void ClearAndSetActive(IEnumerable<InGameTile> newTiles)
@@ -260,7 +272,7 @@ public class InGameCommanderManager : GameObjectSingleton<InGameCommanderManager
 
     private bool CheckSkillTile(Vector2 adjustedPosition, bool isNavigate)
     {
-        RaycastHit[] hits = Physics.RaycastAll(_mainCamera.ScreenPointToRay(adjustedPosition));
+        RaycastHit[] hits = Physics.RaycastAll(MainCameraHolder.MainCamera.ScreenPointToRay(adjustedPosition));
         foreach (RaycastHit hit in hits)
         {
             if (hit.transform.gameObject.CompareTag("Slot"))

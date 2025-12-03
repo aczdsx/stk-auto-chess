@@ -260,15 +260,6 @@
       },
       "url": "http://packages.tech.cookapps.com"
     },
-    "com.cookapps.reloaddomain": {
-      "version": "1.0.2",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.cookapps.package.window": "1.0.10"
-      },
-      "url": "http://packages.tech.cookapps.com"
-    },
     "com.cookapps.scene.helper": {
       "version": "1.0.8",
       "depth": 0,
@@ -318,7 +309,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "fbe0bf85155f42f8832205f7b3ac3df571ada33e"
+      "hash": "73a63b7f672b88f7e9992f6917eb458a8cbb6fa9"
     },
     "com.elringus.naninovel": {
       "version": "file:com.elringus.naninovel",
