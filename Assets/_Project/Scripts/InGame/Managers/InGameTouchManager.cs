@@ -6,6 +6,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -475,12 +476,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             if (isInputBegan)
             {
                 _initialFingersPosition = initialPosition;
-                _initialCameraPosition = InGameCommanderManager.Instance.InGameCamera.GetCameraTransform().position;
+                _initialCameraPosition = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).GetCameraTransform().position;
             }
             else if (isInputMoved && !isPointerOverUI)
             {
                 Vector2 direction = (currentPosition - _initialFingersPosition).normalized;
-                float cameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+                float cameraSize = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).GetCameraSize();
                 float normalizedSize = (2.0f - (cameraSize - _cameraMinSize) / (_cameraMaxSize - _cameraMinSize)) * 0.3f;
                 float distance = Vector2.Distance(currentPosition, _initialFingersPosition) * distanceFactor *
                                  normalizedSize;
@@ -495,7 +496,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     Mathf.Clamp(_initialCameraPosition.z - distancePosition.x, -12, -8)
                 );
 
-                InGameCommanderManager.Instance.InGameCamera.SetCameraPosition(newCameraPosition);
+                ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPosition(newCameraPosition);
             }
         }
     }
@@ -505,7 +506,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (touch2.phase == TouchPhase.Began)
         {
             _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
-            _initialCameraSize = InGameCommanderManager.Instance.InGameCamera.GetCameraSize();
+            _initialCameraSize = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).GetCameraSize();
         }
         else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
         {
@@ -514,7 +515,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
             float size = _initialCameraSize * scaleFactor;
             size = Mathf.Clamp(size, _cameraMinSize, _cameraMaxSize);
-            InGameCommanderManager.Instance.InGameCamera.SetCameraSize(size);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(size);
         }
     }
 }

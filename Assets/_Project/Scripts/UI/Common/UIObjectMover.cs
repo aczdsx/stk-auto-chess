@@ -1,5 +1,6 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,7 +22,7 @@ public class UIObjectMover : MonoBehaviour
     {
         _startTile = startTile;
         _endTile = endTile;
-        _canvas = InGameCommanderManager.Instance.MainCanvas;
+        _canvas = SceneUILayerManager.Instance.MainCanvas;
     }
 
     void Update()

@@ -1,9 +1,11 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using CookApps.TeamBattle;
+using CookApps.TeamBattle.Utility;
 using PrimeTween;
 
-public class InGameCamera : MonoBehaviour
+public class InGameCamera : CachedMonoBehaviour, IRegistrable
 {
     [SerializeField]
     private GameObject _rootObj;
@@ -15,6 +17,20 @@ public class InGameCamera : MonoBehaviour
     private Camera _characterCamera;
 
     private CancellationTokenSource _cancellationTokenSource;
+
+    public Camera MainCamera => _mainCamera;
+    public Camera CharacterCamera => _characterCamera;
+    
+    private void Awake()
+    {
+        ObjectRegistry.Register(this);
+    }
+    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        ObjectRegistry.Unregister(this);
+    }
 
     public void ShakeCamera(float durationTime, float magnitude)
     {
@@ -109,4 +125,6 @@ public class InGameCamera : MonoBehaviour
 
         _rootObj.transform.localPosition = originalPos;
     }
+
+    public RegistryKey Key => RegistryKey.InGameCamera;
 }

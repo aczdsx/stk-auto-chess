@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/ChapterListPopup.prefab")]
     public class ChapterListPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;
@@ -191,8 +190,9 @@ namespace CookApps.AutoBattler
 
             // 로비 배경 전환
             InGameManager.Instance.EndInGame();
-            var transition = SceneTransition_FadeInOut.Create();
-            SceneLoading.GoToNextScene("Lobby",  (int)_selectedChapterData.chapter_id, transition).Forget();
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            SceneTransition.FadeInAsync().Forget();
+            SceneLoading.GoToNextScene("Lobby", _selectedChapterData.chapter_id);
 
             // 로비 메인 하단 스테이지 UI 갱신
             var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();

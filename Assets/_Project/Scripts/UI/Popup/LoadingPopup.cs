@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/LoadingPopup.prefab")]
     public class LoadingPopup : UILayer
     {
         [SerializeField] private CanvasGroup _canvasGroup;

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -126,7 +127,7 @@ public partial class EffectCodeSkill1202021 : EffectCodeCharacterBase
     {
         await UniTask.Delay(TimeSpan.FromSeconds(second)); // n초 대기
 
-        InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.4f, 0.15f);
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);

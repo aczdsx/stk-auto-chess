@@ -14,7 +14,6 @@ namespace CookApps.AutoBattler
         PickUpCharacter,
     }
     
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/GachaPopup.prefab")]
     public class GachaPopup : UILayer
     {
         [SerializeField] private CAButton _backButton;

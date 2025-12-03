@@ -32,7 +32,6 @@ namespace CookApps.AutoBattler
         }
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/WindowPopup/SystemConfirmPopup.prefab")]
     public class SystemConfirmPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;

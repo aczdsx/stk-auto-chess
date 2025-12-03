@@ -124,9 +124,10 @@ namespace CookApps.AutoBattler
         {
             var lastPlayStageID = GetLastPlayStageID();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
-            var transition = SceneTransition_FadeInOut.Create();
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
 
-            await SceneLoading.GoToNextScene("Lobby", (int)specLastStageData.chapter_id, transition);
+            SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
 
             SceneUILayerManager.OnSceneLoadedEvent += OpenCharacterCollectionPopupAction;
         }

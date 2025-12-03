@@ -4,7 +4,9 @@ using System.Globalization;
 using System.Linq;
 using CookApps.Obfuscator;
 using Cysharp.Text;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Random = System.Random;
 
 namespace CookApps.TeamBattle.Utility
@@ -159,6 +161,37 @@ namespace CookApps.TeamBattle.Utility
                 .SelectMany(s => s.GetTypes())
                 .Where(p => typeof(T).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract)
                 .ToArray();
+        }
+    }
+    
+    public static class AddressableOperationExtensions
+    {
+        public static async UniTask<T> WaitUntilDone<T>(this AsyncOperationHandle<T> handle)
+        {
+            while (true)
+            {
+                if (!handle.IsValid())
+                    return default;
+            
+                if (handle.IsDone)
+                    return handle.Result;
+
+                await UniTask.Yield();
+            }
+        }
+    
+        public static async UniTask WaitUntilDone(this AsyncOperationHandle handle)
+        {
+            while (true)
+            {
+                if (!handle.IsValid())
+                    return;
+            
+                if (handle.IsDone)
+                    return;
+
+                await UniTask.Yield();
+            }
         }
     }
 }

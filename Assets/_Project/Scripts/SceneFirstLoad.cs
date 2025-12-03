@@ -49,10 +49,7 @@ namespace CookApps.AutoBattler
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             AppLifeCycleEventsDispatcher _ = AppLifeCycleEventsDispatcher.Instance;
 
-            var sceneData = await Addressables.LoadAssetAsync<SceneDatabase>("Data/SceneData.asset");
-            Type[] allUILayers = InheritHelper.GetAllImplementations<UILayer>();
-            SceneUILayerManager.Instance.Initialize(sceneData, allUILayers);
-            Addressables.Release(sceneData);
+            SceneUILayerManager.Instance.Initialize();
 
             Debug.Log("SceneFirstLoad Awake -1");
 
@@ -61,8 +58,9 @@ namespace CookApps.AutoBattler
 #if UNITY_EDITOR
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
 #endif
-            var transition = SceneTransition_FadeInOut.Create();
-            await SceneLoading.GoToNextScene("Title", null, transition);
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("Title");
 
             Debug.Log("SceneFirstLoad Awake -2");
         }

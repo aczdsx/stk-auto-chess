@@ -12,7 +12,6 @@ namespace CookApps.AutoBattler
         SKILL,
     }
 
-    [RegisterUILayer(UILayerType.Popup, "Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab")]
     public class CharacterCollectionPopup : UILayer
     {
         [SerializeField] private GameObject _dimmedBGLayerObject;

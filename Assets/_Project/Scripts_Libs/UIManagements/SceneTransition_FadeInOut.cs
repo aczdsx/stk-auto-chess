@@ -1,24 +1,33 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-    public class SceneTransition_FadeInOut : MonoBehaviour, ISceneTransition
+    public class SceneTransition_FadeInOut : SceneTransitionBase
     {
         [SerializeField] private Image dim;
         private float fadeInDuration = 0.25f;
         private float fadeOutDuration = 0.5f;
 
-        public static SceneTransition_FadeInOut Create()
+        public override void Initialize(object viewOption)
         {
-            var prefab = Resources.Load<GameObject>("UI/FakeLoading");
-            GameObject go = Instantiate(prefab);
-            DontDestroyOnLoad(go);
-            return go.GetComponent<SceneTransition_FadeInOut>();
+            var dimLayer = CachedGo.AddComponent<Image>();
+            dimLayer.color = new Color(0f, 0f, 0f, 0f);
+            var tex = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            tex.SetPixel(0, 0, Color.black);
+            tex.Apply();
+            dimLayer.sprite = Sprite.Create(tex, new Rect(0, 0, 1, 1), Vector2.one * 0.5f);
+            var dimLayerTr = CachedGo.GetComponent<RectTransform>();
+
+            dimLayerTr.anchorMax = Vector2.one;
+            dimLayerTr.anchorMin = Vector2.zero;
+            dimLayerTr.sizeDelta = Vector2.zero;
+
+            dim = dimLayer;
         }
 
-        public async UniTask FadeInAsync()
+        public override async UniTask FadeInAsync()
         {
             Color color = dim.color;
             float diff = 1f - color.a;
@@ -26,11 +35,11 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 color.a += diff * Time.deltaTime / fadeInDuration;
                 dim.color = color;
-                await UniTask.Yield();
+                await Awaitable.NextFrameAsync();
             }
         }
 
-        public async UniTask FadeOutAsync(bool withDelete)
+        public override async UniTask FadeOutAsync()
         {
             Color color = dim.color;
             float diff = 0f - color.a;
@@ -38,12 +47,20 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 color.a += diff * Time.deltaTime / fadeOutDuration;
                 dim.color = color;
-                await UniTask.Yield();
+                await Awaitable.NextFrameAsync();
             }
+        }
 
-            if (withDelete)
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (dim != null && dim.sprite != null)
             {
-                Destroy(gameObject);
+                var tex = dim.sprite.texture;
+                Destroy(dim.sprite);
+                if (tex != null)
+                    Destroy(tex);
+                dim.sprite = null;
             }
         }
     }

@@ -1,9 +1,12 @@
 using System;
-using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.TeamBattle.UIManagements
 {
@@ -18,28 +21,47 @@ namespace CookApps.TeamBattle.UIManagements
             internal void SetAsyncOperation(AsyncOperationHandle<SceneInstance> asyncOperation)
             {
                 this.asyncOperation = asyncOperation;
-                asyncOperation.Completed += CompleteCallback;
             }
 
             public float progress => asyncOperation?.PercentComplete ?? 0f;
+            internal bool IsOperationDone => asyncOperation?.IsDone ?? false;
             public bool allowSceneActivation = true;
 
-            public bool IsDone => asyncOperation?.IsDone ?? false;
-
-            private void CompleteCallback(AsyncOperationHandle<SceneInstance> operation)
+            internal void SetComplete()
             {
-                operation.Completed -= CompleteCallback;
+                IsDone = true;
                 Completed?.Invoke();
                 Completed = null;
             }
+            public bool IsDone { get; private set; }
+            
+            public SceneLoadAsyncOperationAwaiter GetAwaiter()
+            {
+                return new SceneLoadAsyncOperationAwaiter(this);
+            }
         }
-
-        private SceneInstance? currentSceneInstance;
-        public void ForceSetCurrentSceneInstance(SceneInstance sceneInstance)
+        
+        public struct SceneLoadAsyncOperationAwaiter : INotifyCompletion
         {
-            currentSceneInstance = sceneInstance;
+            private SceneLoadAsyncOperationWrapper operation;
+            public SceneLoadAsyncOperationAwaiter(SceneLoadAsyncOperationWrapper operation)
+            {
+                this.operation = operation;
+            }
+
+            public bool IsCompleted => operation.IsDone;
+
+            public void OnCompleted(Action continuation)
+            {
+                operation.Completed += continuation;
+            }
+
+            public void GetResult()
+            {
+            }
         }
 
+        private AsyncOperationHandle<SceneInstance> handle;
         /// <summary>
         /// 씬을 변경합니다. Lobby => Game, Game => Lobby 등 무거운 씬 간의 전환은 SceneLoading.GoToNextScene 을 사용하세요.
         /// </summary>
@@ -47,110 +69,77 @@ namespace CookApps.TeamBattle.UIManagements
         /// <param name="defaultUIData">씬에 기본으로 포함되어있는 UI에 전달할 정보</param>
         /// <param name="transition">전환 연출</param>
         /// <returns>씬 전환을 제어하고 싶은 경우 이 객체의 allowSceneActivation로 제어할 것</returns>
-        public SceneLoadAsyncOperationWrapper ChangeScene(string sceneName, object defaultUIData = null, ISceneTransition transition = null)
+        public SceneLoadAsyncOperationWrapper ChangeScene(string sceneName, object defaultUIData = null)
         {
             var operationWrapper = new SceneLoadAsyncOperationWrapper();
             isSceneChanging = true;
-            if (transition == null)
-            {
-                transition = new SceneTransition_Instant();
-            }
-
-            ChangeSceneAsync(sceneName, operationWrapper, defaultUIData, transition).AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+            ChangeSceneAsync(sceneName, operationWrapper, defaultUIData).Forget();
             return operationWrapper;
         }
 
-        private async UniTask ChangeSceneAsync(string sceneName, SceneLoadAsyncOperationWrapper operationWrapper, object defaultUIData, ISceneTransition transition)
+        private async UniTask ChangeSceneAsync(string sceneName, SceneLoadAsyncOperationWrapper operationWrapper, object defaultUIData)
         {
-            // 1. 먼저 화면을 가림
-            await transition.FadeInAsync();
-
             // 2. 풀에 있는 UI들을 제거
             ClearUIPool();
-
-            // 3. 다음 씬에서 필요한 UI들을 미리 로드하고 풀에 넣음
-            // 여기서 하는 이유는 씬 로드 중에는 addressable을 로드할 수 없기 때문
-            SceneData sceneData = SceneDataList[sceneName];
+            
             {
-                var tasks = new UniTask<UILayer>[SceneDataList[sceneName].DefaultUILayers.Count];
-                for (int i = 0; i < SceneDataList[sceneName].DefaultUILayers.Count; i++)
-                {
-                    var index = i;
-                    tasks[i] = LoadUILayer(SceneDataList[sceneName].DefaultUILayers[index]);
-                }
-
-                var res = await UniTask.WhenAll(tasks);
-                for (int i = 0; i < res.Length; i++)
-                {
-                    PoolingUILayer(res[i]);
-                }
+                // dimlayer 관련 변수 초기화
+                dimLayerCreated = false;
+                dimLayer = null;
+                isDimLayerOn = false;
             }
-
-            // 4. 씬 로드
-            var asyncOperationHandle = Addressables.LoadSceneAsync(sceneData.AddressableName, activateOnLoad: false);
-            operationWrapper.SetAsyncOperation(asyncOperationHandle);
-            var nextSceneInstance = await asyncOperationHandle;
-            await UniTask.WaitUntil(() => operationWrapper.allowSceneActivation);
-
-            if (isLoadingUI)
+            
+            // 3. 현재씬에 떠있는 UI들 정리
+            var copy = new List<UILayerStackData>(uiLayerStacks);
+            for (var i = copy.Count - 1; i >= 0; i--)
             {
-                noNeedToLoadUI = true;
-            }
-
-            // 5. 현재씬에 떠있는 UI들 정리
-            for (var i = 0; i < uiLayerStacks.Count; i++)
-            {
-                uiLayerStacks[i].Layer.OnPreExit();
-                uiLayerStacks[i].SetState(UILayerState.Exiting);
-                OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
-                uiLayerStacks[i].Layer.OnPostExit();
-                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
-                Addressables.ReleaseInstance(uiLayerStacks[i].Layer.CachedGo);
+                if (copy[i].State == UILayerState.Exiting)
+                    continue;
+                
+                copy[i].Layer.OnPreExit();
+                copy[i].State = UILayerState.Exiting;
+                copy[i].Layer.OnPostExit();
+                Addressables.ReleaseInstance(copy[i].Layer.CachedGo);
+                Destroy(copy[i].Layer.CachedGo);
             }
 
             uiLayerStacks.Clear();
             dimLayer = null;
             isDimLayerOn = false;
 
-            // 6. 씬 로드 완료
-            OnSceneUnloadedEvent?.Invoke(CurrentSceneName);
-            if (currentSceneInstance.HasValue)
+            // 4. 씬 로드
+            var prevHandle = handle;
+            var address = UILayerConstants.GetSceneAddress(sceneName);
+            handle = Addressables.LoadSceneAsync(address, activateOnLoad: false);
+            operationWrapper.SetAsyncOperation(handle);
+            var nextSceneInstance = await handle.WaitUntilDone();
+            while (!operationWrapper.allowSceneActivation)
             {
-                await Addressables.UnloadSceneAsync(currentSceneInstance.Value);
+                await Awaitable.NextFrameAsync();
             }
+
+            // 5. 이전 씬 언로드
+            OnSceneUnloadedEvent?.Invoke(CurrentSceneName);
+            if (prevHandle.IsValid())
+                Addressables.UnloadSceneAsync(prevHandle);
+
             Resources.UnloadUnusedAssets();
             GC.Collect();
 
-            // 7. 다음 씬 활성화
-            await nextSceneInstance.ActivateAsync();
-            currentSceneInstance = nextSceneInstance;
-            OnSceneLoaded(sceneName, defaultUIData, transition);
-        }
-
-        private void OnSceneLoaded(string sceneName, object defaultUIData, ISceneTransition transition)
-        {
+            // 6. 다음 씬 활성화
+            var oper = nextSceneInstance.ActivateAsync();
+            while (!oper.isDone)
+            {
+                await Awaitable.NextFrameAsync();
+            }
             CurrentSceneName = sceneName;
             ResetNodeRefs();
 
-            for (var i = 0; i < mainNode.childCount; i++)
-            {
-                var uiLayer = mainNode.GetChild(i).GetComponent<UILayer>();
-                if (uiLayer == null)
-                {
-                    continue;
-                }
+            var defaultUILayerLoader = FindFirstObjectByType<DefaultUILayerLoader>();
+            await defaultUILayerLoader.LoadDefaultUILayers(defaultUIData);
+            Destroy(defaultUILayerLoader.CachedGo);
 
-                UILayerStackData stackData = MakeUIStackData(uiLayer, uiLayer.GetType().Name, null);
-                PushUILayerInternal(stackData, defaultUIData);
-            }
-
-            for (var i = 0; i < SceneDataList[sceneName].DefaultUILayers.Count; i++)
-            {
-                var uiName = SceneDataList[sceneName].DefaultUILayers[i].Name;
-                PushUILayerAsync(SceneDataList[sceneName].DefaultUILayers[i], uiName, defaultUIData).Forget();
-            }
-
-            transition.FadeOutAsync(true);
+            operationWrapper.SetComplete();
 
             isSceneChanging = false;
             OnSceneLoadedEvent?.Invoke(sceneName);

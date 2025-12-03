@@ -53,7 +53,7 @@ public class CharacterStateIdle : CharacterStateBase
             }
             else
             {
-                characCtrl.MoveCharacter(isInRange, characCtrl.Target);
+                characCtrl.MoveToCharacter(isInRange, characCtrl.Target);
             }
         }
 

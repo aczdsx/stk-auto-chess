@@ -176,8 +176,9 @@ namespace CookApps.AutoBattler
                         // 로비 배경 전환
                         InGameManager.Instance.EndInGame();
                         // 로비 배경 전환 및 챕터 이동
-                        var sceneTransition = SceneTransition_FadeInOut.Create();
-                        SceneLoading.GoToNextScene("Lobby", (int)guideStageData.chapter_id, sceneTransition).Forget();
+                        SceneTransition.Create<SceneTransition_FadeInOut>();
+                        SceneTransition.FadeInAsync().Forget();
+                        SceneLoading.GoToNextScene("Lobby", guideStageData.chapter_id);
 
                         // 로비 메인 하단 스테이지 UI 갱신
                         var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
