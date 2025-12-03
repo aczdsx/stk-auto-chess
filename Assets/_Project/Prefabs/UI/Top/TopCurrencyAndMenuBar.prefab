@@ -49,7 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee0f2262ae040a48c47615102afd68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 2
   baseAnimator: {fileID: 0}
+  preloadAddressables: []
   panelParent: {fileID: 3557467913085156707}
   panelParentLayoutGroup: {fileID: 20541099084156021}
 --- !u!1 &5761953228495702320

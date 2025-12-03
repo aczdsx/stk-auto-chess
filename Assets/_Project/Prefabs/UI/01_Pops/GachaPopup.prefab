@@ -10537,7 +10537,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a23b996771054da06e93e66345ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 3
   baseAnimator: {fileID: 0}
+  preloadAddressables: []
   _backButton: {fileID: 8336901803180182353}
   _gachaCommonCharacterTabToggle: {fileID: 3862417998633201016}
   _gachaPickUpCharacterTabToggle: {fileID: 3732870584452114204}

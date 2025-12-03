@@ -1650,7 +1650,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629af8694f1c1544fb0133ad23c6f99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 3
   baseAnimator: {fileID: 0}
+  preloadAddressables: []
   temTMPFontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   _characeterIllustParentObject: {fileID: 4903118801287385762}
   _characterNameText: {fileID: 8372786935888460644}

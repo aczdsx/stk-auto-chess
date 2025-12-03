@@ -521,7 +521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c40f5919bd118c47be72380f268c7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 3
   baseAnimator: {fileID: 0}
+  preloadAddressables: []
   _closeButton: {fileID: 7287112480797916796}
   _skillTooltipPopup: {fileID: 6041773107140878489}
   _skillListParentObject: {fileID: 8372375195647350782}

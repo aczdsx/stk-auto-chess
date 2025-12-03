@@ -50,8 +50,9 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
     private Dictionary<int, EffectCodeCommanderSkillBase> _effectCodeDictForAutoSkill = null;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         ObjectRegistry.Registered += RegisterCommanderSkillTrail;
         ObjectRegistry.Unregistered += UnregisterCommanderSkillTrail;
     }

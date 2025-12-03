@@ -348,7 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b282f09e1cff401a986ffcfa68d4a61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 3
   baseAnimator: {fileID: 1765230210626122500}
+  preloadAddressables: []
   _exitButton: {fileID: 1133784922207137927}
   _nextStageButton: {fileID: 8265233737781702274}
   _retryStageButton: {fileID: 2714790055942426297}
@@ -373,7 +375,7 @@ MonoBehaviour:
   _characterIllustParentObject: {fileID: 3727047077720870243}
 --- !u!95 &1765230210626122500
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -387,6 +389,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -501,15 +504,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -874,15 +879,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 3
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1133,15 +1140,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1189,7 +1198,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2025291421543048821}
+  m_Father: {fileID: 7015450753978519259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2667,15 +2676,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -2894,15 +2905,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 3
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -3653,15 +3666,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 3
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -3948,15 +3963,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -4354,7 +4371,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2025291421543048821}
+  m_Father: {fileID: 7015450753978519259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4694,7 +4711,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2025291421543048821}
+  m_Father: {fileID: 7015450753978519259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5160,15 +5177,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 3
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -5976,7 +5995,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2025291421543048821}
+  m_Father: {fileID: 7015450753978519259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6164,7 +6183,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2025291421543048821}
+  m_Father: {fileID: 7015450753978519259}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6829,15 +6848,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -7563,23 +7584,23 @@ PrefabInstance:
       value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 1501294217900703819, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
-      propertyPath: canvasRenderers.Array.data[14]
+      propertyPath: 'canvasRenderers.Array.data[14]'
       value: 
       objectReference: {fileID: 4136788518773356400}
     - target: {fileID: 1501294217900703819, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
-      propertyPath: canvasRenderers.Array.data[15]
+      propertyPath: 'canvasRenderers.Array.data[15]'
       value: 
       objectReference: {fileID: 5078192958080501409}
     - target: {fileID: 1501294217900703819, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
-      propertyPath: canvasRenderers.Array.data[16]
+      propertyPath: 'canvasRenderers.Array.data[16]'
       value: 
       objectReference: {fileID: 1246648415770040145}
     - target: {fileID: 1501294217900703819, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
-      propertyPath: canvasRenderers.Array.data[17]
+      propertyPath: 'canvasRenderers.Array.data[17]'
       value: 
       objectReference: {fileID: 1243526582713607196}
     - target: {fileID: 1501294217900703819, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
-      propertyPath: canvasRenderers.Array.data[18]
+      propertyPath: 'canvasRenderers.Array.data[18]'
       value: 
       objectReference: {fileID: 284297275483469447}
     - target: {fileID: 1885362491632378666, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
@@ -7761,28 +7782,23 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4022197117081954442, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5373096087607296036, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6495481796042226570}
-    - targetCorrespondingSourceObject: {fileID: 4022197117081954442, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5373096087607296036, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5737925759611119361}
-    - targetCorrespondingSourceObject: {fileID: 4022197117081954442, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5373096087607296036, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6264577821013176546}
-    - targetCorrespondingSourceObject: {fileID: 4022197117081954442, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5373096087607296036, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4456287417168704743}
-    - targetCorrespondingSourceObject: {fileID: 4022197117081954442, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5373096087607296036, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6075872588885039180}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
---- !u!224 &2025291421543048821 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4022197117081954442, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}
-  m_PrefabInstance: {fileID: 3155599638463844095}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7015450753978519259 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5373096087607296036, guid: 20d593b4d3973b949870fc3d19861b37, type: 3}

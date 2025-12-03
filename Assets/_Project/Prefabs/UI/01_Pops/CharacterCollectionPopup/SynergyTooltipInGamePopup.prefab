@@ -525,7 +525,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc309cd574daa1a41be89a6241fe7359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiLayerType: 3
   baseAnimator: {fileID: 0}
+  preloadAddressables: []
   _closeButton: {fileID: 7895684120799162544}
   _dimLayerButton: {fileID: 1272349375768008826}
   _synergyUI: {fileID: 2529629291563954236}
