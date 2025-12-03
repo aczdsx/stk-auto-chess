@@ -126,6 +126,8 @@ namespace CookApps.AutoBattler
 
             await ConnectWithServer();
 
+            _ = InGameTouchManager.Instance;
+
             InitTitleMain();
         }
 
