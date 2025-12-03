@@ -5,8 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class CommanderSkillUI : MonoBehaviour
+public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public CommanderSkillData Data => _data;
 
@@ -81,4 +82,30 @@ public class CommanderSkillUI : MonoBehaviour
     {
         _autoActiveObj.SetActive(isActive);
     }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (InGameCommanderManager.Instance != null)
+        {
+            InGameCommanderManager.Instance.OnBeginDrag(eventData);
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (InGameCommanderManager.Instance != null)
+        {
+            InGameCommanderManager.Instance.OnDrag(eventData);
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (InGameCommanderManager.Instance != null)
+        {
+            InGameCommanderManager.Instance.OnEndDrag(eventData);
+        }
+    }
+
+
 }

@@ -46,6 +46,7 @@ namespace CookApps.AutoBattler
             {
                 Object.Destroy(keyValuePair.Value);
             }
+            loadedSpriteDict.Clear();
 
             foreach (AtlasData data in so.atlasRefs)
             {
