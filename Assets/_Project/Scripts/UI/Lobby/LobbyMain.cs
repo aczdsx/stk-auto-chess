@@ -142,7 +142,7 @@ namespace CookApps.AutoBattler
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
             SceneTransition.FadeOutAsync().Forget();
-            
+
             // DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0", () =>
             // {
             // });
@@ -665,7 +665,7 @@ namespace CookApps.AutoBattler
             }).Forget();
         }
         private void OnClickStartButton()
-        {            
+        {
             var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
             if (currentStageData != null)
             {
@@ -714,7 +714,8 @@ namespace CookApps.AutoBattler
 
                 // 스테이지 진입
                 InGameManager.Instance.EndInGame();
-                SceneTransition.Create<SceneTransition_Animator>();
+                // SceneTransition_Animator transition = SceneTransition_Animator.Create();+
+                SceneTransition.Create<SceneTransition_FadeInOut>(null);
                 SceneTransition.FadeInAsync().Forget();
                 SceneLoading.GoToNextScene("InGame",
                     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), (int)currentStageData.stage_id));
