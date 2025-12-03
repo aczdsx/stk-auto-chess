@@ -6,7 +6,7 @@ using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-
+using CookApps.TeamBattle.Utility;
 //3*3범위 내의 적의 공격력을 {0}초 동안 {1}% 감소 시킨다.
 namespace CookApps.BattleSystem
 {
@@ -74,7 +74,7 @@ namespace CookApps.BattleSystem
         protected override void SkillAction()
         {
             //흙의 병사 이펙트
-            InGameCommanderManager.Instance.InGameCamera.ShakeCamera(0.4f, 0.15f);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.4f, 0.15f);
             var inGameTile = InGameObjectManager.Instance.GetInGameTile(_tileID);
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByRow(inGameTile,
              _specTargetCommanderSkill.commander_range_size / 2);
