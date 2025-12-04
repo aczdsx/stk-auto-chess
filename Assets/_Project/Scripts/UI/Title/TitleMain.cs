@@ -116,7 +116,7 @@ namespace CookApps.AutoBattler
             await UniTask.NextFrame();
 
             await SceneTransition.FadeOutAsync();
-            
+
             await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
 
             SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
@@ -209,6 +209,13 @@ namespace CookApps.AutoBattler
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 
+
+            // var transition1 = SceneTransition_FadeInOut.Create();
+            // 프롤로그로 진입하게 해줘야함
+            // SceneLoading.GoToNextScene("InGame",
+            //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
+            // return;
+
             {
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
 
@@ -232,7 +239,7 @@ namespace CookApps.AutoBattler
                 else
                 {
                     SceneTransition.Create<SceneTransition_FadeInOut>();
-SceneTransition.FadeInAsync().Forget();
+                    SceneTransition.FadeInAsync().Forget();
 
                     isLoginProcess = false;
                     // _loadingPopupObject.SetActive(false);
@@ -241,11 +248,6 @@ SceneTransition.FadeInAsync().Forget();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
                     SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
 
-
-                    // var transition1 = SceneTransition_FadeInOut.Create();
-                    // // 프롤로그로 진입하게 해줘야함
-                    // SceneLoading.GoToNextScene("InGame",
-                    //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0), transition1).Forget();
                     return;
                 }
 
@@ -488,7 +490,7 @@ SceneTransition.FadeInAsync().Forget();
             // serverState = "LOCAL";
 #endif
 
-            Preference.SavePreference(Pref.SERVER_STATE, serverState);
+             Preference.SavePreference(Pref.SERVER_STATE, serverState);
             GrpcManager.Instance.StartUp(initializeParam);
 
             // 버전 체크

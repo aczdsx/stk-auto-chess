@@ -149,10 +149,10 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 3.0f).Forget();
 
-        MoveCharacterToDirection(_clayCharacter, 0, 3, 0.5f);
-        MoveCharacterToDirection(_yuniCharacter, 0, 3, 0.5f);
-        MoveCharacterToDirection(_philiaCharacter, 0, 3, 0.5f);
-        MoveCharacterToDirection(_artesiaCharacter, 0, 3, 0.5f);
+        MoveCharacterToDirection(_clayCharacter, 0, 4, 0.4f);
+        MoveCharacterToDirection(_yuniCharacter, 0, 4, 0.4f);
+        MoveCharacterToDirection(_philiaCharacter, 0, 4, 0.4f);
+        MoveCharacterToDirection(_artesiaCharacter, 0, 4, 0.4f);
         // 이동 완료 후 모든 캐릭터 멈춤
         await UniTask.Delay(2000);
         await StopAllCharacters();
@@ -306,8 +306,8 @@ public class FlowStatePrologueCombat : StateCombatBase
         FreeAttack3Seconds,              // 4단계: 클레이+유니+필리아 자유 공격 3초, 마녀 지친 모션
         WitchAoEAndCharactersDown,       // 5단계: 마녀 광역 스킬, 유니/필리아/클레이 다운
         MarieJoin,                       // 6단계: 마리에 합류 + 스킬 이펙트
-        MarieDownAndArtesiaSupernova,   // 7단계: 마리에 다운, 아트레시아 초신성 모드 + 스킬
-        NoneAction,                      // 8단계: 행동 없음 (대사만)
+        MarieDown,                       // 7단계: 마리에 다운 (아트레시아 기모은 후 따라감, 마리에 먼저 공격)
+        ArtesiaSupernovaAndSkill,        // 8단계: 아트레시아 초신성 모드 진입 + 스킬 발동
         WitchHpRecoverAndFinalPrepare,  // 9단계: 마녀 체력 회복, 최후 스킬 대기 모션
         WitchFinalPrepareFx,             // 10단계: 마녀 최후 공격 준비 이펙트
         WitchFinalAttackAndArtesiaDefend // 11단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료
@@ -334,10 +334,10 @@ public class FlowStatePrologueCombat : StateCombatBase
         new PrologueScenarioData { step = 6, dialogueID = 200006, actionType = PrologueActionType.MarieJoin },
         
         // 7단계: 마리에의 희생과 아트레시아의 각성 (DialogueGroupID : 200007)
-        new PrologueScenarioData { step = 7, dialogueID = 200007, actionType = PrologueActionType.MarieDownAndArtesiaSupernova },
+        new PrologueScenarioData { step = 7, dialogueID = 200007, actionType = PrologueActionType.MarieDown },
         
         // 8단계: 마리에의 희생 (DialogueGroupID : 200008)
-        new PrologueScenarioData { step = 8, dialogueID = 200008, actionType = PrologueActionType.NoneAction },
+        new PrologueScenarioData { step = 8, dialogueID = 200008, actionType = PrologueActionType.ArtesiaSupernovaAndSkill },
         
         // 9단계: 아트레시아의 결의 (DialogueGroupID : 200009)
         new PrologueScenarioData { step = 9, dialogueID = 200009, actionType = PrologueActionType.WitchHpRecoverAndFinalPrepare },
@@ -403,11 +403,11 @@ public class FlowStatePrologueCombat : StateCombatBase
             case PrologueActionType.MarieJoin:
                 await TriggerMarieJoin();
                 break;
-            case PrologueActionType.MarieDownAndArtesiaSupernova:
-                await TriggerMarieDownAndArtesiaSupernova();
+            case PrologueActionType.MarieDown:
+                await TriggerMarieDown();
                 break;
-            case PrologueActionType.NoneAction:
-                await UniTask.Delay(2000); // 2초 대기
+            case PrologueActionType.ArtesiaSupernovaAndSkill:
+                await TriggerArtesiaSupernovaAndSkill();
                 break;
             case PrologueActionType.WitchHpRecoverAndFinalPrepare:
                 await TriggerWitchHpRecoverAndFinalPrepare();
@@ -521,7 +521,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 라플라스 마녀 광역 스킬 발동
         ActivateCharacterSkill(_witchCharacter, "마녀 광역 스킬을 찾을 수 없습니다.");
 
-        await UniTask.Delay(2500); // 스킬 애니메이션 대기
+        await UniTask.Delay(3000); // 스킬 애니메이션 대기
 
         // 유니, 필리아, 클레이 다운
         if (_yuniCharacter != null && _yuniCharacter.IsAlive)
@@ -543,7 +543,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_marieCharacter == null)
         {
             // 마녀 뒤쪽 위치 찾기 (마녀 위치 기준)
-            int2 spawnPosition = new int2(2, 6);
+            int2 spawnPosition = new int2(2, 7);
             InGameTile spawnTile = InGameObjectManager.Instance.InGameGrid.GetTile(spawnPosition);
 
             // 위치가 점유되어 있으면 주변 빈 타일 찾기
@@ -592,10 +592,19 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(2000); // 2초 대기
     }
 
-    // 7단계: 마리에 다운, 아트레시아 초신성 모드 + 스킬
-    private async UniTask TriggerMarieDownAndArtesiaSupernova()
+    // 7단계: 마리에 다운 (아트레시아 기모은 후 따라감, 마리에 먼저 공격)
+    private async UniTask TriggerMarieDown()
     {
         // 아트레시아는 기모은 후 따라간다
+        // [TODO] 아트레시아 기모은 모션
+        if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
+        {
+            // 아트레시아는 잠시 대기 후 따라감
+            await UniTask.Delay(500);
+            _artesiaCharacter.AddNextState<CharacterStateIdle>();
+            _artesiaCharacter.Target = _witchCharacter;
+        }
+
         // 마리에는 앞에가서 먼저 공격
         if (_marieCharacter != null && _marieCharacter.IsAlive)
         {
@@ -618,6 +627,12 @@ public class FlowStatePrologueCombat : StateCombatBase
             _marieCharacter.AddNextState<CharacterStateDead>();
         }
 
+        await UniTask.Delay(2000); // 2초 대기
+    }
+
+    // 8단계: 아트레시아 초신성 모드 진입 + 스킬 발동
+    private async UniTask TriggerArtesiaSupernovaAndSkill()
+    {
         // 아트레시아 초신성 모드 진입
         // [TODO] 초신성 모드 활성화 (버프/이펙트 등)
         if (_artesiaCharacter != null)
