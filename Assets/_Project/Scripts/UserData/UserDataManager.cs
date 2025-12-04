@@ -78,36 +78,36 @@ namespace CookApps.AutoBattler
         {
             var tryCount = 0;
             var allCategories = Enum.GetValues(typeof(DataCategory)).Cast<DataCategory>().ToList();
-            var resp = await GrpcManager.Instance.PlayerData.ListAsync(allCategories.Select(x => x.ToCategoryString()));
-            if (resp.IsError)
-                return false;
+            // var resp = await GrpcManager.Instance.PlayerData.ListAsync(allCategories.Select(x => x.ToCategoryString()));
+            // if (resp.IsError)
+            //     return false;
+            //
+            // // 받은 정보 중에 없는 카테고리는 기본값으로 채워준다.
+            // Dictionary<DataCategory, string> userDatas = new();
+            // {
+            //     foreach (var playerData in resp.Data.ItemList)
+            //     {
+            //         if (string.IsNullOrEmpty(playerData.Data)) continue;
+            //
+            //         DataCategory category = DataCategory.None;
+            //         for (var i = 0; i < allCategories.Count; i++)
+            //         {
+            //             if (allCategories[i].ToCategoryString() == playerData.Category)
+            //             {
+            //                 category = allCategories[i];
+            //                 allCategories.RemoveAt(i);
+            //                 break;
+            //             }
+            //         }
+            //
+            //         if (category != DataCategory.None)
+            //             userDatas.Add(category, playerData.Data);
+            //     }
+            //
+            //     foreach (var category in allCategories) userDatas.Add(category, string.Empty);
+            // }
 
-            // 받은 정보 중에 없는 카테고리는 기본값으로 채워준다.
-            Dictionary<DataCategory, string> userDatas = new();
-            {
-                foreach (var playerData in resp.Data.ItemList)
-                {
-                    if (string.IsNullOrEmpty(playerData.Data)) continue;
-
-                    DataCategory category = DataCategory.None;
-                    for (var i = 0; i < allCategories.Count; i++)
-                    {
-                        if (allCategories[i].ToCategoryString() == playerData.Category)
-                        {
-                            category = allCategories[i];
-                            allCategories.RemoveAt(i);
-                            break;
-                        }
-                    }
-
-                    if (category != DataCategory.None)
-                        userDatas.Add(category, playerData.Data);
-                }
-
-                foreach (var category in allCategories) userDatas.Add(category, string.Empty);
-            }
-
-            CallAllInitialize(userDatas);
+            // CallAllInitialize(userDatas);
             CallAllInitializeEffectCode();
             CallAllInitializeEffectCode();
             return true;

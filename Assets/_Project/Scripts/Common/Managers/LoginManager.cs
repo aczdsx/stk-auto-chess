@@ -49,7 +49,8 @@ namespace CookApps.AutoBattler
             if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Guest))
                 return;
 
-            var authId = await GrpcManager.Instance.Lobby.GenerateUuidAsync();
+            var resp = await GrpcManager.Instance.Lobby.GenerateUuidAsync();
+            var authId = resp.Uuid;
             if (string.IsNullOrEmpty(authId))
             {
                 CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");

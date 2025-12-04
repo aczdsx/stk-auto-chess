@@ -403,9 +403,9 @@ SceneTransition.FadeInAsync().Forget();
                 //var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
                 // var uuID = DeviceIdHolder.DeviceId;
                 var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
-                Preference.SavePreference(Pref.GUEST_ID, uuID);
+                Preference.SavePreference(Pref.GUEST_ID, uuID.Uuid);
                 Debug.Log("GUEST_ID ++++> " + uuID);
-                await GrpcManager.Instance.Auth.CreateAsync(authPlatform, uuID);
+                await GrpcManager.Instance.Auth.CreateAsync(authPlatform, uuID.Uuid);
             }
 
             isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
@@ -520,9 +520,9 @@ SceneTransition.FadeInAsync().Forget();
             var getLastPlayerResponse = await GrpcManager.Instance.Player.GetLastSelectedAsync();
             if (!getLastPlayerResponse.IsError)
             {
-                var playerId = getLastPlayerResponse.Item?.PlayerId;
-                if (!string.IsNullOrEmpty(playerId))
-                    return playerId;
+                // var playerId = getLastPlayerResponse.Item?.PlayerId;
+                // if (!string.IsNullOrEmpty(playerId))
+                //     return playerId;
             }
 
             // 서버 리스트를 받아온다.
