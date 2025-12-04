@@ -26,9 +26,11 @@ public class FlowStatePrologueReady : StateReadyBase
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
 
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,new Vector3(-1f, 0f, -10), 1.0f).Forget();
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPosition(new Vector3(-20, 2.5f, -10));
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f);
+        // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,new Vector3(-1f, 0f, -10), 1.0f).Forget();
 
-        SpawnPrologueCharacters(addCharacterTasks);
+        SpawnPrologueCharacters(addCharacterTasks);  
 
         await UniTask.WhenAll(addCharacterTasks);
 
@@ -85,7 +87,7 @@ public class FlowStatePrologueReady : StateReadyBase
         //라플라스 마녀 소환 
         //[TODO] 라플라스 마녀의 실제 캐릭터 ID로 변경 필요
         int laplaceWitchId = 120403; // 임시 ID (Trial 던전 보스)
-        int2 witchPosition = new int2(2, 7);
+        int2 witchPosition = new int2(2, 10);
 
         Debug.LogColor($"라플라스 마녀 추가 : {laplaceWitchId} at ({witchPosition.x}, {witchPosition.y})");
 
