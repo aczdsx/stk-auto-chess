@@ -493,7 +493,7 @@ SceneTransition.FadeInAsync().Forget();
 
             // 버전 체크
             var checkVersionResponse = await GrpcManager.Instance.Lobby.CheckVersionAsync();
-            if (checkVersionResponse.IsError)
+            // if (checkVersionResponse.IsError)
             {
                 // 버전 체크 실패시 처리
                 var toastString = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");

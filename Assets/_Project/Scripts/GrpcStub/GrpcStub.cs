@@ -80,25 +80,10 @@ namespace CookApps.gRPC
 
 namespace Tech.Hive.V1
 {
-    public enum AuthPlatform
-    {
-        Guest,
-        Apple,
-        Facebook,
-        Google
-    }
-
     // 간단한 버전 체크/UUID 응답 더미
     public sealed class CheckVersionData
     {
         public uint SpecVersion { get; set; }
-    }
-
-    public sealed class CheckVersionResponse
-    {
-        public ResponseStatus Status { get; set; } = new();
-        public CheckVersionData Data { get; set; } = new();
-        public bool IsError => Status?.Code != 0;
     }
 
     public sealed class GenerateUuidResponse
@@ -107,17 +92,6 @@ namespace Tech.Hive.V1
         public bool IsError => false;
     }
 
-    // gRPC 응답 클래스에 IsError 속성을 추가
-    public sealed partial class PlayerDataListResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class PlayerDataSetResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
     public sealed partial class PvpGetProfileResponse
     {
         public bool IsError => Status?.Code != 0;

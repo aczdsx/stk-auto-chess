@@ -27,7 +27,7 @@ namespace Tech.Hive.V1 {
             "ChZiYXR0bGUrZm9ybWF0aW9uLnByb3RvEgx0ZWNoLmhpdmUudjEiQwoPQmF0",
             "dGxlRm9ybWF0aW9uEjAKBXNsb3RzGAEgAygLMiEudGVjaC5oaXZlLnYxLkJh",
             "dHRsZUZvcm1hdGlvblNsb3QiZgoTQmF0dGxlRm9ybWF0aW9uU2xvdBIQCghw",
-            "b3NpdGlvbhgBIAEoBRIdChVjaGFyYWN0ZXJfaW5zdGFuY2VfaWQYAiABKAkS",
+            "b3NpdGlvbhgBIAEoDRIdChVjaGFyYWN0ZXJfaW5zdGFuY2VfaWQYAiABKAkS",
             "DgoGZ3JpZF94GAMgASgFEg4KBmdyaWRfeRgEIAEoBSJECg9UYWN0aWNQbGFj",
             "ZW1lbnQSEQoJdGFjdGljX2lkGAEgASgJEg4KBmdyaWRfeBgCIAEoBRIOCgZn",
             "cmlkX3kYAyABKAViBnByb3RvMw=="));
@@ -278,13 +278,13 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 1;
-    private int position_;
+    private uint position_;
     /// <summary>
     /// 0~N (배치 위치)
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Position {
+    public uint Position {
       get { return position_; }
       set {
         position_ = value;
@@ -380,7 +380,7 @@ namespace Tech.Hive.V1 {
     #else
       if (Position != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(Position);
+        output.WriteUInt32(Position);
       }
       if (CharacterInstanceId.Length != 0) {
         output.WriteRawTag(18);
@@ -406,7 +406,7 @@ namespace Tech.Hive.V1 {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (Position != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(Position);
+        output.WriteUInt32(Position);
       }
       if (CharacterInstanceId.Length != 0) {
         output.WriteRawTag(18);
@@ -431,7 +431,7 @@ namespace Tech.Hive.V1 {
     public int CalculateSize() {
       int size = 0;
       if (Position != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Position);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Position);
       }
       if (CharacterInstanceId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterInstanceId);
@@ -482,7 +482,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Position = input.ReadInt32();
+            Position = input.ReadUInt32();
             break;
           }
           case 18: {
@@ -513,7 +513,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Position = input.ReadInt32();
+            Position = input.ReadUInt32();
             break;
           }
           case 18: {

@@ -27,7 +27,7 @@ namespace Tech.Hive.V1 {
             "ChdlcXVpcG1lbnQrc3RlbGx1bS5wcm90bxIMdGVjaC5oaXZlLnYxGhNjdXN0",
             "b21fY29tbW9uLnByb3RvGhRlcXVpcG1lbnQrc3RhdC5wcm90byKSBAoLU3Rl",
             "bGx1bUluZm8SEwoLaW5zdGFuY2VfaWQYASABKAkSEgoKc3RlbGx1bV9pZBgC",
-            "IAEoCRIpCgtiYXNlX3Jhcml0eRgDIAEoDjIULnRlY2guaGl2ZS52MS5SYXJp",
+            "IAEoDRIpCgtiYXNlX3Jhcml0eRgDIAEoDjIULnRlY2guaGl2ZS52MS5SYXJp",
             "dHkSEgoKc3Rhcl9sZXZlbBgEIAEoDRIrCgpjbGFzc190eXBlGAUgASgOMhcu",
             "dGVjaC5oaXZlLnYxLkNsYXNzVHlwZRIUCgxpc19leGNsdXNpdmUYBiABKAgS",
             "HgoWZXhjbHVzaXZlX2NoYXJhY3Rlcl9pZBgHIAEoCRITCgtmb3JnZV9sZXZl",
@@ -125,16 +125,16 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "stellum_id" field.</summary>
     public const int StellumIdFieldNumber = 2;
-    private string stellumId_ = "";
+    private uint stellumId_;
     /// <summary>
     /// 마스터 데이터 ID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string StellumId {
+    public uint StellumId {
       get { return stellumId_; }
       set {
-        stellumId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        stellumId_ = value;
       }
     }
 
@@ -385,7 +385,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
-      if (StellumId.Length != 0) hash ^= StellumId.GetHashCode();
+      if (StellumId != 0) hash ^= StellumId.GetHashCode();
       if (BaseRarity != global::Tech.Hive.V1.Rarity.Unspecified) hash ^= BaseRarity.GetHashCode();
       if (StarLevel != 0) hash ^= StarLevel.GetHashCode();
       if (ClassType != global::Tech.Hive.V1.ClassType.Unspecified) hash ^= ClassType.GetHashCode();
@@ -422,9 +422,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(InstanceId);
       }
-      if (StellumId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(StellumId);
+      if (StellumId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(StellumId);
       }
       if (BaseRarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         output.WriteRawTag(24);
@@ -490,9 +490,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(InstanceId);
       }
-      if (StellumId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(StellumId);
+      if (StellumId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(StellumId);
       }
       if (BaseRarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         output.WriteRawTag(24);
@@ -557,8 +557,8 @@ namespace Tech.Hive.V1 {
       if (InstanceId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
       }
-      if (StellumId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(StellumId);
+      if (StellumId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(StellumId);
       }
       if (BaseRarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) BaseRarity);
@@ -613,7 +613,7 @@ namespace Tech.Hive.V1 {
       if (other.InstanceId.Length != 0) {
         InstanceId = other.InstanceId;
       }
-      if (other.StellumId.Length != 0) {
+      if (other.StellumId != 0) {
         StellumId = other.StellumId;
       }
       if (other.BaseRarity != global::Tech.Hive.V1.Rarity.Unspecified) {
@@ -676,8 +676,8 @@ namespace Tech.Hive.V1 {
             InstanceId = input.ReadString();
             break;
           }
-          case 18: {
-            StellumId = input.ReadString();
+          case 16: {
+            StellumId = input.ReadUInt32();
             break;
           }
           case 24: {
@@ -758,8 +758,8 @@ namespace Tech.Hive.V1 {
             InstanceId = input.ReadString();
             break;
           }
-          case 18: {
-            StellumId = input.ReadString();
+          case 16: {
+            StellumId = input.ReadUInt32();
             break;
           }
           case 24: {

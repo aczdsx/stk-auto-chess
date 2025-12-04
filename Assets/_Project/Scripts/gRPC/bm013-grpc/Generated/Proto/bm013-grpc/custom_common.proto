@@ -4,8 +4,8 @@ package tech.hive.v1;
 
 message CurrencyDelta {
   uint32 item_id = 1;
-  int64 before = 2;
-  int64 after = 3;
+  uint64 before = 2;
+  uint64 after = 3;
   int64 delta = 4;
 }
 

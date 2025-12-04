@@ -25,8 +25,8 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChNjdXN0b21fY29tbW9uLnByb3RvEgx0ZWNoLmhpdmUudjEiTgoNQ3VycmVu",
-            "Y3lEZWx0YRIPCgdpdGVtX2lkGAEgASgNEg4KBmJlZm9yZRgCIAEoAxINCgVh",
-            "ZnRlchgDIAEoAxINCgVkZWx0YRgEIAEoAyq4AQoLRWxlbWVudFR5cGUSHAoY",
+            "Y3lEZWx0YRIPCgdpdGVtX2lkGAEgASgNEg4KBmJlZm9yZRgCIAEoBBINCgVh",
+            "ZnRlchgDIAEoBBINCgVkZWx0YRgEIAEoAyq4AQoLRWxlbWVudFR5cGUSHAoY",
             "RUxFTUVOVF9UWVBFX1VOU1BFQ0lGSUVEEAASFQoRRUxFTUVOVF9UWVBFX0ZJ",
             "UkUQARIWChJFTEVNRU5UX1RZUEVfV0FURVIQAhIVChFFTEVNRU5UX1RZUEVf",
             "V0lORBADEhYKEkVMRU1FTlRfVFlQRV9FQVJUSBAEEhYKEkVMRU1FTlRfVFlQ",
@@ -198,10 +198,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "before" field.</summary>
     public const int BeforeFieldNumber = 2;
-    private long before_;
+    private ulong before_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long Before {
+    public ulong Before {
       get { return before_; }
       set {
         before_ = value;
@@ -210,10 +210,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "after" field.</summary>
     public const int AfterFieldNumber = 3;
-    private long after_;
+    private ulong after_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long After {
+    public ulong After {
       get { return after_; }
       set {
         after_ = value;
@@ -259,8 +259,8 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (ItemId != 0) hash ^= ItemId.GetHashCode();
-      if (Before != 0L) hash ^= Before.GetHashCode();
-      if (After != 0L) hash ^= After.GetHashCode();
+      if (Before != 0UL) hash ^= Before.GetHashCode();
+      if (After != 0UL) hash ^= After.GetHashCode();
       if (Delta != 0L) hash ^= Delta.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -284,13 +284,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(8);
         output.WriteUInt32(ItemId);
       }
-      if (Before != 0L) {
+      if (Before != 0UL) {
         output.WriteRawTag(16);
-        output.WriteInt64(Before);
+        output.WriteUInt64(Before);
       }
-      if (After != 0L) {
+      if (After != 0UL) {
         output.WriteRawTag(24);
-        output.WriteInt64(After);
+        output.WriteUInt64(After);
       }
       if (Delta != 0L) {
         output.WriteRawTag(32);
@@ -310,13 +310,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(8);
         output.WriteUInt32(ItemId);
       }
-      if (Before != 0L) {
+      if (Before != 0UL) {
         output.WriteRawTag(16);
-        output.WriteInt64(Before);
+        output.WriteUInt64(Before);
       }
-      if (After != 0L) {
+      if (After != 0UL) {
         output.WriteRawTag(24);
-        output.WriteInt64(After);
+        output.WriteUInt64(After);
       }
       if (Delta != 0L) {
         output.WriteRawTag(32);
@@ -335,11 +335,11 @@ namespace Tech.Hive.V1 {
       if (ItemId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ItemId);
       }
-      if (Before != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Before);
+      if (Before != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Before);
       }
-      if (After != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(After);
+      if (After != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(After);
       }
       if (Delta != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Delta);
@@ -359,10 +359,10 @@ namespace Tech.Hive.V1 {
       if (other.ItemId != 0) {
         ItemId = other.ItemId;
       }
-      if (other.Before != 0L) {
+      if (other.Before != 0UL) {
         Before = other.Before;
       }
-      if (other.After != 0L) {
+      if (other.After != 0UL) {
         After = other.After;
       }
       if (other.Delta != 0L) {
@@ -388,11 +388,11 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            Before = input.ReadInt64();
+            Before = input.ReadUInt64();
             break;
           }
           case 24: {
-            After = input.ReadInt64();
+            After = input.ReadUInt64();
             break;
           }
           case 32: {
@@ -419,11 +419,11 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            Before = input.ReadInt64();
+            Before = input.ReadUInt64();
             break;
           }
           case 24: {
-            After = input.ReadInt64();
+            After = input.ReadUInt64();
             break;
           }
           case 32: {

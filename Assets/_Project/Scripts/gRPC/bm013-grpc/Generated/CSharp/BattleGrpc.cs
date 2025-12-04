@@ -49,6 +49,14 @@ namespace Tech.Hive.V1 {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleGetCurrentChapterRequest> __Marshaller_tech_hive_v1_BattleGetCurrentChapterRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleGetCurrentChapterRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleGetCurrentChapterResponse> __Marshaller_tech_hive_v1_BattleGetCurrentChapterResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleGetCurrentChapterResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleListChapterRequest> __Marshaller_tech_hive_v1_BattleListChapterRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleListChapterRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleListChapterResponse> __Marshaller_tech_hive_v1_BattleListChapterResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleListChapterResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleListStageRequest> __Marshaller_tech_hive_v1_BattleListStageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleListStageRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleListStageResponse> __Marshaller_tech_hive_v1_BattleListStageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleListStageResponse.Parser));
@@ -60,10 +68,22 @@ namespace Tech.Hive.V1 {
     static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleEndRequest> __Marshaller_tech_hive_v1_BattleEndRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleEndRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleEndResponse> __Marshaller_tech_hive_v1_BattleEndResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleEndResponse.Parser));
+
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleClaimRewardRequest> __Marshaller_tech_hive_v1_BattleClaimRewardRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleClaimRewardRequest.Parser));
+    static readonly grpc::Method<global::Tech.Hive.V1.BattleGetCurrentChapterRequest, global::Tech.Hive.V1.BattleGetCurrentChapterResponse> __Method_GetCurrentChapter = new grpc::Method<global::Tech.Hive.V1.BattleGetCurrentChapterRequest, global::Tech.Hive.V1.BattleGetCurrentChapterResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetCurrentChapter",
+        __Marshaller_tech_hive_v1_BattleGetCurrentChapterRequest,
+        __Marshaller_tech_hive_v1_BattleGetCurrentChapterResponse);
+
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleClaimRewardResponse> __Marshaller_tech_hive_v1_BattleClaimRewardResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleClaimRewardResponse.Parser));
+    static readonly grpc::Method<global::Tech.Hive.V1.BattleListChapterRequest, global::Tech.Hive.V1.BattleListChapterResponse> __Method_ListChapter = new grpc::Method<global::Tech.Hive.V1.BattleListChapterRequest, global::Tech.Hive.V1.BattleListChapterResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ListChapter",
+        __Marshaller_tech_hive_v1_BattleListChapterRequest,
+        __Marshaller_tech_hive_v1_BattleListChapterResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.BattleListStageRequest, global::Tech.Hive.V1.BattleListStageResponse> __Method_ListStage = new grpc::Method<global::Tech.Hive.V1.BattleListStageRequest, global::Tech.Hive.V1.BattleListStageResponse>(
@@ -89,14 +109,6 @@ namespace Tech.Hive.V1 {
         __Marshaller_tech_hive_v1_BattleEndRequest,
         __Marshaller_tech_hive_v1_BattleEndResponse);
 
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.BattleClaimRewardRequest, global::Tech.Hive.V1.BattleClaimRewardResponse> __Method_ClaimReward = new grpc::Method<global::Tech.Hive.V1.BattleClaimRewardRequest, global::Tech.Hive.V1.BattleClaimRewardResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "ClaimReward",
-        __Marshaller_tech_hive_v1_BattleClaimRewardRequest,
-        __Marshaller_tech_hive_v1_BattleClaimRewardResponse);
-
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -107,6 +119,32 @@ namespace Tech.Hive.V1 {
     [grpc::BindServiceMethod(typeof(BattleService), "BindService")]
     public abstract partial class BattleServiceBase
     {
+      /// <summary>
+      ///*
+      /// 현재 내 챕터 조회
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.BattleGetCurrentChapterResponse> GetCurrentChapter(global::Tech.Hive.V1.BattleGetCurrentChapterRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      ///*
+      /// 챕터 목록 및 획득한 별 총 개수
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.BattleListChapterResponse> ListChapter(global::Tech.Hive.V1.BattleListChapterRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
       /// <summary>
       ///*
       /// 스테이지 목록 조회
@@ -146,19 +184,6 @@ namespace Tech.Hive.V1 {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      /// <summary>
-      ///*
-      /// 스테이지 보상 수령
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.BattleClaimRewardResponse> ClaimReward(global::Tech.Hive.V1.BattleClaimRewardRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
     }
 
     /// <summary>Client for BattleService</summary>
@@ -188,6 +213,110 @@ namespace Tech.Hive.V1 {
       {
       }
 
+      /// <summary>
+      ///*
+      /// 현재 내 챕터 조회
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.BattleGetCurrentChapterResponse GetCurrentChapter(global::Tech.Hive.V1.BattleGetCurrentChapterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCurrentChapter(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 현재 내 챕터 조회
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.BattleGetCurrentChapterResponse GetCurrentChapter(global::Tech.Hive.V1.BattleGetCurrentChapterRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCurrentChapter, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 현재 내 챕터 조회
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleGetCurrentChapterResponse> GetCurrentChapterAsync(global::Tech.Hive.V1.BattleGetCurrentChapterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCurrentChapterAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 현재 내 챕터 조회
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleGetCurrentChapterResponse> GetCurrentChapterAsync(global::Tech.Hive.V1.BattleGetCurrentChapterRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCurrentChapter, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 챕터 목록 및 획득한 별 총 개수
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.BattleListChapterResponse ListChapter(global::Tech.Hive.V1.BattleListChapterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListChapter(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 챕터 목록 및 획득한 별 총 개수
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.BattleListChapterResponse ListChapter(global::Tech.Hive.V1.BattleListChapterRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ListChapter, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 챕터 목록 및 획득한 별 총 개수
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleListChapterResponse> ListChapterAsync(global::Tech.Hive.V1.BattleListChapterRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListChapterAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 챕터 목록 및 획득한 별 총 개수
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleListChapterResponse> ListChapterAsync(global::Tech.Hive.V1.BattleListChapterRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ListChapter, null, options, request);
+      }
       /// <summary>
       ///*
       /// 스테이지 목록 조회
@@ -344,58 +473,6 @@ namespace Tech.Hive.V1 {
       {
         return CallInvoker.AsyncUnaryCall(__Method_End, null, options, request);
       }
-      /// <summary>
-      ///*
-      /// 스테이지 보상 수령
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.BattleClaimRewardResponse ClaimReward(global::Tech.Hive.V1.BattleClaimRewardRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return ClaimReward(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 스테이지 보상 수령
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.BattleClaimRewardResponse ClaimReward(global::Tech.Hive.V1.BattleClaimRewardRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_ClaimReward, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 스테이지 보상 수령
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleClaimRewardResponse> ClaimRewardAsync(global::Tech.Hive.V1.BattleClaimRewardRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return ClaimRewardAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 스테이지 보상 수령
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleClaimRewardResponse> ClaimRewardAsync(global::Tech.Hive.V1.BattleClaimRewardRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_ClaimReward, null, options, request);
-      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override BattleServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -410,10 +487,11 @@ namespace Tech.Hive.V1 {
     public static grpc::ServerServiceDefinition BindService(BattleServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_GetCurrentChapter, serviceImpl.GetCurrentChapter)
+          .AddMethod(__Method_ListChapter, serviceImpl.ListChapter)
           .AddMethod(__Method_ListStage, serviceImpl.ListStage)
           .AddMethod(__Method_Start, serviceImpl.Start)
-          .AddMethod(__Method_End, serviceImpl.End)
-          .AddMethod(__Method_ClaimReward, serviceImpl.ClaimReward).Build();
+          .AddMethod(__Method_End, serviceImpl.End).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -423,10 +501,11 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, BattleServiceBase serviceImpl)
     {
+      serviceBinder.AddMethod(__Method_GetCurrentChapter, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleGetCurrentChapterRequest, global::Tech.Hive.V1.BattleGetCurrentChapterResponse>(serviceImpl.GetCurrentChapter));
+      serviceBinder.AddMethod(__Method_ListChapter, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleListChapterRequest, global::Tech.Hive.V1.BattleListChapterResponse>(serviceImpl.ListChapter));
       serviceBinder.AddMethod(__Method_ListStage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleListStageRequest, global::Tech.Hive.V1.BattleListStageResponse>(serviceImpl.ListStage));
       serviceBinder.AddMethod(__Method_Start, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleStartRequest, global::Tech.Hive.V1.BattleStartResponse>(serviceImpl.Start));
       serviceBinder.AddMethod(__Method_End, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleEndRequest, global::Tech.Hive.V1.BattleEndResponse>(serviceImpl.End));
-      serviceBinder.AddMethod(__Method_ClaimReward, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleClaimRewardRequest, global::Tech.Hive.V1.BattleClaimRewardResponse>(serviceImpl.ClaimReward));
     }
 
   }

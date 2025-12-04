@@ -26,7 +26,7 @@ namespace Tech.Hive.V1 {
           string.Concat(
             "ChVlcXVpcG1lbnQrcmVsaWMucHJvdG8SDHRlY2guaGl2ZS52MRoTY3VzdG9t",
             "X2NvbW1vbi5wcm90bxoUZXF1aXBtZW50K3N0YXQucHJvdG8i/QIKCVJlbGlj",
-            "SW5mbxITCgtpbnN0YW5jZV9pZBgBIAEoCRIQCghyZWxpY19pZBgCIAEoCRIk",
+            "SW5mbxITCgtpbnN0YW5jZV9pZBgBIAEoCRIQCghyZWxpY19pZBgCIAEoDRIk",
             "CgZyYXJpdHkYAyABKA4yFC50ZWNoLmhpdmUudjEuUmFyaXR5Ei0KCGNhdGVn",
             "b3J5GAQgASgOMhsudGVjaC5oaXZlLnYxLlJlbGljQ2F0ZWdvcnkSDgoGcHJl",
             "Zml4GAUgASgJEg4KBnN1ZmZpeBgGIAEoCRIVCg1lbmhhbmNlX2xldmVsGAcg",
@@ -152,16 +152,16 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "relic_id" field.</summary>
     public const int RelicIdFieldNumber = 2;
-    private string relicId_ = "";
+    private uint relicId_;
     /// <summary>
     /// 마스터 데이터 ID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string RelicId {
+    public uint RelicId {
       get { return relicId_; }
       set {
-        relicId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        relicId_ = value;
       }
     }
 
@@ -349,7 +349,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
-      if (RelicId.Length != 0) hash ^= RelicId.GetHashCode();
+      if (RelicId != 0) hash ^= RelicId.GetHashCode();
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) hash ^= Rarity.GetHashCode();
       if (Category != global::Tech.Hive.V1.RelicCategory.Unspecified) hash ^= Category.GetHashCode();
       if (Prefix.Length != 0) hash ^= Prefix.GetHashCode();
@@ -382,9 +382,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(InstanceId);
       }
-      if (RelicId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(RelicId);
+      if (RelicId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(RelicId);
       }
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         output.WriteRawTag(24);
@@ -437,9 +437,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(InstanceId);
       }
-      if (RelicId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(RelicId);
+      if (RelicId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(RelicId);
       }
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         output.WriteRawTag(24);
@@ -491,8 +491,8 @@ namespace Tech.Hive.V1 {
       if (InstanceId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
       }
-      if (RelicId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RelicId);
+      if (RelicId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(RelicId);
       }
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
@@ -537,7 +537,7 @@ namespace Tech.Hive.V1 {
       if (other.InstanceId.Length != 0) {
         InstanceId = other.InstanceId;
       }
-      if (other.RelicId.Length != 0) {
+      if (other.RelicId != 0) {
         RelicId = other.RelicId;
       }
       if (other.Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
@@ -590,8 +590,8 @@ namespace Tech.Hive.V1 {
             InstanceId = input.ReadString();
             break;
           }
-          case 18: {
-            RelicId = input.ReadString();
+          case 16: {
+            RelicId = input.ReadUInt32();
             break;
           }
           case 24: {
@@ -656,8 +656,8 @@ namespace Tech.Hive.V1 {
             InstanceId = input.ReadString();
             break;
           }
-          case 18: {
-            RelicId = input.ReadString();
+          case 16: {
+            RelicId = input.ReadUInt32();
             break;
           }
           case 24: {

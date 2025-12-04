@@ -9,7 +9,7 @@ message BattleFormation {
 
 // 편성 슬롯
 message BattleFormationSlot {
-  int32 position = 1;  // 0~N (배치 위치)
+  uint32 position = 1;  // 0~N (배치 위치)
   string character_instance_id = 2;
   
   // 그리드 좌표 (오토 배틀러 특성상 배치 위치 중요)

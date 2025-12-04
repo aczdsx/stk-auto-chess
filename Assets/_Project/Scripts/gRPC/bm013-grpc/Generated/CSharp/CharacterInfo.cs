@@ -28,7 +28,7 @@ namespace Tech.Hive.V1 {
             "Y29tbW9uLnByb3RvGhRjaGFyYWN0ZXIrc3RhdC5wcm90bxoVY2hhcmFjdGVy",
             "K3NraWxsLnByb3RvGhljaGFyYWN0ZXIrcmVzb25hbmNlLnByb3RvItcECg1D",
             "aGFyYWN0ZXJJbmZvEhMKC2luc3RhbmNlX2lkGAEgASgJEhQKDGNoYXJhY3Rl",
-            "cl9pZBgCIAEoCRIkCgZyYXJpdHkYAyABKA4yFC50ZWNoLmhpdmUudjEuUmFy",
+            "cl9pZBgCIAEoDRIkCgZyYXJpdHkYAyABKA4yFC50ZWNoLmhpdmUudjEuUmFy",
             "aXR5EioKB2VsZW1lbnQYBCABKA4yGS50ZWNoLmhpdmUudjEuRWxlbWVudFR5",
             "cGUSKwoKY2xhc3NfdHlwZRgFIAEoDjIXLnRlY2guaGl2ZS52MS5DbGFzc1R5",
             "cGUSDQoFbGV2ZWwYBiABKA0SEQoJbWF4X2xldmVsGAcgASgNEgsKA2V4cBgI",
@@ -134,16 +134,16 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character_id" field.</summary>
     public const int CharacterIdFieldNumber = 2;
-    private string characterId_ = "";
+    private uint characterId_;
     /// <summary>
     /// 캐릭터 마스터 데이터 ID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CharacterId {
+    public uint CharacterId {
       get { return characterId_; }
       set {
-        characterId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        characterId_ = value;
       }
     }
 
@@ -424,7 +424,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
-      if (CharacterId.Length != 0) hash ^= CharacterId.GetHashCode();
+      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) hash ^= Rarity.GetHashCode();
       if (Element != global::Tech.Hive.V1.ElementType.Unspecified) hash ^= Element.GetHashCode();
       if (ClassType != global::Tech.Hive.V1.ClassType.Unspecified) hash ^= ClassType.GetHashCode();
@@ -464,9 +464,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(InstanceId);
       }
-      if (CharacterId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(CharacterId);
+      if (CharacterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(CharacterId);
       }
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         output.WriteRawTag(24);
@@ -544,9 +544,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(InstanceId);
       }
-      if (CharacterId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(CharacterId);
+      if (CharacterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(CharacterId);
       }
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         output.WriteRawTag(24);
@@ -623,8 +623,8 @@ namespace Tech.Hive.V1 {
       if (InstanceId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
       }
-      if (CharacterId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterId);
+      if (CharacterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterId);
       }
       if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
@@ -688,7 +688,7 @@ namespace Tech.Hive.V1 {
       if (other.InstanceId.Length != 0) {
         InstanceId = other.InstanceId;
       }
-      if (other.CharacterId.Length != 0) {
+      if (other.CharacterId != 0) {
         CharacterId = other.CharacterId;
       }
       if (other.Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
@@ -763,8 +763,8 @@ namespace Tech.Hive.V1 {
             InstanceId = input.ReadString();
             break;
           }
-          case 18: {
-            CharacterId = input.ReadString();
+          case 16: {
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 24: {
@@ -860,8 +860,8 @@ namespace Tech.Hive.V1 {
             InstanceId = input.ReadString();
             break;
           }
-          case 18: {
-            CharacterId = input.ReadString();
+          case 16: {
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 24: {
