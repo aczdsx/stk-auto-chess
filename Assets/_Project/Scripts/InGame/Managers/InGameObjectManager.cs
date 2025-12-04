@@ -924,7 +924,7 @@ namespace CookApps.BattleSystem
                 }
                 else if (elementType == SynergyType.LIGHT)
                 {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_light;
+                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
                 }
                 else if (elementType == SynergyType.EARTH)
                 {

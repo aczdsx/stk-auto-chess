@@ -396,7 +396,7 @@ namespace CookApps.AutoBattler
         fx_common_bufftrap_ad = 96,
         fx_common_bufftrap_ap = 97,
         fx_common_bufftrap_defense = 98,
-        fx_common_synergy_light = 99,
+        fx_common_synergy_lightning_01 = 99,
         fx_common_synergy_ground = 100,
         fx_common_synergy_wind = 101,
         fx_common_commander_skill_03 = 102,
@@ -486,6 +486,8 @@ namespace CookApps.AutoBattler
         fx_prologue_boss_prepare_01 = 186,
         fx_prologue_boss_prepare_02 = 187,
         fx_common_commander_skill_300 = 188,
+        fx_common_synergy_lightning_02 = 189,
+        fx_common_synergy_lightning_03 = 190,
     }
 
     public enum GlobalEffectProviderType
@@ -566,7 +568,6 @@ namespace CookApps.AutoBattler
         TRIAL_BOSS = 5,
         TURORIAL = 6,
         PROLOGUE = 7,
-        TEST = 8,
     }
 
     public enum UserGradeType
