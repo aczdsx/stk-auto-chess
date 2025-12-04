@@ -1685,7 +1685,7 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -1721,11 +1721,11 @@ MonoBehaviour:
       loopSequenceRandomDelay: 0
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
+      DestroyOnLoad: 0
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -1805,11 +1805,11 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
-      PitchShift: 1
+      PitchShift: 0
       RandomVolume: 0
-      RandomPitch: 0
+      RandomPitch: 2
       RandomDelay: 0
       overrideAudioSourceSettings: 0
       audioSource_MinDistance: 1
@@ -1822,10 +1822,10 @@ MonoBehaviour:
         ItemModeAudioID: 
         Clip: {fileID: 8300000, guid: a0db459e37c5151428869c9e579790b0, type: 3}
         Volume: 1
-        PitchShift: 1
+        PitchShift: 0
         Pan2D: 0
         Delay: 0
-        RandomPitch: 0
+        RandomPitch: 2
         RandomVolume: 0
         RandomDelay: 0
         ClipStopTime: 0
@@ -1849,7 +1849,7 @@ MonoBehaviour:
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
-      RandomPitch: 0
+      RandomPitch: 2
       RandomDelay: 0
       overrideAudioSourceSettings: 0
       audioSource_MinDistance: 1
@@ -1865,7 +1865,7 @@ MonoBehaviour:
         PitchShift: 0
         Pan2D: 0
         Delay: 0
-        RandomPitch: 0
+        RandomPitch: 2
         RandomVolume: 0
         RandomDelay: 0
         ClipStopTime: 0
@@ -1885,7 +1885,7 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -1925,7 +1925,7 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -1965,11 +1965,11 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
-      PitchShift: 1
+      PitchShift: 0
       RandomVolume: 0
-      RandomPitch: 0
+      RandomPitch: 1
       RandomDelay: 0
       overrideAudioSourceSettings: 0
       audioSource_MinDistance: 1
@@ -1982,10 +1982,10 @@ MonoBehaviour:
         ItemModeAudioID: 
         Clip: {fileID: 8300000, guid: 8f8fde53a07e6d840ba0e04921d0f41a, type: 3}
         Volume: 1
-        PitchShift: 1
+        PitchShift: 0
         Pan2D: 0
         Delay: 0
-        RandomPitch: 0
+        RandomPitch: 1
         RandomVolume: 0
         RandomDelay: 0
         ClipStopTime: 0
@@ -2001,11 +2001,11 @@ MonoBehaviour:
       loopSequenceRandomDelay: 0
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
+      DestroyOnLoad: 0
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -2085,7 +2085,7 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -2125,7 +2125,7 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -2165,7 +2165,7 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -2205,7 +2205,7 @@ MonoBehaviour:
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -2241,7 +2241,7 @@ MonoBehaviour:
       loopSequenceRandomDelay: 0
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
+      DestroyOnLoad: 0
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
@@ -2281,11 +2281,11 @@ MonoBehaviour:
       loopSequenceRandomDelay: 0
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
+      DestroyOnLoad: 0
       Volume: 1
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
+      MaxInstanceCount: 1
       Delay: 0
       PitchShift: 0
       RandomVolume: 0
@@ -4152,8 +4152,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 0
-    currentItemIndex: 0
+    currentCategoryIndex: 2
+    currentItemIndex: 14
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
