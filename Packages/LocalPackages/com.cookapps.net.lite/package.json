@@ -1,0 +1,36 @@
+{
+  "name": "com.cookapps.net.lite",
+  "displayName": "CookApps Net Lite",
+  "description": "NET gRPC를 이용하여 사내 Hive 서버와 통신하는 Lite 모듈",
+  "documentationUrl": "https://docs.tech.cookapps.com/release/com.cookapps.net.lite@1.0.1/index.html",
+  "changelogUrl": "https://docs.tech.cookapps.com/release/com.cookapps.net.lite/CHANGELOG.html",
+  "version": "1.0.1",
+  "dependencies": {
+    "com.cookapps.nuget.common": "1.0.2",
+    "com.cookapps.nuget.codeanalysis.csharp": "1.0.2",
+    "com.cookapps.package.window": "1.3.6",
+    "com.cookapps.litedb": "1.0.2",
+    "com.cookapps.inspector": "1.0.6",
+    "com.unity.editorcoroutines": "1.0.1",
+    "com.cookapps.autofac": "1.0.1",
+    "com.cookapps.coroutineutils": "1.0.7"
+  },
+  "samples": [
+    {
+      "displayName": "Sample",
+      "description": "샘플을 설치해서 사용법을 확인하세요",
+      "path": "Sample~"
+    }
+  ],
+  "keywords": [],
+  "author": {
+    "name": "CookApps",
+    "email": "tech@cookapps.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cookapps-devops/tech-package-template.git"
+  },
+  "unity": "6000.0",
+  "_fingerprint": "ecfb6ede09f18a33eef488fe39bd38587296dc16"
+}

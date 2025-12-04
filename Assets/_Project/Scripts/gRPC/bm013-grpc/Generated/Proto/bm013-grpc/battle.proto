@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+import "battle+stage.proto";
+import "battle+formation.proto";
+import "battle+enemy_unit.proto";
+
+// 전투 서비스
+service BattleService {
+  /**
+   * 스테이지 목록 조회
+   */
+  rpc ListStage(BattleListStageRequest) returns (BattleListStageResponse);
+  
+  /**
+   * 전투 시작
+   */
+  rpc Start(BattleStartRequest) returns (BattleStartResponse);
+  
+  /**
+   * 전투 종료
+   */
+  rpc End(BattleEndRequest) returns (BattleEndResponse);
+  
+  /**
+   * 스테이지 보상 수령
+   */
+  rpc ClaimReward(BattleClaimRewardRequest) returns (BattleClaimRewardResponse);
+}
+
+enum BattleErrorCode {
+  BATTLE_UNSPECIFIED = 0;
+}
+
+message BattleListStageRequest {}
+message BattleListStageResponse {
+  ResponseStatus status = 1;
+  repeated BattleStageProgress stage_list = 2;
+}
+
+message BattleStartRequest {
+  string stage_id = 1;
+  BattleStageDifficulty difficulty = 2;
+  
+  // 전투 편성
+  BattleFormation formation = 3;
+  
+  // 관측자 스킬
+  repeated string observer_skill_ids = 4;
+  
+  // 전술 연구소 설치물 (아레나용)
+  repeated TacticPlacement tactic_placements = 5;
+}
+
+message BattleStartResponse {
+  ResponseStatus status = 1;
+
+  // 전투 세션 ID
+  string battle_session_id = 2;
+  
+  // 전투 시드 (재현용)
+  uint64 battle_seed = 3;
+  
+  // 적 정보
+  repeated BattleEnemyUnit enemies = 4;
+  
+  // 스테이지 정보
+  BattleStageInfo stage_info = 5;
+}
+
+// 전투 종료 요청
+message BattleEndRequest {
+  string battle_session_id = 1;
+  BattleResult result = 2;
+}
+
+// 전투 결과
+message BattleResult {
+  bool is_victory = 1;
+  
+  // 전투 통계
+  uint64 clear_time = 2;  // 밀리초
+  uint32 stars = 3;       // 획득 별 개수 (0~3)
+  
+  // 유닛 통계
+  repeated BattleUnitStat unit_stats = 4;
+  
+  // 피해 통계
+  uint64 total_damage_dealt = 5;
+  uint64 total_damage_taken = 6;
+}
+
+// 유닛 통계
+message BattleUnitStat {
+  string character_instance_id = 1;
+  uint64 damage_dealt = 2;
+  uint64 damage_taken = 3;
+  uint32 kills = 4;
+  bool is_survived = 5;
+}
+
+// 전투 종료 응답
+message BattleEndResponse {
+  ResponseStatus status = 1;
+  
+  // 보상
+  BattleRewardType reward_type = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+  
+  // 업데이트된 스테이지 진행 정보
+  BattleStageProgress stage_progress = 4;
+  
+  // 경험치 획득
+  uint64 user_exp_gained = 5;
+  repeated BattleCharacterExpGain character_exp_gains = 6;
+}
+
+// 캐릭터 경험치 획득
+message BattleCharacterExpGain {
+  string character_instance_id = 1;
+  uint64 exp_gained = 2;
+  uint32 level_before = 3;
+  uint32 level_after = 4;
+}
+
+// 보상 타입
+enum BattleRewardType {
+  REWARD_TYPE_UNSPECIFIED = 0;
+  REWARD_TYPE_FIRST_CLEAR = 1;    // 첫 클리어 보상
+  REWARD_TYPE_THREE_STAR = 2;     // 3성 클리어 보상
+}
+
+// TODO
+message BattleClaimRewardRequest {
+}
+
+message BattleClaimRewardResponse {
+  ResponseStatus status = 1;
+}

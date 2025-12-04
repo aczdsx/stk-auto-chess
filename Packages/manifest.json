@@ -12,7 +12,7 @@
     "com.cookapps.favorites": "1.0.2",
     "com.cookapps.iap": "2.2.2",
     "com.cookapps.local.data": "4.3.0",
-    "com.cookapps.net.lite": "1.0.0",
+    "com.cookapps.net.lite": "file:LocalPackages/com.cookapps.net.lite",
     "com.cookapps.obfuscator": "1.1.5",
     "com.cookapps.platform.auth": "1.0.11",
     "com.cookapps.postprocessor": "1.0.7",

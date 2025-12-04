@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+service AuthService {
+  /**
+   * 인증에 대한 함수입니다. session_id를 발급 받습니다.
+   **/
+  rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {}
+
+  /**
+   * 인증받은 사용자의 auth_platform_list를 조회합니다.
+   **/
+  rpc List(ListRequest) returns (ListResponse) {}
+
+  /**
+   * auth_platform을 생성합니다.
+   **/
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+
+  /**
+   * 세션 expire를 갱신합니다.
+   **/
+  rpc Refresh(RefreshRequest) returns (RefreshResponse) {}
+
+  /**
+   * 사용자를 탈퇴합니다.
+   **/
+  rpc Unregister(UnregisterRequest) returns (UnregisterResponse) {}
+
+  /**
+   * 탈퇴한 사용자를 복구합니다.
+   **/
+  rpc Restore(RestoreRequest) returns (RestoreResponse) {}
+
+  /**
+   * 사용자를 즉시 삭제합니다. (복구 불가능)
+   **/
+  rpc Delete(AuthDeleteRequest) returns (AuthDeleteResponse) {}
+
+  /**
+   * 사용자의 Facebook OIDC 토큰을 검증합니다.
+   **/
+  rpc VerifyFacebookOidcToken(VerifyFacebookOidcTokenRequest) returns (VerifyFacebookOidcTokenResponse) {}
+}
+
+enum AuthErrorCode {
+  AUTH_UNSPECIFIED = 0;
+  AUTH_INVALID_AUTH_PLATFORM = 1000; // 잘못된 인증 플랫폼
+  AUTH_BANNED = 1001; // 벤된 사용자
+  AUTH_CANNOT_DELETE_AUTH = 1002; // 인증 삭제 불가
+  AUTH_INACTIVE_USER = 1003; // 비활성화된 사용자
+  AUTH_NOT_FOUND_USER = 1004; // 사용자 없음
+  AUTH_INCLUDING_NOT_REGISTERED_PLATFORM = 1005; // uid에 이미 매칭된 플랫폼 auth id가 있는데 다른 auth id로 로그인시도할 경우
+  AUTH_RESTORE_NOT_UNREGISTERED_USER = 1006; // 비활성화가 아닌 상태에서 복구 시도
+  AUTH_INVALID_FACEBOOK_OIDC_TOKEN = 1007; // 잘못된 Facebook OIDC 토큰
+  AUTH_FACEBOOK_OIDC_TOKEN_EXPIRED = 1008; // Facebook OIDC 토큰 만료
+  AUTH_FACEBOOK_OIDC_METADATA_FETCH_FAILED = 1009; // Facebook OIDC 메타데이터 조회 실패
+  AUTH_FACEBOOK_OIDC_JWKS_URI_NOT_FOUND = 1010; // Facebook OIDC JWKS URI 조회 실패
+}
+
+message AuthenticateRequest {
+  repeated AuthData auth_platform_list = 1;
+}
+
+message AuthenticateResponse {
+  ResponseStatus status = 1;
+  AuthenticateData data = 2;
+}
+
+message RandomData {
+  string seed = 1;
+  uint32 count = 2;
+}
+
+message AuthenticateData {
+  string session_id = 1;
+  uint32 uid = 2;
+  bool is_new_user = 3;
+  bool is_device_id_changed = 4;
+  string player_id = 5;
+  uint32 server_id = 6;
+  RandomData random = 7;
+  string country_code = 8;
+}
+
+enum AuthPlatform {
+  AUTH_PLATFORM_UNSPECIFIED = 0; // 미사용
+  AUTH_PLATFORM_GOOGLE = 1;      // 구글
+  AUTH_PLATFORM_GPGS = 2;        // Google PlayGames Service
+  AUTH_PLATFORM_APPLE = 3;       // 애플
+  AUTH_PLATFORM_GAME_CENTER = 4; // 애플 게임센터
+  AUTH_PLATFORM_FACEBOOK = 5;    // 페이스북
+  AUTH_PLATFORM_GUEST = 6;       // 게스트
+  AUTH_PLATFORM_AMAZON = 7;      // 아마존
+}
+
+message ListRequest {}
+
+message AuthData {
+  AuthPlatform platform = 1;
+  string auth_id = 2;
+}
+
+message ListResponse {
+  ResponseStatus status = 1;
+  repeated AuthData item_list = 2;
+}
+
+message CreateRequest {
+  AuthPlatform platform = 1;
+  string auth_id = 2;
+}
+message CreateResponse {
+  ResponseStatus status = 1;
+}
+
+message RefreshRequest {}
+message RefreshResponse {
+  ResponseStatus status = 1;
+}
+
+message UnregisterRequest {}
+message UnregisterResponse {
+  ResponseStatus status = 1;
+  uint32 uid = 2;
+}
+
+message RestoreRequest {
+  repeated AuthData auth_platform_list = 1;
+}
+
+message RestoreResponse {
+  ResponseStatus status = 1;
+}
+
+message AuthDeleteRequest {}
+message AuthDeleteResponse {
+  ResponseStatus status = 1;
+}
+
+message VerifyFacebookOidcTokenRequest {
+  string token = 1; // Facebook OIDC 토큰
+  string nonce = 2; // Facebook OIDC 토큰의 nonce 값
+}
+
+message VerifyFacebookOidcTokenResponse {
+  ResponseStatus status = 1;
+  int32 exp = 2; // 토큰 만료 시간
+  string sub = 3; // 토큰 주체(User ID)
+}

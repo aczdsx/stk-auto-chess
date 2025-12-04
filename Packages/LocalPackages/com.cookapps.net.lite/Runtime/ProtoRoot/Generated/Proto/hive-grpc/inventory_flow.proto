@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "inventory_flow+base.proto";
+
+service InventoryFlowService {
+  /**
+   * 사용자가 거래한 목록을 조회합니다.
+   */
+  rpc List(InventoryFlowListRequest) returns (InventoryFlowListResponse) {}
+
+  /**
+   * 확인처리 하지 않은 거래를 수행합니다.
+   hard, premium currency는 이미 서버에서 적용됐기 때문에 soft currency를 Client에서 처리하고 쏘면 됩니다.
+   */
+  rpc Confirm(InventoryFlowConfirmRequest) returns (InventoryFlowConfirmResponse) {}
+
+  /**
+   * 여러 개의 확인처리 하지 않은 거래를 수행합니다.
+    * include_ids 는 포함할 거래 id 배열입니다.
+   */
+  rpc ConfirmBulk(InventoryFlowConfirmBulkRequest) returns (InventoryFlowConfirmBulkResponse) {}
+}
+
+enum InventoryFlowErrorCode {
+  INVENTORY_FLOW_UNSPECIFIED = 0;
+  INVENTORY_FLOW_INVALID_ERROR = 1201;
+  INVENTORY_FLOW_ALREADY_REWARDED = 1202; // 이미 보상을 받은 inventory_flow을 다시 보상을 받으려고 할 때
+  INVENTORY_FLOW_NOT_FOUND_INVENTORY_FLOW = 1203; // 해당하는 inventory_flow을 찾을 수 없을 때
+}
+
+message InventoryFlowListRequest {
+  CursorInfo cursor = 1;
+}
+
+message InventoryFlowListResponse {
+  ResponseStatus status = 1;
+  CursorMeta meta = 2;
+  repeated BaseInventoryFlowData item_list = 3;
+}
+
+message InventoryFlowConfirmRequest {
+  /**
+   * InventoryFlowId
+   */
+  string id = 1;
+}
+
+message InventoryFlowConfirmResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData item = 2;
+}
+
+message InventoryFlowConfirmBulkRequest {
+  /**
+   * InventoryFlowId
+   */
+  repeated string include_ids = 1;
+
+  /**
+   * 모든 거래를 확인처리 할지 여부
+   */
+  bool is_all_confirm = 2;
+}
+
+message InventoryFlowConfirmBulkResponse {
+  ResponseStatus status = 1;
+  repeated BaseInventoryFlowData item_list = 2;
+}

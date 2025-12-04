@@ -1,0 +1,32 @@
+syntax = "proto3";
+package tech.hive.v1;
+
+// 장비 공통 능력치 옵션
+message EquipmentStatOption {
+  EquipmentStatType stat_type = 1;
+  float value = 2;
+  bool is_percentage = 3;  // true: %, false: 절대값
+}
+
+// 장비 공통 능력치 타입
+enum EquipmentStatType {
+  STAT_TYPE_UNSPECIFIED = 0;
+  STAT_TYPE_HP = 1;
+  STAT_TYPE_PHYSICAL_ATTACK = 2;
+  STAT_TYPE_MAGICAL_ATTACK = 3;
+  STAT_TYPE_PHYSICAL_DEFENSE = 4;
+  STAT_TYPE_MAGICAL_DEFENSE = 5;
+  STAT_TYPE_MOVE_SPEED = 6;
+  STAT_TYPE_ATTACK_SPEED = 7;
+  STAT_TYPE_CRITICAL_RATE = 8;
+  STAT_TYPE_CRITICAL_DAMAGE = 9;
+  STAT_TYPE_ACCURACY = 10;
+  STAT_TYPE_EVASION = 11;
+  STAT_TYPE_BLOCK_RATE = 12;
+  STAT_TYPE_PHYSICAL_PENETRATION = 13;
+  STAT_TYPE_MAGICAL_PENETRATION = 14;
+  STAT_TYPE_PHYSICAL_RESISTANCE = 15;
+  STAT_TYPE_MAGICAL_RESISTANCE = 16;
+  STAT_TYPE_HEALING_BONUS = 17;
+  STAT_TYPE_DAMAGE_REDUCTION = 18;
+}

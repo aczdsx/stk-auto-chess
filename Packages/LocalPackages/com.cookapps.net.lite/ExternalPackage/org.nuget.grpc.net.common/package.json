@@ -1,0 +1,1 @@
+{"name":"org.nuget.grpc.net.common","displayName":"Grpc.Net.Common (NuGet)","version":"2.57.0","unity":"2019.1","description":"Infrastructure for common functionality in gRPC","keywords":["nuget","gRPC","RPC","HTTP/2"],"category":null,"dependencies":{"org.nuget.grpc.core.api":"2.57.0"}}

@@ -1,0 +1,21 @@
+{
+    "name": "CookApps.NetLite.Editor",
+    "rootNamespace": "CookApps.NetLite.Editor",
+    "references": [
+        "GUID:15b7422917fe3a14981907017b34f7bd",
+        "GUID:171a12d22dd697c46a59149bb37f1580",
+        "GUID:478a2357cc57436488a56e564b08d223",
+        "GUID:11bf3d5e22ea0904c9b5472de4f579b1"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

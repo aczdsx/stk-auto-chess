@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "inventory_flow+base.proto";
+
+service UserInventoryService {
+  /**
+   * UserInventory 목록을 조회합니다.
+   */
+  rpc List(UserInventoryListRequest) returns (UserInventoryListResponse) {}
+
+  /**
+    * UserInventory를 조회합니다.
+    */
+  rpc Get(UserInventoryGetRequest) returns (UserInventoryGetResponse) {}
+
+  /**
+    * UserInventory 내 아이템을 사용합니다.
+    */
+  rpc Use(UserInventoryUseRequest) returns (UserInventoryUseResponse) {}
+
+   /**
+    * InventoryId를 변경합니다.
+    */
+  rpc ChangeInventoryId(UserInventoryChangeInventoryIdRequest) returns (UserInventoryChangeInventoryIdResponse) {}
+}
+
+enum UserInventoryErrorCode {
+  USER_INVENTORY_UNSPECIFIED = 0;
+  USER_INVENTORY_INVALID_ERROR = 1801;
+  USER_INVENTORY_NOT_FOUND = 1804;
+  USER_INVENTORY_NOT_ENOUGH_ITEM = 1805; // 유저 아이템 수량이 부족할 때
+  USER_INVENTORY_FAILED_CHANGE_ITEM = 1806; // 유저 아이템 change 실패
+}
+
+/**
+  * 카테고리와 아이템 목록이 모두 빈배열일 경우, 유저 인벤토리를 전체 조회합니다.
+  */
+message UserInventoryListRequest {
+  PaginationInfo pagination = 1;
+  /**
+    * 아이템 아이디 목록, 빈배열일 경우 무시합니다.
+    */
+  repeated uint32 item_ids = 3;
+}
+
+message UserInventoryInfo {
+  string id = 1;
+  uint32 item_id = 4;
+  uint32 count = 5;
+  string metadata = 6;
+}
+
+message UserInventoryListResponse {
+  ResponseStatus status = 1;
+  PaginationMeta meta = 2;
+  repeated UserInventoryInfo item_list = 3;
+}
+
+message UserInventoryGetRequest {
+  string id = 1;
+}
+
+message UserInventoryGetResponse {
+  ResponseStatus status = 1;
+  UserInventoryInfo item = 2;
+}
+
+message UserInventoryUseRequest {
+  repeated BaseUseInventory item_list = 1;
+  string reason = 2; // 사용 출처 (ex. gacha, ingame)
+}
+
+message UserInventoryUseResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+}
+
+message UserInventoryChangeInventoryIdItem {
+  string id = 1;
+  string new_id = 2;
+}
+
+message UserInventoryChangeInventoryIdRequest {
+  repeated UserInventoryChangeInventoryIdItem item_list = 1;
+}
+
+message UserInventoryChangeInventoryIdResponse {
+  ResponseStatus status = 1;
+}

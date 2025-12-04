@@ -1,0 +1,1 @@
+{"name":"org.nuget.grpc.core.api","displayName":"Grpc.Core.Api (NuGet)","version":"2.57.0","unity":"2019.1","description":"gRPC C# Surface API","keywords":["nuget","gRPC","RPC","HTTP/2"],"category":null,"dependencies":{"org.nuget.system.memory":"4.5.3"}}

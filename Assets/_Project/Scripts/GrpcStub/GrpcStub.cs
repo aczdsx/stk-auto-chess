@@ -108,66 +108,66 @@ namespace Tech.Hive.V1
     }
 
     // gRPC 응답 클래스에 IsError 속성을 추가
-    // public sealed partial class PlayerDataListResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PlayerDataSetResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PvpGetProfileResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PvpGetInfoResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PvpListMatchResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PvpListPvpRankResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PvpListMatchHistoryResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PvpUpdateProfileResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PvpMatchResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class ServerListResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class ServerJoinResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
-    // public sealed partial class PlayerCreateResponse
-    // {
-    //     public bool IsError => Status?.Code != 0;
-    // }
-    //
+    public sealed partial class PlayerDataListResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PlayerDataSetResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PvpGetProfileResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PvpGetInfoResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PvpListMatchResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PvpListPvpRankResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PvpListMatchHistoryResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PvpUpdateProfileResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PvpMatchResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class ServerListResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class ServerJoinResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+    
+    public sealed partial class PlayerCreateResponse
+    {
+        public bool IsError => Status?.Code != 0;
+    }
+
     public sealed partial class GetLastPlayerResponse
     {
         public bool IsError => false; // Status?.Code != 0;

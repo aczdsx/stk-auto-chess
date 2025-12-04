@@ -1,0 +1,9 @@
+<linker>
+    <assembly fullname="CookApps.NetLite">
+        <type fullname="CookApps.NetLite.*" preserve="all"/>
+        <type fullname="Tech.Hive.*" preserve="all"/>
+    </assembly>
+	<assembly fullname="Cysharp.Net.Http.YetAnotherHttpHandler">
+        <type fullname="Cysharp.Net.Http.*" preserve="all"/>
+    </assembly>
+</linker>

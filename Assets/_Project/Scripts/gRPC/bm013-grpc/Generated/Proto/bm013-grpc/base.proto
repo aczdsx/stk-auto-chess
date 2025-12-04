@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+message ResponseStatus {
+  uint32 code = 1;
+  optional string message = 2;
+  uint32 timestamp = 3;
+  optional string trace_id = 4;
+}
+
+message PaginationInfo {
+  uint32 page = 1;
+  uint32 limit = 2;
+}
+
+message PaginationMeta {
+  uint32 total_page = 1;
+  uint32 current_page = 2;
+  uint32 total_count = 3;
+  uint32 current_count = 4;
+}
+
+message CursorInfo {
+  optional string cursor = 1;
+  uint32 limit = 2;
+}
+
+message CursorMeta {
+  optional string cursor = 1;
+  bool is_end = 2;
+  uint32 currentCount = 3;
+}

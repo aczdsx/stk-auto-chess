@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+message BaseUseInventory {
+  /**
+   * InventoryId
+   */
+  optional string id = 1;
+
+  /**
+   * ItemId
+   */
+  uint32 item_id = 2;
+
+  /**
+   * 개수
+   */
+  uint32 count = 3;
+}
+
+message InventoryFlowItem {
+  uint32 item_id = 1;
+  uint32 count = 2;
+  optional string metadata = 3;
+}
+
+message InventoryReward {
+  /**
+   * InventoryId
+   */
+  string id = 1;
+
+  /**
+   * ItemId
+   */
+  uint32 item_id = 2;
+
+  /**
+   * 변화량
+   */
+  uint32 change_count = 3;
+
+  /**
+   * 변화 후 수량
+   */
+  uint32 after_count = 4;
+}
+
+message InventoryConsume {
+  /**
+   * InventoryId
+   */
+  string id = 1;
+
+  /**
+   * ItemId
+   */
+  uint32 item_id = 2;
+
+  /**
+   * 변화량 (3개를 빼면 -3이 아닌 3)
+   */
+  uint32 change_count = 3;
+
+  /**
+   * 변화 후 수량
+   */
+  uint32 after_count = 4;
+}
+
+message InventoryChange {  
+  /**
+   * InventoryId
+   */
+  string id = 1;
+
+  /**
+   * ItemId
+   */
+  uint32 item_id = 2;
+
+  /**
+   * 메타데이터
+   * 변경되는 모든 메타데이터가 담김.
+   */
+  string metadata = 6;
+}
+
+message BaseInventoryFlowData {
+  /**
+   * InventoryFlowId
+   */
+  string id = 1;
+
+  /**
+   * PlayerId
+   */
+  string player_id = 2;
+
+  /**
+   * 단순히 개수가 증가할 때 사용됨
+   */
+  repeated InventoryReward rewards = 3;
+
+  /**
+   * 단순히 개수가 감소할 때 사용됨
+   */
+  repeated InventoryConsume consumes = 4;
+
+  /**
+   * 메타데이터가 변경될 때 사용됨.
+   */
+  repeated InventoryChange changes = 5;
+
+  /**
+   * 클라 확인 시간
+   */
+  optional string confirmed_at = 6;
+
+  /**
+   * 생성 시간
+   */
+  string created_at = 7;
+
+  /**
+   * 클라에서 확인하기 위한 고유 request id
+   */
+  optional string request_id = 8;
+
+  /**
+   * 서버에서 보낸 response 데이터
+   */
+  optional bytes response = 9;
+}

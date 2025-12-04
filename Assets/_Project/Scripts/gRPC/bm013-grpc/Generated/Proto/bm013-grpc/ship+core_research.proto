@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+// ========== 코어 연구소 ==========
+
+// 코어 연구 타입
+enum CoreResearchType {
+  CORE_RESEARCH_TYPE_UNSPECIFIED = 0;
+  CORE_RESEARCH_TYPE_ATTACK = 1;      // 공격력 증강
+  CORE_RESEARCH_TYPE_DEFENSE = 2;     // 방어력 증강
+  CORE_RESEARCH_TYPE_HP = 3;          // 체력 증강
+  CORE_RESEARCH_TYPE_ACCURACY = 4;    // 명중률 증강
+  CORE_RESEARCH_TYPE_EVASION = 5;     // 회피율 증강
+}
+
+// 코어 연구 정보
+message CoreResearch {
+  CoreResearchType type = 1;
+  uint32 level = 2;
+  uint32 max_level = 3;
+}

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+// 시설 타입
+enum ShipFacilityType {
+  FACILITY_TYPE_UNSPECIFIED = 0;
+  FACILITY_TYPE_COMMAND_CENTER = 1;     // 커멘드 센터
+  FACILITY_TYPE_DORMITORY = 2;          // 숙소
+  FACILITY_TYPE_CORE_LAB = 3;           // 코어 연구소
+  FACILITY_TYPE_TACTIC_LAB = 4;         // 전술 연구소
+  FACILITY_TYPE_SIMULATION_CENTER = 5;  // 전투 시뮬레이션 센터
+  FACILITY_TYPE_TRAINING_ROOM = 6;      // 단련실
+  FACILITY_TYPE_CAFETERIA = 7;          // 식당
+  FACILITY_TYPE_BATTLE_ARCHIVE = 8;     // 전투 기록관
+}
+
+// 시설 정보
+message ShipFacility {
+  string instance_id = 1;
+  ShipFacilityType type = 2;
+  
+  uint32 level = 3;
+  uint32 max_level = 4;
+  
+  // 건설 시간
+  uint64 built_at = 5;
+  
+  // 위치 정보 (그리드 좌표)
+  int32 grid_x = 6;
+  int32 grid_y = 7;
+}

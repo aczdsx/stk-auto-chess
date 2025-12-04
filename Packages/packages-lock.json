@@ -188,9 +188,9 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.net.lite": {
-      "version": "1.0.0",
+      "version": "file:LocalPackages/com.cookapps.net.lite",
       "depth": 0,
-      "source": "registry",
+      "source": "local",
       "dependencies": {
         "com.cookapps.nuget.common": "1.0.2",
         "com.cookapps.nuget.codeanalysis.csharp": "1.0.2",
@@ -200,8 +200,7 @@
         "com.unity.editorcoroutines": "1.0.1",
         "com.cookapps.autofac": "1.0.1",
         "com.cookapps.coroutineutils": "1.0.7"
-      },
-      "url": "http://packages.tech.cookapps.com"
+      }
     },
     "com.cookapps.network": {
       "version": "1.0.4",

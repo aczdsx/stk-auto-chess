@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "inventory_flow+base.proto";
+
+service ShopService {
+  /**
+   * IAP 결제 없이 인게임 상품을 구매합니다.
+   */
+  rpc Purchase(ShopPurchaseRequest) returns (ShopPurchaseResponse) {}
+
+  /**
+   * IAP 결제를 통한 상품을 구매합니다.
+   */
+  rpc PurchaseWithIap(ShopPurchaseWithIapRequest) returns (ShopPurchaseWithIapResponse) {}
+
+  /**
+   * 구매 내역을 조회합니다.
+   */
+  rpc ListPurchaseHistory(ShopListPurchaseHistoryRequest) returns (ShopListPurchaseHistoryResponse) {}
+}
+
+enum ShopErrorCode {
+  SHOP_UNSPECIFIED = 0;
+  SHOP_ITEM_NOT_FOUND = 3000; // 상품을 찾을 수 없음
+  SHOP_ITEM_NOT_ENABLED = 3001; // 상품이 비활성화 상태
+  SHOP_REQUIRED_CASH_CHECK = 3002; // 캐시 체크가 필요함
+  SHOP_IAP_INVALID_ERROR = 3003; // IAP 인증 오류
+  SHOP_DUPLICATE_ORDER_ID = 3004; // 중복된 Order ID
+  SHOP_INVALID_ORDER_ID = 3005; // 유효하지 않은 Order ID
+  SHOP_CAN_NOT_CONSUME = 3006; // 상품을 소비할 수 없음
+}
+
+message ShopPurchaseRequest {
+  string id = 1;
+}
+
+message ShopPurchaseResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+}
+
+message ShopPurchaseWithIapRequest {
+  string id = 1;
+  /**
+   * 결제 정보
+   * 1: Google Play
+   * 2: One Store
+   * 3: Amazon
+   * 4: Apple App Store
+   * 5: Galaxy Store
+   */
+  uint32 store = 2;
+  string receipt = 3;         // 결제 영수증
+  /**
+    * 스토어에 등록된 상품 ID
+    * 2025.03.25 ServerShop 시트에 product_id 컬럼에 등록해야함.
+    */
+  // string product_id = 4;
+  string order_id = 5;        // 구글:오더ID, 애플:트랜잭션ID
+  string currency_price = 6;  // 결제 금액
+  string currency_code = 7;   // ex. KRW, USD
+  /**
+   * 게임 내 상품 ID
+   * 2025.03.25 ServerShop 시트에 ingame_product_id 컬럼에 등록해야함.
+   */
+  // optional string ingame_product_id = 8;
+}
+
+message IapVerifyResult {
+  string order_id = 1;    // Order ID ex. 구글=GPA-XXX.. 애플=트랜잭션ID
+  string product_id = 2;  // Product ID
+  bool is_test = 3;       // 테스트 결제 여부
+}
+
+message ShopPurchaseWithIapResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+  IapVerifyResult data = 3;
+}
+
+message ShopListPurchaseHistoryRequest {
+  CursorInfo cursor = 1;
+  optional string player_id = 2;
+  optional string shop_id = 3;
+  optional string shop_type = 4;
+}
+
+message ShopPurchaseHistoryItem {
+  string id = 1;
+  string player_id = 2;
+  string shop_id = 3;
+  string shop_type = 4;
+}
+
+message ShopListPurchaseHistoryResponse {
+  ResponseStatus status = 1;
+  CursorMeta meta = 2;
+  repeated ShopPurchaseHistoryItem item_list = 3;
+}
