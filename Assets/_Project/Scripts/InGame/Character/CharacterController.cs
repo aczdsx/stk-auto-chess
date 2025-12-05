@@ -1363,6 +1363,17 @@ namespace CookApps.BattleSystem
             }
         }
 
+        public void ForceMoveTile(InGameTile tile, float? customMoveSpeed = null)
+        {
+            if (SpecCharacter.move_speed > 0)
+            {
+                OnTileMoveEnd();
+                GetCharacterView().LookAt(CurrentTile, tile);
+                ChangeOccupiedTile(tile);
+                AddNextState<CharacterStateForceMove>(customMoveSpeed);
+            }
+        }
+
         public InGameVfxTargetLine SetLine(CharacterController character, bool isOwn, Action<InGameVfxTargetLine> onComplete = null)
         {
             var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TargetLineRenderer, Position3D);
