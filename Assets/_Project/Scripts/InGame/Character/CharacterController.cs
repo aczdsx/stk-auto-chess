@@ -1055,8 +1055,7 @@ namespace CookApps.BattleSystem
                 _currHp = 0;
                 IsAlive = false;
 
-                if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat
-                    || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+                if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
                 {
                     switch (damageInfo.attackerType)
@@ -1125,8 +1124,7 @@ namespace CookApps.BattleSystem
 
         private void KillEffectCode(CharacterController deadCharacter)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat
-            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
             || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
             {
                 bool isPlayer = _allianceType == AllianceType.Player;

@@ -92,41 +92,6 @@ namespace Tech.Hive.V1
         public bool IsError => false;
     }
 
-    public sealed partial class PvpGetProfileResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class PvpGetInfoResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class PvpListMatchResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class PvpListPvpRankResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class PvpListMatchHistoryResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class PvpUpdateProfileResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class PvpMatchResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
     public sealed partial class PlayerCreateResponse
     {
         public bool IsError => Status?.Code != 0;
@@ -158,7 +123,6 @@ namespace CookApps.AutoBattler
         public LobbyService Lobby { get; }
         public PlayerDataService PlayerData { get; }
         public PlayerService Player { get; }
-        public StkautoPvpService StkautoPvp { get; }
         public SpecService Spec { get; }
 
         private GrpcManager()
@@ -167,7 +131,6 @@ namespace CookApps.AutoBattler
             Lobby = new LobbyService();
             PlayerData = new PlayerDataService();
             Player = new PlayerService();
-            StkautoPvp = new StkautoPvpService();
             Spec = new SpecService();
         }
 
@@ -259,72 +222,6 @@ namespace CookApps.AutoBattler
         public UniTask<PlayerCreateResponse> CreateAsync(uint _, string __)
         {
             var response = new PlayerCreateResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-    }
-
-    public class StkautoPvpService
-    {
-        public UniTask<PvpGetProfileResponse> GetPvpProfileAsync(string _, int __)
-        {
-            var response = new PvpGetProfileResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-
-        public UniTask<PvpGetInfoResponse> GetPvpInfoAsync()
-        {
-            var response = new PvpGetInfoResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-
-        public UniTask<PvpListMatchResponse> GetPvpMatchListAsync()
-        {
-            var response = new PvpListMatchResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-
-        public UniTask<PvpListPvpRankResponse> ListPvpRankAsync(int _)
-        {
-            var response = new PvpListPvpRankResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-
-        public UniTask<PvpListMatchHistoryResponse> GetPvpMatchHistory(uint _, uint __)
-        {
-            var response = new PvpListMatchHistoryResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-
-        public UniTask<PvpUpdateProfileResponse> UpdatePvpProfile(int _, string __, string ___)
-        {
-            var response = new PvpUpdateProfileResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-
-        public UniTask<PvpMatchResponse> MatchPvp(PvpMatchResult _, string __, string ___, int ____)
-        {
-            var response = new PvpMatchResponse
             {
                 Status = new ResponseStatus { Code = 1 }
             };

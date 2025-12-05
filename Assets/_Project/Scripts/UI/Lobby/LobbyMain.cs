@@ -38,7 +38,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _trialDungeonButton;
         [SerializeField] private CAButton _sessionEventButton;
         [SerializeField] private CAButton _consumeAPEventButton;
-        [SerializeField] private CAButton _EnterArenaButton;
         [SerializeField] private CAButton _userAccountLayerButton;
         [SerializeField] private CAButton _settingButton;
 
@@ -82,7 +81,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _sessionTimeEventReddotObject;
         [SerializeField] private GameObject _useAPEventReddotObject;
         [SerializeField] private GameObject _trialDungeonReddotObject;
-        [SerializeField] private GameObject _pvpArenaReddotObject;
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -109,7 +107,6 @@ namespace CookApps.AutoBattler
             _trialDungeonButton.onClick.AddListener(OnClickTrialDungeonButton);
             _sessionEventButton.onClick.AddListener(OnClickSessionEventButton);
             _consumeAPEventButton.onClick.AddListener(OnClickConsumeAPEventButton);
-            _EnterArenaButton.onClick.AddListener(OnClickEnterArenaButton);
             _userAccountLayerButton.onClick.AddListener(OnClickUserAccountLayerButton);
             _settingButton.onClick.AddListener(OnClickSettingButton);
         }
@@ -127,7 +124,6 @@ namespace CookApps.AutoBattler
             _trialDungeonButton.onClick.RemoveListener(OnClickTrialDungeonButton);
             _sessionEventButton.onClick.RemoveListener(OnClickSessionEventButton);
             _consumeAPEventButton.onClick.RemoveListener(OnClickConsumeAPEventButton);
-            _EnterArenaButton.onClick.RemoveListener(OnClickEnterArenaButton);
             _userAccountLayerButton.onClick.RemoveListener(OnClickUserAccountLayerButton);
             _settingButton.onClick.RemoveListener(OnClickSettingButton);
         }
@@ -648,12 +644,6 @@ namespace CookApps.AutoBattler
 
             _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
 
-            // 아레나 PVP 레드닷
-            bool isAvailPlayPVP = false;
-
-            isAvailPlayPVP = UserDataManager.Instance.UserWallet.PvpTicket > 0;
-
-            _pvpArenaReddotObject.SetActive(isAvailPlayPVP);
         }
 
         private void OnClickCommanderSkillButton()
@@ -846,13 +836,6 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentUserEventData).Forget();
         }
 
-        private void OnClickEnterArenaButton()
-        {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
-            SceneUILayerManager.Instance.PushUILayerAsync<ArenaMainPopup>().Forget();
-        }
-
         private void OnClickUserAccountLayerButton()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
@@ -880,7 +863,6 @@ namespace CookApps.AutoBattler
             _gachaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SUMMON));
             _questButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.QUEST));
             _trialDungeonButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.TRIAL_DUNGEON));
-            _EnterArenaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.PVP));
             _sessionEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SESSION_TIME));
             _consumeAPEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.AP_USE));
         }

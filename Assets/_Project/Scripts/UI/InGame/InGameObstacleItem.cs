@@ -6,6 +6,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public class TestObstacle
+{
+    public int ID;
+    // 기타 장애물 속성들...
+}
+
 public class InGameObstacleItem : MonoBehaviour
 {
     private const float LONG_PRESS_DURATION = 0.5f;
