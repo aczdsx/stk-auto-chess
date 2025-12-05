@@ -19,10 +19,24 @@ namespace CookApps.Editor
             ProtoBufCleanupSetting.LoadOrCreate();
         }
 
-        [MenuItem("CookApps/gRPC/bm013 정리/불필요 파일 삭제")]
+        [MenuItem("Tools/ProtoBufCleaner/불필요한 Proto 파일 삭제")]
         public static void CleanViaMenu()
         {
             CleanInternal(forceLog: true);
+        }
+
+        [MenuItem("Tools/ProtoBufCleaner/설정 열기")]
+        public static void OpenSettingAsset()
+        {
+            var asset = ProtoBufCleanupSetting.LoadOrCreate();
+            if (asset == null)
+            {
+                return;
+            }
+
+            Selection.activeObject = asset;
+            EditorGUIUtility.PingObject(asset);
+            EditorUtility.FocusProjectWindow();
         }
 
         private static void CleanInternal(bool forceLog = false)
