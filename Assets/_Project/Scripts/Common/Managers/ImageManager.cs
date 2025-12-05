@@ -60,11 +60,8 @@ namespace CookApps.AutoBattler
                 case SynergyType.WIND:
                     spriteName = isActive ? "Icon_Wind_Active" : "Icon_Wind_Locked";
                     break;
-                case SynergyType.LIGHT:
-                    spriteName = isActive ? "Icon_Light_Active" : "Icon_Light_Locked";
-                    break;
-                case SynergyType.DARK:
-                    spriteName = isActive ? "Icon_Dark_Active" : "Icon_Dark_Locked";
+                case SynergyType.LIGHTNING:
+                    spriteName = isActive ? "Icon_Lightning_Active" : "Icon_Lightning_Locked";
                     break;
                 case SynergyType.TANK:
                     spriteName = isActive ? "Icon_Position_Tank_Active" : "Icon_Position_Tank_Locked";

@@ -15,9 +15,9 @@ namespace CookApps.BattleSystem
         public abstract void StateEnd(bool isForced);
     }
 
-    public abstract class StateCombatBase : StateBase
+    public abstract class StateCombatStepBase : StateBase
     {
-        protected void AddSynergy(AllianceType callerAllianceType)
+        public void AddSynergy(AllianceType callerAllianceType)
         {
             SynergyType synergyType = SynergyType.NONE;
             for (int i = (int)synergyType + 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
@@ -46,6 +46,14 @@ namespace CookApps.BattleSystem
             }
         }
 
+        public void TidyUpPreviewSynergy(AllianceType callerAllianceType)
+        {
+            foreach (var character in InGameObjectManager.Instance.GetCharacterList(callerAllianceType))
+            {
+                character.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(character);
+            }
+        }
+
         protected void AddPassive(AllianceType allianceType)
         {
             var specDataManagerInstance = SpecDataManager.Instance;
@@ -65,7 +73,6 @@ namespace CookApps.BattleSystem
 
         private void AddSynergyAllMember(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData)
         {
-
             foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
             {//이건 무조건 주입하는 함수
                 character.InjectSynergy(effectCodeId, synergyData);
@@ -106,7 +113,12 @@ namespace CookApps.BattleSystem
         }
     }
 
-    public abstract class StateReadyBase : StateBase
+    public abstract class StateCombatBase : StateCombatStepBase
+    {
+        
+    }
+
+    public abstract class StateReadyBase : StateCombatStepBase
     {
         protected async UniTaskVoid StartDrawingLinesAsync(float intervalITime)
         {

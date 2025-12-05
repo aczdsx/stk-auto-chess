@@ -5,6 +5,7 @@ using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
+using PrimeTween;
 
 namespace CookApps.AutoBattler
 {
@@ -51,6 +52,8 @@ namespace CookApps.AutoBattler
         private bool _cachedFlipX;
         private bool _cachedFront;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
+        private Tween _viewScaleTween;
+
 
         public Transform SkillRootTransform => _skillRootTransform;
         public Transform ProjectileFrontTransform => _projectileFrontTransform;
@@ -291,12 +294,28 @@ namespace CookApps.AutoBattler
 
             SetFlipOrNot();
         }
+
         public void AddViewScale(float viewScale)
         {
+            Ease ease = Ease.OutElastic;
+            _viewScaleTween = Tween.Custom(
+                _rotateionRootTransform.localScale,
+                _rotateionRootTransform.localScale + new Vector3(viewScale, viewScale, viewScale),
+                0.5f,
+                (Vector3 value) =>
+                {
+                    _rotateionRootTransform.localScale = value;
+                },
+                ease: ease);
+        }
+
+        public void RemoveViewScale(float viewScale)
+        {
+            _viewScaleTween.Stop();
             Vector3 scale = _rotateionRootTransform.localScale;
-            scale.x += viewScale;
-            scale.y += viewScale;
-            scale.z += viewScale;
+            scale.x -= viewScale;
+            scale.y -= viewScale;
+            scale.z -= viewScale;
             _rotateionRootTransform.localScale = scale;
         }
 

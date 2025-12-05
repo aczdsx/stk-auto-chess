@@ -10,24 +10,26 @@ public static class ElementAdvantageHelper
     {
         NONE = 0,
         ADVANTAGE = 1,  // 유리 (공격자가 방어자에게 유리)
-        RESIST = 2      // 불리 (공격자가 방어자에게 불리)
+        RESIST = 2,      // 불리 (공격자가 방어자에게 불리)
+        EQUAL = 3,       // 동일 (공격자와 방어자의 속성이 동일)
     }
 
     /// <summary>
-    /// 속성 상성 체인 순서: Fire → Wind → Light → Earth → Water → Fire (순환)
+    /// 속성 상성 체인 순서: Fire → Wind → Lightning → Earth → Water → Fire (순환)
     /// </summary>
     private static readonly SynergyType[] _advantageElementChain = new SynergyType[]
     {
         SynergyType.FIRE,
         SynergyType.WIND,
-        SynergyType.LIGHT,
+        SynergyType.LIGHTNING,
         SynergyType.EARTH,
         SynergyType.WATER
     };
-    private static readonly string[] _elementAdvantageTexts = new string[] { "WEAK!", "RESIST!" };
+    private static readonly string[] _elementAdvantageTexts = new string[] { "WEAK!", "RESIST!", "EQUAL!" };
 
-    public const float ADVANTAGE_MULTIPLIER = 1.1f;
-    public const float RESIST_MULTIPLIER = 0.9f;
+    public const float ADVANTAGE_MULTIPLIER = 1.25f;
+    public const float RESIST_MULTIPLIER = 0.75f;
+    public const float EQUAL_MULTIPLIER = 0.9f;
 
     /// <summary>
     /// 공격자와 방어자의 속성 상성 관계를 반환합니다.
@@ -50,6 +52,10 @@ public static class ElementAdvantageHelper
         {
             return ElementAdvantageResult.RESIST;
         }
+        else if (attackerElementType == defenderElementType)
+        {
+            return ElementAdvantageResult.EQUAL;
+        }
 
         return ElementAdvantageResult.NONE;
     }
@@ -64,6 +70,10 @@ public static class ElementAdvantageHelper
         {
             return _elementAdvantageTexts[1];
         }
+        else if (elementAdvantageResult == ElementAdvantageResult.EQUAL)
+        {
+            return _elementAdvantageTexts[2];
+        }
         return string.Empty;
     }
 
@@ -77,7 +87,7 @@ public static class ElementAdvantageHelper
 
        /// <summary>
     /// 체인에서 주어진 속성의 우위 속성 반환
-    /// Fire → Wind → Light → Earth → Water → Fire (순환)
+    /// Fire → Wind → Lightning → Earth → Water → Fire (순환)
     /// </summary>
     private static SynergyType GetNextInChain(SynergyType elementType)
     {
@@ -92,7 +102,7 @@ public static class ElementAdvantageHelper
     
     /// <summary>
     /// 체인에서 주어진 속성의 역상성 속성 반환
-    /// Fire ← Wind ← Light ← Earth ← Water ← Fire (역순환)
+    /// Fire ← Wind ← Lightning ← Earth ← Water ← Fire (역순환)
     /// </summary>
     private static SynergyType GetPreviousInChain(SynergyType elementType)
     {

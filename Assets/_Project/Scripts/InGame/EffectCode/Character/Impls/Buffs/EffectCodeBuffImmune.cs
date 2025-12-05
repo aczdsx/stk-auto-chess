@@ -63,16 +63,30 @@ public partial class EffectCodeBuffImmune : EffectCodeBuffBase
     {
         var isRemoved = false;
         for (var i = 0; i < _stackDatas.Count; i++)
+        {
+            if(_stackDatas[i] == null)
+            {
+                isRemoved = true;
+                continue;
+            }
+
             if (_stackDatas[i].source == source)
             {
+                owner.RemoveBuffStackData(_stackDatas[i]);
                 GenericPool<BuffStackData>.Release(_stackDatas[i]);
                 _stackDatas[i] = null;
                 isRemoved = true;
             }
+        }
+
 
         if (isRemoved)
-            container.SetDirtyFlag(this);
+        {
+            _stackDatas.RemoveAll(NullChecker<BuffStackData>.NullCheck);
+            if (_stackDatas.Count <= 0) RemoveFromContainer();
 
+            container?.SetDirtyFlag(this);
+        }
         return false;
     }
 

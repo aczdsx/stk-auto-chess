@@ -918,11 +918,7 @@ namespace CookApps.BattleSystem
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
                 }
-                else if (elementType == SynergyType.DARK)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
-                }
-                else if (elementType == SynergyType.LIGHT)
+                else if (elementType == SynergyType.LIGHTNING)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
                 }

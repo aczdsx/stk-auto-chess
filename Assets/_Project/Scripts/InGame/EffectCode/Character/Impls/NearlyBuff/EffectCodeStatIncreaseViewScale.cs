@@ -25,7 +25,7 @@ public partial class EffectCodeStatIncreaseViewScale : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        owner.AddViewScaleFactor(-_increment);
+        owner.RemoveViewScaleFactor(_increment);
         base.OnPreRemoved();
     }
 }

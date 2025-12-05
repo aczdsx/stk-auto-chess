@@ -199,64 +199,6 @@ public class FlowStateStageReady : StateReadyBase
     {
     }
 
-    // private void SpawnRuleTiles()
-    // {
-    //     // 기존 코드였던 InGameManager.ECC에 Rule을 추가하는 방식에서 
-    //     // 각 타일의 ECC 에서 룰을 틀고있게끔 수정 25.11.14
-
-    //     // 더이상 _specStage.effect_code_name, _specStage.effect_code_name_2, _specStage.effect_code_name_3 는 사용하지 않음
-    //     // SpecTileEffectCode 를 사용하여 타일의 ECC 에 룰을 추가하는 방식으로 수정 25.11.17
-
-    //     if (_specStage.effect_code_rule_tile.Length > 0)
-    //     {
-    //         // 0인자는 effectcodestat, 1인자는 타일인덱스
-    //         Span<double> tileRuleStats = stackalloc double[2];
-    //         tileRuleStats.Clear();
-
-    //         tileRuleStats[0] = _specStage.effect_code_stat;
-    //         var effectCodeID = new EffectCodeInfo((long)_specStage.effect_code_name, 0, tileRuleStats);
-
-    //         for (int i = 0; i < _specStage.effect_code_rule_tile.Length; i++)
-    //         {
-    //             effectCodeID.ModifyCodeStat(1, _specStage.effect_code_rule_tile[i]);
-
-    //             var targetRuleTile = InGameObjectManager.Instance.GetInGameTile(_specStage.effect_code_rule_tile[i]);
-    //             targetRuleTile?.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
-    //         }
-    //     }
-
-    //     if (_specStage.effect_code_rule_tile_2.Length > 0)
-    //     {
-    //         Span<double> tileRuleStats = stackalloc double[2];
-    //         tileRuleStats.Clear();
-
-    //         tileRuleStats[0] = _specStage.effect_code_stat_2;
-    //         var effectCodeID = new EffectCodeInfo((long)_specStage.effect_code_name_2, 0, tileRuleStats);
-
-    //         for (int i = 0; i < _specStage.effect_code_rule_tile_2.Length; i++)
-    //         {
-    //             effectCodeID.ModifyCodeStat(1,_specStage.effect_code_rule_tile_2[i]);
-    //             var targetRuleTile = InGameObjectManager.Instance.GetInGameTile(_specStage.effect_code_rule_tile_2[i]);
-    //             targetRuleTile?.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
-    //         }
-    //     }
-
-    //     if (_specStage.effect_code_rule_tile_3.Length > 0)
-    //     {
-    //         Span<double> tileRuleStats = stackalloc double[2];
-    //         tileRuleStats.Clear();
-
-    //         tileRuleStats[0] = _specStage.effect_code_stat_3;
-    //         var effectCodeID = new EffectCodeInfo((long)_specStage.effect_code_name_3, 0, tileRuleStats);
-
-    //         for (int i = 0; i < _specStage.effect_code_rule_tile_3.Length; i++)
-    //         {
-    //             effectCodeID.ModifyCodeStat(1,_specStage.effect_code_rule_tile_3[i]);
-    //             var targetRuleTile = InGameObjectManager.Instance.GetInGameTile(_specStage.effect_code_rule_tile_3[i]);
-    //             targetRuleTile?.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
-    //         }
-    //     }
-
     private void SpawnRuleTiles()
     {
         if (_specStage.effect_code_id > 0)

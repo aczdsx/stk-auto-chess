@@ -264,6 +264,10 @@ namespace CookApps.BattleSystem
         {
             _view.AddViewScale(viewScaleValue);
         }
+        public void RemoveViewScaleFactor(float viewScaleValue)
+        {
+            _view.RemoveViewScale(viewScaleValue);
+        }
 
         public void SetStateType(Type baseStateType, Type concreteStateType)
         {
@@ -1160,6 +1164,9 @@ namespace CookApps.BattleSystem
                     return;
                 case ElementAdvantageHelper.ElementAdvantageResult.RESIST:
                     damageInfo.damageAmount *= ElementAdvantageHelper.RESIST_MULTIPLIER;
+                    return;
+                case ElementAdvantageHelper.ElementAdvantageResult.EQUAL:
+                    damageInfo.damageAmount *= ElementAdvantageHelper.EQUAL_MULTIPLIER;
                     return;
             }
         }

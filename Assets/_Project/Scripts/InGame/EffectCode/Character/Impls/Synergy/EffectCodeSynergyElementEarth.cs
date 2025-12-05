@@ -2,35 +2,39 @@ using System;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-
+using UnityEngine;
 /// <summary>
-///대지 시너지만 적용
-// (물리, 마법) 방어력 증가   
+// 물리 관통력{0}%, 마법 관통력 및 블럭율 증가 {0}% 근데 아직 블럭율 수치가 없음.
 /// </summary>
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
 {
     public const int CodeId = 220101;
-    private ObfuscatorFloat _statValue;
+    private ObfuscatorFloat _PierceValue;
+    private ObfuscatorFloat _blockRateValue;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _statValue = codeInfo.GetCodeStatToFloat(0);
-        
-        Span<double> buffStats = stackalloc double[3];
+        _PierceValue = codeInfo.GetCodeStatToFloat(0);
+        _blockRateValue = codeInfo.GetCodeStatToFloat(1);
+
+        Span<double> buffStats = stackalloc double[1];
         buffStats.Clear();
-        buffStats[0] = codeId;
-        buffStats[1] = 999f;
-        buffStats[2] = _statValue;
-        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.BUFF_DEF_PERCENT_UP, 0, buffStats);
-        owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, source);
+
+        buffStats[0] = _PierceValue;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP, owner, buffStats, source);
+        buffStats[0] = _PierceValue;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.RES_PENETRATION_PERCENT_UP, owner, buffStats, source);
+
+        Debug.LogColor($"대지시너지 물리 관통력 {_PierceValue}% 마법 관통력 {_PierceValue}% 증가", "green");
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _statValue = codeInfo.GetCodeStatToFloat(0);
+        _PierceValue = codeInfo.GetCodeStatToFloat(0);   //atk_pierce  //res_pierce
+        _blockRateValue = codeInfo.GetCodeStatToFloat(1);
     }
 
 }

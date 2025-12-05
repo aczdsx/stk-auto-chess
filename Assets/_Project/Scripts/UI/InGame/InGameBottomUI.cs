@@ -158,7 +158,7 @@ public class InGameBottomUI : MonoBehaviour
 
             InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
-
+            UpdatePreviewSynergyEffectCode();
             _isRunningRecommend = false;
         }
     }
@@ -215,6 +215,7 @@ public class InGameBottomUI : MonoBehaviour
         UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
+        UpdatePreviewSynergyEffectCode();
     }
 
     public void CheckNewCharacter()
@@ -266,7 +267,6 @@ public class InGameBottomUI : MonoBehaviour
         {
             _commanderSkillUIList[index].SetIcon(image);
             _commanderSkillUIList[index].SetCommanderFx(false);
-            //요기다ㅏㄱ 해당 커맨더스킬 레벨 기입.
         }
         else
         {
@@ -402,6 +402,7 @@ public class InGameBottomUI : MonoBehaviour
 
         UpdateData();
         SetCharacterCountText();
+        UpdatePreviewSynergyEffectCode();
     }
 
     public virtual void ReturnObstacle(CharacterController controller)
@@ -439,6 +440,7 @@ public class InGameBottomUI : MonoBehaviour
 
             InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
+            UpdatePreviewSynergyEffectCode();
         }
 
         _isRunningAddCharacter = false;
@@ -577,6 +579,16 @@ public class InGameBottomUI : MonoBehaviour
                 if (isPlayFx)
                     _stageBattleFx.Play();
             }
+        }
+    }
+
+    private void UpdatePreviewSynergyEffectCode()
+    {
+        var stateCombatStepBase = InGameMainFlowManager.Instance.CurrentFlowState as StateCombatStepBase;
+        if (stateCombatStepBase != null)
+        {
+            stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player);
+            stateCombatStepBase.AddSynergy(AllianceType.Player);
         }
     }
 

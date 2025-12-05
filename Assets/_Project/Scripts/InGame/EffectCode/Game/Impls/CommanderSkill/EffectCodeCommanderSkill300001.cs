@@ -30,7 +30,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            _damageRate = _specTargetCommanderSkill.base_rate * 0.01f;
+            _damageRate = _specTargetCommanderSkill.base_rate;
             
             PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
@@ -51,7 +51,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            _damageRate = _specTargetCommanderSkill.base_rate * 0.01f;
+            _damageRate = _specTargetCommanderSkill.base_rate;
             PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
         }

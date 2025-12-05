@@ -85,10 +85,11 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
     private void ImmuneAllDebuff(IEffectCodeSource source)
     {
         Span<double> buffStats = stackalloc double[3];
+        
 
         buffStats.Clear();
         buffStats[0] = codeId;
-        buffStats[1] = _statValue_1;//duration
+        buffStats[1] = InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase ? _statValue_1 : 999f;//duration
         buffStats[2] = 1;//value?
 
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);

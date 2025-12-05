@@ -1,4 +1,4 @@
-#define USE_SERVER_SPEC
+// #define USE_SERVER_SPEC
 
 #if USE_SERVER_SPEC
 using CookApps.LocalData;

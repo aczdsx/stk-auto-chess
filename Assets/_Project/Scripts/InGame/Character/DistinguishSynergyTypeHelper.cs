@@ -26,9 +26,7 @@ public static class DistinguishSynergyTypeHelper
             SynergyType.WIND,
             SynergyType.WATER,
             SynergyType.FIRE,
-            SynergyType.DARK,
-            SynergyType.LIGHT,
-            SynergyType.MACHINE,
+            SynergyType.LIGHTNING,
     };
     public static bool IsAsterismSynergyType(SynergyType synergyType)
     {

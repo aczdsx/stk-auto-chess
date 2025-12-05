@@ -19,6 +19,7 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateInit(object target)
     {
+        base.TidyUpPreviewSynergy(AllianceType.Player);
         characters = ListPool<CharacterController>.Get();
         
         InGameObjectManager.Instance.ClearSynergyFx();
