@@ -5,6 +5,7 @@ namespace CookApps.TeamBattle.UIManagements
 {
     public static class SceneTransition
     {
+        public static bool IsFadeProcessing { get; set; }
         // Static current transition for easy access
         private static SceneTransitionBase Current { get; set; }
 
@@ -28,14 +29,15 @@ namespace CookApps.TeamBattle.UIManagements
             rect.anchorMax = Vector2.one;
             rect.sizeDelta = Vector2.zero;
             var comp = go.GetComponent<T>();
-            comp.Initialize(viewOption);
             Current = comp;
+            comp.Initialize(viewOption);
         }
 
         public static async UniTask FadeInAsync()
         {
             if (Current == null)
                 return;
+            IsFadeProcessing = true;
             await Current.FadeInAsync();
         }
 
@@ -44,6 +46,7 @@ namespace CookApps.TeamBattle.UIManagements
             if (Current == null)
                 return;
             await Current.FadeOutAsync();
+            IsFadeProcessing = false;
             Clear();
         }
         

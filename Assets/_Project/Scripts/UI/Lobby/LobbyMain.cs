@@ -666,6 +666,9 @@ namespace CookApps.AutoBattler
         }
         private void OnClickStartButton()
         {
+            if (SceneTransition.IsFadeProcessing)
+                return;
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
             if (currentStageData != null)
             {
@@ -713,31 +716,17 @@ namespace CookApps.AutoBattler
                 }
 
                 // 스테이지 진입
-                InGameManager.Instance.EndInGame();
-                // SceneTransition_Animator transition = SceneTransition_Animator.Create();+
-                SceneTransition.Create<SceneTransition_FadeInOut>(null);
-                SceneTransition.FadeInAsync().Forget();
-                SceneLoading.GoToNextScene("InGame",
-                    (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), (int)currentStageData.stage_id));
-
-
-                // [TODO] 방어 덱 설정 진입 테스트 코드 (나중에 삭제)
-                // SceneTransition_Animator transition = SceneTransition_Animator.Create();
-                // UserPVPBattleDetailData data = null;
-                // SceneLoading.GoToNextScene("InGame",
-                //     (InGameType.PVP_DEFENSE, (IGameStateUI) new InGameMainStatePvpDefenseUI(), 0),
-                //     transition).Forget();
-
-                // [TODO] PVP 진입 테스트 코드 (나중에 삭제)
-                // InGameManager.Instance.EndInGame();
-                // SceneTransition_Animator transition = SceneTransition_Animator.Create();
-                // UserPVPBattleDetailData data = new();
-                // SceneLoading.GoToNextScene("InGame",
-                //     (InGameType.PVP, (IGameStateUI) new InGameMainStatePvpUI(), data),
-                //     transition).Forget();
-
-                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+                OnClickStartButtonAsync(currentStageData.stage_id).Forget();
             }
+        }
+
+        private async UniTask OnClickStartButtonAsync(int stageId)
+        {
+            SceneTransition.Create<SceneTransition_Animator>();
+            await SceneTransition.FadeInAsync();
+            InGameManager.Instance.EndInGame();
+            SceneLoading.GoToNextScene("InGame",
+                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), stageId));
         }
 
         private void OnClickChapterStageButton()

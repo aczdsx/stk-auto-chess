@@ -147,7 +147,6 @@ namespace CookApps.AutoBattler
 
             var handle = _commanderManagerPrefab.InstantiateAsync();
             await handle.WaitUntilDone();
-            await SceneTransition.FadeOutAsync();
             
             switch (param)
             {
@@ -166,6 +165,7 @@ namespace CookApps.AutoBattler
             }
 
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);
+            await SceneTransition.FadeOutAsync();
         }
 
         public void ShowSKillTooltip(CharacterStatData getCharacterStat)
