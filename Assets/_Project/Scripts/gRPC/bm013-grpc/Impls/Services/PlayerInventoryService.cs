@@ -15,12 +15,23 @@ namespace CookApps.AutoBattler
         {
             PlayerInventoryListResponse resp = await ExecuteAsync(
                 ServiceClient.ListAsync,
-                new PlayerInventoryListRequest(),
+                new PlayerInventoryListRequest {  },
                 cancellationToken: cancellationToken
             );
             return resp;
         }
         
-        
+        /// <summary>
+        /// 인벤토리 가져오기
+        /// </summary>
+        public async UniTask<PlayerInventoryListResponse> GetAsync(uint currencyId, CancellationToken cancellationToken = default)
+        {
+            PlayerInventoryListResponse resp = await ExecuteAsync(
+                ServiceClient.ListAsync,
+                new PlayerInventoryListRequest { ItemIds = { currencyId } },
+                cancellationToken: cancellationToken
+            );
+            return resp;
+        }
     }
 }
