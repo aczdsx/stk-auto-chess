@@ -13,6 +13,11 @@ namespace CookApps.AutoBattler
 
         // 커스텀 서비스를 속성으로 추가
         public CharacterService Character { get; private set; }
+        public BattleService Battle { get; private set; }
+        public EquipmentService Equipment { get; private set; }
+        public ElpisService Elpis { get; private set; }
+        public PlayerInventoryService Inventory { get; private set; }
+        public PostService Post { get; private set; }
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ReloadDomain()
