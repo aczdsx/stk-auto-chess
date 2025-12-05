@@ -1,8 +1,4 @@
-﻿/*
- * Copyright (c) CookApps.
- */
-
-using CookApps.NetLite.Constants;
+﻿using CookApps.NetLite.Constants;
 using CookApps.NetLite.Initialize;
 using CookApps.NetLite.Manager;
 using UnityEngine;
@@ -15,6 +11,9 @@ namespace CookApps.AutoBattler
         private static NetManager _instance;
         public static NetManager Instance => _instance ??= new NetManager();
 
+        // 커스텀 서비스를 속성으로 추가
+        public CharacterService Character { get; private set; }
+        
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ReloadDomain()
         {

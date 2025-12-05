@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,9 +6,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEditor;
 
-// bm013 gRPC 생성물에서 지정한 파일을 자동/수동으로 삭제하기 위한 에디터 전용 도우미
-// - 설정: Assets/_Project/Scripts/gRPC/bm013-grpc/Editor/Bm013GrpcCleanupSettings.asset
-// - 메뉴: CookApps/gRPC/bm013 정리/불필요 파일 삭제
 namespace CookApps.Editor
 {
     internal static class ProtoBufCleaner
@@ -213,3 +211,4 @@ namespace CookApps.Editor
         }
     }
 }
+#endif

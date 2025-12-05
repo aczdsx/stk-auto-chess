@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -31,3 +32,4 @@ namespace CookApps.Editor
         public static string AssetPath => DefaultAssetPath;
     }
 }
+#endif
