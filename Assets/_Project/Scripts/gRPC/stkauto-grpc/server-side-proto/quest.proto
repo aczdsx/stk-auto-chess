@@ -40,8 +40,9 @@ enum QuestErrorCode {
 // 퀘스트 타입
 enum QuestType {
   QUEST_TYPE_UNSPECIFIED = 0;
-  QUEST_TYPE_DAILY = 1;    // 일일 퀘스트
-  QUEST_TYPE_WEEKLY = 2;   // 주간 퀘스트
+  QUEST_TYPE_DAILY = 1;         // 일일 퀘스트
+  QUEST_TYPE_WEEKLY = 2;        // 주간 퀘스트
+  QUEST_TYPE_ACHIEVEMENT = 3;   // 업적 퀘스트
 }
 
 // 퀘스트 정보
