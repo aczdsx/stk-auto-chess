@@ -18,7 +18,9 @@ namespace CookApps.AutoBattler
         public ElpisService Elpis { get; private set; }
         public PlayerInventoryService Inventory { get; private set; }
         public PostService Post { get; private set; }
-        
+        public PlayerUnsafeDataService PlayerUnsafeData { get; private set; }
+        public AnnouncementService Announcement { get; private set; }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ReloadDomain()
         {

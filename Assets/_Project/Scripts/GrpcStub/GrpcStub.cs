@@ -127,16 +127,6 @@ namespace Tech.Hive.V1
         public bool IsError => Status?.Code != 0;
     }
     
-    public sealed partial class ServerListResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
-    public sealed partial class ServerJoinResponse
-    {
-        public bool IsError => Status?.Code != 0;
-    }
-    
     public sealed partial class PlayerCreateResponse
     {
         public bool IsError => Status?.Code != 0;
@@ -168,7 +158,6 @@ namespace CookApps.AutoBattler
         public LobbyService Lobby { get; }
         public PlayerDataService PlayerData { get; }
         public PlayerService Player { get; }
-        public ServerService Server { get; }
         public StkautoPvpService StkautoPvp { get; }
         public SpecService Spec { get; }
 
@@ -178,7 +167,6 @@ namespace CookApps.AutoBattler
             Lobby = new LobbyService();
             PlayerData = new PlayerDataService();
             Player = new PlayerService();
-            Server = new ServerService();
             StkautoPvp = new StkautoPvpService();
             Spec = new SpecService();
         }
@@ -271,28 +259,6 @@ namespace CookApps.AutoBattler
         public UniTask<PlayerCreateResponse> CreateAsync(uint _, string __)
         {
             var response = new PlayerCreateResponse
-            {
-                Status = new ResponseStatus { Code = 1 }
-            };
-            return UniTask.FromResult(response);
-        }
-    }
-
-    public class ServerService
-    {
-        public UniTask<ServerListResponse> ListAsync()
-        {
-            var response = new ServerListResponse
-            {
-                Status = new ResponseStatus { Code = 1 },
-                // Data = new ServerList()
-            };
-            return UniTask.FromResult(response);
-        }
-
-        public UniTask<ServerJoinResponse> JoinAsync(uint _, string __)
-        {
-            var response = new ServerJoinResponse
             {
                 Status = new ResponseStatus { Code = 1 }
             };
