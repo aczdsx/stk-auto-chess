@@ -480,7 +480,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 0
-      Delay: 0
+      Delay: 0.65
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.3
+      Delay: 0.4
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.3
+      Delay: 0.35
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 2
@@ -4272,8 +4272,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 2
-    currentItemIndex: 14
+    currentCategoryIndex: 1
+    currentItemIndex: 0
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
