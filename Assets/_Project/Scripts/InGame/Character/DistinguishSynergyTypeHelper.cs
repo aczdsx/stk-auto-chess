@@ -19,6 +19,7 @@ public static class DistinguishSynergyTypeHelper
             SynergyType.ASSASSIN,
             SynergyType.SUPPORTER,
             SynergyType.NOBLESSE,
+            SynergyType.SUPERNOVA,
     };
     private static readonly SynergyType[] _elementSynergyTypes = new SynergyType[]
     {

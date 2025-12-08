@@ -33,6 +33,7 @@ namespace CookApps.AutoBattler
         CRIT_RATE_PERCENT_UP = 21,
         CRIT_POWER_PERCENT_UP = 22,
         ATK_SPEED_PERCENT_UP = 23,
+        ITEM_SUPERNOVA = 100,
         COMMANDER_SKILL_EXPLOSION = 300001,
         COMMANDER_SKILL_FREEZING = 300002,
         COMMANDER_SKILL_AIRBORNE = 300003,
@@ -142,6 +143,7 @@ namespace CookApps.AutoBattler
         ASSASSIN = 10,
         SUPPORTER = 11,
         NOBLESSE = 12,
+        SUPERNOVA = 13,
     }
 
     public enum PositionType
@@ -187,6 +189,7 @@ namespace CookApps.AutoBattler
         BOSS = 3,
         CHARACTER = 4,
         OBSTACLE = 5,
+        ITEM = 6,
     }
 
     public enum ContentType
@@ -727,6 +730,7 @@ namespace CookApps.AutoBattler
         APPLY_IF_MYSYNERGY = 0,
         APPLY_ALL_MEMBER = 1,
         APPLY_OTHER_TEAM_ONCE = 2,
+        APPLY_TEAM_ONCE = 3,
     }
 
     public enum PromotionLevelType

@@ -843,6 +843,10 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
         /// 계수2
         public float stat_value_2;
+        /// 계수 타입3
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type_3;
+        /// 계수3
+        public float stat_value_3;
     }
 
     [GeneratorSpecData]

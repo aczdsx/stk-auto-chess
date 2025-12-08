@@ -38,12 +38,20 @@ namespace CookApps.BattleSystem
         private List<InGameVfxTargetLine> enemyTargetLines = new List<InGameVfxTargetLine>();
 
         private List<InGameVfx> _synergyVfxList = new();
+        private InGameObjectManagerItemComponent _itemComponent = new InGameObjectManagerItemComponent();
+        private Dictionary<AllianceType, EffectCodeContainer> _teamEccDic = new Dictionary<AllianceType, EffectCodeContainer>();
         private double _playerSumMaxHp;
         private double _enemySumMaxHp;
         private float _lastRate;
 
         public void Initialize()
         {
+            if (_teamEccDic == null)
+            {
+                _teamEccDic = new Dictionary<AllianceType, EffectCodeContainer>();
+            }
+            _teamEccDic.Add(AllianceType.Player, new EffectCodeContainer(this));
+            _teamEccDic.Add(AllianceType.Enemy, new EffectCodeContainer(this));
             InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
                 ManagedUpdate);
             InGameMainFlowManager.Instance.AddLateUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
@@ -63,10 +71,19 @@ namespace CookApps.BattleSystem
             _stage = stage;
             InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
             _grid = grid;
+            _itemComponent.Initialize();
         }
 
         public void Clear()
         {
+            _itemComponent.Clear();
+            foreach (var ecc in _teamEccDic.Values)
+            {
+                ecc.Clear();
+            }
+            _teamEccDic.Clear();
+            _teamEccDic = null;
+            
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
             InGameMainFlowManager.Instance.RemoveLateUpdateListener(LateManagedUpdate);
             playground = null;
@@ -844,7 +861,7 @@ namespace CookApps.BattleSystem
                 neutralInPlaygroundForUpdate[i].ManagedUpdate(dt);
             }
 
-            var effectCodes = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            var effectCodes = InGameManager.Instance.TeamEcc.GetEffectCodesByTypeByFlag(EffectCodeType.Game);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeGameLambda.CallOnUpdateLambda, dt);
         }
 
@@ -1006,6 +1023,31 @@ namespace CookApps.BattleSystem
             foreach (var line in enemyTargetLines) line.Remove();
             playerTargetLines.Clear();
             enemyTargetLines.Clear();
+        }
+
+        public void RegisterItemGameObjectDragAndDrop(CharacterController character, Action<CharacterController,IEffectCodeSource> onApply, IEffectCodeSource source, Func<CharacterController, bool> onCanApply)
+        {
+            _itemComponent.RegisterItemGameObjectDragAndDrop(character, onApply, source, onCanApply);
+        }
+        public bool IsDragAndDropItem(CharacterController character)
+        {
+            return _itemComponent.IsDragAndDropItem(character);
+        }
+        public bool ApplyItem(CharacterController itemObj, CharacterController targetObj)
+        {
+            return _itemComponent.ApplyItem(itemObj, targetObj);
+        }
+        public bool IsRegisteredItem(int prefab_id)
+        {
+            return _itemComponent.IsRegisteredItem(prefab_id);
+        }
+        public void TryRemoveItemFromTarget(int prefab_id)
+        {
+            _itemComponent.TryRemoveItemFromTarget(prefab_id);
+        }
+        public void CheckAffectedByItemController(CharacterController character)
+        {
+            _itemComponent.CheckAffectedByItemController(character);
         }
     }
 }

@@ -84,6 +84,9 @@ namespace CookApps.AutoBattler
                 case SynergyType.NOBLESSE:
                     spriteName = isActive ? "Icon_Position_Noblesse_Active" : "Icon_Position_Noblesse_Locked";
                     break;
+                case SynergyType.SUPERNOVA:
+                    spriteName = isActive ? "Icon_Position_Supernova_Active" : "Icon_Position_Supernova_Locked";
+                    break;
             }
 
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);

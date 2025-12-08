@@ -76,7 +76,7 @@ namespace CookApps.BattleSystem
             var effectCodesByGame = _ecc.GetEffectCodesByType(EffectCodeType.Game);
             EffectCodeForLoopHelper.CallWithArgs(effectCodesByGame, EffectCodeGameLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
 
-            var inGameEffectCodes = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            var inGameEffectCodes = InGameManager.Instance.TeamEcc.GetEffectCodesByTypeByFlag(EffectCodeType.Game);
             EffectCodeForLoopHelper.CallWithArgs(inGameEffectCodes, EffectCodeGameLambda.OnTileCharacterEnterLambda, this, OccupiedCharacter);
         }
 
@@ -88,7 +88,7 @@ namespace CookApps.BattleSystem
             var effectCodesByGame = _ecc.GetEffectCodesByType(EffectCodeType.Game);
             EffectCodeForLoopHelper.CallWithArgs(effectCodesByGame, EffectCodeGameLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
 
-            var inGameEffectCodes = InGameManager.Instance.EffectCodeContainer.GetEffectCodesByType(EffectCodeType.Game);
+            var inGameEffectCodes = InGameManager.Instance.TeamEcc.GetEffectCodesByTypeByFlag(EffectCodeType.Game);
             EffectCodeForLoopHelper.CallWithArgs(inGameEffectCodes, EffectCodeGameLambda.OnTileCharacterExitLambda, this, OccupiedCharacter);
 
             OccupiedCharacter = null;

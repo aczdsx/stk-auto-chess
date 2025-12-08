@@ -8,6 +8,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -402,7 +403,8 @@ public class InGameBottomUI : MonoBehaviour
 
         UpdateData();
         SetCharacterCountText();
-        UpdatePreviewSynergyEffectCode();
+        InGameObjectManager.Instance.CheckAffectedByItemController(controller);
+        UpdatePreviewSynergyEffectCode(controller.GetCharacterStat());
     }
 
     public virtual void ReturnObstacle(CharacterController controller)
@@ -440,7 +442,7 @@ public class InGameBottomUI : MonoBehaviour
 
             InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
-            UpdatePreviewSynergyEffectCode();
+            UpdatePreviewSynergyEffectCode(statData);
         }
 
         _isRunningAddCharacter = false;
@@ -513,6 +515,11 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetFocusCharacterUI(SpecCharacter spec)
     {
+        if (spec.character_type == CharacterType.ITEM)
+        {
+            return;
+        }
+
         foreach (var characterItem in _characterItemList)
         {
             if (characterItem.StatData == null)
@@ -582,13 +589,22 @@ public class InGameBottomUI : MonoBehaviour
         }
     }
 
-    private void UpdatePreviewSynergyEffectCode()
+    private void UpdatePreviewSynergyEffectCode(CharacterStatData statData = null)
     {
         var stateCombatStepBase = InGameMainFlowManager.Instance.CurrentFlowState as StateCombatStepBase;
         if (stateCombatStepBase != null)
         {
-            stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player);
-            stateCombatStepBase.AddSynergy(AllianceType.Player);
+            if (statData != null)
+            {
+                stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player, statData.Spec.element_type, statData.Spec.asterism_type);
+                stateCombatStepBase.ApplyTargetSynergy(AllianceType.Player, statData.Spec.element_type, statData.Spec.asterism_type);
+            }
+            else
+            {
+                stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player);
+                stateCombatStepBase.AddSynergy(AllianceType.Player);
+            }
+
         }
     }
 
