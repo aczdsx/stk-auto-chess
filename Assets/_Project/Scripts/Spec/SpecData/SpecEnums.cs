@@ -30,6 +30,10 @@ namespace CookApps.AutoBattler
         MOVESPEED_PERCENT_UP = 18,
         VIEW_SCALE_UP = 19,
         PURE_DAMAGE_PROB_UP = 20,
+        CRIT_RATE_PERCENT_UP = 21,
+        CRIT_POWER_PERCENT_UP = 22,
+        ATK_SPEED_PERCENT_UP = 23,
+        ITEM_SUPERNOVA = 100,
         COMMANDER_SKILL_EXPLOSION = 300001,
         COMMANDER_SKILL_FREEZING = 300002,
         COMMANDER_SKILL_AIRBORNE = 300003,
@@ -77,13 +81,12 @@ namespace CookApps.AutoBattler
         BUFF_HP_RECOVERY_PERCENT_UP = 2000000014,
         BUFF_MOVESPEED_UP = 2000000015,
         BUFF_MOVESPEED_PERCENT_UP = 2000000016,
-        BUFF_CRIT_RATE_UP = 2000000017,
-        BUFF_DAMAGE_REDUCE_UP = 2000000018,
-        BUFF_COOL_DOWN_SPEED_PERCENT_UP = 2000000019,
-        BUFF_ATK_SPEED_UP = 2000000020,
-        BUFF_SKILL_POWER_UP = 2000000021,
-        BUFF_IMMUNE = 2000000022,
-        BUFF_NORMAL_ATTACK_SHIELD = 2000000023,
+        BUFF_DAMAGE_REDUCE_UP = 2000000017,
+        BUFF_COOL_DOWN_SPEED_PERCENT_UP = 2000000018,
+        BUFF_ATK_SPEED_UP = 2000000019,
+        BUFF_SKILL_POWER_UP = 2000000020,
+        BUFF_IMMUNE = 2000000021,
+        BUFF_NORMAL_ATTACK_SHIELD = 2000000022,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -132,16 +135,15 @@ namespace CookApps.AutoBattler
         WIND = 2,
         WATER = 3,
         FIRE = 4,
-        DARK = 5,
-        LIGHT = 6,
-        MACHINE = 7,
-        GUARDIAN = 8,
-        TANK = 9,
-        WIZARD = 10,
-        RANGER = 11,
-        ASSASSIN = 12,
-        SUPPORTER = 13,
-        NOBLESSE = 14,
+        LIGHTNING = 5,
+        GUARDIAN = 6,
+        TANK = 7,
+        WIZARD = 8,
+        RANGER = 9,
+        ASSASSIN = 10,
+        SUPPORTER = 11,
+        NOBLESSE = 12,
+        SUPERNOVA = 13,
     }
 
     public enum PositionType
@@ -187,6 +189,7 @@ namespace CookApps.AutoBattler
         BOSS = 3,
         CHARACTER = 4,
         OBSTACLE = 5,
+        ITEM = 6,
     }
 
     public enum ContentType
@@ -727,6 +730,7 @@ namespace CookApps.AutoBattler
         APPLY_IF_MYSYNERGY = 0,
         APPLY_ALL_MEMBER = 1,
         APPLY_OTHER_TEAM_ONCE = 2,
+        APPLY_TEAM_ONCE = 3,
     }
 
     public enum PromotionLevelType

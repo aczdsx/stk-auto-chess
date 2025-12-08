@@ -16,7 +16,7 @@ using UnityEngine.Pool;
 public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 {
     private bool _touchLocked = false;
-    
+
     private CharacterController _selectedCharacterController = null;
     private InGameTileView _selectedTileView = null;
     private List<InGameTile> _attackRangeTileList = new List<InGameTile>();
@@ -32,7 +32,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private Vector3 _initialFingersPosition;
     private Vector3 _initialCameraPosition;
-    
+
     private readonly float _zoomCooldown = 0.1f;
     private float _zoomCooldownTimer = 0f;
 
@@ -270,7 +270,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (tile.OccupiedCharacter != null)
         {
             if (!InGameMain.GetInGameMain().IsCheckTouchTile(tile))
-            {
+            {   // 플레이어가 아닌 벽, 에너미라면 원래 있던 타일로 이동
                 var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
 
                 AnimateCharacterMove(_selectedCharacterController, inGameTile.View.Position,
@@ -280,12 +280,16 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 CharacterController targetCharacter = tile.OccupiedCharacter;
                 if (_selectedCharacterController == targetCharacter)
-                {
+                {// 같은 캐릭터라면
                     CancelMoveCharacter();
                 }
                 else
-                {
-                    AnimateCharacterSwap(_selectedCharacterController, targetCharacter);
+                {//다른 캐릭터라면 스왑
+                    if (!ApplyItem(_selectedCharacterController, targetCharacter))
+                    {
+                        AnimateCharacterSwap(_selectedCharacterController, targetCharacter);
+                        return;
+                    }
                 }
             }
         }
@@ -304,6 +308,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (character1 == null || character2 == null)
             return;
+
         Vector3 startPosition1 = character1.Position3D;
         Vector3 targetPosition1 = character2.Position3D;
 
@@ -385,10 +390,39 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
     }
 
+    private bool ApplyItem(CharacterController character1, CharacterController character2)
+    {
+        CharacterController itemObj = null;
+        CharacterController targetObj = null;
+        if (InGameObjectManager.Instance.IsDragAndDropItem(character1))
+        {
+            itemObj = character1;
+            targetObj = character2;
+        }
+        else if (InGameObjectManager.Instance.IsDragAndDropItem(character2))
+        {
+            itemObj = character2;
+            targetObj = character1;
+        }
+        if (itemObj == null || targetObj == null)
+            return false;
+
+        if (!InGameObjectManager.Instance.ApplyItem(itemObj, targetObj))
+        {
+            return false;
+        }
+
+        var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
+        itemObj.ChangeOccupiedTile(inGameTile);
+        ReleaseSelectedHero();
+        itemObj.CurrentTile.SetOccupied(null);
+        targetObj.ChangeOccupiedTile(inGameTile);
+        return true;
+    }
     private void ReleaseSelectedHero(bool isDropFx = false)
     {
         if (_selectedCharacterController != null)
-        {
+        {   
             _selectedCharacterController.SetSelectedCharacter(false);
             _selectedTileView.SetActiveObj(false);
             InActiveAttackTile();
@@ -398,7 +432,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().UnSetFocusSlotUI(isDropFx);
             InGameMain.GetInGameMain().CloseSkillTooltip();
             _isMoveEndAnimation = false;
-            
+
             // InGameObjectManager.Instance.DrawPlayerLine(true);
             // InGameObjectManager.Instance.DrawPlayerLine(false);
         }
@@ -432,7 +466,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         bool isInputBegan = false;
         bool isInputMoved = false;
         float distanceFactor = -0.01f;
-        
         // 줌 후 쿨다운 타이머 감소
         if (_zoomCooldownTimer > 0)
         {

@@ -19,6 +19,7 @@ public static class DistinguishSynergyTypeHelper
             SynergyType.ASSASSIN,
             SynergyType.SUPPORTER,
             SynergyType.NOBLESSE,
+            SynergyType.SUPERNOVA,
     };
     private static readonly SynergyType[] _elementSynergyTypes = new SynergyType[]
     {
@@ -26,9 +27,7 @@ public static class DistinguishSynergyTypeHelper
             SynergyType.WIND,
             SynergyType.WATER,
             SynergyType.FIRE,
-            SynergyType.DARK,
-            SynergyType.LIGHT,
-            SynergyType.MACHINE,
+            SynergyType.LIGHTNING,
     };
     public static bool IsAsterismSynergyType(SynergyType synergyType)
     {

@@ -11,9 +11,9 @@ namespace CookApps.BattleSystem
 {
     public class InGameVfxManager : Singleton<InGameVfxManager>
     {
-        private List<InGameVfx> runningEffects = new ();
-        private Queue<InGameVfx> addWaitingInGameVfxs = new ();
-        private Queue<InGameVfx> removeWaitingInGameVfxs = new ();
+        private List<InGameVfx> runningEffects = new();
+        private Queue<InGameVfx> addWaitingInGameVfxs = new();
+        private Queue<InGameVfx> removeWaitingInGameVfxs = new();
 
         public void Initialize()
         {
@@ -114,13 +114,9 @@ namespace CookApps.BattleSystem
         {
             if (inGameTile.View.IsAlphaBoard)
                 return null;
-            
+
             InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
-            if (elementType == SynergyType.DARK)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_area_darkness;
-            }
-            else if (elementType == SynergyType.FIRE)
+            if (elementType == SynergyType.FIRE)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_fire;
             }
@@ -128,7 +124,7 @@ namespace CookApps.BattleSystem
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_wind;
             }
-            else if (elementType == SynergyType.LIGHT)
+            else if (elementType == SynergyType.LIGHTNING)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_light;
             }
@@ -154,11 +150,7 @@ namespace CookApps.BattleSystem
         public InGameVfx AddInGamePreSkillActionFx(SynergyType elementType, Vector3 worldPosition)
         {
             InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
-            if (elementType == SynergyType.DARK)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_cast_darkness;
-            }
-            else if (elementType == SynergyType.FIRE)
+            if (elementType == SynergyType.FIRE)
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_fire;
             }
@@ -166,7 +158,7 @@ namespace CookApps.BattleSystem
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_wind;
             }
-            else if (elementType == SynergyType.LIGHT)
+            else if (elementType == SynergyType.LIGHTNING)
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_light;
             }
@@ -197,9 +189,9 @@ namespace CookApps.BattleSystem
 
         private class InGameVfxPool
         {
-            private static Dictionary<InGameVfxNameType, ObjectPool<InGameVfx>> pools = new ();
+            private static Dictionary<InGameVfxNameType, ObjectPool<InGameVfx>> pools = new();
 #if CHECK_POOL_LEAKING
-            private static HashSet<InGameVfx> allActivatedVfxs = new ();
+            private static HashSet<InGameVfx> allActivatedVfxs = new();
 #endif
 
             internal static void WarmUp(InGameVfxNameType vfxNameType, int warmUpCount)
@@ -213,7 +205,7 @@ namespace CookApps.BattleSystem
                         var go = Addressables.InstantiateAsync(GetAddressablePath(vfxNameType)).WaitForCompletion();
                         return go.GetComponent<InGameVfx>();
                     },
-                    actionOnDestroy: vfx => 
+                    actionOnDestroy: vfx =>
                     {
                         if (vfx != null && vfx.CachedGo != null)
                         {
@@ -250,7 +242,7 @@ namespace CookApps.BattleSystem
                         actionOnGet: vfx => allActivatedVfxs.Add(vfx),
                         actionOnRelease: vfx => allActivatedVfxs.Remove(vfx),
 #endif
-                        actionOnDestroy: vfx => 
+                        actionOnDestroy: vfx =>
                         {
                             if (vfx != null && vfx.CachedGo != null)
                             {

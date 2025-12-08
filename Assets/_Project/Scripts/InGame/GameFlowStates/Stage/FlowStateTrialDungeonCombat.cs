@@ -17,6 +17,8 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
 
     public override void StateInit(object target)
     {
+        base.TidyUpPreviewSynergy(AllianceType.Player);
+
         characters = ListPool<CharacterController>.Get();
 
         InGameObjectManager.Instance.ClearSynergyFx();
@@ -59,7 +61,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
         }
 
         var effectCodes =
-            InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(
+            InGameManager.Instance.TeamEcc.GetCharacterEffectCodesByFlag(
                 EffectCodeInheritFlag.UseOnCombatStart);
         EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
 

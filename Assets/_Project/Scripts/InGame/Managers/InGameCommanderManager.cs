@@ -191,7 +191,8 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         {
             var effectCodeInfo = EffectCodeCommanderSkillBase.GenerateEffectCodeInfo(_selectedCommanderSkillData.Spec, _hitTileView);
 
-            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
+            InGameManager.Instance.TeamEcc.AddOrMergeEffectCode(effectCodeInfo, null);
+
             _selectedCommanderSkillData.ElapsedTime = 0;
             isCanUseCommanderSkill = false;
             _selectedCommanderSkillData = null;
@@ -359,7 +360,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         {
             isCanUseCommanderSkill = true;
             var effectCodeInfo = EffectCodeCommanderSkillBase.GenerateEffectCodeInfo(commanderSkillData.Spec, hitTileView);
-            InGameManager.Instance.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
+            InGameManager.Instance.TeamEcc.AddOrMergeEffectCode(effectCodeInfo, null);
             commanderSkillData.ElapsedTime = 0;
         }
 

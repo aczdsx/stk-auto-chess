@@ -9,6 +9,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 
 namespace CookApps.BattleSystem
 {
@@ -22,9 +23,13 @@ namespace CookApps.BattleSystem
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
-        private EffectCodeContainer ecc;
-        public EffectCodeContainer EffectCodeContainer => ecc;
-        
+        // private EffectCodeContainer ecc;
+        // public EffectCodeContainer EffectCodeContainer => ecc;
+
+        private EffectCodeContainerTeam _teamEcc;
+        public EffectCodeContainerTeam TeamEcc => _teamEcc;
+
+
         public string AppEventResult = string.Empty;
         public string AppEventReason = string.Empty;
 
@@ -56,7 +61,7 @@ namespace CookApps.BattleSystem
             IsBlockAmbush = false;
             AppEventResult = string.Empty;
             AppEventReason = string.Empty;
-            ecc = new EffectCodeContainer(this);
+            _teamEcc = new EffectCodeContainerTeam(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specStage);
             InitializeInGameComponents(specStage);
         }
@@ -69,11 +74,11 @@ namespace CookApps.BattleSystem
             IsBlockAmbush = specDungeonTrial.dungeon_map_id == 1 ? true : false;
             AppEventResult = string.Empty;
             AppEventReason = string.Empty;
-            ecc = new EffectCodeContainer(this);
+            _teamEcc = new EffectCodeContainerTeam(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specDungeonTrial);
             InitializeInGameComponents(specDungeonTrial);
         }
-        
+
         public void StartInGame<T>(UserPVPBattleDetailData pvpBattleDeck) where T : StateBase, new()
         {
             UserPvpBattleDeckList = pvpBattleDeck;
@@ -82,7 +87,7 @@ namespace CookApps.BattleSystem
             IsBlockAmbush = false;
             AppEventResult = string.Empty;
             AppEventReason = string.Empty;
-            ecc = new EffectCodeContainer(this);
+            _teamEcc = new EffectCodeContainerTeam(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(pvpBattleDeck);
             InitializeInGameComponents(pvpBattleDeck);
         }
@@ -107,25 +112,37 @@ namespace CookApps.BattleSystem
             InGameHpBarViewPool.Instance.Clear();
             InGameVfxManager.Instance.Clear();
             InGameStatistics.Instance.Clear();
-            ecc.Clear();
-            ecc = null;
+            _teamEcc.Clear();
+            _teamEcc = null;
         }
         #endregion
-        
-        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, SpecSynergy synergyData)
+
+        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, SpecSynergy synergyData, IEffectCodeSource source)
         {
-            Span<double> stats = stackalloc double[2];
+            Span<double> stats = stackalloc double[4];
             stats[0] = synergyData.stat_value;
-            stats[1] = (double)allianceType;
+            stats[1] = synergyData.stat_value_2;
+            stats[2] = synergyData.stat_value_3;
+            stats[3] = synergyData.grade;
 
             var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-            ecc.AddOrMergeEffectCode(effectCodeInfo, null);
+            _teamEcc.AddOrMergeEffectCode(effectCodeInfo, source, allianceType);
         }
+
+        public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyData)
+        {
+            var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyData);
+            if (synergyList == null || synergyList.Count == 0)
+                return;
+
+            _teamEcc.RemoveEffectCode(synergyList[0].id, allianceType);
+        }
+
         public void RegenerateGlobalRandomSeeds()
         {
             InGameRandomManager.Instance.ResetRandomSeedGenerator(randomGeneratorSeed);
             Random random = InGameRandomManager.Instance.GetRandom();
-            var globalRandomSeeds = new int[(int) GlobalRandomType.MAX];
+            var globalRandomSeeds = new int[(int)GlobalRandomType.MAX];
             for (var i = 0; i < globalRandomSeeds.Length; i++)
             {
                 globalRandomSeeds[i] = random.Next();

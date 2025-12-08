@@ -32,7 +32,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            _powerRate = _specTargetCommanderSkill.base_rate * 0.01f;
+            _powerRate = _specTargetCommanderSkill.base_rate;
 
             PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();
@@ -54,7 +54,7 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            _powerRate = _specTargetCommanderSkill.base_rate * 0.01f;
+            _powerRate = _specTargetCommanderSkill.base_rate;
 
             PromotionCommanderSkillCheck((PromotionLevelType)codeInfo.GetCodeStatToInt(2), (PromotionLevelType)codeInfo.GetCodeStatToInt(3));
             SkillAction();

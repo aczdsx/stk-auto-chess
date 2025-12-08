@@ -188,7 +188,8 @@ namespace CookApps.BattleSystem
             _view.CachedTr.localPosition = position;
         }
 
-        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType, bool hasSkill, HpBarType type = HpBarType.None)
+        public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType,
+        bool hasSkill, HpBarType type = HpBarType.None)
         {
             _characterUId = characUIdInc++;
             _statData = statData;
@@ -220,6 +221,13 @@ namespace CookApps.BattleSystem
                 viewGo = await Addressables.InstantiateAsync(
                     $"Obstacle/Stage/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
+            else if (statData.Spec.character_type == CharacterType.ITEM)
+            {
+                viewGo = await Addressables.InstantiateAsync(
+                    $"Item/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+            }
+            //Item/300001/GenerateResources/CharacterView_300001.prefab
+            //Item/300001/GenerateResources/CharacterView_300001.prefab
             else
             {
                 viewGo = await Addressables.InstantiateAsync(
@@ -263,6 +271,10 @@ namespace CookApps.BattleSystem
         public void AddViewScaleFactor(float viewScaleValue)
         {
             _view.AddViewScale(viewScaleValue);
+        }
+        public void RemoveViewScaleFactor(float viewScaleValue)
+        {
+            _view.RemoveViewScale(viewScaleValue);
         }
 
         public void SetStateType(Type baseStateType, Type concreteStateType)
@@ -328,10 +340,11 @@ namespace CookApps.BattleSystem
         }
         public void InjectSynergy(long effectCodeID, SpecSynergy synergyData)
         {
-            Span<double> stats = stackalloc double[3];
+            Span<double> stats = stackalloc double[4];
             stats[0] = synergyData.stat_value;
             stats[1] = synergyData.stat_value_2;
             stats[2] = synergyData.grade;
+            stats[3] = synergyData.stat_value_3;
             var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
             ecc.AddOrMergeEffectCode(effectCodeInfo, this);
         }
@@ -388,6 +401,8 @@ namespace CookApps.BattleSystem
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_landing, CurrentTile.View.CachedTr.position);
                 SelectedOffSet -= Vector3.up * 0.3f;
             }
+            if (_view == null)
+                return;
             _view.SetSelected(isSetSelected);
             Color color = isSetSelected ? Color.gray : Color.white;
             _view.SetColor(color);
@@ -1160,6 +1175,9 @@ namespace CookApps.BattleSystem
                     return;
                 case ElementAdvantageHelper.ElementAdvantageResult.RESIST:
                     damageInfo.damageAmount *= ElementAdvantageHelper.RESIST_MULTIPLIER;
+                    return;
+                case ElementAdvantageHelper.ElementAdvantageResult.EQUAL:
+                    damageInfo.damageAmount *= ElementAdvantageHelper.EQUAL_MULTIPLIER;
                     return;
             }
         }

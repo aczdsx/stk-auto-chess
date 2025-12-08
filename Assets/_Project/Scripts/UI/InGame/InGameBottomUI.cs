@@ -8,6 +8,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -158,7 +159,7 @@ public class InGameBottomUI : MonoBehaviour
 
             InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
-
+            UpdatePreviewSynergyEffectCode();
             _isRunningRecommend = false;
         }
     }
@@ -215,6 +216,7 @@ public class InGameBottomUI : MonoBehaviour
         UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
+        UpdatePreviewSynergyEffectCode();
     }
 
     public void CheckNewCharacter()
@@ -266,7 +268,6 @@ public class InGameBottomUI : MonoBehaviour
         {
             _commanderSkillUIList[index].SetIcon(image);
             _commanderSkillUIList[index].SetCommanderFx(false);
-            //요기다ㅏㄱ 해당 커맨더스킬 레벨 기입.
         }
         else
         {
@@ -402,6 +403,8 @@ public class InGameBottomUI : MonoBehaviour
 
         UpdateData();
         SetCharacterCountText();
+        InGameObjectManager.Instance.CheckAffectedByItemController(controller);
+        UpdatePreviewSynergyEffectCode(controller.GetCharacterStat());
     }
 
     public virtual void ReturnObstacle(CharacterController controller)
@@ -439,6 +442,7 @@ public class InGameBottomUI : MonoBehaviour
 
             InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
+            UpdatePreviewSynergyEffectCode(statData);
         }
 
         _isRunningAddCharacter = false;
@@ -511,6 +515,11 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetFocusCharacterUI(SpecCharacter spec)
     {
+        if (spec.character_type == CharacterType.ITEM)
+        {
+            return;
+        }
+
         foreach (var characterItem in _characterItemList)
         {
             if (characterItem.StatData == null)
@@ -577,6 +586,25 @@ public class InGameBottomUI : MonoBehaviour
                 if (isPlayFx)
                     _stageBattleFx.Play();
             }
+        }
+    }
+
+    private void UpdatePreviewSynergyEffectCode(CharacterStatData statData = null)
+    {
+        var stateCombatStepBase = InGameMainFlowManager.Instance.CurrentFlowState as StateCombatStepBase;
+        if (stateCombatStepBase != null)
+        {
+            if (statData != null)
+            {
+                stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player, statData.Spec.element_type, statData.Spec.asterism_type);
+                stateCombatStepBase.ApplyTargetSynergy(AllianceType.Player, statData.Spec.element_type, statData.Spec.asterism_type);
+            }
+            else
+            {
+                stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player);
+                stateCombatStepBase.AddSynergy(AllianceType.Player);
+            }
+
         }
     }
 

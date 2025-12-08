@@ -17,6 +17,8 @@ public class FlowStatePvpCombat : StateCombatBase
 
     public override void StateInit(object target)
     {
+        base.TidyUpPreviewSynergy(AllianceType.Player);
+
         characters = ListPool<CharacterController>.Get();
 
         InGameObjectManager.Instance.ClearSynergyFx();
@@ -54,7 +56,7 @@ public class FlowStatePvpCombat : StateCombatBase
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
 
-        var effectCodes = InGameManager.Instance.EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCombatStart);
+        var effectCodes = InGameManager.Instance.TeamEcc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCombatStart);
         EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
 
         StartAsync().Forget();

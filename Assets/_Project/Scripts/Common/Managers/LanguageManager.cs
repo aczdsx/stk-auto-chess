@@ -72,10 +72,8 @@ namespace CookApps.AutoBattler
                     return GetLanguageText("SYNERGY_EARTH");
                 case SynergyType.WIND:
                     return GetLanguageText("SYNERGY_WIND");
-                case SynergyType.LIGHT:
-                    return GetLanguageText("SYNERGY_LIGHT");
-                case SynergyType.DARK:
-                    return GetLanguageText("SYNERGY_DARK");
+                case SynergyType.LIGHTNING:
+                    return GetLanguageText("SYNERGY_LIGHTNING");
                 default:
                     return string.Empty;
             }

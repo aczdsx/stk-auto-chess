@@ -2,10 +2,10 @@ using System;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using UnityEngine;
 
 /// <summary>
-///대지 시너지만 적용
-// (물리, 마법) 방어력 증가   
+// 공격속도 {0}% 회피율이 {0}% 증가합니다.
 /// </summary>
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeSynergyElementWind : EffectCodeCharacterBase
@@ -17,14 +17,13 @@ public partial class EffectCodeSynergyElementWind : EffectCodeCharacterBase
     {
         base.Initialize(codeInfo, container, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
+
+        Span<double> increaseStat = stackalloc double[1];
+        increaseStat.Clear();
+        increaseStat[0] = _statValue;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_PERCENT_UP, owner, increaseStat, source);
         
-        Span<double> buffStats = stackalloc double[3];
-        buffStats.Clear();
-        buffStats[0] = codeId;
-        buffStats[1] = 999f;
-        buffStats[2] = _statValue;
-        var effectCodeID = new EffectCodeInfo((long)EffectCodeNameType.BUFF_ATK_SPEED_UP, 0, buffStats);
-        owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeID, source);
+        Debug.LogColor($"바람시너지 공격속도 {_statValue}% 증가", "green");
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
