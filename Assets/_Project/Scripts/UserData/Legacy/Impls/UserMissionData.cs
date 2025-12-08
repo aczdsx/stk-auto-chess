@@ -59,7 +59,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserMissionData()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserMissionData.ToCategoryString(), userMissionData);
+            QueueSave(DataCategory.UserMissionData.ToCategoryString(), userMissionData);
         }
 
         // 현재 가이드 미션 상태 세팅 (행동 횟수)

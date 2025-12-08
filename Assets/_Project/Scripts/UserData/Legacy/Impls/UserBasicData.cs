@@ -1,5 +1,5 @@
-using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
+using CookApps.gRPC;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
@@ -21,9 +21,6 @@ namespace CookApps.AutoBattler
             {
                 userBasicData = new UserBasicData
                 {
-                    Uid = 0,
-                    ServerId = 1,
-                    PlayerId = "",
                     Level = 1,
                     Exp = 0,
                     Nickname = "StellaKnights",
@@ -61,24 +58,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserBasic()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserData.ToCategoryString(), UserBasicData);
-        }
-
-        public void SetUserLoginData(uint UID, int serverID, string playerID)
-        {
-            UserBasicData.Uid = (int)UID;
-            UserBasicData.ServerId = serverID;
-            UserBasicData.PlayerId = playerID;
-
-            //Preference.SavePreference(Pref.LOGIN_PLATFORM_TYPE, (int)authPlatformm); // 기기자체에도 저장 (첫 로그인 판별용)
-
-            SaveUserBasic();
-        }
-
-        // 이전에 로그인 데이터를 가지고 있는지 체크
-        public bool IsHaveLoginData()
-        {
-            return UserBasicData.Uid > 0 && UserBasicData.ServerId > 0 && !string.IsNullOrWhiteSpace(UserBasicData.PlayerId);
+            QueueSave(DataCategory.UserData.ToCategoryString(), UserBasicData);
         }
 
         public void SetUserTotalPlayTime(int minute, bool needSave)

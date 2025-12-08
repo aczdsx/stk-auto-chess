@@ -278,7 +278,7 @@ namespace CookApps.AutoBattler
 
         public void SaveCharacterGroup()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserCharacterGroup.ToCategoryString(), userCharacterGroup);
+            QueueSave(DataCategory.UserCharacterGroup.ToCategoryString(), userCharacterGroup);
         }
     }
 }

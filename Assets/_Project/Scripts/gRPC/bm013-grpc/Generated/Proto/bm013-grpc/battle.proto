@@ -7,8 +7,6 @@ import "custom_common.proto";
 
 import "battle+chapter.proto";
 import "battle+stage.proto";
-import "battle+formation.proto";
-import "battle+enemy_unit.proto";
 
 // 전투 서비스
 service BattleService {
@@ -35,7 +33,7 @@ service BattleService {
   /**
    * 전투 종료
    */
-  rpc End(BattleEndRequest) returns (BattleEndResponse);  
+  rpc End(BattleEndRequest) returns (BattleEndResponse);
 }
 
 enum BattleErrorCode {
@@ -66,16 +64,13 @@ message BattleListStageResponse {
 
 message BattleStartRequest {
   string stage_id = 1;
-  BattleStageDifficulty difficulty = 2;
+  Difficulty difficulty = 2;
   
   // 전투 편성
-  BattleFormation formation = 3;
+  uint32 deck_slot_id = 3;
   
   // 관측자 스킬
   repeated string observer_skill_ids = 4;
-  
-  // 전술 연구소 설치물 (아레나용)
-  repeated TacticPlacement tactic_placements = 5;
 }
 
 message BattleStartResponse {
@@ -86,13 +81,7 @@ message BattleStartResponse {
   
   // 전투 시드 (재현용)
   uint64 battle_seed = 3;
-  
-  // 적 정보
-  repeated BattleEnemyUnit enemies = 4;
-  
-  // 스테이지 정보
-  BattleStageInfo stage_info = 5;
-}
+  }
 
 // 전투 종료 요청
 message BattleEndRequest {
@@ -137,7 +126,7 @@ message BattleEndResponse {
   BattleStageProgress stage_progress = 4;
   
   // 경험치 획득
-  uint64 user_exp_gained = 5;
+  uint64 player_exp_gained = 5;
   repeated BattleCharacterExpGain character_exp_gains = 6;
 }
 

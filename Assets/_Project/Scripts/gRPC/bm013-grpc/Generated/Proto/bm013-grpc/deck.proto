@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+import "deck+info.proto";
+
+// 캐릭터 배치 덱 서비스
+service DeckService {
+  /**
+   * 캐릭터 배치 덱 목록 조회
+   */
+  rpc ListBattleDeck(DeckListBattleDeckRequest) returns (DeckListBattleDeckResponse);
+
+  /**
+   * 캐릭터 배치 덱 조회
+   */
+  rpc GetBattleDeck(DeckGetBattleDeckRequest) returns (DeckGetBattleDeckResponse);
+
+  /**
+   * 캐릭터 배치 덱 저장
+   */
+  rpc SaveBattleDeck(DeckSaveBattleDeckRequest) returns (DeckSaveBattleDeckResponse);
+
+  /**
+   * 캐릭터 배치 덱 삭제
+   */
+  rpc DeleteBattleDeck(DeckDeleteBattleDeckRequest) returns (DeckDeleteBattleDeckResponse);
+}
+
+enum DeckErrorCode {
+  DECK_UNSPECIFIED = 0;
+}
+
+message DeckListBattleDeckRequest {}
+message DeckListBattleDeckResponse {
+  ResponseStatus status = 1;
+  repeated DeckInfo deck_list = 2;
+  uint32 max_deck_slot = 3;
+}
+
+message DeckGetBattleDeckRequest {
+  uint32 deck_slot_id = 1;
+}
+message DeckGetBattleDeckResponse {
+  ResponseStatus status = 1;
+  DeckInfo deck = 2;
+}
+
+message DeckSaveBattleDeckRequest {
+  uint32 deck_slot_id = 1;
+  string deck_name = 2;
+  repeated DeckCharacterPlacement character_placements = 3;
+  repeated DeckTacticPlacement tactic_placements = 4;
+}
+
+message DeckSaveBattleDeckResponse {
+  ResponseStatus status = 1;
+  DeckInfo deck = 2;
+}
+
+message DeckDeleteBattleDeckRequest {
+  uint32 deck_slot_id = 1;
+}
+message DeckDeleteBattleDeckResponse {
+  ResponseStatus status = 1;
+}

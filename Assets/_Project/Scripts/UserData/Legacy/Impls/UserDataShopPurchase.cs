@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserShopPurchaseData()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserShopPurchase.ToCategoryString(), userShopPurchase);
+            QueueSave(DataCategory.UserShopPurchase.ToCategoryString(), userShopPurchase);
         }
 
         public bool CheckValidShopPeriod(int shopID)

@@ -1,236 +1,195 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using CookApps.NetLite;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CookApps.PlatformAuth;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Google;
+using Grpc.Core;
 using Tech.Hive.V1;
+using UnityEditor;
 
 
 namespace CookApps.AutoBattler
 {
     public class LoginManager : Singleton<LoginManager>
     {
-        public AuthPlatform CurrentAuthPlatform { get; private set; }
-        public bool CheckIsLoggedIn()
-        {
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Guest))
-            {
-                CurrentAuthPlatform = AuthPlatform.Guest;
-                return true;
-            }
-
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Apple))
-            {
-                CurrentAuthPlatform = AuthPlatform.Apple;
-                return true;
-            }
-            
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Facebook))
-            {
-                CurrentAuthPlatform = AuthPlatform.Facebook;
-                return true;
-            }
-            
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Google))
-            {
-                CurrentAuthPlatform = AuthPlatform.Google;
-                return true;
-            }
-            
-            return false;
-        }
-
         #region Guest
 
         public async UniTask LoginGuest()
         {
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Guest))
+            if (LocalDataManager.Instance.HasAuthPlatform(AuthPlatform.Guest))
                 return;
-
-            var resp = await GrpcManager.Instance.Lobby.GenerateUuidAsync();
-            var authId = resp.Uuid;
-            if (string.IsNullOrEmpty(authId))
+            
+            while (true)
             {
-                CADebug.LogError("말도 안되는 authId가 빈 문자열이 되는 상황 발생!!!");
-                return;
+                var id = System.Guid.NewGuid();
+                var authId = id.ToString("N");
+                var resp = await NetManager.Instance.Auth.CreateAsync(AuthPlatform.Guest, authId);
+                if (resp.IsSuccess)
+                {
+                    LocalDataManager.Instance.AddAuth(AuthPlatform.Guest, authId);
+                    break;
+                }
+                
+                await UniTask.Delay(1000);
             }
-
-            await GrpcManager.Instance.Auth.CreateAsync(AuthPlatform.Guest, authId);
         }
 
         #endregion
 
-        private bool isLoginProcessComplete = false;
-        private string cachedUserId;
-
         #region Apple
-
-        public async UniTask<bool> LoginApple(bool needAutoLogin = true)
+        public async UniTask<string> LoginApple(bool needAutoLogin = true)
         {
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Apple))
-                return false;
+            if (LocalDataManager.Instance.HasAuthPlatform(AuthPlatform.Apple))
+                return LocalDataManager.Instance.GetAuthId(AuthPlatform.Apple);
 
-            isLoginProcessComplete = false;
-            CookAppsPlatformAuth.AppleSignin(SignInResultApple);
+            var isLoginProcessComplete = false;
+            string cachedUserId = null;
+            CookAppsPlatformAuth.AppleSignin((EnumSignResult result, PlatformUserInfo platformUserInfo) =>
+            {
+                // 로그인 성공
+                if (result == EnumSignResult.SUCCESS)
+                {
+                    cachedUserId = platformUserInfo.UserId;
+                }
+
+                isLoginProcessComplete = true;
+            });
+
             while (!isLoginProcessComplete)
                 await UniTask.Yield();
 
             if (cachedUserId == null)
+                return null;
+
+            var resp = await NetManager.Instance.Auth.CreateAsync(AuthPlatform.Apple, cachedUserId);
+            if (resp.Exception != null)
             {
-                isLoginProcessComplete = false;
-                return false;
+                return null;
             }
 
-            var isSuccess = await GrpcManager.Instance.Auth.CreateAsync(AuthPlatform.Apple, cachedUserId);
-            if (isSuccess)
-            {
-                isLoginProcessComplete = false;
-                cachedUserId = null;
-                return true;
-            }
-
-            // var popupData = new PopupAlertData("Popup_Social_Login_Check_Title", "Popup_Social_Login_Check_Desc", false, "Popup_Social_Login_Check_Button_Yes", "Common_Cancel", true);
-            // (_, var res) = await SceneUIManager.Instance.RequestPushUIAsync("Popup_Alert", popupData);
-            // if (res is PopupAlertResult.Ok)
-            // {
-            //     LogOut();
-            //     await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Apple, cachedUserId);
-            //     isLoginProcessComplete = false;
-            //     cachedUserId = null;
-            //     return true;
-            // }
-
-            return false;
-        }
-
-        private void SignInResultApple(EnumSignResult result, PlatformUserInfo platformUserInfo)
-        {
-            // 로그인 성공
-            if (result == EnumSignResult.SUCCESS)
-            {
-                cachedUserId = platformUserInfo.UserId;
-                var socialPlatform = platformUserInfo.SocialPlatform;
-            }
-
-            isLoginProcessComplete = true;
+            LocalDataManager.Instance.AddAuth(AuthPlatform.Apple, cachedUserId);
+            return cachedUserId;
         }
 
         public void LogOut(bool withUniversal = true)
         {
             if (withUniversal)
-                GrpcManager.Instance.Auth.Logout();
+                NetManager.Instance.Auth.UnregisterAsync();
         }
 
         #endregion
-
-        #region Facebook
-
-        public async UniTask<bool> LoginFacebook()
-        {
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Facebook))
-                return false;
-
-            isLoginProcessComplete = false;
-            CookAppsPlatformAuth.FacebookSignin(SignInResultFacebook);
-            while (!isLoginProcessComplete)
-                await UniTask.Yield();
-
-            if (cachedUserId == null)
-            {
-                isLoginProcessComplete = false;
-                return false;
-            }
-
-            var isSuccess = await GrpcManager.Instance.Auth.CreateAsync(AuthPlatform.Facebook, cachedUserId);
-            if (isSuccess)
-            {
-                isLoginProcessComplete = false;
-                cachedUserId = null;
-                return true;
-            }
-
-            // var popupData = new PopupAlertData("Popup_Social_Login_Check_Title", "Popup_Social_Login_Check_Desc", false, "Popup_Social_Login_Check_Button_Yes", "Common_Cancel", true);
-            // (_, var res) = await SceneUIManager.Instance.RequestPushUIAsync("Popup_Alert", popupData);
-            // if (res is PopupAlertResult.Ok)
-            // {
-            //     LogOut();
-            //     await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Facebook, cachedUserId);
-            //     isLoginProcessComplete = false;
-            //     cachedUserId = null;
-            //     return true;
-            // }
-
-            return false;
-        }
-
-        private void SignInResultFacebook(EnumSignResult result, PlatformUserInfo platformUserInfo)
-        {
-            if (result == EnumSignResult.SUCCESS)
-            {
-                cachedUserId = platformUserInfo.UserId;
-                var socialPlatform = platformUserInfo.SocialPlatform;
-            }
-
-            isLoginProcessComplete = true;
-        }
-
-        #endregion
-
-        #region Google
-
-        public async UniTask<bool> LoginGoogle()
-        {
-            if (GrpcManager.Instance.Auth.IsLoggedIn(AuthPlatform.Google))
-                return false;
-
-            isLoginProcessComplete = false;
-            CookAppsPlatformAuth.GoogleSignIn(SignInResult);
-            while (!isLoginProcessComplete)
-                await UniTask.Yield();
-
-            if (cachedUserId == null)
-            {
-                isLoginProcessComplete = false;
-                return false;
-            }
-
-            var isSuccess = await GrpcManager.Instance.Auth.CreateAsync(AuthPlatform.Google, cachedUserId);
-            if (isSuccess)
-            {
-                isLoginProcessComplete = false;
-                cachedUserId = null;
-                return true;
-            }
-
-            // var popupData = new PopupAlertData("Popup_Social_Login_Check_Title", "Popup_Social_Login_Check_Desc", false, "Popup_Social_Login_Check_Button_Yes", "Common_Cancel", true);
-            // (_, var res) = await SceneUIManager.Instance.RequestPushUIAsync("Popup_Alert", popupData);
-            // if (res is PopupAlertResult.Ok)
-            // {
-            //     LogOut();
-            //     await UniversalGrpcManager.Instance.AddAuthInfoAsync(AuthPlatform.Google, cachedUserId);
-            //     isLoginProcessComplete = false;
-            //     cachedUserId = null;
-            //     return true;
-            // }
-
-            return false;
-        }
-
-        private void SignInResult(EnumSignResult result, PlatformUserInfo platformUserInfo)
-        {
-            // 로그인 성공
-            if (result == EnumSignResult.SUCCESS)
-            {
-                cachedUserId = platformUserInfo.UserId;
-                var socialPlatform = platformUserInfo.SocialPlatform;
-            }
-
-            isLoginProcessComplete = true;
-        }
-
-        #endregion
+        //
+        // #region Facebook
+        //
+        // public async UniTask<bool> LoginFacebook()
+        // {
+        //     if (NetManager.Instance.Auth.IsLoggedIn(AuthPlatform.Facebook))
+        //         return false;
+        //
+        //     isLoginProcessComplete = false;
+        //     CookAppsPlatformAuth.FacebookSignin(SignInResultFacebook);
+        //     while (!isLoginProcessComplete)
+        //         await UniTask.Yield();
+        //
+        //     if (cachedUserId == null)
+        //     {
+        //         isLoginProcessComplete = false;
+        //         return false;
+        //     }
+        //
+        //     var resp = await NetManager.Instance.Auth.CreateAsync(AuthPlatform.Facebook, cachedUserId);
+        //     if (resp.IsSuccess)
+        //     {
+        //         isLoginProcessComplete = false;
+        //         cachedUserId = null;
+        //         return true;
+        //     }
+        //
+        //     // var popupData = new PopupAlertData("Popup_Social_Login_Check_Title", "Popup_Social_Login_Check_Desc", false, "Popup_Social_Login_Check_Button_Yes", "Common_Cancel", true);
+        //     // (_, var res) = await SceneUIManager.Instance.RequestPushUIAsync("Popup_Alert", popupData);
+        //     // if (res is PopupAlertResult.Ok)
+        //     // {
+        //     //     LogOut();
+        //     //     await UniversalNetManager.Instance.AddAuthInfoAsync(AuthPlatform.Facebook, cachedUserId);
+        //     //     isLoginProcessComplete = false;
+        //     //     cachedUserId = null;
+        //     //     return true;
+        //     // }
+        //
+        //     return false;
+        // }
+        //
+        // private void SignInResultFacebook(EnumSignResult result, PlatformUserInfo platformUserInfo)
+        // {
+        //     if (result == EnumSignResult.SUCCESS)
+        //     {
+        //         cachedUserId = platformUserInfo.UserId;
+        //         var socialPlatform = platformUserInfo.SocialPlatform;
+        //     }
+        //
+        //     isLoginProcessComplete = true;
+        // }
+        //
+        // #endregion
+        //
+        // #region Google
+        //
+        // public async UniTask<bool> LoginGoogle()
+        // {
+        //     if (NetManager.Instance.Auth.IsLoggedIn(AuthPlatform.Google))
+        //         return false;
+        //
+        //     isLoginProcessComplete = false;
+        //     CookAppsPlatformAuth.GoogleSignIn(SignInResult);
+        //     while (!isLoginProcessComplete)
+        //         await UniTask.Yield();
+        //
+        //     if (cachedUserId == null)
+        //     {
+        //         isLoginProcessComplete = false;
+        //         return false;
+        //     }
+        //
+        //     var resp = await NetManager.Instance.Auth.CreateAsync(AuthPlatform.Google, cachedUserId);
+        //     if (resp.IsSuccess)
+        //     {
+        //         isLoginProcessComplete = false;
+        //         cachedUserId = null;
+        //         return true;
+        //     }
+        //
+        //     // var popupData = new PopupAlertData("Popup_Social_Login_Check_Title", "Popup_Social_Login_Check_Desc", false, "Popup_Social_Login_Check_Button_Yes", "Common_Cancel", true);
+        //     // (_, var res) = await SceneUIManager.Instance.RequestPushUIAsync("Popup_Alert", popupData);
+        //     // if (res is PopupAlertResult.Ok)
+        //     // {
+        //     //     LogOut();
+        //     //     await UniversalNetManager.Instance.AddAuthInfoAsync(AuthPlatform.Google, cachedUserId);
+        //     //     isLoginProcessComplete = false;
+        //     //     cachedUserId = null;
+        //     //     return true;
+        //     // }
+        //
+        //     return false;
+        // }
+        //
+        // private void SignInResult(EnumSignResult result, PlatformUserInfo platformUserInfo)
+        // {
+        //     // 로그인 성공
+        //     if (result == EnumSignResult.SUCCESS)
+        //     {
+        //         cachedUserId = platformUserInfo.UserId;
+        //         var socialPlatform = platformUserInfo.SocialPlatform;
+        //     }
+        //
+        //     isLoginProcessComplete = true;
+        // }
+        //
+        // #endregion
 
 
         #region private

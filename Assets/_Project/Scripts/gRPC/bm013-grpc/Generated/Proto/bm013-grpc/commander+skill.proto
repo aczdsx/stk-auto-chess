@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+message CommanderSkillInfo {
+  uint32 commander_skill_id = 1;      // 스킬 아이디
+  uint32 level = 2;                   // 레벨
+  bool is_unlocked = 3;               // 잠금 해제 여부
+  uint32 equipped_slot_index = 4;     // 장착된 슬롯 인덱스
+  uint32 selected_promotion_1 = 5;    // 선택된 승급 옵션 1
+  uint32 selected_promotion_2 = 6;    // 선택된 승급 옵션 2
+}
+
+
+message CommanderEquippedSkillInfo {
+  uint32 slot_index = 1;
+  uint32 commander_skill_id = 2;
+}

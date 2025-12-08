@@ -5,73 +5,17 @@ package tech.hive.v1;
 // 스테이지 진행 정보
 message BattleStageProgress {
   string stage_id = 1;
-  BattleStageDifficulty difficulty = 2;
   
   // 클리어 정보
-  bool is_cleared = 3;
-  uint32 clear_count = 4;
-  uint32 best_stars = 5;  // 최고 별 개수 (0~3)
+  bool is_cleared = 2;
+  uint32 clear_count = 3;
+  uint32 best_stars = 4;  // 최고 별 개수 (0~3)
   
   // 보상 수령 정보
-  bool is_first_clear_rewarded = 6;
-  bool is_three_star_rewarded = 7;
+  bool is_first_clear_rewarded = 5;
+  bool is_three_star_rewarded = 6;
   
   // 최고 기록
-  uint64 best_clear_time = 8;  // 밀리초
-  uint64 best_combat_power = 9;
-}
-
-// 스테이지 난이도
-enum BattleStageDifficulty {
-  STAGE_DIFFICULTY_UNSPECIFIED = 0;
-  STAGE_DIFFICULTY_NORMAL = 1;   // 일반
-  STAGE_DIFFICULTY_ELITE = 2;    // 엘리트
-  STAGE_DIFFICULTY_HELL = 3;     // 헬
-}
-
-// 스테이지 정보
-message BattleStageInfo {
-  string stage_id = 1;
-  BattleStageDifficulty difficulty = 2;
-  
-  // 그리드 크기
-  uint32 grid_width = 3;
-  uint32 grid_height = 4;
-  
-  // 장애물 배치
-  repeated BattleObstaclePlacement obstacles = 5;
-  
-  // 클리어 조건
-  BattleClearCondition clear_condition = 6;
-}
-
-// 장애물 배치
-message BattleObstaclePlacement {
-  BattleObstacleType type = 1;
-  int32 grid_x = 2;
-  int32 grid_y = 3;
-}
-
-// 장애물 타입
-enum BattleObstacleType {
-  OBSTACLE_TYPE_UNSPECIFIED = 0;
-  OBSTACLE_TYPE_LOW_WALL = 1;      // 낮은 오브젝트
-  OBSTACLE_TYPE_HIGH_WALL = 2;     // 벽 오브젝트
-  OBSTACLE_TYPE_BARREL = 3;        // 화약통
-}
-
-// 클리어 조건
-message BattleClearCondition {
-  BattleClearConditionType type = 1;
-  uint32 target_value = 2;
-  uint32 time_limit = 3;  // 제한 시간 (초), 0이면 무제한
-}
-
-// 클리어 조건 타입
-enum BattleClearConditionType {
-  CLEAR_CONDITION_TYPE_UNSPECIFIED = 0;
-  CLEAR_CONDITION_TYPE_DEFEAT_ALL = 1;      // 모든 적 처치
-  CLEAR_CONDITION_TYPE_DEFEAT_BOSS = 2;     // 보스 처치
-  CLEAR_CONDITION_TYPE_SURVIVE = 3;         // 생존
-  CLEAR_CONDITION_TYPE_DEFEND = 4;          // 방어
+  uint64 best_clear_time = 7;  // 밀리초
+  uint64 best_combat_power = 8;
 }

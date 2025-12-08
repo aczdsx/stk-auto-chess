@@ -9,6 +9,11 @@ message CurrencyDelta {
   int64 delta = 4;
 }
 
+message Reward {
+  uint32 item_id = 1;
+  uint64 count = 2;
+}
+
 // 속성 타입
 enum ElementType {
   ELEMENT_TYPE_UNSPECIFIED = 0;
@@ -38,4 +43,12 @@ enum ClassType {
   CLASS_TYPE_ESPER = 4;        // 에스퍼
   CLASS_TYPE_GHOST = 5;        // 고스트
   CLASS_TYPE_ORACLE = 6;       // 오라클
+}
+
+
+enum Difficulty {
+  DIFFICULTY_UNSPECIFIED = 0;
+  DIFFICULTY_NORMAL = 1;   // 일반
+  DIFFICULTY_ELITE = 2;    // 엘리트
+  DIFFICULTY_HELL = 3;     // 헬
 }

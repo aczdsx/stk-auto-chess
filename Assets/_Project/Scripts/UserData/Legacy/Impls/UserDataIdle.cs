@@ -91,7 +91,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserIdle()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserIdleData.ToCategoryString(), userIdleData);
+            QueueSave(DataCategory.UserIdleData.ToCategoryString(), userIdleData);
         }
     }
 }

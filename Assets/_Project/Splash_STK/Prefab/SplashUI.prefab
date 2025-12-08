@@ -6383,7 +6383,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 697865440549132607}
         m_TargetAssemblyTypeName: CookApps.AutoBattler.TitleMain, Assembly-CSharp
-        m_MethodName: OnClickCrateGuestIDButton
+        m_MethodName: OnClickGuestLoginButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12074,6 +12074,7 @@ MonoBehaviour:
   baseAnimator: {fileID: 0}
   preloadAddressables: []
   touchToStart: {fileID: 5588961860860531760}
+  guestLoginNode: {fileID: 6912974175550860025}
 --- !u!223 &8191710119406015283
 Canvas:
   m_ObjectHideFlags: 0
@@ -13127,7 +13128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3589687788901287434
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14024,7 +14025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4026400026169124416
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14278,7 +14279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7725006837262681289
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15064,7 +15065,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 697865440549132607}
         m_TargetAssemblyTypeName: CookApps.AutoBattler.TitleMain, Assembly-CSharp
-        m_MethodName: OnClickGuestLoginButton
+        m_MethodName: OnClickTouchToStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15786,7 +15787,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 697865440549132607}
         m_TargetAssemblyTypeName: CookApps.AutoBattler.TitleMain, Assembly-CSharp
-        m_MethodName: OnClickCrateGuestIDButton
+        m_MethodName: OnClickGuestLoginButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

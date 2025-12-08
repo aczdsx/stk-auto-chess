@@ -26,65 +26,60 @@ namespace Tech.Hive.V1 {
           string.Concat(
             "CgxiYXR0bGUucHJvdG8SDHRlY2guaGl2ZS52MRoKYmFzZS5wcm90bxoTY3Vz",
             "dG9tX2NvbW1vbi5wcm90bxoUYmF0dGxlK2NoYXB0ZXIucHJvdG8aEmJhdHRs",
-            "ZStzdGFnZS5wcm90bxoWYmF0dGxlK2Zvcm1hdGlvbi5wcm90bxoXYmF0dGxl",
-            "K2VuZW15X3VuaXQucHJvdG8iIAoeQmF0dGxlR2V0Q3VycmVudENoYXB0ZXJS",
-            "ZXF1ZXN0Ir0BCh9CYXR0bGVHZXRDdXJyZW50Q2hhcHRlclJlc3BvbnNlEiwK",
-            "BnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1",
-            "CgxjaGFwdGVyX2luZm8YAiABKAsyHy50ZWNoLmhpdmUudjEuQmF0dGxlQ2hh",
-            "cHRlckluZm8SNQoKc3RhZ2VfbGlzdBgDIAMoCzIhLnRlY2guaGl2ZS52MS5C",
-            "YXR0bGVTdGFnZVByb2dyZXNzIhoKGEJhdHRsZUxpc3RDaGFwdGVyUmVxdWVz",
-            "dCKAAQoZQmF0dGxlTGlzdENoYXB0ZXJSZXNwb25zZRIsCgZzdGF0dXMYASAB",
-            "KAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSNQoMY2hhcHRlcl9s",
-            "aXN0GAIgAygLMh8udGVjaC5oaXZlLnYxLkJhdHRsZUNoYXB0ZXJJbmZvIiwK",
-            "FkJhdHRsZUxpc3RTdGFnZVJlcXVlc3QSEgoKY2hhcHRlcl9pZBgBIAEoDSJ+",
-            "ChdCYXR0bGVMaXN0U3RhZ2VSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
-            "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSNQoKc3RhZ2VfbGlzdBgCIAMo",
-            "CzIhLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFnZVByb2dyZXNzIucBChJCYXR0",
-            "bGVTdGFydFJlcXVlc3QSEAoIc3RhZ2VfaWQYASABKAkSNwoKZGlmZmljdWx0",
-            "eRgCIAEoDjIjLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFnZURpZmZpY3VsdHkS",
-            "MAoJZm9ybWF0aW9uGAMgASgLMh0udGVjaC5oaXZlLnYxLkJhdHRsZUZvcm1h",
-            "dGlvbhIaChJvYnNlcnZlcl9za2lsbF9pZHMYBCADKAkSOAoRdGFjdGljX3Bs",
-            "YWNlbWVudHMYBSADKAsyHS50ZWNoLmhpdmUudjEuVGFjdGljUGxhY2VtZW50",
-            "ItYBChNCYXR0bGVTdGFydFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
-            "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIZChFiYXR0bGVfc2Vzc2lvbl9p",
-            "ZBgCIAEoCRITCgtiYXR0bGVfc2VlZBgDIAEoBBIuCgdlbmVtaWVzGAQgAygL",
-            "Mh0udGVjaC5oaXZlLnYxLkJhdHRsZUVuZW15VW5pdBIxCgpzdGFnZV9pbmZv",
-            "GAUgASgLMh0udGVjaC5oaXZlLnYxLkJhdHRsZVN0YWdlSW5mbyJZChBCYXR0",
-            "bGVFbmRSZXF1ZXN0EhkKEWJhdHRsZV9zZXNzaW9uX2lkGAEgASgJEioKBnJl",
-            "c3VsdBgCIAEoCzIaLnRlY2guaGl2ZS52MS5CYXR0bGVSZXN1bHQirwEKDEJh",
-            "dHRsZVJlc3VsdBISCgppc192aWN0b3J5GAEgASgIEhIKCmNsZWFyX3RpbWUY",
-            "AiABKAQSDQoFc3RhcnMYAyABKA0SMAoKdW5pdF9zdGF0cxgEIAMoCzIcLnRl",
-            "Y2guaGl2ZS52MS5CYXR0bGVVbml0U3RhdBIaChJ0b3RhbF9kYW1hZ2VfZGVh",
-            "bHQYBSABKAQSGgoSdG90YWxfZGFtYWdlX3Rha2VuGAYgASgEIn8KDkJhdHRs",
-            "ZVVuaXRTdGF0Eh0KFWNoYXJhY3Rlcl9pbnN0YW5jZV9pZBgBIAEoCRIUCgxk",
-            "YW1hZ2VfZGVhbHQYAiABKAQSFAoMZGFtYWdlX3Rha2VuGAMgASgEEg0KBWtp",
-            "bGxzGAQgASgNEhMKC2lzX3N1cnZpdmVkGAUgASgIIsMCChFCYXR0bGVFbmRS",
-            "ZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9u",
-            "c2VTdGF0dXMSMwoLcmV3YXJkX3R5cGUYAiABKA4yHi50ZWNoLmhpdmUudjEu",
-            "QmF0dGxlUmV3YXJkVHlwZRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50",
-            "ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YRI5Cg5zdGFnZV9wcm9ncmVzcxgE",
-            "IAEoCzIhLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFnZVByb2dyZXNzEhcKD3Vz",
-            "ZXJfZXhwX2dhaW5lZBgFIAEoBBJBChNjaGFyYWN0ZXJfZXhwX2dhaW5zGAYg",
-            "AygLMiQudGVjaC5oaXZlLnYxLkJhdHRsZUNoYXJhY3RlckV4cEdhaW4idgoW",
-            "QmF0dGxlQ2hhcmFjdGVyRXhwR2FpbhIdChVjaGFyYWN0ZXJfaW5zdGFuY2Vf",
-            "aWQYASABKAkSEgoKZXhwX2dhaW5lZBgCIAEoBBIUCgxsZXZlbF9iZWZvcmUY",
-            "AyABKA0SEwoLbGV2ZWxfYWZ0ZXIYBCABKA0qKQoPQmF0dGxlRXJyb3JDb2Rl",
-            "EhYKEkJBVFRMRV9VTlNQRUNJRklFRBAAKmgKEEJhdHRsZVJld2FyZFR5cGUS",
-            "GwoXUkVXQVJEX1RZUEVfVU5TUEVDSUZJRUQQABIbChdSRVdBUkRfVFlQRV9G",
-            "SVJTVF9DTEVBUhABEhoKFlJFV0FSRF9UWVBFX1RIUkVFX1NUQVIQAjLRAwoN",
-            "QmF0dGxlU2VydmljZRJwChFHZXRDdXJyZW50Q2hhcHRlchIsLnRlY2guaGl2",
-            "ZS52MS5CYXR0bGVHZXRDdXJyZW50Q2hhcHRlclJlcXVlc3QaLS50ZWNoLmhp",
-            "dmUudjEuQmF0dGxlR2V0Q3VycmVudENoYXB0ZXJSZXNwb25zZRJeCgtMaXN0",
-            "Q2hhcHRlchImLnRlY2guaGl2ZS52MS5CYXR0bGVMaXN0Q2hhcHRlclJlcXVl",
-            "c3QaJy50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdENoYXB0ZXJSZXNwb25zZRJY",
-            "CglMaXN0U3RhZ2USJC50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdFN0YWdlUmVx",
-            "dWVzdBolLnRlY2guaGl2ZS52MS5CYXR0bGVMaXN0U3RhZ2VSZXNwb25zZRJM",
-            "CgVTdGFydBIgLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFydFJlcXVlc3QaIS50",
-            "ZWNoLmhpdmUudjEuQmF0dGxlU3RhcnRSZXNwb25zZRJGCgNFbmQSHi50ZWNo",
-            "LmhpdmUudjEuQmF0dGxlRW5kUmVxdWVzdBofLnRlY2guaGl2ZS52MS5CYXR0",
-            "bGVFbmRSZXNwb25zZWIGcHJvdG8z"));
+            "ZStzdGFnZS5wcm90byIgCh5CYXR0bGVHZXRDdXJyZW50Q2hhcHRlclJlcXVl",
+            "c3QivQEKH0JhdHRsZUdldEN1cnJlbnRDaGFwdGVyUmVzcG9uc2USLAoGc3Rh",
+            "dHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDGNo",
+            "YXB0ZXJfaW5mbxgCIAEoCzIfLnRlY2guaGl2ZS52MS5CYXR0bGVDaGFwdGVy",
+            "SW5mbxI1CgpzdGFnZV9saXN0GAMgAygLMiEudGVjaC5oaXZlLnYxLkJhdHRs",
+            "ZVN0YWdlUHJvZ3Jlc3MiGgoYQmF0dGxlTGlzdENoYXB0ZXJSZXF1ZXN0IoAB",
+            "ChlCYXR0bGVMaXN0Q2hhcHRlclJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
+            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1CgxjaGFwdGVyX2xpc3QY",
+            "AiADKAsyHy50ZWNoLmhpdmUudjEuQmF0dGxlQ2hhcHRlckluZm8iLAoWQmF0",
+            "dGxlTGlzdFN0YWdlUmVxdWVzdBISCgpjaGFwdGVyX2lkGAEgASgNIn4KF0Jh",
+            "dHRsZUxpc3RTdGFnZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2gu",
+            "aGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1CgpzdGFnZV9saXN0GAIgAygLMiEu",
+            "dGVjaC5oaXZlLnYxLkJhdHRsZVN0YWdlUHJvZ3Jlc3MihgEKEkJhdHRsZVN0",
+            "YXJ0UmVxdWVzdBIQCghzdGFnZV9pZBgBIAEoCRIsCgpkaWZmaWN1bHR5GAIg",
+            "ASgOMhgudGVjaC5oaXZlLnYxLkRpZmZpY3VsdHkSFAoMZGVja19zbG90X2lk",
+            "GAMgASgNEhoKEm9ic2VydmVyX3NraWxsX2lkcxgEIAMoCSJzChNCYXR0bGVT",
+            "dGFydFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
+            "ZXNwb25zZVN0YXR1cxIZChFiYXR0bGVfc2Vzc2lvbl9pZBgCIAEoCRITCgti",
+            "YXR0bGVfc2VlZBgDIAEoBCJZChBCYXR0bGVFbmRSZXF1ZXN0EhkKEWJhdHRs",
+            "ZV9zZXNzaW9uX2lkGAEgASgJEioKBnJlc3VsdBgCIAEoCzIaLnRlY2guaGl2",
+            "ZS52MS5CYXR0bGVSZXN1bHQirwEKDEJhdHRsZVJlc3VsdBISCgppc192aWN0",
+            "b3J5GAEgASgIEhIKCmNsZWFyX3RpbWUYAiABKAQSDQoFc3RhcnMYAyABKA0S",
+            "MAoKdW5pdF9zdGF0cxgEIAMoCzIcLnRlY2guaGl2ZS52MS5CYXR0bGVVbml0",
+            "U3RhdBIaChJ0b3RhbF9kYW1hZ2VfZGVhbHQYBSABKAQSGgoSdG90YWxfZGFt",
+            "YWdlX3Rha2VuGAYgASgEIn8KDkJhdHRsZVVuaXRTdGF0Eh0KFWNoYXJhY3Rl",
+            "cl9pbnN0YW5jZV9pZBgBIAEoCRIUCgxkYW1hZ2VfZGVhbHQYAiABKAQSFAoM",
+            "ZGFtYWdlX3Rha2VuGAMgASgEEg0KBWtpbGxzGAQgASgNEhMKC2lzX3N1cnZp",
+            "dmVkGAUgASgIIsUCChFCYXR0bGVFbmRSZXNwb25zZRIsCgZzdGF0dXMYASAB",
+            "KAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSMwoLcmV3YXJkX3R5",
+            "cGUYAiABKA4yHi50ZWNoLmhpdmUudjEuQmF0dGxlUmV3YXJkVHlwZRI0Cg9j",
+            "dXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lE",
+            "ZWx0YRI5Cg5zdGFnZV9wcm9ncmVzcxgEIAEoCzIhLnRlY2guaGl2ZS52MS5C",
+            "YXR0bGVTdGFnZVByb2dyZXNzEhkKEXBsYXllcl9leHBfZ2FpbmVkGAUgASgE",
+            "EkEKE2NoYXJhY3Rlcl9leHBfZ2FpbnMYBiADKAsyJC50ZWNoLmhpdmUudjEu",
+            "QmF0dGxlQ2hhcmFjdGVyRXhwR2FpbiJ2ChZCYXR0bGVDaGFyYWN0ZXJFeHBH",
+            "YWluEh0KFWNoYXJhY3Rlcl9pbnN0YW5jZV9pZBgBIAEoCRISCgpleHBfZ2Fp",
+            "bmVkGAIgASgEEhQKDGxldmVsX2JlZm9yZRgDIAEoDRITCgtsZXZlbF9hZnRl",
+            "chgEIAEoDSopCg9CYXR0bGVFcnJvckNvZGUSFgoSQkFUVExFX1VOU1BFQ0lG",
+            "SUVEEAAqaAoQQmF0dGxlUmV3YXJkVHlwZRIbChdSRVdBUkRfVFlQRV9VTlNQ",
+            "RUNJRklFRBAAEhsKF1JFV0FSRF9UWVBFX0ZJUlNUX0NMRUFSEAESGgoWUkVX",
+            "QVJEX1RZUEVfVEhSRUVfU1RBUhACMtEDCg1CYXR0bGVTZXJ2aWNlEnAKEUdl",
+            "dEN1cnJlbnRDaGFwdGVyEiwudGVjaC5oaXZlLnYxLkJhdHRsZUdldEN1cnJl",
+            "bnRDaGFwdGVyUmVxdWVzdBotLnRlY2guaGl2ZS52MS5CYXR0bGVHZXRDdXJy",
+            "ZW50Q2hhcHRlclJlc3BvbnNlEl4KC0xpc3RDaGFwdGVyEiYudGVjaC5oaXZl",
+            "LnYxLkJhdHRsZUxpc3RDaGFwdGVyUmVxdWVzdBonLnRlY2guaGl2ZS52MS5C",
+            "YXR0bGVMaXN0Q2hhcHRlclJlc3BvbnNlElgKCUxpc3RTdGFnZRIkLnRlY2gu",
+            "aGl2ZS52MS5CYXR0bGVMaXN0U3RhZ2VSZXF1ZXN0GiUudGVjaC5oaXZlLnYx",
+            "LkJhdHRsZUxpc3RTdGFnZVJlc3BvbnNlEkwKBVN0YXJ0EiAudGVjaC5oaXZl",
+            "LnYxLkJhdHRsZVN0YXJ0UmVxdWVzdBohLnRlY2guaGl2ZS52MS5CYXR0bGVT",
+            "dGFydFJlc3BvbnNlEkYKA0VuZBIeLnRlY2guaGl2ZS52MS5CYXR0bGVFbmRS",
+            "ZXF1ZXN0Gh8udGVjaC5oaXZlLnYxLkJhdHRsZUVuZFJlc3BvbnNlYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.BattleChapterReflection.Descriptor, global::Tech.Hive.V1.BattleStageReflection.Descriptor, global::Tech.Hive.V1.BattleFormationReflection.Descriptor, global::Tech.Hive.V1.BattleEnemyUnitReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.BattleChapterReflection.Descriptor, global::Tech.Hive.V1.BattleStageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BattleErrorCode), typeof(global::Tech.Hive.V1.BattleRewardType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleGetCurrentChapterRequest), global::Tech.Hive.V1.BattleGetCurrentChapterRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleGetCurrentChapterResponse), global::Tech.Hive.V1.BattleGetCurrentChapterResponse.Parser, new[]{ "Status", "ChapterInfo", "StageList" }, null, null, null, null),
@@ -92,12 +87,12 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListChapterResponse), global::Tech.Hive.V1.BattleListChapterResponse.Parser, new[]{ "Status", "ChapterList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListStageRequest), global::Tech.Hive.V1.BattleListStageRequest.Parser, new[]{ "ChapterId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListStageResponse), global::Tech.Hive.V1.BattleListStageResponse.Parser, new[]{ "Status", "StageList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartRequest), global::Tech.Hive.V1.BattleStartRequest.Parser, new[]{ "StageId", "Difficulty", "Formation", "ObserverSkillIds", "TacticPlacements" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartResponse), global::Tech.Hive.V1.BattleStartResponse.Parser, new[]{ "Status", "BattleSessionId", "BattleSeed", "Enemies", "StageInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartRequest), global::Tech.Hive.V1.BattleStartRequest.Parser, new[]{ "StageId", "Difficulty", "DeckSlotId", "ObserverSkillIds" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartResponse), global::Tech.Hive.V1.BattleStartResponse.Parser, new[]{ "Status", "BattleSessionId", "BattleSeed" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndRequest), global::Tech.Hive.V1.BattleEndRequest.Parser, new[]{ "BattleSessionId", "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleResult), global::Tech.Hive.V1.BattleResult.Parser, new[]{ "IsVictory", "ClearTime", "Stars", "UnitStats", "TotalDamageDealt", "TotalDamageTaken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleUnitStat), global::Tech.Hive.V1.BattleUnitStat.Parser, new[]{ "CharacterInstanceId", "DamageDealt", "DamageTaken", "Kills", "IsSurvived" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndResponse), global::Tech.Hive.V1.BattleEndResponse.Parser, new[]{ "Status", "RewardType", "CurrencyDeltas", "StageProgress", "UserExpGained", "CharacterExpGains" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndResponse), global::Tech.Hive.V1.BattleEndResponse.Parser, new[]{ "Status", "RewardType", "CurrencyDeltas", "StageProgress", "PlayerExpGained", "CharacterExpGains" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleCharacterExpGain), global::Tech.Hive.V1.BattleCharacterExpGain.Parser, new[]{ "CharacterInstanceId", "ExpGained", "LevelBefore", "LevelAfter" }, null, null, null, null)
           }));
     }
@@ -1381,9 +1376,8 @@ namespace Tech.Hive.V1 {
     public BattleStartRequest(BattleStartRequest other) : this() {
       stageId_ = other.stageId_;
       difficulty_ = other.difficulty_;
-      formation_ = other.formation_ != null ? other.formation_.Clone() : null;
+      deckSlotId_ = other.deckSlotId_;
       observerSkillIds_ = other.observerSkillIds_.Clone();
-      tacticPlacements_ = other.tacticPlacements_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1407,28 +1401,28 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "difficulty" field.</summary>
     public const int DifficultyFieldNumber = 2;
-    private global::Tech.Hive.V1.BattleStageDifficulty difficulty_ = global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified;
+    private global::Tech.Hive.V1.Difficulty difficulty_ = global::Tech.Hive.V1.Difficulty.Unspecified;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleStageDifficulty Difficulty {
+    public global::Tech.Hive.V1.Difficulty Difficulty {
       get { return difficulty_; }
       set {
         difficulty_ = value;
       }
     }
 
-    /// <summary>Field number for the "formation" field.</summary>
-    public const int FormationFieldNumber = 3;
-    private global::Tech.Hive.V1.BattleFormation formation_;
+    /// <summary>Field number for the "deck_slot_id" field.</summary>
+    public const int DeckSlotIdFieldNumber = 3;
+    private uint deckSlotId_;
     /// <summary>
     /// 전투 편성
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleFormation Formation {
-      get { return formation_; }
+    public uint DeckSlotId {
+      get { return deckSlotId_; }
       set {
-        formation_ = value;
+        deckSlotId_ = value;
       }
     }
 
@@ -1444,20 +1438,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<string> ObserverSkillIds {
       get { return observerSkillIds_; }
-    }
-
-    /// <summary>Field number for the "tactic_placements" field.</summary>
-    public const int TacticPlacementsFieldNumber = 5;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.TacticPlacement> _repeated_tacticPlacements_codec
-        = pb::FieldCodec.ForMessage(42, global::Tech.Hive.V1.TacticPlacement.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.TacticPlacement> tacticPlacements_ = new pbc::RepeatedField<global::Tech.Hive.V1.TacticPlacement>();
-    /// <summary>
-    /// 전술 연구소 설치물 (아레나용)
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.TacticPlacement> TacticPlacements {
-      get { return tacticPlacements_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1477,9 +1457,8 @@ namespace Tech.Hive.V1 {
       }
       if (StageId != other.StageId) return false;
       if (Difficulty != other.Difficulty) return false;
-      if (!object.Equals(Formation, other.Formation)) return false;
+      if (DeckSlotId != other.DeckSlotId) return false;
       if(!observerSkillIds_.Equals(other.observerSkillIds_)) return false;
-      if(!tacticPlacements_.Equals(other.tacticPlacements_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1488,10 +1467,9 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (StageId.Length != 0) hash ^= StageId.GetHashCode();
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) hash ^= Difficulty.GetHashCode();
-      if (formation_ != null) hash ^= Formation.GetHashCode();
+      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) hash ^= Difficulty.GetHashCode();
+      if (DeckSlotId != 0) hash ^= DeckSlotId.GetHashCode();
       hash ^= observerSkillIds_.GetHashCode();
-      hash ^= tacticPlacements_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1514,16 +1492,15 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(StageId);
       }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
+      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
         output.WriteRawTag(16);
         output.WriteEnum((int) Difficulty);
       }
-      if (formation_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(Formation);
+      if (DeckSlotId != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(DeckSlotId);
       }
       observerSkillIds_.WriteTo(output, _repeated_observerSkillIds_codec);
-      tacticPlacements_.WriteTo(output, _repeated_tacticPlacements_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1538,16 +1515,15 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(StageId);
       }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
+      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
         output.WriteRawTag(16);
         output.WriteEnum((int) Difficulty);
       }
-      if (formation_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(Formation);
+      if (DeckSlotId != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(DeckSlotId);
       }
       observerSkillIds_.WriteTo(ref output, _repeated_observerSkillIds_codec);
-      tacticPlacements_.WriteTo(ref output, _repeated_tacticPlacements_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1561,14 +1537,13 @@ namespace Tech.Hive.V1 {
       if (StageId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(StageId);
       }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
+      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Difficulty);
       }
-      if (formation_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Formation);
+      if (DeckSlotId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(DeckSlotId);
       }
       size += observerSkillIds_.CalculateSize(_repeated_observerSkillIds_codec);
-      size += tacticPlacements_.CalculateSize(_repeated_tacticPlacements_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1584,17 +1559,13 @@ namespace Tech.Hive.V1 {
       if (other.StageId.Length != 0) {
         StageId = other.StageId;
       }
-      if (other.Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
+      if (other.Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
         Difficulty = other.Difficulty;
       }
-      if (other.formation_ != null) {
-        if (formation_ == null) {
-          Formation = new global::Tech.Hive.V1.BattleFormation();
-        }
-        Formation.MergeFrom(other.Formation);
+      if (other.DeckSlotId != 0) {
+        DeckSlotId = other.DeckSlotId;
       }
       observerSkillIds_.Add(other.observerSkillIds_);
-      tacticPlacements_.Add(other.tacticPlacements_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1615,22 +1586,15 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            Difficulty = (global::Tech.Hive.V1.BattleStageDifficulty) input.ReadEnum();
+            Difficulty = (global::Tech.Hive.V1.Difficulty) input.ReadEnum();
             break;
           }
-          case 26: {
-            if (formation_ == null) {
-              Formation = new global::Tech.Hive.V1.BattleFormation();
-            }
-            input.ReadMessage(Formation);
+          case 24: {
+            DeckSlotId = input.ReadUInt32();
             break;
           }
           case 34: {
             observerSkillIds_.AddEntriesFrom(input, _repeated_observerSkillIds_codec);
-            break;
-          }
-          case 42: {
-            tacticPlacements_.AddEntriesFrom(input, _repeated_tacticPlacements_codec);
             break;
           }
         }
@@ -1653,22 +1617,15 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            Difficulty = (global::Tech.Hive.V1.BattleStageDifficulty) input.ReadEnum();
+            Difficulty = (global::Tech.Hive.V1.Difficulty) input.ReadEnum();
             break;
           }
-          case 26: {
-            if (formation_ == null) {
-              Formation = new global::Tech.Hive.V1.BattleFormation();
-            }
-            input.ReadMessage(Formation);
+          case 24: {
+            DeckSlotId = input.ReadUInt32();
             break;
           }
           case 34: {
             observerSkillIds_.AddEntriesFrom(ref input, _repeated_observerSkillIds_codec);
-            break;
-          }
-          case 42: {
-            tacticPlacements_.AddEntriesFrom(ref input, _repeated_tacticPlacements_codec);
             break;
           }
         }
@@ -1716,8 +1673,6 @@ namespace Tech.Hive.V1 {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       battleSessionId_ = other.battleSessionId_;
       battleSeed_ = other.battleSeed_;
-      enemies_ = other.enemies_.Clone();
-      stageInfo_ = other.stageInfo_ != null ? other.stageInfo_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1769,35 +1724,6 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "enemies" field.</summary>
-    public const int EnemiesFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.BattleEnemyUnit> _repeated_enemies_codec
-        = pb::FieldCodec.ForMessage(34, global::Tech.Hive.V1.BattleEnemyUnit.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.BattleEnemyUnit> enemies_ = new pbc::RepeatedField<global::Tech.Hive.V1.BattleEnemyUnit>();
-    /// <summary>
-    /// 적 정보
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.BattleEnemyUnit> Enemies {
-      get { return enemies_; }
-    }
-
-    /// <summary>Field number for the "stage_info" field.</summary>
-    public const int StageInfoFieldNumber = 5;
-    private global::Tech.Hive.V1.BattleStageInfo stageInfo_;
-    /// <summary>
-    /// 스테이지 정보
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleStageInfo StageInfo {
-      get { return stageInfo_; }
-      set {
-        stageInfo_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1816,8 +1742,6 @@ namespace Tech.Hive.V1 {
       if (!object.Equals(Status, other.Status)) return false;
       if (BattleSessionId != other.BattleSessionId) return false;
       if (BattleSeed != other.BattleSeed) return false;
-      if(!enemies_.Equals(other.enemies_)) return false;
-      if (!object.Equals(StageInfo, other.StageInfo)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1828,8 +1752,6 @@ namespace Tech.Hive.V1 {
       if (status_ != null) hash ^= Status.GetHashCode();
       if (BattleSessionId.Length != 0) hash ^= BattleSessionId.GetHashCode();
       if (BattleSeed != 0UL) hash ^= BattleSeed.GetHashCode();
-      hash ^= enemies_.GetHashCode();
-      if (stageInfo_ != null) hash ^= StageInfo.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1860,11 +1782,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(24);
         output.WriteUInt64(BattleSeed);
       }
-      enemies_.WriteTo(output, _repeated_enemies_codec);
-      if (stageInfo_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(StageInfo);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1887,11 +1804,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(24);
         output.WriteUInt64(BattleSeed);
       }
-      enemies_.WriteTo(ref output, _repeated_enemies_codec);
-      if (stageInfo_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(StageInfo);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1910,10 +1822,6 @@ namespace Tech.Hive.V1 {
       }
       if (BattleSeed != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BattleSeed);
-      }
-      size += enemies_.CalculateSize(_repeated_enemies_codec);
-      if (stageInfo_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StageInfo);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1938,13 +1846,6 @@ namespace Tech.Hive.V1 {
       }
       if (other.BattleSeed != 0UL) {
         BattleSeed = other.BattleSeed;
-      }
-      enemies_.Add(other.enemies_);
-      if (other.stageInfo_ != null) {
-        if (stageInfo_ == null) {
-          StageInfo = new global::Tech.Hive.V1.BattleStageInfo();
-        }
-        StageInfo.MergeFrom(other.StageInfo);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1976,17 +1877,6 @@ namespace Tech.Hive.V1 {
             BattleSeed = input.ReadUInt64();
             break;
           }
-          case 34: {
-            enemies_.AddEntriesFrom(input, _repeated_enemies_codec);
-            break;
-          }
-          case 42: {
-            if (stageInfo_ == null) {
-              StageInfo = new global::Tech.Hive.V1.BattleStageInfo();
-            }
-            input.ReadMessage(StageInfo);
-            break;
-          }
         }
       }
     #endif
@@ -2015,17 +1905,6 @@ namespace Tech.Hive.V1 {
           }
           case 24: {
             BattleSeed = input.ReadUInt64();
-            break;
-          }
-          case 34: {
-            enemies_.AddEntriesFrom(ref input, _repeated_enemies_codec);
-            break;
-          }
-          case 42: {
-            if (stageInfo_ == null) {
-              StageInfo = new global::Tech.Hive.V1.BattleStageInfo();
-            }
-            input.ReadMessage(StageInfo);
             break;
           }
         }
@@ -3036,7 +2915,7 @@ namespace Tech.Hive.V1 {
       rewardType_ = other.rewardType_;
       currencyDeltas_ = other.currencyDeltas_.Clone();
       stageProgress_ = other.stageProgress_ != null ? other.stageProgress_.Clone() : null;
-      userExpGained_ = other.userExpGained_;
+      playerExpGained_ = other.playerExpGained_;
       characterExpGains_ = other.characterExpGains_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -3100,18 +2979,18 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "user_exp_gained" field.</summary>
-    public const int UserExpGainedFieldNumber = 5;
-    private ulong userExpGained_;
+    /// <summary>Field number for the "player_exp_gained" field.</summary>
+    public const int PlayerExpGainedFieldNumber = 5;
+    private ulong playerExpGained_;
     /// <summary>
     /// 경험치 획득
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong UserExpGained {
-      get { return userExpGained_; }
+    public ulong PlayerExpGained {
+      get { return playerExpGained_; }
       set {
-        userExpGained_ = value;
+        playerExpGained_ = value;
       }
     }
 
@@ -3145,7 +3024,7 @@ namespace Tech.Hive.V1 {
       if (RewardType != other.RewardType) return false;
       if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
       if (!object.Equals(StageProgress, other.StageProgress)) return false;
-      if (UserExpGained != other.UserExpGained) return false;
+      if (PlayerExpGained != other.PlayerExpGained) return false;
       if(!characterExpGains_.Equals(other.characterExpGains_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -3158,7 +3037,7 @@ namespace Tech.Hive.V1 {
       if (RewardType != global::Tech.Hive.V1.BattleRewardType.RewardTypeUnspecified) hash ^= RewardType.GetHashCode();
       hash ^= currencyDeltas_.GetHashCode();
       if (stageProgress_ != null) hash ^= StageProgress.GetHashCode();
-      if (UserExpGained != 0UL) hash ^= UserExpGained.GetHashCode();
+      if (PlayerExpGained != 0UL) hash ^= PlayerExpGained.GetHashCode();
       hash ^= characterExpGains_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -3191,9 +3070,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(34);
         output.WriteMessage(StageProgress);
       }
-      if (UserExpGained != 0UL) {
+      if (PlayerExpGained != 0UL) {
         output.WriteRawTag(40);
-        output.WriteUInt64(UserExpGained);
+        output.WriteUInt64(PlayerExpGained);
       }
       characterExpGains_.WriteTo(output, _repeated_characterExpGains_codec);
       if (_unknownFields != null) {
@@ -3219,9 +3098,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(34);
         output.WriteMessage(StageProgress);
       }
-      if (UserExpGained != 0UL) {
+      if (PlayerExpGained != 0UL) {
         output.WriteRawTag(40);
-        output.WriteUInt64(UserExpGained);
+        output.WriteUInt64(PlayerExpGained);
       }
       characterExpGains_.WriteTo(ref output, _repeated_characterExpGains_codec);
       if (_unknownFields != null) {
@@ -3244,8 +3123,8 @@ namespace Tech.Hive.V1 {
       if (stageProgress_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(StageProgress);
       }
-      if (UserExpGained != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(UserExpGained);
+      if (PlayerExpGained != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerExpGained);
       }
       size += characterExpGains_.CalculateSize(_repeated_characterExpGains_codec);
       if (_unknownFields != null) {
@@ -3276,8 +3155,8 @@ namespace Tech.Hive.V1 {
         }
         StageProgress.MergeFrom(other.StageProgress);
       }
-      if (other.UserExpGained != 0UL) {
-        UserExpGained = other.UserExpGained;
+      if (other.PlayerExpGained != 0UL) {
+        PlayerExpGained = other.PlayerExpGained;
       }
       characterExpGains_.Add(other.characterExpGains_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -3318,7 +3197,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 40: {
-            UserExpGained = input.ReadUInt64();
+            PlayerExpGained = input.ReadUInt64();
             break;
           }
           case 50: {
@@ -3363,7 +3242,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 40: {
-            UserExpGained = input.ReadUInt64();
+            PlayerExpGained = input.ReadUInt64();
             break;
           }
           case 50: {

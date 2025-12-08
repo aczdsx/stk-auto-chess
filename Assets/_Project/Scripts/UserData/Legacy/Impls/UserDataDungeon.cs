@@ -36,7 +36,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserDungeonData()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserDungeon.ToCategoryString(), userDungeon);
+            QueueSave(DataCategory.UserDungeon.ToCategoryString(), userDungeon);
         }
 
         #region Trial Dungeon (시련던전)

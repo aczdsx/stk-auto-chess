@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserEventData()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserEvent.ToCategoryString(), userEvent);
+            QueueSave(DataCategory.UserEvent.ToCategoryString(), userEvent);
         }
 
         public UserEventData GetUserEventData(int eventID)

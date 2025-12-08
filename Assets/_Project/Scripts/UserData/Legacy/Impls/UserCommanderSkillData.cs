@@ -140,8 +140,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserCommanderSKillData()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserCommanderSkillData.ToCategoryString(),
-                userCommanderSkillData);
+            QueueSave(DataCategory.UserCommanderSkillData.ToCategoryString(), userCommanderSkillData);
         }
     }
 }

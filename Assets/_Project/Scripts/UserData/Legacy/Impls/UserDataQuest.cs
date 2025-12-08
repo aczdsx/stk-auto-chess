@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserQuestData()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserQuest.ToCategoryString(), userQuest);
+            QueueSave(DataCategory.UserQuest.ToCategoryString(), userQuest);
         }
 
         public void UpdateLastQuestRefreshTimeStamp(bool needSave)

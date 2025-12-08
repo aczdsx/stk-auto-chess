@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserDeck()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserDeck.ToCategoryString(), userDeck);
+            QueueSave(DataCategory.UserDeck.ToCategoryString(), userDeck);
         }
     }
 }

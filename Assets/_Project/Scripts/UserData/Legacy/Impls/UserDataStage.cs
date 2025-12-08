@@ -213,7 +213,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserStage()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserStageGroup.ToCategoryString(), userStageGroup);
+            QueueSave(DataCategory.UserStageGroup.ToCategoryString(), userStageGroup);
         }
 
 

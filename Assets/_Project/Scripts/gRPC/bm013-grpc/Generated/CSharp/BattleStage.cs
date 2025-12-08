@@ -24,111 +24,21 @@ namespace Tech.Hive.V1 {
     static BattleStageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJiYXR0bGUrc3RhZ2UucHJvdG8SDHRlY2guaGl2ZS52MSKSAgoTQmF0dGxl",
-            "U3RhZ2VQcm9ncmVzcxIQCghzdGFnZV9pZBgBIAEoCRI3CgpkaWZmaWN1bHR5",
-            "GAIgASgOMiMudGVjaC5oaXZlLnYxLkJhdHRsZVN0YWdlRGlmZmljdWx0eRIS",
-            "Cgppc19jbGVhcmVkGAMgASgIEhMKC2NsZWFyX2NvdW50GAQgASgNEhIKCmJl",
-            "c3Rfc3RhcnMYBSABKA0SHwoXaXNfZmlyc3RfY2xlYXJfcmV3YXJkZWQYBiAB",
-            "KAgSHgoWaXNfdGhyZWVfc3Rhcl9yZXdhcmRlZBgHIAEoCBIXCg9iZXN0X2Ns",
-            "ZWFyX3RpbWUYCCABKAQSGQoRYmVzdF9jb21iYXRfcG93ZXIYCSABKAQi/AEK",
-            "D0JhdHRsZVN0YWdlSW5mbxIQCghzdGFnZV9pZBgBIAEoCRI3CgpkaWZmaWN1",
-            "bHR5GAIgASgOMiMudGVjaC5oaXZlLnYxLkJhdHRsZVN0YWdlRGlmZmljdWx0",
-            "eRISCgpncmlkX3dpZHRoGAMgASgNEhMKC2dyaWRfaGVpZ2h0GAQgASgNEjgK",
-            "CW9ic3RhY2xlcxgFIAMoCzIlLnRlY2guaGl2ZS52MS5CYXR0bGVPYnN0YWNs",
-            "ZVBsYWNlbWVudBI7Cg9jbGVhcl9jb25kaXRpb24YBiABKAsyIi50ZWNoLmhp",
-            "dmUudjEuQmF0dGxlQ2xlYXJDb25kaXRpb24iaQoXQmF0dGxlT2JzdGFjbGVQ",
-            "bGFjZW1lbnQSLgoEdHlwZRgBIAEoDjIgLnRlY2guaGl2ZS52MS5CYXR0bGVP",
-            "YnN0YWNsZVR5cGUSDgoGZ3JpZF94GAIgASgFEg4KBmdyaWRfeRgDIAEoBSJ2",
-            "ChRCYXR0bGVDbGVhckNvbmRpdGlvbhI0CgR0eXBlGAEgASgOMiYudGVjaC5o",
-            "aXZlLnYxLkJhdHRsZUNsZWFyQ29uZGl0aW9uVHlwZRIUCgx0YXJnZXRfdmFs",
-            "dWUYAiABKA0SEgoKdGltZV9saW1pdBgDIAEoDSqNAQoVQmF0dGxlU3RhZ2VE",
-            "aWZmaWN1bHR5EiAKHFNUQUdFX0RJRkZJQ1VMVFlfVU5TUEVDSUZJRUQQABIb",
-            "ChdTVEFHRV9ESUZGSUNVTFRZX05PUk1BTBABEhoKFlNUQUdFX0RJRkZJQ1VM",
-            "VFlfRUxJVEUQAhIZChVTVEFHRV9ESUZGSUNVTFRZX0hFTEwQAyqGAQoSQmF0",
-            "dGxlT2JzdGFjbGVUeXBlEh0KGU9CU1RBQ0xFX1RZUEVfVU5TUEVDSUZJRUQQ",
-            "ABIaChZPQlNUQUNMRV9UWVBFX0xPV19XQUxMEAESGwoXT0JTVEFDTEVfVFlQ",
-            "RV9ISUdIX1dBTEwQAhIYChRPQlNUQUNMRV9UWVBFX0JBUlJFTBADKs4BChhC",
-            "YXR0bGVDbGVhckNvbmRpdGlvblR5cGUSJAogQ0xFQVJfQ09ORElUSU9OX1RZ",
-            "UEVfVU5TUEVDSUZJRUQQABIjCh9DTEVBUl9DT05ESVRJT05fVFlQRV9ERUZF",
-            "QVRfQUxMEAESJAogQ0xFQVJfQ09ORElUSU9OX1RZUEVfREVGRUFUX0JPU1MQ",
-            "AhIgChxDTEVBUl9DT05ESVRJT05fVFlQRV9TVVJWSVZFEAMSHwobQ0xFQVJf",
-            "Q09ORElUSU9OX1RZUEVfREVGRU5EEARiBnByb3RvMw=="));
+            "ChJiYXR0bGUrc3RhZ2UucHJvdG8SDHRlY2guaGl2ZS52MSLZAQoTQmF0dGxl",
+            "U3RhZ2VQcm9ncmVzcxIQCghzdGFnZV9pZBgBIAEoCRISCgppc19jbGVhcmVk",
+            "GAIgASgIEhMKC2NsZWFyX2NvdW50GAMgASgNEhIKCmJlc3Rfc3RhcnMYBCAB",
+            "KA0SHwoXaXNfZmlyc3RfY2xlYXJfcmV3YXJkZWQYBSABKAgSHgoWaXNfdGhy",
+            "ZWVfc3Rhcl9yZXdhcmRlZBgGIAEoCBIXCg9iZXN0X2NsZWFyX3RpbWUYByAB",
+            "KAQSGQoRYmVzdF9jb21iYXRfcG93ZXIYCCABKARiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BattleStageDifficulty), typeof(global::Tech.Hive.V1.BattleObstacleType), typeof(global::Tech.Hive.V1.BattleClearConditionType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStageProgress), global::Tech.Hive.V1.BattleStageProgress.Parser, new[]{ "StageId", "Difficulty", "IsCleared", "ClearCount", "BestStars", "IsFirstClearRewarded", "IsThreeStarRewarded", "BestClearTime", "BestCombatPower" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStageInfo), global::Tech.Hive.V1.BattleStageInfo.Parser, new[]{ "StageId", "Difficulty", "GridWidth", "GridHeight", "Obstacles", "ClearCondition" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleObstaclePlacement), global::Tech.Hive.V1.BattleObstaclePlacement.Parser, new[]{ "Type", "GridX", "GridY" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleClearCondition), global::Tech.Hive.V1.BattleClearCondition.Parser, new[]{ "Type", "TargetValue", "TimeLimit" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStageProgress), global::Tech.Hive.V1.BattleStageProgress.Parser, new[]{ "StageId", "IsCleared", "ClearCount", "BestStars", "IsFirstClearRewarded", "IsThreeStarRewarded", "BestClearTime", "BestCombatPower" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
-  #region Enums
-  /// <summary>
-  /// 스테이지 난이도
-  /// </summary>
-  public enum BattleStageDifficulty {
-    [pbr::OriginalName("STAGE_DIFFICULTY_UNSPECIFIED")] StageDifficultyUnspecified = 0,
-    /// <summary>
-    /// 일반
-    /// </summary>
-    [pbr::OriginalName("STAGE_DIFFICULTY_NORMAL")] StageDifficultyNormal = 1,
-    /// <summary>
-    /// 엘리트
-    /// </summary>
-    [pbr::OriginalName("STAGE_DIFFICULTY_ELITE")] StageDifficultyElite = 2,
-    /// <summary>
-    /// 헬
-    /// </summary>
-    [pbr::OriginalName("STAGE_DIFFICULTY_HELL")] StageDifficultyHell = 3,
-  }
-
-  /// <summary>
-  /// 장애물 타입
-  /// </summary>
-  public enum BattleObstacleType {
-    [pbr::OriginalName("OBSTACLE_TYPE_UNSPECIFIED")] ObstacleTypeUnspecified = 0,
-    /// <summary>
-    /// 낮은 오브젝트
-    /// </summary>
-    [pbr::OriginalName("OBSTACLE_TYPE_LOW_WALL")] ObstacleTypeLowWall = 1,
-    /// <summary>
-    /// 벽 오브젝트
-    /// </summary>
-    [pbr::OriginalName("OBSTACLE_TYPE_HIGH_WALL")] ObstacleTypeHighWall = 2,
-    /// <summary>
-    /// 화약통
-    /// </summary>
-    [pbr::OriginalName("OBSTACLE_TYPE_BARREL")] ObstacleTypeBarrel = 3,
-  }
-
-  /// <summary>
-  /// 클리어 조건 타입
-  /// </summary>
-  public enum BattleClearConditionType {
-    [pbr::OriginalName("CLEAR_CONDITION_TYPE_UNSPECIFIED")] ClearConditionTypeUnspecified = 0,
-    /// <summary>
-    /// 모든 적 처치
-    /// </summary>
-    [pbr::OriginalName("CLEAR_CONDITION_TYPE_DEFEAT_ALL")] ClearConditionTypeDefeatAll = 1,
-    /// <summary>
-    /// 보스 처치
-    /// </summary>
-    [pbr::OriginalName("CLEAR_CONDITION_TYPE_DEFEAT_BOSS")] ClearConditionTypeDefeatBoss = 2,
-    /// <summary>
-    /// 생존
-    /// </summary>
-    [pbr::OriginalName("CLEAR_CONDITION_TYPE_SURVIVE")] ClearConditionTypeSurvive = 3,
-    /// <summary>
-    /// 방어
-    /// </summary>
-    [pbr::OriginalName("CLEAR_CONDITION_TYPE_DEFEND")] ClearConditionTypeDefend = 4,
-  }
-
-  #endregion
-
   #region Messages
   /// <summary>
   /// 스테이지 진행 정보
@@ -169,7 +79,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleStageProgress(BattleStageProgress other) : this() {
       stageId_ = other.stageId_;
-      difficulty_ = other.difficulty_;
       isCleared_ = other.isCleared_;
       clearCount_ = other.clearCount_;
       bestStars_ = other.bestStars_;
@@ -198,20 +107,8 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "difficulty" field.</summary>
-    public const int DifficultyFieldNumber = 2;
-    private global::Tech.Hive.V1.BattleStageDifficulty difficulty_ = global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleStageDifficulty Difficulty {
-      get { return difficulty_; }
-      set {
-        difficulty_ = value;
-      }
-    }
-
     /// <summary>Field number for the "is_cleared" field.</summary>
-    public const int IsClearedFieldNumber = 3;
+    public const int IsClearedFieldNumber = 2;
     private bool isCleared_;
     /// <summary>
     /// 클리어 정보
@@ -226,7 +123,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "clear_count" field.</summary>
-    public const int ClearCountFieldNumber = 4;
+    public const int ClearCountFieldNumber = 3;
     private uint clearCount_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -238,7 +135,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "best_stars" field.</summary>
-    public const int BestStarsFieldNumber = 5;
+    public const int BestStarsFieldNumber = 4;
     private uint bestStars_;
     /// <summary>
     /// 최고 별 개수 (0~3)
@@ -253,7 +150,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "is_first_clear_rewarded" field.</summary>
-    public const int IsFirstClearRewardedFieldNumber = 6;
+    public const int IsFirstClearRewardedFieldNumber = 5;
     private bool isFirstClearRewarded_;
     /// <summary>
     /// 보상 수령 정보
@@ -268,7 +165,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "is_three_star_rewarded" field.</summary>
-    public const int IsThreeStarRewardedFieldNumber = 7;
+    public const int IsThreeStarRewardedFieldNumber = 6;
     private bool isThreeStarRewarded_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -280,7 +177,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "best_clear_time" field.</summary>
-    public const int BestClearTimeFieldNumber = 8;
+    public const int BestClearTimeFieldNumber = 7;
     private ulong bestClearTime_;
     /// <summary>
     /// 최고 기록
@@ -295,7 +192,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "best_combat_power" field.</summary>
-    public const int BestCombatPowerFieldNumber = 9;
+    public const int BestCombatPowerFieldNumber = 8;
     private ulong bestCombatPower_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -322,7 +219,6 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (StageId != other.StageId) return false;
-      if (Difficulty != other.Difficulty) return false;
       if (IsCleared != other.IsCleared) return false;
       if (ClearCount != other.ClearCount) return false;
       if (BestStars != other.BestStars) return false;
@@ -338,7 +234,6 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (StageId.Length != 0) hash ^= StageId.GetHashCode();
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) hash ^= Difficulty.GetHashCode();
       if (IsCleared != false) hash ^= IsCleared.GetHashCode();
       if (ClearCount != 0) hash ^= ClearCount.GetHashCode();
       if (BestStars != 0) hash ^= BestStars.GetHashCode();
@@ -368,36 +263,32 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(StageId);
       }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) Difficulty);
-      }
       if (IsCleared != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteBool(IsCleared);
       }
       if (ClearCount != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteUInt32(ClearCount);
       }
       if (BestStars != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteUInt32(BestStars);
       }
       if (IsFirstClearRewarded != false) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteBool(IsFirstClearRewarded);
       }
       if (IsThreeStarRewarded != false) {
-        output.WriteRawTag(56);
+        output.WriteRawTag(48);
         output.WriteBool(IsThreeStarRewarded);
       }
       if (BestClearTime != 0UL) {
-        output.WriteRawTag(64);
+        output.WriteRawTag(56);
         output.WriteUInt64(BestClearTime);
       }
       if (BestCombatPower != 0UL) {
-        output.WriteRawTag(72);
+        output.WriteRawTag(64);
         output.WriteUInt64(BestCombatPower);
       }
       if (_unknownFields != null) {
@@ -414,36 +305,32 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(StageId);
       }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) Difficulty);
-      }
       if (IsCleared != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteBool(IsCleared);
       }
       if (ClearCount != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteUInt32(ClearCount);
       }
       if (BestStars != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteUInt32(BestStars);
       }
       if (IsFirstClearRewarded != false) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteBool(IsFirstClearRewarded);
       }
       if (IsThreeStarRewarded != false) {
-        output.WriteRawTag(56);
+        output.WriteRawTag(48);
         output.WriteBool(IsThreeStarRewarded);
       }
       if (BestClearTime != 0UL) {
-        output.WriteRawTag(64);
+        output.WriteRawTag(56);
         output.WriteUInt64(BestClearTime);
       }
       if (BestCombatPower != 0UL) {
-        output.WriteRawTag(72);
+        output.WriteRawTag(64);
         output.WriteUInt64(BestCombatPower);
       }
       if (_unknownFields != null) {
@@ -458,9 +345,6 @@ namespace Tech.Hive.V1 {
       int size = 0;
       if (StageId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(StageId);
-      }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Difficulty);
       }
       if (IsCleared != false) {
         size += 1 + 1;
@@ -497,9 +381,6 @@ namespace Tech.Hive.V1 {
       }
       if (other.StageId.Length != 0) {
         StageId = other.StageId;
-      }
-      if (other.Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        Difficulty = other.Difficulty;
       }
       if (other.IsCleared != false) {
         IsCleared = other.IsCleared;
@@ -542,34 +423,30 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            Difficulty = (global::Tech.Hive.V1.BattleStageDifficulty) input.ReadEnum();
-            break;
-          }
-          case 24: {
             IsCleared = input.ReadBool();
             break;
           }
-          case 32: {
+          case 24: {
             ClearCount = input.ReadUInt32();
             break;
           }
-          case 40: {
+          case 32: {
             BestStars = input.ReadUInt32();
             break;
           }
-          case 48: {
+          case 40: {
             IsFirstClearRewarded = input.ReadBool();
             break;
           }
-          case 56: {
+          case 48: {
             IsThreeStarRewarded = input.ReadBool();
             break;
           }
-          case 64: {
+          case 56: {
             BestClearTime = input.ReadUInt64();
             break;
           }
-          case 72: {
+          case 64: {
             BestCombatPower = input.ReadUInt64();
             break;
           }
@@ -593,957 +470,31 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            Difficulty = (global::Tech.Hive.V1.BattleStageDifficulty) input.ReadEnum();
-            break;
-          }
-          case 24: {
             IsCleared = input.ReadBool();
             break;
           }
-          case 32: {
+          case 24: {
             ClearCount = input.ReadUInt32();
             break;
           }
-          case 40: {
+          case 32: {
             BestStars = input.ReadUInt32();
             break;
           }
-          case 48: {
+          case 40: {
             IsFirstClearRewarded = input.ReadBool();
             break;
           }
-          case 56: {
+          case 48: {
             IsThreeStarRewarded = input.ReadBool();
             break;
           }
-          case 64: {
+          case 56: {
             BestClearTime = input.ReadUInt64();
             break;
           }
-          case 72: {
+          case 64: {
             BestCombatPower = input.ReadUInt64();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  /// <summary>
-  /// 스테이지 정보
-  /// </summary>
-  [global::System.SerializableAttribute]
-  public sealed partial class BattleStageInfo : pb::IMessage<BattleStageInfo>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<BattleStageInfo> _parser = new pb::MessageParser<BattleStageInfo>(() => new BattleStageInfo());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<BattleStageInfo> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.BattleStageReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleStageInfo() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleStageInfo(BattleStageInfo other) : this() {
-      stageId_ = other.stageId_;
-      difficulty_ = other.difficulty_;
-      gridWidth_ = other.gridWidth_;
-      gridHeight_ = other.gridHeight_;
-      obstacles_ = other.obstacles_.Clone();
-      clearCondition_ = other.clearCondition_ != null ? other.clearCondition_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleStageInfo Clone() {
-      return new BattleStageInfo(this);
-    }
-
-    /// <summary>Field number for the "stage_id" field.</summary>
-    public const int StageIdFieldNumber = 1;
-    private string stageId_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string StageId {
-      get { return stageId_; }
-      set {
-        stageId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "difficulty" field.</summary>
-    public const int DifficultyFieldNumber = 2;
-    private global::Tech.Hive.V1.BattleStageDifficulty difficulty_ = global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleStageDifficulty Difficulty {
-      get { return difficulty_; }
-      set {
-        difficulty_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "grid_width" field.</summary>
-    public const int GridWidthFieldNumber = 3;
-    private uint gridWidth_;
-    /// <summary>
-    /// 그리드 크기
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint GridWidth {
-      get { return gridWidth_; }
-      set {
-        gridWidth_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "grid_height" field.</summary>
-    public const int GridHeightFieldNumber = 4;
-    private uint gridHeight_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint GridHeight {
-      get { return gridHeight_; }
-      set {
-        gridHeight_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "obstacles" field.</summary>
-    public const int ObstaclesFieldNumber = 5;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.BattleObstaclePlacement> _repeated_obstacles_codec
-        = pb::FieldCodec.ForMessage(42, global::Tech.Hive.V1.BattleObstaclePlacement.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.BattleObstaclePlacement> obstacles_ = new pbc::RepeatedField<global::Tech.Hive.V1.BattleObstaclePlacement>();
-    /// <summary>
-    /// 장애물 배치
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.BattleObstaclePlacement> Obstacles {
-      get { return obstacles_; }
-    }
-
-    /// <summary>Field number for the "clear_condition" field.</summary>
-    public const int ClearConditionFieldNumber = 6;
-    private global::Tech.Hive.V1.BattleClearCondition clearCondition_;
-    /// <summary>
-    /// 클리어 조건
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleClearCondition ClearCondition {
-      get { return clearCondition_; }
-      set {
-        clearCondition_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as BattleStageInfo);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(BattleStageInfo other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (StageId != other.StageId) return false;
-      if (Difficulty != other.Difficulty) return false;
-      if (GridWidth != other.GridWidth) return false;
-      if (GridHeight != other.GridHeight) return false;
-      if(!obstacles_.Equals(other.obstacles_)) return false;
-      if (!object.Equals(ClearCondition, other.ClearCondition)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (StageId.Length != 0) hash ^= StageId.GetHashCode();
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) hash ^= Difficulty.GetHashCode();
-      if (GridWidth != 0) hash ^= GridWidth.GetHashCode();
-      if (GridHeight != 0) hash ^= GridHeight.GetHashCode();
-      hash ^= obstacles_.GetHashCode();
-      if (clearCondition_ != null) hash ^= ClearCondition.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (StageId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(StageId);
-      }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) Difficulty);
-      }
-      if (GridWidth != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(GridWidth);
-      }
-      if (GridHeight != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(GridHeight);
-      }
-      obstacles_.WriteTo(output, _repeated_obstacles_codec);
-      if (clearCondition_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(ClearCondition);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (StageId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(StageId);
-      }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) Difficulty);
-      }
-      if (GridWidth != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(GridWidth);
-      }
-      if (GridHeight != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(GridHeight);
-      }
-      obstacles_.WriteTo(ref output, _repeated_obstacles_codec);
-      if (clearCondition_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(ClearCondition);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (StageId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(StageId);
-      }
-      if (Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Difficulty);
-      }
-      if (GridWidth != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(GridWidth);
-      }
-      if (GridHeight != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(GridHeight);
-      }
-      size += obstacles_.CalculateSize(_repeated_obstacles_codec);
-      if (clearCondition_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ClearCondition);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(BattleStageInfo other) {
-      if (other == null) {
-        return;
-      }
-      if (other.StageId.Length != 0) {
-        StageId = other.StageId;
-      }
-      if (other.Difficulty != global::Tech.Hive.V1.BattleStageDifficulty.StageDifficultyUnspecified) {
-        Difficulty = other.Difficulty;
-      }
-      if (other.GridWidth != 0) {
-        GridWidth = other.GridWidth;
-      }
-      if (other.GridHeight != 0) {
-        GridHeight = other.GridHeight;
-      }
-      obstacles_.Add(other.obstacles_);
-      if (other.clearCondition_ != null) {
-        if (clearCondition_ == null) {
-          ClearCondition = new global::Tech.Hive.V1.BattleClearCondition();
-        }
-        ClearCondition.MergeFrom(other.ClearCondition);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            StageId = input.ReadString();
-            break;
-          }
-          case 16: {
-            Difficulty = (global::Tech.Hive.V1.BattleStageDifficulty) input.ReadEnum();
-            break;
-          }
-          case 24: {
-            GridWidth = input.ReadUInt32();
-            break;
-          }
-          case 32: {
-            GridHeight = input.ReadUInt32();
-            break;
-          }
-          case 42: {
-            obstacles_.AddEntriesFrom(input, _repeated_obstacles_codec);
-            break;
-          }
-          case 50: {
-            if (clearCondition_ == null) {
-              ClearCondition = new global::Tech.Hive.V1.BattleClearCondition();
-            }
-            input.ReadMessage(ClearCondition);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            StageId = input.ReadString();
-            break;
-          }
-          case 16: {
-            Difficulty = (global::Tech.Hive.V1.BattleStageDifficulty) input.ReadEnum();
-            break;
-          }
-          case 24: {
-            GridWidth = input.ReadUInt32();
-            break;
-          }
-          case 32: {
-            GridHeight = input.ReadUInt32();
-            break;
-          }
-          case 42: {
-            obstacles_.AddEntriesFrom(ref input, _repeated_obstacles_codec);
-            break;
-          }
-          case 50: {
-            if (clearCondition_ == null) {
-              ClearCondition = new global::Tech.Hive.V1.BattleClearCondition();
-            }
-            input.ReadMessage(ClearCondition);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  /// <summary>
-  /// 장애물 배치
-  /// </summary>
-  [global::System.SerializableAttribute]
-  public sealed partial class BattleObstaclePlacement : pb::IMessage<BattleObstaclePlacement>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<BattleObstaclePlacement> _parser = new pb::MessageParser<BattleObstaclePlacement>(() => new BattleObstaclePlacement());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<BattleObstaclePlacement> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.BattleStageReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleObstaclePlacement() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleObstaclePlacement(BattleObstaclePlacement other) : this() {
-      type_ = other.type_;
-      gridX_ = other.gridX_;
-      gridY_ = other.gridY_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleObstaclePlacement Clone() {
-      return new BattleObstaclePlacement(this);
-    }
-
-    /// <summary>Field number for the "type" field.</summary>
-    public const int TypeFieldNumber = 1;
-    private global::Tech.Hive.V1.BattleObstacleType type_ = global::Tech.Hive.V1.BattleObstacleType.ObstacleTypeUnspecified;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleObstacleType Type {
-      get { return type_; }
-      set {
-        type_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "grid_x" field.</summary>
-    public const int GridXFieldNumber = 2;
-    private int gridX_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int GridX {
-      get { return gridX_; }
-      set {
-        gridX_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "grid_y" field.</summary>
-    public const int GridYFieldNumber = 3;
-    private int gridY_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int GridY {
-      get { return gridY_; }
-      set {
-        gridY_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as BattleObstaclePlacement);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(BattleObstaclePlacement other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Type != other.Type) return false;
-      if (GridX != other.GridX) return false;
-      if (GridY != other.GridY) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Type != global::Tech.Hive.V1.BattleObstacleType.ObstacleTypeUnspecified) hash ^= Type.GetHashCode();
-      if (GridX != 0) hash ^= GridX.GetHashCode();
-      if (GridY != 0) hash ^= GridY.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (Type != global::Tech.Hive.V1.BattleObstacleType.ObstacleTypeUnspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
-      if (GridX != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(GridX);
-      }
-      if (GridY != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(GridY);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Tech.Hive.V1.BattleObstacleType.ObstacleTypeUnspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
-      if (GridX != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(GridX);
-      }
-      if (GridY != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(GridY);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (Type != global::Tech.Hive.V1.BattleObstacleType.ObstacleTypeUnspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
-      }
-      if (GridX != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GridX);
-      }
-      if (GridY != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GridY);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(BattleObstaclePlacement other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Type != global::Tech.Hive.V1.BattleObstacleType.ObstacleTypeUnspecified) {
-        Type = other.Type;
-      }
-      if (other.GridX != 0) {
-        GridX = other.GridX;
-      }
-      if (other.GridY != 0) {
-        GridY = other.GridY;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            Type = (global::Tech.Hive.V1.BattleObstacleType) input.ReadEnum();
-            break;
-          }
-          case 16: {
-            GridX = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            GridY = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            Type = (global::Tech.Hive.V1.BattleObstacleType) input.ReadEnum();
-            break;
-          }
-          case 16: {
-            GridX = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            GridY = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  /// <summary>
-  /// 클리어 조건
-  /// </summary>
-  [global::System.SerializableAttribute]
-  public sealed partial class BattleClearCondition : pb::IMessage<BattleClearCondition>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<BattleClearCondition> _parser = new pb::MessageParser<BattleClearCondition>(() => new BattleClearCondition());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<BattleClearCondition> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.BattleStageReflection.Descriptor.MessageTypes[3]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleClearCondition() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleClearCondition(BattleClearCondition other) : this() {
-      type_ = other.type_;
-      targetValue_ = other.targetValue_;
-      timeLimit_ = other.timeLimit_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleClearCondition Clone() {
-      return new BattleClearCondition(this);
-    }
-
-    /// <summary>Field number for the "type" field.</summary>
-    public const int TypeFieldNumber = 1;
-    private global::Tech.Hive.V1.BattleClearConditionType type_ = global::Tech.Hive.V1.BattleClearConditionType.ClearConditionTypeUnspecified;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleClearConditionType Type {
-      get { return type_; }
-      set {
-        type_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "target_value" field.</summary>
-    public const int TargetValueFieldNumber = 2;
-    private uint targetValue_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint TargetValue {
-      get { return targetValue_; }
-      set {
-        targetValue_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "time_limit" field.</summary>
-    public const int TimeLimitFieldNumber = 3;
-    private uint timeLimit_;
-    /// <summary>
-    /// 제한 시간 (초), 0이면 무제한
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint TimeLimit {
-      get { return timeLimit_; }
-      set {
-        timeLimit_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as BattleClearCondition);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(BattleClearCondition other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Type != other.Type) return false;
-      if (TargetValue != other.TargetValue) return false;
-      if (TimeLimit != other.TimeLimit) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Type != global::Tech.Hive.V1.BattleClearConditionType.ClearConditionTypeUnspecified) hash ^= Type.GetHashCode();
-      if (TargetValue != 0) hash ^= TargetValue.GetHashCode();
-      if (TimeLimit != 0) hash ^= TimeLimit.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (Type != global::Tech.Hive.V1.BattleClearConditionType.ClearConditionTypeUnspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
-      if (TargetValue != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(TargetValue);
-      }
-      if (TimeLimit != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(TimeLimit);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Tech.Hive.V1.BattleClearConditionType.ClearConditionTypeUnspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
-      if (TargetValue != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(TargetValue);
-      }
-      if (TimeLimit != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(TimeLimit);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (Type != global::Tech.Hive.V1.BattleClearConditionType.ClearConditionTypeUnspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
-      }
-      if (TargetValue != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TargetValue);
-      }
-      if (TimeLimit != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TimeLimit);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(BattleClearCondition other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Type != global::Tech.Hive.V1.BattleClearConditionType.ClearConditionTypeUnspecified) {
-        Type = other.Type;
-      }
-      if (other.TargetValue != 0) {
-        TargetValue = other.TargetValue;
-      }
-      if (other.TimeLimit != 0) {
-        TimeLimit = other.TimeLimit;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            Type = (global::Tech.Hive.V1.BattleClearConditionType) input.ReadEnum();
-            break;
-          }
-          case 16: {
-            TargetValue = input.ReadUInt32();
-            break;
-          }
-          case 24: {
-            TimeLimit = input.ReadUInt32();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            Type = (global::Tech.Hive.V1.BattleClearConditionType) input.ReadEnum();
-            break;
-          }
-          case 16: {
-            TargetValue = input.ReadUInt32();
-            break;
-          }
-          case 24: {
-            TimeLimit = input.ReadUInt32();
             break;
           }
         }

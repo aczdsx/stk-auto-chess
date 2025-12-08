@@ -18,7 +18,6 @@ namespace CookApps.AutoBattler
         public ElpisService Elpis { get; private set; }
         public PlayerInventoryService Inventory { get; private set; }
         public PostService Post { get; private set; }
-        public PlayerUnsafeDataService PlayerUnsafeData { get; private set; }
         public AnnouncementService Announcement { get; private set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -29,13 +28,25 @@ namespace CookApps.AutoBattler
 
         public void Startup()
         {
-            // 앱의 파라메타 및 환경에 맞게 수정 필요
-            Startup(new NetLiteInitializeParam
+#if SERVER_REAL
+            var serverAddress = "https://gwbm013-grpc.cookappsgames.com:443";
+#else
+            var serverAddress = "https://gwbm013-grpc.cookappsgames.com:443";
+#endif
+#if UNITY_IOS
+            var store = StoreMap.AppleAppStore;
+#else
+            var store = StoreMap.GooglePlay;
+#endif
+
+            var param = new NetLiteInitializeParam
             {
-                Address = "https://hive-grpc.dev.cookappsgames.com:443",
-                Store = StoreMap.GooglePlay,
+                Address = serverAddress,
+                Store = store,
                 EnabledLog = true,
-            });
+            };
+            // 앱의 파라메타 및 환경에 맞게 수정 필요
+            Startup(param);
         }
     }
 }

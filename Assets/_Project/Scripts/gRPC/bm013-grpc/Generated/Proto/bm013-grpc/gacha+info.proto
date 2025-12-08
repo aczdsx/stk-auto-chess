@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "custom_common.proto";
+
+// 가챠 타입
+enum GachaType {
+  GACHA_TYPE_UNSPECIFIED = 0;
+  GACHA_TYPE_NORMAL = 1;      // 일반 소환
+  GACHA_TYPE_PREMIUM = 2;     // 프리미엄 소환
+  GACHA_TYPE_PICKUP = 3;      // 픽업 소환
+  GACHA_TYPE_EQUIPMENT = 4;   // 장비 소환
+}
+
+// 가챠 비용 재화 타입
+enum GachaCostCurrency {
+  GACHA_COST_CURRENCY_UNSPECIFIED = 0;
+  GACHA_COST_CURRENCY_SOFT = 1;     // 소프트 재화 (예: 골드)
+  GACHA_COST_CURRENCY_PREMIUM = 2;  // 프리미엄 재화 (예: 다이아)
+  GACHA_COST_CURRENCY_TICKET = 3;   // 전용 티켓
+}
+
+// 결과 타입
+enum GachaResultType {
+  GACHA_RESULT_TYPE_UNSPECIFIED = 0;
+  GACHA_RESULT_TYPE_CHARACTER = 1;
+  GACHA_RESULT_TYPE_EQUIPMENT = 2;
+  GACHA_RESULT_TYPE_CURRENCY = 3;
+}
+
+// 가챠 정보
+message GachaInfo {
+  GachaType type = 1;
+  string gacha_id = 2;
+  string name = 3;
+
+  // 비용
+  GachaCostCurrency cost_currency = 4;
+  uint32 cost_single = 5;
+  uint32 cost_multi = 6;  // 10연차
+
+  // 보장 카운트
+  uint32 pity_count = 7;
+  uint32 pity_max = 8;
+
+  // 픽업 정보
+  repeated uint32 pickup_character_ids = 9;
+
+  // 기간 (픽업 가챠인 경우)
+  uint64 start_time = 10;
+  uint64 end_time = 11;
+}
+
+// 가챠 결과
+message GachaResult {
+  GachaResultType type = 1;
+  uint32 item_id = 2;
+  Rarity rarity = 3;
+  uint32 quantity = 4;
+  bool is_new = 5;  // 신규 획득 여부
+}
+

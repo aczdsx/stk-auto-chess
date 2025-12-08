@@ -313,7 +313,7 @@ namespace CookApps.AutoBattler
 
         public void SaveUserWallet()
         {
-            GrpcManager.Instance.PlayerData.SetAsync(DataCategory.UserWallet.ToCategoryString(), userWallet);
+            QueueSave(DataCategory.UserWallet.ToCategoryString(), userWallet);
         }
     }
 }

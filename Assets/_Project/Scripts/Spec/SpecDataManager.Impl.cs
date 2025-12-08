@@ -9,6 +9,7 @@ using BiniLab;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using Unity.VisualScripting;
 using Unity.Android.Gradle;
 
@@ -42,7 +43,7 @@ namespace CookApps.AutoBattler
             {
                 do
                 {
-                    json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
+                    json = await NetManager.Instance.Spec.GetSpecDataAsync(SpecType.Game, serverSpecVersion);
                 } while (string.IsNullOrEmpty(json));
 
                 localData.Save(json, "SpecData");
@@ -53,7 +54,7 @@ namespace CookApps.AutoBattler
                 {
                     do
                     {
-                        json = await GrpcManager.Instance.Spec.GetSpecDataAsync(serverSpecVersion);
+                        json = await NetManager.Instance.Spec.GetSpecDataAsync(SpecType.Game, serverSpecVersion);
                     } while (string.IsNullOrEmpty(json));
 
                     localData.Save(json, "SpecData");

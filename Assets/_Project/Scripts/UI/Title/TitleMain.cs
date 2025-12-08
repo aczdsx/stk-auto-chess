@@ -22,30 +22,10 @@ namespace CookApps.AutoBattler
 {
     public class TitleMain : UILayer
     {
-        const float LOGIN_DELAY_TIME = 3.0f;
-
         public static int SessionCount { get; private set; }
 
-        private Dictionary<int, float> progressDict = new();
-
         [SerializeField] private GameObject touchToStart;
-
-        // [SerializeField] private GameObject _createGuestButtonLayer;
-        // [SerializeField] private GameObject _loginGuestButtonLayer;
-        // [SerializeField] private GameObject _appleLoginButtonLayer;
-        // [SerializeField] private GameObject _googleLoginButtonLayer;
-        // [SerializeField] private GameObject _facebookLoginButtonLayer;
-
-        // [SerializeField] private GameObject _loadingPopupObject;
-        // [SerializeField] private ToastSystemPopup _toastPopupObject;
-
-        private bool isLogin = false;
-        private bool isLoginProcess = false;
-
-        private bool loginDelay = true;
-
-        // [SerializeField] private TMP_InputField _guestIDInputField;
-        // [SerializeField] private TextMeshProUGUI _currentGuestIDText;
+        [SerializeField] private GameObject guestLoginNode;
 
         protected override void OnPreEnter(object param)
         {
@@ -53,62 +33,9 @@ namespace CookApps.AutoBattler
 #if !RELEASE && ENABLE_CHEAT
             SRDebug.Init();
 #endif
-
-            isLoginProcess = false;
-
-            // ClearTitleMain();
-            progressDict.Clear();
-
-            RunAllTasks().Forget();
-
-            Invoke(nameof(LoginDelay), LOGIN_DELAY_TIME);
-        }
-
-        private void InitTitleMain()
-        {
             SessionCount++;
-
-            Debug.Log("TitleMain OnPreEnter --> " + gameObject.name);
-
-            isLogin = LoginManager.Instance.CheckIsLoggedIn();
-
-            //touchToStart.SetActive(isLogin);
-            touchToStart.SetActive(true);   // 게스트 로그인 only
-
-            // 24.9.27 - 게스트 로그인 only
-            // #if UNITY_ANDROID
-            //             // if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin); // TEST
-            //             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-            // #elif UNITY_IOS
-            //             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-            // #else
-            //             if (_appleLoginButtonLayer != null) _appleLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_googleLoginButtonLayer != null) _googleLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_facebookLoginButtonLayer != null) _facebookLoginButtonLayer?.SetActive(!isLogin);
-            //             if (_loginGuestButtonLayer != null) _loginGuestButtonLayer?.SetActive(!isLogin);
-            // #endif
-
-            // 언어 설정
-            LanguageManager.Instance.InitLanguage();
-
-            Invoke(nameof(LoginDelay), 3.0f);
-
-            //_createGuestButtonLayer.SetActive(!haveGuestID);
-            //_loginGuestButtonLayer.SetActive(haveGuestID);
-
-            // bgm on
-            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
-        }
-
-        private void LoginDelay()
-        {
-            loginDelay = false;
+            
+            RunAllTasks().Forget();
         }
 
         private async UniTask RunAllTasks()
@@ -131,74 +58,34 @@ namespace CookApps.AutoBattler
             InitTitleMain();
         }
 
-        public async void OnClickTouchToStart()
+        public void OnClickTouchToStart()
         {
-            if (isLogin == false) return;
-
-            // 없으면 첫번째 서버에 플레이어를 생성
-            var userNickName = BMUtil.GenerateRandomId(10);
-            var playerId = await GetServerPlayerId(userNickName);
-            if (string.IsNullOrEmpty(playerId))
+            OnClickTouchStartAsync().Forget();
+        }
+        
+        private async UniTask OnClickTouchStartAsync()
+        {
+            touchToStart.SetActive(false);
+            var recentAuthPlatform = LocalDataManager.Instance.GetRecentAuthData();
+            var resp = await NetManager.Instance.Auth.AuthenticateAsync(recentAuthPlatform.Platform, recentAuthPlatform.Id);
+            if (!resp.IsSuccess)
             {
+                touchToStart.SetActive(true);
                 return;
             }
-            // 닉네임 중복 체크
-            // if (newPlayerResponse.Status.Code == Defines.UNIVERSAL_RESPONSE_CODE_FAIL_NICKNAME_ALREADY_EXIST)
-            // {
-            //     var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ALREADY_USE_NICKNAME");
-            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-            //     isLoginProcess = false;
-            //     return;
-            // }
 
-            // 서버 에러 체크
-            // if (newPlayerResponse.IsError)
-            // {
-            //     //FinishWithServerError();
-            //     var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
-            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-            //     isLoginProcess = false;
-            //     return;
-            // }
-
-            // Debug.Log("PlayID ++++> " + newPlayerResponse.PlayerId);
-
-            // var resp = await GrpcManager.Instance.Server.JoinAsync(1, newPlayerResponse.PlayerId);
-            // if (resp.IsError)
-            // {
-            //     //FinishWithServerError();
-            //     var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
-            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-            //     isLoginProcess = false;
-            //     return;
-            // }
-
-            // 벤 유저 체크
-            // if (resp.Status.Code == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
-            // {
-            //     var toastStirng = LanguageManager.Instance.GetLanguageText("BANNED_USER_ALERT");
-            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-            //     isLoginProcess = false;
-            //     return;
-            // }
-
-            Debug.Log("UID ++++> " + GrpcManager.Instance.Auth.AuthenticateData.Uid);
+            CADebug.Log($"[Login] Authenticated. Platform: {recentAuthPlatform.Platform}, Uid: {recentAuthPlatform.Id}");
 
             // 유저 로그인 정보 저장
             bool res = await UserDataManager.Instance.Initialize();
             if (!res)
             {
-                // TODO:
+                touchToStart.SetActive(true);
+                return;
             }
-            // var commonLoginData = UniversalGrpcManager.Instance.GetCommonRequestParam();
-            // var gameLoginData = UniversalGrpcManager.Instance.GetGameRequestParam();
-            UserDataManager.Instance.SetUserLoginData(GrpcManager.Instance.Auth.AuthenticateData.Uid, 1, playerId);
-
-            // 앱이벤트 Init
-            //InitCookAppsAuth();
-
+            
             // 앱 이벤트 Auth 설정
-            CAppAuth.SetUID(GrpcManager.Instance.Auth.AuthenticateData.Uid);
+            // CAppAuth.SetUID(recentAuthPlatform.Id);
 
             // 서버 환경에 따른 앱 이벤트 서버 설정
 #if SERVER_REAL
@@ -220,19 +107,13 @@ namespace CookApps.AutoBattler
                     var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
                     if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
 
-                    isLoginProcess = false;
-                    // _loadingPopupObject.SetActive(false);
-
                     SceneLoading.GoToNextScene("InGame",
                         (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
                 }
                 else
                 {
                     SceneTransition.Create<SceneTransition_FadeInOut>();
-SceneTransition.FadeInAsync().Forget();
-
-                    isLoginProcess = false;
-                    // _loadingPopupObject.SetActive(false);
+                    SceneTransition.FadeInAsync().Forget();
 
                     var lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
@@ -249,166 +130,22 @@ SceneTransition.FadeInAsync().Forget();
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
 
                 // 세션 타임 기록 unitask 실행
-                await RecordSessionTime();
+                RecordSessionTime().Forget();
             }
-        }
-
-        public void OnClickCommonLoginButton()
-        {
-            if (isLoginProcess) return;
-            if (loginDelay) return;
-            if (isLogin == false) return;
-
-            isLoginProcess = true;
-            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
-            // _loadingPopupObject.SetActive(true);
-
-
-            LoginPlatform(LoginManager.Instance.CurrentAuthPlatform).ContinueWith(() =>
-            {
-                //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                //_loadingPopupObject.SetActive(false);
-                //isLoginProcess = false;
-            }).Forget();
         }
 
         public void OnClickGuestLoginButton()
         {
-            if (isLoginProcess) return;
-            if (loginDelay) return;
-
-            if (isLogin)
-            {
-                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
-
-                isLoginProcess = true;
-                // _loadingPopupObject.SetActive(true);
-
-                LoginPlatform(AuthPlatform.Guest).ContinueWith(() =>
-                {
-                    // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                    //_loadingPopupObject.SetActive(false);
-                    //isLoginProcess = false;
-                }).Forget();
-            }
-            else
-            {
-                SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
-
-                isLoginProcess = true;
-                // _loadingPopupObject.SetActive(true);
-
-                CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
-                {
-                    // SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                    //_loadingPopupObject.SetActive(false);
-                    //isLoginProcess = false;
-
-                }).Forget();
-            }
+            GuestLoginAsync().Forget();
         }
-
-        public void OnClickCreateGuestIDButton()
+        
+        private async UniTask GuestLoginAsync()
         {
-            if (isLoginProcess) return;
-            if (loginDelay) return;
-
-            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
-            // _loadingPopupObject.SetActive(true);
-            isLoginProcess = true;
-            CreateNewAccount(AuthPlatform.Guest).ContinueWith(() =>
-            {
-                //_loadingPopupObject.SetActive(false);
-            }).Forget();
-        }
-
-        public void OnClickAppleLoginButton()
-        {
-            if (isLoginProcess) return;
-            if (loginDelay) return;
-
-            ProcessAppleLogin();
-        }
-
-        public async void ProcessAppleLogin()
-        {
-            isLoginProcess = true;
-            SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
-            // _loadingPopupObject.SetActive(true);
-
-            var result = await LoginManager.Instance.LoginApple();
-            if (result)
-            {
-                await CreateNewAccount(AuthPlatform.Apple);
-                //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                //_loadingPopupObject.SetActive(false);
-                //isLoginProcess = false;
-            }
-            else
-            {
-                await LoginPlatform(AuthPlatform.Apple);
-                //SceneUILayerManager.Instance.PopUILayer("LoadingPopup");
-                //_loadingPopupObject.SetActive(false);
-                //isLoginProcess = false;
-            }
-        }
-
-        public async UniTask LoginPlatform(AuthPlatform authPlatform)
-        {
-            if (GrpcManager.Instance.Auth.IsLoggedIn(authPlatform))
-            {
-                isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
-            }
-            else
-            {
-                while (!GrpcManager.Instance.Auth.IsLoggedIn(authPlatform)) await UniTask.Yield();
-
-                isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
-            }
-            //
-            // Debug.Log("UID ++++> " + GrpcManager.Instance.Auth.AuthenticateData.Uid);
-            //
-            // var resp = await GrpcManager.Instance.Server.JoinAsync((uint)UserDataManager.Instance.UserBasicData.ServerId,
-            //     UserDataManager.Instance.UserBasicData.PlayerId);
-            // if (resp.IsError)
-            // {
-            //     //FinishWithServerError();
-            //     var toastStirng = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
-            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-            //     isLoginProcess = false;
-            //     return;
-            // }
-            //
-            // // 벤 유저 체크
-            // if (resp.Status.Code == Defines.UNIVERSAL_RESPONSE_CODE_BANNED)
-            // {
-            //     var toastStirng = LanguageManager.Instance.GetLanguageText("BANNED_USER_ALERT");
-            //     _toastPopupObject.SetToastSystemPopupByManual(toastStirng, 2.0f);
-            //     isLoginProcess = false;
-            //     return;
-            // }
-
-            // 로그인 진행
-            OnClickTouchToStart();
-        }
-
-        public async UniTask CreateNewAccount(AuthPlatform authPlatform)
-        {
-            if (authPlatform == AuthPlatform.Guest)
-            {
-                // 디바이스 ID로 authID 저장
-                //var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
-                // var uuID = DeviceIdHolder.DeviceId;
-                var uuID = await GrpcManager.Instance.Lobby.GenerateUuidAsync();     // 앱 삭제 시 초기화 ver
-                Preference.SavePreference(Pref.GUEST_ID, uuID.Uuid);
-                Debug.Log("GUEST_ID ++++> " + uuID);
-                await GrpcManager.Instance.Auth.CreateAsync(authPlatform, uuID.Uuid);
-            }
-
-            isLogin = await GrpcManager.Instance.Auth.AuthenticateAsync();
-
-            // 로그인 진행
-            OnClickTouchToStart();
+            guestLoginNode.SetActive(false);
+            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            await LoginManager.Instance.LoginGuest();
+            SceneUILayerManager.Instance.PopUILayer(popup);
+            OnClickTouchStartAsync().Forget();
         }
 
         private async UniTask ConnectAppsflyer()
@@ -424,73 +161,17 @@ SceneTransition.FadeInAsync().Forget();
             await UniTask.NextFrame();
         }
 
-        public async UniTask ConnectWithServer()
+        private async UniTask ConnectWithServer()
         {
             var matches = Regex.Matches(BuildInfo.GetVersionCode(), @"\d+");
             var res = ZString.Join("", matches.Select(x => x.Value));
             if (!int.TryParse(res, out var versionCode)) versionCode = 1000;
 
-            GrpcInitializeParam initializeParam;
-            string serverState;
-
-#if SERVER_REAL
-            // Production 서버 설정
-            initializeParam = new GrpcInitializeParam(
-                "stkauto.prod.cookappsgames.com",
-                port: 443,
-                ChannelCredentials.SecureSSL,
-                versionCode,
-#if UNITY_IOS
-                store: StoreMap.AppleAppStore,
-#else
-                StoreMap.GooglePlay,
-#endif
-                GrpcExceptionHandler.HandleSuccess,
-                GrpcExceptionHandler.HandleServerException,
-                GrpcExceptionHandler.HandleGrpcException,
-                true
-            );
-            serverState = "PROD";
-#else
-            // Development 서버 설정
-            initializeParam = new GrpcInitializeParam(
-                "stkauto-gyc71v.dev.cookappsgames.com",
-                443,
-                ChannelCredentials.SecureSSL,
-                versionCode,
-#if UNITY_IOS
-                store: StoreMap.AppleAppStore,
-#else
-                StoreMap.GooglePlay,
-#endif
-                GrpcExceptionHandler.HandleSuccess,
-                GrpcExceptionHandler.HandleServerException,
-                GrpcExceptionHandler.HandleGrpcException,
-                true
-            );
-            serverState = "DEV";
-
-            // 로컬 개발 서버 (필요시 주석 해제)
-            // initializeParam = new GrpcInitializeParam(
-            //     "192.168.2.65",
-            //     50051,
-            //     ChannelCredentials.Insecure,
-            //     versionCode,
-            //     StoreMap.GooglePlay,
-            //     GrpcExceptionHandler.HandleSuccess,
-            //     GrpcExceptionHandler.HandleServerException,
-            //     GrpcExceptionHandler.HandleGrpcException,
-            //     true
-            // );
-            // serverState = "LOCAL";
-#endif
-
-            Preference.SavePreference(Pref.SERVER_STATE, serverState);
-            GrpcManager.Instance.StartUp(initializeParam);
+            NetManager.Instance.Startup();
 
             // 버전 체크
-            var checkVersionResponse = await GrpcManager.Instance.Lobby.CheckVersionAsync();
-            // if (checkVersionResponse.IsError)
+            var checkVersionResponse = await NetManager.Instance.Lobby.CheckVersionAsync();
+            if (!checkVersionResponse.IsSuccess)
             {
                 // 버전 체크 실패시 처리
                 var toastString = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
@@ -504,24 +185,34 @@ SceneTransition.FadeInAsync().Forget();
             GlobalEffectCodeManager.Instance.Initialize(); // userdatamanager.initialize보다 먼저 호출되어야함
         }
 
-        /*
-         * todo : grpc 상황에 맞게 처리하세요
-         * 1. 서버 리스트를 받아온다.
-         * 2. 서버 리스트에 플레이어 정보가 있는지 확인한다.
-         * 3. (플레이어 정보가 있으면 선택, 없으면 서버에 플레이어를 생성한다.)
-         * 4. 서버에 플레이어를 조인한다.
-         */
-        // Server Player 처리
-        private async UniTask<string> GetServerPlayerId(string nickName)
+        private void InitTitleMain()
         {
-            return string.Empty;
-        }
+            if (LocalDataManager.Instance.GetRecentAuthData() == null)
+            {
+                // 게스트 로그인 only
+                guestLoginNode.SetActive(true);
+                touchToStart.SetActive(false);
+            }
+            else
+            {
+                guestLoginNode.SetActive(false);
+                touchToStart.SetActive(true);
+            }
 
+            // 언어 설정
+            LanguageManager.Instance.InitLanguage();
+
+            // bgm on
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
+        }
+        
         // 유저 세션 타임 기록
-        private async UniTask RecordSessionTime()
+        private static async UniTask RecordSessionTime()
         {
+            // TODO: @twhan TimeSystem 따위의 시간 관련 시스템이 완성되면 수정 필요
             var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ACC_PLAY_TIME);
-            if (specEventData == null) return;
+            if (specEventData == null)
+                return;
 
             while (true)
             {

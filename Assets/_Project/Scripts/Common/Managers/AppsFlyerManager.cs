@@ -57,7 +57,7 @@ namespace CookApps.AutoBattler
             AppsFlyer.setCustomerUserId(SystemInfo.deviceUniqueIdentifier);
             if (!string.IsNullOrEmpty(oneLinkId)) AppsFlyer.setAppInviteOneLinkID(oneLinkId);
 #if UNITY_IOS && !UNITY_EDITOR
-        AppsFlyer.waitForATTUserAuthorizationWithTimeoutInterval(60);
+            AppsFlyer.waitForATTUserAuthorizationWithTimeoutInterval(60);
 #endif
             AppsFlyer.startSDK();
 #endif

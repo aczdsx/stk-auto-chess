@@ -314,6 +314,13 @@
       },
       "url": "http://packages.tech.cookapps.com"
     },
+    "com.cysharp.memorypack": {
+      "version": "https://github.com/Cysharp/MemoryPack.git?path=src/MemoryPack.Unity/Assets/MemoryPack.Unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e807380631237f73848dbad6c4465bb88618f512"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
       "depth": 0,
@@ -346,6 +353,13 @@
       },
       "hash": "cf041d5c38779bec8d12b074104dcd8f860b9ef2"
     },
+    "com.github-glitchenzo.nugetforunity": {
+      "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "34432703a177c97631a4eb1d908f086037c67969"
+    },
     "com.google.external-dependency-manager": {
       "version": "file:../Packages_tgz/com.google.external-dependency-manager-1.2.185.tgz",
       "depth": 0,
@@ -373,15 +387,6 @@
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
-    },
-    "com.singularitygroup.hotreload": {
-      "version": "file:com.singularitygroup.hotreload",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      }
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

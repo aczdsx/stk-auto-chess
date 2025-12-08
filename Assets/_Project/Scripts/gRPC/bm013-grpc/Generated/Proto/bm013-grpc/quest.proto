@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "quest+info.proto";
+
+service QuestService {
+  /**
+   * 일일 퀘스트 목록 조회
+   */
+  rpc ListDailyQuest(QuestListDailyQuestRequest) returns (QuestListDailyQuestResponse);
+
+  /**
+   * 주간 퀘스트 목록 조회
+   */
+  rpc ListWeeklyQuest(QuestListWeeklyQuestRequest) returns (QuestListWeeklyQuestResponse);
+
+  /**
+   * 퀘스트 진행 사항 업데이트
+   */
+  rpc UpdateQuestProgress(QuestUpdateQuestProgressRequest) returns (QuestUpdateQuestProgressResponse);
+
+  /**
+   * 퀘스트 보상 수령
+   */
+  rpc ClaimQuestReward(QuestClaimQuestRewardRequest) returns (QuestClaimQuestRewardResponse);
+}
+
+enum QuestErrorCode {
+  QUEST_UNSPECIFIED = 0;
+}
+
+message QuestListDailyQuestRequest {
+  // 빈값이면 오늘 값 기준으로 조회
+  optional uint32 date_index = 1;
+}
+
+message QuestListDailyQuestResponse {
+  ResponseStatus status = 1;
+  repeated QuestInfo quest_list = 2;
+  uint64 next_reset_at = 3;
+  // 오늘 인덱스 (ex. 20251208 => 2025년 12월 8일)
+  uint32 date_index = 4;
+}
+
+message QuestListWeeklyQuestRequest {
+  // 빈값이면 이번주 기준으로 조회
+  optional uint32 date_index = 1;
+}
+message QuestListWeeklyQuestResponse {
+  ResponseStatus status = 1;
+  repeated QuestInfo quest_list = 2;
+  uint64 next_reset_at = 3;
+
+  // 이번주 인덱스 (ex. 202523 => 2025년 23주차)
+  uint32 date_index = 4;
+}
+
+message QuestUpdateQuestProgressRequest {
+  uint32 quest_id = 1;
+  QuestType quest_type = 2;
+  uint32 add_current_count = 3;
+}
+
+message QuestUpdateQuestProgressResponse {
+  ResponseStatus status = 1;
+  QuestInfo quest = 2;
+}
+
+message QuestClaimQuestRewardRequest {
+  uint32 quest_id = 1;
+  QuestType quest_type = 2;
+  optional uint32 date_index = 3;
+}
+
+message QuestClaimQuestRewardResponse {
+  ResponseStatus status = 1;
+  QuestInfo quest = 2;
+  repeated Reward rewards = 3;
+  repeated CurrencyDelta currency_deltas = 4;
+}

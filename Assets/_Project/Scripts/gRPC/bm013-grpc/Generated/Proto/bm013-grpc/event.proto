@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "event+info.proto";
+
+service EventService {
+  /**
+   * 이벤트 목록 조회
+   */
+  rpc List(EventListRequest) returns (EventListResponse);
+
+  /**
+   * 이벤트 진행 사항 업데이트
+   */
+  rpc UpdateProgress(EventUpdateProgressRequest) returns (EventUpdateProgressResponse);
+
+  /**
+   * 이벤트 보상 수령
+   */
+  rpc ClaimReward(EventClaimRewardRequest) returns (EventClaimRewardResponse);
+}
+
+enum EventErrorCode {
+  EVENT_UNSPECIFIED = 0;
+}
+
+message EventListRequest {
+  // 완료된 이벤트 포함 여부
+  bool include_completed = 1;
+}
+
+message EventListResponse {
+  ResponseStatus status = 1;
+  repeated EventInfo events = 2;
+}
+
+message EventUpdateProgressRequest {
+  uint32 event_id = 1;
+  uint32 add_current_count = 2;
+}
+
+message EventUpdateProgressResponse {
+  ResponseStatus status = 1;
+  EventInfo event = 2;
+}
+
+message EventClaimRewardRequest {
+  uint32 event_id = 1;
+  uint32 event_condition_id = 2;
+}
+
+message EventClaimRewardResponse {
+  ResponseStatus status = 1;
+  EventInfo event = 2;
+  repeated Reward rewards = 3;
+  repeated CurrencyDelta currency_deltas = 4;
+}
