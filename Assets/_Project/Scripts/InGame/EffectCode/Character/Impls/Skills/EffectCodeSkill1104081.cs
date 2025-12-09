@@ -23,9 +23,9 @@ public partial class EffectCodeSkill1104081 : EffectCodeCharacterBase
 
     private WeakReference<InGameVfx> _vfx;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
-    private SynergyType _elementType;
+    private ElementType _elementType;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -86,9 +86,9 @@ public partial class EffectCodeSkill1104081 : EffectCodeCharacterBase
         IsSkillActivated = true;
         _hitCharacters.Clear();
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
-        _elementType = owner.SpecCharacter.element_type;
+        _elementType = owner.SpecCharacter.character_element_type;
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -121,7 +121,7 @@ public partial class EffectCodeSkill1104081 : EffectCodeCharacterBase
             {
                 if (tile.CheckValidTile(owner.AllianceType, false))
                 {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
                     if (_hitCharacters.Contains(tile.OccupiedCharacter))
                         return;
 

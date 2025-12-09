@@ -1,16 +1,11 @@
 using System;
-using System.Buffers;
 using System.Collections.Generic;
-using System.Linq;
 using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Pool;
-using Unity.Mathematics;
-using UnityEngine.Tilemaps;
-using Unity.Profiling;
+using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 
 namespace CookApps.BattleSystem
 {
@@ -18,7 +13,7 @@ namespace CookApps.BattleSystem
     {
         public int CharacterUId => _characterUId;
         public int CharacterId => _statData?.CharacterId ?? _characterID;
-        public SpecCharacter SpecCharacter => _statData.Spec;
+        public CharacterInfo SpecCharacter => _statData.Spec;
 
         private Dictionary<Type, Type> _stateTypeMap = new Dictionary<Type, Type>();
 
@@ -338,26 +333,27 @@ namespace CookApps.BattleSystem
                 }
             }
         }
-        public void InjectSynergy(long effectCodeID, SpecSynergy synergyData)
-        {
-            Span<double> stats = stackalloc double[4];
-            stats[0] = synergyData.stat_value;
-            stats[1] = synergyData.stat_value_2;
-            stats[2] = synergyData.grade;
-            stats[3] = synergyData.stat_value_3;
-            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-        }
+        
+        // public void InjectSynergy(long effectCodeID, SpecSynergy synergyData)
+        // {
+        //     Span<double> stats = stackalloc double[4];
+        //     stats[0] = synergyData.stat_value;
+        //     stats[1] = synergyData.stat_value_2;
+        //     stats[2] = synergyData.grade;
+        //     stats[3] = synergyData.stat_value_3;
+        //     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+        //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+        // }
 
-        public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, SpecSynergy synergyData)
-        {
-            //이건좀 고민
-            if (targetSynergyType != _statData.Spec.element_type
-            && targetSynergyType != _statData.Spec.asterism_type)
-                return;
-
-            InjectSynergy(effectCodeID, synergyData);
-        }
+        // public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, SpecSynergy synergyData)
+        // {
+        //     //이건좀 고민
+        //     if (targetSynergyType != _statData.Spec.element_type
+        //     && targetSynergyType != _statData.Spec.asterism_type)
+        //         return;
+        //
+        //     InjectSynergy(effectCodeID, synergyData);
+        // }
 
         public void RemoveSynergyEffectCode()
         {
@@ -372,25 +368,25 @@ namespace CookApps.BattleSystem
                 if (targetSynergyCharacterCount < 1)
                     continue;
 
-                if (!SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
-                out var outSynergyData, out var outSynergyList))
-                    continue;
-
-                ecc.RemoveEffectCode(outSynergyList[0].id);
+                // if (!SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
+                // out var outSynergyData, out var outSynergyList))
+                //     continue;
+                //
+                // ecc.RemoveEffectCode(outSynergyList[0].id);
             }
         }
 
-        public void InjectPassive(long effectCodeID, SpecPassive passiveData)
-        {
-            Span<double> stats = stackalloc double[5];
-            stats[0] = (double)passiveData.skill_value_type;
-            stats[1] = passiveData.passive_rate;
-            stats[2] = passiveData.grade;
-            stats[3] = (double)passiveData.skill_value_type_2;
-            stats[4] = passiveData.passive_rate_2;
-            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-        }
+        // public void InjectPassive(long effectCodeID, SpecPassive passiveData)
+        // {
+        //     Span<double> stats = stackalloc double[5];
+        //     stats[0] = (double)passiveData.skill_value_type;
+        //     stats[1] = passiveData.passive_rate;
+        //     stats[2] = passiveData.grade;
+        //     stats[3] = (double)passiveData.skill_value_type_2;
+        //     stats[4] = passiveData.passive_rate_2;
+        //     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+        //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+        // }
 
         public void SetSelectedCharacter(bool isSetSelected)
         {
@@ -443,11 +439,11 @@ namespace CookApps.BattleSystem
         {
             if (_statData.Spec != null)
             {
-                if (_statData.Spec.is_taken_cc)
-                {
-                    _crowdControlType = _crowdControlType | type;
-                    AddBuffDebuffType(type.ToBuffDebuffType());
-                }
+                // if (_statData.Spec.is_taken_cc)
+                // {
+                //     _crowdControlType = _crowdControlType | type;
+                //     AddBuffDebuffType(type.ToBuffDebuffType());
+                // }
             }
         }
 
@@ -455,11 +451,11 @@ namespace CookApps.BattleSystem
         {
             if (_statData.Spec != null)
             {
-                if (_statData.Spec.is_taken_cc)
-                {
-                    _crowdControlType = _crowdControlType & ~type;
-                    RemoveBuffDebuffType(type.ToBuffDebuffType());
-                }
+                // if (_statData.Spec.is_taken_cc)
+                // {
+                //     _crowdControlType = _crowdControlType & ~type;
+                //     RemoveBuffDebuffType(type.ToBuffDebuffType());
+                // }
             }
         }
 
@@ -1070,8 +1066,7 @@ namespace CookApps.BattleSystem
                 _currHp = 0;
                 IsAlive = false;
 
-                if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat
-                    || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+                if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
                 {
                     switch (damageInfo.attackerType)
@@ -1140,8 +1135,7 @@ namespace CookApps.BattleSystem
 
         private void KillEffectCode(CharacterController deadCharacter)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePvpCombat
-            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
             || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
             {
                 bool isPlayer = _allianceType == AllianceType.Player;
@@ -1166,8 +1160,8 @@ namespace CookApps.BattleSystem
             if (target == null)
                 return;
 
-            damageInfo.elementAdvantageResult = ElementAdvantageHelper.GetElementAdvantageResult(this.SpecCharacter.element_type,
-                                                                                        target.SpecCharacter.element_type);
+            damageInfo.elementAdvantageResult = ElementAdvantageHelper.GetElementAdvantageResult(this.SpecCharacter.character_element_type,
+                                                                                        target.SpecCharacter.character_element_type);
             switch (damageInfo.elementAdvantageResult)
             {
                 case ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE:

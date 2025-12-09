@@ -5,6 +5,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
+
+public class TestObstacle
+{
+    public int ID;
+    // 기타 장애물 속성들...
+}
 
 public class InGameObstacleItem : MonoBehaviour
 {
@@ -55,7 +62,7 @@ public class InGameObstacleItem : MonoBehaviour
         _isShowLongPressFunc = false;
     }
 
-    public void SetFocusCharacter(SpecCharacter spec)
+    public void SetFocusCharacter(CharacterInfo spec)
     {
         bool isActiveFocus = spec != null;
         if (isActiveFocus)

@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
     public class InGameMainStateStage : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI
     {
         private InGameUI _inGameUI;
-        private SpecStage _specStage;
+        private StageInfo _specStage;
 
         private float _updateTimer = 0f;
         private const float UpdateInterval = 0.3f;
@@ -121,7 +121,7 @@ namespace CookApps.AutoBattler
                 SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(_inGameUI.BottomUI).Forget();
         }
 
-        public void SetFocusSlotUI(SpecCharacter spec)
+        public void SetFocusSlotUI(CharacterInfo spec)
         {
             _inGameUI.BottomUI.SetFocusCharacterUI(spec);
         }

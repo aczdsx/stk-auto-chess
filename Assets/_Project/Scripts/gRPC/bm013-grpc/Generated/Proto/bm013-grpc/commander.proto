@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "commander+skill.proto";
+
+// 지휘자 서비스
+service CommanderService {
+  /**
+   * 지휘자 스킬 목록 조회
+   */
+  rpc ListSkill(CommanderListSkillRequest) returns (CommanderListSkillResponse);
+
+  /**
+    * 지휘자 스킬 장착
+   */
+  rpc EquipSkill(CommanderEquipSkillRequest) returns (CommanderEquipSkillResponse);
+
+  /**
+   * 지휘자 스킬 장착 해제
+   */
+  rpc UnEquipSkill(CommanderUnEquipSkillRequest) returns (CommanderUnEquipSkillResponse);
+
+  /**
+   * 지휘자 스킬 레벨 올리기
+   */
+  rpc LevelUpSkill(CommanderLevelUpSkillRequest) returns (CommanderLevelUpSkillResponse);
+
+  /**
+   * 지휘자 스킬 승급
+   */
+  rpc PromoteSkill(CommanderPromoteSkillRequest) returns (CommanderPromoteSkillResponse);
+}
+
+enum CommanderErrorCode {
+  COMMANDER_UNSPECIFIED = 0;
+}
+
+message CommanderListSkillRequest {}
+message CommanderListSkillResponse {
+  ResponseStatus status = 1;
+  repeated CommanderSkillInfo skill_list = 2;
+}
+
+message CommanderEquipSkillRequest {
+  uint32 slot_index = 1;
+  uint32 commander_skill_id = 2;
+}
+
+message CommanderEquipSkillResponse {
+  ResponseStatus status = 1;
+  repeated CommanderEquippedSkillInfo skill_list = 2;
+}
+
+message CommanderUnEquipSkillRequest {
+  uint32 slot_index = 1;
+}
+
+message CommanderUnEquipSkillResponse {
+  ResponseStatus status = 1;
+  repeated CommanderEquippedSkillInfo skill_list = 2;
+}
+
+message CommanderLevelUpSkillRequest {
+  uint32 slot_index = 1;
+}
+
+message CommanderLevelUpSkillResponse {
+  ResponseStatus status = 1;
+  CommanderSkillInfo skill = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message CommanderPromoteSkillRequest {
+  uint32 commander_skill_id = 1;
+  uint32 promotion_slot = 2;
+  uint32 promotion_option_id = 3;
+}
+
+message CommanderPromoteSkillResponse {
+  ResponseStatus status = 1;
+  CommanderSkillInfo skill = 2;
+}

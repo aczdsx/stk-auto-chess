@@ -60,40 +60,52 @@ namespace CookApps.AutoBattler
             return String.Empty;
         }
         
-        public string GetSynergyText(SynergyType elementType)
+        public string GetElementText(ElementType elementType)
         {
             switch (elementType)
             {
-                case SynergyType.FIRE:
+                case ElementType.FIRE:
                     return GetLanguageText("SYNERGY_FIRE");
-                case SynergyType.WATER:
+                case ElementType.WATER:
                     return GetLanguageText("SYNERGY_WATER");
-                case SynergyType.EARTH:
+                case ElementType.EARTH:
                     return GetLanguageText("SYNERGY_EARTH");
-                case SynergyType.WIND:
+                case ElementType.WIND:
                     return GetLanguageText("SYNERGY_WIND");
-                case SynergyType.LIGHTNING:
+                case ElementType.LIGHTNING:
                     return GetLanguageText("SYNERGY_LIGHTNING");
                 default:
                     return string.Empty;
             }
         }
 
-        public string GetClassText(SynergyType positionType)
+        public string GetSynergyText(SynergyType elementType)
+        {
+            switch (elementType)
+            {
+                case SynergyType.NOBLESSE:
+                case SynergyType.SUPERNOVA:
+                case SynergyType.TROUBLESHOOTER:
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public string GetClassText(CharacterPositionType positionType)
         {
             switch (positionType)
             {
-                case SynergyType.TANK:
+                case CharacterPositionType.TANK:
                     return GetLanguageText("CLASS_TANK");
-                case SynergyType.GUARDIAN:
+                case CharacterPositionType.GUARDIAN:
                     return GetLanguageText("CLASS_GUARDIAN");
-                case SynergyType.RANGER:
+                case CharacterPositionType.RANGER:
                     return GetLanguageText("CLASS_RANGER");
-                case SynergyType.WIZARD:
+                case CharacterPositionType.WIZARD:
                     return GetLanguageText("CLASS_WIZARD");
-                case SynergyType.SUPPORTER:
+                case CharacterPositionType.SUPPORTER:
                     return GetLanguageText("CLASS_SUPPORTER");
-                case SynergyType.ASSASSIN:
+                case CharacterPositionType.ASSASSIN:
                     return GetLanguageText("CLASS_ASSASSIN");
                 default:
                     return string.Empty;
@@ -125,7 +137,7 @@ namespace CookApps.AutoBattler
                     return "R";
                 case GradeType.EPIC:
                     return "SR";
-                case GradeType.LEGEND:
+                case GradeType.LEGENDARY:
                     return "SSR";
                 default:
                     return string.Empty;

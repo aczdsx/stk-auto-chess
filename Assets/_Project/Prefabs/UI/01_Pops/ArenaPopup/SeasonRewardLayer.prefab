@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5684352447220465894}
-  - component: {fileID: 4782646490525022715}
   m_Layer: 5
   m_Name: SeasonRewardLayer
   m_TagString: Untagged
@@ -40,20 +39,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4782646490525022715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 233932915621360934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d37b9ec70340ea047a167c10bbcb091a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _seasonInfoScrollRect: {fileID: 5559243022725958448}
-  _seasonInfoSlotObject: {fileID: 195170508185954399}
 --- !u!1 &1516293202619544671
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +291,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
+  m_fontSize: 18
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -322,15 +307,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -887,11 +874,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0cae0565eba2214cb8b795433be395b, type: 3}
---- !u!1 &195170508185954399 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 984827747522847665, guid: b0cae0565eba2214cb8b795433be395b, type: 3}
-  m_PrefabInstance: {fileID: 1089779941945527278}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7155064303530429688 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7805943246860846870, guid: b0cae0565eba2214cb8b795433be395b, type: 3}

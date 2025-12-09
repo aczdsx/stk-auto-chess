@@ -30,9 +30,9 @@ namespace CookApps.AutoBattler
 
         private List<ChapterListItemSlot> _chapterSlotList = new();
 
-        private SpecChapter _currentChapterData;   // 현재 팝업에서 선택한 챕터 데이터 (팝업만)
-        private SpecChapter _selectedChapterData;   // 현재 선택된 챕터 데이터 (스테이지)
-        public SpecChapter SelectedChapterData => _selectedChapterData;
+        private ChapterInfo _currentChapterData;  // 현재 팝업에서 선택한 챕터 데이터 (팝업만)
+        private ChapterInfo _selectedChapterData; // 현재 선택된 챕터 데이터 (스테이지)
+        public ChapterInfo SelectedChapterData => _selectedChapterData;
 
         protected override void Awake()
         {

@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "inventory_flow+base.proto";
+import "post+base_message.proto";
+
+service PostService {
+  /**
+   * 우편 목록을 조회합니다.
+  */
+  rpc List(PostListRequest) returns (PostListResponse) {}
+
+  /**
+   * 반복 우편 목록을 조회합니다.
+  */
+  rpc ListSchedule(PostScheduleListRequest) returns (PostScheduleListResponse) {}
+
+  /**
+   * 우편 상태를 조회합니다.
+  */
+  rpc GetStatus(PostStatusRequest) returns (PostStatusResponse) {}
+
+  /**
+   * 우편을 읽습니다.
+   */
+  rpc Read(PostReadRequest) returns (PostReadResponse) {}
+
+  /**
+   * 우편 보상을 받습니다.
+   */
+  rpc Reward(PostRewardRequest) returns (PostRewardResponse) {}
+}
+
+enum PostErrorCode {
+  POST_UNSPECIFIED = 0;
+  POST_ALREADY_READ = 1700; // 이미 읽은 메일
+  POST_INVALID_REWARD = 1701; // 유효하지 않은 메일 보상
+}
+
+message PostListRequest {
+  CursorInfo cursor = 1;
+}
+
+message PostInfo {
+  string id = 1;
+  repeated InventoryFlowItem rewards = 2;
+  repeated BaseMessageContent content = 3;
+  int32 post_status = 4; // 0:읽지 않음, 1:읽음, 2:보상 받음
+  optional string expired_timestamp = 5; // 만료 시간
+}
+
+
+message PostListResponse {
+  ResponseStatus status = 1;
+  CursorMeta meta = 2;
+  repeated PostInfo item_list = 3;
+}
+
+message PostScheduleListRequest {
+  PaginationInfo pagination = 1;
+}
+
+
+message PostScheduleListResponse {
+  ResponseStatus status = 1;
+  PaginationMeta meta = 2;
+  repeated PostInfo item_list = 3;
+}
+
+message PostStatusRequest {
+}
+
+message PostStatusResponse {
+  ResponseStatus status = 1;
+  int32 pending_count = 2;
+}
+
+message PostReadRequest {
+  string id = 1;
+}
+
+message PostReadResponse {
+  ResponseStatus status = 1;
+}
+
+message PostRewardRequest {
+  string id = 1;
+}
+
+message PostRewardResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+}

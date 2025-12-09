@@ -15,13 +15,13 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private GachaType gachaType;
         
-        protected SpecGacha _specGachaDataOneTime;
-        protected SpecGacha _specGachaDataTenTime;
+        protected GachaInfo _specGachaDataOneTime;
+        protected GachaInfo _specGachaDataTenTime;
         
         protected GachaPopup _parentGachaPopup;
         
         
-        private SpecGacha _currentSpecGachaData;
+        private GachaInfo _currentSpecGachaData;
         
         public GachaType CurrentGachaType => gachaType;
 

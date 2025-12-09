@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "trial_dungeon+info.proto";
+
+// 시련 던전 서비스
+service TrialDungeonService {
+  /**
+   * 시도 던전 목록 조회
+   */
+  rpc List(TrialDungeonListRequest) returns (TrialDungeonListResponse);
+
+  /**
+   * 시도 던전 입장
+   */
+  rpc Enter(TrialDungeonEnterRequest) returns (TrialDungeonEnterResponse);
+
+  /**
+   * 시도 던전 클리어
+   */
+  rpc Clear(TrialDungeonClearRequest) returns (TrialDungeonClearResponse);
+}
+
+enum TrialDungeonErrorCode {
+  TRIAL_DUNGEON_UNSPECIFIED = 0;
+}
+
+message TrialDungeonListRequest {
+  uint32 trial_dungeon_id = 1;
+}
+
+message TrialDungeonListResponse {
+  ResponseStatus status = 1;
+  repeated TrialDungeonInfo trial_dungeons = 2;
+  // 현재 진행 가능한 던전 순서
+  uint32 current_order = 3;
+}
+
+message TrialDungeonEnterRequest {
+  uint32 trial_dungeon_id = 1;
+}
+
+message TrialDungeonEnterResponse {
+  ResponseStatus status = 1;
+  TrialDungeonInfo trial_dungeon = 2;
+  string battle_session_id = 3;
+  repeated CurrencyDelta currency_deltas = 4; // AP 소모
+}
+
+message TrialDungeonClearRequest {
+  uint32 trial_dungeon_id = 1;
+  string battle_session_id = 2;
+  bool is_victory = 3;
+}
+
+message TrialDungeonClearResponse {
+  ResponseStatus status = 1;
+  TrialDungeonInfo trial_dungeon = 2;
+  repeated Reward rewards = 3;
+  repeated CurrencyDelta currency_deltas = 4;
+  uint64 player_exp_gained = 5;
+}

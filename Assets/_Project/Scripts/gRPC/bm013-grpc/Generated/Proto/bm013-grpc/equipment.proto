@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+import "equipment+stellum.proto";
+import "equipment+relic.proto";
+
+// 장비 서비스 (스텔룸, 성유물)
+service EquipmentService {
+  /**
+   * 스텔룸 목록 조회
+   */
+  rpc ListStellum(EquipmentListStellumRequest) returns (EquipmentListStellumResponse);
+  
+  /**
+   * 스텔룸 강화 (단조)
+   */
+  rpc ForgeStellum(EquipmentForgeStellumRequest) returns (EquipmentForgeStellumResponse);
+  
+  /**
+   * 스텔룸 축성 (성급 올리기)
+   */
+  rpc AscendStellum(EquipmentAscendStellumRequest) returns (EquipmentAscendStellumResponse);
+    
+  /**
+   * 성유물 목록 조회
+   */
+  rpc ListRelic(EquipmentListRelicRequest) returns (EquipmentListRelicResponse);
+  
+  /**
+   * 성유물 강화
+   */
+  rpc EnhanceRelic(EquipmentEnhanceRelicRequest) returns (EquipmentEnhanceRelicResponse);
+  
+  /**
+   * 성유물 합성
+   */
+  rpc SynthesizeRelic(EquipmentSynthesizeRelicRequest) returns (EquipmentSynthesizeRelicResponse);
+  
+  /**
+   * 성유물 부여 (옵션 재부여)
+   */
+  rpc RerollRelic(EquipmentRerollRelicRequest) returns (EquipmentRerollRelicResponse);
+}
+
+enum EquipmentErrorCode {
+  EQUIPMENT_UNSPECIFIED = 0;
+}
+
+
+message EquipmentListStellumRequest {}
+message EquipmentListStellumResponse {
+  ResponseStatus status = 1;
+  repeated StellumInfo stellum_list = 2;
+}
+
+message EquipmentForgeStellumRequest {
+  string instance_id = 2;
+  uint32 target_level = 3;
+}
+
+message EquipmentForgeStellumResponse {
+  ResponseStatus status = 1;
+  StellumInfo stellum = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message EquipmentAscendStellumRequest {
+  string instance_id = 2;
+  repeated string material_instance_ids = 3;  // 재료 스텔룸
+}
+
+message EquipmentAscendStellumResponse {
+  ResponseStatus status = 1;
+  StellumInfo stellum = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message EquipmentListRelicRequest {}
+message EquipmentListRelicResponse {
+  ResponseStatus status = 1;
+  repeated RelicInfo relic_list = 2;
+}
+
+message EquipmentEnhanceRelicRequest {
+  string instance_id = 1;
+  uint32 target_level = 2;
+}
+
+message EquipmentEnhanceRelicResponse {
+  ResponseStatus status = 1;
+  RelicInfo relic = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message EquipmentSynthesizeRelicRequest {
+  repeated string material_instance_ids = 1;  // 재료 성유물 (3개)
+}
+
+message EquipmentSynthesizeRelicResponse {
+  ResponseStatus status = 1;
+  RelicInfo new_relic = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message EquipmentRerollRelicRequest {
+  string instance_id = 1;
+}
+
+message EquipmentRerollRelicResponse {
+  ResponseStatus status = 1;
+  RelicInfo relic = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}

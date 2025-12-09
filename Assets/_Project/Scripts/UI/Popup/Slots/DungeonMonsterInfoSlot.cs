@@ -30,8 +30,8 @@ namespace CookApps.AutoBattler
             _monsterNameText.text = $"Lv.{_statData.Level} " + LanguageManager.Instance.GetLanguageText(_statData.Spec.name_token);
 
             _characterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(_statData.Spec.prefab_id);
-            _elementSynergyUI.SetSynergyUI(_statData.Spec.element_type);
-            _asterismSynergyUI.SetSynergyUI(_statData.Spec.asterism_type);
+            _elementSynergyUI.SetSynergyUI(_statData.Spec.character_element_type);
+            _asterismSynergyUI.SetSynergyUI(_statData.Spec.character_stella_type);
         }
     }
 }

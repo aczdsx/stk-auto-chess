@@ -99,7 +99,6 @@ namespace CookApps.AutoBattler
         
         #endregion
         
-
         /// <summary>
         /// 이벤트 전송
         /// </summary>
@@ -117,9 +116,9 @@ namespace CookApps.AutoBattler
         private AppEventParameter CreateCommonParam()
         {
             AppEventParameter appEventParameter = new AppEventParameter();
-            appEventParameter.Add(AppEventStringConst.USER_ID, UserDataManager.Instance.UserBasicData.Uid);
-            appEventParameter.Add(AppEventStringConst.PLAYER_ID, UserDataManager.Instance.UserBasicData.PlayerId);
-            appEventParameter.Add(AppEventStringConst.SERVER, UserDataManager.Instance.UserBasicData.ServerId);
+            appEventParameter.Add(AppEventStringConst.USER_ID, LocalDataManager.Instance.GetRecentAuthData()?.Id);
+            // appEventParameter.Add(AppEventStringConst.PLAYER_ID, UserDataManager.Instance.UserBasicData.PlayerId);
+            // appEventParameter.Add(AppEventStringConst.SERVER, UserDataManager.Instance.UserBasicData.ServerId);
             var targetLanguage = LanguageManager.Instance.CurrentLanguageType;
             appEventParameter.Add(AppEventStringConst.LANGUAGE, targetLanguage.ToString());
             appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
@@ -215,7 +214,7 @@ namespace CookApps.AutoBattler
                             ,UserPVPBattleDetailData enemyData)
         {
             string battleType = isRevenge ? "revenge" : "normal";
-            var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
+            // var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
             
             AppEventParameter appEventParameter = CreateCommonParam();
             appEventParameter.Add(AppEventStringConst.SEASON, season);
@@ -230,7 +229,7 @@ namespace CookApps.AutoBattler
             
             appEventParameter.Add(AppEventStringConst.ENEMY_PLAYER_ID, enemyData.PlayerId);
             appEventParameter.Add(AppEventStringConst.ENEMY_POINT, enemyData.RankPoint);
-            appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
+            // appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
             appEventParameter.Add(AppEventStringConst.ENEMY_DECK, GetAppEventTargetDeckList(enemyData.PvpDeckList.PvpCharacterDecks.ToList()));
             appEventParameter.Add(AppEventStringConst.ENEMY_DECK_POWER, enemyData.BattlePoint);
         

@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
 
         private CharacterCollectionMainLayerTabType _currentMainLayerTabType = CharacterCollectionMainLayerTabType.All;
 
-        private List<SpecCharacter> _totalCharacterList;      // 전체 캐릭터 리스트
+        private List<CharacterInfo> _totalCharacterList;      // 전체 캐릭터 리스트
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
 
         private CharacterCollectionPopup _parentCollectionPopup;
@@ -86,7 +86,7 @@ namespace CookApps.AutoBattler
 
 
             var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            var _specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userGuideMissionData.MissionId);
+            var _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(userGuideMissionData.MissionId);
             bool isGuide = false;
             if (_specGuideMissionData != null)
                 isGuide = _specGuideMissionData.guide_mission_type == GuideMissionType.LEVELUP_CHARACTER_TARGET || _specGuideMissionData.guide_mission_type == GuideMissionType.SET_LV_CHARACTER_TARGET;
@@ -123,7 +123,7 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    slot.gameObject.SetActive((int)slot.SpecCharacterData.element_type == (int)targetType);
+                    slot.gameObject.SetActive((int)slot.SpecCharacterData.character_element_type == (int)targetType);
                 }
             });
 

@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+service ServerService {
+  /**
+   * 서버 목록을 조회합니다.
+   */
+  rpc List(ServerListRequest) returns (ServerListResponse) {}
+
+  /**
+   * 서버에 입장합니다. (Session에 해당 플레이어로 업데이트 합니다.)
+   */
+  rpc Join(ServerJoinRequest) returns (ServerJoinResponse) {}
+}
+
+enum ServerErrorCode {
+  SERVER_UNSPECIFIED = 0;
+  SERVER_LIST_EMPTY = 1901; // 서버 목록이 비었음.
+  SERVER_NOT_JOINABLE = 1902; // 서버에 입장할 수 없음.
+  SERVER_PLAYER_NOT_FOUND = 1903; // 플레이어를 찾을 수 없음.
+  SERVER_PLAYER_DELETED = 1904; // 플레이어가 이미 삭제 되어 있음.
+}
+
+message ServerListRequest {
+
+}
+
+message ServerData {
+  uint32 serverId = 1;
+  optional string name = 2;
+  bool isJoinable = 3;
+}
+
+message UserServerData {
+  uint32 serverId = 1;
+  string playerId = 2;
+}
+
+message ServerListData{
+  repeated ServerData serverList = 1;
+  repeated UserServerData userServerList = 2;
+}
+
+
+message ServerListResponse {
+  ResponseStatus status = 1;
+  ServerListData data = 2;
+}
+
+
+message ServerJoinRequest {
+  uint32 serverId = 1;
+  string playerId = 2;
+}
+
+
+message ServerJoinResponse {
+  ResponseStatus status = 1;
+}

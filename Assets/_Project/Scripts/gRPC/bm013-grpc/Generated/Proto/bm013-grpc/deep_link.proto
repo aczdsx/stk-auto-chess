@@ -1,0 +1,28 @@
+syntax = "proto3";
+package tech.hive.v1;
+
+import "base.proto";
+import "inventory_flow+base.proto";
+
+service DeepLinkService {
+  /**
+   * 딥링크 보상 처리
+   */
+  rpc Reward(DeepLinkRewardRequest) returns (DeepLinkRewardResponse) {}
+}
+
+enum DeepLinkErrorCode {
+  DEEP_LINK_UNSPECIFIED = 0;
+  DEEP_LINK_NOT_FOUND = 2300; // 딥링크 데이터가 없음
+  DEEP_LINK_EXPIRED = 2301; // 딥링크 만료
+  DEEP_LINK_ALREADY_REWARDED = 2302; // 이미 보상 받은 딥링크
+}
+
+message DeepLinkRewardRequest {
+  string deep_link_id = 1;
+}
+
+message DeepLinkRewardResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+}

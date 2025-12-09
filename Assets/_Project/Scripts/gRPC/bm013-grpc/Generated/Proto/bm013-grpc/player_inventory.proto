@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "inventory_flow+base.proto";
+
+service PlayerInventoryService {
+  /**
+    * PlayerInventory 목록을 조회합니다.
+    */
+  rpc List(PlayerInventoryListRequest) returns (PlayerInventoryListResponse) {}
+
+  /**
+    * PlayerInventory를 조회합니다.
+    */
+  rpc Get(PlayerInventoryGetRequest) returns (PlayerInventoryGetResponse) {}
+
+  /**
+    * PlayerInventory내 아이템을 사용합니다.
+    */
+  rpc Use(PlayerInventoryUseRequest) returns (PlayerInventoryUseResponse) {}
+
+  /**
+    * 플레이어 인벤토리를 변경합니다.
+    */
+  rpc Diff(PlayerInventoryDiffRequest) returns (PlayerInventoryDiffResponse) {}
+
+  /**
+    * InventoryId를 변경합니다.
+    */
+  rpc ChangeInventoryId(PlayerInventoryChangeInventoryIdRequest) returns (PlayerInventoryChangeInventoryIdResponse) {}
+}
+
+enum PlayerInventoryErrorCode {
+  PLAYER_INVENTORY_UNSPECIFIED = 0;
+  PLAYER_INVENTORY_INVALID_ERROR = 1301;
+  PLAYER_INVENTORY_NOT_FOUND = 1304; // 해당하는 아이템을 찾을 수 없을 때
+  PLAYER_INVENTORY_NOT_ENOUGH_ITEM = 1305; // 플레이어 아이템 수량이 부족할 때
+  PLAYER_INVENTORY_FAILED_CHANGE_ITEM = 1306; // 플레이어 아이템 change 실패
+  PLAYER_INVENTORY_USER_INVENTORY_NOT_ENOUGH_ITEM = 1350; // 유저 or 플레이어 아이템 수량이 부족할 때
+  PLAYER_INVENTORY_USER_INVENTORY_INTERNAL_ERROR = 1351; // 유저 or 플레이어 아이템 내부 오류
+}
+
+/**
+  * 카테고리와 아이템 목록이 모두 빈배열일 경우, 플레이어 인벤토리를 전체 조회합니다.
+  */
+message PlayerInventoryListRequest {
+  PaginationInfo pagination = 1;
+  /**
+   * 아이템 아이디 목록, 빈배열일 경우 무시합니다.
+   */
+  repeated uint32 item_ids = 3;
+}
+
+message PlayerInventoryInfo {
+  string id = 1;
+  uint32 item_id = 4;
+  uint32 count = 5;
+  string metadata = 6;
+}
+
+message PlayerInventoryListResponse {
+  ResponseStatus status = 1;
+  PaginationMeta meta = 2;
+  repeated PlayerInventoryInfo item_list = 3;
+}
+
+message PlayerInventoryGetRequest {
+  string id = 1;
+}
+
+message PlayerInventoryGetResponse {
+  ResponseStatus status = 1;
+  PlayerInventoryInfo item = 2;
+}
+
+message PlayerInventoryUseRequest {
+  repeated BaseUseInventory item_list = 1;
+  string reason = 2; // 사용 출처 (ex. gacha, ingame)
+}
+
+message PlayerInventoryUseResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+}
+
+message PlayerInventorySetRequestReward {
+  optional string inventory_id = 1;
+  uint32 item_id = 2;
+  uint32 count = 3;
+}
+
+message PlayerInventorySetRequestConsume {
+  optional string inventory_id = 1;
+  uint32 item_id = 2;
+  uint32 count = 3;
+}
+
+message PlayerInventorySetRequestChange {
+  optional string inventory_id = 1;
+  uint32 item_id = 2;
+  string metadata = 3;
+}
+
+message PlayerInventoryDiffRequest {
+  repeated PlayerInventorySetRequestReward rewards = 1;
+  repeated PlayerInventorySetRequestConsume consumes = 2; 
+  repeated PlayerInventorySetRequestChange changes = 3;
+
+  /**
+   * 인벤토리 변경 출처
+   * 서버에 따로 저장하지는 않고, 로그 추적용으로 사용합니다.
+   */
+  optional string reason = 4;
+}
+
+message PlayerInventoryDiffResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+}
+
+message PlayerInventoryChangeInventoryIdItem {
+  string id = 1;
+  string new_id = 2;
+}
+
+message PlayerInventoryChangeInventoryIdRequest {
+  repeated PlayerInventoryChangeInventoryIdItem item_list = 1;
+}
+
+message PlayerInventoryChangeInventoryIdResponse {
+  ResponseStatus status = 1;
+}

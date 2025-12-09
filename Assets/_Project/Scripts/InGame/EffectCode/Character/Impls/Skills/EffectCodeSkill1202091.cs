@@ -25,7 +25,7 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
 
     private bool _isReadyToActivate;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -91,7 +91,7 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -136,7 +136,7 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
         foreach (var character in characterControllers)
         {
             float calculatedDamageRate = _damageRate;
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
                 characterControllers[0].CurrentTile);
 
             var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
@@ -148,7 +148,7 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
             inGameTiles.Remove(characterControllers[0].CurrentTile);
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
                 StunCharacter(character);
             }
         }

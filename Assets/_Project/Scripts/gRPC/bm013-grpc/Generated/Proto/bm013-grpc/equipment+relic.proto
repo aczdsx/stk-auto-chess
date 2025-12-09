@@ -1,0 +1,42 @@
+syntax = "proto3";
+package tech.hive.v1;
+
+import "custom_common.proto";
+
+import "equipment+stat.proto";
+
+// 성유물(장신구) 정보
+message RelicInfo {
+  string instance_id = 1;
+  uint32 relic_id = 2;  // 마스터 데이터 ID
+  
+  // 기본 정보
+  Rarity rarity = 3;          // 등급 (1~5성)
+  RelicCategory category = 4;        // 카테고리 (부위)
+  string prefix = 5;                 // 접두어 (세트 효과)
+  string suffix = 6;                 // 접미어 (주 능력치)
+  
+  // 강화 정보
+  uint32 enhance_level = 7;           // 강화 레벨
+  uint32 max_enhance_level = 8;       // 최대 강화 레벨 (등급에 따라 결정)
+  
+  // 옵션
+  EquipmentStatOption main_option = 9;        // 주옵션
+  repeated EquipmentStatOption sub_options = 10;  // 부옵션 (최대 4개)
+  
+  // 장착 정보
+  string equipped_character_id = 11;  // 장착한 캐릭터 인스턴스 ID
+  
+  // 획득 시간
+  uint64 obtained_at = 12;
+}
+
+// 성유물 카테고리 (부위)
+enum RelicCategory {
+  RELIC_CATEGORY_UNSPECIFIED = 0;
+  RELIC_CATEGORY_HELMET = 1;     // 투구
+  RELIC_CATEGORY_ARMOR = 2;      // 갑옷
+  RELIC_CATEGORY_GLOVES = 3;     // 장갑
+  RELIC_CATEGORY_BOOTS = 4;      // 신발
+  RELIC_CATEGORY_ACCESSORY = 5;  // 장신구
+}

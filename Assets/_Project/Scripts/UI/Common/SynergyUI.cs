@@ -11,6 +11,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _iconImage;
 
         // 캐릭터 속성 시너지 세팅
+        public void SetSynergyUI(ElementType synergyType, bool isActive = true)
+        {
+            _iconImage.sprite = ImageManager.Instance.GetElementSprite(synergyType, isActive);
+        }
+        // 캐릭터 속성 시너지 세팅
         public void SetSynergyUI(SynergyType synergyType, bool isActive = true)
         {
             _iconImage.sprite = ImageManager.Instance.GetSynergySprite(synergyType, isActive);

@@ -399,7 +399,7 @@ public partial class SROptions
     [Category("미션 관련")]
     public void 모든가이드미션클리어()
     {
-        var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All.ToList();
+        var allGuideMissionList = SpecDataManager.Instance.GuideMissionInfo.All.ToList();
 
         foreach (var guideMission in allGuideMissionList)
             if (guideMission.id >= 30)
@@ -421,7 +421,7 @@ public partial class SROptions
     public void 현재가이드미션클리어()
     {
         var currentGuideMission =
-            SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData
+            SpecDataManager.Instance.GuideMissionInfo.Get(UserDataManager.Instance.UserMissionData
                 .GuideMissionCurrentOrder);
 
         GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type,
@@ -493,59 +493,12 @@ public partial class SROptions
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    #region PVP 관련
-
-    [Category("PVP 관련")]
-    public async void 유저PVP전체프로필초기화()
-    {
-        // 심플 정보 세팅
-        var simpleData = new UserPVPBattleSimpleData();
-        simpleData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
-        simpleData.ServerId = UserDataManager.Instance.UserBasicData.ServerId;
-        simpleData.RankId = UserDataManager.Instance.UserPVP.RankId;
-        simpleData.RankPoint = UserDataManager.Instance.UserPVP.RankPoint;
-        simpleData.Ranking = UserDataManager.Instance.UserPVP.Ranking;
-        simpleData.Nickname = UserDataManager.Instance.UserBasicData.Nickname;
-        simpleData.PlayerLv = UserDataManager.Instance.UserBasicData.Level;
-        var serializedSimpleData = BMUtil.ConvertToJsonSerialize(simpleData);
-
-        // 디테일 정보 세팅
-        var detailData = new UserPVPBattleDetailData();
-        detailData.PlayerId = UserDataManager.Instance.UserBasicData.PlayerId;
-        detailData.ServerId = UserDataManager.Instance.UserBasicData.ServerId;
-        detailData.RankId = UserDataManager.Instance.UserPVP.RankId;
-        detailData.RankPoint = UserDataManager.Instance.UserPVP.RankPoint;
-        detailData.Ranking = UserDataManager.Instance.UserPVP.Ranking;
-        detailData.Nickname = UserDataManager.Instance.UserBasicData.Nickname;
-        detailData.PlayerLv = UserDataManager.Instance.UserBasicData.Level;
-        //detailData.BattlePoint =
-
-        detailData.PvpDeckList = new UserPVPBattleDeckList();
-        var serializedDetailData = BMUtil.ConvertToJsonSerialize(detailData);
-
-        var response = await GrpcManager.Instance.StkautoPvp.UpdatePvpProfile(0, serializedSimpleData, serializedDetailData);
-        if (response.IsError)
-            return;
-    }
-
-    [Category("PVP 관련")]
-    public void 매칭리스트갱신횟수초기화()
-    {
-        UserDataManager.Instance.UserPVP.MatchRefreshCnt = 0;
-
-        UserDataManager.Instance.SaveUserPVPData();
-    }
-
-    #endregion
-
-    ////////////////////////////////////////////////////////////////////////////////////////
-
     #region 스킬 관련
 
     [Category("스킬 관련")]
     public void 지휘자스킬전체획득()
     {
-        var allCommanderSkillList = SpecDataManager.Instance.SpecCommanderSkill.All;
+        var allCommanderSkillList = SpecDataManager.Instance.SkillCommander.All;
 
         allCommanderSkillList.GroupBy(data => data.commander_skill_id);
 

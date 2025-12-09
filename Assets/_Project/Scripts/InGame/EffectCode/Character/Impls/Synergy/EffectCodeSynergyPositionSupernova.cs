@@ -87,64 +87,64 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         if (_targetCharacter == null)
             return;
 
-        var supernovaSynergyList = SpecDataManager.Instance.GetSpecSynergyList(SynergyType.SUPERNOVA);
-        if (supernovaSynergyList == null || supernovaSynergyList.Count == 0)
-            return;
-
-        base.OnCombatStart();
-        for (int i = 1; i <= _synergyGrade; i++)
-        {
-            switch (i)
-            {
-                case 1:
-                    AddHpPercentUp(_targetCharacter, _source, supernovaSynergyList);
-                    break;
-                case 2:
-                    AddAdPercentUp(_targetCharacter, _source, supernovaSynergyList);
-                    break;
-                case 3:
-                    AddAttackSpeedCriticalRateAtkPierce(_targetCharacter, _source, supernovaSynergyList);
-                    break;
-            }
-        }
+        // var supernovaSynergyList = SpecDataManager.Instance.GetSpecSynergyList(SynergyType.SUPERNOVA);
+        // if (supernovaSynergyList == null || supernovaSynergyList.Count == 0)
+        //     return;
+        //
+        // base.OnCombatStart();
+        // for (int i = 1; i <= _synergyGrade; i++)
+        // {
+        //     switch (i)
+        //     {
+        //         case 1:
+        //             AddHpPercentUp(_targetCharacter, _source, supernovaSynergyList);
+        //             break;
+        //         case 2:
+        //             AddAdPercentUp(_targetCharacter, _source, supernovaSynergyList);
+        //             break;
+        //         case 3:
+        //             AddAttackSpeedCriticalRateAtkPierce(_targetCharacter, _source, supernovaSynergyList);
+        //             break;
+        //     }
+        // }
     }
-    private void AddHpPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<SpecSynergy> supernovaSynergyList)
-    {
-        Span<double> stats = stackalloc double[1];
-        stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_HP_PERCENT].stat_value;
-        Debug.LogColor($"Supernova HP % Up: {supernovaSynergyList[1].stat_value}", "green");
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, targetCharacter, stats, source);
-    }
-
-    private void AddAdPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<SpecSynergy> supernovaSynergyList)
-    {
-        Span<double> stats = stackalloc double[1];
-        stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].stat_value;
-        Debug.LogColor($"Supernova AD % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].stat_value}", "green");
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, targetCharacter, stats, source);
-    }
-    private void AddAttackSpeedCriticalRateAtkPierce(CharacterController targetCharacter, IEffectCodeSource source, List<SpecSynergy> supernovaSynergyList)
-    {
-        Span<double> stats = stackalloc double[1];
-
-        stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_PERCENT_UP, targetCharacter, stats, source);
-
-        stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_2;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, targetCharacter, stats, source);
-
-        stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_3;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP, targetCharacter, stats, source);
-        Debug.LogColor($"Supernova ATK Speed % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value}", "green");
-        Debug.LogColor($"Supernova Crit Rate % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_2}", "green");
-        Debug.LogColor($"Supernova DEF Penetration % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_3}", "green");
-
-    }
+    // private void AddHpPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<SpecSynergy> supernovaSynergyList)
+    // {
+    //     Span<double> stats = stackalloc double[1];
+    //     stats.Clear();
+    //     stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_HP_PERCENT].stat_value;
+    //     Debug.LogColor($"Supernova HP % Up: {supernovaSynergyList[1].stat_value}", "green");
+    //     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, targetCharacter, stats, source);
+    // }
+    //
+    // private void AddAdPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<SpecSynergy> supernovaSynergyList)
+    // {
+    //     Span<double> stats = stackalloc double[1];
+    //     stats.Clear();
+    //     stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].stat_value;
+    //     Debug.LogColor($"Supernova AD % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].stat_value}", "green");
+    //     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, targetCharacter, stats, source);
+    // }
+    // private void AddAttackSpeedCriticalRateAtkPierce(CharacterController targetCharacter, IEffectCodeSource source, List<SpecSynergy> supernovaSynergyList)
+    // {
+    //     Span<double> stats = stackalloc double[1];
+    //
+    //     stats.Clear();
+    //     stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value;
+    //     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_PERCENT_UP, targetCharacter, stats, source);
+    //
+    //     stats.Clear();
+    //     stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_2;
+    //     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, targetCharacter, stats, source);
+    //
+    //     stats.Clear();
+    //     stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_3;
+    //     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP, targetCharacter, stats, source);
+    //     Debug.LogColor($"Supernova ATK Speed % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value}", "green");
+    //     Debug.LogColor($"Supernova Crit Rate % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_2}", "green");
+    //     Debug.LogColor($"Supernova DEF Penetration % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].stat_value_3}", "green");
+    //
+    // }
 
     public override void OnPreRemoved()
     {
@@ -179,11 +179,11 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
     {
         if (targetCharacter == null)
             return false;
-        if (targetCharacter.SpecCharacter.asterism_type != SynergyType.SUPERNOVA)
-        {
-            ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_TYPE_TOKEN);
-            return false;
-        }
+        // if (targetCharacter.SpecCharacter.asterism_type != SynergyType.SUPERNOVA)
+        // {
+        //     ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_TYPE_TOKEN);
+        //     return false;
+        // }
         return true;
     }
 
@@ -202,7 +202,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
 
     public void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameObjectManagerItemComponent.ItemState itemState)
     {
-        InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.element_type);
-        InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.asterism_type);
+        // InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.element_type);
+        // InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.asterism_type);
     }
 }

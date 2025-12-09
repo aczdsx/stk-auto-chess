@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+import "custom_lobby+player_info.proto";
+
+service CustomLobbyService {
+  /**
+   * 내 정보 조회
+   */
+  rpc GetMyInfo(CustomLobbyGetMyInfoRequest) returns (CustomLobbyGetMyInfoResponse);
+}
+
+
+enum CustomLobbyErrorCode {
+  CUSTOM_LOBBY_UNSPECIFIED = 0;
+}
+
+message CustomLobbyGetMyInfoRequest {}
+message CustomLobbyGetMyInfoResponse {
+  ResponseStatus status = 1;
+  CustomPlayerInfo info = 2;
+}

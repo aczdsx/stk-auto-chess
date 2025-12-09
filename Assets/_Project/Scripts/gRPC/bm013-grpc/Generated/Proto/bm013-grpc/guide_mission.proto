@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "guide_mission+info.proto";
+
+service GuideMissionService {
+  /**
+   * 가이드 미션 목록 조회
+   */
+  rpc List(GuideMissionListRequest) returns (GuideMissionListResponse);
+
+  /**
+   * 가이드 미션 진행 사항 업데이트
+   */
+  rpc UpdateProgress(GuideMissionUpdateProgressRequest) returns (GuideMissionUpdateProgressResponse);
+
+  /**
+   * 가이드 미션 보상 수령
+   */
+  rpc ClaimReward(GuideMissionClaimRewardRequest) returns (GuideMissionClaimRewardResponse);
+}
+
+enum GuideMissionErrorCode {
+  GUIDE_MISSION_UNSPECIFIED = 0;
+}
+
+message GuideMissionListRequest {}
+message GuideMissionListResponse {
+  ResponseStatus status = 1;
+  repeated GuideMissionInfo guide_missions = 2;
+  uint32 current_order = 3;
+}
+
+
+message GuideMissionUpdateProgressRequest {
+  uint32 guide_mission_id = 1;
+  uint32 add_current_count = 2;
+}
+
+message GuideMissionUpdateProgressResponse {
+  ResponseStatus status = 1;
+  GuideMissionInfo guide_mission = 2;
+}
+
+message GuideMissionClaimRewardRequest {
+  uint32 guide_mission_id = 1;
+}
+
+message GuideMissionClaimRewardResponse {
+  ResponseStatus status = 1;
+  GuideMissionInfo guide_mission = 2;
+  repeated Reward rewards = 3;
+  repeated CurrencyDelta currency_deltas = 4;
+}

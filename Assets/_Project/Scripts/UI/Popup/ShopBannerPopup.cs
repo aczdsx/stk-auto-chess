@@ -12,8 +12,8 @@ namespace CookApps.AutoBattler
         [Space(10)] 
         [SerializeField] private List<ShopBannerLayer> _bannerLayerList;
 
-        private SpecShop _specShopData;
-        private SpecShopBanner _specShopBannerData;
+        private ShopInfo _specShopData;
+        private ShopBanner _specShopBannerData;
         
         protected override void Awake()
         {

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+// 스테이지 진행 정보
+message BattleStageProgress {
+  string stage_id = 1;
+  
+  // 클리어 정보
+  bool is_cleared = 2;
+  uint32 clear_count = 3;
+  uint32 best_stars = 4;  // 최고 별 개수 (0~3)
+  
+  // 보상 수령 정보
+  bool is_first_clear_rewarded = 5;
+  bool is_three_star_rewarded = 6;
+  
+  // 최고 기록
+  uint64 best_clear_time = 7;  // 밀리초
+  uint64 best_combat_power = 8;
+}

@@ -15,12 +15,12 @@ using Object = UnityEngine.Object;
 
 public class FlowStateTrialDungeonReady : StateReadyBase
 {
-    private SpecDungeonTrial _specDungeonTrial;
+    private DungeonBabelInfo _specDungeonTrial;
 
     public override void SetStateData(object data)
     {
         base.SetStateData(data);
-        _specDungeonTrial = data as SpecDungeonTrial;
+        _specDungeonTrial = data as DungeonBabelInfo;
 
         //[TODO] 시련 던전 사운드, 비네트
         SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_chapter0);
@@ -30,7 +30,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
     public override async void StateInit(object target)
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
-        List<SpecDungeonMonster> monsters =
+        List<DungeonBabelMonster> monsters =
             SpecDataManager.Instance.GetSpecDungeonMonsterDataList(_specDungeonTrial.dungeon_type, _specDungeonTrial.dungeon_id);
 
         float monsterMultipleHp = 1.0f;
@@ -40,12 +40,12 @@ public class FlowStateTrialDungeonReady : StateReadyBase
             Debug.LogColor($"monster 추가 : {monster.monster_id}");
             var statData = new CharacterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
                 monster.multiple_hp);
-
+        
             string[] coordinates = monster.coordinate.Split(',');
             int x = int.Parse(coordinates[0]);
             int y = int.Parse(coordinates[1]);
             int2 coordinate = new int2(x, y);
-
+        
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
                 AllianceType.Enemy,
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
@@ -90,10 +90,10 @@ public class FlowStateTrialDungeonReady : StateReadyBase
         
         StartDrawingLinesAsync(2.0f).Forget();
 
-        if (_specDungeonTrial.order == 2)
-        {
-            InGameMain.GetInGameMain().SetAlertBottomCharacter(140601);
-        }
+        // if (_specDungeonTrial.order == 2)
+        // {
+        //     InGameMain.GetInGameMain().SetAlertBottomCharacter(140601);
+        // }
     }
 
     public override void StateStart()

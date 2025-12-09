@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "elpis+info.proto";
+import "elpis+facility.proto";
+import "elpis+core_research.proto";
+import "elpis+tactic_research.proto";
+import "elpis+simulation.proto";
+
+// 함선 서비스
+service ElpisService {
+  /**
+   * 함선 목록을 조회합니다.
+  */
+  rpc GetInfo(ElpisGetInfoRequest) returns (ElpisGetInfoResponse) {}
+
+  /**
+   * 함선 확장 (코어 사용)
+   */
+  rpc ExpandElpis(ElpisExpandRequest) returns (ElpisExpandResponse);
+
+  /**
+   * 시설 건설
+   */
+  rpc BuildFacility(ElpisBuildFacilityRequest) returns (ElpisBuildFacilityResponse);
+  
+  /**
+   * 시설 업그레이드
+   */
+  rpc UpgradeFacility(ElpisUpgradeFacilityRequest) returns (ElpisUpgradeFacilityResponse);
+  
+  /**
+   * 코어 연구소 - 연구 진행
+   */
+  rpc ResearchCore(ElpisResearchCoreRequest) returns (ElpisResearchCoreResponse);
+  
+  /**
+   * 전술 연구소 - 설치물 연구
+   */
+  rpc ResearchTactic(ElpisResearchTacticRequest) returns (ElpisResearchTacticResponse);
+  
+  /**
+   * 전투 시뮬레이션 - 보상 수령
+   */
+  rpc ClaimSimulationReward(ElpisClaimSimulationRewardRequest) returns (ElpisClaimSimulationRewardResponse);
+}
+
+enum ElpisErrorCode {
+  ELPIS_UNSPECIFIED = 0;
+}
+
+message ElpisGetInfoRequest {}
+message ElpisGetInfoResponse {
+  ResponseStatus status = 1;
+  ElpisInfo info = 2;
+}
+
+message ElpisExpandRequest {}
+message ElpisExpandResponse {
+  ResponseStatus status = 1;
+  ElpisInfo info = 2;
+}
+
+message ElpisBuildFacilityRequest {
+  ElpisFacilityType facility_type = 1;
+  int32 grid_x = 2;
+  int32 grid_y = 3;
+}
+
+message ElpisBuildFacilityResponse {
+  ResponseStatus status = 1;
+  ElpisFacility facility = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message ElpisUpgradeFacilityRequest {
+  string facility_instance_id = 1;
+}
+
+message ElpisUpgradeFacilityResponse {
+  ResponseStatus status = 1;
+  ElpisFacility facility = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message ElpisResearchCoreRequest {
+  CoreResearchType research_type = 1;
+  uint32 levels = 2;  // 올릴 레벨 수
+}
+
+message ElpisResearchCoreResponse {
+  ResponseStatus status = 1;
+  CoreResearch research = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message ElpisResearchTacticRequest {
+  TacticResearchType research_type = 1;
+  uint32 levels = 2;  // 올릴 레벨 수
+}
+
+message ElpisResearchTacticResponse {
+  ResponseStatus status = 1;
+  TacticResearch research = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message ElpisClaimSimulationRewardRequest {}
+message ElpisClaimSimulationRewardResponse {
+  ResponseStatus status = 1;
+  SimulationInfo simulation_info = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}

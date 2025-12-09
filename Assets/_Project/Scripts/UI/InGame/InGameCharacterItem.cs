@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 
 public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -49,9 +50,9 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         if (_body.activeSelf)
         {
             _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
-            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.element_type);
-            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.asterism_type);
-            _characterPositionTypeText.text = _statData.Spec.position_type.ToString();
+            _SynergyImage.sprite = ImageManager.Instance.GetElementSprite(_statData.Spec.character_element_type);
+            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.character_stella_type);
+            _characterPositionTypeText.text = _statData.Spec.character_position_type.ToString();
             _lvText.text = $"{_statData.Level}";
         }
         else
@@ -73,12 +74,12 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             {
                 if (_guideFx.gameObject.activeSelf && _statData.CharacterID == 130301)
                 {
-                    var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(SynergyType.WATER);
-                    if (specSynergyDataList != null && specSynergyDataList.Count > 0)
-                    {
-                        var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-                        SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, 2, specSynergyDataList[1], specSynergyDataList[2])).Forget();
-                    }
+                    // var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(SynergyType.WATER);
+                    // if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+                    // {
+                    //     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+                    //     SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, 2, specSynergyDataList[1], specSynergyDataList[2])).Forget();
+                    // }
                 }
             }
             
@@ -88,7 +89,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isShowLongPressFunc = false;
     }
 
-    public void SetFocusCharacter(SpecCharacter spec)
+    public void SetFocusCharacter(CharacterInfo spec)
     {
         bool isActiveFocus = spec != null;
         if (isActiveFocus)

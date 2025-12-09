@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+// 전투 시뮬레이션 정보
+message SimulationInfo {
+  uint32 level = 1;
+  uint32 max_level = 2;
+  
+  // 보상 상자
+  uint32 accumulated_boxes = 3;    // 누적된 상자 수
+  uint32 max_boxes = 4;            // 최대 저장 가능 상자 수
+  uint64 last_claim_time = 5;      // 마지막 수령 시간
+}

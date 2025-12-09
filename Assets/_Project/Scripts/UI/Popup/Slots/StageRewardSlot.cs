@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
 
         public void SetReward(StageRewardData reward)
         {
-            rewardView.SetReward(reward.rewardItem.ToGrpcReward());
+            // rewardView.SetReward(reward.rewardItem.ToGrpcReward());
             var isSpecialReward = false;
             for (var i = 0; i < starNodes.Length; i++)
             {
@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
                 isSpecialReward |= i < reward.targetStarCount;
             }
 
-            bool isKnightPiece = reward.rewardItem.ToGrpcReward().RewardType == (int)ItemType.KNIGHT_PIECE;
+            bool isKnightPiece = false; // reward.rewardItem.ToGrpcReward().RewardType == (int)ItemType.KNIGHT_PIECE;
             isSpecialReward |= isKnightPiece;
             characterPieceNode.SetActive(isKnightPiece);
 

@@ -6,9 +6,7 @@
   <assembly fullname="CookApps.Auth" preserve="all" />
   <assembly fullname="CookApps.Build" preserve="all" />
   <assembly fullname="CookApps.Facebook" preserve="all" />
-  <assembly fullname="CookApps.gRPC" preserve="all" />
   <assembly fullname="Cysharp.Net.Http.YetAnotherHttpHandler" preserve="all" />
-  <assembly fullname="GrpcWebSocketBridge" preserve="all" />
   <assembly fullname="CookApps.Iap" preserve="all" />
   <assembly fullname="AppleAuth" preserve="all" />
   <assembly fullname="CookApps.PlatformAuth" preserve="all" />

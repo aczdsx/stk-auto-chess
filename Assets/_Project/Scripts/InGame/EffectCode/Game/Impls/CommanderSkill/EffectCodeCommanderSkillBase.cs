@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     {
         public override EffectCodeType Type => EffectCodeType.CommanderSkill;
         protected ObfuscatorInt _tileID;
-        protected SpecCommanderSkill _specTargetCommanderSkill;
+        protected SkillCommander _specTargetCommanderSkill;
         protected static Dictionary<int2, bool> _reuseableTileDic = new Dictionary<int2, bool>(); //index, occupied
 
         protected virtual void SkillAction()
@@ -30,7 +30,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="specCommanderSkillData"></param>
         /// <returns></returns>
-        public abstract InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData);
+        public abstract InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData);
 
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace CookApps.BattleSystem
         /// <param name="specCommanderSkillData"></param>
         /// <param name="TargetTileView"></param>
         /// <returns></returns>
-        public static EffectCodeInfo GenerateEffectCodeInfo(SpecCommanderSkill specCommanderSkillData, InGameTileView TargetTileView)
+        public static EffectCodeInfo GenerateEffectCodeInfo(SkillCommander specCommanderSkillData, InGameTileView TargetTileView)
         {
             Span<double> stats = stackalloc double[4];
             stats.Clear();

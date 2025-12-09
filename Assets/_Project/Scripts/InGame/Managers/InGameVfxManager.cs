@@ -110,29 +110,29 @@ namespace CookApps.BattleSystem
             return effect;
         }
 
-        public InGameVfx AddInGameTileFx(SynergyType elementType, InGameTile inGameTile)
+        public InGameVfx AddInGameTileFx(ElementType elementType, InGameTile inGameTile)
         {
             if (inGameTile.View.IsAlphaBoard)
                 return null;
 
             InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
-            if (elementType == SynergyType.FIRE)
+            if (elementType == ElementType.FIRE)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_fire;
             }
-            else if (elementType == SynergyType.WIND)
+            else if (elementType == ElementType.WIND)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_wind;
             }
-            else if (elementType == SynergyType.LIGHTNING)
+            else if (elementType == ElementType.LIGHTNING)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_light;
             }
-            else if (elementType == SynergyType.EARTH)
+            else if (elementType == ElementType.EARTH)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_earth;
             }
-            else if (elementType == SynergyType.WATER)
+            else if (elementType == ElementType.WATER)
             {
                 vfxNameType = InGameVfxNameType.fx_common_area_water;
             }
@@ -147,26 +147,26 @@ namespace CookApps.BattleSystem
             return null;
         }
 
-        public InGameVfx AddInGamePreSkillActionFx(SynergyType elementType, Vector3 worldPosition)
+        public InGameVfx AddInGamePreSkillActionFx(ElementType elementType, Vector3 worldPosition)
         {
             InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
-            if (elementType == SynergyType.FIRE)
+            if (elementType == ElementType.FIRE)
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_fire;
             }
-            else if (elementType == SynergyType.WIND)
+            else if (elementType == ElementType.WIND)
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_wind;
             }
-            else if (elementType == SynergyType.LIGHTNING)
+            else if (elementType == ElementType.LIGHTNING)
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_light;
             }
-            else if (elementType == SynergyType.EARTH)
+            else if (elementType == ElementType.EARTH)
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_earth;
             }
-            else if (elementType == SynergyType.WATER)
+            else if (elementType == ElementType.WATER)
             {
                 vfxNameType = InGameVfxNameType.fx_common_cast_water;
             }

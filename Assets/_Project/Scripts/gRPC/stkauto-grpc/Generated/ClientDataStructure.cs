@@ -150,63 +150,64 @@ namespace Cookapps.Stkauto.V1 {
             "bnRyeRJKChl1c2VyX2NvbW1hbmRlcl9za2lsbF9saXN0GGYgAygLMicuY29v",
             "a2FwcHMuc3RrYXV0by52MS5Vc2VyQ29tbWFuZGVyU2tpbGwaQAoeRXF1aXBw",
             "ZWRDb21tYW5kZXJTa2lsbElkc0VudHJ5EgsKA2tleRgBIAEoBRINCgV2YWx1",
-            "ZRgCIAEoBToCOAEiPwoSVXNlckNvbW1hbmRlclNraWxsEhoKEmNvbW1hbmRl",
-            "cl9za2lsbF9pZBhlIAEoBRINCgVsZXZlbBhmIAEoBSJGCghVc2VyRGVjaxI6",
-            "Cg9saW5lX2NoYXJhY3RlcnMYZSADKAsyIS5jb29rYXBwcy5zdGthdXRvLnYx",
-            "LlVzZXJEZWNrTGluZSIlCgxVc2VyRGVja0xpbmUSFQoNY2hhcmFjdGVyX2lk",
-            "cxhlIAMoBSLuBgoHVXNlclBWUBIYChByZWNlbnRfc2Vhc29uX2lkGGUgASgF",
-            "Eg8KB3JhbmtfaWQYZiABKAUSEgoKcmFua19wb2ludBhnIAEoBRIPCgdyYW5r",
-            "aW5nGGggASgFEhkKEW1hdGNoX3JlZnJlc2hfY250GGkgASgFEhgKEGRhaWx5",
-            "X3Jld2FyZF9jbnQYaiABKAUSFgoOYnV5X3RpY2tldF9jbnQYayABKAUSJgoe",
-            "cmVmcmVzaF9tYXRjaGluZ19jbnRfdGltZXN0YW1wGHggASgDEiwKJGF1dG9f",
-            "cmVmcmVzaF9tYXRjaGluZ19saXN0X3RpbWVzdGFtcBh5IAEoAxIsCiRuZXh0",
-            "X3JlZnJlc2hfbWF0Y2hpbmdfbGlzdF90aW1lc3RhbXAYeiABKAMSIQoZcmVm",
-            "cmVzaF9yYW5raW5nX3RpbWVzdGFtcBh7IAEoAxImCh5hdXRvX3JlZnJlc2hf",
-            "cHJvZmlsZV90aW1lc3RhbXAYfCABKAMSJAocZGFpbHlfcmV3YXJkX3Jlc2V0",
-            "X3RpbWVzdGFtcBh9IAEoAxIiChpidXlfdGlja2V0X3Jlc2V0X3RpbWVzdGFt",
-            "cBh+IAEoAxIkChxwdnBfdGlja2V0X3JlZnJlc2hfdGltZXN0YW1wGH8gASgD",
-            "EiIKGXB2cF90aWNrZXRfbmV4dF90aW1lc3RhbXAYgAEgASgDEkwKF215X3B2",
-            "cF9hdHRhY2tfZGVja19saXN0GIIBIAEoCzIqLmNvb2thcHBzLnN0a2F1dG8u",
-            "djEuVXNlclBWUEJhdHRsZURlY2tMaXN0Ek0KGG15X3B2cF9kZWZlbnNlX2Rl",
-            "Y2tfbGlzdBiDASABKAsyKi5jb29rYXBwcy5zdGthdXRvLnYxLlVzZXJQVlBC",
-            "YXR0bGVEZWNrTGlzdBJaChhjdXJyZW50X3B2cF9tYXRjaGluZ19kaWMYjAEg",
-            "AygLMjcuY29va2FwcHMuc3RrYXV0by52MS5Vc2VyUFZQLkN1cnJlbnRQdnBN",
-            "YXRjaGluZ0RpY0VudHJ5GmoKGkN1cnJlbnRQdnBNYXRjaGluZ0RpY0VudHJ5",
-            "EgsKA2tleRgBIAEoCRI7CgV2YWx1ZRgCIAEoCzIsLmNvb2thcHBzLnN0a2F1",
-            "dG8udjEuVXNlclBWUEJhdHRsZVNpbXBsZURhdGE6AjgBIq0CChdVc2VyUFZQ",
-            "QmF0dGxlU2ltcGxlRGF0YRIRCglwbGF5ZXJfaWQYZSABKAkSEQoJc2VydmVy",
-            "X2lkGGYgASgFEg8KB3JhbmtfaWQYZyABKAUSEgoKcmFua19wb2ludBhoIAEo",
-            "BRIPCgdyYW5raW5nGGkgASgFEhAKCG5pY2tuYW1lGGogASgJEhEKCXBsYXll",
-            "cl9sdhhsIAEoBRIUCgxiYXR0bGVfcG9pbnQYbSABKAUSGQoRcmVmcmVzaF90",
-            "aW1lc3RhbXAYbiABKAMSFAoMbWF0Y2hfcmVzdWx0GG8gASgFEkoKEHNpbXBs",
-            "ZV9kZWNrX2xpc3QYggEgAygLMi8uY29va2FwcHMuc3RrYXV0by52MS5Vc2Vy",
-            "UFZQQ2hhcmFjdGVyU2ltcGxlRGVjayI0ChpVc2VyUFZQQ2hhcmFjdGVyU2lt",
-            "cGxlRGVjaxIKCgJpZBhlIAEoBRIKCgJsdhhmIAEoBSKhAgoXVXNlclBWUEJh",
-            "dHRsZURldGFpbERhdGESEQoJcGxheWVyX2lkGGUgASgJEhEKCXNlcnZlcl9p",
-            "ZBhmIAEoBRIPCgdyYW5rX2lkGGcgASgFEhIKCnJhbmtfcG9pbnQYaCABKAUS",
-            "DwoHcmFua2luZxhpIAEoBRIQCghuaWNrbmFtZRhqIAEoCRIRCglwbGF5ZXJf",
-            "bHYYbCABKAUSFAoMYmF0dGxlX3BvaW50GG0gASgFEhkKEXJlZnJlc2hfdGlt",
-            "ZXN0YW1wGG4gASgDEhAKCG1hdGNoX2lkGG8gASgFEkIKDXB2cF9kZWNrX2xp",
-            "c3QYggEgASgLMiouY29va2FwcHMuc3RrYXV0by52MS5Vc2VyUFZQQmF0dGxl",
-            "RGVja0xpc3Qi9gEKFVVzZXJQVlBCYXR0bGVEZWNrTGlzdBJMChNwdnBfY2hh",
-            "cmFjdGVyX2RlY2tzGGUgAygLMi8uY29va2FwcHMuc3RrYXV0by52MS5Vc2Vy",
-            "UFZQQ2hhcmFjdGVyQmF0dGxlRGVjaxJKChJwdnBfb2JzdGFjbGVfZGVja3MY",
-            "ZiADKAsyLi5jb29rYXBwcy5zdGthdXRvLnYxLlVzZXJQVlBPYnN0YWNsZUJh",
-            "dHRsZURlY2sSQwoRZWZmZWN0X2NvZGVfaW5mb3MYZyADKAsyKC5jb29rYXBw",
-            "cy5zdGthdXRvLnYxLkVmZmVjdENvZGVJbmZvUHJvdG8ilgEKGlVzZXJQVlBD",
-            "aGFyYWN0ZXJCYXR0bGVEZWNrEgoKAmlkGGUgASgFEgoKAmx2GGYgASgFEg0K",
-            "BXBvc194GG4gASgFEg0KBXBvc195GG8gASgFEkIKEGVmZmVjdF9jb2RlX2lu",
-            "Zm8YaiADKAsyKC5jb29rYXBwcy5zdGthdXRvLnYxLkVmZmVjdENvZGVJbmZv",
-            "UHJvdG8iRQoZVXNlclBWUE9ic3RhY2xlQmF0dGxlRGVjaxIKCgJpZBhlIAEo",
-            "BRINCgVwb3NfeBhmIAEoBRINCgVwb3NfeRhnIAEoBSIvChNFZmZlY3RDb2Rl",
-            "SW5mb1Byb3RvEgoKAmlkGGUgASgDEgwKBHN0YXQYZyADKAEqmQIKDERhdGFD",
-            "YXRlZ29yeRIICgRub25lEAASDQoJdXNlcl9kYXRhEAESDwoLdXNlcl93YWxs",
-            "ZXQQAhIUChB1c2VyX3N0YWdlX2dyb3VwEAMSGAoUdXNlcl9jaGFyYWN0ZXJf",
-            "Z3JvdXAQBBINCgl1c2VyX2RlY2sQBRIVChF1c2VyX21pc3Npb25fZGF0YRAG",
-            "EhIKDnVzZXJfaWRsZV9kYXRhEAcSHQoZdXNlcl9jb21tYW5kZXJfc2tpbGxf",
-            "ZGF0YRAIEg4KCnVzZXJfcXVlc3QQCRIOCgp1c2VyX2V2ZW50EAoSEAoMdXNl",
-            "cl9kdW5nZW9uEAsSDAoIdXNlcl9wdnAQDBIWChJ1c2VyX3Nob3BfcHVyY2hh",
-            "c2UQDWIGcHJvdG8z"));
+            "ZRgCIAEoBToCOAEiewoSVXNlckNvbW1hbmRlclNraWxsEhoKEmNvbW1hbmRl",
+            "cl9za2lsbF9pZBhlIAEoBRINCgVsZXZlbBhmIAEoBRIcChRzZWxlY3RlZF9w",
+            "cm9tb3Rpb25fMRhnIAEoBRIcChRzZWxlY3RlZF9wcm9tb3Rpb25fMhhoIAEo",
+            "BSJGCghVc2VyRGVjaxI6Cg9saW5lX2NoYXJhY3RlcnMYZSADKAsyIS5jb29r",
+            "YXBwcy5zdGthdXRvLnYxLlVzZXJEZWNrTGluZSIlCgxVc2VyRGVja0xpbmUS",
+            "FQoNY2hhcmFjdGVyX2lkcxhlIAMoBSLuBgoHVXNlclBWUBIYChByZWNlbnRf",
+            "c2Vhc29uX2lkGGUgASgFEg8KB3JhbmtfaWQYZiABKAUSEgoKcmFua19wb2lu",
+            "dBhnIAEoBRIPCgdyYW5raW5nGGggASgFEhkKEW1hdGNoX3JlZnJlc2hfY250",
+            "GGkgASgFEhgKEGRhaWx5X3Jld2FyZF9jbnQYaiABKAUSFgoOYnV5X3RpY2tl",
+            "dF9jbnQYayABKAUSJgoecmVmcmVzaF9tYXRjaGluZ19jbnRfdGltZXN0YW1w",
+            "GHggASgDEiwKJGF1dG9fcmVmcmVzaF9tYXRjaGluZ19saXN0X3RpbWVzdGFt",
+            "cBh5IAEoAxIsCiRuZXh0X3JlZnJlc2hfbWF0Y2hpbmdfbGlzdF90aW1lc3Rh",
+            "bXAYeiABKAMSIQoZcmVmcmVzaF9yYW5raW5nX3RpbWVzdGFtcBh7IAEoAxIm",
+            "Ch5hdXRvX3JlZnJlc2hfcHJvZmlsZV90aW1lc3RhbXAYfCABKAMSJAocZGFp",
+            "bHlfcmV3YXJkX3Jlc2V0X3RpbWVzdGFtcBh9IAEoAxIiChpidXlfdGlja2V0",
+            "X3Jlc2V0X3RpbWVzdGFtcBh+IAEoAxIkChxwdnBfdGlja2V0X3JlZnJlc2hf",
+            "dGltZXN0YW1wGH8gASgDEiIKGXB2cF90aWNrZXRfbmV4dF90aW1lc3RhbXAY",
+            "gAEgASgDEkwKF215X3B2cF9hdHRhY2tfZGVja19saXN0GIIBIAEoCzIqLmNv",
+            "b2thcHBzLnN0a2F1dG8udjEuVXNlclBWUEJhdHRsZURlY2tMaXN0Ek0KGG15",
+            "X3B2cF9kZWZlbnNlX2RlY2tfbGlzdBiDASABKAsyKi5jb29rYXBwcy5zdGth",
+            "dXRvLnYxLlVzZXJQVlBCYXR0bGVEZWNrTGlzdBJaChhjdXJyZW50X3B2cF9t",
+            "YXRjaGluZ19kaWMYjAEgAygLMjcuY29va2FwcHMuc3RrYXV0by52MS5Vc2Vy",
+            "UFZQLkN1cnJlbnRQdnBNYXRjaGluZ0RpY0VudHJ5GmoKGkN1cnJlbnRQdnBN",
+            "YXRjaGluZ0RpY0VudHJ5EgsKA2tleRgBIAEoCRI7CgV2YWx1ZRgCIAEoCzIs",
+            "LmNvb2thcHBzLnN0a2F1dG8udjEuVXNlclBWUEJhdHRsZVNpbXBsZURhdGE6",
+            "AjgBIq0CChdVc2VyUFZQQmF0dGxlU2ltcGxlRGF0YRIRCglwbGF5ZXJfaWQY",
+            "ZSABKAkSEQoJc2VydmVyX2lkGGYgASgFEg8KB3JhbmtfaWQYZyABKAUSEgoK",
+            "cmFua19wb2ludBhoIAEoBRIPCgdyYW5raW5nGGkgASgFEhAKCG5pY2tuYW1l",
+            "GGogASgJEhEKCXBsYXllcl9sdhhsIAEoBRIUCgxiYXR0bGVfcG9pbnQYbSAB",
+            "KAUSGQoRcmVmcmVzaF90aW1lc3RhbXAYbiABKAMSFAoMbWF0Y2hfcmVzdWx0",
+            "GG8gASgFEkoKEHNpbXBsZV9kZWNrX2xpc3QYggEgAygLMi8uY29va2FwcHMu",
+            "c3RrYXV0by52MS5Vc2VyUFZQQ2hhcmFjdGVyU2ltcGxlRGVjayI0ChpVc2Vy",
+            "UFZQQ2hhcmFjdGVyU2ltcGxlRGVjaxIKCgJpZBhlIAEoBRIKCgJsdhhmIAEo",
+            "BSKhAgoXVXNlclBWUEJhdHRsZURldGFpbERhdGESEQoJcGxheWVyX2lkGGUg",
+            "ASgJEhEKCXNlcnZlcl9pZBhmIAEoBRIPCgdyYW5rX2lkGGcgASgFEhIKCnJh",
+            "bmtfcG9pbnQYaCABKAUSDwoHcmFua2luZxhpIAEoBRIQCghuaWNrbmFtZRhq",
+            "IAEoCRIRCglwbGF5ZXJfbHYYbCABKAUSFAoMYmF0dGxlX3BvaW50GG0gASgF",
+            "EhkKEXJlZnJlc2hfdGltZXN0YW1wGG4gASgDEhAKCG1hdGNoX2lkGG8gASgF",
+            "EkIKDXB2cF9kZWNrX2xpc3QYggEgASgLMiouY29va2FwcHMuc3RrYXV0by52",
+            "MS5Vc2VyUFZQQmF0dGxlRGVja0xpc3Qi9gEKFVVzZXJQVlBCYXR0bGVEZWNr",
+            "TGlzdBJMChNwdnBfY2hhcmFjdGVyX2RlY2tzGGUgAygLMi8uY29va2FwcHMu",
+            "c3RrYXV0by52MS5Vc2VyUFZQQ2hhcmFjdGVyQmF0dGxlRGVjaxJKChJwdnBf",
+            "b2JzdGFjbGVfZGVja3MYZiADKAsyLi5jb29rYXBwcy5zdGthdXRvLnYxLlVz",
+            "ZXJQVlBPYnN0YWNsZUJhdHRsZURlY2sSQwoRZWZmZWN0X2NvZGVfaW5mb3MY",
+            "ZyADKAsyKC5jb29rYXBwcy5zdGthdXRvLnYxLkVmZmVjdENvZGVJbmZvUHJv",
+            "dG8ilgEKGlVzZXJQVlBDaGFyYWN0ZXJCYXR0bGVEZWNrEgoKAmlkGGUgASgF",
+            "EgoKAmx2GGYgASgFEg0KBXBvc194GG4gASgFEg0KBXBvc195GG8gASgFEkIK",
+            "EGVmZmVjdF9jb2RlX2luZm8YaiADKAsyKC5jb29rYXBwcy5zdGthdXRvLnYx",
+            "LkVmZmVjdENvZGVJbmZvUHJvdG8iRQoZVXNlclBWUE9ic3RhY2xlQmF0dGxl",
+            "RGVjaxIKCgJpZBhlIAEoBRINCgVwb3NfeBhmIAEoBRINCgVwb3NfeRhnIAEo",
+            "BSIvChNFZmZlY3RDb2RlSW5mb1Byb3RvEgoKAmlkGGUgASgDEgwKBHN0YXQY",
+            "ZyADKAEqmQIKDERhdGFDYXRlZ29yeRIICgRub25lEAASDQoJdXNlcl9kYXRh",
+            "EAESDwoLdXNlcl93YWxsZXQQAhIUChB1c2VyX3N0YWdlX2dyb3VwEAMSGAoU",
+            "dXNlcl9jaGFyYWN0ZXJfZ3JvdXAQBBINCgl1c2VyX2RlY2sQBRIVChF1c2Vy",
+            "X21pc3Npb25fZGF0YRAGEhIKDnVzZXJfaWRsZV9kYXRhEAcSHQoZdXNlcl9j",
+            "b21tYW5kZXJfc2tpbGxfZGF0YRAIEg4KCnVzZXJfcXVlc3QQCRIOCgp1c2Vy",
+            "X2V2ZW50EAoSEAoMdXNlcl9kdW5nZW9uEAsSDAoIdXNlcl9wdnAQDBIWChJ1",
+            "c2VyX3Nob3BfcHVyY2hhc2UQDWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Cookapps.Stkauto.V1.DataCategory), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -237,7 +238,7 @@ namespace Cookapps.Stkauto.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserCharacterBattleDeckList), global::Cookapps.Stkauto.V1.UserCharacterBattleDeckList.Parser, new[]{ "UserCharacterBattleDecks" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserIdleData), global::Cookapps.Stkauto.V1.UserIdleData.Parser, new[]{ "LastRewardGetTimestamp" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserCommanderSkillData), global::Cookapps.Stkauto.V1.UserCommanderSkillData.Parser, new[]{ "EquippedCommanderSkillIds", "UserCommanderSkillList" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserCommanderSkill), global::Cookapps.Stkauto.V1.UserCommanderSkill.Parser, new[]{ "CommanderSkillId", "Level" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserCommanderSkill), global::Cookapps.Stkauto.V1.UserCommanderSkill.Parser, new[]{ "CommanderSkillId", "Level", "SelectedPromotion1", "SelectedPromotion2" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserDeck), global::Cookapps.Stkauto.V1.UserDeck.Parser, new[]{ "LineCharacters" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserDeckLine), global::Cookapps.Stkauto.V1.UserDeckLine.Parser, new[]{ "CharacterIds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Cookapps.Stkauto.V1.UserPVP), global::Cookapps.Stkauto.V1.UserPVP.Parser, new[]{ "RecentSeasonId", "RankId", "RankPoint", "Ranking", "MatchRefreshCnt", "DailyRewardCnt", "BuyTicketCnt", "RefreshMatchingCntTimestamp", "AutoRefreshMatchingListTimestamp", "NextRefreshMatchingListTimestamp", "RefreshRankingTimestamp", "AutoRefreshProfileTimestamp", "DailyRewardResetTimestamp", "BuyTicketResetTimestamp", "PvpTicketRefreshTimestamp", "PvpTicketNextTimestamp", "MyPvpAttackDeckList", "MyPvpDefenseDeckList", "CurrentPvpMatchingDic" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
@@ -277,7 +278,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 보상
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Reward : pb::IMessage<Reward>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -491,7 +492,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -518,7 +523,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -544,7 +553,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 저장 데이터 우선순위 파악용
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserDataSequence : pb::IMessage<UserDataSequence>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -700,7 +709,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -719,7 +732,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -737,7 +754,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserBasicData : pb::IMessage<UserBasicData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -804,7 +821,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "uid" field.</summary>
     public const int UidFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorLong uid_;
+    private long uid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long Uid {
@@ -816,7 +833,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "server_id" field.</summary>
     public const int ServerIdFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt serverId_;
+    private int serverId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int ServerId {
@@ -840,7 +857,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "level" field.</summary>
     public const int LevelFieldNumber = 110;
-    private CookApps.Obfuscator.ObfuscatorInt level_;
+    private int level_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int Level {
@@ -852,7 +869,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "exp" field.</summary>
     public const int ExpFieldNumber = 111;
-    private CookApps.Obfuscator.ObfuscatorLong exp_;
+    private long exp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long Exp {
@@ -876,7 +893,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "user_icon_id" field.</summary>
     public const int UserIconIdFieldNumber = 113;
-    private CookApps.Obfuscator.ObfuscatorInt userIconId_;
+    private int userIconId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int UserIconId {
@@ -888,7 +905,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "last_login_timestamp" field.</summary>
     public const int LastLoginTimestampFieldNumber = 114;
-    private CookApps.Obfuscator.ObfuscatorLong lastLoginTimestamp_;
+    private long lastLoginTimestamp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long LastLoginTimestamp {
@@ -900,7 +917,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "max_squad_count" field.</summary>
     public const int MaxSquadCountFieldNumber = 115;
-    private CookApps.Obfuscator.ObfuscatorInt maxSquadCount_;
+    private int maxSquadCount_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int MaxSquadCount {
@@ -912,7 +929,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "total_play_time" field.</summary>
     public const int TotalPlayTimeFieldNumber = 120;
-    private CookApps.Obfuscator.ObfuscatorInt totalPlayTime_;
+    private int totalPlayTime_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int TotalPlayTime {
@@ -924,7 +941,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "daily_visit_count" field.</summary>
     public const int DailyVisitCountFieldNumber = 121;
-    private CookApps.Obfuscator.ObfuscatorInt dailyVisitCount_;
+    private int dailyVisitCount_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int DailyVisitCount {
@@ -936,7 +953,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "since_join_date" field.</summary>
     public const int SinceJoinDateFieldNumber = 122;
-    private CookApps.Obfuscator.ObfuscatorInt sinceJoinDate_;
+    private int sinceJoinDate_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int SinceJoinDate {
@@ -948,7 +965,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "user_install_date" field.</summary>
     public const int UserInstallDateFieldNumber = 123;
-    private CookApps.Obfuscator.ObfuscatorLong userInstallDate_;
+    private long userInstallDate_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long UserInstallDate {
@@ -960,7 +977,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "daily_visit_count_timestamp" field.</summary>
     public const int DailyVisitCountTimestampFieldNumber = 124;
-    private CookApps.Obfuscator.ObfuscatorLong dailyVisitCountTimestamp_;
+    private long dailyVisitCountTimestamp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long DailyVisitCountTimestamp {
@@ -972,7 +989,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "reset_character_count" field.</summary>
     public const int ResetCharacterCountFieldNumber = 130;
-    private CookApps.Obfuscator.ObfuscatorInt resetCharacterCount_;
+    private int resetCharacterCount_;
     /// <summary>
     /// 캐릭터 초기화 관련
     /// </summary>
@@ -987,7 +1004,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "reset_character_timestamp" field.</summary>
     public const int ResetCharacterTimestampFieldNumber = 131;
-    private CookApps.Obfuscator.ObfuscatorLong resetCharacterTimestamp_;
+    private long resetCharacterTimestamp_;
     /// <summary>
     /// 캐릭터 초기화 횟수 리셋 시간
     /// </summary>
@@ -1002,7 +1019,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "ap_refresh_timestamp" field.</summary>
     public const int ApRefreshTimestampFieldNumber = 140;
-    private CookApps.Obfuscator.ObfuscatorLong apRefreshTimestamp_;
+    private long apRefreshTimestamp_;
     /// <summary>
     /// 행동력 충전 관련
     /// </summary>
@@ -1017,7 +1034,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "ap_next_timestamp" field.</summary>
     public const int ApNextTimestampFieldNumber = 141;
-    private CookApps.Obfuscator.ObfuscatorLong apNextTimestamp_;
+    private long apNextTimestamp_;
     /// <summary>
     /// 다음 행동력 충전까지 남은 시간
     /// </summary>
@@ -1032,7 +1049,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "total_gacha_count" field.</summary>
     public const int TotalGachaCountFieldNumber = 150;
-    private CookApps.Obfuscator.ObfuscatorInt totalGachaCount_;
+    private int totalGachaCount_;
     /// <summary>
     /// 총 가챠 누적 진행 횟수
     /// </summary>
@@ -1047,7 +1064,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "user_stage_lose_count" field.</summary>
     public const int UserStageLoseCountFieldNumber = 151;
-    private CookApps.Obfuscator.ObfuscatorInt userStageLoseCount_;
+    private int userStageLoseCount_;
     /// <summary>
     /// 스테이지 플레이 실패 횟수
     /// </summary>
@@ -1062,7 +1079,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "user_dungeon_lose_count" field.</summary>
     public const int UserDungeonLoseCountFieldNumber = 152;
-    private CookApps.Obfuscator.ObfuscatorInt userDungeonLoseCount_;
+    private int userDungeonLoseCount_;
     /// <summary>
     /// 던전 플레이 실패 횟수
     /// </summary>
@@ -1494,7 +1511,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -1593,7 +1614,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -1688,7 +1713,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserShopPurchase : pb::IMessage<UserShopPurchase>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1844,8 +1869,8 @@ namespace Cookapps.Stkauto.V1 {
       if (other == null) {
         return;
       }
-      userShopBannerDatas_.Add(other.userShopBannerDatas_);
-      userPurchaseDatas_.Add(other.userPurchaseDatas_);
+      userShopBannerDatas_.MergeFrom(other.userShopBannerDatas_);
+      userPurchaseDatas_.MergeFrom(other.userPurchaseDatas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1857,7 +1882,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -1880,7 +1909,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -1902,7 +1935,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 상점 배너 노출 관련 데이터
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserShopBannerData : pb::IMessage<UserShopBannerData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1953,7 +1986,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "shop_id" field.</summary>
     public const int ShopIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt shopId_;
+    private int shopId_;
     /// <summary>
     /// 상점 아이디
     /// </summary>
@@ -1968,7 +2001,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "show_condition_value" field.</summary>
     public const int ShowConditionValueFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt showConditionValue_;
+    private int showConditionValue_;
     /// <summary>
     /// 노출 조건 카운트
     /// </summary>
@@ -1983,7 +2016,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "shop_banner_state_type" field.</summary>
     public const int ShopBannerStateTypeFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt shopBannerStateType_;
+    private int shopBannerStateType_;
     /// <summary>
     /// 상점 배너 상태 (ex: 미노출, 노출)
     /// </summary>
@@ -1998,7 +2031,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "show_count" field.</summary>
     public const int ShowCountFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorInt showCount_;
+    private int showCount_;
     /// <summary>
     /// 노출 횟수
     /// </summary>
@@ -2013,7 +2046,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "end_purchase_timestamp" field.</summary>
     public const int EndPurchaseTimestampFieldNumber = 105;
-    private CookApps.Obfuscator.ObfuscatorLong endPurchaseTimestamp_;
+    private long endPurchaseTimestamp_;
     /// <summary>
     /// 구매 가능 종료 시간
     /// </summary>
@@ -2189,7 +2222,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -2224,7 +2261,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -2258,7 +2299,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 구매 관련 데이터
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPurchaseData : pb::IMessage<UserPurchaseData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2307,7 +2348,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "shop_id" field.</summary>
     public const int ShopIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt shopId_;
+    private int shopId_;
     /// <summary>
     /// 구매 품목 상점 아이디
     /// </summary>
@@ -2322,7 +2363,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "purchase_count" field.</summary>
     public const int PurchaseCountFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt purchaseCount_;
+    private int purchaseCount_;
     /// <summary>
     /// 구매 횟수
     /// </summary>
@@ -2337,7 +2378,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "purchase_timestamp" field.</summary>
     public const int PurchaseTimestampFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorLong purchaseTimestamp_;
+    private long purchaseTimestamp_;
     /// <summary>
     /// 구매 시간
     /// </summary>
@@ -2481,7 +2522,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -2508,7 +2553,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -2534,7 +2583,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 미션 관련 정보 (가이드 미션 등)
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserMissionData : pb::IMessage<UserMissionData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2583,7 +2632,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "guide_mission_current_order" field.</summary>
     public const int GuideMissionCurrentOrderFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt guideMissionCurrentOrder_;
+    private int guideMissionCurrentOrder_;
     /// <summary>
     /// 가이드 미션
     /// </summary>
@@ -2722,7 +2771,7 @@ namespace Cookapps.Stkauto.V1 {
       if (other.GuideMissionCurrentOrder != 0) {
         GuideMissionCurrentOrder = other.GuideMissionCurrentOrder;
       }
-      userGuideMissions_.Add(other.userGuideMissions_);
+      userGuideMissions_.MergeFrom(other.userGuideMissions_);
       userDialogueGroupIds_.Add(other.userDialogueGroupIds_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2735,7 +2784,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -2763,7 +2816,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -2790,7 +2847,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 가이드 미션 데이터
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserGuideMission : pb::IMessage<UserGuideMission>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2839,7 +2896,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "mission_id" field.</summary>
     public const int MissionIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt missionId_;
+    private int missionId_;
     /// <summary>
     /// 가이드 미션 아이디
     /// </summary>
@@ -2854,7 +2911,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "action_count" field.</summary>
     public const int ActionCountFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt actionCount_;
+    private int actionCount_;
     /// <summary>
     /// 행동 횟수
     /// </summary>
@@ -2869,7 +2926,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "mission_state_type" field.</summary>
     public const int MissionStateTypeFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt missionStateType_;
+    private int missionStateType_;
     /// <summary>
     /// 미션 상태 (ex: 클리어, 진행중, 완료)
     /// </summary>
@@ -3013,7 +3070,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -3040,7 +3101,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -3066,7 +3131,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 퀘스트 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserQuest : pb::IMessage<UserQuest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3117,7 +3182,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "last_quest_refresh_timestamp" field.</summary>
     public const int LastQuestRefreshTimestampFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorLong lastQuestRefreshTimestamp_;
+    private long lastQuestRefreshTimestamp_;
     /// <summary>
     /// 마지막 퀘스트 갱신 시간
     /// </summary>
@@ -3132,7 +3197,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "next_daily_refresh_timestamp" field.</summary>
     public const int NextDailyRefreshTimestampFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorLong nextDailyRefreshTimestamp_;
+    private long nextDailyRefreshTimestamp_;
     /// <summary>
     /// 다음 일일 퀘스트 갱신 시간
     /// </summary>
@@ -3147,7 +3212,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "next_weekly_refresh_timestamp" field.</summary>
     public const int NextWeeklyRefreshTimestampFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorLong nextWeeklyRefreshTimestamp_;
+    private long nextWeeklyRefreshTimestamp_;
     /// <summary>
     /// 다음 주간 퀘스트 갱신 시간
     /// </summary>
@@ -3318,8 +3383,8 @@ namespace Cookapps.Stkauto.V1 {
       if (other.NextWeeklyRefreshTimestamp != 0L) {
         NextWeeklyRefreshTimestamp = other.NextWeeklyRefreshTimestamp;
       }
-      userQuestDailyDatas_.Add(other.userQuestDailyDatas_);
-      userQuestWeeklyDatas_.Add(other.userQuestWeeklyDatas_);
+      userQuestDailyDatas_.MergeFrom(other.userQuestDailyDatas_);
+      userQuestWeeklyDatas_.MergeFrom(other.userQuestWeeklyDatas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3331,7 +3396,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -3366,7 +3435,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -3400,7 +3473,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 퀘스트 데이터
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserQuestData : pb::IMessage<UserQuestData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3449,7 +3522,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "quest_id" field.</summary>
     public const int QuestIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt questId_;
+    private int questId_;
     /// <summary>
     /// 퀘스트 아이디
     /// </summary>
@@ -3464,7 +3537,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "action_count" field.</summary>
     public const int ActionCountFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt actionCount_;
+    private int actionCount_;
     /// <summary>
     /// 행동 횟수
     /// </summary>
@@ -3479,7 +3552,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "quest_state_type" field.</summary>
     public const int QuestStateTypeFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt questStateType_;
+    private int questStateType_;
     /// <summary>
     /// 퀘스트 상태 (ex: 클리어, 진행중, 완료)
     /// </summary>
@@ -3623,7 +3696,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -3650,7 +3727,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -3676,7 +3757,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 이벤트 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserEvent : pb::IMessage<UserEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3812,7 +3893,7 @@ namespace Cookapps.Stkauto.V1 {
       if (other == null) {
         return;
       }
-      userEventDatas_.Add(other.userEventDatas_);
+      userEventDatas_.MergeFrom(other.userEventDatas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3824,7 +3905,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -3843,7 +3928,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -3861,7 +3950,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 이벤트 데이터
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserEventData : pb::IMessage<UserEventData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -3912,7 +4001,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "event_id" field.</summary>
     public const int EventIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt eventId_;
+    private int eventId_;
     /// <summary>
     /// 이벤트 아이디
     /// </summary>
@@ -3927,7 +4016,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "action_count" field.</summary>
     public const int ActionCountFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt actionCount_;
+    private int actionCount_;
     /// <summary>
     /// 이벤트 행동 수치
     /// </summary>
@@ -3942,7 +4031,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "event_refresh_timestamp" field.</summary>
     public const int EventRefreshTimestampFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorLong eventRefreshTimestamp_;
+    private long eventRefreshTimestamp_;
     /// <summary>
     /// 이벤트 갱신 시간 (이벤트를 완전히 초기화)
     /// </summary>
@@ -3957,7 +4046,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "event_extra_refresh_timestamp" field.</summary>
     public const int EventExtraRefreshTimestampFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorLong eventExtraRefreshTimestamp_;
+    private long eventExtraRefreshTimestamp_;
     /// <summary>
     /// 이벤트 별 별도 갱신 시간 (ex: 출석 체크)
     /// </summary>
@@ -4125,7 +4214,7 @@ namespace Cookapps.Stkauto.V1 {
       if (other.EventExtraRefreshTimestamp != 0L) {
         EventExtraRefreshTimestamp = other.EventExtraRefreshTimestamp;
       }
-      userEventConditionDatas_.Add(other.userEventConditionDatas_);
+      userEventConditionDatas_.MergeFrom(other.userEventConditionDatas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -4137,7 +4226,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -4172,7 +4265,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -4206,7 +4303,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 이벤트 컨디션 데이터
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserEventConditionData : pb::IMessage<UserEventConditionData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4254,7 +4351,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "event_condition_id" field.</summary>
     public const int EventConditionIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt eventConditionId_;
+    private int eventConditionId_;
     /// <summary>
     /// 이벤트 컨디션 아이디
     /// </summary>
@@ -4269,7 +4366,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "event_state_type" field.</summary>
     public const int EventStateTypeFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt eventStateType_;
+    private int eventStateType_;
     /// <summary>
     /// 이벤트 상태 (ex: 클리어, 진행중, 완료)
     /// </summary>
@@ -4397,7 +4494,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -4420,7 +4521,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -4442,7 +4547,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 던전 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserDungeon : pb::IMessage<UserDungeon>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4578,7 +4683,7 @@ namespace Cookapps.Stkauto.V1 {
       if (other == null) {
         return;
       }
-      userTrialDungeonDatas_.Add(other.userTrialDungeonDatas_);
+      userTrialDungeonDatas_.MergeFrom(other.userTrialDungeonDatas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -4590,7 +4695,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -4609,7 +4718,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -4627,7 +4740,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 시련 던전 데이터
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserTrialDungeonData : pb::IMessage<UserTrialDungeonData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4676,7 +4789,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "dungeon_id" field.</summary>
     public const int DungeonIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt dungeonId_;
+    private int dungeonId_;
     /// <summary>
     /// 던전 아이디
     /// </summary>
@@ -4691,7 +4804,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "order" field.</summary>
     public const int OrderFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt order_;
+    private int order_;
     /// <summary>
     /// 던전 순서
     /// </summary>
@@ -4706,7 +4819,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "dungeon_state_type" field.</summary>
     public const int DungeonStateTypeFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt dungeonStateType_;
+    private int dungeonStateType_;
     /// <summary>
     /// 던전 상태 (ex: 클리어, 진행중, 완료)
     /// </summary>
@@ -4850,7 +4963,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -4877,7 +4994,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -4903,7 +5024,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 지갑 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserWallet : pb::IMessage<UserWallet>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4963,7 +5084,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "gold" field.</summary>
     public const int GoldFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt gold_;
+    private int gold_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int Gold {
@@ -4975,7 +5096,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "jewel" field.</summary>
     public const int JewelFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt jewel_;
+    private int jewel_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int Jewel {
@@ -4987,7 +5108,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "ap" field.</summary>
     public const int ApFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt ap_;
+    private int ap_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int Ap {
@@ -4999,7 +5120,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "c_ticket" field.</summary>
     public const int CTicketFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorInt cTicket_;
+    private int cTicket_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CTicket {
@@ -5011,7 +5132,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "w_ticket" field.</summary>
     public const int WTicketFieldNumber = 105;
-    private CookApps.Obfuscator.ObfuscatorInt wTicket_;
+    private int wTicket_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int WTicket {
@@ -5023,7 +5144,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_user_exp_item" field.</summary>
     public const int CharUserExpItemFieldNumber = 106;
-    private CookApps.Obfuscator.ObfuscatorInt charUserExpItem_;
+    private int charUserExpItem_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharUserExpItem {
@@ -5035,7 +5156,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_user_exp_item_2" field.</summary>
     public const int CharUserExpItem2FieldNumber = 107;
-    private CookApps.Obfuscator.ObfuscatorInt charUserExpItem2_;
+    private int charUserExpItem2_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharUserExpItem2 {
@@ -5047,7 +5168,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "pvp_ticket" field.</summary>
     public const int PvpTicketFieldNumber = 108;
-    private CookApps.Obfuscator.ObfuscatorInt pvpTicket_;
+    private int pvpTicket_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int PvpTicket {
@@ -5059,7 +5180,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_transcendence_fire" field.</summary>
     public const int CharTranscendenceFireFieldNumber = 120;
-    private CookApps.Obfuscator.ObfuscatorInt charTranscendenceFire_;
+    private int charTranscendenceFire_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharTranscendenceFire {
@@ -5071,7 +5192,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_transcendence_water" field.</summary>
     public const int CharTranscendenceWaterFieldNumber = 121;
-    private CookApps.Obfuscator.ObfuscatorInt charTranscendenceWater_;
+    private int charTranscendenceWater_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharTranscendenceWater {
@@ -5083,7 +5204,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_transcendence_earth" field.</summary>
     public const int CharTranscendenceEarthFieldNumber = 122;
-    private CookApps.Obfuscator.ObfuscatorInt charTranscendenceEarth_;
+    private int charTranscendenceEarth_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharTranscendenceEarth {
@@ -5095,7 +5216,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_transcendence_wind" field.</summary>
     public const int CharTranscendenceWindFieldNumber = 123;
-    private CookApps.Obfuscator.ObfuscatorInt charTranscendenceWind_;
+    private int charTranscendenceWind_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharTranscendenceWind {
@@ -5107,7 +5228,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_transcendence_light" field.</summary>
     public const int CharTranscendenceLightFieldNumber = 124;
-    private CookApps.Obfuscator.ObfuscatorInt charTranscendenceLight_;
+    private int charTranscendenceLight_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharTranscendenceLight {
@@ -5119,7 +5240,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "char_transcendence_dark" field.</summary>
     public const int CharTranscendenceDarkFieldNumber = 125;
-    private CookApps.Obfuscator.ObfuscatorInt charTranscendenceDark_;
+    private int charTranscendenceDark_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CharTranscendenceDark {
@@ -5436,7 +5557,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -5507,7 +5632,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -5577,7 +5706,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 스테이지 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserStageGroup : pb::IMessage<UserStageGroup>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -5626,7 +5755,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "last_play_stage_id" field.</summary>
     public const int LastPlayStageIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt lastPlayStageId_;
+    private int lastPlayStageId_;
     /// <summary>
     /// 현재 선택된 스테이지 아이디
     /// </summary>
@@ -5765,8 +5894,8 @@ namespace Cookapps.Stkauto.V1 {
       if (other.LastPlayStageId != 0) {
         LastPlayStageId = other.LastPlayStageId;
       }
-      userStages_.Add(other.userStages_);
-      userStageAccRewards_.Add(other.userStageAccRewards_);
+      userStages_.MergeFrom(other.userStages_);
+      userStageAccRewards_.MergeFrom(other.userStageAccRewards_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -5778,7 +5907,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -5805,7 +5938,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -5828,7 +5965,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserStage : pb::IMessage<UserStage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -5876,7 +6013,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "stage_id" field.</summary>
     public const int StageIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt stageId_;
+    private int stageId_;
     /// <summary>
     /// 스테이지 아이디
     /// </summary>
@@ -5891,7 +6028,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "star_count" field.</summary>
     public const int StarCountFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt starCount_;
+    private int starCount_;
     /// <summary>
     /// 별 개수
     /// </summary>
@@ -6019,7 +6156,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -6042,7 +6183,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -6061,7 +6206,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserStageAccRewardDic : pb::IMessage<UserStageAccRewardDic>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6197,7 +6342,7 @@ namespace Cookapps.Stkauto.V1 {
       if (other == null) {
         return;
       }
-      stageAccRewardDic_.Add(other.stageAccRewardDic_);
+      stageAccRewardDic_.MergeFrom(other.stageAccRewardDic_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -6209,7 +6354,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -6228,7 +6377,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -6243,7 +6396,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserStageAccRewardList : pb::IMessage<UserStageAccRewardList>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6388,7 +6541,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -6408,7 +6565,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -6427,7 +6588,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 캐릭터 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserCharacterGroup : pb::IMessage<UserCharacterGroup>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6594,9 +6755,9 @@ namespace Cookapps.Stkauto.V1 {
       if (other == null) {
         return;
       }
-      userCharacters_.Add(other.userCharacters_);
+      userCharacters_.MergeFrom(other.userCharacters_);
       userCharacterBattles_.Add(other.userCharacterBattles_);
-      userCharacterBattleDeckDic_.Add(other.userCharacterBattleDeckDic_);
+      userCharacterBattleDeckDic_.MergeFrom(other.userCharacterBattleDeckDic_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -6608,7 +6769,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -6635,7 +6800,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -6658,7 +6827,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserCharacter : pb::IMessage<UserCharacter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6710,7 +6879,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "character_id" field.</summary>
     public const int CharacterIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt characterId_;
+    private int characterId_;
     /// <summary>
     /// 캐릭터 아이디
     /// </summary>
@@ -6725,7 +6894,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "level" field.</summary>
     public const int LevelFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt level_;
+    private int level_;
     /// <summary>
     /// 레벨
     /// </summary>
@@ -6740,7 +6909,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "exp" field.</summary>
     public const int ExpFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt exp_;
+    private int exp_;
     /// <summary>
     /// 경험치
     /// </summary>
@@ -6755,7 +6924,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "star_level" field.</summary>
     public const int StarLevelFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorInt starLevel_;
+    private int starLevel_;
     /// <summary>
     /// 별 레벨
     /// </summary>
@@ -6770,7 +6939,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "character_piece" field.</summary>
     public const int CharacterPieceFieldNumber = 105;
-    private CookApps.Obfuscator.ObfuscatorInt characterPiece_;
+    private int characterPiece_;
     /// <summary>
     /// 캐릭터 조각
     /// </summary>
@@ -6785,7 +6954,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "transcendence_level" field.</summary>
     public const int TranscendenceLevelFieldNumber = 106;
-    private CookApps.Obfuscator.ObfuscatorInt transcendenceLevel_;
+    private int transcendenceLevel_;
     /// <summary>
     /// 초월 레벨
     /// </summary>
@@ -6977,7 +7146,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -7016,7 +7189,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -7054,7 +7231,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 캐릭터 전투 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserCharacterBattle : pb::IMessage<UserCharacterBattle>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7107,7 +7284,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "attack" field.</summary>
     public const int AttackFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt attack_;
+    private int attack_;
     /// <summary>
     /// 공격력
     /// </summary>
@@ -7122,7 +7299,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "defense" field.</summary>
     public const int DefenseFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt defense_;
+    private int defense_;
     /// <summary>
     /// 방어력
     /// </summary>
@@ -7137,7 +7314,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "hp" field.</summary>
     public const int HpFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt hp_;
+    private int hp_;
     /// <summary>
     /// 체력
     /// </summary>
@@ -7152,7 +7329,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "critical" field.</summary>
     public const int CriticalFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorInt critical_;
+    private int critical_;
     /// <summary>
     /// 크리티컬
     /// </summary>
@@ -7167,7 +7344,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "attack_speed" field.</summary>
     public const int AttackSpeedFieldNumber = 105;
-    private CookApps.Obfuscator.ObfuscatorInt attackSpeed_;
+    private int attackSpeed_;
     /// <summary>
     /// 공격 속도
     /// </summary>
@@ -7182,7 +7359,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "move_speed" field.</summary>
     public const int MoveSpeedFieldNumber = 106;
-    private CookApps.Obfuscator.ObfuscatorInt moveSpeed_;
+    private int moveSpeed_;
     /// <summary>
     /// 이동 속도
     /// </summary>
@@ -7197,7 +7374,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "attack_range" field.</summary>
     public const int AttackRangeFieldNumber = 107;
-    private CookApps.Obfuscator.ObfuscatorInt attackRange_;
+    private int attackRange_;
     /// <summary>
     /// 공격 범위
     /// </summary>
@@ -7405,7 +7582,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -7448,7 +7629,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -7490,7 +7675,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 캐릭터 전투 배치 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserCharacterBattleDeck : pb::IMessage<UserCharacterBattleDeck>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7539,7 +7724,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "character_id" field.</summary>
     public const int CharacterIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt characterId_;
+    private int characterId_;
     /// <summary>
     /// 캐릭터 아이디
     /// </summary>
@@ -7554,7 +7739,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "position_tile_x" field.</summary>
     public const int PositionTileXFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt positionTileX_;
+    private int positionTileX_;
     /// <summary>
     /// 배치된 타일 x 좌표
     /// </summary>
@@ -7569,7 +7754,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "position_tile_y" field.</summary>
     public const int PositionTileYFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt positionTileY_;
+    private int positionTileY_;
     /// <summary>
     /// 배치된 타일 y 좌표
     /// </summary>
@@ -7713,7 +7898,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -7740,7 +7929,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -7766,7 +7959,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 캐릭터 전투 배치 관련 정보 리스트
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserCharacterBattleDeckList : pb::IMessage<UserCharacterBattleDeckList>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7911,7 +8104,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -7930,7 +8127,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -7948,7 +8149,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 방치 보상 컨텐츠 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserIdleData : pb::IMessage<UserIdleData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -7995,7 +8196,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "last_reward_get_timestamp" field.</summary>
     public const int LastRewardGetTimestampFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorLong lastRewardGetTimestamp_;
+    private long lastRewardGetTimestamp_;
     /// <summary>
     /// 마지막 방치 보상 수령 시간
     /// </summary>
@@ -8107,7 +8308,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -8126,7 +8331,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -8144,7 +8353,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 지휘자 스킬 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserCommanderSkillData : pb::IMessage<UserCommanderSkillData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8300,7 +8509,7 @@ namespace Cookapps.Stkauto.V1 {
       if (other == null) {
         return;
       }
-      equippedCommanderSkillIds_.Add(other.equippedCommanderSkillIds_);
+      equippedCommanderSkillIds_.MergeFrom(other.equippedCommanderSkillIds_);
       userCommanderSkillList_.Add(other.userCommanderSkillList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -8313,7 +8522,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -8336,7 +8549,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -8355,7 +8572,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserCommanderSkill : pb::IMessage<UserCommanderSkill>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8392,6 +8609,8 @@ namespace Cookapps.Stkauto.V1 {
     public UserCommanderSkill(UserCommanderSkill other) : this() {
       commanderSkillId_ = other.commanderSkillId_;
       level_ = other.level_;
+      selectedPromotion1_ = other.selectedPromotion1_;
+      selectedPromotion2_ = other.selectedPromotion2_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -8403,7 +8622,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "commander_skill_id" field.</summary>
     public const int CommanderSkillIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt commanderSkillId_;
+    private int commanderSkillId_;
     /// <summary>
     /// 스킬 아이디
     /// </summary>
@@ -8418,7 +8637,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "level" field.</summary>
     public const int LevelFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt level_;
+    private int level_;
     /// <summary>
     /// 레벨
     /// </summary>
@@ -8428,6 +8647,30 @@ namespace Cookapps.Stkauto.V1 {
       get { return level_; }
       set {
         level_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "selected_promotion_1" field.</summary>
+    public const int SelectedPromotion1FieldNumber = 103;
+    private int selectedPromotion1_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SelectedPromotion1 {
+      get { return selectedPromotion1_; }
+      set {
+        selectedPromotion1_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "selected_promotion_2" field.</summary>
+    public const int SelectedPromotion2FieldNumber = 104;
+    private int selectedPromotion2_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SelectedPromotion2 {
+      get { return selectedPromotion2_; }
+      set {
+        selectedPromotion2_ = value;
       }
     }
 
@@ -8448,6 +8691,8 @@ namespace Cookapps.Stkauto.V1 {
       }
       if (CommanderSkillId != other.CommanderSkillId) return false;
       if (Level != other.Level) return false;
+      if (SelectedPromotion1 != other.SelectedPromotion1) return false;
+      if (SelectedPromotion2 != other.SelectedPromotion2) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -8457,6 +8702,8 @@ namespace Cookapps.Stkauto.V1 {
       int hash = 1;
       if (CommanderSkillId != 0) hash ^= CommanderSkillId.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
+      if (SelectedPromotion1 != 0) hash ^= SelectedPromotion1.GetHashCode();
+      if (SelectedPromotion2 != 0) hash ^= SelectedPromotion2.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -8483,6 +8730,14 @@ namespace Cookapps.Stkauto.V1 {
         output.WriteRawTag(176, 6);
         output.WriteInt32(Level);
       }
+      if (SelectedPromotion1 != 0) {
+        output.WriteRawTag(184, 6);
+        output.WriteInt32(SelectedPromotion1);
+      }
+      if (SelectedPromotion2 != 0) {
+        output.WriteRawTag(192, 6);
+        output.WriteInt32(SelectedPromotion2);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -8501,6 +8756,14 @@ namespace Cookapps.Stkauto.V1 {
         output.WriteRawTag(176, 6);
         output.WriteInt32(Level);
       }
+      if (SelectedPromotion1 != 0) {
+        output.WriteRawTag(184, 6);
+        output.WriteInt32(SelectedPromotion1);
+      }
+      if (SelectedPromotion2 != 0) {
+        output.WriteRawTag(192, 6);
+        output.WriteInt32(SelectedPromotion2);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -8516,6 +8779,12 @@ namespace Cookapps.Stkauto.V1 {
       }
       if (Level != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(Level);
+      }
+      if (SelectedPromotion1 != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(SelectedPromotion1);
+      }
+      if (SelectedPromotion2 != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(SelectedPromotion2);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -8535,6 +8804,12 @@ namespace Cookapps.Stkauto.V1 {
       if (other.Level != 0) {
         Level = other.Level;
       }
+      if (other.SelectedPromotion1 != 0) {
+        SelectedPromotion1 = other.SelectedPromotion1;
+      }
+      if (other.SelectedPromotion2 != 0) {
+        SelectedPromotion2 = other.SelectedPromotion2;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -8546,7 +8821,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -8556,6 +8835,14 @@ namespace Cookapps.Stkauto.V1 {
           }
           case 816: {
             Level = input.ReadInt32();
+            break;
+          }
+          case 824: {
+            SelectedPromotion1 = input.ReadInt32();
+            break;
+          }
+          case 832: {
+            SelectedPromotion2 = input.ReadInt32();
             break;
           }
         }
@@ -8569,7 +8856,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -8579,6 +8870,14 @@ namespace Cookapps.Stkauto.V1 {
           }
           case 816: {
             Level = input.ReadInt32();
+            break;
+          }
+          case 824: {
+            SelectedPromotion1 = input.ReadInt32();
+            break;
+          }
+          case 832: {
+            SelectedPromotion2 = input.ReadInt32();
             break;
           }
         }
@@ -8591,7 +8890,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 팀 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserDeck : pb::IMessage<UserDeck>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8736,7 +9035,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -8755,7 +9058,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -8770,7 +9077,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserDeckLine : pb::IMessage<UserDeckLine>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -8918,7 +9225,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -8938,7 +9249,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -8957,7 +9272,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 pvp 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPVP : pb::IMessage<UserPVP>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -9022,7 +9337,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "recent_season_id" field.</summary>
     public const int RecentSeasonIdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt recentSeasonId_;
+    private int recentSeasonId_;
     /// <summary>
     /// 최근 참여한 pvp 시즌 아이디
     /// </summary>
@@ -9037,7 +9352,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "rank_id" field.</summary>
     public const int RankIdFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt rankId_;
+    private int rankId_;
     /// <summary>
     /// 현재 시즌 pvp 랭크 아이디
     /// </summary>
@@ -9052,7 +9367,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "rank_point" field.</summary>
     public const int RankPointFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt rankPoint_;
+    private int rankPoint_;
     /// <summary>
     /// 현재 시즌 pvp 랭크 포인트
     /// </summary>
@@ -9067,7 +9382,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "ranking" field.</summary>
     public const int RankingFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorInt ranking_;
+    private int ranking_;
     /// <summary>
     /// 현재 시즌 pvp 랭킹
     /// </summary>
@@ -9082,7 +9397,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "match_refresh_cnt" field.</summary>
     public const int MatchRefreshCntFieldNumber = 105;
-    private CookApps.Obfuscator.ObfuscatorInt matchRefreshCnt_;
+    private int matchRefreshCnt_;
     /// <summary>
     /// 매칭 리스트 갱신 횟수
     /// </summary>
@@ -9097,7 +9412,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "daily_reward_cnt" field.</summary>
     public const int DailyRewardCntFieldNumber = 106;
-    private CookApps.Obfuscator.ObfuscatorInt dailyRewardCnt_;
+    private int dailyRewardCnt_;
     /// <summary>
     /// 일일 보상 수령 횟수
     /// </summary>
@@ -9112,7 +9427,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "buy_ticket_cnt" field.</summary>
     public const int BuyTicketCntFieldNumber = 107;
-    private CookApps.Obfuscator.ObfuscatorInt buyTicketCnt_;
+    private int buyTicketCnt_;
     /// <summary>
     /// pvp 티켓 구매 횟수
     /// </summary>
@@ -9127,7 +9442,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "refresh_matching_cnt_timestamp" field.</summary>
     public const int RefreshMatchingCntTimestampFieldNumber = 120;
-    private CookApps.Obfuscator.ObfuscatorLong refreshMatchingCntTimestamp_;
+    private long refreshMatchingCntTimestamp_;
     /// <summary>
     /// 매칭 리스트 횟수 갱신 시간
     /// </summary>
@@ -9142,7 +9457,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "auto_refresh_matching_list_timestamp" field.</summary>
     public const int AutoRefreshMatchingListTimestampFieldNumber = 121;
-    private CookApps.Obfuscator.ObfuscatorLong autoRefreshMatchingListTimestamp_;
+    private long autoRefreshMatchingListTimestamp_;
     /// <summary>
     /// 매칭 리스트 자동 갱신 시간
     /// </summary>
@@ -9157,7 +9472,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "next_refresh_matching_list_timestamp" field.</summary>
     public const int NextRefreshMatchingListTimestampFieldNumber = 122;
-    private CookApps.Obfuscator.ObfuscatorLong nextRefreshMatchingListTimestamp_;
+    private long nextRefreshMatchingListTimestamp_;
     /// <summary>
     /// 다음 매칭 리스트 갱신 시간
     /// </summary>
@@ -9172,7 +9487,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "refresh_ranking_timestamp" field.</summary>
     public const int RefreshRankingTimestampFieldNumber = 123;
-    private CookApps.Obfuscator.ObfuscatorLong refreshRankingTimestamp_;
+    private long refreshRankingTimestamp_;
     /// <summary>
     /// 랭킹 리스트 갱신 시간
     /// </summary>
@@ -9187,7 +9502,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "auto_refresh_profile_timestamp" field.</summary>
     public const int AutoRefreshProfileTimestampFieldNumber = 124;
-    private CookApps.Obfuscator.ObfuscatorLong autoRefreshProfileTimestamp_;
+    private long autoRefreshProfileTimestamp_;
     /// <summary>
     /// 프로필 자동 갱신 시간
     /// </summary>
@@ -9202,7 +9517,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "daily_reward_reset_timestamp" field.</summary>
     public const int DailyRewardResetTimestampFieldNumber = 125;
-    private CookApps.Obfuscator.ObfuscatorLong dailyRewardResetTimestamp_;
+    private long dailyRewardResetTimestamp_;
     /// <summary>
     /// 일일 보상 수령 갱신 시간
     /// </summary>
@@ -9217,7 +9532,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "buy_ticket_reset_timestamp" field.</summary>
     public const int BuyTicketResetTimestampFieldNumber = 126;
-    private CookApps.Obfuscator.ObfuscatorLong buyTicketResetTimestamp_;
+    private long buyTicketResetTimestamp_;
     /// <summary>
     /// pvp 티켓 관련
     /// </summary>
@@ -9232,7 +9547,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "pvp_ticket_refresh_timestamp" field.</summary>
     public const int PvpTicketRefreshTimestampFieldNumber = 127;
-    private CookApps.Obfuscator.ObfuscatorLong pvpTicketRefreshTimestamp_;
+    private long pvpTicketRefreshTimestamp_;
     /// <summary>
     /// PVP 티켓 갱신 시간
     /// </summary>
@@ -9247,7 +9562,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "pvp_ticket_next_timestamp" field.</summary>
     public const int PvpTicketNextTimestampFieldNumber = 128;
-    private CookApps.Obfuscator.ObfuscatorLong pvpTicketNextTimestamp_;
+    private long pvpTicketNextTimestamp_;
     /// <summary>
     /// PVP 티켓 다음 충전 시간
     /// </summary>
@@ -9675,7 +9990,7 @@ namespace Cookapps.Stkauto.V1 {
         }
         MyPvpDefenseDeckList.MergeFrom(other.MyPvpDefenseDeckList);
       }
-      currentPvpMatchingDic_.Add(other.currentPvpMatchingDic_);
+      currentPvpMatchingDic_.MergeFrom(other.currentPvpMatchingDic_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -9687,7 +10002,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -9784,7 +10103,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -9880,7 +10203,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// PVP 전투 관련 간단한 데이터 (공용) -> 다른 유저 정보를 저장하는데에도 사용
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPVPBattleSimpleData : pb::IMessage<UserPVPBattleSimpleData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -9952,7 +10275,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "server_id" field.</summary>
     public const int ServerIdFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt serverId_;
+    private int serverId_;
     /// <summary>
     /// 서버 아이디
     /// </summary>
@@ -9967,7 +10290,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "rank_id" field.</summary>
     public const int RankIdFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt rankId_;
+    private int rankId_;
     /// <summary>
     /// 랭크 아이디
     /// </summary>
@@ -9982,7 +10305,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "rank_point" field.</summary>
     public const int RankPointFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorInt rankPoint_;
+    private int rankPoint_;
     /// <summary>
     /// 랭크 포인트
     /// </summary>
@@ -9997,7 +10320,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "ranking" field.</summary>
     public const int RankingFieldNumber = 105;
-    private CookApps.Obfuscator.ObfuscatorInt ranking_;
+    private int ranking_;
     /// <summary>
     /// 랭킹
     /// </summary>
@@ -10027,7 +10350,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "player_lv" field.</summary>
     public const int PlayerLvFieldNumber = 108;
-    private CookApps.Obfuscator.ObfuscatorInt playerLv_;
+    private int playerLv_;
     /// <summary>
     ///int32 character_icon_id = 107;  // 캐릭터 아이콘 아이디
     /// </summary>
@@ -10042,7 +10365,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "battle_point" field.</summary>
     public const int BattlePointFieldNumber = 109;
-    private CookApps.Obfuscator.ObfuscatorInt battlePoint_;
+    private int battlePoint_;
     /// <summary>
     /// 전투력
     /// </summary>
@@ -10057,7 +10380,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "refresh_timestamp" field.</summary>
     public const int RefreshTimestampFieldNumber = 110;
-    private CookApps.Obfuscator.ObfuscatorLong refreshTimestamp_;
+    private long refreshTimestamp_;
     /// <summary>
     /// 갱신 시간
     /// </summary>
@@ -10072,7 +10395,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "match_result" field.</summary>
     public const int MatchResultFieldNumber = 111;
-    private CookApps.Obfuscator.ObfuscatorInt matchResult_;
+    private int matchResult_;
     /// <summary>
     /// 매칭 결과 (0: 미결정, 1: 승리, 2: 패배, 3: 무승부)
     /// </summary>
@@ -10348,7 +10671,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -10407,7 +10734,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -10465,7 +10796,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 PVP 캐릭터 배치 관련 정보 (간단한 정보)
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPVPCharacterSimpleDeck : pb::IMessage<UserPVPCharacterSimpleDeck>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10513,7 +10844,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt id_;
+    private int id_;
     /// <summary>
     /// 캐릭터 아이디
     /// </summary>
@@ -10528,7 +10859,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "lv" field.</summary>
     public const int LvFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt lv_;
+    private int lv_;
     /// <summary>
     /// 캐릭터 레벨
     /// </summary>
@@ -10656,7 +10987,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -10679,7 +11014,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -10701,7 +11040,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// PVP 전투 관련 데이터 (공용) -> 다른 유저 정보를 저장하는데에도 사용
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPVPBattleDetailData : pb::IMessage<UserPVPBattleDetailData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -10773,7 +11112,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "server_id" field.</summary>
     public const int ServerIdFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt serverId_;
+    private int serverId_;
     /// <summary>
     /// 서버 아이디
     /// </summary>
@@ -10788,7 +11127,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "rank_id" field.</summary>
     public const int RankIdFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt rankId_;
+    private int rankId_;
     /// <summary>
     /// 랭크 아이디
     /// </summary>
@@ -10803,7 +11142,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "rank_point" field.</summary>
     public const int RankPointFieldNumber = 104;
-    private CookApps.Obfuscator.ObfuscatorInt rankPoint_;
+    private int rankPoint_;
     /// <summary>
     /// 랭크 포인트
     /// </summary>
@@ -10818,7 +11157,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "ranking" field.</summary>
     public const int RankingFieldNumber = 105;
-    private CookApps.Obfuscator.ObfuscatorInt ranking_;
+    private int ranking_;
     /// <summary>
     /// 랭킹
     /// </summary>
@@ -10848,7 +11187,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "player_lv" field.</summary>
     public const int PlayerLvFieldNumber = 108;
-    private CookApps.Obfuscator.ObfuscatorInt playerLv_;
+    private int playerLv_;
     /// <summary>
     ///int32 character_icon_id = 107;  // 캐릭터 아이콘 아이디
     /// </summary>
@@ -10863,7 +11202,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "battle_point" field.</summary>
     public const int BattlePointFieldNumber = 109;
-    private CookApps.Obfuscator.ObfuscatorInt battlePoint_;
+    private int battlePoint_;
     /// <summary>
     /// 전투력
     /// </summary>
@@ -10878,7 +11217,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "refresh_timestamp" field.</summary>
     public const int RefreshTimestampFieldNumber = 110;
-    private CookApps.Obfuscator.ObfuscatorLong refreshTimestamp_;
+    private long refreshTimestamp_;
     /// <summary>
     /// 갱신 시간
     /// </summary>
@@ -10893,7 +11232,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "match_id" field.</summary>
     public const int MatchIdFieldNumber = 111;
-    private CookApps.Obfuscator.ObfuscatorInt matchId_;
+    private int matchId_;
     /// <summary>
     /// 매치 아이디 (매치 결과 저장용)
     /// </summary>
@@ -11183,7 +11522,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -11245,7 +11588,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -11306,7 +11653,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 PVP 전투 배치 관련 정보 리스트
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPVPBattleDeckList : pb::IMessage<UserPVPBattleDeckList>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11487,7 +11834,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -11514,7 +11865,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -11540,7 +11895,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 PVP 캐릭터 배치 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPVPCharacterBattleDeck : pb::IMessage<UserPVPCharacterBattleDeck>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11591,7 +11946,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt id_;
+    private int id_;
     /// <summary>
     /// 캐릭터 아이디
     /// </summary>
@@ -11606,7 +11961,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "lv" field.</summary>
     public const int LvFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt lv_;
+    private int lv_;
     /// <summary>
     /// 캐릭터 레벨
     /// </summary>
@@ -11621,7 +11976,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "pos_x" field.</summary>
     public const int PosXFieldNumber = 110;
-    private CookApps.Obfuscator.ObfuscatorInt posX_;
+    private int posX_;
     /// <summary>
     /// 배치된 타일 x 좌표
     /// </summary>
@@ -11636,7 +11991,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "pos_y" field.</summary>
     public const int PosYFieldNumber = 111;
-    private CookApps.Obfuscator.ObfuscatorInt posY_;
+    private int posY_;
     /// <summary>
     /// 배치된 타일 y 좌표
     /// </summary>
@@ -11813,7 +12168,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -11848,7 +12207,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -11882,7 +12245,7 @@ namespace Cookapps.Stkauto.V1 {
   /// <summary>
   /// 유저 PVP 장애물 배치 관련 정보
   /// </summary>
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserPVPObstacleBattleDeck : pb::IMessage<UserPVPObstacleBattleDeck>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -11931,7 +12294,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorInt id_;
+    private int id_;
     /// <summary>
     /// 장애물 오브젝트 아이디
     /// </summary>
@@ -11946,7 +12309,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "pos_x" field.</summary>
     public const int PosXFieldNumber = 102;
-    private CookApps.Obfuscator.ObfuscatorInt posX_;
+    private int posX_;
     /// <summary>
     /// 배치된 타일 x 좌표
     /// </summary>
@@ -11961,7 +12324,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "pos_y" field.</summary>
     public const int PosYFieldNumber = 103;
-    private CookApps.Obfuscator.ObfuscatorInt posY_;
+    private int posY_;
     /// <summary>
     /// 배치된 타일 y 좌표
     /// </summary>
@@ -12105,7 +12468,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -12132,7 +12499,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -12155,7 +12526,7 @@ namespace Cookapps.Stkauto.V1 {
 
   }
 
-  [global::System.SerializableAttribute]
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EffectCodeInfoProto : pb::IMessage<EffectCodeInfoProto>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -12203,7 +12574,7 @@ namespace Cookapps.Stkauto.V1 {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 101;
-    private CookApps.Obfuscator.ObfuscatorLong id_;
+    private long id_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long Id {
@@ -12332,7 +12703,11 @@ namespace Cookapps.Stkauto.V1 {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -12356,7 +12731,11 @@ namespace Cookapps.Stkauto.V1 {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;

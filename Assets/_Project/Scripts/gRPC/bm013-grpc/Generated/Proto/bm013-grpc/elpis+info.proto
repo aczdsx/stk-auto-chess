@@ -1,0 +1,27 @@
+syntax = "proto3";
+package tech.hive.v1;
+
+import "elpis+facility.proto";
+import "elpis+core_research.proto";
+import "elpis+tactic_research.proto";
+import "elpis+simulation.proto";
+
+message ElpisInfo {
+  // 레벨 정보
+  uint32 level = 1;
+  uint32 max_level = 2;
+
+  // 확장 정보
+  uint32 expansion_level = 3;
+  uint32 max_expansion_level = 4;
+
+  // 시설 목록
+  repeated ElpisFacility facilities = 5;
+
+  // 연구 정보
+  repeated CoreResearch core_researches = 6;
+  repeated TacticResearch tactic_researches = 7;
+
+  // 전투 시뮬레이션 정보
+  SimulationInfo simulation = 8;
+}

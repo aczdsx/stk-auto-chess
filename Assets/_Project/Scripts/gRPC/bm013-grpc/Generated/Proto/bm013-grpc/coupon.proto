@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "inventory_flow+base.proto";
+
+service CouponService {
+  /**
+   * 쿠폰 보상을 받습니다.
+   */
+  rpc Reward(CouponRewardRequest) returns (CouponRewardResponse) {}
+}
+
+enum CouponErrorCode {
+  COUPON_UNSPECIFIED = 0;
+  COUPON_NOT_FOUND = 2200; // 쿠폰 데이터가 없음
+  COUPON_ALREADY_USED = 2201; // 이미 사용된 쿠폰
+  COUPON_EXPIRED = 2202; // 만료된 쿠폰
+  COUPON_NOT_AVAILABLE = 2203; // 사용할 수 없는 쿠폰
+}
+
+message CouponRewardRequest {
+  string code = 1; // 쿠폰 코드
+}
+
+message CouponRewardResponse {
+  ResponseStatus status = 1;
+  BaseInventoryFlowData inventory_flow = 2;
+}

@@ -13,7 +13,7 @@ public class FlowStateStageFail : StateBase
     public override void StateStart()
     {
         InGameManager.Instance.EndInGame();
-        SpecCharacter mvpCharacterData = null;
+        CharacterInfo mvpCharacterData = null;
         SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((false, false, false, mvpCharacterData));
 
         // 행동력 소모 처리

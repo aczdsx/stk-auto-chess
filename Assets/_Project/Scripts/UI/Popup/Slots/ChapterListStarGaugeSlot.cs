@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Color _completedColor;
 
-        private SpecRewardInfo _specRewardInfo;
+        private RewardInfo _specRewardInfo;
 
         private bool _isAvailGetReward;
         private bool _isAlreadyGetReward;
@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
             _getRewardButton.onClick.RemoveListener(OnClickGetRewardButton);
         }
 
-        public void SetStarGaugeSlot(SpecRewardInfo rewardInfo)
+        public void SetStarGaugeSlot(RewardInfo rewardInfo)
         {
             if (rewardInfo == null) return;
 

@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "character+info.proto";
+
+// 캐릭터 서비스
+service CharacterService {
+  /**
+   * 캐릭터 목록 조회
+   */
+  rpc List(CharacterListRequest) returns (CharacterListResponse);
+  
+  /**
+   * 캐릭터 조회
+   */
+  rpc Get(CharacterGetRequest) returns (CharacterGetResponse);
+  
+  /**
+   * 캐릭터 레벨업
+   */
+  rpc LevelUp(CharacterLevelUpRequest) returns (CharacterLevelUpResponse);
+  
+  /**
+   * 캐릭터 승급
+   */
+  rpc Promote(CharacterPromoteRequest) returns (CharacterPromoteResponse);
+  
+  /**
+   * 캐릭터 초월
+   */
+  rpc Transcend(CharacterTranscendRequest) returns (CharacterTranscendResponse);
+  
+  /**
+   * 공명 포인트 할당
+   */
+  rpc AllocateResonance(CharacterAllocateResonanceRequest) returns (CharacterAllocateResonanceResponse);
+  
+  /**
+   * 공명 초기화
+   */
+  rpc ResetResonance(CharacterResetResonanceRequest) returns (CharacterResetResonanceResponse);
+
+  /**
+   * 스텔룸 장착
+   */
+  rpc EquipStellum(CharacterEquipStellumRequest) returns (CharacterEquipStellumResponse);
+
+  /**
+   * 성유물 장착
+   */
+  rpc EquipRelic(CharacterEquipRelicRequest) returns (CharacterEquipRelicResponse);
+
+  /**
+   * 성유물 장착 해제
+   */
+  rpc UnEquipRelic(CharacterUnEquipRelicRequest) returns (CharacterUnEquipRelicResponse);
+}
+
+enum CharacterErrorCode {
+  CHARACTER_UNSPECIFIED = 0;
+}
+
+message CharacterListRequest {}
+message CharacterListResponse {
+  ResponseStatus status = 1;
+  repeated CharacterInfo characters = 2;
+}
+
+message CharacterGetRequest {
+  string instance_id = 1;
+}
+message CharacterGetResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+}
+
+message CharacterLevelUpRequest {
+  string instance_id = 1;
+}
+message CharacterLevelUpResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message CharacterPromoteRequest {
+  string instance_id = 1;
+}
+message CharacterPromoteResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message CharacterTranscendRequest {
+  string instance_id = 1;
+}
+message CharacterTranscendResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message CharacterAllocateResonanceRequest {
+  string instance_id = 1;
+  string resonance_node_id = 2;
+  uint32 target_level = 3;
+}
+
+message CharacterAllocateResonanceResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+}
+
+message CharacterResetResonanceRequest {
+  string instance_id = 1;
+}
+message CharacterResetResonanceResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+}
+
+message CharacterEquipStellumRequest {
+  string instance_id = 1;
+  string stellum_instance_id = 2;
+}
+
+message CharacterEquipStellumResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+}
+
+message CharacterEquipRelicRequest {
+  string instance_id = 1;
+  string relic_instance_id = 2;
+}
+
+message CharacterEquipRelicResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+}
+
+message CharacterUnEquipRelicRequest {
+  string instance_id = 1;
+  string relic_instance_id = 2;
+}
+
+message CharacterUnEquipRelicResponse {
+  ResponseStatus status = 1;
+  CharacterInfo character = 2;
+}

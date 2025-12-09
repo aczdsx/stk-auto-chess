@@ -22,8 +22,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _rewardGridLayerObject;
         [SerializeField] private GameObject _rewardSlotObject;
 
-        private SpecAccountLevelExp _currentSpecAccountLevelExpData;
-        private SpecAccountLevelExp _prevSpecAccountLevelExpData;
+        private AccountLevelExp _currentSpecAccountLevelExpData;
+        private AccountLevelExp _prevSpecAccountLevelExpData;
 
         [Header("Effect Layer")]
         [SerializeField] private LevelUpIncreaseDataSlot _levelUpEffectAnimation;
@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_account_levelup);
 
-            _currentSpecAccountLevelExpData = param as SpecAccountLevelExp;
+            _currentSpecAccountLevelExpData = param as AccountLevelExp;
             _prevSpecAccountLevelExpData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(_currentSpecAccountLevelExpData.lv - 1);
 
             SetAccountLevelUpPopup();

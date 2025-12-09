@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
 
         private int _currentCharacterID;
         private int _currentCharacterUID;
-        private SpecCharacter _specCharacterData;
+        private CharacterInfo _specCharacterData;
         private double _battleValue;
 
         public void SetDeadCharacter()

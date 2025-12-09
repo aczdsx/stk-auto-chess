@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+enum CheckVersionUpdateStatus {
+  UPDATE_STATUS_UNSPECIFIED = 0; // 미사용
+  UPDATE_STATUS_FORCE = 1; // 업데이트 필수
+  UPDATE_STATUS_OPTIONAL = 2; // 업데이트 선택
+  UPDATE_STATUS_NEEDLESS = 3; // 업데이트 필요 없음
+}
+
+service LobbyService {
+  /**
+    * 버전 체크에 대한 함수입니다.
+    **/
+  rpc CheckVersion(CheckVersionRequest) returns (CheckVersionResponse) {}
+}
+
+enum LobbyErrorCode {
+  LOBBY_UNSPECIFIED = 0;
+}
+
+message CheckVersionRequest {
+  uint32 uid = 1;
+}
+
+message CheckVersionData{
+  bool isUnderMaintenance = 1;
+  optional CheckVersionUpdateStatus updateStatus = 2;
+  optional uint32 specVersion = 3;
+  optional uint32 languageVersion = 4;
+  optional uint32 etcSpecVersion = 5;
+  optional string inspection_version = 6; // 검수 판단 버전(v1.1.9 에서 v1.2.0으로 올리고 있을 경우, 스토어에 나간 최신 버전인 1.1.9를 입력)
+  optional string alt_server_url = 7; // 대체 서버 주소(검수 클라이언트로 판단될 경우, 대체 서버 주소로 재접속)
+}
+
+message CheckVersionResponse {
+  ResponseStatus status = 1;
+  CheckVersionData data = 2;
+}

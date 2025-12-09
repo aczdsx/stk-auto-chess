@@ -18,7 +18,7 @@ public partial class EffectCodeSkill1304021 : EffectCodeCharacterBase
 
     private bool _isReadyToActivate;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     private bool isKilled;
 
@@ -94,7 +94,7 @@ public partial class EffectCodeSkill1304021 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -105,7 +105,7 @@ public partial class EffectCodeSkill1304021 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, owner.Target.CurrentTile);
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, owner.Target.CurrentTile);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         if (directionTile.Count > 0)
         {

@@ -41,7 +41,8 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         owner.AddCrowdControl(CrowdControlType.KnockBack);
         elapsedTime = 0;
 
-        if (owner.SpecCharacter.is_knock_back)
+        // if (owner.SpecCharacter.is_knock_back)
+        if (true)
         {
             _inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
@@ -123,8 +124,8 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        if (!owner.SpecCharacter.is_knock_back)
-            return;
+        // if (!owner.SpecCharacter.is_knock_back)
+        //     return;
 
         elapsedTime += dt;
         if (elapsedTime > duration)

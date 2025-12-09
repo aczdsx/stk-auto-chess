@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _skillLevelText;
 
         private CommanderSkillPopup _parentPopup;
-        private SpecCommanderSkill _specCommanderSkillData;
+        private SkillCommander _specCommanderSkillData;
 
         private void Awake()
         {
@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
             _skillInfoButton.onClick.RemoveListener(OnClickSkillInfoButton);
         }
 
-        public void SetCommanderSkillSlot(CommanderSkillPopup parent, SpecCommanderSkill skillData)
+        public void SetCommanderSkillSlot(CommanderSkillPopup parent, SkillCommander skillData)
         {
             if (skillData == null) return;
 

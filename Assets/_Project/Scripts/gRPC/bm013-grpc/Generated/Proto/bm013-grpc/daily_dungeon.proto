@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "daily_dungeon+info.proto";
+
+service DailyDungeonService {
+  /**
+   * 일일 던전 목록 조회
+   */
+  rpc List(DailyDungeonListRequest) returns (DailyDungeonListResponse);
+
+  /**
+   * 일일 던전 입장
+   */
+  rpc Enter(DailyDungeonEnterRequest) returns (DailyDungeonEnterResponse);
+
+  /**
+   * 일일 던전 클리어
+   */
+  rpc Clear(DailyDungeonClearRequest) returns (DailyDungeonClearResponse);
+}
+
+enum DailyDungeonErrorCode {
+  DAILY_DUNGEON_UNSPECIFIED = 0;
+}
+
+message DailyDungeonListRequest {
+  DailyDungeonType dungeon_type = 1;
+}
+message DailyDungeonListResponse {
+  ResponseStatus status = 1;
+  repeated DailyDungeonInfo dungeon_infos = 2;
+}
+
+message DailyDungeonEnterRequest {
+  DailyDungeonType dungeon_type = 1;
+  Difficulty difficulty = 2;
+}
+
+message DailyDungeonEnterResponse {
+  ResponseStatus status = 1;
+  DailyDungeonInfo dungeon = 2;
+  string battle_session_id = 3;
+  uint64 battle_seed = 4;
+}
+
+message DailyDungeonClearRequest {
+  DailyDungeonType dungeon_type = 1;
+  string battle_session_id = 2;
+  bool is_victory = 3;
+}
+
+message DailyDungeonClearResponse {
+  ResponseStatus status = 1;
+  DailyDungeonInfo dungeon = 2;
+  repeated Reward rewards = 3;
+  repeated CurrencyDelta currency_deltas = 4;
+}

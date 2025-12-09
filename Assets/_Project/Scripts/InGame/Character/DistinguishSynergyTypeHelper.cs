@@ -13,21 +13,21 @@ public static class DistinguishSynergyTypeHelper
 {
     private static readonly SynergyType[] _asterismSynergyTypes = new SynergyType[]
     {
-            SynergyType.TANK,
-            SynergyType.WIZARD,
-            SynergyType.RANGER,
-            SynergyType.ASSASSIN,
-            SynergyType.SUPPORTER,
+            // SynergyType.TANK,
+            // SynergyType.WIZARD,
+            // SynergyType.RANGER,
+            // SynergyType.ASSASSIN,
+            // SynergyType.SUPPORTER,
             SynergyType.NOBLESSE,
             SynergyType.SUPERNOVA,
     };
-    private static readonly SynergyType[] _elementSynergyTypes = new SynergyType[]
+    private static readonly ElementType[] _elementSynergyTypes = new ElementType[]
     {
-            SynergyType.EARTH,
-            SynergyType.WIND,
-            SynergyType.WATER,
-            SynergyType.FIRE,
-            SynergyType.LIGHTNING,
+            ElementType.EARTH,
+            ElementType.WIND,
+            ElementType.WATER,
+            ElementType.FIRE,
+            ElementType.LIGHTNING,
     };
     public static bool IsAsterismSynergyType(SynergyType synergyType)
     {
@@ -40,7 +40,7 @@ public static class DistinguishSynergyTypeHelper
         }
         return false;
     }
-    public static bool IsElementSynergyType(SynergyType synergyType)
+    public static bool IsElementSynergyType(ElementType synergyType)
     {
         foreach (var elementSynergyType in _elementSynergyTypes)
         {

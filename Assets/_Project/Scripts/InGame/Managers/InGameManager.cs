@@ -17,8 +17,8 @@ namespace CookApps.BattleSystem
     public class InGameManager : SingletonMonoBehaviour<InGameManager>
     {
         #region GameInfo
-        public SpecStage SpecStage { get; private set; }
-        public SpecDungeonTrial SpecDungeonTrial { get; private set; }
+        public StageInfo SpecStage { get; private set; }
+        public DungeonBabelInfo SpecDungeonTrial { get; private set; }
         public UserPVPBattleDetailData UserPvpBattleDeckList { get; private set; }
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
@@ -53,7 +53,7 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region InGame Cycle
-        public void StartInGame<T>(SpecStage specStage) where T : StateBase, new()
+        public void StartInGame<T>(StageInfo specStage) where T : StateBase, new()
         {
             SpecStage = specStage;
             IsInGamePlaying = true;
@@ -66,7 +66,7 @@ namespace CookApps.BattleSystem
             InitializeInGameComponents(specStage);
         }
 
-        public void StartInGame<T>(SpecDungeonTrial specDungeonTrial) where T : StateBase, new()
+        public void StartInGame<T>(DungeonBabelInfo specDungeonTrial) where T : StateBase, new()
         {
             SpecDungeonTrial = specDungeonTrial;
             IsInGamePlaying = true;
@@ -117,26 +117,26 @@ namespace CookApps.BattleSystem
         }
         #endregion
 
-        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, SpecSynergy synergyData, IEffectCodeSource source)
-        {
-            Span<double> stats = stackalloc double[4];
-            stats[0] = synergyData.stat_value;
-            stats[1] = synergyData.stat_value_2;
-            stats[2] = synergyData.stat_value_3;
-            stats[3] = synergyData.grade;
+        // public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, SpecSynergy synergyData, IEffectCodeSource source)
+        // {
+        //     Span<double> stats = stackalloc double[4];
+        //     stats[0] = synergyData.stat_value;
+        //     stats[1] = synergyData.stat_value_2;
+        //     stats[2] = synergyData.stat_value_3;
+        //     stats[3] = synergyData.grade;
+        //
+        //     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+        //     _teamEcc.AddOrMergeEffectCode(effectCodeInfo, source, allianceType);
+        // }
 
-            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-            _teamEcc.AddOrMergeEffectCode(effectCodeInfo, source, allianceType);
-        }
-
-        public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyData)
-        {
-            var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyData);
-            if (synergyList == null || synergyList.Count == 0)
-                return;
-
-            _teamEcc.RemoveEffectCode(synergyList[0].id, allianceType);
-        }
+        // public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyData)
+        // {
+        //     var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyData);
+        //     if (synergyList == null || synergyList.Count == 0)
+        //         return;
+        //
+        //     _teamEcc.RemoveEffectCode(synergyList[0].id, allianceType);
+        // }
 
         public void RegenerateGlobalRandomSeeds()
         {

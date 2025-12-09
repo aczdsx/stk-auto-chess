@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
     public class InGameMainStateTrialDungeon : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI
     {
         private InGameUI _inGameUI;
-        private SpecDungeonTrial _specTrialDungeon;
+        private DungeonBabelInfo _specTrialDungeon;
 
         private float _updateTimer = 0f;
         private const float UpdateInterval = 0.2f;
@@ -114,7 +114,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetFocusSlotUI(SpecCharacter spec)
+        public void SetFocusSlotUI(CharacterInfo spec)
         {
             _inGameUI.BottomUI.SetFocusCharacterUI(spec);
         }

@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
             _commanderSkillSlotList.ForEach(slot => slot.RefreshSlot());
         }
 
-        public void OpenSkillToolTipPopup(SpecCommanderSkill skillData)
+        public void OpenSkillToolTipPopup(SkillCommander skillData)
         {
             _skillTooltipPopup.SetCommanderSkillToolTipPopup(skillData);
 

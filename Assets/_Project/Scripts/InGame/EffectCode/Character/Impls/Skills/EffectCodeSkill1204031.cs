@@ -21,7 +21,7 @@ public partial class EffectCodeSkill1204031 : EffectCodeCharacterBase
     private ObfuscatorFloat _stunTime;
 
     private bool _isReadyToActivate;
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
     private int _count = 0;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -145,12 +145,12 @@ public partial class EffectCodeSkill1204031 : EffectCodeCharacterBase
     private async UniTask ProcessTiles(List<InGameTile> tiles, CharacterController owner, float powerRate)
     {
         foreach (var tile in tiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
         
         foreach (var tile in tiles.FindAll(l => l.View.AllianceType == AllianceType.Player))
         {
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.18f, 0.1f);
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {

@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+message CurrencyDelta {
+  uint32 item_id = 1;
+  uint64 before = 2;
+  uint64 after = 3;
+  int64 delta = 4;
+}
+
+message Reward {
+  uint32 item_id = 1;
+  uint64 count = 2;
+}
+
+// 속성 타입
+enum ElementType {
+  ELEMENT_TYPE_UNSPECIFIED = 0;
+  ELEMENT_TYPE_FIRE = 1;      // 화
+  ELEMENT_TYPE_WATER = 2;     // 수
+  ELEMENT_TYPE_WIND = 3;      // 풍
+  ELEMENT_TYPE_EARTH = 4;     // 지
+  ELEMENT_TYPE_LIGHT = 5;     // 광
+  ELEMENT_TYPE_DARK = 6;      // 암
+}
+
+// 등급 (레어리티)
+enum Rarity {
+  RARITY_UNSPECIFIED = 0;
+  RARITY_R = 1;       // B급 (R)
+  RARITY_SR = 2;      // A급 (SR)
+  RARITY_UR = 3;      // S급 (UR)
+  RARITY_ROYAL = 4;   // SS급 (로얄나이츠)
+}
+
+// 직업 타입
+enum ClassType {
+  CLASS_TYPE_UNSPECIFIED = 0;
+  CLASS_TYPE_STRIKER = 1;      // 스트라이커
+  CLASS_TYPE_GUARDIAN = 2;     // 가디언
+  CLASS_TYPE_SHARP_SHOOTER = 3; // 샤프 슈터
+  CLASS_TYPE_ESPER = 4;        // 에스퍼
+  CLASS_TYPE_GHOST = 5;        // 고스트
+  CLASS_TYPE_ORACLE = 6;       // 오라클
+}
+
+
+enum Difficulty {
+  DIFFICULTY_UNSPECIFIED = 0;
+  DIFFICULTY_NORMAL = 1;   // 일반
+  DIFFICULTY_ELITE = 2;    // 엘리트
+  DIFFICULTY_HELL = 3;     // 헬
+}

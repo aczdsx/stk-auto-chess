@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+message BaseMessageContent {
+  string title = 1;
+  string message = 2;
+  string language = 3;
+}
+
+/**
+ * ko
+ * en
+ * ja
+ * pt
+ * es
+ * de
+ * fr
+ * th
+ * zh-TW
+ * zh-CN
+ * default -> 기본 값
+ * spec    -> 스펙 데이터 기준 id
+ */

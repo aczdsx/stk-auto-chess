@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+import "gacha+info.proto";
+
+// 가챠 서비스
+service GachaService {
+  /**
+   * 가챠 정보 조회
+   */
+  rpc List(GachaListRequest) returns (GachaListResponse);
+
+  /**
+   * 가챠 실행
+   */
+  rpc Draw(DrawGachaRequest) returns (DrawGachaResponse);
+}
+
+enum GachaErrorCode {
+  GACHA_UNSPECIFIED = 0;
+}
+
+message GachaListRequest {}
+message GachaListResponse {
+  ResponseStatus status = 1;
+  repeated GachaInfo gacha_list = 2;
+}
+
+message DrawGachaRequest {
+  string gacha_id = 1;
+  uint32 count = 2;  // 1 or 10
+}
+
+message DrawGachaResponse {
+  ResponseStatus status = 1;
+  repeated GachaResult results = 2;
+  repeated CurrencyDelta currency_deltas = 3;
+
+  // 업데이트된 보장 카운트
+  uint32 new_pity_count = 4;
+}

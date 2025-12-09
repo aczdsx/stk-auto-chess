@@ -42,8 +42,8 @@ namespace CookApps.AutoBattler
 
         private Vector2 _tweenVector = new Vector2(1550f, 192f);
 
-        private SpecDialogue _currentSpecDialogueData;
-        private List<SpecDialogue> _dialogueList = new List<SpecDialogue>();
+        private DialogueLanguage _currentSpecDialogueData;
+        private List<DialogueLanguage> _dialogueList = new List<DialogueLanguage>();
 
         private int currentDialogueSeq = 0;
         private int _dialogueGroupID = 0;
@@ -336,7 +336,7 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        private void SetCharacters(SpecDialogue dialogueData)
+        private void SetCharacters(DialogueLanguage dialogueData)
         {
             List<string> CharacterIds = new List<string>();
             List<string> CharacterFace = new List<string>();

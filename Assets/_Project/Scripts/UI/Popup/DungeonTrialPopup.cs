@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _gradeUpObj;
         [SerializeField] private GameObject _rewardObj;
 
-        private SpecDungeonTrial _specDungeonTrialData;
+        private DungeonBabelInfo _specDungeonTrialData;
 
         public UserTrialDungeonData CurrentUserDungeonData { get; private set; }
 

@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _missionRewardAmountText;
 
         private UserGuideMission _userGuideMissionData;
-        private SpecGuideMission _specGuideMissionData;
+        private GuideMissionInfo _specGuideMissionData;
 
         private void Awake()
         {
@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
         public void InitGuideMissionSlot()
         {
             int currentOrder = UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder;
-            _specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(currentOrder);
+            _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(currentOrder);
 
             _userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
 
@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.RefreshCurrentGuideMissionData();
 
             // 가이드 미션 슬롯 데이터 세팅
-            _specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(currentOrder);
+            _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(currentOrder);
 
             _userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
 
@@ -145,10 +145,10 @@ namespace CookApps.AutoBattler
             {
                 if (_specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
                 {
-                    SpecGuideMission specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(_specGuideMissionData.id);
+                    GuideMissionInfo specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(_specGuideMissionData.id);
 
-                    SpecStage guideStageData = SpecDataManager.Instance.GetStageData(_specGuideMissionData.sub_key);
-                    SpecStage currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
+                    StageInfo guideStageData = SpecDataManager.Instance.GetStageData(_specGuideMissionData.sub_key);
+                    StageInfo currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
 
                     bool isMatchChapter = guideStageData.chapter_id == currentStageData.chapter_id;
 

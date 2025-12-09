@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+
+service AnalyzeService {
+  /**
+   * 클라이언트 LocalResponse 관련 로그 전송
+   */
+  rpc Send(AnalyzeClientSendRequest) returns (AnalyzeClientSendResponse) {}
+
+  /**
+   * 클라이언트 로그 전송
+   */
+  rpc Log(AnalyzeClientLogRequest) returns (AnalyzeClientLogResponse) {}
+}
+
+enum AnalyzeErrorCode {
+  ANALYZE_UNSPECIFIED = 0;
+}
+
+message AnalyzeClientSendRequest {
+  string trace_id = 1;
+  string local_response = 2;
+}
+
+message AnalyzeClientSendResponse {
+  ResponseStatus status = 1;
+}
+
+message AnalyzeClientLogRequest {
+  string log = 1;
+  enum LogLevel {
+    ERROR = 0;
+    DEBUG = 1;
+    INFO = 2;
+    LOG = 3;
+  }
+  LogLevel level = 2;
+}
+
+message AnalyzeClientLogResponse {
+  ResponseStatus status = 1;
+}

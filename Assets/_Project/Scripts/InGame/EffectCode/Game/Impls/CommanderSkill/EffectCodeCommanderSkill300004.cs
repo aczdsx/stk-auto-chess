@@ -10,7 +10,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeCommanderSkill300004 : EffectCodeCommanderSkillBase
     {
-        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_LIFEHEAL;
+        private const int CodeId = 300004; // (int)EffectCodeNameType.COMMANDER_SKILL_LIFEHEAL;
         private ObfuscatorFloat _healRate;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -84,7 +84,7 @@ namespace CookApps.BattleSystem
                 }
             }
         }
-        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        public override InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
             var playerCharacterList = inGameObjectManagerInstance.GetCharacterList(AllianceType.Player);

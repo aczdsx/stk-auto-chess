@@ -33,7 +33,7 @@ public partial class EffectCodeSkill1405011 : EffectCodeCharacterBase
 
     private InGameVfx _vfx;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
     private int _targetCount;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -103,7 +103,7 @@ public partial class EffectCodeSkill1405011 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -165,7 +165,7 @@ public partial class EffectCodeSkill1405011 : EffectCodeCharacterBase
         {
             if (targetTile.OccupiedCharacter != null)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, targetTile);
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
                     targetTile.OccupiedCharacter.GetCharacterView().CachedTr.position);
 

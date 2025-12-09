@@ -19,70 +19,70 @@ namespace CookApps.BattleSystem
     {
         public void AddSynergy(AllianceType callerAllianceType)
         {
-            SynergyType synergyType = SynergyType.NONE;
-            for (int i = (int)synergyType + 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
-            {
-                synergyType = (SynergyType)i;
-                if (!CanAddSynergy(callerAllianceType, synergyType, out var outMaxGradeSynergyData, out var outTargetSynergyDataList))
-                    continue;
-
-                //모든 시너지관련 이펙트코드는 1단계에서 최대까지 호출한다.
-                for (int j = 1; j <= outMaxGradeSynergyData.grade; j++)
-                {
-                    var synergyData = outTargetSynergyDataList[j];
-                    switch (synergyData.synergy_affect_type)
-                    {
-                        case SynergyAffectType.APPLY_IF_MYSYNERGY://본인의 엘리먼트나 포지션에 비교하여 맞는다면 수행
-                            AddSynergyIfMySynergy(callerAllianceType, outTargetSynergyDataList[0].id, synergyData, synergyType);
-                            break;
-                        case SynergyAffectType.APPLY_ALL_MEMBER://모든 캐릭터에 주입
-                            AddSynergyAllMember(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
-                            break;
-                        case SynergyAffectType.APPLY_OTHER_TEAM_ONCE:
-                        case SynergyAffectType.APPLY_TEAM_ONCE:
-                            AddSynergyTeamOnce(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
-                            break;
-                    }
-                }
-            }
+            // SynergyType synergyType = SynergyType.NONE;
+            // for (int i = (int)synergyType + 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
+            // {
+            //     synergyType = (SynergyType)i;
+            //     if (!CanAddSynergy(callerAllianceType, synergyType, out var outMaxGradeSynergyData, out var outTargetSynergyDataList))
+            //         continue;
+            //
+            //     //모든 시너지관련 이펙트코드는 1단계에서 최대까지 호출한다.
+            //     for (int j = 1; j <= outMaxGradeSynergyData.grade; j++)
+            //     {
+            //         var synergyData = outTargetSynergyDataList[j];
+            //         switch (synergyData.synergy_affect_type)
+            //         {
+            //             case SynergyAffectType.APPLY_IF_MYSYNERGY://본인의 엘리먼트나 포지션에 비교하여 맞는다면 수행
+            //                 AddSynergyIfMySynergy(callerAllianceType, outTargetSynergyDataList[0].id, synergyData, synergyType);
+            //                 break;
+            //             case SynergyAffectType.APPLY_ALL_MEMBER://모든 캐릭터에 주입
+            //                 AddSynergyAllMember(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
+            //                 break;
+            //             case SynergyAffectType.APPLY_OTHER_TEAM_ONCE:
+            //             case SynergyAffectType.APPLY_TEAM_ONCE:
+            //                 AddSynergyTeamOnce(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
+            //                 break;
+            //         }
+            //     }
+            // }
         }
-        public void ApplyTargetSynergy(AllianceType callerAllianceType, SynergyType elementType, SynergyType asterismType)
+        public void ApplyTargetSynergy(AllianceType callerAllianceType, ElementType elementType, SynergyType asterismType)
         {
-            SynergyType synergyType = SynergyType.NONE;
-            for (int i = (int)synergyType + 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
-            {
-                synergyType = (SynergyType)i;
-                if (elementType != SynergyType.NONE && asterismType != SynergyType.NONE)
-                {
-                    if (synergyType != elementType && synergyType != asterismType)
-                    {
-                        continue;
-                    }
-                }
-
-                if (!CanAddSynergy(callerAllianceType, synergyType, out var outMaxGradeSynergyData, out var outTargetSynergyDataList))
-                    continue;
-
-                //모든 시너지관련 이펙트코드는 1단계에서 최대까지 호출한다.
-                for (int j = 1; j <= outMaxGradeSynergyData.grade; j++)
-                {
-
-                    var synergyData = outTargetSynergyDataList[j];
-                    switch (synergyData.synergy_affect_type)
-                    {
-                        case SynergyAffectType.APPLY_IF_MYSYNERGY://본인의 엘리먼트나 포지션에 비교하여 맞는다면 수행
-                            AddSynergyIfMySynergy(callerAllianceType, outTargetSynergyDataList[0].id, synergyData, synergyType);
-                            break;
-                        case SynergyAffectType.APPLY_ALL_MEMBER://모든 캐릭터에 주입
-                            AddSynergyAllMember(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
-                            break;
-                        case SynergyAffectType.APPLY_OTHER_TEAM_ONCE:
-                        case SynergyAffectType.APPLY_TEAM_ONCE:
-                            AddSynergyTeamOnce(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
-                            break;
-                    }
-                }
-            }
+            // SynergyType synergyType = SynergyType.NONE;
+            // for (int i = (int)synergyType + 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
+            // {
+            //     synergyType = (SynergyType)i;
+            //     if (elementType != SynergyType.NONE && asterismType != SynergyType.NONE)
+            //     {
+            //         if (synergyType != elementType && synergyType != asterismType)
+            //         {
+            //             continue;
+            //         }
+            //     }
+            //
+            //     if (!CanAddSynergy(callerAllianceType, synergyType, out var outMaxGradeSynergyData, out var outTargetSynergyDataList))
+            //         continue;
+            //
+            //     //모든 시너지관련 이펙트코드는 1단계에서 최대까지 호출한다.
+            //     for (int j = 1; j <= outMaxGradeSynergyData.grade; j++)
+            //     {
+            //
+            //         var synergyData = outTargetSynergyDataList[j];
+            //         switch (synergyData.synergy_affect_type)
+            //         {
+            //             case SynergyAffectType.APPLY_IF_MYSYNERGY://본인의 엘리먼트나 포지션에 비교하여 맞는다면 수행
+            //                 AddSynergyIfMySynergy(callerAllianceType, outTargetSynergyDataList[0].id, synergyData, synergyType);
+            //                 break;
+            //             case SynergyAffectType.APPLY_ALL_MEMBER://모든 캐릭터에 주입
+            //                 AddSynergyAllMember(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
+            //                 break;
+            //             case SynergyAffectType.APPLY_OTHER_TEAM_ONCE:
+            //             case SynergyAffectType.APPLY_TEAM_ONCE:
+            //                 AddSynergyTeamOnce(callerAllianceType, outTargetSynergyDataList[0].id, synergyData);
+            //                 break;
+            //         }
+            //     }
+            // }
         }
         public void TidyUpPreviewSynergy(AllianceType callerAllianceType)
         {
@@ -91,24 +91,24 @@ namespace CookApps.BattleSystem
                 character.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(character);
             }
         }
-        public void TidyUpPreviewSynergy(AllianceType callerAllianceType, SynergyType elementType, SynergyType asterismType)
+        public void TidyUpPreviewSynergy(AllianceType callerAllianceType, ElementType elementType, SynergyType asterismType)
         {
             foreach (var character in InGameObjectManager.Instance.GetCharacterList(callerAllianceType))
             {
-                if (character.SpecCharacter.element_type == elementType || character.SpecCharacter.asterism_type == asterismType)
+                if (character.SpecCharacter.character_element_type == elementType || character.SpecCharacter.character_stella_type == asterismType)
                 {
                     character.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(character);
                 }
             }
 
-            if (!CanAddSynergy(callerAllianceType, elementType, out var outSynergyDataElementType, out var outSynergyListElementType))
-            {
-                InGameManager.Instance.RemoveSynergyTeamOnce(callerAllianceType, elementType);
-            }
-            if (!CanAddSynergy(callerAllianceType, asterismType, out var outSynergyDataAsterism, out var outSynergyListAsterism))
-            {
-                InGameManager.Instance.RemoveSynergyTeamOnce(callerAllianceType, asterismType);
-            }
+            // if (!CanAddSynergy(callerAllianceType, elementType, out var outSynergyDataElementType, out var outSynergyListElementType))
+            // {
+            //     InGameManager.Instance.RemoveSynergyTeamOnce(callerAllianceType, elementType);
+            // }
+            // if (!CanAddSynergy(callerAllianceType, asterismType, out var outSynergyDataAsterism, out var outSynergyListAsterism))
+            // {
+            //     InGameManager.Instance.RemoveSynergyTeamOnce(callerAllianceType, asterismType);
+            // }
             
         }
 
@@ -118,54 +118,55 @@ namespace CookApps.BattleSystem
             int testGrade = 0;
             foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
             {
-                var passiveList = specDataManagerInstance.GetPassivePositionList(character.SpecCharacter.position_type);
-                if (passiveList == null || passiveList.Count == 0)
-                    continue;
-
-                foreach (var passive in passiveList)
-                {
-                    character.InjectPassive((long)passive[testGrade].passieve_id, passive[testGrade]);
-                }
-            }
-        }
-        private void AddSynergyAllMember(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData)
-        {
-            foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
-            {//이건 무조건 주입하는 함수
-                character.InjectSynergy(effectCodeId, synergyData);
-            }
-        }
-        private void AddSynergyIfMySynergy(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData, SynergyType targetSynergyType)
-        {
-            foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
-            {
-                //이건 본인의 시너지와 맞으면 적용하는 함수
-                character.AddSynergyApplyEach(targetSynergyType, effectCodeId, synergyData);
+                // var passiveList = specDataManagerInstance.GetPassivePositionList(character.SpecCharacter.position_type);
+                // if (passiveList == null || passiveList.Count == 0)
+                //     continue;
+                //
+                // foreach (var passive in passiveList)
+                // {
+                //     character.InjectPassive((long)passive[testGrade].passieve_id, passive[testGrade]);
+                // }
             }
         }
 
-        public void AddSynergyTeamOnce(AllianceType AllianceType, long effectCodeId, SpecSynergy synergyData)
-        {
-            InGameManager.Instance.AddSynergyTeamOnce(AllianceType, effectCodeId, synergyData, this);
-        }
-
-        private bool CanAddSynergy(AllianceType allianceType, SynergyType targetSynergyType
-        , out SpecSynergy outSynergyData, out List<SpecSynergy> outSynergyList)
-        {
-            outSynergyData = null;
-            outSynergyList = null;
-            var inGameObjectManagerInstance = InGameObjectManager.Instance;
-
-
-            var targetSynergyCharacterCount =
-                inGameObjectManagerInstance.GetCharacterSynergyCount(allianceType, targetSynergyType);
-
-            if (targetSynergyCharacterCount < 1)
-                return false;
-
-            return SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
-            out outSynergyData, out outSynergyList);
-        }
+        // private void AddSynergyAllMember(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData)
+        // {
+        //     foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
+        //     {//이건 무조건 주입하는 함수
+        //         character.InjectSynergy(effectCodeId, synergyData);
+        //     }
+        // }
+        // private void AddSynergyIfMySynergy(AllianceType allianceType, long effectCodeId, SpecSynergy synergyData, SynergyType targetSynergyType)
+        // {
+        //     foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
+        //     {
+        //         //이건 본인의 시너지와 맞으면 적용하는 함수
+        //         character.AddSynergyApplyEach(targetSynergyType, effectCodeId, synergyData);
+        //     }
+        // }
+        //
+        // public void AddSynergyTeamOnce(AllianceType AllianceType, long effectCodeId, SpecSynergy synergyData)
+        // {
+        //     InGameManager.Instance.AddSynergyTeamOnce(AllianceType, effectCodeId, synergyData, this);
+        // }
+        //
+        // private bool CanAddSynergy(AllianceType allianceType, SynergyType targetSynergyType
+        // , out SpecSynergy outSynergyData, out List<SpecSynergy> outSynergyList)
+        // {
+        //     outSynergyData = null;
+        //     outSynergyList = null;
+        //     var inGameObjectManagerInstance = InGameObjectManager.Instance;
+        //
+        //
+        //     var targetSynergyCharacterCount =
+        //         inGameObjectManagerInstance.GetCharacterSynergyCount(allianceType, targetSynergyType);
+        //
+        //     if (targetSynergyCharacterCount < 1)
+        //         return false;
+        //
+        //     return SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
+        //     out outSynergyData, out outSynergyList);
+        // }
     }
 
     public abstract class StateCombatBase : StateCombatStepBase

@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Color _completedColor;
 
-        private SpecQuest _specQuestData;
+        private QuestInfo _specQuestData;
         private UserQuestData _userQuestData;
 
         private QuestPopup _parentPopup;
@@ -47,7 +47,7 @@ namespace CookApps.AutoBattler
             _getRewardButton.onClick.RemoveListener(OnClickGetRewardButton);
         }
 
-        public void SetQuestGaugeSlot(QuestPopup parent, SpecQuest data)
+        public void SetQuestGaugeSlot(QuestPopup parent, QuestInfo data)
         {
             if (data == null) return;
 

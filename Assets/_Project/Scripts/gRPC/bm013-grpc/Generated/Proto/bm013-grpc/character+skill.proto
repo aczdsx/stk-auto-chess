@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+message Skill {
+  string skill_id = 1;
+  SkillType type = 2;
+  uint32 level = 3;
+  uint32 max_level = 4;
+}
+
+// 스킬 타입
+enum SkillType {
+  SKILL_TYPE_UNSPECIFIED = 0;
+  SKILL_TYPE_CLASS = 1;      // 직업 스킬
+  SKILL_TYPE_PASSIVE = 2;    // 패시브 스킬
+  SKILL_TYPE_NORMAL = 3;     // 일반 스킬
+  SKILL_TYPE_OBSERVER = 4;   // 관측자 스킬
+}

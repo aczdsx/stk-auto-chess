@@ -23,7 +23,7 @@ public partial class EffectCodeSkill1305011 : EffectCodeCharacterBase
 
     private bool isReadyToActivate;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     private CharacterController _targetCharacter;
 
@@ -101,7 +101,7 @@ public partial class EffectCodeSkill1305011 : EffectCodeCharacterBase
         owner.AddNextState<CharacterStateSkill>(this);
 
         _targetCharacter = owner.Target;
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 

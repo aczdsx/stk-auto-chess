@@ -75,12 +75,12 @@ public class FlowStateLobbyCombat : StateCombatBase
         if (InGameObjectManager.Instance.EnemiesInPlaygroundForUpdate.Count >= _maxEnemySpawnCount) return;
 
         var addCharacterTasks = new List<UniTask<CharacterController>>();
-        List<SpecStageMonster> monsters =
+        List<StageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(InGameManager.Instance.SpecStage.chapter_id, 1,
                 DifficultyType.NORMAL);
 
         System.Random random = new System.Random();
-        SpecStageMonster randomMonster = monsters[random.Next(monsters.Count)];
+        StageMonster randomMonster = monsters[random.Next(monsters.Count)];
 
         if (randomMonster != null)
         {
