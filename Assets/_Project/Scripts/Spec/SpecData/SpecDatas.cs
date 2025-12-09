@@ -23,6 +23,8 @@ namespace CookApps.AutoBattler
         public string Name;
         /// 관리타입
         public string PriceType;
+        /// 유니크 여부
+        public string IsUnique;
         /// 초기지급 갯수
         public uint[] InitCount = global::System.Array.Empty<uint>();
         /// 초기지급 메타데이터(개발자용)

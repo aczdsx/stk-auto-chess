@@ -220,6 +220,7 @@ namespace CookApps.AutoBattler
         CHARACTER = 4,
         OBSTACLE = 5,
         ITEM = 6,
+        MONSTER = 7,
     }
 
     public enum ContentType
@@ -824,37 +825,5 @@ namespace CookApps.AutoBattler
         CHARCTER = 1,
         COMMANDER_SKILL = 2,
         CHAPTER_RULE = 3,
-    }
-    
-    public enum DialogueEventConditionType
-    {
-        NONE = 0,
-        POPUP_OPEN = 1,
-        POPUP_CLOSE = 2,
-        LOBBY = 3,
-        BATTLE_ENCOUNT = 4,
-        BATTLE_END = 5,
-        SKILL_READY = 6,
-        SKILL_END = 7,
-        CHARACTER_DEAD = 8,
-        TUTORIAL_END = 9,
-        GUIDE_MISSION_START = 10,
-        GUIDE_MISSION_CLEAR = 11,
-    }
-
-    public enum DialogueEventAfterActionType
-    {
-        NONE = 0,
-        NANINOVEL = 1,
-        TUTORIAL = 2,
-        ACTION_SKILL_AFTER = 3,
-    }
-
-    public enum SynergyAffectType
-    {
-        APPLY_IF_MYSYNERGY = 0,
-        APPLY_ALL_MEMBER = 1,
-        APPLY_OTHER_TEAM_ONCE = 2,
-        APPLY_TEAM_ONCE = 3,
     }
 }
