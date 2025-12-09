@@ -53,6 +53,7 @@ namespace CookApps.AutoBattler
         private bool _cachedFront;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
         private Tween _viewScaleTween;
+        private Vector3 _viewScaleTarget = Vector3.one;
 
 
         public Transform SkillRootTransform => _skillRootTransform;
@@ -79,6 +80,9 @@ namespace CookApps.AutoBattler
 
         protected override void OnDestroy()
         {
+
+            _viewScaleTween?.Stop();
+            
             base.OnDestroy();
             if (_animator != null)
             {
@@ -297,10 +301,11 @@ namespace CookApps.AutoBattler
 
         public void AddViewScale(float viewScale)
         {
+            _viewScaleTarget += new Vector3(viewScale, viewScale, viewScale);
             Ease ease = Ease.OutElastic;
             _viewScaleTween = Tween.Custom(
                 _rotateionRootTransform.localScale,
-                _rotateionRootTransform.localScale + new Vector3(viewScale, viewScale, viewScale),
+                _viewScaleTarget,
                 0.5f,
                 (Vector3 value) =>
                 {
@@ -312,11 +317,17 @@ namespace CookApps.AutoBattler
         public void RemoveViewScale(float viewScale)
         {
             _viewScaleTween.Stop();
-            Vector3 scale = _rotateionRootTransform.localScale;
-            scale.x -= viewScale;
-            scale.y -= viewScale;
-            scale.z -= viewScale;
-            _rotateionRootTransform.localScale = scale;
+            _viewScaleTarget -= new Vector3(viewScale, viewScale, viewScale);
+            Ease ease = Ease.OutElastic;
+            _viewScaleTween = Tween.Custom(
+                _rotateionRootTransform.localScale,
+                _viewScaleTarget,
+                0.5f,
+                (Vector3 value) =>
+                {
+                    _rotateionRootTransform.localScale = value;
+                },
+                ease: ease);
         }
 
         private void SetFlipOrNot()
