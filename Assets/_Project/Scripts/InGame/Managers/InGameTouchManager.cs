@@ -164,7 +164,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (tile.OccupiedCharacter == null)
             return false;
-            
+
         if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall
             && tile.OccupiedCharacter.SpecCharacter.character_type == CharacterType.ITEM)
         {
@@ -288,12 +288,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return;
         }
 
-        CharacterController targetCharacter = tile.OccupiedCharacter;
+        CharacterController tileOccupiedCharacter = tile.OccupiedCharacter;
 
         // 1. 아이템 적용 가능 여부를 먼저 체크
-        if (CanApplyItemToTarget(targetCharacter))
+        if (CanApplyItemToTarget(tileOccupiedCharacter, out CharacterController itemObj, out CharacterController targetObj))
         {
-            if (TryApplyItem(targetCharacter))
+            if (TryApplyItem(itemObj, targetObj))
             {
                 // 아이템 적용 성공 시 이동 완료
                 return;
@@ -329,7 +329,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private void HandlePlayerTileInteraction(InGameTile tile)
     {
         CharacterController targetCharacter = tile.OccupiedCharacter;
-        
+
         if (_selectedCharacterController == targetCharacter)
         {
             // 같은 캐릭터라면 이동 취소
@@ -342,22 +342,46 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
     }
 
-    private bool CanApplyItemToTarget(CharacterController targetCharacter)
+    private bool CanApplyItemToTarget(CharacterController targetCharacter, out CharacterController itemObj, out CharacterController targetObj)
     {
+        itemObj = null;
+        targetObj = null;
         // 선택된 캐릭터가 아이템이고, 타겟 캐릭터가 벽이 아닌 경우
         if (_selectedCharacterController == null || targetCharacter == null)
+        {
             return false;
+        }
 
-        bool isSelectedItem = InGameObjectManager.Instance.IsDragAndDropItem(_selectedCharacterController);
-        bool isTargetValid = targetCharacter.AllianceType != AllianceType.Wall
-            && targetCharacter.SpecCharacter != null;
+        if (_selectedCharacterController == targetCharacter)
+        {
+            return false;
+        }
 
-        return isSelectedItem && isTargetValid;
+        if (InGameObjectManager.Instance.IsDragAndDropItem(_selectedCharacterController))
+        {
+            itemObj = _selectedCharacterController;
+            targetObj = targetCharacter;
+        }
+        else if (InGameObjectManager.Instance.IsDragAndDropItem(targetCharacter))
+        {
+            itemObj = targetCharacter;
+            targetObj = _selectedCharacterController;
+        }
+
+        if (itemObj == null || targetObj == null)
+        {
+            return false;
+        }
+
+        bool isTargetValid = targetObj.AllianceType != AllianceType.Wall
+            && targetObj.SpecCharacter != null;
+
+        return isTargetValid;
     }
 
-    private bool TryApplyItem(CharacterController targetCharacter)
+    private bool TryApplyItem(CharacterController itemObj, CharacterController targetObj)
     {
-        return ApplyItem(_selectedCharacterController, targetCharacter);
+        return ApplyItem(itemObj, targetObj);
     }
 
     private void ReturnToOriginalTile()
@@ -453,23 +477,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
     }
 
-    private bool ApplyItem(CharacterController character1, CharacterController character2)
+    private bool ApplyItem(CharacterController itemObj, CharacterController targetObj)
     {
-        CharacterController itemObj = null;
-        CharacterController targetObj = null;
-        if (InGameObjectManager.Instance.IsDragAndDropItem(character1))
-        {
-            itemObj = character1;
-            targetObj = character2;
-        }
-        else if (InGameObjectManager.Instance.IsDragAndDropItem(character2))
-        {
-            itemObj = character2;
-            targetObj = character1;
-        }
-        if (itemObj == null || targetObj == null)
-            return false;
-
         if (!InGameObjectManager.Instance.ApplyItem(itemObj, targetObj))
         {
             return false;
