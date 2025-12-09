@@ -29,6 +29,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _playerSmoothColor;
         [SerializeField] private Color _enermySmoothColor;
         [SerializeField] private SpriteRenderer _coolTimeGuage;
+        [SerializeField] private SpriteRenderer _hpMarkGuage; // 눈금선용 SpriteRenderer
 
         [Space]
         [SerializeField] private GameObject _buffObj;
@@ -56,6 +57,16 @@ namespace CookApps.AutoBattler
 
             _defalutSize = _selectedFillLeft.size;
             _defaultScale = _selectedFillLeft.transform.localScale;
+
+            // 눈금선 초기화
+            if (_hpMarkGuage != null)
+            {
+                _hpMarkGuage.size = _defalutSize;
+                if (_hpMarkGuage.material != null && statData != null)
+                {
+                    _hpMarkGuage.material.SetFloat("_MaxHP", (float)statData.HP);
+                }
+            }
 
             if (statData != null)
             {
@@ -92,6 +103,13 @@ namespace CookApps.AutoBattler
                 // 쉴드바 위치를 HP바 끝에 놓일 수 있도록 계산
                 _shieldFiilLeft.transform.localPosition = _selectedFillLeft.transform.localPosition
                                                           + Vector3.right * (_defaultScale.x * (_selectedFillLeft.size.x + _shieldFiilLeft.size.x));
+            }
+
+            // 눈금선 shader에 체력 값 전달
+            if (_hpMarkGuage != null && _hpMarkGuage.material != null)
+            {
+                _hpMarkGuage.material.SetFloat("_CurrentHP", (float)currHP);
+                _hpMarkGuage.material.SetFloat("_MaxHP", (float)maxHP);
             }
 
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
