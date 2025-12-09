@@ -77,23 +77,26 @@ Shader "Custom/HpBarMarkShader"
                 // 기본적으로 투명
                 fixed4 col = fixed4(0, 0, 0, 0);
                 
+                // UV를 반대로 (오른쪽에서 왼쪽으로)
+                float reversedUV = 1.0 - i.uv.x;
+                
                 // 현재 체력 비율
                 float currentHpRatio = _CurrentHP / _MaxHP;
                 
                 // 현재 픽셀이 현재 체력보다 앞에 있으면 표시하지 않음
-                if (i.uv.x > currentHpRatio)
+                if (reversedUV > currentHpRatio)
                 {
                     return col;
                 }
                 
                 // 픽셀 단위로 정확한 계산을 위해 스크린 공간 미분 사용
-                float pixelWidth = abs(ddx(i.uv.x)) + abs(ddy(i.uv.x));
+                float pixelWidth = abs(ddx(reversedUV)) + abs(ddy(reversedUV));
                 
                 // Y 좌표 범위 체크용
                 float markCenter = 0.5;
                 
-                // UV x 좌표를 체력 값으로 변환
-                float hpValue = i.uv.x * _MaxHP;
+                // UV x 좌표를 체력 값으로 변환 (반대로 된 UV 사용)
+                float hpValue = reversedUV * _MaxHP;
                 
                 // 큰 단위 눈금선 위치를 UV 좌표로 직접 계산 (더 정확한 방법)
                 float markLongValue = floor(hpValue / _LongMarkUnit + 0.5) * _LongMarkUnit;
@@ -105,7 +108,7 @@ Shader "Custom/HpBarMarkShader"
                 float longAaRange = max(halfLongMarkWidth * 2.0, pixelWidth * 2.0);
                 
                 // 스텝 함수를 사용해서 더 명확한 경계 생성 (동적 범위 적용)
-                float distToLongMark = abs(i.uv.x - markLongUV);
+                float distToLongMark = abs(reversedUV - markLongUV);
                 float markLongAlpha = 1.0 - smoothstep(0, longAaRange, distToLongMark);
                 
                 // 큰 단위 눈금선 체크 (긴 줄)
@@ -143,12 +146,12 @@ Shader "Custom/HpBarMarkShader"
                 if (distToLongFromShort > minDistance)
                 {
                     // 현재 픽셀이 큰 단위 눈금선의 영향 범위에 있는지 체크
-                    float distToLongFromCurrentPixel = abs(i.uv.x - markLongUV);
+                    float distToLongFromCurrentPixel = abs(reversedUV - markLongUV);
                     bool isInLongRange = distToLongFromCurrentPixel < longAaRange;
                     
                     if (!isInLongRange)
                     {
-                        float distToShortMark = abs(i.uv.x - markShortUV);
+                        float distToShortMark = abs(reversedUV - markShortUV);
                         float markShortAlpha = 1.0 - smoothstep(0, shortAaRange, distToShortMark);
                         
                         if (markShortAlpha > 0.01)
