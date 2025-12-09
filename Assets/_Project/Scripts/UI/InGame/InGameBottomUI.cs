@@ -598,6 +598,7 @@ public class InGameBottomUI : MonoBehaviour
             {
                 stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player, statData.Spec.element_type, statData.Spec.asterism_type);
                 stateCombatStepBase.ApplyTargetSynergy(AllianceType.Player, statData.Spec.element_type, statData.Spec.asterism_type);
+                InGameTouchManager.Instance.SelectedFirstTileID = -1;
             }
             else
             {

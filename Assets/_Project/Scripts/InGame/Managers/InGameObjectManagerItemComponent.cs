@@ -14,27 +14,56 @@ using Random = UnityEngine.Random;
 
 namespace CookApps.BattleSystem
 {
+    public interface IEffectCodeInGameObjectItemInfo
+    {
+        abstract void OnItemApplyDragAndDrop(CharacterController targetCharacter, IEffectCodeSource source);
+        abstract bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter);
+        abstract bool OnItemCheckCharacterAffected(CharacterController targetCharacter);
+        abstract void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameObjectManagerItemComponent.ItemState itemState);
+    }
     public class InGameObjectManagerItemComponent
     {
         //Key: SpecPrefabID, Value: CharacterController List
-        private enum ItemState
+        public enum ItemState
         {
             ITEM_NONE = 0,
             ITEM_DRAG_DROP = 1,
             ITEM_APPLIED = 2,
         }
 
-        private struct ItemInfo
+        public class InGameObjectItemInfo
         {
             public ItemState itemState;
             public IEffectCodeSource source;
             public CharacterController targetObj;
-            public Action<CharacterController, IEffectCodeSource> onApply;
-            public Func<CharacterController, bool> onCanApply;
+            public Action<CharacterController, IEffectCodeSource> OnItemApplyDragAndDrop;// apply될 시 Callback
+            public Func<CharacterController, bool> OnItemCanApplyDragAndDrop;// apply 가능한지 조건문 Callback
+            public Func<CharacterController, bool> OnItemCheckCharacterAffected;// 캐릭터가 사라질때에 영향을 받는지 조건 체크 Callback
+            public Action<CharacterController, ItemState> OnItemTargetObjectRelease;// 조건 성립 시 처리할 액션 Callback
+
+            public static InGameObjectItemInfo Create(
+                CharacterController character,
+                Action<CharacterController, IEffectCodeSource> OnItemApplyDragAndDrop,
+                IEffectCodeSource source,
+                Func<CharacterController, bool> OnItemCanApplyDragAndDrop,
+                Func<CharacterController, bool> OnItemCheckCharacterAffected = null,
+                Action<CharacterController, ItemState> OnItemTargetObjectRelease = null)
+            {
+                return new InGameObjectItemInfo
+                {
+                    itemState = ItemState.ITEM_DRAG_DROP,
+                    targetObj = character,
+                    OnItemApplyDragAndDrop = OnItemApplyDragAndDrop,
+                    source = source,    
+                    OnItemCanApplyDragAndDrop = OnItemCanApplyDragAndDrop,
+                    OnItemCheckCharacterAffected = OnItemCheckCharacterAffected,
+                    OnItemTargetObjectRelease = OnItemTargetObjectRelease
+                };
+            }
         }
-        
+
         //key :SpecCharacter.prefab_id, value : ItemInfo list
-        private Dictionary<int, List<ItemInfo>> _itemDic = new Dictionary<int, List<ItemInfo>>();
+        private Dictionary<int, List<InGameObjectItemInfo>> _itemDic = new Dictionary<int, List<InGameObjectItemInfo>>();
         public void Initialize()
         {
             _itemDic.Clear();
@@ -51,53 +80,38 @@ namespace CookApps.BattleSystem
 
         public void CheckAffectedByItemController(CharacterController character)
         {
-            List<SynergyType> needsToRemove = null;
-            
+            List<InGameObjectItemInfo> RemoveItemList = null;
             foreach (var item in _itemDic)
             {
                 var itemList = item.Value;
 
                 foreach (var itemInfo in itemList)
                 {
-                    if (itemInfo.itemState == ItemState.ITEM_APPLIED && itemInfo.targetObj == character)
+                    if (itemInfo.OnItemCheckCharacterAffected?.Invoke(character) ?? false)
                     {
-                        if(needsToRemove == null)
-                        {
-                            needsToRemove = new List<SynergyType>();
-                        }
-                        needsToRemove.Add(itemInfo.targetObj.SpecCharacter.element_type);
-                        needsToRemove.Add(itemInfo.targetObj.SpecCharacter.asterism_type);
+                        if (RemoveItemList == null)
+                            RemoveItemList = new List<InGameObjectItemInfo>();
+                        RemoveItemList.Add(itemInfo);
                     }
                 }
             }
-
-            if(needsToRemove == null)
-                return;
-
-            // 반복문 밖에서 시너지 제거
-            foreach (var targetSynergyType in needsToRemove)
+            
+            foreach (var item in RemoveItemList)
             {
-                InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetSynergyType);
+                item.OnItemTargetObjectRelease?.Invoke(character, item.itemState);
             }
         }
 
-        public void RegisterItemGameObjectDragAndDrop(CharacterController character, Action<CharacterController, IEffectCodeSource> onApply, IEffectCodeSource source,
-        Func<CharacterController, bool> onCanApply)
+        public void RegisterItem(InGameObjectItemInfo itemInfo)
         {
-            if (character.SpecCharacter.character_type != CharacterType.ITEM)
+            if (itemInfo.targetObj.SpecCharacter.character_type != CharacterType.ITEM)
                 return;
-            if (!_itemDic.TryGetValue(character.SpecCharacter.prefab_id, out var itemList))
+
+            if (!_itemDic.TryGetValue(itemInfo.targetObj.SpecCharacter.prefab_id, out var itemList))
             {
-                _itemDic[character.SpecCharacter.prefab_id] = itemList = new List<ItemInfo>();
+                _itemDic[itemInfo.targetObj.SpecCharacter.prefab_id] = itemList = new List<InGameObjectItemInfo>();
             }
-            itemList.Add(new ItemInfo
-            {
-                itemState = ItemState.ITEM_DRAG_DROP,
-                targetObj = character,
-                onApply = onApply,
-                source = source,
-                onCanApply = onCanApply
-            });
+            itemList.Add(itemInfo);
         }
 
         public bool IsDragAndDropItem(CharacterController character)
@@ -137,14 +151,13 @@ namespace CookApps.BattleSystem
                 return false;
 
             var itemInfo = itemList[indexToMove];
-            if (itemInfo.onCanApply != null && !itemInfo.onCanApply.Invoke(targetObj))
+            if (itemInfo.OnItemCanApplyDragAndDrop != null && !itemInfo.OnItemCanApplyDragAndDrop.Invoke(targetObj))
                 return false;
 
-            itemInfo.onApply?.Invoke(targetObj, itemInfo.source);
+            itemInfo.OnItemApplyDragAndDrop?.Invoke(targetObj, itemInfo.source);
             itemInfo.itemState = ItemState.ITEM_APPLIED;
             itemInfo.targetObj = targetObj;
-            itemList[indexToMove] = itemInfo; // 구조체이므로 수정된 값을 다시 할당해야 함
-            
+
             InGameObjectManager.Instance.RemoveCharacterFromField(itemObj);
             return true;
         }
@@ -177,7 +190,7 @@ namespace CookApps.BattleSystem
                     break;
                 }
             }
-            if(itemList.Count == 0)
+            if (itemList.Count == 0)
             {
                 _itemDic.Remove(prefab_id);
             }

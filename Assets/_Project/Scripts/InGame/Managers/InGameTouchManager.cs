@@ -21,7 +21,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private InGameTileView _selectedTileView = null;
     private List<InGameTile> _attackRangeTileList = new List<InGameTile>();
     private InGameTileView _selectedFirstTileView = null;
-
     private Vector3 _offset;
     private bool _isMoveEndAnimation;
 
@@ -35,6 +34,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private readonly float _zoomCooldown = 0.1f;
     private float _zoomCooldownTimer = 0f;
+
+    private int _selectedFirstTileID = -1;
+    public int SelectedFirstTileID { get => _selectedFirstTileID; set => _selectedFirstTileID = value; }
 
     /////////////////////////////////////////////////////////////
     // protected
@@ -151,12 +153,25 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameTile tile =
                 InGameObjectManager.Instance.GetInGameTile(inGameTileView.ID);
 
-            if (InGameMain.GetInGameMain().IsCheckTouchTile(tile))
+            if (InGameMain.GetInGameMain().IsCheckTouchTile(tile) || CheckCanTouchTile(tile, inGameTileView))
             {
                 _selectedTileView = inGameTileView;
                 SetSelectedCharacter(tile.OccupiedCharacter);
             }
         }
+    }
+    private bool CheckCanTouchTile(InGameTile tile, InGameTileView inGameTileView)
+    {
+        if (tile.OccupiedCharacter == null)
+            return false;
+            
+        if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall
+            && tile.OccupiedCharacter.SpecCharacter.character_type == CharacterType.ITEM)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void MoveCharacter(Vector3 touchPosition)
@@ -247,7 +262,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         var returnObjResult = results.FirstOrDefault(r => r.gameObject != null && r.gameObject.CompareTag("ReturnObj"));
 
-        if (returnObjResult.gameObject != null)
+        if (returnObjResult.gameObject != null && _selectedCharacterController.SpecCharacter.character_type != CharacterType.ITEM)
         {
             var inGameMain = InGameMain.GetInGameMain();
             CharacterController deleteCharacterController = _selectedCharacterController;
@@ -267,41 +282,89 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void HandleCharacterTileChange(InGameTile tile, InGameTileView ingameTileView)
     {
-        if (tile.OccupiedCharacter != null)
+        if (tile.OccupiedCharacter == null)
         {
-            if (!InGameMain.GetInGameMain().IsCheckTouchTile(tile))
-            {   // 플레이어가 아닌 벽, 에너미라면 원래 있던 타일로 이동
-                var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
+            HandleEmptyTileMove(tile, ingameTileView);
+            return;
+        }
 
-                AnimateCharacterMove(_selectedCharacterController, inGameTile.View.Position,
-                    () => { CancelMoveToFirstTile(); });
-            }
-            else
+        CharacterController targetCharacter = tile.OccupiedCharacter;
+
+        // 1. 아이템 적용 가능 여부를 먼저 체크
+        if (CanApplyItemToTarget(targetCharacter))
+        {
+            if (TryApplyItem(targetCharacter))
             {
-                CharacterController targetCharacter = tile.OccupiedCharacter;
-                if (_selectedCharacterController == targetCharacter)
-                {// 같은 캐릭터라면
-                    CancelMoveCharacter();
-                }
-                else
-                {//다른 캐릭터라면 스왑
-                    if (!ApplyItem(_selectedCharacterController, targetCharacter))
-                    {
-                        AnimateCharacterSwap(_selectedCharacterController, targetCharacter);
-                        return;
-                    }
-                }
+                // 아이템 적용 성공 시 이동 완료
+                return;
             }
+            // 아이템 적용 실패 시 원래 위치로 복귀
+            ReturnToOriginalTile();
+            return;
+        }
+
+        // 2. 아이템 적용 불가능한 경우 플레이어 타일인지 체크
+        bool isPlayerTile = InGameMain.GetInGameMain().IsCheckTouchTile(tile);
+        if (isPlayerTile)
+        {
+            HandlePlayerTileInteraction(tile);
         }
         else
         {
-            Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
-            AnimateCharacterMove(_selectedCharacterController, targetPosition, () =>
-            {
-                _selectedCharacterController.ChangeOccupiedTile(tile);
-                CancelMoveCharacter();
-            });
+            // 플레이어 타일이 아닌 경우 원래 위치로 복귀
+            ReturnToOriginalTile();
         }
+    }
+
+    private void HandleEmptyTileMove(InGameTile tile, InGameTileView ingameTileView)
+    {
+        Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
+        AnimateCharacterMove(_selectedCharacterController, targetPosition, () =>
+        {
+            _selectedCharacterController.ChangeOccupiedTile(tile);
+            CancelMoveCharacter();
+        });
+    }
+
+    private void HandlePlayerTileInteraction(InGameTile tile)
+    {
+        CharacterController targetCharacter = tile.OccupiedCharacter;
+        
+        if (_selectedCharacterController == targetCharacter)
+        {
+            // 같은 캐릭터라면 이동 취소
+            CancelMoveCharacter();
+        }
+        else
+        {
+            // 다른 캐릭터라면 위치 스왑
+            AnimateCharacterSwap(_selectedCharacterController, targetCharacter);
+        }
+    }
+
+    private bool CanApplyItemToTarget(CharacterController targetCharacter)
+    {
+        // 선택된 캐릭터가 아이템이고, 타겟 캐릭터가 벽이 아닌 경우
+        if (_selectedCharacterController == null || targetCharacter == null)
+            return false;
+
+        bool isSelectedItem = InGameObjectManager.Instance.IsDragAndDropItem(_selectedCharacterController);
+        bool isTargetValid = targetCharacter.AllianceType != AllianceType.Wall
+            && targetCharacter.SpecCharacter != null;
+
+        return isSelectedItem && isTargetValid;
+    }
+
+    private bool TryApplyItem(CharacterController targetCharacter)
+    {
+        return ApplyItem(_selectedCharacterController, targetCharacter);
+    }
+
+    private void ReturnToOriginalTile()
+    {
+        var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedFirstTileView.ID);
+        AnimateCharacterMove(_selectedCharacterController, inGameTile.View.Position,
+            () => { CancelMoveToFirstTile(); });
     }
 
     private void AnimateCharacterSwap(CharacterController character1, CharacterController character2)
@@ -422,9 +485,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private void ReleaseSelectedHero(bool isDropFx = false)
     {
         if (_selectedCharacterController != null)
-        {   
+        {
             _selectedCharacterController.SetSelectedCharacter(false);
             _selectedTileView.SetActiveObj(false);
+            _selectedFirstTileID = _selectedFirstTileView.ID;
             InActiveAttackTile();
             _attackRangeTileList.Clear();
             _selectedCharacterController = null;

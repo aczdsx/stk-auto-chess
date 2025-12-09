@@ -138,7 +138,7 @@ namespace CookApps.AutoBattler
         
         public bool IsCheckTouchTile(InGameTile tile)
         {
-            return tile.IsOccupied() && (tile.OccupiedCharacter.AllianceType == AllianceType.Player || tile.OccupiedCharacter.SpecCharacter.character_type == CharacterType.ITEM);
+            return tile.IsOccupied() && (tile.OccupiedCharacter.AllianceType == AllianceType.Player);
         }
         
         public void SetAlertBottomCharacter(int characterID)

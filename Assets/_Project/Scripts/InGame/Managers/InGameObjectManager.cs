@@ -1025,9 +1025,9 @@ namespace CookApps.BattleSystem
             enemyTargetLines.Clear();
         }
 
-        public void RegisterItemGameObjectDragAndDrop(CharacterController character, Action<CharacterController,IEffectCodeSource> onApply, IEffectCodeSource source, Func<CharacterController, bool> onCanApply)
+        public void RegisterItem(InGameObjectManagerItemComponent.InGameObjectItemInfo itemInfo)
         {
-            _itemComponent.RegisterItemGameObjectDragAndDrop(character, onApply, source, onCanApply);
+            _itemComponent.RegisterItem(itemInfo);
         }
         public bool IsDragAndDropItem(CharacterController character)
         {

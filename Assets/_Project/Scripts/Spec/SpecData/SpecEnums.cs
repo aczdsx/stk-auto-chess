@@ -491,6 +491,7 @@ namespace CookApps.AutoBattler
         fx_common_commander_skill_300 = 188,
         fx_common_synergy_lightning_02 = 189,
         fx_common_synergy_lightning_03 = 190,
+        fx_common_cast_supernova_02 = 191,
     }
 
     public enum GlobalEffectProviderType
