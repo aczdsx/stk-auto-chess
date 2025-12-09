@@ -79,10 +79,7 @@ namespace CookApps.AutoBattler
         }
 
         protected override void OnDestroy()
-        {
-
-            _viewScaleTween?.Stop();
-            
+        {            
             base.OnDestroy();
             if (_animator != null)
             {
@@ -309,7 +306,8 @@ namespace CookApps.AutoBattler
                 0.5f,
                 (Vector3 value) =>
                 {
-                    _rotateionRootTransform.localScale = value;
+                    if (_rotateionRootTransform != null)
+                        _rotateionRootTransform.localScale = value;
                 },
                 ease: ease);
         }
@@ -325,7 +323,8 @@ namespace CookApps.AutoBattler
                 0.5f,
                 (Vector3 value) =>
                 {
-                    _rotateionRootTransform.localScale = value;
+                    if (_rotateionRootTransform != null)
+                        _rotateionRootTransform.localScale = value;
                 },
                 ease: ease);
         }

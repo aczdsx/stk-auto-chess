@@ -95,7 +95,10 @@ namespace CookApps.BattleSystem
                     }
                 }
             }
-            
+
+            if (RemoveItemList==  null)
+                return;
+
             foreach (var item in RemoveItemList)
             {
                 item.OnItemTargetObjectRelease?.Invoke(character, item.itemState);
