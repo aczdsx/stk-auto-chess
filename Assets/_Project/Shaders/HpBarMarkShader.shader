@@ -74,103 +74,87 @@ Shader "Custom/HpBarMarkShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // 기본적으로 투명
-                fixed4 col = fixed4(0, 0, 0, 0);
-                
                 // UV를 반대로 (오른쪽에서 왼쪽으로)
                 float reversedUV = 1.0 - i.uv.x;
                 
                 // 현재 체력 비율
                 float currentHpRatio = _CurrentHP / _MaxHP;
                 
-                // 현재 픽셀이 현재 체력보다 앞에 있으면 표시하지 않음
+                // Early return: 현재 픽셀이 현재 체력보다 앞에 있으면 표시하지 않음
                 if (reversedUV > currentHpRatio)
                 {
-                    return col;
+                    return fixed4(0, 0, 0, 0);
                 }
                 
                 // 픽셀 단위로 정확한 계산을 위해 스크린 공간 미분 사용
                 float pixelWidth = abs(ddx(reversedUV)) + abs(ddy(reversedUV));
                 
-                // Y 좌표 범위 체크용
-                float markCenter = 0.5;
-                
-                // UV x 좌표를 체력 값으로 변환 (반대로 된 UV 사용)
+                // UV x 좌표를 체력 값으로 변환
                 float hpValue = reversedUV * _MaxHP;
                 
-                // 큰 단위 눈금선 위치를 UV 좌표로 직접 계산 (더 정확한 방법)
+                // 큰 단위 눈금선 위치 계산
                 float markLongValue = floor(hpValue / _LongMarkUnit + 0.5) * _LongMarkUnit;
                 float markLongUV = markLongValue / _MaxHP;
-                
-                // 큰 단위 눈금선 두께 (픽셀 단위로 보정, 최소값 보장)
-                float baseLongMarkWidth = _LongMarkWidth * 0.5;
-                float halfLongMarkWidth = max(baseLongMarkWidth, pixelWidth * 0.5);
-                float longAaRange = max(halfLongMarkWidth * 2.0, pixelWidth * 2.0);
-                
-                // 스텝 함수를 사용해서 더 명확한 경계 생성 (동적 범위 적용)
                 float distToLongMark = abs(reversedUV - markLongUV);
+                
+                // 큰 단위 눈금선 두께 및 안티앨리어싱 범위
+                float halfLongMarkWidth = max(_LongMarkWidth * 0.5, pixelWidth * 0.5);
+                float longAaRange = halfLongMarkWidth * 2.0;
+                if (longAaRange < pixelWidth * 2.0) longAaRange = pixelWidth * 2.0;
+                
                 float markLongAlpha = 1.0 - smoothstep(0, longAaRange, distToLongMark);
                 
                 // 큰 단위 눈금선 체크 (긴 줄)
                 if (markLongAlpha > 0.01)
                 {
+                    const float markCenter = 0.5;
                     float markTop = markCenter + _LongMarkHeight * 0.5;
                     float markBottom = markCenter - _LongMarkHeight * 0.5;
                     
                     if (i.uv.y >= markBottom && i.uv.y <= markTop)
                     {
-                        col = _MarkColor;
+                        fixed4 col = _MarkColor;
                         col.a *= markLongAlpha;
                         return col;
                     }
                 }
                 
-                // 작은 단위 눈금선 위치를 UV 좌표로 직접 계산
+                // 작은 단위 눈금선 위치 계산
                 float markShortValue = floor(hpValue / _ShortMarkUnit + 0.5) * _ShortMarkUnit;
                 float markShortUV = markShortValue / _MaxHP;
-                
-                // 작은 단위 눈금선 두께 (픽셀 단위로 보정, 최소값 보장)
-                float baseMarkWidth = _MarkWidth * 0.5;
-                float halfMarkWidth = max(baseMarkWidth, pixelWidth * 0.5);
-                float shortAaRange = max(halfMarkWidth * 2.0, pixelWidth * 2.0);
-                
-                // 작은 단위가 큰 단위와 겹치지 않는지 확인
-                // 실제 눈금선 두께를 기준으로 체크 (안티앨리어싱 범위가 아닌)
-                float actualLongMarkWidth = _LongMarkWidth * 0.5;
-                float actualShortMarkWidth = _MarkWidth * 0.5;
                 float distToLongFromShort = abs(markShortUV - markLongUV);
-                float minDistance = max(actualLongMarkWidth, actualShortMarkWidth) * 2.0;
                 
-                // 작은 단위 눈금선 체크 (짧은 줄) - 큰 단위와 겹치지 않을 때만
-                // 그리고 현재 픽셀이 큰 단위 눈금선의 영향 범위에 있지 않을 때만
-                if (distToLongFromShort > minDistance)
+                // 작은 단위가 큰 단위와 겹치지 않는지 확인 (실제 두께 기준)
+                float minDistance = max(_LongMarkWidth, _MarkWidth);
+                
+                // Early return: 겹치거나 큰 단위 범위 내에 있으면 스킵
+                if (distToLongFromShort <= minDistance || distToLongMark < longAaRange)
                 {
-                    // 현재 픽셀이 큰 단위 눈금선의 영향 범위에 있는지 체크
-                    float distToLongFromCurrentPixel = abs(reversedUV - markLongUV);
-                    bool isInLongRange = distToLongFromCurrentPixel < longAaRange;
+                    return fixed4(0, 0, 0, 0);
+                }
+                
+                // 작은 단위 눈금선 두께 및 안티앨리어싱 범위
+                float halfMarkWidth = max(_MarkWidth * 0.5, pixelWidth * 0.5);
+                float shortAaRange = halfMarkWidth * 2.0;
+                if (shortAaRange < pixelWidth * 2.0) shortAaRange = pixelWidth * 2.0;
+                
+                float distToShortMark = abs(reversedUV - markShortUV);
+                float markShortAlpha = 1.0 - smoothstep(0, shortAaRange, distToShortMark);
+                
+                if (markShortAlpha > 0.01)
+                {
+                    float markTop = 1.0;
+                    float markBottom = 1.0 - _ShortMarkHeight;
                     
-                    if (!isInLongRange)
+                    if (i.uv.y >= markBottom && i.uv.y <= markTop)
                     {
-                        float distToShortMark = abs(reversedUV - markShortUV);
-                        float markShortAlpha = 1.0 - smoothstep(0, shortAaRange, distToShortMark);
-                        
-                        if (markShortAlpha > 0.01)
-                        {
-                            // 작은 눈금은 위로 정렬
-                            float markTop = 1.0;
-                            float markBottom = 1.0 - _ShortMarkHeight;
-                            
-                            if (i.uv.y >= markBottom && i.uv.y <= markTop)
-                            {
-                                col = _MarkColor;
-                                col.a *= markShortAlpha;
-                                return col;
-                            }
-                        }
+                        fixed4 col = _MarkColor;
+                        col.a *= markShortAlpha;
+                        return col;
                     }
                 }
                 
-                return col;
+                return fixed4(0, 0, 0, 0);
             }
             ENDCG
         }
