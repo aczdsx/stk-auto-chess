@@ -5,11 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using CookApps.Auth;
 using CookApps.Build;
-using CookApps.gRPC;
-using CookApps.PlatformAuth;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
-using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
@@ -85,14 +82,8 @@ namespace CookApps.AutoBattler
             }
             
             // 앱 이벤트 Auth 설정
-            // CAppAuth.SetUID(recentAuthPlatform.Id);
+            CAppAuth.SetUID(resp.Data.Uid);
 
-            // 서버 환경에 따른 앱 이벤트 서버 설정
-#if SERVER_REAL
-            CAppAuth.SetServer(EnumServer.PRODUCTION);
-#else
-            CAppAuth.SetServer(EnumServer.DEV);
-#endif
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 

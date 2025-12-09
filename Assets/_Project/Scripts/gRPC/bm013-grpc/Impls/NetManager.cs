@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
 #if SERVER_REAL
             var serverAddress = "https://gwbm013-grpc.cookappsgames.com:443";
 #else
-            var serverAddress = "https://gwbm013-grpc.cookappsgames.com:443";
+            var serverAddress = "https://gwbm013-grpc.dev.cookappsgames.com:443";
 #endif
 #if UNITY_IOS
             var store = StoreMap.AppleAppStore;

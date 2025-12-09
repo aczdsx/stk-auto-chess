@@ -1,5 +1,4 @@
 using System.Linq;
-using CookApps.gRPC;
 using Cookapps.Stkauto.V1;
 
 namespace CookApps.AutoBattler

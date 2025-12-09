@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             {
                 var id = System.Guid.NewGuid();
                 var authId = id.ToString("N");
-                var resp = await NetManager.Instance.Auth.CreateAsync(AuthPlatform.Guest, authId);
+                var resp = await NetManager.Instance.Auth.AuthenticateAsync(AuthPlatform.Guest, authId);
                 if (resp.IsSuccess)
                 {
                     LocalDataManager.Instance.AddAuth(AuthPlatform.Guest, authId);

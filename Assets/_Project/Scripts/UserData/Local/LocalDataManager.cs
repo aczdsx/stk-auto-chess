@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
     [MemoryPackable]
     public partial class LocalData
     {
-        public List<AuthData> AuthDatas { get; set; }
+        public List<AuthData> AuthDatas { get; set; } = new ();
     }
     
     public class LocalDataManager : Preference<LocalData>
