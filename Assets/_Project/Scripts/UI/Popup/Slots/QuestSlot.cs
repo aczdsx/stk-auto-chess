@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _completeLayerObject;
         [SerializeField] private GameObject _completeButtonObject;
 
-        private SpecQuest _specQuestData;
+        private QuestInfo _specQuestData;
         private UserQuestData _userQuestData;
 
         private List<RewardItem> _questRewardItemList = new List<RewardItem>();
@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
             _claimButton.onClick.RemoveListener(OnClickGetRewardButton);
         }
 
-        public void SetQuestSlot(QuestPopup parent, SpecQuest data)
+        public void SetQuestSlot(QuestPopup parent, QuestInfo data)
         {
             if (data == null) return;
 

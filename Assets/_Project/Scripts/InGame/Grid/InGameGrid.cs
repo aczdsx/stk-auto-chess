@@ -5,6 +5,7 @@ using CookApps.AutoBattler;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 
 namespace CookApps.BattleSystem
 {
@@ -74,7 +75,7 @@ namespace CookApps.BattleSystem
             return emptyTiles.FirstOrDefault();
         }
 
-        public InGameTile GetRecommandedTile(SpecCharacter spec)
+        public InGameTile GetRecommandedTile(CharacterInfo spec)
         {
             int midPoint = Width / 2;
             int[] xOrder = Enumerable.Range(0, Width)
@@ -82,18 +83,18 @@ namespace CookApps.BattleSystem
                 .ToArray();
             int yPosition = 0;
 
-            if (spec.position_type == PositionType.GUARDIAN ||
-                spec.position_type == PositionType.STRIKER)
+            if (spec.character_position_type == CharacterPositionType.GUARDIAN ||
+                spec.character_position_type == CharacterPositionType.STRIKER)
             {
                 yPosition = 2;
             }
-            else if (spec.position_type == PositionType.ESPER ||
-                     spec.position_type == PositionType.ORACLE)
+            else if (spec.character_position_type == CharacterPositionType.ESPER ||
+                     spec.character_position_type == CharacterPositionType.ORACLE)
             {
                 yPosition = 1;
             }
-            else if (spec.position_type == PositionType.SHARPSHOOTER ||
-                     spec.position_type == PositionType.GHOST)
+            else if (spec.character_position_type == CharacterPositionType.SHARPSHOOTER ||
+                     spec.character_position_type == CharacterPositionType.GHOST)
             {
                 yPosition = 0;
             }

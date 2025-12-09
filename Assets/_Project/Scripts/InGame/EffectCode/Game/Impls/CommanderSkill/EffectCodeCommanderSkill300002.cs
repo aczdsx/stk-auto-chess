@@ -10,7 +10,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeCommanderSkill300002 : EffectCodeCommanderSkillBase
     {
-        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_FREEZING;
+        private const int CodeId = 300002; // (int)EffectCodeNameType.COMMANDER_SKILL_FREEZING;
 
         private ObfuscatorFloat _time;
 
@@ -85,7 +85,7 @@ namespace CookApps.BattleSystem
                 }
             }
         }
-        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        public override InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
             var enemyCharacterList = inGameObjectManagerInstance.GetCharacterList(AllianceType.Enemy);

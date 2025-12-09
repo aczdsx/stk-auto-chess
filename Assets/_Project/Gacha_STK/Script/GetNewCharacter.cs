@@ -64,10 +64,10 @@ namespace CookApps.AutoBattler
         private PlayableDirector playObj;
         private Action EndAction;
 
-        private SpecCharacter _specCharacter;
+        private CharacterInfo _specCharacter;
         //private CharacterEnhanceMetaData _curEnhanceMetaData;
 
-        public void SetPiece(SpecCharacter specCharacter, int amount, Action actoin = null)
+        public void SetPiece(CharacterInfo specCharacter, int amount, Action actoin = null)
         {
             EndAction = actoin;
             TouchObject.SetActive(false);
@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler
 
             switch (_specCharacter.grade_type)
             {
-                case GradeType.LEGEND:
+                case GradeType.LEGENDARY:
                     GradeImage[3].SetActive(true);
                     break;
                 case GradeType.EPIC:
@@ -158,7 +158,7 @@ namespace CookApps.AutoBattler
         }
 
         private bool isPlayCharacterBGM = false;
-        public void SetChracater(SpecCharacter specCharacter, Action actoin = null, bool isTutorial = false)
+        public void SetChracater(CharacterInfo specCharacter, Action actoin = null, bool isTutorial = false)
         {
             EndAction = actoin;
             TouchObject.SetActive(false);
@@ -238,7 +238,7 @@ namespace CookApps.AutoBattler
             // }
             switch (_specCharacter.grade_type)
             {
-                case GradeType.LEGEND:
+                case GradeType.LEGENDARY:
                     timeLineIdx = 0;
                     aniTime = 6f;
                     // string bgmName = dataManager.GetCharacterBGMName(characterID);
@@ -322,12 +322,12 @@ namespace CookApps.AutoBattler
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
             DescText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
 
-            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.element_type);
+            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetElementSprite(_specCharacter.character_element_type);
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
-            SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(_specCharacter.element_type);
-            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.asterism_type);
-            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(_specCharacter.asterism_type);
+            SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(_specCharacter.character_stella_type);
+            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.character_stella_type);
+            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(_specCharacter.character_position_type);
 
             if(lowObj!= null)
                 Destroy(lowObj);
@@ -415,11 +415,11 @@ namespace CookApps.AutoBattler
                 TimeLineObject[i].SetActive(false);
             }
 
-            SpecCharacter _specCharacter = SpecDataManager.Instance.SpecCharacter.Get(chID);
+            CharacterInfo _specCharacter = SpecDataManager.Instance.CharacterInfo.Get(chID);
 
             switch (_specCharacter.grade_type)
             {
-                case GradeType.LEGEND:
+                case GradeType.LEGENDARY:
                     timeLineIdx = 0;
                     aniTime = 6f;
                     break;

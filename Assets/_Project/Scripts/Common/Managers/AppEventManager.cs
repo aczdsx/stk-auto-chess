@@ -214,7 +214,7 @@ namespace CookApps.AutoBattler
                             ,UserPVPBattleDetailData enemyData)
         {
             string battleType = isRevenge ? "revenge" : "normal";
-            var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
+            // var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
             
             AppEventParameter appEventParameter = CreateCommonParam();
             appEventParameter.Add(AppEventStringConst.SEASON, season);
@@ -229,7 +229,7 @@ namespace CookApps.AutoBattler
             
             appEventParameter.Add(AppEventStringConst.ENEMY_PLAYER_ID, enemyData.PlayerId);
             appEventParameter.Add(AppEventStringConst.ENEMY_POINT, enemyData.RankPoint);
-            appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
+            // appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
             appEventParameter.Add(AppEventStringConst.ENEMY_DECK, GetAppEventTargetDeckList(enemyData.PvpDeckList.PvpCharacterDecks.ToList()));
             appEventParameter.Add(AppEventStringConst.ENEMY_DECK_POWER, enemyData.BattlePoint);
         

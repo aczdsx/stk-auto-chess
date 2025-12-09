@@ -138,7 +138,7 @@ namespace CookApps.AutoBattler
                 {
                     var specData = SpecDataManager.Instance.GetCharacterData(datas[i].Key);
 
-                    if (specData.grade_type == GradeType.LEGEND && datas[i].Count == 20)
+                    if (specData.grade_type == GradeType.LEGENDARY && datas[i].Count == 20)
                     {
                         ssrCount++;
                         isHaveSSR = true;
@@ -322,8 +322,8 @@ namespace CookApps.AutoBattler
             {
                 if(_datas[i].Count < 20)
                     continue;
-                SpecCharacter idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[i].Key);
-                if (idxCharcater.grade_type == GradeType.LEGEND)
+                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[i].Key);
+                if (idxCharcater.grade_type == GradeType.LEGENDARY)
                 {
                     skipDatas.Add(_datas[i]);
                 }
@@ -523,10 +523,10 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SpecCharacter idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].Key);
+            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].Key);
             if (_datas[cnt].Count == 20)
             {
-                if (idxCharcater.grade_type == GradeType.LEGEND)
+                if (idxCharcater.grade_type == GradeType.LEGENDARY)
                 {
                     fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
                     fx.GetComponent<GetNewCharacter>().SetChracater(idxCharcater, ShowGetFX);
@@ -770,7 +770,7 @@ namespace CookApps.AutoBattler
             // CloseProcess();
         }
 
-        private void ChangeRewardDataAndSave(List<SpecCharacter> result)
+        private void ChangeRewardDataAndSave(List<CharacterInfo> result)
         {
             // List<RewardInfo> rewardDatas = new List<RewardInfo>();
             // for (int i = 0; i < result.Count; i++)

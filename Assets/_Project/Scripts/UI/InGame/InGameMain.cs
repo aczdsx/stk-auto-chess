@@ -36,9 +36,9 @@ namespace CookApps.AutoBattler
             {
                 case CharacterController c:
                     return new KillSource(AttackerType.CHARCTER, c.CharacterId, isPlayerOwned, c);
-                case SpecCommanderSkill s:
+                case SkillCommander s:
                     return new KillSource(AttackerType.COMMANDER_SKILL, s.commander_skill_id, isPlayerOwned);
-                case SpecChapterRule r:
+                case ChapterRule r:
                     return new KillSource(AttackerType.CHAPTER_RULE, r.effect_code_id, isPlayerOwned);
                 case long id:
                     return new KillSource(AttackerType.CHARCTER, id, isPlayerOwned);
@@ -77,7 +77,7 @@ namespace CookApps.AutoBattler
 
     public interface IFocusSlotUI
     {
-        void SetFocusSlotUI(SpecCharacter spec);
+        void SetFocusSlotUI(CharacterInfo spec);
         void UnSetFocusSlotUI(bool isDropFx);
     }
 
@@ -239,7 +239,7 @@ namespace CookApps.AutoBattler
                 cmd.SetCommanderSkillUI(index, equippedCommanderSkillId);
         }
 
-        public void SetFocusSlotUI(SpecCharacter spec)
+        public void SetFocusSlotUI(CharacterInfo spec)
         {
             if (_currentGameStateUI is IFocusSlotUI focus)
                 focus.SetFocusSlotUI(spec);

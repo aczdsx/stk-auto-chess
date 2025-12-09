@@ -23,7 +23,7 @@ public partial class EffectCodeSkill1202011 : EffectCodeCharacterBase
 
     private bool _isReadyToActivate;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -95,7 +95,7 @@ public partial class EffectCodeSkill1202011 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -107,7 +107,7 @@ public partial class EffectCodeSkill1202011 : EffectCodeCharacterBase
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 10);
         foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
 
         OnSkillExecuteAsync(0.2f, inGameTiles).Forget();
 
@@ -126,7 +126,7 @@ public partial class EffectCodeSkill1202011 : EffectCodeCharacterBase
     {
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.4f, 0.15f);
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
             if (tile.CheckValidTile(owner.AllianceType, false))

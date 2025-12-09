@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeCommanderSkill300005 : EffectCodeCommanderSkillBase
     {
-        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_TELEPORT;
+        private const int CodeId = 300005; // (int)EffectCodeNameType.COMMANDER_SKILL_TELEPORT;
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
         {
@@ -75,7 +75,7 @@ namespace CookApps.BattleSystem
                     randomTile.View.CachedTr.position);
             }
         }
-        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        public override InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
             var playerList = inGameObjectManagerInstance.GetCharacterListSortedByHpRate(AllianceType.Player, true);

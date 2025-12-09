@@ -17,10 +17,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _normalSkillIconImage;
         [SerializeField] private TextMeshProUGUI _normalSkillNameText;
 
-        private SpecCharacter _specCharacterData;
+        private CharacterInfo _specCharacterData;
         private UserCharacter _userCharacterData;
 
-        private SpecSkill _specSkillBaseData;
+        private SkillActive _specSkillBaseData;
 
         private void Awake()
         {

@@ -13,22 +13,22 @@ public static class DistinguishSynergyTypeHelper
 {
     private static readonly SynergyType[] _asterismSynergyTypes = new SynergyType[]
     {
-            SynergyType.TANK,
-            SynergyType.WIZARD,
-            SynergyType.RANGER,
-            SynergyType.ASSASSIN,
-            SynergyType.SUPPORTER,
-            SynergyType.NOBLESSE,
+            // SynergyType.TANK,
+            // SynergyType.WIZARD,
+            // SynergyType.RANGER,
+            // SynergyType.ASSASSIN,
+            // SynergyType.SUPPORTER,
+            // SynergyType.NOBLESSE,
     };
     private static readonly SynergyType[] _elementSynergyTypes = new SynergyType[]
     {
-            SynergyType.EARTH,
-            SynergyType.WIND,
-            SynergyType.WATER,
-            SynergyType.FIRE,
-            SynergyType.DARK,
-            SynergyType.LIGHT,
-            SynergyType.MACHINE,
+            // SynergyType.EARTH,
+            // SynergyType.WIND,
+            // SynergyType.WATER,
+            // SynergyType.FIRE,
+            // SynergyType.DARK,
+            // SynergyType.LIGHT,
+            // SynergyType.MACHINE,
     };
     public static bool IsAsterismSynergyType(SynergyType synergyType)
     {

@@ -25,7 +25,7 @@ public partial class EffectCodeSkill1201031 : EffectCodeCharacterBase
 
     private List<InGameVfx> _vfxList = new List<InGameVfx>();
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -92,7 +92,7 @@ public partial class EffectCodeSkill1201031 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -116,7 +116,7 @@ private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNam
 {
     //[TODO] 디버프 처리는 아직 안함.
     var targetTile = targetCharacter.CurrentTile;
-    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, targetTile);
+    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, targetTile);
 
     var vfxProjectile =
         InGameVfxManager.Instance.AddInGameVfx(vfxProjectileType, owner.CurrentTile.View.CachedTr.position);

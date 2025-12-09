@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
 
         private CharacterCollectionPopup _parentCollectionPopup;
 
-        private SpecCharacter _specCharacterData;
+        private CharacterInfo _specCharacterData;
 
         private Material _illustMaterial;
 
@@ -147,14 +147,14 @@ namespace CookApps.AutoBattler
             AddressablesUtil.Instantiate(sdPrefabName, _characterSDParentObject.transform);
 
             _characterNameText.text = LanguageManager.Instance.GetLanguageText(_specCharacterData.name_token);
-            _characterPositionTypeText.text = _specCharacterData.position_type.ToString();
+            _characterPositionTypeText.text = _specCharacterData.character_position_type.ToString();
 
             _characterGradeImageObject_R.SetActive(_specCharacterData.grade_type == GradeType.RARE);
             _characterGradeImageObject_SR.SetActive(_specCharacterData.grade_type == GradeType.EPIC);
-            _characterGradeImageObject_SSR.SetActive(_specCharacterData.grade_type == GradeType.LEGEND);
+            _characterGradeImageObject_SSR.SetActive(_specCharacterData.grade_type == GradeType.LEGENDARY);
 
-            _elementSynergyUI.SetSynergyUI(_specCharacterData.element_type);
-            _classSynergyUI.SetSynergyUI(_specCharacterData.asterism_type);
+            _elementSynergyUI.SetSynergyUI(_specCharacterData.character_element_type);
+            _classSynergyUI.SetSynergyUI(_specCharacterData.character_stella_type);
 
             SetStarObject(_specCharacterData.grade_type);
         }
@@ -190,22 +190,22 @@ namespace CookApps.AutoBattler
 
         private void OnClickElementSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.element_type);
-            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
-            {
-                var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
-            }
+            // var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_element_type);
+            // if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            // {
+            //     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+            //     SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
+            // }
         }
 
         private void OnClickAsterismSynergyButton()
         {
-            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.asterism_type);
-            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
-            {
-                var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
-            }
+            // var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.asterism_type);
+            // if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            // {
+            //     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
+            //     SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
+            // }
         }
 
 

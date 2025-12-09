@@ -21,13 +21,12 @@ namespace CookApps.AutoBattler
             Count = countValue;
         }
 
-        public Reward ToGrpcReward()
+        public Tech.Hive.V1.Reward ToGrpcReward()
         {
-            return new Reward
+            return new Tech.Hive.V1.Reward
             {
-                RewardType = (int)Type,
-                RewardKey = Key,
-                RewardCount = Count,
+                ItemId = (uint)Key,
+                Count = (ulong)Count
             };
         }
     }

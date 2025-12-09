@@ -10,7 +10,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeCommanderSkill300003 : EffectCodeCommanderSkillBase
     {
-        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_AIRBORNE;
+        private const int CodeId = 300003; // (int)EffectCodeNameType.COMMANDER_SKILL_AIRBORNE;
         private ObfuscatorFloat _time;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -92,7 +92,7 @@ namespace CookApps.BattleSystem
                 }
             }
         }
-        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        public override InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
             var enemyCharacterList = inGameObjectManagerInstance.GetCharacterListSortedByADDescending(AllianceType.Enemy, false);

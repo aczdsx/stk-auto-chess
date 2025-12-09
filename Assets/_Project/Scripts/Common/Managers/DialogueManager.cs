@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
                     break;
                 case DialogueEventType.GUIDE_START:
                     var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-                    var specGuideMissionData = SpecDataManager.Instance.SpecGuideMission.Get(userGuideMissionData.MissionId);
+                    var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(userGuideMissionData.MissionId);
                     if (specGuideMissionData.id.ToString().Equals(subKeyValue))
                     {
                         SceneUILayerManager.Instance.PushUILayerAsync<DialoguePopup>((dialogueGroupID, onComplete)).Forget();

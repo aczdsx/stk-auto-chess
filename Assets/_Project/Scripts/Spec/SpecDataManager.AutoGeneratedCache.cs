@@ -8,107 +8,77 @@ namespace CookApps.AutoBattler
 {
 	public partial class SpecDataManager
 	{
-		public List<SpecOption> SpecOptionList {get; private set;}
-		public List<SpecAccountLevelExp> SpecAccountLevelExpList {get; private set;}
-		public List<SpecChapter> SpecChapterList {get; private set;}
-		public List<SpecCharacter> SpecCharacterList {get; private set;}
-		public List<SpecCharacterLevelExp> SpecCharacterLevelExpList {get; private set;}
-		public List<SpecCharacterTranscendence> SpecCharacterTranscendenceList {get; private set;}
-		public List<SpecCharacterEnhance> SpecCharacterEnhanceList {get; private set;}
-		public List<SpecCharacterQuotes> SpecCharacterQuotesList {get; private set;}
-		public List<SpecChapterRule> SpecChapterRuleList {get; private set;}
-		public List<SpecCommanderSkill> SpecCommanderSkillList {get; private set;}
-		public List<SpecDialogue> SpecDialogueList {get; private set;}
-		public List<SpecTutorialDialogue> SpecTutorialDialogueList {get; private set;}
-		public List<SpecDungeonTrial> SpecDungeonTrialList {get; private set;}
-		public List<SpecDungeonMonster> SpecDungeonMonsterList {get; private set;}
-		public List<SpecDungeonReward> SpecDungeonRewardList {get; private set;}
-		public List<SpecEvent> SpecEventList {get; private set;}
-		public List<SpecEventCondition> SpecEventConditionList {get; private set;}
-		public List<SpecLanguage> SpecLanguageList {get; private set;}
-		public List<SpecGameConfig> SpecGameConfigList {get; private set;}
-		public List<SpecGacha> SpecGachaList {get; private set;}
-		public List<SpecGachaContent> SpecGachaContentList {get; private set;}
-		public List<SpecGachaScenario> SpecGachaScenarioList {get; private set;}
-		public List<SpecGuideMission> SpecGuideMissionList {get; private set;}
-		public List<SpecQuest> SpecQuestList {get; private set;}
-		public List<SpecStage> SpecStageList {get; private set;}
-		public List<SpecStageMonster> SpecStageMonsterList {get; private set;}
-		public List<SpecTileEffectCode> SpecTileEffectCodeList {get; private set;}
-		public List<SpecSkill> SpecSkillList {get; private set;}
-		public List<SpecPositionPassive> SpecPositionPassiveList {get; private set;}
-		public List<SpecPassive> SpecPassiveList {get; private set;}
-		public List<SpecStageReward> SpecStageRewardList {get; private set;}
-		public List<SpecUserGrade> SpecUserGradeList {get; private set;}
-		public List<SpecSynergy> SpecSynergyList {get; private set;}
-		public List<SpecShop> SpecShopList {get; private set;}
-		public List<SpecShopBanner> SpecShopBannerList {get; private set;}
-		public List<SpecTutorial> SpecTutorialList {get; private set;}
-		public List<SpecItem> SpecItemList {get; private set;}
-		public List<SpecIdleReward> SpecIdleRewardList {get; private set;}
-		public List<SpecInGameVfx> SpecInGameVfxList {get; private set;}
-		public List<SpecRewardInfo> SpecRewardInfoList {get; private set;}
-		public List<SpecObstacle> SpecObstacleList {get; private set;}
-		public List<SpecOpenCondition> SpecOpenConditionList {get; private set;}
-		public List<SpecPVPTier> SpecPVPTierList {get; private set;}
-		public List<SpecPvpReward> SpecPvpRewardList {get; private set;}
-		public List<SpecPVPRanking> SpecPVPRankingList {get; private set;}
-		public List<SpecPVPConfig> SpecPVPConfigList {get; private set;}
-		public List<SpecReward> SpecRewardList {get; private set;}
-		public List<SpecPVPDummy> SpecPVPDummyList {get; private set;}
-		public List<SpecImageInfo> SpecImageInfoList {get; private set;}
+		public List<AccountLevelExp> SpecAccountLevelExpList {get; private set;}
+		public List<ChapterInfo> SpecChapterList {get; private set;}
+		public List<CharacterInfo> SpecCharacterList {get; private set;}
+		public List<CharacterLevelExp> SpecCharacterLevelExpList {get; private set;}
+		public List<CharacterTranscendence> SpecCharacterTranscendenceList {get; private set;}
+		public List<CharacterEnhance> SpecCharacterEnhanceList {get; private set;}
+		public List<CharacterQuotes> SpecCharacterQuotesList {get; private set;}
+		public List<ChapterRule> SpecChapterRuleList {get; private set;}
+		public List<SkillCommander> SpecCommanderSkillList {get; private set;}
+		public List<DialogueLanguage> SpecDialogueList {get; private set;}
+		public List<TutorialDialogue> SpecTutorialDialogueList {get; private set;}
+		public List<DungeonBabelInfo> SpecDungeonTrialList {get; private set;}
+		public List<DungeonBabelMonster> SpecDungeonMonsterList {get; private set;}
+		public List<DungeonBabelReward> SpecDungeonRewardList {get; private set;}
+		public List<EventInfo> SpecEventList {get; private set;}
+		public List<EventCondition> SpecEventConditionList {get; private set;}
+		public List<Language> SpecLanguageList {get; private set;}
+		public List<ConfigGame> SpecGameConfigList {get; private set;}
+		public List<GachaInfo> SpecGachaList {get; private set;}
+		public List<GachaCharacter> SpecGachaContentList {get; private set;}
+		public List<GachaScenario> SpecGachaScenarioList {get; private set;}
+		public List<GuideMissionInfo> SpecGuideMissionList {get; private set;}
+		public List<QuestInfo> SpecQuestList {get; private set;}
+		public List<StageInfo> SpecStageList {get; private set;}
+		public List<StageMonster> SpecStageMonsterList {get; private set;}
+		public List<TileEffectCode> SpecTileEffectCodeList {get; private set;}
+		public List<SkillActive> SkillActiveList {get; private set;}
+		public List<ShopInfo> SpecShopList {get; private set;}
+		public List<ShopBanner> SpecShopBannerList {get; private set;}
+		public List<Item> SpecItemList {get; private set;}
+		public List<IdleReward> SpecIdleRewardList {get; private set;}
+		public List<RewardInfo> SpecRewardInfoList {get; private set;}
+		public List<OpenCondition> SpecOpenConditionList {get; private set;}
+		public List<ImageInfo> SpecImageInfoList {get; private set;}
 
 		private void GenerateCacheSpecData()
 		{
-			SpecOptionList = SpecOption.All.ToList();
-			SpecAccountLevelExpList = SpecAccountLevelExp.All.ToList();
-			SpecChapterList = SpecChapter.All.ToList();
-			SpecCharacterList = SpecCharacter.All.ToList();
-			SpecCharacterLevelExpList = SpecCharacterLevelExp.All.ToList();
-			SpecCharacterTranscendenceList = SpecCharacterTranscendence.All.ToList();
-			SpecCharacterEnhanceList = SpecCharacterEnhance.All.ToList();
-			SpecCharacterQuotesList = SpecCharacterQuotes.All.ToList();
-			SpecChapterRuleList = SpecChapterRule.All.ToList();
-			SpecCommanderSkillList = SpecCommanderSkill.All.ToList();
-			SpecDialogueList = SpecDialogue.All.ToList();
-			SpecTutorialDialogueList = SpecTutorialDialogue.All.ToList();
-			SpecDungeonTrialList = SpecDungeonTrial.All.ToList();
-			SpecDungeonMonsterList = SpecDungeonMonster.All.ToList();
-			SpecDungeonRewardList = SpecDungeonReward.All.ToList();
-			SpecEventList = SpecEvent.All.ToList();
-			SpecEventConditionList = SpecEventCondition.All.ToList();
-			SpecLanguageList = SpecLanguage.All.ToList();
-			SpecGameConfigList = SpecGameConfig.All.ToList();
-			SpecGachaList = SpecGacha.All.ToList();
-			SpecGachaContentList = SpecGachaContent.All.ToList();
-			SpecGachaScenarioList = SpecGachaScenario.All.ToList();
-			SpecGuideMissionList = SpecGuideMission.All.ToList();
-			SpecQuestList = SpecQuest.All.ToList();
-			SpecStageList = SpecStage.All.ToList();
-			SpecStageMonsterList = SpecStageMonster.All.ToList();
-			SpecTileEffectCodeList = SpecTileEffectCode.All.ToList();
-			SpecSkillList = SpecSkill.All.ToList();
-			SpecPositionPassiveList = SpecPositionPassive.All.ToList();
-			SpecPassiveList = SpecPassive.All.ToList();
-			SpecStageRewardList = SpecStageReward.All.ToList();
-			SpecUserGradeList = SpecUserGrade.All.ToList();
-			SpecSynergyList = SpecSynergy.All.ToList();
-			SpecShopList = SpecShop.All.ToList();
-			SpecShopBannerList = SpecShopBanner.All.ToList();
-			SpecTutorialList = SpecTutorial.All.ToList();
-			SpecItemList = SpecItem.All.ToList();
-			SpecIdleRewardList = SpecIdleReward.All.ToList();
-			SpecInGameVfxList = SpecInGameVfx.All.ToList();
-			SpecRewardInfoList = SpecRewardInfo.All.ToList();
-			SpecObstacleList = SpecObstacle.All.ToList();
-			SpecOpenConditionList = SpecOpenCondition.All.ToList();
-			SpecPVPTierList = SpecPVPTier.All.ToList();
-			SpecPvpRewardList = SpecPvpReward.All.ToList();
-			SpecPVPRankingList = SpecPVPRanking.All.ToList();
-			SpecPVPConfigList = SpecPVPConfig.All.ToList();
-			SpecRewardList = SpecReward.All.ToList();
-			SpecPVPDummyList = SpecPVPDummy.All.ToList();
-			SpecImageInfoList = SpecImageInfo.All.ToList();
+			SpecAccountLevelExpList = AccountLevelExp.All.ToList();
+			SpecChapterList = ChapterInfo.All.ToList();
+			SpecCharacterList = CharacterInfo.All.ToList();
+			SpecCharacterLevelExpList = CharacterLevelExp.All.ToList();
+			SpecCharacterTranscendenceList = CharacterTranscendence.All.ToList();
+			SpecCharacterEnhanceList = CharacterEnhance.All.ToList();
+			SpecCharacterQuotesList = CharacterQuotes.All.ToList();
+			SpecChapterRuleList = ChapterRule.All.ToList();
+			SpecCommanderSkillList = SkillCommander.All.ToList();
+			SpecDialogueList = DialogueLanguage.All.ToList();
+			SpecTutorialDialogueList = TutorialDialogue.All.ToList();
+			SpecDungeonTrialList = DungeonBabelInfo.All.ToList();
+			SpecDungeonMonsterList = DungeonBabelMonster.All.ToList();
+			SpecDungeonRewardList = DungeonBabelReward.All.ToList();
+			SpecEventList = EventInfo.All.ToList();
+			SpecEventConditionList = EventCondition.All.ToList();
+			SpecLanguageList = Language.All.ToList();
+			SpecGameConfigList = ConfigGame.All.ToList();
+			SpecGachaList = GachaInfo.All.ToList();
+			SpecGachaContentList = GachaCharacter.All.ToList();
+			SpecGachaScenarioList = GachaScenario.All.ToList();
+			SpecGuideMissionList = GuideMissionInfo.All.ToList();
+			SpecQuestList = QuestInfo.All.ToList();
+			SpecStageList = StageInfo.All.ToList();
+			SpecStageMonsterList = StageMonster.All.ToList();
+			SpecTileEffectCodeList = TileEffectCode.All.ToList();
+			SkillActiveList = SkillActive.All.ToList();
+			SpecShopList = ShopInfo.All.ToList();
+			SpecShopBannerList = ShopBanner.All.ToList();
+			SpecItemList = Item.All.ToList();
+			SpecIdleRewardList = IdleReward.All.ToList();
+			SpecRewardInfoList = RewardInfo.All.ToList();
+			SpecOpenConditionList = OpenCondition.All.ToList();
+			SpecImageInfoList = ImageInfo.All.ToList();
 		}
 	}
 }

@@ -7,6 +7,7 @@
 namespace CookApps.AutoBattler
 {
 
+    /// #SheetIndex
     public enum EffectCodeNameType
     {
         NONE = 0,
@@ -30,6 +31,10 @@ namespace CookApps.AutoBattler
         MOVESPEED_PERCENT_UP = 18,
         VIEW_SCALE_UP = 19,
         PURE_DAMAGE_PROB_UP = 20,
+        CRIT_RATE_PERCENT_UP = 21,
+        CRIT_POWER_PERCENT_UP = 22,
+        ATK_SPEED_PERCENT_UP = 23,
+        ITEM_SUPERNOVA = 100,
         COMMANDER_SKILL_EXPLOSION = 300001,
         COMMANDER_SKILL_FREEZING = 300002,
         COMMANDER_SKILL_AIRBORNE = 300003,
@@ -45,6 +50,8 @@ namespace CookApps.AutoBattler
         PASSIVE_PIERCE = 3100006,
         PASSIVE_RECOVERY = 3100007,
         TILE_BURN = 1000000001,
+        DAMAGE = 1000000002,
+        MAX_HP_DAMAGE = 1000000003,
         STUN = 1100000001,
         SHIELD = 1100000002,
         KNOCKBACK = 1100000003,
@@ -61,6 +68,13 @@ namespace CookApps.AutoBattler
         RULE_AD = 1210000001,
         RULE_DEF = 1210000002,
         RULE_AP = 1210000003,
+        JOBS_BRAVE = 1300000001,
+        JOBS_ENDURE = 1300000002,
+        JOBS_PIERCE = 1300000003,
+        JOBS_ESPER = 1300000004,
+        JOBS_RECOVERY = 1300000005,
+        JOBS_AMBUSH = 1300000006,
+        JOBS_CRITICAL_STACK = 1300000007,
         BUFF_AD_UP = 2000000001,
         BUFF_AD_PERCENT_UP = 2000000002,
         BUFF_AP_UP = 2000000003,
@@ -77,13 +91,12 @@ namespace CookApps.AutoBattler
         BUFF_HP_RECOVERY_PERCENT_UP = 2000000014,
         BUFF_MOVESPEED_UP = 2000000015,
         BUFF_MOVESPEED_PERCENT_UP = 2000000016,
-        BUFF_CRIT_RATE_UP = 2000000017,
-        BUFF_DAMAGE_REDUCE_UP = 2000000018,
-        BUFF_COOL_DOWN_SPEED_PERCENT_UP = 2000000019,
-        BUFF_ATK_SPEED_UP = 2000000020,
-        BUFF_SKILL_POWER_UP = 2000000021,
-        BUFF_IMMUNE = 2000000022,
-        BUFF_NORMAL_ATTACK_SHIELD = 2000000023,
+        BUFF_DAMAGE_REDUCE_UP = 2000000017,
+        BUFF_COOL_DOWN_SPEED_PERCENT_UP = 2000000018,
+        BUFF_ATK_SPEED_UP = 2000000019,
+        BUFF_SKILL_POWER_UP = 2000000020,
+        BUFF_IMMUNE = 2000000021,
+        BUFF_NORMAL_ATTACK_SHIELD = 2000000022,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -95,15 +108,24 @@ namespace CookApps.AutoBattler
         DEBUFF_DEF_PERCENT_DOWN = 2100000009,
         DEBUFF_HEAL_RATE_DOWN = 2100000010,
         DEBUFF_MISA = 2100000011,
+        DEBUFF_FREEZING = 2100000012,
+        DEBUFF_SLOW = 2100000013,
+        DEBUFF_AP_PERCENT_DOWN = 2100000014,
+        DEBUFF_RES_PERCENT_DOWN = 2100000015,
     }
 
     public enum GradeType
     {
+        UNCOMMON = 0,
         COMMON = 1,
-        RARE = 2,
-        EPIC = 3,
-        LEGEND = 4,
-        ANCIENT = 5,
+        NORMAL = 2,
+        MAGIC = 3,
+        RARE = 4,
+        EPIC = 5,
+        UNIQUE = 6,
+        LEGENDARY = 7,
+        ANCIENT = 8,
+        MYTHIC = 9,
     }
 
     public enum ItemType
@@ -119,40 +141,50 @@ namespace CookApps.AutoBattler
         CHAR_USER_EXP_ITEM = 8,
         CHARACTER = 9,
         CHARACTER_PIECE = 10,
-        CHAR_USER_EXP_ITEM_2 = 11,
+        CHAR_USER_EXCEED = 11,
         KNIGHT_PIECE = 12,
         PVP_TICKET = 13,
         OBSTACLE = 14,
+        CHAR_USER_EXP_ITEM_2 = 15,
     }
 
-    public enum SynergyType
+    public enum ElementType
     {
         NONE = 0,
-        EARTH = 1,
-        WIND = 2,
-        WATER = 3,
-        FIRE = 4,
-        DARK = 5,
-        LIGHT = 6,
-        MACHINE = 7,
-        GUARDIAN = 8,
-        TANK = 9,
-        WIZARD = 10,
-        RANGER = 11,
-        ASSASSIN = 12,
-        SUPPORTER = 13,
-        NOBLESSE = 14,
+        NORMAL = 1,
+        FIRE = 2,
+        WIND = 3,
+        LIGHTNING = 4,
+        EARTH = 5,
+        WATER = 6,
     }
 
-    public enum PositionType
+    public enum CharacterPositionType
     {
         NONE = 0,
-        STRIKER = 1,
-        GUARDIAN = 2,
-        SHARPSHOOTER = 3,
-        ESPER = 4,
-        ORACLE = 5,
-        GHOST = 6,
+        GUARDIAN = 1,
+        TANK = 2,
+        WIZARD = 3,
+        RANGER = 4,
+        ASSASSIN = 5,
+        SUPPORTER = 6,
+        ESPER = 7,
+        SHARPSHOOTER = 8,
+        GHOST = 9,
+        ORACLE = 10,
+        ELECTRIC = 11,
+        STRIKER = 12,
+    }
+
+    public enum CharacterStellaType
+    {
+        NONE = 0,
+        NOBLESSE = 1,
+        TROUBLESHOOTER = 2,
+        SUPERNOVA = 3,
+        SCIENCE = 4,
+        ZODIAC = 5,
+        DEATH = 6,
     }
 
     public enum AttackRangeShape
@@ -167,9 +199,9 @@ namespace CookApps.AutoBattler
 
     public enum DifficultyType
     {
-        NONE = 1,
-        NORMAL = 2,
-        HARD = 3,
+        NORMAL = 1,
+        HARD = 2,
+        NONE = 3,
     }
 
     public enum StageType
@@ -182,11 +214,13 @@ namespace CookApps.AutoBattler
 
     public enum CharacterType
     {
-        NORMAL = 1,
-        ELITE = 2,
-        BOSS = 3,
-        CHARACTER = 4,
-        OBSTACLE = 5,
+        CHARACTER = 1,
+        SKIN = 2,
+        MONSTER = 3,
+        ELETE = 4,
+        BOSS = 5,
+        NPC = 6,
+        OBSTACLE = 7,
     }
 
     public enum ContentType
@@ -194,9 +228,10 @@ namespace CookApps.AutoBattler
         STAGE = 1,
         CHAPTER = 2,
         DUNGEON = 3,
-        ACCOUNT_LV_EXP = 4,
+        ACINT_LV_EXP = 4,
         STAGE_STAR = 5,
         END_DIALOGUE = 6,
+        ACCOUNT_LV_EXP = 7,
     }
 
     public enum TutorialEventType
@@ -249,6 +284,8 @@ namespace CookApps.AutoBattler
         NONE = 1,
         NORMAL = 2,
         WEAPON = 3,
+        PASSIVE = 4,
+        ACTIVE = 5,
     }
 
     public enum QuotesType
@@ -365,129 +402,135 @@ namespace CookApps.AutoBattler
         fx_common_trap_hold_01 = 65,
         fx_common_trap_hold_02 = 66,
         Skill_101031 = 67,
-        Skill_103011 = 68,
-        Skill_104011 = 69,
-        Skill_104011_1 = 70,
-        Skill_104021 = 71,
-        Skill_106011 = 72,
-        Skill_202011 = 73,
-        Skill_202021 = 74,
-        Skill_203011 = 75,
-        Skill_204011 = 76,
-        Skill_205011 = 77,
-        fx_common_chapter1 = 78,
-        fx_common_commander_skill_01 = 79,
-        Skill_102021 = 80,
-        fx_common_commander_skill_02 = 81,
-        fx_common_trap_fire = 82,
-        fx_common_trap_ice_01 = 83,
-        fx_common_trap_ice_02 = 84,
-        Skill_101021 = 85,
-        Skill_104021_1 = 86,
-        fx_common_synergy_water = 87,
-        fx_common_synergy_fire = 88,
-        fx_common_synergy_darkness = 89,
-        Skill_102031 = 90,
-        Skill_201011 = 91,
-        Skill_202031 = 92,
-        fx_common_area_landing = 93,
-        fx_common_debuff_silence = 94,
-        fx_common_hit_03 = 95,
-        fx_common_bufftrap_ad = 96,
-        fx_common_bufftrap_ap = 97,
-        fx_common_bufftrap_defense = 98,
-        fx_common_synergy_lightning_01 = 99,
-        fx_common_synergy_ground = 100,
-        fx_common_synergy_wind = 101,
-        fx_common_commander_skill_03 = 102,
-        fx_common_commander_skill_04 = 103,
-        fx_common_commander_skill_05 = 104,
-        fx_common_commander_skill_06_01 = 105,
-        fx_common_commander_skill_06_02 = 106,
-        fx_common_buff_apup = 107,
-        fx_common_buff_apup_01 = 108,
-        fx_common_buff_dfup = 109,
-        fx_common_buff_dfup_01 = 110,
-        fx_common_debuff_dfdown = 111,
-        fx_common_debuff_dfdown_01 = 112,
-        fx_common_debuff_healdown = 113,
-        fx_common_debuff_healdown_01 = 114,
-        fx_common_buff_provoke = 115,
-        fx_common_buff_provoke_01 = 116,
-        fx_common_buff_apdfup_01 = 117,
-        fx_common_buff_apdfup_02 = 118,
-        fx_common_buff_immune_01 = 119,
-        fx_common_buff_immune_02 = 120,
-        Skill_101041 = 121,
-        Skill_101051 = 122,
-        Skill_101061 = 123,
-        Skill_201031 = 124,
-        Skill_201031_1 = 125,
-        Skill_201031_2 = 126,
-        Skill_201031_3 = 127,
-        Skill_102041 = 128,
-        Skill_102051 = 129,
-        Skill_102061 = 130,
-        Skill_103021 = 131,
-        Skill_103031 = 132,
-        Skill_103041 = 133,
-        Skill_104031 = 134,
-        Skill_104061 = 135,
-        Skill_104071 = 136,
-        Skill_104081 = 137,
-        Skill_105011 = 138,
-        Skill_105021 = 139,
-        Skill_105031 = 140,
-        Skill_106021 = 141,
-        Skill_106031 = 142,
-        Skill_106041 = 143,
-        Skill_203021 = 144,
-        Skill_202051 = 145,
-        Skill_202051_1 = 146,
-        Skill_202061 = 147,
-        Skill_202071 = 148,
-        Skill_202081 = 149,
-        Skill_202091 = 150,
-        Skill_401021 = 151,
-        Skill_302021 = 152,
-        Skill_402011 = 153,
-        Skill_402021 = 154,
-        Skill_403021 = 155,
-        Skill_404011 = 156,
-        Skill_404031 = 157,
-        Skill_204031 = 158,
-        Skill_204032 = 159,
-        Skill_204033 = 160,
-        Skill_204041 = 161,
-        Skill_204042 = 162,
-        Skill_204043 = 163,
-        Skill_204051 = 164,
-        Skill_204052 = 165,
-        Skill_204053 = 166,
-        Skill_405011 = 167,
-        Skill_406021 = 168,
-        Skill_406031 = 169,
-        fx_common_cast_wind = 170,
-        fx_common_area_wind = 171,
-        Skill_401021_1 = 172,
-        Skill_406021_1 = 173,
-        Skill_404031_1 = 174,
-        fx_common_trap_airborne = 175,
-        Skill_405011_1 = 176,
-        TargetLineRenderer = 177,
-        Skill_402011_1 = 178,
-        fx_common_debuff_misa_01 = 179,
-        fx_common_debuff_misa_02 = 180,
-        DropFx = 181,
-        Skill_202061_1 = 182,
-        fx_common_trap_explosion = 183,
-        fx_common_buff_normal_attack_shield_01 = 184,
-        fx_common_buff_normal_attack_shield_02 = 185,
-        fx_prologue_boss_prepare_01 = 186,
-        fx_prologue_boss_prepare_02 = 187,
-        fx_common_commander_skill_300 = 188,
-        fx_common_synergy_lightning_02 = 189,
-        fx_common_synergy_lightning_03 = 190,
+        Skill_103011 = 69,
+        Skill_104011 = 70,
+        Skill_104011_1 = 71,
+        Skill_104021 = 72,
+        Skill_106011 = 73,
+        Skill_202011 = 74,
+        Skill_202021 = 75,
+        Skill_203011 = 76,
+        Skill_204011 = 77,
+        Skill_205011 = 78,
+        fx_common_chapter1 = 79,
+        fx_common_commander_skill_01 = 80,
+        Skill_102021 = 81,
+        fx_common_trap_fire = 83,
+        fx_common_trap_ice_01 = 84,
+        fx_common_trap_ice_02 = 85,
+        Skill_101021 = 86,
+        Skill_104021_1 = 87,
+        fx_common_synergy_water = 88,
+        fx_common_synergy_fire = 89,
+        fx_common_synergy_darkness = 90,
+        Skill_102031 = 91,
+        Skill_201011 = 92,
+        Skill_202031 = 93,
+        fx_common_area_landing = 94,
+        fx_common_debuff_silence = 95,
+        fx_common_hit_03 = 96,
+        fx_common_bufftrap_ad = 97,
+        fx_common_bufftrap_ap = 98,
+        fx_common_bufftrap_defense = 99,
+        fx_common_synergy_light = 100,
+        fx_common_synergy_ground = 101,
+        fx_common_synergy_wind = 102,
+        fx_common_commander_skill_03 = 103,
+        fx_common_commander_skill_04 = 104,
+        fx_common_commander_skill_05 = 105,
+        fx_common_commander_skill_06_01 = 106,
+        fx_common_commander_skill_06_02 = 107,
+        Projectile_104031 = 108,
+        Projectile_204031 = 109,
+        Projectile_204041 = 110,
+        Projectile_204051 = 111,
+        fx_common_buff_apup = 112,
+        fx_common_buff_apup_01 = 113,
+        fx_common_buff_dfup = 114,
+        fx_common_buff_dfup_01 = 115,
+        fx_common_debuff_dfdown = 116,
+        fx_common_debuff_dfdown_01 = 117,
+        fx_common_debuff_healdown = 118,
+        fx_common_debuff_healdown_01 = 119,
+        fx_common_buff_provoke = 120,
+        fx_common_buff_provoke_01 = 121,
+        fx_common_buff_apdfup_01 = 122,
+        fx_common_buff_apdfup_02 = 123,
+        fx_common_buff_immune_01 = 124,
+        fx_common_buff_immune_02 = 125,
+        Skill_101041 = 126,
+        Skill_101051 = 127,
+        Skill_101061 = 128,
+        Skill_201031 = 129,
+        Skill_201031_1 = 130,
+        Skill_201031_2 = 131,
+        Skill_201031_3 = 132,
+        Skill_102041 = 133,
+        Skill_102051 = 134,
+        Skill_102061 = 135,
+        Skill_103021 = 136,
+        Skill_103031 = 137,
+        Skill_103041 = 138,
+        Skill_104031 = 139,
+        Skill_104061 = 140,
+        Skill_104071 = 141,
+        Skill_104081 = 142,
+        Skill_105011 = 143,
+        Skill_105021 = 144,
+        Skill_105031 = 145,
+        Skill_106021 = 146,
+        Skill_106031 = 147,
+        Skill_106041 = 148,
+        Skill_203021 = 149,
+        Skill_202051 = 150,
+        Skill_202051_1 = 151,
+        Skill_202061 = 152,
+        Skill_202071 = 153,
+        Skill_202081 = 154,
+        Skill_202091 = 155,
+        Skill_401021 = 156,
+        Skill_302021 = 157,
+        Skill_402011 = 158,
+        Skill_402021 = 159,
+        Skill_403021 = 160,
+        Skill_404011 = 161,
+        Skill_404031 = 162,
+        Skill_204031 = 163,
+        Skill_204032 = 164,
+        Skill_204033 = 165,
+        Skill_204041 = 166,
+        Skill_204042 = 167,
+        Skill_204043 = 168,
+        Skill_204051 = 169,
+        Skill_204052 = 170,
+        Skill_204053 = 171,
+        Skill_405011 = 172,
+        Skill_406021 = 173,
+        Skill_406031 = 174,
+        fx_common_cast_wind = 175,
+        fx_common_area_wind = 176,
+        Skill_401021_1 = 177,
+        Skill_406021_1 = 178,
+        Skill_404031_1 = 179,
+        fx_common_trap_airborne = 180,
+        Skill_405011_1 = 181,
+        TargetLineRenderer = 182,
+        Skill_402011_1 = 183,
+        fx_common_debuff_misa_01 = 184,
+        fx_common_debuff_misa_02 = 185,
+        DropFx = 186,
+        Skill_202061_1 = 187,
+        fx_common_commander_skill_02 = 188,
+        fx_common_synergy_lightning_01 = 189,
+        fx_common_trap_explosion = 190,
+        fx_common_buff_normal_attack_shield_01 = 191,
+        fx_common_buff_normal_attack_shield_02 = 192,
+        fx_prologue_boss_prepare_01 = 193,
+        fx_prologue_boss_prepare_02 = 194,
+        fx_common_commander_skill_300 = 195,
+        fx_common_synergy_lightning_02 = 196,
+        fx_common_synergy_lightning_03 = 197,
+        fx_common_cast_supernova_02 = 198,
     }
 
     public enum GlobalEffectProviderType
@@ -524,7 +567,8 @@ namespace CookApps.AutoBattler
 
     public enum DungeonType
     {
-        TRIAL = 1,
+        PURGE = 1,
+        TRIAL = 2,
     }
 
     public enum TrialType
@@ -566,8 +610,7 @@ namespace CookApps.AutoBattler
         PVP = 3,
         PVP_DEFENSE = 4,
         TRIAL_BOSS = 5,
-        TURORIAL = 6,
-        PROLOGUE = 7,
+        PROLOGUE = 6,
     }
 
     public enum UserGradeType
@@ -593,6 +636,26 @@ namespace CookApps.AutoBattler
         WALL = 1,
         NEUTRAL_WALL = 2,
         EFFECT_CODE = 3,
+        SHELTER = 4,
+        TRAP = 5,
+        NONEFIX = 6,
+        BUFFZONE = 7,
+        DEBUFFZONE = 8,
+    }
+
+    public enum ObstacleUseType
+    {
+        OBSTRUCTION = 1,
+        PROTECTION = 2,
+        DISPOSABLE = 3,
+        RENEWAL = 4,
+        PERMANENT = 5,
+    }
+
+    public enum ObstacleLocationType
+    {
+        NONE = 0,
+        ALLIANCE = 1,
     }
 
     public enum OpenConditionType
@@ -611,6 +674,24 @@ namespace CookApps.AutoBattler
         CURRENCY = 1,
         CHARACTER = 2,
         ETC = 3,
+    }
+
+    public enum PromotionLevelType
+    {
+        PROMOTION_DEFAULT = 1,
+        PROMOTION_SPECIAL_1 = 2,
+        PROMOTION_SPECIAL_2 = 3,
+        PROMOTION_SPECIAL_3 = 4,
+        PROMOTION_SPECIAL_4 = 5,
+    }
+
+    public enum CommanderRangeShapeType
+    {
+        SHAPE_PLUS = 1,
+        SHAPE_SINGLE = 2,
+        SHAPE_SQUARE = 3,
+        SHAPE_GARO = 4,
+        SHAPE_SERO = 5,
     }
 
     public enum CommanderTargetType
@@ -690,62 +771,59 @@ namespace CookApps.AutoBattler
         MASK = 4,
     }
 
+    public enum ImmuneType
+    {
+        NOMAL = 0,
+    }
+
+    public enum DialogueSceneType
+    {
+        Chapter = 0,
+    }
+
+    public enum DialogueEventGroup
+    {
+        None = 0,
+        Choice = 1,
+        Character = 2,
+    }
+
+    public enum DialogTransitionType
+    {
+        Dissolve = 0,
+        Crossfade = 1,
+        Slide = 2,
+    }
+
+    public enum DialogueEffectType
+    {
+        None = 0,
+        Shake = 1,
+    }
+
+    public enum SynergyType
+    {
+        NONE = 0,
+        NOBLESSE = 1,
+        TROUBLESHOOTER = 2,
+        SUPERNOVA = 3,
+    }
+
+    public enum SynergyCoverType
+    {
+        NONE = 0,
+        SQUAD_ALL = 1,
+        SQUAD_STELLA = 2,
+        KNIGHT_ALL = 3,
+        SYNERGY_ELEMENTAL = 4,
+        SYNERGY_STELLA = 5,
+    }
+
     public enum AttackerType
     {
         NONE = 0,
         CHARCTER = 1,
         COMMANDER_SKILL = 2,
         CHAPTER_RULE = 3,
-    }
-
-    public enum DialogueEventConditionType
-    {
-        NONE = 0,
-        POPUP_OPEN = 1,
-        POPUP_CLOSE = 2,
-        LOBBY = 3,
-        BATTLE_ENCOUNT = 4,
-        BATTLE_END = 5,
-        SKILL_READY = 6,
-        SKILL_END = 7,
-        CHARACTER_DEAD = 8,
-        TUTORIAL_END = 9,
-        GUIDE_MISSION_START = 10,
-        GUIDE_MISSION_CLEAR = 11,
-    }
-
-    public enum DialogueEventAfterActionType
-    {
-        NONE = 0,
-        NANINOVEL = 1,
-        TUTORIAL = 2,
-        ACTION_SKILL_AFTER = 3,
-    }
-
-    public enum SynergyAffectType
-    {
-        APPLY_IF_MYSYNERGY = 0,
-        APPLY_ALL_MEMBER = 1,
-        APPLY_OTHER_TEAM_ONCE = 2,
-    }
-
-    public enum PromotionLevelType
-    {
-        PROMOTION_DEFAULT = 0,
-        PROMOTION_SPECIAL_1 = 1,
-        PROMOTION_SPECIAL_2 = 2,
-        PROMOTION_SPECIAL_3 = 3,
-        PROMOTION_SPECIAL_4 = 4,
-    }
-
-    public enum CommanderRangeShapeType
-    {
-        SHAPE_NONE = 0,
-        SHAPE_X = 1,
-        SHAPE_SQUARE = 2,
-        SHAPE_GARO = 3,
-        SHAPE_SERO = 4,
-        SHAPE_PLUS = 5,
-        SHAPE_SINGLE = 6,
     }
 }

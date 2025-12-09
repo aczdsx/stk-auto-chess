@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _characterSynergyUI1;
         [SerializeField] private SynergyUI _characterSynergyUI2;
 
-        private SpecItem _specItemData;
+        private Item _specItemData;
         private int _rewardKey;
         
         protected override void Awake()
@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
             
-            (_specItemData, _rewardKey) = ((SpecItem, int))param;
+            (_specItemData, _rewardKey) = ((Item, int))param;
 
             SetTooltipPopup();
         }
@@ -72,8 +72,8 @@ namespace CookApps.AutoBattler
                 _characterIconImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id);
                 _itemNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
                 _itemDescText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.desc_token);
-                _characterSynergyUI1.SetSynergyUI(specCharacterData.element_type);
-                _characterSynergyUI2.SetSynergyUI(specCharacterData.asterism_type);
+                _characterSynergyUI1.SetSynergyUI(specCharacterData.character_element_type);
+                _characterSynergyUI2.SetSynergyUI(specCharacterData.character_stella_type);
             }
             else
             {

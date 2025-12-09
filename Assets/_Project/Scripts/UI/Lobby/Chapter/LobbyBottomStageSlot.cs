@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _bossStageTitleText;
         [SerializeField] private List<GameObject> _bossStarObjectList;
 
-        private SpecStage _specStageData;
+        private StageInfo _specStageData;
         private UserStage _userStageData;
 
         private bool _isClearStage;     // 클리어 한 스테이지 여부 체크용
@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
             _bottomStageSlotButton.onClick.RemoveListener(OnClickBottomStageSlot);
         }
 
-        public void SetStageItemSlot(SpecStage data, bool isCurrentStage)
+        public void SetStageItemSlot(StageInfo data, bool isCurrentStage)
         {
             if (data == null) return;
 

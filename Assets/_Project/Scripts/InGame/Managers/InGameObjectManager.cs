@@ -181,14 +181,14 @@ namespace CookApps.BattleSystem
             {
                 foreach (var character in targetList)
                 {
-                    value += character.GetCharacterStat().Spec.element_type == synergyType ? 1 : 0;
+                    // value += character.GetCharacterStat().Spec.character_element_type == synergyType ? 1 : 0;
                 }
             }
             else if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType))
             {
                 foreach (var character in targetList)
                 {
-                    value += character.GetCharacterStat().Spec.asterism_type == synergyType ? 1 : 0;
+                    value += character.GetCharacterStat().Spec.character_stella_type == synergyType ? 1 : 0;
                 }
             }
             return value;
@@ -721,12 +721,12 @@ namespace CookApps.BattleSystem
 
         public CharacterController GetTargetOnceByPositionType(CharacterController pivot)
         {
-            var pivotPositionType = pivot.GetCharacterStat().Spec.position_type;
-            if (pivotPositionType == PositionType.GHOST)
+            var pivotPositionType = pivot.GetCharacterStat().Spec.character_position_type;
+            if (pivotPositionType == CharacterPositionType.GHOST)
             {
                 return GetFarthestTargetByOnce(pivot);
             }
-            else if (pivotPositionType == PositionType.ORACLE)
+            else if (pivotPositionType == CharacterPositionType.ORACLE)
             {
                 return GetLowestHPOurTeam(pivot);
             }
@@ -901,7 +901,7 @@ namespace CookApps.BattleSystem
             return attrValue;
         }
 
-        public void SpawnSynergyFx(AllianceType type, SynergyType elementType)
+        public void SpawnSynergyFx(AllianceType type, ElementType elementType)
         {
             List<CharacterController> targetList = (type == AllianceType.Player)
                 ? charactersInPlaygroundForUpdate
@@ -910,32 +910,32 @@ namespace CookApps.BattleSystem
             foreach (var character in targetList)
             {
                 InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
-                if (elementType == SynergyType.FIRE)
+                if (elementType == ElementType.FIRE)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
                 }
-                else if (elementType == SynergyType.WATER)
+                else if (elementType == ElementType.WATER)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
                 }
-                else if (elementType == SynergyType.DARK)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
-                }
-                else if (elementType == SynergyType.LIGHT)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
-                }
-                else if (elementType == SynergyType.EARTH)
+                // else if (elementType == ElementType.DARK)
+                // {
+                //     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
+                // }
+                // else if (elementType == ElementType.LIGHT)
+                // {
+                //     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
+                // }
+                else if (elementType == ElementType.EARTH)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
                 }
-                else if (elementType == SynergyType.WIND)
+                else if (elementType == ElementType.WIND)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
                 }
 
-                if (character.SpecCharacter.element_type == elementType)
+                if (character.SpecCharacter.character_element_type == elementType)
                 {
                     _synergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
                         character.GetCharacterView().CachedTr));

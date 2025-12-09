@@ -110,82 +110,82 @@ namespace CookApps.BattleSystem
             return effect;
         }
 
-        public InGameVfx AddInGameTileFx(SynergyType elementType, InGameTile inGameTile)
+        public InGameVfx AddInGameTileFx(ElementType elementType, InGameTile inGameTile)
         {
             if (inGameTile.View.IsAlphaBoard)
                 return null;
             
-            InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
-            if (elementType == SynergyType.DARK)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_area_darkness;
-            }
-            else if (elementType == SynergyType.FIRE)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_area_fire;
-            }
-            else if (elementType == SynergyType.WIND)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_area_wind;
-            }
-            else if (elementType == SynergyType.LIGHT)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_area_light;
-            }
-            else if (elementType == SynergyType.EARTH)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_area_earth;
-            }
-            else if (elementType == SynergyType.WATER)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_area_water;
-            }
-
-            if (vfxNameType != InGameVfxNameType.NONE)
-            {
-                var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
-                addWaitingInGameVfxs.Enqueue(effect);
-                effect.CachedTr.position = inGameTile.View.CachedTr.position;
-                return effect;
-            }
+            // InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
+            // if (elementType == SynergyType.DARK)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_area_darkness;
+            // }
+            // else if (elementType == SynergyType.FIRE)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_area_fire;
+            // }
+            // else if (elementType == SynergyType.WIND)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_area_wind;
+            // }
+            // else if (elementType == SynergyType.LIGHT)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_area_light;
+            // }
+            // else if (elementType == SynergyType.EARTH)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_area_earth;
+            // }
+            // else if (elementType == SynergyType.WATER)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_area_water;
+            // }
+            //
+            // if (vfxNameType != InGameVfxNameType.NONE)
+            // {
+            //     var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
+            //     addWaitingInGameVfxs.Enqueue(effect);
+            //     effect.CachedTr.position = inGameTile.View.CachedTr.position;
+            //     return effect;
+            // }
             return null;
         }
 
-        public InGameVfx AddInGamePreSkillActionFx(SynergyType elementType, Vector3 worldPosition)
+        public InGameVfx AddInGamePreSkillActionFx(ElementType elementType, Vector3 worldPosition)
         {
             InGameVfxNameType vfxNameType = InGameVfxNameType.NONE;
-            if (elementType == SynergyType.DARK)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_cast_darkness;
-            }
-            else if (elementType == SynergyType.FIRE)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_cast_fire;
-            }
-            else if (elementType == SynergyType.WIND)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_cast_wind;
-            }
-            else if (elementType == SynergyType.LIGHT)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_cast_light;
-            }
-            else if (elementType == SynergyType.EARTH)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_cast_earth;
-            }
-            else if (elementType == SynergyType.WATER)
-            {
-                vfxNameType = InGameVfxNameType.fx_common_cast_water;
-            }
-
-            if (vfxNameType != InGameVfxNameType.NONE)
-            {
-                var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
-                addWaitingInGameVfxs.Enqueue(effect);
-                effect.CachedTr.position = worldPosition;
-                return effect;
-            }
+            // if (elementType == SynergyType.DARK)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_cast_darkness;
+            // }
+            // else if (elementType == SynergyType.FIRE)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_cast_fire;
+            // }
+            // else if (elementType == SynergyType.WIND)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_cast_wind;
+            // }
+            // else if (elementType == SynergyType.LIGHT)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_cast_light;
+            // }
+            // else if (elementType == SynergyType.EARTH)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_cast_earth;
+            // }
+            // else if (elementType == SynergyType.WATER)
+            // {
+            //     vfxNameType = InGameVfxNameType.fx_common_cast_water;
+            // }
+            //
+            // if (vfxNameType != InGameVfxNameType.NONE)
+            // {
+            //     var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
+            //     addWaitingInGameVfxs.Enqueue(effect);
+            //     effect.CachedTr.position = worldPosition;
+            //     return effect;
+            // }
             return null;
         }
 

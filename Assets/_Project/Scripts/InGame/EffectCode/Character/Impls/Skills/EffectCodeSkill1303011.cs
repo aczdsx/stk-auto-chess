@@ -22,7 +22,7 @@ public partial class EffectCodeSkill1303011 : EffectCodeCharacterBase
 
     private bool _isReadyToActivate;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
     private List<CharacterController> _hitCharacters = new List<CharacterController>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -97,7 +97,7 @@ public partial class EffectCodeSkill1303011 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -110,7 +110,7 @@ public partial class EffectCodeSkill1303011 : EffectCodeCharacterBase
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.Target.CurrentTile, 1);
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
         }
 
         AfterAction(inGameTiles, 0.8f).Forget();
@@ -140,7 +140,7 @@ public partial class EffectCodeSkill1303011 : EffectCodeCharacterBase
             List<int> targetCharacterList = new();
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
 
                 if (tile.CheckValidTile(owner.AllianceType, false))
                 {
@@ -151,7 +151,7 @@ public partial class EffectCodeSkill1303011 : EffectCodeCharacterBase
                             tile.OccupiedCharacter.SkillRootTransformFollowable);
                 
                         float calculatedDamageRate = _damageRate;
-                        if (tile.OccupiedCharacter.GetCharacterStat().Spec.element_type == SynergyType.FIRE)
+                        if (tile.OccupiedCharacter.GetCharacterStat().Spec.character_element_type == ElementType.FIRE)
                             calculatedDamageRate += _additionalDamageRate;
 
                         var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,

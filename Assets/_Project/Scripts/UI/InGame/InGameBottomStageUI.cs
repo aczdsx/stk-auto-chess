@@ -31,7 +31,7 @@ public class InGameBottomStageUI : InGameBottomUI
         }
 
         // 전투 인원 최대 인원 미배치 검사
-        var userGrade = SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        var userGrade = SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count < userGrade.maximum_character_count)
         {
             bool isAvailableCharacter = _characterItemList.Exists(l => l.StatData != null);

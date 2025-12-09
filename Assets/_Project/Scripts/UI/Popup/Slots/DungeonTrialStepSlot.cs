@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
 
         private DungeonTrialPopup _parentPopup;
 
-        private SpecDungeonTrial _specDungeonData;
+        private DungeonBabelInfo _specDungeonData;
         private UserTrialDungeonData _selectedDungeonData;
         private UserTrialDungeonData _dungeonData;
 
@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
             _slotButton.onClick.RemoveListener(OnClickSlotButton);
         }
 
-        public void SetStepSlot(DungeonTrialPopup parent, SpecDungeonTrial specData, UserTrialDungeonData data)
+        public void SetStepSlot(DungeonTrialPopup parent, DungeonBabelInfo specData, UserTrialDungeonData data)
         {
             if (data == null) return;
             if (specData == null) return;

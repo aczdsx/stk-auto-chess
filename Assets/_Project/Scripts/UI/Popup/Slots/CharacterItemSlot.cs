@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _lvText;
 
         private UserCharacter _userCharacterData;
-        private SpecCharacter _specCharacterData;
+        private CharacterInfo _specCharacterData;
         
         // 자기 자신의 덱 기반 정보로 세팅
         public void SetSlot(int characterID)
@@ -27,8 +27,8 @@ namespace CookApps.AutoBattler
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
             
             _characterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id);
-            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.element_type);
-            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.asterism_type);
+            _SynergyImage.sprite = ImageManager.Instance.GetElementSprite(_specCharacterData.character_element_type);
+            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.character_stella_type);
             _lvText.text = $"{_userCharacterData.Level}";
         }
         
@@ -41,8 +41,8 @@ namespace CookApps.AutoBattler
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
             
             _characterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id);
-            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.element_type);
-            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.asterism_type);
+            _SynergyImage.sprite = ImageManager.Instance.GetElementSprite(_specCharacterData.character_element_type);
+            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.character_stella_type);
             _lvText.text = $"{targetLevel}";
         }
     }

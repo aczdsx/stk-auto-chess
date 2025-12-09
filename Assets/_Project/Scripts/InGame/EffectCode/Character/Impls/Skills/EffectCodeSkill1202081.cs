@@ -26,7 +26,7 @@ public partial class EffectCodeSkill1202081 : EffectCodeCharacterBase
 
     private bool _isReadyToActivate;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -92,7 +92,7 @@ public partial class EffectCodeSkill1202081 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -140,19 +140,19 @@ public partial class EffectCodeSkill1202081 : EffectCodeCharacterBase
             
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                 characterControllers[0].CurrentTile.View.CachedTr.position);
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type,
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
                 characterControllers[0].CurrentTile);
 
             foreach (var tile in inGameTiles)
             {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
 
                 if (tile.CheckValidTile(owner.AllianceType, false))
                 {
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
 
                     var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * _damageRate,

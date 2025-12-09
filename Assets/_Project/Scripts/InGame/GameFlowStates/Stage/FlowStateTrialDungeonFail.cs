@@ -13,7 +13,7 @@ public class FlowStateTrialDungeonFail : StateBase
     public override void StateStart()
     {
         InGameManager.Instance.EndInGame();
-        SpecCharacter mvpCharacterData = null;
+        CharacterInfo mvpCharacterData = null;
         
         SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>((false, mvpCharacterData));
         

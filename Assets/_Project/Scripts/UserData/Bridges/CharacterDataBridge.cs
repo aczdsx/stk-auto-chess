@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler.UI
 
         // UI 갱신 이벤트
         public event Action OnCharactersChanged;
-        public event Action<CharacterInfo> OnCharacterUpdated;
+        public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterUpdated;
 
         public CharacterDataBridge()
         {
@@ -75,12 +75,12 @@ namespace CookApps.AutoBattler.UI
             OnCharactersChanged?.Invoke();
         }
 
-        private void OnCharacterAdded(CharacterInfo character)
+        private void OnCharacterAdded(Tech.Hive.V1.CharacterInfo character)
         {
             OnCharactersChanged?.Invoke();
         }
 
-        private void OnCharacterUpdatedInternal(CharacterInfo character)
+        private void OnCharacterUpdatedInternal(Tech.Hive.V1.CharacterInfo character)
         {
             OnCharacterUpdated?.Invoke(character);
         }
@@ -93,7 +93,7 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 모든 캐릭터 가져오기
         /// </summary>
-        public void GetAllCharacters(List<CharacterInfo> output)
+        public void GetAllCharacters(List<Tech.Hive.V1.CharacterInfo> output)
         {
             _model?.GetAllCharacters(output);
         }
@@ -101,7 +101,7 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 특정 캐릭터 가져오기
         /// </summary>
-        public CharacterInfo GetCharacter(string instanceId)
+        public Tech.Hive.V1.CharacterInfo GetCharacter(string instanceId)
         {
             return _model?.GetCharacter(instanceId);
         }
@@ -122,7 +122,7 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 조건에 맞는 캐릭터 필터링
         /// </summary>
-        public void GetFilteredCharacters(List<CharacterInfo> output, Func<CharacterInfo, bool> filter)
+        public void GetFilteredCharacters(List<Tech.Hive.V1.CharacterInfo> output, Func<Tech.Hive.V1.CharacterInfo, bool> filter)
         {
             _model?.GetCharactersByCondition(output, filter);
         }
@@ -130,12 +130,12 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 레벨 범위로 필터링
         /// </summary>
-        public void GetCharactersByLevelRange(List<CharacterInfo> output, uint minLevel, uint maxLevel)
+        public void GetCharactersByLevelRange(List<Tech.Hive.V1.CharacterInfo> output, uint minLevel, uint maxLevel)
         {
             if (_model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<CharacterInfo>();
+            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
             _model.GetAllCharacters(allCharacters);
 
             // for문 사용 (Linq 지양)
@@ -152,12 +152,12 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 클래스 타입으로 필터링
         /// </summary>
-        public void GetCharactersByClass(List<CharacterInfo> output, ClassType classType)
+        public void GetCharactersByClass(List<Tech.Hive.V1.CharacterInfo> output, ClassType classType)
         {
             if (_model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<CharacterInfo>();
+            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
             _model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)
@@ -173,12 +173,12 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 레어리티로 필터링
         /// </summary>
-        public void GetCharactersByRarity(List<CharacterInfo> output, Rarity rarity)
+        public void GetCharactersByRarity(List<Tech.Hive.V1.CharacterInfo> output, Rarity rarity)
         {
             if (_model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<CharacterInfo>();
+            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
             _model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)

@@ -23,8 +23,8 @@ namespace CookApps.AutoBattler
         private UserEventData _currentUserEventData;
         private List<UserEventConditionData> _currentUserEventConditionDataList;
 
-        private SpecEvent _specEventData;
-        private List<SpecEventCondition> _specEventConditionDataList;
+        private EventInfo _specEventData;
+        private List<EventCondition> _specEventConditionDataList;
 
         private void Awake()
         {

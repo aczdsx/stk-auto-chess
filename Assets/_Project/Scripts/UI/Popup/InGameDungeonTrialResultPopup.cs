@@ -46,8 +46,8 @@ namespace CookApps.AutoBattler
         
         
         private bool _isVictory = false;
-        private SpecCharacter _specCharacter;
-        private SpecDungeonTrial _currentSpecDungeonTrial;
+        private CharacterInfo _specCharacter;
+        private DungeonBabelInfo _currentSpecDungeonTrial;
         
         private void Awake()
         {
@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
             
-            (_isVictory, _specCharacter) = ((bool, SpecCharacter))param;
+            (_isVictory, _specCharacter) = ((bool, CharacterInfo))param;
             
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);

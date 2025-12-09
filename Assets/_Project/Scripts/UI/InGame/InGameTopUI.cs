@@ -155,24 +155,24 @@ public class InGameTopUI : MonoBehaviour
 
         foreach (var synergyCountData in synergyCountDataList)
         {
-            var CanSynergy = specDataManagerInstance.TryGetSynergyDataByCount(synergyCountData.Type, synergyCountData.Count,
-            out var outSynergyData, out var outSynergyList);
-
+            // var CanSynergy = specDataManagerInstance.TryGetSynergyDataByCount(synergyCountData.Type, synergyCountData.Count,
+            // out var outSynergyData, out var outSynergyList);
+            //
             // if (CanSynergy)
             // {
-                var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
-                bool isActiveZeroGrade = (type == AllianceType.Player) ? outSynergyData.grade >= 0 : outSynergyData.grade > 0;
-                if (isActiveZeroGrade)
-                {
-                    TrySetSynergyUI(() =>
-                        _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData,outSynergyData.grade > 0)
-                    );
-                            
-                    if (!isCombat && DistinguishSynergyTypeHelper.IsElementSynergyType(synergyCountData.Type))
-                    {//엘리먼트 타입 달성시에만 fx를 생성한다.
-                        InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type);
-                    }
-                }
+            //     var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
+            //     bool isActiveZeroGrade = (type == AllianceType.Player) ? outSynergyData.grade >= 0 : outSynergyData.grade > 0;
+            //     if (isActiveZeroGrade)
+            //     {
+            //         TrySetSynergyUI(() =>
+            //             _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData,outSynergyData.grade > 0)
+            //         );
+            //                 
+            //         if (!isCombat && DistinguishSynergyTypeHelper.IsElementSynergyType(synergyCountData.Type))
+            //         {//엘리먼트 타입 달성시에만 fx를 생성한다.
+            //             InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type);
+            //         }
+            //     }
             // }
         }
 

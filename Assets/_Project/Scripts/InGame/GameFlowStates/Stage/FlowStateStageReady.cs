@@ -14,10 +14,10 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class FlowStateStageReady : StateReadyBase
 {
-    private SpecStage _specStage;
+    private StageInfo _specStage;
 
     //Key: SpecTileEffectCode.id, Value: SpecTileEffectCode
-    private Dictionary<int, SpecTileEffectCode> _specTileEffectCodeDic = null;
+    private Dictionary<int, TileEffectCode> _specTileEffectCodeDic = null;
 
     private enum TileRuleStatType
     {
@@ -30,7 +30,7 @@ public class FlowStateStageReady : StateReadyBase
     public override void SetStateData(object data)
     {
         base.SetStateData(data);
-        _specStage = data as SpecStage;
+        _specStage = data as StageInfo;
         SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM),
             $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
         InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
@@ -41,7 +41,7 @@ public class FlowStateStageReady : StateReadyBase
     public override async void StateInit(object target)
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
-        List<SpecStageMonster> monsters =
+        List<StageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,
                 _specStage.difficulty_type);
 
@@ -330,7 +330,7 @@ public class FlowStateStageReady : StateReadyBase
             return;
         }
 
-        _specTileEffectCodeDic = new Dictionary<int, SpecTileEffectCode>();
+        _specTileEffectCodeDic = new Dictionary<int, TileEffectCode>();
         foreach (var specTileEffectCode in SpecDataManager.Instance.GetSpecTileEffectCodeList())
         {
             _specTileEffectCodeDic[specTileEffectCode.id] = specTileEffectCode;

@@ -28,8 +28,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Slider _mileStoneSlider;
         [SerializeField] private List<QuestClearRewardGaugeSlot> _mileStoneRewardSlotList;
 
-        private List<SpecQuest> _specNormalQuestDataList;
-        private List<SpecQuest> _specMileStoneQuestDataList;
+        private List<QuestInfo> _specNormalQuestDataList;
+        private List<QuestInfo> _specMileStoneQuestDataList;
         private List<QuestSlot> _questSlotList = new List<QuestSlot>();
 
         private TermType _currentTabTermType = TermType.DAILY;

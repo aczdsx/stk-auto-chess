@@ -19,7 +19,7 @@ public partial class EffectCodeSkill1406031 : EffectCodeCharacterBase
     private ObfuscatorFloat _buffTime;
     private ObfuscatorFloat _buffRate;
     private bool _isReadyToActivate;
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     private InGameVfxObj _vfxObj;
 
@@ -87,7 +87,7 @@ public partial class EffectCodeSkill1406031 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 

@@ -13,6 +13,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using Random = Unity.Mathematics.Random;
 
 public class InGameBottomUI : MonoBehaviour
@@ -50,7 +51,7 @@ public class InGameBottomUI : MonoBehaviour
 
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     protected bool _isOpenCommanderSkill;
-    protected SpecUserGrade _specUserGrade;
+    protected UserGrade _specUserGrade;
     protected Type _combatType;
 
     private List<CharacterStatData> _characterStats;
@@ -66,7 +67,7 @@ public class InGameBottomUI : MonoBehaviour
         _isStartRunningProcess = false;
 
         _specUserGrade =
-            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
         if (_specUserGrade != null)
         {
             for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
@@ -138,7 +139,7 @@ public class InGameBottomUI : MonoBehaviour
                 .ToList();
 
             var userGrade =
-                SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+                SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
             int maximumCharacterCount = userGrade.maximum_character_count;
 
             int addCharacterCount = _characterItemList.Count >= maximumCharacterCount
@@ -146,15 +147,15 @@ public class InGameBottomUI : MonoBehaviour
                 : _characterItemList.Count;
             List<InGameCharacterItem> selectedCharacterItemList = _characterItemList.GetRange(0, addCharacterCount);
             List<CharacterStatData> statDataList = selectedCharacterItemList.Select(item => item.StatData).ToList();
-
+            
             foreach (var statData in statDataList)
             {
                 _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
             }
-
+            
             UpdateData();
-
-            await AddCharacterToTile(statDataList);
+            
+            // await AddCharacterToTile(statDataList);
 
             InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
@@ -416,7 +417,7 @@ public class InGameBottomUI : MonoBehaviour
         _isRunningAddCharacter = true;
 
         var userGrade =
-            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
         if (userGrade.maximum_character_count <=
             InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
@@ -452,7 +453,7 @@ public class InGameBottomUI : MonoBehaviour
         _isRunningAddCharacter = true;
 
         var userGrade =
-            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
         if (userGrade.maximum_character_count <=
             InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
@@ -493,23 +494,23 @@ public class InGameBottomUI : MonoBehaviour
     public void SetCharacterCountText()
     {
         var userGrade =
-            SpecDataManager.Instance.SpecUserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
-
+            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        
         int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
         int maximumCount = userGrade.maximum_character_count;
-
+        
         string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
-
+        
         bool isAvailableRecommend = maximumCount != characterCount;
-
+        
         if (_recommendObjOff != null)
             _recommendObjOff.SetActive(!isAvailableRecommend);
         if (_recommendObjOn != null)
             _recommendObjOn.SetActive(isAvailableRecommend);
     }
 
-    public void SetFocusCharacterUI(SpecCharacter spec)
+    public void SetFocusCharacterUI(CharacterInfo spec)
     {
         foreach (var characterItem in _characterItemList)
         {
@@ -601,90 +602,90 @@ public class InGameBottomUI : MonoBehaviour
     [ContextMenu("User Simple Deck Json Data Test")]
     public void UserSimpleDeckJsonDataTest()
     {
-        int rankingPoint = 1000 + UnityEngine.Random.Range(-50, 50);
-        var tierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, rankingPoint);
-        int averageLv = 5;
-        int playerLv = 15;
-
-        var characterControllers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-        List<UserPVPObstacleBattleDeck> obstacleDeck = new();
-        var obstacleList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Wall);
-        foreach (var obstacle in obstacleList)
-        {
-            UserPVPObstacleBattleDeck deck = new();
-            deck.Id = obstacle.CharacterId;
-            deck.PosX = obstacle.CurrentTile.X;
-            deck.PosY = obstacle.CurrentTile.Y;
-            obstacleDeck.Add(deck);
-        }
-
-        var neutralList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Neutral);
-        foreach (var obstacle in neutralList)
-        {
-            UserPVPObstacleBattleDeck deck = new();
-            deck.Id = obstacle.CharacterId;
-            deck.PosX = obstacle.CurrentTile.X;
-            deck.PosY = obstacle.CurrentTile.Y;
-            obstacleDeck.Add(deck);
-        }
-
-        UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
-        UserPVPBattleDetailData detailData = new UserPVPBattleDetailData();
-        simpleData.PlayerId = "DUMMY_1";
-        simpleData.Nickname = "무명기사";
-        simpleData.PlayerLv = playerLv + UnityEngine.Random.Range(-2, 2);
-        simpleData.RankPoint = rankingPoint;
-        simpleData.RankId = tierData.ranking_id;
-        simpleData.ServerId = 1;
-
-        detailData.PlayerId = "DUMMY_1";
-        detailData.Nickname = "무명기사";
-        detailData.PlayerLv = simpleData.PlayerLv;
-        detailData.RankPoint = rankingPoint;
-        detailData.RankId = tierData.ranking_id;
-        detailData.ServerId = 1;
-        detailData.PvpDeckList = new UserPVPBattleDeckList();
-        foreach (var character in characterControllers)
-        {
-            int lv = averageLv + UnityEngine.Random.Range(-3, 3);
-            {
-                UserPVPCharacterSimpleDeck deck = new UserPVPCharacterSimpleDeck();
-                deck.Id = character.SpecCharacter.character_id;
-                deck.Lv = lv;
-                simpleData.SimpleDeckList.Add(deck);
-                CharacterStatData data = new CharacterStatData(deck.Id, deck.Lv);
-                simpleData.BattlePoint += (int)data.GetAttrValue();
-            }
-
-            {
-
-                UserPVPCharacterBattleDeck newUserBattleDeck = new UserPVPCharacterBattleDeck();
-
-                newUserBattleDeck.Id = character.CharacterId;
-                newUserBattleDeck.Lv = lv;
-                newUserBattleDeck.PosX = character.CurrentTile.X;
-                newUserBattleDeck.PosY = character.CurrentTile.Y;
-
-                detailData.PvpDeckList.PvpCharacterDecks.Add(newUserBattleDeck);
-                CharacterStatData data = new CharacterStatData(newUserBattleDeck.Id, newUserBattleDeck.Lv);
-                detailData.BattlePoint += (int)data.GetAttrValue();
-            }
-        }
-
-
-        detailData.PvpDeckList.PvpObstacleDecks.AddRange(obstacleDeck);
-
-
-        var result = JsonConvert.SerializeObject(simpleData);
-        UnityEngine.Debug.Log("SIMPLE");
-        UnityEngine.Debug.Log("SIMPLE");
-        UnityEngine.Debug.Log(result);
-
-
-        var result2 = JsonConvert.SerializeObject(detailData);
-        UnityEngine.Debug.Log("DETAIL");
-        UnityEngine.Debug.Log("DETAIL");
-        UnityEngine.Debug.Log(result2);
+        // int rankingPoint = 1000 + UnityEngine.Random.Range(-50, 50);
+        // var tierData = SpecDataManager.Instance.GetPVPTierDataByRankPoint(RankingType.SCORE, rankingPoint);
+        // int averageLv = 5;
+        // int playerLv = 15;
+        //
+        // var characterControllers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+        // List<UserPVPObstacleBattleDeck> obstacleDeck = new();
+        // var obstacleList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Wall);
+        // foreach (var obstacle in obstacleList)
+        // {
+        //     UserPVPObstacleBattleDeck deck = new();
+        //     deck.Id = obstacle.CharacterId;
+        //     deck.PosX = obstacle.CurrentTile.X;
+        //     deck.PosY = obstacle.CurrentTile.Y;
+        //     obstacleDeck.Add(deck);
+        // }
+        //
+        // var neutralList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Neutral);
+        // foreach (var obstacle in neutralList)
+        // {
+        //     UserPVPObstacleBattleDeck deck = new();
+        //     deck.Id = obstacle.CharacterId;
+        //     deck.PosX = obstacle.CurrentTile.X;
+        //     deck.PosY = obstacle.CurrentTile.Y;
+        //     obstacleDeck.Add(deck);
+        // }
+        //
+        // UserPVPBattleSimpleData simpleData = new UserPVPBattleSimpleData();
+        // UserPVPBattleDetailData detailData = new UserPVPBattleDetailData();
+        // simpleData.PlayerId = "DUMMY_1";
+        // simpleData.Nickname = "무명기사";
+        // simpleData.PlayerLv = playerLv + UnityEngine.Random.Range(-2, 2);
+        // simpleData.RankPoint = rankingPoint;
+        // simpleData.RankId = tierData.ranking_id;
+        // simpleData.ServerId = 1;
+        //
+        // detailData.PlayerId = "DUMMY_1";
+        // detailData.Nickname = "무명기사";
+        // detailData.PlayerLv = simpleData.PlayerLv;
+        // detailData.RankPoint = rankingPoint;
+        // detailData.RankId = tierData.ranking_id;
+        // detailData.ServerId = 1;
+        // detailData.PvpDeckList = new UserPVPBattleDeckList();
+        // foreach (var character in characterControllers)
+        // {
+        //     int lv = averageLv + UnityEngine.Random.Range(-3, 3);
+        //     {
+        //         UserPVPCharacterSimpleDeck deck = new UserPVPCharacterSimpleDeck();
+        //         deck.Id = character.SpecCharacter.character_id;
+        //         deck.Lv = lv;
+        //         simpleData.SimpleDeckList.Add(deck);
+        //         CharacterStatData data = new CharacterStatData(deck.Id, deck.Lv);
+        //         simpleData.BattlePoint += (int)data.GetAttrValue();
+        //     }
+        //
+        //     {
+        //
+        //         UserPVPCharacterBattleDeck newUserBattleDeck = new UserPVPCharacterBattleDeck();
+        //
+        //         newUserBattleDeck.Id = character.CharacterId;
+        //         newUserBattleDeck.Lv = lv;
+        //         newUserBattleDeck.PosX = character.CurrentTile.X;
+        //         newUserBattleDeck.PosY = character.CurrentTile.Y;
+        //
+        //         detailData.PvpDeckList.PvpCharacterDecks.Add(newUserBattleDeck);
+        //         CharacterStatData data = new CharacterStatData(newUserBattleDeck.Id, newUserBattleDeck.Lv);
+        //         detailData.BattlePoint += (int)data.GetAttrValue();
+        //     }
+        // }
+        //
+        //
+        // detailData.PvpDeckList.PvpObstacleDecks.AddRange(obstacleDeck);
+        //
+        //
+        // var result = JsonConvert.SerializeObject(simpleData);
+        // UnityEngine.Debug.Log("SIMPLE");
+        // UnityEngine.Debug.Log("SIMPLE");
+        // UnityEngine.Debug.Log(result);
+        //
+        //
+        // var result2 = JsonConvert.SerializeObject(detailData);
+        // UnityEngine.Debug.Log("DETAIL");
+        // UnityEngine.Debug.Log("DETAIL");
+        // UnityEngine.Debug.Log(result2);
     }
 
     [Serializable]

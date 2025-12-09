@@ -12,7 +12,7 @@ namespace CookApps.BattleSystem
     public class EffectCodeCommanderSkill300001 : EffectCodeCommanderSkillBase
     {
         private ObfuscatorFloat _damageRate;
-        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_EXPLOSION;
+        private const int CodeId = 300001; // (int)EffectCodeNameType.COMMANDER_SKILL_EXPLOSION;
         
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
@@ -83,7 +83,7 @@ namespace CookApps.BattleSystem
                 }
             }
         }
-        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        public override InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
             var enemyCharacterList = inGameObjectManagerInstance.GetCharacterList(AllianceType.Enemy);

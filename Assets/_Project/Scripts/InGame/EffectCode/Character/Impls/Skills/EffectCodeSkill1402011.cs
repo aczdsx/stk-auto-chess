@@ -18,7 +18,7 @@ public partial class EffectCodeSkill1402011 : EffectCodeCharacterBase
 
     private bool _isReadyToActivate;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     private bool isKilled;
 
@@ -80,7 +80,7 @@ public partial class EffectCodeSkill1402011 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -95,7 +95,7 @@ public partial class EffectCodeSkill1402011 : EffectCodeCharacterBase
         if (characterControllers.Count > 0)
         {
             var characterController = characterControllers[0];
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, characterController.CurrentTile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, characterController.CurrentTile);
             
             {
                 Span<double> eccStats = stackalloc double[1];

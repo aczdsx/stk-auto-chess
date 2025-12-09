@@ -11,13 +11,13 @@ public static class StringUtil
     private static char[] BigNumberLiteral = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
     private static StringBuilder StringBuilder = new StringBuilder();
 
-    public static string GetStageString(SpecStage stage)
+    public static string GetStageString(StageInfo stage)
     {
         string titleString = LanguageManager.Instance.GetLanguageText("UI_STAGE");
         return $"{titleString} {stage.chapter_id}-{stage.stage_number}";
     }
     
-    public static string GetTrialDungeonString(SpecDungeonTrial trialDungeon, bool isOnlyNumber = false)
+    public static string GetTrialDungeonString(DungeonBabelInfo trialDungeon, bool isOnlyNumber = false)
     {
         if (isOnlyNumber)
         {

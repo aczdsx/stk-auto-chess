@@ -30,7 +30,7 @@ namespace CookApps.AutoBattler
 
         private bool _isVictory = false;
 
-        private SpecCharacter _specCharacter;
+        private CharacterInfo _specCharacter;
 
         protected override void OnPreEnter(object param)
         {
@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _specCharacter) = ((bool, SpecCharacter))param;
+            (_isVictory, _specCharacter) = ((bool, CharacterInfo))param;
 
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);

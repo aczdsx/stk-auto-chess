@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
             _inGameUI.TopUI.SetStageName("프롤로그");
 
-            InGameManager.Instance.StartInGame<FlowStatePrologueReady>(null as SpecStage);
+            InGameManager.Instance.StartInGame<FlowStatePrologueReady>(null as StageInfo);
         }
 
         public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
@@ -93,7 +93,7 @@ namespace CookApps.AutoBattler
             _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStatePrologueCombat), battleDeckList);
         }
 
-        public void SetFocusSlotUI(SpecCharacter spec)
+        public void SetFocusSlotUI(CharacterInfo spec)
         {
             _inGameUI.BottomUI.SetFocusCharacterUI(spec);
         }

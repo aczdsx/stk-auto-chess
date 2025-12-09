@@ -23,7 +23,7 @@ namespace CookApps.AutoBattler
 
         private AttendancePopup _parentAttendancePopup;
 
-        private SpecEventCondition _currentSpecEventConditionData;
+        private EventCondition _currentSpecEventConditionData;
 
         private UserEventData _currentUserEventData;
         private UserEventConditionData _currentUserEventConditionData;

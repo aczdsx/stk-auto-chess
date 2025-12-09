@@ -24,8 +24,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _claimCheckObject;
 
 
-        private SpecEvent _specEventData;
-        private SpecEventCondition _specEventConditionData;
+        private EventInfo _specEventData;
+        private EventCondition _specEventConditionData;
 
         private UserEventData _currentUserEventData;
         private UserEventConditionData _currentUserEventConditionData;

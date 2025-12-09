@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
                 };
 
                 // 가이드 미션 전체 리스트 생성
-                var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All;
+                var allGuideMissionList = SpecDataManager.Instance.GuideMissionInfo.All;
                 foreach (var guideMission in allGuideMissionList)
                     userMissionData.UserGuideMissions.Add(guideMission.order, new UserGuideMission
                     {
@@ -72,7 +72,7 @@ namespace CookApps.AutoBattler
                 var targetUserData = UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder];
                 if (targetUserData == null) return;
 
-                var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
+                var specMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(targetUserData.MissionId);
                 if (specMissionData == null
                     || specMissionData.guide_mission_type != missionType
                     || specMissionData.sub_key != subKey) return;
@@ -104,7 +104,7 @@ namespace CookApps.AutoBattler
                 var targetUserData = UserGuideMissionDic[UserMissionData.GuideMissionCurrentOrder];
                 if (targetUserData == null) return;
 
-                var specMissionData = SpecDataManager.Instance.SpecGuideMission.Get(targetUserData.MissionId);
+                var specMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(targetUserData.MissionId);
                 if (specMissionData == null
                     || specMissionData.guide_mission_type != missionType
                     || specMissionData.sub_key != subKey) return;

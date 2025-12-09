@@ -29,7 +29,7 @@ public partial class EffectCodeSkill1404011 : EffectCodeCharacterBase
     private ObfuscatorFloat _powerRate3;
 
     private bool _isReadyToActivate;
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
     
     private float _elapsedTime;
     private float _totalElapsedTime;
@@ -101,7 +101,7 @@ public partial class EffectCodeSkill1404011 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -176,7 +176,7 @@ public partial class EffectCodeSkill1404011 : EffectCodeCharacterBase
         foreach (var tile in tiles)
         {
             if (isTileFx)
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
 
             if (tile.CheckValidTile(owner.AllianceType, false))
             {

@@ -47,12 +47,12 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _fadeCharacterColor;
 
 
-        private SpecCharacter _specCharacterData;
+        private CharacterInfo _specCharacterData;
         private UserCharacter _userCharacterData;
 
         private CharacterCollectionPopup _parentCollectionPopup;
 
-        public SpecCharacter SpecCharacterData => _specCharacterData;
+        public CharacterInfo SpecCharacterData => _specCharacterData;
 
         private void Awake()
         {
@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
             _characterCardButton.onClick.RemoveListener(OnClickCardSlot);
         }
 
-        public void SetCharcacterSlot(SpecCharacter characterData, CharacterCollectionPopup _parentPopup)
+        public void SetCharcacterSlot(CharacterInfo characterData, CharacterCollectionPopup _parentPopup)
         {
             if (characterData == null) return;
 
@@ -85,9 +85,9 @@ namespace CookApps.AutoBattler
 
             _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_specCharacterData.grade_type, haveCharacter);
 
-            _synergyUI.SetSynergyUI(_specCharacterData.element_type, haveCharacter);
-            _positionSynergyUI.SetSynergyUI(_specCharacterData.asterism_type, haveCharacter);
-            _characterPositionTypeText.text = _specCharacterData.position_type.ToString();
+            _synergyUI.SetSynergyUI(_specCharacterData.character_element_type, haveCharacter);
+            _positionSynergyUI.SetSynergyUI(_specCharacterData.character_stella_type, haveCharacter);
+            _characterPositionTypeText.text = _specCharacterData.character_position_type.ToString();
 
             _chracterLevelText.gameObject.SetActive(haveCharacter);
             if (haveCharacter)
@@ -116,7 +116,7 @@ namespace CookApps.AutoBattler
             SetStarObject(_specCharacterData.grade_type, haveCharacter);
 
             // 캐릭터 조각 슬라이더 관련 처리
-            var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.character_element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
 
             if (specCharacterTranscendenceData != null)
             {
@@ -133,8 +133,8 @@ namespace CookApps.AutoBattler
 
             // BG Layer 세팅
             _lockBGLayerObject.SetActive(!haveCharacter);
-            _normalBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type != GradeType.LEGEND);
-            _SSRBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type == GradeType.LEGEND);
+            _normalBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type != GradeType.LEGENDARY);
+            _SSRBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type == GradeType.LEGENDARY);
             
             // 가이드 알림 세팅
             SetGuideAlert();

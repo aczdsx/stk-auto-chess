@@ -24,7 +24,7 @@ public partial class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private WeakReference<InGameVfx> _vfx;
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -85,7 +85,7 @@ public partial class EffectCodeSkill1401011 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -119,7 +119,7 @@ public partial class EffectCodeSkill1401011 : EffectCodeCharacterBase
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
         if (tileFx != null)
         {
             tileFx.CachedTr.position = tile.View.CachedTr.position;
@@ -128,7 +128,7 @@ public partial class EffectCodeSkill1401011 : EffectCodeCharacterBase
             {
                 if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
                 {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, tile);
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 

@@ -10,17 +10,90 @@ namespace CookApps.AutoBattler
 {
 
     [GeneratorSpecData]
-    public partial class SpecOption
+    public partial class ServerItem
     {
-        [GeneratorId(nameof(name), typeof(string))]
-        public string name;
-        public string value;
+        /// 아이디
+        [GeneratorId(nameof(ItemId), typeof(uint))]
+        public uint ItemId;
+        /// 카테고리
+        public string Category;
+        /// 아이템 타입
+        public global::CookApps.AutoBattler.ItemType Type;
+        /// 이름
+        public string Name;
+        /// 관리타입
+        public string PriceType;
+        /// 초기지급 갯수
+        public uint[] InitCount = global::System.Array.Empty<uint>();
+        /// 초기지급 메타데이터(개발자용)
+        public string[] InitMetadata = global::System.Array.Empty<string>();
     }
 
     [GeneratorSpecData]
-    public partial class SpecAccountLevelExp
+    public partial class ServerShop
     {
-        /// 유니크 id
+        /// 아이디
+        [GeneratorId(nameof(Id), typeof(string))]
+        public string Id;
+        /// 카테고리
+        public string Category;
+        /// 상품 이름
+        public string Name;
+        /// 인앱결제
+        public bool IsCashCheckRequired;
+        /// 스토어 상품 id
+        [GeneratorIdToData(nameof(ProductId), typeof(ServerPriceTemplate))]
+        public string ProductId;
+        /// 인게임 상품 id
+        public string InGameProductId;
+        /// 소모 목록
+        [GeneratorIdToData(nameof(Consumes), typeof(ServerShopConsume))]
+        public string[] Consumes = global::System.Array.Empty<string>();
+        /// 보상 목록
+        [GeneratorIdToData(nameof(Rewards), typeof(ServerShopReward))]
+        public string[] Rewards = global::System.Array.Empty<string>();
+    }
+
+    [GeneratorSpecData]
+    public partial class ServerPriceTemplate
+    {
+        /// 가격 템플릿 ID
+        [GeneratorId(nameof(Id), typeof(string))]
+        public string Id;
+        /// 가격 USD
+        public float Price;
+    }
+
+    [GeneratorSpecData]
+    public partial class ServerShopConsume
+    {
+        /// 아이디
+        [GeneratorId(nameof(Id), typeof(string))]
+        public string Id;
+        /// 아이템 아이디
+        [GeneratorIdToData(nameof(ItemId), typeof(ServerItem))]
+        public uint ItemId;
+        /// 개수
+        public uint ItemCount;
+    }
+
+    [GeneratorSpecData]
+    public partial class ServerShopReward
+    {
+        /// 아이디
+        [GeneratorId(nameof(Id), typeof(string))]
+        public string Id;
+        /// 아이템 아이디
+        [GeneratorIdToData(nameof(ItemId), typeof(ServerItem))]
+        public uint ItemId;
+        /// 보상 수
+        public uint ItemCount;
+    }
+
+    [GeneratorSpecData]
+    public partial class AccountLevelExp
+    {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 계정 레벨
@@ -40,9 +113,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecChapter
+    public partial class ChapterInfo
     {
-        /// ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 챕터 ID
@@ -64,11 +137,11 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecCharacter
+    public partial class CharacterInfo
     {
-        /// 유니크ID
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
         /// 캐릭터_id
         public int character_id;
         /// 프리팹id
@@ -85,12 +158,12 @@ namespace CookApps.AutoBattler
         public int need_piece;
         /// 개체 타입
         public global::CookApps.AutoBattler.CharacterType character_type;
-        /// 포지션 타입
-        public global::CookApps.AutoBattler.PositionType position_type;
         /// 속성 시너지
-        public global::CookApps.AutoBattler.SynergyType element_type;
-        /// 성군 시너지
-        public global::CookApps.AutoBattler.SynergyType asterism_type;
+        public global::CookApps.AutoBattler.ElementType character_element_type;
+        /// 포지션 타입
+        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        /// 성군 시너지 타입
+        public global::CookApps.AutoBattler.SynergyType character_stella_type;
         /// 일반 공격 AP AD 판정 유무
         public global::CookApps.AutoBattler.AtkType atk_type;
         /// 사이즈
@@ -101,18 +174,22 @@ namespace CookApps.AutoBattler
         public int max_star;
         /// 초월 성장 비율
         public float inc_trancendence;
+        /// 돌파 성장비율
+        public float inc_exceed;
         /// 체력
         public int stat_hp;
         /// 공격력
         public int stat_atk;
-        /// 체력, 공격력 1레벨 당 성장율
+        /// 방어력
+        public int stat_def;
+        /// 공/방/체 1레벨 당 성장율
         public float inc_lv_rate;
         /// 체력, 공격력 10레벨 당 성장율
         public float inc_lv_bonus_rate;
-        /// 물리 방어력
-        public int stat_def;
+        /// 물리 저항력
+        public int ad_reduce;
         /// 마법 방어력
-        public int stat_res;
+        public int ap_reduce;
         /// 물리 관통력
         public float stat_atk_pierce;
         /// 마법 관통력
@@ -127,28 +204,50 @@ namespace CookApps.AutoBattler
         public float move_speed;
         /// 공격 범위
         public int atk_range;
+        /// 블럭율
+        public float blocking_rate;
+        /// 회피율
+        public float avoid_rate;
+        /// 명중률
+        public float hit_rate;
+        /// 힐파워
+        public float heal_power;
+        /// 이뮨 타입
+        public global::CookApps.AutoBattler.ImmuneType immune_type;
         /// 높이
         public float height;
-        /// 넉백 가능 여부
-        public bool is_knock_back;
-        /// cc 가능 여부
-        public bool is_taken_cc;
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id
         public int[] skill_ids = global::System.Array.Empty<int>();
         /// 전용 장비 id
         public int equipment_id;
-        /// 전용 스킬 id
-        public int upgrade_skill_ids;
+        /// 패시브 스킬 id
+        public int passive_skill_id;
         /// 가챠 확률
         public float weight;
     }
 
     [GeneratorSpecData]
-    public partial class SpecCharacterLevelExp
+    public partial class ChapterRule
     {
-        /// 유니크 ID
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 기믹 id
+        public global::CookApps.AutoBattler.EffectCodeNameType chapter_rule_effect_code_type;
+        /// #이펙트 코드 id
+        public long effect_code_id;
+        /// 챕터 룰 이름
+        public string name_token;
+        /// 챕터 룰 설명
+        public string desc_token;
+    }
+
+    [GeneratorSpecData]
+    public partial class CharacterLevelExp
+    {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 캐릭터 레벨
@@ -172,13 +271,13 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecCharacterTranscendence
+    public partial class CharacterTranscendence
     {
-        /// 유니크 ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 시너지 종류
-        public global::CookApps.AutoBattler.SynergyType element_type;
+        public global::CookApps.AutoBattler.ElementType element_type;
         /// 캐릭터 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 캐릭터 초월 레벨
@@ -194,9 +293,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecCharacterEnhance
+    public partial class CharacterEnhance
     {
-        /// 유니크id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 캐릭터 등급
@@ -210,9 +309,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecCharacterQuotes
+    public partial class CharacterQuotes
     {
-        /// index
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 유닛 ID
@@ -230,25 +329,408 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecChapterRule
+    public partial class ConfigGame
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 키 값
+        public string config_key;
+        /// 자료형 타입
+        public global::CookApps.AutoBattler.ConfigValueType config_value_type;
+        /// 값
+        public string config_value;
+    }
+
+    [GeneratorSpecData]
+    public partial class DialogueLanguage
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 대화 발생 이벤트 타입
+        public global::CookApps.AutoBattler.DialogueEventType dialogue_event_type;
+        /// 세부 타겟
+        public string sub_key_value;
+        /// 그룹  ID
+        public int dialouge_group_id;
+        /// 순서
+        public int order;
+        /// 발화자 ID
+        public int prefab_id;
+        /// 발화자 이름 토큰
+        public string character_name_token;
+        /// 캐릭터 위치
+        public string character_pos;
+        /// 캐릭터 id, 감정
+        public string character_img_id_n_emotion;
+        /// 다이얼로그 토큰
+        public string text_desc_token;
+        /// 다이얼로그 상단 이미지
+        public string bg_image;
+        /// 다이얼로그 연출
+        public global::CookApps.AutoBattler.DialogueAnimationType dialogue_animation_type;
+        /// 이미지 크기
+        public float bg_image_scale;
+        /// 대화 종료 시 reward_id
+        public int reward_id;
+        /// 대화 종료 시 imageinfo_id
+        public int image_info_id;
+    }
+
+    [GeneratorSpecData]
+    public partial class DialogueSceneManager
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 신의 종류
+///@Chapter
+///@event
+///@tutorial
+///@Guide
+        public global::CookApps.AutoBattler.DialogueSceneType scene_type;
+        /// 신의 Id
+/// 챕터인 경우
+/// Episode*100+신순서
+        public int scene_id;
+        /// 신의 연출 순서
+        public int line_id;
+        /// none
+        public global::CookApps.AutoBattler.DialogueEventGroup event_group;
+        /// event 그룹아이디
+/// 같은 id는 같은 선택지 공유
+        public string event_group_id;
+        /// 선택지에 따라 이동하는 라벨
+/// @goto
+        public string choice_label;
+        /// 라벨의 이름
+/// 종료 .End
+/// 번호: 동일 스크립트 내 해당 라인 id
+        public string label_name;
+        /// 발화자 이름 토큰
+        public string character_name_token;
+        /// 다이얼로그 토큰
+        public string text_desc_token;
+    }
+
+    [GeneratorSpecData]
+    public partial class DialogueSceneBackground
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 참조 타입
+/// cam 6
+/// back 7
+/// char 8
+/// audio 9
+        public int ref_type;
+        /// 신 참조자
+        public int SceneID;
+        /// 내부 구분 넘버이자, 그룹id
+        public int line_id;
+        /// 내부 구분 넘버이자, 그룹id
+        public int order_in_line;
+        /// 백그라운드 이미지 네임
+/// @back
+        public string background_name;
+        /// 장면전환 타입
+/// dissolve
+/// crossfade
+/// slide
+        public global::CookApps.AutoBattler.DialogTransitionType transition_type;
+        /// 배경색상틴트
+/// tint: 
+/// #ffffff
+        public string tint_color;
+    }
+
+    [GeneratorSpecData]
+    public partial class DialogueSceneCamera
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 참조 타입
+/// cam 6
+/// back 7
+/// char 8
+/// audio 9
+        public int ref_type;
+        /// 신 참조자
+        public int SceneID;
+        /// 내부 구분 넘버이자, 그룹id
+        public int line_number;
+        /// 라인 내 순서
+        public int order_in_line;
+        /// 줌의 레벨
+/// @camera zoom:
+        public float zoom;
+        /// 카메라 오프셋
+/// @camera offset:
+        public int offset_x;
+        /// 카메라 오프셋
+/// @camera offset:
+        public int offset_y;
+        /// 이펙트 타입
+/// @shake
+/// @tween
+/// @animate
+        public global::CookApps.AutoBattler.DialogueEffectType effect_type;
+        /// 이펙트의 대상
+/// character(actor01~05)
+/// background
+        public string effect_target;
+        /// 이벤트 세부 타입
+/// intensity
+/// pos
+/// scale
+        public string event_type;
+        /// 이펙트의 파라메터
+        public float effect_parameter01;
+        /// 이펙트의 파라메터
+        public float effect_parameter02;
+        /// 이펙트 진행시간
+        public float effect_time;
+    }
+
+    [GeneratorSpecData]
+    public partial class DialogueSceneCharacter
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 참조 타입
+/// cam 6
+/// back 7
+/// char 8
+/// audio 9
+        public int ref_type;
+        /// 신 참조자
+        public int SceneID;
+        /// 내부 구분 넘버이자, 그룹id
+        public int line_number;
+        /// 이벤트 판단
+        public int event_group_id;
+        /// 캐릭터 이름
+        public string character_id;
+        /// 포지션 프리셋
+        public string position_preset;
+        /// 위치
+        public float position_x;
+        /// 위치
+        public float position_y;
+        public string look_direction;
+        public string expression_ani;
+        public string pose;
+        public float scale;
+        public float transition_time;
+        public bool visible_bool;
+    }
+
+    [GeneratorSpecData]
+    public partial class DialogueSceneAudio
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 참조 타입
+/// cam 6
+/// back 7
+/// char 8
+/// audio 9
+        public int ref_type;
+        /// 신 참조자
+        public int SceneID;
+        /// 내부 구분 넘버이자, 그룹id
+        public int line_number;
+        /// 오디오의 타입
+        public string audio_type;
+        /// 오디오 이름
+        public string audio_name;
+        public float volume;
+        public bool loop;
+        public float fade_time;
+        /// @stopBgm
+/// @stopSfx
+        public bool stop_flag;
+        /// 음악종료할 경우
+        public bool stop_bool;
+    }
+
+    [GeneratorSpecData]
+    public partial class SynergyElemental
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(Index), typeof(int))]
+        public int Index;
+        /// 시너지 그룹 ID
+        public int synergy_group_id;
+        /// 시너지 타입
+        public global::CookApps.AutoBattler.ElementType synergy_type;
+        /// 시너지 네임 토큰
+        public string name_token;
+        /// 시너지 효과토큰
+        public string desc_token_1;
+        /// 시너지 효과토큰
+        public string desc_token_2;
+        /// 시너지 단계
+        public int grade;
+        /// 대상 인원
+        public int min_INT;
+        /// 최대 인원
+        public int max_INT;
+        /// 이펙트 트리거
+        public string effect_triger;
+        /// 시너지 적용 범위
+        public global::CookApps.AutoBattler.SynergyCoverType synergy_cover_type;
+        /// 효과 타입
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type01;
+        /// 스킬밸류
+        public int effect_stat_value01;
+        /// 효과 타입
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type02;
+        /// 밸류
+        public int effect_stat_value02;
+    }
+
+    [GeneratorSpecData]
+    public partial class SynergyStarAsterism
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(Index), typeof(int))]
+        public int Index;
+        /// 시너지 그룹 ID
+        public int synergy_group_id;
+        /// 시너지 타입
+        public global::CookApps.AutoBattler.SynergyType synergy_type;
+        /// 시너지 네임 토큰
+        public string name_token;
+        /// 시너지 효과토큰
+        public string desc_token_1;
+        /// 시너지 효과토큰
+        public string desc_token_2;
+        /// 시너지 단계
+        public int grade;
+        /// 대상 인원
+        public int min_INT;
+        /// 이펙트 트리거
+        public string effect_triger;
+        /// 시너지 적용 범위
+        public global::CookApps.AutoBattler.SynergyCoverType synergy_cover_type;
+        /// 효과 타입
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type;
+        /// 스킬밸류
+        public int effect_stat_value;
+    }
+
+    [GeneratorSpecData]
+    public partial class SkillJob
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 패시브 id
+        public global::CookApps.AutoBattler.EffectCodeNameType passive_skill_type;
+        /// 패시브 이름 토큰
+        public string jobs_name_token;
+        /// 패시브 설명 토큰
+        public string jobs_desc_token;
+        /// 단계
+        public int lv;
+        /// 스킬 이펙트 네임
+        public global::CookApps.AutoBattler.InGameVfxNameType[] jobs_skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
+        /// 계수 타입
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
+        /// 패시브 계수
+        public float passive_rate;
+        /// 계수 타입_2
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
+        /// 패시브 계수_2
+        public float passive_rate_2;
+    }
+
+    [GeneratorSpecData]
+    public partial class SkillJobPassive
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 포지션 타입
+        public global::CookApps.AutoBattler.CharacterPositionType position_type;
+        /// 패시브 id
+        public global::CookApps.AutoBattler.EffectCodeNameType passive_id;
+    }
+
+    [GeneratorSpecData]
+    public partial class SkillPassive
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 패시브 스킬 Group ID
+        public int passive_group_id;
+        /// 패시브 스킬id
+        public int passive_skill_id;
+        /// 전용장비ID
+        public int equipment_id;
+        /// 필요 별의(초월) 갯수
+        public int need_trancendence;
+        /// 패시브 스킬 타입
+        public global::CookApps.AutoBattler.SkillType passive_skill_type;
+        /// 캐릭터 id
+        public int prefab_id;
+        /// 패시브 이름 토큰
+        public string passive_name_token;
+        /// 패시브 설명 토큰
+        public string passive_desc_token;
+        /// 스킬 이펙트 네임
+        public global::CookApps.AutoBattler.InGameVfxNameType[] passive_skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
+        /// 계수 타입
+        public global::CookApps.AutoBattler.SkillValueType passive_value_type;
+        /// 패시브 계수
+        public float base_rate;
+    }
+
+    [GeneratorSpecData]
+    public partial class SkillActive
     {
         /// 유니크 id
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
-        /// 기믹 id
-        public global::CookApps.AutoBattler.EffectCodeNameType chapter_rule_effect_code_type;
-        /// #이펙트 코드 id
-        public long effect_code_id;
-        /// 챕터 룰 이름
-        public string name_token;
-        /// 챕터 룰 설명
-        public string desc_token;
+        /// 스킬 그룹 Id
+        public int skill_group_id;
+        /// 스킬 id
+        public int skill_id;
+        /// 스킬 타입
+        public global::CookApps.AutoBattler.SkillType skill_type;
+        /// 캐릭터 ID
+        public int prefab_id;
+        /// 전용 무기 id
+        public int weapon_id;
+        /// 필요한 전용무기 별수
+        public int need_star;
+        /// #스킬 사용자
+        public string character_name;
+        /// AP AD 판정 유무
+        public global::CookApps.AutoBattler.AtkType atk_type;
+        /// 스킬 이름 토큰
+        public string skill_name_token;
+        /// 스킬 설명 토큰
+        public string skill_desc_token;
+        /// # 사용 이펙트
+        public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
+        /// #변수 의미
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
+        /// 스킬 계수
+        public float base_rate;
     }
 
     [GeneratorSpecData]
-    public partial class SpecCommanderSkill
+    public partial class SkillCommander
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 지휘자 스킬 id
@@ -286,71 +768,176 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecDialogue
+    public partial class MonsterInfo
     {
-        /// 유니크 ID
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 캐릭터_id
+        public int monster_id;
+        /// 프리팹id
+        public int prefab_id;
+        /// 전체 리스트 출력 순서
+        public int seq;
+        /// 캐릭터 이름 토큰
+        public string name_token;
+        /// 캐릭터 설명 토큰
+        public string desc_token;
+        /// 개체 타입
+        public global::CookApps.AutoBattler.CharacterType character_type;
+        /// 속성 시너지
+        public global::CookApps.AutoBattler.ElementType character_element_type;
+        /// 포지션 타입
+        public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
+        /// 일반 공격 AP AD 판정 유무
+        public global::CookApps.AutoBattler.AtkType atk_type;
+        /// 사이즈
+        public int size;
+        /// 체력
+        public int stat_hp;
+        /// 공격력
+        public int stat_atk;
+        /// 체력, 공격력 1레벨 당 성장율
+        public float inc_lv_rate;
+        /// 체력, 공격력 10레벨 당 성장율
+        public float inc_lv_bonus_rate;
+        /// 물리 방어력
+        public int stat_def;
+        /// 마법 방어력
+        public int stat_res;
+        /// 물리 관통력
+        public float stat_atk_pierce;
+        /// 마법 관통력
+        public float stat_res_pierce;
+        /// 치명률
+        public float crit_rate;
+        /// 치명타 피해량
+        public float crit_power;
+        /// 공격 속도
+        public float atk_speed;
+        /// 이동 속도
+        public float move_speed;
+        /// 공격 범위
+        public int atk_range;
+        /// 높이
+        public float height;
+        /// 넉백 가능 여부
+        public bool is_knock_back;
+        /// cc 가능 여부
+        public bool is_taken_cc;
+        /// 공격 범위 형태
+        public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
+        /// 일반 스킬 id
+        public int[] skill_ids = global::System.Array.Empty<int>();
+    }
+
+    [GeneratorSpecData]
+    public partial class ObstacleInfo
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 개체 타입
+        public global::CookApps.AutoBattler.CharacterType character_type;
+        /// 함정id
+        public int obstacle_id;
+        /// 프리팹id
+        public int prefab_id;
+        /// 캐릭터 이름 토큰
+        public string name_token;
+        /// 캐릭터 설명 토큰
+        public string desc_token;
+        /// 개체 타입
+        public global::CookApps.AutoBattler.ObstacleType obstacle_type;
+        /// 상세 타입
+        public global::CookApps.AutoBattler.ObstacleUseType obstacle_use_type;
+        /// 레벨단위
+        public int lv;
+        /// 설치 위치 구분
+        public global::CookApps.AutoBattler.ObstacleLocationType location_type;
+        /// 크기
+        public int size;
+        /// 코스트
+        public int cost;
+        /// 효과 갱신시간
+        public float continue_time;
+        /// 영구 구분
+        public bool is_perpetual;
+        /// 함정지속시간
+        public int perpetual_time;
+        /// 공격 가능 구분
+        public bool is_destructible;
+        /// 장애물 체력
+        public int obstacle_hp;
+        /// 스킬 효과
+        public global::CookApps.AutoBattler.EffectCodeNameType obstacle_effect_type01;
+        /// #변수 의미
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type0101;
+        /// 효과 벨류
+        public float value_rate0101;
+        /// #변수 의미
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type0102;
+        /// 효과 벨류
+        public float value_rate0102;
+        /// 스킬 효과
+        public global::CookApps.AutoBattler.EffectCodeNameType obstacle_effect_type02;
+        /// #변수 의미
+        public global::CookApps.AutoBattler.SkillValueType skill_value_type0201;
+        /// 효과 벨류
+        public float value_rate0201;
+    }
+
+    [GeneratorSpecData]
+    public partial class MapInfo
+    {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
-        /// 대화 발생 이벤트 타입
-        public global::CookApps.AutoBattler.DialogueEventType dialogue_event_type;
-        /// 세부 타겟
-        public string sub_key_value;
-        /// 그룹  ID
-        public int dialouge_group_id;
+        /// 맵타입
+/// 1. 일반 스테이지
+/// 2. 웨이브 형식
+/// 3. Boss전
+        public int map_type;
+        /// 맵 아이디 그룹
+        public int map_id_group;
+        /// 배경
+        public string tile_set_token;
         /// 순서
         public int order;
-        /// 발화자 ID
-        public int prefab_id;
-        /// 발화자 이름 토큰
-        public string character_name_token;
-        /// 캐릭터 위치
-        public string character_pos;
-        /// 캐릭터 id, 감정
-        public string character_img_id_n_emotion;
-        /// 다이얼로그 토큰
-        public string text_desc_token;
-        /// 다이얼로그 상단 이미지
-        public string bg_image;
-        /// 다이얼로그 연출
-        public global::CookApps.AutoBattler.DialogueAnimationType dialogue_animation_type;
-        /// 이미지 크기
-        public float bg_image_scale;
-        /// 대화 종료 시 reward_id
-        public int reward_id;
-        /// 대화 종료 시 imageinfo_id
-        public int image_info_id;
+        /// 행의 크기
+        public int cols_x;
+        /// 열의 크기
+        public int rows_y;
+        /// 플레이어가 배치 가능한 행의 범위
+/// 제일 아래부터 계산
+/// ex) 4 == 0열 부터 3열 까지
+        public int alliance_tile_cols;
+        /// 중립 타일의 행의 범위
+/// 배치타일 부터 계산
+/// ex) 1 == 플레이어 배치타일 +1
+        public int neutral_tile_cols;
+        /// 장애물 (벽) 위치 리스트
+        public int[] obstacle_grid_id = global::System.Array.Empty<int>();
+        /// 장애물 ID
+        public int obstacle_id;
+        /// 트랩 위치 리스트
+        public int[] trap_grid_id = global::System.Array.Empty<int>();
+        /// 트랩 ID
+        public int trap_id;
+        /// 버프존 위치 리스트
+        public int[] buffzone_grid_id = global::System.Array.Empty<int>();
+        /// 버프존 ID
+        public int buffzone_id;
+        /// 디버프존 위치 리스트
+        public int[] debuffzone_grid_id = global::System.Array.Empty<int>();
+        /// 디버프존 ID
+        public int debuffzone_id;
     }
 
     [GeneratorSpecData]
-    public partial class SpecTutorialDialogue
+    public partial class DungeonBabelInfo
     {
-        /// 유니크 ID
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 그룹
-        public int group;
-        /// 순서
-        public int sequence;
-        /// 딜레이
-        public int dialogue_delay_ms;
-        /// 파라메터1
-        public string param1;
-        /// 파라메터2
-        public string param2;
-        /// 다이얼로그
-        public int dialogue_id;
-        /// 딜레이
-        public int after_action_delay_ms;
-        /// 파라메터1
-        public string after_param1;
-        /// 파라메터2
-        public string after_param2;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecDungeonTrial
-    {
-        /// 전체 ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 던전 타입
@@ -386,9 +973,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecDungeonMonster
+    public partial class DungeonBabelMonster
     {
-        /// 아이디
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 던전 타입
@@ -408,9 +995,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecDungeonReward
+    public partial class DungeonBabelReward
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 던전 타입
@@ -426,9 +1013,187 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecEvent
+    public partial class ElpisGroundinfo
     {
-        /// ID
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 영지의 레벨
+        public int elpis_lv;
+        /// 필요 아이템 키
+        public string item_key;
+        /// 필요 아이템 수량
+        public int item_INT;
+        /// 영지 확장 프리펩
+        public string ground_prefab;
+        /// 영지 혜택 시트
+        public int growth_benefit;
+        /// 건물 혜금 리스트
+        public int[] lockup_list = global::System.Array.Empty<int>();
+    }
+
+    [GeneratorSpecData]
+    public partial class ElpisGroundBenefit
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        public int lv;
+        public int benefit_group;
+        public string desc_token;
+        public string benefit_type;
+        public string title_token;
+        public int build_group_id;
+        public float before_key;
+        public float benefit_key;
+    }
+
+    [GeneratorSpecData]
+    public partial class ElpisBuildinfo
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 건물 타입
+        public global::CookApps.AutoBattler.GradeType buld_type;
+        /// 건물 프리펩
+        public string build_prefab;
+        /// 건물 ID
+        public string build_id;
+        /// 그룹 ID
+        public int build_group_id;
+        /// 건물명
+        public string buld_name_token;
+        /// 건물 설명
+        public string buld_desc_token;
+        /// 건물 레벨
+        public int buil_lv;
+        /// 설치 필요 시간(초)
+        public int build_time;
+        /// 마스코트 캐릭터(L2D)
+        public string mascot_name_token;
+        /// 백그라운드 프리펩 네임
+        public string background_name_token;
+        /// 추가 해금 조건(우선 가이드미션)
+        public int add_unlock_condition;
+        /// 필요 아이템 키
+        public string item_key;
+        /// 필요 아이템 수량
+        public int item_INT;
+    }
+
+    [GeneratorSpecData]
+    public partial class ElpisDimensionLab
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 업그레이드 타입
+        public int upgrade_type;
+        /// 업그레이드 레벨
+        public int lv;
+        /// 업그레이드 그룹
+        public int upgrade_group_id;
+        /// 업그레이드 요구 레벨
+        public int need_condition;
+        /// 필요 아이템 키
+        public string item_key;
+        /// 필요 아이템 수량
+        public int item_INT;
+        /// 능력치업글 토큰
+        public string upgrade_name_token;
+        /// 능력치 토큰 1
+        public string upgrade_desc_token01;
+        /// 능력치 토큰 2
+        public string upgrade_desc_token02;
+        /// 업그레이드 적용 범위
+        public global::CookApps.AutoBattler.SynergyCoverType upgrade_cover_type;
+        /// 효과 타입
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type01;
+        /// 스킬밸류
+        public int effect_stat_value01;
+        /// 효과 타입
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type02;
+        /// 밸류
+        public int effect_stat_value02;
+    }
+
+    [GeneratorSpecData]
+    public partial class ElpisSimulationCenter
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 시뮬레이션 레벨
+        public int simul_lv;
+        /// 요구 스타량
+        public int need_star;
+        /// 누적 스타량
+        public int acc_star;
+        /// 최대 보관시간(초)
+        public int max_storage_time;
+        /// 최대 보관 시간 기준 획득량
+        public int max_storage_amount;
+    }
+
+    [GeneratorSpecData]
+    public partial class ElpisSupplyBox
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 단조 레벨 그룹
+        public int box_lv;
+        /// 필요 아이템 키
+        public string item_key;
+        /// 필요 아이템 수량
+        public int item_INT;
+        /// 커먼 확률 가중치
+        public float common_weight;
+        /// 언커먼 확률 가중치
+        public float uncommon_weight;
+        /// 노말 확률 가중치
+        public float normal_weight;
+        /// 매직 확률 가중치
+        public float magic_weight;
+        /// 레어 확률 가중치
+        public float rare_weight;
+        /// 에픽 확률 가중치
+        public float epic_weight;
+        /// 유니크 확률 가중치
+        public float unique_weight;
+        /// 레전더리 확률 가중치
+        public float legendary_weight;
+        /// 고대의 확률 가중치
+        public float ancient_weight;
+        /// 신화적인 확률 가중치
+        public float mythical_weight;
+    }
+
+    [GeneratorSpecData]
+    public partial class ElpisBoxGacha
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 가챠 등급
+        public global::CookApps.AutoBattler.GradeType gacha_grade;
+        /// 등급 그룹
+        public int grade_group;
+        /// 순서
+        public int seq;
+        /// 필요 아이템 키
+        public string item_key;
+        /// 필요 아이템 수량
+        public int item_INT;
+        /// 가중치
+        public int weight;
+    }
+
+    [GeneratorSpecData]
+    public partial class EventInfo
+    {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 이벤트ID
@@ -452,9 +1217,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecEventCondition
+    public partial class EventCondition
     {
-        /// ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 이벤트ID
@@ -472,36 +1237,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecLanguage
+    public partial class GachaInfo
     {
-        /// 아이디
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 키 값
-        public string token_key;
-        /// 값
-        public string language_kr;
-        public string language_en;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecGameConfig
-    {
-        /// 아이디
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 키 값
-        public string config_key;
-        /// 자료형 타입
-        public global::CookApps.AutoBattler.ConfigValueType config_value_type;
-        /// 값
-        public string config_value;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecGacha
-    {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 가챠 그룹 id
@@ -527,9 +1265,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecGachaContent
+    public partial class GachaCharacter
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 가챠  그룹 id
@@ -545,9 +1283,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecGachaScenario
+    public partial class GachaScenario
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 가챠 누적 횟수
@@ -561,65 +1299,140 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecGuideMission
+    public partial class DungeonGrowthInfo
     {
-        /// 유니크 ID
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 던전 타입
+/// 1. 튜토리얼 전투
+/// 2. 행성 정화활동
+/// 3. 고철 수집
+/// 4. 게이트 탐사
+/// 5. 바벨탑
+/// 6. Abyss
+        public int dungeon_type;
+        /// 던전 속성 타입
+/// NORMAL
+/// FIRE
+/// WIND
+/// ELECTRIC
+/// EARTH
+/// WATER
+        public global::CookApps.AutoBattler.ElementType dungeon_elemental_type;
+        /// 던전 그룹 id
+        public int dungeon_group_id;
+        /// 던전 맵 ID
+        public int map_group_id;
+        /// 몬스터 그룹 ID
+        public int monster_group_id;
+        /// 던전의 웨이브 수
+        public int wave_INT;
+        /// 네임토큰
+        public string dungeon_name_token;
+        /// 던전 난이도
+        public int dungeon_lv;
+        /// 입장 조건
+/// 필요시만 사용
+        public int need_enter;
+        /// 입장 재화
+        public string need_goods;
+        /// 입장 재화 수량
+        public int goods_INT;
+        /// 게임 룰
+        public int[] rule_conditions = global::System.Array.Empty<int>();
+        /// 보상 테이블 id의 연결자
+        public int reward_group_value;
+    }
+
+    [GeneratorSpecData]
+    public partial class DungeonGrowthMonster
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 몬스터 그룹
+        public int monster_group;
+        /// 좌표값 (x,y)
+        public string coordinate;
+        /// 몬스터 id
+        public int monster_id;
+        /// 몬스터 레벨
+        public int monster_lv;
+        /// 공격력 멀티플
+        public float multiple_atk;
+        /// 체력 멀티플
+        public float multiple_hp;
+    }
+
+    [GeneratorSpecData]
+    public partial class DungeonGrowthReward
+    {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
-        /// 가이드 순서
-        public int order;
-        /// 가이드 타입
-        public global::CookApps.AutoBattler.GuideMissionType guide_mission_type;
-        /// 가이드 이름 토큰
-        public string name_token;
-        /// 가이드 설명 토큰
-        public string desc_token;
-        /// 출력 다이얼로그 id
-        public int dialogue;
-        /// 타겟 id
-        public int sub_key;
-        /// 필요 행위 횟수
-        public int need_count;
-        /// 보상 종류
+        /// 던전 타입
+/// 1. 튜토리얼 전투
+/// 2. 행성 정화활동
+/// 3. 고철 수집
+/// 4. 게이트 탐사
+/// 5. 바벨탑
+/// 6. Abyss
+        public global::CookApps.AutoBattler.DungeonType dungeon_type;
+        /// 던전 id
+        public int dungeon_id;
+        /// 보상 타입
         public global::CookApps.AutoBattler.ItemType item_type;
         /// 보상 키 값
         public int item_key;
         /// 보상 수량
-        public int item_count;
+        public int item_INT;
     }
 
     [GeneratorSpecData]
-    public partial class SpecQuest
+    public partial class Language
     {
-        /// ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
-        /// 퀘스트ID
-        public int quest_id;
-        /// 반복 기간 타입
-        public global::CookApps.AutoBattler.TermType term_type;
-        /// 퀘스트 타입
-        public global::CookApps.AutoBattler.QuestType quest_type;
-        /// 퀘스트 이름 토큰
-        public string name_token;
-        /// 퀘스트 설명 토큰
-        public string desc_token;
-        /// 타겟 id
-        public int sub_key;
-        /// 필요 행위 횟수
-        public int need_count;
-        /// 보상 종류
-        public global::CookApps.AutoBattler.ItemType item_type;
-        /// 보상 키 값
-        public int item_key;
-        /// 보상 수량
-        public int item_count;
+        /// 키 값
+        public string token_key;
+        /// 값
+        public string language_kr;
+        /// 값
+        public string language_en;
     }
 
     [GeneratorSpecData]
-    public partial class SpecStage
+    public partial class TutorialDialogue
     {
-        /// 전체 ID
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 그룹
+        public int group;
+        /// 순서
+        public int sequence;
+        /// 딜레이
+        public int dialogue_delay_ms;
+        /// 파라메터1
+        public string param1;
+        /// 파라메터2
+        public string param2;
+        /// 다이얼로그
+        public int dialogue_id;
+        /// 딜레이
+        public int after_action_delay_ms;
+        /// 파라메터1
+        public string after_param1;
+        /// 파라메터2
+        public string after_param2;
+    }
+
+    [GeneratorSpecData]
+    public partial class StageInfo
+    {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 스테이지 ID
@@ -663,8 +1476,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecStageMonster
+    public partial class StageMonster
     {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 챕터 id
@@ -686,95 +1500,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecTileEffectCode
+    public partial class StageReward
     {
-        /// 전체 ID
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 이펙트 코드
-        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
-        /// 이름
-        public string name_token;
-        /// 설명
-        public string desc_token;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_1;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_2;
-        /// 이텍트 코드 스텟2
-        public float effect_code_stat_3;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecSkill
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 스킬 id
-        public int skill_id;
-        /// 스킬 타입
-        public global::CookApps.AutoBattler.SkillType skill_type;
-        /// 캐릭터 ID
-        public int prefab_id;
-        /// 전용 무기 id
-        public int weapon_id;
-        /// #스킬 사용자
-        public string character_name;
-        /// AP AD 판정 유무
-        public global::CookApps.AutoBattler.AtkType atk_type;
-        /// 스킬 이름 토큰
-        public string skill_name_token;
-        /// 스킬 설명 토큰
-        public string skill_desc_token;
-        /// # 사용 이펙트
-        public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
-        /// #변수 의미
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 스킬 계수
-        public float base_rate;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecPositionPassive
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 포지션 타입
-        public global::CookApps.AutoBattler.PositionType position_type;
-        /// 패시브 id
-        public global::CookApps.AutoBattler.EffectCodeNameType passive_id;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecPassive
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 패시브 id
-        public global::CookApps.AutoBattler.EffectCodeNameType passieve_id;
-        /// 패시브 이름 토큰
-        public string passive_name_token;
-        /// 패시브 설명 토큰
-        public string passive_desc_token;
-        /// 단계
-        public int grade;
-        /// 계수 타입
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 패시브 계수
-        public float passive_rate;
-        /// 계수 타입_2
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
-        /// 패시브 계수_2
-        public float passive_rate_2;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecStageReward
-    {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 스테이지 난이도
@@ -798,57 +1526,85 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecUserGrade
+    public partial class GuideMissionInfo
     {
-        /// 전체 ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
-        /// 등급
-        public int grade;
-        /// 캐릭터 배치 가능 인원
-        public int maximum_character_count;
-        /// 지휘자 스킬 장착 갯수
-        public int maximum_commander_skill_count;
-        /// 시련 던전 id
-        public int dungeon_id;
-    }
-
-    [GeneratorSpecData]
-    public partial class SpecSynergy
-    {
-        /// 유니크 id
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 성군혹은 엘리먼트 시너지
-        public global::CookApps.AutoBattler.SynergyType synergy_type;
-        /// 시너지 이름 토큰
+        /// 가이드 순서
+        public int order;
+        /// 가이드 타입
+        public global::CookApps.AutoBattler.GuideMissionType guide_mission_type;
+        /// 가이드 이름 토큰
         public string name_token;
-        /// 시너지 효과 설명 토큰
-        public string desc_token_1;
-        /// 시너지 효과 설명 토큰
-        public string desc_token_2;
-        /// 시너지 단계
-        public int grade;
-        /// 단계 발동 최소 명수 조건
-        public int min_count;
-        /// 단계 발동 최대 명수 조건
-        public int max_count;
-        /// 시너지 적용 범위와 조건
-        public global::CookApps.AutoBattler.SynergyAffectType synergy_affect_type;
-        /// 계수 타입
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 계수
-        public float stat_value;
-        /// 계수 타입2
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
-        /// 계수2
-        public float stat_value_2;
+        /// 가이드 설명 토큰
+        public string desc_token;
+        /// 출력 다이얼로그 id
+        public int dialogue;
+        /// 타겟 id
+        public int sub_key;
+        /// 필요 행위 횟수
+        public int need_count;
+        /// 보상 종류
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 키 값
+        public int item_key;
+        /// 보상 수량
+        public int item_count;
     }
 
     [GeneratorSpecData]
-    public partial class SpecShop
+    public partial class QuestInfo
     {
-        /// 아이디
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 퀘스트ID
+        public int quest_id;
+        /// 반복 기간 타입
+        public global::CookApps.AutoBattler.TermType term_type;
+        /// 퀘스트 타입
+        public global::CookApps.AutoBattler.QuestType quest_type;
+        /// 퀘스트 이름 토큰
+        public string name_token;
+        /// 퀘스트 설명 토큰
+        public string desc_token;
+        /// 타겟 id
+        public int sub_key;
+        /// 필요 행위 횟수
+        public int need_count;
+        /// 보상 종류
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 키 값
+        public int item_key;
+        /// 보상 수량
+        public int item_count;
+    }
+
+    [GeneratorSpecData]
+    public partial class TileEffectCode
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 이펙트 코드
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
+        /// 이름
+        public string name_token;
+        /// 설명
+        public string desc_token;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_1;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_2;
+        /// 이텍트 코드 스텟2
+        public float effect_code_stat_3;
+    }
+
+    [GeneratorSpecData]
+    public partial class ShopInfo
+    {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 상점 id
@@ -878,9 +1634,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecShopBanner
+    public partial class ShopBanner
     {
-        /// 아이디
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 상점 id
@@ -896,9 +1652,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecTutorial
+    public partial class Tutorial
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(ID), typeof(int))]
         public int ID;
         /// 오픈 컨텐츠 대분류
@@ -925,9 +1681,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecItem
+    public partial class Item
     {
-        /// 유니크 ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 아이템 ID
@@ -955,9 +1711,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecIdleReward
+    public partial class IdleReward
     {
-        /// 유니크 아이디
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 보상 해금 챕터
@@ -973,8 +1729,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecInGameVfx
+    public partial class InGameVfxMap
     {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         public global::CookApps.AutoBattler.InGameVfxNameType vfx_name_type;
@@ -982,9 +1739,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecRewardInfo
+    public partial class RewardInfo
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 보상 id
@@ -1006,9 +1763,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecObstacle
+    public partial class Obstacle
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 기믹 id
@@ -1026,9 +1783,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecOpenCondition
+    public partial class OpenCondition
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// #origin
@@ -1038,8 +1795,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecPVPTier
+    public partial class PVPTier
     {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         public int ranking_id;
@@ -1060,8 +1818,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecPvpReward
+    public partial class PvpReward
     {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         public global::CookApps.AutoBattler.PvpRewardType pvp_reward_type;
@@ -1072,8 +1831,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecPVPRanking
+    public partial class PVPRanking
     {
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 랭킹 정산 방식
@@ -1091,7 +1851,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecPVPConfig
+    public partial class PVPConfig
     {
         /// 아이디
         [GeneratorId(nameof(id), typeof(int))]
@@ -1113,7 +1873,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecReward
+    public partial class Reward
     {
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
@@ -1125,9 +1885,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecPVPDummy
+    public partial class PVPDummy
     {
-        /// 아이디
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 더미 아이디 (DUMMY_숫자 : 이 포맷을 바꾸면 절대안됨!!)
@@ -1143,9 +1903,9 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class SpecImageInfo
+    public partial class ImageInfo
     {
-        /// 유니크 id
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 인포 아이디
@@ -1154,5 +1914,21 @@ namespace CookApps.AutoBattler
         public string title_token;
         /// 설명
         public string desc_token;
+    }
+
+    [GeneratorSpecData]
+    public partial class UserGrade
+    {
+        /// 전체 ID
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 등급
+        public int grade;
+        /// 캐릭터 배치 가능 인원
+        public int maximum_character_count;
+        /// 지휘자 스킬 장착 갯수
+        public int maximum_commander_skill_count;
+        /// 시련 던전 id
+        public int dungeon_id;
     }
 }

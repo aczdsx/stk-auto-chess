@@ -26,7 +26,7 @@ public partial class EffectCodeSkill1404031 : EffectCodeCharacterBase
 
     private Dictionary<InGameVfx, InGameTile> _vfxDictionary = new();
 
-    private SpecSkill _specSkill;
+    private SkillActive _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -89,7 +89,7 @@ public partial class EffectCodeSkill1404031 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -160,7 +160,7 @@ public partial class EffectCodeSkill1404031 : EffectCodeCharacterBase
 
     private void SkillAction(InGameTile pivotTile)
     {
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, pivotTile);
+        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, pivotTile);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], pivotTile.View.CachedTr.position);
         
         List<int> targetCharacterList = new();
@@ -180,7 +180,7 @@ public partial class EffectCodeSkill1404031 : EffectCodeCharacterBase
 
         foreach (var inGameTile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.element_type, inGameTile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, inGameTile);
             if (inGameTile.CheckValidTile(owner.AllianceType, false))
             {
                 if (!targetCharacterList.Contains(inGameTile.OccupiedCharacter.CharacterUId))

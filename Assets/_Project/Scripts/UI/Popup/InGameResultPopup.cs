@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
         private bool _isEndStage = false;         // 게임의 가장 마지막 스테이지 체크
         private bool _isWaitGuideMissionReward = false;         // 현재 가이드 미션을 클리어한 상태인지 체크
 
-        private SpecCharacter _specCharacter;
+        private CharacterInfo _specCharacter;
 
         protected override void OnPreEnter(object param)
         {
@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _starTime, _starNoDeath, _specCharacter) = ((bool, bool, bool, SpecCharacter))param;
+            (_isVictory, _starTime, _starNoDeath, _specCharacter) = ((bool, bool, bool, CharacterInfo))param;
 
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);

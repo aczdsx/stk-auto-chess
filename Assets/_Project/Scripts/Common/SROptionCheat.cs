@@ -399,7 +399,7 @@ public partial class SROptions
     [Category("미션 관련")]
     public void 모든가이드미션클리어()
     {
-        var allGuideMissionList = SpecDataManager.Instance.SpecGuideMission.All.ToList();
+        var allGuideMissionList = SpecDataManager.Instance.GuideMissionInfo.All.ToList();
 
         foreach (var guideMission in allGuideMissionList)
             if (guideMission.id >= 30)
@@ -421,7 +421,7 @@ public partial class SROptions
     public void 현재가이드미션클리어()
     {
         var currentGuideMission =
-            SpecDataManager.Instance.SpecGuideMission.Get(UserDataManager.Instance.UserMissionData
+            SpecDataManager.Instance.GuideMissionInfo.Get(UserDataManager.Instance.UserMissionData
                 .GuideMissionCurrentOrder);
 
         GuideMissionManager.Instance.ChangeGuideMissionState(currentGuideMission.guide_mission_type,
@@ -498,7 +498,7 @@ public partial class SROptions
     [Category("스킬 관련")]
     public void 지휘자스킬전체획득()
     {
-        var allCommanderSkillList = SpecDataManager.Instance.SpecCommanderSkill.All;
+        var allCommanderSkillList = SpecDataManager.Instance.SkillCommander.All;
 
         allCommanderSkillList.GroupBy(data => data.commander_skill_id);
 

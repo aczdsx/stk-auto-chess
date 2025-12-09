@@ -253,7 +253,7 @@ namespace CookApps.AutoBattler
 
             int currentStagdId = UserDataManager.Instance.GetLastPlayStageID();
 
-            SpecStage specStageData = SpecDataManager.Instance.GetStageData(currentStagdId);
+            StageInfo specStageData = SpecDataManager.Instance.GetStageData(currentStagdId);
             var specChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStagdId);
 
             var stageList = SpecDataManager.Instance.GetStageList(specChapterData.chapter_id, specChapterData.difficulty_type);
@@ -285,7 +285,7 @@ namespace CookApps.AutoBattler
             }
 
             // 보스 스테이지 관련
-            SpecStage bossStageData = SpecDataManager.Instance.GetStageData(specStageData.chapter_id, specStageData.difficulty_type, StageType.BATTLE_BOSS);
+            StageInfo bossStageData = SpecDataManager.Instance.GetStageData(specStageData.chapter_id, specStageData.difficulty_type, StageType.BATTLE_BOSS);
             if (bossStageData != null)
             {
                 // var stageMonsterData = SpecDataManager.Instance.GetStageMonsterData(bossStageData.chapter_id, bossStageData.stage_number, bossStageData.difficulty_type);

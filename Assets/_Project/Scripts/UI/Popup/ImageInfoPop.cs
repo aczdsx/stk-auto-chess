@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
         
         [SerializeField] private Image _infoImage;
 
-        private SpecImageInfo _specImageInfo;
+        private ImageInfo _specImageInfo;
 
         protected override void Awake()
         {

@@ -13,7 +13,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public class EffectCodeCommanderSkill300300 : EffectCodeCommanderSkillBase
     {
-        private const int CodeId = (int)EffectCodeNameType.COMMANDER_SKILL_EARTHEN_SOLDIERS;
+        private const int CodeId = 300300; // (int)EffectCodeNameType.COMMANDER_SKILL_EARTHEN_SOLDIERS;
         private const InGameVfxNameType _tileVfxName = InGameVfxNameType.fx_common_commander_skill_300;
         private const InGameVfxNameType _collisionVfxName = InGameVfxNameType.Skill_401021_1;
 
@@ -149,7 +149,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public override InGameTile GetRecommendedTile(SpecCommanderSkill specCommanderSkillData)
+        public override InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
             var enemyList = inGameObjectManagerInstance.GetCharacterListSortedByADDescending(AllianceType.Enemy, true);

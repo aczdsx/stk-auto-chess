@@ -11,10 +11,10 @@ namespace CookApps.AutoBattler
     public class CharacterStatData : IEffectCodeSource
     {
         public EffectCodeContainer EffectCodeContainer { get; }
-        public SpecCharacter Spec => _spec;
+        public CharacterInfo Spec => _spec;
         public int Level => _level;
         public int CharacterID => _spec?.character_id ?? 0;
-        private SpecCharacter _spec;
+        private CharacterInfo _spec;
         private int _level;
 
         public CharacterStatData(int characterId, int level, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null) : this(characterId, level, 1, 1, globalEffectCodeInfos)
@@ -196,8 +196,8 @@ namespace CookApps.AutoBattler
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatRES))
             {
-                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
-                RES = codes.CalculateRES(_spec.stat_res);
+                // var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
+                // RES = codes.CalculateRES(_spec.stat_res);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatDEFPenetration))

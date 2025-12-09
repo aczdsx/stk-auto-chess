@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject[] SRFxObjects;
 
         private int pieceCount = 0;
-        private SpecCharacter characterData;
+        private CharacterInfo characterData;
 
         private RewardItem _rewardItemData;
 
@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
                     KnightImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Purple");
                     KnighBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_PurpleOn_Bg");
                 }
-                else if (resultGradeType == GradeType.LEGEND)
+                else if (resultGradeType == GradeType.LEGENDARY)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Gold");
                     KnightImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Gold");
@@ -167,7 +167,7 @@ namespace CookApps.AutoBattler
 
                     PieceOnBackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Piece_Purple");
                 }
-                else if (resultGradeType == GradeType.LEGEND)
+                else if (resultGradeType == GradeType.LEGENDARY)
                 {
                     BackImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Gold");
                     PieceImage.sprite = ImageManager.Instance.GetSprite(Defines.GACHA_ATLAS_NAME, "Gacha_Img_Icon_Gold");
@@ -254,7 +254,7 @@ namespace CookApps.AutoBattler
                     starObjects[i].SetActive(true);
                 }
 
-                if (characterData.grade_type == GradeType.LEGEND)
+                if (characterData.grade_type == GradeType.LEGENDARY)
                 {
                     for (int i = 0; i < SSRFxObjects.Length; i++)
                     {

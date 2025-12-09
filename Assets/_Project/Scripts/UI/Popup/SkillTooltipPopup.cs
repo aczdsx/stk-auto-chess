@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
-        public void SetSkillToolTipPopup(SpecSkill skillData)
+        public void SetSkillToolTipPopup(SkillActive skillData)
         {
             if (skillData == null) return;
 
@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void SetCommanderSkillToolTipPopup(SpecCommanderSkill skillData)
+        public void SetCommanderSkillToolTipPopup(SkillCommander skillData)
         {
             if (skillData == null) return;
 

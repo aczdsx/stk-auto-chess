@@ -57,10 +57,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private CurrencyUIItem _transcendenceItemCurrencyUIItem;
 
         private UserCharacter _userCharacterData;
-        private SpecCharacter _specCharacterData;
+        private CharacterInfo _specCharacterData;
 
-        private SpecCharacterLevelExp _specCharacterLevelExpData;
-        private SpecCharacterTranscendence _specCharacterTranscendenceData;
+        private CharacterLevelExp _specCharacterLevelExpData;
+        private CharacterTranscendence _specCharacterTranscendenceData;
 
         private CharacterStatData _userStatData;
 
@@ -220,10 +220,10 @@ namespace CookApps.AutoBattler
             if (_isHaveCharacter == false) return;
             
             // 초월 가능 여부 체크
-            var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.element_type, _specCharacterData.grade_type);
+            var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
             _maxTranscendenceLevel = transcendenceDataList.Max(data => data.transcendence_lv);
             // 초월에 필요한 자원 정보 세팅
-            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.character_element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
 
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)
@@ -463,7 +463,7 @@ namespace CookApps.AutoBattler
                 PlayLevelUpEffect();
                 
                 var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
-                    _specCharacterData.element_type, _specCharacterData.grade_type,
+                    _specCharacterData.character_element_type, _specCharacterData.grade_type,
                     _userCharacterData.TranscendenceLevel + 1);
                 if (afterTranscenenceData != null)
                 {

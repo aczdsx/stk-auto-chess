@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class CommanderSkillData
 {
-    public SpecCommanderSkill Spec => _spec;
+    public SkillCommander Spec => _spec;
 
     public float ElapsedTime
     {
@@ -20,10 +20,10 @@ public class CommanderSkillData
     }
 
     public float DurationTime => _spec.cool_time;
-    private SpecCommanderSkill _spec;
+    private SkillCommander _spec;
     private ObfuscatorFloat _elapsedTime;
 
-    public CommanderSkillData(SpecCommanderSkill spec)
+    public CommanderSkillData(SkillCommander spec)
     {
         _spec = spec;
         _elapsedTime = 0f;
@@ -255,7 +255,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         }
     }
 
-    public CommanderSkillData InitCommanderSkillData(SpecCommanderSkill data)
+    public CommanderSkillData InitCommanderSkillData(SkillCommander data)
     {
         var commandSkillData = new CommanderSkillData(data);
         commandSkillData.ElapsedTime = commandSkillData.DurationTime * 0.5f;
@@ -288,9 +288,9 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
                 var targetCommanderSkillData = _selectedCommanderSkillData.Spec;
                 switch (targetCommanderSkillData.commander_range_shape_type)
                 {
-                    case CommanderRangeShapeType.SHAPE_X:
-                        tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile, targetCommanderSkillData.commander_range_size / 2));
-                        break;
+                    // case CommanderRangeShapeType.SHAPE_X:
+                    //     tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(centerTile, targetCommanderSkillData.commander_range_size / 2));
+                    //     break;
                     case CommanderRangeShapeType.SHAPE_SQUARE:
                         tiles.AddRange(InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(centerTile, targetCommanderSkillData.commander_range_size - 2));
                         break;
