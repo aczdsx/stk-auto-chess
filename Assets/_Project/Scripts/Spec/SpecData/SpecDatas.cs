@@ -1921,7 +1921,7 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class UserGrade
     {
-        /// 전체 ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 등급

@@ -17,7 +17,8 @@ namespace CookApps.AutoBattler
 		public List<CharacterQuotes> SpecCharacterQuotesList {get; private set;}
 		public List<ChapterRule> SpecChapterRuleList {get; private set;}
 		public List<SkillCommander> SpecCommanderSkillList {get; private set;}
-		public List<DialogueLanguage> SpecDialogueList {get; private set;}
+		public List<MonsterInfo> SpecMonsterList {get; private set;}
+		public List<DialogueLanguage> SpecDialogueList { get; private set; }
 		public List<TutorialDialogue> SpecTutorialDialogueList {get; private set;}
 		public List<DungeonBabelInfo> SpecDungeonTrialList {get; private set;}
 		public List<DungeonBabelMonster> SpecDungeonMonsterList {get; private set;}
@@ -79,6 +80,7 @@ namespace CookApps.AutoBattler
 			SpecRewardInfoList = RewardInfo.All.ToList();
 			SpecOpenConditionList = OpenCondition.All.ToList();
 			SpecImageInfoList = ImageInfo.All.ToList();
+			SpecMonsterList = MonsterInfo.All.ToList();
 		}
 	}
 }

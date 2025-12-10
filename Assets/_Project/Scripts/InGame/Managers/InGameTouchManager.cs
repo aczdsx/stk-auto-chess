@@ -10,6 +10,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using PrimeTween;
 using UnityEngine.Pool;
 
@@ -472,7 +473,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         {
             ActiveAttackTile(character.CurrentTile, character.AttackRange);
             _selectedCharacterController.SetSelectedCharacter(true);
-            InGameMain.GetInGameMain().SetFocusSlotUI(character.GetCharacterStat().Spec);
+            InGameMain.GetInGameMain().SetFocusSlotUI(character.GetCharacterStat().Spec as CharacterInfo);
             InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
         }
     }

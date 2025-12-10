@@ -12,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using Unity.VisualScripting;
 using Unity.Android.Gradle;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace CookApps.AutoBattler
 {
@@ -82,6 +83,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<StageMonster>> stageMonsterDic = new();                       // key : chapter_id, value : stage list
         private Dictionary<int, List<StageReward>> stageRewardDic = new();                         // key : reward_id, value : stage list
         private Dictionary<int, List<CharacterInfo>> characterDic = new();                         // key : character_id, value : stage list
+        private Dictionary<int, List<MonsterInfo>> monsterDic = new();                             // key : monster_id, value : monster list
         private Dictionary<string, ConfigGame> configDic = new();                                  // key : config_key, value : game config data
         private Dictionary<long, List<SkillActive>> skillDic = new();                              // key : skill_id, value : skill list
         private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
@@ -231,6 +233,19 @@ namespace CookApps.AutoBattler
                 }
 
                 specCharacter.Add(character);
+            }
+
+            // Monster
+            monsterDic.Clear();
+            foreach (MonsterInfo monster in MonsterInfo.All)
+            {
+                if (!monsterDic.TryGetValue(monster.monster_id, out List<MonsterInfo> specMonster))
+                {
+                    specMonster = new List<MonsterInfo>();
+                    monsterDic.Add(monster.monster_id, specMonster);
+                }
+
+                specMonster.Add(monster);
             }
 
             // InGameVfx
@@ -763,9 +778,22 @@ namespace CookApps.AutoBattler
             return SpecItemList.Find(data => data.item_type == itemType);
         }
 
-        public CharacterInfo GetSpecCharacter(int characterID)
+        public ISpecCharacterInfo GetSpecCharacter(int characterID)
         {
-            return SpecCharacterList.FirstOrDefault(data => data.character_id == characterID);
+            ISpecCharacterInfo outCharacterInfo = SpecCharacterList.FirstOrDefault(data => data.character_id == characterID);
+            if (outCharacterInfo != null)
+            {
+                return outCharacterInfo;
+            }
+
+            outCharacterInfo = SpecMonsterList.FirstOrDefault(data => data.monster_id == characterID);
+            if (outCharacterInfo != null)
+            {
+                return outCharacterInfo;
+            }
+
+            Debug.LogError($"CharacterID: {characterID} not found");
+            return null;
         }
 
         public int GetLeftCharacterID(int characterID, CharacterType characterType)

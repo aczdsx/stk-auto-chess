@@ -13,7 +13,7 @@ namespace CookApps.BattleSystem
     {
         public int CharacterUId => _characterUId;
         public int CharacterId => _statData?.CharacterId ?? _characterID;
-        public CharacterInfo SpecCharacter => _statData.Spec;
+        public ISpecCharacterInfo SpecCharacter => _statData.Spec;
 
         private Dictionary<Type, Type> _stateTypeMap = new Dictionary<Type, Type>();
 

@@ -75,7 +75,7 @@ namespace CookApps.BattleSystem
             return emptyTiles.FirstOrDefault();
         }
 
-        public InGameTile GetRecommandedTile(CharacterInfo spec)
+        public InGameTile GetRecommandedTile(ISpecCharacterInfo spec)
         {
             int midPoint = Width / 2;
             int[] xOrder = Enumerable.Range(0, Width)
