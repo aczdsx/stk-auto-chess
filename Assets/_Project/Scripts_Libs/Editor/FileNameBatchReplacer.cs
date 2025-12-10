@@ -10,9 +10,17 @@ namespace CookApps.Editor
     {
         private Object _targetFolder;
         private Vector2 _scrollPosition;
+        private Vector2 _mappingScrollPosition;
         private List<string> _matchedFiles = new List<string>();
         private bool _includeSubfolders = true;
         private readonly List<MappingEntry> _mappings = new List<MappingEntry> { new MappingEntry() };
+        
+        // 비동기 검색을 위한 변수들
+        private bool _isSearching = false;
+        private string[] _searchGuids;
+        private int _searchIndex = 0;
+        private string _searchFolderPath;
+        private const int FILES_PER_FRAME = 50; // 프레임당 처리할 파일 수
 
         [MenuItem("Tools/File Name Batch Replacer")]
         private static void Open()
@@ -40,6 +48,92 @@ namespace CookApps.Editor
 
             // 검색 결과 섹션
             DrawResultsSection();
+        }
+
+        private void OnEnable()
+        {
+            EditorApplication.update += OnUpdate;
+        }
+
+        private void OnDisable()
+        {
+            EditorApplication.update -= OnUpdate;
+        }
+
+        private void OnUpdate()
+        {
+            if (_isSearching)
+            {
+                ProcessSearchAsync();
+            }
+        }
+
+        private void ProcessSearchAsync()
+        {
+            if (_searchGuids == null || _searchIndex >= _searchGuids.Length)
+            {
+                // 검색 완료
+                FinishSearch();
+                return;
+            }
+
+            int endIndex = Mathf.Min(_searchIndex + FILES_PER_FRAME, _searchGuids.Length);
+            
+            for (int i = _searchIndex; i < endIndex; i++)
+            {
+                string guid = _searchGuids[i];
+                string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                
+                bool isFolder = AssetDatabase.IsValidFolder(assetPath);
+                
+                // 하위 폴더 포함 옵션 체크
+                if (!_includeSubfolders && !isFolder)
+                {
+                    string relativePath = assetPath.Replace(_searchFolderPath + "/", "");
+                    if (relativePath.Contains("/"))
+                    {
+                        continue;
+                    }
+                }
+
+                string name = isFolder ? Path.GetFileName(assetPath) : Path.GetFileName(assetPath);
+
+                // 각 매핑별로 개별적으로 매칭 확인 (카운트 계산)
+                foreach (var mapping in _mappings)
+                {
+                    if (mapping.Enabled && !string.IsNullOrEmpty(mapping.Search))
+                    {
+                        if (IsExactMatch(name, mapping.Search))
+                        {
+                            mapping.MatchCount++;
+                        }
+                    }
+                }
+
+                // 매핑 적용 시도 (변경이 있는지 확인) - 파일과 폴더 모두 처리
+                if (TryApplyMappings(name, out _))
+                {
+                    _matchedFiles.Add(assetPath);
+                }
+            }
+
+            _searchIndex = endIndex;
+
+            // 진행 상황 표시
+            float progress = (float)_searchIndex / _searchGuids.Length;
+            EditorUtility.DisplayProgressBar("파일 검색 중...", 
+                $"파일 검색 중... ({_searchIndex}/{_searchGuids.Length})", progress);
+
+            // Repaint 제거 - 검색 완료 후에만 호출
+        }
+
+        private void FinishSearch()
+        {
+            _isSearching = false;
+            EditorUtility.ClearProgressBar();
+            
+            // 검색 완료 후 한 번만 Repaint
+            Repaint();
         }
 
         private void DrawHeader()
@@ -106,32 +200,27 @@ namespace CookApps.Editor
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField($"총 {_matchedFiles.Count}개 파일이 검색되었습니다.", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField($"총 {_matchedFiles.Count}개 항목이 검색되었습니다.", EditorStyles.boldLabel);
                 EditorGUILayout.EndHorizontal();
                 
                 EditorGUILayout.Space(5);
                 
-                // 결과 리스트
+                // 결과 리스트 - 변경 미리보기 제거
                 _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition, GUILayout.Height(250));
                 
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 
                 foreach (var file in _matchedFiles)
                 {
-                    string fileName = Path.GetFileName(file);
-                    string newFileName = TryApplyMappings(fileName, out var mappedName) ? mappedName : fileName;
+                    bool isFolder = AssetDatabase.IsValidFolder(file);
+                    string name = Path.GetFileName(file);
                     string directory = Path.GetDirectoryName(file).Replace('\\', '/');
                     
                     EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                     
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField("기존:", GUILayout.Width(50));
-                    EditorGUILayout.LabelField(fileName, EditorStyles.wordWrappedLabel);
-                    EditorGUILayout.EndHorizontal();
-                    
-                    EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField("변경:", GUILayout.Width(50));
-                    EditorGUILayout.LabelField(newFileName, EditorStyles.wordWrappedLabel);
+                    EditorGUILayout.LabelField(isFolder ? "[폴더]" : "[파일]", GUILayout.Width(50));
+                    EditorGUILayout.LabelField(name, EditorStyles.wordWrappedLabel);
                     EditorGUILayout.EndHorizontal();
                     
                     EditorGUILayout.LabelField($"경로: {directory}", EditorStyles.miniLabel);
@@ -152,7 +241,7 @@ namespace CookApps.Editor
                 if (GUILayout.Button("파일명 교체 실행", GUILayout.Height(35)))
                 {
                     if (EditorUtility.DisplayDialog("파일명 교체 확인",
-                        $"{_matchedFiles.Count}개의 파일명을 교체하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다!",
+                        $"{_matchedFiles.Count}개의 항목명을 교체하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다!",
                         "확인", "취소"))
                     {
                         ReplaceFileNames();
@@ -192,6 +281,41 @@ namespace CookApps.Editor
                 return;
             }
 
+            _searchFolderPath = AssetDatabase.GetAssetPath(_targetFolder);
+            if (!AssetDatabase.IsValidFolder(_searchFolderPath))
+            {
+                return;
+            }
+
+            // 각 매핑별 카운트 초기화
+            foreach (var mapping in _mappings)
+            {
+                mapping.MatchCount = 0;
+            }
+
+            // 모든 파일 GUID 가져오기
+            _searchGuids = AssetDatabase.FindAssets("", new[] { _searchFolderPath });
+            _searchIndex = 0;
+            _isSearching = true;
+
+            // 첫 프레임 처리 시작
+            ProcessSearchAsync();
+        }
+        
+        /// <summary>
+        /// 각 매핑별로 매칭되는 파일 수 계산
+        /// </summary>
+        private void CalculateMappingCounts()
+        {
+            if (_targetFolder == null || _matchedFiles.Count == 0)
+            {
+                foreach (var mapping in _mappings)
+                {
+                    mapping.MatchCount = 0;
+                }
+                return;
+            }
+
             string folderPath = AssetDatabase.GetAssetPath(_targetFolder);
             if (!AssetDatabase.IsValidFolder(folderPath))
             {
@@ -200,6 +324,12 @@ namespace CookApps.Editor
 
             // 모든 파일 검색
             string[] guids = AssetDatabase.FindAssets("", new[] { folderPath });
+
+            // 각 매핑별 카운트 초기화
+            foreach (var mapping in _mappings)
+            {
+                mapping.MatchCount = 0;
+            }
 
             foreach (string guid in guids)
             {
@@ -223,13 +353,18 @@ namespace CookApps.Editor
 
                 string fileName = Path.GetFileName(assetPath);
 
-                if (TryApplyMappings(fileName, out _))
+                // 각 매핑별로 개별적으로 매칭 확인
+                foreach (var mapping in _mappings)
                 {
-                    _matchedFiles.Add(assetPath);
+                    if (mapping.Enabled && !string.IsNullOrEmpty(mapping.Search))
+                    {
+                        if (IsExactMatch(fileName, mapping.Search))
+                        {
+                            mapping.MatchCount++;
+                        }
+                    }
                 }
             }
-
-            _matchedFiles.Sort();
         }
 
         /// <summary>
@@ -256,6 +391,9 @@ namespace CookApps.Editor
             EditorGUILayout.LabelField("교체 매핑 (다수 적용 가능)", EditorStyles.boldLabel);
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            
+            // 스크롤뷰 추가
+            _mappingScrollPosition = EditorGUILayout.BeginScrollView(_mappingScrollPosition, GUILayout.Height(150));
 
             for (int i = 0; i < _mappings.Count; i++)
             {
@@ -263,10 +401,14 @@ namespace CookApps.Editor
 
                 EditorGUILayout.BeginHorizontal();
 
+                // 매칭 파일 수 표시 (좌측)
+                string countText = _matchedFiles.Count > 0 ? $"({mapping.MatchCount})" : "";
+                EditorGUILayout.LabelField(countText, GUILayout.Width(50));
+                
                 mapping.Enabled = EditorGUILayout.Toggle(mapping.Enabled, GUILayout.Width(20));
-                mapping.Search = EditorGUILayout.TextField(mapping.Search, GUILayout.Width(180));
+                mapping.Search = EditorGUILayout.TextField(mapping.Search, GUILayout.Width(150));
                 EditorGUILayout.LabelField("→", GUILayout.Width(15));
-                mapping.Replace = EditorGUILayout.TextField(mapping.Replace, GUILayout.Width(180));
+                mapping.Replace = EditorGUILayout.TextField(mapping.Replace, GUILayout.Width(150));
 
                 if (GUILayout.Button("X", GUILayout.Width(24)))
                 {
@@ -277,6 +419,8 @@ namespace CookApps.Editor
 
                 EditorGUILayout.EndHorizontal();
             }
+
+            EditorGUILayout.EndScrollView();
 
             if (GUILayout.Button("매핑 추가", GUILayout.Height(24)))
             {
@@ -340,9 +484,14 @@ namespace CookApps.Editor
             
             // 패턴: 구분자 앞뒤 또는 문자열 시작/끝에서 정확히 일치
             string pattern = @"(^|[_\-\.\s\(\)\[\]])" + Regex.Escape(searchString) + @"([_\-\.\s\(\)\[\]]|$)";
-            string replacement = "$1" + replaceString + "$2";
             
-            string result = Regex.Replace(nameWithoutExtension, pattern, replacement);
+            // MatchEvaluator를 사용하여 $ 문자 문제 해결
+            string result = Regex.Replace(nameWithoutExtension, pattern, match =>
+            {
+                string before = match.Groups[1].Value;
+                string after = match.Groups[2].Value;
+                return before + replaceString + after;
+            });
             
             // 변경이 없었다면 원본 반환
             if (result == nameWithoutExtension)
@@ -377,6 +526,7 @@ namespace CookApps.Editor
             public bool Enabled = true;
             public string Search = string.Empty;
             public string Replace = string.Empty;
+            public int MatchCount = 0; // 매칭되는 파일 수
         }
 
         private void ReplaceFileNames()
@@ -393,32 +543,28 @@ namespace CookApps.Editor
                 {
                     try
                     {
+                        bool isFolder = AssetDatabase.IsValidFolder(filePath);
                         string directory = Path.GetDirectoryName(filePath).Replace('\\', '/');
-                        string fileName = Path.GetFileName(filePath);
+                        string name = Path.GetFileName(filePath);
                         
                         // 정확히 일치하는 부분만 교체 (모든 매핑 적용)
-                        if (!TryApplyMappings(fileName, out var newFileName) || fileName == newFileName)
+                        if (!TryApplyMappings(name, out var newName) || name == newName)
                         {
                             continue;
                         }
-                        string newFilePath = $"{directory}/{newFileName}";
+                        
+                        string newPath = $"{directory}/{newName}";
 
-                        // 파일명이 변경되지 않은 경우 스킵
-                        if (fileName == newFileName)
+                        // 이미 같은 이름의 파일/폴더가 있는지 확인
+                        if (File.Exists(newPath) || Directory.Exists(newPath) || AssetDatabase.LoadAssetAtPath<Object>(newPath) != null)
                         {
-                            continue;
-                        }
-
-                        // 이미 같은 이름의 파일이 있는지 확인
-                        if (File.Exists(newFilePath) || AssetDatabase.LoadAssetAtPath<Object>(newFilePath) != null)
-                        {
-                            failedFiles.Add($"{filePath} (이미 존재하는 파일명: {newFileName})");
+                            failedFiles.Add($"{filePath} (이미 존재하는 이름: {newName})");
                             failCount++;
                             continue;
                         }
 
-                        // 파일명 변경
-                        string error = AssetDatabase.MoveAsset(filePath, newFilePath);
+                        // 파일/폴더명 변경
+                        string error = AssetDatabase.MoveAsset(filePath, newPath);
                         if (string.IsNullOrEmpty(error))
                         {
                             successCount++;
@@ -443,17 +589,17 @@ namespace CookApps.Editor
             }
 
             // 결과 표시
-            string message = $"파일명 교체 완료!\n\n성공: {successCount}개\n실패: {failCount}개";
+            string message = $"항명명 교체 완료!\n\n성공: {successCount}개\n실패: {failCount}개";
             if (failedFiles.Count > 0)
             {
-                message += "\n\n실패한 파일:\n";
+                message += "\n\n실패한 항목:\n";
                 foreach (var failed in failedFiles)
                 {
                     message += $"- {failed}\n";
                 }
             }
 
-            EditorUtility.DisplayDialog("파일명 교체 결과", message, "확인");
+            EditorUtility.DisplayDialog("항명명 교체 결과", message, "확인");
 
             // 검색 결과 초기화
             _matchedFiles.Clear();
