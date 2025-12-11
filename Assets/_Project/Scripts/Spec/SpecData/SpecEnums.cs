@@ -221,6 +221,7 @@ namespace CookApps.AutoBattler
         OBSTACLE = 5,
         ITEM = 6,
         MONSTER = 7,
+        SPECIALBOSS = 8,
     }
 
     public enum ContentType
@@ -773,7 +774,10 @@ namespace CookApps.AutoBattler
 
     public enum ImmuneType
     {
-        NOMAL = 0,
+        NORMAL = 0,
+        BOSS = 1,
+        SCARECROW = 2,
+        SPECIAL = 3,
     }
 
     public enum DialogueSceneType

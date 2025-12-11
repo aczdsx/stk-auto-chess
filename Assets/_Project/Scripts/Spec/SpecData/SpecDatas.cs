@@ -4,7 +4,7 @@
 // 이진호(jhlee8@cookapps.com)
 // </auto-generated>
 
-using CookApps.SpecData.Generator;
+using CookApps.SpecData.Hive.Generator;
 
 namespace CookApps.AutoBattler
 {
@@ -799,14 +799,16 @@ namespace CookApps.AutoBattler
         public int stat_hp;
         /// 공격력
         public int stat_atk;
-        /// 체력, 공격력 1레벨 당 성장율
-        public float inc_lv_rate;
-        /// 체력, 공격력 10레벨 당 성장율
-        public float inc_lv_bonus_rate;
-        /// 물리 방어력
+        /// 방어력
         public int stat_def;
+        /// 체력, 공격력, 방어력 1레벨 당 성장율
+        public float inc_lv_rate;
+        /// 체력, 공격력, 방어력 10레벨 당 성장율
+        public float inc_lv_bonus_rate;
+        /// 물리 저항력
+        public int ad_reduce;
         /// 마법 방어력
-        public int stat_res;
+        public int ap_reduce;
         /// 물리 관통력
         public float stat_atk_pierce;
         /// 마법 관통력
@@ -821,16 +823,24 @@ namespace CookApps.AutoBattler
         public float move_speed;
         /// 공격 범위
         public int atk_range;
+        /// 블럭율
+        public float blocking_rate;
+        /// 회피율
+        public float avoid_rate;
+        /// 명중률
+        public float hit_rate;
+        /// 힐파워
+        public float heal_power;
         /// 높이
         public float height;
-        /// 넉백 가능 여부
-        public bool is_knock_back;
-        /// cc 가능 여부
-        public bool is_taken_cc;
+        /// 이뮨 타입 1: NORMAL 2: ELETE 3. EPIC 4. BOSS 5.SPECIAL 6. SCARECROW
+        public global::CookApps.AutoBattler.ImmuneType immune_type;
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id
         public int[] skill_ids = global::System.Array.Empty<int>();
+        /// 패시브 스킬 id
+        public int passive_skill_id;
     }
 
     [GeneratorSpecData]
@@ -1398,6 +1408,20 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 키 값
+/// 시스템: 1~9999
+/// 로비:10001~11000
+/// 전투: 11001~12000
+/// 가이드 미션: 12001~14000
+/// 캐릭터: 14001~17000
+/// 몬스터: 17001 ~ 18000
+/// 스킬: 20001 ~ 22000
+/// 퀘스트: 22001~23000
+/// 아이템: 23001~25000
+/// 콘텐츠 25001~ 40000
+/// 가이드 50000~70000
+/// 프롤로그 90000~99999
+/// 일반대사 100001 ~200000
+/// 사이드 스토리 대사 200001~300000
         public string token_key;
         /// 값
         public string language_kr;
@@ -1921,7 +1945,7 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class UserGrade
     {
-        /// 전체 ID
+        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 등급

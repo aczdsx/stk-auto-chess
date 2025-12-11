@@ -4,7 +4,7 @@
 // 이진호(jhlee8@cookapps.com)
 // </auto-generated>
 
-using CookApps.SpecData.Generator;
+using CookApps.SpecData.Hive.Generator;
 
 namespace CookApps.AutoBattler
 {

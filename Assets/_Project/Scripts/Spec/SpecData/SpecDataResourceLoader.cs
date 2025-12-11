@@ -7,7 +7,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using CookApps.SpecData.Generator;
+using CookApps.SpecData.Hive.Generator;
 
 namespace CookApps.AutoBattler
 {

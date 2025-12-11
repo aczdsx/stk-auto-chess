@@ -17,7 +17,7 @@
     "com.cookapps.platform.auth": "1.2.2",
     "com.cookapps.postprocessor": "1.1.0",
     "com.cookapps.scene.helper": "1.0.8",
-    "com.cookapps.specdatamanager": "1.0.28",
+    "com.cookapps.specdatamanager.hive": "1.2.4",
     "com.cysharp.memorypack": "https://github.com/Cysharp/MemoryPack.git?path=src/MemoryPack.Unity/Assets/MemoryPack.Unity",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.esotericsoftware.spine.urp-shaders": "https://github.com/EsotericSoftware/spine-runtimes.git?path=spine-unity/Modules/com.esotericsoftware.spine.urp-shaders#4.1",
