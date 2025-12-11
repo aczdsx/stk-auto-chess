@@ -435,6 +435,7 @@ namespace CookApps.Editor
         /// 부분 문자열이 아닌 정확한 매칭만 허용
         /// 예: "Character_1234"에서 "123"을 찾으면 false (1234의 일부이므로)
         ///     "Character_123"에서 "123"을 찾으면 true (정확히 일치)
+        ///     "EffectCodeSkill1304021"에서 "1304021"을 찾으면 true (숫자-문자 경계 인식)
         /// </summary>
         private bool IsExactMatch(string fileName, string searchString)
         {
@@ -452,16 +453,26 @@ namespace CookApps.Editor
                 return true;
             }
             
-            // 정규식을 사용하여 구분자(언더스코어, 하이픈, 공백, 점 등) 앞뒤에서 정확히 일치하는지 확인
-            // 패턴: 구분자 앞뒤 또는 문자열 시작/끝에서 정확히 일치
-            string pattern = @"(^|[_\-\.\s\(\)\[\]])" + Regex.Escape(searchString) + @"([_\-\.\s\(\)\[\]]|$)";
+            // 정규식을 사용하여 구분자(언더스코어, 하이픈, 공백, 점 등) 또는 숫자-문자 경계 앞뒤에서 정확히 일치하는지 확인
+            // 패턴: 구분자, 숫자-문자 경계, 대소문자 경계 앞뒤 또는 문자열 시작/끝에서 정확히 일치
+            // (?<=...) : lookbehind (앞에 오는 것)
+            // (?=...) : lookahead (뒤에 오는 것)
+            // \d : 숫자, \D : 비숫자, [a-z] : 소문자, [A-Z] : 대문자
+            string escapedSearch = Regex.Escape(searchString);
+            
+            // 경계 조건: 문자열 시작/끝, 구분자, 숫자-문자 경계, 대소문자 경계
+            // 앞 경계: ^ 또는 구분자 또는 (숫자 다음 비숫자) 또는 (비숫자 다음 숫자) 또는 (소문자 다음 대문자)
+            // 뒤 경계: $ 또는 구분자 또는 (숫자 다음 비숫자) 또는 (비숫자 다음 숫자) 또는 (소문자 다음 대문자)
+            string beforeBoundary = @"(?:^|[_\-\.\s\(\)\[\]]|(?<=\d)(?=\D)|(?<=\D)(?=\d)|(?<=[a-z])(?=[A-Z]))";
+            string afterBoundary = @"(?:(?=\d)(?<=\D)|(?=\D)(?<=\d)|(?=[a-z])(?<=[A-Z])|[_\-\.\s\(\)\[\]]|$)";
+            string pattern = beforeBoundary + escapedSearch + afterBoundary;
             
             return Regex.IsMatch(nameWithoutExtension, pattern);
         }
 
         /// <summary>
         /// 파일명에서 검색 문자열을 정확히 일치하는 부분만 교체
-        /// 구분자(언더스코어, 하이픈 등)로 구분된 부분만 교체하여 부분 문자열 교체를 방지
+        /// 구분자(언더스코어, 하이픈 등) 또는 숫자-문자 경계로 구분된 부분만 교체하여 부분 문자열 교체를 방지
         /// </summary>
         private string ReplaceExactMatch(string fileName, string searchString, string replaceString)
         {
@@ -480,16 +491,40 @@ namespace CookApps.Editor
             }
             
             // 정규식을 사용하여 단어 경계에서 정확히 일치하는 부분만 교체
-            // 구분자(언더스코어, 하이픈, 공백, 점 등) 앞뒤에서 일치하는 경우만 교체
+            // 구분자(언더스코어, 하이픈, 공백, 점 등) 또는 숫자-문자 경계 앞뒤에서 일치하는 경우만 교체
             
-            // 패턴: 구분자 앞뒤 또는 문자열 시작/끝에서 정확히 일치
-            string pattern = @"(^|[_\-\.\s\(\)\[\]])" + Regex.Escape(searchString) + @"([_\-\.\s\(\)\[\]]|$)";
+            // 패턴: 구분자, 숫자-문자 경계, 대소문자 경계 앞뒤 또는 문자열 시작/끝에서 정확히 일치
+            string escapedSearch = Regex.Escape(searchString);
+            
+            // 경계 조건: 문자열 시작/끝, 구분자, 숫자-문자 경계, 대소문자 경계
+            // 앞 경계: ^ 또는 구분자 또는 (숫자 다음 비숫자) 또는 (비숫자 다음 숫자) 또는 (소문자 다음 대문자)
+            // 뒤 경계: $ 또는 구분자 또는 (숫자 다음 비숫자) 또는 (비숫자 다음 숫자) 또는 (소문자 다음 대문자)
+            // 실제 구분자 문자는 그룹으로 캡처 (교체 시 사용)
+            string beforeBoundary = @"(?:(^|[_\-\.\s\(\)\[\]])|(?<=\d)(?=\D)|(?<=\D)(?=\d)|(?<=[a-z])(?=[A-Z]))";
+            string afterBoundary = @"(?:(?=\d)(?<=\D)|(?=\D)(?<=\d)|(?=[a-z])(?<=[A-Z])|([_\-\.\s\(\)\[\]]|$))";
+            string pattern = beforeBoundary + escapedSearch + afterBoundary;
             
             // MatchEvaluator를 사용하여 $ 문자 문제 해결
+            // lookahead/lookbehind는 그룹에 캡처되지 않으므로, 실제 구분자만 처리
             string result = Regex.Replace(nameWithoutExtension, pattern, match =>
             {
-                string before = match.Groups[1].Value;
-                string after = match.Groups[2].Value;
+                // Groups[1]: 앞의 실제 구분자 (^ 또는 구분자 문자) - 있으면 사용, 없으면 빈 문자열
+                // Groups[2]: 뒤의 실제 구분자 (구분자 문자 또는 $) - 있으면 사용, 없으면 빈 문자열
+                string before = "";
+                string after = "";
+                
+                // 앞 구분자 확인 (Groups[1])
+                if (match.Groups[1].Success && match.Groups[1].Length > 0)
+                {
+                    before = match.Groups[1].Value;
+                }
+                
+                // 뒤 구분자 확인 (Groups[2])
+                if (match.Groups[2].Success && match.Groups[2].Length > 0)
+                {
+                    after = match.Groups[2].Value;
+                }
+                
                 return before + replaceString + after;
             });
             

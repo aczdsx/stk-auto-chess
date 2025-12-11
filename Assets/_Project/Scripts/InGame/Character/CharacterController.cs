@@ -334,7 +334,7 @@ namespace CookApps.BattleSystem
             }
         }
         
-        // public void InjectSynergy(long effectCodeID, SpecSynergy synergyData)
+        // public void InjectSynergy(long effectCodeID, SynergyStarAsterism synergyData)
         // {
         //     Span<double> stats = stackalloc double[4];
         //     stats[0] = synergyData.stat_value;
@@ -351,9 +351,9 @@ namespace CookApps.BattleSystem
         //     if (targetSynergyType != _statData.Spec.element_type
         //     && targetSynergyType != _statData.Spec.asterism_type)
         //         return;
-        //
+
         //     InjectSynergy(effectCodeID, synergyData);
-        // }
+        // }                   
 
         public void RemoveSynergyEffectCode()
         {
@@ -376,17 +376,17 @@ namespace CookApps.BattleSystem
             }
         }
 
-        // public void InjectPassive(long effectCodeID, SpecPassive passiveData)
-        // {
-        //     Span<double> stats = stackalloc double[5];
-        //     stats[0] = (double)passiveData.skill_value_type;
-        //     stats[1] = passiveData.passive_rate;
-        //     stats[2] = passiveData.grade;
-        //     stats[3] = (double)passiveData.skill_value_type_2;
-        //     stats[4] = passiveData.passive_rate_2;
-        //     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-        //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-        // }
+        public void InjectPassive(long effectCodeID, SkillJob passiveData)
+        {
+            Span<double> stats = stackalloc double[5];
+            stats[0] = (double)passiveData.skill_value_type;
+            stats[1] = passiveData.passive_rate;
+            stats[2] = passiveData.lv;
+            stats[3] = (double)passiveData.skill_value_type_2;
+            stats[4] = passiveData.passive_rate_2;
+            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+        }
 
         public void SetSelectedCharacter(bool isSetSelected)
         {

@@ -143,6 +143,9 @@ namespace CookApps.AutoBattler
                     spriteName = isActive ? "Icon_Position_Supernova_Active" : "Icon_Position_Supernova_Locked";
                     break;
                 case SynergyType.TROUBLESHOOTER:
+                    spriteName = isActive ? "Icon_Position_TroubleShooter_Active" : "Icon_Position_TroubleShooter_Locked";
+                    break;
+
                 default:
                     return null;
             }

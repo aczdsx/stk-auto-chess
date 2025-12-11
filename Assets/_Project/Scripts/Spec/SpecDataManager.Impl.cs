@@ -89,9 +89,10 @@ namespace CookApps.AutoBattler
         private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<ElementType, List<SynergyElemental>> synergyDic = new();                // key : SynergyType, value : SpecSynergy
+        private Dictionary<ElementType, List<SynergyElemental>> synergyElementDic = new();                // key : ElementType, value : SynergyElemental
+        private Dictionary<SynergyType, List<SynergyStarAsterism>> synergyStarAsterismDic = new();                // key : SynergyType, value : SynergyStarAsterism
         private Dictionary<int, List<ObstacleInfo>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
-        private Dictionary<EffectCodeNameType, List<SkillPassive>> passiveDic = new();             // key : EffectCodeNameType, value : SpecPassive
+        private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
 
         private void CustomizeSpecData()
@@ -258,30 +259,41 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // Element && Asterism Synergy Dic
-            synergyDic.Clear();
+            // synergyElementDic Dic
+            synergyElementDic.Clear();
             foreach (SynergyElemental synergy in SynergyElemental.All)
             {
-                if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
+                if (!synergyElementDic.TryGetValue(synergy.synergy_type, out var list))
                 {
                     list = new List<SynergyElemental>();
-                    synergyDic.Add(synergy.synergy_type, list);
+                    synergyElementDic.Add(synergy.synergy_type, list);
                 }
 
                 list.Add(synergy);
             }
 
-            // // Passive Dic
-            // passiveDic.Clear();
-            // foreach (SkillPassive passive in SkillPassive.All)
-            // {
-            //     if (!passiveDic.TryGetValue(passive.passive_skill_id, out var list))
-            //     {
-            //         list = new List<SpecPassive>();
-            //         passiveDic.Add(passive.passieve_id, list);
-            //     }
-            //     list.Add(passive);
-            // }
+            synergyStarAsterismDic.Clear();
+            foreach (SynergyStarAsterism synergy in SynergyStarAsterism.All)
+            {
+                if (!synergyStarAsterismDic.TryGetValue(synergy.synergy_type, out var list))
+                {
+                    list = new List<SynergyStarAsterism>();
+                    synergyStarAsterismDic.Add(synergy.synergy_type, list);
+                }
+                list.Add(synergy);
+            }
+
+            // skillJobDic Dic
+            skillJobDic.Clear();
+            foreach (SkillJob skillJob in SkillJob.All)
+            {
+                if (!skillJobDic.TryGetValue(skillJob.passive_skill_type, out var list))
+                {
+                    list = new List<SkillJob>();
+                    skillJobDic.Add(skillJob.passive_skill_type, list);
+                }
+                list.Add(skillJob);
+            }
 
             // Commander Skill Dic
             commanderSkillDic.Clear();
@@ -886,55 +898,63 @@ namespace CookApps.AutoBattler
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
 
-        // public List<SynergyElemental> GetSpecSynergyList(ElementType synergyType)
-        // {
-        //     if (synergyDic.TryGetValue(synergyType, out List<SynergyElemental> synergyList))
-        //     {
-        //         return synergyList;
-        //     }
-        //
-        //     return null;
-        // }
-        //
-        // public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
-        //     out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
-        // {
-        //     outSynergyData = null;
-        //     outSynergyList = GetSpecSynergyList(synergyType);
-        //     if(outSynergyList == null)
-        //     {
-        //         return false;
-        //     }
-        //     outSynergyData = outSynergyList.Find(l => l.min_count <= count && l.max_count >= count);
-        //     if (outSynergyData == null || outSynergyData.grade < 1)
-        //     {
-        //         return false;
-        //     }
-        //     return true;
-        // }
+        public List<SynergyElemental> GetSpecSynergyListByElementType(ElementType synergyType)
+        {
+            if (synergyElementDic.TryGetValue(synergyType, out List<SynergyElemental> synergyList))
+            {
+                return synergyList;
+            }
+            return null;
+        }
+        
+        public List<SynergyStarAsterism> GetSpecSynergyListBySynergyType(SynergyType synergyType)
+        {
+            if (synergyStarAsterismDic.TryGetValue(synergyType, out List<SynergyStarAsterism> synergyList))
+            {
+                return synergyList;
+            }
+            return null;
+        }
+        
+        public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
+            out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
+        {
+            outSynergyData = null;
+            outSynergyList = GetSpecSynergyListByElementType(synergyType);
+            if (outSynergyList == null)
+            {
+                return false;
+            }
+            outSynergyData = outSynergyList.Find(l => l.min_INT <= count && l.max_INT >= count);
+            if (outSynergyData == null || outSynergyData.grade < 1)
+            {
+                return false;
+            }
+            return true;
+        }
 
-        // public List<List<SpecPassive>> GetPassivePositionList(PositionType positionType)
-        // {
-        //     if (positionType == PositionType.NONE)
-        //     {
-        //         return null;
-        //     }
-        //
-        //     List<List<SpecPassive>> passiveList = new List<List<SpecPassive>>();
-        //     foreach (var positionPassive in SpecPositionPassive.All)
-        //     {
-        //         if (positionType != positionPassive.position_type)
-        //         {
-        //             continue;
-        //         }
-        //         if (passiveDic.TryGetValue(positionPassive.passive_id, out List<SpecPassive> passive))
-        //         {
-        //             passiveList.Add(passive);
-        //         }
-        //     }
-        //    
-        //     return passiveList;
-        // }
+        public List<List<SkillJob>> GetPassivePositionList(CharacterPositionType positionType)
+        {
+            if (positionType == CharacterPositionType.NONE)
+            {
+                return null;
+            }
+
+            List<List<SkillJob>> passiveList = new List<List<SkillJob>>();
+            foreach (var positionPassive in SkillJobPassive.All)
+            {
+                if (positionType != positionPassive.position_type)
+                {
+                    continue;
+                }
+                if (skillJobDic.TryGetValue(positionPassive.passive_id, out List<SkillJob> passive))
+                {
+                    passiveList.Add(passive);
+                }
+            }
+
+            return passiveList;
+        }
 
         public QuestInfo GetSpecQuestData(int questID)
         {

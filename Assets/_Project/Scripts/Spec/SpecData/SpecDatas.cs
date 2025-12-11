@@ -625,6 +625,14 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.SkillValueType effect_value_type;
         /// 스킬밸류
         public int effect_stat_value;
+        /// 효과 타입2
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type_2;
+        /// 스킬밸류2
+        public int effect_stat_value_2;
+        /// 효과 타입3
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type_3;
+        /// 스킬밸류3
+        public int effect_stat_value_3;
     }
 
     [GeneratorSpecData]

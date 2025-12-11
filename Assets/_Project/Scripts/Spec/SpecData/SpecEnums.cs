@@ -821,6 +821,7 @@ namespace CookApps.AutoBattler
         KNIGHT_ALL = 3,
         SYNERGY_ELEMENTAL = 4,
         SYNERGY_STELLA = 5,
+        SQUAD_ONCE = 6,
     }
 
     public enum AttackerType
