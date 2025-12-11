@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using CookApps.AutoBattler.Data;
-using CookApps.AutoBattler.UI;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using UnityEngine;
 using CharacterInfo = Tech.Hive.V1.CharacterInfo;
 
-namespace CookApps.AutoBattler.Examples
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 새로운 데이터 시스템 사용 예제 (NetLite 프레임워크)

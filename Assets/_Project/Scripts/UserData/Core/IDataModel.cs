@@ -1,6 +1,6 @@
 using System;
 
-namespace CookApps.AutoBattler.Data
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 모든 데이터 모델이 구현해야 하는 인터페이스

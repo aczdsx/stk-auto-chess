@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 
-namespace CookApps.AutoBattler.Data
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 데이터 변경 이벤트를 관리하는 이벤트 버스

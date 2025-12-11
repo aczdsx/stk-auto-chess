@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using UnityEngine;
 
-namespace CookApps.AutoBattler.Data
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 서버 데이터 관리 매니저

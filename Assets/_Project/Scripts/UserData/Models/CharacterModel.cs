@@ -4,7 +4,7 @@ using Tech.Hive.V1;
 using UnityEngine;
 using CharacterInfo = Tech.Hive.V1.CharacterInfo;
 
-namespace CookApps.AutoBattler.Data
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 캐릭터 데이터 모델

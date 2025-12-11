@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using CookApps.AutoBattler.Utilities;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;

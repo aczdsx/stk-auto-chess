@@ -1,7 +1,7 @@
 using System;
 using CookApps.TeamBattle;
 
-namespace CookApps.AutoBattler.Utilities
+namespace CookApps.AutoBattler
 {
     public class AppLifeCycleEventsDispatcher : SingletonMonoBehaviour<AppLifeCycleEventsDispatcher>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Tech.Hive.V1;
 using UnityEngine;
 
-namespace CookApps.AutoBattler.Data
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 지갑 데이터 모델 (통화 관리)
