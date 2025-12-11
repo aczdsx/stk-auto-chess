@@ -60,6 +60,9 @@ namespace CookApps.AutoBattler
                 case ElementType.WIND:
                     spriteName = isActive ? "Icon_Wind_Active" : "Icon_Wind_Locked";
                     break;
+                case ElementType.LIGHTNING:
+                    spriteName = isActive ? "Icon_Lightning_Active" : "Icon_Lightning_Locked";
+                    break;
                 default:
                     return null;
                 // case SynergyType.LIGHT:

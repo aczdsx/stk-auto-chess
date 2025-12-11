@@ -40,14 +40,13 @@ namespace CookApps.BattleSystem
 
         private EffectCodeBase CreateEffectCode(long codeId)
         {
-            // var res = CreateEffectCodeInternal(codeId);
-            // if (res == null && codeIdToBaseCodeId.TryGetValue(codeId, out var baseCodeId))
-            // {
-            //     res = CreateEffectCodeInternal(baseCodeId);
-            // }
-            //
-            // return res;
-            return null;
+            var res = CreateEffectCodeInternal(codeId);
+            if (res == null && codeIdToBaseCodeId.TryGetValue(codeId, out var baseCodeId))
+            {
+                res = CreateEffectCodeInternal(baseCodeId);
+            }
+            
+            return res;
         }
         #endregion
 
