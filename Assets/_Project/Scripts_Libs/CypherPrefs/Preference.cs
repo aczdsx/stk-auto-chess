@@ -78,6 +78,7 @@ namespace CookApps.CypherPrefs
     {
         protected Preference(IPreferenceGetterSetter getterSetter) : base(getterSetter)
         {
+            Load();
         }
 
         protected T data = new ();
