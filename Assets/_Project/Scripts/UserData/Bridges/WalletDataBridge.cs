@@ -15,7 +15,8 @@ namespace CookApps.AutoBattler
         public event Action<uint, ulong> OnCurrencyChanged;
         public event Action OnWalletChanged;
 
-        public WalletDataBridge() : base(WalletModel.CATEGORY_KEY)
+        public WalletDataBridge()
+            : base(ServerDataManager.Instance.Wallet, WalletModel.CATEGORY_KEY)
         {
         }
 
@@ -36,9 +37,9 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 데이터 변경 콜백
+        /// 모델 변경 감지 (전체 갱신)
         /// </summary>
-        protected override void OnDataChanged(DataChangeEvent changeEvent)
+        protected override void OnModelChanged()
         {
             OnWalletChanged?.Invoke();
         }
@@ -46,6 +47,7 @@ namespace CookApps.AutoBattler
         private void OnCurrencyChangedInternal(uint itemId, ulong oldAmount, ulong newAmount)
         {
             OnCurrencyChanged?.Invoke(itemId, newAmount);
+            OnWalletChanged?.Invoke();
         }
 
         /// <summary>

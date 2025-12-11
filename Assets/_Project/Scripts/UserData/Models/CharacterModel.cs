@@ -25,6 +25,7 @@ namespace CookApps.AutoBattler
         public int Version => _version;
 
         // 이벤트
+        public event Action OnChanged;
         public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterAdded;
         public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterUpdated;
         public event Action<string> OnCharacterRemoved;
@@ -67,6 +68,7 @@ namespace CookApps.AutoBattler
             }
 
             _version = characterDelta._version;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -76,6 +78,7 @@ namespace CookApps.AutoBattler
         {
             _characters.Clear();
             _version = 0;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -148,6 +151,7 @@ namespace CookApps.AutoBattler
             }
 
             _version = version;
+            OnChanged?.Invoke();
         }
 
         /// <summary>

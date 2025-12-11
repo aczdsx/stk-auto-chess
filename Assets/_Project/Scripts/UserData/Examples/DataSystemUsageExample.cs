@@ -40,10 +40,8 @@ namespace CookApps.AutoBattler
         {
             Debug.Log("=== 1. 시스템 초기화 ===");
 
-            // 데이터 매니저 초기화 (팩토리 등록)
+            // 데이터 매니저는 자동으로 모든 모델 초기화
             var dataManager = ServerDataManager.Instance;
-            dataManager.RegisterFactory(CharacterModel.CATEGORY_KEY, () => new CharacterModel());
-            dataManager.RegisterFactory(WalletModel.CATEGORY_KEY, () => new WalletModel());
 
             // UI 브릿지 생성
             _characterBridge = new CharacterDataBridge();
@@ -78,12 +76,9 @@ namespace CookApps.AutoBattler
             if (response != null && response.Status.Code == 0)
             {
                 // 서버 응답으로 로컬 데이터 갱신
-                var characterModel = ServerDataManager.Instance.GetData<CharacterModel>(CharacterModel.CATEGORY_KEY);
-                if (characterModel != null)
-                {
-                    characterModel.SetCharacters(response.Characters, characterModel.Version + 1);
-                    ServerDataManager.Instance.SetData(CharacterModel.CATEGORY_KEY, characterModel);
-                }
+                var characterModel = ServerDataManager.Instance.Character;
+                characterModel.SetCharacters(response.Characters, characterModel.Version + 1);
+                // ServerDataManager.SetData 호출 제거 (SetCharacters 내부에서 이벤트 발생)
 
                 Debug.Log($"✓ 캐릭터 로드 완료: {response.Characters.Count}명");
             }
@@ -197,20 +192,12 @@ namespace CookApps.AutoBattler
                     Debug.Log($"✓ 레벨업 성공! 새 레벨: {response.Character.Level}");
 
                     // 로컬 데이터 갱신
-                    var characterModel = ServerDataManager.Instance.GetData<CharacterModel>(CharacterModel.CATEGORY_KEY);
-                    if (characterModel != null)
-                    {
-                        characterModel.UpdateCharacter(response.Character);
-                    }
+                    ServerDataManager.Instance.Character.UpdateCharacter(response.Character);
 
                     // 통화 변화 적용
                     if (response.CurrencyDeltas.Count > 0)
                     {
-                        var walletModel = ServerDataManager.Instance.GetData<WalletModel>(WalletModel.CATEGORY_KEY);
-                        if (walletModel != null)
-                        {
-                            walletModel.ApplyCurrencyDeltas(response.CurrencyDeltas);
-                        }
+                        ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(response.CurrencyDeltas);
 
                         Debug.Log("통화 변화:");
                         for (int i = 0; i < response.CurrencyDeltas.Count; i++)

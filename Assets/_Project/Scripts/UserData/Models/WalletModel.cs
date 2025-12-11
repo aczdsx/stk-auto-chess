@@ -23,6 +23,7 @@ namespace CookApps.AutoBattler
         public int Version => _version;
 
         // 통화 변경 이벤트
+        public event Action OnChanged;
         public event Action<uint, ulong, ulong> OnCurrencyChanged; // (itemId, oldAmount, newAmount)
 
         public WalletModel()
@@ -55,6 +56,7 @@ namespace CookApps.AutoBattler
             }
 
             _version = walletDelta._version;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace CookApps.AutoBattler
         {
             _currencies.Clear();
             _version = 0;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -119,6 +122,7 @@ namespace CookApps.AutoBattler
             }
 
             _version++;
+            OnChanged?.Invoke();
         }
 
         /// <summary>

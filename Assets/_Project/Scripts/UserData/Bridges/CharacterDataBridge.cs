@@ -16,7 +16,8 @@ namespace CookApps.AutoBattler
         public event Action OnCharactersChanged;
         public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterUpdated;
 
-        public CharacterDataBridge() : base(CharacterModel.CATEGORY_KEY)
+        public CharacterDataBridge()
+            : base(ServerDataManager.Instance.Character, CharacterModel.CATEGORY_KEY)
         {
         }
 
@@ -41,23 +42,32 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 데이터 변경 콜백
+        /// 모델 변경 감지 (전체 갱신)
         /// </summary>
-        protected override void OnDataChanged(DataChangeEvent changeEvent)
+        protected override void OnModelChanged()
         {
             OnCharactersChanged?.Invoke();
         }
 
+        /// <summary>
+        /// 개별 캐릭터 추가 이벤트
+        /// </summary>
         private void OnCharacterAdded(Tech.Hive.V1.CharacterInfo character)
         {
             OnCharactersChanged?.Invoke();
         }
 
+        /// <summary>
+        /// 개별 캐릭터 업데이트 이벤트
+        /// </summary>
         private void OnCharacterUpdatedInternal(Tech.Hive.V1.CharacterInfo character)
         {
             OnCharacterUpdated?.Invoke(character);
         }
 
+        /// <summary>
+        /// 개별 캐릭터 삭제 이벤트
+        /// </summary>
         private void OnCharacterRemoved(string instanceId)
         {
             OnCharactersChanged?.Invoke();

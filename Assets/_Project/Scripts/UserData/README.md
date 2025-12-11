@@ -5,15 +5,6 @@
 기존 클라이언트 Save/Load 방식에서 **서버 중심의 델타 업데이트** 방식으로 전환한 데이터 관리 시스템입니다.
 NetLite 프레임워크를 사용하여 gRPC 통신을 처리합니다.
 
-### 주요 특징
-
-✅ **Reflection 완전 제거** - 모든 등록과 호출이 명시적
-✅ **Linq 사용 지양** - for문과 Dictionary 기반 처리
-✅ **메모리 최적화** - 객체 풀링, 불필요한 복사 최소화
-✅ **델타 업데이트** - 변경된 데이터만 서버에서 받아 갱신
-✅ **이벤트 기반 UI 갱신** - 데이터 변경 시 자동으로 UI 업데이트
-✅ **NetLite 통합** - 회사 표준 네트워크 프레임워크 사용
-
 ---
 
 ## 🏗️ 아키텍처
@@ -36,7 +27,7 @@ NetLite 프레임워크를 사용하여 gRPC 통신을 처리합니다.
 ├────────────────────────────┼─────────────────────────────────┤
 │                   Data Event Bus                             │
 │  ┌─────────────────────────▼──────────────────────────┐     │
-│  │  Subscribe/Publish (No Reflection)                 │     │
+│  │  Subscribe/Publish                                 │     │
 │  └─────────────────────────┬──────────────────────────┘     │
 │                            │                                 │
 ├────────────────────────────┼─────────────────────────────────┤
@@ -257,26 +248,6 @@ bridge.OnCharacterUpdated?.Invoke(character);
 RefreshUI();
 ```
 
-### 메모리 최적화
-
-- **객체 풀링**: 재사용 가능한 리스트 풀
-- **불필요한 복사 최소화**: 참조로 전달
-- **구독자 수 제한**: 메모리 누수 방지
-
----
-
-## 📊 성능 비교
-
-| 항목 | 기존 시스템 | 새 시스템 |
-|-----|-----------|----------|
-| Reflection | ✗ 사용 | ✅ 없음 |
-| Linq | ✗ 사용 | ✅ 지양 |
-| 데이터 동기화 | 전체 교체 | 델타 업데이트 |
-| UI 갱신 | 수동 호출 | 자동 이벤트 |
-| 메모리 할당 | 많음 | 최소화 |
-| 타입 안전성 | 약함 (Reflection) | 강함 (명시적) |
-| 네트워크 | 직접 구현 | NetLite 프레임워크 |
-
 ---
 
 ## 🔧 확장 방법
@@ -334,11 +305,6 @@ public class MyDataBridge
 
     // UI용 메서드 구현
 }
-```
-
-3. **팩토리 등록**
-```csharp
-dataManager.RegisterFactory(MyDataModel.CATEGORY_KEY, () => new MyDataModel());
 ```
 
 ---
@@ -417,7 +383,6 @@ characterBridge.GetFilteredCharacters(filteredCharacters, character =>
 - **NetManager**: `gRPC/bm013-grpc/Impls/NetManager.cs`
 - **서비스 예제**: `gRPC/bm013-grpc/Impls/Services/CharacterService.cs`
 - **프로토콜 명세**: `gRPC/bm013-grpc/Generated/`
-- **Legacy 코드**: `Legacy/` (참고용)
 
 ---
 
@@ -484,8 +449,3 @@ await NetManager.Instance.Character.ListAsync();
 3. **데이터 모델 이해**: `CharacterModel.cs`, `WalletModel.cs` 읽기
 4. **이벤트 시스템 이해**: `DataEventBus.cs` 읽기
 5. **실전 적용**: 기존 UI에 새 시스템 적용
-
----
-
-생성일: 2025-12-05
-버전: 2.0.0 (NetLite 통합)
