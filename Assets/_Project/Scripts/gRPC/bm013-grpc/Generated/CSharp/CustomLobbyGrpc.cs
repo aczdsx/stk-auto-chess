@@ -46,17 +46,17 @@ namespace Tech.Hive.V1 {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest> __Marshaller_tech_hive_v1_CustomLobbyGetMyInfoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest> __Marshaller_tech_hive_v1_CustomLobbyGetMyPlayerDataRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse> __Marshaller_tech_hive_v1_CustomLobbyGetMyInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse> __Marshaller_tech_hive_v1_CustomLobbyGetMyPlayerDataResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest, global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse> __Method_GetMyInfo = new grpc::Method<global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest, global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse> __Method_GetMyPlayerData = new grpc::Method<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "GetMyInfo",
-        __Marshaller_tech_hive_v1_CustomLobbyGetMyInfoRequest,
-        __Marshaller_tech_hive_v1_CustomLobbyGetMyInfoResponse);
+        "GetMyPlayerData",
+        __Marshaller_tech_hive_v1_CustomLobbyGetMyPlayerDataRequest,
+        __Marshaller_tech_hive_v1_CustomLobbyGetMyPlayerDataResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -76,7 +76,7 @@ namespace Tech.Hive.V1 {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse> GetMyInfo(global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse> GetMyPlayerData(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -120,9 +120,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse GetMyInfo(global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse GetMyPlayerData(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return GetMyInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return GetMyPlayerData(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -132,9 +132,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse GetMyInfo(global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse GetMyPlayerData(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_GetMyInfo, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_GetMyPlayerData, null, options, request);
       }
       /// <summary>
       ///*
@@ -146,9 +146,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse> GetMyInfoAsync(global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse> GetMyPlayerDataAsync(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return GetMyInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return GetMyPlayerDataAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -158,9 +158,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse> GetMyInfoAsync(global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse> GetMyPlayerDataAsync(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_GetMyInfo, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_GetMyPlayerData, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -176,7 +176,7 @@ namespace Tech.Hive.V1 {
     public static grpc::ServerServiceDefinition BindService(CustomLobbyServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_GetMyInfo, serviceImpl.GetMyInfo).Build();
+          .AddMethod(__Method_GetMyPlayerData, serviceImpl.GetMyPlayerData).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -186,7 +186,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, CustomLobbyServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_GetMyInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest, global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse>(serviceImpl.GetMyInfo));
+      serviceBinder.AddMethod(__Method_GetMyPlayerData, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse>(serviceImpl.GetMyPlayerData));
     }
 
   }

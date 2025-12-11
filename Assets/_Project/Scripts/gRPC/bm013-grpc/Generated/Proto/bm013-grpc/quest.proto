@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "quest+info.proto";
+import "quest+data.proto";
 
 service QuestService {
   /**
@@ -40,7 +40,7 @@ message QuestListDailyQuestRequest {
 
 message QuestListDailyQuestResponse {
   ResponseStatus status = 1;
-  repeated QuestInfo quest_list = 2;
+  repeated QuestData quest_list = 2;
   uint64 next_reset_at = 3;
   // 오늘 인덱스 (ex. 20251208 => 2025년 12월 8일)
   uint32 date_index = 4;
@@ -52,7 +52,7 @@ message QuestListWeeklyQuestRequest {
 }
 message QuestListWeeklyQuestResponse {
   ResponseStatus status = 1;
-  repeated QuestInfo quest_list = 2;
+  repeated QuestData quest_list = 2;
   uint64 next_reset_at = 3;
 
   // 이번주 인덱스 (ex. 202523 => 2025년 23주차)
@@ -67,7 +67,7 @@ message QuestUpdateQuestProgressRequest {
 
 message QuestUpdateQuestProgressResponse {
   ResponseStatus status = 1;
-  QuestInfo quest = 2;
+  QuestData quest = 2;
 }
 
 message QuestClaimQuestRewardRequest {
@@ -78,7 +78,7 @@ message QuestClaimQuestRewardRequest {
 
 message QuestClaimQuestRewardResponse {
   ResponseStatus status = 1;
-  QuestInfo quest = 2;
+  QuestData quest = 2;
   repeated Reward rewards = 3;
   repeated CurrencyDelta currency_deltas = 4;
 }

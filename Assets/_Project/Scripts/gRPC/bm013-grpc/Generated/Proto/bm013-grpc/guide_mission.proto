@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "guide_mission+info.proto";
+import "guide_mission+data.proto";
 
 service GuideMissionService {
   /**
@@ -31,7 +31,7 @@ enum GuideMissionErrorCode {
 message GuideMissionListRequest {}
 message GuideMissionListResponse {
   ResponseStatus status = 1;
-  repeated GuideMissionInfo guide_missions = 2;
+  repeated GuideMissionData guide_missions = 2;
   uint32 current_order = 3;
 }
 
@@ -43,7 +43,7 @@ message GuideMissionUpdateProgressRequest {
 
 message GuideMissionUpdateProgressResponse {
   ResponseStatus status = 1;
-  GuideMissionInfo guide_mission = 2;
+  GuideMissionData guide_mission = 2;
 }
 
 message GuideMissionClaimRewardRequest {
@@ -52,7 +52,7 @@ message GuideMissionClaimRewardRequest {
 
 message GuideMissionClaimRewardResponse {
   ResponseStatus status = 1;
-  GuideMissionInfo guide_mission = 2;
+  GuideMissionData guide_mission = 2;
   repeated Reward rewards = 3;
   repeated CurrencyDelta currency_deltas = 4;
 }

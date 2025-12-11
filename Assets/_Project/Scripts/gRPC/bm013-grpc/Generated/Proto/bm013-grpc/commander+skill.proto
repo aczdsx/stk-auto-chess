@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package tech.hive.v1;
 
-message CommanderSkillInfo {
+message CommanderSkillData {
   uint32 commander_skill_id = 1;      // 스킬 아이디
   uint32 level = 2;                   // 레벨
   bool is_unlocked = 3;               // 잠금 해제 여부
@@ -12,7 +12,7 @@ message CommanderSkillInfo {
 }
 
 
-message CommanderEquippedSkillInfo {
+message CommanderEquippedSkillData {
   uint32 slot_index = 1;
   uint32 commander_skill_id = 2;
 }

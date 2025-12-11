@@ -1,90 +1,72 @@
 using System;
 using System.Collections.Generic;
-using CookApps.AutoBattler.Data;
 using Tech.Hive.V1;
 
-namespace CookApps.AutoBattler.UI
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 캐릭터 데이터 브릿지
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// UI가 직접 데이터 모델을 접근하지 않고 브릿지를 통해 접근
     /// </summary>
-    public class CharacterDataBridge
+    public class CharacterDataBridge : DataBridgeBase<CharacterModel>
     {
-        private CharacterModel _model;
-        private ServerDataManager _dataManager;
-        private DataEventBus _eventBus;
-
         // UI 갱신 이벤트
         public event Action OnCharactersChanged;
-        public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterUpdated;
+        public event Action<CharacterData> OnCharacterUpdated;
 
         public CharacterDataBridge()
+            : base(ServerDataManager.Instance.Character, CharacterModel.CATEGORY_KEY)
         {
-            _dataManager = ServerDataManager.Instance;
-            _eventBus = DataEventBus.Instance;
-
-            // 데이터 모델 가져오기
-            _model = _dataManager.GetData<CharacterModel>(CharacterModel.CATEGORY_KEY);
-            if (_model == null)
-            {
-                _model = new CharacterModel();
-                _dataManager.RegisterFactory(CharacterModel.CATEGORY_KEY, () => new CharacterModel());
-                _dataManager.SetData(CharacterModel.CATEGORY_KEY, _model);
-            }
-
-            // 이벤트 구독
-            SubscribeEvents();
         }
 
         /// <summary>
-        /// 이벤트 구독
+        /// 모델 이벤트 구독
         /// </summary>
-        private void SubscribeEvents()
+        protected override void SubscribeModelEvents()
         {
-            // 데이터 변경 감지
-            _eventBus.Subscribe(CharacterModel.CATEGORY_KEY, OnDataChanged);
-
-            // 모델 이벤트 구독
-            _model.OnCharacterAdded += OnCharacterAdded;
-            _model.OnCharacterUpdated += OnCharacterUpdatedInternal;
-            _model.OnCharacterRemoved += OnCharacterRemoved;
+            Model.OnCharacterAdded += OnCharacterAdded;
+            Model.OnCharacterUpdated += OnCharacterUpdatedInternal;
+            Model.OnCharacterRemoved += OnCharacterRemoved;
         }
 
         /// <summary>
-        /// 이벤트 구독 해제
+        /// 모델 이벤트 구독 해제
         /// </summary>
-        public void Dispose()
+        protected override void UnsubscribeModelEvents()
         {
-            _eventBus.Unsubscribe(CharacterModel.CATEGORY_KEY, OnDataChanged);
-
-            if (_model != null)
-            {
-                _model.OnCharacterAdded -= OnCharacterAdded;
-                _model.OnCharacterUpdated -= OnCharacterUpdatedInternal;
-                _model.OnCharacterRemoved -= OnCharacterRemoved;
-            }
+            Model.OnCharacterAdded -= OnCharacterAdded;
+            Model.OnCharacterUpdated -= OnCharacterUpdatedInternal;
+            Model.OnCharacterRemoved -= OnCharacterRemoved;
         }
 
         /// <summary>
-        /// 데이터 변경 콜백
+        /// 모델 변경 감지 (전체 갱신)
         /// </summary>
-        private void OnDataChanged(DataChangeEvent changeEvent)
+        protected override void OnModelChanged()
         {
             OnCharactersChanged?.Invoke();
         }
 
-        private void OnCharacterAdded(Tech.Hive.V1.CharacterInfo character)
+        /// <summary>
+        /// 개별 캐릭터 추가 이벤트
+        /// </summary>
+        private void OnCharacterAdded(CharacterData character)
         {
             OnCharactersChanged?.Invoke();
         }
 
-        private void OnCharacterUpdatedInternal(Tech.Hive.V1.CharacterInfo character)
+        /// <summary>
+        /// 개별 캐릭터 업데이트 이벤트
+        /// </summary>
+        private void OnCharacterUpdatedInternal(CharacterData character)
         {
             OnCharacterUpdated?.Invoke(character);
         }
 
+        /// <summary>
+        /// 개별 캐릭터 삭제 이벤트
+        /// </summary>
         private void OnCharacterRemoved(string instanceId)
         {
             OnCharactersChanged?.Invoke();
@@ -93,50 +75,50 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 모든 캐릭터 가져오기
         /// </summary>
-        public void GetAllCharacters(List<Tech.Hive.V1.CharacterInfo> output)
+        public void GetAllCharacters(List<CharacterData> output)
         {
-            _model?.GetAllCharacters(output);
+            Model?.GetAllCharacters(output);
         }
 
         /// <summary>
         /// 특정 캐릭터 가져오기
         /// </summary>
-        public Tech.Hive.V1.CharacterInfo GetCharacter(string instanceId)
+        public CharacterData GetCharacter(string instanceId)
         {
-            return _model?.GetCharacter(instanceId);
+            return Model?.GetCharacter(instanceId);
         }
 
         /// <summary>
         /// 캐릭터 개수
         /// </summary>
-        public int CharacterCount => _model?.CharacterCount ?? 0;
+        public int CharacterCount => Model?.CharacterCount ?? 0;
 
         /// <summary>
         /// 캐릭터 존재 여부
         /// </summary>
         public bool HasCharacter(string instanceId)
         {
-            return _model?.HasCharacter(instanceId) ?? false;
+            return Model?.HasCharacter(instanceId) ?? false;
         }
 
         /// <summary>
         /// 조건에 맞는 캐릭터 필터링
         /// </summary>
-        public void GetFilteredCharacters(List<Tech.Hive.V1.CharacterInfo> output, Func<Tech.Hive.V1.CharacterInfo, bool> filter)
+        public void GetFilteredCharacters(List<CharacterData> output, Func<CharacterData, bool> filter)
         {
-            _model?.GetCharactersByCondition(output, filter);
+            Model?.GetCharactersByCondition(output, filter);
         }
 
         /// <summary>
         /// 레벨 범위로 필터링
         /// </summary>
-        public void GetCharactersByLevelRange(List<Tech.Hive.V1.CharacterInfo> output, uint minLevel, uint maxLevel)
+        public void GetCharactersByLevelRange(List<CharacterData> output, uint minLevel, uint maxLevel)
         {
-            if (_model == null || output == null) return;
+            if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
-            _model.GetAllCharacters(allCharacters);
+            var allCharacters = new List<CharacterData>();
+            Model.GetAllCharacters(allCharacters);
 
             // for문 사용 (Linq 지양)
             for (int i = 0; i < allCharacters.Count; i++)
@@ -152,13 +134,13 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 클래스 타입으로 필터링
         /// </summary>
-        public void GetCharactersByClass(List<Tech.Hive.V1.CharacterInfo> output, ClassType classType)
+        public void GetCharactersByClass(List<CharacterData> output, ClassType classType)
         {
-            if (_model == null || output == null) return;
+            if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
-            _model.GetAllCharacters(allCharacters);
+            var allCharacters = new List<CharacterData>();
+            Model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)
             {
@@ -173,13 +155,13 @@ namespace CookApps.AutoBattler.UI
         /// <summary>
         /// 레어리티로 필터링
         /// </summary>
-        public void GetCharactersByRarity(List<Tech.Hive.V1.CharacterInfo> output, Rarity rarity)
+        public void GetCharactersByRarity(List<CharacterData> output, Rarity rarity)
         {
-            if (_model == null || output == null) return;
+            if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
-            _model.GetAllCharacters(allCharacters);
+            var allCharacters = new List<CharacterData>();
+            Model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)
             {

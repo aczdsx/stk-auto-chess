@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Tech.Hive.V1;
-using UnityEngine;
-using CharacterInfo = Tech.Hive.V1.CharacterInfo;
 
-namespace CookApps.AutoBattler.Data
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 캐릭터 데이터 모델
@@ -16,7 +14,7 @@ namespace CookApps.AutoBattler.Data
         public const string CATEGORY_KEY = "character";
 
         // 프로토콜 데이터 (서버에서 받은 원본)
-        private readonly Dictionary<string, Tech.Hive.V1.CharacterInfo> _characters;
+        private readonly Dictionary<string, CharacterData> _characters;
 
         // 버전 정보
         private int _version;
@@ -25,13 +23,14 @@ namespace CookApps.AutoBattler.Data
         public int Version => _version;
 
         // 이벤트
-        public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterAdded;
-        public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterUpdated;
+        public event Action OnChanged;
+        public event Action<CharacterData> OnCharacterAdded;
+        public event Action<CharacterData> OnCharacterUpdated;
         public event Action<string> OnCharacterRemoved;
 
         public CharacterModel()
         {
-            _characters = new Dictionary<string, Tech.Hive.V1.CharacterInfo>(64);
+            _characters = new Dictionary<string, CharacterData>(64);
             _version = 0;
         }
 
@@ -67,6 +66,7 @@ namespace CookApps.AutoBattler.Data
             }
 
             _version = characterDelta._version;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -76,6 +76,7 @@ namespace CookApps.AutoBattler.Data
         {
             _characters.Clear();
             _version = 0;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -98,7 +99,7 @@ namespace CookApps.AutoBattler.Data
         /// <summary>
         /// 캐릭터 가져오기
         /// </summary>
-        public Tech.Hive.V1.CharacterInfo GetCharacter(string instanceId)
+        public CharacterData GetCharacter(string instanceId)
         {
             return _characters.TryGetValue(instanceId, out var character) ? character : null;
         }
@@ -106,7 +107,7 @@ namespace CookApps.AutoBattler.Data
         /// <summary>
         /// 모든 캐릭터 가져오기 (메모리 할당 최소화)
         /// </summary>
-        public void GetAllCharacters(List<Tech.Hive.V1.CharacterInfo> output)
+        public void GetAllCharacters(List<CharacterData> output)
         {
             if (output == null) return;
 
@@ -135,7 +136,7 @@ namespace CookApps.AutoBattler.Data
         /// <summary>
         /// 서버 응답으로 캐릭터 설정 (내부용)
         /// </summary>
-        internal void SetCharacters(IEnumerable<Tech.Hive.V1.CharacterInfo> characters, int version)
+        internal void SetCharacters(IEnumerable<CharacterData> characters, int version)
         {
             _characters.Clear();
 
@@ -148,12 +149,13 @@ namespace CookApps.AutoBattler.Data
             }
 
             _version = version;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
         /// 단일 캐릭터 업데이트 (서버 응답용)
         /// </summary>
-        internal void UpdateCharacter(Tech.Hive.V1.CharacterInfo character)
+        internal void UpdateCharacter(CharacterData character)
         {
             if (character == null || string.IsNullOrEmpty(character.InstanceId))
             {
@@ -187,7 +189,7 @@ namespace CookApps.AutoBattler.Data
         /// <summary>
         /// 특정 조건의 캐릭터 필터링 (for문 사용, Linq 지양)
         /// </summary>
-        public void GetCharactersByCondition(List<Tech.Hive.V1.CharacterInfo> output, Func<Tech.Hive.V1.CharacterInfo, bool> predicate)
+        public void GetCharactersByCondition(List<CharacterData> output, Func<CharacterData, bool> predicate)
         {
             if (output == null || predicate == null) return;
 

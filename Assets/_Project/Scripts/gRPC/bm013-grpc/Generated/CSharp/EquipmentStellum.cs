@@ -26,7 +26,7 @@ namespace Tech.Hive.V1 {
           string.Concat(
             "ChdlcXVpcG1lbnQrc3RlbGx1bS5wcm90bxIMdGVjaC5oaXZlLnYxGhNjdXN0",
             "b21fY29tbW9uLnByb3RvGhRlcXVpcG1lbnQrc3RhdC5wcm90byKSBAoLU3Rl",
-            "bGx1bUluZm8SEwoLaW5zdGFuY2VfaWQYASABKAkSEgoKc3RlbGx1bV9pZBgC",
+            "bGx1bURhdGESEwoLaW5zdGFuY2VfaWQYASABKAkSEgoKc3RlbGx1bV9pZBgC",
             "IAEoDRIpCgtiYXNlX3Jhcml0eRgDIAEoDjIULnRlY2guaGl2ZS52MS5SYXJp",
             "dHkSEgoKc3Rhcl9sZXZlbBgEIAEoDRIrCgpjbGFzc190eXBlGAUgASgOMhcu",
             "dGVjaC5oaXZlLnYxLkNsYXNzVHlwZRIUCgxpc19leGNsdXNpdmUYBiABKAgS",
@@ -41,7 +41,7 @@ namespace Tech.Hive.V1 {
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.EquipmentStatReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.StellumInfo), global::Tech.Hive.V1.StellumInfo.Parser, new[]{ "InstanceId", "StellumId", "BaseRarity", "StarLevel", "ClassType", "IsExclusive", "ExclusiveCharacterId", "ForgeLevel", "MaxForgeLevel", "ForgeExp", "ForgeExpToNext", "MainOption", "SubOptions", "GrantOptions", "EquippedCharacterId", "ObtainedAt" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.StellumData), global::Tech.Hive.V1.StellumData.Parser, new[]{ "InstanceId", "StellumId", "BaseRarity", "StarLevel", "ClassType", "IsExclusive", "ExclusiveCharacterId", "ForgeLevel", "MaxForgeLevel", "ForgeExp", "ForgeExpToNext", "MainOption", "SubOptions", "GrantOptions", "EquippedCharacterId", "ObtainedAt" }, null, null, null, null)
           }));
     }
     #endregion
@@ -52,16 +52,16 @@ namespace Tech.Hive.V1 {
   /// 스텔룸 (무기) 정보
   /// </summary>
   [global::System.SerializableAttribute]
-  public sealed partial class StellumInfo : pb::IMessage<StellumInfo>
+  public sealed partial class StellumData : pb::IMessage<StellumData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<StellumInfo> _parser = new pb::MessageParser<StellumInfo>(() => new StellumInfo());
+    private static readonly pb::MessageParser<StellumData> _parser = new pb::MessageParser<StellumData>(() => new StellumData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<StellumInfo> Parser { get { return _parser; } }
+    public static pb::MessageParser<StellumData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -77,7 +77,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StellumInfo() {
+    public StellumData() {
       OnConstruction();
     }
 
@@ -85,7 +85,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StellumInfo(StellumInfo other) : this() {
+    public StellumData(StellumData other) : this() {
       instanceId_ = other.instanceId_;
       stellumId_ = other.stellumId_;
       baseRarity_ = other.baseRarity_;
@@ -107,8 +107,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StellumInfo Clone() {
-      return new StellumInfo(this);
+    public StellumData Clone() {
+      return new StellumData(this);
     }
 
     /// <summary>Field number for the "instance_id" field.</summary>
@@ -349,12 +349,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as StellumInfo);
+      return Equals(other as StellumData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(StellumInfo other) {
+    public bool Equals(StellumData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -606,7 +606,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(StellumInfo other) {
+    public void MergeFrom(StellumData other) {
       if (other == null) {
         return;
       }

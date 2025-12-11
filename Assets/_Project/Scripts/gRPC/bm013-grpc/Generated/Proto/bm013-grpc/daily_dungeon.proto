@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "daily_dungeon+info.proto";
+import "daily_dungeon+data.proto";
 
 service DailyDungeonService {
   /**
@@ -33,7 +33,7 @@ message DailyDungeonListRequest {
 }
 message DailyDungeonListResponse {
   ResponseStatus status = 1;
-  repeated DailyDungeonInfo dungeon_infos = 2;
+  repeated DailyDungeonData daily_dungeon_list = 2;
 }
 
 message DailyDungeonEnterRequest {
@@ -43,7 +43,7 @@ message DailyDungeonEnterRequest {
 
 message DailyDungeonEnterResponse {
   ResponseStatus status = 1;
-  DailyDungeonInfo dungeon = 2;
+  DailyDungeonData daily_dungeon = 2;
   string battle_session_id = 3;
   uint64 battle_seed = 4;
 }
@@ -56,7 +56,7 @@ message DailyDungeonClearRequest {
 
 message DailyDungeonClearResponse {
   ResponseStatus status = 1;
-  DailyDungeonInfo dungeon = 2;
+  DailyDungeonData daily_dungeon = 2;
   repeated Reward rewards = 3;
   repeated CurrencyDelta currency_deltas = 4;
 }

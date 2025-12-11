@@ -25,12 +25,12 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChRiYXR0bGUrY2hhcHRlci5wcm90bxIMdGVjaC5oaXZlLnYxIkEKEUJhdHRs",
-            "ZUNoYXB0ZXJJbmZvEhIKCmNoYXB0ZXJfaWQYASABKA0SGAoQc3Rhcl90b3Rh",
+            "ZUNoYXB0ZXJEYXRhEhIKCmNoYXB0ZXJfaWQYASABKA0SGAoQc3Rhcl90b3Rh",
             "bF9jb3VudBgCIAEoDWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleChapterInfo), global::Tech.Hive.V1.BattleChapterInfo.Parser, new[]{ "ChapterId", "StarTotalCount" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleChapterData), global::Tech.Hive.V1.BattleChapterData.Parser, new[]{ "ChapterId", "StarTotalCount" }, null, null, null, null)
           }));
     }
     #endregion
@@ -41,16 +41,16 @@ namespace Tech.Hive.V1 {
   /// 챕터 정보
   /// </summary>
   [global::System.SerializableAttribute]
-  public sealed partial class BattleChapterInfo : pb::IMessage<BattleChapterInfo>
+  public sealed partial class BattleChapterData : pb::IMessage<BattleChapterData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<BattleChapterInfo> _parser = new pb::MessageParser<BattleChapterInfo>(() => new BattleChapterInfo());
+    private static readonly pb::MessageParser<BattleChapterData> _parser = new pb::MessageParser<BattleChapterData>(() => new BattleChapterData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<BattleChapterInfo> Parser { get { return _parser; } }
+    public static pb::MessageParser<BattleChapterData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -66,7 +66,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleChapterInfo() {
+    public BattleChapterData() {
       OnConstruction();
     }
 
@@ -74,7 +74,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleChapterInfo(BattleChapterInfo other) : this() {
+    public BattleChapterData(BattleChapterData other) : this() {
       chapterId_ = other.chapterId_;
       starTotalCount_ = other.starTotalCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -82,8 +82,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleChapterInfo Clone() {
-      return new BattleChapterInfo(this);
+    public BattleChapterData Clone() {
+      return new BattleChapterData(this);
     }
 
     /// <summary>Field number for the "chapter_id" field.</summary>
@@ -113,12 +113,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as BattleChapterInfo);
+      return Equals(other as BattleChapterData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(BattleChapterInfo other) {
+    public bool Equals(BattleChapterData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -204,7 +204,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(BattleChapterInfo other) {
+    public void MergeFrom(BattleChapterData other) {
       if (other == null) {
         return;
       }

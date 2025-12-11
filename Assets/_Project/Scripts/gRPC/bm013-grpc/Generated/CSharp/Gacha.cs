@@ -25,10 +25,10 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgtnYWNoYS5wcm90bxIMdGVjaC5oaXZlLnYxGgpiYXNlLnByb3RvGhNjdXN0",
-            "b21fY29tbW9uLnByb3RvGhBnYWNoYStpbmZvLnByb3RvIhIKEEdhY2hhTGlz",
+            "b21fY29tbW9uLnByb3RvGhBnYWNoYStkYXRhLnByb3RvIhIKEEdhY2hhTGlz",
             "dFJlcXVlc3QibgoRR2FjaGFMaXN0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
             "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEisKCmdhY2hhX2xpc3QY",
-            "AiADKAsyFy50ZWNoLmhpdmUudjEuR2FjaGFJbmZvIjMKEERyYXdHYWNoYVJl",
+            "AiADKAsyFy50ZWNoLmhpdmUudjEuR2FjaGFEYXRhIjMKEERyYXdHYWNoYVJl",
             "cXVlc3QSEAoIZ2FjaGFfaWQYASABKAkSDQoFY291bnQYAiABKA0iuwEKEURy",
             "YXdHYWNoYVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52",
             "MS5SZXNwb25zZVN0YXR1cxIqCgdyZXN1bHRzGAIgAygLMhkudGVjaC5oaXZl",
@@ -40,7 +40,7 @@ namespace Tech.Hive.V1 {
             "RwoERHJhdxIeLnRlY2guaGl2ZS52MS5EcmF3R2FjaGFSZXF1ZXN0Gh8udGVj",
             "aC5oaXZlLnYxLkRyYXdHYWNoYVJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.GachaInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.GachaDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.GachaErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaListRequest), global::Tech.Hive.V1.GachaListRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaListResponse), global::Tech.Hive.V1.GachaListResponse.Parser, new[]{ "Status", "GachaList" }, null, null, null, null),
@@ -272,12 +272,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "gacha_list" field.</summary>
     public const int GachaListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.GachaInfo> _repeated_gachaList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.GachaInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.GachaInfo> gachaList_ = new pbc::RepeatedField<global::Tech.Hive.V1.GachaInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.GachaData> _repeated_gachaList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.GachaData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.GachaData> gachaList_ = new pbc::RepeatedField<global::Tech.Hive.V1.GachaData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.GachaInfo> GachaList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.GachaData> GachaList {
       get { return gachaList_; }
     }
 

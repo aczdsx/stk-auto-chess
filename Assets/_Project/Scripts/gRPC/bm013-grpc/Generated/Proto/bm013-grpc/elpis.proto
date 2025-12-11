@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "elpis+info.proto";
+import "elpis+data.proto";
 import "elpis+facility.proto";
 import "elpis+core_research.proto";
 import "elpis+tactic_research.proto";
@@ -16,7 +16,7 @@ service ElpisService {
   /**
    * 함선 목록을 조회합니다.
   */
-  rpc GetInfo(ElpisGetInfoRequest) returns (ElpisGetInfoResponse) {}
+  rpc Get(ElpisGetRequest) returns (ElpisGetResponse) {}
 
   /**
    * 함선 확장 (코어 사용)
@@ -53,16 +53,16 @@ enum ElpisErrorCode {
   ELPIS_UNSPECIFIED = 0;
 }
 
-message ElpisGetInfoRequest {}
-message ElpisGetInfoResponse {
+message ElpisGetRequest {}
+message ElpisGetResponse {
   ResponseStatus status = 1;
-  ElpisInfo info = 2;
+  ElpisData elpis = 2;
 }
 
 message ElpisExpandRequest {}
 message ElpisExpandResponse {
   ResponseStatus status = 1;
-  ElpisInfo info = 2;
+  ElpisData elpis = 2;
 }
 
 message ElpisBuildFacilityRequest {
@@ -112,6 +112,6 @@ message ElpisResearchTacticResponse {
 message ElpisClaimSimulationRewardRequest {}
 message ElpisClaimSimulationRewardResponse {
   ResponseStatus status = 1;
-  SimulationInfo simulation_info = 2;
+  SimulationData simulation = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }

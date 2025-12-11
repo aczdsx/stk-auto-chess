@@ -6,7 +6,7 @@ import "custom_common.proto";
 import "equipment+stat.proto";
 
 // 성유물(장신구) 정보
-message RelicInfo {
+message RelicData {
   string instance_id = 1;
   uint32 relic_id = 2;  // 마스터 데이터 ID
   

@@ -1,71 +1,45 @@
 using System;
 using System.Collections.Generic;
-using CookApps.AutoBattler.Data;
+using CookApps.AutoBattler;
 using UnityEngine;
 
-namespace CookApps.AutoBattler.UI
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 지갑 데이터 브릿지
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// </summary>
-    public class WalletDataBridge
+    public class WalletDataBridge : DataBridgeBase<WalletModel>
     {
-        private WalletModel _model;
-        private ServerDataManager _dataManager;
-        private DataEventBus _eventBus;
-
         // UI 갱신 이벤트 (itemId별)
         public event Action<uint, ulong> OnCurrencyChanged;
         public event Action OnWalletChanged;
 
         public WalletDataBridge()
+            : base(ServerDataManager.Instance.Wallet, WalletModel.CATEGORY_KEY)
         {
-            _dataManager = ServerDataManager.Instance;
-            _eventBus = DataEventBus.Instance;
-
-            // 데이터 모델 가져오기
-            _model = _dataManager.GetData<WalletModel>(WalletModel.CATEGORY_KEY);
-            if (_model == null)
-            {
-                _model = new WalletModel();
-                _dataManager.RegisterFactory(WalletModel.CATEGORY_KEY, () => new WalletModel());
-                _dataManager.SetData(WalletModel.CATEGORY_KEY, _model);
-            }
-
-            // 이벤트 구독
-            SubscribeEvents();
         }
 
         /// <summary>
-        /// 이벤트 구독
+        /// 모델 이벤트 구독
         /// </summary>
-        private void SubscribeEvents()
+        protected override void SubscribeModelEvents()
         {
-            // 데이터 변경 감지
-            _eventBus.Subscribe(WalletModel.CATEGORY_KEY, OnDataChanged);
-
-            // 모델 이벤트 구독
-            _model.OnCurrencyChanged += OnCurrencyChangedInternal;
+            Model.OnCurrencyChanged += OnCurrencyChangedInternal;
         }
 
         /// <summary>
-        /// 이벤트 구독 해제
+        /// 모델 이벤트 구독 해제
         /// </summary>
-        public void Dispose()
+        protected override void UnsubscribeModelEvents()
         {
-            _eventBus.Unsubscribe(WalletModel.CATEGORY_KEY, OnDataChanged);
-
-            if (_model != null)
-            {
-                _model.OnCurrencyChanged -= OnCurrencyChangedInternal;
-            }
+            Model.OnCurrencyChanged -= OnCurrencyChangedInternal;
         }
 
         /// <summary>
-        /// 데이터 변경 콜백
+        /// 모델 변경 감지 (전체 갱신)
         /// </summary>
-        private void OnDataChanged(DataChangeEvent changeEvent)
+        protected override void OnModelChanged()
         {
             OnWalletChanged?.Invoke();
         }
@@ -73,6 +47,7 @@ namespace CookApps.AutoBattler.UI
         private void OnCurrencyChangedInternal(uint itemId, ulong oldAmount, ulong newAmount)
         {
             OnCurrencyChanged?.Invoke(itemId, newAmount);
+            OnWalletChanged?.Invoke();
         }
 
         /// <summary>
@@ -80,7 +55,7 @@ namespace CookApps.AutoBattler.UI
         /// </summary>
         public ulong GetCurrency(uint itemId)
         {
-            return _model?.GetCurrency(itemId) ?? 0;
+            return Model?.GetCurrency(itemId) ?? 0;
         }
 
         /// <summary>
@@ -88,7 +63,7 @@ namespace CookApps.AutoBattler.UI
         /// </summary>
         public void GetAllCurrencies(Dictionary<uint, ulong> output)
         {
-            _model?.GetAllCurrencies(output);
+            Model?.GetAllCurrencies(output);
         }
 
         /// <summary>
@@ -96,7 +71,7 @@ namespace CookApps.AutoBattler.UI
         /// </summary>
         public bool HasEnoughCurrency(uint itemId, ulong requiredAmount)
         {
-            return _model?.HasEnoughCurrency(itemId, requiredAmount) ?? false;
+            return Model?.HasEnoughCurrency(itemId, requiredAmount) ?? false;
         }
 
         /// <summary>
@@ -104,25 +79,25 @@ namespace CookApps.AutoBattler.UI
         /// </summary>
         public bool HasCurrency(uint itemId)
         {
-            return _model?.HasCurrency(itemId) ?? false;
+            return Model?.HasCurrency(itemId) ?? false;
         }
 
         /// <summary>
         /// 통화 개수
         /// </summary>
-        public int CurrencyCount => _model?.CurrencyCount ?? 0;
+        public int CurrencyCount => Model?.CurrencyCount ?? 0;
 
         /// <summary>
         /// 여러 통화의 충분 여부 체크 (배치)
         /// </summary>
         public bool HasEnoughCurrencies(Dictionary<uint, ulong> requirements)
         {
-            if (requirements == null || _model == null)
+            if (requirements == null || Model == null)
                 return false;
 
             foreach (var kvp in requirements)
             {
-                if (!_model.HasEnoughCurrency(kvp.Key, kvp.Value))
+                if (!Model.HasEnoughCurrency(kvp.Key, kvp.Value))
                     return false;
             }
 

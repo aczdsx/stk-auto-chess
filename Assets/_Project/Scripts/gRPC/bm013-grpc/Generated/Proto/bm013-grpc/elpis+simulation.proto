@@ -3,7 +3,7 @@ syntax = "proto3";
 package tech.hive.v1;
 
 // 전투 시뮬레이션 정보
-message SimulationInfo {
+message SimulationData {
   uint32 level = 1;
   uint32 max_level = 2;
   

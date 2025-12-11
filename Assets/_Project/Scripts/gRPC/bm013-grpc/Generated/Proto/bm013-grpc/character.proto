@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "character+info.proto";
+import "character+data.proto";
 
 // 캐릭터 서비스
 service CharacterService {
@@ -67,7 +67,7 @@ enum CharacterErrorCode {
 message CharacterListRequest {}
 message CharacterListResponse {
   ResponseStatus status = 1;
-  repeated CharacterInfo characters = 2;
+  repeated CharacterData characters = 2;
 }
 
 message CharacterGetRequest {
@@ -75,7 +75,7 @@ message CharacterGetRequest {
 }
 message CharacterGetResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
 }
 
 message CharacterLevelUpRequest {
@@ -83,7 +83,7 @@ message CharacterLevelUpRequest {
 }
 message CharacterLevelUpResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -92,7 +92,7 @@ message CharacterPromoteRequest {
 }
 message CharacterPromoteResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -101,7 +101,7 @@ message CharacterTranscendRequest {
 }
 message CharacterTranscendResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -113,7 +113,7 @@ message CharacterAllocateResonanceRequest {
 
 message CharacterAllocateResonanceResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
 }
 
 message CharacterResetResonanceRequest {
@@ -121,7 +121,7 @@ message CharacterResetResonanceRequest {
 }
 message CharacterResetResonanceResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -132,7 +132,7 @@ message CharacterEquipStellumRequest {
 
 message CharacterEquipStellumResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
 }
 
 message CharacterEquipRelicRequest {
@@ -142,7 +142,7 @@ message CharacterEquipRelicRequest {
 
 message CharacterEquipRelicResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
 }
 
 message CharacterUnEquipRelicRequest {
@@ -152,5 +152,5 @@ message CharacterUnEquipRelicRequest {
 
 message CharacterUnEquipRelicResponse {
   ResponseStatus status = 1;
-  CharacterInfo character = 2;
+  CharacterData character = 2;
 }

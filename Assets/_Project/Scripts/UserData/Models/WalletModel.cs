@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Tech.Hive.V1;
 using UnityEngine;
 
-namespace CookApps.AutoBattler.Data
+namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 지갑 데이터 모델 (통화 관리)
@@ -23,6 +23,7 @@ namespace CookApps.AutoBattler.Data
         public int Version => _version;
 
         // 통화 변경 이벤트
+        public event Action OnChanged;
         public event Action<uint, ulong, ulong> OnCurrencyChanged; // (itemId, oldAmount, newAmount)
 
         public WalletModel()
@@ -55,6 +56,7 @@ namespace CookApps.AutoBattler.Data
             }
 
             _version = walletDelta._version;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace CookApps.AutoBattler.Data
         {
             _currencies.Clear();
             _version = 0;
+            OnChanged?.Invoke();
         }
 
         /// <summary>
@@ -119,6 +122,7 @@ namespace CookApps.AutoBattler.Data
             }
 
             _version++;
+            OnChanged?.Invoke();
         }
 
         /// <summary>

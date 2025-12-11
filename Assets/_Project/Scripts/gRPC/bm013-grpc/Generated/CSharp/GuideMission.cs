@@ -25,21 +25,21 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChNndWlkZV9taXNzaW9uLnByb3RvEgx0ZWNoLmhpdmUudjEaCmJhc2UucHJv",
-            "dG8aE2N1c3RvbV9jb21tb24ucHJvdG8aGGd1aWRlX21pc3Npb24raW5mby5w",
+            "dG8aE2N1c3RvbV9jb21tb24ucHJvdG8aGGd1aWRlX21pc3Npb24rZGF0YS5w",
             "cm90byIZChdHdWlkZU1pc3Npb25MaXN0UmVxdWVzdCKXAQoYR3VpZGVNaXNz",
             "aW9uTGlzdFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52",
             "MS5SZXNwb25zZVN0YXR1cxI2Cg5ndWlkZV9taXNzaW9ucxgCIAMoCzIeLnRl",
-            "Y2guaGl2ZS52MS5HdWlkZU1pc3Npb25JbmZvEhUKDWN1cnJlbnRfb3JkZXIY",
+            "Y2guaGl2ZS52MS5HdWlkZU1pc3Npb25EYXRhEhUKDWN1cnJlbnRfb3JkZXIY",
             "AyABKA0iWAohR3VpZGVNaXNzaW9uVXBkYXRlUHJvZ3Jlc3NSZXF1ZXN0EhgK",
             "EGd1aWRlX21pc3Npb25faWQYASABKA0SGQoRYWRkX2N1cnJlbnRfY291bnQY",
             "AiABKA0iiQEKIkd1aWRlTWlzc2lvblVwZGF0ZVByb2dyZXNzUmVzcG9uc2US",
             "LAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVz",
             "EjUKDWd1aWRlX21pc3Npb24YAiABKAsyHi50ZWNoLmhpdmUudjEuR3VpZGVN",
-            "aXNzaW9uSW5mbyI6Ch5HdWlkZU1pc3Npb25DbGFpbVJld2FyZFJlcXVlc3QS",
+            "aXNzaW9uRGF0YSI6Ch5HdWlkZU1pc3Npb25DbGFpbVJld2FyZFJlcXVlc3QS",
             "GAoQZ3VpZGVfbWlzc2lvbl9pZBgBIAEoDSLjAQofR3VpZGVNaXNzaW9uQ2xh",
             "aW1SZXdhcmRSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUu",
             "djEuUmVzcG9uc2VTdGF0dXMSNQoNZ3VpZGVfbWlzc2lvbhgCIAEoCzIeLnRl",
-            "Y2guaGl2ZS52MS5HdWlkZU1pc3Npb25JbmZvEiUKB3Jld2FyZHMYAyADKAsy",
+            "Y2guaGl2ZS52MS5HdWlkZU1pc3Npb25EYXRhEiUKB3Jld2FyZHMYAyADKAsy",
             "FC50ZWNoLmhpdmUudjEuUmV3YXJkEjQKD2N1cnJlbmN5X2RlbHRhcxgEIAMo",
             "CzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhKjYKFUd1aWRlTWlzc2lv",
             "bkVycm9yQ29kZRIdChlHVUlERV9NSVNTSU9OX1VOU1BFQ0lGSUVEEAAyzQIK",
@@ -52,7 +52,7 @@ namespace Tech.Hive.V1 {
             "aW1SZXdhcmRSZXF1ZXN0Gi0udGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvbkNs",
             "YWltUmV3YXJkUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.GuideMissionInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.GuideMissionDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.GuideMissionErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionListRequest), global::Tech.Hive.V1.GuideMissionListRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionListResponse), global::Tech.Hive.V1.GuideMissionListResponse.Parser, new[]{ "Status", "GuideMissions", "CurrentOrder" }, null, null, null, null),
@@ -287,12 +287,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "guide_missions" field.</summary>
     public const int GuideMissionsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.GuideMissionInfo> _repeated_guideMissions_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.GuideMissionInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.GuideMissionInfo> guideMissions_ = new pbc::RepeatedField<global::Tech.Hive.V1.GuideMissionInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.GuideMissionData> _repeated_guideMissions_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.GuideMissionData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.GuideMissionData> guideMissions_ = new pbc::RepeatedField<global::Tech.Hive.V1.GuideMissionData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.GuideMissionInfo> GuideMissions {
+    public pbc::RepeatedField<global::Tech.Hive.V1.GuideMissionData> GuideMissions {
       get { return guideMissions_; }
     }
 
@@ -775,10 +775,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "guide_mission" field.</summary>
     public const int GuideMissionFieldNumber = 2;
-    private global::Tech.Hive.V1.GuideMissionInfo guideMission_;
+    private global::Tech.Hive.V1.GuideMissionData guideMission_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.GuideMissionInfo GuideMission {
+    public global::Tech.Hive.V1.GuideMissionData GuideMission {
       get { return guideMission_; }
       set {
         guideMission_ = value;
@@ -891,7 +891,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.guideMission_ != null) {
         if (guideMission_ == null) {
-          GuideMission = new global::Tech.Hive.V1.GuideMissionInfo();
+          GuideMission = new global::Tech.Hive.V1.GuideMissionData();
         }
         GuideMission.MergeFrom(other.GuideMission);
       }
@@ -919,7 +919,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (guideMission_ == null) {
-              GuideMission = new global::Tech.Hive.V1.GuideMissionInfo();
+              GuideMission = new global::Tech.Hive.V1.GuideMissionData();
             }
             input.ReadMessage(GuideMission);
             break;
@@ -948,7 +948,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (guideMission_ == null) {
-              GuideMission = new global::Tech.Hive.V1.GuideMissionInfo();
+              GuideMission = new global::Tech.Hive.V1.GuideMissionData();
             }
             input.ReadMessage(GuideMission);
             break;
@@ -1212,10 +1212,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "guide_mission" field.</summary>
     public const int GuideMissionFieldNumber = 2;
-    private global::Tech.Hive.V1.GuideMissionInfo guideMission_;
+    private global::Tech.Hive.V1.GuideMissionData guideMission_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.GuideMissionInfo GuideMission {
+    public global::Tech.Hive.V1.GuideMissionData GuideMission {
       get { return guideMission_; }
       set {
         guideMission_ = value;
@@ -1360,7 +1360,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.guideMission_ != null) {
         if (guideMission_ == null) {
-          GuideMission = new global::Tech.Hive.V1.GuideMissionInfo();
+          GuideMission = new global::Tech.Hive.V1.GuideMissionData();
         }
         GuideMission.MergeFrom(other.GuideMission);
       }
@@ -1390,7 +1390,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (guideMission_ == null) {
-              GuideMission = new global::Tech.Hive.V1.GuideMissionInfo();
+              GuideMission = new global::Tech.Hive.V1.GuideMissionData();
             }
             input.ReadMessage(GuideMission);
             break;
@@ -1427,7 +1427,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (guideMission_ == null) {
-              GuideMission = new global::Tech.Hive.V1.GuideMissionInfo();
+              GuideMission = new global::Tech.Hive.V1.GuideMissionData();
             }
             input.ReadMessage(GuideMission);
             break;

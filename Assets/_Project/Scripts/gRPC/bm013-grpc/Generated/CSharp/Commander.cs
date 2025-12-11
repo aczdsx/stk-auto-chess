@@ -29,27 +29,27 @@ namespace Tech.Hive.V1 {
             "GUNvbW1hbmRlckxpc3RTa2lsbFJlcXVlc3QigAEKGkNvbW1hbmRlckxpc3RT",
             "a2lsbFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
             "ZXNwb25zZVN0YXR1cxI0Cgpza2lsbF9saXN0GAIgAygLMiAudGVjaC5oaXZl",
-            "LnYxLkNvbW1hbmRlclNraWxsSW5mbyJMChpDb21tYW5kZXJFcXVpcFNraWxs",
+            "LnYxLkNvbW1hbmRlclNraWxsRGF0YSJMChpDb21tYW5kZXJFcXVpcFNraWxs",
             "UmVxdWVzdBISCgpzbG90X2luZGV4GAEgASgNEhoKEmNvbW1hbmRlcl9za2ls",
             "bF9pZBgCIAEoDSKJAQobQ29tbWFuZGVyRXF1aXBTa2lsbFJlc3BvbnNlEiwK",
             "BnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI8",
             "Cgpza2lsbF9saXN0GAIgAygLMigudGVjaC5oaXZlLnYxLkNvbW1hbmRlckVx",
-            "dWlwcGVkU2tpbGxJbmZvIjIKHENvbW1hbmRlclVuRXF1aXBTa2lsbFJlcXVl",
+            "dWlwcGVkU2tpbGxEYXRhIjIKHENvbW1hbmRlclVuRXF1aXBTa2lsbFJlcXVl",
             "c3QSEgoKc2xvdF9pbmRleBgBIAEoDSKLAQodQ29tbWFuZGVyVW5FcXVpcFNr",
             "aWxsUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
             "c3BvbnNlU3RhdHVzEjwKCnNraWxsX2xpc3QYAiADKAsyKC50ZWNoLmhpdmUu",
-            "djEuQ29tbWFuZGVyRXF1aXBwZWRTa2lsbEluZm8iMgocQ29tbWFuZGVyTGV2",
+            "djEuQ29tbWFuZGVyRXF1aXBwZWRTa2lsbERhdGEiMgocQ29tbWFuZGVyTGV2",
             "ZWxVcFNraWxsUmVxdWVzdBISCgpzbG90X2luZGV4GAEgASgNIrQBCh1Db21t",
             "YW5kZXJMZXZlbFVwU2tpbGxSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
             "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSLwoFc2tpbGwYAiABKAsyIC50",
-            "ZWNoLmhpdmUudjEuQ29tbWFuZGVyU2tpbGxJbmZvEjQKD2N1cnJlbmN5X2Rl",
+            "ZWNoLmhpdmUudjEuQ29tbWFuZGVyU2tpbGxEYXRhEjQKD2N1cnJlbmN5X2Rl",
             "bHRhcxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhIm8KHENv",
             "bW1hbmRlclByb21vdGVTa2lsbFJlcXVlc3QSGgoSY29tbWFuZGVyX3NraWxs",
             "X2lkGAEgASgNEhYKDnByb21vdGlvbl9zbG90GAIgASgNEhsKE3Byb21vdGlv",
             "bl9vcHRpb25faWQYAyABKA0ifgodQ29tbWFuZGVyUHJvbW90ZVNraWxsUmVz",
             "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
             "U3RhdHVzEi8KBXNraWxsGAIgASgLMiAudGVjaC5oaXZlLnYxLkNvbW1hbmRl",
-            "clNraWxsSW5mbyovChJDb21tYW5kZXJFcnJvckNvZGUSGQoVQ09NTUFOREVS",
+            "clNraWxsRGF0YSovChJDb21tYW5kZXJFcnJvckNvZGUSGQoVQ09NTUFOREVS",
             "X1VOU1BFQ0lGSUVEEAAykAQKEENvbW1hbmRlclNlcnZpY2USXgoJTGlzdFNr",
             "aWxsEicudGVjaC5oaXZlLnYxLkNvbW1hbmRlckxpc3RTa2lsbFJlcXVlc3Qa",
             "KC50ZWNoLmhpdmUudjEuQ29tbWFuZGVyTGlzdFNraWxsUmVzcG9uc2USYQoK",
@@ -302,12 +302,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "skill_list" field.</summary>
     public const int SkillListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CommanderSkillInfo> _repeated_skillList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CommanderSkillInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CommanderSkillInfo> skillList_ = new pbc::RepeatedField<global::Tech.Hive.V1.CommanderSkillInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CommanderSkillData> _repeated_skillList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CommanderSkillData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CommanderSkillData> skillList_ = new pbc::RepeatedField<global::Tech.Hive.V1.CommanderSkillData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CommanderSkillInfo> SkillList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.CommanderSkillData> SkillList {
       get { return skillList_; }
     }
 
@@ -754,12 +754,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "skill_list" field.</summary>
     public const int SkillListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CommanderEquippedSkillInfo> _repeated_skillList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CommanderEquippedSkillInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillInfo> skillList_ = new pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CommanderEquippedSkillData> _repeated_skillList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CommanderEquippedSkillData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillData> skillList_ = new pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillInfo> SkillList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillData> SkillList {
       get { return skillList_; }
     }
 
@@ -1169,12 +1169,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "skill_list" field.</summary>
     public const int SkillListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CommanderEquippedSkillInfo> _repeated_skillList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CommanderEquippedSkillInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillInfo> skillList_ = new pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CommanderEquippedSkillData> _repeated_skillList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CommanderEquippedSkillData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillData> skillList_ = new pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillInfo> SkillList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.CommanderEquippedSkillData> SkillList {
       get { return skillList_; }
     }
 
@@ -1585,10 +1585,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "skill" field.</summary>
     public const int SkillFieldNumber = 2;
-    private global::Tech.Hive.V1.CommanderSkillInfo skill_;
+    private global::Tech.Hive.V1.CommanderSkillData skill_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CommanderSkillInfo Skill {
+    public global::Tech.Hive.V1.CommanderSkillData Skill {
       get { return skill_; }
       set {
         skill_ = value;
@@ -1717,7 +1717,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.skill_ != null) {
         if (skill_ == null) {
-          Skill = new global::Tech.Hive.V1.CommanderSkillInfo();
+          Skill = new global::Tech.Hive.V1.CommanderSkillData();
         }
         Skill.MergeFrom(other.Skill);
       }
@@ -1746,7 +1746,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (skill_ == null) {
-              Skill = new global::Tech.Hive.V1.CommanderSkillInfo();
+              Skill = new global::Tech.Hive.V1.CommanderSkillData();
             }
             input.ReadMessage(Skill);
             break;
@@ -1779,7 +1779,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (skill_ == null) {
-              Skill = new global::Tech.Hive.V1.CommanderSkillInfo();
+              Skill = new global::Tech.Hive.V1.CommanderSkillData();
             }
             input.ReadMessage(Skill);
             break;
@@ -2119,10 +2119,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "skill" field.</summary>
     public const int SkillFieldNumber = 2;
-    private global::Tech.Hive.V1.CommanderSkillInfo skill_;
+    private global::Tech.Hive.V1.CommanderSkillData skill_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CommanderSkillInfo Skill {
+    public global::Tech.Hive.V1.CommanderSkillData Skill {
       get { return skill_; }
       set {
         skill_ = value;
@@ -2235,7 +2235,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.skill_ != null) {
         if (skill_ == null) {
-          Skill = new global::Tech.Hive.V1.CommanderSkillInfo();
+          Skill = new global::Tech.Hive.V1.CommanderSkillData();
         }
         Skill.MergeFrom(other.Skill);
       }
@@ -2263,7 +2263,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (skill_ == null) {
-              Skill = new global::Tech.Hive.V1.CommanderSkillInfo();
+              Skill = new global::Tech.Hive.V1.CommanderSkillData();
             }
             input.ReadMessage(Skill);
             break;
@@ -2292,7 +2292,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (skill_ == null) {
-              Skill = new global::Tech.Hive.V1.CommanderSkillInfo();
+              Skill = new global::Tech.Hive.V1.CommanderSkillData();
             }
             input.ReadMessage(Skill);
             break;

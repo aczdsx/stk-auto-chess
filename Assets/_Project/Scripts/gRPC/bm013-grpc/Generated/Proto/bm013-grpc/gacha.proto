@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "gacha+info.proto";
+import "gacha+data.proto";
 
 // 가챠 서비스
 service GachaService {
@@ -27,7 +27,7 @@ enum GachaErrorCode {
 message GachaListRequest {}
 message GachaListResponse {
   ResponseStatus status = 1;
-  repeated GachaInfo gacha_list = 2;
+  repeated GachaData gacha_list = 2;
 }
 
 message DrawGachaRequest {

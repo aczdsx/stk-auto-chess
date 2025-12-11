@@ -53,7 +53,7 @@ enum EquipmentErrorCode {
 message EquipmentListStellumRequest {}
 message EquipmentListStellumResponse {
   ResponseStatus status = 1;
-  repeated StellumInfo stellum_list = 2;
+  repeated StellumData stellum_list = 2;
 }
 
 message EquipmentForgeStellumRequest {
@@ -63,7 +63,7 @@ message EquipmentForgeStellumRequest {
 
 message EquipmentForgeStellumResponse {
   ResponseStatus status = 1;
-  StellumInfo stellum = 2;
+  StellumData stellum = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -74,14 +74,14 @@ message EquipmentAscendStellumRequest {
 
 message EquipmentAscendStellumResponse {
   ResponseStatus status = 1;
-  StellumInfo stellum = 2;
+  StellumData stellum = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
 message EquipmentListRelicRequest {}
 message EquipmentListRelicResponse {
   ResponseStatus status = 1;
-  repeated RelicInfo relic_list = 2;
+  repeated RelicData relic_list = 2;
 }
 
 message EquipmentEnhanceRelicRequest {
@@ -91,7 +91,7 @@ message EquipmentEnhanceRelicRequest {
 
 message EquipmentEnhanceRelicResponse {
   ResponseStatus status = 1;
-  RelicInfo relic = 2;
+  RelicData relic = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -101,7 +101,7 @@ message EquipmentSynthesizeRelicRequest {
 
 message EquipmentSynthesizeRelicResponse {
   ResponseStatus status = 1;
-  RelicInfo new_relic = 2;
+  RelicData new_relic = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -111,6 +111,6 @@ message EquipmentRerollRelicRequest {
 
 message EquipmentRerollRelicResponse {
   ResponseStatus status = 1;
-  RelicInfo relic = 2;
+  RelicData relic = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }

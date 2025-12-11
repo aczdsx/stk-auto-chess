@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "custom_common.proto";
+
+// 일일 던전 타입
+enum DailyDungeonType {
+  DAILY_DUNGEON_TYPE_UNSPECIFIED = 0;
+  DAILY_DUNGEON_TYPE_GOLD = 1;           // 골드 던전
+  DAILY_DUNGEON_TYPE_EXP = 2;            // 경험치 던전
+  DAILY_DUNGEON_TYPE_EQUIPMENT = 3;      // 장비 던전
+  DAILY_DUNGEON_TYPE_DIMENSION_CORE = 4; // 디멘션 코어 던전
+}
+
+// 일일 던전 정보
+message DailyDungeonData {
+  DailyDungeonType type = 1;
+  
+  // 입장 정보
+  uint32 daily_entries_used = 2;
+  uint32 max_daily_entries = 3;
+  
+  // 오늘 오픈 여부 (요일 던전)
+  bool is_open_today = 4;
+  
+  // 난이도별 정보
+  repeated DungeonDifficultyData difficulties = 5;
+}
+
+// 던전 난이도 정보
+message DungeonDifficultyData {
+  Difficulty difficulty = 1;
+  uint32 recommended_power = 2;
+  repeated Reward rewards = 3;
+}
+

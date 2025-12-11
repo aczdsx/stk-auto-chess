@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "trial_dungeon+info.proto";
+import "trial_dungeon+data.proto";
 
 // 시련 던전 서비스
 service TrialDungeonService {
@@ -35,7 +35,7 @@ message TrialDungeonListRequest {
 
 message TrialDungeonListResponse {
   ResponseStatus status = 1;
-  repeated TrialDungeonInfo trial_dungeons = 2;
+  repeated TrialDungeonData trial_dungeon_list = 2;
   // 현재 진행 가능한 던전 순서
   uint32 current_order = 3;
 }
@@ -46,7 +46,7 @@ message TrialDungeonEnterRequest {
 
 message TrialDungeonEnterResponse {
   ResponseStatus status = 1;
-  TrialDungeonInfo trial_dungeon = 2;
+  TrialDungeonData trial_dungeon = 2;
   string battle_session_id = 3;
   repeated CurrencyDelta currency_deltas = 4; // AP 소모
 }
@@ -59,7 +59,7 @@ message TrialDungeonClearRequest {
 
 message TrialDungeonClearResponse {
   ResponseStatus status = 1;
-  TrialDungeonInfo trial_dungeon = 2;
+  TrialDungeonData trial_dungeon = 2;
   repeated Reward rewards = 3;
   repeated CurrencyDelta currency_deltas = 4;
   uint64 player_exp_gained = 5;
