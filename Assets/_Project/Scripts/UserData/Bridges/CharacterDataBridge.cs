@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using CookApps.AutoBattler;
 using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
@@ -14,7 +13,7 @@ namespace CookApps.AutoBattler
     {
         // UI 갱신 이벤트
         public event Action OnCharactersChanged;
-        public event Action<Tech.Hive.V1.CharacterInfo> OnCharacterUpdated;
+        public event Action<CharacterData> OnCharacterUpdated;
 
         public CharacterDataBridge()
             : base(ServerDataManager.Instance.Character, CharacterModel.CATEGORY_KEY)
@@ -52,7 +51,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 개별 캐릭터 추가 이벤트
         /// </summary>
-        private void OnCharacterAdded(Tech.Hive.V1.CharacterInfo character)
+        private void OnCharacterAdded(CharacterData character)
         {
             OnCharactersChanged?.Invoke();
         }
@@ -60,7 +59,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 개별 캐릭터 업데이트 이벤트
         /// </summary>
-        private void OnCharacterUpdatedInternal(Tech.Hive.V1.CharacterInfo character)
+        private void OnCharacterUpdatedInternal(CharacterData character)
         {
             OnCharacterUpdated?.Invoke(character);
         }
@@ -76,7 +75,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 모든 캐릭터 가져오기
         /// </summary>
-        public void GetAllCharacters(List<Tech.Hive.V1.CharacterInfo> output)
+        public void GetAllCharacters(List<CharacterData> output)
         {
             Model?.GetAllCharacters(output);
         }
@@ -84,7 +83,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 특정 캐릭터 가져오기
         /// </summary>
-        public Tech.Hive.V1.CharacterInfo GetCharacter(string instanceId)
+        public CharacterData GetCharacter(string instanceId)
         {
             return Model?.GetCharacter(instanceId);
         }
@@ -105,7 +104,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 조건에 맞는 캐릭터 필터링
         /// </summary>
-        public void GetFilteredCharacters(List<Tech.Hive.V1.CharacterInfo> output, Func<Tech.Hive.V1.CharacterInfo, bool> filter)
+        public void GetFilteredCharacters(List<CharacterData> output, Func<CharacterData, bool> filter)
         {
             Model?.GetCharactersByCondition(output, filter);
         }
@@ -113,12 +112,12 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 레벨 범위로 필터링
         /// </summary>
-        public void GetCharactersByLevelRange(List<Tech.Hive.V1.CharacterInfo> output, uint minLevel, uint maxLevel)
+        public void GetCharactersByLevelRange(List<CharacterData> output, uint minLevel, uint maxLevel)
         {
             if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
+            var allCharacters = new List<CharacterData>();
             Model.GetAllCharacters(allCharacters);
 
             // for문 사용 (Linq 지양)
@@ -135,12 +134,12 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 클래스 타입으로 필터링
         /// </summary>
-        public void GetCharactersByClass(List<Tech.Hive.V1.CharacterInfo> output, ClassType classType)
+        public void GetCharactersByClass(List<CharacterData> output, ClassType classType)
         {
             if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
+            var allCharacters = new List<CharacterData>();
             Model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)
@@ -156,12 +155,12 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 레어리티로 필터링
         /// </summary>
-        public void GetCharactersByRarity(List<Tech.Hive.V1.CharacterInfo> output, Rarity rarity)
+        public void GetCharactersByRarity(List<CharacterData> output, Rarity rarity)
         {
             if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<Tech.Hive.V1.CharacterInfo>();
+            var allCharacters = new List<CharacterData>();
             Model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)

@@ -4,7 +4,7 @@ package tech.hive.v1;
 
 import "base.proto";
 
-import "deck+info.proto";
+import "deck+data.proto";
 
 // 캐릭터 배치 덱 서비스
 service DeckService {
@@ -36,7 +36,7 @@ enum DeckErrorCode {
 message DeckListBattleDeckRequest {}
 message DeckListBattleDeckResponse {
   ResponseStatus status = 1;
-  repeated DeckInfo deck_list = 2;
+  repeated DeckData deck_list = 2;
   uint32 max_deck_slot = 3;
 }
 
@@ -45,7 +45,7 @@ message DeckGetBattleDeckRequest {
 }
 message DeckGetBattleDeckResponse {
   ResponseStatus status = 1;
-  DeckInfo deck = 2;
+  DeckData deck = 2;
 }
 
 message DeckSaveBattleDeckRequest {
@@ -57,7 +57,7 @@ message DeckSaveBattleDeckRequest {
 
 message DeckSaveBattleDeckResponse {
   ResponseStatus status = 1;
-  DeckInfo deck = 2;
+  DeckData deck = 2;
 }
 
 message DeckDeleteBattleDeckRequest {

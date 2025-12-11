@@ -25,17 +25,17 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChVjb21tYW5kZXIrc2tpbGwucHJvdG8SDHRlY2guaGl2ZS52MSKtAQoSQ29t",
-            "bWFuZGVyU2tpbGxJbmZvEhoKEmNvbW1hbmRlcl9za2lsbF9pZBgBIAEoDRIN",
+            "bWFuZGVyU2tpbGxEYXRhEhoKEmNvbW1hbmRlcl9za2lsbF9pZBgBIAEoDRIN",
             "CgVsZXZlbBgCIAEoDRITCgtpc191bmxvY2tlZBgDIAEoCBIbChNlcXVpcHBl",
             "ZF9zbG90X2luZGV4GAQgASgNEhwKFHNlbGVjdGVkX3Byb21vdGlvbl8xGAUg",
             "ASgNEhwKFHNlbGVjdGVkX3Byb21vdGlvbl8yGAYgASgNIkwKGkNvbW1hbmRl",
-            "ckVxdWlwcGVkU2tpbGxJbmZvEhIKCnNsb3RfaW5kZXgYASABKA0SGgoSY29t",
+            "ckVxdWlwcGVkU2tpbGxEYXRhEhIKCnNsb3RfaW5kZXgYASABKA0SGgoSY29t",
             "bWFuZGVyX3NraWxsX2lkGAIgASgNYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CommanderSkillInfo), global::Tech.Hive.V1.CommanderSkillInfo.Parser, new[]{ "CommanderSkillId", "Level", "IsUnlocked", "EquippedSlotIndex", "SelectedPromotion1", "SelectedPromotion2" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CommanderEquippedSkillInfo), global::Tech.Hive.V1.CommanderEquippedSkillInfo.Parser, new[]{ "SlotIndex", "CommanderSkillId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CommanderSkillData), global::Tech.Hive.V1.CommanderSkillData.Parser, new[]{ "CommanderSkillId", "Level", "IsUnlocked", "EquippedSlotIndex", "SelectedPromotion1", "SelectedPromotion2" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CommanderEquippedSkillData), global::Tech.Hive.V1.CommanderEquippedSkillData.Parser, new[]{ "SlotIndex", "CommanderSkillId" }, null, null, null, null)
           }));
     }
     #endregion
@@ -43,16 +43,16 @@ namespace Tech.Hive.V1 {
   }
   #region Messages
   [global::System.SerializableAttribute]
-  public sealed partial class CommanderSkillInfo : pb::IMessage<CommanderSkillInfo>
+  public sealed partial class CommanderSkillData : pb::IMessage<CommanderSkillData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<CommanderSkillInfo> _parser = new pb::MessageParser<CommanderSkillInfo>(() => new CommanderSkillInfo());
+    private static readonly pb::MessageParser<CommanderSkillData> _parser = new pb::MessageParser<CommanderSkillData>(() => new CommanderSkillData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CommanderSkillInfo> Parser { get { return _parser; } }
+    public static pb::MessageParser<CommanderSkillData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -68,7 +68,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CommanderSkillInfo() {
+    public CommanderSkillData() {
       OnConstruction();
     }
 
@@ -76,7 +76,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CommanderSkillInfo(CommanderSkillInfo other) : this() {
+    public CommanderSkillData(CommanderSkillData other) : this() {
       commanderSkillId_ = other.commanderSkillId_;
       level_ = other.level_;
       isUnlocked_ = other.isUnlocked_;
@@ -88,8 +88,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CommanderSkillInfo Clone() {
-      return new CommanderSkillInfo(this);
+    public CommanderSkillData Clone() {
+      return new CommanderSkillData(this);
     }
 
     /// <summary>Field number for the "commander_skill_id" field.</summary>
@@ -185,12 +185,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as CommanderSkillInfo);
+      return Equals(other as CommanderSkillData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CommanderSkillInfo other) {
+    public bool Equals(CommanderSkillData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -328,7 +328,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CommanderSkillInfo other) {
+    public void MergeFrom(CommanderSkillData other) {
       if (other == null) {
         return;
       }
@@ -436,16 +436,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class CommanderEquippedSkillInfo : pb::IMessage<CommanderEquippedSkillInfo>
+  public sealed partial class CommanderEquippedSkillData : pb::IMessage<CommanderEquippedSkillData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<CommanderEquippedSkillInfo> _parser = new pb::MessageParser<CommanderEquippedSkillInfo>(() => new CommanderEquippedSkillInfo());
+    private static readonly pb::MessageParser<CommanderEquippedSkillData> _parser = new pb::MessageParser<CommanderEquippedSkillData>(() => new CommanderEquippedSkillData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CommanderEquippedSkillInfo> Parser { get { return _parser; } }
+    public static pb::MessageParser<CommanderEquippedSkillData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -461,7 +461,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CommanderEquippedSkillInfo() {
+    public CommanderEquippedSkillData() {
       OnConstruction();
     }
 
@@ -469,7 +469,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CommanderEquippedSkillInfo(CommanderEquippedSkillInfo other) : this() {
+    public CommanderEquippedSkillData(CommanderEquippedSkillData other) : this() {
       slotIndex_ = other.slotIndex_;
       commanderSkillId_ = other.commanderSkillId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -477,8 +477,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CommanderEquippedSkillInfo Clone() {
-      return new CommanderEquippedSkillInfo(this);
+    public CommanderEquippedSkillData Clone() {
+      return new CommanderEquippedSkillData(this);
     }
 
     /// <summary>Field number for the "slot_index" field.</summary>
@@ -508,12 +508,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as CommanderEquippedSkillInfo);
+      return Equals(other as CommanderEquippedSkillData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CommanderEquippedSkillInfo other) {
+    public bool Equals(CommanderEquippedSkillData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -599,7 +599,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CommanderEquippedSkillInfo other) {
+    public void MergeFrom(CommanderEquippedSkillData other) {
       if (other == null) {
         return;
       }

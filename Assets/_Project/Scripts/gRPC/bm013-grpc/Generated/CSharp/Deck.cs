@@ -25,21 +25,21 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgpkZWNrLnByb3RvEgx0ZWNoLmhpdmUudjEaCmJhc2UucHJvdG8aD2RlY2sr",
-            "aW5mby5wcm90byIbChlEZWNrTGlzdEJhdHRsZURlY2tSZXF1ZXN0IowBChpE",
+            "ZGF0YS5wcm90byIbChlEZWNrTGlzdEJhdHRsZURlY2tSZXF1ZXN0IowBChpE",
             "ZWNrTGlzdEJhdHRsZURlY2tSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
             "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSKQoJZGVja19saXN0GAIgAygL",
-            "MhYudGVjaC5oaXZlLnYxLkRlY2tJbmZvEhUKDW1heF9kZWNrX3Nsb3QYAyAB",
+            "MhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhEhUKDW1heF9kZWNrX3Nsb3QYAyAB",
             "KA0iMAoYRGVja0dldEJhdHRsZURlY2tSZXF1ZXN0EhQKDGRlY2tfc2xvdF9p",
             "ZBgBIAEoDSJvChlEZWNrR2V0QmF0dGxlRGVja1Jlc3BvbnNlEiwKBnN0YXR1",
             "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIkCgRkZWNr",
-            "GAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tJbmZvIsYBChlEZWNrU2F2ZUJh",
+            "GAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhIsYBChlEZWNrU2F2ZUJh",
             "dHRsZURlY2tSZXF1ZXN0EhQKDGRlY2tfc2xvdF9pZBgBIAEoDRIRCglkZWNr",
             "X25hbWUYAiABKAkSQgoUY2hhcmFjdGVyX3BsYWNlbWVudHMYAyADKAsyJC50",
             "ZWNoLmhpdmUudjEuRGVja0NoYXJhY3RlclBsYWNlbWVudBI8ChF0YWN0aWNf",
             "cGxhY2VtZW50cxgEIAMoCzIhLnRlY2guaGl2ZS52MS5EZWNrVGFjdGljUGxh",
             "Y2VtZW50InAKGkRlY2tTYXZlQmF0dGxlRGVja1Jlc3BvbnNlEiwKBnN0YXR1",
             "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIkCgRkZWNr",
-            "GAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tJbmZvIjMKG0RlY2tEZWxldGVC",
+            "GAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhIjMKG0RlY2tEZWxldGVC",
             "YXR0bGVEZWNrUmVxdWVzdBIUCgxkZWNrX3Nsb3RfaWQYASABKA0iTAocRGVj",
             "a0RlbGV0ZUJhdHRsZURlY2tSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
             "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMqJQoNRGVja0Vycm9yQ29kZRIU",
@@ -55,7 +55,7 @@ namespace Tech.Hive.V1 {
             "aC5oaXZlLnYxLkRlY2tEZWxldGVCYXR0bGVEZWNrUmVzcG9uc2ViBnByb3Rv",
             "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.DeckInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.DeckDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.DeckErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckListBattleDeckRequest), global::Tech.Hive.V1.DeckListBattleDeckRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckListBattleDeckResponse), global::Tech.Hive.V1.DeckListBattleDeckResponse.Parser, new[]{ "Status", "DeckList", "MaxDeckSlot" }, null, null, null, null),
@@ -292,12 +292,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "deck_list" field.</summary>
     public const int DeckListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.DeckInfo> _repeated_deckList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.DeckInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.DeckInfo> deckList_ = new pbc::RepeatedField<global::Tech.Hive.V1.DeckInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.DeckData> _repeated_deckList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.DeckData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.DeckData> deckList_ = new pbc::RepeatedField<global::Tech.Hive.V1.DeckData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.DeckInfo> DeckList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.DeckData> DeckList {
       get { return deckList_; }
     }
 
@@ -743,10 +743,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "deck" field.</summary>
     public const int DeckFieldNumber = 2;
-    private global::Tech.Hive.V1.DeckInfo deck_;
+    private global::Tech.Hive.V1.DeckData deck_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.DeckInfo Deck {
+    public global::Tech.Hive.V1.DeckData Deck {
       get { return deck_; }
       set {
         deck_ = value;
@@ -859,7 +859,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.deck_ != null) {
         if (deck_ == null) {
-          Deck = new global::Tech.Hive.V1.DeckInfo();
+          Deck = new global::Tech.Hive.V1.DeckData();
         }
         Deck.MergeFrom(other.Deck);
       }
@@ -887,7 +887,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (deck_ == null) {
-              Deck = new global::Tech.Hive.V1.DeckInfo();
+              Deck = new global::Tech.Hive.V1.DeckData();
             }
             input.ReadMessage(Deck);
             break;
@@ -916,7 +916,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (deck_ == null) {
-              Deck = new global::Tech.Hive.V1.DeckInfo();
+              Deck = new global::Tech.Hive.V1.DeckData();
             }
             input.ReadMessage(Deck);
             break;
@@ -1267,10 +1267,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "deck" field.</summary>
     public const int DeckFieldNumber = 2;
-    private global::Tech.Hive.V1.DeckInfo deck_;
+    private global::Tech.Hive.V1.DeckData deck_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.DeckInfo Deck {
+    public global::Tech.Hive.V1.DeckData Deck {
       get { return deck_; }
       set {
         deck_ = value;
@@ -1383,7 +1383,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.deck_ != null) {
         if (deck_ == null) {
-          Deck = new global::Tech.Hive.V1.DeckInfo();
+          Deck = new global::Tech.Hive.V1.DeckData();
         }
         Deck.MergeFrom(other.Deck);
       }
@@ -1411,7 +1411,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (deck_ == null) {
-              Deck = new global::Tech.Hive.V1.DeckInfo();
+              Deck = new global::Tech.Hive.V1.DeckData();
             }
             input.ReadMessage(Deck);
             break;
@@ -1440,7 +1440,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (deck_ == null) {
-              Deck = new global::Tech.Hive.V1.DeckInfo();
+              Deck = new global::Tech.Hive.V1.DeckData();
             }
             input.ReadMessage(Deck);
             break;

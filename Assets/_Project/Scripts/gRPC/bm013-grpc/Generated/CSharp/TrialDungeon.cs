@@ -25,39 +25,39 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChN0cmlhbF9kdW5nZW9uLnByb3RvEgx0ZWNoLmhpdmUudjEaCmJhc2UucHJv",
-            "dG8aE2N1c3RvbV9jb21tb24ucHJvdG8aGHRyaWFsX2R1bmdlb24raW5mby5w",
+            "dG8aE2N1c3RvbV9jb21tb24ucHJvdG8aGHRyaWFsX2R1bmdlb24rZGF0YS5w",
             "cm90byIzChdUcmlhbER1bmdlb25MaXN0UmVxdWVzdBIYChB0cmlhbF9kdW5n",
-            "ZW9uX2lkGAEgASgNIpcBChhUcmlhbER1bmdlb25MaXN0UmVzcG9uc2USLAoG",
-            "c3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjYK",
-            "DnRyaWFsX2R1bmdlb25zGAIgAygLMh4udGVjaC5oaXZlLnYxLlRyaWFsRHVu",
-            "Z2VvbkluZm8SFQoNY3VycmVudF9vcmRlchgDIAEoDSI0ChhUcmlhbER1bmdl",
-            "b25FbnRlclJlcXVlc3QSGAoQdHJpYWxfZHVuZ2Vvbl9pZBgBIAEoDSLRAQoZ",
-            "VHJpYWxEdW5nZW9uRW50ZXJSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
-            "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSNQoNdHJpYWxfZHVuZ2VvbhgC",
-            "IAEoCzIeLnRlY2guaGl2ZS52MS5UcmlhbER1bmdlb25JbmZvEhkKEWJhdHRs",
-            "ZV9zZXNzaW9uX2lkGAMgASgJEjQKD2N1cnJlbmN5X2RlbHRhcxgEIAMoCzIb",
-            "LnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhImMKGFRyaWFsRHVuZ2VvbkNs",
-            "ZWFyUmVxdWVzdBIYChB0cmlhbF9kdW5nZW9uX2lkGAEgASgNEhkKEWJhdHRs",
-            "ZV9zZXNzaW9uX2lkGAIgASgJEhIKCmlzX3ZpY3RvcnkYAyABKAgi+AEKGVRy",
-            "aWFsRHVuZ2VvbkNsZWFyUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVj",
-            "aC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDXRyaWFsX2R1bmdlb24YAiAB",
-            "KAsyHi50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uSW5mbxIlCgdyZXdhcmRz",
-            "GAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0",
-            "YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YRIZChFwbGF5",
-            "ZXJfZXhwX2dhaW5lZBgFIAEoBCo2ChVUcmlhbER1bmdlb25FcnJvckNvZGUS",
-            "HQoZVFJJQUxfRFVOR0VPTl9VTlNQRUNJRklFRBAAMqACChNUcmlhbER1bmdl",
-            "b25TZXJ2aWNlElUKBExpc3QSJS50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9u",
-            "TGlzdFJlcXVlc3QaJi50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uTGlzdFJl",
-            "c3BvbnNlElgKBUVudGVyEiYudGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2VvbkVu",
-            "dGVyUmVxdWVzdBonLnRlY2guaGl2ZS52MS5UcmlhbER1bmdlb25FbnRlclJl",
-            "c3BvbnNlElgKBUNsZWFyEiYudGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2VvbkNs",
-            "ZWFyUmVxdWVzdBonLnRlY2guaGl2ZS52MS5UcmlhbER1bmdlb25DbGVhclJl",
-            "c3BvbnNlYgZwcm90bzM="));
+            "ZW9uX2lkGAEgASgNIpsBChhUcmlhbER1bmdlb25MaXN0UmVzcG9uc2USLAoG",
+            "c3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjoK",
+            "EnRyaWFsX2R1bmdlb25fbGlzdBgCIAMoCzIeLnRlY2guaGl2ZS52MS5Ucmlh",
+            "bER1bmdlb25EYXRhEhUKDWN1cnJlbnRfb3JkZXIYAyABKA0iNAoYVHJpYWxE",
+            "dW5nZW9uRW50ZXJSZXF1ZXN0EhgKEHRyaWFsX2R1bmdlb25faWQYASABKA0i",
+            "0QEKGVRyaWFsRHVuZ2VvbkVudGVyUmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
+            "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDXRyaWFsX2R1bmdl",
+            "b24YAiABKAsyHi50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uRGF0YRIZChFi",
+            "YXR0bGVfc2Vzc2lvbl9pZBgDIAEoCRI0Cg9jdXJyZW5jeV9kZWx0YXMYBCAD",
+            "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSJjChhUcmlhbER1bmdl",
+            "b25DbGVhclJlcXVlc3QSGAoQdHJpYWxfZHVuZ2Vvbl9pZBgBIAEoDRIZChFi",
+            "YXR0bGVfc2Vzc2lvbl9pZBgCIAEoCRISCgppc192aWN0b3J5GAMgASgIIvgB",
+            "ChlUcmlhbER1bmdlb25DbGVhclJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
+            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1Cg10cmlhbF9kdW5nZW9u",
+            "GAIgASgLMh4udGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2VvbkRhdGESJQoHcmV3",
+            "YXJkcxgDIAMoCzIULnRlY2guaGl2ZS52MS5SZXdhcmQSNAoPY3VycmVuY3lf",
+            "ZGVsdGFzGAQgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGESGQoR",
+            "cGxheWVyX2V4cF9nYWluZWQYBSABKAQqNgoVVHJpYWxEdW5nZW9uRXJyb3JD",
+            "b2RlEh0KGVRSSUFMX0RVTkdFT05fVU5TUEVDSUZJRUQQADKgAgoTVHJpYWxE",
+            "dW5nZW9uU2VydmljZRJVCgRMaXN0EiUudGVjaC5oaXZlLnYxLlRyaWFsRHVu",
+            "Z2Vvbkxpc3RSZXF1ZXN0GiYudGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2Vvbkxp",
+            "c3RSZXNwb25zZRJYCgVFbnRlchImLnRlY2guaGl2ZS52MS5UcmlhbER1bmdl",
+            "b25FbnRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uRW50",
+            "ZXJSZXNwb25zZRJYCgVDbGVhchImLnRlY2guaGl2ZS52MS5UcmlhbER1bmdl",
+            "b25DbGVhclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uQ2xl",
+            "YXJSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.TrialDungeonInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.TrialDungeonDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.TrialDungeonErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonListRequest), global::Tech.Hive.V1.TrialDungeonListRequest.Parser, new[]{ "TrialDungeonId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonListResponse), global::Tech.Hive.V1.TrialDungeonListResponse.Parser, new[]{ "Status", "TrialDungeons", "CurrentOrder" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonListResponse), global::Tech.Hive.V1.TrialDungeonListResponse.Parser, new[]{ "Status", "TrialDungeonList", "CurrentOrder" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterRequest), global::Tech.Hive.V1.TrialDungeonEnterRequest.Parser, new[]{ "TrialDungeonId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterResponse), global::Tech.Hive.V1.TrialDungeonEnterResponse.Parser, new[]{ "Status", "TrialDungeon", "BattleSessionId", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearRequest), global::Tech.Hive.V1.TrialDungeonClearRequest.Parser, new[]{ "TrialDungeonId", "BattleSessionId", "IsVictory" }, null, null, null, null),
@@ -301,7 +301,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TrialDungeonListResponse(TrialDungeonListResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      trialDungeons_ = other.trialDungeons_.Clone();
+      trialDungeonList_ = other.trialDungeonList_.Clone();
       currentOrder_ = other.currentOrder_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -324,15 +324,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "trial_dungeons" field.</summary>
-    public const int TrialDungeonsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.TrialDungeonInfo> _repeated_trialDungeons_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.TrialDungeonInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonInfo> trialDungeons_ = new pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonInfo>();
+    /// <summary>Field number for the "trial_dungeon_list" field.</summary>
+    public const int TrialDungeonListFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.TrialDungeonData> _repeated_trialDungeonList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.TrialDungeonData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonData> trialDungeonList_ = new pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonInfo> TrialDungeons {
-      get { return trialDungeons_; }
+    public pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonData> TrialDungeonList {
+      get { return trialDungeonList_; }
     }
 
     /// <summary>Field number for the "current_order" field.</summary>
@@ -366,7 +366,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if(!trialDungeons_.Equals(other.trialDungeons_)) return false;
+      if(!trialDungeonList_.Equals(other.trialDungeonList_)) return false;
       if (CurrentOrder != other.CurrentOrder) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -376,7 +376,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      hash ^= trialDungeons_.GetHashCode();
+      hash ^= trialDungeonList_.GetHashCode();
       if (CurrentOrder != 0) hash ^= CurrentOrder.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -400,7 +400,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      trialDungeons_.WriteTo(output, _repeated_trialDungeons_codec);
+      trialDungeonList_.WriteTo(output, _repeated_trialDungeonList_codec);
       if (CurrentOrder != 0) {
         output.WriteRawTag(24);
         output.WriteUInt32(CurrentOrder);
@@ -419,7 +419,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      trialDungeons_.WriteTo(ref output, _repeated_trialDungeons_codec);
+      trialDungeonList_.WriteTo(ref output, _repeated_trialDungeonList_codec);
       if (CurrentOrder != 0) {
         output.WriteRawTag(24);
         output.WriteUInt32(CurrentOrder);
@@ -437,7 +437,7 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      size += trialDungeons_.CalculateSize(_repeated_trialDungeons_codec);
+      size += trialDungeonList_.CalculateSize(_repeated_trialDungeonList_codec);
       if (CurrentOrder != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CurrentOrder);
       }
@@ -459,7 +459,7 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      trialDungeons_.Add(other.trialDungeons_);
+      trialDungeonList_.Add(other.trialDungeonList_);
       if (other.CurrentOrder != 0) {
         CurrentOrder = other.CurrentOrder;
       }
@@ -486,7 +486,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            trialDungeons_.AddEntriesFrom(input, _repeated_trialDungeons_codec);
+            trialDungeonList_.AddEntriesFrom(input, _repeated_trialDungeonList_codec);
             break;
           }
           case 24: {
@@ -516,7 +516,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            trialDungeons_.AddEntriesFrom(ref input, _repeated_trialDungeons_codec);
+            trialDungeonList_.AddEntriesFrom(ref input, _repeated_trialDungeonList_codec);
             break;
           }
           case 24: {
@@ -782,10 +782,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "trial_dungeon" field.</summary>
     public const int TrialDungeonFieldNumber = 2;
-    private global::Tech.Hive.V1.TrialDungeonInfo trialDungeon_;
+    private global::Tech.Hive.V1.TrialDungeonData trialDungeon_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.TrialDungeonInfo TrialDungeon {
+    public global::Tech.Hive.V1.TrialDungeonData TrialDungeon {
       get { return trialDungeon_; }
       set {
         trialDungeon_ = value;
@@ -942,7 +942,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.trialDungeon_ != null) {
         if (trialDungeon_ == null) {
-          TrialDungeon = new global::Tech.Hive.V1.TrialDungeonInfo();
+          TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
         }
         TrialDungeon.MergeFrom(other.TrialDungeon);
       }
@@ -974,7 +974,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (trialDungeon_ == null) {
-              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonInfo();
+              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
             }
             input.ReadMessage(TrialDungeon);
             break;
@@ -1011,7 +1011,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (trialDungeon_ == null) {
-              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonInfo();
+              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
             }
             input.ReadMessage(TrialDungeon);
             break;
@@ -1358,10 +1358,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "trial_dungeon" field.</summary>
     public const int TrialDungeonFieldNumber = 2;
-    private global::Tech.Hive.V1.TrialDungeonInfo trialDungeon_;
+    private global::Tech.Hive.V1.TrialDungeonData trialDungeon_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.TrialDungeonInfo TrialDungeon {
+    public global::Tech.Hive.V1.TrialDungeonData TrialDungeon {
       get { return trialDungeon_; }
       set {
         trialDungeon_ = value;
@@ -1531,7 +1531,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.trialDungeon_ != null) {
         if (trialDungeon_ == null) {
-          TrialDungeon = new global::Tech.Hive.V1.TrialDungeonInfo();
+          TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
         }
         TrialDungeon.MergeFrom(other.TrialDungeon);
       }
@@ -1564,7 +1564,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (trialDungeon_ == null) {
-              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonInfo();
+              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
             }
             input.ReadMessage(TrialDungeon);
             break;
@@ -1605,7 +1605,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (trialDungeon_ == null) {
-              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonInfo();
+              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
             }
             input.ReadMessage(TrialDungeon);
             break;

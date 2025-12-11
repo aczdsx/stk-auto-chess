@@ -25,29 +25,29 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgtxdWVzdC5wcm90bxIMdGVjaC5oaXZlLnYxGgpiYXNlLnByb3RvGhNjdXN0",
-            "b21fY29tbW9uLnByb3RvGhBxdWVzdCtpbmZvLnByb3RvIkQKGlF1ZXN0TGlz",
+            "b21fY29tbW9uLnByb3RvGhBxdWVzdCtkYXRhLnByb3RvIkQKGlF1ZXN0TGlz",
             "dERhaWx5UXVlc3RSZXF1ZXN0EhcKCmRhdGVfaW5kZXgYASABKA1IAIgBAUIN",
             "CgtfZGF0ZV9pbmRleCKjAQobUXVlc3RMaXN0RGFpbHlRdWVzdFJlc3BvbnNl",
             "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
-            "cxIrCgpxdWVzdF9saXN0GAIgAygLMhcudGVjaC5oaXZlLnYxLlF1ZXN0SW5m",
-            "bxIVCg1uZXh0X3Jlc2V0X2F0GAMgASgEEhIKCmRhdGVfaW5kZXgYBCABKA0i",
+            "cxIrCgpxdWVzdF9saXN0GAIgAygLMhcudGVjaC5oaXZlLnYxLlF1ZXN0RGF0",
+            "YRIVCg1uZXh0X3Jlc2V0X2F0GAMgASgEEhIKCmRhdGVfaW5kZXgYBCABKA0i",
             "RQobUXVlc3RMaXN0V2Vla2x5UXVlc3RSZXF1ZXN0EhcKCmRhdGVfaW5kZXgY",
             "ASABKA1IAIgBAUINCgtfZGF0ZV9pbmRleCKkAQocUXVlc3RMaXN0V2Vla2x5",
             "UXVlc3RSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEu",
             "UmVzcG9uc2VTdGF0dXMSKwoKcXVlc3RfbGlzdBgCIAMoCzIXLnRlY2guaGl2",
-            "ZS52MS5RdWVzdEluZm8SFQoNbmV4dF9yZXNldF9hdBgDIAEoBBISCgpkYXRl",
+            "ZS52MS5RdWVzdERhdGESFQoNbmV4dF9yZXNldF9hdBgDIAEoBBISCgpkYXRl",
             "X2luZGV4GAQgASgNInsKH1F1ZXN0VXBkYXRlUXVlc3RQcm9ncmVzc1JlcXVl",
             "c3QSEAoIcXVlc3RfaWQYASABKA0SKwoKcXVlc3RfdHlwZRgCIAEoDjIXLnRl",
             "Y2guaGl2ZS52MS5RdWVzdFR5cGUSGQoRYWRkX2N1cnJlbnRfY291bnQYAyAB",
             "KA0ieAogUXVlc3RVcGRhdGVRdWVzdFByb2dyZXNzUmVzcG9uc2USLAoGc3Rh",
             "dHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEiYKBXF1",
-            "ZXN0GAIgASgLMhcudGVjaC5oaXZlLnYxLlF1ZXN0SW5mbyKFAQocUXVlc3RD",
+            "ZXN0GAIgASgLMhcudGVjaC5oaXZlLnYxLlF1ZXN0RGF0YSKFAQocUXVlc3RD",
             "bGFpbVF1ZXN0UmV3YXJkUmVxdWVzdBIQCghxdWVzdF9pZBgBIAEoDRIrCgpx",
             "dWVzdF90eXBlGAIgASgOMhcudGVjaC5oaXZlLnYxLlF1ZXN0VHlwZRIXCgpk",
             "YXRlX2luZGV4GAMgASgNSACIAQFCDQoLX2RhdGVfaW5kZXgi0gEKHVF1ZXN0",
             "Q2xhaW1RdWVzdFJld2FyZFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
             "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxImCgVxdWVzdBgCIAEoCzIXLnRl",
-            "Y2guaGl2ZS52MS5RdWVzdEluZm8SJQoHcmV3YXJkcxgDIAMoCzIULnRlY2gu",
+            "Y2guaGl2ZS52MS5RdWVzdERhdGESJQoHcmV3YXJkcxgDIAMoCzIULnRlY2gu",
             "aGl2ZS52MS5SZXdhcmQSNAoPY3VycmVuY3lfZGVsdGFzGAQgAygLMhsudGVj",
             "aC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEqJwoOUXVlc3RFcnJvckNvZGUSFQoR",
             "UVVFU1RfVU5TUEVDSUZJRUQQADLCAwoMUXVlc3RTZXJ2aWNlEmUKDkxpc3RE",
@@ -62,7 +62,7 @@ namespace Tech.Hive.V1 {
             "bGFpbVF1ZXN0UmV3YXJkUmVxdWVzdBorLnRlY2guaGl2ZS52MS5RdWVzdENs",
             "YWltUXVlc3RSZXdhcmRSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.QuestInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.QuestDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.QuestErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListDailyQuestRequest), global::Tech.Hive.V1.QuestListDailyQuestRequest.Parser, new[]{ "DateIndex" }, new[]{ "DateIndex" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListDailyQuestResponse), global::Tech.Hive.V1.QuestListDailyQuestResponse.Parser, new[]{ "Status", "QuestList", "NextResetAt", "DateIndex" }, null, null, null, null),
@@ -355,12 +355,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "quest_list" field.</summary>
     public const int QuestListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.QuestInfo> _repeated_questList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.QuestInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.QuestInfo> questList_ = new pbc::RepeatedField<global::Tech.Hive.V1.QuestInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.QuestData> _repeated_questList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.QuestData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.QuestData> questList_ = new pbc::RepeatedField<global::Tech.Hive.V1.QuestData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.QuestInfo> QuestList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.QuestData> QuestList {
       get { return questList_; }
     }
 
@@ -865,12 +865,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "quest_list" field.</summary>
     public const int QuestListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.QuestInfo> _repeated_questList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.QuestInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.QuestInfo> questList_ = new pbc::RepeatedField<global::Tech.Hive.V1.QuestInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.QuestData> _repeated_questList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.QuestData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.QuestData> questList_ = new pbc::RepeatedField<global::Tech.Hive.V1.QuestData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.QuestInfo> QuestList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.QuestData> QuestList {
       get { return questList_; }
     }
 
@@ -1429,10 +1429,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "quest" field.</summary>
     public const int QuestFieldNumber = 2;
-    private global::Tech.Hive.V1.QuestInfo quest_;
+    private global::Tech.Hive.V1.QuestData quest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.QuestInfo Quest {
+    public global::Tech.Hive.V1.QuestData Quest {
       get { return quest_; }
       set {
         quest_ = value;
@@ -1545,7 +1545,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.quest_ != null) {
         if (quest_ == null) {
-          Quest = new global::Tech.Hive.V1.QuestInfo();
+          Quest = new global::Tech.Hive.V1.QuestData();
         }
         Quest.MergeFrom(other.Quest);
       }
@@ -1573,7 +1573,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (quest_ == null) {
-              Quest = new global::Tech.Hive.V1.QuestInfo();
+              Quest = new global::Tech.Hive.V1.QuestData();
             }
             input.ReadMessage(Quest);
             break;
@@ -1602,7 +1602,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (quest_ == null) {
-              Quest = new global::Tech.Hive.V1.QuestInfo();
+              Quest = new global::Tech.Hive.V1.QuestData();
             }
             input.ReadMessage(Quest);
             break;
@@ -1955,10 +1955,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "quest" field.</summary>
     public const int QuestFieldNumber = 2;
-    private global::Tech.Hive.V1.QuestInfo quest_;
+    private global::Tech.Hive.V1.QuestData quest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.QuestInfo Quest {
+    public global::Tech.Hive.V1.QuestData Quest {
       get { return quest_; }
       set {
         quest_ = value;
@@ -2103,7 +2103,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.quest_ != null) {
         if (quest_ == null) {
-          Quest = new global::Tech.Hive.V1.QuestInfo();
+          Quest = new global::Tech.Hive.V1.QuestData();
         }
         Quest.MergeFrom(other.Quest);
       }
@@ -2133,7 +2133,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (quest_ == null) {
-              Quest = new global::Tech.Hive.V1.QuestInfo();
+              Quest = new global::Tech.Hive.V1.QuestData();
             }
             input.ReadMessage(Quest);
             break;
@@ -2170,7 +2170,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (quest_ == null) {
-              Quest = new global::Tech.Hive.V1.QuestInfo();
+              Quest = new global::Tech.Hive.V1.QuestData();
             }
             input.ReadMessage(Quest);
             break;

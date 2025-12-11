@@ -42,7 +42,7 @@ enum CommanderErrorCode {
 message CommanderListSkillRequest {}
 message CommanderListSkillResponse {
   ResponseStatus status = 1;
-  repeated CommanderSkillInfo skill_list = 2;
+  repeated CommanderSkillData skill_list = 2;
 }
 
 message CommanderEquipSkillRequest {
@@ -52,7 +52,7 @@ message CommanderEquipSkillRequest {
 
 message CommanderEquipSkillResponse {
   ResponseStatus status = 1;
-  repeated CommanderEquippedSkillInfo skill_list = 2;
+  repeated CommanderEquippedSkillData skill_list = 2;
 }
 
 message CommanderUnEquipSkillRequest {
@@ -61,7 +61,7 @@ message CommanderUnEquipSkillRequest {
 
 message CommanderUnEquipSkillResponse {
   ResponseStatus status = 1;
-  repeated CommanderEquippedSkillInfo skill_list = 2;
+  repeated CommanderEquippedSkillData skill_list = 2;
 }
 
 message CommanderLevelUpSkillRequest {
@@ -70,7 +70,7 @@ message CommanderLevelUpSkillRequest {
 
 message CommanderLevelUpSkillResponse {
   ResponseStatus status = 1;
-  CommanderSkillInfo skill = 2;
+  CommanderSkillData skill = 2;
   repeated CurrencyDelta currency_deltas = 3;
 }
 
@@ -82,5 +82,5 @@ message CommanderPromoteSkillRequest {
 
 message CommanderPromoteSkillResponse {
   ResponseStatus status = 1;
-  CommanderSkillInfo skill = 2;
+  CommanderSkillData skill = 2;
 }

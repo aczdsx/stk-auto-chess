@@ -79,8 +79,5 @@ namespace CookApps.AutoBattler
         /// 모델별 이벤트 구독 해제 (구현 필요)
         /// </summary>
         protected abstract void UnsubscribeModelEvents();
-        UnsubscribeModelEvents();
-    }
-}
     }
 }

@@ -25,19 +25,19 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgtldmVudC5wcm90bxIMdGVjaC5oaXZlLnYxGgpiYXNlLnByb3RvGhNjdXN0",
-            "b21fY29tbW9uLnByb3RvGhBldmVudCtpbmZvLnByb3RvIi0KEEV2ZW50TGlz",
+            "b21fY29tbW9uLnByb3RvGhBldmVudCtkYXRhLnByb3RvIi0KEEV2ZW50TGlz",
             "dFJlcXVlc3QSGQoRaW5jbHVkZV9jb21wbGV0ZWQYASABKAgiagoRRXZlbnRM",
             "aXN0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
             "c3BvbnNlU3RhdHVzEicKBmV2ZW50cxgCIAMoCzIXLnRlY2guaGl2ZS52MS5F",
-            "dmVudEluZm8iSQoaRXZlbnRVcGRhdGVQcm9ncmVzc1JlcXVlc3QSEAoIZXZl",
+            "dmVudERhdGEiSQoaRXZlbnRVcGRhdGVQcm9ncmVzc1JlcXVlc3QSEAoIZXZl",
             "bnRfaWQYASABKA0SGQoRYWRkX2N1cnJlbnRfY291bnQYAiABKA0icwobRXZl",
             "bnRVcGRhdGVQcm9ncmVzc1Jlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
             "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxImCgVldmVudBgCIAEoCzIXLnRl",
-            "Y2guaGl2ZS52MS5FdmVudEluZm8iRwoXRXZlbnRDbGFpbVJld2FyZFJlcXVl",
+            "Y2guaGl2ZS52MS5FdmVudERhdGEiRwoXRXZlbnRDbGFpbVJld2FyZFJlcXVl",
             "c3QSEAoIZXZlbnRfaWQYASABKA0SGgoSZXZlbnRfY29uZGl0aW9uX2lkGAIg",
             "ASgNIs0BChhFdmVudENsYWltUmV3YXJkUmVzcG9uc2USLAoGc3RhdHVzGAEg",
             "ASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEiYKBWV2ZW50GAIg",
-            "ASgLMhcudGVjaC5oaXZlLnYxLkV2ZW50SW5mbxIlCgdyZXdhcmRzGAMgAygL",
+            "ASgLMhcudGVjaC5oaXZlLnYxLkV2ZW50RGF0YRIlCgdyZXdhcmRzGAMgAygL",
             "MhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMYBCAD",
             "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSonCg5FdmVudEVycm9y",
             "Q29kZRIVChFFVkVOVF9VTlNQRUNJRklFRBAAMpwCCgxFdmVudFNlcnZpY2US",
@@ -49,7 +49,7 @@ namespace Tech.Hive.V1 {
             "dWVzdBomLnRlY2guaGl2ZS52MS5FdmVudENsYWltUmV3YXJkUmVzcG9uc2Vi",
             "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.EventInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.EventDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.EventErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventListRequest), global::Tech.Hive.V1.EventListRequest.Parser, new[]{ "IncludeCompleted" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventListResponse), global::Tech.Hive.V1.EventListResponse.Parser, new[]{ "Status", "Events" }, null, null, null, null),
@@ -323,12 +323,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "events" field.</summary>
     public const int EventsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.EventInfo> _repeated_events_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.EventInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.EventInfo> events_ = new pbc::RepeatedField<global::Tech.Hive.V1.EventInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.EventData> _repeated_events_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.EventData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.EventData> events_ = new pbc::RepeatedField<global::Tech.Hive.V1.EventData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.EventInfo> Events {
+    public pbc::RepeatedField<global::Tech.Hive.V1.EventData> Events {
       get { return events_; }
     }
 
@@ -775,10 +775,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "event" field.</summary>
     public const int EventFieldNumber = 2;
-    private global::Tech.Hive.V1.EventInfo event_;
+    private global::Tech.Hive.V1.EventData event_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.EventInfo Event {
+    public global::Tech.Hive.V1.EventData Event {
       get { return event_; }
       set {
         event_ = value;
@@ -891,7 +891,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.event_ != null) {
         if (event_ == null) {
-          Event = new global::Tech.Hive.V1.EventInfo();
+          Event = new global::Tech.Hive.V1.EventData();
         }
         Event.MergeFrom(other.Event);
       }
@@ -919,7 +919,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (event_ == null) {
-              Event = new global::Tech.Hive.V1.EventInfo();
+              Event = new global::Tech.Hive.V1.EventData();
             }
             input.ReadMessage(Event);
             break;
@@ -948,7 +948,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (event_ == null) {
-              Event = new global::Tech.Hive.V1.EventInfo();
+              Event = new global::Tech.Hive.V1.EventData();
             }
             input.ReadMessage(Event);
             break;
@@ -1249,10 +1249,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "event" field.</summary>
     public const int EventFieldNumber = 2;
-    private global::Tech.Hive.V1.EventInfo event_;
+    private global::Tech.Hive.V1.EventData event_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.EventInfo Event {
+    public global::Tech.Hive.V1.EventData Event {
       get { return event_; }
       set {
         event_ = value;
@@ -1397,7 +1397,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.event_ != null) {
         if (event_ == null) {
-          Event = new global::Tech.Hive.V1.EventInfo();
+          Event = new global::Tech.Hive.V1.EventData();
         }
         Event.MergeFrom(other.Event);
       }
@@ -1427,7 +1427,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (event_ == null) {
-              Event = new global::Tech.Hive.V1.EventInfo();
+              Event = new global::Tech.Hive.V1.EventData();
             }
             input.ReadMessage(Event);
             break;
@@ -1464,7 +1464,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (event_ == null) {
-              Event = new global::Tech.Hive.V1.EventInfo();
+              Event = new global::Tech.Hive.V1.EventData();
             }
             input.ReadMessage(Event);
             break;

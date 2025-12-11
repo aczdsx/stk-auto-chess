@@ -25,20 +25,20 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChJjdXN0b21fbG9iYnkucHJvdG8SDHRlY2guaGl2ZS52MRoKYmFzZS5wcm90",
-            "bxoeY3VzdG9tX2xvYmJ5K3BsYXllcl9pbmZvLnByb3RvIh0KG0N1c3RvbUxv",
-            "YmJ5R2V0TXlJbmZvUmVxdWVzdCJ6ChxDdXN0b21Mb2JieUdldE15SW5mb1Jl",
-            "c3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25z",
-            "ZVN0YXR1cxIsCgRpbmZvGAIgASgLMh4udGVjaC5oaXZlLnYxLkN1c3RvbVBs",
-            "YXllckluZm8qNAoUQ3VzdG9tTG9iYnlFcnJvckNvZGUSHAoYQ1VTVE9NX0xP",
-            "QkJZX1VOU1BFQ0lGSUVEEAAyeAoSQ3VzdG9tTG9iYnlTZXJ2aWNlEmIKCUdl",
-            "dE15SW5mbxIpLnRlY2guaGl2ZS52MS5DdXN0b21Mb2JieUdldE15SW5mb1Jl",
-            "cXVlc3QaKi50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlHZXRNeUluZm9SZXNw",
-            "b25zZWIGcHJvdG8z"));
+            "bxoeY3VzdG9tX2xvYmJ5K3BsYXllcl9kYXRhLnByb3RvIiMKIUN1c3RvbUxv",
+            "YmJ5R2V0TXlQbGF5ZXJEYXRhUmVxdWVzdCKAAQoiQ3VzdG9tTG9iYnlHZXRN",
+            "eVBsYXllckRhdGFSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhp",
+            "dmUudjEuUmVzcG9uc2VTdGF0dXMSLAoEZGF0YRgCIAEoCzIeLnRlY2guaGl2",
+            "ZS52MS5DdXN0b21QbGF5ZXJEYXRhKjQKFEN1c3RvbUxvYmJ5RXJyb3JDb2Rl",
+            "EhwKGENVU1RPTV9MT0JCWV9VTlNQRUNJRklFRBAAMooBChJDdXN0b21Mb2Ji",
+            "eVNlcnZpY2USdAoPR2V0TXlQbGF5ZXJEYXRhEi8udGVjaC5oaXZlLnYxLkN1",
+            "c3RvbUxvYmJ5R2V0TXlQbGF5ZXJEYXRhUmVxdWVzdBowLnRlY2guaGl2ZS52",
+            "MS5DdXN0b21Mb2JieUdldE15UGxheWVyRGF0YVJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyPlayerInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyPlayerDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.CustomLobbyErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest), global::Tech.Hive.V1.CustomLobbyGetMyInfoRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse), global::Tech.Hive.V1.CustomLobbyGetMyInfoResponse.Parser, new[]{ "Status", "Info" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest), global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse), global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse.Parser, new[]{ "Status", "Data" }, null, null, null, null)
           }));
     }
     #endregion
@@ -53,16 +53,16 @@ namespace Tech.Hive.V1 {
 
   #region Messages
   [global::System.SerializableAttribute]
-  public sealed partial class CustomLobbyGetMyInfoRequest : pb::IMessage<CustomLobbyGetMyInfoRequest>
+  public sealed partial class CustomLobbyGetMyPlayerDataRequest : pb::IMessage<CustomLobbyGetMyPlayerDataRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<CustomLobbyGetMyInfoRequest> _parser = new pb::MessageParser<CustomLobbyGetMyInfoRequest>(() => new CustomLobbyGetMyInfoRequest());
+    private static readonly pb::MessageParser<CustomLobbyGetMyPlayerDataRequest> _parser = new pb::MessageParser<CustomLobbyGetMyPlayerDataRequest>(() => new CustomLobbyGetMyPlayerDataRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CustomLobbyGetMyInfoRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<CustomLobbyGetMyPlayerDataRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -78,7 +78,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CustomLobbyGetMyInfoRequest() {
+    public CustomLobbyGetMyPlayerDataRequest() {
       OnConstruction();
     }
 
@@ -86,25 +86,25 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CustomLobbyGetMyInfoRequest(CustomLobbyGetMyInfoRequest other) : this() {
+    public CustomLobbyGetMyPlayerDataRequest(CustomLobbyGetMyPlayerDataRequest other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CustomLobbyGetMyInfoRequest Clone() {
-      return new CustomLobbyGetMyInfoRequest(this);
+    public CustomLobbyGetMyPlayerDataRequest Clone() {
+      return new CustomLobbyGetMyPlayerDataRequest(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as CustomLobbyGetMyInfoRequest);
+      return Equals(other as CustomLobbyGetMyPlayerDataRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CustomLobbyGetMyInfoRequest other) {
+    public bool Equals(CustomLobbyGetMyPlayerDataRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -164,7 +164,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CustomLobbyGetMyInfoRequest other) {
+    public void MergeFrom(CustomLobbyGetMyPlayerDataRequest other) {
       if (other == null) {
         return;
       }
@@ -206,16 +206,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class CustomLobbyGetMyInfoResponse : pb::IMessage<CustomLobbyGetMyInfoResponse>
+  public sealed partial class CustomLobbyGetMyPlayerDataResponse : pb::IMessage<CustomLobbyGetMyPlayerDataResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<CustomLobbyGetMyInfoResponse> _parser = new pb::MessageParser<CustomLobbyGetMyInfoResponse>(() => new CustomLobbyGetMyInfoResponse());
+    private static readonly pb::MessageParser<CustomLobbyGetMyPlayerDataResponse> _parser = new pb::MessageParser<CustomLobbyGetMyPlayerDataResponse>(() => new CustomLobbyGetMyPlayerDataResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CustomLobbyGetMyInfoResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<CustomLobbyGetMyPlayerDataResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -231,7 +231,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CustomLobbyGetMyInfoResponse() {
+    public CustomLobbyGetMyPlayerDataResponse() {
       OnConstruction();
     }
 
@@ -239,16 +239,16 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CustomLobbyGetMyInfoResponse(CustomLobbyGetMyInfoResponse other) : this() {
+    public CustomLobbyGetMyPlayerDataResponse(CustomLobbyGetMyPlayerDataResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      info_ = other.info_ != null ? other.info_.Clone() : null;
+      data_ = other.data_ != null ? other.data_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CustomLobbyGetMyInfoResponse Clone() {
-      return new CustomLobbyGetMyInfoResponse(this);
+    public CustomLobbyGetMyPlayerDataResponse Clone() {
+      return new CustomLobbyGetMyPlayerDataResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -263,27 +263,27 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "info" field.</summary>
-    public const int InfoFieldNumber = 2;
-    private global::Tech.Hive.V1.CustomPlayerInfo info_;
+    /// <summary>Field number for the "data" field.</summary>
+    public const int DataFieldNumber = 2;
+    private global::Tech.Hive.V1.CustomPlayerData data_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CustomPlayerInfo Info {
-      get { return info_; }
+    public global::Tech.Hive.V1.CustomPlayerData Data {
+      get { return data_; }
       set {
-        info_ = value;
+        data_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as CustomLobbyGetMyInfoResponse);
+      return Equals(other as CustomLobbyGetMyPlayerDataResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CustomLobbyGetMyInfoResponse other) {
+    public bool Equals(CustomLobbyGetMyPlayerDataResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -291,7 +291,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(Info, other.Info)) return false;
+      if (!object.Equals(Data, other.Data)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -300,7 +300,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (info_ != null) hash ^= Info.GetHashCode();
+      if (data_ != null) hash ^= Data.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -323,9 +323,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (info_ != null) {
+      if (data_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Info);
+        output.WriteMessage(Data);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -341,9 +341,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (info_ != null) {
+      if (data_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Info);
+        output.WriteMessage(Data);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -358,8 +358,8 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      if (info_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Info);
+      if (data_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Data);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -369,7 +369,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CustomLobbyGetMyInfoResponse other) {
+    public void MergeFrom(CustomLobbyGetMyPlayerDataResponse other) {
       if (other == null) {
         return;
       }
@@ -379,11 +379,11 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      if (other.info_ != null) {
-        if (info_ == null) {
-          Info = new global::Tech.Hive.V1.CustomPlayerInfo();
+      if (other.data_ != null) {
+        if (data_ == null) {
+          Data = new global::Tech.Hive.V1.CustomPlayerData();
         }
-        Info.MergeFrom(other.Info);
+        Data.MergeFrom(other.Data);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -408,10 +408,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (info_ == null) {
-              Info = new global::Tech.Hive.V1.CustomPlayerInfo();
+            if (data_ == null) {
+              Data = new global::Tech.Hive.V1.CustomPlayerData();
             }
-            input.ReadMessage(Info);
+            input.ReadMessage(Data);
             break;
           }
         }
@@ -437,10 +437,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (info_ == null) {
-              Info = new global::Tech.Hive.V1.CustomPlayerInfo();
+            if (data_ == null) {
+              Data = new global::Tech.Hive.V1.CustomPlayerData();
             }
-            input.ReadMessage(Info);
+            input.ReadMessage(Data);
             break;
           }
         }

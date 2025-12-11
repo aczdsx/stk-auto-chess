@@ -25,44 +25,44 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChNkYWlseV9kdW5nZW9uLnByb3RvEgx0ZWNoLmhpdmUudjEaCmJhc2UucHJv",
-            "dG8aE2N1c3RvbV9jb21tb24ucHJvdG8aGGRhaWx5X2R1bmdlb24raW5mby5w",
+            "dG8aE2N1c3RvbV9jb21tb24ucHJvdG8aGGRhaWx5X2R1bmdlb24rZGF0YS5w",
             "cm90byJPChdEYWlseUR1bmdlb25MaXN0UmVxdWVzdBI0CgxkdW5nZW9uX3R5",
-            "cGUYASABKA4yHi50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9uVHlwZSJ/ChhE",
-            "YWlseUR1bmdlb25MaXN0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVj",
-            "aC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDWR1bmdlb25faW5mb3MYAiAD",
-            "KAsyHi50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9uSW5mbyJ+ChhEYWlseUR1",
-            "bmdlb25FbnRlclJlcXVlc3QSNAoMZHVuZ2Vvbl90eXBlGAEgASgOMh4udGVj",
-            "aC5oaXZlLnYxLkRhaWx5RHVuZ2VvblR5cGUSLAoKZGlmZmljdWx0eRgCIAEo",
-            "DjIYLnRlY2guaGl2ZS52MS5EaWZmaWN1bHR5IqoBChlEYWlseUR1bmdlb25F",
-            "bnRlclJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
-            "ZXNwb25zZVN0YXR1cxIvCgdkdW5nZW9uGAIgASgLMh4udGVjaC5oaXZlLnYx",
-            "LkRhaWx5RHVuZ2VvbkluZm8SGQoRYmF0dGxlX3Nlc3Npb25faWQYAyABKAkS",
-            "EwoLYmF0dGxlX3NlZWQYBCABKAQifwoYRGFpbHlEdW5nZW9uQ2xlYXJSZXF1",
-            "ZXN0EjQKDGR1bmdlb25fdHlwZRgBIAEoDjIeLnRlY2guaGl2ZS52MS5EYWls",
-            "eUR1bmdlb25UeXBlEhkKEWJhdHRsZV9zZXNzaW9uX2lkGAIgASgJEhIKCmlz",
-            "X3ZpY3RvcnkYAyABKAgi1wEKGURhaWx5RHVuZ2VvbkNsZWFyUmVzcG9uc2US",
-            "LAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVz",
-            "Ei8KB2R1bmdlb24YAiABKAsyHi50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9u",
-            "SW5mbxIlCgdyZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0",
-            "Cg9jdXJyZW5jeV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVu",
-            "Y3lEZWx0YSo2ChVEYWlseUR1bmdlb25FcnJvckNvZGUSHQoZREFJTFlfRFVO",
-            "R0VPTl9VTlNQRUNJRklFRBAAMqACChNEYWlseUR1bmdlb25TZXJ2aWNlElUK",
-            "BExpc3QSJS50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9uTGlzdFJlcXVlc3Qa",
-            "Ji50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9uTGlzdFJlc3BvbnNlElgKBUVu",
-            "dGVyEiYudGVjaC5oaXZlLnYxLkRhaWx5RHVuZ2VvbkVudGVyUmVxdWVzdBon",
-            "LnRlY2guaGl2ZS52MS5EYWlseUR1bmdlb25FbnRlclJlc3BvbnNlElgKBUNs",
-            "ZWFyEiYudGVjaC5oaXZlLnYxLkRhaWx5RHVuZ2VvbkNsZWFyUmVxdWVzdBon",
-            "LnRlY2guaGl2ZS52MS5EYWlseUR1bmdlb25DbGVhclJlc3BvbnNlYgZwcm90",
-            "bzM="));
+            "cGUYASABKA4yHi50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9uVHlwZSKEAQoY",
+            "RGFpbHlEdW5nZW9uTGlzdFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
+            "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI6ChJkYWlseV9kdW5nZW9uX2xp",
+            "c3QYAiADKAsyHi50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9uRGF0YSJ+ChhE",
+            "YWlseUR1bmdlb25FbnRlclJlcXVlc3QSNAoMZHVuZ2Vvbl90eXBlGAEgASgO",
+            "Mh4udGVjaC5oaXZlLnYxLkRhaWx5RHVuZ2VvblR5cGUSLAoKZGlmZmljdWx0",
+            "eRgCIAEoDjIYLnRlY2guaGl2ZS52MS5EaWZmaWN1bHR5IrABChlEYWlseUR1",
+            "bmdlb25FbnRlclJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2",
+            "ZS52MS5SZXNwb25zZVN0YXR1cxI1Cg1kYWlseV9kdW5nZW9uGAIgASgLMh4u",
+            "dGVjaC5oaXZlLnYxLkRhaWx5RHVuZ2VvbkRhdGESGQoRYmF0dGxlX3Nlc3Np",
+            "b25faWQYAyABKAkSEwoLYmF0dGxlX3NlZWQYBCABKAQifwoYRGFpbHlEdW5n",
+            "ZW9uQ2xlYXJSZXF1ZXN0EjQKDGR1bmdlb25fdHlwZRgBIAEoDjIeLnRlY2gu",
+            "aGl2ZS52MS5EYWlseUR1bmdlb25UeXBlEhkKEWJhdHRsZV9zZXNzaW9uX2lk",
+            "GAIgASgJEhIKCmlzX3ZpY3RvcnkYAyABKAgi3QEKGURhaWx5RHVuZ2VvbkNs",
+            "ZWFyUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
+            "c3BvbnNlU3RhdHVzEjUKDWRhaWx5X2R1bmdlb24YAiABKAsyHi50ZWNoLmhp",
+            "dmUudjEuRGFpbHlEdW5nZW9uRGF0YRIlCgdyZXdhcmRzGAMgAygLMhQudGVj",
+            "aC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMYBCADKAsyGy50",
+            "ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSo2ChVEYWlseUR1bmdlb25FcnJv",
+            "ckNvZGUSHQoZREFJTFlfRFVOR0VPTl9VTlNQRUNJRklFRBAAMqACChNEYWls",
+            "eUR1bmdlb25TZXJ2aWNlElUKBExpc3QSJS50ZWNoLmhpdmUudjEuRGFpbHlE",
+            "dW5nZW9uTGlzdFJlcXVlc3QaJi50ZWNoLmhpdmUudjEuRGFpbHlEdW5nZW9u",
+            "TGlzdFJlc3BvbnNlElgKBUVudGVyEiYudGVjaC5oaXZlLnYxLkRhaWx5RHVu",
+            "Z2VvbkVudGVyUmVxdWVzdBonLnRlY2guaGl2ZS52MS5EYWlseUR1bmdlb25F",
+            "bnRlclJlc3BvbnNlElgKBUNsZWFyEiYudGVjaC5oaXZlLnYxLkRhaWx5RHVu",
+            "Z2VvbkNsZWFyUmVxdWVzdBonLnRlY2guaGl2ZS52MS5EYWlseUR1bmdlb25D",
+            "bGVhclJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.DailyDungeonInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.DailyDungeonDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.DailyDungeonErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonListRequest), global::Tech.Hive.V1.DailyDungeonListRequest.Parser, new[]{ "DungeonType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonListResponse), global::Tech.Hive.V1.DailyDungeonListResponse.Parser, new[]{ "Status", "DungeonInfos" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonListResponse), global::Tech.Hive.V1.DailyDungeonListResponse.Parser, new[]{ "Status", "DailyDungeonList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonEnterRequest), global::Tech.Hive.V1.DailyDungeonEnterRequest.Parser, new[]{ "DungeonType", "Difficulty" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonEnterResponse), global::Tech.Hive.V1.DailyDungeonEnterResponse.Parser, new[]{ "Status", "Dungeon", "BattleSessionId", "BattleSeed" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonEnterResponse), global::Tech.Hive.V1.DailyDungeonEnterResponse.Parser, new[]{ "Status", "DailyDungeon", "BattleSessionId", "BattleSeed" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonClearRequest), global::Tech.Hive.V1.DailyDungeonClearRequest.Parser, new[]{ "DungeonType", "BattleSessionId", "IsVictory" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonClearResponse), global::Tech.Hive.V1.DailyDungeonClearResponse.Parser, new[]{ "Status", "Dungeon", "Rewards", "CurrencyDeltas" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DailyDungeonClearResponse), global::Tech.Hive.V1.DailyDungeonClearResponse.Parser, new[]{ "Status", "DailyDungeon", "Rewards", "CurrencyDeltas" }, null, null, null, null)
           }));
     }
     #endregion
@@ -302,7 +302,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DailyDungeonListResponse(DailyDungeonListResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      dungeonInfos_ = other.dungeonInfos_.Clone();
+      dailyDungeonList_ = other.dailyDungeonList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -324,15 +324,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "dungeon_infos" field.</summary>
-    public const int DungeonInfosFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.DailyDungeonInfo> _repeated_dungeonInfos_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.DailyDungeonInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.DailyDungeonInfo> dungeonInfos_ = new pbc::RepeatedField<global::Tech.Hive.V1.DailyDungeonInfo>();
+    /// <summary>Field number for the "daily_dungeon_list" field.</summary>
+    public const int DailyDungeonListFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.DailyDungeonData> _repeated_dailyDungeonList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.DailyDungeonData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.DailyDungeonData> dailyDungeonList_ = new pbc::RepeatedField<global::Tech.Hive.V1.DailyDungeonData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.DailyDungeonInfo> DungeonInfos {
-      get { return dungeonInfos_; }
+    public pbc::RepeatedField<global::Tech.Hive.V1.DailyDungeonData> DailyDungeonList {
+      get { return dailyDungeonList_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -351,7 +351,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if(!dungeonInfos_.Equals(other.dungeonInfos_)) return false;
+      if(!dailyDungeonList_.Equals(other.dailyDungeonList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -360,7 +360,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      hash ^= dungeonInfos_.GetHashCode();
+      hash ^= dailyDungeonList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -383,7 +383,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      dungeonInfos_.WriteTo(output, _repeated_dungeonInfos_codec);
+      dailyDungeonList_.WriteTo(output, _repeated_dailyDungeonList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -398,7 +398,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      dungeonInfos_.WriteTo(ref output, _repeated_dungeonInfos_codec);
+      dailyDungeonList_.WriteTo(ref output, _repeated_dailyDungeonList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -412,7 +412,7 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      size += dungeonInfos_.CalculateSize(_repeated_dungeonInfos_codec);
+      size += dailyDungeonList_.CalculateSize(_repeated_dailyDungeonList_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -431,7 +431,7 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      dungeonInfos_.Add(other.dungeonInfos_);
+      dailyDungeonList_.Add(other.dailyDungeonList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -455,7 +455,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            dungeonInfos_.AddEntriesFrom(input, _repeated_dungeonInfos_codec);
+            dailyDungeonList_.AddEntriesFrom(input, _repeated_dailyDungeonList_codec);
             break;
           }
         }
@@ -481,7 +481,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            dungeonInfos_.AddEntriesFrom(ref input, _repeated_dungeonInfos_codec);
+            dailyDungeonList_.AddEntriesFrom(ref input, _repeated_dailyDungeonList_codec);
             break;
           }
         }
@@ -754,7 +754,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DailyDungeonEnterResponse(DailyDungeonEnterResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      dungeon_ = other.dungeon_ != null ? other.dungeon_.Clone() : null;
+      dailyDungeon_ = other.dailyDungeon_ != null ? other.dailyDungeon_.Clone() : null;
       battleSessionId_ = other.battleSessionId_;
       battleSeed_ = other.battleSeed_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -778,15 +778,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "dungeon" field.</summary>
-    public const int DungeonFieldNumber = 2;
-    private global::Tech.Hive.V1.DailyDungeonInfo dungeon_;
+    /// <summary>Field number for the "daily_dungeon" field.</summary>
+    public const int DailyDungeonFieldNumber = 2;
+    private global::Tech.Hive.V1.DailyDungeonData dailyDungeon_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.DailyDungeonInfo Dungeon {
-      get { return dungeon_; }
+    public global::Tech.Hive.V1.DailyDungeonData DailyDungeon {
+      get { return dailyDungeon_; }
       set {
-        dungeon_ = value;
+        dailyDungeon_ = value;
       }
     }
 
@@ -830,7 +830,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(Dungeon, other.Dungeon)) return false;
+      if (!object.Equals(DailyDungeon, other.DailyDungeon)) return false;
       if (BattleSessionId != other.BattleSessionId) return false;
       if (BattleSeed != other.BattleSeed) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -841,7 +841,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (dungeon_ != null) hash ^= Dungeon.GetHashCode();
+      if (dailyDungeon_ != null) hash ^= DailyDungeon.GetHashCode();
       if (BattleSessionId.Length != 0) hash ^= BattleSessionId.GetHashCode();
       if (BattleSeed != 0UL) hash ^= BattleSeed.GetHashCode();
       if (_unknownFields != null) {
@@ -866,9 +866,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (dungeon_ != null) {
+      if (dailyDungeon_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Dungeon);
+        output.WriteMessage(DailyDungeon);
       }
       if (BattleSessionId.Length != 0) {
         output.WriteRawTag(26);
@@ -892,9 +892,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (dungeon_ != null) {
+      if (dailyDungeon_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Dungeon);
+        output.WriteMessage(DailyDungeon);
       }
       if (BattleSessionId.Length != 0) {
         output.WriteRawTag(26);
@@ -917,8 +917,8 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      if (dungeon_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Dungeon);
+      if (dailyDungeon_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DailyDungeon);
       }
       if (BattleSessionId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(BattleSessionId);
@@ -944,11 +944,11 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      if (other.dungeon_ != null) {
-        if (dungeon_ == null) {
-          Dungeon = new global::Tech.Hive.V1.DailyDungeonInfo();
+      if (other.dailyDungeon_ != null) {
+        if (dailyDungeon_ == null) {
+          DailyDungeon = new global::Tech.Hive.V1.DailyDungeonData();
         }
-        Dungeon.MergeFrom(other.Dungeon);
+        DailyDungeon.MergeFrom(other.DailyDungeon);
       }
       if (other.BattleSessionId.Length != 0) {
         BattleSessionId = other.BattleSessionId;
@@ -979,10 +979,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (dungeon_ == null) {
-              Dungeon = new global::Tech.Hive.V1.DailyDungeonInfo();
+            if (dailyDungeon_ == null) {
+              DailyDungeon = new global::Tech.Hive.V1.DailyDungeonData();
             }
-            input.ReadMessage(Dungeon);
+            input.ReadMessage(DailyDungeon);
             break;
           }
           case 26: {
@@ -1016,10 +1016,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (dungeon_ == null) {
-              Dungeon = new global::Tech.Hive.V1.DailyDungeonInfo();
+            if (dailyDungeon_ == null) {
+              DailyDungeon = new global::Tech.Hive.V1.DailyDungeonData();
             }
-            input.ReadMessage(Dungeon);
+            input.ReadMessage(DailyDungeon);
             break;
           }
           case 26: {
@@ -1337,7 +1337,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DailyDungeonClearResponse(DailyDungeonClearResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      dungeon_ = other.dungeon_ != null ? other.dungeon_.Clone() : null;
+      dailyDungeon_ = other.dailyDungeon_ != null ? other.dailyDungeon_.Clone() : null;
       rewards_ = other.rewards_.Clone();
       currencyDeltas_ = other.currencyDeltas_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1361,15 +1361,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "dungeon" field.</summary>
-    public const int DungeonFieldNumber = 2;
-    private global::Tech.Hive.V1.DailyDungeonInfo dungeon_;
+    /// <summary>Field number for the "daily_dungeon" field.</summary>
+    public const int DailyDungeonFieldNumber = 2;
+    private global::Tech.Hive.V1.DailyDungeonData dailyDungeon_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.DailyDungeonInfo Dungeon {
-      get { return dungeon_; }
+    public global::Tech.Hive.V1.DailyDungeonData DailyDungeon {
+      get { return dailyDungeon_; }
       set {
-        dungeon_ = value;
+        dailyDungeon_ = value;
       }
     }
 
@@ -1411,7 +1411,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(Dungeon, other.Dungeon)) return false;
+      if (!object.Equals(DailyDungeon, other.DailyDungeon)) return false;
       if(!rewards_.Equals(other.rewards_)) return false;
       if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1422,7 +1422,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (dungeon_ != null) hash ^= Dungeon.GetHashCode();
+      if (dailyDungeon_ != null) hash ^= DailyDungeon.GetHashCode();
       hash ^= rewards_.GetHashCode();
       hash ^= currencyDeltas_.GetHashCode();
       if (_unknownFields != null) {
@@ -1447,9 +1447,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (dungeon_ != null) {
+      if (dailyDungeon_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Dungeon);
+        output.WriteMessage(DailyDungeon);
       }
       rewards_.WriteTo(output, _repeated_rewards_codec);
       currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
@@ -1467,9 +1467,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (dungeon_ != null) {
+      if (dailyDungeon_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Dungeon);
+        output.WriteMessage(DailyDungeon);
       }
       rewards_.WriteTo(ref output, _repeated_rewards_codec);
       currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
@@ -1486,8 +1486,8 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      if (dungeon_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Dungeon);
+      if (dailyDungeon_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DailyDungeon);
       }
       size += rewards_.CalculateSize(_repeated_rewards_codec);
       size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
@@ -1509,11 +1509,11 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      if (other.dungeon_ != null) {
-        if (dungeon_ == null) {
-          Dungeon = new global::Tech.Hive.V1.DailyDungeonInfo();
+      if (other.dailyDungeon_ != null) {
+        if (dailyDungeon_ == null) {
+          DailyDungeon = new global::Tech.Hive.V1.DailyDungeonData();
         }
-        Dungeon.MergeFrom(other.Dungeon);
+        DailyDungeon.MergeFrom(other.DailyDungeon);
       }
       rewards_.Add(other.rewards_);
       currencyDeltas_.Add(other.currencyDeltas_);
@@ -1540,10 +1540,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (dungeon_ == null) {
-              Dungeon = new global::Tech.Hive.V1.DailyDungeonInfo();
+            if (dailyDungeon_ == null) {
+              DailyDungeon = new global::Tech.Hive.V1.DailyDungeonData();
             }
-            input.ReadMessage(Dungeon);
+            input.ReadMessage(DailyDungeon);
             break;
           }
           case 26: {
@@ -1577,10 +1577,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (dungeon_ == null) {
-              Dungeon = new global::Tech.Hive.V1.DailyDungeonInfo();
+            if (dailyDungeon_ == null) {
+              DailyDungeon = new global::Tech.Hive.V1.DailyDungeonData();
             }
-            input.ReadMessage(Dungeon);
+            input.ReadMessage(DailyDungeon);
             break;
           }
           case 26: {

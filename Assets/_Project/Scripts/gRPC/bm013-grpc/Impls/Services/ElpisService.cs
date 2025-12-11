@@ -11,11 +11,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 함선 정보 가져오기
         /// </summary>
-        public async UniTask<ElpisGetInfoResponse> GetInfoAsync(CancellationToken cancellationToken = default)
+        public async UniTask<ElpisGetResponse> GetInfoAsync(CancellationToken cancellationToken = default)
         {
-            ElpisGetInfoResponse resp = await ExecuteAsync(
-                ServiceClient.GetInfoAsync,
-                new ElpisGetInfoRequest(),
+            ElpisGetResponse resp = await ExecuteAsync(
+                ServiceClient.GetAsync,
+                new ElpisGetRequest(),
                 cancellationToken: cancellationToken
             );
             return resp;

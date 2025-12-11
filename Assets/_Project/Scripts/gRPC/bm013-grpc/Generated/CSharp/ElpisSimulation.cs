@@ -25,13 +25,13 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChZlbHBpcytzaW11bGF0aW9uLnByb3RvEgx0ZWNoLmhpdmUudjEieQoOU2lt",
-            "dWxhdGlvbkluZm8SDQoFbGV2ZWwYASABKA0SEQoJbWF4X2xldmVsGAIgASgN",
+            "dWxhdGlvbkRhdGESDQoFbGV2ZWwYASABKA0SEQoJbWF4X2xldmVsGAIgASgN",
             "EhkKEWFjY3VtdWxhdGVkX2JveGVzGAMgASgNEhEKCW1heF9ib3hlcxgEIAEo",
             "DRIXCg9sYXN0X2NsYWltX3RpbWUYBSABKARiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.SimulationInfo), global::Tech.Hive.V1.SimulationInfo.Parser, new[]{ "Level", "MaxLevel", "AccumulatedBoxes", "MaxBoxes", "LastClaimTime" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.SimulationData), global::Tech.Hive.V1.SimulationData.Parser, new[]{ "Level", "MaxLevel", "AccumulatedBoxes", "MaxBoxes", "LastClaimTime" }, null, null, null, null)
           }));
     }
     #endregion
@@ -42,16 +42,16 @@ namespace Tech.Hive.V1 {
   /// 전투 시뮬레이션 정보
   /// </summary>
   [global::System.SerializableAttribute]
-  public sealed partial class SimulationInfo : pb::IMessage<SimulationInfo>
+  public sealed partial class SimulationData : pb::IMessage<SimulationData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<SimulationInfo> _parser = new pb::MessageParser<SimulationInfo>(() => new SimulationInfo());
+    private static readonly pb::MessageParser<SimulationData> _parser = new pb::MessageParser<SimulationData>(() => new SimulationData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<SimulationInfo> Parser { get { return _parser; } }
+    public static pb::MessageParser<SimulationData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -67,7 +67,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SimulationInfo() {
+    public SimulationData() {
       OnConstruction();
     }
 
@@ -75,7 +75,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SimulationInfo(SimulationInfo other) : this() {
+    public SimulationData(SimulationData other) : this() {
       level_ = other.level_;
       maxLevel_ = other.maxLevel_;
       accumulatedBoxes_ = other.accumulatedBoxes_;
@@ -86,8 +86,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SimulationInfo Clone() {
-      return new SimulationInfo(this);
+    public SimulationData Clone() {
+      return new SimulationData(this);
     }
 
     /// <summary>Field number for the "level" field.</summary>
@@ -162,12 +162,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as SimulationInfo);
+      return Equals(other as SimulationData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(SimulationInfo other) {
+    public bool Equals(SimulationData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -292,7 +292,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(SimulationInfo other) {
+    public void MergeFrom(SimulationData other) {
       if (other == null) {
         return;
       }

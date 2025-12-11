@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+// 배치 덱 정보
+message DeckData {
+  uint32 deck_slot_id = 1;                                // 덱 슬롯 아이디 (1~N)
+  string deck_name = 2;                                   // 덱 이름
+  repeated DeckCharacterPlacement character_placements = 3;   // 캐릭터 배치 목록
+  repeated DeckTacticPlacement tactic_placements = 4;         // 설치물 배치 목록
+}
+
+// 전술 설치물 배치
+message DeckTacticPlacement {
+  string tactic_id = 1;  // 전술 연구소에서 연구한 설치물 ID
+  int32 grid_x = 2;
+  int32 grid_y = 3;
+}
+
+// 캐릭터 배치 정보
+message DeckCharacterPlacement {
+  uint32 character_uid = 1;      // 캐릭터 아이디
+  int32 grid_x = 2;    // 배치된 타일 x 좌표
+  int32 grid_y = 3;    // 배치된 타일 y 좌표
+}
+

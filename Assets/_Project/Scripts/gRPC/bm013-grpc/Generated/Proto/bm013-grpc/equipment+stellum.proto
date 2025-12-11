@@ -5,7 +5,7 @@ import "custom_common.proto";
 import "equipment+stat.proto";
 
 // 스텔룸 (무기) 정보
-message StellumInfo {
+message StellumData {
   string instance_id = 1;
   uint32 stellum_id = 2;  // 마스터 데이터 ID
   

@@ -3,7 +3,7 @@ syntax = "proto3";
 package tech.hive.v1;
 
 // 챕터 정보
-message BattleChapterInfo {
+message BattleChapterData {
   uint32 chapter_id = 1;
   uint32 star_total_count = 2;
 }

@@ -26,7 +26,7 @@ namespace Tech.Hive.V1 {
           string.Concat(
             "ChVlcXVpcG1lbnQrcmVsaWMucHJvdG8SDHRlY2guaGl2ZS52MRoTY3VzdG9t",
             "X2NvbW1vbi5wcm90bxoUZXF1aXBtZW50K3N0YXQucHJvdG8i/QIKCVJlbGlj",
-            "SW5mbxITCgtpbnN0YW5jZV9pZBgBIAEoCRIQCghyZWxpY19pZBgCIAEoDRIk",
+            "RGF0YRITCgtpbnN0YW5jZV9pZBgBIAEoCRIQCghyZWxpY19pZBgCIAEoDRIk",
             "CgZyYXJpdHkYAyABKA4yFC50ZWNoLmhpdmUudjEuUmFyaXR5Ei0KCGNhdGVn",
             "b3J5GAQgASgOMhsudGVjaC5oaXZlLnYxLlJlbGljQ2F0ZWdvcnkSDgoGcHJl",
             "Zml4GAUgASgJEg4KBnN1ZmZpeBgGIAEoCRIVCg1lbmhhbmNlX2xldmVsGAcg",
@@ -42,7 +42,7 @@ namespace Tech.Hive.V1 {
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.EquipmentStatReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.RelicCategory), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.RelicInfo), global::Tech.Hive.V1.RelicInfo.Parser, new[]{ "InstanceId", "RelicId", "Rarity", "Category", "Prefix", "Suffix", "EnhanceLevel", "MaxEnhanceLevel", "MainOption", "SubOptions", "EquippedCharacterId", "ObtainedAt" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.RelicData), global::Tech.Hive.V1.RelicData.Parser, new[]{ "InstanceId", "RelicId", "Rarity", "Category", "Prefix", "Suffix", "EnhanceLevel", "MaxEnhanceLevel", "MainOption", "SubOptions", "EquippedCharacterId", "ObtainedAt" }, null, null, null, null)
           }));
     }
     #endregion
@@ -83,16 +83,16 @@ namespace Tech.Hive.V1 {
   /// 성유물(장신구) 정보
   /// </summary>
   [global::System.SerializableAttribute]
-  public sealed partial class RelicInfo : pb::IMessage<RelicInfo>
+  public sealed partial class RelicData : pb::IMessage<RelicData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<RelicInfo> _parser = new pb::MessageParser<RelicInfo>(() => new RelicInfo());
+    private static readonly pb::MessageParser<RelicData> _parser = new pb::MessageParser<RelicData>(() => new RelicData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RelicInfo> Parser { get { return _parser; } }
+    public static pb::MessageParser<RelicData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -108,7 +108,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RelicInfo() {
+    public RelicData() {
       OnConstruction();
     }
 
@@ -116,7 +116,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RelicInfo(RelicInfo other) : this() {
+    public RelicData(RelicData other) : this() {
       instanceId_ = other.instanceId_;
       relicId_ = other.relicId_;
       rarity_ = other.rarity_;
@@ -134,8 +134,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RelicInfo Clone() {
-      return new RelicInfo(this);
+    public RelicData Clone() {
+      return new RelicData(this);
     }
 
     /// <summary>Field number for the "instance_id" field.</summary>
@@ -317,12 +317,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as RelicInfo);
+      return Equals(other as RelicData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RelicInfo other) {
+    public bool Equals(RelicData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -530,7 +530,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RelicInfo other) {
+    public void MergeFrom(RelicData other) {
       if (other == null) {
         return;
       }

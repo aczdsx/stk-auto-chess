@@ -29,37 +29,37 @@ namespace Tech.Hive.V1 {
             "FWVxdWlwbWVudCtyZWxpYy5wcm90byIdChtFcXVpcG1lbnRMaXN0U3RlbGx1",
             "bVJlcXVlc3QifQocRXF1aXBtZW50TGlzdFN0ZWxsdW1SZXNwb25zZRIsCgZz",
             "dGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSLwoM",
-            "c3RlbGx1bV9saXN0GAIgAygLMhkudGVjaC5oaXZlLnYxLlN0ZWxsdW1JbmZv",
+            "c3RlbGx1bV9saXN0GAIgAygLMhkudGVjaC5oaXZlLnYxLlN0ZWxsdW1EYXRh",
             "IkkKHEVxdWlwbWVudEZvcmdlU3RlbGx1bVJlcXVlc3QSEwoLaW5zdGFuY2Vf",
             "aWQYAiABKAkSFAoMdGFyZ2V0X2xldmVsGAMgASgNIq8BCh1FcXVpcG1lbnRG",
             "b3JnZVN0ZWxsdW1SZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhp",
             "dmUudjEuUmVzcG9uc2VTdGF0dXMSKgoHc3RlbGx1bRgCIAEoCzIZLnRlY2gu",
-            "aGl2ZS52MS5TdGVsbHVtSW5mbxI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsy",
+            "aGl2ZS52MS5TdGVsbHVtRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsy",
             "Gy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSJTCh1FcXVpcG1lbnRBc2Nl",
             "bmRTdGVsbHVtUmVxdWVzdBITCgtpbnN0YW5jZV9pZBgCIAEoCRIdChVtYXRl",
             "cmlhbF9pbnN0YW5jZV9pZHMYAyADKAkisAEKHkVxdWlwbWVudEFzY2VuZFN0",
             "ZWxsdW1SZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEu",
             "UmVzcG9uc2VTdGF0dXMSKgoHc3RlbGx1bRgCIAEoCzIZLnRlY2guaGl2ZS52",
-            "MS5TdGVsbHVtSW5mbxI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNo",
+            "MS5TdGVsbHVtRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNo",
             "LmhpdmUudjEuQ3VycmVuY3lEZWx0YSIbChlFcXVpcG1lbnRMaXN0UmVsaWNS",
             "ZXF1ZXN0IncKGkVxdWlwbWVudExpc3RSZWxpY1Jlc3BvbnNlEiwKBnN0YXR1",
             "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIrCgpyZWxp",
-            "Y19saXN0GAIgAygLMhcudGVjaC5oaXZlLnYxLlJlbGljSW5mbyJJChxFcXVp",
+            "Y19saXN0GAIgAygLMhcudGVjaC5oaXZlLnYxLlJlbGljRGF0YSJJChxFcXVp",
             "cG1lbnRFbmhhbmNlUmVsaWNSZXF1ZXN0EhMKC2luc3RhbmNlX2lkGAEgASgJ",
             "EhQKDHRhcmdldF9sZXZlbBgCIAEoDSKrAQodRXF1aXBtZW50RW5oYW5jZVJl",
             "bGljUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
             "c3BvbnNlU3RhdHVzEiYKBXJlbGljGAIgASgLMhcudGVjaC5oaXZlLnYxLlJl",
-            "bGljSW5mbxI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhpdmUu",
+            "bGljRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhpdmUu",
             "djEuQ3VycmVuY3lEZWx0YSJACh9FcXVpcG1lbnRTeW50aGVzaXplUmVsaWNS",
             "ZXF1ZXN0Eh0KFW1hdGVyaWFsX2luc3RhbmNlX2lkcxgBIAMoCSKyAQogRXF1",
             "aXBtZW50U3ludGhlc2l6ZVJlbGljUmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
             "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEioKCW5ld19yZWxpYxgC",
-            "IAEoCzIXLnRlY2guaGl2ZS52MS5SZWxpY0luZm8SNAoPY3VycmVuY3lfZGVs",
+            "IAEoCzIXLnRlY2guaGl2ZS52MS5SZWxpY0RhdGESNAoPY3VycmVuY3lfZGVs",
             "dGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiMgobRXF1",
             "aXBtZW50UmVyb2xsUmVsaWNSZXF1ZXN0EhMKC2luc3RhbmNlX2lkGAEgASgJ",
             "IqoBChxFcXVpcG1lbnRSZXJvbGxSZWxpY1Jlc3BvbnNlEiwKBnN0YXR1cxgB",
             "IAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxImCgVyZWxpYxgC",
-            "IAEoCzIXLnRlY2guaGl2ZS52MS5SZWxpY0luZm8SNAoPY3VycmVuY3lfZGVs",
+            "IAEoCzIXLnRlY2guaGl2ZS52MS5SZWxpY0RhdGESNAoPY3VycmVuY3lfZGVs",
             "dGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEqLwoSRXF1",
             "aXBtZW50RXJyb3JDb2RlEhkKFUVRVUlQTUVOVF9VTlNQRUNJRklFRBAAMu4F",
             "ChBFcXVpcG1lbnRTZXJ2aWNlEmQKC0xpc3RTdGVsbHVtEikudGVjaC5oaXZl",
@@ -322,12 +322,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "stellum_list" field.</summary>
     public const int StellumListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.StellumInfo> _repeated_stellumList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.StellumInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.StellumInfo> stellumList_ = new pbc::RepeatedField<global::Tech.Hive.V1.StellumInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.StellumData> _repeated_stellumList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.StellumData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.StellumData> stellumList_ = new pbc::RepeatedField<global::Tech.Hive.V1.StellumData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.StellumInfo> StellumList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.StellumData> StellumList {
       get { return stellumList_; }
     }
 
@@ -775,10 +775,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "stellum" field.</summary>
     public const int StellumFieldNumber = 2;
-    private global::Tech.Hive.V1.StellumInfo stellum_;
+    private global::Tech.Hive.V1.StellumData stellum_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.StellumInfo Stellum {
+    public global::Tech.Hive.V1.StellumData Stellum {
       get { return stellum_; }
       set {
         stellum_ = value;
@@ -907,7 +907,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.stellum_ != null) {
         if (stellum_ == null) {
-          Stellum = new global::Tech.Hive.V1.StellumInfo();
+          Stellum = new global::Tech.Hive.V1.StellumData();
         }
         Stellum.MergeFrom(other.Stellum);
       }
@@ -936,7 +936,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (stellum_ == null) {
-              Stellum = new global::Tech.Hive.V1.StellumInfo();
+              Stellum = new global::Tech.Hive.V1.StellumData();
             }
             input.ReadMessage(Stellum);
             break;
@@ -969,7 +969,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (stellum_ == null) {
-              Stellum = new global::Tech.Hive.V1.StellumInfo();
+              Stellum = new global::Tech.Hive.V1.StellumData();
             }
             input.ReadMessage(Stellum);
             break;
@@ -1265,10 +1265,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "stellum" field.</summary>
     public const int StellumFieldNumber = 2;
-    private global::Tech.Hive.V1.StellumInfo stellum_;
+    private global::Tech.Hive.V1.StellumData stellum_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.StellumInfo Stellum {
+    public global::Tech.Hive.V1.StellumData Stellum {
       get { return stellum_; }
       set {
         stellum_ = value;
@@ -1397,7 +1397,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.stellum_ != null) {
         if (stellum_ == null) {
-          Stellum = new global::Tech.Hive.V1.StellumInfo();
+          Stellum = new global::Tech.Hive.V1.StellumData();
         }
         Stellum.MergeFrom(other.Stellum);
       }
@@ -1426,7 +1426,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (stellum_ == null) {
-              Stellum = new global::Tech.Hive.V1.StellumInfo();
+              Stellum = new global::Tech.Hive.V1.StellumData();
             }
             input.ReadMessage(Stellum);
             break;
@@ -1459,7 +1459,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (stellum_ == null) {
-              Stellum = new global::Tech.Hive.V1.StellumInfo();
+              Stellum = new global::Tech.Hive.V1.StellumData();
             }
             input.ReadMessage(Stellum);
             break;
@@ -1688,12 +1688,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "relic_list" field.</summary>
     public const int RelicListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.RelicInfo> _repeated_relicList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.RelicInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.RelicInfo> relicList_ = new pbc::RepeatedField<global::Tech.Hive.V1.RelicInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.RelicData> _repeated_relicList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.RelicData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.RelicData> relicList_ = new pbc::RepeatedField<global::Tech.Hive.V1.RelicData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.RelicInfo> RelicList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.RelicData> RelicList {
       get { return relicList_; }
     }
 
@@ -2141,10 +2141,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "relic" field.</summary>
     public const int RelicFieldNumber = 2;
-    private global::Tech.Hive.V1.RelicInfo relic_;
+    private global::Tech.Hive.V1.RelicData relic_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.RelicInfo Relic {
+    public global::Tech.Hive.V1.RelicData Relic {
       get { return relic_; }
       set {
         relic_ = value;
@@ -2273,7 +2273,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.relic_ != null) {
         if (relic_ == null) {
-          Relic = new global::Tech.Hive.V1.RelicInfo();
+          Relic = new global::Tech.Hive.V1.RelicData();
         }
         Relic.MergeFrom(other.Relic);
       }
@@ -2302,7 +2302,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (relic_ == null) {
-              Relic = new global::Tech.Hive.V1.RelicInfo();
+              Relic = new global::Tech.Hive.V1.RelicData();
             }
             input.ReadMessage(Relic);
             break;
@@ -2335,7 +2335,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (relic_ == null) {
-              Relic = new global::Tech.Hive.V1.RelicInfo();
+              Relic = new global::Tech.Hive.V1.RelicData();
             }
             input.ReadMessage(Relic);
             break;
@@ -2594,10 +2594,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "new_relic" field.</summary>
     public const int NewRelicFieldNumber = 2;
-    private global::Tech.Hive.V1.RelicInfo newRelic_;
+    private global::Tech.Hive.V1.RelicData newRelic_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.RelicInfo NewRelic {
+    public global::Tech.Hive.V1.RelicData NewRelic {
       get { return newRelic_; }
       set {
         newRelic_ = value;
@@ -2726,7 +2726,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.newRelic_ != null) {
         if (newRelic_ == null) {
-          NewRelic = new global::Tech.Hive.V1.RelicInfo();
+          NewRelic = new global::Tech.Hive.V1.RelicData();
         }
         NewRelic.MergeFrom(other.NewRelic);
       }
@@ -2755,7 +2755,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (newRelic_ == null) {
-              NewRelic = new global::Tech.Hive.V1.RelicInfo();
+              NewRelic = new global::Tech.Hive.V1.RelicData();
             }
             input.ReadMessage(NewRelic);
             break;
@@ -2788,7 +2788,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (newRelic_ == null) {
-              NewRelic = new global::Tech.Hive.V1.RelicInfo();
+              NewRelic = new global::Tech.Hive.V1.RelicData();
             }
             input.ReadMessage(NewRelic);
             break;
@@ -3055,10 +3055,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "relic" field.</summary>
     public const int RelicFieldNumber = 2;
-    private global::Tech.Hive.V1.RelicInfo relic_;
+    private global::Tech.Hive.V1.RelicData relic_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.RelicInfo Relic {
+    public global::Tech.Hive.V1.RelicData Relic {
       get { return relic_; }
       set {
         relic_ = value;
@@ -3187,7 +3187,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.relic_ != null) {
         if (relic_ == null) {
-          Relic = new global::Tech.Hive.V1.RelicInfo();
+          Relic = new global::Tech.Hive.V1.RelicData();
         }
         Relic.MergeFrom(other.Relic);
       }
@@ -3216,7 +3216,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (relic_ == null) {
-              Relic = new global::Tech.Hive.V1.RelicInfo();
+              Relic = new global::Tech.Hive.V1.RelicData();
             }
             input.ReadMessage(Relic);
             break;
@@ -3249,7 +3249,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (relic_ == null) {
-              Relic = new global::Tech.Hive.V1.RelicInfo();
+              Relic = new global::Tech.Hive.V1.RelicData();
             }
             input.ReadMessage(Relic);
             break;

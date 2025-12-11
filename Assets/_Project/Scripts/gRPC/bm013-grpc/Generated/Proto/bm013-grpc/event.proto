@@ -5,7 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 import "custom_common.proto";
 
-import "event+info.proto";
+import "event+data.proto";
 
 service EventService {
   /**
@@ -35,7 +35,7 @@ message EventListRequest {
 
 message EventListResponse {
   ResponseStatus status = 1;
-  repeated EventInfo events = 2;
+  repeated EventData events = 2;
 }
 
 message EventUpdateProgressRequest {
@@ -45,7 +45,7 @@ message EventUpdateProgressRequest {
 
 message EventUpdateProgressResponse {
   ResponseStatus status = 1;
-  EventInfo event = 2;
+  EventData event = 2;
 }
 
 message EventClaimRewardRequest {
@@ -55,7 +55,7 @@ message EventClaimRewardRequest {
 
 message EventClaimRewardResponse {
   ResponseStatus status = 1;
-  EventInfo event = 2;
+  EventData event = 2;
   repeated Reward rewards = 3;
   repeated CurrencyDelta currency_deltas = 4;
 }

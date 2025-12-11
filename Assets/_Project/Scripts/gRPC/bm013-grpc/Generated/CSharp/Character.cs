@@ -25,54 +25,54 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cg9jaGFyYWN0ZXIucHJvdG8SDHRlY2guaGl2ZS52MRoKYmFzZS5wcm90bxoT",
-            "Y3VzdG9tX2NvbW1vbi5wcm90bxoUY2hhcmFjdGVyK2luZm8ucHJvdG8iFgoU",
+            "Y3VzdG9tX2NvbW1vbi5wcm90bxoUY2hhcmFjdGVyK2RhdGEucHJvdG8iFgoU",
             "Q2hhcmFjdGVyTGlzdFJlcXVlc3QidgoVQ2hhcmFjdGVyTGlzdFJlc3BvbnNl",
             "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
             "cxIvCgpjaGFyYWN0ZXJzGAIgAygLMhsudGVjaC5oaXZlLnYxLkNoYXJhY3Rl",
-            "ckluZm8iKgoTQ2hhcmFjdGVyR2V0UmVxdWVzdBITCgtpbnN0YW5jZV9pZBgB",
+            "ckRhdGEiKgoTQ2hhcmFjdGVyR2V0UmVxdWVzdBITCgtpbnN0YW5jZV9pZBgB",
             "IAEoCSJ0ChRDaGFyYWN0ZXJHZXRSZXNwb25zZRIsCgZzdGF0dXMYASABKAsy",
             "HC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSLgoJY2hhcmFjdGVyGAIg",
-            "ASgLMhsudGVjaC5oaXZlLnYxLkNoYXJhY3RlckluZm8iLgoXQ2hhcmFjdGVy",
+            "ASgLMhsudGVjaC5oaXZlLnYxLkNoYXJhY3RlckRhdGEiLgoXQ2hhcmFjdGVy",
             "TGV2ZWxVcFJlcXVlc3QSEwoLaW5zdGFuY2VfaWQYASABKAkirgEKGENoYXJh",
             "Y3RlckxldmVsVXBSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhp",
             "dmUudjEuUmVzcG9uc2VTdGF0dXMSLgoJY2hhcmFjdGVyGAIgASgLMhsudGVj",
-            "aC5oaXZlLnYxLkNoYXJhY3RlckluZm8SNAoPY3VycmVuY3lfZGVsdGFzGAMg",
+            "aC5oaXZlLnYxLkNoYXJhY3RlckRhdGESNAoPY3VycmVuY3lfZGVsdGFzGAMg",
             "AygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiLgoXQ2hhcmFjdGVy",
             "UHJvbW90ZVJlcXVlc3QSEwoLaW5zdGFuY2VfaWQYASABKAkirgEKGENoYXJh",
             "Y3RlclByb21vdGVSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhp",
             "dmUudjEuUmVzcG9uc2VTdGF0dXMSLgoJY2hhcmFjdGVyGAIgASgLMhsudGVj",
-            "aC5oaXZlLnYxLkNoYXJhY3RlckluZm8SNAoPY3VycmVuY3lfZGVsdGFzGAMg",
+            "aC5oaXZlLnYxLkNoYXJhY3RlckRhdGESNAoPY3VycmVuY3lfZGVsdGFzGAMg",
             "AygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiMAoZQ2hhcmFjdGVy",
             "VHJhbnNjZW5kUmVxdWVzdBITCgtpbnN0YW5jZV9pZBgBIAEoCSKwAQoaQ2hh",
             "cmFjdGVyVHJhbnNjZW5kUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVj",
             "aC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi4KCWNoYXJhY3RlchgCIAEoCzIb",
-            "LnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJJbmZvEjQKD2N1cnJlbmN5X2RlbHRh",
+            "LnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJEYXRhEjQKD2N1cnJlbmN5X2RlbHRh",
             "cxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhImkKIUNoYXJh",
             "Y3RlckFsbG9jYXRlUmVzb25hbmNlUmVxdWVzdBITCgtpbnN0YW5jZV9pZBgB",
             "IAEoCRIZChFyZXNvbmFuY2Vfbm9kZV9pZBgCIAEoCRIUCgx0YXJnZXRfbGV2",
             "ZWwYAyABKA0iggEKIkNoYXJhY3RlckFsbG9jYXRlUmVzb25hbmNlUmVzcG9u",
             "c2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3Rh",
             "dHVzEi4KCWNoYXJhY3RlchgCIAEoCzIbLnRlY2guaGl2ZS52MS5DaGFyYWN0",
-            "ZXJJbmZvIjUKHkNoYXJhY3RlclJlc2V0UmVzb25hbmNlUmVxdWVzdBITCgtp",
+            "ZXJEYXRhIjUKHkNoYXJhY3RlclJlc2V0UmVzb25hbmNlUmVxdWVzdBITCgtp",
             "bnN0YW5jZV9pZBgBIAEoCSK1AQofQ2hhcmFjdGVyUmVzZXRSZXNvbmFuY2VS",
             "ZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9u",
             "c2VTdGF0dXMSLgoJY2hhcmFjdGVyGAIgASgLMhsudGVjaC5oaXZlLnYxLkNo",
-            "YXJhY3RlckluZm8SNAoPY3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5o",
+            "YXJhY3RlckRhdGESNAoPY3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5o",
             "aXZlLnYxLkN1cnJlbmN5RGVsdGEiUAocQ2hhcmFjdGVyRXF1aXBTdGVsbHVt",
             "UmVxdWVzdBITCgtpbnN0YW5jZV9pZBgBIAEoCRIbChNzdGVsbHVtX2luc3Rh",
             "bmNlX2lkGAIgASgJIn0KHUNoYXJhY3RlckVxdWlwU3RlbGx1bVJlc3BvbnNl",
             "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
             "cxIuCgljaGFyYWN0ZXIYAiABKAsyGy50ZWNoLmhpdmUudjEuQ2hhcmFjdGVy",
-            "SW5mbyJMChpDaGFyYWN0ZXJFcXVpcFJlbGljUmVxdWVzdBITCgtpbnN0YW5j",
+            "RGF0YSJMChpDaGFyYWN0ZXJFcXVpcFJlbGljUmVxdWVzdBITCgtpbnN0YW5j",
             "ZV9pZBgBIAEoCRIZChFyZWxpY19pbnN0YW5jZV9pZBgCIAEoCSJ7ChtDaGFy",
             "YWN0ZXJFcXVpcFJlbGljUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVj",
             "aC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi4KCWNoYXJhY3RlchgCIAEoCzIb",
-            "LnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJJbmZvIk4KHENoYXJhY3RlclVuRXF1",
+            "LnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJEYXRhIk4KHENoYXJhY3RlclVuRXF1",
             "aXBSZWxpY1JlcXVlc3QSEwoLaW5zdGFuY2VfaWQYASABKAkSGQoRcmVsaWNf",
             "aW5zdGFuY2VfaWQYAiABKAkifQodQ2hhcmFjdGVyVW5FcXVpcFJlbGljUmVz",
             "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
             "U3RhdHVzEi4KCWNoYXJhY3RlchgCIAEoCzIbLnRlY2guaGl2ZS52MS5DaGFy",
-            "YWN0ZXJJbmZvKi8KEkNoYXJhY3RlckVycm9yQ29kZRIZChVDSEFSQUNURVJf",
+            "YWN0ZXJEYXRhKi8KEkNoYXJhY3RlckVycm9yQ29kZRIZChVDSEFSQUNURVJf",
             "VU5TUEVDSUZJRUQQADLhBwoQQ2hhcmFjdGVyU2VydmljZRJPCgRMaXN0EiIu",
             "dGVjaC5oaXZlLnYxLkNoYXJhY3Rlckxpc3RSZXF1ZXN0GiMudGVjaC5oaXZl",
             "LnYxLkNoYXJhY3Rlckxpc3RSZXNwb25zZRJMCgNHZXQSIS50ZWNoLmhpdmUu",
@@ -97,7 +97,7 @@ namespace Tech.Hive.V1 {
             "VW5FcXVpcFJlbGljUmVxdWVzdBorLnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJV",
             "bkVxdWlwUmVsaWNSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.CharacterInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.CharacterDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.CharacterErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterListRequest), global::Tech.Hive.V1.CharacterListRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterListResponse), global::Tech.Hive.V1.CharacterListResponse.Parser, new[]{ "Status", "Characters" }, null, null, null, null),
@@ -345,12 +345,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "characters" field.</summary>
     public const int CharactersFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CharacterInfo> _repeated_characters_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CharacterInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CharacterInfo> characters_ = new pbc::RepeatedField<global::Tech.Hive.V1.CharacterInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CharacterData> _repeated_characters_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CharacterData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CharacterData> characters_ = new pbc::RepeatedField<global::Tech.Hive.V1.CharacterData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CharacterInfo> Characters {
+    public pbc::RepeatedField<global::Tech.Hive.V1.CharacterData> Characters {
       get { return characters_; }
     }
 
@@ -760,10 +760,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -876,7 +876,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -904,7 +904,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -933,7 +933,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -1196,10 +1196,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -1328,7 +1328,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -1357,7 +1357,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -1390,7 +1390,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -1657,10 +1657,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -1789,7 +1789,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -1818,7 +1818,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -1851,7 +1851,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -2118,10 +2118,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -2250,7 +2250,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -2279,7 +2279,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -2312,7 +2312,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -2652,10 +2652,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -2768,7 +2768,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -2796,7 +2796,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -2825,7 +2825,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -3088,10 +3088,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -3220,7 +3220,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -3249,7 +3249,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -3282,7 +3282,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -3585,10 +3585,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -3701,7 +3701,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -3729,7 +3729,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -3758,7 +3758,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -4057,10 +4057,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -4173,7 +4173,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -4201,7 +4201,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -4230,7 +4230,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -4529,10 +4529,10 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterInfo character_;
+    private global::Tech.Hive.V1.CharacterData character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterInfo Character {
+    public global::Tech.Hive.V1.CharacterData Character {
       get { return character_; }
       set {
         character_ = value;
@@ -4645,7 +4645,7 @@ namespace Tech.Hive.V1 {
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterInfo();
+          Character = new global::Tech.Hive.V1.CharacterData();
         }
         Character.MergeFrom(other.Character);
       }
@@ -4673,7 +4673,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;
@@ -4702,7 +4702,7 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterInfo();
+              Character = new global::Tech.Hive.V1.CharacterData();
             }
             input.ReadMessage(Character);
             break;

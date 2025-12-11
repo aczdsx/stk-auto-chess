@@ -27,62 +27,61 @@ namespace Tech.Hive.V1 {
             "CgxiYXR0bGUucHJvdG8SDHRlY2guaGl2ZS52MRoKYmFzZS5wcm90bxoTY3Vz",
             "dG9tX2NvbW1vbi5wcm90bxoUYmF0dGxlK2NoYXB0ZXIucHJvdG8aEmJhdHRs",
             "ZStzdGFnZS5wcm90byIgCh5CYXR0bGVHZXRDdXJyZW50Q2hhcHRlclJlcXVl",
-            "c3QivQEKH0JhdHRsZUdldEN1cnJlbnRDaGFwdGVyUmVzcG9uc2USLAoGc3Rh",
-            "dHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDGNo",
-            "YXB0ZXJfaW5mbxgCIAEoCzIfLnRlY2guaGl2ZS52MS5CYXR0bGVDaGFwdGVy",
-            "SW5mbxI1CgpzdGFnZV9saXN0GAMgAygLMiEudGVjaC5oaXZlLnYxLkJhdHRs",
-            "ZVN0YWdlUHJvZ3Jlc3MiGgoYQmF0dGxlTGlzdENoYXB0ZXJSZXF1ZXN0IoAB",
-            "ChlCYXR0bGVMaXN0Q2hhcHRlclJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
-            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1CgxjaGFwdGVyX2xpc3QY",
-            "AiADKAsyHy50ZWNoLmhpdmUudjEuQmF0dGxlQ2hhcHRlckluZm8iLAoWQmF0",
-            "dGxlTGlzdFN0YWdlUmVxdWVzdBISCgpjaGFwdGVyX2lkGAEgASgNIn4KF0Jh",
-            "dHRsZUxpc3RTdGFnZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2gu",
-            "aGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1CgpzdGFnZV9saXN0GAIgAygLMiEu",
-            "dGVjaC5oaXZlLnYxLkJhdHRsZVN0YWdlUHJvZ3Jlc3MihgEKEkJhdHRsZVN0",
-            "YXJ0UmVxdWVzdBIQCghzdGFnZV9pZBgBIAEoCRIsCgpkaWZmaWN1bHR5GAIg",
-            "ASgOMhgudGVjaC5oaXZlLnYxLkRpZmZpY3VsdHkSFAoMZGVja19zbG90X2lk",
-            "GAMgASgNEhoKEm9ic2VydmVyX3NraWxsX2lkcxgEIAMoCSJzChNCYXR0bGVT",
-            "dGFydFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
-            "ZXNwb25zZVN0YXR1cxIZChFiYXR0bGVfc2Vzc2lvbl9pZBgCIAEoCRITCgti",
-            "YXR0bGVfc2VlZBgDIAEoBCJZChBCYXR0bGVFbmRSZXF1ZXN0EhkKEWJhdHRs",
-            "ZV9zZXNzaW9uX2lkGAEgASgJEioKBnJlc3VsdBgCIAEoCzIaLnRlY2guaGl2",
-            "ZS52MS5CYXR0bGVSZXN1bHQirwEKDEJhdHRsZVJlc3VsdBISCgppc192aWN0",
-            "b3J5GAEgASgIEhIKCmNsZWFyX3RpbWUYAiABKAQSDQoFc3RhcnMYAyABKA0S",
-            "MAoKdW5pdF9zdGF0cxgEIAMoCzIcLnRlY2guaGl2ZS52MS5CYXR0bGVVbml0",
-            "U3RhdBIaChJ0b3RhbF9kYW1hZ2VfZGVhbHQYBSABKAQSGgoSdG90YWxfZGFt",
-            "YWdlX3Rha2VuGAYgASgEIn8KDkJhdHRsZVVuaXRTdGF0Eh0KFWNoYXJhY3Rl",
-            "cl9pbnN0YW5jZV9pZBgBIAEoCRIUCgxkYW1hZ2VfZGVhbHQYAiABKAQSFAoM",
-            "ZGFtYWdlX3Rha2VuGAMgASgEEg0KBWtpbGxzGAQgASgNEhMKC2lzX3N1cnZp",
-            "dmVkGAUgASgIIsUCChFCYXR0bGVFbmRSZXNwb25zZRIsCgZzdGF0dXMYASAB",
-            "KAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSMwoLcmV3YXJkX3R5",
-            "cGUYAiABKA4yHi50ZWNoLmhpdmUudjEuQmF0dGxlUmV3YXJkVHlwZRI0Cg9j",
-            "dXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lE",
-            "ZWx0YRI5Cg5zdGFnZV9wcm9ncmVzcxgEIAEoCzIhLnRlY2guaGl2ZS52MS5C",
-            "YXR0bGVTdGFnZVByb2dyZXNzEhkKEXBsYXllcl9leHBfZ2FpbmVkGAUgASgE",
-            "EkEKE2NoYXJhY3Rlcl9leHBfZ2FpbnMYBiADKAsyJC50ZWNoLmhpdmUudjEu",
-            "QmF0dGxlQ2hhcmFjdGVyRXhwR2FpbiJ2ChZCYXR0bGVDaGFyYWN0ZXJFeHBH",
-            "YWluEh0KFWNoYXJhY3Rlcl9pbnN0YW5jZV9pZBgBIAEoCRISCgpleHBfZ2Fp",
-            "bmVkGAIgASgEEhQKDGxldmVsX2JlZm9yZRgDIAEoDRITCgtsZXZlbF9hZnRl",
-            "chgEIAEoDSopCg9CYXR0bGVFcnJvckNvZGUSFgoSQkFUVExFX1VOU1BFQ0lG",
-            "SUVEEAAqaAoQQmF0dGxlUmV3YXJkVHlwZRIbChdSRVdBUkRfVFlQRV9VTlNQ",
-            "RUNJRklFRBAAEhsKF1JFV0FSRF9UWVBFX0ZJUlNUX0NMRUFSEAESGgoWUkVX",
-            "QVJEX1RZUEVfVEhSRUVfU1RBUhACMtEDCg1CYXR0bGVTZXJ2aWNlEnAKEUdl",
-            "dEN1cnJlbnRDaGFwdGVyEiwudGVjaC5oaXZlLnYxLkJhdHRsZUdldEN1cnJl",
-            "bnRDaGFwdGVyUmVxdWVzdBotLnRlY2guaGl2ZS52MS5CYXR0bGVHZXRDdXJy",
-            "ZW50Q2hhcHRlclJlc3BvbnNlEl4KC0xpc3RDaGFwdGVyEiYudGVjaC5oaXZl",
-            "LnYxLkJhdHRsZUxpc3RDaGFwdGVyUmVxdWVzdBonLnRlY2guaGl2ZS52MS5C",
-            "YXR0bGVMaXN0Q2hhcHRlclJlc3BvbnNlElgKCUxpc3RTdGFnZRIkLnRlY2gu",
-            "aGl2ZS52MS5CYXR0bGVMaXN0U3RhZ2VSZXF1ZXN0GiUudGVjaC5oaXZlLnYx",
-            "LkJhdHRsZUxpc3RTdGFnZVJlc3BvbnNlEkwKBVN0YXJ0EiAudGVjaC5oaXZl",
-            "LnYxLkJhdHRsZVN0YXJ0UmVxdWVzdBohLnRlY2guaGl2ZS52MS5CYXR0bGVT",
-            "dGFydFJlc3BvbnNlEkYKA0VuZBIeLnRlY2guaGl2ZS52MS5CYXR0bGVFbmRS",
-            "ZXF1ZXN0Gh8udGVjaC5oaXZlLnYxLkJhdHRsZUVuZFJlc3BvbnNlYgZwcm90",
-            "bzM="));
+            "c3QiuAEKH0JhdHRsZUdldEN1cnJlbnRDaGFwdGVyUmVzcG9uc2USLAoGc3Rh",
+            "dHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjAKB2No",
+            "YXB0ZXIYAiABKAsyHy50ZWNoLmhpdmUudjEuQmF0dGxlQ2hhcHRlckRhdGES",
+            "NQoKc3RhZ2VfbGlzdBgDIAMoCzIhLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFn",
+            "ZVByb2dyZXNzIhoKGEJhdHRsZUxpc3RDaGFwdGVyUmVxdWVzdCKAAQoZQmF0",
+            "dGxlTGlzdENoYXB0ZXJSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNo",
+            "LmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSNQoMY2hhcHRlcl9saXN0GAIgAygL",
+            "Mh8udGVjaC5oaXZlLnYxLkJhdHRsZUNoYXB0ZXJEYXRhIiwKFkJhdHRsZUxp",
+            "c3RTdGFnZVJlcXVlc3QSEgoKY2hhcHRlcl9pZBgBIAEoDSJ+ChdCYXR0bGVM",
+            "aXN0U3RhZ2VSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUu",
+            "djEuUmVzcG9uc2VTdGF0dXMSNQoKc3RhZ2VfbGlzdBgCIAMoCzIhLnRlY2gu",
+            "aGl2ZS52MS5CYXR0bGVTdGFnZVByb2dyZXNzIoYBChJCYXR0bGVTdGFydFJl",
+            "cXVlc3QSEAoIc3RhZ2VfaWQYASABKAkSLAoKZGlmZmljdWx0eRgCIAEoDjIY",
+            "LnRlY2guaGl2ZS52MS5EaWZmaWN1bHR5EhQKDGRlY2tfc2xvdF9pZBgDIAEo",
+            "DRIaChJvYnNlcnZlcl9za2lsbF9pZHMYBCADKAkicwoTQmF0dGxlU3RhcnRS",
+            "ZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9u",
+            "c2VTdGF0dXMSGQoRYmF0dGxlX3Nlc3Npb25faWQYAiABKAkSEwoLYmF0dGxl",
+            "X3NlZWQYAyABKAQiWQoQQmF0dGxlRW5kUmVxdWVzdBIZChFiYXR0bGVfc2Vz",
+            "c2lvbl9pZBgBIAEoCRIqCgZyZXN1bHQYAiABKAsyGi50ZWNoLmhpdmUudjEu",
+            "QmF0dGxlUmVzdWx0Iq8BCgxCYXR0bGVSZXN1bHQSEgoKaXNfdmljdG9yeRgB",
+            "IAEoCBISCgpjbGVhcl90aW1lGAIgASgEEg0KBXN0YXJzGAMgASgNEjAKCnVu",
+            "aXRfc3RhdHMYBCADKAsyHC50ZWNoLmhpdmUudjEuQmF0dGxlVW5pdFN0YXQS",
+            "GgoSdG90YWxfZGFtYWdlX2RlYWx0GAUgASgEEhoKEnRvdGFsX2RhbWFnZV90",
+            "YWtlbhgGIAEoBCJ/Cg5CYXR0bGVVbml0U3RhdBIdChVjaGFyYWN0ZXJfaW5z",
+            "dGFuY2VfaWQYASABKAkSFAoMZGFtYWdlX2RlYWx0GAIgASgEEhQKDGRhbWFn",
+            "ZV90YWtlbhgDIAEoBBINCgVraWxscxgEIAEoDRITCgtpc19zdXJ2aXZlZBgF",
+            "IAEoCCLFAgoRQmF0dGxlRW5kUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwu",
+            "dGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjMKC3Jld2FyZF90eXBlGAIg",
+            "ASgOMh4udGVjaC5oaXZlLnYxLkJhdHRsZVJld2FyZFR5cGUSNAoPY3VycmVu",
+            "Y3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGES",
+            "OQoOc3RhZ2VfcHJvZ3Jlc3MYBCABKAsyIS50ZWNoLmhpdmUudjEuQmF0dGxl",
+            "U3RhZ2VQcm9ncmVzcxIZChFwbGF5ZXJfZXhwX2dhaW5lZBgFIAEoBBJBChNj",
+            "aGFyYWN0ZXJfZXhwX2dhaW5zGAYgAygLMiQudGVjaC5oaXZlLnYxLkJhdHRs",
+            "ZUNoYXJhY3RlckV4cEdhaW4idgoWQmF0dGxlQ2hhcmFjdGVyRXhwR2FpbhId",
+            "ChVjaGFyYWN0ZXJfaW5zdGFuY2VfaWQYASABKAkSEgoKZXhwX2dhaW5lZBgC",
+            "IAEoBBIUCgxsZXZlbF9iZWZvcmUYAyABKA0SEwoLbGV2ZWxfYWZ0ZXIYBCAB",
+            "KA0qKQoPQmF0dGxlRXJyb3JDb2RlEhYKEkJBVFRMRV9VTlNQRUNJRklFRBAA",
+            "KmgKEEJhdHRsZVJld2FyZFR5cGUSGwoXUkVXQVJEX1RZUEVfVU5TUEVDSUZJ",
+            "RUQQABIbChdSRVdBUkRfVFlQRV9GSVJTVF9DTEVBUhABEhoKFlJFV0FSRF9U",
+            "WVBFX1RIUkVFX1NUQVIQAjLRAwoNQmF0dGxlU2VydmljZRJwChFHZXRDdXJy",
+            "ZW50Q2hhcHRlchIsLnRlY2guaGl2ZS52MS5CYXR0bGVHZXRDdXJyZW50Q2hh",
+            "cHRlclJlcXVlc3QaLS50ZWNoLmhpdmUudjEuQmF0dGxlR2V0Q3VycmVudENo",
+            "YXB0ZXJSZXNwb25zZRJeCgtMaXN0Q2hhcHRlchImLnRlY2guaGl2ZS52MS5C",
+            "YXR0bGVMaXN0Q2hhcHRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuQmF0dGxl",
+            "TGlzdENoYXB0ZXJSZXNwb25zZRJYCglMaXN0U3RhZ2USJC50ZWNoLmhpdmUu",
+            "djEuQmF0dGxlTGlzdFN0YWdlUmVxdWVzdBolLnRlY2guaGl2ZS52MS5CYXR0",
+            "bGVMaXN0U3RhZ2VSZXNwb25zZRJMCgVTdGFydBIgLnRlY2guaGl2ZS52MS5C",
+            "YXR0bGVTdGFydFJlcXVlc3QaIS50ZWNoLmhpdmUudjEuQmF0dGxlU3RhcnRS",
+            "ZXNwb25zZRJGCgNFbmQSHi50ZWNoLmhpdmUudjEuQmF0dGxlRW5kUmVxdWVz",
+            "dBofLnRlY2guaGl2ZS52MS5CYXR0bGVFbmRSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.BattleChapterReflection.Descriptor, global::Tech.Hive.V1.BattleStageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BattleErrorCode), typeof(global::Tech.Hive.V1.BattleRewardType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleGetCurrentChapterRequest), global::Tech.Hive.V1.BattleGetCurrentChapterRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleGetCurrentChapterResponse), global::Tech.Hive.V1.BattleGetCurrentChapterResponse.Parser, new[]{ "Status", "ChapterInfo", "StageList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleGetCurrentChapterResponse), global::Tech.Hive.V1.BattleGetCurrentChapterResponse.Parser, new[]{ "Status", "Chapter", "StageList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListChapterRequest), global::Tech.Hive.V1.BattleListChapterRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListChapterResponse), global::Tech.Hive.V1.BattleListChapterResponse.Parser, new[]{ "Status", "ChapterList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListStageRequest), global::Tech.Hive.V1.BattleListStageRequest.Parser, new[]{ "ChapterId" }, null, null, null, null),
@@ -311,7 +310,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleGetCurrentChapterResponse(BattleGetCurrentChapterResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      chapterInfo_ = other.chapterInfo_ != null ? other.chapterInfo_.Clone() : null;
+      chapter_ = other.chapter_ != null ? other.chapter_.Clone() : null;
       stageList_ = other.stageList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -334,15 +333,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "chapter_info" field.</summary>
-    public const int ChapterInfoFieldNumber = 2;
-    private global::Tech.Hive.V1.BattleChapterInfo chapterInfo_;
+    /// <summary>Field number for the "chapter" field.</summary>
+    public const int ChapterFieldNumber = 2;
+    private global::Tech.Hive.V1.BattleChapterData chapter_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleChapterInfo ChapterInfo {
-      get { return chapterInfo_; }
+    public global::Tech.Hive.V1.BattleChapterData Chapter {
+      get { return chapter_; }
       set {
-        chapterInfo_ = value;
+        chapter_ = value;
       }
     }
 
@@ -373,7 +372,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(ChapterInfo, other.ChapterInfo)) return false;
+      if (!object.Equals(Chapter, other.Chapter)) return false;
       if(!stageList_.Equals(other.stageList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -383,7 +382,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (chapterInfo_ != null) hash ^= ChapterInfo.GetHashCode();
+      if (chapter_ != null) hash ^= Chapter.GetHashCode();
       hash ^= stageList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -407,9 +406,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (chapterInfo_ != null) {
+      if (chapter_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(ChapterInfo);
+        output.WriteMessage(Chapter);
       }
       stageList_.WriteTo(output, _repeated_stageList_codec);
       if (_unknownFields != null) {
@@ -426,9 +425,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (chapterInfo_ != null) {
+      if (chapter_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(ChapterInfo);
+        output.WriteMessage(Chapter);
       }
       stageList_.WriteTo(ref output, _repeated_stageList_codec);
       if (_unknownFields != null) {
@@ -444,8 +443,8 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      if (chapterInfo_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChapterInfo);
+      if (chapter_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Chapter);
       }
       size += stageList_.CalculateSize(_repeated_stageList_codec);
       if (_unknownFields != null) {
@@ -466,11 +465,11 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      if (other.chapterInfo_ != null) {
-        if (chapterInfo_ == null) {
-          ChapterInfo = new global::Tech.Hive.V1.BattleChapterInfo();
+      if (other.chapter_ != null) {
+        if (chapter_ == null) {
+          Chapter = new global::Tech.Hive.V1.BattleChapterData();
         }
-        ChapterInfo.MergeFrom(other.ChapterInfo);
+        Chapter.MergeFrom(other.Chapter);
       }
       stageList_.Add(other.stageList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -496,10 +495,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (chapterInfo_ == null) {
-              ChapterInfo = new global::Tech.Hive.V1.BattleChapterInfo();
+            if (chapter_ == null) {
+              Chapter = new global::Tech.Hive.V1.BattleChapterData();
             }
-            input.ReadMessage(ChapterInfo);
+            input.ReadMessage(Chapter);
             break;
           }
           case 26: {
@@ -529,10 +528,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (chapterInfo_ == null) {
-              ChapterInfo = new global::Tech.Hive.V1.BattleChapterInfo();
+            if (chapter_ == null) {
+              Chapter = new global::Tech.Hive.V1.BattleChapterData();
             }
-            input.ReadMessage(ChapterInfo);
+            input.ReadMessage(Chapter);
             break;
           }
           case 26: {
@@ -759,12 +758,12 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "chapter_list" field.</summary>
     public const int ChapterListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.BattleChapterInfo> _repeated_chapterList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.BattleChapterInfo.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.BattleChapterInfo> chapterList_ = new pbc::RepeatedField<global::Tech.Hive.V1.BattleChapterInfo>();
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.BattleChapterData> _repeated_chapterList_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.BattleChapterData.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.BattleChapterData> chapterList_ = new pbc::RepeatedField<global::Tech.Hive.V1.BattleChapterData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.BattleChapterInfo> ChapterList {
+    public pbc::RepeatedField<global::Tech.Hive.V1.BattleChapterData> ChapterList {
       get { return chapterList_; }
     }
 

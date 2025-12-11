@@ -49,9 +49,9 @@ namespace Tech.Hive.V1 {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisGetInfoRequest> __Marshaller_tech_hive_v1_ElpisGetInfoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisGetInfoRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisGetRequest> __Marshaller_tech_hive_v1_ElpisGetRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisGetRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisGetInfoResponse> __Marshaller_tech_hive_v1_ElpisGetInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisGetInfoResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisGetResponse> __Marshaller_tech_hive_v1_ElpisGetResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisGetResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisExpandRequest> __Marshaller_tech_hive_v1_ElpisExpandRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisExpandRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -78,12 +78,12 @@ namespace Tech.Hive.V1 {
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisClaimSimulationRewardResponse> __Marshaller_tech_hive_v1_ElpisClaimSimulationRewardResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisClaimSimulationRewardResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.ElpisGetInfoRequest, global::Tech.Hive.V1.ElpisGetInfoResponse> __Method_GetInfo = new grpc::Method<global::Tech.Hive.V1.ElpisGetInfoRequest, global::Tech.Hive.V1.ElpisGetInfoResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.ElpisGetRequest, global::Tech.Hive.V1.ElpisGetResponse> __Method_Get = new grpc::Method<global::Tech.Hive.V1.ElpisGetRequest, global::Tech.Hive.V1.ElpisGetResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "GetInfo",
-        __Marshaller_tech_hive_v1_ElpisGetInfoRequest,
-        __Marshaller_tech_hive_v1_ElpisGetInfoResponse);
+        "Get",
+        __Marshaller_tech_hive_v1_ElpisGetRequest,
+        __Marshaller_tech_hive_v1_ElpisGetResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.ElpisExpandRequest, global::Tech.Hive.V1.ElpisExpandResponse> __Method_ExpandElpis = new grpc::Method<global::Tech.Hive.V1.ElpisExpandRequest, global::Tech.Hive.V1.ElpisExpandResponse>(
@@ -151,7 +151,7 @@ namespace Tech.Hive.V1 {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.ElpisGetInfoResponse> GetInfo(global::Tech.Hive.V1.ElpisGetInfoRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.ElpisGetResponse> Get(global::Tech.Hive.V1.ElpisGetRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -273,9 +273,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.ElpisGetInfoResponse GetInfo(global::Tech.Hive.V1.ElpisGetInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.ElpisGetResponse Get(global::Tech.Hive.V1.ElpisGetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return GetInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -285,9 +285,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.ElpisGetInfoResponse GetInfo(global::Tech.Hive.V1.ElpisGetInfoRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.ElpisGetResponse Get(global::Tech.Hive.V1.ElpisGetRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_GetInfo, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Get, null, options, request);
       }
       /// <summary>
       ///*
@@ -299,9 +299,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisGetInfoResponse> GetInfoAsync(global::Tech.Hive.V1.ElpisGetInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisGetResponse> GetAsync(global::Tech.Hive.V1.ElpisGetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return GetInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return GetAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -311,9 +311,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisGetInfoResponse> GetInfoAsync(global::Tech.Hive.V1.ElpisGetInfoRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisGetResponse> GetAsync(global::Tech.Hive.V1.ElpisGetRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_GetInfo, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
       }
       /// <summary>
       ///*
@@ -641,7 +641,7 @@ namespace Tech.Hive.V1 {
     public static grpc::ServerServiceDefinition BindService(ElpisServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_GetInfo, serviceImpl.GetInfo)
+          .AddMethod(__Method_Get, serviceImpl.Get)
           .AddMethod(__Method_ExpandElpis, serviceImpl.ExpandElpis)
           .AddMethod(__Method_BuildFacility, serviceImpl.BuildFacility)
           .AddMethod(__Method_UpgradeFacility, serviceImpl.UpgradeFacility)
@@ -657,7 +657,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, ElpisServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_GetInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisGetInfoRequest, global::Tech.Hive.V1.ElpisGetInfoResponse>(serviceImpl.GetInfo));
+      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisGetRequest, global::Tech.Hive.V1.ElpisGetResponse>(serviceImpl.Get));
       serviceBinder.AddMethod(__Method_ExpandElpis, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisExpandRequest, global::Tech.Hive.V1.ElpisExpandResponse>(serviceImpl.ExpandElpis));
       serviceBinder.AddMethod(__Method_BuildFacility, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisBuildFacilityRequest, global::Tech.Hive.V1.ElpisBuildFacilityResponse>(serviceImpl.BuildFacility));
       serviceBinder.AddMethod(__Method_UpgradeFacility, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisUpgradeFacilityRequest, global::Tech.Hive.V1.ElpisUpgradeFacilityResponse>(serviceImpl.UpgradeFacility));

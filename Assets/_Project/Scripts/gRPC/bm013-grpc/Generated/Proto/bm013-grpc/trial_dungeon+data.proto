@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "custom_common.proto";
+
+message TrialDungeonData {
+  uint32 trial_dungeon_id = 1;        // 시도 던전 아이디
+  uint32 order = 2;                   // 던전 순서
+  uint32 required_ap = 3;             // 필요 행동력
+  TrialDungeonState state = 4;        // 던전 상태
+  repeated Reward rewards = 5;        // 보상 목록
+  uint64 clear_timestamp = 6;         // 클리어 시간
+}
+
+enum TrialDungeonState {
+  TRIAL_DUNGEON_STATE_UNSPECIFIED = 0;
+  TRIAL_DUNGEON_STATE_NOT_STARTED = 1; // 던전 시작 전
+  TRIAL_DUNGEON_STATE_IN_PROGRESS = 2; // 던전 진행 중
+  TRIAL_DUNGEON_STATE_COMPLETED = 3;   // 던전 완료
+}

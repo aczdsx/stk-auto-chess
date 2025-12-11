@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using UnityEngine;
-using CharacterInfo = Tech.Hive.V1.CharacterInfo;
 
 namespace CookApps.AutoBattler
 {
@@ -133,7 +132,7 @@ namespace CookApps.AutoBattler
         {
             Debug.Log("--- 예제 1: 모든 캐릭터 조회 ---");
 
-            var characters = new List<Tech.Hive.V1.CharacterInfo>();
+            var characters = new List<CharacterData>();
             _characterBridge.GetAllCharacters(characters);
 
             Debug.Log($"전체 캐릭터 수: {characters.Count}");
@@ -154,17 +153,17 @@ namespace CookApps.AutoBattler
             Debug.Log("--- 예제 2: 조건별 필터링 ---");
 
             // 레벨 10 이상 캐릭터
-            var highLevelCharacters = new List<Tech.Hive.V1.CharacterInfo>();
+            var highLevelCharacters = new List<CharacterData>();
             _characterBridge.GetCharactersByLevelRange(highLevelCharacters, 10, 99);
             Debug.Log($"레벨 10 이상 캐릭터: {highLevelCharacters.Count}명");
 
             // Guardian 클래스 캐릭터
-            var guardians = new List<Tech.Hive.V1.CharacterInfo>();
+            var guardians = new List<CharacterData>();
             _characterBridge.GetCharactersByClass(guardians, ClassType.Guardian);
             Debug.Log($"Guardian 클래스 캐릭터: {guardians.Count}명");
 
             // UR 등급 캐릭터
-            var urCharacters = new List<Tech.Hive.V1.CharacterInfo>();
+            var urCharacters = new List<CharacterData>();
             _characterBridge.GetCharactersByRarity(urCharacters, Rarity.Ur);
             Debug.Log($"UR 등급 캐릭터: {urCharacters.Count}명");
         }
@@ -176,7 +175,7 @@ namespace CookApps.AutoBattler
         {
             Debug.Log("--- 예제 3: 캐릭터 레벨업 ---");
 
-            var characters = new List<Tech.Hive.V1.CharacterInfo>();
+            var characters = new List<CharacterData>();
             _characterBridge.GetAllCharacters(characters);
 
             if (characters.Count > 0)
@@ -256,7 +255,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// UI 이벤트 핸들러: 특정 캐릭터 업데이트
         /// </summary>
-        private void OnCharacterUpdated(Tech.Hive.V1.CharacterInfo character)
+        private void OnCharacterUpdated(CharacterData character)
         {
             Debug.Log($"[UI Event] 캐릭터 업데이트: {character.InstanceId} - Lv.{character.Level}");
             // 해당 캐릭터 UI만 갱신

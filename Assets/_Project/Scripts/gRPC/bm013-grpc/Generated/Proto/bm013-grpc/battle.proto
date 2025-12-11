@@ -43,14 +43,14 @@ enum BattleErrorCode {
 message BattleGetCurrentChapterRequest {}
 message BattleGetCurrentChapterResponse {
   ResponseStatus status = 1;
-  BattleChapterInfo chapter_info = 2;
+  BattleChapterData chapter = 2;
   repeated BattleStageProgress stage_list = 3;
 }
 
 message BattleListChapterRequest {}
 message BattleListChapterResponse {
   ResponseStatus status = 1;
-  repeated BattleChapterInfo chapter_list = 2;
+  repeated BattleChapterData chapter_list = 2;
 }
 
 message BattleListStageRequest {
