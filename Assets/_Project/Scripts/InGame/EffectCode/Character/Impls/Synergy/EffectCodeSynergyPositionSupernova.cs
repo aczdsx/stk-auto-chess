@@ -19,7 +19,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         ADD_AD_PERCENT = 2,
         ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE = 3,
     }
-    public const int CodeId = 210701;
+    public const int CodeId = 200201;
     public readonly static int SUPERNOVA_ITEM_VIEW_ID = 300001;
     private int _synergyGrade;
     private CharacterController _targetCharacter = null;
@@ -78,7 +78,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         if (_targetCharacter == null)
             return;
 
-        var supernovaSynergyList = SpecDataManager.Instance.GetSpecSynergyListBySynergyType(SynergyType.SUPERNOVA);
+        var supernovaSynergyList = SpecDataManager.Instance.GetSpecSynergyList(SynergyType.SUPERNOVA);
         if (supernovaSynergyList == null || supernovaSynergyList.Count == 0)
             return;
         
@@ -99,29 +99,29 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
             }
         }
     }
-    private void AddHpPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<SynergyStarAsterism> supernovaSynergyList)
+    private void AddHpPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_HP_PERCENT].effect_stat_value;
-        Debug.LogColor($"Supernova HP % Up: {supernovaSynergyList[1].effect_stat_value}", "green");
+        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_HP_PERCENT].effect_stat_value_1;
+        Debug.LogColor($"Supernova HP % Up: {supernovaSynergyList[1].effect_stat_value_1}", "green");
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, targetCharacter, stats, source);
     }
     
-    private void AddAdPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<SynergyStarAsterism> supernovaSynergyList)
+    private void AddAdPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value;
-        Debug.LogColor($"Supernova AD % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value}", "green");
+        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value_1;
+        Debug.LogColor($"Supernova AD % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value_1}", "green");
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, targetCharacter, stats, source);
     }
-    private void AddAttackSpeedCriticalRateAtkPierce(CharacterController targetCharacter, IEffectCodeSource source, List<SynergyStarAsterism> supernovaSynergyList)
+    private void AddAttackSpeedCriticalRateAtkPierce(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
         Span<double> stats = stackalloc double[1];
     
         stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value;
+        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_1;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_PERCENT_UP, targetCharacter, stats, source);
     
         stats.Clear();
@@ -131,7 +131,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         stats.Clear();
         stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_3;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP, targetCharacter, stats, source);
-        Debug.LogColor($"Supernova ATK Speed % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value}", "green");
+        Debug.LogColor($"Supernova ATK Speed % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_1}", "green");
         Debug.LogColor($"Supernova Crit Rate % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_2}", "green");
         Debug.LogColor($"Supernova DEF Penetration % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_3}", "green");
     

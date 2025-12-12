@@ -42,8 +42,8 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateStart()
     {
-        // base.AddSynergy(AllianceType.Player);
-        // base.AddSynergy(AllianceType.Enemy);
+        base.AddSynergy(AllianceType.Player);
+        base.AddSynergy(AllianceType.Enemy);
         
         base.AddPassive(AllianceType.Player);
         base.AddPassive(AllianceType.Enemy);

@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
         {
             if (skillData == null) return;
 
-            _skillIconImage.sprite = ImageManager.Instance.GetCharacterSkillSprite(skillData.skill_id);
+            _skillIconImage.sprite = ImageManager.Instance.GetCharacterSkillSprite(skillData.skill_group_id);
 
             _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_name_token);
             _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_desc_token);
@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
 
             _skillTypeText.text = LanguageManager.Instance.GetAtkTypeText(skillData.atk_type);
 
-            var extraSkillData = SpecDataManager.Instance.GetSkillData(skillData.skill_id, SkillValueType.COOL);
+            var extraSkillData = SpecDataManager.Instance.GetSkillData(skillData.skill_group_id, SkillValueType.COOL);
             if (extraSkillData != null)
             {
                 string cooltimeString = LanguageManager.Instance.GetLanguageText("SKILL_COOLTIME");

@@ -89,8 +89,7 @@ namespace CookApps.AutoBattler
         private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<SynergyType, List<SynergyElemental>> synergyElementDic = new();                // key : SynergyType, value : SynergyElemental
-        private Dictionary<SynergyType, List<SynergyStarAsterism>> synergyStarAsterismDic = new();                // key : SynergyType, value : SynergyStarAsterism
+        private Dictionary<SynergyType, List<ISpecSynergyData>> synergyDic = new();                // key : SynergyType, value : ISpecSynergyData
         private Dictionary<int, List<ObstacleInfo>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
         private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
@@ -190,10 +189,10 @@ namespace CookApps.AutoBattler
             foreach (SkillActive skill in SkillActive.All)
             {
                 // skillDic
-                if (!skillDic.TryGetValue(skill.skill_id, out List<SkillActive> skillList1))
+                if (!skillDic.TryGetValue(skill.skill_group_id, out List<SkillActive> skillList1))
                 {
                     skillList1 = new List<SkillActive>();
-                    skillDic.Add(skill.skill_id, skillList1);
+                    skillDic.Add(skill.skill_group_id, skillList1);
                 }
 
                 skillList1.Add(skill);
@@ -260,28 +259,27 @@ namespace CookApps.AutoBattler
             }
 
             // synergyElementDic Dic
-            synergyElementDic.Clear();
+            synergyDic.Clear();
             foreach (SynergyElemental synergy in SynergyElemental.All)
             {
-                if (!synergyElementDic.TryGetValue(synergy.synergy_type, out var list))
+                if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
                 {
-                    list = new List<SynergyElemental>();
-                    synergyElementDic.Add(synergy.synergy_type, list);
+                    list = new List<ISpecSynergyData>();
+                    synergyDic.Add(synergy.synergy_type, list);
                 }
 
                 list.Add(synergy);
             }
-
-            synergyStarAsterismDic.Clear();
             foreach (SynergyStarAsterism synergy in SynergyStarAsterism.All)
             {
-                if (!synergyStarAsterismDic.TryGetValue(synergy.synergy_type, out var list))
+                if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
                 {
-                    list = new List<SynergyStarAsterism>();
-                    synergyStarAsterismDic.Add(synergy.synergy_type, list);
+                    list = new List<ISpecSynergyData>();
+                    synergyDic.Add(synergy.synergy_type, list);
                 }
                 list.Add(synergy);
             }
+
 
             // skillJobDic Dic
             skillJobDic.Clear();
@@ -728,7 +726,7 @@ namespace CookApps.AutoBattler
 
         public SkillActive GetSkillData(int skillID, SkillValueType type)
         {
-            return SkillActiveList.Find(data => data.skill_id == skillID && data.skill_value_type == type);
+            return SkillActiveList.Find(data => data.skill_group_id == skillID && data.skill_value_type == type);
         }
 
         public List<SkillCommander> GetCommanderSkillList(int chapterID)
@@ -898,88 +896,31 @@ namespace CookApps.AutoBattler
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
 
-        public List<SynergyElemental> GetSpecSynergyListByElementType(SynergyType synergyType)
+        public List<ISpecSynergyData> GetSpecSynergyList(SynergyType synergyType)
         {
-            if (synergyElementDic.TryGetValue(synergyType, out List<SynergyElemental> synergyList))
+            if (synergyDic.TryGetValue(synergyType, out List<ISpecSynergyData> synergyList))
             {
                 return synergyList;
             }
             return null;
         }
-        
-        public List<SynergyStarAsterism> GetSpecSynergyListBySynergyType(SynergyType synergyType)
+
+        public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
+            out ISpecSynergyData outSynergyData, out List<ISpecSynergyData> outSynergyList)
         {
-            if (synergyStarAsterismDic.TryGetValue(synergyType, out List<SynergyStarAsterism> synergyList))
+            outSynergyData = null;
+            outSynergyList = GetSpecSynergyList(synergyType);
+            if (outSynergyList == null)
             {
-                return synergyList;
+                return false;
             }
-            return null;
+            outSynergyData = outSynergyList.Find(l => l.min_int <= count && l.max_int >= count);
+            if (outSynergyData == null || outSynergyData.grade < 1)
+            {
+                return false;
+            }
+            return true;
         }
-        
-        // /// <summary>
-        // /// ElementType 기반 시너지 데이터를 count로 조회합니다.
-        // /// </summary>
-        // public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
-        //     out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
-        // {
-        //     return TryGetSynergyDataByCountInternal(
-        //         synergyType,
-        //         count,
-        //         GetSpecSynergyListByElementType,
-        //         (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
-        //         data => data.grade,
-        //         out outSynergyData,
-        //         out outSynergyList);
-        // }
-
-        // /// <summary>
-        // /// SynergyType 기반 시너지 데이터를 count로 조회합니다.
-        // /// </summary>
-        // public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
-        //     out SynergyStarAsterism outSynergyData, out List<SynergyStarAsterism> outSynergyList)
-        // {
-        //     return TryGetSynergyDataByCountInternal(
-        //         synergyType,
-        //         count,
-        //         GetSpecSynergyListBySynergyType,
-        //         (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
-        //         data => data.grade,
-        //         out outSynergyData,
-        //         out outSynergyList);
-        // }
-
-        // /// <summary>
-        // /// 시너지 데이터 조회를 위한 내부 제네릭 메서드 (인터페이스 기반 통합)
-        // /// </summary>
-        // private bool TryGetSynergyDataByCountInternal<T, TKey>(
-        //     TKey synergyType,
-        //     int count,
-        //     System.Func<TKey, List<T>> getSynergyList,
-        //     System.Func<T, int, bool> countPredicate,
-        //     System.Func<T, int> getGrade,
-        //     out T outSynergyData,
-        //     out List<T> outSynergyList)
-        //     where T : class
-        // {
-        //     outSynergyData = null;
-        //     outSynergyList = getSynergyList(synergyType);
-            
-        //     if (outSynergyList == null || outSynergyList.Count == 0)
-        //     {
-        //         return false;
-        //     }
-
-        //     outSynergyData = outSynergyList.Find(l => countPredicate(l, count));
-            
-        //     if (outSynergyData == null || getGrade(outSynergyData) < 1)
-        //     {
-        //         return false;
-        //     }
-
-        //     return true;
-        // }
-
-        
 
         public List<List<SkillJob>> GetPassivePositionList(CharacterPositionType positionType)
         {
@@ -1129,17 +1070,17 @@ namespace CookApps.AutoBattler
         {
             return SpecDungeonTrialList.Find(data => data.dungeon_id == dungeonID);
         }
-        
+
         public DungeonBabelInfo GetSpecDungeonTrialDataByOrder(int order)
         {
             return SpecDungeonTrialList.Find(data => data.order == order);
         }
-        
+
         public List<DungeonBabelInfo> GetSpecDungeonTrialDataList(DungeonType dungeonType)
         {
             return SpecDungeonTrialList.FindAll(data => data.dungeon_type == dungeonType);
         }
-        
+
         public List<DungeonBabelInfo> GetSpecDungeonTrialDataListByStageStar(int stageStar)
         {
             return SpecDungeonTrialList.FindAll(data => data.need_star <= stageStar);
@@ -1150,7 +1091,7 @@ namespace CookApps.AutoBattler
             return SpecDungeonMonsterList
                 .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
-        
+
         public List<DungeonBabelReward> GetSpecDungeonRewardDataList(DungeonType dungeonType, int dungeonID)
         {
             return SpecDungeonRewardList

@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 namespace CookApps.BattleSystem
 {
@@ -221,8 +222,6 @@ namespace CookApps.BattleSystem
                 viewGo = await Addressables.InstantiateAsync(
                     $"Item/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
-            //Item/300001/GenerateResources/CharacterView_300001.prefab
-            //Item/300001/GenerateResources/CharacterView_300001.prefab
             else
             {
                 viewGo = await Addressables.InstantiateAsync(
@@ -238,7 +237,7 @@ namespace CookApps.BattleSystem
                 _hpBarView.SetHpBarType(type);
                 _view.SetHpBarView(_hpBarView, _statData.Spec.height);
                 _view.SetFirstDirection(allianceType);
-                if (_statData.Spec.prefab_id == 10101 || _statData.Spec.prefab_id == 10201 || _statData.Spec.prefab_id == 10401/* ||
+                if (_statData.Spec.prefab_id == 30101001 || _statData.Spec.prefab_id == 30101003 || _statData.Spec.prefab_id == 30101005/* ||
                     _statData.Spec.prefab_id == 20201*/)
                     _view.SetHologramShader();
 
@@ -328,32 +327,37 @@ namespace CookApps.BattleSystem
                         stats[i] = skillDataList[i].base_rate;
                     }
 
-                    var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_id, 0, stats);
+                    var effectCodeInfo = new EffectCodeInfo(skillDataList[0].skill_group_id, 0, stats);
                     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
                 }
             }
         }
         
-        // public void InjectSynergy(long effectCodeID, SynergyStarAsterism synergyData)
-        // {
-        //     Span<double> stats = stackalloc double[4];
-        //     stats[0] = synergyData.stat_value;
-        //     stats[1] = synergyData.stat_value_2;
-        //     stats[2] = synergyData.grade;
-        //     stats[3] = synergyData.stat_value_3;
-        //     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-        //     ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-        // }
+        public void InjectSynergy(long effectCodeID, ISpecSynergyData synergyData)
+        {
+            Span<double> stats = stackalloc double[4];
+            stats[0] = synergyData.effect_stat_value_1;
+            stats[1] = synergyData.effect_stat_value_2;
+            stats[2] = synergyData.grade;
+            stats[3] = synergyData.effect_stat_value_3;
+            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+        }
 
-        // public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, SpecSynergy synergyData)
-        // {
-        //     //이건좀 고민
-        //     if (targetSynergyType != _statData.Spec.element_type
-        //     && targetSynergyType != _statData.Spec.asterism_type)
-        //         return;
-
-        //     InjectSynergy(effectCodeID, synergyData);
-        // }                   
+        public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, ISpecSynergyData synergyData)
+        {
+            if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(targetSynergyType))
+            {
+               if(targetSynergyType != _statData.Spec.character_stella_type)
+                return;
+            }
+            else if(DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType))
+            {
+                if(targetSynergyType != _statData.Spec.character_element_type)
+                    return;
+            }
+            InjectSynergy(effectCodeID, synergyData);
+        }                   
 
         public void RemoveSynergyEffectCode()
         {
@@ -368,11 +372,11 @@ namespace CookApps.BattleSystem
                 if (targetSynergyCharacterCount < 1)
                     continue;
 
-                // if (!SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
-                // out var outSynergyData, out var outSynergyList))
-                //     continue;
-                //
-                // ecc.RemoveEffectCode(outSynergyList[0].id);
+                if (!SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
+                out var outSynergyData, out var outSynergyList))
+                    continue;
+                
+                ecc.RemoveEffectCode(outSynergyList[0].synergy_group_id);
             }
         }
 

@@ -42,12 +42,23 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetElementSprite(SynergyType elementType, bool isActive = true)
+        public Sprite GetSynergySprite(SynergyType synergyType, bool isActive = true)
         {
             string spriteName = string.Empty;
 
-            switch (elementType)
+            switch (synergyType)
             {
+                case SynergyType.NOBLESSE:
+                    spriteName = isActive ? "Icon_Position_Noblesse_Active" : "Icon_Position_Noblesse_Locked";
+                    break;
+                case SynergyType.SUPERNOVA:
+                    spriteName = isActive ? "Icon_Position_Supernova_Active" : "Icon_Position_Supernova_Locked";
+                    break;
+                case SynergyType.TROUBLESHOOTER:
+                    spriteName = isActive ? "Icon_Position_TroubleShooter_Active" : "Icon_Position_TroubleShooter_Locked";
+                    break;
+
+
                 case SynergyType.FIRE:
                     spriteName = isActive ? "Icon_Fire_Active" : "Icon_Fire_Locked";
                     break;
@@ -65,29 +76,7 @@ namespace CookApps.AutoBattler
                     break;
                 default:
                     return null;
-            }
-
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
-        }
-
-        public Sprite GetSynergySprite(SynergyType synergyType, bool isActive = true)
-        {
-            string spriteName = string.Empty;
-
-            switch (synergyType)
-            {
-                case SynergyType.NOBLESSE:
-                    spriteName = isActive ? "Icon_Position_Noblesse_Active" : "Icon_Position_Noblesse_Locked";
-                    break;
-                case SynergyType.SUPERNOVA:
-                    spriteName = isActive ? "Icon_Position_Supernova_Active" : "Icon_Position_Supernova_Locked";
-                    break;
-                case SynergyType.TROUBLESHOOTER:
-                    spriteName = isActive ? "Icon_Position_TroubleShooter_Active" : "Icon_Position_TroubleShooter_Locked";
-                    break;
-
-                default:
-                    return null;
+            
             }
 
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);

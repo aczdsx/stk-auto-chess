@@ -715,8 +715,6 @@ namespace CookApps.AutoBattler
         public int id;
         /// 스킬 그룹 Id
         public int skill_group_id;
-        /// 스킬 id
-        public int skill_id;
         /// 스킬 타입
         public global::CookApps.AutoBattler.SkillType skill_type;
         /// 캐릭터 ID

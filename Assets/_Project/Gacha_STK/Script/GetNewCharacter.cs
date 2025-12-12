@@ -322,7 +322,7 @@ namespace CookApps.AutoBattler
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
             DescText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
 
-            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetElementSprite(_specCharacter.character_element_type);
+            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.character_element_type);
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
             SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(_specCharacter.character_stella_type);

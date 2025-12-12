@@ -524,6 +524,14 @@ namespace CookApps.AutoBattler
         fx_common_synergy_lightning_02 = 196,
         fx_common_synergy_lightning_03 = 197,
         fx_common_cast_supernova_02 = 198,
+        fx_common_synergy_fire_02 = 199,
+        fx_common_synergy_fire_03 = 200,
+        fx_common_synergy_ground_02 = 201,
+        fx_common_synergy_ground_03 = 202,
+        fx_common_synergy_water_02 = 203,
+        fx_common_synergy_water_03 = 204,
+        fx_common_synergy_wind_02 = 205,
+        fx_common_synergy_wind_03 = 206,
     }
 
     public enum GlobalEffectProviderType

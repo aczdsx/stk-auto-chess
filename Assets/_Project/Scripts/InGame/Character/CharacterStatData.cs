@@ -17,7 +17,8 @@ namespace CookApps.AutoBattler
         private ISpecCharacterInfo _spec;
         private int _level;
 
-        public CharacterStatData(int characterId, int level, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null) : this(characterId, level, 1, 1, globalEffectCodeInfos)
+        public CharacterStatData(int characterId, int level, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null) :
+        this(characterId, level, 1, 1, globalEffectCodeInfos)
         { }
 
         public double GetAttrValue()

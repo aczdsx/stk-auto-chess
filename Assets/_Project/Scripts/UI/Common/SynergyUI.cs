@@ -12,14 +12,7 @@ namespace CookApps.AutoBattler
 
         public void SetSynergyUI(SynergyType synergyType, bool isActive = true)
         {
-            if (DistinguishSynergyTypeHelper.IsElementSynergyType(synergyType))
-            {
-                _iconImage.sprite = ImageManager.Instance.GetElementSprite(synergyType, isActive);
-            }
-            else if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType))
-            {
-                _iconImage.sprite = ImageManager.Instance.GetSynergySprite(synergyType, isActive);
-            }
+            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(synergyType, isActive);
         }
     }
 }

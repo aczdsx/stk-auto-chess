@@ -117,26 +117,26 @@ namespace CookApps.BattleSystem
         }
         #endregion
 
-        // public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, SpecSynergy synergyData, IEffectCodeSource source)
-        // {
-        //     Span<double> stats = stackalloc double[4];
-        //     stats[0] = synergyData.stat_value;
-        //     stats[1] = synergyData.stat_value_2;
-        //     stats[2] = synergyData.stat_value_3;
-        //     stats[3] = synergyData.grade;
-        //
-        //     var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-        //     _teamEcc.AddOrMergeEffectCode(effectCodeInfo, source, allianceType);
-        // }
+        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, ISpecSynergyData synergyData, IEffectCodeSource source)
+        {
+            Span<double> stats = stackalloc double[4];
+            stats[0] = synergyData.effect_stat_value_1;
+            stats[1] = synergyData.effect_stat_value_2;
+            stats[2] = synergyData.effect_stat_value_3;
+            stats[3] = synergyData.grade;
+        
+            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+            _teamEcc.AddOrMergeEffectCode(effectCodeInfo, source, allianceType);
+        }
 
-        // public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyData)
-        // {
-        //     var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyData);
-        //     if (synergyList == null || synergyList.Count == 0)
-        //         return;
-        //
-        //     _teamEcc.RemoveEffectCode(synergyList[0].id, allianceType);
-        // }
+        public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyData)
+        {
+            var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyData);
+            if (synergyList == null || synergyList.Count == 0)
+                return;
+        
+            _teamEcc.RemoveEffectCode(synergyList[0].synergy_group_id, allianceType);
+        }
 
         public void RegenerateGlobalRandomSeeds()
         {

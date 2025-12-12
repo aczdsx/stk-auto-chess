@@ -19,7 +19,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
         SHIELD_GENERATION = 2,
         IMMUNE_ALL_DEBUFF = 3,
     }
-    public const int CodeId = 210601;
+    public const int CodeId = 200101;
     private float _statValue_1;
     private float _statValue_2;
     private NoblesseGrade _synergyGrade;
@@ -44,6 +44,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
 
     private void ApplyNoblesseEffect(IEffectCodeSource source)
     {
+        Debug.LogColor($"ApplyNoblesseEffect: {_synergyGrade}", "green");
         switch (_synergyGrade)
         {
             case NoblesseGrade.SCALE_PERCENT_UP_AD_PERCENT_UP:
@@ -62,12 +63,12 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
         Span<double> stats = stackalloc double[1];
 
         stats.Clear();
-        stats[0] = _statValue_1;
+        stats[0] = _statValue_1*0.01f;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.VIEW_SCALE_UP, owner, stats, source);
 
 
         stats.Clear();
-        stats[0] = _statValue_2;
+        stats[0] = _statValue_2*0.01f;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, owner, stats, source);
 
     }
@@ -79,7 +80,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
 
         stats.Clear();
         stats[0] = 99999f;
-        stats[1] = owner.HP * _statValue_1;
+        stats[1] = owner.HP * _statValue_1*0.01f;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, owner, stats, source);
     }
     private void ImmuneAllDebuff(IEffectCodeSource source)

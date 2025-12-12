@@ -50,7 +50,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         if (_body.activeSelf)
         {//14663506
             _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
-            _SynergyImage.sprite = ImageManager.Instance.GetElementSprite(_statData.Spec.character_element_type);
+            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.character_element_type);
             _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.character_stella_type);
             _characterPositionTypeText.text = _statData.Spec.character_position_type.ToString();
             _lvText.text = $"{_statData.Level}";

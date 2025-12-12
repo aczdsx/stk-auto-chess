@@ -701,6 +701,8 @@ namespace CookApps.Editor
             // 실제 구분자 문자는 그룹으로 캡처 (교체 시 사용)
             string beforeBoundary = @"(?:(^|[_\-\.\s\(\)\[\]])|(?<=\d)(?=\D)|(?<=\D)(?=\d)|(?<=[a-z])(?=[A-Z]))";
             string afterBoundary = @"(?:(?=\d)(?<=\D)|(?=\D)(?<=\d)|(?=[a-z])(?<=[A-Z])|([_\-\.\s\(\)\[\]]|$))";
+
+            
             string pattern = beforeBoundary + escapedSearch + afterBoundary;
             
             // MatchEvaluator를 사용하여 $ 문자 문제 해결

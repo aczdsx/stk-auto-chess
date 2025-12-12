@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
 
             if (statData != null)
             {
-                _elementSynergySprite.sprite = ImageManager.Instance.GetElementSprite(statData.Spec.character_element_type);
+                _elementSynergySprite.sprite = ImageManager.Instance.GetSynergySprite(statData.Spec.character_element_type);
                 _positionSynergySprite.sprite =
                     ImageManager.Instance.GetSynergySprite(statData.Spec.character_stella_type);
             }

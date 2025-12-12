@@ -910,7 +910,7 @@ namespace CookApps.BattleSystem
             return attrValue;
         }
 
-        public void SpawnSynergyFx(AllianceType type, SynergyType elementType)
+        public void SpawnSynergyFx(AllianceType type, SynergyType synergyType, int grade)
         {
             List<CharacterController> targetList = (type == AllianceType.Player)
                 ? charactersInPlaygroundForUpdate
@@ -919,32 +919,98 @@ namespace CookApps.BattleSystem
             foreach (var character in targetList)
             {
                 InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
-                if (elementType == SynergyType.FIRE)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
-                }
-                else if (elementType == SynergyType.WATER)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
-                }
-                else if (elementType == SynergyType.LIGHTNING)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
-                }
-                else if (elementType == SynergyType.EARTH)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
-                }
-                else if (elementType == SynergyType.WIND)
-                {
-                    inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
-                }
 
-                if (character.SpecCharacter.character_element_type == elementType)
+                switch (synergyType)
+                {
+                    case SynergyType.FIRE:
+                        if (grade == 1)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
+                        }
+                        else if (grade == 2)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire_02;
+                        }
+                        else if (grade == 3)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire_03;
+                        }
+                        break;
+                    case SynergyType.WATER:
+                        if (grade == 1)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
+                        }
+                        else if (grade == 2)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water_02;
+                        }
+                        else if (grade == 3)
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water_03;
+                        break;
+                    case SynergyType.LIGHTNING:
+                        if (grade == 1)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
+                        }
+                        else if (grade == 2)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_02;
+                        }
+                        else if (grade == 3)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_03;
+                        }
+                        break;
+                    case SynergyType.EARTH:
+                        if (grade == 1)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
+                        }
+                        else if (grade == 2)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground_02;
+                        }
+                        else if (grade == 3)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground_03;
+                        }
+                        break;
+                    case SynergyType.WIND:
+                        if (grade == 1)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
+                        }
+                        else if (grade == 2)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind_02;
+                        }
+                        else if (grade == 3)
+                        {
+                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind_03;
+                        }
+                        break;
+                    case SynergyType.NOBLESSE:
+                    case SynergyType.TROUBLESHOOTER:
+                    case SynergyType.SUPERNOVA:
+                        inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
+                        break;
+                    default:
+                        break;
+                }
+                if (character.SpecCharacter.character_element_type == synergyType)
                 {
                     _synergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
                         character.GetCharacterView().CachedTr));
                 }
+                else if(character.SpecCharacter.character_stella_type == synergyType)
+                {
+                    _synergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
+                        character.GetCharacterView().CachedTr));
+                }
+
+
+
             }
         }
 

@@ -40,10 +40,10 @@ public class FlowStateLobbyCombat : StateCombatBase
         foreach (var character in userCharacters)
         {
 
-            if (character.CharacterId == 114663506 || character.CharacterId == 114613502 ||
-            character.CharacterId == 114643504 || character.CharacterId == 114643504 ||
-            character.CharacterId == 114643503 || character.CharacterId == 114563405||
-            character.CharacterId == 114553404 || character.CharacterId == 114513402 ||
+            if (character.CharacterId == 117663506 || character.CharacterId == 117613502 ||
+            character.CharacterId == 117643504 || character.CharacterId == 117643504 ||
+            character.CharacterId == 117643503 || character.CharacterId == 117563405||
+            character.CharacterId == 117553404 || character.CharacterId == 117513402 ||
             character.CharacterId == 114433303) 
                 continue;//시라유키
             var characterStat = new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());

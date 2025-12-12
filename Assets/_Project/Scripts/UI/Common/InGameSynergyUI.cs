@@ -25,58 +25,58 @@ namespace CookApps.AutoBattler
 
         private SynergyType _synergyType;
         private int _count;
-        // private SpecSynergy _synergyData;
-        // private SpecSynergy _nextSynergyData;
+        private ISpecSynergyData _synergyData;
+        private ISpecSynergyData _nextSynergyData;
 
-        // 캐릭터 속성 시너지 세팅
-        // public void SetSynergy(SynergyType synergyType, int count, SpecSynergy data, SpecSynergy nextData, bool isActive = true)
-        // {
-        //     _synergyType = synergyType;
-        //
-        //     _synergyData = data;
-        //     _nextSynergyData = nextData;
-        //
-        //     Color color = Color.white;
-        //     switch (data.grade)
-        //     {
-        //         case 0:
-        //             color = _step0Color;
-        //             break;
-        //         case 1:
-        //             color = _step1Color;
-        //             break;
-        //         case 2:
-        //             color = _step2Color;
-        //             break;
-        //         case 3:
-        //             color = _step3Color;
-        //             break;
-        //         case 4:
-        //             color = _step4Color;
-        //             break;
-        //         default:
-        //             color = Color.white;
-        //             break;
-        //     }
-        //
-        //     _count = count;
-        //     _iconImage.sprite = ImageManager.Instance.GetElementSprite(synergyType, isActive);
-        //     _iconImage.color = (data.grade == 0) ? color : Color.white;
-        //     _countText.text = $"{count}/{nextData.min_count}";
-        //     _countText.color = color;
-        //
-        //
-        //
-        //     for (int i = 0; i < _stepImageList.Count; i++)
-        //     {
-        //         bool isActiveObject = i <= _synergyData.grade - 1;
-        //         _stepImageList[i].gameObject.SetActive(isActiveObject);
-        //         if (isActiveObject)
-        //         {
-        //             _stepImageList[i].color = color;
-        //         }
-        //     }
-        // }
+        //캐릭터 속성 시너지 세팅
+        public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true)
+        {
+            _synergyType = synergyType;
+        
+            _synergyData = data;
+            _nextSynergyData = nextData;
+        
+            Color color = Color.white;
+            switch (data.grade)
+            {
+                case 0:
+                    color = _step0Color;
+                    break;
+                case 1:
+                    color = _step1Color;
+                    break;
+                case 2:
+                    color = _step2Color;
+                    break;
+                case 3:
+                    color = _step3Color;
+                    break;
+                case 4:
+                    color = _step4Color;
+                    break;
+                default:
+                    color = Color.white;
+                    break;
+            }
+        
+            _count = count;
+            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(synergyType, isActive);
+            _iconImage.color = (data.grade == 0) ? color : Color.white;
+            _countText.text = $"{count}/{nextData.min_int}";
+            _countText.color = color;
+        
+        
+        
+            for (int i = 0; i < _stepImageList.Count; i++)
+            {
+                bool isActiveObject = i <= _synergyData.grade - 1;
+                _stepImageList[i].gameObject.SetActive(isActiveObject);
+                if (isActiveObject)
+                {
+                    _stepImageList[i].color = color;
+                }
+            }
+        }
 
         public void OnClickSynergy()
         {

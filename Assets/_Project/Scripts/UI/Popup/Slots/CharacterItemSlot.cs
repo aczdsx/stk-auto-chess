@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
             
             _characterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id);
-            _SynergyImage.sprite = ImageManager.Instance.GetElementSprite(_specCharacterData.character_element_type);
+            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.character_element_type);
             _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.character_stella_type);
             _lvText.text = $"{_userCharacterData.Level}";
         }
@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
             
             _characterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id);
-            _SynergyImage.sprite = ImageManager.Instance.GetElementSprite(_specCharacterData.character_element_type);
+            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.character_element_type);
             _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_specCharacterData.character_stella_type);
             _lvText.text = $"{targetLevel}";
         }

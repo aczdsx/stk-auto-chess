@@ -155,25 +155,37 @@ public class InGameTopUI : MonoBehaviour
 
         foreach (var synergyCountData in synergyCountDataList)
         {
-            // var CanSynergy = specDataManagerInstance.TryGetSynergyDataByCount(synergyCountData.Type, synergyCountData.Count,
-            // out var outSynergyData, out var outSynergyList);
-            //
-            // if (CanSynergy)
-            // {
-            //     var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
-            //     bool isActiveZeroGrade = (type == AllianceType.Player) ? outSynergyData.grade >= 0 : outSynergyData.grade > 0;
-            //     if (isActiveZeroGrade)
-            //     {
-            //         TrySetSynergyUI(() =>
-            //             _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData,outSynergyData.grade > 0)
-            //         );
-            //                 
-            //         if (!isCombat && DistinguishSynergyTypeHelper.IsElementSynergyType(synergyCountData.Type))
-            //         {//엘리먼트 타입 달성시에만 fx를 생성한다.
-            //             InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type);
-            //         }
-            //     }
-            // }
+            var canSynergy = specDataManagerInstance.TryGetSynergyDataByCount(synergyCountData.Type, synergyCountData.Count,
+            out var outSynergyData, out var outSynergyList);
+
+            if (outSynergyList != null && outSynergyList.Count > 0)
+            {
+                if (outSynergyData != null)
+                {//여기오면 일단 1단계는 달성했다는거임.
+                    var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
+                    TrySetSynergyUI(() =>
+                        _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, outSynergyData, nextData, isActive: true)
+                    );
+                }
+                else if (outSynergyData == null && synergyCountData.Count > 0)
+                {//여긴 1단계도 안됏다는거임.
+                    if (type == AllianceType.Player)
+                    {
+                        var nextData = outSynergyList[0];
+                        TrySetSynergyUI(() =>
+                            _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, nextData, nextData, isActive: false)
+                        );
+                    }
+                }
+
+                if(canSynergy && !isCombat)
+                {
+                    InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type, outSynergyData.grade);
+                }
+
+            }
+
+
         }
 
         if (isCombat)
