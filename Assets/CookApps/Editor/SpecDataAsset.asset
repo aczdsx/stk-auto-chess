@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcf9bce74484d878ca0ca8fe1db802a, type: 3}
   m_Name: SpecDataAsset
   m_EditorClassIdentifier: 
-  FilterTitle: '[BM]'
-  SheetId: 1V1kcdpqFQSXt8p9ohzpElnbA_KszfdG8Gz0ZBh8R3lw
-  SheetName: '[BM]StellaAutoBattleProject'
+  AppId: 183
   SourceNamespace: CookApps.AutoBattler
   SourceEnumNamespace: CookApps.AutoBattler
   SourceFolder: Assets/_Project/Scripts/Spec/SpecData
@@ -23,4 +21,5 @@ MonoBehaviour:
   Obfuscator: 1
   CreateValidFile: 0
   PreBuildValid: 0
-  EncryptKey: v(zANzcKPDUMPjXO
+  EnableSpecGameAb: 0
+  EncryptKey: )ybk1WJRnA&^RZBs
