@@ -28,7 +28,7 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3673
+        VersionCode: 3847
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -36,11 +36,9 @@ MonoBehaviour:
         - Guid: 61e7bd672efcc4045915939216d08afd
         - Guid: 8029178524cba4055adeed793914bebd
         AddDefine:
-        - SERVER_REAL
-        - USE_SERVER_SPEC
-        RemoveDefine:
-        - SERVER_DEV
+        - __DEV
         - ENABLE_CHEAT
+        RemoveDefine: []
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 0
@@ -72,19 +70,17 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3673
+        VersionCode: 3847
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
         - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
         - Guid: 61e7bd672efcc4045915939216d08afd
         - Guid: 8029178524cba4055adeed793914bebd
-        AddDefine:
-        - SERVER_REAL
-        - USE_SERVER_SPEC
+        AddDefine: []
         RemoveDefine:
         - ENABLE_CHEAT
-        - SERVER_DEV
+        - __DEV
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 1
@@ -103,7 +99,7 @@ MonoBehaviour:
         Version: 0.2.6
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 3673
+        VersionCode: 3847
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         - Guid: 82d3b55c0d6944acd81604cfdc57e37e
@@ -111,11 +107,9 @@ MonoBehaviour:
         - Guid: 61e7bd672efcc4045915939216d08afd
         - Guid: 8029178524cba4055adeed793914bebd
         AddDefine:
-        - SERVER_DEV
+        - __DEV
         - ENABLE_CHEAT
-        - USE_SERVER_SPEC
-        RemoveDefine:
-        - SERVER_REAL
+        RemoveDefine: []
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 0
