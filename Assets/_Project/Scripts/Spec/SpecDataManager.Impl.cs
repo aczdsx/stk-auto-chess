@@ -916,22 +916,70 @@ namespace CookApps.AutoBattler
             return null;
         }
         
+        /// <summary>
+        /// ElementType 기반 시너지 데이터를 count로 조회합니다.
+        /// </summary>
         public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
             out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
         {
+            return TryGetSynergyDataByCountInternal(
+                synergyType,
+                count,
+                GetSpecSynergyListByElementType,
+                (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
+                data => data.grade,
+                out outSynergyData,
+                out outSynergyList);
+        }
+
+        /// <summary>
+        /// SynergyType 기반 시너지 데이터를 count로 조회합니다.
+        /// </summary>
+        public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
+            out SynergyStarAsterism outSynergyData, out List<SynergyStarAsterism> outSynergyList)
+        {
+            return TryGetSynergyDataByCountInternal(
+                synergyType,
+                count,
+                GetSpecSynergyListBySynergyType,
+                (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
+                data => data.grade,
+                out outSynergyData,
+                out outSynergyList);
+        }
+
+        /// <summary>
+        /// 시너지 데이터 조회를 위한 내부 제네릭 메서드 (인터페이스 기반 통합)
+        /// </summary>
+        private bool TryGetSynergyDataByCountInternal<T, TKey>(
+            TKey synergyType,
+            int count,
+            System.Func<TKey, List<T>> getSynergyList,
+            System.Func<T, int, bool> countPredicate,
+            System.Func<T, int> getGrade,
+            out T outSynergyData,
+            out List<T> outSynergyList)
+            where T : class
+        {
             outSynergyData = null;
-            outSynergyList = GetSpecSynergyListByElementType(synergyType);
-            if (outSynergyList == null)
+            outSynergyList = getSynergyList(synergyType);
+            
+            if (outSynergyList == null || outSynergyList.Count == 0)
             {
                 return false;
             }
-            outSynergyData = outSynergyList.Find(l => l.min_INT <= count && l.max_INT >= count);
-            if (outSynergyData == null || outSynergyData.grade < 1)
+
+            outSynergyData = outSynergyList.Find(l => countPredicate(l, count));
+            
+            if (outSynergyData == null || getGrade(outSynergyData) < 1)
             {
                 return false;
             }
+
             return true;
         }
+
+        
 
         public List<List<SkillJob>> GetPassivePositionList(CharacterPositionType positionType)
         {

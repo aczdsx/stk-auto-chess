@@ -9,7 +9,7 @@ using UnityEngine;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeSynergyElementLightning : EffectCodeCharacterBase
 {
-    public const int CodeId = 220301;
+    public const int CodeId = 100401;
     private ObfuscatorFloat _criticalRateValue;
     private ObfuscatorFloat _criticalPowerValue;
 

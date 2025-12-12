@@ -10,7 +10,7 @@ using UnityEngine;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeSynergyElementWind : EffectCodeCharacterBase
 {
-    public const int CodeId = 220501;
+    public const int CodeId = 100201;
     private ObfuscatorFloat _statValue;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

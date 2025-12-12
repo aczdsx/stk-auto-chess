@@ -606,7 +606,7 @@ public class InGameBottomUI : MonoBehaviour
             else
             {
                 stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player);
-                stateCombatStepBase.AddSynergy(AllianceType.Player);
+                // stateCombatStepBase.AddSynergy(AllianceType.Player);
             }
 
         }

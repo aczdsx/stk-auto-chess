@@ -9,7 +9,7 @@ using UnityEngine;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
 {
-    public const int CodeId = 220101;
+    public const int CodeId = 100301;
     private ObfuscatorFloat _PierceValue;
     private ObfuscatorFloat _blockRateValue;
 
