@@ -138,7 +138,11 @@ namespace CookApps.AutoBattler
             // 캐릭터 일러스트 생성
             string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
             var newObject = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
-
+            if (newObject == null)
+            {
+                Debug.LogColor($"CharacterDetailMainLayer.SetCharacterInfo() : {illustPrefabName} is null","red");
+                return;
+            }
             _characterIllust = newObject.GetComponent<CharacterIllust>();
             _characterIllust.SetCharacterAnimation("idle");
 

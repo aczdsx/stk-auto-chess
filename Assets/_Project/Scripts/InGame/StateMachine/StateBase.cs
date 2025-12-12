@@ -72,7 +72,7 @@ namespace CookApps.BattleSystem
         //         }
         //     }
         // }
-        public void ApplyTargetSynergy(AllianceType callerAllianceType, ElementType elementType, SynergyType asterismType)
+        public void ApplyTargetSynergy(AllianceType callerAllianceType, SynergyType elementType, SynergyType asterismType)
         {
             // SynergyType synergyType = SynergyType.NONE;
             // for (int i = (int)synergyType + 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
@@ -117,7 +117,7 @@ namespace CookApps.BattleSystem
                 character.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(character);
             }
         }
-        public void TidyUpPreviewSynergy(AllianceType callerAllianceType, ElementType elementType, SynergyType asterismType)
+        public void TidyUpPreviewSynergy(AllianceType callerAllianceType, SynergyType elementType, SynergyType asterismType)
         {
             foreach (var character in InGameObjectManager.Instance.GetCharacterList(callerAllianceType))
             {
@@ -177,40 +177,25 @@ namespace CookApps.BattleSystem
         //     InGameManager.Instance.AddSynergyTeamOnce(AllianceType, effectCodeId, synergyData, this);
         // }
 
-        private bool CanAddSynergy(AllianceType allianceType, SynergyType targetSynergyType
-        , out SynergyStarAsterism outSynergyData, out List<SynergyStarAsterism> outSynergyList)
-        {
-            outSynergyData = null;
-            outSynergyList = null;
-            var inGameObjectManagerInstance = InGameObjectManager.Instance;
+        // private bool CanAddSynergy(AllianceType allianceType, SynergyType targetSynergyType
+        // , out SynergyStarAsterism outSynergyData, out List<SynergyStarAsterism> outSynergyList)
+        // {
+        //     outSynergyData = null;
+        //     outSynergyList = null;
+        //     var inGameObjectManagerInstance = InGameObjectManager.Instance;
 
 
-            var targetSynergyCharacterCount =
-                inGameObjectManagerInstance.GetCharacterSynergyCount(allianceType, targetSynergyType);
+        //     var targetSynergyCharacterCount =
+        //         inGameObjectManagerInstance.GetCharacterSynergyCount(allianceType, targetSynergyType);
 
-            if (targetSynergyCharacterCount < 1)
-                return false;
+        //     if (targetSynergyCharacterCount < 1)
+        //         return false;
 
-            return SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
-            out outSynergyData, out outSynergyList);
-        }
+        //     return SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
+        //     out outSynergyData, out outSynergyList);
+        // }
         
-        private bool CanAddSynergy(AllianceType allianceType, ElementType targetElementType
-        , out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
-        {
-            outSynergyData = null;
-            outSynergyList = null;
-            var inGameObjectManagerInstance = InGameObjectManager.Instance;
-            
-            var targetElementTypeCharacterCount =
-                inGameObjectManagerInstance.GetCharacterSynergyCount(allianceType, targetElementType);
-
-            if (targetElementTypeCharacterCount < 1)
-                return false;
-
-            return SpecDataManager.Instance.TryGetSynergyDataByCount(targetElementType, targetElementTypeCharacterCount,
-            out outSynergyData, out outSynergyList);
-        }
+        
     }
 
     public abstract class StateCombatBase : StateCombatStepBase

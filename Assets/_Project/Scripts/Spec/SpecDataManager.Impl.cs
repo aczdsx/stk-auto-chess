@@ -89,7 +89,7 @@ namespace CookApps.AutoBattler
         private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<ElementType, List<SynergyElemental>> synergyElementDic = new();                // key : ElementType, value : SynergyElemental
+        private Dictionary<SynergyType, List<SynergyElemental>> synergyElementDic = new();                // key : SynergyType, value : SynergyElemental
         private Dictionary<SynergyType, List<SynergyStarAsterism>> synergyStarAsterismDic = new();                // key : SynergyType, value : SynergyStarAsterism
         private Dictionary<int, List<ObstacleInfo>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
         private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
@@ -377,14 +377,14 @@ namespace CookApps.AutoBattler
             return SpecCharacterLevelExpList.FindAll(data => data.level <= level);
         }
 
-        public CharacterTranscendence GetCharacterTranscendenceData(ElementType elementType, GradeType gradeType, int transcendenceLevel)
+        public CharacterTranscendence GetCharacterTranscendenceData(SynergyType elementType, GradeType gradeType, int transcendenceLevel)
         {
             return SpecCharacterTranscendenceList.Find(data => data.element_type == elementType
                                                                && data.grade_type == gradeType
                                                                && data.transcendence_lv == transcendenceLevel);
         }
 
-        public List<CharacterTranscendence> GetCharacterTranscendenceDataList(ElementType elementType, GradeType gradeType)
+        public List<CharacterTranscendence> GetCharacterTranscendenceDataList(SynergyType elementType, GradeType gradeType)
         {
             return SpecCharacterTranscendenceList.FindAll(data => data.element_type == elementType
                                                                   && data.grade_type == gradeType);
@@ -898,7 +898,7 @@ namespace CookApps.AutoBattler
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
 
-        public List<SynergyElemental> GetSpecSynergyListByElementType(ElementType synergyType)
+        public List<SynergyElemental> GetSpecSynergyListByElementType(SynergyType synergyType)
         {
             if (synergyElementDic.TryGetValue(synergyType, out List<SynergyElemental> synergyList))
             {
@@ -916,68 +916,68 @@ namespace CookApps.AutoBattler
             return null;
         }
         
-        /// <summary>
-        /// ElementType 기반 시너지 데이터를 count로 조회합니다.
-        /// </summary>
-        public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
-            out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
-        {
-            return TryGetSynergyDataByCountInternal(
-                synergyType,
-                count,
-                GetSpecSynergyListByElementType,
-                (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
-                data => data.grade,
-                out outSynergyData,
-                out outSynergyList);
-        }
+        // /// <summary>
+        // /// ElementType 기반 시너지 데이터를 count로 조회합니다.
+        // /// </summary>
+        // public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
+        //     out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
+        // {
+        //     return TryGetSynergyDataByCountInternal(
+        //         synergyType,
+        //         count,
+        //         GetSpecSynergyListByElementType,
+        //         (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
+        //         data => data.grade,
+        //         out outSynergyData,
+        //         out outSynergyList);
+        // }
 
-        /// <summary>
-        /// SynergyType 기반 시너지 데이터를 count로 조회합니다.
-        /// </summary>
-        public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
-            out SynergyStarAsterism outSynergyData, out List<SynergyStarAsterism> outSynergyList)
-        {
-            return TryGetSynergyDataByCountInternal(
-                synergyType,
-                count,
-                GetSpecSynergyListBySynergyType,
-                (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
-                data => data.grade,
-                out outSynergyData,
-                out outSynergyList);
-        }
+        // /// <summary>
+        // /// SynergyType 기반 시너지 데이터를 count로 조회합니다.
+        // /// </summary>
+        // public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
+        //     out SynergyStarAsterism outSynergyData, out List<SynergyStarAsterism> outSynergyList)
+        // {
+        //     return TryGetSynergyDataByCountInternal(
+        //         synergyType,
+        //         count,
+        //         GetSpecSynergyListBySynergyType,
+        //         (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
+        //         data => data.grade,
+        //         out outSynergyData,
+        //         out outSynergyList);
+        // }
 
-        /// <summary>
-        /// 시너지 데이터 조회를 위한 내부 제네릭 메서드 (인터페이스 기반 통합)
-        /// </summary>
-        private bool TryGetSynergyDataByCountInternal<T, TKey>(
-            TKey synergyType,
-            int count,
-            System.Func<TKey, List<T>> getSynergyList,
-            System.Func<T, int, bool> countPredicate,
-            System.Func<T, int> getGrade,
-            out T outSynergyData,
-            out List<T> outSynergyList)
-            where T : class
-        {
-            outSynergyData = null;
-            outSynergyList = getSynergyList(synergyType);
+        // /// <summary>
+        // /// 시너지 데이터 조회를 위한 내부 제네릭 메서드 (인터페이스 기반 통합)
+        // /// </summary>
+        // private bool TryGetSynergyDataByCountInternal<T, TKey>(
+        //     TKey synergyType,
+        //     int count,
+        //     System.Func<TKey, List<T>> getSynergyList,
+        //     System.Func<T, int, bool> countPredicate,
+        //     System.Func<T, int> getGrade,
+        //     out T outSynergyData,
+        //     out List<T> outSynergyList)
+        //     where T : class
+        // {
+        //     outSynergyData = null;
+        //     outSynergyList = getSynergyList(synergyType);
             
-            if (outSynergyList == null || outSynergyList.Count == 0)
-            {
-                return false;
-            }
+        //     if (outSynergyList == null || outSynergyList.Count == 0)
+        //     {
+        //         return false;
+        //     }
 
-            outSynergyData = outSynergyList.Find(l => countPredicate(l, count));
+        //     outSynergyData = outSynergyList.Find(l => countPredicate(l, count));
             
-            if (outSynergyData == null || getGrade(outSynergyData) < 1)
-            {
-                return false;
-            }
+        //     if (outSynergyData == null || getGrade(outSynergyData) < 1)
+        //     {
+        //         return false;
+        //     }
 
-            return true;
-        }
+        //     return true;
+        // }
 
         
 

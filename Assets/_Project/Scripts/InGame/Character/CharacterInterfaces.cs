@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 속성 시너지
         /// </summary>
-        ElementType character_element_type { get; }
+        SynergyType character_element_type { get; }
 
         /// <summary>
         /// 포지션 타입
@@ -160,7 +160,7 @@ namespace CookApps.AutoBattler
         string ISpecCharacterInfo.name_token => name_token;
         string ISpecCharacterInfo.desc_token => desc_token;
         CharacterType ISpecCharacterInfo.character_type => character_type;
-        ElementType ISpecCharacterInfo.character_element_type => character_element_type;
+        SynergyType ISpecCharacterInfo.character_element_type => character_element_type;
         SynergyType ISpecCharacterInfo.character_stella_type => character_stella_type;
         CharacterPositionType ISpecCharacterInfo.character_position_type => character_position_type;
         AtkType ISpecCharacterInfo.atk_type => atk_type;
@@ -220,7 +220,7 @@ namespace CookApps.AutoBattler
         string ISpecCharacterInfo.name_token => name_token;
         string ISpecCharacterInfo.desc_token => desc_token;
         CharacterType ISpecCharacterInfo.character_type => character_type;
-        ElementType ISpecCharacterInfo.character_element_type => character_element_type;
+        SynergyType ISpecCharacterInfo.character_element_type => character_element_type;
         SynergyType ISpecCharacterInfo.character_stella_type => SynergyType.NONE;
         CharacterPositionType ISpecCharacterInfo.character_position_type => character_position_type;
         AtkType ISpecCharacterInfo.atk_type => atk_type;

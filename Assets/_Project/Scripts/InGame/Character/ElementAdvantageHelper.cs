@@ -17,13 +17,13 @@ public static class ElementAdvantageHelper
     /// <summary>
     /// 속성 상성 체인 순서: Fire → Wind → Lightning → Earth → Water → Fire (순환)
     /// </summary>
-    private static readonly ElementType[] _advantageElementChain = new ElementType[]
+    private static readonly SynergyType[] _advantageElementChain = new SynergyType[]
     {
-        ElementType.FIRE,
-        ElementType.WIND,
-        ElementType.LIGHTNING,
-        ElementType.EARTH,
-        ElementType.WATER
+        SynergyType.FIRE,
+        SynergyType.WIND,
+        SynergyType.LIGHTNING,
+        SynergyType.EARTH,
+        SynergyType.WATER
     };
     private static readonly string[] _elementAdvantageTexts = new string[] { "WEAK!", "RESIST!", "EQUAL!" };
 
@@ -37,7 +37,7 @@ public static class ElementAdvantageHelper
     /// <param name="attacker">공격자의 속성</param>
     /// <param name="defender">방어자의 속성</param>
     /// <returns>상성 관계 결과</returns>
-    public static ElementAdvantageResult GetElementAdvantageResult(ElementType attackerElementType, ElementType defenderElementType)
+    public static ElementAdvantageResult GetElementAdvantageResult(SynergyType attackerElementType, SynergyType defenderElementType)
     {
         if (!IsInChain(attackerElementType) || !IsInChain(defenderElementType))
         {
@@ -80,7 +80,7 @@ public static class ElementAdvantageHelper
     /// <summary>
     /// 속성이 체인에 포함되어 있는지 확인
     /// </summary>
-    private static bool IsInChain(ElementType elementType)
+    private static bool IsInChain(SynergyType elementType)
     {
         return Array.IndexOf(_advantageElementChain, elementType) >= 0;
     }
@@ -89,10 +89,10 @@ public static class ElementAdvantageHelper
     /// 체인에서 주어진 속성의 우위 속성 반환
     /// Fire → Wind → Lightning → Earth → Water → Fire (순환)
     /// </summary>
-    private static ElementType GetNextInChain(ElementType elementType)
+    private static SynergyType GetNextInChain(SynergyType elementType)
     {
         if (!IsInChain(elementType))
-            return ElementType.NONE;
+            return SynergyType.NONE;
         
         int currentIndex = Array.IndexOf(_advantageElementChain, elementType);
         int nextIndex = (currentIndex + 1) % _advantageElementChain.Length;
@@ -104,10 +104,10 @@ public static class ElementAdvantageHelper
     /// 체인에서 주어진 속성의 역상성 속성 반환
     /// Fire ← Wind ← Lightning ← Earth ← Water ← Fire (역순환)
     /// </summary>
-    private static ElementType GetPreviousInChain(ElementType elementType)
+    private static SynergyType GetPreviousInChain(SynergyType elementType)
     {
         if (!IsInChain(elementType))
-            return ElementType.NONE;
+            return SynergyType.NONE;
         
         int currentIndex = Array.IndexOf(_advantageElementChain, elementType);
         int previousIndex = (currentIndex - 1 + _advantageElementChain.Length) % _advantageElementChain.Length;

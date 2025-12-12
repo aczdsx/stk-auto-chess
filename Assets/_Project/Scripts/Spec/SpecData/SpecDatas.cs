@@ -161,7 +161,7 @@ namespace CookApps.AutoBattler
         /// 개체 타입
         public global::CookApps.AutoBattler.CharacterType character_type;
         /// 속성 시너지
-        public global::CookApps.AutoBattler.ElementType character_element_type;
+        public global::CookApps.AutoBattler.SynergyType character_element_type;
         /// 포지션 타입
         public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
         /// 성군 시너지 타입
@@ -279,7 +279,7 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 시너지 종류
-        public global::CookApps.AutoBattler.ElementType element_type;
+        public global::CookApps.AutoBattler.SynergyType element_type;
         /// 캐릭터 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 캐릭터 초월 레벨
@@ -570,7 +570,7 @@ namespace CookApps.AutoBattler
         /// 시너지 그룹 ID
         public int synergy_group_id;
         /// 시너지 타입
-        public global::CookApps.AutoBattler.ElementType synergy_type;
+        public global::CookApps.AutoBattler.SynergyType synergy_type;
         /// 시너지 네임 토큰
         public string name_token;
         /// 시너지 효과토큰
@@ -800,7 +800,7 @@ namespace CookApps.AutoBattler
         /// 개체 타입
         public global::CookApps.AutoBattler.CharacterType character_type;
         /// 속성 시너지
-        public global::CookApps.AutoBattler.ElementType character_element_type;
+        public global::CookApps.AutoBattler.SynergyType character_element_type;
         /// 포지션 타입
         public global::CookApps.AutoBattler.CharacterPositionType character_position_type;
         /// 일반 공격 AP AD 판정 유무
@@ -1343,7 +1343,7 @@ namespace CookApps.AutoBattler
 /// ELECTRIC
 /// EARTH
 /// WATER
-        public global::CookApps.AutoBattler.ElementType dungeon_elemental_type;
+        public global::CookApps.AutoBattler.SynergyType dungeon_elemental_type;
         /// 던전 그룹 id
         public int dungeon_group_id;
         /// 던전 맵 ID
