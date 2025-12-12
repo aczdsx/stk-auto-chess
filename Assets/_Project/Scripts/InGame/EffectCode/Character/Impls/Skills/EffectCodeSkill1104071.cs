@@ -25,7 +25,7 @@ public partial class EffectCodeSkill1104071 : EffectCodeCharacterBase
 
     private SkillActive _specSkill;
 
-    private ElementType _elementType;
+    private SynergyType _elementType;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {

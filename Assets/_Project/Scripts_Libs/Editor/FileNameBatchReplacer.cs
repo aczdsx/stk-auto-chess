@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +16,8 @@ namespace CookApps.Editor
         private List<string> _matchedFiles = new List<string>();
         private bool _includeSubfolders = true;
         private readonly List<MappingEntry> _mappings = new List<MappingEntry> { new MappingEntry() };
+        private string _csvFilePath = string.Empty;
+        private bool _csvHasHeader = true;
         
         // 비동기 검색을 위한 변수들
         private bool _isSearching = false;
@@ -172,6 +176,11 @@ namespace CookApps.Editor
 
             // 옵션
             _includeSubfolders = EditorGUILayout.Toggle("하위 폴더 포함", _includeSubfolders);
+
+            EditorGUILayout.Space(8);
+
+            // 엑셀 파일 로드 섹션
+            DrawExcelLoadSection();
 
             EditorGUILayout.Space(8);
 
@@ -381,6 +390,196 @@ namespace CookApps.Editor
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// CSV 파일 로드 섹션 UI
+        /// </summary>
+        private void DrawExcelLoadSection()
+        {
+            EditorGUILayout.LabelField("CSV 파일에서 매핑 불러오기", EditorStyles.boldLabel);
+            
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            
+            // CSV 파일 경로
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("CSV 파일", GUILayout.Width(120));
+            EditorGUILayout.TextField(_csvFilePath, GUILayout.ExpandWidth(true));
+            if (GUILayout.Button("찾아보기", GUILayout.Width(80)))
+            {
+                string path = EditorUtility.OpenFilePanel("CSV 파일 선택", "", "csv");
+                if (!string.IsNullOrEmpty(path))
+                {
+                    _csvFilePath = path;
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+            
+            // 헤더 행 포함 여부
+            _csvHasHeader = EditorGUILayout.Toggle("헤더 행 포함 (첫 번째 행 스킵)", _csvHasHeader);
+            
+            EditorGUILayout.Space(5);
+            
+            // CSV 파일 형식 안내
+            EditorGUILayout.HelpBox(
+                "CSV 파일 형식:\n" +
+                "- 첫 번째 열: Search (검색할 문자열)\n" +
+                "- 두 번째 열: Replace (교체할 문자열)\n" +
+                "- 쉼표(,)로 구분\n" +
+                "- 엑셀에서 '다른 이름으로 저장' → 'CSV UTF-8(쉼표로 구분)(*.csv)' 선택",
+                MessageType.Info);
+            
+            EditorGUILayout.Space(5);
+            
+            // 로드 버튼
+            GUI.enabled = !string.IsNullOrEmpty(_csvFilePath) && File.Exists(_csvFilePath);
+            if (GUILayout.Button("CSV에서 매핑 불러오기", GUILayout.Height(30)))
+            {
+                LoadMappingsFromCsv();
+            }
+            GUI.enabled = true;
+            
+            EditorGUILayout.EndVertical();
+        }
+
+        /// <summary>
+        /// CSV 파일에서 매핑 데이터를 읽어옵니다.
+        /// </summary>
+        private void LoadMappingsFromCsv()
+        {
+            if (string.IsNullOrEmpty(_csvFilePath) || !File.Exists(_csvFilePath))
+            {
+                EditorUtility.DisplayDialog("오류", "CSV 파일을 선택해주세요.", "확인");
+                return;
+            }
+
+            try
+            {
+                List<MappingEntry> loadedMappings = new List<MappingEntry>();
+                int loadedCount = 0;
+                int skippedCount = 0;
+
+                // CSV 파일 읽기
+                string[] lines = File.ReadAllLines(_csvFilePath, Encoding.UTF8);
+                
+                if (lines.Length == 0)
+                {
+                    EditorUtility.DisplayDialog("오류", "CSV 파일이 비어있습니다.", "확인");
+                    return;
+                }
+
+                int startIndex = _csvHasHeader ? 1 : 0; // 헤더가 있으면 1행부터, 없으면 0행부터
+
+                for (int i = startIndex; i < lines.Length; i++)
+                {
+                    string line = lines[i];
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        skippedCount++;
+                        continue;
+                    }
+
+                    // CSV 파싱 (쉼표로 구분, 따옴표 처리)
+                    string[] columns = ParseCsvLine(line);
+                    
+                    if (columns.Length < 1)
+                    {
+                        skippedCount++;
+                        continue;
+                    }
+
+                    string searchValue = columns[0]?.Trim() ?? string.Empty;
+                    string replaceValue = columns.Length > 1 ? (columns[1]?.Trim() ?? string.Empty) : string.Empty;
+
+                    // Search 값이 없으면 스킵
+                    if (string.IsNullOrEmpty(searchValue))
+                    {
+                        skippedCount++;
+                        continue;
+                    }
+
+                    loadedMappings.Add(new MappingEntry
+                    {
+                        Enabled = true,
+                        Search = searchValue,
+                        Replace = replaceValue
+                    });
+                    loadedCount++;
+                }
+
+                if (loadedCount == 0)
+                {
+                    EditorUtility.DisplayDialog("알림", "CSV 파일에서 유효한 매핑 데이터를 찾을 수 없습니다.", "확인");
+                    return;
+                }
+
+                // 기존 매핑에 추가할지 물어보기
+                bool addToExisting = EditorUtility.DisplayDialog(
+                    "매핑 불러오기",
+                    $"{loadedCount}개의 매핑을 불러왔습니다.\n" +
+                    $"스킵된 행: {skippedCount}개\n\n" +
+                    "기존 매핑에 추가하시겠습니까? (아니오를 선택하면 기존 매핑을 모두 교체합니다.)",
+                    "추가", "교체");
+
+                if (!addToExisting)
+                {
+                    _mappings.Clear();
+                }
+
+                _mappings.AddRange(loadedMappings);
+
+                EditorUtility.DisplayDialog("완료", $"매핑을 성공적으로 불러왔습니다.\n\n불러온 매핑: {loadedCount}개", "확인");
+            }
+            catch (System.Exception e)
+            {
+                EditorUtility.DisplayDialog("오류", $"CSV 파일을 읽는 중 오류가 발생했습니다:\n\n{e.Message}", "확인");
+                Debug.LogError($"CSV Load Error: {e}");
+            }
+        }
+
+        /// <summary>
+        /// CSV 라인을 파싱합니다. 따옴표로 감싸진 필드도 처리합니다.
+        /// </summary>
+        private string[] ParseCsvLine(string line)
+        {
+            List<string> fields = new List<string>();
+            bool inQuotes = false;
+            StringBuilder currentField = new StringBuilder();
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                char c = line[i];
+
+                if (c == '"')
+                {
+                    if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                    {
+                        // 이스케이프된 따옴표 ("")
+                        currentField.Append('"');
+                        i++; // 다음 따옴표 건너뛰기
+                    }
+                    else
+                    {
+                        // 따옴표 시작/끝
+                        inQuotes = !inQuotes;
+                    }
+                }
+                else if (c == ',' && !inQuotes)
+                {
+                    // 필드 구분자
+                    fields.Add(currentField.ToString());
+                    currentField.Clear();
+                }
+                else
+                {
+                    currentField.Append(c);
+                }
+            }
+
+            // 마지막 필드 추가
+            fields.Add(currentField.ToString());
+
+            return fields.ToArray();
         }
 
         /// <summary>

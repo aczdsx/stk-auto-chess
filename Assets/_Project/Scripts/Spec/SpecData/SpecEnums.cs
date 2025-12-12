@@ -148,7 +148,7 @@ namespace CookApps.AutoBattler
         CHAR_USER_EXP_ITEM_2 = 15,
     }
 
-    public enum ElementType
+    public enum SynergyType
     {
         NONE = 0,
         NORMAL = 1,
@@ -157,6 +157,9 @@ namespace CookApps.AutoBattler
         LIGHTNING = 4,
         EARTH = 5,
         WATER = 6,
+        NOBLESSE = 7,
+        TROUBLESHOOTER = 8,
+        SUPERNOVA = 9,
     }
 
     public enum CharacterPositionType
@@ -174,17 +177,6 @@ namespace CookApps.AutoBattler
         ORACLE = 10,
         ELECTRIC = 11,
         STRIKER = 12,
-    }
-
-    public enum CharacterStellaType
-    {
-        NONE = 0,
-        NOBLESSE = 1,
-        TROUBLESHOOTER = 2,
-        SUPERNOVA = 3,
-        SCIENCE = 4,
-        ZODIAC = 5,
-        DEATH = 6,
     }
 
     public enum AttackRangeShape
@@ -803,14 +795,6 @@ namespace CookApps.AutoBattler
     {
         None = 0,
         Shake = 1,
-    }
-
-    public enum SynergyType
-    {
-        NONE = 0,
-        NOBLESSE = 1,
-        TROUBLESHOOTER = 2,
-        SUPERNOVA = 3,
     }
 
     public enum SynergyCoverType

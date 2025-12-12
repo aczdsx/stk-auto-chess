@@ -60,19 +60,19 @@ namespace CookApps.AutoBattler
             return String.Empty;
         }
         
-        public string GetElementText(ElementType elementType)
+        public string GetElementText(SynergyType elementType)
         {
             switch (elementType)
             {
-                case ElementType.FIRE:
+                case SynergyType.FIRE:
                     return GetLanguageText("SYNERGY_FIRE");
-                case ElementType.WATER:
+                case SynergyType.WATER:
                     return GetLanguageText("SYNERGY_WATER");
-                case ElementType.EARTH:
+                case SynergyType.EARTH:
                     return GetLanguageText("SYNERGY_EARTH");
-                case ElementType.WIND:
+                case SynergyType.WIND:
                     return GetLanguageText("SYNERGY_WIND");
-                case ElementType.LIGHTNING:
+                case SynergyType.LIGHTNING:
                     return GetLanguageText("SYNERGY_LIGHTNING");
                 default:
                     return string.Empty;

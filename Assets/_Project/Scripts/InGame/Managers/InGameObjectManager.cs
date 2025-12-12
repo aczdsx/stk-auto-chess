@@ -203,21 +203,6 @@ namespace CookApps.BattleSystem
             return value;
         }
 
-        public int GetCharacterSynergyCount(AllianceType allianceType, ElementType elementType)
-        {
-            int value = 0;
-            List<CharacterController> targetList = (allianceType == AllianceType.Player)
-                ? charactersInPlaygroundForUpdate
-                : enemiesInPlaygroundForUpdate;
-                
-            foreach (var character in targetList)
-            {
-                value += character.GetCharacterStat().Spec.character_element_type == elementType ? 1 : 0;
-            }
-
-            return value;
-        }
-
         public async UniTask<CharacterController> AddCharacterToField(CharacterStatData statData, int2 initPos,
             AllianceType allianceType, Type startStateType, bool hasSkill = true, HpBarType type = HpBarType.None)
         {
@@ -925,7 +910,7 @@ namespace CookApps.BattleSystem
             return attrValue;
         }
 
-        public void SpawnSynergyFx(AllianceType type, ElementType elementType)
+        public void SpawnSynergyFx(AllianceType type, SynergyType elementType)
         {
             List<CharacterController> targetList = (type == AllianceType.Player)
                 ? charactersInPlaygroundForUpdate
@@ -934,23 +919,23 @@ namespace CookApps.BattleSystem
             foreach (var character in targetList)
             {
                 InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
-                if (elementType == ElementType.FIRE)
+                if (elementType == SynergyType.FIRE)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
                 }
-                else if (elementType == ElementType.WATER)
+                else if (elementType == SynergyType.WATER)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
                 }
-                else if (elementType == ElementType.LIGHTNING)
+                else if (elementType == SynergyType.LIGHTNING)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
                 }
-                else if (elementType == ElementType.EARTH)
+                else if (elementType == SynergyType.EARTH)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
                 }
-                else if (elementType == ElementType.WIND)
+                else if (elementType == SynergyType.WIND)
                 {
                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
                 }

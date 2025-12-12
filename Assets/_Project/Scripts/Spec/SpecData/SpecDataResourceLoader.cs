@@ -14,6 +14,6 @@ namespace CookApps.AutoBattler
     [GeneratorSpecDataResource]
     public static partial class SpecDataResourceLoader
     {
-        private static readonly byte[] _key = {118, 41, 120, 66, 74, 127, 101, 76, 88, 77, 95, 70, 92, 103, 86, 64};
+        private static readonly byte[] _key = {41, 120, 96, 104, 53, 82, 76, 85, 102, 72, 44, 85, 94, 87, 76, 124};
     }
 }

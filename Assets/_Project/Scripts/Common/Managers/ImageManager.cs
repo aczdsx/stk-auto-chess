@@ -42,56 +42,29 @@ namespace CookApps.AutoBattler
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
         }
 
-        public Sprite GetElementSprite(ElementType elementType, bool isActive = true)
+        public Sprite GetElementSprite(SynergyType elementType, bool isActive = true)
         {
             string spriteName = string.Empty;
 
             switch (elementType)
             {
-                case ElementType.FIRE:
+                case SynergyType.FIRE:
                     spriteName = isActive ? "Icon_Fire_Active" : "Icon_Fire_Locked";
                     break;
-                case ElementType.WATER:
+                case SynergyType.WATER:
                     spriteName = isActive ? "Icon_Water_Active" : "Icon_Water_Locked";
                     break;
-                case ElementType.EARTH:
+                case SynergyType.EARTH:
                     spriteName = isActive ? "Icon_Ground_Active" : "Icon_Ground_Locked";
                     break;
-                case ElementType.WIND:
+                case SynergyType.WIND:
                     spriteName = isActive ? "Icon_Wind_Active" : "Icon_Wind_Locked";
                     break;
-                case ElementType.LIGHTNING:
+                case SynergyType.LIGHTNING:
                     spriteName = isActive ? "Icon_Lightning_Active" : "Icon_Lightning_Locked";
                     break;
                 default:
                     return null;
-                // case SynergyType.LIGHT:
-                //     spriteName = isActive ? "Icon_Light_Active" : "Icon_Light_Locked";
-                //     break;
-                // case SynergyType.DARK:
-                //     spriteName = isActive ? "Icon_Dark_Active" : "Icon_Dark_Locked";
-                //     break;
-                // case SynergyType.TANK:
-                //     spriteName = isActive ? "Icon_Position_Tank_Active" : "Icon_Position_Tank_Locked";
-                //     break;
-                // case SynergyType.GUARDIAN:
-                //     spriteName = isActive ? "Icon_Position_Warrior_Active" : "Icon_Position_Warrior_Locked";
-                //     break;
-                // case SynergyType.RANGER:
-                //     spriteName = isActive ? "Icon_Position_Sniper_Active" : "Icon_Position_Sniper_Locked";
-                //     break;
-                // case SynergyType.WIZARD:
-                //     spriteName = isActive ? "Icon_Position_Wizard_Active" : "Icon_Position_Wizard_Locked";
-                //     break;
-                // case SynergyType.SUPPORTER:
-                //     spriteName = isActive ? "Icon_Position_Supporter_Active" : "Icon_Position_Supporter_Locked";
-                //     break;
-                // case SynergyType.ASSASSIN:
-                //     spriteName = isActive ? "Icon_Position_Assassin_Active" : "Icon_Position_Assassin_Locked";
-                //     break;
-                // case SynergyType.NOBLESSE:
-                //     spriteName = isActive ? "Icon_Position_Noblesse_Active" : "Icon_Position_Noblesse_Locked";
-                //     break;
             }
 
             return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
@@ -103,39 +76,6 @@ namespace CookApps.AutoBattler
 
             switch (synergyType)
             {
-                // case SynergyType.FIRE:
-                //     spriteName = isActive ? "Icon_Fire_Active" : "Icon_Fire_Locked";
-                //     break;
-                // case SynergyType.WATER:
-                //     spriteName = isActive ? "Icon_Water_Active" : "Icon_Water_Locked";
-                //     break;
-                // case SynergyType.EARTH:
-                //     spriteName = isActive ? "Icon_Ground_Active" : "Icon_Ground_Locked";
-                //     break;
-                // case SynergyType.WIND:
-                //     spriteName = isActive ? "Icon_Wind_Active" : "Icon_Wind_Locked";
-                //     break;
-                // case SynergyType.LIGHTNING:
-                //     spriteName = isActive ? "Icon_Lightning_Active" : "Icon_Lightning_Locked";
-                //     break;
-                // case SynergyType.TANK:
-                //     spriteName = isActive ? "Icon_Position_Tank_Active" : "Icon_Position_Tank_Locked";
-                //     break;
-                // case SynergyType.GUARDIAN:
-                //     spriteName = isActive ? "Icon_Position_Warrior_Active" : "Icon_Position_Warrior_Locked";
-                //     break;
-                // case SynergyType.RANGER:
-                //     spriteName = isActive ? "Icon_Position_Sniper_Active" : "Icon_Position_Sniper_Locked";
-                //     break;
-                // case SynergyType.WIZARD:
-                //     spriteName = isActive ? "Icon_Position_Wizard_Active" : "Icon_Position_Wizard_Locked";
-                //     break;
-                // case SynergyType.SUPPORTER:
-                //     spriteName = isActive ? "Icon_Position_Supporter_Active" : "Icon_Position_Supporter_Locked";
-                //     break;
-                // case SynergyType.ASSASSIN:
-                //     spriteName = isActive ? "Icon_Position_Assassin_Active" : "Icon_Position_Assassin_Locked";
-                //     break;
                 case SynergyType.NOBLESSE:
                     spriteName = isActive ? "Icon_Position_Noblesse_Active" : "Icon_Position_Noblesse_Locked";
                     break;
