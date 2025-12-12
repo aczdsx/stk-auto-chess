@@ -1,4 +1,4 @@
-#define USE_SERVER_SPEC
+// #define USE_SERVER_SPEC
 
 #if USE_SERVER_SPEC
 using CookApps.LocalData;
@@ -12,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using Unity.VisualScripting;
 using Unity.Android.Gradle;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace CookApps.AutoBattler
 {
@@ -82,14 +83,16 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<StageMonster>> stageMonsterDic = new();                       // key : chapter_id, value : stage list
         private Dictionary<int, List<StageReward>> stageRewardDic = new();                         // key : reward_id, value : stage list
         private Dictionary<int, List<CharacterInfo>> characterDic = new();                         // key : character_id, value : stage list
+        private Dictionary<int, List<MonsterInfo>> monsterDic = new();                             // key : monster_id, value : monster list
         private Dictionary<string, ConfigGame> configDic = new();                                  // key : config_key, value : game config data
         private Dictionary<long, List<SkillActive>> skillDic = new();                              // key : skill_id, value : skill list
         private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<ElementType, List<SynergyElemental>> synergyDic = new();                // key : SynergyType, value : SpecSynergy
+        private Dictionary<ElementType, List<SynergyElemental>> synergyElementDic = new();                // key : ElementType, value : SynergyElemental
+        private Dictionary<SynergyType, List<SynergyStarAsterism>> synergyStarAsterismDic = new();                // key : SynergyType, value : SynergyStarAsterism
         private Dictionary<int, List<ObstacleInfo>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
-        private Dictionary<EffectCodeNameType, List<SkillPassive>> passiveDic = new();             // key : EffectCodeNameType, value : SpecPassive
+        private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
 
         private void CustomizeSpecData()
@@ -233,6 +236,19 @@ namespace CookApps.AutoBattler
                 specCharacter.Add(character);
             }
 
+            // Monster
+            monsterDic.Clear();
+            foreach (MonsterInfo monster in MonsterInfo.All)
+            {
+                if (!monsterDic.TryGetValue(monster.monster_id, out List<MonsterInfo> specMonster))
+                {
+                    specMonster = new List<MonsterInfo>();
+                    monsterDic.Add(monster.monster_id, specMonster);
+                }
+
+                specMonster.Add(monster);
+            }
+
             // InGameVfx
             inGameVfxDic.Clear();
             foreach (InGameVfxMap inGameVfx in InGameVfxMap.All)
@@ -243,30 +259,41 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // Element && Asterism Synergy Dic
-            synergyDic.Clear();
+            // synergyElementDic Dic
+            synergyElementDic.Clear();
             foreach (SynergyElemental synergy in SynergyElemental.All)
             {
-                if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
+                if (!synergyElementDic.TryGetValue(synergy.synergy_type, out var list))
                 {
                     list = new List<SynergyElemental>();
-                    synergyDic.Add(synergy.synergy_type, list);
+                    synergyElementDic.Add(synergy.synergy_type, list);
                 }
 
                 list.Add(synergy);
             }
 
-            // // Passive Dic
-            // passiveDic.Clear();
-            // foreach (SkillPassive passive in SkillPassive.All)
-            // {
-            //     if (!passiveDic.TryGetValue(passive.passive_skill_id, out var list))
-            //     {
-            //         list = new List<SpecPassive>();
-            //         passiveDic.Add(passive.passieve_id, list);
-            //     }
-            //     list.Add(passive);
-            // }
+            synergyStarAsterismDic.Clear();
+            foreach (SynergyStarAsterism synergy in SynergyStarAsterism.All)
+            {
+                if (!synergyStarAsterismDic.TryGetValue(synergy.synergy_type, out var list))
+                {
+                    list = new List<SynergyStarAsterism>();
+                    synergyStarAsterismDic.Add(synergy.synergy_type, list);
+                }
+                list.Add(synergy);
+            }
+
+            // skillJobDic Dic
+            skillJobDic.Clear();
+            foreach (SkillJob skillJob in SkillJob.All)
+            {
+                if (!skillJobDic.TryGetValue(skillJob.passive_skill_type, out var list))
+                {
+                    list = new List<SkillJob>();
+                    skillJobDic.Add(skillJob.passive_skill_type, list);
+                }
+                list.Add(skillJob);
+            }
 
             // Commander Skill Dic
             commanderSkillDic.Clear();
@@ -763,9 +790,22 @@ namespace CookApps.AutoBattler
             return SpecItemList.Find(data => data.item_type == itemType);
         }
 
-        public CharacterInfo GetSpecCharacter(int characterID)
+        public ISpecCharacterInfo GetSpecCharacter(int characterID)
         {
-            return SpecCharacterList.FirstOrDefault(data => data.character_id == characterID);
+            ISpecCharacterInfo outCharacterInfo = SpecCharacterList.FirstOrDefault(data => data.character_id == characterID);
+            if (outCharacterInfo != null)
+            {
+                return outCharacterInfo;
+            }
+
+            outCharacterInfo = SpecMonsterList.FirstOrDefault(data => data.monster_id == characterID);
+            if (outCharacterInfo != null)
+            {
+                return outCharacterInfo;
+            }
+
+            Debug.LogError($"CharacterID: {characterID} not found");
+            return null;
         }
 
         public int GetLeftCharacterID(int characterID, CharacterType characterType)
@@ -858,55 +898,111 @@ namespace CookApps.AutoBattler
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
 
-        // public List<SynergyElemental> GetSpecSynergyList(ElementType synergyType)
-        // {
-        //     if (synergyDic.TryGetValue(synergyType, out List<SynergyElemental> synergyList))
-        //     {
-        //         return synergyList;
-        //     }
-        //
-        //     return null;
-        // }
-        //
-        // public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
-        //     out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
-        // {
-        //     outSynergyData = null;
-        //     outSynergyList = GetSpecSynergyList(synergyType);
-        //     if(outSynergyList == null)
-        //     {
-        //         return false;
-        //     }
-        //     outSynergyData = outSynergyList.Find(l => l.min_count <= count && l.max_count >= count);
-        //     if (outSynergyData == null || outSynergyData.grade < 1)
-        //     {
-        //         return false;
-        //     }
-        //     return true;
-        // }
+        public List<SynergyElemental> GetSpecSynergyListByElementType(ElementType synergyType)
+        {
+            if (synergyElementDic.TryGetValue(synergyType, out List<SynergyElemental> synergyList))
+            {
+                return synergyList;
+            }
+            return null;
+        }
+        
+        public List<SynergyStarAsterism> GetSpecSynergyListBySynergyType(SynergyType synergyType)
+        {
+            if (synergyStarAsterismDic.TryGetValue(synergyType, out List<SynergyStarAsterism> synergyList))
+            {
+                return synergyList;
+            }
+            return null;
+        }
+        
+        /// <summary>
+        /// ElementType 기반 시너지 데이터를 count로 조회합니다.
+        /// </summary>
+        public bool TryGetSynergyDataByCount(ElementType synergyType, int count,
+            out SynergyElemental outSynergyData, out List<SynergyElemental> outSynergyList)
+        {
+            return TryGetSynergyDataByCountInternal(
+                synergyType,
+                count,
+                GetSpecSynergyListByElementType,
+                (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
+                data => data.grade,
+                out outSynergyData,
+                out outSynergyList);
+        }
 
-        // public List<List<SpecPassive>> GetPassivePositionList(PositionType positionType)
-        // {
-        //     if (positionType == PositionType.NONE)
-        //     {
-        //         return null;
-        //     }
-        //
-        //     List<List<SpecPassive>> passiveList = new List<List<SpecPassive>>();
-        //     foreach (var positionPassive in SpecPositionPassive.All)
-        //     {
-        //         if (positionType != positionPassive.position_type)
-        //         {
-        //             continue;
-        //         }
-        //         if (passiveDic.TryGetValue(positionPassive.passive_id, out List<SpecPassive> passive))
-        //         {
-        //             passiveList.Add(passive);
-        //         }
-        //     }
-        //    
-        //     return passiveList;
-        // }
+        /// <summary>
+        /// SynergyType 기반 시너지 데이터를 count로 조회합니다.
+        /// </summary>
+        public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
+            out SynergyStarAsterism outSynergyData, out List<SynergyStarAsterism> outSynergyList)
+        {
+            return TryGetSynergyDataByCountInternal(
+                synergyType,
+                count,
+                GetSpecSynergyListBySynergyType,
+                (data, cnt) => data.min_int <= cnt && data.max_int >= cnt,
+                data => data.grade,
+                out outSynergyData,
+                out outSynergyList);
+        }
+
+        /// <summary>
+        /// 시너지 데이터 조회를 위한 내부 제네릭 메서드 (인터페이스 기반 통합)
+        /// </summary>
+        private bool TryGetSynergyDataByCountInternal<T, TKey>(
+            TKey synergyType,
+            int count,
+            System.Func<TKey, List<T>> getSynergyList,
+            System.Func<T, int, bool> countPredicate,
+            System.Func<T, int> getGrade,
+            out T outSynergyData,
+            out List<T> outSynergyList)
+            where T : class
+        {
+            outSynergyData = null;
+            outSynergyList = getSynergyList(synergyType);
+            
+            if (outSynergyList == null || outSynergyList.Count == 0)
+            {
+                return false;
+            }
+
+            outSynergyData = outSynergyList.Find(l => countPredicate(l, count));
+            
+            if (outSynergyData == null || getGrade(outSynergyData) < 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        
+
+        public List<List<SkillJob>> GetPassivePositionList(CharacterPositionType positionType)
+        {
+            if (positionType == CharacterPositionType.NONE)
+            {
+                return null;
+            }
+
+            List<List<SkillJob>> passiveList = new List<List<SkillJob>>();
+            foreach (var positionPassive in SkillJobPassive.All)
+            {
+                if (positionType != positionPassive.position_type)
+                {
+                    continue;
+                }
+                if (skillJobDic.TryGetValue(positionPassive.passive_id, out List<SkillJob> passive))
+                {
+                    passiveList.Add(passive);
+                }
+            }
+
+            return passiveList;
+        }
 
         public QuestInfo GetSpecQuestData(int questID)
         {

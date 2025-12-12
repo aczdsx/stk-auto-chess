@@ -580,9 +580,9 @@ namespace CookApps.AutoBattler
         /// 시너지 단계
         public int grade;
         /// 대상 인원
-        public int min_INT;
+        public int min_int;
         /// 최대 인원
-        public int max_INT;
+        public int max_int;
         /// 이펙트 트리거
         public string effect_triger;
         /// 시너지 적용 범위
@@ -616,7 +616,9 @@ namespace CookApps.AutoBattler
         /// 시너지 단계
         public int grade;
         /// 대상 인원
-        public int min_INT;
+        public int min_int;
+        /// 최대 인원
+        public int max_int;
         /// 이펙트 트리거
         public string effect_triger;
         /// 시너지 적용 범위
@@ -625,6 +627,14 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.SkillValueType effect_value_type;
         /// 스킬밸류
         public int effect_stat_value;
+        /// 효과 타입2
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type_2;
+        /// 스킬밸류2
+        public int effect_stat_value_2;
+        /// 효과 타입3
+        public global::CookApps.AutoBattler.SkillValueType effect_value_type_3;
+        /// 스킬밸류3
+        public int effect_stat_value_3;
     }
 
     [GeneratorSpecData]
@@ -698,7 +708,9 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class SkillActive
     {
-        /// 유니크 id
+        /// 유니크 id 
+/// 캐릭터 스킬 1~10000
+///몬스터 스킬 20000~40000
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
         /// 스킬 그룹 Id

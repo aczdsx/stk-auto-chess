@@ -13,12 +13,4 @@ MonoBehaviour:
   m_Name: ProtoBufCleanupSetting
   m_EditorClassIdentifier: 
   targetDir: Assets/_Project/Scripts/gRPC/bm013-grpc/Generated/CSharp
-  removeFileNames:
-  - Analyze*
-  - Chat*
-  - Coupon*
-  - DeepLink*
-  - Level*
-  - PlayerRanking*
-  - UserInventory*
-  - Server*
+  removeFileNames: []

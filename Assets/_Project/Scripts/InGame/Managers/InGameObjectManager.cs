@@ -83,7 +83,7 @@ namespace CookApps.BattleSystem
             }
             _teamEccDic.Clear();
             _teamEccDic = null;
-            
+
             InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
             InGameMainFlowManager.Instance.RemoveLateUpdateListener(LateManagedUpdate);
             playground = null;
@@ -194,20 +194,27 @@ namespace CookApps.BattleSystem
                 ? charactersInPlaygroundForUpdate
                 : enemiesInPlaygroundForUpdate;
 
-            // if (DistinguishSynergyTypeHelper.IsElementSynergyType(synergyType))
-            // {
-            //     foreach (var character in targetList)
-            //     {
-            //         // value += character.GetCharacterStat().Spec.character_element_type == synergyType ? 1 : 0;
-            //     }
-            // }
-            // else if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType))
-            // {
-            //     foreach (var character in targetList)
-            //     {
-            //         value += character.GetCharacterStat().Spec.character_stella_type == synergyType ? 1 : 0;
-            //     }
-            // }
+
+            foreach (var character in targetList)
+            {
+                value += character.GetCharacterStat().Spec.character_stella_type == synergyType ? 1 : 0;
+            }
+
+            return value;
+        }
+
+        public int GetCharacterSynergyCount(AllianceType allianceType, ElementType elementType)
+        {
+            int value = 0;
+            List<CharacterController> targetList = (allianceType == AllianceType.Player)
+                ? charactersInPlaygroundForUpdate
+                : enemiesInPlaygroundForUpdate;
+                
+            foreach (var character in targetList)
+            {
+                value += character.GetCharacterStat().Spec.character_element_type == elementType ? 1 : 0;
+            }
+
             return value;
         }
 

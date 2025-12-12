@@ -9,7 +9,7 @@ using UnityEngine;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeSynergyElementFire : EffectCodeCharacterBase
 {
-    public const int CodeId = 220001;
+    public const int CodeId = 100101;
     private ObfuscatorFloat statValue;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -38,17 +38,5 @@ public partial class EffectCodeSynergyElementFire : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    // public override void OnAttack()
-    // {
-    //     base.OnAttack();
-
-    //     if (owner.Target != null)
-    //     {
-    //         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_02, owner.Target.SkillRootTransformFollowable);
-
-    //         var damage = owner.PrecalculateDamageAmount(owner.AD * statValue, 0, owner.Target, codeId, true);
-    //         owner.PostCalculateDamageAmount(ref damage, owner.Target);
-    //         owner.Target.GetDamaged(damage, owner);
-    //     }
-    // }
+    
 }

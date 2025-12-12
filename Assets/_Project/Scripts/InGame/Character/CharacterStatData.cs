@@ -11,10 +11,10 @@ namespace CookApps.AutoBattler
     public class CharacterStatData : IEffectCodeSource
     {
         public EffectCodeContainer EffectCodeContainer { get; }
-        public CharacterInfo Spec => _spec;
+        public ISpecCharacterInfo Spec => _spec;
         public int Level => _level;
-        public int CharacterID => _spec?.character_id ?? 0;
-        private CharacterInfo _spec;
+        public int CharacterID => _spec?.GetId() ?? 0;
+        private ISpecCharacterInfo _spec;
         private int _level;
 
         public CharacterStatData(int characterId, int level, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null) : this(characterId, level, 1, 1, globalEffectCodeInfos)
@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
 
             return CP;
         }
-        
+
         public CharacterStatData(int characterId, int level, float multiAd, float multiHp, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null)
         {
             Debug.LogColor("characterID : " + characterId);
@@ -114,9 +114,9 @@ namespace CookApps.AutoBattler
             }
 
             {
-                var adBonusCodeInfo = new EffectCodeInfo((long) EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
-                var apBonusCodeInfo = new EffectCodeInfo((long) EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
-                var hpBonusCodeInfo = new EffectCodeInfo((long) EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
+                var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
+                var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
+                var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
                 EffectCodeContainer.AddOrMergeEffectCode(apBonusCodeInfo, this);
                 EffectCodeContainer.AddOrMergeEffectCode(hpBonusCodeInfo, this);
@@ -297,7 +297,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public ObfuscatorInt CharacterId => _spec?.character_id ?? 0;
+        public ObfuscatorInt CharacterId => _spec?.GetId() ?? 0;
 
         public ObfuscatorDouble HP { get; private set; }
 

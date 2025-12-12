@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: SpecDataAsset
   m_EditorClassIdentifier: 
   FilterTitle: '[BM]'
-  SheetId: 1wkiHFUoeBbdiyeO2WZ0YsB0zvMRY9r1vRrrVfzJikIo
-  SheetName: '[Tech] TeamBattleTemplate'
+  SheetId: 1V1kcdpqFQSXt8p9ohzpElnbA_KszfdG8Gz0ZBh8R3lw
+  SheetName: '[BM]StellaAutoBattleProject'
   SourceNamespace: CookApps.AutoBattler
   SourceEnumNamespace: CookApps.AutoBattler
   SourceFolder: Assets/_Project/Scripts/Spec/SpecData
   OriginalJsonFolder: Assets
+  JsonParser: 1
   Obfuscator: 1
   CreateValidFile: 0
   PreBuildValid: 0
-  EncryptKey: )ybk1WJRnA&^RZBs
+  EncryptKey: v(zANzcKPDUMPjXO

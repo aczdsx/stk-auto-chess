@@ -34,17 +34,27 @@ public class FlowStateLobbyCombat : StateCombatBase
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         var userCharacters = UserDataManager.Instance.GetAllUserCharacterList()
             .OrderByDescending(character => SpecDataManager.Instance.GetCharacterData(character.CharacterId).seq)
-            .Take(5) // 상위 5개만 선택
             .ToList();
+            
+        int count = 0;
         foreach (var character in userCharacters)
         {
+
+            if (character.CharacterId == 114663506 || character.CharacterId == 114613502 ||
+            character.CharacterId == 114643504 || character.CharacterId == 114643504 ||
+            character.CharacterId == 114643503 || character.CharacterId == 114563405||
+            character.CharacterId == 114553404 || character.CharacterId == 114513402 ||
+            character.CharacterId == 114433303) 
+                continue;//시라유키
             var characterStat = new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
             InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
             int2 coordinate = new int2(ingameTile.X, ingameTile.Y);
 
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate, AllianceType.Player,
                 typeof(CharacterStateIdle), false));
-
+            count++;
+            if (count >= 5)
+                break;
             await UniTask.Delay(210);
         }
 

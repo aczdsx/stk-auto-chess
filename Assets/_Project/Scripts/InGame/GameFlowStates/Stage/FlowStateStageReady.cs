@@ -166,23 +166,23 @@ public class FlowStateStageReady : StateReadyBase
         {
             if (_specStage.stage_number == 1)
             {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(130201);
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(113422301);//멘샤
             }
             else if (_specStage.stage_number == 6)
             {
-                battleDeckList.RemoveAll(l => l.CharacterId == 130601);
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(130301);
+                battleDeckList.RemoveAll(l => l.CharacterId == 113252102);//유니
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(113642501);//엘리스
             }
             else if (_specStage.stage_number == 11)
             {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(140601);
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(114653505);//엔키
             }
         }
         else if (_specStage.chapter_id == 3)
         {
             if (_specStage.stage_number == 6)
             {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(130501);
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(113362202);//시이나
             }
         }
     }
