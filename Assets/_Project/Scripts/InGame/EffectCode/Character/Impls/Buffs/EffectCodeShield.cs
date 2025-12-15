@@ -67,10 +67,26 @@ public partial class EffectCodeBuffShield : EffectCodeBuffBase
 
     public override void OnPreRemoved()
     {
-        owner.RemoveBuffDebuffType(BuffDebuffType.Shield);
-        owner.UpdateHpBar();
+        owner?.RemoveBuffDebuffType(BuffDebuffType.Shield);
+        owner?.UpdateHpBar();
         base.OnPreRemoved();
-        ListPool<ShieldData>.Release(shields);
+        // 이미 반환된 리스트를 중복 반환하지 않도록 가드
+        if (shields != null)
+        {
+            // 남아있는 데이터가 있으면 개별 반환 처리
+            for (int i = 0; i < shields.Count; i++)
+            {
+                if (shields[i] != null)
+                {
+                    GenericPool<ShieldData>.Release(shields[i]);
+                    shields[i] = null;
+                }
+            }
+
+            shields.Clear();
+            ListPool<ShieldData>.Release(shields);
+            shields = null;
+        }
     }
 
     public override void OnUpdate(float dt)

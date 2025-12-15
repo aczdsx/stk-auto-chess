@@ -19,7 +19,7 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateInit(object target)
     {
-        base.TidyUpPreviewSynergy(AllianceType.Player);
+        // base.TidyUpPreviewSynergy(AllianceType.Player);
         characters = ListPool<CharacterController>.Get();
         
         InGameObjectManager.Instance.ClearSynergyFx();
@@ -42,12 +42,6 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateStart()
     {
-        base.AddSynergy(AllianceType.Player);
-        base.AddSynergy(AllianceType.Enemy);
-        
-        base.AddPassive(AllianceType.Player);
-        base.AddPassive(AllianceType.Enemy);
-
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
@@ -151,12 +145,12 @@ public class FlowStateStageCombat : StateCombatBase
     {
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
-            character.RemoveSynergyEffectCode();
+            character.RemoveSynergyEffectCodeALL();
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
-            character.RemoveSynergyEffectCode();
+            character.RemoveSynergyEffectCodeALL();
         }
 
         ListPool<CharacterController>.Release(characters);

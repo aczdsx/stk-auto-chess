@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// 슈퍼노바 클래스 시너지 타입 아이템만 만들고 
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBase, IEffectCodeInGameObjectItemInfo
+public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase, IEffectCodeInGameObjectItemInfo
 {
     private enum SupernovaGrade
     {
@@ -19,8 +19,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         ADD_AD_PERCENT = 2,
         ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE = 3,
     }
-    public const int CodeId = 200201;
-    public readonly static int SUPERNOVA_ITEM_VIEW_ID = 300001;
+    public const int CodeId = 200301;
+    public readonly static int SUPERNOVA_ITEM_VIEW_ID = 6101;
     private int _synergyGrade;
     private CharacterController _targetCharacter = null;
     private IEffectCodeSource _source;
@@ -42,10 +42,10 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
 
     private async void AddGameObjectSuperNovaItem(IEffectCodeSource source)
     {
-        if (InGameObjectManager.Instance.IsRegisteredItem(SUPERNOVA_ITEM_VIEW_ID))
+        if (InGameSynergyManager.Instance.IsRegisteredItem(SUPERNOVA_ITEM_VIEW_ID))
             return;
 
-        var specCharacter = SpecDataManager.Instance.GetCharacterData(SUPERNOVA_ITEM_VIEW_ID);
+        var specCharacter = SpecDataManager.Instance.GetBattleItemData(SUPERNOVA_ITEM_VIEW_ID);
         InGameTile inGameTile = null;
 
         if (InGameTouchManager.Instance.SelectedFirstTileID != -1)
@@ -70,7 +70,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
             OnItemCheckCharacterAffected: OnItemCheckCharacterAffected,
             OnItemTargetObjectRelease: OnItemTargetObjectRelease
             );
-        InGameObjectManager.Instance.RegisterItem(itemInfo);
+        InGameSynergyManager.Instance.RegisterItem(itemInfo);
     }
 
     public override void OnCombatStart()
@@ -106,6 +106,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_HP_PERCENT].effect_stat_value_1;
         Debug.LogColor($"Supernova HP % Up: {supernovaSynergyList[1].effect_stat_value_1}", "green");
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, targetCharacter, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
     }
     
     private void AddAdPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
@@ -115,6 +116,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value_1;
         Debug.LogColor($"Supernova AD % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value_1}", "green");
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, targetCharacter, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PERCENT_UP);
     }
     private void AddAttackSpeedCriticalRateAtkPierce(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
@@ -123,14 +125,18 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
         stats.Clear();
         stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_1;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_PERCENT_UP, targetCharacter, stats, source);
-    
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.ATK_SPEED_PERCENT_UP);
+        
         stats.Clear();
         stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_2;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, targetCharacter, stats, source);
-    
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_PERCENT_UP);
+
         stats.Clear();
         stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_3;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP, targetCharacter, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP);
+
         Debug.LogColor($"Supernova ATK Speed % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_1}", "green");
         Debug.LogColor($"Supernova Crit Rate % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_2}", "green");
         Debug.LogColor($"Supernova DEF Penetration % Up: {supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE].effect_stat_value_3}", "green");
@@ -139,7 +145,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
 
     public override void OnPreRemoved()
     {
-        InGameObjectManager.Instance.TryRemoveItemFromTarget(SUPERNOVA_ITEM_VIEW_ID);
+        InGameSynergyManager.Instance.TryRemoveItemFromTarget(SUPERNOVA_ITEM_VIEW_ID);
 
         Debug.LogColor($"Supernova Removed", "red");
         base.OnPreRemoved();
@@ -170,11 +176,11 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
     {
         if (targetCharacter == null)
             return false;
-        // if (targetCharacter.SpecCharacter.asterism_type != SynergyType.SUPERNOVA)
-        // {
-        //     ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_TYPE_TOKEN);
-        //     return false;
-        // }
+        if (targetCharacter.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA)
+        {
+            ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_TYPE_TOKEN);
+            return false;
+        }
         return true;
     }
 
@@ -193,7 +199,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeCharacterBas
 
     public void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameObjectManagerItemComponent.ItemState itemState)
     {
-        // InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.element_type);
-        // InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.asterism_type);
+        InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_stella_type);
+        InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_element_type);
+
     }
 }

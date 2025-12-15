@@ -173,7 +173,8 @@ public class InGameTopUI : MonoBehaviour
                     {
                         var nextData = outSynergyList[0];
                         TrySetSynergyUI(() =>
-                            _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, nextData, nextData, isActive: false)
+                            _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, nextData, 
+                            nextData, isActive: false, isColorWhite: true)
                         );
                     }
                 }

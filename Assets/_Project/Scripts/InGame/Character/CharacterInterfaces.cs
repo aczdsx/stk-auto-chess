@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         int[] skill_ids { get; }
 
-//===========================================================================
+        //===========================================================================
         /// <summary>
         /// 성군 시너지 타입 (CharacterInfo 전용, MonsterInfo는 NONE 반환)
         /// </summary>
@@ -248,5 +248,37 @@ namespace CookApps.AutoBattler
         // public int stat_res;
         // public bool is_knock_back;
         // public bool is_taken_cc;
+    }
+
+    public partial class BattleItem : ISpecCharacterInfo
+    {
+        public int GetId() => prefab_id;
+
+        int ISpecCharacterInfo.index => index;
+        int ISpecCharacterInfo.prefab_id => prefab_id;
+        int ISpecCharacterInfo.seq => 0;
+        string ISpecCharacterInfo.name_token => name_token;
+        string ISpecCharacterInfo.desc_token => desc_token;
+        CharacterType ISpecCharacterInfo.character_type => character_type;
+        SynergyType ISpecCharacterInfo.character_element_type => SynergyType.NONE;
+        SynergyType ISpecCharacterInfo.character_stella_type => SynergyType.NONE;
+        CharacterPositionType ISpecCharacterInfo.character_position_type => CharacterPositionType.NONE;
+        AtkType ISpecCharacterInfo.atk_type => AtkType.NONE;
+        int ISpecCharacterInfo.size => 0;
+        int ISpecCharacterInfo.stat_hp => 0;
+        int ISpecCharacterInfo.stat_atk => 0;
+        float ISpecCharacterInfo.inc_lv_rate => 0;
+        float ISpecCharacterInfo.inc_lv_bonus_rate => 0;
+        int ISpecCharacterInfo.stat_def => 0;
+        float ISpecCharacterInfo.stat_atk_pierce => 0;
+        float ISpecCharacterInfo.stat_res_pierce => 0;
+        float ISpecCharacterInfo.crit_rate => 0;
+        float ISpecCharacterInfo.crit_power => 0;
+        float ISpecCharacterInfo.atk_speed => 0;
+        float ISpecCharacterInfo.move_speed => 0;
+        int ISpecCharacterInfo.atk_range => 0;
+        float ISpecCharacterInfo.height => 0;
+        InGameVfxNameType ISpecCharacterInfo.projectile_vfx_name_type => InGameVfxNameType.NONE;
+        int[] ISpecCharacterInfo.skill_ids => new int[0];
     }
 }

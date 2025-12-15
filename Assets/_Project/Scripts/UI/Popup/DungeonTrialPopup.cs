@@ -144,7 +144,7 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_monsterInfoScrollRect.content);
             var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
             double attr = 0;
-            CharacterStatData topStatData = null;
+            CharacterStatData topStatData = null;//114333202
             
             List<CharacterStatData> dataList = new List<CharacterStatData>();
             foreach (var monsterData in monsterDataList)

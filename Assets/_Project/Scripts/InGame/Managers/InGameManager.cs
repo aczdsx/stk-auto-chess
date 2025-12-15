@@ -23,9 +23,6 @@ namespace CookApps.BattleSystem
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
-        // private EffectCodeContainer ecc;
-        // public EffectCodeContainer EffectCodeContainer => ecc;
-
         private EffectCodeContainerTeam _teamEcc;
         public EffectCodeContainerTeam TeamEcc => _teamEcc;
 
@@ -100,6 +97,7 @@ namespace CookApps.BattleSystem
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
             InGameObjectManager.Instance.Initialize();
             InGameCommanderManager.Instance.Initialize();
+            InGameSynergyManager.Instance.Initialize();
         }
 
         public void EndInGame()
@@ -112,12 +110,13 @@ namespace CookApps.BattleSystem
             InGameHpBarViewPool.Instance.Clear();
             InGameVfxManager.Instance.Clear();
             InGameStatistics.Instance.Clear();
+            InGameSynergyManager.Instance.Clear();
             _teamEcc.Clear();
             _teamEcc = null;
         }
         #endregion
 
-        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, ISpecSynergyData synergyData, IEffectCodeSource source)
+        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, ISpecSynergyData synergyData)
         {
             Span<double> stats = stackalloc double[4];
             stats[0] = synergyData.effect_stat_value_1;
@@ -126,12 +125,12 @@ namespace CookApps.BattleSystem
             stats[3] = synergyData.grade;
         
             var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-            _teamEcc.AddOrMergeEffectCode(effectCodeInfo, source, allianceType);
+            _teamEcc.AddOrMergeEffectCode(effectCodeInfo, null, allianceType);
         }
 
-        public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyData)
+        public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyType)
         {
-            var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyData);
+            var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyType);
             if (synergyList == null || synergyList.Count == 0)
                 return;
         

@@ -8,7 +8,7 @@ using UnityEngine;
 // 공격속도 {0}% 회피율이 {0}% 증가합니다.
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyElementWind : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementWind : EffectCodeSynergyBase
 {
     public const int CodeId = 100201;
     private ObfuscatorFloat _statValue;
@@ -22,7 +22,7 @@ public partial class EffectCodeSynergyElementWind : EffectCodeCharacterBase
         increaseStat.Clear();
         increaseStat[0] = _statValue;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_PERCENT_UP, owner, increaseStat, source);
-        
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.ATK_SPEED_PERCENT_UP);
         Debug.LogColor($"바람시너지 공격속도 {_statValue}% 증가", "green");
     }
 
@@ -30,5 +30,10 @@ public partial class EffectCodeSynergyElementWind : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
+    }
+
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 }

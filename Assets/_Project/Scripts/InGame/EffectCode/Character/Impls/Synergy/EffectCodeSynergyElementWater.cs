@@ -8,7 +8,7 @@ using UnityEngine;
 /// HP {0}% 및 방어력 {0}% 증가합니다.
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyElementWater : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementWater : EffectCodeSynergyBase
 {
     public const int CodeId = 100501;
     private ObfuscatorFloat _hpValue;
@@ -25,13 +25,15 @@ public partial class EffectCodeSynergyElementWater : EffectCodeCharacterBase
         eccStats[0] = _hpValue;
 
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, owner, eccStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
 
         eccStats[0] = _defValue;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PERCENT_UP, owner, eccStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.DEF_PERCENT_UP);
 
         eccStats[0] = _defValue;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.RES_PERCENT_UP, owner, eccStats, source);
-
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.RES_PERCENT_UP);
         Debug.LogColor($"물시너지 HP {_hpValue}% 방어력 {_defValue}% 증가", "green");
 
     }
@@ -41,5 +43,10 @@ public partial class EffectCodeSynergyElementWater : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         _hpValue = codeInfo.GetCodeStatToFloat(0);
         _defValue = codeInfo.GetCodeStatToFloat(1);
+    }
+
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 }

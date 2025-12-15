@@ -7,7 +7,7 @@ using UnityEngine;
 // 물리 관통력{0}%, 마법 관통력 및 블럭율 증가 {0}% 근데 아직 블럭율 수치가 없음.
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementEarth : EffectCodeSynergyBase
 {
     public const int CodeId = 100301;
     private ObfuscatorFloat _PierceValue;
@@ -24,8 +24,11 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
 
         buffStats[0] = _PierceValue;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP);
+
         buffStats[0] = _PierceValue;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.RES_PENETRATION_PERCENT_UP, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.RES_PENETRATION_PERCENT_UP);
 
         Debug.LogColor($"대지시너지 물리 관통력 {_PierceValue}% 마법 관통력 {_PierceValue}% 증가", "green");
     }
@@ -35,6 +38,11 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         _PierceValue = codeInfo.GetCodeStatToFloat(0);   //atk_pierce  //res_pierce
         _blockRateValue = codeInfo.GetCodeStatToFloat(1);
+    }
+
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 
 }

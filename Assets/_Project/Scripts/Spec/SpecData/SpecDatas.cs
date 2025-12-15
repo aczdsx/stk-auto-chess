@@ -231,6 +231,22 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class BattleItem
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
+        /// 프리팹id
+        public int prefab_id;
+        /// 배틀 아이템 이름 토큰
+        public string name_token;
+        /// 배틀 아이템 설명 토큰
+        public string desc_token;
+        /// 개체 타입
+        public global::CookApps.AutoBattler.CharacterType character_type;
+    }
+
+    [GeneratorSpecData]
     public partial class ChapterRule
     {
         /// #SheetIndex
@@ -731,7 +747,7 @@ namespace CookApps.AutoBattler
         public string skill_name_token;
         /// 스킬 설명 토큰
         public string skill_desc_token;
-        /// # 사용 이펙트
+        /// 사용 이펙트
         public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
         /// #변수 의미
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;

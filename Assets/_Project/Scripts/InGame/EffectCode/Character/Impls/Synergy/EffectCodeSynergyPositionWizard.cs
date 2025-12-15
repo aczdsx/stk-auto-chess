@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///마법사 타입 캐릭터 스킬 쿨타임 감소 속도 증가
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyPositionWizard : EffectCodeCharacterBase
+public partial class EffectCodeSynergyPositionWizard : EffectCodeSynergyBase
 {
     public const int CodeId = 210201;
     private ObfuscatorFloat statValue;
@@ -41,5 +41,9 @@ public partial class EffectCodeSynergyPositionWizard : EffectCodeCharacterBase
                 }
             }
         }
+    }
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 }

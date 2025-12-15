@@ -726,12 +726,12 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
-            character.RemoveSynergyEffectCode();
+            character.RemoveSynergyEffectCodeALL();
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
-            character.RemoveSynergyEffectCode();
+            character.RemoveSynergyEffectCodeALL();
         }
 
         // 마녀 공격 준비 이펙트 정리

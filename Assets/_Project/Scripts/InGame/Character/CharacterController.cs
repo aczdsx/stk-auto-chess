@@ -217,7 +217,7 @@ namespace CookApps.BattleSystem
                 viewGo = await Addressables.InstantiateAsync(
                     $"Obstacle/Stage/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
             }
-            else if (statData.Spec.character_type == CharacterType.ITEM)
+            else if (statData.Spec.character_type == CharacterType.BATTLEITEM)
             {
                 viewGo = await Addressables.InstantiateAsync(
                     $"Item/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
@@ -257,6 +257,23 @@ namespace CookApps.BattleSystem
 
                 _currHp = HP;
                 IsAlive = true;
+                AddPassive();
+            }
+
+        }
+
+        private void AddPassive()
+        {
+            var specDataManagerInstance = SpecDataManager.Instance;
+            int testGrade = 0;
+
+            var passiveList = specDataManagerInstance.GetPassivePositionList(SpecCharacter.character_position_type);
+            if (passiveList == null || passiveList.Count == 0)
+                return;
+
+            foreach (var passive in passiveList)
+            {
+                InjectPassive((long)passive[testGrade].passive_skill_type, passive[testGrade]);
             }
 
         }
@@ -332,7 +349,7 @@ namespace CookApps.BattleSystem
                 }
             }
         }
-        
+
         public void InjectSynergy(long effectCodeID, ISpecSynergyData synergyData)
         {
             Span<double> stats = stackalloc double[4];
@@ -341,25 +358,25 @@ namespace CookApps.BattleSystem
             stats[2] = synergyData.grade;
             stats[3] = synergyData.effect_stat_value_3;
             var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+            ecc.AddOrMergeEffectCode(effectCodeInfo, null);
         }
 
         public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, ISpecSynergyData synergyData)
         {
             if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(targetSynergyType))
             {
-               if(targetSynergyType != _statData.Spec.character_stella_type)
-                return;
+                if (targetSynergyType != _statData.Spec.character_stella_type)
+                    return;
             }
-            else if(DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType))
+            else if (DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType))
             {
-                if(targetSynergyType != _statData.Spec.character_element_type)
+                if (targetSynergyType != _statData.Spec.character_element_type)
                     return;
             }
             InjectSynergy(effectCodeID, synergyData);
-        }                   
+        }
 
-        public void RemoveSynergyEffectCode()
+        public void RemoveSynergyEffectCodeALL()
         {
             for (int i = 1; i < Enum.GetValues(typeof(SynergyType)).Length; i++)
             {
@@ -375,9 +392,18 @@ namespace CookApps.BattleSystem
                 if (!SpecDataManager.Instance.TryGetSynergyDataByCount(targetSynergyType, targetSynergyCharacterCount,
                 out var outSynergyData, out var outSynergyList))
                     continue;
-                
+
                 ecc.RemoveEffectCode(outSynergyList[0].synergy_group_id);
             }
+        }
+
+        public void RemoveSynergyEffectCode(SynergyType targetSynergyType)
+        {
+            if (SpecCharacter.character_element_type != targetSynergyType && SpecCharacter.character_stella_type != targetSynergyType)
+                return;
+
+            var synergyList = SpecDataManager.Instance.GetSpecSynergyList(targetSynergyType);
+            ecc.RemoveEffectCode(synergyList[0].synergy_group_id);
         }
 
         public void InjectPassive(long effectCodeID, SkillJob passiveData)
@@ -445,8 +471,8 @@ namespace CookApps.BattleSystem
             {
                 // if (_statData.Spec.is_taken_cc)
                 // {
-                //     _crowdControlType = _crowdControlType | type;
-                //     AddBuffDebuffType(type.ToBuffDebuffType());
+                _crowdControlType = _crowdControlType | type;
+                AddBuffDebuffType(type.ToBuffDebuffType());
                 // }
             }
         }
@@ -457,8 +483,8 @@ namespace CookApps.BattleSystem
             {
                 // if (_statData.Spec.is_taken_cc)
                 // {
-                //     _crowdControlType = _crowdControlType & ~type;
-                //     RemoveBuffDebuffType(type.ToBuffDebuffType());
+                _crowdControlType = _crowdControlType & ~type;
+                RemoveBuffDebuffType(type.ToBuffDebuffType());
                 // }
             }
         }

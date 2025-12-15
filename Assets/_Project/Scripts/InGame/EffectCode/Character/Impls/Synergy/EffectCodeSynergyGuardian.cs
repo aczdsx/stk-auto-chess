@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///가디언 타입 캐릭터 공격 시 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyGuardian : EffectCodeCharacterBase
+public partial class EffectCodeSynergyGuardian : EffectCodeSynergyBase
 {
     public const int CodeId = 210001;
     private ObfuscatorFloat statValue;
@@ -23,7 +23,7 @@ public partial class EffectCodeSynergyGuardian : EffectCodeCharacterBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageAmount,  CharacterController attacker, bool isPure)
+    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageAmount, CharacterController attacker, bool isPure)
     {
         base.OnDamaged(damageAmount, attacker, isPure);
 
@@ -32,7 +32,7 @@ public partial class EffectCodeSynergyGuardian : EffectCodeCharacterBase
             foreach (var skillID in owner.SpecCharacter.skill_ids)
             {
                 EffectCodeCharacterBase eccBase =
-                    (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
+                    (EffectCodeCharacterBase)owner.GetEffectCodeContainer().GetEffectCode(skillID);
                 if (eccBase != null)
                 {
                     if (!eccBase.IsSkillActivated)
@@ -48,5 +48,9 @@ public partial class EffectCodeSynergyGuardian : EffectCodeCharacterBase
         }
 
         return damageAmount;
+    }
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 }

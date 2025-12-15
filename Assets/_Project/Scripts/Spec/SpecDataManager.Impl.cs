@@ -93,6 +93,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<ObstacleInfo>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
         private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
+        private Dictionary<int, BattleItem> battleItemDic = new();                           // key : battle_item_id, value : BattleItem
 
         private void CustomizeSpecData()
         {
@@ -318,6 +319,16 @@ namespace CookApps.AutoBattler
 
                 list.Add(obstacle);
             }
+
+            battleItemDic.Clear();
+            foreach (BattleItem battleItem in BattleItem.All)
+            {
+                if (!battleItemDic.TryGetValue(battleItem.prefab_id, out var battleItemData))
+                {
+                    battleItemData = battleItem;
+                    battleItemDic.Add(battleItem.prefab_id, battleItem);
+                }
+            }
         }
 
         public string GetLanguageText(string tokenKey, LanguageType targetLanguageType)
@@ -353,6 +364,11 @@ namespace CookApps.AutoBattler
         public CharacterInfo GetCharacterData(int characterID)
         {
             return SpecCharacterList.Find(character => character.character_id == characterID);
+        }
+
+        public BattleItem GetBattleItemData(int battleItemID)
+        {
+            return battleItemDic.GetValueOrDefault(battleItemID);
         }
 
         public List<CharacterInfo> GetCharacterListByCharacterType(CharacterType type)
@@ -797,6 +813,12 @@ namespace CookApps.AutoBattler
             }
 
             outCharacterInfo = SpecMonsterList.FirstOrDefault(data => data.monster_id == characterID);
+            if (outCharacterInfo != null)
+            {
+                return outCharacterInfo;
+            }
+
+            outCharacterInfo = battleItemDic.GetValueOrDefault(characterID);
             if (outCharacterInfo != null)
             {
                 return outCharacterInfo;

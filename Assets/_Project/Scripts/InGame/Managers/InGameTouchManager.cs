@@ -167,7 +167,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return false;
 
         if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall
-            && tile.OccupiedCharacter.SpecCharacter.character_type == CharacterType.ITEM)
+            && tile.OccupiedCharacter.SpecCharacter.character_type == CharacterType.BATTLEITEM)
         {
             return true;
         }
@@ -263,7 +263,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         var returnObjResult = results.FirstOrDefault(r => r.gameObject != null && r.gameObject.CompareTag("ReturnObj"));
 
-        if (returnObjResult.gameObject != null && _selectedCharacterController.SpecCharacter.character_type != CharacterType.ITEM)
+        if (returnObjResult.gameObject != null && _selectedCharacterController.SpecCharacter.character_type != CharacterType.BATTLEITEM)
         {
             var inGameMain = InGameMain.GetInGameMain();
             CharacterController deleteCharacterController = _selectedCharacterController;
@@ -358,12 +358,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return false;
         }
 
-        if (InGameObjectManager.Instance.IsDragAndDropItem(_selectedCharacterController))
+        if (InGameSynergyManager.Instance.IsDragAndDropItem(_selectedCharacterController))
         {
             itemObj = _selectedCharacterController;
             targetObj = targetCharacter;
         }
-        else if (InGameObjectManager.Instance.IsDragAndDropItem(targetCharacter))
+        else if (InGameSynergyManager.Instance.IsDragAndDropItem(targetCharacter))
         {
             itemObj = targetCharacter;
             targetObj = _selectedCharacterController;
@@ -480,7 +480,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private bool ApplyItem(CharacterController itemObj, CharacterController targetObj)
     {
-        if (!InGameObjectManager.Instance.ApplyItem(itemObj, targetObj))
+        if (!InGameSynergyManager.Instance.ApplyItem(itemObj, targetObj))
         {
             return false;
         }

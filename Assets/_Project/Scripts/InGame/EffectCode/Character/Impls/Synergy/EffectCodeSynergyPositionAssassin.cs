@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 ///암살자 타입 캐릭터 적 처치 시 스킬 쿨타임 감소
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
+public partial class EffectCodeSynergyPositionAssassin : EffectCodeSynergyBase
 {
     public const int CodeId = 210401;
     private ObfuscatorFloat statValue;
@@ -29,7 +29,7 @@ public partial class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
         foreach (var skillID in owner.SpecCharacter.skill_ids)
         {
             EffectCodeCharacterBase eccBase =
-                (EffectCodeCharacterBase) owner.GetEffectCodeContainer().GetEffectCode(skillID);
+                (EffectCodeCharacterBase)owner.GetEffectCodeContainer().GetEffectCode(skillID);
             if (eccBase != null)
             {
                 if (!eccBase.IsSkillActivated)
@@ -42,5 +42,9 @@ public partial class EffectCodeSynergyPositionAssassin : EffectCodeCharacterBase
                 }
             }
         }
+    }
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 }

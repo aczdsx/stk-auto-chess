@@ -1,34 +1,26 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 아드리아
-// 범위 : 자기 중심 
-// 대미지 : 아드리아 공격력{0}% 대미지를 입히고, 물리 방어력에 비례해 피해가 증가한다. 
-//     추가 효과 : 범위 내에 위치한 적은 {2}초 동안 스턴에 걸린다.
-//     개발용 대미지 계산식 : 아드리아 공격력*{0}*(1+물리 방어력/{1})
+/// 미사
+// 대상 : 스킬 발동 시점 누적 딜이 가장 높은 적 
+// 효과 : 적을 {0}초 동안 관에 가둬 봉인한다. 봉인된 적도 공격 대상으로 취급되며, 봉인된 적은 봉인동안 
+// 스킬 쿨타임이 흐르지 않는다. 
 /// </summary>
 [UseEffectCodeIds(217323201)]
 public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _damageRate;
-    private ObfuscatorFloat _defValue;
-    private ObfuscatorFloat _stunTime;
-
-    private const float WaitTime = 0.25f;
+    private ObfuscatorFloat _time;
 
     private bool _isReadyToActivate;
 
     private SkillActive _specSkill;
 
-    private List<CharacterController> _hitCharacters = new List<CharacterController>();
+    private bool isKilled;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -36,9 +28,7 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _defValue = codeInfo.GetCodeStatToFloat(2);
-        _stunTime = codeInfo.GetCodeStatToFloat(3);
+        _time = codeInfo.GetCodeStatToFloat(1);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -49,9 +39,7 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _defValue = codeInfo.GetCodeStatToFloat(2);
-        _stunTime = codeInfo.GetCodeStatToFloat(3);
+        _time = codeInfo.GetCodeStatToFloat(1);
     }
 
     public override void OnUpdate(float dt)
@@ -89,7 +77,6 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        _hitCharacters.Clear();
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -100,78 +87,60 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
+
         if (owner.Target == null)
             return;
 
-        ExecuteSkillRoutine().Forget();
+        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(owner.AllianceType, false);
+        if (characterControllers.Count > 0)
+        {
+            var characterController = characterControllers[0];
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, characterController.CurrentTile);
+            
+            {
+                Span<double> eccStats = stackalloc double[1];
+                eccStats.Clear();
+                eccStats[0] = _time;
+        
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.MISA_RESTRAINT, characterController, eccStats, source);
+            }
+            
+            {
+                Span<double> eccStats = stackalloc double[3];
+                eccStats.Clear();
+                eccStats[0] = codeId;
+                eccStats[1] = _time;
+                eccStats[2] = 0;
+        
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_MISA, characterController, eccStats, source);
+            }
 
+            {
+                Span<double> eccStats = stackalloc double[1];
+                eccStats.Clear();
+                eccStats[0] = _time;
+        
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, characterController, eccStats, source);
+            }
+        }
+        
         IsSkillActivated = false;
     }
 
     public override void OnSkillAnimationEnd()
     {
-        CoolTimeElapsedTime = 0;
+        if (isKilled)
+        {
+            CoolTimeElapsedTime = CoolTimeDurationTime;
+            _isReadyToActivate = true;
+            isKilled = false;
+        }
+        else
+        {
+            CoolTimeElapsedTime = 0.0f;
+        }
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+        // _vfx.OnCollisionWithTile -= OnCollision2DEnter;
     }
-    
-    private async UniTaskVoid ExecuteSkillRoutine()
-    {
-        if (owner.Target == null)
-            return;
-
-        IsSkillActivated = false;
-        
-        List<InGameTile> inGameTiles = null;
-        // inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 1);
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapePlusInRange(owner.CurrentTile, 1);
-        await ExecuteSkillStep(inGameTiles);
-        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
-
-        inGameTiles.Clear();
-        // inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByDiagonal(owner.CurrentTile, 1);
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 1);
-        await ExecuteSkillStep(inGameTiles);
-        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
-
-        inGameTiles.Clear();
-        // inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeX(owner.CurrentTile, 2);
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapePlusInRange(owner.CurrentTile, 2);
-        await ExecuteSkillStep(inGameTiles);
-        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
-    }
-    
-    private async UniTask ExecuteSkillStep(List<InGameTile> inGameTiles)
-    {
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                {
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-                    float damageRate = (float) (owner.AD * _damageRate) * (1.0f + (float) owner.DEF / _defValue);
-                    var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-                    double[] eccStats = new double[1];
-                    eccStats[0] = _stunTime;
-
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats,
-                        source);
-                    
-                    _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            }
-        }
-                    
-        UniTask.Yield();
-    }
-
 }

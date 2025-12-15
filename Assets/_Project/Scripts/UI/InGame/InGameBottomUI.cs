@@ -148,14 +148,14 @@ public class InGameBottomUI : MonoBehaviour
                 : _characterItemList.Count;
             List<InGameCharacterItem> selectedCharacterItemList = _characterItemList.GetRange(0, addCharacterCount);
             List<CharacterStatData> statDataList = selectedCharacterItemList.Select(item => item.StatData).ToList();
-            
+
             foreach (var statData in statDataList)
             {
                 _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
             }
-            
+
             UpdateData();
-            
+
             await AddCharacterToTile(statDataList);
 
             InGameManager.Instance.UpdateSynergyAndAttr();
@@ -404,8 +404,7 @@ public class InGameBottomUI : MonoBehaviour
 
         UpdateData();
         SetCharacterCountText();
-        InGameObjectManager.Instance.CheckAffectedByItemController(controller);
-        UpdatePreviewSynergyEffectCode(controller.GetCharacterStat());
+        InGameTouchManager.Instance.SelectedFirstTileID = -1;
     }
 
     public virtual void ReturnObstacle(CharacterController controller)
@@ -443,7 +442,7 @@ public class InGameBottomUI : MonoBehaviour
 
             InGameManager.Instance.UpdateSynergyAndAttr();
             SetCharacterCountText();
-            UpdatePreviewSynergyEffectCode(statData);
+            InGameTouchManager.Instance.SelectedFirstTileID = -1;
         }
 
         _isRunningAddCharacter = false;
@@ -499,15 +498,15 @@ public class InGameBottomUI : MonoBehaviour
     {
         var userGrade =
             SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
-        
+
         int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
         int maximumCount = userGrade.maximum_character_count;
-        
+
         string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
         _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
-        
+
         bool isAvailableRecommend = maximumCount != characterCount;
-        
+
         if (_recommendObjOff != null)
             _recommendObjOff.SetActive(!isAvailableRecommend);
         if (_recommendObjOn != null)
@@ -516,7 +515,7 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetFocusCharacterUI(CharacterInfo spec)
     {
-        if (spec.character_type == CharacterType.ITEM)
+        if (spec == null ||spec.character_type == CharacterType.BATTLEITEM)
         {
             return;
         }
@@ -592,24 +591,16 @@ public class InGameBottomUI : MonoBehaviour
 
     private void UpdatePreviewSynergyEffectCode(CharacterStatData statData = null)
     {
-        var stateCombatStepBase = InGameMainFlowManager.Instance.CurrentFlowState as StateCombatStepBase;
-        if (stateCombatStepBase != null)
+        if (statData != null)
         {
-            if (statData != null)
-            {
-                stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player, statData.Spec.character_element_type
-                , statData.Spec.character_stella_type);
-                stateCombatStepBase.ApplyTargetSynergy(AllianceType.Player, statData.Spec.character_element_type,
-                statData.Spec.character_stella_type);
-                InGameTouchManager.Instance.SelectedFirstTileID = -1;
-            }
-            else
-            {
-                stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player);
-                stateCombatStepBase.AddSynergy(AllianceType.Player);
-            }
-
         }
+        // else
+        // {// recommend 시, Init시 들어옴.
+        //     // stateCombatStepBase.TidyUpPreviewSynergy(AllianceType.Player);
+        //     // stateCombatStepBase.AddSynergy(AllianceType.Player);
+        // }
+
+
     }
 
     private void UpdateSpeedUpBtn(bool isSpeedUp)

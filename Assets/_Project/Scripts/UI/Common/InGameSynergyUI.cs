@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
         private ISpecSynergyData _nextSynergyData;
 
         //캐릭터 속성 시너지 세팅
-        public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true)
+        public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true, bool isColorWhite = false)
         {
             _synergyType = synergyType;
         
@@ -61,7 +61,8 @@ namespace CookApps.AutoBattler
         
             _count = count;
             _iconImage.sprite = ImageManager.Instance.GetSynergySprite(synergyType, isActive);
-            _iconImage.color = (data.grade == 0) ? color : Color.white;
+
+            _iconImage.color = (isColorWhite) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_int}";
             _countText.color = color;
         

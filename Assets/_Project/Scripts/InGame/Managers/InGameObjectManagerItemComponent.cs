@@ -107,7 +107,7 @@ namespace CookApps.BattleSystem
 
         public void RegisterItem(InGameObjectItemInfo itemInfo)
         {
-            if (itemInfo.targetObj.SpecCharacter.character_type != CharacterType.ITEM)
+            if (itemInfo.targetObj.SpecCharacter.character_type != CharacterType.BATTLEITEM)
                 return;
 
             if (!_itemDic.TryGetValue(itemInfo.targetObj.SpecCharacter.prefab_id, out var itemList))
@@ -119,7 +119,7 @@ namespace CookApps.BattleSystem
 
         public bool IsDragAndDropItem(CharacterController character)
         {
-            if (character.SpecCharacter.character_type != CharacterType.ITEM
+            if (character.SpecCharacter.character_type != CharacterType.BATTLEITEM
             || !_itemDic.TryGetValue(character.SpecCharacter.prefab_id, out var itemList))
                 return false;
 

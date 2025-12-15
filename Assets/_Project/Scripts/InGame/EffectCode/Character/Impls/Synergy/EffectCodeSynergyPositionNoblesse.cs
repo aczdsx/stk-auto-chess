@@ -10,7 +10,7 @@ using CookApps.BattleSystem;
 /// 3: 전체 전투 시작 후 {_statValue_1}초 동안 모든 상태 이상 면역
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
+public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
 {
     private enum NoblesseGrade
     {
@@ -63,14 +63,14 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
         Span<double> stats = stackalloc double[1];
 
         stats.Clear();
-        stats[0] = _statValue_1*0.01f;
+        stats[0] = _statValue_1 * 0.01f;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.VIEW_SCALE_UP, owner, stats, source);
-
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.VIEW_SCALE_UP);
 
         stats.Clear();
-        stats[0] = _statValue_2*0.01f;
+        stats[0] = _statValue_2 * 0.01f;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, owner, stats, source);
-
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PERCENT_UP);
     }
 
     private void ShieldGeneration(IEffectCodeSource source)
@@ -80,13 +80,14 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
 
         stats.Clear();
         stats[0] = 99999f;
-        stats[1] = owner.HP * _statValue_1*0.01f;
+        stats[1] = owner.HP * _statValue_1 * 0.01f;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, owner, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.SHIELD);
     }
     private void ImmuneAllDebuff(IEffectCodeSource source)
     {
         Span<double> buffStats = stackalloc double[3];
-        
+
 
         buffStats.Clear();
         buffStats[0] = codeId;
@@ -94,6 +95,12 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeCharacterBase
         buffStats[2] = 1;//value?
 
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.BUFF_IMMUNE);
+    }
+    
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 /// 크리티컬 확률 {0}% 크리티컬 데미지 증가 {0}%
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyElementLightning : EffectCodeCharacterBase
+public partial class EffectCodeSynergyElementLightning : EffectCodeSynergyBase
 {
     public const int CodeId = 100401;
     private ObfuscatorFloat _criticalRateValue;
@@ -24,10 +24,12 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeCharacterBase
         criticalStats[0] = _criticalRateValue;
 
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, owner, criticalStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_PERCENT_UP);
 
         criticalStats[0] = _criticalPowerValue;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_POWER_PERCENT_UP, owner, criticalStats, source);
-        
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_POWER_PERCENT_UP);
+
         Debug.LogColor($"번개시너지 크리티컬 확률 {_criticalRateValue}% 크리티컬 데미지 {_criticalPowerValue}% 증가", "green");
     }
 
@@ -36,6 +38,11 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         _criticalRateValue = codeInfo.GetCodeStatToFloat(0);
         _criticalPowerValue = codeInfo.GetCodeStatToFloat(1);
+    }
+
+    public override void OnPreRemoved()
+    {
+        base.OnPreRemoved();
     }
 
 }

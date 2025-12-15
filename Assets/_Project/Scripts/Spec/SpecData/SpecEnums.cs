@@ -211,7 +211,7 @@ namespace CookApps.AutoBattler
         BOSS = 3,
         CHARACTER = 4,
         OBSTACLE = 5,
-        ITEM = 6,
+        BATTLEITEM = 6,
         MONSTER = 7,
         SPECIALBOSS = 8,
     }

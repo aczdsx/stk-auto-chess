@@ -17,7 +17,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
 
     public override void StateInit(object target)
     {
-        base.TidyUpPreviewSynergy(AllianceType.Player);
+        // base.TidyUpPreviewSynergy(.Player);
 
         characters = ListPool<CharacterController>.Get();
 
@@ -41,9 +41,6 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
     {
         // base.AddSynergy(AllianceType.Player);
         // base.AddSynergy(AllianceType.Enemy);
-
-        base.AddPassive(AllianceType.Player);
-        base.AddPassive(AllianceType.Enemy);
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
@@ -134,12 +131,12 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
     {
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
-            character.RemoveSynergyEffectCode();
+            character.RemoveSynergyEffectCodeALL();
         }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
-            character.RemoveSynergyEffectCode();
+            character.RemoveSynergyEffectCodeALL();
         }
 
         ListPool<CharacterController>.Release(characters);
