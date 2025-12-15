@@ -11,6 +11,7 @@ TagManager:
   - TutorialLevelUp
   - CommanderSkill
   - NaninovelMainCamera
+  - Playground
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - ElpisGround
   - 
   - 
   - 

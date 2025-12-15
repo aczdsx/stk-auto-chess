@@ -7,7 +7,7 @@ namespace CookApps.AutoBattler
     {
         public static Camera MainCamera { get; private set; }
         
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
         {
             ObjectRegistry.Registered += ObjectRegistryOnRegistered;
