@@ -771,49 +771,142 @@ namespace CookApps.Editor
             int failCount = 0;
             List<string> failedFiles = new List<string>();
 
+            // 1단계: 모든 파일의 새 이름을 미리 계산 (원본 파일명 기준)
+            Dictionary<string, string> renameMap = new Dictionary<string, string>();
+            HashSet<string> newNames = new HashSet<string>();
+            List<string> duplicateNewNames = new List<string>();
+
+            foreach (var filePath in _matchedFiles)
+            {
+                try
+                {
+                    // 현재 파일이 실제로 존재하는지 확인 (이미 변경되었을 수 있음)
+                    if (!File.Exists(filePath) && !Directory.Exists(filePath) && AssetDatabase.LoadAssetAtPath<Object>(filePath) == null)
+                    {
+                        // 파일이 이미 변경되었거나 삭제된 경우, GUID로 다시 찾기 시도
+                        string guid = AssetDatabase.AssetPathToGUID(filePath);
+                        if (string.IsNullOrEmpty(guid))
+                        {
+                            failedFiles.Add($"{filePath} (파일을 찾을 수 없음)");
+                            continue;
+                        }
+                        // GUID로 찾은 경로는 이미 변경된 경로일 수 있으므로 스킵
+                        continue;
+                    }
+
+                    string directory = Path.GetDirectoryName(filePath).Replace('\\', '/');
+                    string originalName = Path.GetFileName(filePath);
+                    
+                    // 원본 파일명 기준으로 새 이름 계산
+                    if (!TryApplyMappings(originalName, out var newName) || originalName == newName)
+                    {
+                        continue;
+                    }
+                    
+                    string newPath = $"{directory}/{newName}";
+
+                    // 새 이름이 이미 다른 파일의 새 이름과 중복되는지 확인
+                    if (newNames.Contains(newPath))
+                    {
+                        duplicateNewNames.Add(newPath);
+                        failedFiles.Add($"{filePath} → {newName} (다른 파일과 새 이름 충돌)");
+                        continue;
+                    }
+
+                    // 새 이름이 이미 존재하는 파일/폴더와 충돌하는지 확인
+                    if (File.Exists(newPath) || Directory.Exists(newPath) || AssetDatabase.LoadAssetAtPath<Object>(newPath) != null)
+                    {
+                        // 충돌하는 파일이 현재 리스트에 있는지 확인
+                        bool isInList = false;
+                        foreach (var otherPath in _matchedFiles)
+                        {
+                            if (otherPath == newPath)
+                            {
+                                isInList = true;
+                                break;
+                            }
+                        }
+                        
+                        if (!isInList)
+                        {
+                            failedFiles.Add($"{filePath} → {newName} (이미 존재하는 이름)");
+                            continue;
+                        }
+                    }
+
+                    renameMap[filePath] = newPath;
+                    newNames.Add(newPath);
+                }
+                catch (System.Exception e)
+                {
+                    failedFiles.Add($"{filePath} (예외: {e.Message})");
+                }
+            }
+
+            // 중복된 새 이름이 있으면 해당 항목들 모두 제거
+            if (duplicateNewNames.Count > 0)
+            {
+                var toRemove = new List<string>();
+                foreach (var kvp in renameMap)
+                {
+                    if (duplicateNewNames.Contains(kvp.Value))
+                    {
+                        toRemove.Add(kvp.Key);
+                    }
+                }
+                foreach (var key in toRemove)
+                {
+                    renameMap.Remove(key);
+                }
+            }
+
+            // 2단계: 실제 파일명 변경 실행
             AssetDatabase.StartAssetEditing();
 
             try
             {
-                foreach (var filePath in _matchedFiles)
+                foreach (var kvp in renameMap)
                 {
                     try
                     {
-                        bool isFolder = AssetDatabase.IsValidFolder(filePath);
-                        string directory = Path.GetDirectoryName(filePath).Replace('\\', '/');
-                        string name = Path.GetFileName(filePath);
-                        
-                        // 정확히 일치하는 부분만 교체 (모든 매핑 적용)
-                        if (!TryApplyMappings(name, out var newName) || name == newName)
-                        {
-                            continue;
-                        }
-                        
-                        string newPath = $"{directory}/{newName}";
+                        string originalPath = kvp.Key;
+                        string newPath = kvp.Value;
 
-                        // 이미 같은 이름의 파일/폴더가 있는지 확인
-                        if (File.Exists(newPath) || Directory.Exists(newPath) || AssetDatabase.LoadAssetAtPath<Object>(newPath) != null)
+                        // 파일이 여전히 존재하는지 다시 확인
+                        if (!File.Exists(originalPath) && !Directory.Exists(originalPath) && AssetDatabase.LoadAssetAtPath<Object>(originalPath) == null)
                         {
-                            failedFiles.Add($"{filePath} (이미 존재하는 이름: {newName})");
+                            failedFiles.Add($"{originalPath} (변경 전 파일이 사라짐)");
                             failCount++;
                             continue;
                         }
 
+                        // 새 경로가 이미 존재하는지 다시 확인
+                        if (File.Exists(newPath) || Directory.Exists(newPath) || AssetDatabase.LoadAssetAtPath<Object>(newPath) != null)
+                        {
+                            // 자기 자신이 아닌 경우에만 실패 처리
+                            if (originalPath != newPath)
+                            {
+                                failedFiles.Add($"{originalPath} → {Path.GetFileName(newPath)} (이미 존재하는 이름)");
+                                failCount++;
+                                continue;
+                            }
+                        }
+
                         // 파일/폴더명 변경
-                        string error = AssetDatabase.MoveAsset(filePath, newPath);
+                        string error = AssetDatabase.MoveAsset(originalPath, newPath);
                         if (string.IsNullOrEmpty(error))
                         {
                             successCount++;
                         }
                         else
                         {
-                            failedFiles.Add($"{filePath} (에러: {error})");
+                            failedFiles.Add($"{originalPath} (에러: {error})");
                             failCount++;
                         }
                     }
                     catch (System.Exception e)
                     {
-                        failedFiles.Add($"{filePath} (예외: {e.Message})");
+                        failedFiles.Add($"{kvp.Key} (예외: {e.Message})");
                         failCount++;
                     }
                 }

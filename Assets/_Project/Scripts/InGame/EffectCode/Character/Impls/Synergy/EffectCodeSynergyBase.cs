@@ -21,11 +21,15 @@ public class EffectCodeSynergyBase : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        foreach (var effectCodeId in _synergyAddEffectCodeIds)
+        if (owner != null)
         {
-            owner.GetEffectCodeContainer().RemoveEffectCode(effectCodeId);
+            foreach (var effectCodeId in _synergyAddEffectCodeIds)
+            {
+                owner.GetEffectCodeContainer().RemoveEffectCode(effectCodeId);
+            }
         }
+
         base.OnPreRemoved();
     }
-   
+
 }
