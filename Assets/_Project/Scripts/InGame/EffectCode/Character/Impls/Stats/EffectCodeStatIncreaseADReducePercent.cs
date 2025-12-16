@@ -2,9 +2,11 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-[UseEffectCodeIds((int)EffectCodeNameType.RES_PERCENT_UP)]
-public partial class EffectCodeStatIncreaseRESPercent : EffectCodeStatBase
+[UseEffectCodeIds((int)EffectCodeNameType.AD_REDUCE_PERCENT_UP)]
+// [UseEffectCodeIds(24)]
+public partial class EffectCodeStatIncreaseADReducePercent : EffectCodeStatBase
 {
+
     public override int CalcOrder { get => calcOrder; }
 
     private ObfuscatorDouble increment;
@@ -41,7 +43,7 @@ public partial class EffectCodeStatIncreaseRESPercent : EffectCodeStatBase
         // increment += codeInfo.GetCodeStat(1);
     }
 
-    public override double GetIncrementPercentRES()
+    public override double GetIncrementPercentADReduce()
     {
         return increment;
     }

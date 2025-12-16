@@ -2,18 +2,19 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-[UseEffectCodeIds((int)EffectCodeNameType.RES_PENETRATION_PERCENT_UP)]
-public partial class EffectCodeStatIncreaseResPenetrationPercent : EffectCodeStatBase
+[UseEffectCodeIds((int)EffectCodeNameType.AVOID_PROB_PERCENT_UP)]
+// [UseEffectCodeIds(27)]
+public partial class EffectCodeStatIncreaseAvoidProbPercent : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }
 
-    private ObfuscatorDouble increment;
+    private ObfuscatorFloat increment;
     private int calcOrder;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        increment = codeInfo.GetCodeStat(0);
+        increment = codeInfo.GetCodeStatToFloat(0);
         if (codeInfo.HasCodeStat(1))
         {
             calcOrder = codeInfo.GetCodeStatToInt(1);
@@ -28,7 +29,7 @@ public partial class EffectCodeStatIncreaseResPenetrationPercent : EffectCodeSta
     {
         base.Merge(codeInfo, source);
         // 덮어 씌우고 싶을 때
-        increment = codeInfo.GetCodeStat(0);
+        increment = codeInfo.GetCodeStatToFloat(0);
         if (codeInfo.HasCodeStat(1))
         {
             calcOrder = codeInfo.GetCodeStatToInt(1);
@@ -41,7 +42,7 @@ public partial class EffectCodeStatIncreaseResPenetrationPercent : EffectCodeSta
         // increment += codeInfo.GetCodeStat(1);
     }
 
-    public override double GetIncrementPercentRESPenetration()
+    public override float GetIncrementPercentAvoidProb()
     {
         return increment;
     }

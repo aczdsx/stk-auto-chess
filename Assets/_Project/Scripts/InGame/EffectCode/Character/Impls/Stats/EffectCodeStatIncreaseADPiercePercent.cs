@@ -2,8 +2,9 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-[UseEffectCodeIds((int)EffectCodeNameType.DEF_PENETRATION_PERCENT_UP)]
-public partial class EffectCodeStatIncreaseDefPenetrationPercent : EffectCodeStatBase
+[UseEffectCodeIds((int)EffectCodeNameType.AD_PIERCE_PERCENT_UP)]
+// [UseEffectCodeIds(12)]
+public partial class EffectCodeStatIncreaseADPiercePercent : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }
 
@@ -41,7 +42,7 @@ public partial class EffectCodeStatIncreaseDefPenetrationPercent : EffectCodeSta
         // increment += codeInfo.GetCodeStat(1);
     }
 
-    public override double GetIncrementPercentDEFPenetration()
+    public override double GetIncrementPercentADPierce()
     {
         return increment;
     }

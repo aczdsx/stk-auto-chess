@@ -134,7 +134,7 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
             Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
             vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
         
-            float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.RES / _resRate);
+            float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.ADReduce / _resRate);
             var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
             owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
             _targetCharacter.GetDamaged(damage, owner);
@@ -190,7 +190,7 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
     
     private void StunCharacter(InGameTile tile)
     {
-        float damageRate = (float)(owner.AD * _afterDamageRate) * (1.0f + (float)owner.RES / _resRate);
+        float damageRate = (float)(owner.AD * _afterDamageRate) * (1.0f + (float)owner.ADReduce / _resRate);
         var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
         owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
         tile.OccupiedCharacter.GetDamaged(damage, owner);

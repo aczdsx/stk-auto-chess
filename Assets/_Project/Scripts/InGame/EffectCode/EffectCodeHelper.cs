@@ -26,7 +26,7 @@ public static class EffectCodeHelper
             EffectCodeNameType.DEBUFF_SILENCE,
             EffectCodeNameType.DEBUFF_AD_DOWN,
             EffectCodeNameType.DEBUFF_AIRBORNE,
-            EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN,
+            EffectCodeNameType.DEBUFF_AD_REDUCE_PERCENT_DOWN,
             EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN,
         };
     public static void AddOrMergeEffectCode(EffectCodeNameType effectCodeNameType, CharacterController targetCharacter, Span<double> stats, IEffectCodeSource source)

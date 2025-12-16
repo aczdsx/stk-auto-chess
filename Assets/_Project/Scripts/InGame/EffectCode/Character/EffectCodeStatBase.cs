@@ -14,29 +14,33 @@ namespace CookApps.BattleSystem
         #region Stat
         StatHP = 1L << 0,
         StatAD = 1L << 1,
-        StatDEF = 1L << 2,
-        StatDEFPenetration = 1L << 3,
-        StatAP = 1L << 4,
-        StatRES = 1L << 5,
-        StatRESPenetration = 1L << 6,
-        StatRecoveryHP = 1L << 7,
-        StatMoveSpeed = 1L << 8,
-        StatCriticalProb = 1L << 9,
-        StatCriticalDamageRate = 1L << 10,
-        StatDoubleCriticalProb = 1L << 11,
-        StatDoubleCriticalDamageRate = 1L << 12,
-        StatAttackSpeed = 1L << 13,
-        StatAttackRange = 1L << 14,
-        StatAttackRangeShape = 1L << 15,
-        StatSkillDamageRate = 1L << 16,
-        StatSkillCooltimeRate = 1L << 17,
-        StatAttackDamageRate = 1L << 18,
-        StatTakenDamageRate = 1L << 19,
-        StatGivenHealRate = 1L << 20,
-        StatTakenHealRate = 1L << 21,
-        StatCrowdControlImmune = 1L << 22,
-        StatPureDamageProb = 1L << 23,
-        StatAll = ~(0xffffffffffffff << 23),
+        StatDEF = 1L << 2,//방어력
+        StatADReduce = 1L << 3, //물방
+        StatADPierce = 1L << 4, //물리관통력
+        StatAP = 1L << 5, //마법공격력
+        StatAPReduce = 1L << 6,//마방
+        StatAPPierce = 1L << 7,//마관
+        StatRecoveryHP = 1L << 8,//회복력
+        StatMoveSpeed = 1L << 9,
+        StatCriticalProb = 1L << 10,
+        StatCriticalDamageRate = 1L << 11,
+        StatDoubleCriticalProb = 1L << 12,
+        StatDoubleCriticalDamageRate = 1L << 13,
+        StatAttackSpeed = 1L << 14,
+        StatAttackRange = 1L << 15,
+        StatAttackRangeShape = 1L << 16,
+        StatSkillDamageRate = 1L << 17,
+        StatSkillCooltimeRate = 1L << 18,
+        StatAttackDamageRate = 1L << 19,
+        StatTakenDamageRate = 1L << 20,
+        StatGivenHealRate = 1L << 21,
+        StatTakenHealRate = 1L << 22,
+        StatCrowdControlImmune = 1L << 23,
+        StatPureDamageProb = 1L << 24,
+        StatBlockingProb = 1L << 25,//블로킹율
+        StatAvoidProb = 1L << 26,//회피율
+        StatHitProb = 1L << 27,//명중율
+        StatAll = ~(0xffffffffffffff << 27),
         #endregion
 
         #region Event
@@ -84,7 +88,7 @@ namespace CookApps.BattleSystem
         {
             return allFlagTypes ??= Enum.GetValues(typeof(EffectCodeInheritFlag)).Cast<EffectCodeInheritFlag>().ToArray();
         }
-    
+
         public static void GetUniqueFlags(this EffectCodeInheritFlag src, List<EffectCodeInheritFlag> result)
         {
             ulong flagInt = 1;
@@ -175,7 +179,7 @@ namespace CookApps.BattleSystem
         }
 
         /// <summary>
-        /// +일 경우 방어력 고정 증가, -일 경우 방어력 고정 감소
+        /// +일 경우 최종 방어력 고정 증가, -일 경우 최종 방어력 고정 감소
         /// </summary>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEF)]
@@ -185,7 +189,7 @@ namespace CookApps.BattleSystem
         }
 
         /// <summary>
-        /// +일 경우 방어력 퍼센트 증가, -일 경우 방어력 퍼센트 감소
+        /// +일 경우 최종 방어력 퍼센트 증가, -일 경우 최종 방어력 퍼센트 감소
         /// </summary>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEF)]
@@ -198,8 +202,8 @@ namespace CookApps.BattleSystem
         /// +일 경우 방어관통력 고정 증가, -일 경우 방어관통력 고정 감소
         /// </summary>
         /// <returns></returns>
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEFPenetration)]
-        public virtual double GetIncrementFixedDEFPenetration()
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatADReduce)]
+        public virtual double GetIncrementFixedADReduce()
         {
             return 0;
         }
@@ -208,8 +212,28 @@ namespace CookApps.BattleSystem
         /// +일 경우 방어관통력 퍼센트 증가, -일 경우 방어관통력 퍼센트 감소
         /// </summary>
         /// <returns></returns>
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatDEFPenetration)]
-        public virtual double GetIncrementPercentDEFPenetration()
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatADReduce)]
+        public virtual double GetIncrementPercentADReduce()
+        {
+            return 0d;
+        }
+
+        /// <summary>
+        /// +일 경우 방어관통력 고정 증가, -일 경우 방어관통력 고정 감소
+        /// </summary>
+        /// <returns></returns>
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatADPierce)]
+        public virtual double GetIncrementFixedADPierce()
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// +일 경우 방어관통력 퍼센트 증가, -일 경우 방어관통력 퍼센트 감소
+        /// </summary>
+        /// <returns></returns>
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatADPierce)]
+        public virtual double GetIncrementPercentADPierce()
         {
             return 0d;
         }
@@ -239,8 +263,8 @@ namespace CookApps.BattleSystem
         /// +일 경우 저항력 고정 증가, -일 경우 저항력 고정 감소
         /// </summary>
         /// <returns></returns>
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRES)]
-        public virtual double GetIncrementFixedRES()
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAPReduce)]
+        public virtual double GetIncrementFixedAPReduce()
         {
             return 0;
         }
@@ -249,8 +273,8 @@ namespace CookApps.BattleSystem
         /// +일 경우 저항력 퍼센트 증가, -일 경우 저항력 퍼센트 감소
         /// </summary>
         /// <returns></returns>
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRES)]
-        public virtual double GetIncrementPercentRES()
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAPReduce)]
+        public virtual double GetIncrementPercentAPReduce()
         {
             return 0d;
         }
@@ -259,8 +283,8 @@ namespace CookApps.BattleSystem
         /// +일 경우 저항관통력 고정 증가, -일 경우 저항관통력 고정 감소
         /// </summary>
         /// <returns></returns>
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRESPenetration)]
-        public virtual double GetIncrementFixedRESPenetration()
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAPPierce)]
+        public virtual double GetIncrementFixedAPPierce()
         {
             return 0;
         }
@@ -269,8 +293,8 @@ namespace CookApps.BattleSystem
         /// +일 경우 저항관통력 퍼센트 증가, -일 경우 저항관통력 퍼센트 감소
         /// </summary>
         /// <returns></returns>
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatRESPenetration)]
-        public virtual double GetIncrementPercentRESPenetration()
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAPPierce)]
+        public virtual double GetIncrementPercentAPPierce()
         {
             return 0d;
         }
@@ -526,6 +550,42 @@ namespace CookApps.BattleSystem
         {
             return CrowdControlType.None;
         }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatBlockingProb)]
+        public virtual float GetIncrementFixedBlockingProb()
+        {
+            return 0f;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatBlockingProb)]
+        public virtual float GetIncrementPercentBlockingProb()
+        {
+            return 0f;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAvoidProb)]
+        public virtual float GetIncrementFixedAvoidProb()
+        {
+            return 0f;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatAvoidProb)]
+        public virtual float GetIncrementPercentAvoidProb()
+        {
+            return 0f;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatHitProb)]
+        public virtual float GetIncrementFixedHitProb()
+        {
+            return 0f;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatHitProb)]
+        public virtual float GetIncrementPercentHitProb()
+        {
+            return 0f;
+        }
     }
 
     public static class EffectCodeStatListExtension
@@ -629,7 +689,7 @@ namespace CookApps.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateDEFPenetration<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateADReduce<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -646,8 +706,41 @@ namespace CookApps.BattleSystem
             {
                 T x = list[i];
 
-                fixedValues[x.CalcOrder] += x.GetIncrementFixedDEFPenetration();
-                percentValues[x.CalcOrder] += x.GetIncrementPercentDEFPenetration();
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedADReduce();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentADReduce();
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                basicStat = (basicStat + fixedValues[i]) * (1f + percentValues[i]);
+            }
+
+            if (basicStat < 0)
+            {
+                basicStat = 0;
+            }
+
+            return basicStat;
+        }
+        public static double CalculateADPierce<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            for (var i = 0; i < maxCalcOrder; i++)
+            {
+                fixedValues[i] = 0;
+                percentValues[i] = 0f;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedADPierce();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentADPierce();
             }
 
             for (var i = 0; i < maxCalcOrder; i++)
@@ -697,7 +790,7 @@ namespace CookApps.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateRES<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateAPReduce<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -714,8 +807,8 @@ namespace CookApps.BattleSystem
             {
                 T x = list[i];
 
-                fixedValues[x.CalcOrder] += x.GetIncrementFixedRES();
-                percentValues[x.CalcOrder] += x.GetIncrementPercentRES();
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedAPReduce();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentAPReduce();
             }
 
             for (var i = 0; i < maxCalcOrder; i++)
@@ -731,7 +824,7 @@ namespace CookApps.BattleSystem
             return basicStat;
         }
 
-        public static double CalculateRESPenetration<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
+        public static double CalculateAPPierce<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -748,8 +841,8 @@ namespace CookApps.BattleSystem
             {
                 T x = list[i];
 
-                fixedValues[x.CalcOrder] += x.GetIncrementFixedRESPenetration();
-                percentValues[x.CalcOrder] += x.GetIncrementPercentRESPenetration();
+                fixedValues[x.CalcOrder] += x.GetIncrementFixedAPPierce();
+                percentValues[x.CalcOrder] += x.GetIncrementPercentAPPierce();
             }
 
             for (var i = 0; i < maxCalcOrder; i++)
@@ -1057,6 +1150,61 @@ namespace CookApps.BattleSystem
             }
 
             return Mathf.Max(0, basicStat + fixedValue);
+        }
+
+        public static float CalculateBlockingProb<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            float fixedValue = 0;
+            float percentValue = 0;
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+                fixedValue += x.GetIncrementFixedBlockingProb();
+                percentValue += x.GetIncrementPercentBlockingProb();
+            }
+
+            return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
+        }
+
+        public static float CalculateAvoidProb<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            float fixedValue = 0;
+            float percentValue = 0;
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+                fixedValue += x.GetIncrementFixedAvoidProb();
+                percentValue += x.GetIncrementPercentAvoidProb();
+            }
+            return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
+        }
+
+        public static float CalculateHitProb<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
+        {
+            if (list.Count == 0)
+            {
+                return basicStat;
+            }
+
+            float fixedValue = 0;
+            float percentValue = 0;
+            for (var i = 0; i < list.Count; i++)
+            {
+                T x = list[i];
+                fixedValue += x.GetIncrementFixedHitProb();
+                percentValue += x.GetIncrementPercentHitProb();
+            }
+            return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
         public static CrowdControlType CalculateCrowdControlImmune<T>(this IReadOnlyList<T> list) where T : EffectCodeStatBase

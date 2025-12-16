@@ -23,12 +23,12 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeSynergyBase
         buffStats.Clear();
 
         buffStats[0] = _PierceValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP, owner, buffStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.DEF_PENETRATION_PERCENT_UP);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PIERCE_PERCENT_UP, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PIERCE_PERCENT_UP);
 
         buffStats[0] = _PierceValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.RES_PENETRATION_PERCENT_UP, owner, buffStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.RES_PENETRATION_PERCENT_UP);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_PIERCE_PERCENT_UP, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_PIERCE_PERCENT_UP);
 
         Debug.LogColor($"대지시너지 물리 관통력 {_PierceValue}% 마법 관통력 {_PierceValue}% 증가", "green");
     }

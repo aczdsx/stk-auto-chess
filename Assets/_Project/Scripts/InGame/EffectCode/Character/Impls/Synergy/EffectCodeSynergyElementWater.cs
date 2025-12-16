@@ -28,12 +28,12 @@ public partial class EffectCodeSynergyElementWater : EffectCodeSynergyBase
         base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
 
         eccStats[0] = _defValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEF_PERCENT_UP, owner, eccStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.DEF_PERCENT_UP);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_REDUCE_PERCENT_UP, owner, eccStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_REDUCE_PERCENT_UP);
 
         eccStats[0] = _defValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.RES_PERCENT_UP, owner, eccStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.RES_PERCENT_UP);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_REDUCE_PERCENT_UP, owner, eccStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_REDUCE_PERCENT_UP);
         Debug.LogColor($"물시너지 HP {_hpValue}% 방어력 {_defValue}% 증가", "green");
 
     }

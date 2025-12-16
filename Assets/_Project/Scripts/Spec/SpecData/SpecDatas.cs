@@ -1078,9 +1078,8 @@ namespace CookApps.AutoBattler
         public int id;
         public int lv;
         public int benefit_group;
-        public string desc_token;
-        public string benefit_type;
-        public string title_token;
+        public string benefit_desc_token;
+        public string benefit_title_token;
         public int build_group_id;
         public float before_key;
         public float benefit_key;
@@ -1092,8 +1091,6 @@ namespace CookApps.AutoBattler
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
         public int index;
-        /// 건물 타입
-        public global::CookApps.AutoBattler.GradeType buld_type;
         /// 건물 프리펩
         public string build_prefab;
         /// 건물 ID
@@ -1105,13 +1102,9 @@ namespace CookApps.AutoBattler
         /// 건물 설명
         public string buld_desc_token;
         /// 건물 레벨
-        public int buil_lv;
+        public int build_lv;
         /// 설치 필요 시간(초)
         public int build_time;
-        /// 마스코트 캐릭터(L2D)
-        public string mascot_name_token;
-        /// 백그라운드 프리펩 네임
-        public string background_name_token;
         /// 추가 해금 조건(우선 가이드미션)
         public int add_unlock_condition;
         /// 필요 아이템 키
@@ -1126,8 +1119,6 @@ namespace CookApps.AutoBattler
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
         public int index;
-        /// 업그레이드 타입
-        public int upgrade_type;
         /// 업그레이드 레벨
         public int lv;
         /// 업그레이드 그룹

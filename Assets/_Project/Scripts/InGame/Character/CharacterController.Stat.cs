@@ -13,12 +13,15 @@ namespace CookApps.BattleSystem
         private ObfuscatorDouble
             postHP,
             postAD,
+            postADReduce,
+            postAPReduce,
             postAP,
-            postDEF,
-            postRES,
-            postDEFPenetration,
-            postRESPenetration,
-            postRecoveryHP;
+            postADPierce,
+            postAPPierce,
+            postRecoveryHP,
+            postBlockingProb,
+            postAvoidProb,
+            postHitProb;
 
         private ObfuscatorFloat
             postCriticalProb,
@@ -113,77 +116,77 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public double DEF
+        public double ADReduce
         {
             get
             {
-                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatDEF) ||
-                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatDEF))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatADReduce) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatADReduce))
                 {
-                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDEF);
-                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEF);
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatADReduce);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatADReduce);
                     var effectCodes = GetEffectCodeContainer()
-                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEF);
-                    postDEF = effectCodes.CalculateDEF(GetCharacterStat().DEF);
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatADReduce);
+                    postADReduce = effectCodes.CalculateADReduce(GetCharacterStat().ADReduce);
                 }
 
-                return postDEF;
+                return postADReduce;
             }
         }
 
-        public double RES
+        public double APReduce
         {
             get
             {
-                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatRES) ||
-                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatRES))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAPReduce) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAPReduce))
                 {
-                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRES);
-                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRES);
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAPReduce);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAPReduce);
                     var effectCodes = GetEffectCodeContainer()
-                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
-                    postRES = effectCodes.CalculateRES(GetCharacterStat().RES);
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAPReduce);
+                    postAPReduce = effectCodes.CalculateAPReduce(GetCharacterStat().APReduce);
                 }
 
-                return postRES;
+                return postAPReduce;
             }
         }
 
-        public double DEFPenetration
+        public double ADPierce
         {
             get
             {
-                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatDEFPenetration) ||
-                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatDEFPenetration))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatADPierce) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatADPierce))
                 {
-                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatDEFPenetration);
-                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatDEFPenetration);
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatADPierce);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatADPierce);
                     var effectCodes = GetEffectCodeContainer()
-                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
-                    postDEFPenetration =
-                        effectCodes.CalculateDEFPenetration(GetCharacterStat().DEFPenetration);
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatADPierce);
+                    postADPierce =
+                        effectCodes.CalculateADPierce(GetCharacterStat().ADPierce);
                 }
 
-                return postDEFPenetration;
+                return postADPierce;
             }
         }
 
-        public double RESPenetration
+        public double APPierce
         {
             get
             {
-                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatRESPenetration) ||
-                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatRESPenetration))
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAPPierce) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAPPierce))
                 {
-                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatRESPenetration);
-                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatRESPenetration);
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAPPierce);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAPPierce);
                     var effectCodes = GetEffectCodeContainer()
-                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
-                    postRESPenetration =
-                        effectCodes.CalculateRESPenetration(GetCharacterStat().RESPenetration);
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAPPierce);
+                    postAPPierce =
+                        effectCodes.CalculateAPPierce(GetCharacterStat().APPierce);
                 }
 
-                return postRESPenetration;
+                return postAPPierce;
             }
         }
 
@@ -461,6 +464,28 @@ namespace CookApps.BattleSystem
                 return postGivenHealRate;
             }
         }
+
+        public float BlockingProb
+        {
+            get
+            {
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatBlockingProb) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatBlockingProb))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatBlockingProb);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatBlockingProb);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatBlockingProb);
+                    postBlockingProb = effectCodes.CalculateBlockingProb(GetCharacterStat().BlockingProb);
+                }
+
+                return postGivenHealRate;
+            }
+        }
+
+        // postBlockingProb,
+        //     postAvoidProb,
+        //     postHitProb;
 
         public float TakenHealRate
         {

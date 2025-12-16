@@ -152,7 +152,7 @@ public partial class EffectCodeSkill217353203 : EffectCodeCharacterBase
                         eccStats[1] = _buffTime;
                         eccStats[2] = _buffRate;
 
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_AD_REDUCE_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
                     }
                 
                     {
@@ -171,7 +171,7 @@ public partial class EffectCodeSkill217353203 : EffectCodeCharacterBase
                         eccStats[1] = _buffTime;
                         eccStats[2] = _buffRate;
 
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_AD_REDUCE_PERCENT_DOWN, tile.OccupiedCharacter, eccStats, source);
                     }
                 
                     {

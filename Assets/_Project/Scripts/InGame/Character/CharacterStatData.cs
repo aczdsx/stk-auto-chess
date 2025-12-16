@@ -5,6 +5,7 @@ using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using Google.Protobuf.Collections;
 using UnityEngine;
+using Unity.Profiling;
 
 namespace CookApps.AutoBattler
 {
@@ -23,10 +24,10 @@ namespace CookApps.AutoBattler
 
         public double GetAttrValue()
         {
-            double physicalPenetration = DEFPenetration; // 물리관통
-            double magicPenetration = RESPenetration; // 마법관통
-            double physicalDefense = DEF; // 물리방어
-            double magicDefense = RES; // 마법방어
+            double physicalPenetration = ADPierce; // 물리관통
+            double magicPenetration = APPierce; // 마법관통
+            double physicalDefense = ADReduce; // 물리방어
+            double magicDefense = APReduce; // 마법방어
             double hpWeight = 1; // 체력 가중치, 이 값은 게임의 규칙에 따라 변경될 수 있습니다.
 
             double CP = (AD * AttackSpeed * (1 + CriticalProb * CriticalDamageRate)) *
@@ -195,22 +196,28 @@ namespace CookApps.AutoBattler
                 DEF = codes.CalculateDEF(_spec.stat_def);
             }
 
-            if (flags.HasFlag(EffectCodeInheritFlag.StatRES))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatADReduce))
             {
-                // var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRES);
-                // RES = codes.CalculateRES(_spec.stat_res);
+                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatADReduce);
+                ADReduce = codes.CalculateADReduce(_spec.ad_reduce);
             }
 
-            if (flags.HasFlag(EffectCodeInheritFlag.StatDEFPenetration))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAPReduce))
             {
-                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatDEFPenetration);
-                DEFPenetration = codes.CalculateDEFPenetration(_spec.stat_atk_pierce);
+                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAPReduce);
+                APReduce = codes.CalculateAPReduce(_spec.ap_reduce);
             }
 
-            if (flags.HasFlag(EffectCodeInheritFlag.StatRESPenetration))
+            if (flags.HasFlag(EffectCodeInheritFlag.StatADPierce))
             {
-                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatRESPenetration);
-                RESPenetration = codes.CalculateRESPenetration(_spec.stat_res_pierce);
+                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatADPierce);
+                ADPierce = codes.CalculateADPierce(_spec.stat_atk_pierce);
+            }
+
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAPPierce))
+            {
+                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAPPierce);
+                APPierce = codes.CalculateAPPierce(_spec.stat_res_pierce);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatRecoveryHP))
@@ -296,6 +303,24 @@ namespace CookApps.AutoBattler
                 var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenHealRate);
                 TakenHealRate = codes.CalculateTakenHealRate(1f);
             }
+
+            if (flags.HasFlag(EffectCodeInheritFlag.StatBlockingProb))
+            {
+                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatBlockingProb);
+                BlockingProb = codes.CalculateBlockingProb(_spec.blocking_rate);
+            }
+
+            if (flags.HasFlag(EffectCodeInheritFlag.StatAvoidProb))
+            {
+                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAvoidProb);
+                AvoidProb = codes.CalculateAvoidProb(_spec.avoid_rate);
+            }
+
+            if (flags.HasFlag(EffectCodeInheritFlag.StatHitProb))
+            {
+                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHitProb);
+                HitProb = codes.CalculateHitProb(_spec.hit_rate);
+            }
         }
 
         public ObfuscatorInt CharacterId => _spec?.GetId() ?? 0;
@@ -306,13 +331,17 @@ namespace CookApps.AutoBattler
 
         public ObfuscatorDouble AP { get; private set; }
 
+        public ObfuscatorDouble ADReduce { get; private set; }
+
+        public ObfuscatorDouble APReduce { get; private set; }
+
         public ObfuscatorDouble DEF { get; private set; }
 
         public ObfuscatorDouble RES { get; private set; }
 
-        public ObfuscatorDouble DEFPenetration { get; private set; }
+        public ObfuscatorDouble ADPierce { get; private set; }
 
-        public ObfuscatorDouble RESPenetration { get; private set; }
+        public ObfuscatorDouble APPierce { get; private set; }
 
         public ObfuscatorDouble HPRecovery { get; private set; }
 
@@ -345,6 +374,10 @@ namespace CookApps.AutoBattler
         public ObfuscatorFloat GivenHealRate { get; private set; }
 
         public ObfuscatorFloat TakenHealRate { get; private set; }
+
+        public ObfuscatorFloat BlockingProb { get; private set; }
+        public ObfuscatorFloat AvoidProb { get; private set; }
+        public ObfuscatorFloat HitProb { get; private set; }
 
         public ScanType ScanType { get; private set; }
     }

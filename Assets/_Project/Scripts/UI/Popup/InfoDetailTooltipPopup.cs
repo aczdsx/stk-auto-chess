@@ -67,8 +67,8 @@ namespace CookApps.AutoBattler
             _criDamageText.text = $"{((float)_statData.CriticalDamageRate * 100).ToString("0.##")}%";
             _defText.text = _statData.DEF.ToString("N0");
             _resText.text = _statData.RES.ToString("N0");
-            _defPenText.text = $"{((float)_statData.DEFPenetration  * 100).ToString("0.##")}%";
-            _resPenText.text = $"{((float)_statData.RESPenetration * 100).ToString("0.##")}%";
+            _defPenText.text = $"{((float)_statData.ADPierce  * 100).ToString("0.##")}%";
+            _resPenText.text = $"{((float)_statData.APPierce * 100).ToString("0.##")}%";
         }
 
         private void OnClickCloseButton()

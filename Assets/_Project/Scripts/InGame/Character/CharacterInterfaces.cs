@@ -2,7 +2,7 @@ namespace CookApps.AutoBattler
 {
     /// <summary>
     /// CharacterInfo와 MonsterInfo가 공통으로 구현하는 인터페이스
-    /// 두 클래스의 모든 공통 필드를 프로퍼티로 제공합니다.
+    /// 두 클래스의 모든 공통 필드를 프로퍼티로 제공하여, CharacterInfo와 MonsterInfo를 동일한 방식으로 접근할 수 있게 합니다.
     /// </summary>
     public interface ISpecCharacterInfo
     {
@@ -88,6 +88,16 @@ namespace CookApps.AutoBattler
         int stat_def { get; }
 
         /// <summary>
+        /// 물리 저항력
+        /// </summary>
+        int ad_reduce { get; }
+
+        /// <summary>
+        /// 마법 방어력
+        /// </summary>
+        int ap_reduce { get; }
+
+        /// <summary>
         /// 물리 관통력
         /// </summary>
         float stat_atk_pierce { get; }
@@ -123,6 +133,31 @@ namespace CookApps.AutoBattler
         int atk_range { get; }
 
         /// <summary>
+        /// 블럭율
+        /// </summary>
+        float blocking_rate { get; }
+
+        /// <summary>
+        /// 회피율
+        /// </summary>
+        float avoid_rate { get; }
+
+        /// <summary>
+        /// 명중률
+        /// </summary>
+        float hit_rate { get; }
+
+        /// <summary>
+        /// 힐파워
+        /// </summary>
+        float heal_power { get; }
+
+        /// <summary>
+        /// 이뮨 타입
+        /// </summary>
+        ImmuneType immune_type { get; }
+
+        /// <summary>
         /// 높이
         /// </summary>
         float height { get; }
@@ -137,6 +172,11 @@ namespace CookApps.AutoBattler
         /// </summary>
         int[] skill_ids { get; }
 
+        /// <summary>
+        /// 패시브 스킬 id
+        /// </summary>
+        int passive_skill_id { get; }
+
         //===========================================================================
         /// <summary>
         /// 성군 시너지 타입 (CharacterInfo 전용, MonsterInfo는 NONE 반환)
@@ -146,6 +186,7 @@ namespace CookApps.AutoBattler
 
     /// <summary>
     /// CharacterInfo의 ISpecCharacterInfo 인터페이스 구현
+    /// CharacterInfo의 모든 공통 필드를 ISpecCharacterInfo 인터페이스를 통해 접근할 수 있도록 구현합니다.
     /// </summary>
     public partial class CharacterInfo : ISpecCharacterInfo
     {
@@ -170,6 +211,8 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.inc_lv_rate => inc_lv_rate;
         float ISpecCharacterInfo.inc_lv_bonus_rate => inc_lv_bonus_rate;
         int ISpecCharacterInfo.stat_def => stat_def;
+        int ISpecCharacterInfo.ad_reduce => ad_reduce;
+        int ISpecCharacterInfo.ap_reduce => ap_reduce;
         float ISpecCharacterInfo.stat_atk_pierce => stat_atk_pierce;
         float ISpecCharacterInfo.stat_res_pierce => stat_res_pierce;
         float ISpecCharacterInfo.crit_rate => crit_rate;
@@ -177,9 +220,15 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.atk_speed => atk_speed;
         float ISpecCharacterInfo.move_speed => move_speed;
         int ISpecCharacterInfo.atk_range => atk_range;
+        float ISpecCharacterInfo.blocking_rate => blocking_rate;
+        float ISpecCharacterInfo.avoid_rate => avoid_rate;
+        float ISpecCharacterInfo.hit_rate => hit_rate;
+        float ISpecCharacterInfo.heal_power => heal_power;
+        ImmuneType ISpecCharacterInfo.immune_type => immune_type;
         float ISpecCharacterInfo.height => height;
         InGameVfxNameType ISpecCharacterInfo.projectile_vfx_name_type => projectile_vfx_name_type;
         int[] ISpecCharacterInfo.skill_ids => skill_ids;
+        int ISpecCharacterInfo.passive_skill_id => passive_skill_id;
 
         // ========================================
         // CharacterInfo 전용 필드 (인터페이스에 포함되지 않음)
@@ -192,20 +241,13 @@ namespace CookApps.AutoBattler
         // public int max_star;
         // public float inc_trancendence;
         // public float inc_exceed;
-        // public int ad_reduce;
-        // public int ap_reduce;
-        // public float blocking_rate;
-        // public float avoid_rate;
-        // public float hit_rate;
-        // public float heal_power;
-        // public ImmuneType immune_type;
         // public int equipment_id;
-        // public int passive_skill_id;
         // public float weight;
     }
 
     /// <summary>
     /// MonsterInfo의 ISpecCharacterInfo 인터페이스 구현
+    /// MonsterInfo의 모든 공통 필드를 ISpecCharacterInfo 인터페이스를 통해 접근할 수 있도록 구현합니다.
     /// </summary>
     public partial class MonsterInfo : ISpecCharacterInfo
     {
@@ -230,6 +272,8 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.inc_lv_rate => inc_lv_rate;
         float ISpecCharacterInfo.inc_lv_bonus_rate => inc_lv_bonus_rate;
         int ISpecCharacterInfo.stat_def => stat_def;
+        int ISpecCharacterInfo.ad_reduce => ad_reduce;
+        int ISpecCharacterInfo.ap_reduce => ap_reduce;
         float ISpecCharacterInfo.stat_atk_pierce => stat_atk_pierce;
         float ISpecCharacterInfo.stat_res_pierce => stat_res_pierce;
         float ISpecCharacterInfo.crit_rate => crit_rate;
@@ -237,9 +281,15 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.atk_speed => atk_speed;
         float ISpecCharacterInfo.move_speed => move_speed;
         int ISpecCharacterInfo.atk_range => atk_range;
+        float ISpecCharacterInfo.blocking_rate => blocking_rate;
+        float ISpecCharacterInfo.avoid_rate => avoid_rate;
+        float ISpecCharacterInfo.hit_rate => hit_rate;
+        float ISpecCharacterInfo.heal_power => heal_power;
+        ImmuneType ISpecCharacterInfo.immune_type => immune_type;
         float ISpecCharacterInfo.height => height;
         InGameVfxNameType ISpecCharacterInfo.projectile_vfx_name_type => projectile_vfx_name_type;
         int[] ISpecCharacterInfo.skill_ids => skill_ids;
+        int ISpecCharacterInfo.passive_skill_id => passive_skill_id;
 
         // ========================================
         // MonsterInfo 전용 필드 (인터페이스에 포함되지 않음)
@@ -250,6 +300,10 @@ namespace CookApps.AutoBattler
         // public bool is_taken_cc;
     }
 
+    /// <summary>
+    /// BattleItem의 ISpecCharacterInfo 인터페이스 구현
+    /// BattleItem은 대부분의 필드를 기본값으로 반환합니다.
+    /// </summary>
     public partial class BattleItem : ISpecCharacterInfo
     {
         public int GetId() => prefab_id;
@@ -270,6 +324,8 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.inc_lv_rate => 0;
         float ISpecCharacterInfo.inc_lv_bonus_rate => 0;
         int ISpecCharacterInfo.stat_def => 0;
+        int ISpecCharacterInfo.ad_reduce => 0;
+        int ISpecCharacterInfo.ap_reduce => 0;
         float ISpecCharacterInfo.stat_atk_pierce => 0;
         float ISpecCharacterInfo.stat_res_pierce => 0;
         float ISpecCharacterInfo.crit_rate => 0;
@@ -277,8 +333,14 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.atk_speed => 0;
         float ISpecCharacterInfo.move_speed => 0;
         int ISpecCharacterInfo.atk_range => 0;
+        float ISpecCharacterInfo.blocking_rate => 0;
+        float ISpecCharacterInfo.avoid_rate => 0;
+        float ISpecCharacterInfo.hit_rate => 0;
+        float ISpecCharacterInfo.heal_power => 0;
+        ImmuneType ISpecCharacterInfo.immune_type => ImmuneType.NORMAL;
         float ISpecCharacterInfo.height => 0;
         InGameVfxNameType ISpecCharacterInfo.projectile_vfx_name_type => InGameVfxNameType.NONE;
         int[] ISpecCharacterInfo.skill_ids => new int[0];
+        int ISpecCharacterInfo.passive_skill_id => 0;
     }
 }

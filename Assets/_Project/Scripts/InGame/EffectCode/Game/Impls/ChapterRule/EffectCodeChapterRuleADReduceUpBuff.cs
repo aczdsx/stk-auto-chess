@@ -6,13 +6,14 @@ using CookApps.Obfuscator;
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeChapterRuleDEFBuff : EffectCodeGameBase
+    public partial class EffectCodeChapterRuleADReduceUpBuff : EffectCodeGameBase
     {
         private float _defUpRate;
         private float _maxRemainBuffTime;
 
-        private const EffectCodeNameType BuffEffectCodeID = EffectCodeNameType.BUFF_DEF_PERCENT_UP;
-        private const int CodeId = (int)EffectCodeNameType.RULE_DEF;
+        private const EffectCodeNameType BuffEffectCodeID = EffectCodeNameType.BUFF_AD_REDUCE_UP;
+        // private const EffectCodeNameType BuffEffectCodeID = (EffectCodeNameType)2000000023;
+        private const int CodeId = 1210000002;
 
         private List<InGameTile> _chapterRuleTiles = new();
         private List<CharacterController> _characterControllers = new();

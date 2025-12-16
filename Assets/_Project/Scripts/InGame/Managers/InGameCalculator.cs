@@ -29,12 +29,12 @@ namespace CookApps.AutoBattler
             }
             // 방관이나 마관에 따른 방어력 및 저항력 계산
             double def = attacker != null
-                ? target.DEF * (1f - attacker.DEFPenetration)
-                : target.DEF;
+                ? target.ADReduce * (1f - attacker.ADPierce)
+                : target.ADReduce;
 
             double res = attacker != null
-                ? target.RES * (1f - attacker.RESPenetration)
-                : target.RES;
+                ? target.APReduce * (1f - attacker.APPierce)
+                : target.APReduce;
 
 
             if (def >= 0)
