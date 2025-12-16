@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: UI_IllustCharacter_ContentUpdateGroupSchema
+  m_Name: Illust_Characters_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: d59020411b7e607429d8ce405eebfd1d, type: 2}
+  m_Group: {fileID: 11400000, guid: 4e5c169b311284c27b88cada86c2e148, type: 2}
   m_StaticContent: 0

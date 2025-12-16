@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: UI_SDCharacter_BundledAssetGroupSchema
+  m_Name: Illust_Characters_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: c27d850cb6b13c0498d7bd75245e6e71, type: 2}
+  m_Group: {fileID: 11400000, guid: 4e5c169b311284c27b88cada86c2e148, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1
@@ -24,6 +24,7 @@ MonoBehaviour:
   m_BundledAssetProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider
+  m_StripDownloadOptions: 0
   m_ForceUniqueProvider: 0
   m_UseAssetBundleCache: 1
   m_UseAssetBundleCrc: 1
@@ -37,9 +38,11 @@ MonoBehaviour:
     m_Id: e3886738edb4841efab4e6e501113a07
   m_LoadPath:
     m_Id: 35031975c4f2542ddb11d9b4112c02da
-  m_BundleMode: 0
+  m_BundleMode: 1
   m_AssetBundleProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider
+  m_UseDefaultSchemaSettings: 0
+  m_SelectedPathPairIndex: 0
   m_BundleNaming: 0
   m_AssetLoadMode: 0

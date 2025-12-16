@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: UI_IllustCharacter
+  m_Name: Illust_Characters
   m_EditorClassIdentifier: 
-  m_GroupName: UI_IllustCharacter
-  m_GUID: 75b355c893b081841a0c80583111e819
+  m_GroupName: Illust_Characters
+  m_GUID: eb3b99c16367c4263a3267b9b770c2a5
   m_SerializeEntries:
   - m_GUID: 04a03de799aff6646b9d1292356d671e
     m_Address: Illust_Cha_15642501
@@ -25,13 +25,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16a7d339bdc849945a24138de30ce93b
+    m_Address: Illust_Cha_10107
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 17d7a2adfd3264242b9f02847c117483
     m_Address: Illust_Cha_17243102
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 17fb260bb9d3ad34881ed503a9186024
-    m_Address: Illust_Cha_17363204
+    m_Address: Illust_Cha_17413301
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bf5bb31073be4b92a3923a83f9d2cb5
+    m_Address: Illust_Cha_17613502
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -56,17 +66,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 42140caeff208d74c8b4b2d603aa4af0
-    m_Address: Illust_Cha_17413301
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 51066b001dde56e43b8a3ee7ba660e9c
     m_Address: Illust_Cha_17433302
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51066b001dde56e43b8a3ee7ba660e9c
+    m_Address: Illust_Cha_17433303
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 583083079bb909d408c2185c5d303be7
-    m_Address: Illust_Cha_17353203
+    m_Address: Illust_Cha_17363204
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -76,7 +86,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c8f2359d4db331419f45253816c0072
-    m_Address: Illust_Cha_17333202
+    m_Address: Illust_Cha_17353203
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -96,7 +106,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a726dc32a20482642898649982306eb9
-    m_Address: Illust_Cha_17523403
+    m_Address: Illust_Cha_17323201
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -105,8 +115,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b769d757857734c4c912873b77be844b
+    m_Address: Illust_Cha_17553404
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b8c03262b8df0454f9bc3c1a8b0e0a2a
-    m_Address: Illust_Cha_17613502
+    m_Address: Illust_Cha_14613502
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -135,6 +150,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee464d8309ef5d5449bb75c7c636373d
+    m_Address: Illust_Cha_80109003
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f0246ba69934deb469cead1c8c01cf01
     m_Address: Illust_Cha_17513401
     m_ReadOnly: 0
@@ -151,12 +171,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f9ecac29d67789546add8420ba3b224f
-    m_Address: Illust_Cha_17433303
+    m_Address: Illust_Cha_17333202
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa74010772263af47a5c097643f88006
-    m_Address: Illust_Cha_17323201
+    m_Address: Illust_Cha_17523403
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbfdccffb37febe48a847ef8571b0c25
+    m_Address: Illust_Cha_17563405
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -164,5 +189,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 25713989118ce284d8115ed0c5bdfe99, type: 2}
-    - {fileID: 11400000, guid: 79aea5c5431ef1140b4452134178f347, type: 2}
+    - {fileID: 11400000, guid: 691bb9b087d214f819bc80cc4dcf8f14, type: 2}
+    - {fileID: 11400000, guid: 0887b1eab67d246b58a85e4ed9e46f05, type: 2}

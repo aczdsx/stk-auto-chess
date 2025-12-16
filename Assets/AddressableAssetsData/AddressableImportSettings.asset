@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4457b6e6d3304bd46a31be63dad3325c, type: 3}
   m_Name: AddressableImportSettings
   m_EditorClassIdentifier: 
-  rulesEnabled: 1
+  rulesEnabled: 0
   allowGroupCreation: 1
   rules:
   - path: Assets/_Project/Addressables/Remote/SD/(?<group>[^/]+)/(?<category>[^/]+)/GenerateResources/.*\.prefab
@@ -35,3 +35,23 @@ MonoBehaviour:
     LabelMode: 0
     simplified: 0
     addressReplacement: Data/${1}.asset
+  - path: ^Assets/_Project/Addressables/Remote/Prefabs/Illust_Characters/(.*)\.prefab$
+    matchType: 1
+    groupName: Illust_Characters
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs: []
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: ${1}
+  - path: ^Assets/_Project/Addressables/Remote/Prefabs/SD_Characters/(.*)\.prefab$
+    matchType: 1
+    groupName: SD_Characters
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs: []
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 1
+    addressReplacement: ${1}
