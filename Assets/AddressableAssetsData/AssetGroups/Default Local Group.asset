@@ -35,48 +35,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 61e7bd672efcc4045915939216d08afd
-    m_Address: Lobby
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72d7f2b3bd723b647b71e8f74e06e2a4
     m_Address: Prefabs/Fx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 76c96ee710c04450dbdb02e5ff8a6cac
-    m_Address: Title
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8029178524cba4055adeed793914bebd
-    m_Address: InGame
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 82d3b55c0d6944acd81604cfdc57e37e
-    m_Address: SceneLoading
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 83987405fb00104499ee6bd75530b4fc
     m_Address: VFX/Prefab/Prefab_Dungeon_Boss_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8bdbd5beaecef844aa5398c8e335965a
-    m_Address: Mob
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bf66a36bb0cadf946874506890dd414b
-    m_Address: Characters
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e09afe7d9a631b34db933d38891fec4c
-    m_Address: Obstacle
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -59,10 +59,6 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return sceneName switch
             {
-                "Lobby" => "Lobby",
-                "Title" => "Title",
-                "InGame" => "InGame",
-                "SceneLoading" => "SceneLoading",
                 _ => string.Empty
             };
         }

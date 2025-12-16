@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4457b6e6d3304bd46a31be63dad3325c, type: 3}
+  m_Name: AddressableImportSettings
+  m_EditorClassIdentifier: 
+  rulesEnabled: 1
+  allowGroupCreation: 1
+  rules:
+  - path: Assets/_Project/Characters/(?<category>[^/]+)/GenerateResources/.*\.prefab
+    matchType: 1
+    groupName: Characters
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: 
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Characters/${category}
+  - path: ^Assets/_Project/Data/.*\.asset$
+    matchType: 1
+    groupName: Data
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: 
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 1
+    addressReplacement: Characters/${category}
+  - path: Assets/_Project/Mob/(?<category>[^/]+)/GenerateResources/.*\.prefab
+    matchType: 1
+    groupName: Mob
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: 
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Mob/${category}
+  - path: Assets/_Project/Obstacle/(?<category>[^/]+)/GenerateResources/.*\.prefab
+    matchType: 1
+    groupName: Obstacle
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: 
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Obstacle/${category}

@@ -110,11 +110,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 823dd12ffd887964fb0c8efd65e21dc4
-    m_Address: UI_SDCha_17323201
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 92a749a405297464b8b08eff84355ae8
     m_Address: UI_SDCha_17433303
     m_ReadOnly: 0

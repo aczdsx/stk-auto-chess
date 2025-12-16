@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Packed Assets
+  m_Name: Obstacle
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
-  m_GUID: d5719ae41bb0341caa259ed6592e8dc7
+  m_GroupName: Obstacle
+  m_GUID: 755426f72e4694899959d6cc6c836898
   m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c0030de77cc4645e2bf731e9a5313d36, type: 2}
-    - {fileID: 11400000, guid: be5d83a21d04942ccaa48dfc902121be, type: 2}
+    - {fileID: 11400000, guid: 69f307a02adc24d41bb9fbe0d6f8feaa, type: 2}
+    - {fileID: 11400000, guid: 1824ec745a2e74094b4ee90ccab3d922, type: 2}
