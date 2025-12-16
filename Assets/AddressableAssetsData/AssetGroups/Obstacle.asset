@@ -20,13 +20,53 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4852757c25a3c436a97760252d69c8b2
+    m_Address: Obstacle/30003
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ae3b8744e4040246bc171261ea424c7
+    m_Address: Obstacle/10001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4c84167f0413a7947b0b508830f7bfcd
     m_Address: Obstacle/200001
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58f6837384c779246857b85ca669543f
+    m_Address: Obstacle/20001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85991d6ef85b24b279b9e032b68d9fa4
+    m_Address: Obstacle/30004
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bb846e0ff445467c91aa6e93ecb1b5d
+    m_Address: Obstacle/30005
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9d3968a34c2594d45a7ef887bdb0cfa7
     m_Address: Obstacle/100002
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c10fff4fdd02c498cb1e8846da8d0d47
+    m_Address: Obstacle/40001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eded9916a7b7641718891c2871e192c1
+    m_Address: Obstacle/30001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8bef9997cf6b43f49a76854a3d8938b
+    m_Address: Obstacle/30002
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

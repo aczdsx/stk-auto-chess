@@ -5,6 +5,7 @@ using System.Linq;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -136,7 +137,7 @@ namespace CookApps.AutoBattler
             bool isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
 
             // 캐릭터 일러스트 생성
-            string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
+            string illustPrefabName = ZString.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
             var newObject = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             if (newObject == null)
             {
