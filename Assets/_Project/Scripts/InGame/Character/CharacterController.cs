@@ -210,22 +210,22 @@ namespace CookApps.BattleSystem
             if (statData.Spec.character_type == CharacterType.CHARACTER)
             {
                 viewGo = await Addressables.InstantiateAsync(
-                    $"Characters/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                    $"Characters/{_statData.Spec.prefab_id}");
             }
             else if (statData.Spec.character_type == CharacterType.OBSTACLE)
             {
                 viewGo = await Addressables.InstantiateAsync(
-                    $"Obstacle/Stage/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                    $"Obstacle/{_statData.Spec.prefab_id}");
             }
             else if (statData.Spec.character_type == CharacterType.BATTLEITEM)
             {
                 viewGo = await Addressables.InstantiateAsync(
-                    $"Item/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                    $"Item/{_statData.Spec.prefab_id}");
             }
             else
             {
                 viewGo = await Addressables.InstantiateAsync(
-                    $"Mob/{_statData.Spec.prefab_id}/GenerateResources/CharacterView_{_statData.Spec.prefab_id}.prefab");
+                    $"Mob/{_statData.Spec.prefab_id}");
             }
 
 

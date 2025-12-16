@@ -15,47 +15,23 @@ MonoBehaviour:
   rulesEnabled: 1
   allowGroupCreation: 1
   rules:
-  - path: Assets/_Project/Characters/(?<category>[^/]+)/GenerateResources/.*\.prefab
+  - path: Assets/_Project/Addressables/Remote/SD/(?<group>[^/]+)/(?<category>[^/]+)/GenerateResources/.*\.prefab
     matchType: 1
-    groupName: Characters
+    groupName: ${group}
     groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
     groupTemplateApplicationMode: 0
-    labelRefs:
-    - m_LabelString: 
+    labelRefs: []
     dynamicLabels: []
     LabelMode: 0
     simplified: 0
-    addressReplacement: Characters/${category}
-  - path: ^Assets/_Project/Data/.*\.asset$
+    addressReplacement: ${group}/${category}
+  - path: ^Assets/_Project/Addressables/BuiltIn/Data/(.*)\.asset$
     matchType: 1
     groupName: Data
     groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
     groupTemplateApplicationMode: 0
-    labelRefs:
-    - m_LabelString: 
-    dynamicLabels: []
-    LabelMode: 0
-    simplified: 1
-    addressReplacement: Characters/${category}
-  - path: Assets/_Project/Mob/(?<category>[^/]+)/GenerateResources/.*\.prefab
-    matchType: 1
-    groupName: Mob
-    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
-    groupTemplateApplicationMode: 0
-    labelRefs:
-    - m_LabelString: 
+    labelRefs: []
     dynamicLabels: []
     LabelMode: 0
     simplified: 0
-    addressReplacement: Mob/${category}
-  - path: Assets/_Project/Obstacle/(?<category>[^/]+)/GenerateResources/.*\.prefab
-    matchType: 1
-    groupName: Obstacle
-    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
-    groupTemplateApplicationMode: 0
-    labelRefs:
-    - m_LabelString: 
-    dynamicLabels: []
-    LabelMode: 0
-    simplified: 0
-    addressReplacement: Obstacle/${category}
+    addressReplacement: Data/${1}.asset

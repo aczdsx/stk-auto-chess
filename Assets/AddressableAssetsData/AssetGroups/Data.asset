@@ -14,7 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Data
   m_GUID: 767634ada79f74bae9645c6e822cb85d
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 2bf01e044541c3e4cbf564b2d60db990
+    m_Address: Data/UIElementData/Item_Chapter_SO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61c7026b389d14b24bb19ddbae477b89
+    m_Address: Data/AtlasManager.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e525e54f8ab47e43a10ebe4272074f9
+    m_Address: Data/VignetteData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb8a6a12ab83e6444960dc1c56ad819d
+    m_Address: Data/ColorData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
   m_SchemaSet:

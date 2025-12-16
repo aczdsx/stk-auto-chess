@@ -17,6 +17,7 @@ MonoBehaviour:
       m_AssetGUID: d59266943ae69f949a660ec9d26a43c6
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -25,6 +26,7 @@ MonoBehaviour:
       m_AssetGUID: d8815f356089b4cbd8a10b185bf1098a
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 1
     sceneNames:
     - Lobby
@@ -33,6 +35,7 @@ MonoBehaviour:
       m_AssetGUID: c7e43331a4807af4687ead39d29007c8
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -41,6 +44,7 @@ MonoBehaviour:
       m_AssetGUID: 8c3525daf8dc12041b2a00abe0381be6
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -49,6 +53,7 @@ MonoBehaviour:
       m_AssetGUID: f846c6d770ba054459777f53eac2820d
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -57,6 +62,7 @@ MonoBehaviour:
       m_AssetGUID: fd75ccb0d384c42649360699dfe6130e
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -65,14 +71,7 @@ MonoBehaviour:
       m_AssetGUID: 2b4f9a52a4654744abd5683dbc97678e
       m_SubObjectName: 
       m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    sceneNames:
-    - Lobby
-    - InGame
-  - assetRef:
-      m_AssetGUID: e46048157f103ef429313284e0fcaef0
-      m_SubObjectName: 
-      m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -81,6 +80,7 @@ MonoBehaviour:
       m_AssetGUID: db8a809bfec51ea408dafb36de49bc67
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -89,6 +89,7 @@ MonoBehaviour:
       m_AssetGUID: 2a08188687e084940a69dcce1fb15d79
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -98,6 +99,7 @@ MonoBehaviour:
       m_AssetGUID: 8ac4a9ad6c5f1004e9699ca03f5679ad
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -106,6 +108,7 @@ MonoBehaviour:
       m_AssetGUID: e8349454c096d9e45b1936e5fb4c7044
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -114,6 +117,7 @@ MonoBehaviour:
       m_AssetGUID: 758faaba29b082b4c9b8373d1d6f03cc
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -122,6 +126,7 @@ MonoBehaviour:
       m_AssetGUID: ccd26ba2d6de8f04f8d9eb9ba6cee5ec
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
@@ -130,6 +135,7 @@ MonoBehaviour:
       m_AssetGUID: 34ac3e2c80f2ec243886ec74443d1926
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     sceneNames:
     - Lobby
