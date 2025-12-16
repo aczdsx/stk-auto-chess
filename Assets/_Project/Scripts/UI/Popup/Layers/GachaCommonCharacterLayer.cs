@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
@@ -20,16 +22,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _gacha10ButtonCostImage;
         [SerializeField] private TextMeshProUGUI _gacha10ButtonCostText;
 
-        private void OnEnable()
+        private void Awake()
         {
-            _gacha1Button.onClick.AddListener(OnClickGacha1Button);
-            _gacha10Button.onClick.AddListener(OnClickGacha10Button);
-        }
-
-        private void OnDisable()
-        {
-            _gacha1Button.onClick.RemoveListener(OnClickGacha1Button);
-            _gacha10Button.onClick.RemoveListener(OnClickGacha10Button);
+            _gacha1Button.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGacha1Button(), AwaitOperation.Drop).AddTo(this);
+            _gacha10Button.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGacha10Button(), AwaitOperation.Drop).AddTo(this);
         }
 
         public void SetGachaLayer(GachaPopup parentPopup)
@@ -46,18 +42,18 @@ namespace CookApps.AutoBattler
             _gacha10ButtonCostText.text = $"x{_specGachaDataTenTime.gacha_cost}";
         }
         
-        private void OnClickGacha1Button()
+        private async UniTask OnClickGacha1Button()
         {
             if (_specGachaDataOneTime == null) return;
             
-            ProcessCharacterGacha(GachaCountType.ONE);
+            await ProcessCharacterGacha(GachaCountType.ONE);
         }
 
-        private void OnClickGacha10Button()
+        private async UniTask OnClickGacha10Button()
         {
             if (_specGachaDataTenTime == null) return;
             
-            ProcessCharacterGacha(GachaCountType.TEN);
+            await ProcessCharacterGacha(GachaCountType.TEN);
         }
     }
 }

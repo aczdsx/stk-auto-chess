@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,16 +28,10 @@ namespace CookApps.AutoBattler
 
         private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
         
-        private void OnEnable()
+        private void Awake()
         {
-            _gacha1Button?.onClick.AddListener(OnClickGacha1Button);
-            _gacha10Button?.onClick.AddListener(OnClickGacha10Button);
-        }
-
-        private void OnDisable()
-        {
-            _gacha1Button?.onClick.RemoveListener(OnClickGacha1Button);
-            _gacha10Button?.onClick.RemoveListener(OnClickGacha10Button);
+            _gacha1Button?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGacha1Button(), AwaitOperation.Drop).AddTo(this);
+            _gacha10Button?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGacha10Button(), AwaitOperation.Drop).AddTo(this);
         }
 
         public void SetGachaLayer(GachaPopup parentPopup)
@@ -99,18 +94,18 @@ namespace CookApps.AutoBattler
             }
         }
         
-       private void OnClickGacha1Button()
+       private async UniTask OnClickGacha1Button()
         {
             if (_specGachaDataOneTime == null) return;
             
-            ProcessCharacterGacha(GachaCountType.ONE);
+            await ProcessCharacterGacha(GachaCountType.ONE);
         }
 
-        private void OnClickGacha10Button()
+        private async UniTask OnClickGacha10Button()
         {
             if (_specGachaDataTenTime == null) return;
             
-            ProcessCharacterGacha(GachaCountType.TEN);
+            await ProcessCharacterGacha(GachaCountType.TEN);
         }
     }
 }

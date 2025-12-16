@@ -70,5 +70,16 @@ namespace CookApps.AutoBattler
                 _ => AttackRangeShape.Rectangle,
             };
         }
+        
+        public static string GetCharacterResourcePath(this ISpecCharacterInfo characterInfo)
+        {
+            return characterInfo.character_type switch
+            {
+                CharacterType.CHARACTER => $"Characters/{characterInfo.prefab_id}",
+                CharacterType.OBSTACLE => $"Obstacle/{characterInfo.prefab_id}",
+                CharacterType.BATTLEITEM => $"Item/{characterInfo.prefab_id}",
+                _ => $"Mob/{characterInfo.prefab_id}",
+            };
+        }
     }
 }

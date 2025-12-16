@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Cysharp.Threading.Tasks;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -25,6 +29,17 @@ namespace CookApps.AutoBattler
         
         public GachaType CurrentGachaType => gachaType;
 
+        private List<AsyncOperationHandle<GameObject>> _loadedGachaFxHandles = new List<AsyncOperationHandle<GameObject>>();
+        
+        private void OnDestroy()
+        {
+            foreach (var handle in _loadedGachaFxHandles)
+            {
+                handle.Release();
+            }
+            _loadedGachaFxHandles.Clear();
+        }
+
         // 유효 기간이 있는 가챠 타입인 경우 체크
         public bool CheckValidGachaPeriod(GachaCountType gachaCountType)
         {
@@ -43,7 +58,7 @@ namespace CookApps.AutoBattler
         }
         
         // 캐릭터 가챠 프로세스 진행
-        public void ProcessCharacterGacha(GachaCountType gachaCountType)
+        protected async UniTask ProcessCharacterGacha(GachaCountType gachaCountType)
         {
             SetGachaData(gachaCountType);
 
@@ -66,9 +81,10 @@ namespace CookApps.AutoBattler
             if (resultGachaList == null || resultGachaList.Count <= 0) return;
             
             bool isOneTime = gachaCountType == GachaCountType.ONE;
-            
-            // //AddressablesUtil.Instantiate("Gacha_VFX_Ver_Final_01").GetComponent<GachaFxByTen>().SetItem(tempResultList, true);
-            Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01").WaitForCompletion().GetComponent<GachaFxByTen>().SetItem(resultGachaList, isOneTime);
+            var handle = Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01");
+            await handle.WaitUntilDone();
+            handle.Result.GetComponent<GachaFxByTen>().SetItem(resultGachaList, isOneTime);
+            _loadedGachaFxHandles.Add(handle);
             
             // 가챠 아이템 소모
             UserDataManager.Instance.DecreaseItem(_currentSpecGachaData.gacha_cost_item_type, 0, _currentSpecGachaData.gacha_cost, true, true);

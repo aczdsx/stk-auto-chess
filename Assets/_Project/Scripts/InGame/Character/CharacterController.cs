@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.AutoBattler;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.BattleSystem
 {
@@ -45,6 +47,7 @@ namespace CookApps.BattleSystem
             return _statData;
         }
 
+        private AsyncOperationHandle<GameObject> _viewHandle;
         private SpriteCharacterView _view = null;
 
         public SpriteCharacterView GetCharacterView()
@@ -177,9 +180,16 @@ namespace CookApps.BattleSystem
             position = tile.View.Position;
             // GameObject viewGo = await Addressables.InstantiateAsync(
             //     $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
-            GameObject viewGo = await Addressables.InstantiateAsync(
-                $"Obstacle/{id}/GenerateResources/CharacterView_{id}.prefab");
-            _view = viewGo.GetComponent<SpriteCharacterView>();
+            if (_viewHandle.IsValid())
+                Addressables.ReleaseInstance(_viewHandle);
+            
+            var handle = _viewHandle = Addressables.InstantiateAsync($"Obstacle/{id}");
+            await handle.WaitUntilDone();
+
+            if (!handle.IsValid())
+                return;
+            
+            _view = handle.Result.GetComponent<SpriteCharacterView>();
             _view.CachedTr.SetParent(Playground, false);
             _view.CachedTr.localPosition = position;
         }
@@ -205,31 +215,16 @@ namespace CookApps.BattleSystem
 
             _allianceType = allianceType;
 
-            GameObject viewGo = null;
-
-            if (statData.Spec.character_type == CharacterType.CHARACTER)
-            {
-                viewGo = await Addressables.InstantiateAsync(
-                    $"Characters/{_statData.Spec.prefab_id}");
-            }
-            else if (statData.Spec.character_type == CharacterType.OBSTACLE)
-            {
-                viewGo = await Addressables.InstantiateAsync(
-                    $"Obstacle/{_statData.Spec.prefab_id}");
-            }
-            else if (statData.Spec.character_type == CharacterType.BATTLEITEM)
-            {
-                viewGo = await Addressables.InstantiateAsync(
-                    $"Item/{_statData.Spec.prefab_id}");
-            }
-            else
-            {
-                viewGo = await Addressables.InstantiateAsync(
-                    $"Mob/{_statData.Spec.prefab_id}");
-            }
-
-
-            _view = viewGo.GetComponent<SpriteCharacterView>();
+            if (_viewHandle.IsValid())
+                Addressables.ReleaseInstance(_viewHandle);
+            
+            var handle = _viewHandle = Addressables.InstantiateAsync(statData.Spec.GetCharacterResourcePath());
+            await handle;
+            
+            if (!handle.IsValid())
+                return;
+            
+            _view = handle.Result.GetComponent<SpriteCharacterView>();
             if (_statData.Spec != null)
             {
                 _hpBarView = InGameHpBarViewPool.Instance.Get();
@@ -322,7 +317,7 @@ namespace CookApps.BattleSystem
                 _buffDebuffEffectViewDict.Clear();
                 _view.OnAnimationEvent -= OnAnimationEvent;
             }
-            Addressables.ReleaseInstance(_view.gameObject);
+            Addressables.ReleaseInstance(_viewHandle);
             ClearAllState();
             Target = null;
             _view = null;

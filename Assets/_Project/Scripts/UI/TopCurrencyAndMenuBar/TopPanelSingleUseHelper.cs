@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -19,14 +21,16 @@ namespace CookApps.AutoBattler
         }
 #endif
         private Dictionary<TopPanelType, TopPanelBase> panels = new ();
+        private AsyncOperationHandle<GameObject> topUIOriginHandle;
         private Transform topUIOriginTr;
 
         private List<TopCurrencyAndMenuBar> topUIs = new ();
 
         public async UniTask Initialize()
         {
-            GameObject topUIOrigin = await Addressables.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
-            topUIOriginTr = topUIOrigin.transform;
+            topUIOriginHandle = Addressables.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
+            await topUIOriginHandle.WaitUntilDone();
+            topUIOriginTr = topUIOriginHandle.Result.transform;
             int childCount = topUIOriginTr.childCount;
             for (var i = 0; i < childCount; i++)
             {
@@ -35,7 +39,7 @@ namespace CookApps.AutoBattler
                 panels.TryAdd(panel.PanelType, panel);
             }
 
-            topUIOrigin.SetActive(false);
+            topUIOriginHandle.Result.SetActive(false);
         }
 
         public void Clear()
@@ -48,8 +52,7 @@ namespace CookApps.AutoBattler
             }
             panels.Clear();
 
-            Addressables.ReleaseInstance(topUIOriginTr.gameObject);
-            Destroy(topUIOriginTr.gameObject);
+            topUIOriginHandle.Release();
         }
 
         public TopPanelBase GetPanel(TopPanelType type)
