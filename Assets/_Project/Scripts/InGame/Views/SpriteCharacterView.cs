@@ -6,9 +6,18 @@ using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
 using PrimeTween;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
+using UnityEngine.EventSystems;
 
 namespace CookApps.AutoBattler
 {
+    public enum Direction
+    {
+        Front,
+        Back,
+        Left,
+        Right
+    }
     public class SpriteCharacterView : CachedMonoBehaviour
     {
         [SerializeField]
@@ -113,33 +122,70 @@ namespace CookApps.AutoBattler
 
         public void LookAt(InGameTile currentTile, InGameTile targetTile)
         {
-            float deltaX = targetTile.X - currentTile.X;
-            float deltaY = targetTile.Y - currentTile.Y;
+            LookAt(new Vector2(currentTile.X, currentTile.Y), new Vector2(targetTile.X, targetTile.Y));
+        }
+        
+        public void LookAt(Vector2 src, Vector2 dest)
+        {
+            float deltaX = dest.x - src.x;
+            float deltaY = dest.y - src.y;
 
             float angle = Mathf.Atan2(deltaY, deltaX) * Mathf.Rad2Deg;
 
-            if (angle >= -45 && angle < 45)
-            {
-                _cachedFlipX = true;
-                _cachedFront = false;
-            }
-            else if (angle >= 45 && angle < 135)
-            {
-                _cachedFlipX = false;
-                _cachedFront = false;
-            }
-            else if (angle >= -135 && angle < -45)
-            {
-                _cachedFlipX = true;
-                _cachedFront = true;
-            }
-            else
-            {
-                _cachedFlipX = false;
-                _cachedFront = true;
-            }
+            _cachedFlipX = angle is >= -135f and < 45f;
+            _cachedFront = angle is < -45f or > 135f;
+            // if (angle is >= -45 and < 45)
+            // {
+            //     _cachedFlipX = true;
+            //     _cachedFront = false;
+            // }
+            // else if (angle is >= 45 and < 135)
+            // {
+            //     _cachedFlipX = false;
+            //     _cachedFront = false;
+            // }
+            // else if (angle is >= -135 and < -45)
+            // {
+            //     _cachedFlipX = true;
+            //     _cachedFront = true;
+            // }
+            // else
+            // {
+            //     _cachedFlipX = false;
+            //     _cachedFront = true;
+            // }
 
             SetFlipOrNot();
+        }
+        
+        public void LookAt(Direction dir)
+        {
+            var prevCachedFlipX = _cachedFlipX;
+            var prevCachedFront = _cachedFront;
+            switch (dir)
+            {
+                case Direction.Front:
+                    _cachedFlipX = false;
+                    _cachedFront = true;
+                    break;
+                case Direction.Back:
+                    _cachedFlipX = true;
+                    _cachedFront = false;
+                    break;
+                case Direction.Left:
+                    _cachedFlipX = false;
+                    _cachedFront = false;
+                    break;
+                case Direction.Right:
+                    _cachedFlipX = true;
+                    _cachedFront = true;
+                    break;
+            }
+            if (prevCachedFlipX != _cachedFlipX)
+                SetFlipOrNot();
+                
+            if (prevCachedFront != _cachedFront && _animator != null)
+                _animator.SetBool(IsFront, _cachedFront);
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)

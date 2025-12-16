@@ -42,6 +42,7 @@ namespace Prototypes.Movement
 
         private void Update()
         {
+            _agent.transform.rotation = Quaternion.identity;
             // 엘리베이터 타는 중이면 입력 무시
             if (_isOnElevator)
             {
@@ -59,12 +60,6 @@ namespace Prototypes.Movement
             if (Input.GetMouseButtonDown(0))
             {
                 TrySetDestination();
-            }
-
-            // E키로 근처 엘리베이터 탑승
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                TryUseNearbyElevator();
             }
 
             UpdateMovementState();
@@ -91,7 +86,6 @@ namespace Prototypes.Movement
                 if (velocity.sqrMagnitude > 0.01f)
                 {
                     _lastDirection = velocity.normalized;
-                    // xz 평면의 방향을 xy로 변환하여 LookAt에 전달
                     _view.LookAt(new Vector3(_lastDirection.x, _lastDirection.z, 0f));
                 }
 
@@ -111,23 +105,6 @@ namespace Prototypes.Movement
             }
         }
 
-        private void TryUseNearbyElevator()
-        {
-            // 근처의 ElevatorLink 찾기
-            var colliders = Physics.OverlapSphere(transform.position, _elevatorDetectRadius);
-            foreach (var col in colliders)
-            {
-                var elevator = col.GetComponent<ElevatorLink>();
-                if (elevator != null)
-                {
-                    // 엘리베이터의 반대편 끝점을 목적지로 설정
-                    var targetPos = elevator.GetTargetPosition(transform.position);
-                    _agent.SetDestination(targetPos);
-                    return;
-                }
-            }
-        }
-
         private async UniTaskVoid HandleOffMeshLink()
         {
             _isOnElevator = true;
@@ -141,7 +118,7 @@ namespace Prototypes.Movement
             if (elevator != null)
             {
                 // 엘리베이터로 이동
-                await elevator.TransportAgent(_agent);
+                await elevator.TransportAgent(_agent, _view);
             }
             else
             {
