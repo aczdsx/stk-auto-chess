@@ -139,9 +139,10 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
                 characterControllers[0].CurrentTile);
 
-            var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                character, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, character);
+            var damage = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate, character, codeId, true);
+            // var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+            //     character, codeId, true);
+            // owner.PostCalculateDamageAmount(ref damage, character);
             character.GetDamaged(damage, owner);
 
             // 주변 타겟

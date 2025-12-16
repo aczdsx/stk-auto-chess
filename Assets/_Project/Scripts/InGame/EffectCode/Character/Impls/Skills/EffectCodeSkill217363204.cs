@@ -170,9 +170,11 @@ public partial class EffectCodeSkill217363204 : EffectCodeCharacterBase
                     targetTile.OccupiedCharacter.GetCharacterView().CachedTr.position);
 
                 float powerRate = _powerRate - _decreasedPowerRate * (float) _targetCount;
-                var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter,
-                    codeId, true);
-                owner.PostCalculateDamageAmount(ref damage, targetTile.OccupiedCharacter);
+
+                var damage = owner.CalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter, codeId, true);
+                // var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter,
+                //     codeId, true);
+                // owner.PostCalculateDamageAmount(ref damage, targetTile.OccupiedCharacter);
                 targetTile.OccupiedCharacter.GetDamaged(damage, owner);
 
                 _hitCharacters.Add(targetTile.OccupiedCharacter);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 using CookApps.TeamBattle;
 
 public static class ElementAdvantageHelper
@@ -11,7 +12,6 @@ public static class ElementAdvantageHelper
         NONE = 0,
         ADVANTAGE = 1,  // 유리 (공격자가 방어자에게 유리)
         RESIST = 2,      // 불리 (공격자가 방어자에게 불리)
-        EQUAL = 3,       // 동일 (공격자와 방어자의 속성이 동일)
     }
 
     /// <summary>
@@ -25,11 +25,10 @@ public static class ElementAdvantageHelper
         SynergyType.EARTH,
         SynergyType.WATER
     };
-    private static readonly string[] _elementAdvantageTexts = new string[] { "WEAK!", "RESIST!", "EQUAL!" };
+    private static readonly string[] _elementAdvantageTexts = new string[] { "WEAK!", "RESIST!" };
 
     public const float ADVANTAGE_MULTIPLIER = 1.25f;
-    public const float RESIST_MULTIPLIER = 0.75f;
-    public const float EQUAL_MULTIPLIER = 0.9f;
+    public const float RESIST_MULTIPLIER = 0.8f;
 
     /// <summary>
     /// 공격자와 방어자의 속성 상성 관계를 반환합니다.
@@ -37,7 +36,7 @@ public static class ElementAdvantageHelper
     /// <param name="attacker">공격자의 속성</param>
     /// <param name="defender">방어자의 속성</param>
     /// <returns>상성 관계 결과</returns>
-    public static ElementAdvantageResult GetElementAdvantageResult(SynergyType attackerElementType, SynergyType defenderElementType)
+    private static ElementAdvantageResult GetElementAdvantageResult(SynergyType attackerElementType, SynergyType defenderElementType)
     {
         if (!IsInChain(attackerElementType) || !IsInChain(defenderElementType))
         {
@@ -52,12 +51,23 @@ public static class ElementAdvantageHelper
         {
             return ElementAdvantageResult.RESIST;
         }
-        else if (attackerElementType == defenderElementType)
-        {
-            return ElementAdvantageResult.EQUAL;
-        }
 
         return ElementAdvantageResult.NONE;
+    }
+
+    public static ObfuscatorDouble CalculateElementAdvantageDamage(ObfuscatorDouble damage, SynergyType attackerElementType, SynergyType defenderElementType)
+    {
+        var elementAdvantageResult = GetElementAdvantageResult(attackerElementType, defenderElementType);
+        switch (elementAdvantageResult)
+        {
+            case ElementAdvantageResult.ADVANTAGE:
+                return damage * ADVANTAGE_MULTIPLIER;
+            case ElementAdvantageResult.RESIST:
+                return damage * RESIST_MULTIPLIER;
+            case ElementAdvantageResult.NONE:
+            default:
+                return damage;
+        }
     }
 
     public static string GetElementAdvantageText(ElementAdvantageResult elementAdvantageResult)
@@ -69,10 +79,6 @@ public static class ElementAdvantageHelper
         else if (elementAdvantageResult == ElementAdvantageResult.RESIST)
         {
             return _elementAdvantageTexts[1];
-        }
-        else if (elementAdvantageResult == ElementAdvantageResult.EQUAL)
-        {
-            return _elementAdvantageTexts[2];
         }
         return string.Empty;
     }

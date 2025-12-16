@@ -155,8 +155,9 @@ public partial class EffectCodeSkill217523403 : EffectCodeCharacterBase
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
                     float damageRate = (float) (owner.AD * _damageRate) * (1.0f + (float) owner.ADReduce / _defValue);
-                    var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    var damage = owner.CalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                    // var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
+                    // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
 
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
 

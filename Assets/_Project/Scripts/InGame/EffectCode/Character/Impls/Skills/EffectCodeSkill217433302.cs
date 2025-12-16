@@ -169,8 +169,9 @@ public partial class EffectCodeSkill217433302 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                 pivotTile.OccupiedCharacter.SkillRootTransformFollowable);
 
-            var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, pivotTile.OccupiedCharacter, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, pivotTile.OccupiedCharacter);
+            var damage = owner.CalculateDamageAmount(owner.AD * _damageRate, 0, pivotTile.OccupiedCharacter, codeId, true);
+            // var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, pivotTile.OccupiedCharacter, codeId, true);
+            // owner.PostCalculateDamageAmount(ref damage, pivotTile.OccupiedCharacter);
             pivotTile.OccupiedCharacter.GetDamaged(damage, owner);
             targetCharacterList.Add(pivotTile.OccupiedCharacter.CharacterUId);
         }
@@ -189,9 +190,10 @@ public partial class EffectCodeSkill217433302 : EffectCodeCharacterBase
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         inGameTile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0,
-                        inGameTile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage, inGameTile.OccupiedCharacter);
+                    var damage = owner.CalculateDamageAmount(owner.AD * _additionalDamageRate, 0, inGameTile.OccupiedCharacter, codeId, true);
+                    // var damage = owner.PrecalculateDamageAmount(owner.AD * _additionalDamageRate, 0,
+                    //     inGameTile.OccupiedCharacter, codeId, true);
+                    // owner.PostCalculateDamageAmount(ref damage, inGameTile.OccupiedCharacter);
                     inGameTile.OccupiedCharacter.GetDamaged(damage, owner);
                 }
             }

@@ -104,13 +104,12 @@ public partial class EffectCodeSkill215422301 : EffectCodeCharacterBase
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var shieldAmount = owner.PrecalculateDamageAmount(owner.AD * _shieldRate, 0, tile.OccupiedCharacter,
-                        codeId, true);
+                    var shieldAmount =owner.AD * _shieldRate;
 
                     Span<double> eccStats = stackalloc double[2];
                     eccStats.Clear();
                     eccStats[0] = _shieldDurationTime;
-                    eccStats[1] = shieldAmount.damageAmount;
+                    eccStats[1] = shieldAmount;
                         
                     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, tile.OccupiedCharacter, eccStats, source);
                 }

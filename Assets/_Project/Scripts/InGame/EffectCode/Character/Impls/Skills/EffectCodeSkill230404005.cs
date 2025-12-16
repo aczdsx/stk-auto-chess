@@ -137,8 +137,9 @@ public partial class EffectCodeSkill230404005 : EffectCodeCharacterBase
         {
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                 _targetCharacter.SkillRootTransformFollowable);
-            var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+            var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+            // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+            // owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
             _targetCharacter.GetDamaged(damage, owner);
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f));

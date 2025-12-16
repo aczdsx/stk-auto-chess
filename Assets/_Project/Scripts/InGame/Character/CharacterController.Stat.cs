@@ -6,6 +6,7 @@ namespace CookApps.BattleSystem
 {
     public partial class CharacterController
     {
+        private static readonly float RESIST_CAP = 0.7f;
         #region Stat getter
 
         private EffectCodeInheritFlag needUpdateFlag;
@@ -16,12 +17,10 @@ namespace CookApps.BattleSystem
             postADReduce,
             postAPReduce,
             postAP,
-            postADPierce,
             postAPPierce,
             postRecoveryHP,
-            postBlockingProb,
-            postAvoidProb,
-            postHitProb;
+            postBlockingProb
+            ;
 
         private ObfuscatorFloat
             postCriticalProb,
@@ -46,7 +45,10 @@ namespace CookApps.BattleSystem
             postExpGainIndividual,
             postDungeonAttackDamageRateIndividual,
             postStatusDamageRate,
-            postPureDamageProb;
+            postPureDamageProb,
+            postAvoidProb,
+            postADPierce,
+            postHitProb;
 
         private ObfuscatorInt postAttackRange;
 
@@ -152,7 +154,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public double ADPierce
+        public float ADPierce
         {
             get
             {
@@ -164,7 +166,7 @@ namespace CookApps.BattleSystem
                     var effectCodes = GetEffectCodeContainer()
                         .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatADPierce);
                     postADPierce =
-                        effectCodes.CalculateADPierce(GetCharacterStat().ADPierce);
+                        effectCodes.CalculateADPierce((float)GetCharacterStat().ADPierce);
                 }
 
                 return postADPierce;
@@ -483,9 +485,39 @@ namespace CookApps.BattleSystem
             }
         }
 
-        // postBlockingProb,
-        //     postAvoidProb,
-        //     postHitProb;
+        public float AvoidProb
+        {
+            get
+            {
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAvoidProb) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAvoidProb))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAvoidProb);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAvoidProb);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAvoidProb);
+                    postAvoidProb = effectCodes.CalculateAvoidProb(GetCharacterStat().AvoidProb);
+                }
+                return postAvoidProb;
+            }
+        }
+
+        public float HitProb
+        {
+            get
+            {
+                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatHitProb) ||
+                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatHitProb))
+                {
+                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatHitProb);
+                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatHitProb);
+                    var effectCodes = GetEffectCodeContainer()
+                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHitProb);
+                    postHitProb = effectCodes.CalculateHitProb(GetCharacterStat().HitProb);
+                }
+                return postHitProb;
+            }
+        }
 
         public float TakenHealRate
         {

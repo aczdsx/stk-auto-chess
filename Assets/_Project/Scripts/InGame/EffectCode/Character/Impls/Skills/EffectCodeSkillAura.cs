@@ -96,8 +96,9 @@ public partial class EffectCodeSkillAura : EffectCodeCharacterBase
             return;
         // 타겟에게 데미지를 입힘
         var ad = owner.AD * power;
-        var damageInfo = owner.PrecalculateDamageAmount(ad, 0, owner.Target, codeId, true);
-        owner.PostCalculateDamageAmount(ref damageInfo, owner.Target);
+        var damageInfo = owner.CalculateDamageAmount(ad, 0, owner.Target, codeId, true);
+        // var damageInfo = owner.PrecalculateDamageAmount(ad, 0, owner.Target, codeId, true);
+        // owner.PostCalculateDamageAmount(ref damageInfo, owner.Target);
         owner.Target.GetDamaged(in damageInfo, owner);
 
         // 주변 적에게 데미지를 입힘
@@ -108,8 +109,9 @@ public partial class EffectCodeSkillAura : EffectCodeCharacterBase
             if (enemy == owner.Target || !enemy.IsAlive)
                 continue;
             ad = owner.AD * splashPower;
-            damageInfo = owner.PrecalculateDamageAmount(ad, 0, enemy, codeId, true);
-            owner.PostCalculateDamageAmount(ref damageInfo, enemy);
+            damageInfo = owner.CalculateDamageAmount(ad, 0, enemy, codeId, true);
+            // damageInfo = owner.PrecalculateDamageAmount(ad, 0, enemy, codeId, true);
+            // owner.PostCalculateDamageAmount(ref damageInfo, enemy);
             enemy.GetDamaged(in damageInfo, owner);
         }
     }

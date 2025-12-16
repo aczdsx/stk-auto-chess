@@ -94,10 +94,10 @@ public partial class EffectCodeSkill240407302 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        
+
         if (owner.Target == null)
             return;
-        
+
         // 타겟 불가능 상태
         {
             Span<double> eccStats = stackalloc double[3];
@@ -138,9 +138,10 @@ public partial class EffectCodeSkill240407302 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
                 characterControllers[0].CurrentTile);
 
-            var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                characterControllers[0], codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, characterControllers[0]);
+            var damage = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate, characterControllers[0], codeId, true);
+            // var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+            //     characterControllers[0], codeId, true);
+            // owner.PostCalculateDamageAmount(ref damage, characterControllers[0]);
             characterControllers[0].GetDamaged(damage, owner);
 
             // 주변 타겟
@@ -163,10 +164,11 @@ public partial class EffectCodeSkill240407302 : EffectCodeCharacterBase
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
                     float calculatedDamageRate2 = _additionalDamageRate;
+                    var damage2 = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate2, tile.OccupiedCharacter, codeId, true);
 
-                    var damage2 = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate2,
-                        tile.OccupiedCharacter, codeId, true);
-                    owner.PostCalculateDamageAmount(ref damage2, tile.OccupiedCharacter);
+                    // var damage2 = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate2,
+                    //     tile.OccupiedCharacter, codeId, true);
+                    // owner.PostCalculateDamageAmount(ref damage2, tile.OccupiedCharacter);
                     tile.OccupiedCharacter.GetDamaged(damage2, owner);
                 }
             }
@@ -174,7 +176,7 @@ public partial class EffectCodeSkill240407302 : EffectCodeCharacterBase
 
         IsSkillActivated = false;
     }
-    
+
     private async UniTask MoveDown(float duration, float distance)
     {
         float startHeight = owner.ViewPosition3D.y;

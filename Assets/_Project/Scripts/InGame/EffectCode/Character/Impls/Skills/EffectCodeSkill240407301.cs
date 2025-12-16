@@ -140,8 +140,10 @@ private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNam
         {
             // 타겟 히트
             InGameVfxManager.Instance.AddInGameVfx(vfxHitType, targetCharacter.CurrentTile.View.CachedTr.position);
-            var damage = owner.PrecalculateDamageAmount(owner.AD * damageRate, 0, targetCharacter, codeId, true);
-            owner.PostCalculateDamageAmount(ref damage, targetCharacter);
+            
+            var damage = owner.CalculateDamageAmount(owner.AD * damageRate, 0, targetCharacter, codeId, true);
+            // var damage = owner.PrecalculateDamageAmount(owner.AD * damageRate, 0, targetCharacter, codeId, true);
+                // owner.PostCalculateDamageAmount(ref damage, targetCharacter);
             targetCharacter.GetDamaged(damage, owner);
             
             {

@@ -154,9 +154,10 @@ public partial class EffectCodeSkill215642501 : EffectCodeCharacterBase
                         if (tile.OccupiedCharacter.GetCharacterStat().Spec.character_element_type == SynergyType.FIRE)
                             calculatedDamageRate += _additionalDamageRate;
 
-                        var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                            tile.OccupiedCharacter, codeId, true);
-                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                        var damage = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate, tile.OccupiedCharacter, codeId, true);
+                        // var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                        //     tile.OccupiedCharacter, codeId, true);
+                        // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                         tile.OccupiedCharacter.GetDamaged(damage, owner);
                     }
                 }

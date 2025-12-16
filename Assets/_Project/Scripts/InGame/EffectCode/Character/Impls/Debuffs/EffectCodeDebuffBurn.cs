@@ -98,8 +98,9 @@ public partial class EffectCodeDebuffBurn : EffectCodeBuffBase
 
             foreach (var data in _stackDatas)
             {
-                var damage = owner.PrecalculateDamageAmount(_characterController.AD * data.value, 0, owner, codeId, true);
-                _characterController.PostCalculateDamageAmount(ref damage, owner);
+                var damage = owner.CalculateDamageAmount(_characterController.AD * data.value, 0, owner, codeId, true);
+                // var damage = owner.PrecalculateDamageAmount(_characterController.AD * data.value, 0, owner, codeId, true);
+                // _characterController.PostCalculateDamageAmount(ref damage, owner);
                 owner.GetDamaged(damage, _characterController);
             }
         }

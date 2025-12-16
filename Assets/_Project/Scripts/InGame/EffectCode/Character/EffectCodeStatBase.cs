@@ -722,7 +722,7 @@ namespace CookApps.BattleSystem
 
             return basicStat;
         }
-        public static double CalculateADPierce<T>(this IReadOnlyList<T> list, double basicStat) where T : EffectCodeStatBase
+        public static float CalculateADPierce<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
         {
             if (list.Count == 0)
             {
@@ -745,7 +745,7 @@ namespace CookApps.BattleSystem
 
             for (var i = 0; i < maxCalcOrder; i++)
             {
-                basicStat = (basicStat + fixedValues[i]) * (1f + percentValues[i]);
+                basicStat = (basicStat + (float)fixedValues[i]) * (1f + (float)percentValues[i]);
             }
 
             if (basicStat < 0)

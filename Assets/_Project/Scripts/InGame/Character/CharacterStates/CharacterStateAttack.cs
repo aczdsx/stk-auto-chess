@@ -111,15 +111,15 @@ public class CharacterStateAttack : CharacterStateBase
             CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
             if (characCtrl.SpecCharacter.atk_type == AtkType.AD)
             {
-                damageInfo =
-                    characCtrl.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
-                characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
+                damageInfo = characCtrl.CalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
+                //     characCtrl.PrecalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
+                // characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
             }
             else
             {
-                damageInfo =
-                    characCtrl.PrecalculateDamageAmount(0, characCtrl.AP, characCtrl.Target, 0, false);
-                characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
+                damageInfo = characCtrl.CalculateDamageAmount(0, characCtrl.AP, characCtrl.Target, 0, false);
+                //     characCtrl.PrecalculateDamageAmount(0, characCtrl.AP, characCtrl.Target, 0, false);
+                // characCtrl.PostCalculateDamageAmount(ref damageInfo, characCtrl.Target);
             }
             if (hitCount > 1)
             {

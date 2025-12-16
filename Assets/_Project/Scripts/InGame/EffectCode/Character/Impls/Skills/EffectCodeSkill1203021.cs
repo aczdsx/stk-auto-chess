@@ -135,9 +135,10 @@ public partial class EffectCodeSkill1203021 : EffectCodeCharacterBase
                         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
                         float calculatedDamageRate = _additionalDamageRate;
 
-                        var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                            tile.OccupiedCharacter, codeId, true);
-                        owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                        var damage = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate, tile.OccupiedCharacter, codeId, true);
+                        // var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
+                        //     tile.OccupiedCharacter, codeId, true);
+                        // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                         tile.OccupiedCharacter.GetDamaged(damage, owner);
                     }
                 }
