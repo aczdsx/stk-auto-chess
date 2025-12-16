@@ -946,6 +946,8 @@ namespace CookApps.BattleSystem
             public bool isAD;
             public bool isCritical;
             public bool isDoubleCritical;
+            public bool isMissed;// 회피테스트 성공여부
+
             public ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult;
             public long source;
 
@@ -959,74 +961,147 @@ namespace CookApps.BattleSystem
                     attackerType = attackerType,
                     isAD = isAD,
                     isCritical = isCritical,
-                    isDoubleCritical = isDoubleCritical
+                    isDoubleCritical = isDoubleCritical,
+                    isMissed = false
                 };
             }
         }
 
-        /// <summary>
-        /// 기본 스텟으로 대미지 계산
-        /// 퓨어 대미지의 경우 이 함수를 거치지 않고 바로 PostCalculateDamageAmount를 호출
-        /// </summary>
-        /// <param name="ad">공격자가 순수하게 입히려고 하는 물리 대미지</param>
-        /// <param name="ap">공격자가 순수하게 입히려고 하는 마법 대미지</param>
-        /// <param name="target">대상</param>
-        /// <param name="source">기본 공격일 경우 0, 스킬일 경우 effectCodeId</param>
-        /// <param name="isSkill">스킬로 입히는 대미지인지</param>
-        /// <returns></returns>
-        public DamageInfo PrecalculateDamageAmount(double ad, double ap, CharacterController target, long source, bool isSkill)
+        public DamageInfo CalculateDamageAmount(double ad, double ap, CharacterController target, long source, bool isSkill, bool isPassResistPierce = false)
         {
-            double damage = InGameCalculator.CalculateDefaultDamage(ad, ap, this, target);
-
             var damageInfo = new DamageInfo();
-            damageInfo.attackerType = AttackerType.CHARCTER;
-            damageInfo.isAD = true;
+            //일단 공격 타입 결정
 
+            damageInfo.isAD = ad >= 0;
+            //ad ap로 데미지 1차 결정
+            damageInfo.damageAmount = ap >= 0 ? ap : ad;
             if (isSkill)
             {
-                damage *= SkillDamageRate;
-                if (ap > 0)
-                    damageInfo.isAD = false;
+                //스킬이라면 스킬데미지 계수 적용
+                damageInfo.damageAmount *= SkillDamageRate;
             }
 
-
-            damageInfo.isCritical = CriticalTest();
-            if (damageInfo.isCritical)
+            //회피 테스트 진행
+            ProgressAvoidTest(ref damageInfo, target);
+            if (damageInfo.isMissed)
             {
-                damage *= CriticalDamageRate;
-                damageInfo.isDoubleCritical = DoubleCriticalTest();
-                if (damageInfo.isDoubleCritical)
-                {
-                    damage *= DoubleCriticalDamageRate;
-                }
+                //미스 시 데미지 0으로 처리 + 바로 리턴
+                return damageInfo;
             }
 
-            damageInfo.damageAmount = damage;
-            damageInfo.source = source;
-            return damageInfo;
-        }
-
-        /// <summary>
-        /// 주는/받는 피해량 계수로 최종 대미지 계산
-        /// </summary>
-        /// <param name="damageInfo">계산 전 대미지 정보</param>
-        /// <param name="target">피해 받는 대상</param>
-        public void PostCalculateDamageAmount(ref DamageInfo damageInfo, CharacterController target = null)
-        {
-            // 최소 대미지량
-            double minDamageAmount = InGameCalculator.MinDamageRate * damageInfo.damageAmount;
-            // 대미지 증감에 따른 최종 대미지 계산
-            damageInfo.damageAmount = damageInfo.damageAmount * AttackDamageRate * (target?.TakenDamageRate ?? 1f);
-            // 추가로 종족, 크기, 속성에 따른 대미지 계산이 필요하다면 여기서 할 것
+            //속성 상성 데미지 계산
             CalculateElementAdvantageDamage(ref damageInfo, target);
-            // 최소 대미지량 적용
-            damageInfo.damageAmount = Math.Floor(Math.Max(minDamageAmount, damageInfo.damageAmount));
+
+            //블록 테스트 진행
+            if (ProgressBlockingTest(ref damageInfo, target))
+            {
+                //블록율 실패 시 크리티컬 체크
+                ProgressCriticalTest(ref damageInfo);
+            }
+            
+
+            //샤프슈터는 뚫음
+            if (!isPassResistPierce)
+            {
+                ProgressResistPierce(ref damageInfo, target);
+            }
+
+            var targetLevel = UserDataManager.Instance.GetUserCharacter(target.CharacterId).Level;
+            var attackerLevel = UserDataManager.Instance.GetUserCharacter(CharacterId).Level;
+            ProgressLevelDiffMul(ref damageInfo, targetLevel, attackerLevel);
 
             if (ecc != null)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageAmount);
                 damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda, damageInfo.damageAmount.Value);
             }
+
+            return damageInfo;
+        }
+
+
+        /// <summary>
+        /// 나의 명중률과 타겟의 회피율을 테스트해서 회피 성공 여부를 반환
+        /// false 시 miss
+        /// true 시 명중
+        /// </summary>
+        /// <param name="damageInfo"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private void ProgressAvoidTest(ref DamageInfo damageInfo, CharacterController target)
+        {
+            //통상적으로 attacker의 타겟이 target으로 들어옴.
+            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < HitProb)
+            {
+                if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.AvoidProb)
+                {   //여기 들어오면 회피 성공
+                    damageInfo.isMissed = true;
+                    damageInfo.damageAmount = 0d;
+                    return;
+                }
+                else
+                {   //회피 실패 그냥 데미지.
+                    return;
+                }
+            }
+            else
+            {//명중률에서 탈락하면 그냥 미스처리.
+                damageInfo.isMissed = true;
+                damageInfo.damageAmount = 0d;
+                return;
+            }
+        }
+
+        private bool ProgressBlockingTest(ref DamageInfo damageInfo, CharacterController target)
+        {
+            //타겟의 블록율로 블록율 테스트 
+            // 블록 성공시 데미지 50%감소
+            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.BlockingProb)
+            {
+                damageInfo.damageAmount *= 0.5d;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void ProgressCriticalTest(ref DamageInfo damageInfo)
+        {
+            damageInfo.isCritical = CriticalTest();
+            if (damageInfo.isCritical)
+            {
+                damageInfo.damageAmount *= CriticalDamageRate;
+                damageInfo.isDoubleCritical = DoubleCriticalTest();
+                if (damageInfo.isDoubleCritical)
+                {
+                    damageInfo.damageAmount *= DoubleCriticalDamageRate;
+                }
+            }
+        }
+
+        private void ProgressResistPierce(ref DamageInfo damageInfo, CharacterController target)
+        {
+            if (damageInfo.isAD)
+            {
+                var ResistRaw = target.ADReduce > 1.1 ? target.ADReduce * 0.01f : target.ADReduce;
+                var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - ADPierce)), 0, RESIST_CAP);
+                damageInfo.damageAmount *= 1f - EffResist;
+            }
+            else
+            {
+                var ResistRaw = target.APReduce > 1.1 ? target.APReduce * 0.01f : target.APReduce;
+                var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - APPierce)), 0, RESIST_CAP);
+                damageInfo.damageAmount *= 1f - EffResist;
+            }
+        }
+
+        private void ProgressLevelDiffMul(ref DamageInfo damageInfo, int targetLevel, int attackerLevel)
+        {
+            var Gap = Mathf.Max(0, targetLevel - attackerLevel);
+            var LevelMul = Mathf.Clamp(1 - 0.05f * Mathf.Floor(Gap / 5), 0.5f, 1.0f);
+            damageInfo.damageAmount *= LevelMul;
         }
 
         /// <summary>
