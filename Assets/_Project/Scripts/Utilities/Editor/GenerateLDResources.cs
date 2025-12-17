@@ -244,7 +244,7 @@ public class GenerateLDResources
         }
 
         // Save as prefab
-        string prefabPath = Path.Combine(generateResourcesPath, $"{id}_NaniNovel.prefab");
+        string prefabPath = Path.Combine(generateResourcesPath, $"Naninovel_{id}.prefab");
         prefabPath = prefabPath.Replace("\\", "/");
         PrefabUtility.SaveAsPrefabAsset(prefabInstance, prefabPath);
 

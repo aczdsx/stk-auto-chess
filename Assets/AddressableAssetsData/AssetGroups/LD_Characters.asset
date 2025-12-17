@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: LD_Characters
   m_GUID: 207b3f8ed7b1e496f90519a45289ccb8
   m_SerializeEntries:
-  - m_GUID: 0003224d3405a4b6e8a7035cbd4a83e9
+  - m_GUID: 000a123cc6a724d6b82bee8cbb6bc538
     m_Address: LD_Characters/Naninovel_15422301
     m_ReadOnly: 0
     m_SerializedLabels:
@@ -30,12 +30,6 @@ MonoBehaviour:
     m_Address: LD_Characters/17363204/Spine
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 04b188a498fa543f8984bb6ed1adba63
-    m_Address: LD_Characters/Naninovel_17263103
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0577e2969a0f74d728a92205c6ffbea5
     m_Address: LD_Characters/UI_15532401
@@ -57,10 +51,22 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f86bf2b56b0841caa8d783bc818fe73
+    m_Address: LD_Characters/Naninovel_15322201
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 11032462e228d4e7a8710005828e806d
     m_Address: LD_Characters/15362202/Spine
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14c47f5d9bba44317b2c420cfeee7e43
+    m_Address: LD_Characters/Naninovel_17243102
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 179c197ef15f748ca81f1a690a86eca2
     m_Address: LD_Characters/UI_17413301
@@ -72,16 +78,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 19ef77aa002954ee48a6788eab110a58
-    m_Address: LD_Characters/Naninovel_15252102
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1c52c0d6a816e4b8f9babdfbfbee8a34
     m_Address: LD_Characters/17353203/Illust
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e06ce10d62a742098710b8f0891c671
+    m_Address: LD_Characters/Naninovel_17363204
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1f0ba614166c04b349f5139137674d5c
     m_Address: LD_Characters/15532401/Illust
@@ -143,12 +149,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 50d2feafb0c50475bae0d9c381c22c86
-    m_Address: LD_Characters/Naninovel_15532401
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 53f32a641afd24fa2b48d6affe87c4bf
     m_Address: LD_Characters/UI_15252102
     m_ReadOnly: 0
@@ -159,22 +159,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57e1e0fe4b2f94c09b53638eb9670aca
+    m_Address: LD_Characters/Naninovel_15362202
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 58bc712d95fd34bbd9a0be71b8592ea9
     m_Address: LD_Characters/UI_15322201
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5a06396a0f1c0448a892a713de146873
-    m_Address: LD_Characters/Naninovel_15322201
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5c171e24a74204229bf7f6dce9413e88
-    m_Address: LD_Characters/Naninovel_17613501
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e79d2cf751db49a48c9446106166cac
     m_Address: LD_Characters/17653505/Spine
@@ -196,8 +190,20 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6fadd891242474c0b916d31a3cbec02a
-    m_Address: LD_Characters/Naninovel_17653505
+  - m_GUID: 65b4511948bf148c1a200eae0bc7cb07
+    m_Address: LD_Characters/Naninovel_17613501
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6666dbd4bf2334fa7a9f0a3fee8c76e9
+    m_Address: LD_Characters/Naninovel_15532401
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 693dabdd6baf7401daebe4db6d0b04cd
+    m_Address: LD_Characters/Naninovel_17513401
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -207,31 +213,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7641c669b7b0847a09e09f5a1bc8851b
-    m_Address: LD_Characters/Naninovel_17323201
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 77d03ffd3d8464ab8860c3ab6266241e
-    m_Address: LD_Characters/Naninovel_17243102
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7aafdf5c06102470aabd2f23bdb61502
-    m_Address: LD_Characters/Naninovel_17513401
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7af4df8b67037435bb44ada308c90b34
-    m_Address: LD_Characters/Naninovel_15362202
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7d75c5c78653040548bb229e84daf797
+  - m_GUID: 7c0811d491b1248779b02a24686293ed
     m_Address: LD_Characters/Naninovel_15642501
     m_ReadOnly: 0
     m_SerializedLabels:
@@ -246,6 +228,12 @@ MonoBehaviour:
     m_Address: LD_Characters/15422301/Spine
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89b22fd0b75f84446b5650f0d0f6ed7c
+    m_Address: LD_Characters/Naninovel_17263103
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e8236f7c4422411e8059a76ccfd73ec
     m_Address: LD_Characters/15642501/Illust
@@ -267,16 +255,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a6c6f589ce3374a3597e57bb50ca30dd
-    m_Address: LD_Characters/Naninovel_17363204
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7248d8c16fed427cb61e2cc58e1ea06
     m_Address: LD_Characters/UI_17553404
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab6da8d71ac7141dea85105ad53b5758
+    m_Address: LD_Characters/Naninovel_17323201
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ae3c160835b8b4f8ab868ccb5a708c1c
     m_Address: LD_Characters/17553404/Spine
@@ -288,12 +276,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b716012ca0c7845d388acc80d39e3e34
-    m_Address: LD_Characters/Naninovel_17663506
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b799986b0d09a40cf8d1a74635e4bfb9
     m_Address: LD_Characters/17433303/Illust
     m_ReadOnly: 0
@@ -304,6 +286,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcb60f801802647d2a0faef5c926af8d
+    m_Address: LD_Characters/Naninovel_17553404
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7b6b55001f3b433ba6d4996d404ba6e
+    m_Address: LD_Characters/Naninovel_17663506
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c9369fe67fcca4bc9bc6f2f67fb3314d
     m_Address: LD_Characters/UI_17523403
     m_ReadOnly: 0
@@ -313,12 +307,6 @@ MonoBehaviour:
     m_Address: LD_Characters/17513401/Illust
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ce6df2b47d9a04606bad5110a05a9233
-    m_Address: LD_Characters/Naninovel_17553404
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf4fd41ce98ad47f490eae141874930b
     m_Address: LD_Characters/15322201/Illust
@@ -360,6 +348,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5d1a7c2decfc46c8b24aaf91aac1f21
+    m_Address: LD_Characters/Naninovel_15252102
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6c0d3532b7f548c2b26ae3e72be0b8a
     m_Address: LD_Characters/17263103/Illust
     m_ReadOnly: 0
@@ -379,6 +373,12 @@ MonoBehaviour:
     m_Address: LD_Characters/UI_15642501
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2411c2476b3047d5bedaa0a1519326e
+    m_Address: LD_Characters/Naninovel_17653505
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe645047d96b44f5e988164163eb35e2
     m_Address: LD_Characters/17523403/Illust

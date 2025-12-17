@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4429781219646411493
+--- !u!1001 &3779456396177556184
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -4033738630654589329, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: skeletonDataAsset
       value: 
-      objectReference: {fileID: 11400000, guid: c06d0fa5e80aa2649bcb31b86cffc293, type: 2}
+      objectReference: {fileID: 11400000, guid: 54319503dbc65ca46bc6d9747026171f, type: 2}
     - target: {fileID: 2904311278150009681, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -54,12 +54,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4687676220216866382, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_Name
-      value: 17363204_NaniNovel
+      value: Naninovel_15532401
       objectReference: {fileID: 0}
     - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1de1717fc31ab0d49a595dae8da1f459, type: 2}
+      objectReference: {fileID: 2100000, guid: f582e4dac43a5d64caa1a285b6a9cd7e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

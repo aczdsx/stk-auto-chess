@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8932373452419771533
+--- !u!1001 &706197397715076226
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -4033738630654589329, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: skeletonDataAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 2399741b2f56531459f75c51d9475aed, type: 2}
+      objectReference: {fileID: 11400000, guid: 57d0fa66306efed4c95a5ecb5fdee0a4, type: 2}
     - target: {fileID: 2904311278150009681, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -54,48 +54,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4687676220216866382, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_Name
-      value: 17553404_NaniNovel
-      objectReference: {fileID: 0}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 9
+      value: Naninovel_15252102
       objectReference: {fileID: 0}
     - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c01f798cee8119d4eb63572dff00d993, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 053976a2b2b10a2439981e5ce03fd749, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[2]'
-      value: 
-      objectReference: {fileID: 2100000, guid: c01f798cee8119d4eb63572dff00d993, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[3]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 053976a2b2b10a2439981e5ce03fd749, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[4]'
-      value: 
-      objectReference: {fileID: 2100000, guid: c01f798cee8119d4eb63572dff00d993, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[5]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 053976a2b2b10a2439981e5ce03fd749, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[6]'
-      value: 
-      objectReference: {fileID: 2100000, guid: c01f798cee8119d4eb63572dff00d993, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[7]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 053976a2b2b10a2439981e5ce03fd749, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[8]'
-      value: 
-      objectReference: {fileID: 2100000, guid: c01f798cee8119d4eb63572dff00d993, type: 2}
+      objectReference: {fileID: 2100000, guid: b9c3ad878304c624db9a52e0be57ed76, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
