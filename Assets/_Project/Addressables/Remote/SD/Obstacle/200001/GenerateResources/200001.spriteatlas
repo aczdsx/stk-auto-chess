@@ -52,10 +52,22 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
-    packedSpriteRenderDataKeys: []
+    packedSpriteRenderDataKeys:
+    - 17f0bf8095921cd42a84bdf0b790e434: 21300000
+    - f4bdb4c0bac19c74b9852a874855e3cc: 21300000
+    - c8374bac35e30ba4090d3af791599a3b: 21300000
+    - 6f77aaeded84618409ccbac69a492450: 21300000
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 17f0bf8095921cd42a84bdf0b790e434, type: 3}
+  - {fileID: 21300000, guid: f4bdb4c0bac19c74b9852a874855e3cc, type: 3}
+  - {fileID: 21300000, guid: c8374bac35e30ba4090d3af791599a3b, type: 3}
+  - {fileID: 21300000, guid: 6f77aaeded84618409ccbac69a492450, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Obstacle_200001
+  - Obstacle_200001
+  - Obstacle_200001
+  - Obstacle_200001
   m_RenderDataMap: {}
   m_Tag: 200001
   m_IsVariant: 0

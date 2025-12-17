@@ -54,10 +54,28 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
-    packedSpriteRenderDataKeys: []
+    packedSpriteRenderDataKeys:
+    - d5cb093523dd91647afa41e3e1bba2bf: 21300000
+    - 31c95138eed3ffb44993bac9088eff5e: 21300000
+    - 8eacd96a4e036ff4cbc0562fa453776a: 21300000
+    - e671a20bc507cb84494dcf255d5b727f: 21300000
+    - 8243834da7593d941825b651cbdba43b: 21300000
+    - 8badc1ae283c8064bb56d081ee9f4c60: 21300000
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d5cb093523dd91647afa41e3e1bba2bf, type: 3}
+  - {fileID: 21300000, guid: 31c95138eed3ffb44993bac9088eff5e, type: 3}
+  - {fileID: 21300000, guid: 8eacd96a4e036ff4cbc0562fa453776a, type: 3}
+  - {fileID: 21300000, guid: e671a20bc507cb84494dcf255d5b727f, type: 3}
+  - {fileID: 21300000, guid: 8243834da7593d941825b651cbdba43b, type: 3}
+  - {fileID: 21300000, guid: 8badc1ae283c8064bb56d081ee9f4c60, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\uC5BC\uC74C\uBCBD (1)"
+  - "\uC5BC\uC74C\uBCBD (2)"
+  - obstacle_100003
+  - obstacle_100003
+  - obstacle_100003
+  - obstacle_100003
   m_RenderDataMap: {}
   m_Tag: 30003
   m_IsVariant: 0
