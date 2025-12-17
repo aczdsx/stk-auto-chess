@@ -9,16 +9,16 @@ EditorBuildSettings:
     path: Assets/_Project/Addressables/BuiltIn/Scenes/StartUp.unity
     guid: 16b82d33cb9ba43b99ade802db2c034c
   - enabled: 0
-    path: Assets/_Project/Addressables/Remote/Scenes/SceneLoading.unity
+    path: Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity
     guid: 82d3b55c0d6944acd81604cfdc57e37e
   - enabled: 0
     path: Assets/_Project/Addressables/BuiltIn/Scenes/Title.unity
     guid: 76c96ee710c04450dbdb02e5ff8a6cac
   - enabled: 0
-    path: Assets/_Project/Addressables/Remote/Scenes/Lobby.unity
+    path: Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity
     guid: 61e7bd672efcc4045915939216d08afd
   - enabled: 0
-    path: Assets/_Project/Addressables/Remote/Scenes/InGame.unity
+    path: Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity
     guid: 8029178524cba4055adeed793914bebd
   - enabled: 0
     path: Assets/_Project/Addressables/Remote/Territory/Territory.unity

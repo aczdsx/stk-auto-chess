@@ -370,7 +370,7 @@
       }
     },
     "com.kyrylokuzyk.primetween": {
-      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+      "version": "file:../Assets/ThirdParty/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}

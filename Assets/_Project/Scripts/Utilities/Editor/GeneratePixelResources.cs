@@ -13,23 +13,11 @@ using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
-public class GeneratePixelResources : Editor
+public static class GeneratePixelResources
 {
     private const int DEAD_FRAME_COUNT = 10;
 
-    [MenuItem("Tools/Pixel Resources/Generate Pixel Resources For All Subfolders")]
-    private static void CreateAnimationsForAllSubfolders()
-    {
-        CreateAnimationsForAllSubfolders(false);
-    }
-    
-    [MenuItem("Tools/Pixel Resources/Force Generate Pixel Resources For All Subfolders")]
-    public static void ForceCreateAnimationsForAllSubfolders()
-    {
-        CreateAnimationsForAllSubfolders(true);
-    }
-
-    private static void CreateAnimationsForAllSubfolders(bool isForce)
+    public static void CreateAllPixelResources(bool isForce)
     {
         string[] groupFolderPaths = Directory.GetDirectories(ResourcePath.SD_PATH);
 
@@ -67,47 +55,7 @@ public class GeneratePixelResources : Editor
         EditorUtility.ClearProgressBar();
     }
 
-    [MenuItem("Assets/Generate Pixel Resources", true)]
-    private static bool ValidateCreateAnimation()
-    {
-        if (Selection.objects.Length == 0)
-            return false;
-
-        foreach (var obj in Selection.objects)
-        {
-            string path = AssetDatabase.GetAssetPath(obj);
-            if (!AssetDatabase.IsValidFolder(path))
-                return false;
-        }
-
-        return true;
-    }
-
-
-    [MenuItem("Assets/Generate Pixel Resources")]
-    private static void CreateAnimations()
-    {
-        foreach (var selectedObject in Selection.objects)
-        {
-            string parentFolderPath = AssetDatabase.GetAssetPath(selectedObject);
-
-            if (!AssetDatabase.IsValidFolder(parentFolderPath))
-                continue;
-
-            string generateResourcesPath = Path.Combine(parentFolderPath, "GenerateResources");
-
-            if (AssetDatabase.IsValidFolder(generateResourcesPath))
-            {
-                AssetDatabase.DeleteAsset(generateResourcesPath);
-            }
-
-            CreateAnimationsFromPath(parentFolderPath);
-        }
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-    }
-
-    private static void CreateAnimationsFromPath(string parentFolderPath)
+    public static void CreateAnimationsFromPath(string parentFolderPath)
     {
         string parentFolderName = new DirectoryInfo(parentFolderPath).Name;
         string generateResourcesPath = Path.Combine(parentFolderPath, "GenerateResources");
@@ -380,7 +328,7 @@ public class GeneratePixelResources : Editor
         prefabFullPath = prefabFullPath.Replace("\\", "/");
         PrefabUtility.SaveAsPrefabAsset(objSource, prefabFullPath);
 
-        DestroyImmediate(objSource);
+        Object.DestroyImmediate(objSource);
 
         Debug.Log("[Success] InGame Prefab Created");
     }
@@ -406,7 +354,7 @@ public class GeneratePixelResources : Editor
         prefabFullPath = prefabFullPath.Replace("\\", "/");
         PrefabUtility.SaveAsPrefabAsset(objSource, prefabFullPath);
 
-        DestroyImmediate(objSource);
+        Object.DestroyImmediate(objSource);
 
         Debug.Log("[Success] UI Prefab Created");
     }
