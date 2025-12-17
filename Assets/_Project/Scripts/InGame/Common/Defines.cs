@@ -18,7 +18,7 @@ public static class Defines
     public const string CHAR_BUFF_DEBUFF_ICON_NAME = "UI_Buff";
 
     public const string CHARACTER_UI_PREFEAB_NAME_FORMAT = "SD_Characters/{0}/UI_{0}.prefab";
-    public const string CHARACTER_ILLUST_PREFEAB_NAME_FORMAT = "LD_Character/{0}/UI_{0}.prefab";
+    public const string CHARACTER_ILLUST_PREFEAB_NAME_FORMAT = "LD_Characters/UI_{0}";
 
     public const int GACHA_1_TIME_COUNT = 1;
     public const int GACHA_10_TIME_COUNT = 10;

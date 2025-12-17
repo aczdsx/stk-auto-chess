@@ -19,16 +19,7 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeSynergyBase
         _criticalRateValue = codeInfo.GetCodeStatToFloat(0);
         _criticalPowerValue = codeInfo.GetCodeStatToFloat(1);
 
-        Span<double> criticalStats = stackalloc double[1];
-        criticalStats.Clear();
-        criticalStats[0] = _criticalRateValue;
-
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, owner, criticalStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_PERCENT_UP);
-
-        criticalStats[0] = _criticalPowerValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_POWER_PERCENT_UP, owner, criticalStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_POWER_PERCENT_UP);
+        AddSynergyAddEffectCodeIds();
 
         Debug.LogColor($"번개시너지 크리티컬 확률 {_criticalRateValue}% 크리티컬 데미지 {_criticalPowerValue}% 증가", "green");
     }
@@ -38,6 +29,24 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeSynergyBase
         base.Merge(codeInfo, source);
         _criticalRateValue = codeInfo.GetCodeStatToFloat(0);
         _criticalPowerValue = codeInfo.GetCodeStatToFloat(1);
+
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.CRIT_RATE_PERCENT_UP);
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.CRIT_POWER_PERCENT_UP);
+        AddSynergyAddEffectCodeIds();   
+    }
+
+    private void AddSynergyAddEffectCodeIds()
+    {
+        Span<double> criticalStats = stackalloc double[1];
+        criticalStats.Clear();
+        criticalStats[0] = _criticalRateValue * 0.01f;
+
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, owner, criticalStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_PERCENT_UP);
+
+        criticalStats[0] = _criticalPowerValue * 0.01f;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_POWER_PERCENT_UP, owner, criticalStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_POWER_PERCENT_UP);
     }
 
     public override void OnPreRemoved()
