@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
             if (_spec is CharacterInfo characterInfo)
             {
                 //돌파
-                var BT = level % 10;
+                var BT = level / 10;
                 breakthroughMultiplier += characterInfo.inc_exceed * BT;
 
                 var userCharacterData = UserDataManager.Instance.GetUserCharacter(characterInfo.GetId());
