@@ -17,7 +17,7 @@ public static class Defines
     public const string CHAR_INGAME_PORTRAIT_ATLAS_NAME = "UI_Character_IngamePortrait";
     public const string CHAR_BUFF_DEBUFF_ICON_NAME = "UI_Buff";
 
-    public const string CHARACTER_UI_PREFEAB_NAME_FORMAT = "UI_SDCha_{0}";
+    public const string CHARACTER_UI_PREFEAB_NAME_FORMAT = "Characters/{0}/UI_{0}.prefab";
     public const string CHARACTER_ILLUST_PREFEAB_NAME_FORMAT = "Illust_Cha_{0}";
 
     public const int GACHA_1_TIME_COUNT = 1;

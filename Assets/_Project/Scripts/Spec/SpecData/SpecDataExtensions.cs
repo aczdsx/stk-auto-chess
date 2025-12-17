@@ -3,6 +3,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Text;
 
 namespace CookApps.AutoBattler
 {
@@ -75,10 +76,10 @@ namespace CookApps.AutoBattler
         {
             return characterInfo.character_type switch
             {
-                CharacterType.CHARACTER => $"Characters/{characterInfo.prefab_id}",
-                CharacterType.OBSTACLE => $"Obstacle/{characterInfo.prefab_id}",
-                CharacterType.BATTLEITEM => $"Item/{characterInfo.prefab_id}",
-                _ => $"Mob/{characterInfo.prefab_id}",
+                CharacterType.CHARACTER => ZString.Format("Characters/{0}/InGame_{0}.prefab", characterInfo.prefab_id),
+                CharacterType.OBSTACLE => ZString.Format("Obstacle/{0}/InGame_{0}.prefab", characterInfo.prefab_id),
+                CharacterType.BATTLEITEM => ZString.Format("Item/{0}/InGame_{0}.prefab", characterInfo.prefab_id),
+                _ => ZString.Format("Mob/{0}/InGame_{0}.prefab", characterInfo.prefab_id),
             };
         }
     }

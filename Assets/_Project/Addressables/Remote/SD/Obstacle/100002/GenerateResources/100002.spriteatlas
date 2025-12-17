@@ -22,41 +22,15 @@ SpriteAtlas:
       sRGB: 1
     platformSettings:
     - serializedVersion: 4
-      m_BuildTarget: Android
-      m_MaxTextureSize: 2048
-      m_ResizeAlgorithm: 0
-      m_TextureFormat: 4
-      m_TextureCompression: 1
-      m_CompressionQuality: 50
-      m_CrunchedCompression: 0
-      m_AllowsAlphaSplitting: 0
-      m_Overridden: 1
-      m_IgnorePlatformSupport: 0
-      m_AndroidETC2FallbackOverride: 1
-      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
-    - serializedVersion: 4
-      m_BuildTarget: iOS
-      m_MaxTextureSize: 2048
-      m_ResizeAlgorithm: 0
-      m_TextureFormat: 48
-      m_TextureCompression: 1
-      m_CompressionQuality: 50
-      m_CrunchedCompression: 0
-      m_AllowsAlphaSplitting: 0
-      m_Overridden: 1
-      m_IgnorePlatformSupport: 0
-      m_AndroidETC2FallbackOverride: 0
-      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
-    - serializedVersion: 4
       m_BuildTarget: DefaultTexturePlatform
       m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
-      m_TextureCompression: 0
+      m_TextureCompression: 2
       m_CompressionQuality: 50
       m_CrunchedCompression: 0
       m_AllowsAlphaSplitting: 0
-      m_Overridden: 0
+      m_Overridden: 1
       m_IgnorePlatformSupport: 0
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
@@ -71,29 +45,17 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 21300000, guid: f5eaf85a0bae24a40a8b0ef1dbcc409c, type: 3}
-    - {fileID: 21300000, guid: eb06d7afc4b96e044beb7c176d22c0a4, type: 3}
-    - {fileID: 21300000, guid: 7bf78923de73278449b6be5f55e37318, type: 3}
-    - {fileID: 21300000, guid: 10194204b47caa24caef1380aa4fc66b, type: 3}
+    - {fileID: 21300000, guid: 59e27edc8de728147b482ea4fb75554e, type: 3}
+    - {fileID: 21300000, guid: e5c1a864348fd2d4aab5f35c9e27786c, type: 3}
+    - {fileID: 21300000, guid: 66a4e5eb64fe69f458623e94220b18a3, type: 3}
+    - {fileID: 21300000, guid: 6e0b574872b5aca479faf8b4d6662403, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
-    packedSpriteRenderDataKeys:
-    - 7bf78923de73278449b6be5f55e37318: 21300000
-    - 10194204b47caa24caef1380aa4fc66b: 21300000
-    - f5eaf85a0bae24a40a8b0ef1dbcc409c: 21300000
-    - eb06d7afc4b96e044beb7c176d22c0a4: 21300000
+    packedSpriteRenderDataKeys: []
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 7bf78923de73278449b6be5f55e37318, type: 3}
-  - {fileID: 21300000, guid: 10194204b47caa24caef1380aa4fc66b, type: 3}
-  - {fileID: 21300000, guid: f5eaf85a0bae24a40a8b0ef1dbcc409c, type: 3}
-  - {fileID: 21300000, guid: eb06d7afc4b96e044beb7c176d22c0a4, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - obstacle_100002
-  - obstacle_100002
-  - obstacle_100002
-  - obstacle_100002
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
   m_Tag: 100002
   m_IsVariant: 0
