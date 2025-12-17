@@ -15,16 +15,6 @@ MonoBehaviour:
   rulesEnabled: 0
   allowGroupCreation: 1
   rules:
-  - path: Assets/_Project/Addressables/Remote/SD/(?<group>[^/]+)/(?<category>[^/]+)/GenerateResources/.*\.prefab
-    matchType: 1
-    groupName: ${group}
-    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
-    groupTemplateApplicationMode: 0
-    labelRefs: []
-    dynamicLabels: []
-    LabelMode: 0
-    simplified: 0
-    addressReplacement: ${group}/${category}
   - path: ^Assets/_Project/Addressables/BuiltIn/Data/(.*)\.asset$
     matchType: 1
     groupName: Data
@@ -44,14 +34,4 @@ MonoBehaviour:
     dynamicLabels: []
     LabelMode: 0
     simplified: 0
-    addressReplacement: ${1}
-  - path: ^Assets/_Project/Addressables/Remote/Prefabs/SD_Characters/(.*)\.prefab$
-    matchType: 1
-    groupName: SD_Characters
-    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
-    groupTemplateApplicationMode: 0
-    labelRefs: []
-    dynamicLabels: []
-    LabelMode: 0
-    simplified: 1
     addressReplacement: ${1}

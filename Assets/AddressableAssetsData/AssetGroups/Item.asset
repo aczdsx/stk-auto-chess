@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Item
   m_EditorClassIdentifier: 
   m_GroupName: Item
-  m_GUID: 8235e35b5802a44ca9a89dc77ef6e353
+  m_GUID: 015f1622de7aa4dc088f8d2ff09347a9
   m_SerializeEntries:
-  - m_GUID: b300559a21b2bb94f9d7f6b0e525f27c
+  - m_GUID: 82107875b2b8fa140a461b1bcf6d097f
     m_Address: Item/6101
     m_ReadOnly: 0
     m_SerializedLabels: []
