@@ -90,12 +90,12 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 물리 저항력
         /// </summary>
-        int ad_reduce { get; }
+        float ad_reduce { get; }
 
         /// <summary>
         /// 마법 방어력
         /// </summary>
-        int ap_reduce { get; }
+        float ap_reduce { get; }
 
         /// <summary>
         /// 물리 관통력
@@ -211,8 +211,8 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.inc_lv_rate => inc_lv_rate;
         float ISpecCharacterInfo.inc_lv_bonus_rate => inc_lv_bonus_rate;
         int ISpecCharacterInfo.stat_def => stat_def;
-        int ISpecCharacterInfo.ad_reduce => ad_reduce;
-        int ISpecCharacterInfo.ap_reduce => ap_reduce;
+        float ISpecCharacterInfo.ad_reduce => ad_reduce;
+        float ISpecCharacterInfo.ap_reduce => ap_reduce;
         float ISpecCharacterInfo.stat_atk_pierce => stat_atk_pierce;
         float ISpecCharacterInfo.stat_res_pierce => stat_res_pierce;
         float ISpecCharacterInfo.crit_rate => crit_rate;
@@ -272,8 +272,8 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.inc_lv_rate => inc_lv_rate;
         float ISpecCharacterInfo.inc_lv_bonus_rate => inc_lv_bonus_rate;
         int ISpecCharacterInfo.stat_def => stat_def;
-        int ISpecCharacterInfo.ad_reduce => ad_reduce;
-        int ISpecCharacterInfo.ap_reduce => ap_reduce;
+        float ISpecCharacterInfo.ad_reduce => ad_reduce;
+        float ISpecCharacterInfo.ap_reduce => ap_reduce;
         float ISpecCharacterInfo.stat_atk_pierce => stat_atk_pierce;
         float ISpecCharacterInfo.stat_res_pierce => stat_res_pierce;
         float ISpecCharacterInfo.crit_rate => crit_rate;
@@ -324,8 +324,8 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.inc_lv_rate => 0;
         float ISpecCharacterInfo.inc_lv_bonus_rate => 0;
         int ISpecCharacterInfo.stat_def => 0;
-        int ISpecCharacterInfo.ad_reduce => 0;
-        int ISpecCharacterInfo.ap_reduce => 0;
+        float ISpecCharacterInfo.ad_reduce => 0;
+        float ISpecCharacterInfo.ap_reduce => 0;
         float ISpecCharacterInfo.stat_atk_pierce => 0;
         float ISpecCharacterInfo.stat_res_pierce => 0;
         float ISpecCharacterInfo.crit_rate => 0;

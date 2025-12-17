@@ -40,7 +40,7 @@ namespace CookApps.BattleSystem
         StatBlockingProb = 1L << 25,//블로킹율
         StatAvoidProb = 1L << 26,//회피율
         StatHitProb = 1L << 27,//명중율
-        StatAll = ~(0xffffffffffffff << 27),
+        StatAll = ~(0xffffffffffffff << 28),
         #endregion
 
         #region Event

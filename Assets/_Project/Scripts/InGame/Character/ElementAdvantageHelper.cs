@@ -55,19 +55,22 @@ public static class ElementAdvantageHelper
         return ElementAdvantageResult.NONE;
     }
 
-    public static ObfuscatorDouble CalculateElementAdvantageDamage(ObfuscatorDouble damage, SynergyType attackerElementType, SynergyType defenderElementType)
+    public static ElementAdvantageResult CalculateElementAdvantageDamage(ref ObfuscatorDouble damage, SynergyType attackerElementType, SynergyType defenderElementType)
     {
         var elementAdvantageResult = GetElementAdvantageResult(attackerElementType, defenderElementType);
         switch (elementAdvantageResult)
         {
             case ElementAdvantageResult.ADVANTAGE:
-                return damage * ADVANTAGE_MULTIPLIER;
+                damage *= ADVANTAGE_MULTIPLIER;
+                break;
             case ElementAdvantageResult.RESIST:
-                return damage * RESIST_MULTIPLIER;
+                damage *= RESIST_MULTIPLIER;
+                break;
             case ElementAdvantageResult.NONE:
             default:
-                return damage;
+                break;
         }
+        return elementAdvantageResult;
     }
 
     public static string GetElementAdvantageText(ElementAdvantageResult elementAdvantageResult)
@@ -91,7 +94,7 @@ public static class ElementAdvantageHelper
         return Array.IndexOf(_advantageElementChain, elementType) >= 0;
     }
 
-       /// <summary>
+    /// <summary>
     /// 체인에서 주어진 속성의 우위 속성 반환
     /// Fire → Wind → Lightning → Earth → Water → Fire (순환)
     /// </summary>
@@ -99,13 +102,13 @@ public static class ElementAdvantageHelper
     {
         if (!IsInChain(elementType))
             return SynergyType.NONE;
-        
+
         int currentIndex = Array.IndexOf(_advantageElementChain, elementType);
         int nextIndex = (currentIndex + 1) % _advantageElementChain.Length;
-        
+
         return _advantageElementChain[nextIndex];
     }
-    
+
     /// <summary>
     /// 체인에서 주어진 속성의 역상성 속성 반환
     /// Fire ← Wind ← Lightning ← Earth ← Water ← Fire (역순환)
@@ -114,7 +117,7 @@ public static class ElementAdvantageHelper
     {
         if (!IsInChain(elementType))
             return SynergyType.NONE;
-        
+
         int currentIndex = Array.IndexOf(_advantageElementChain, elementType);
         int previousIndex = (currentIndex - 1 + _advantageElementChain.Length) % _advantageElementChain.Length;
 

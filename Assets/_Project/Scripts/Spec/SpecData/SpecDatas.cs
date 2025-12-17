@@ -189,9 +189,9 @@ namespace CookApps.AutoBattler
         /// 체력, 공격력 10레벨 당 성장율
         public float inc_lv_bonus_rate;
         /// 물리 저항력
-        public int ad_reduce;
+        public float ad_reduce;
         /// 마법 방어력
-        public int ap_reduce;
+        public float ap_reduce;
         /// 물리 관통력
         public float stat_atk_pierce;
         /// 마법 관통력
@@ -213,7 +213,7 @@ namespace CookApps.AutoBattler
         /// 명중률
         public float hit_rate;
         /// 힐파워
-        public float heal_power;
+        public int heal_power;
         /// 이뮨 타입
         public global::CookApps.AutoBattler.ImmuneType immune_type;
         /// 높이
@@ -856,7 +856,7 @@ namespace CookApps.AutoBattler
         /// 명중률
         public float hit_rate;
         /// 힐파워
-        public float heal_power;
+        public int heal_power;
         /// 높이
         public float height;
         /// 이뮨 타입 1: NORMAL 2: ELETE 3. EPIC 4. BOSS 5.SPECIAL 6. SCARECROW

@@ -65,8 +65,8 @@ namespace CookApps.AutoBattler
             _hpText.text = _statData.HP.ToString("N0");
             _criRateText.text = $"{((float)_statData.CriticalProb * 100).ToString("0.##")}%";
             _criDamageText.text = $"{((float)_statData.CriticalDamageRate * 100).ToString("0.##")}%";
-            _defText.text = _statData.DEF.ToString("N0");
-            _resText.text = _statData.RES.ToString("N0");
+            _defText.text = _statData.ADReduce.ToString("N0");
+            _resText.text = _statData.APReduce.ToString("N0");
             _defPenText.text = $"{((float)_statData.ADPierce  * 100).ToString("0.##")}%";
             _resPenText.text = $"{((float)_statData.APPierce * 100).ToString("0.##")}%";
         }

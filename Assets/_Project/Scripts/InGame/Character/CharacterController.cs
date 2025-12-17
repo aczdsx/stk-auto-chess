@@ -41,8 +41,8 @@ namespace CookApps.BattleSystem
         }
 
         private CharacterStatData _statData;
-
         public CharacterStatData GetCharacterStat()
+
         {
             return _statData;
         }
@@ -182,13 +182,13 @@ namespace CookApps.BattleSystem
             //     $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
-            
+
             var handle = _viewHandle = Addressables.InstantiateAsync($"Obstacle/{id}");
             await handle.WaitUntilDone();
 
             if (!handle.IsValid())
                 return;
-            
+
             _view = handle.Result.GetComponent<SpriteCharacterView>();
             _view.CachedTr.SetParent(Playground, false);
             _view.CachedTr.localPosition = position;
@@ -217,13 +217,13 @@ namespace CookApps.BattleSystem
 
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
-            
+
             var handle = _viewHandle = Addressables.InstantiateAsync(statData.Spec.GetCharacterResourcePath());
             await handle;
-            
+
             if (!handle.IsValid())
                 return;
-            
+
             _view = handle.Result.GetComponent<SpriteCharacterView>();
             if (_statData.Spec != null)
             {
@@ -966,7 +966,17 @@ namespace CookApps.BattleSystem
                 };
             }
         }
-
+        /// <summary>
+        /// 데미지 계산해서 벹는함수.
+        /// 기존에 Pre,Post Calculate 연산이 모두 하나로 통합
+        /// </summary>
+        /// <param name="ad"></param>
+        /// <param name="ap"></param>
+        /// <param name="target"></param>
+        /// <param name="source"></param>
+        /// <param name="isSkill"></param>
+        /// <param name="isPassResistPierce"></param>
+        /// <returns></returns>
         public DamageInfo CalculateDamageAmount(double ad, double ap, CharacterController target, long source, bool isSkill, bool isPassResistPierce = false)
         {
             var damageInfo = new DamageInfo();
@@ -974,7 +984,7 @@ namespace CookApps.BattleSystem
 
             damageInfo.isAD = ad >= 0;
             //ad ap로 데미지 1차 결정
-            damageInfo.damageAmount = ap >= 0 ? ap : ad;
+            damageInfo.damageAmount = ap > 0 ? ap : ad;
             if (isSkill)
             {
                 //스킬이라면 스킬데미지 계수 적용
@@ -998,7 +1008,7 @@ namespace CookApps.BattleSystem
                 //블록율 실패 시 크리티컬 체크
                 ProgressCriticalTest(ref damageInfo);
             }
-            
+
 
             //샤프슈터는 뚫음
             if (!isPassResistPierce)
@@ -1006,8 +1016,8 @@ namespace CookApps.BattleSystem
                 ProgressResistPierce(ref damageInfo, target);
             }
 
-            var targetLevel = UserDataManager.Instance.GetUserCharacter(target.CharacterId).Level;
-            var attackerLevel = UserDataManager.Instance.GetUserCharacter(CharacterId).Level;
+            var targetLevel = target.GetCharacterStat().Level;
+            var attackerLevel = GetCharacterStat().Level;
             ProgressLevelDiffMul(ref damageInfo, targetLevel, attackerLevel);
 
             if (ecc != null)
@@ -1015,6 +1025,8 @@ namespace CookApps.BattleSystem
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageAmount);
                 damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda, damageInfo.damageAmount.Value);
             }
+
+            damageInfo.damageAmount = Math.Floor(damageInfo.damageAmount);
 
             return damageInfo;
         }
@@ -1030,19 +1042,17 @@ namespace CookApps.BattleSystem
         /// <returns></returns>
         private void ProgressAvoidTest(ref DamageInfo damageInfo, CharacterController target)
         {
-            //통상적으로 attacker의 타겟이 target으로 들어옴.
-            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < HitProb)
+            //HitProb, AvoidProb는 성유물, 장비가 추가되면 바뀔수있음.
+            var hitProb = HitProb; // 나의 명중률
+            var avoidProb = target.AvoidProb; // 타겟의 회피율
+            var D = hitProb - avoidProb;
+            var HitChance = 0.9f + 0.2f * D;
+            HitChance = Mathf.Clamp(HitChance, 0.1f, 0.99f);
+            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < HitChance * 100f)
             {
-                if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.AvoidProb)
-                {   //여기 들어오면 회피 성공
-                    damageInfo.isMissed = true;
-                    damageInfo.damageAmount = 0d;
-                    return;
-                }
-                else
-                {   //회피 실패 그냥 데미지.
-                    return;
-                }
+                //명중!
+
+                return;
             }
             else
             {//명중률에서 탈락하면 그냥 미스처리.
@@ -1056,7 +1066,7 @@ namespace CookApps.BattleSystem
         {
             //타겟의 블록율로 블록율 테스트 
             // 블록 성공시 데미지 50%감소
-            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.BlockingProb)
+            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.BlockingProb * 100f)
             {
                 damageInfo.damageAmount *= 0.5d;
                 return true;
@@ -1085,13 +1095,13 @@ namespace CookApps.BattleSystem
         {
             if (damageInfo.isAD)
             {
-                var ResistRaw = target.ADReduce > 1.1 ? target.ADReduce * 0.01f : target.ADReduce;
+                var ResistRaw = target.ADReduce;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - ADPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
             else
             {
-                var ResistRaw = target.APReduce > 1.1 ? target.APReduce * 0.01f : target.APReduce;
+                var ResistRaw = target.APReduce;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - APPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
@@ -1103,6 +1113,7 @@ namespace CookApps.BattleSystem
             var LevelMul = Mathf.Clamp(1 - 0.05f * Mathf.Floor(Gap / 5), 0.5f, 1.0f);
             damageInfo.damageAmount *= LevelMul;
         }
+
 
         /// <summary>
         /// 실제로 대미지를 입히는 함수
@@ -1157,6 +1168,7 @@ namespace CookApps.BattleSystem
             ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
 
             _currHp -= damageAmount.damageAmount.Value;
+            Debug.Log($"damageAmount: {damageAmount.damageAmount.Value}, _currHp: {_currHp}");
 
             InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
             UpdateHpBar();
@@ -1260,7 +1272,7 @@ namespace CookApps.BattleSystem
             if (target == null)
                 return;
 
-            damageInfo.damageAmount = ElementAdvantageHelper.CalculateElementAdvantageDamage(damageInfo.damageAmount, this.SpecCharacter.character_element_type,
+            damageInfo.elementAdvantageResult = ElementAdvantageHelper.CalculateElementAdvantageDamage(ref damageInfo.damageAmount, this.SpecCharacter.character_element_type,
                                                                                         target.SpecCharacter.character_element_type);
 
         }

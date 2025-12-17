@@ -112,7 +112,7 @@ namespace CookApps.AutoBattler
 
             _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(characterID);
 
-            // 스탯 표시 처리
+            // 스탯 표시 처리 
             SetUserStatLayer();
 
             // 레벨업 기능 관련 처리
@@ -155,8 +155,8 @@ namespace CookApps.AutoBattler
             _battlePointText.text = _userStatData.GetAttrValue().ToString("N0");
             _attackValueText.text = _userStatData.AD.ToString("N0");
             _hpValueText.text = _userStatData.HP.ToString("N0");
-            _apDefText.text = _userStatData.RES.ToString("N0");
-            _adDefText.text = _userStatData.DEF.ToString("N0");
+            _apDefText.text = _userStatData.APReduce.ToString("N0");
+            _adDefText.text = _userStatData.ADReduce.ToString("N0");
         }
 
         private void SetTranscendencePieceLayer()
@@ -223,7 +223,8 @@ namespace CookApps.AutoBattler
             var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
             _maxTranscendenceLevel = transcendenceDataList.Max(data => data.transcendence_lv);
             // 초월에 필요한 자원 정보 세팅
-            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.character_element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.character_element_type,
+            _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
 
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)

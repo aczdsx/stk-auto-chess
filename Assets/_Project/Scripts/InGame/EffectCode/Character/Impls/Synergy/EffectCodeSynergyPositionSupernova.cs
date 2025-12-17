@@ -62,7 +62,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Neutral,
             typeof(CharacterStateReady), false, HpBarType.None);
 
-        var itemInfo = InGameObjectManagerItemComponent.InGameObjectItemInfo.Create(
+        var itemInfo = InGameBattleItemComponent.InGameBattleItemInfo.Create(
             character: character,
             OnItemApplyDragAndDrop: OnItemApplyDragAndDrop,
             source: source,
@@ -197,7 +197,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         return true;
     }
 
-    public void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameObjectManagerItemComponent.ItemState itemState)
+    public void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameBattleItemComponent.ItemState itemState)
     {
         InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_stella_type);
         InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_element_type);

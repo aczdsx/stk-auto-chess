@@ -45,14 +45,7 @@ namespace CookApps.AutoBattler
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
             _level = level;
 
-            var levelBonusRate = 0f;
-            for (var i = 1; i <= level; i++)
-            {
-                if (i % 10 == 0)
-                    levelBonusRate += _spec.inc_lv_bonus_rate;
-                else
-                    levelBonusRate += _spec.inc_lv_rate;
-            }
+            var levelBonusRate = CalculateLevelBonusRate(level);
 
             {
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
@@ -106,14 +99,7 @@ namespace CookApps.AutoBattler
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
             _level = level;
 
-            var levelBonusRate = 0f;
-            for (var i = 1; i <= level; i++)
-            {
-                if (i % 10 == 0)
-                    levelBonusRate += _spec.inc_lv_bonus_rate;
-                else
-                    levelBonusRate += _spec.inc_lv_rate;
-            }
+            var levelBonusRate = CalculateLevelBonusRate(level);
 
             {
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
@@ -140,6 +126,26 @@ namespace CookApps.AutoBattler
             }
 
             UpdateStats(EffectCodeInheritFlag.StatAll);
+        }
+
+        private double CalculateLevelBonusRate(int level)
+        {
+            // 레벨보너스만 몬스터에게 적용되고 초월, ㅁ돌파는 안붙음.
+            var levelMultiplier = (1f + _spec.inc_lv_rate * (level - 1)) * (1f + _spec.inc_lv_bonus_rate * Mathf.FloorToInt((level - 1) *0.1f));
+            float breakthroughMultiplier = 1f;
+            float transcendenceMultiplier = 1f;
+            if (_spec is CharacterInfo characterInfo)
+            {
+                //돌파
+                var BT = level % 10;
+                breakthroughMultiplier += characterInfo.inc_exceed * BT;
+
+                var userCharacterData = UserDataManager.Instance.GetUserCharacter(characterInfo.GetId());
+                var TR = userCharacterData.TranscendenceLevel + 1;
+                transcendenceMultiplier += characterInfo.inc_trancendence * TR;
+            } 
+        
+            return levelMultiplier * breakthroughMultiplier * transcendenceMultiplier;
         }
 
         public void AddOrUpdateEffectCode(EffectCodeInfo codeInfo)
@@ -336,8 +342,6 @@ namespace CookApps.AutoBattler
         public ObfuscatorDouble APReduce { get; private set; }
 
         public ObfuscatorDouble DEF { get; private set; }
-
-        public ObfuscatorDouble RES { get; private set; }
 
         public ObfuscatorDouble ADPierce { get; private set; }
 

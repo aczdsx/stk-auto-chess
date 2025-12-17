@@ -16,7 +16,7 @@ namespace CookApps.BattleSystem
     public class InGameSynergyManager : SingletonMonoBehaviour<InGameSynergyManager>
     {
         private Dictionary<AllianceType, HashSet<SynergyType>> _synergyManagerDataDic = new Dictionary<AllianceType, HashSet<SynergyType>>();
-        private InGameObjectManagerItemComponent _itemComponent = new InGameObjectManagerItemComponent();
+        private InGameBattleItemComponent _itemComponent = new InGameBattleItemComponent();
 
 
         public void Initialize()
@@ -160,7 +160,7 @@ namespace CookApps.BattleSystem
 
 
 
-        public void RegisterItem(InGameObjectManagerItemComponent.InGameObjectItemInfo itemInfo)
+        public void RegisterItem(InGameBattleItemComponent.InGameBattleItemInfo itemInfo)
         {
             _itemComponent.RegisterItem(itemInfo);
         }

@@ -19,11 +19,10 @@ namespace CookApps.BattleSystem
         abstract void OnItemApplyDragAndDrop(CharacterController targetCharacter, IEffectCodeSource source);
         abstract bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter);
         abstract bool OnItemCheckCharacterAffected(CharacterController targetCharacter);
-        abstract void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameObjectManagerItemComponent.ItemState itemState);
+        abstract void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameBattleItemComponent.ItemState itemState);
     }
-    public class InGameObjectManagerItemComponent
+    public class InGameBattleItemComponent
     {
-        //Key: SpecPrefabID, Value: CharacterController List
         public enum ItemState
         {
             ITEM_NONE = 0,
@@ -31,7 +30,7 @@ namespace CookApps.BattleSystem
             ITEM_APPLIED = 2,
         }
 
-        public class InGameObjectItemInfo
+        public class InGameBattleItemInfo
         {
             public ItemState itemState;
             public IEffectCodeSource source;
@@ -41,7 +40,7 @@ namespace CookApps.BattleSystem
             public Func<CharacterController, bool> OnItemCheckCharacterAffected;// 캐릭터가 사라질때에 영향을 받는지 조건 체크 Callback
             public Action<CharacterController, ItemState> OnItemTargetObjectRelease;// 조건 성립 시 처리할 액션 Callback
 
-            public static InGameObjectItemInfo Create(
+            public static InGameBattleItemInfo Create(
                 CharacterController character,
                 Action<CharacterController, IEffectCodeSource> OnItemApplyDragAndDrop,
                 IEffectCodeSource source,
@@ -49,7 +48,7 @@ namespace CookApps.BattleSystem
                 Func<CharacterController, bool> OnItemCheckCharacterAffected = null,
                 Action<CharacterController, ItemState> OnItemTargetObjectRelease = null)
             {
-                return new InGameObjectItemInfo
+                return new InGameBattleItemInfo
                 {
                     itemState = ItemState.ITEM_DRAG_DROP,
                     targetObj = character,
@@ -63,7 +62,7 @@ namespace CookApps.BattleSystem
         }
 
         //key :SpecCharacter.prefab_id, value : ItemInfo list
-        private Dictionary<int, List<InGameObjectItemInfo>> _itemDic = new Dictionary<int, List<InGameObjectItemInfo>>();
+        private Dictionary<int, List<InGameBattleItemInfo>> _itemDic = new Dictionary<int, List<InGameBattleItemInfo>>();
         public void Initialize()
         {
             _itemDic.Clear();
@@ -80,7 +79,7 @@ namespace CookApps.BattleSystem
 
         public void CheckAffectedByItemController(CharacterController character)
         {
-            List<InGameObjectItemInfo> RemoveItemList = null;
+            List<InGameBattleItemInfo> RemoveItemList = null;
             foreach (var item in _itemDic)
             {
                 var itemList = item.Value;
@@ -90,7 +89,7 @@ namespace CookApps.BattleSystem
                     if (itemInfo.OnItemCheckCharacterAffected?.Invoke(character) ?? false)
                     {
                         if (RemoveItemList == null)
-                            RemoveItemList = new List<InGameObjectItemInfo>();
+                            RemoveItemList = new List<InGameBattleItemInfo>();
                         RemoveItemList.Add(itemInfo);
                     }
                 }
@@ -105,14 +104,14 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public void RegisterItem(InGameObjectItemInfo itemInfo)
+        public void RegisterItem(InGameBattleItemInfo itemInfo)
         {
             if (itemInfo.targetObj.SpecCharacter.character_type != CharacterType.BATTLEITEM)
                 return;
 
             if (!_itemDic.TryGetValue(itemInfo.targetObj.SpecCharacter.prefab_id, out var itemList))
             {
-                _itemDic[itemInfo.targetObj.SpecCharacter.prefab_id] = itemList = new List<InGameObjectItemInfo>();
+                _itemDic[itemInfo.targetObj.SpecCharacter.prefab_id] = itemList = new List<InGameBattleItemInfo>();
             }
             itemList.Add(itemInfo);
         }
