@@ -10,7 +10,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public partial class EffectCodePassiveAmbush : EffectCodeCharacterBase
     {
-        public const int CodeId = (int)EffectCodeNameType.PASSIVE_AMBUSH;
+        public const int CodeId = (int)EffectCodeNameType.JOBS_AMBUSH;
 
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

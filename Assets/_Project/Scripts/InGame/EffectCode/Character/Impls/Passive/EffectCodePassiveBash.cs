@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public partial class EffectCodePassiveBash : EffectCodeCharacterBase
     {
-        public const int CodeId = (int)EffectCodeNameType.PASSIVE_BASH;
+        public const int CodeId = (int)EffectCodeNameType.JOBS_BRAVE;
 
         private static readonly float _immuneDuration = 1f;
         private bool _isReadyToActivate = false;

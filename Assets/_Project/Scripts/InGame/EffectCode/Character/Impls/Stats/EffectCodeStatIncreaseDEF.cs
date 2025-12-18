@@ -2,8 +2,8 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-// [UseEffectCodeIds(DEF_PERCENT_UP)]
-[UseEffectCodeIds(29)]
+[UseEffectCodeIds((int)EffectCodeNameType.DEF_PERCENT_UP)]
+
 public partial class EffectCodeStatIncreaseDEF : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }
