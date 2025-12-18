@@ -228,7 +228,8 @@ MonoBehaviour:
   - m_GUID: 26d4d1122b4fac34ab3666aa82f8b6f6
     m_Address: Naninovel/Audio/bgm_cozy_001
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27e2ec72692a1d94e879bce248e48bdd
     m_Address: Naninovel/Localization/en/Scripts/nani_char_get_101200
@@ -479,7 +480,8 @@ MonoBehaviour:
   - m_GUID: 4fae4fcfe7ea86b4d96027fdd87816a2
     m_Address: Naninovel/Audio/bgm_sad_001
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 523e211daf70e654887596da701e6749
     m_Address: Naninovel/Localization/zh-CN/Scripts/0-5
@@ -627,6 +629,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67a11f68777bbae48af3751369142720
     m_Address: Naninovel/Localization/ja/Scripts/2-5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 688631389097c27408afc5ed65aaffec
+    m_Address: Naninovel/Camera/MainCamera.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -961,7 +969,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dab2ac41e0b7064ea0531c689d60b2a
-    m_Address: NaninovelBackgrounds/bg_hubble_01.jpg
+    m_Address: Naninovel/NaninovelBackgrounds/bg_hubble_01.jpg
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -975,7 +983,8 @@ MonoBehaviour:
   - m_GUID: 9dce942294325d1498c9dadcbc5d131f
     m_Address: Naninovel/Audio/bgm_happy_001
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9f4887ed942226a449875f81e643c1a9
     m_Address: Naninovel/Localization/zh-CN/Scripts/nani_char_get_100400
@@ -992,7 +1001,8 @@ MonoBehaviour:
   - m_GUID: a055098d0d2b0f648b687d11ecc8e046
     m_Address: Naninovel/Audio/bgm_happy_002
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a177012520d63044c892d4c7c59f35cd
     m_Address: Naninovel/Localization/ja/Scripts/4-1
@@ -1249,7 +1259,8 @@ MonoBehaviour:
   - m_GUID: cfce8ae1af125084bace55296053e940
     m_Address: Naninovel/Audio/bgm_mad_001
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d085790e18c45524493c337851452696
     m_Address: Naninovel/Localization/ja/Scripts/0-0(Closing)
@@ -1289,6 +1300,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d5737ca3e4944c94e82667fb70de917c
     m_Address: Naninovel/Backgrounds/bg_ruins_06.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d78e30d97029b2e49ad4e8201d528004
+    m_Address: Naninovel/Camera/UICamera.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
