@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
             SRDebug.Init();
 #endif
             SessionCount++;
-            
+
             RunAllTasks().Forget();
         }
 
@@ -59,7 +59,7 @@ namespace CookApps.AutoBattler
         {
             OnClickTouchStartAsync().Forget();
         }
-        
+
         private async UniTask OnClickTouchStartAsync()
         {
             touchToStart.SetActive(false);
@@ -80,7 +80,7 @@ namespace CookApps.AutoBattler
                 touchToStart.SetActive(true);
                 return;
             }
-            
+
             // 앱 이벤트 Auth 설정
             CAppAuth.SetUID(resp.Data.Uid);
 
@@ -93,6 +93,12 @@ namespace CookApps.AutoBattler
             // SceneLoading.GoToNextScene("InGame",
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
+
+
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            SceneTransition.FadeInAsync().Forget();
+            SceneLoading.GoToNextScene("Naninovel", "Scripts/0-1");
+            return;
 
             {
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
@@ -131,7 +137,7 @@ namespace CookApps.AutoBattler
         {
             GuestLoginAsync().Forget();
         }
-        
+
         private async UniTask GuestLoginAsync()
         {
             guestLoginNode.SetActive(false);
@@ -198,7 +204,7 @@ namespace CookApps.AutoBattler
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
         }
-        
+
         // 유저 세션 타임 기록
         private static async UniTask RecordSessionTime()
         {

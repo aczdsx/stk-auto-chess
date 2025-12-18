@@ -1,5 +1,6 @@
 using Naninovel;
 using UnityEngine;
+using CookApps.AutoBattler;
 
 public class DialogueAutoPlayButton : ScriptableButton
 {
@@ -29,7 +30,7 @@ public class DialogueAutoPlayButton : ScriptableButton
     protected override void OnButtonClick ()
     {
         player.SetAutoPlayEnabled(!player.AutoPlayActive);
-        SceneDialog.isAuto = player.AutoPlayActive;
+        NaninovelMain.isAuto = player.AutoPlayActive;
     }
 
     private void HandleAutoModeChange (bool enabled)
