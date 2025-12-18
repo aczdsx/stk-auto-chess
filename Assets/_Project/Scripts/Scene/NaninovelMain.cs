@@ -166,10 +166,10 @@ namespace CookApps.AutoBattler
             var path = scriptName;
             
             // "Scripts/" 접두사 제거
-            if (path.StartsWith("Scripts/"))
-            {
-                path = path.Substring(7);
-            }
+            // if (path.StartsWith("Scripts/"))
+            // {
+            //     path = path.Substring(7);
+            // }
             
             // 확장자 제거 (.nani)
             if (path.EndsWith(".nani"))

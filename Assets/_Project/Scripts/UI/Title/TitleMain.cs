@@ -95,10 +95,10 @@ namespace CookApps.AutoBattler
             // return;
 
 
-            SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
-            SceneLoading.GoToNextScene("Naninovel", "Scripts/0-1");
-            return;
+            // SceneTransition.Create<SceneTransition_FadeInOut>();
+            // SceneTransition.FadeInAsync().Forget();
+            // SceneLoading.GoToNextScene("Naninovel", "Scripts/0-1");
+            // return;
 
             {
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
