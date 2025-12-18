@@ -19,16 +19,7 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeSynergyBase
         _PierceValue = codeInfo.GetCodeStatToFloat(0);
         _blockRateValue = codeInfo.GetCodeStatToFloat(1);
 
-        Span<double> buffStats = stackalloc double[1];
-        buffStats.Clear();
-
-        buffStats[0] = _PierceValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PIERCE_PERCENT_UP, owner, buffStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PIERCE_PERCENT_UP);
-
-        buffStats[0] = _PierceValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_PIERCE_PERCENT_UP, owner, buffStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_PIERCE_PERCENT_UP);
+        AddSynergyAddEffectCodeIds();
 
         Debug.LogColor($"대지시너지 물리 관통력 {_PierceValue}% 마법 관통력 {_PierceValue}% 증가", "green");
     }
@@ -38,6 +29,29 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeSynergyBase
         base.Merge(codeInfo, source);
         _PierceValue = codeInfo.GetCodeStatToFloat(0);   //atk_pierce  //res_pierce
         _blockRateValue = codeInfo.GetCodeStatToFloat(1);
+
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.AD_PIERCE_PERCENT_UP);
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.AP_PIERCE_PERCENT_UP);
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.BLOCKING_PROB_PERCENT_UP);
+        AddSynergyAddEffectCodeIds();
+    }
+
+    private void AddSynergyAddEffectCodeIds()
+    {
+        Span<double> buffStats = stackalloc double[1];
+        buffStats.Clear();
+
+        buffStats[0] = _PierceValue * 0.01f;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PIERCE_PERCENT_UP, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PIERCE_PERCENT_UP);
+
+        buffStats[0] = _PierceValue * 0.01f;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_PIERCE_PERCENT_UP, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_PIERCE_PERCENT_UP);
+
+        buffStats[0] = _blockRateValue * 0.01f;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BLOCKING_PROB_PERCENT_UP, owner, buffStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.BLOCKING_PROB_PERCENT_UP);
     }
 
     public override void OnPreRemoved()

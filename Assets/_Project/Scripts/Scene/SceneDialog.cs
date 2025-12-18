@@ -22,8 +22,6 @@ public class SceneDialog : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"Naninovel 초기화 실패: {ex.Message}\n{ex.StackTrace}");
-            // Camera 설정 문제일 수 있음 - CameraConfiguration 확인 필요
-            Debug.LogError("CameraConfiguration의 CustomCameraPrefab과 CustomUICameraPrefab이 올바르게 설정되어 있는지 확인하세요.");
             return;
         }
 

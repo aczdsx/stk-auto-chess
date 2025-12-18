@@ -16,10 +16,26 @@ public partial class EffectCodeSynergyElementFire : EffectCodeSynergyBase
     {
         base.Initialize(codeInfo, container, source);
         statValue = codeInfo.GetCodeStatToFloat(0);
+        AddSynergyAddEffectCodeIds();
+        Debug.LogColor($"불시너지 물리 공격력 {statValue}% 마법 공격력 {statValue}% 상승", "green");
+    }
 
+    public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
+    {
+        base.Merge(codeInfo, source);
+        statValue = codeInfo.GetCodeStatToFloat(0);
+
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.AD_PERCENT_UP);
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.AP_PERCENT_UP);
+        AddSynergyAddEffectCodeIds();
+    }
+
+
+    private void AddSynergyAddEffectCodeIds()
+    {
         Span<double> IncreaseStat = stackalloc double[1];
         IncreaseStat.Clear();
-        IncreaseStat[0] = statValue;
+        IncreaseStat[0] = statValue * 0.01f;
         if (owner.SpecCharacter.atk_type == AtkType.AD)
         {
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, owner, IncreaseStat, source);
@@ -30,14 +46,6 @@ public partial class EffectCodeSynergyElementFire : EffectCodeSynergyBase
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_PERCENT_UP, owner, IncreaseStat, source);
             base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_PERCENT_UP);
         }
-
-        Debug.LogColor($"불시너지 물리 공격력 {statValue}% 마법 공격력 {statValue}% 상승", "green");
-    }
-
-    public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
-    {
-        base.Merge(codeInfo, source);
-        statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
     public override void OnPreRemoved()

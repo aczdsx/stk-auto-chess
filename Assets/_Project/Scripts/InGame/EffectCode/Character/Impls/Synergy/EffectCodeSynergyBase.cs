@@ -32,4 +32,27 @@ public class EffectCodeSynergyBase : EffectCodeCharacterBase
         base.OnPreRemoved();
     }
 
+    protected virtual void RemoveSynergyAddEffectCodeIds(long effectCodeId)
+    {
+        if (owner == null)
+        {
+            return;
+        }
+        var index = -1;
+        foreach (var currentEffectCodeId in _synergyAddEffectCodeIds)
+        {
+
+            if (currentEffectCodeId == effectCodeId)
+            {
+                owner.GetEffectCodeContainer().RemoveEffectCode(currentEffectCodeId);
+                index = _synergyAddEffectCodeIds.IndexOf(currentEffectCodeId);
+                break;
+            }
+        }
+        if (index != -1)
+        {
+            _synergyAddEffectCodeIds.RemoveAt(index);
+        }
+    }
+
 }

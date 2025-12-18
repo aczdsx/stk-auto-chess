@@ -20,21 +20,7 @@ public partial class EffectCodeSynergyElementWater : EffectCodeSynergyBase
         _hpValue = codeInfo.GetCodeStatToFloat(0);
         _defValue = codeInfo.GetCodeStatToFloat(1);
 
-        Span<double> eccStats = stackalloc double[1];
-        eccStats.Clear();
-        eccStats[0] = _hpValue;
-
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, owner, eccStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
-
-        eccStats[0] = _defValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_REDUCE_PERCENT_UP, owner, eccStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_REDUCE_PERCENT_UP);
-
-        eccStats[0] = _defValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_REDUCE_PERCENT_UP, owner, eccStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_REDUCE_PERCENT_UP);
-        Debug.LogColor($"물시너지 HP {_hpValue}% 방어력 {_defValue}% 증가", "green");
+        AddSynergyAddEffectCodeIds();
 
     }
 
@@ -43,6 +29,27 @@ public partial class EffectCodeSynergyElementWater : EffectCodeSynergyBase
         base.Merge(codeInfo, source);
         _hpValue = codeInfo.GetCodeStatToFloat(0);
         _defValue = codeInfo.GetCodeStatToFloat(1);
+
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.HP_PERCENT_UP);
+        base.RemoveSynergyAddEffectCodeIds(29);
+        AddSynergyAddEffectCodeIds();
+    }
+
+
+    void AddSynergyAddEffectCodeIds()
+    {
+        Span<double> eccStats = stackalloc double[1];
+        eccStats.Clear();
+        eccStats[0] = _hpValue * 0.01f;
+
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, owner, eccStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
+
+        eccStats[0] = _defValue * 0.01f;
+        var effectCodeInfo = new EffectCodeInfo(29, 0, eccStats);
+        owner.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+        base.AddSynergyAddEffectCodeIds(29);
+        Debug.LogColor($"물시너지 HP {_hpValue}% 방어력 {_defValue}% 증가", "green");
     }
 
     public override void OnPreRemoved()

@@ -1,0 +1,305 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Naninovel_Scripts
+  m_EditorClassIdentifier: 
+  m_GroupName: Naninovel_Scripts
+  m_GUID: 2da60c2218d2c4fb6b281e4752848fdc
+  m_SerializeEntries:
+  - m_GUID: 05dad6806a8c9344b9fc77d30b04ddee
+    m_Address: Naninovel/Scripts/0-0(Opening)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 06474dc7307b4c04ab69cc5ffe05223a
+    m_Address: Naninovel/Scripts/0-4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f622f35f29c79e4e91e9d357801575b
+    m_Address: Naninovel/Scripts/1-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13803ddf30a95d44c9ad5a664aa24168
+    m_Address: Naninovel/Scripts/nani_char_get_100400
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15562e747dd2fd5478d7db91f9fca3c2
+    m_Address: Naninovel/Scripts/nani_05_06_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15646f365576b9d4eabf2f7a04739c24
+    m_Address: Naninovel/Scripts/nani_05_04_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2695a9ccfa57da84aabad6cd7f1b420d
+    m_Address: Naninovel/Scripts/4-4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2baab012a413ea148bb577a4fa962759
+    m_Address: Naninovel/Scripts/nani_char_get_102500
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32a65bd9420b96b40ae66c70d725e94f
+    m_Address: Naninovel/Scripts/0-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 346b319cd1a93af4880db9be4aea9249
+    m_Address: Naninovel/Scripts/0-5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35547d22f22ad934fbc502cfd8294927
+    m_Address: Naninovel/Scripts/4-5(2)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39d0e14cfd67645408d7b7e0f781c065
+    m_Address: Naninovel/Scripts/2-4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3bb32e472b1b75f46997f24d8690444f
+    m_Address: Naninovel/Scripts/0-2-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40e1114b24823664a83b0868c3fc191f
+    m_Address: Naninovel/Scripts/1-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48a0da1e606ca0a4ba54e8728fa4f163
+    m_Address: Naninovel/Scripts/Sample
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 493f120f01e792b468d19b9ebff87c2d
+    m_Address: Naninovel/Scripts/3-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a3dbffeebdbece47b2bf7b206e34b81
+    m_Address: Naninovel/Scripts/3-5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5242e2f65b148e1418b2ec484a3dc61b
+    m_Address: Naninovel/Scripts/2-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58d24ad44624d984cb6a2e06b9f32357
+    m_Address: Naninovel/Scripts/0-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58e7e4157b459c541aae857875b7f548
+    m_Address: Naninovel/Scripts/nani_05_03_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c2bc6d3e2f456348ac36ec495f0614c
+    m_Address: Naninovel/Scripts/2-5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c8f6fa686a44f74a86e87d5179458d7
+    m_Address: Naninovel/Scripts/nani_sub_002
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 630c7ec940b84e44a85acb87174b30c0
+    m_Address: Naninovel/Scripts/nani_sub_003
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e936207a40f190419a520588e70ca9a
+    m_Address: Naninovel/Scripts/2-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7302cc983df0afe42a75ec24005e6e83
+    m_Address: Naninovel/Scripts/nani_sub_001
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7321f6d71349adc4d823e70bce452c70
+    m_Address: Naninovel/Scripts/4-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f0e71bffcdee6a4485e663aad093d06
+    m_Address: Naninovel/Scripts/nani_05_01_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 804396bb58e9fff48a9635152aad90a3
+    m_Address: Naninovel/Scripts/1-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88d2f1b5be902604f8ed39ffc8600257
+    m_Address: Naninovel/Scripts/3-4(1)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ab5c13e8e9848a4aaa137879697ed35
+    m_Address: Naninovel/Scripts/nani_05_02_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8eaee1246be44c24c961ef23f3cd524e
+    m_Address: Naninovel/Scripts/4-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9014e799097a65c42b5e8f5b72dc2517
+    m_Address: Naninovel/Scripts/0-0(Closing)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 911c3f661a8315f40be0c48d170fa6c5
+    m_Address: Naninovel/Scripts/nani_char_get_101200
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c55d70cc15518844b732b19c9a54609
+    m_Address: Naninovel/Scripts/nani_char_get_102900
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cddc781a7157bc439ae497c13f7eea8
+    m_Address: Naninovel/Scripts/4-5(1)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2c034fbcfa26264e957e98b2350dfa7
+    m_Address: Naninovel/Scripts/3-4(2)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a66a5c8c6606ea742b89f3a74bed9f95
+    m_Address: Naninovel/Scripts/3-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad34c8f36e42b6a4d902b362ec49070b
+    m_Address: Naninovel/Scripts/nani_char_get_100900
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af6bc52ed0f2f2749add382e2ce09bee
+    m_Address: Naninovel/Scripts/nani_05_05_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0a836b235abb6940b880edafcdf23c7
+    m_Address: Naninovel/Scripts/nani_char_get_100300
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4c23b531da51dd45b8fc6adffa04efc
+    m_Address: Naninovel/Scripts/nani_05_05_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb7b2e8624913aa4fa0282c8838afc7e
+    m_Address: Naninovel/Scripts/0-2-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb976ebb8c56a4f4b9617c2678afdb37
+    m_Address: Naninovel/Scripts/2-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1f8f7dbbc8c2274b9095a1e58944ad5
+    m_Address: Naninovel/Scripts/nani_char_get_100500
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e361b73169b368d4eac01e3a8b92a170
+    m_Address: Naninovel/Scripts/3-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e563f07b5bfc0a248821dd4e9aded772
+    m_Address: Naninovel/Scripts/nani_05_04_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5f35e427f5df9540ab7e60cb23b2ff9
+    m_Address: Naninovel/Scripts/4-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a6777dc18770c4079ac75dc1c2c791b2, type: 2}
+    - {fileID: 11400000, guid: fa625b7b9d7c647f9bce10f4bb2175bc, type: 2}

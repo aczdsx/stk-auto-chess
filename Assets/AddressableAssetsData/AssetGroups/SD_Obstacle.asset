@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: SD_Obstacle
+  m_EditorClassIdentifier: 
+  m_GroupName: SD_Obstacle
+  m_GUID: ea6cc6fadf3cf4c06a9f45cdaebec49c
+  m_SerializeEntries:
+  - m_GUID: 154050d3b0bbe2e4787e871716c4850a
+    m_Address: SD_Obstacle/30004
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4826508e8b51e1b42a61d33d3f253d02
+    m_Address: SD_Obstacle/10001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54f3fa2f2c59c55448ab508438835a49
+    m_Address: SD_Obstacle/30001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 602feb9df5547f0429c64f76387f2038
+    m_Address: SD_Obstacle/40001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6786629ed61bf284482f5921608ae3dc
+    m_Address: SD_Obstacle/100001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 756901177360c7741b9b7e0159459402
+    m_Address: SD_Obstacle/30005
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7fd432fbb45ae2849b3491ff8fcde63b
+    m_Address: SD_Obstacle/200001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8498150e80d0d5a47ba3ff29bf1b5018
+    m_Address: SD_Obstacle/30003
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b529ea88ba46f3f46ab415fac916c72e
+    m_Address: SD_Obstacle/100002
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b62fed9c1f940bd45aa5b38531968473
+    m_Address: SD_Obstacle/20001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5911f81baa561145b7f1c5cca10cb16
+    m_Address: SD_Obstacle/30002
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c64aeef3722094747bdae0e1e01e539f, type: 2}
+    - {fileID: 11400000, guid: 54fbe3d24ab7f4c9d96568729e9f0784, type: 2}

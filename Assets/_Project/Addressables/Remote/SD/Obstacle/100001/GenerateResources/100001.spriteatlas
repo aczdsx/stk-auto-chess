@@ -62,10 +62,52 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
-    packedSpriteRenderDataKeys: []
+    packedSpriteRenderDataKeys:
+    - 8c9fd4e003419ee40a62c299cf1b89cb: 21300000
+    - 27b0bbe0f9958fd4fa1d3baa7abfdfc6: 21300000
+    - faecfa01dcd14d54a8f7a4b2f4e4f948: 21300000
+    - ccf2ada1035af4342ae9d784c35a1fd9: 21300000
+    - ab96c9a337f24064ea862bd620ac31cd: 21300000
+    - 0e99485500139a94287dbb27210d45e3: 21300000
+    - 456949d55d92052498f25b10f73eeca0: 21300000
+    - 9744b5766d913df43b2064cf800e44b6: 21300000
+    - 951eba683d1c8f548925f8c4b046b56b: 21300000
+    - 5aedc8e94c1f7fd4a94c1c8ccae6efa4: 21300000
+    - d4f156aace034ea45b3de33ed83fb32d: 21300000
+    - e4bb8feca06b0c8458bbe2516131c735: 21300000
+    - 3086e71dc271bdb44b423318ac04794a: 21300000
+    - 3108147fa1cb9ca49b450b0bbb9f2082: 21300000
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8c9fd4e003419ee40a62c299cf1b89cb, type: 3}
+  - {fileID: 21300000, guid: 27b0bbe0f9958fd4fa1d3baa7abfdfc6, type: 3}
+  - {fileID: 21300000, guid: faecfa01dcd14d54a8f7a4b2f4e4f948, type: 3}
+  - {fileID: 21300000, guid: ccf2ada1035af4342ae9d784c35a1fd9, type: 3}
+  - {fileID: 21300000, guid: ab96c9a337f24064ea862bd620ac31cd, type: 3}
+  - {fileID: 21300000, guid: 0e99485500139a94287dbb27210d45e3, type: 3}
+  - {fileID: 21300000, guid: 456949d55d92052498f25b10f73eeca0, type: 3}
+  - {fileID: 21300000, guid: 9744b5766d913df43b2064cf800e44b6, type: 3}
+  - {fileID: 21300000, guid: 951eba683d1c8f548925f8c4b046b56b, type: 3}
+  - {fileID: 21300000, guid: 5aedc8e94c1f7fd4a94c1c8ccae6efa4, type: 3}
+  - {fileID: 21300000, guid: d4f156aace034ea45b3de33ed83fb32d, type: 3}
+  - {fileID: 21300000, guid: e4bb8feca06b0c8458bbe2516131c735, type: 3}
+  - {fileID: 21300000, guid: 3086e71dc271bdb44b423318ac04794a, type: 3}
+  - {fileID: 21300000, guid: 3108147fa1cb9ca49b450b0bbb9f2082, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\uBCBD 2"
+  - "\uBCBD 2"
+  - "\uBCBD 5"
+  - "\uBCBD_04"
+  - "\uBCBD"
+  - "\uBCBD 3"
+  - "\uBCBD 1"
+  - "\uBCBD 4"
+  - "\uBCBD 3"
+  - "\uBCBD 1"
+  - "\uBCBD 4"
+  - "\uBCBD"
+  - "\uBCBD_04"
+  - "\uBCBD 5"
   m_RenderDataMap: {}
   m_Tag: 100001
   m_IsVariant: 0

@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class SDTextureImporter : AssetPostprocessor
 {
-    public const string FolderPath = "Assets/_Project/Addressables/Remote/SD";
-
     private void OnPreprocessTexture()
     {
         // 특정 폴더 내의 텍스처만 처리
-        if (!assetPath.StartsWith(FolderPath))
+        if (!assetPath.StartsWith(ResourcePath.SD_PATH))
             return;
 
         TextureImporter textureImporter = assetImporter as TextureImporter;
@@ -22,6 +20,8 @@ public class SDTextureImporter : AssetPostprocessor
             textureImporter.ReadTextureSettings(settings);
             settings.spriteGenerateFallbackPhysicsShape = false;
             textureImporter.SetTextureSettings(settings);
+            textureImporter.ClearPlatformTextureSettings("Android");
+            textureImporter.ClearPlatformTextureSettings("iPhone");
         }
     }
 }

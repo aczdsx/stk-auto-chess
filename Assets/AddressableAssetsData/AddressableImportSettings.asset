@@ -25,13 +25,14 @@ MonoBehaviour:
     LabelMode: 0
     simplified: 0
     addressReplacement: Data/${1}.asset
-  - path: ^Assets/_Project/Addressables/Remote/Prefabs/Illust_Characters/(.*)\.prefab$
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Scripts/([^.\r\n]+)\.nani$
     matchType: 1
-    groupName: Illust_Characters
+    groupName: Naninovel_Scripts
     groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
     groupTemplateApplicationMode: 0
-    labelRefs: []
+    labelRefs:
+    - m_LabelString: Naninovel
     dynamicLabels: []
     LabelMode: 0
     simplified: 0
-    addressReplacement: ${1}
+    addressReplacement: Naninovel/Scripts/${1}

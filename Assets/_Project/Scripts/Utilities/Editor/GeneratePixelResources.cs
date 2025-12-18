@@ -13,25 +13,13 @@ using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
-public class GeneratePixelResources : Editor
+public static class GeneratePixelResources
 {
     private const int DEAD_FRAME_COUNT = 10;
 
-    [MenuItem("Tools/Pixel Resources/Generate Pixel Resources For All Subfolders")]
-    private static void CreateAnimationsForAllSubfolders()
+    public static void CreateAllPixelResources(bool isForce)
     {
-        CreateAnimationsForAllSubfolders(false);
-    }
-    
-    [MenuItem("Tools/Pixel Resources/Force Generate Pixel Resources For All Subfolders")]
-    public static void ForceCreateAnimationsForAllSubfolders()
-    {
-        CreateAnimationsForAllSubfolders(true);
-    }
-
-    private static void CreateAnimationsForAllSubfolders(bool isForce)
-    {
-        string[] groupFolderPaths = Directory.GetDirectories(SDTextureImporter.FolderPath);
+        string[] groupFolderPaths = Directory.GetDirectories(ResourcePath.SD_PATH);
 
         // show progress bar
         int totalFolders = groupFolderPaths.Length;
@@ -67,47 +55,7 @@ public class GeneratePixelResources : Editor
         EditorUtility.ClearProgressBar();
     }
 
-    [MenuItem("Assets/Generate Pixel Resources", true)]
-    private static bool ValidateCreateAnimation()
-    {
-        if (Selection.objects.Length == 0)
-            return false;
-
-        foreach (var obj in Selection.objects)
-        {
-            string path = AssetDatabase.GetAssetPath(obj);
-            if (!AssetDatabase.IsValidFolder(path))
-                return false;
-        }
-
-        return true;
-    }
-
-
-    [MenuItem("Assets/Generate Pixel Resources")]
-    private static void CreateAnimations()
-    {
-        foreach (var selectedObject in Selection.objects)
-        {
-            string parentFolderPath = AssetDatabase.GetAssetPath(selectedObject);
-
-            if (!AssetDatabase.IsValidFolder(parentFolderPath))
-                continue;
-
-            string generateResourcesPath = Path.Combine(parentFolderPath, "GenerateResources");
-
-            if (AssetDatabase.IsValidFolder(generateResourcesPath))
-            {
-                AssetDatabase.DeleteAsset(generateResourcesPath);
-            }
-
-            CreateAnimationsFromPath(parentFolderPath);
-        }
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-    }
-
-    private static void CreateAnimationsFromPath(string parentFolderPath)
+    public static void CreateAnimationsFromPath(string parentFolderPath)
     {
         string parentFolderName = new DirectoryInfo(parentFolderPath).Name;
         string generateResourcesPath = Path.Combine(parentFolderPath, "GenerateResources");
@@ -151,13 +99,6 @@ public class GeneratePixelResources : Editor
 
     private static void AddToAddressableGroup(string folderPath)
     {
-        var settings = AddressableAssetSettingsDefaultObject.Settings;
-        if (settings == null)
-        {
-            Debug.LogWarning("[Addressable] Settings not found. Skipping addressable setup.");
-            return;
-        }
-
         // 경로에서 addressable_group과 address_key 추출
         // folderPath: Assets/_Project/Addressables/Remote/SD/{addressable_group}/{address_key}/GenerateResources
         string normalizedPath = folderPath.Replace("\\", "/");
@@ -169,35 +110,11 @@ public class GeneratePixelResources : Editor
             return;
         }
 
-        string groupName = pathParts[^3];
+        string groupName = ZString.Format("SD_{0}", pathParts[^3]);
         string addressKey = pathParts[^2];
+        string address = ZString.Format("{0}/{1}", groupName, addressKey);
 
-        // Addressable 그룹 찾기 또는 생성
-        AddressableAssetGroup targetGroup = settings.FindGroup(groupName);
-        if (targetGroup == null)
-        {
-            Debug.Log($"[Addressable] Group '{groupName}' not found. Creating new group.");
-            targetGroup = settings.CreateGroup(groupName, false, false, true, settings.DefaultGroup.Schemas);
-        }
-
-        // GenerateResources 폴더 자체를 Addressable에 추가
-        string folderGuid = AssetDatabase.AssetPathToGUID(normalizedPath);
-        if (string.IsNullOrEmpty(folderGuid))
-        {
-            Debug.LogError($"[Addressable] Failed to get GUID for folder: {normalizedPath}");
-            return;
-        }
-
-        var entry = settings.CreateOrMoveEntry(folderGuid, targetGroup, false, false);
-        if (entry != null)
-        {
-            entry.address = ZString.Format("{0}/{1}", groupName, addressKey);
-            Debug.Log($"[Success] Added folder to Addressable group '{groupName}' with address '{addressKey}'");
-        }
-        else
-        {
-            Debug.LogError($"[Addressable] Failed to create entry for folder: {normalizedPath}");
-        }
+        AddressableImportHelper.AddToAddressableGroup(normalizedPath, groupName, address);
     }
 
     private static List<Sprite> LoadSpritesFromFolder(string folderPath)
@@ -335,7 +252,7 @@ public class GeneratePixelResources : Editor
         AssetDatabase.CreateAsset(overrideController, overrideControllerPath);
 
         string baseControllerName = "BaseCharacterAnimController";
-        string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName);
+        string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName, new []{ ResourcePath.SD_PATH });
         if (guids.Length == 0)
         {
             Debug.LogError("[Fail] Base Anim Controller not found");
@@ -372,7 +289,7 @@ public class GeneratePixelResources : Editor
     private static void AddInGameCharacterPrefab(string parentFolderPath, string parentFolderName, AnimatorOverrideController controller, Sprite sprite)
     {
         string basePrefabName = "BasePrefab_InGame";
-        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { SDTextureImporter.FolderPath });
+        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { ResourcePath.SD_PATH });
         if (guids.Length == 0)
         {
             Debug.Log("[Fail] Find BasePrefab_InGame");
@@ -411,7 +328,7 @@ public class GeneratePixelResources : Editor
         prefabFullPath = prefabFullPath.Replace("\\", "/");
         PrefabUtility.SaveAsPrefabAsset(objSource, prefabFullPath);
 
-        DestroyImmediate(objSource);
+        Object.DestroyImmediate(objSource);
 
         Debug.Log("[Success] InGame Prefab Created");
     }
@@ -419,7 +336,7 @@ public class GeneratePixelResources : Editor
     private static void AddUICharacterPrefab(string parentFolderPath, string parentFolderName, Sprite sprite)
     {
         string basePrefabName = "BasePrefab_UI";
-        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { SDTextureImporter.FolderPath });
+        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { ResourcePath.SD_PATH });
         if (guids.Length == 0)
         {
             Debug.Log("[Fail] Find BasePrefab_UI");
@@ -437,7 +354,7 @@ public class GeneratePixelResources : Editor
         prefabFullPath = prefabFullPath.Replace("\\", "/");
         PrefabUtility.SaveAsPrefabAsset(objSource, prefabFullPath);
 
-        DestroyImmediate(objSource);
+        Object.DestroyImmediate(objSource);
 
         Debug.Log("[Success] UI Prefab Created");
     }
