@@ -103,7 +103,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private void AddHpPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
 
-        float increaseValue = supernovaSynergyList[(int)SupernovaGrade.ADD_HP_PERCENT].effect_stat_value_1 * 0.01f;
+        float increaseValue = supernovaSynergyList[0].effect_stat_value_1 * 0.01f;
 
         TakeToSupernovas(increaseValue, targetCharacter, source, EffectCodeNameType.HP_PERCENT_UP);
 
@@ -119,7 +119,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        float increaseValue = supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value_1 * 0.01f;
+        float increaseValue = supernovaSynergyList[1].effect_stat_value_1 * 0.01f;
         var takeCharactersList = InGameObjectManager.Instance.GetCharacterList(targetCharacter.AllianceType);
         foreach (var character in takeCharactersList)
         {
@@ -127,7 +127,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             (character.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA))
             {
                 continue;
-
             }
             stats[0] = increaseValue * -1f;
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, character, stats, source);
@@ -143,7 +142,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private void AddAttackSpeedCriticalRateAtkPierce(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
 
-        var targetData = supernovaSynergyList[(int)SupernovaGrade.ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE];
+        var targetData = supernovaSynergyList[2];
 
         float atkSpeedValue = targetData.effect_stat_value_1 * 0.01f;
         float criticalRateValue = targetData.effect_stat_value_2 * 0.01f;
@@ -191,6 +190,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             stats[0] = value;
             EffectCodeHelper.AddOrMergeEffectCode(effectCodeNameType, character, stats, source);
             base.AddSynergyAddEffectCodeIds(effectCodeNameType);
+
+            // var test = character.HP;
         }
     }
 
