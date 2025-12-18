@@ -152,7 +152,7 @@ namespace CookApps.BattleSystem
 
         public void UpdateSynergyAndAttr()
         {
-            InGameObjectManager.Instance.ClearSynergyFx();
+            // InGameSynergyManager.Instance.ClearSynergyFx();
             InGameMain.GetInGameMain().RefreshInGameTopUI(false);
         }
     }

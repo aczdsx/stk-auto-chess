@@ -22,9 +22,9 @@ public class FlowStateStageCombat : StateCombatBase
         // base.TidyUpPreviewSynergy(AllianceType.Player);
         characters = ListPool<CharacterController>.Get();
         
-        InGameObjectManager.Instance.ClearSynergyFx();
+        InGameSynergyManager.Instance.ClearSynergyFx();
         InGameMain.GetInGameMain().SetActiveObjectMover(false);
-        InGameMain.GetInGameMain().InitCombatStateUI();
+        InGameMain.GetInGameMain().InitCombatStateUI(); 
         InGameObjectManager.Instance.SaveStartingPlayerCharacter();
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);

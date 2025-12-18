@@ -31,7 +31,7 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         characters = ListPool<CharacterController>.Get();
 
-        InGameObjectManager.Instance.ClearSynergyFx();
+        InGameSynergyManager.Instance.ClearSynergyFx();
         InGameMain.GetInGameMain().SetActiveObjectMover(false);
         InGameMain.GetInGameMain().InitCombatStateUI();
         InGameObjectManager.Instance.SaveStartingPlayerCharacter();

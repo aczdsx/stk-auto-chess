@@ -27,7 +27,7 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeSynergyBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _PierceValue = codeInfo.GetCodeStatToFloat(0);   //atk_pierce  //res_pierce
+        _PierceValue = codeInfo.GetCodeStatToFloat(0);
         _blockRateValue = codeInfo.GetCodeStatToFloat(1);
 
         base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.AD_PIERCE_PERCENT_UP);

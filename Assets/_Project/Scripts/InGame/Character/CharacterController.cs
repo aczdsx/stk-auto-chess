@@ -254,7 +254,6 @@ namespace CookApps.BattleSystem
                 IsAlive = true;
                 AddPassive();
             }
-
         }
 
         private void AddPassive()
@@ -1235,11 +1234,6 @@ namespace CookApps.BattleSystem
         }
 
         public void UpdateHpBar()
-        {
-            _hpBarView.SetValue(_currHp, HP, _currShield);
-        }
-
-        public void RefreshHp()
         {
             _hpBarView.SetValue(_currHp, HP, _currShield);
         }

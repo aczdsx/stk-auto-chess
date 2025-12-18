@@ -126,7 +126,7 @@ public class InGameBottomUI : MonoBehaviour
 
             _isRunningRecommend = true;
             var charactersOnField = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).ToList();
-            InGameObjectManager.Instance.ClearSynergyFx();
+            // InGameObjectManager.Instance.ClearSynergyFx();
             foreach (var character in charactersOnField)
             {
                 character.CurrentTile.SetUnoccupied();

@@ -21,7 +21,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
 
         characters = ListPool<CharacterController>.Get();
 
-        InGameObjectManager.Instance.ClearSynergyFx();
+        InGameSynergyManager.Instance.ClearSynergyFx();
         InGameMain.GetInGameMain().InitCombatStateUI();
         InGameObjectManager.Instance.SaveStartingPlayerCharacter();
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
