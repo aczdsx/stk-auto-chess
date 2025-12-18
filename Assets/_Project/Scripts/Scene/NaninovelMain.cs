@@ -9,6 +9,7 @@ namespace CookApps.AutoBattler
     public class NaninovelMain : UILayer
     {
         [SerializeField] private string defaultScriptName;
+        [SerializeField] private bool hideTitleMenuOnInit = true;
         
         public static float eventStartTime = 0f;
         public static bool isSkip = false;
@@ -97,6 +98,18 @@ namespace CookApps.AutoBattler
                 _scriptPlayer = Engine.GetService<IScriptPlayer>();
                 _localizationManager = Engine.GetService<ILocalizationManager>();
                 _isInitialized = true;
+                
+                // TitleMenu UI 숨기기 (옵션에 따라)
+                if (hideTitleMenuOnInit)
+                {
+                    var uiManager = Engine.GetService<IUIManager>();
+                    var titleUI = uiManager?.GetUI<Naninovel.UI.ITitleUI>();
+                    if (titleUI != null)
+                    {
+                        titleUI.Hide();
+                        Debug.Log("NaninovelMain: TitleMenu UI 숨김");
+                    }
+                }
                 
                 Debug.Log("Naninovel 엔진 초기화 완료");
             }

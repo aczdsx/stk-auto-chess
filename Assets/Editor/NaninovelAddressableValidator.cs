@@ -130,6 +130,122 @@ namespace CookApps.Editor
             }
         }
         
+        [MenuItem("Tools/Naninovel/Check Spawn Resources")]
+        public static void CheckSpawnResources()
+        {
+            Debug.Log("=== Spawn 리소스 확인 ===");
+            
+            var settings = AddressableAssetSettingsDefaultObject.Settings;
+            if (settings == null)
+            {
+                Debug.LogError("AddressableAssetSettings를 찾을 수 없습니다!");
+                return;
+            }
+            
+            var spawnResources = new List<(AddressableAssetEntry entry, string expectedPath)>();
+            var wrongAddresses = new List<(AddressableAssetEntry entry, string expectedPath)>();
+            
+            foreach (var group in settings.groups)
+            {
+                if (group == null) continue;
+                
+                foreach (var entry in group.entries)
+                {
+                    if (entry == null) continue;
+                    if (!entry.labels.Contains("Naninovel")) continue;
+                    
+                    var assetPath = AssetDatabase.GUIDToAssetPath(entry.guid);
+                    if (string.IsNullOrEmpty(assetPath)) continue;
+                    
+                    // cbg_ 프리팹 찾기 (또는 다른 spawn 리소스)
+                    if (assetPath.Contains("cbg_") && assetPath.EndsWith(".prefab"))
+                    {
+                        var fileName = System.IO.Path.GetFileNameWithoutExtension(assetPath);
+                        var expectedPath = $"Naninovel/Spawn/{fileName}";
+                        
+                        spawnResources.Add((entry, expectedPath));
+                        
+                        if (entry.address != expectedPath)
+                        {
+                            wrongAddresses.Add((entry, expectedPath));
+                            Debug.LogWarning($"⚠ 잘못된 주소: {fileName}");
+                            Debug.LogWarning($"  현재: {entry.address}");
+                            Debug.LogWarning($"  예상: {expectedPath}");
+                            Debug.LogWarning($"  파일: {assetPath}");
+                        }
+                        else
+                        {
+                            Debug.Log($"✓ 올바른 주소: {fileName} -> {entry.address}");
+                        }
+                    }
+                }
+            }
+            
+            Debug.Log($"\n총 Spawn 리소스: {spawnResources.Count}");
+            Debug.Log($"잘못된 주소: {wrongAddresses.Count}");
+            
+            if (wrongAddresses.Count > 0)
+            {
+                Debug.LogError("\n💡 수정 방법:");
+                Debug.LogError("  Tools/Naninovel/Fix Spawn Resources 실행");
+            }
+        }
+        
+        [MenuItem("Tools/Naninovel/Fix Spawn Resources")]
+        public static void FixSpawnResources()
+        {
+            Debug.Log("=== Spawn 리소스 주소 수정 시작 ===");
+            
+            var settings = AddressableAssetSettingsDefaultObject.Settings;
+            if (settings == null)
+            {
+                Debug.LogError("AddressableAssetSettings를 찾을 수 없습니다!");
+                return;
+            }
+            
+            int fixedCount = 0;
+            
+            foreach (var group in settings.groups)
+            {
+                if (group == null) continue;
+                
+                foreach (var entry in group.entries)
+                {
+                    if (entry == null) continue;
+                    if (!entry.labels.Contains("Naninovel")) continue;
+                    
+                    var assetPath = AssetDatabase.GUIDToAssetPath(entry.guid);
+                    if (string.IsNullOrEmpty(assetPath)) continue;
+                    
+                    // cbg_ 프리팹 찾기
+                    if (assetPath.Contains("cbg_") && assetPath.EndsWith(".prefab"))
+                    {
+                        var fileName = System.IO.Path.GetFileNameWithoutExtension(assetPath);
+                        var expectedPath = $"Naninovel/Spawn/{fileName}";
+                        
+                        if (entry.address != expectedPath)
+                        {
+                            entry.address = expectedPath;
+                            fixedCount++;
+                            Debug.Log($"✓ 수정됨: {fileName} -> {expectedPath}");
+                        }
+                    }
+                }
+            }
+            
+            if (fixedCount > 0)
+            {
+                EditorUtility.SetDirty(settings);
+                AssetDatabase.SaveAssets();
+                Debug.Log($"\n=== 수정 완료 ===");
+                Debug.Log($"수정된 리소스: {fixedCount}");
+            }
+            else
+            {
+                Debug.Log("수정할 리소스가 없습니다.");
+            }
+        }
+        
         private static string CheckEntry(AddressableAssetEntry entry)
         {
             // 빈 Address 체크

@@ -94,6 +94,9 @@ MonoBehaviour:
     - name: cbg_00_02_1
       pathPrefix: Spawn
       guid: da48c2d500b152843a29a12764e0d697
+    - name: cbg_00_00
+      pathPrefix: Spawn
+      guid: 1f39d8d645f7cea44a78b0fcbfec20a7
   - Id: UI
     Resources:
     - name: ClickThroughPanel
@@ -950,6 +953,9 @@ MonoBehaviour:
     - name: bg_building_02
       pathPrefix: Backgrounds/MainBackground
       guid: ded85b5cfa9633d4f85bbc3c6244bace
+    - name: cbg_00_00
+      pathPrefix: Backgrounds/MainBackground
+      guid: 3600b19b84fed4a46a92d56e2daa0da4
   - Id: Unlockables
     Resources: []
   - Id: Audio
