@@ -309,9 +309,9 @@ public class GenerateLDResources
             return;
         }
 
-        string groupName = ZString.Format("LD_{0}", pathParts[^4]);
+        string groupName = "Naninovel_Character";
         string addressKey = pathParts[^3];
-        string address = ZString.Format("{0}/Naninovel_{1}", groupName, addressKey);
+        string address = ZString.Format("Naninovel/Character/{0}_{1}", pathParts[^4], addressKey);
 
         AddressableImportHelper.AddToAddressableGroup(normalizedPath, groupName, address, "Naninovel");
     }
