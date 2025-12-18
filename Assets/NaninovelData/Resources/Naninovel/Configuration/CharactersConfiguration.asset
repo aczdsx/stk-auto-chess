@@ -32,7 +32,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     guid: 4cf662ae-2a0d-4f9a-b512-fb6ec693dbed
     customData:
-      rid: 5994533232991797588
+      rid: 566546871751541108
     Pivot: {x: 0.5, y: 0}
     PixelsPerUnit: 100
     EnableDepthPass: 1
@@ -79,7 +79,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 97730980-6691-4698-b6da-9388d226f1d6
       customData:
-        rid: -2
+        rid: 5994533232991797588
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -146,6 +146,9 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 566546871751541108
+      type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
+      data: 
     - rid: 5994533232991797588
       type: {class: PlaceholderCharacterMetadata, ns: Naninovel, asm: Elringus.Naninovel.Runtime}
       data:

@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29c1e210896cb0b4bac47941444ed814
+    m_Address: Assets/_Project/Addressables/Remote/Scenes/Naninovel.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 46f4e4165e6300e43ad44acedc6d81e8
     m_Address: Gacha_VFX_Ver_Final_01
     m_ReadOnly: 0

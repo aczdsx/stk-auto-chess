@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Project/Addressables/Remote/Territory/Territory.unity
     guid: a437c14c6af79304f9e10db55c4ad6af
+  - enabled: 0
+    path: Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity
+    guid: 29c1e210896cb0b4bac47941444ed814
   m_configObjects:
     addressableimportsettingslist: {fileID: 11400000, guid: b007d6e49186e464381fa506e9f73092, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: ca50eb65f17a94bcb8c599fee3c83e0d, type: 2}

@@ -1,5 +1,6 @@
 using Naninovel;
 using UnityEngine;
+using CookApps.AutoBattler;
 
 public class DialogueSkipButton : ScriptableButton
 {
@@ -29,7 +30,7 @@ public class DialogueSkipButton : ScriptableButton
     protected override void OnButtonClick ()
     {
         player.SetSkipEnabled(!player.SkipActive);
-        SceneDialog.isSkip = player.SkipActive;
+        NaninovelMain.isSkip = player.SkipActive;
     }
 
     private void HandleSkipModeChange (bool enabled)

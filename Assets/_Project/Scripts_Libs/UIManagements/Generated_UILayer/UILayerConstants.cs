@@ -13,6 +13,7 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
+                "NaninovelMain" => "Prefabs/UI/00_Main/NaninovelMain.prefab",
                 "ChapterListPopup" => "Prefabs/UI/01_Pops/ChapterListPopup.prefab",
                 "DialoguePopup" => "Prefabs/UI/01_Pops/DialoguePopup.prefab",
                 "DungeonTrialPopup" => "Prefabs/UI/01_Pops/DungeonTrialPopup.prefab",
@@ -59,6 +60,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return sceneName switch
             {
+                "Naninovel" => "Assets/_Project/Addressables/Remote/Scenes/Naninovel.unity",
                 "Lobby" => "Assets/_Project/Addressables/Remote/Scenes/Lobby.unity",
                 "Title" => "Assets/_Project/Addressables/BuiltIn/Scenes/Title.unity",
                 "InGame" => "Assets/_Project/Addressables/Remote/Scenes/InGame.unity",
