@@ -9,6 +9,7 @@ using UnityEngine.AddressableAssets;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Naninovel.Commands;
 
 namespace CookApps.BattleSystem
 {
@@ -254,7 +255,6 @@ namespace CookApps.BattleSystem
                 IsAlive = true;
                 AddPassive();
             }
-
         }
 
         private void AddPassive()
@@ -969,6 +969,7 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// 데미지 계산해서 벹는함수.
         /// 기존에 Pre,Post Calculate 연산이 모두 하나로 통합
+        /// 만약 스킵해야할 데미지 계산이 많아진다면 비트연산자로 만들것.(ispierce)
         /// </summary>
         /// <param name="ad"></param>
         /// <param name="ap"></param>
@@ -977,7 +978,8 @@ namespace CookApps.BattleSystem
         /// <param name="isSkill"></param>
         /// <param name="isPassResistPierce"></param>
         /// <returns></returns>
-        public DamageInfo CalculateDamageAmount(double ad, double ap, CharacterController target, long source, bool isSkill, bool isPassResistPierce = false)
+        public DamageInfo CalculateDamageAmount(double ad, double ap, CharacterController target, long source,
+        bool isSkill, bool isPassResistPierce = false)
         {
             var damageInfo = new DamageInfo();
             //일단 공격 타입 결정
@@ -1235,11 +1237,6 @@ namespace CookApps.BattleSystem
         }
 
         public void UpdateHpBar()
-        {
-            _hpBarView.SetValue(_currHp, HP, _currShield);
-        }
-
-        public void RefreshHp()
         {
             _hpBarView.SetValue(_currHp, HP, _currShield);
         }

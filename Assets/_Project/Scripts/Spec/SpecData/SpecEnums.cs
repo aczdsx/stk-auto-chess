@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
         HIT_PROB_PERCENT_UP = 26,
         AVOID_PROB_PERCENT_UP = 27,
         BLOCKING_PROB_PERCENT_UP = 28,
+        DEF_PERCENT_UP = 29,
         ITEM_SUPERNOVA = 100,
         COMMANDER_SKILL_EXPLOSION = 300001,
         COMMANDER_SKILL_FREEZING = 300002,
@@ -45,13 +46,6 @@ namespace CookApps.AutoBattler
         COMMANDER_SKILL_TELEPORT = 300005,
         COMMANDER_SKILL_CURSE = 300006,
         COMMANDER_SKILL_EARTHEN_SOLDIERS = 300300,
-        PASSIVE_AMBUSH = 3100001,
-        PASSIVE_BASH = 3100002,
-        PASSIVE_CRITICAL_STACK = 3100003,
-        PASSIVE_ENDURE = 3100004,
-        PASSIVE_ESPER = 3100005,
-        PASSIVE_PIERCE = 3100006,
-        PASSIVE_RECOVERY = 3100007,
         TILE_BURN = 1000000001,
         DAMAGE = 1000000002,
         MAX_HP_DAMAGE = 1000000003,
@@ -535,6 +529,7 @@ namespace CookApps.AutoBattler
         fx_common_synergy_water_03 = 204,
         fx_common_synergy_wind_02 = 205,
         fx_common_synergy_wind_03 = 206,
+        fx_common_job_espar_01 = 207,
     }
 
     public enum GlobalEffectProviderType

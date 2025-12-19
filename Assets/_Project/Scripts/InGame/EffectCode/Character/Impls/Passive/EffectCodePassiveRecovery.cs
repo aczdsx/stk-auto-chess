@@ -9,7 +9,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public partial class EffectCodePassiveRecovery : EffectCodeCharacterBase
     {
-        public const int CodeId = (int)EffectCodeNameType.PASSIVE_RECOVERY;
+        public const int CodeId = (int)EffectCodeNameType.JOBS_RECOVERY;
         private float _recoveryPercentage = 0f;//회복비율
         private const InGameVfxNameType _recoveryVfxEnum = InGameVfxNameType.fx_common_buff_heal;
 

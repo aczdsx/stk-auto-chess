@@ -60,6 +60,7 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private ContentSizeFitter _playerSynergyContentFitter;
     [SerializeField] private ContentSizeFitter _combatPlayerSynergyContentFitter;
 
+
     private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
     private float beforeEnemyHpRate = 1.0f;
@@ -152,7 +153,6 @@ public class InGameTopUI : MonoBehaviour
         }
 
         var specDataManagerInstance = SpecDataManager.Instance;
-
         foreach (var synergyCountData in synergyCountDataList)
         {
             var canSynergy = specDataManagerInstance.TryGetSynergyDataByCount(synergyCountData.Type, synergyCountData.Count,
@@ -173,15 +173,12 @@ public class InGameTopUI : MonoBehaviour
                     {
                         var nextData = outSynergyList[0];
                         TrySetSynergyUI(() =>
-                            _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, nextData, 
+                            _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, nextData,
                             nextData, isActive: false, isColorWhite: true)
                         );
-                    }
-                }
 
-                if(canSynergy && !isCombat)
-                {
-                    InGameObjectManager.Instance.SpawnSynergyFx(type, synergyCountData.Type, outSynergyData.grade);
+                        continue;
+                    }
                 }
 
             }

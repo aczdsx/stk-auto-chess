@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     /// </summary>
     public partial class EffectCodePassiveEndure : EffectCodeCharacterBase
     {
-        public const int CodeId = (int)EffectCodeNameType.PASSIVE_ENDURE;
+        public const int CodeId = (int)EffectCodeNameType.JOBS_ENDURE;
         private bool _isReadyToActivate = false;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

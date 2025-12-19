@@ -173,7 +173,7 @@ namespace CookApps.BattleSystem
         public void AddUpdateListener(int priority, UpdateEventHandler handler)
         {
             updateHandlers.Add(new HandlerWithPriority {priority = priority, handler = handler});
-            isDirtyUpdateHandlers = true;
+            isDirtyUpdateHandlers = true; 
         }
 
         public void RemoveUpdateListener(UpdateEventHandler handler)

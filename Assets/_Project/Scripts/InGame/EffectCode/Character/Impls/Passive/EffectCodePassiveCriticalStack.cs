@@ -10,7 +10,7 @@ namespace CookApps.BattleSystem
     [UseEffectCodeIds(CodeId)]
     public partial class EffectCodePassiveCriticalStack : EffectCodeCharacterBase
     {
-        public const int CodeId = (int)EffectCodeNameType.PASSIVE_CRITICAL_STACK;
+        public const int CodeId = (int)EffectCodeNameType.JOBS_CRITICAL_STACK;
 
         private int _curCrriticalStackCount = 0;
         private int _maxCriticalStackCount = 0;
