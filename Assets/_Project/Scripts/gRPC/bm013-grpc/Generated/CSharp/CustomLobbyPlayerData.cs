@@ -25,16 +25,17 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Ch5jdXN0b21fbG9iYnkrcGxheWVyX2RhdGEucHJvdG8SDHRlY2guaGl2ZS52",
-            "MSLkAQoQQ3VzdG9tUGxheWVyRGF0YRIRCglwbGF5ZXJfaWQYASABKAkSEAoI",
+            "MSKJAgoQQ3VzdG9tUGxheWVyRGF0YRIRCglwbGF5ZXJfaWQYASABKAkSEAoI",
             "bmlja25hbWUYAiABKAkSEQoJc2VydmVyX2lkGAMgASgNEg0KBWxldmVsGAQg",
-            "ASgNEgsKA2V4cBgFIAEoBBIZChFleHBfdG9fbmV4dF9sZXZlbBgGIAEoBBIj",
-            "ChtyZXByZXNlbnRhdGl2ZV9jaGFyYWN0ZXJfaWQYByABKAkSGAoQbGFzdF9h",
-            "Y2Nlc3NlZF9hdBgIIAEoDRIRCgl2aXBfbGV2ZWwYCiABKA0SDwoHdmlwX2V4",
-            "cBgLIAEoDWIGcHJvdG8z"));
+            "ASgNEgsKA2V4cBgFIAEoBBIZChFleHBfdG9fbmV4dF9sZXZlbBgGIAEoBBIo",
+            "ChtyZXByZXNlbnRhdGl2ZV9jaGFyYWN0ZXJfaWQYByABKAlIAIgBARIYChBs",
+            "YXN0X2FjY2Vzc2VkX2F0GAggASgEEhEKCXZpcF9sZXZlbBgKIAEoDRIPCgd2",
+            "aXBfZXhwGAsgASgNQh4KHF9yZXByZXNlbnRhdGl2ZV9jaGFyYWN0ZXJfaWRi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomPlayerData), global::Tech.Hive.V1.CustomPlayerData.Parser, new[]{ "PlayerId", "Nickname", "ServerId", "Level", "Exp", "ExpToNextLevel", "RepresentativeCharacterId", "LastAccessedAt", "VipLevel", "VipExp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomPlayerData), global::Tech.Hive.V1.CustomPlayerData.Parser, new[]{ "PlayerId", "Nickname", "ServerId", "Level", "Exp", "ExpToNextLevel", "RepresentativeCharacterId", "LastAccessedAt", "VipLevel", "VipExp" }, new[]{ "RepresentativeCharacterId" }, null, null, null)
           }));
     }
     #endregion
@@ -169,22 +170,34 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "representative_character_id" field.</summary>
     public const int RepresentativeCharacterIdFieldNumber = 7;
-    private string representativeCharacterId_ = "";
+    private string representativeCharacterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string RepresentativeCharacterId {
-      get { return representativeCharacterId_; }
+      get { return representativeCharacterId_ ?? ""; }
       set {
         representativeCharacterId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
+    /// <summary>Gets whether the "representative_character_id" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasRepresentativeCharacterId {
+      get { return representativeCharacterId_ != null; }
+    }
+    /// <summary>Clears the value of the "representative_character_id" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearRepresentativeCharacterId() {
+      representativeCharacterId_ = null;
+    }
 
     /// <summary>Field number for the "last_accessed_at" field.</summary>
     public const int LastAccessedAtFieldNumber = 8;
-    private uint lastAccessedAt_;
+    private ulong lastAccessedAt_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint LastAccessedAt {
+    public ulong LastAccessedAt {
       get { return lastAccessedAt_; }
       set {
         lastAccessedAt_ = value;
@@ -253,8 +266,8 @@ namespace Tech.Hive.V1 {
       if (Level != 0) hash ^= Level.GetHashCode();
       if (Exp != 0UL) hash ^= Exp.GetHashCode();
       if (ExpToNextLevel != 0UL) hash ^= ExpToNextLevel.GetHashCode();
-      if (RepresentativeCharacterId.Length != 0) hash ^= RepresentativeCharacterId.GetHashCode();
-      if (LastAccessedAt != 0) hash ^= LastAccessedAt.GetHashCode();
+      if (HasRepresentativeCharacterId) hash ^= RepresentativeCharacterId.GetHashCode();
+      if (LastAccessedAt != 0UL) hash ^= LastAccessedAt.GetHashCode();
       if (VipLevel != 0) hash ^= VipLevel.GetHashCode();
       if (VipExp != 0) hash ^= VipExp.GetHashCode();
       if (_unknownFields != null) {
@@ -299,13 +312,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(48);
         output.WriteUInt64(ExpToNextLevel);
       }
-      if (RepresentativeCharacterId.Length != 0) {
+      if (HasRepresentativeCharacterId) {
         output.WriteRawTag(58);
         output.WriteString(RepresentativeCharacterId);
       }
-      if (LastAccessedAt != 0) {
+      if (LastAccessedAt != 0UL) {
         output.WriteRawTag(64);
-        output.WriteUInt32(LastAccessedAt);
+        output.WriteUInt64(LastAccessedAt);
       }
       if (VipLevel != 0) {
         output.WriteRawTag(80);
@@ -349,13 +362,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(48);
         output.WriteUInt64(ExpToNextLevel);
       }
-      if (RepresentativeCharacterId.Length != 0) {
+      if (HasRepresentativeCharacterId) {
         output.WriteRawTag(58);
         output.WriteString(RepresentativeCharacterId);
       }
-      if (LastAccessedAt != 0) {
+      if (LastAccessedAt != 0UL) {
         output.WriteRawTag(64);
-        output.WriteUInt32(LastAccessedAt);
+        output.WriteUInt64(LastAccessedAt);
       }
       if (VipLevel != 0) {
         output.WriteRawTag(80);
@@ -393,11 +406,11 @@ namespace Tech.Hive.V1 {
       if (ExpToNextLevel != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ExpToNextLevel);
       }
-      if (RepresentativeCharacterId.Length != 0) {
+      if (HasRepresentativeCharacterId) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(RepresentativeCharacterId);
       }
-      if (LastAccessedAt != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(LastAccessedAt);
+      if (LastAccessedAt != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(LastAccessedAt);
       }
       if (VipLevel != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(VipLevel);
@@ -435,10 +448,10 @@ namespace Tech.Hive.V1 {
       if (other.ExpToNextLevel != 0UL) {
         ExpToNextLevel = other.ExpToNextLevel;
       }
-      if (other.RepresentativeCharacterId.Length != 0) {
+      if (other.HasRepresentativeCharacterId) {
         RepresentativeCharacterId = other.RepresentativeCharacterId;
       }
-      if (other.LastAccessedAt != 0) {
+      if (other.LastAccessedAt != 0UL) {
         LastAccessedAt = other.LastAccessedAt;
       }
       if (other.VipLevel != 0) {
@@ -491,7 +504,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 64: {
-            LastAccessedAt = input.ReadUInt32();
+            LastAccessedAt = input.ReadUInt64();
             break;
           }
           case 80: {
@@ -546,7 +559,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 64: {
-            LastAccessedAt = input.ReadUInt32();
+            LastAccessedAt = input.ReadUInt64();
             break;
           }
           case 80: {

@@ -12,15 +12,10 @@ namespace CookApps.AutoBattler
     public class ServerDataManager : Singleton<ServerDataManager>
     {
         // 데이터 모델들 (직접 접근)
-        public CharacterModel Character { get; private set; }
-        public WalletModel Wallet { get; private set; }
-
-        public ServerDataManager()
-        {
-            // 모든 모델 초기화
-            Character = new CharacterModel();
-            Wallet = new WalletModel();
-        }
+        public CharacterModel Character { get; private set; } = new ();
+        public WalletModel Wallet { get; private set; } = new ();
+        public ElpisModel Elpis { get; private set; } = new ();
+        public BattleModel Battle { get; private set; } = new ();
 
         /// <summary>
         /// 모든 데이터 초기화
@@ -29,6 +24,8 @@ namespace CookApps.AutoBattler
         {
             Character.Reset();
             Wallet.Reset();
+            Elpis.Reset();
+            Battle.Reset();
         }
 
         /// <summary>
@@ -47,6 +44,18 @@ namespace CookApps.AutoBattler
             if (!Wallet.Validate())
             {
                 Debug.LogError("[ServerDataManager] Wallet validation failed");
+                allValid = false;
+            }
+
+            if (!Elpis.Validate())
+            {
+                Debug.LogError("[ServerDataManager] Elpis validation failed");
+                allValid = false;
+            }
+
+            if (!Battle.Validate())
+            {
+                Debug.LogError("[ServerDataManager] Battle validation failed");
                 allValid = false;
             }
 

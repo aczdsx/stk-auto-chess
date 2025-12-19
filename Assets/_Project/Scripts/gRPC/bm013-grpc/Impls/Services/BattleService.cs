@@ -18,6 +18,13 @@ namespace CookApps.AutoBattler
                 new BattleGetCurrentChapterRequest(),
                 cancellationToken: cancellationToken
             );
+
+            // 서버 응답으로 로컬 데이터 갱신
+            if (resp != null && resp.Status.Code == 0)
+            {
+                ServerDataManager.Instance.Battle.SetCurrentChapter(resp.Chapter, resp.StageList);
+            }
+
             return resp;
         }
 
@@ -31,6 +38,16 @@ namespace CookApps.AutoBattler
                 new BattleListChapterRequest(),
                 cancellationToken: cancellationToken
             );
+
+            // 서버 응답으로 로컬 데이터 갱신
+            if (resp != null && resp.Status.Code == 0)
+            {
+                ServerDataManager.Instance.Battle.SetChapters(
+                    resp.ChapterList,
+                    ServerDataManager.Instance.Battle.Version + 1
+                );
+            }
+
             return resp;
         }
 
@@ -44,6 +61,13 @@ namespace CookApps.AutoBattler
                 new BattleListStageRequest { ChapterId = chapterId },
                 cancellationToken: cancellationToken
             );
+
+            // 서버 응답으로 로컬 데이터 갱신
+            if (resp != null && resp.Status.Code == 0)
+            {
+                ServerDataManager.Instance.Battle.SetStages(resp.StageList);
+            }
+
             return resp;
         }
 
@@ -70,6 +94,41 @@ namespace CookApps.AutoBattler
                 new BattleEndRequest {BattleSessionId = battleSessionId, Result = result },
                 cancellationToken: cancellationToken
             );
+
+            // 서버 응답으로 로컬 데이터 갱신
+            if (resp != null && resp.Status.Code == 0)
+            {
+                // 스테이지 진행 정보 업데이트
+                if (resp.StageProgress != null)
+                {
+                    ServerDataManager.Instance.Battle.UpdateStageProgress(resp.StageProgress);
+                }
+
+                // 통화 변화 적용
+                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                {
+                    ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                }
+
+                // 캐릭터 경험치 획득 반영
+                if (resp.CharacterExpGains != null && resp.CharacterExpGains.Count > 0)
+                {
+                    foreach (var expGain in resp.CharacterExpGains)
+                    {
+                        var character = ServerDataManager.Instance.Character.GetCharacter(expGain.CharacterInstanceId);
+                        if (character != null)
+                        {
+                            // 캐릭터 레벨 업데이트 (레벨이 변경된 경우)
+                            if (character.Level != expGain.LevelAfter)
+                            {
+                                character.Level = expGain.LevelAfter;
+                                ServerDataManager.Instance.Character.UpdateCharacter(character);
+                            }
+                        }
+                    }
+                }
+            }
+
             return resp;
         }
     }
