@@ -222,6 +222,8 @@ namespace CookApps.BattleSystem
             EffectCodeBase effectCode = null;;
             foreach (EffectCodeBase effectCodeItem in effectCodes)
             {
+                if(effectCodeItem == null)
+                    continue;
                 if (effectCodeItem.CodeId == effectCodeId)
                 {
                     effectCode = effectCodeItem;

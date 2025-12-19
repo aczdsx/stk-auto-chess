@@ -35,7 +35,6 @@ namespace CookApps.BattleSystem
 
         public bool IsExplosionDamage()
         {
-            return true;
             return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < _passivePercentage * 100;
         }
         public float GetPassivePercentage()
