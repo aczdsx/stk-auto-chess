@@ -32,29 +32,6 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 함선 확장 (코어 사용)
-        /// </summary>
-        public async UniTask<ElpisExpandResponse> ExpandElpisAsync(CancellationToken cancellationToken = default)
-        {
-            ElpisExpandResponse resp = await ExecuteAsync(
-                ServiceClient.ExpandElpisAsync,
-                new ElpisExpandRequest(),
-                cancellationToken: cancellationToken
-            );
-
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0 && resp.Elpis != null)
-            {
-                ServerDataManager.Instance.Elpis.SetElpisData(
-                    resp.Elpis,
-                    ServerDataManager.Instance.Elpis.Version + 1
-                );
-            }
-
-            return resp;
-        }
-
-        /// <summary>
         /// 시설 건설
         /// </summary>
         public async UniTask<ElpisBuildFacilityResponse> BuildFacilityAsync(ElpisFacilityType facilityType, int gridX, int gridY, CancellationToken cancellationToken = default)
@@ -132,36 +109,6 @@ namespace CookApps.AutoBattler
                 if (resp.Research != null)
                 {
                     ServerDataManager.Instance.Elpis.UpdateCoreResearch(resp.Research);
-                }
-
-                // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
-                {
-                    ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
-            }
-
-            return resp;
-        }
-
-        /// <summary>
-        /// 전술 연구소 - 설치물 연구
-        /// </summary>
-        public async UniTask<ElpisResearchTacticResponse> ResearchTacticAsync(TacticResearchType researchType, uint levels, CancellationToken cancellationToken = default)
-        {
-            ElpisResearchTacticResponse resp = await ExecuteAsync(
-                ServiceClient.ResearchTacticAsync,
-                new ElpisResearchTacticRequest { ResearchType = researchType, Levels = levels },
-                cancellationToken: cancellationToken
-            );
-
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
-            {
-                // 전술 연구 업데이트
-                if (resp.Research != null)
-                {
-                    ServerDataManager.Instance.Elpis.UpdateTacticResearch(resp.Research);
                 }
 
                 // 통화 변화 적용
