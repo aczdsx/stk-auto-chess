@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using R3;
 using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
@@ -14,25 +15,19 @@ namespace CookApps.AutoBattler
         public const string CATEGORY_KEY = "character";
 
         // 프로토콜 데이터 (서버에서 받은 원본)
-        private readonly Dictionary<string, CharacterData> _characters;
+        private readonly Dictionary<string, CharacterData> _characters = new (64);
 
         // 버전 정보
-        private int _version;
+        private int _version = 0;
 
         public string CategoryKey => CATEGORY_KEY;
         public int Version => _version;
 
-        // 이벤트
-        public event Action OnChanged;
-        public event Action<CharacterData> OnCharacterAdded;
-        public event Action<CharacterData> OnCharacterUpdated;
-        public event Action<string> OnCharacterRemoved;
-
-        public CharacterModel()
-        {
-            _characters = new Dictionary<string, CharacterData>(64);
-            _version = 0;
-        }
+        // R3 이벤트
+        public Subject<Unit> OnChanged { get; } = new();
+        public readonly Subject<CharacterData> OnCharacterAdded = new();
+        public readonly Subject<CharacterData> OnCharacterUpdated = new();
+        public readonly Subject<string> OnCharacterRemoved = new();
 
         /// <summary>
         /// 델타 업데이트 적용
@@ -55,18 +50,18 @@ namespace CookApps.AutoBattler
                 {
                     // 기존 캐릭터 업데이트
                     _characters[instanceId] = newCharacter;
-                    OnCharacterUpdated?.Invoke(newCharacter);
+                    OnCharacterUpdated.OnNext(newCharacter);
                 }
                 else
                 {
                     // 새 캐릭터 추가
                     _characters[instanceId] = newCharacter;
-                    OnCharacterAdded?.Invoke(newCharacter);
+                    OnCharacterAdded.OnNext(newCharacter);
                 }
             }
 
             _version = characterDelta._version;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -76,7 +71,7 @@ namespace CookApps.AutoBattler
         {
             _characters.Clear();
             _version = 0;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -136,12 +131,13 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 서버 응답으로 캐릭터 설정 (내부용)
         /// </summary>
-        internal void SetCharacters(IEnumerable<CharacterData> characters, int version)
+        internal void SetCharacters(IReadOnlyList<CharacterData> characters, int version)
         {
             _characters.Clear();
 
-            foreach (var character in characters)
+            for (var i = 0; i < characters.Count; i++)
             {
+                var character = characters[i];
                 if (!string.IsNullOrEmpty(character.InstanceId))
                 {
                     _characters[character.InstanceId] = character;
@@ -149,7 +145,7 @@ namespace CookApps.AutoBattler
             }
 
             _version = version;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -167,9 +163,9 @@ namespace CookApps.AutoBattler
             _characters[character.InstanceId] = character;
 
             if (isNew)
-                OnCharacterAdded?.Invoke(character);
+                OnCharacterAdded.OnNext(character);
             else
-                OnCharacterUpdated?.Invoke(character);
+                OnCharacterUpdated.OnNext(character);
 
             _version++;
         }
@@ -181,7 +177,7 @@ namespace CookApps.AutoBattler
         {
             if (_characters.Remove(instanceId))
             {
-                OnCharacterRemoved?.Invoke(instanceId);
+                OnCharacterRemoved.OnNext(instanceId);
                 _version++;
             }
         }

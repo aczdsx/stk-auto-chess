@@ -1,5 +1,6 @@
 using System;
 using CookApps.AutoBattler;
+using R3;
 
 namespace CookApps.AutoBattler
 {
@@ -21,6 +22,8 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected string CategoryKey { get; private set; }
 
+        protected DisposableBag disposableBag;
+        
         /// <summary>
         /// 생성자
         /// </summary>
@@ -30,6 +33,7 @@ namespace CookApps.AutoBattler
         {
             Model = model;
             CategoryKey = categoryKey;
+            disposableBag = new ();
 
             // 이벤트 구독
             SubscribeEvents();
@@ -43,7 +47,7 @@ namespace CookApps.AutoBattler
             // 모델 변경 감지 (OnChanged 이벤트)
             if (Model != null)
             {
-                Model.OnChanged += OnModelChanged;
+                Model.OnChanged.Subscribe(this, (_, self) => self.OnModelChanged()).AddTo(ref disposableBag);
             }
 
             // 모델별 이벤트 구독 (파생 클래스에서 구현)
@@ -53,15 +57,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 리소스 해제
         /// </summary>
-        public void Dispose()
+        public virtual void Dispose()
         {
-            // 이벤트 구독 해제
-            if (Model != null)
-            {
-                Model.OnChanged -= OnModelChanged;
-            }
-
-            UnsubscribeModelEvents();
+            disposableBag.Dispose();
         }
 
         /// <summary>
@@ -74,10 +72,5 @@ namespace CookApps.AutoBattler
         /// 모델별 이벤트 구독 (구현 필요)
         /// </summary>
         protected abstract void SubscribeModelEvents();
-
-        /// <summary>
-        /// 모델별 이벤트 구독 해제 (구현 필요)
-        /// </summary>
-        protected abstract void UnsubscribeModelEvents();
     }
 }

@@ -549,7 +549,6 @@ public partial class SROptions
     #region 팝업 테스트
     
     [Category("팝업 테스트")]
-    
     public void 이미지인포팝테스트()
     {
         Action onComplete = null;
@@ -557,9 +556,29 @@ public partial class SROptions
         
         ToastManager.Instance.ShowToast("치트 - 사용완료");
     }
-    
+
     [Category("팝업 테스트")] public int 다이얼로그아이디 { get; set; } = 0;
     
+    #endregion
+
+    #region 영지 테스트
+    
+    [Category("영지 테스트")]
+    public void 영지_확장_테스트()
+    {
+        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+        if (lobbyMain == null)
+            return;
+
+        var mainBlock = lobbyMain.MainBlock;
+        mainBlock.AttachSubBlock(영지_확장_인덱스, true).Forget();
+    }
+    
+    [Category("영지 테스트")]
+    public int 영지_확장_인덱스 { get; set; } = 0;
+    
+
+
     #endregion
 }
 #endif

@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity
     guid: 61e7bd672efcc4045915939216d08afd
   - enabled: 0
+    path: Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity
+    guid: b8e2c1da733c34c5dbb04fe380fccfff
+  - enabled: 0
     path: Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity
     guid: 8029178524cba4055adeed793914bebd
   - enabled: 0

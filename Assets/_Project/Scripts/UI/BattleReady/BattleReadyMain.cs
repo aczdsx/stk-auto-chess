@@ -14,17 +14,7 @@ using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
-    public enum LobbyMainRefreshType
-    {
-        ALL,
-        STAGE,
-        GUIDE_MISSION,
-        CHARACTER_LAYER,
-        IDLE_REWARD,
-        REDDOT,
-    }
-
-    public partial class LobbyMain : UILayer
+    public class BattleReadyMain : UILayer
     {
         public Transform GetIdleRewardTransform => _idleRewardButton.transform;
 
@@ -143,13 +133,12 @@ namespace CookApps.AutoBattler
         {
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
-            elpisDataBridge = new ElpisDataBridge();
-            await LoadElpis();
-            
-            SceneTransition.FadeOutAsync().Forget();
-            // DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FIRST_IN, "0", () =>
-            // {
-            // });
+            await SceneTransition.FadeOutAsync();
+
+            // 전투 진행
+            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
+            InGameManager.Instance.StartInGame<FlowStateLobbyCombat>(stageSpecData);
 
             // 방치 보상 갱신
             SetIdleRewardLayer();

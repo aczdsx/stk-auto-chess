@@ -11,6 +11,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return uiLayerName switch
             {
+                "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
                 "NaninovelMain" => "Prefabs/UI/00_Main/NaninovelMain.prefab",

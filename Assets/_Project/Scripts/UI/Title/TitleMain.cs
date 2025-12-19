@@ -87,7 +87,7 @@ namespace CookApps.AutoBattler
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 
-
+            NetManager.Instance.Initialize_Elpis().Forget();
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함
             // SceneLoading.GoToNextScene("InGame",
@@ -100,37 +100,30 @@ namespace CookApps.AutoBattler
             // SceneLoading.GoToNextScene("Naninovel", "Scripts/0-1");
             // return;
 
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+
+            // 초반 플로우 체크 및 진행
+            var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
+            if (UserDataManager.Instance.IsClearStage(lastTutoStageData.stage_id) == false)
             {
-                // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
+                var lastStageID = UserDataManager.Instance.GetLastPlayStageID();
+                var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+                if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
 
-                // 초반 플로우 체크 및 진행
-                var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
-                if (UserDataManager.Instance.IsClearStage(lastTutoStageData.stage_id) == false)
-                {
-                    var lastStageID = UserDataManager.Instance.GetLastPlayStageID();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                    if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
-
-                    SceneLoading.GoToNextScene("InGame",
-                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
-                }
-                else
-                {
-                    SceneTransition.Create<SceneTransition_FadeInOut>();
-                    SceneTransition.FadeInAsync().Forget();
-
-                    var lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
-                    SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
-
-                    return;
-                }
-
-                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
-
-                // 세션 타임 기록 unitask 실행
-                RecordSessionTime().Forget();
+                _ = SceneUILayerManager.Instance.ChangeScene("InGame",
+                    (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
             }
+            else
+            {
+                await TopPanelSingleUseHelper.Instance.Initialize();
+                _ = SceneUILayerManager.Instance.ChangeScene("Lobby");
+            }
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+
+            // 세션 타임 기록 unitask 실행
+            RecordSessionTime().Forget();
         }
 
         public void OnClickGuestLoginButton()

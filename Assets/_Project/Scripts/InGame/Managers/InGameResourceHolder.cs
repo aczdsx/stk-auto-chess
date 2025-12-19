@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public static async UniTask LoadLobbyResources(int chapter)
+        public static async UniTask LoadBattleReadyResources(int chapter)
         {
             GameObject hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/InGame/FloatingHpBar.prefab");
             HpBarView = hpBarPrefab.GetComponent<HpBarView>();
