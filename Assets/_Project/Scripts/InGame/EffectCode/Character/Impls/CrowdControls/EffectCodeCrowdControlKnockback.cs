@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using PrimeTween;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using Mono.Cecil.Cil;
 
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
@@ -25,6 +26,7 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
     private ObfuscatorFloat downFactor;
 
     private InGameTile _inGameTile;
+    private PrimeTween.Ease _ease = Ease.InCirc;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -35,6 +37,10 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         duration = codeInfo.GetCodeStatToFloat(0);
         height = codeInfo.GetCodeStatToFloat(1);
         tileID = codeInfo.GetCodeStatToInt(2);
+        if (codeInfo.HasCodeStat(3))
+        {
+            _ease = (PrimeTween.Ease)codeInfo.GetCodeStatToInt(3);
+        }
 
         startY = owner.ViewPosition3D.y;
 
@@ -49,11 +55,11 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
             float distance = Vector3.Distance(_inGameTile.View.Position, owner.Position3D);
 
             duration += distance * 0.1f;
-            
+
             var halfDuration = duration * 0.5f;
             upFactor = (startY - height) / (halfDuration * halfDuration);
             downFactor = -height / (halfDuration * halfDuration);
-            
+
             owner.ChangeOccupiedTile(_inGameTile);
             Tween.Custom(
                 owner.Position3D,
@@ -63,7 +69,7 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
                 {
                     if (owner != null)
                         owner.Position3D = value;
-                }, ease: Ease.InCirc).OnComplete(this, target =>
+                }, ease: _ease).OnComplete(this, target =>
                 {
                     if (owner != null)
                     {

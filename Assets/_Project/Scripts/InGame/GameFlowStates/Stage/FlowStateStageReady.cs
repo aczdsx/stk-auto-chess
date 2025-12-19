@@ -60,7 +60,7 @@ public class FlowStateStageReady : StateReadyBase
 
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
                 AllianceType.Enemy,
-                typeof(CharacterStateReady), true, HpBarType.Synergy));
+                typeof(CharacterStateReady), true, HpBarType.Synergy| HpBarType.HpBar));
         }
 
         bool isSize75 = _specStage.chapter_id == 1 || _specStage.chapter_id == 2; // [TODO] 나중에 데이터로 
@@ -126,8 +126,8 @@ public class FlowStateStageReady : StateReadyBase
             }
         }
 
-        if (_specStage.chapter_id == 2 && _specStage.stage_number == 6)
         {
+        if (_specStage.chapter_id == 2 && _specStage.stage_number == 6)
             battleDeckList.RemoveAll(l => l.CharacterId == 130601);
         }
 
@@ -144,7 +144,7 @@ public class FlowStateStageReady : StateReadyBase
             int2 coordinate = new int2(x, y);
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate,
                 AllianceType.Player,
-                typeof(CharacterStateReady), true, HpBarType.Synergy));
+                typeof(CharacterStateReady), true, HpBarType.Synergy | HpBarType.HpBar));
         }
 
         await UniTask.WhenAll(addCharacterTasks);
