@@ -14,20 +14,23 @@ using Random = UnityEngine.Random;
 
 namespace CookApps.BattleSystem
 {
-    public interface IEffectCodeInGameObjectItemInfo
+    /// <summary>
+    /// 아래 클래스는 사실 전투 준비 시 아이템이 부여되는 로직을 구현하는곳에 가깝다.
+    /// </summary>
+    public interface IEffectCodeInGameObjectDragDropItemInfo
     {
-        abstract void OnItemApplyDragAndDrop(CharacterController targetCharacter, IEffectCodeSource source);
-        abstract bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter);
-        abstract bool OnItemCheckCharacterAffected(CharacterController targetCharacter);
-        abstract void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameBattleItemComponent.ItemState itemState);
+        void OnItemApplyDragAndDrop(CharacterController targetCharacter, IEffectCodeSource source);
+        bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter);
+        bool OnItemCheckCharacterAffected(CharacterController targetCharacter);
+        void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameBattleItemDragDropComponent.ItemState itemState);
         /// <summary>
         /// 전투 시작 전까지 아이템이 부여되지 않았을 때 호출됩니다.
         /// </summary>
         /// <param name="source">이펙트 코드 소스</param>
-        abstract void OnItemNotAppliedBeforeCombat(CharacterController targetItemController, IEffectCodeSource source);
+        void OnItemNotAppliedBeforeCombat(CharacterController targetItemController, IEffectCodeSource source);
     }
 
-    public class InGameBattleItemComponent
+    public class InGameBattleItemDragDropComponent
     {
         public enum ItemState
         {
@@ -44,7 +47,7 @@ namespace CookApps.BattleSystem
             public ItemState itemState;
             public IEffectCodeSource source;
             public CharacterController targetObj;
-            private IEffectCodeInGameObjectItemInfo _itemInfoHandler;
+            private IEffectCodeInGameObjectDragDropItemInfo _itemInfoHandler;
 
             // 콜백들을 래핑하여 사용
             public Action<CharacterController, IEffectCodeSource> OnItemApplyDragAndDrop =>
@@ -68,7 +71,7 @@ namespace CookApps.BattleSystem
             public static InGameBattleItemInfo Create(
                 CharacterController character,
                 IEffectCodeSource source,
-                IEffectCodeInGameObjectItemInfo itemInfoHandler)
+                IEffectCodeInGameObjectDragDropItemInfo itemInfoHandler)
             {
                 return new InGameBattleItemInfo
                 {
@@ -80,9 +83,35 @@ namespace CookApps.BattleSystem
             }
 
             /// <summary>
+            /// 개별 콜백을 직접 지정하여 아이템 정보를 생성합니다.
+            /// </summary>
+            public static InGameBattleItemInfo CreateWithCallbacks(
+                CharacterController character,
+                IEffectCodeSource source,
+                Action<CharacterController, IEffectCodeSource> onItemApplyDragAndDrop,
+                Func<CharacterController, bool> onItemCanApplyDragAndDrop,
+                Func<CharacterController, bool> onItemCheckCharacterAffected = null,
+                Action<CharacterController, ItemState> onItemTargetObjectRelease = null,
+                Action<CharacterController, IEffectCodeSource> onItemNotAppliedBeforeCombat = null)
+            {
+                return new InGameBattleItemInfo
+                {
+                    itemState = ItemState.ITEM_DRAG_DROP,
+                    targetObj = character,
+                    source = source,
+                    _itemInfoHandler = new CallbackWrapper(
+                        onItemApplyDragAndDrop,
+                        onItemCanApplyDragAndDrop,
+                        onItemCheckCharacterAffected,
+                        onItemTargetObjectRelease,
+                        onItemNotAppliedBeforeCombat)
+                };
+            }
+
+            /// <summary>
             /// 콜백들을 래핑하는 내부 클래스
             /// </summary>
-            private class CallbackWrapper : IEffectCodeInGameObjectItemInfo
+            private class CallbackWrapper : IEffectCodeInGameObjectDragDropItemInfo
             {
                 private readonly Action<CharacterController, IEffectCodeSource> _onItemApplyDragAndDrop;
                 private readonly Func<CharacterController, bool> _onItemCanApplyDragAndDrop;
@@ -165,7 +194,7 @@ namespace CookApps.BattleSystem
                 }
             }
 
-            if (RemoveItemList==  null)
+            if (RemoveItemList == null)
                 return;
 
             foreach (var item in RemoveItemList)
@@ -239,22 +268,19 @@ namespace CookApps.BattleSystem
             if (!_itemDic.TryGetValue(prefab_id, out var itemList))
                 return;
 
-            for (int i = 0; i < itemList.Count; i++)
+            // 역순으로 순회하여 안전하게 제거 (인덱스 변경 문제 방지)
+            // 같은 prefab_id를 가진 모든 아이템을 제거하기 위해 break 제거
+            for (int i = itemList.Count - 1; i >= 0; i--)
             {
                 if (itemList[i].itemState == ItemState.ITEM_DRAG_DROP)
                 {
+                    itemList[i].targetObj.CurrentTile.SetUnoccupied();
                     InGameObjectManager.Instance.RemoveCharacterFromField(itemList[i].targetObj);
                     itemList.RemoveAt(i);
-                    break;
                 }
                 else if (itemList[i].itemState == ItemState.ITEM_APPLIED)
                 {
-                    // if (itemList[i].targetObj.GetCharacterView() != null)
-                    // {
-                    //     itemList[i].targetObj.GetEffectCodeContainer().RemoveEffectCodesAssociatedWithSource(itemList[i].source);
-                    // }
                     itemList.RemoveAt(i);
-                    break;
                 }
             }
             if (itemList.Count == 0)

@@ -11,7 +11,7 @@ using UnityEditor.Localization.Plugins.XLIFF.V12;
 /// 슈퍼노바 클래스 시너지 타입 아이템만 만들고 
 /// </summary>
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase, IEffectCodeInGameObjectItemInfo
+public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase, IEffectCodeInGameObjectDragDropItemInfo
 {
     private enum SupernovaGrade
     {
@@ -64,7 +64,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Neutral,
             typeof(CharacterStateReady), false, HpBarType.None);
 
-        var itemInfo = InGameBattleItemComponent.InGameBattleItemInfo.Create(
+        var itemInfo = InGameBattleItemDragDropComponent.InGameBattleItemInfo.Create(
             character: character,
             source: source,
             itemInfoHandler: this);
@@ -247,7 +247,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         return true;
     }
 
-    public void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameBattleItemComponent.ItemState itemState)
+    public void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameBattleItemDragDropComponent.ItemState itemState)
     {
         InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_stella_type);
         InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_element_type);

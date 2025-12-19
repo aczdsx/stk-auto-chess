@@ -7,7 +7,6 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Naninovel.Commands;
 using UnityEngine.TextCore.Text;
@@ -995,8 +994,11 @@ namespace CookApps.BattleSystem
                 damageInfo.damageAmount *= SkillDamageRate;
             }
 
+            if (target.AllianceType == AllianceType.Neutral)
+                return damageInfo;
+
             //회피 테스트 진행
-            ProgressAvoidTest(ref damageInfo, target);
+                ProgressAvoidTest(ref damageInfo, target);
             if (damageInfo.isMissed)
             {
                 //미스 시 데미지 0으로 처리 + 바로 리턴

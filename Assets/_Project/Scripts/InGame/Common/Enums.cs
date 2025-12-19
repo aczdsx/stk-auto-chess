@@ -110,7 +110,8 @@ namespace CookApps.BattleSystem
         Player,
         Enemy,
         Neutral,
-        Wall
+        Wall,
+        BattleItem
     }
 
     public enum BuffDebuffType

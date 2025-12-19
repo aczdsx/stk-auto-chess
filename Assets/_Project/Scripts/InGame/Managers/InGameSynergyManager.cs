@@ -16,7 +16,7 @@ namespace CookApps.BattleSystem
     public class InGameSynergyManager : SingletonMonoBehaviour<InGameSynergyManager>
     {
         private Dictionary<AllianceType, HashSet<SynergyType>> _synergyManagerDataDic = new Dictionary<AllianceType, HashSet<SynergyType>>();
-        private InGameBattleItemComponent _itemComponent = new InGameBattleItemComponent();
+        private InGameBattleItemDragDropComponent _itemComponent = new InGameBattleItemDragDropComponent();
 
         // 플레이어와 적의 시너지 이펙트를 분리하여 관리
         private Dictionary<SynergyType, List<InGameVfx>> _playerSynergyVfxDic = new();
@@ -376,7 +376,7 @@ namespace CookApps.BattleSystem
 
         #region item
 
-        public void RegisterBattleItem(InGameBattleItemComponent.InGameBattleItemInfo itemInfo)
+        public void RegisterBattleItem(InGameBattleItemDragDropComponent.InGameBattleItemInfo itemInfo)
         {
             _itemComponent.RegisterBattleItem(itemInfo);
         }
@@ -392,7 +392,11 @@ namespace CookApps.BattleSystem
         {
             return _itemComponent.IsRegisteredBattleItem(prefab_id);
         }
-        public void  TryRemoveBattleItemFromTarget(int prefab_id)
+        /// <summary>
+        /// 위 함수 호출 시 해당 인스턴스(게임오브젝트도 removefromfield로 호출됩니ㅏ.)
+        /// </summary>
+        /// <param name="prefab_id"></param>
+        public void TryRemoveBattleItemFromTarget(int prefab_id)
         {
             _itemComponent.TryRemoveBattleItemFromTarget(prefab_id);
         }

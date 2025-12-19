@@ -28,6 +28,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> enemiesInPlaygroundForUpdate = new();
         private List<CharacterController> charactersInPlaygroundForUpdate = new();
         private List<CharacterController> neutralInPlaygroundForUpdate = new();
+        private List<CharacterController> battleItemInPlaygroundForUpdate = new();
         private List<CharacterController> nonStatObstacleInPlaygroundForUpdate = new();
 
         private List<CharacterController> startingPlayerCharacters = new();
@@ -37,8 +38,6 @@ namespace CookApps.BattleSystem
         private List<InGameVfxTargetLine> playerTargetLines = new List<InGameVfxTargetLine>();
         private List<InGameVfxTargetLine> enemyTargetLines = new List<InGameVfxTargetLine>();
 
-        // private List<InGameVfx> _playerSynergyVfxList = new();
-        // private List<InGameVfx> _enemySynergyVfxList = new();
         private double _playerSumMaxHp;
         private double _enemySumMaxHp;
         private float _lastRate;
@@ -74,8 +73,8 @@ namespace CookApps.BattleSystem
             ClearAllCharactersInField(AllianceType.Player);
             ClearAllCharactersInField(AllianceType.Enemy);
             ClearAllCharactersInField(AllianceType.Neutral);
+            ClearAllCharactersInField(AllianceType.BattleItem);
             ClearAllCharactersInField(AllianceType.Wall);
-            // ClearSynergyFx();
             ClearTargetLine();
         }
 
@@ -92,6 +91,10 @@ namespace CookApps.BattleSystem
             else if (allianceType == AllianceType.Wall)
             {
                 return nonStatObstacleInPlaygroundForUpdate;
+            }
+            else if (allianceType == AllianceType.BattleItem)
+            {
+                return battleItemInPlaygroundForUpdate;
             }
 
             return neutralInPlaygroundForUpdate;
@@ -217,6 +220,11 @@ namespace CookApps.BattleSystem
             {
                 neutralInPlaygroundForUpdate.Add(characCtrl);
                 summonVfxType = InGameVfxNameType.fx_common_summon_enemy;
+            }
+            else if (allianceType == AllianceType.BattleItem)
+            {
+                battleItemInPlaygroundForUpdate.Add(characCtrl);
+                summonVfxType = InGameVfxNameType.fx_common_summon_awful;
             }
 
             if (summonVfxType != InGameVfxNameType.NONE)
@@ -846,6 +854,11 @@ namespace CookApps.BattleSystem
                 neutralInPlaygroundForUpdate[i].ManagedUpdate(dt);
             }
 
+            for (var i = 0; i < battleItemInPlaygroundForUpdate.Count; i++)
+            {
+                battleItemInPlaygroundForUpdate[i].ManagedUpdate(dt);
+            }
+
             var effectCodes = InGameManager.Instance.TeamEcc.GetEffectCodesByTypeByFlag(EffectCodeType.Game);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeGameLambda.CallOnUpdateLambda, dt);
         }
@@ -902,155 +915,6 @@ namespace CookApps.BattleSystem
             }
             return attrValue;
         }
-
-        // public void SpawnSynergyFx(AllianceType type, SynergyType synergyType, int grade)
-        // {
-        //     List<CharacterController> targetList = (type == AllianceType.Player)
-        //         ? charactersInPlaygroundForUpdate
-        //         : enemiesInPlaygroundForUpdate;
-
-        //     foreach (var character in targetList)
-        //     {
-        //         InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
-
-        //         switch (synergyType)
-        //         {
-        //             case SynergyType.FIRE:
-        //                 if (grade == 1)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
-        //                 }
-        //                 else if (grade == 2)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire_02;
-        //                 }
-        //                 else if (grade == 3)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire_03;
-        //                 }
-        //                 break;
-        //             case SynergyType.WATER:
-        //                 if (grade == 1)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
-        //                 }
-        //                 else if (grade == 2)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water_02;
-        //                 }
-        //                 else if (grade == 3)
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water_03;
-        //                 break;
-        //             case SynergyType.LIGHTNING:
-        //                 if (grade == 1)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
-        //                 }
-        //                 else if (grade == 2)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_02;
-        //                 }
-        //                 else if (grade == 3)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_03;
-        //                 }
-        //                 break;
-        //             case SynergyType.EARTH:
-        //                 if (grade == 1)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
-        //                 }
-        //                 else if (grade == 2)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground_02;
-        //                 }
-        //                 else if (grade == 3)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground_03;
-        //                 }
-        //                 break;
-        //             case SynergyType.WIND:
-        //                 if (grade == 1)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
-        //                 }
-        //                 else if (grade == 2)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind_02;
-        //                 }
-        //                 else if (grade == 3)
-        //                 {
-        //                     inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind_03;
-        //                 }
-        //                 break;
-        //             case SynergyType.NOBLESSE:
-        //             case SynergyType.TROUBLESHOOTER:
-        //             case SynergyType.SUPERNOVA:
-        //                 // inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
-        //                 // break;
-        //             default:
-        //                 break;
-        //         }
-                
-        //         if (inGameVfxNameType == InGameVfxNameType.NONE)
-        //         {
-        //             continue;
-        //         }
-
-        //         if (character.SpecCharacter.character_element_type == synergyType)
-        //         {
-        //             if (type == AllianceType.Player)
-        //             {
-        //                 _playerSynergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
-        //                     character.GetCharacterView().CachedTr));
-        //             }
-        //             else
-        //             {
-        //                 _enemySynergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
-        //                     character.GetCharacterView().CachedTr));
-        //             }
-        //         }
-        //         else if (character.SpecCharacter.character_stella_type == synergyType)
-        //         {
-        //             if (type == AllianceType.Player)
-        //             {
-        //                 _playerSynergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
-        //                     character.GetCharacterView().CachedTr));
-        //             }
-        //             else
-        //             {
-        //                 _enemySynergyVfxList.Add(InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
-        //                     character.GetCharacterView().CachedTr));
-        //             }
-
-        //         }
-
-
-
-        //     }
-        // }
-
-        // public void ClearSynergyFx()
-        // {
-        //     _playerSynergyVfxList.ForEach(vfx =>
-        //     {
-        //         if (vfx != null)
-        //         {
-        //             vfx.transform.SetParent(Playground);
-        //             vfx.Remove();
-        //         }
-        //     });
-        //     _enemySynergyVfxList.ForEach(vfx =>
-        //     {
-        //         if (vfx != null)
-        //         {
-        //             vfx.transform.SetParent(Playground);
-        //             vfx.Remove();
-        //         }
-        //     });
-        //     _playerSynergyVfxList.Clear();
-        //     _enemySynergyVfxList.Clear();
-        // }
 
         public void DrawPlayerLine(bool isPlayer)
         {
