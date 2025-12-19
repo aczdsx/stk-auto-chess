@@ -20,7 +20,13 @@ namespace CookApps.BattleSystem
         abstract bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter);
         abstract bool OnItemCheckCharacterAffected(CharacterController targetCharacter);
         abstract void OnItemTargetObjectRelease(CharacterController targetCharacter, InGameBattleItemComponent.ItemState itemState);
+        /// <summary>
+        /// 전투 시작 전까지 아이템이 부여되지 않았을 때 호출됩니다.
+        /// </summary>
+        /// <param name="source">이펙트 코드 소스</param>
+        abstract void OnItemNotAppliedBeforeCombat(IEffectCodeSource source);
     }
+
     public class InGameBattleItemComponent
     {
         public enum ItemState
@@ -30,34 +36,124 @@ namespace CookApps.BattleSystem
             ITEM_APPLIED = 2,
         }
 
+        /// <summary>
+        /// 배틀 아이템 정보를 담는 클래스
+        /// </summary>
         public class InGameBattleItemInfo
         {
             public ItemState itemState;
             public IEffectCodeSource source;
             public CharacterController targetObj;
-            public Action<CharacterController, IEffectCodeSource> OnItemApplyDragAndDrop;// apply될 시 Callback
-            public Func<CharacterController, bool> OnItemCanApplyDragAndDrop;// apply 가능한지 조건문 Callback
-            public Func<CharacterController, bool> OnItemCheckCharacterAffected;// 캐릭터가 사라질때에 영향을 받는지 조건 체크 Callback
-            public Action<CharacterController, ItemState> OnItemTargetObjectRelease;// 조건 성립 시 처리할 액션 Callback
+            private IEffectCodeInGameObjectItemInfo _itemInfoHandler;
 
+            // 콜백들을 래핑하여 사용
+            public Action<CharacterController, IEffectCodeSource> OnItemApplyDragAndDrop =>
+                (target, src) => _itemInfoHandler?.OnItemApplyDragAndDrop(target, src);
+            public Func<CharacterController, bool> OnItemCanApplyDragAndDrop =>
+                target => _itemInfoHandler?.OnItemCanApplyDragAndDrop(target) ?? false;
+            public Func<CharacterController, bool> OnItemCheckCharacterAffected =>
+                target => _itemInfoHandler?.OnItemCheckCharacterAffected(target) ?? false;
+            public Action<CharacterController, ItemState> OnItemTargetObjectRelease =>
+                (target, state) => _itemInfoHandler?.OnItemTargetObjectRelease(target, state);
+            public Action<IEffectCodeSource> OnItemNotAppliedBeforeCombat =>
+                src => _itemInfoHandler?.OnItemNotAppliedBeforeCombat(src);
+
+            private InGameBattleItemInfo()
+            {
+            }
+
+            /// <summary>
+            /// IEffectCodeInGameObjectItemInfo 인터페이스를 구현한 객체로부터 아이템 정보를 생성합니다.
+            /// </summary>
             public static InGameBattleItemInfo Create(
                 CharacterController character,
-                Action<CharacterController, IEffectCodeSource> OnItemApplyDragAndDrop,
                 IEffectCodeSource source,
-                Func<CharacterController, bool> OnItemCanApplyDragAndDrop,
-                Func<CharacterController, bool> OnItemCheckCharacterAffected = null,
-                Action<CharacterController, ItemState> OnItemTargetObjectRelease = null)
+                IEffectCodeInGameObjectItemInfo itemInfoHandler)
             {
                 return new InGameBattleItemInfo
                 {
                     itemState = ItemState.ITEM_DRAG_DROP,
                     targetObj = character,
-                    OnItemApplyDragAndDrop = OnItemApplyDragAndDrop,
-                    source = source,    
-                    OnItemCanApplyDragAndDrop = OnItemCanApplyDragAndDrop,
-                    OnItemCheckCharacterAffected = OnItemCheckCharacterAffected,
-                    OnItemTargetObjectRelease = OnItemTargetObjectRelease
+                    source = source,
+                    _itemInfoHandler = itemInfoHandler
                 };
+            }
+
+            /// <summary>
+            /// 개별 콜백을 직접 지정하여 아이템 정보를 생성합니다. (레거시 호환용)
+            /// </summary>
+            public static InGameBattleItemInfo CreateWithCallbacks(
+                CharacterController character,
+                IEffectCodeSource source,
+                Action<CharacterController, IEffectCodeSource> onItemApplyDragAndDrop,
+                Func<CharacterController, bool> onItemCanApplyDragAndDrop,
+                Func<CharacterController, bool> onItemCheckCharacterAffected = null,
+                Action<CharacterController, ItemState> onItemTargetObjectRelease = null,
+                Action<IEffectCodeSource> onItemNotAppliedBeforeCombat = null)
+            {
+                return new InGameBattleItemInfo
+                {
+                    itemState = ItemState.ITEM_DRAG_DROP,
+                    targetObj = character,
+                    source = source,
+                    _itemInfoHandler = new CallbackWrapper(
+                        onItemApplyDragAndDrop,
+                        onItemCanApplyDragAndDrop,
+                        onItemCheckCharacterAffected,
+                        onItemTargetObjectRelease,
+                        onItemNotAppliedBeforeCombat)
+                };
+            }
+
+            /// <summary>
+            /// 콜백들을 래핑하는 내부 클래스
+            /// </summary>
+            private class CallbackWrapper : IEffectCodeInGameObjectItemInfo
+            {
+                private readonly Action<CharacterController, IEffectCodeSource> _onItemApplyDragAndDrop;
+                private readonly Func<CharacterController, bool> _onItemCanApplyDragAndDrop;
+                private readonly Func<CharacterController, bool> _onItemCheckCharacterAffected;
+                private readonly Action<CharacterController, ItemState> _onItemTargetObjectRelease;
+                private readonly Action<IEffectCodeSource> _onItemNotAppliedBeforeCombat;
+
+                public CallbackWrapper(
+                    Action<CharacterController, IEffectCodeSource> onItemApplyDragAndDrop,
+                    Func<CharacterController, bool> onItemCanApplyDragAndDrop,
+                    Func<CharacterController, bool> onItemCheckCharacterAffected,
+                    Action<CharacterController, ItemState> onItemTargetObjectRelease,
+                    Action<IEffectCodeSource> onItemNotAppliedBeforeCombat)
+                {
+                    _onItemApplyDragAndDrop = onItemApplyDragAndDrop;
+                    _onItemCanApplyDragAndDrop = onItemCanApplyDragAndDrop;
+                    _onItemCheckCharacterAffected = onItemCheckCharacterAffected;
+                    _onItemTargetObjectRelease = onItemTargetObjectRelease;
+                    _onItemNotAppliedBeforeCombat = onItemNotAppliedBeforeCombat;
+                }
+
+                public void OnItemApplyDragAndDrop(CharacterController targetCharacter, IEffectCodeSource source)
+                {
+                    _onItemApplyDragAndDrop?.Invoke(targetCharacter, source);
+                }
+
+                public bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter)
+                {
+                    return _onItemCanApplyDragAndDrop?.Invoke(targetCharacter) ?? false;
+                }
+
+                public bool OnItemCheckCharacterAffected(CharacterController targetCharacter)
+                {
+                    return _onItemCheckCharacterAffected?.Invoke(targetCharacter) ?? false;
+                }
+
+                public void OnItemTargetObjectRelease(CharacterController targetCharacter, ItemState itemState)
+                {
+                    _onItemTargetObjectRelease?.Invoke(targetCharacter, itemState);
+                }
+
+                public void OnItemNotAppliedBeforeCombat(IEffectCodeSource source)
+                {
+                    _onItemNotAppliedBeforeCombat?.Invoke(source);
+                }
             }
         }
 
@@ -104,7 +200,7 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public void RegisterItem(InGameBattleItemInfo itemInfo)
+        public void RegisterBattleItem(InGameBattleItemInfo itemInfo)
         {
             if (itemInfo.targetObj.SpecCharacter.character_type != CharacterType.BATTLEITEM)
                 return;
@@ -116,7 +212,7 @@ namespace CookApps.BattleSystem
             itemList.Add(itemInfo);
         }
 
-        public bool IsDragAndDropItem(CharacterController character)
+        public bool IsDragAndDropBattleItem(CharacterController character)
         {
             if (character.SpecCharacter.character_type != CharacterType.BATTLEITEM
             || !_itemDic.TryGetValue(character.SpecCharacter.prefab_id, out var itemList))
@@ -129,12 +225,12 @@ namespace CookApps.BattleSystem
             }
             return false;
         }
-        public bool IsRegisteredItem(int prefab_id)
+        public bool IsRegisteredBattleItem(int prefab_id)
         {
             return _itemDic.ContainsKey(prefab_id);
         }
 
-        public bool ApplyItem(CharacterController itemObj, CharacterController targetObj)
+        public bool ApplyBattleItem(CharacterController itemObj, CharacterController targetObj)
         {
             if (!_itemDic.TryGetValue(itemObj.SpecCharacter.prefab_id, out var itemList))
                 return false;
@@ -153,10 +249,10 @@ namespace CookApps.BattleSystem
                 return false;
 
             var itemInfo = itemList[indexToMove];
-            if (itemInfo.OnItemCanApplyDragAndDrop != null && !itemInfo.OnItemCanApplyDragAndDrop.Invoke(targetObj))
+            if (!itemInfo.OnItemCanApplyDragAndDrop(targetObj))
                 return false;
 
-            itemInfo.OnItemApplyDragAndDrop?.Invoke(targetObj, itemInfo.source);
+            itemInfo.OnItemApplyDragAndDrop(targetObj, itemInfo.source);
             itemInfo.itemState = ItemState.ITEM_APPLIED;
             itemInfo.targetObj = targetObj;
 
@@ -164,12 +260,7 @@ namespace CookApps.BattleSystem
             return true;
         }
 
-
-        //해당 이펙트 코드가 remove되어야할 시점은
-        //1. 아이템 착용된 캐릭터가 다시 들어갈때.
-        //2. 해당 시너지가 제거될때(시너지 카운트가 2보다 떨어질때)
-
-        public void TryRemoveItemFromTarget(int prefab_id)
+        public void TryRemoveBattleItemFromTarget(int prefab_id)
         {
             if (!_itemDic.TryGetValue(prefab_id, out var itemList))
                 return;
@@ -195,6 +286,25 @@ namespace CookApps.BattleSystem
             if (itemList.Count == 0)
             {
                 _itemDic.Remove(prefab_id);
+            }
+        }
+
+        /// <summary>
+        /// 전투 시작 시 아이템이 적용되지 않은 상태인 아이템들의 콜백을 호출합니다.
+        /// </summary>
+        public void CheckAndHandleNotAppliedItemsBeforeCombat()
+        {
+            foreach (var kvp in _itemDic)
+            {
+                var itemList = kvp.Value;
+                foreach (var itemInfo in itemList)
+                {
+                    // 아이템이 아직 적용되지 않은 상태(ITEM_DRAG_DROP)인 경우
+                    if (itemInfo.itemState == ItemState.ITEM_DRAG_DROP)
+                    {
+                        itemInfo.OnItemNotAppliedBeforeCombat?.Invoke(itemInfo.source);
+                    }
+                }
             }
         }
     }

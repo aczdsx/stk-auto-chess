@@ -10,6 +10,7 @@ using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Naninovel.Commands;
+using UnityEngine.TextCore.Text;
 
 namespace CookApps.BattleSystem
 {
@@ -184,7 +185,7 @@ namespace CookApps.BattleSystem
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
 
-            var handle = _viewHandle = Addressables.InstantiateAsync($"Obstacle/{id}");
+            var handle = _viewHandle = Addressables.InstantiateAsync(CharacterType.OBSTACLE.ToCharacterResourcePath(id));
             await handle.WaitUntilDone();
 
             if (!handle.IsValid())
@@ -219,7 +220,8 @@ namespace CookApps.BattleSystem
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
 
-            var handle = _viewHandle = Addressables.InstantiateAsync(statData.Spec.GetCharacterResourcePath());
+            var characterResourcePath = statData.Spec.character_type.ToCharacterResourcePath(statData.Spec.prefab_id);
+            var handle = _viewHandle = Addressables.InstantiateAsync(characterResourcePath);
             await handle;
 
             if (!handle.IsValid())

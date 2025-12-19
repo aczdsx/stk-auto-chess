@@ -95,25 +95,24 @@ namespace CookApps.BattleSystem
 
         public void OnAddCharacter(CharacterController character)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
+            || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
             }
 
-            if (character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
-            {
+            if (character.SpecCharacter.character_type != CharacterType.CHARACTER)
                 return;
-            }
 
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
+
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
 
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
 
-            // InGameObjectManager.Instance.SpawnSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type, iTestGrade);
         }
 
         public void OnRemoveCharacter(CharacterController character)
@@ -123,10 +122,16 @@ namespace CookApps.BattleSystem
             {
                 return;
             }
+
+            if (character.SpecCharacter.character_type != CharacterType.CHARACTER)
+                return;
+
+                
             _itemComponent.CheckAffectedByItemController(character);
 
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
+
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
 
@@ -371,29 +376,32 @@ namespace CookApps.BattleSystem
 
         #region item
 
-        public void RegisterItem(InGameBattleItemComponent.InGameBattleItemInfo itemInfo)
+        public void RegisterBattleItem(InGameBattleItemComponent.InGameBattleItemInfo itemInfo)
         {
-            _itemComponent.RegisterItem(itemInfo);
+            _itemComponent.RegisterBattleItem(itemInfo);
         }
-        public bool IsDragAndDropItem(CharacterController character)
+        public bool IsDragAndDropBattleItem(CharacterController character)
         {
-            return _itemComponent.IsDragAndDropItem(character);
+            return _itemComponent.IsDragAndDropBattleItem(character);
         }
-        public bool ApplyItem(CharacterController itemObj, CharacterController targetObj)
+        public bool ApplyBattleItem(CharacterController itemObj, CharacterController targetObj)
         {
-            return _itemComponent.ApplyItem(itemObj, targetObj);
+            return _itemComponent.ApplyBattleItem(itemObj, targetObj);
         }
-        public bool IsRegisteredItem(int prefab_id)
+        public bool IsRegisteredBattleItem(int prefab_id)
         {
-            return _itemComponent.IsRegisteredItem(prefab_id);
+            return _itemComponent.IsRegisteredBattleItem(prefab_id);
         }
-        public void TryRemoveItemFromTarget(int prefab_id)
+        public void TryRemoveBattleItemFromTarget(int prefab_id)
         {
-            _itemComponent.TryRemoveItemFromTarget(prefab_id);
+            _itemComponent.TryRemoveBattleItemFromTarget(prefab_id);
         }
-        public void CheckAffectedByItemController(CharacterController character)
+        /// <summary>
+        /// 전투 시작 시 아이템이 적용되지 않은 상태인 아이템들의 콜백을 호출합니다.
+        /// </summary>
+        public void CheckAndHandleNotAppliedItemsBeforeCombat()
         {
-            _itemComponent.CheckAffectedByItemController(character);
+            _itemComponent.CheckAndHandleNotAppliedItemsBeforeCombat();
         }
     }
     #endregion

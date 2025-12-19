@@ -43,7 +43,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     private async void AddGameObjectSuperNovaItem(IEffectCodeSource source)
     {
-        if (InGameSynergyManager.Instance.IsRegisteredItem(SUPERNOVA_ITEM_VIEW_ID))
+        if (InGameSynergyManager.Instance.IsRegisteredBattleItem(SUPERNOVA_ITEM_VIEW_ID))
             return;
 
         var specCharacter = SpecDataManager.Instance.GetBattleItemData(SUPERNOVA_ITEM_VIEW_ID);
@@ -65,13 +65,9 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
         var itemInfo = InGameBattleItemComponent.InGameBattleItemInfo.Create(
             character: character,
-            OnItemApplyDragAndDrop: OnItemApplyDragAndDrop,
             source: source,
-            OnItemCanApplyDragAndDrop: OnItemCanApplyDragAndDrop,
-            OnItemCheckCharacterAffected: OnItemCheckCharacterAffected,
-            OnItemTargetObjectRelease: OnItemTargetObjectRelease
-            );
-        InGameSynergyManager.Instance.RegisterItem(itemInfo);
+            itemInfoHandler: this);
+        InGameSynergyManager.Instance.RegisterBattleItem(itemInfo);
     }
 
     public override void OnCombatStart()
@@ -191,13 +187,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             EffectCodeHelper.AddOrMergeEffectCode(effectCodeNameType, character, stats, source);
             base.AddSynergyAddEffectCodeIds(effectCodeNameType);
 
-            // var test = character.HP;
         }
     }
 
     public override void OnPreRemoved()
     {
-        InGameSynergyManager.Instance.TryRemoveItemFromTarget(SUPERNOVA_ITEM_VIEW_ID);
+        InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget(SUPERNOVA_ITEM_VIEW_ID);
 
         Debug.LogColor($"Supernova Removed", "red");
         base.OnPreRemoved();
@@ -254,5 +249,11 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_stella_type);
         InGameManager.Instance.RemoveSynergyTeamOnce(AllianceType.Player, targetCharacter.SpecCharacter.character_element_type);
 
+    }
+
+    public void OnItemNotAppliedBeforeCombat(IEffectCodeSource source)
+    {
+        // 전투 시작 전까지 아이템이 부여되지 않았다면 아이템 제거
+        InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget(SUPERNOVA_ITEM_VIEW_ID);
     }
 }

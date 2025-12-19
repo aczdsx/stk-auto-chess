@@ -41,6 +41,9 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateStart()
     {
+        // 전투 시작 전까지 아이템이 부여되지 않은 아이템들의 콜백 호출
+        InGameSynergyManager.Instance.CheckAndHandleNotAppliedItemsBeforeCombat();
+        
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
@@ -61,6 +64,8 @@ public class FlowStateStageCombat : StateCombatBase
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
         }
+
+
 
         {
             var effectCodes =

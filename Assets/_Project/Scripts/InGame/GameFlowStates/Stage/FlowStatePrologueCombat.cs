@@ -46,9 +46,11 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     public override void StateStart()
     {
+        // 전투 시작 전까지 아이템이 부여되지 않은 아이템들의 콜백 호출
+        InGameSynergyManager.Instance.CheckAndHandleNotAppliedItemsBeforeCombat();
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
-            // character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
             var effectCodes = character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
                 EffectCodeInheritFlag.UseOnCombatStart);
@@ -57,15 +59,11 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
-            // character.AddSynergyEffectCode();
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
             var effectCodes = character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
                 EffectCodeInheritFlag.UseOnCombatStart);
             EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }
-
-        // InGameManager.Instance.AddSynergyEffectCode(AllianceType.Player);
-        // InGameManager.Instance.AddSynergyEffectCode(AllianceType.Enemy);
 
         {
             var effectCodes =

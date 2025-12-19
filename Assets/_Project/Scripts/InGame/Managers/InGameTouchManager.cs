@@ -358,12 +358,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return false;
         }
 
-        if (InGameSynergyManager.Instance.IsDragAndDropItem(_selectedCharacterController))
+        if (InGameSynergyManager.Instance.IsDragAndDropBattleItem(_selectedCharacterController))
         {
             itemObj = _selectedCharacterController;
             targetObj = targetCharacter;
         }
-        else if (InGameSynergyManager.Instance.IsDragAndDropItem(targetCharacter))
+        else if (InGameSynergyManager.Instance.IsDragAndDropBattleItem(targetCharacter))
         {
             itemObj = targetCharacter;
             targetObj = _selectedCharacterController;
@@ -480,7 +480,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private bool ApplyItem(CharacterController itemObj, CharacterController targetObj)
     {
-        if (!InGameSynergyManager.Instance.ApplyItem(itemObj, targetObj))
+        if (!InGameSynergyManager.Instance.ApplyBattleItem(itemObj, targetObj))
         {
             return false;
         }

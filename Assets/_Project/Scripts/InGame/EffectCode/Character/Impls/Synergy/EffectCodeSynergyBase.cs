@@ -21,6 +21,10 @@ public class EffectCodeSynergyBase : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
+        if(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+        {
+            return;
+        }
         if (owner != null && owner.GetEffectCodeContainer() != null)
         {
             foreach (var effectCodeId in _synergyAddEffectCodeIds)

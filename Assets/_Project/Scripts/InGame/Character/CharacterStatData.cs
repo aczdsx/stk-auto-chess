@@ -26,8 +26,10 @@ namespace CookApps.AutoBattler
         {
             double physicalPenetration = ADPierce; // 물리관통
             double magicPenetration = APPierce; // 마법관통
-            double physicalDefense = ADReduce; // 물리방어
+
+            double physicalDefense = ADReduce; // 물리방어 
             double magicDefense = APReduce; // 마법방어
+
             double hpWeight = 1; // 체력 가중치, 이 값은 게임의 규칙에 따라 변경될 수 있습니다.
 
             double CP = (AD * AttackSpeed * (1 + CriticalProb * CriticalDamageRate)) *
