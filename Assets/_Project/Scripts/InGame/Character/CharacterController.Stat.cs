@@ -75,6 +75,8 @@ namespace CookApps.BattleSystem
 
                     if (_currHp > postHP) _currHp = postHP;
 
+                    Debug.LogColor($"UpdateHP: {prevHp} -> {postHP}","red");
+
                     UpdateHpBar();
                 }
 

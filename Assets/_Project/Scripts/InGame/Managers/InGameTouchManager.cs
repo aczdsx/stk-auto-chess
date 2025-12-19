@@ -263,13 +263,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         var returnObjResult = results.FirstOrDefault(r => r.gameObject != null && r.gameObject.CompareTag("ReturnObj"));
 
-        if (returnObjResult.gameObject != null && _selectedCharacterController.SpecCharacter.character_type != CharacterType.BATTLEITEM)
+        if (returnObjResult.gameObject != null &&
+        _selectedCharacterController.SpecCharacter.character_type != CharacterType.BATTLEITEM)
         {
             var inGameMain = InGameMain.GetInGameMain();
             CharacterController deleteCharacterController = _selectedCharacterController;
             ReleaseSelectedHero(true);
 
-            // InGameObjectManager.Instance.ClearSynergyFx();
             deleteCharacterController.CurrentTile.SetUnoccupied();
             InGameObjectManager.Instance.RemoveCharacterFromField(deleteCharacterController);
             inGameMain.ReturnCharacterUI(deleteCharacterController);

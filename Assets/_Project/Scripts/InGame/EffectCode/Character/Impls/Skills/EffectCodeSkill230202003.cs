@@ -133,15 +133,18 @@ public partial class EffectCodeSkill230202003 : EffectCodeCharacterBase
                 {
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
-                
+
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
                     float calculatedDamageRate = _damageRate;
-
-                    var damage = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate, tile.OccupiedCharacter, codeId, true);
-                    // var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-                    //     tile.OccupiedCharacter, codeId, true);
-                    // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    try
+                    {
+                        var damage = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate, tile.OccupiedCharacter, codeId, true);
+                        tile.OccupiedCharacter.GetDamaged(damage, tile.OccupiedCharacter);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex);
+                    }
                 }
             }
         }

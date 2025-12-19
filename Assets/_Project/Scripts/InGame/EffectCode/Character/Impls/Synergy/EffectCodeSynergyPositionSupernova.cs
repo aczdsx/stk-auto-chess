@@ -27,6 +27,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private IEffectCodeSource _source;
     private InGameVfx _supernovaVfx;
     private const string NOT_SUPERNOVA_TYPE_TOKEN = "NOT_SUPERNOVA_TYPE";
+    private const string NOT_SUPERNOVA_ITEM_APPLY = "NOT_SUPERNOVA_ITEM_APPLY";
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -108,6 +109,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         stats[0] = increaseValue;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, targetCharacter, stats, source);
         base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
+
+        targetCharacter.ForceSetHp(targetCharacter.HP);
 
     }
 
@@ -251,9 +254,21 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     }
 
-    public void OnItemNotAppliedBeforeCombat(IEffectCodeSource source)
+    public void OnItemNotAppliedBeforeCombat(CharacterController targetItemController, IEffectCodeSource source)
     {
-        // 전투 시작 전까지 아이템이 부여되지 않았다면 아이템 제거
-        InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget(SUPERNOVA_ITEM_VIEW_ID);
+        ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_ITEM_APPLY);
+
+        var characterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+        foreach (var character in characterList)
+        {
+            if (character == targetItemController ||
+            (character.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA))
+            {
+                continue;
+            }
+            InGameSynergyManager.Instance.ApplyBattleItem(targetItemController, character);
+            OnCombatStart();
+            break;
+        }
     }
 }

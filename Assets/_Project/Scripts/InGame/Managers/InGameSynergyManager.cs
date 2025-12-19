@@ -392,7 +392,7 @@ namespace CookApps.BattleSystem
         {
             return _itemComponent.IsRegisteredBattleItem(prefab_id);
         }
-        public void TryRemoveBattleItemFromTarget(int prefab_id)
+        public void  TryRemoveBattleItemFromTarget(int prefab_id)
         {
             _itemComponent.TryRemoveBattleItemFromTarget(prefab_id);
         }

@@ -7,6 +7,7 @@ using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CookApps.TeamBattle.Utility;
+using PrimeTween;
 //3*3범위 내의 적의 공격력을 {0}초 동안 {1}% 감소 시킨다.
 namespace CookApps.BattleSystem
 {
@@ -108,7 +109,7 @@ namespace CookApps.BattleSystem
         private void ProcessKnockBack(InGameTile TargetTile)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
-            Span<double> eccStats = stackalloc double[3];
+            Span<double> eccStats = stackalloc double[4];
             //해당 방향의 prev타일이 필요. 
             var directionTiles = inGameObjectManagerInstance.InGameGrid.GetTileListByDirectionInRange(
                 TargetTile, dX: 0, dY: -1, count: 1);
@@ -127,8 +128,10 @@ namespace CookApps.BattleSystem
 
             eccStats.Clear();
             eccStats[0] = KNOCKBACK_TIME;//knockBackTime
-            eccStats[1] = 0.2f;//height
+            eccStats[1] = 2.5f;//height
             eccStats[2] = knockBackFinalTile.View.ID;//tileID
+            eccStats[3] = (int)Ease.OutExpo;//ease
+            
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, TargetTile.OccupiedCharacter, eccStats, source);
         }
 

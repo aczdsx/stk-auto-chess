@@ -824,7 +824,12 @@ namespace CookApps.AutoBattler
                 return outCharacterInfo;
             }
 
-            Debug.LogError($"CharacterID: {characterID} not found");
+            // outCharacterInfo = obstacleDic.GetValueOrDefault(characterID);
+            // if (outCharacterInfo != null)
+            // {
+            //     return outCharacterInfo;
+            // }
+
             return null;
         }
 
