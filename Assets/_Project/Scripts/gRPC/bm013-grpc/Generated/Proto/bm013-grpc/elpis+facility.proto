@@ -6,13 +6,9 @@ package tech.hive.v1;
 enum ElpisFacilityType {
   FACILITY_TYPE_UNSPECIFIED = 0;
   FACILITY_TYPE_COMMAND_CENTER = 1;     // 커멘드 센터
-  FACILITY_TYPE_DORMITORY = 2;          // 숙소
-  FACILITY_TYPE_CORE_LAB = 3;           // 코어 연구소
-  FACILITY_TYPE_TACTIC_LAB = 4;         // 전술 연구소
-  FACILITY_TYPE_SIMULATION_CENTER = 5;  // 전투 시뮬레이션 센터
-  FACILITY_TYPE_TRAINING_ROOM = 6;      // 단련실
-  FACILITY_TYPE_CAFETERIA = 7;          // 식당
-  FACILITY_TYPE_BATTLE_ARCHIVE = 8;     // 전투 기록관
+  FACILITY_TYPE_NEST = 2;               // 숙소
+  FACILITY_TYPE_DIMENSION_LAB = 3;      // 코어 연구소
+  FACILITY_TYPE_SIMULATION_CENTER = 4;  // 전투 시뮬레이션 센터
 }
 
 // 시설 정보

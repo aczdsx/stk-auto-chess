@@ -11,6 +11,11 @@ service CustomLobbyService {
    * 내 정보 조회
    */
   rpc GetMyPlayerData(CustomLobbyGetMyPlayerDataRequest) returns (CustomLobbyGetMyPlayerDataResponse);
+
+  /**
+   * 대표 캐릭터 설정
+   */
+  rpc SetRepresentativeCharacter(CustomLobbySetRepresentativeCharacterRequest) returns (CustomLobbySetRepresentativeCharacterResponse);
 }
 
 
@@ -22,4 +27,12 @@ message CustomLobbyGetMyPlayerDataRequest {}
 message CustomLobbyGetMyPlayerDataResponse {
   ResponseStatus status = 1;
   CustomPlayerData data = 2;
+}
+
+message CustomLobbySetRepresentativeCharacterRequest {
+  string character_id = 1;
+}
+
+message CustomLobbySetRepresentativeCharacterResponse {
+  ResponseStatus status = 1;
 }

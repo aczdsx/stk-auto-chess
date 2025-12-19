@@ -26,75 +26,91 @@ namespace Tech.Hive.V1 {
           string.Concat(
             "CgtlbHBpcy5wcm90bxIMdGVjaC5oaXZlLnYxGgpiYXNlLnByb3RvGhNjdXN0",
             "b21fY29tbW9uLnByb3RvGhBlbHBpcytkYXRhLnByb3RvGhRlbHBpcytmYWNp",
-            "bGl0eS5wcm90bxoZZWxwaXMrY29yZV9yZXNlYXJjaC5wcm90bxobZWxwaXMr",
-            "dGFjdGljX3Jlc2VhcmNoLnByb3RvGhZlbHBpcytzaW11bGF0aW9uLnByb3Rv",
-            "IhEKD0VscGlzR2V0UmVxdWVzdCJoChBFbHBpc0dldFJlc3BvbnNlEiwKBnN0",
-            "YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxImCgVl",
-            "bHBpcxgCIAEoCzIXLnRlY2guaGl2ZS52MS5FbHBpc0RhdGEiFAoSRWxwaXNF",
-            "eHBhbmRSZXF1ZXN0ImsKE0VscGlzRXhwYW5kUmVzcG9uc2USLAoGc3RhdHVz",
-            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEiYKBWVscGlz",
-            "GAIgASgLMhcudGVjaC5oaXZlLnYxLkVscGlzRGF0YSJzChlFbHBpc0J1aWxk",
-            "RmFjaWxpdHlSZXF1ZXN0EjYKDWZhY2lsaXR5X3R5cGUYASABKA4yHy50ZWNo",
-            "LmhpdmUudjEuRWxwaXNGYWNpbGl0eVR5cGUSDgoGZ3JpZF94GAIgASgFEg4K",
-            "BmdyaWRfeRgDIAEoBSKvAQoaRWxwaXNCdWlsZEZhY2lsaXR5UmVzcG9uc2US",
-            "LAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVz",
-            "Ei0KCGZhY2lsaXR5GAIgASgLMhsudGVjaC5oaXZlLnYxLkVscGlzRmFjaWxp",
-            "dHkSNAoPY3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1",
-            "cnJlbmN5RGVsdGEiOwobRWxwaXNVcGdyYWRlRmFjaWxpdHlSZXF1ZXN0EhwK",
-            "FGZhY2lsaXR5X2luc3RhbmNlX2lkGAEgASgJIrEBChxFbHBpc1VwZ3JhZGVG",
-            "YWNpbGl0eVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52",
-            "MS5SZXNwb25zZVN0YXR1cxItCghmYWNpbGl0eRgCIAEoCzIbLnRlY2guaGl2",
-            "ZS52MS5FbHBpc0ZhY2lsaXR5EjQKD2N1cnJlbmN5X2RlbHRhcxgDIAMoCzIb",
-            "LnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhImEKGEVscGlzUmVzZWFyY2hD",
-            "b3JlUmVxdWVzdBI1Cg1yZXNlYXJjaF90eXBlGAEgASgOMh4udGVjaC5oaXZl",
-            "LnYxLkNvcmVSZXNlYXJjaFR5cGUSDgoGbGV2ZWxzGAIgASgNIq0BChlFbHBp",
-            "c1Jlc2VhcmNoQ29yZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2gu",
-            "aGl2ZS52MS5SZXNwb25zZVN0YXR1cxIsCghyZXNlYXJjaBgCIAEoCzIaLnRl",
-            "Y2guaGl2ZS52MS5Db3JlUmVzZWFyY2gSNAoPY3VycmVuY3lfZGVsdGFzGAMg",
-            "AygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiZQoaRWxwaXNSZXNl",
-            "YXJjaFRhY3RpY1JlcXVlc3QSNwoNcmVzZWFyY2hfdHlwZRgBIAEoDjIgLnRl",
-            "Y2guaGl2ZS52MS5UYWN0aWNSZXNlYXJjaFR5cGUSDgoGbGV2ZWxzGAIgASgN",
-            "IrEBChtFbHBpc1Jlc2VhcmNoVGFjdGljUmVzcG9uc2USLAoGc3RhdHVzGAEg",
-            "ASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi4KCHJlc2VhcmNo",
-            "GAIgASgLMhwudGVjaC5oaXZlLnYxLlRhY3RpY1Jlc2VhcmNoEjQKD2N1cnJl",
-            "bmN5X2RlbHRhcxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRh",
-            "IiMKIUVscGlzQ2xhaW1TaW11bGF0aW9uUmV3YXJkUmVxdWVzdCK6AQoiRWxw",
-            "aXNDbGFpbVNpbXVsYXRpb25SZXdhcmRSZXNwb25zZRIsCgZzdGF0dXMYASAB",
-            "KAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSMAoKc2ltdWxhdGlv",
-            "bhgCIAEoCzIcLnRlY2guaGl2ZS52MS5TaW11bGF0aW9uRGF0YRI0Cg9jdXJy",
-            "ZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0",
-            "YSonCg5FbHBpc0Vycm9yQ29kZRIVChFFTFBJU19VTlNQRUNJRklFRBAAMrwF",
-            "CgxFbHBpc1NlcnZpY2USRgoDR2V0Eh0udGVjaC5oaXZlLnYxLkVscGlzR2V0",
-            "UmVxdWVzdBoeLnRlY2guaGl2ZS52MS5FbHBpc0dldFJlc3BvbnNlIgASUgoL",
-            "RXhwYW5kRWxwaXMSIC50ZWNoLmhpdmUudjEuRWxwaXNFeHBhbmRSZXF1ZXN0",
-            "GiEudGVjaC5oaXZlLnYxLkVscGlzRXhwYW5kUmVzcG9uc2USYgoNQnVpbGRG",
-            "YWNpbGl0eRInLnRlY2guaGl2ZS52MS5FbHBpc0J1aWxkRmFjaWxpdHlSZXF1",
-            "ZXN0GigudGVjaC5oaXZlLnYxLkVscGlzQnVpbGRGYWNpbGl0eVJlc3BvbnNl",
-            "EmgKD1VwZ3JhZGVGYWNpbGl0eRIpLnRlY2guaGl2ZS52MS5FbHBpc1VwZ3Jh",
-            "ZGVGYWNpbGl0eVJlcXVlc3QaKi50ZWNoLmhpdmUudjEuRWxwaXNVcGdyYWRl",
-            "RmFjaWxpdHlSZXNwb25zZRJfCgxSZXNlYXJjaENvcmUSJi50ZWNoLmhpdmUu",
-            "djEuRWxwaXNSZXNlYXJjaENvcmVSZXF1ZXN0GicudGVjaC5oaXZlLnYxLkVs",
-            "cGlzUmVzZWFyY2hDb3JlUmVzcG9uc2USZQoOUmVzZWFyY2hUYWN0aWMSKC50",
-            "ZWNoLmhpdmUudjEuRWxwaXNSZXNlYXJjaFRhY3RpY1JlcXVlc3QaKS50ZWNo",
-            "LmhpdmUudjEuRWxwaXNSZXNlYXJjaFRhY3RpY1Jlc3BvbnNlEnoKFUNsYWlt",
-            "U2ltdWxhdGlvblJld2FyZBIvLnRlY2guaGl2ZS52MS5FbHBpc0NsYWltU2lt",
-            "dWxhdGlvblJld2FyZFJlcXVlc3QaMC50ZWNoLmhpdmUudjEuRWxwaXNDbGFp",
-            "bVNpbXVsYXRpb25SZXdhcmRSZXNwb25zZWIGcHJvdG8z"));
+            "bGl0eS5wcm90bxoZZWxwaXMrY29yZV9yZXNlYXJjaC5wcm90bxoWZWxwaXMr",
+            "c2ltdWxhdGlvbi5wcm90byIRCg9FbHBpc0dldFJlcXVlc3QiaAoQRWxwaXNH",
+            "ZXRSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVz",
+            "cG9uc2VTdGF0dXMSJgoFZWxwaXMYAiABKAsyFy50ZWNoLmhpdmUudjEuRWxw",
+            "aXNEYXRhIhQKEkVscGlzRXhwYW5kUmVxdWVzdCKoAQoTRWxwaXNFeHBhbmRS",
+            "ZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9u",
+            "c2VTdGF0dXMSLQoIZmFjaWxpdHkYAiABKAsyGy50ZWNoLmhpdmUudjEuRWxw",
+            "aXNGYWNpbGl0eRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhp",
+            "dmUudjEuQ3VycmVuY3lEZWx0YSJzChlFbHBpc0J1aWxkRmFjaWxpdHlSZXF1",
+            "ZXN0EjYKDWZhY2lsaXR5X3R5cGUYASABKA4yHy50ZWNoLmhpdmUudjEuRWxw",
+            "aXNGYWNpbGl0eVR5cGUSDgoGZ3JpZF94GAIgASgFEg4KBmdyaWRfeRgDIAEo",
+            "BSKvAQoaRWxwaXNCdWlsZEZhY2lsaXR5UmVzcG9uc2USLAoGc3RhdHVzGAEg",
+            "ASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi0KCGZhY2lsaXR5",
+            "GAIgASgLMhsudGVjaC5oaXZlLnYxLkVscGlzRmFjaWxpdHkSNAoPY3VycmVu",
+            "Y3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEi",
+            "QgoiRWxwaXNGaW5pc2hCdWlsZGluZ0ZhY2lsaXR5UmVxdWVzdBIcChRmYWNp",
+            "bGl0eV9pbnN0YW5jZV9pZBgBIAEoCSKCAQojRWxwaXNGaW5pc2hCdWlsZGlu",
+            "Z0ZhY2lsaXR5UmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZl",
+            "LnYxLlJlc3BvbnNlU3RhdHVzEi0KCGZhY2lsaXR5GAIgASgLMhsudGVjaC5o",
+            "aXZlLnYxLkVscGlzRmFjaWxpdHkiOwobRWxwaXNVcGdyYWRlRmFjaWxpdHlS",
+            "ZXF1ZXN0EhwKFGZhY2lsaXR5X2luc3RhbmNlX2lkGAEgASgJIrEBChxFbHBp",
+            "c1VwZ3JhZGVGYWNpbGl0eVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
+            "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxItCghmYWNpbGl0eRgCIAEoCzIb",
+            "LnRlY2guaGl2ZS52MS5FbHBpc0ZhY2lsaXR5EjQKD2N1cnJlbmN5X2RlbHRh",
+            "cxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhImEKGEVscGlz",
+            "UmVzZWFyY2hDb3JlUmVxdWVzdBI1Cg1yZXNlYXJjaF90eXBlGAEgASgOMh4u",
+            "dGVjaC5oaXZlLnYxLkNvcmVSZXNlYXJjaFR5cGUSDgoGbGV2ZWxzGAIgASgN",
+            "Iq0BChlFbHBpc1Jlc2VhcmNoQ29yZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEo",
+            "CzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIsCghyZXNlYXJjaBgC",
+            "IAEoCzIaLnRlY2guaGl2ZS52MS5Db3JlUmVzZWFyY2gSNAoPY3VycmVuY3lf",
+            "ZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiYgoi",
+            "RWxwaXNDaGFuZ2VGYWNpbGl0eVBvc2l0aW9uUmVxdWVzdBIcChRmYWNpbGl0",
+            "eV9pbnN0YW5jZV9pZBgBIAEoCRIOCgZncmlkX3gYAiABKAUSDgoGZ3JpZF95",
+            "GAMgASgFIoIBCiNFbHBpc0NoYW5nZUZhY2lsaXR5UG9zaXRpb25SZXNwb25z",
+            "ZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0",
+            "dXMSLQoIZmFjaWxpdHkYAiABKAsyGy50ZWNoLmhpdmUudjEuRWxwaXNGYWNp",
+            "bGl0eSIjCiFFbHBpc0NsYWltU2ltdWxhdGlvblJld2FyZFJlcXVlc3QiugEK",
+            "IkVscGlzQ2xhaW1TaW11bGF0aW9uUmV3YXJkUmVzcG9uc2USLAoGc3RhdHVz",
+            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjAKCnNpbXVs",
+            "YXRpb24YAiABKAsyHC50ZWNoLmhpdmUudjEuU2ltdWxhdGlvbkRhdGESNAoP",
+            "Y3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5",
+            "RGVsdGEqvAIKDkVscGlzRXJyb3JDb2RlEhUKEUVMUElTX1VOU1BFQ0lGSUVE",
+            "EAASJAodRUxQSVNfRkFDSUxJVFlfQ09VTlRfRVhDRUVERUQQtaXqBBIiChtF",
+            "TFBJU19GQUNJTElUWV9UWVBFX0lOVkFMSUQQtqXqBBIfChhFTFBJU19GQUNJ",
+            "TElUWV9OT1RfRk9VTkQQt6XqBBIiChtFTFBJU19GQUNJTElUWV9OT1RfQlVJ",
+            "TERJTkcQuKXqBBIrCiRFTFBJU19GQUNJTElUWV9OT1RfRklOSVNIRURfQlVJ",
+            "TERJTkcQuaXqBBInCiBFTFBJU19GQUNJTElUWV9NQVhfTEVWRUxfUkVBQ0hF",
+            "RBC6peoEEi4KJ0VMUElTX0ZBQ0lMSVRZX0NPTU1BTkRfQ0VOVEVSX05PVF9G",
+            "T1VORBC7peoEMs4GCgxFbHBpc1NlcnZpY2USRgoDR2V0Eh0udGVjaC5oaXZl",
+            "LnYxLkVscGlzR2V0UmVxdWVzdBoeLnRlY2guaGl2ZS52MS5FbHBpc0dldFJl",
+            "c3BvbnNlIgASTQoGRXhwYW5kEiAudGVjaC5oaXZlLnYxLkVscGlzRXhwYW5k",
+            "UmVxdWVzdBohLnRlY2guaGl2ZS52MS5FbHBpc0V4cGFuZFJlc3BvbnNlEmIK",
+            "DUJ1aWxkRmFjaWxpdHkSJy50ZWNoLmhpdmUudjEuRWxwaXNCdWlsZEZhY2ls",
+            "aXR5UmVxdWVzdBooLnRlY2guaGl2ZS52MS5FbHBpc0J1aWxkRmFjaWxpdHlS",
+            "ZXNwb25zZRJ9ChZGaW5pc2hCdWlsZGluZ0ZhY2lsaXR5EjAudGVjaC5oaXZl",
+            "LnYxLkVscGlzRmluaXNoQnVpbGRpbmdGYWNpbGl0eVJlcXVlc3QaMS50ZWNo",
+            "LmhpdmUudjEuRWxwaXNGaW5pc2hCdWlsZGluZ0ZhY2lsaXR5UmVzcG9uc2US",
+            "aAoPVXBncmFkZUZhY2lsaXR5EikudGVjaC5oaXZlLnYxLkVscGlzVXBncmFk",
+            "ZUZhY2lsaXR5UmVxdWVzdBoqLnRlY2guaGl2ZS52MS5FbHBpc1VwZ3JhZGVG",
+            "YWNpbGl0eVJlc3BvbnNlEl8KDFJlc2VhcmNoQ29yZRImLnRlY2guaGl2ZS52",
+            "MS5FbHBpc1Jlc2VhcmNoQ29yZVJlcXVlc3QaJy50ZWNoLmhpdmUudjEuRWxw",
+            "aXNSZXNlYXJjaENvcmVSZXNwb25zZRJ9ChZDaGFuZ2VGYWNpbGl0eVBvc2l0",
+            "aW9uEjAudGVjaC5oaXZlLnYxLkVscGlzQ2hhbmdlRmFjaWxpdHlQb3NpdGlv",
+            "blJlcXVlc3QaMS50ZWNoLmhpdmUudjEuRWxwaXNDaGFuZ2VGYWNpbGl0eVBv",
+            "c2l0aW9uUmVzcG9uc2USegoVQ2xhaW1TaW11bGF0aW9uUmV3YXJkEi8udGVj",
+            "aC5oaXZlLnYxLkVscGlzQ2xhaW1TaW11bGF0aW9uUmV3YXJkUmVxdWVzdBow",
+            "LnRlY2guaGl2ZS52MS5FbHBpc0NsYWltU2ltdWxhdGlvblJld2FyZFJlc3Bv",
+            "bnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.ElpisDataReflection.Descriptor, global::Tech.Hive.V1.ElpisFacilityReflection.Descriptor, global::Tech.Hive.V1.ElpisCoreResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisTacticResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisSimulationReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.ElpisDataReflection.Descriptor, global::Tech.Hive.V1.ElpisFacilityReflection.Descriptor, global::Tech.Hive.V1.ElpisCoreResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisSimulationReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.ElpisErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisGetRequest), global::Tech.Hive.V1.ElpisGetRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisGetResponse), global::Tech.Hive.V1.ElpisGetResponse.Parser, new[]{ "Status", "Elpis" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisExpandRequest), global::Tech.Hive.V1.ElpisExpandRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisExpandResponse), global::Tech.Hive.V1.ElpisExpandResponse.Parser, new[]{ "Status", "Elpis" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisExpandResponse), global::Tech.Hive.V1.ElpisExpandResponse.Parser, new[]{ "Status", "Facility", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisBuildFacilityRequest), global::Tech.Hive.V1.ElpisBuildFacilityRequest.Parser, new[]{ "FacilityType", "GridX", "GridY" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisBuildFacilityResponse), global::Tech.Hive.V1.ElpisBuildFacilityResponse.Parser, new[]{ "Status", "Facility", "CurrencyDeltas" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisFinishBuildingFacilityRequest), global::Tech.Hive.V1.ElpisFinishBuildingFacilityRequest.Parser, new[]{ "FacilityInstanceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisFinishBuildingFacilityResponse), global::Tech.Hive.V1.ElpisFinishBuildingFacilityResponse.Parser, new[]{ "Status", "Facility" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisUpgradeFacilityRequest), global::Tech.Hive.V1.ElpisUpgradeFacilityRequest.Parser, new[]{ "FacilityInstanceId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisUpgradeFacilityResponse), global::Tech.Hive.V1.ElpisUpgradeFacilityResponse.Parser, new[]{ "Status", "Facility", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisResearchCoreRequest), global::Tech.Hive.V1.ElpisResearchCoreRequest.Parser, new[]{ "ResearchType", "Levels" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisResearchCoreResponse), global::Tech.Hive.V1.ElpisResearchCoreResponse.Parser, new[]{ "Status", "Research", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisResearchTacticRequest), global::Tech.Hive.V1.ElpisResearchTacticRequest.Parser, new[]{ "ResearchType", "Levels" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisResearchTacticResponse), global::Tech.Hive.V1.ElpisResearchTacticResponse.Parser, new[]{ "Status", "Research", "CurrencyDeltas" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisChangeFacilityPositionRequest), global::Tech.Hive.V1.ElpisChangeFacilityPositionRequest.Parser, new[]{ "FacilityInstanceId", "GridX", "GridY" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisChangeFacilityPositionResponse), global::Tech.Hive.V1.ElpisChangeFacilityPositionResponse.Parser, new[]{ "Status", "Facility" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisClaimSimulationRewardRequest), global::Tech.Hive.V1.ElpisClaimSimulationRewardRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisClaimSimulationRewardResponse), global::Tech.Hive.V1.ElpisClaimSimulationRewardResponse.Parser, new[]{ "Status", "Simulation", "CurrencyDeltas" }, null, null, null, null)
           }));
@@ -105,6 +121,34 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum ElpisErrorCode {
     [pbr::OriginalName("ELPIS_UNSPECIFIED")] ElpisUnspecified = 0,
+    /// <summary>
+    /// 시설 개수를 초과했습니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_COUNT_EXCEEDED")] ElpisFacilityCountExceeded = 10130101,
+    /// <summary>
+    /// 유효하지 않은 시설 타입입니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_TYPE_INVALID")] ElpisFacilityTypeInvalid = 10130102,
+    /// <summary>
+    /// 시설을 찾을 수 없습니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_NOT_FOUND")] ElpisFacilityNotFound = 10130103,
+    /// <summary>
+    /// 시설을 건설하고 있지 않습니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_NOT_BUILDING")] ElpisFacilityNotBuilding = 10130104,
+    /// <summary>
+    /// 시설 건설이 완료되지 않았습니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_NOT_FINISHED_BUILDING")] ElpisFacilityNotFinishedBuilding = 10130105,
+    /// <summary>
+    /// 시설이 최대 레벨에 도달했습니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_MAX_LEVEL_REACHED")] ElpisFacilityMaxLevelReached = 10130106,
+    /// <summary>
+    /// 커맨드센터가 없음.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_COMMAND_CENTER_NOT_FOUND")] ElpisFacilityCommandCenterNotFound = 10130107,
   }
 
   #endregion
@@ -697,7 +741,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ElpisExpandResponse(ElpisExpandResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      elpis_ = other.elpis_ != null ? other.elpis_.Clone() : null;
+      facility_ = other.facility_ != null ? other.facility_.Clone() : null;
+      currencyDeltas_ = other.currencyDeltas_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -719,16 +764,30 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "elpis" field.</summary>
-    public const int ElpisFieldNumber = 2;
-    private global::Tech.Hive.V1.ElpisData elpis_;
+    /// <summary>Field number for the "facility" field.</summary>
+    public const int FacilityFieldNumber = 2;
+    private global::Tech.Hive.V1.ElpisFacility facility_;
+    /// <summary>
+    /// 커맨드센터
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.ElpisData Elpis {
-      get { return elpis_; }
+    public global::Tech.Hive.V1.ElpisFacility Facility {
+      get { return facility_; }
       set {
-        elpis_ = value;
+        facility_ = value;
       }
+    }
+
+    /// <summary>Field number for the "currency_deltas" field.</summary>
+    public const int CurrencyDeltasFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
+        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.CurrencyDelta.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
+      get { return currencyDeltas_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -747,7 +806,8 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(Elpis, other.Elpis)) return false;
+      if (!object.Equals(Facility, other.Facility)) return false;
+      if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -756,7 +816,8 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (elpis_ != null) hash ^= Elpis.GetHashCode();
+      if (facility_ != null) hash ^= Facility.GetHashCode();
+      hash ^= currencyDeltas_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -779,10 +840,11 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (elpis_ != null) {
+      if (facility_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Elpis);
+        output.WriteMessage(Facility);
       }
+      currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -797,10 +859,11 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (elpis_ != null) {
+      if (facility_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Elpis);
+        output.WriteMessage(Facility);
       }
+      currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -814,9 +877,10 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      if (elpis_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Elpis);
+      if (facility_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Facility);
       }
+      size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -835,12 +899,13 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      if (other.elpis_ != null) {
-        if (elpis_ == null) {
-          Elpis = new global::Tech.Hive.V1.ElpisData();
+      if (other.facility_ != null) {
+        if (facility_ == null) {
+          Facility = new global::Tech.Hive.V1.ElpisFacility();
         }
-        Elpis.MergeFrom(other.Elpis);
+        Facility.MergeFrom(other.Facility);
       }
+      currencyDeltas_.Add(other.currencyDeltas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -864,10 +929,14 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (elpis_ == null) {
-              Elpis = new global::Tech.Hive.V1.ElpisData();
+            if (facility_ == null) {
+              Facility = new global::Tech.Hive.V1.ElpisFacility();
             }
-            input.ReadMessage(Elpis);
+            input.ReadMessage(Facility);
+            break;
+          }
+          case 26: {
+            currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
             break;
           }
         }
@@ -893,10 +962,14 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (elpis_ == null) {
-              Elpis = new global::Tech.Hive.V1.ElpisData();
+            if (facility_ == null) {
+              Facility = new global::Tech.Hive.V1.ElpisFacility();
             }
-            input.ReadMessage(Elpis);
+            input.ReadMessage(Facility);
+            break;
+          }
+          case 26: {
+            currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
             break;
           }
         }
@@ -1442,6 +1515,441 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
+  public sealed partial class ElpisFinishBuildingFacilityRequest : pb::IMessage<ElpisFinishBuildingFacilityRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ElpisFinishBuildingFacilityRequest> _parser = new pb::MessageParser<ElpisFinishBuildingFacilityRequest>(() => new ElpisFinishBuildingFacilityRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ElpisFinishBuildingFacilityRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ElpisFinishBuildingFacilityRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ElpisFinishBuildingFacilityRequest(ElpisFinishBuildingFacilityRequest other) : this() {
+      facilityInstanceId_ = other.facilityInstanceId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ElpisFinishBuildingFacilityRequest Clone() {
+      return new ElpisFinishBuildingFacilityRequest(this);
+    }
+
+    /// <summary>Field number for the "facility_instance_id" field.</summary>
+    public const int FacilityInstanceIdFieldNumber = 1;
+    private string facilityInstanceId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string FacilityInstanceId {
+      get { return facilityInstanceId_; }
+      set {
+        facilityInstanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ElpisFinishBuildingFacilityRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ElpisFinishBuildingFacilityRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (FacilityInstanceId != other.FacilityInstanceId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (FacilityInstanceId.Length != 0) hash ^= FacilityInstanceId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (FacilityInstanceId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(FacilityInstanceId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (FacilityInstanceId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(FacilityInstanceId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (FacilityInstanceId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(FacilityInstanceId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ElpisFinishBuildingFacilityRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.FacilityInstanceId.Length != 0) {
+        FacilityInstanceId = other.FacilityInstanceId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            FacilityInstanceId = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            FacilityInstanceId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class ElpisFinishBuildingFacilityResponse : pb::IMessage<ElpisFinishBuildingFacilityResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ElpisFinishBuildingFacilityResponse> _parser = new pb::MessageParser<ElpisFinishBuildingFacilityResponse>(() => new ElpisFinishBuildingFacilityResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ElpisFinishBuildingFacilityResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ElpisFinishBuildingFacilityResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ElpisFinishBuildingFacilityResponse(ElpisFinishBuildingFacilityResponse other) : this() {
+      status_ = other.status_ != null ? other.status_.Clone() : null;
+      facility_ = other.facility_ != null ? other.facility_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ElpisFinishBuildingFacilityResponse Clone() {
+      return new ElpisFinishBuildingFacilityResponse(this);
+    }
+
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 1;
+    private global::Tech.Hive.V1.ResponseStatus status_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.ResponseStatus Status {
+      get { return status_; }
+      set {
+        status_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "facility" field.</summary>
+    public const int FacilityFieldNumber = 2;
+    private global::Tech.Hive.V1.ElpisFacility facility_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.ElpisFacility Facility {
+      get { return facility_; }
+      set {
+        facility_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ElpisFinishBuildingFacilityResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ElpisFinishBuildingFacilityResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Status, other.Status)) return false;
+      if (!object.Equals(Facility, other.Facility)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (status_ != null) hash ^= Status.GetHashCode();
+      if (facility_ != null) hash ^= Facility.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      if (facility_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Facility);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      if (facility_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Facility);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (status_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
+      }
+      if (facility_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Facility);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ElpisFinishBuildingFacilityResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.status_ != null) {
+        if (status_ == null) {
+          Status = new global::Tech.Hive.V1.ResponseStatus();
+        }
+        Status.MergeFrom(other.Status);
+      }
+      if (other.facility_ != null) {
+        if (facility_ == null) {
+          Facility = new global::Tech.Hive.V1.ElpisFacility();
+        }
+        Facility.MergeFrom(other.Facility);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            if (facility_ == null) {
+              Facility = new global::Tech.Hive.V1.ElpisFacility();
+            }
+            input.ReadMessage(Facility);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            if (facility_ == null) {
+              Facility = new global::Tech.Hive.V1.ElpisFacility();
+            }
+            input.ReadMessage(Facility);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
   public sealed partial class ElpisUpgradeFacilityRequest : pb::IMessage<ElpisUpgradeFacilityRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1456,7 +1964,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1646,7 +2154,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1917,7 +2425,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2147,7 +2655,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2404,21 +2912,21 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class ElpisResearchTacticRequest : pb::IMessage<ElpisResearchTacticRequest>
+  public sealed partial class ElpisChangeFacilityPositionRequest : pb::IMessage<ElpisChangeFacilityPositionRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ElpisResearchTacticRequest> _parser = new pb::MessageParser<ElpisResearchTacticRequest>(() => new ElpisResearchTacticRequest());
+    private static readonly pb::MessageParser<ElpisChangeFacilityPositionRequest> _parser = new pb::MessageParser<ElpisChangeFacilityPositionRequest>(() => new ElpisChangeFacilityPositionRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ElpisResearchTacticRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<ElpisChangeFacilityPositionRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2429,7 +2937,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ElpisResearchTacticRequest() {
+    public ElpisChangeFacilityPositionRequest() {
       OnConstruction();
     }
 
@@ -2437,62 +2945,73 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ElpisResearchTacticRequest(ElpisResearchTacticRequest other) : this() {
-      researchType_ = other.researchType_;
-      levels_ = other.levels_;
+    public ElpisChangeFacilityPositionRequest(ElpisChangeFacilityPositionRequest other) : this() {
+      facilityInstanceId_ = other.facilityInstanceId_;
+      gridX_ = other.gridX_;
+      gridY_ = other.gridY_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ElpisResearchTacticRequest Clone() {
-      return new ElpisResearchTacticRequest(this);
+    public ElpisChangeFacilityPositionRequest Clone() {
+      return new ElpisChangeFacilityPositionRequest(this);
     }
 
-    /// <summary>Field number for the "research_type" field.</summary>
-    public const int ResearchTypeFieldNumber = 1;
-    private global::Tech.Hive.V1.TacticResearchType researchType_ = global::Tech.Hive.V1.TacticResearchType.Unspecified;
+    /// <summary>Field number for the "facility_instance_id" field.</summary>
+    public const int FacilityInstanceIdFieldNumber = 1;
+    private string facilityInstanceId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.TacticResearchType ResearchType {
-      get { return researchType_; }
+    public string FacilityInstanceId {
+      get { return facilityInstanceId_; }
       set {
-        researchType_ = value;
+        facilityInstanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "levels" field.</summary>
-    public const int LevelsFieldNumber = 2;
-    private uint levels_;
-    /// <summary>
-    /// 올릴 레벨 수
-    /// </summary>
+    /// <summary>Field number for the "grid_x" field.</summary>
+    public const int GridXFieldNumber = 2;
+    private int gridX_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Levels {
-      get { return levels_; }
+    public int GridX {
+      get { return gridX_; }
       set {
-        levels_ = value;
+        gridX_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "grid_y" field.</summary>
+    public const int GridYFieldNumber = 3;
+    private int gridY_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int GridY {
+      get { return gridY_; }
+      set {
+        gridY_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ElpisResearchTacticRequest);
+      return Equals(other as ElpisChangeFacilityPositionRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ElpisResearchTacticRequest other) {
+    public bool Equals(ElpisChangeFacilityPositionRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (ResearchType != other.ResearchType) return false;
-      if (Levels != other.Levels) return false;
+      if (FacilityInstanceId != other.FacilityInstanceId) return false;
+      if (GridX != other.GridX) return false;
+      if (GridY != other.GridY) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2500,8 +3019,9 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ResearchType != global::Tech.Hive.V1.TacticResearchType.Unspecified) hash ^= ResearchType.GetHashCode();
-      if (Levels != 0) hash ^= Levels.GetHashCode();
+      if (FacilityInstanceId.Length != 0) hash ^= FacilityInstanceId.GetHashCode();
+      if (GridX != 0) hash ^= GridX.GetHashCode();
+      if (GridY != 0) hash ^= GridY.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2520,13 +3040,17 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ResearchType != global::Tech.Hive.V1.TacticResearchType.Unspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) ResearchType);
+      if (FacilityInstanceId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(FacilityInstanceId);
       }
-      if (Levels != 0) {
+      if (GridX != 0) {
         output.WriteRawTag(16);
-        output.WriteUInt32(Levels);
+        output.WriteInt32(GridX);
+      }
+      if (GridY != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(GridY);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2538,13 +3062,17 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ResearchType != global::Tech.Hive.V1.TacticResearchType.Unspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) ResearchType);
+      if (FacilityInstanceId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(FacilityInstanceId);
       }
-      if (Levels != 0) {
+      if (GridX != 0) {
         output.WriteRawTag(16);
-        output.WriteUInt32(Levels);
+        output.WriteInt32(GridX);
+      }
+      if (GridY != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(GridY);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2556,11 +3084,14 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ResearchType != global::Tech.Hive.V1.TacticResearchType.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ResearchType);
+      if (FacilityInstanceId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(FacilityInstanceId);
       }
-      if (Levels != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Levels);
+      if (GridX != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GridX);
+      }
+      if (GridY != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GridY);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2570,15 +3101,18 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ElpisResearchTacticRequest other) {
+    public void MergeFrom(ElpisChangeFacilityPositionRequest other) {
       if (other == null) {
         return;
       }
-      if (other.ResearchType != global::Tech.Hive.V1.TacticResearchType.Unspecified) {
-        ResearchType = other.ResearchType;
+      if (other.FacilityInstanceId.Length != 0) {
+        FacilityInstanceId = other.FacilityInstanceId;
       }
-      if (other.Levels != 0) {
-        Levels = other.Levels;
+      if (other.GridX != 0) {
+        GridX = other.GridX;
+      }
+      if (other.GridY != 0) {
+        GridY = other.GridY;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2595,12 +3129,16 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            ResearchType = (global::Tech.Hive.V1.TacticResearchType) input.ReadEnum();
+          case 10: {
+            FacilityInstanceId = input.ReadString();
             break;
           }
           case 16: {
-            Levels = input.ReadUInt32();
+            GridX = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            GridY = input.ReadInt32();
             break;
           }
         }
@@ -2618,12 +3156,16 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            ResearchType = (global::Tech.Hive.V1.TacticResearchType) input.ReadEnum();
+          case 10: {
+            FacilityInstanceId = input.ReadString();
             break;
           }
           case 16: {
-            Levels = input.ReadUInt32();
+            GridX = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            GridY = input.ReadInt32();
             break;
           }
         }
@@ -2634,21 +3176,21 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class ElpisResearchTacticResponse : pb::IMessage<ElpisResearchTacticResponse>
+  public sealed partial class ElpisChangeFacilityPositionResponse : pb::IMessage<ElpisChangeFacilityPositionResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ElpisResearchTacticResponse> _parser = new pb::MessageParser<ElpisResearchTacticResponse>(() => new ElpisResearchTacticResponse());
+    private static readonly pb::MessageParser<ElpisChangeFacilityPositionResponse> _parser = new pb::MessageParser<ElpisChangeFacilityPositionResponse>(() => new ElpisChangeFacilityPositionResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ElpisResearchTacticResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<ElpisChangeFacilityPositionResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2659,7 +3201,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ElpisResearchTacticResponse() {
+    public ElpisChangeFacilityPositionResponse() {
       OnConstruction();
     }
 
@@ -2667,17 +3209,16 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ElpisResearchTacticResponse(ElpisResearchTacticResponse other) : this() {
+    public ElpisChangeFacilityPositionResponse(ElpisChangeFacilityPositionResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      research_ = other.research_ != null ? other.research_.Clone() : null;
-      currencyDeltas_ = other.currencyDeltas_.Clone();
+      facility_ = other.facility_ != null ? other.facility_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ElpisResearchTacticResponse Clone() {
-      return new ElpisResearchTacticResponse(this);
+    public ElpisChangeFacilityPositionResponse Clone() {
+      return new ElpisChangeFacilityPositionResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -2692,38 +3233,27 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "research" field.</summary>
-    public const int ResearchFieldNumber = 2;
-    private global::Tech.Hive.V1.TacticResearch research_;
+    /// <summary>Field number for the "facility" field.</summary>
+    public const int FacilityFieldNumber = 2;
+    private global::Tech.Hive.V1.ElpisFacility facility_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.TacticResearch Research {
-      get { return research_; }
+    public global::Tech.Hive.V1.ElpisFacility Facility {
+      get { return facility_; }
       set {
-        research_ = value;
+        facility_ = value;
       }
-    }
-
-    /// <summary>Field number for the "currency_deltas" field.</summary>
-    public const int CurrencyDeltasFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
-        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.CurrencyDelta.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
-      get { return currencyDeltas_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ElpisResearchTacticResponse);
+      return Equals(other as ElpisChangeFacilityPositionResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ElpisResearchTacticResponse other) {
+    public bool Equals(ElpisChangeFacilityPositionResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -2731,8 +3261,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(Research, other.Research)) return false;
-      if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
+      if (!object.Equals(Facility, other.Facility)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2741,8 +3270,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (research_ != null) hash ^= Research.GetHashCode();
-      hash ^= currencyDeltas_.GetHashCode();
+      if (facility_ != null) hash ^= Facility.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2765,11 +3293,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (research_ != null) {
+      if (facility_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Research);
+        output.WriteMessage(Facility);
       }
-      currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2784,11 +3311,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (research_ != null) {
+      if (facility_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(Research);
+        output.WriteMessage(Facility);
       }
-      currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2802,10 +3328,9 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      if (research_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Research);
+      if (facility_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Facility);
       }
-      size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2814,7 +3339,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ElpisResearchTacticResponse other) {
+    public void MergeFrom(ElpisChangeFacilityPositionResponse other) {
       if (other == null) {
         return;
       }
@@ -2824,13 +3349,12 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      if (other.research_ != null) {
-        if (research_ == null) {
-          Research = new global::Tech.Hive.V1.TacticResearch();
+      if (other.facility_ != null) {
+        if (facility_ == null) {
+          Facility = new global::Tech.Hive.V1.ElpisFacility();
         }
-        Research.MergeFrom(other.Research);
+        Facility.MergeFrom(other.Facility);
       }
-      currencyDeltas_.Add(other.currencyDeltas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -2854,14 +3378,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (research_ == null) {
-              Research = new global::Tech.Hive.V1.TacticResearch();
+            if (facility_ == null) {
+              Facility = new global::Tech.Hive.V1.ElpisFacility();
             }
-            input.ReadMessage(Research);
-            break;
-          }
-          case 26: {
-            currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
+            input.ReadMessage(Facility);
             break;
           }
         }
@@ -2887,14 +3407,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            if (research_ == null) {
-              Research = new global::Tech.Hive.V1.TacticResearch();
+            if (facility_ == null) {
+              Facility = new global::Tech.Hive.V1.ElpisFacility();
             }
-            input.ReadMessage(Research);
-            break;
-          }
-          case 26: {
-            currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
+            input.ReadMessage(Facility);
             break;
           }
         }
@@ -2919,7 +3435,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3072,7 +3588,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Tech.Hive.V1.ElpisReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

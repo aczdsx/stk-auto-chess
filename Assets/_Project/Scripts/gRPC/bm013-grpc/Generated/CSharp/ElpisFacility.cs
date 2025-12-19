@@ -28,14 +28,11 @@ namespace Tech.Hive.V1 {
             "c0ZhY2lsaXR5EhMKC2luc3RhbmNlX2lkGAEgASgJEi0KBHR5cGUYAiABKA4y",
             "Hy50ZWNoLmhpdmUudjEuRWxwaXNGYWNpbGl0eVR5cGUSDQoFbGV2ZWwYAyAB",
             "KA0SEQoJbWF4X2xldmVsGAQgASgNEhAKCGJ1aWx0X2F0GAUgASgEEg4KBmdy",
-            "aWRfeBgGIAEoBRIOCgZncmlkX3kYByABKAUqsAIKEUVscGlzRmFjaWxpdHlU",
+            "aWRfeBgGIAEoBRIOCgZncmlkX3kYByABKAUqsgEKEUVscGlzRmFjaWxpdHlU",
             "eXBlEh0KGUZBQ0lMSVRZX1RZUEVfVU5TUEVDSUZJRUQQABIgChxGQUNJTElU",
-            "WV9UWVBFX0NPTU1BTkRfQ0VOVEVSEAESGwoXRkFDSUxJVFlfVFlQRV9ET1JN",
-            "SVRPUlkQAhIaChZGQUNJTElUWV9UWVBFX0NPUkVfTEFCEAMSHAoYRkFDSUxJ",
-            "VFlfVFlQRV9UQUNUSUNfTEFCEAQSIwofRkFDSUxJVFlfVFlQRV9TSU1VTEFU",
-            "SU9OX0NFTlRFUhAFEh8KG0ZBQ0lMSVRZX1RZUEVfVFJBSU5JTkdfUk9PTRAG",
-            "EhsKF0ZBQ0lMSVRZX1RZUEVfQ0FGRVRFUklBEAcSIAocRkFDSUxJVFlfVFlQ",
-            "RV9CQVRUTEVfQVJDSElWRRAIYgZwcm90bzM="));
+            "WV9UWVBFX0NPTU1BTkRfQ0VOVEVSEAESFgoSRkFDSUxJVFlfVFlQRV9ORVNU",
+            "EAISHwobRkFDSUxJVFlfVFlQRV9ESU1FTlNJT05fTEFCEAMSIwofRkFDSUxJ",
+            "VFlfVFlQRV9TSU1VTEFUSU9OX0NFTlRFUhAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.ElpisFacilityType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,31 +55,15 @@ namespace Tech.Hive.V1 {
     /// <summary>
     /// 숙소
     /// </summary>
-    [pbr::OriginalName("FACILITY_TYPE_DORMITORY")] FacilityTypeDormitory = 2,
+    [pbr::OriginalName("FACILITY_TYPE_NEST")] FacilityTypeNest = 2,
     /// <summary>
     /// 코어 연구소
     /// </summary>
-    [pbr::OriginalName("FACILITY_TYPE_CORE_LAB")] FacilityTypeCoreLab = 3,
-    /// <summary>
-    /// 전술 연구소
-    /// </summary>
-    [pbr::OriginalName("FACILITY_TYPE_TACTIC_LAB")] FacilityTypeTacticLab = 4,
+    [pbr::OriginalName("FACILITY_TYPE_DIMENSION_LAB")] FacilityTypeDimensionLab = 3,
     /// <summary>
     /// 전투 시뮬레이션 센터
     /// </summary>
-    [pbr::OriginalName("FACILITY_TYPE_SIMULATION_CENTER")] FacilityTypeSimulationCenter = 5,
-    /// <summary>
-    /// 단련실
-    /// </summary>
-    [pbr::OriginalName("FACILITY_TYPE_TRAINING_ROOM")] FacilityTypeTrainingRoom = 6,
-    /// <summary>
-    /// 식당
-    /// </summary>
-    [pbr::OriginalName("FACILITY_TYPE_CAFETERIA")] FacilityTypeCafeteria = 7,
-    /// <summary>
-    /// 전투 기록관
-    /// </summary>
-    [pbr::OriginalName("FACILITY_TYPE_BATTLE_ARCHIVE")] FacilityTypeBattleArchive = 8,
+    [pbr::OriginalName("FACILITY_TYPE_SIMULATION_CENTER")] FacilityTypeSimulationCenter = 4,
   }
 
   #endregion

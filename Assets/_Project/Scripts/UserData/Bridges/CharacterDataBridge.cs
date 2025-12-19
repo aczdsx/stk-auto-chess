@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Tech.Hive.V1;
+using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
@@ -117,7 +118,7 @@ namespace CookApps.AutoBattler
             if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<CharacterData>();
+            using var _ = ListPool<CharacterData>.Get(out var allCharacters);
             Model.GetAllCharacters(allCharacters);
 
             // for문 사용 (Linq 지양)
@@ -139,7 +140,7 @@ namespace CookApps.AutoBattler
             if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<CharacterData>();
+            using var _ = ListPool<CharacterData>.Get(out var allCharacters);
             Model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)
@@ -160,7 +161,7 @@ namespace CookApps.AutoBattler
             if (Model == null || output == null) return;
 
             output.Clear();
-            var allCharacters = new List<CharacterData>();
+            using var _ = ListPool<CharacterData>.Get(out var allCharacters);
             Model.GetAllCharacters(allCharacters);
 
             for (int i = 0; i < allCharacters.Count; i++)

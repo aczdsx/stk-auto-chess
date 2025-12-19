@@ -8,7 +8,6 @@ import "custom_common.proto";
 import "elpis+data.proto";
 import "elpis+facility.proto";
 import "elpis+core_research.proto";
-import "elpis+tactic_research.proto";
 import "elpis+simulation.proto";
 
 // 함선 서비스
@@ -21,12 +20,17 @@ service ElpisService {
   /**
    * 함선 확장 (코어 사용)
    */
-  rpc ExpandElpis(ElpisExpandRequest) returns (ElpisExpandResponse);
+  rpc Expand(ElpisExpandRequest) returns (ElpisExpandResponse);
 
   /**
    * 시설 건설
    */
   rpc BuildFacility(ElpisBuildFacilityRequest) returns (ElpisBuildFacilityResponse);
+
+  /**
+   * 시설 건설 완료
+   */
+  rpc FinishBuildingFacility(ElpisFinishBuildingFacilityRequest) returns (ElpisFinishBuildingFacilityResponse);
   
   /**
    * 시설 업그레이드
@@ -39,9 +43,9 @@ service ElpisService {
   rpc ResearchCore(ElpisResearchCoreRequest) returns (ElpisResearchCoreResponse);
   
   /**
-   * 전술 연구소 - 설치물 연구
+   * 시설 위치 변경
    */
-  rpc ResearchTactic(ElpisResearchTacticRequest) returns (ElpisResearchTacticResponse);
+  rpc ChangeFacilityPosition(ElpisChangeFacilityPositionRequest) returns (ElpisChangeFacilityPositionResponse);
   
   /**
    * 전투 시뮬레이션 - 보상 수령
@@ -51,6 +55,16 @@ service ElpisService {
 
 enum ElpisErrorCode {
   ELPIS_UNSPECIFIED = 0;
+
+  ELPIS_FACILITY_COUNT_EXCEEDED = 10130101; // 시설 개수를 초과했습니다.
+  ELPIS_FACILITY_TYPE_INVALID = 10130102; // 유효하지 않은 시설 타입입니다.
+
+  ELPIS_FACILITY_NOT_FOUND = 10130103; // 시설을 찾을 수 없습니다.
+  ELPIS_FACILITY_NOT_BUILDING = 10130104; // 시설을 건설하고 있지 않습니다.
+  ELPIS_FACILITY_NOT_FINISHED_BUILDING = 10130105; // 시설 건설이 완료되지 않았습니다.
+  ELPIS_FACILITY_MAX_LEVEL_REACHED = 10130106; // 시설이 최대 레벨에 도달했습니다.
+
+  ELPIS_FACILITY_COMMAND_CENTER_NOT_FOUND = 10130107; // 커맨드센터가 없음.
 }
 
 message ElpisGetRequest {}
@@ -62,7 +76,8 @@ message ElpisGetResponse {
 message ElpisExpandRequest {}
 message ElpisExpandResponse {
   ResponseStatus status = 1;
-  ElpisData elpis = 2;
+  ElpisFacility facility = 2; // 커맨드센터
+  repeated CurrencyDelta currency_deltas = 3;
 }
 
 message ElpisBuildFacilityRequest {
@@ -75,6 +90,15 @@ message ElpisBuildFacilityResponse {
   ResponseStatus status = 1;
   ElpisFacility facility = 2;
   repeated CurrencyDelta currency_deltas = 3;
+}
+
+message ElpisFinishBuildingFacilityRequest {
+  string facility_instance_id = 1;
+}
+
+message ElpisFinishBuildingFacilityResponse {
+  ResponseStatus status = 1;
+  ElpisFacility facility = 2;
 }
 
 message ElpisUpgradeFacilityRequest {
@@ -98,15 +122,15 @@ message ElpisResearchCoreResponse {
   repeated CurrencyDelta currency_deltas = 3;
 }
 
-message ElpisResearchTacticRequest {
-  TacticResearchType research_type = 1;
-  uint32 levels = 2;  // 올릴 레벨 수
+message ElpisChangeFacilityPositionRequest {
+  string facility_instance_id = 1;
+  int32 grid_x = 2;
+  int32 grid_y = 3;
 }
 
-message ElpisResearchTacticResponse {
+message ElpisChangeFacilityPositionResponse {
   ResponseStatus status = 1;
-  TacticResearch research = 2;
-  repeated CurrencyDelta currency_deltas = 3;
+  ElpisFacility facility = 2;
 }
 
 message ElpisClaimSimulationRewardRequest {}

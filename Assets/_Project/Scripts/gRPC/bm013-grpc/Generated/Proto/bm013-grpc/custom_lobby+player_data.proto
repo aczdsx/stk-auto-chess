@@ -11,9 +11,9 @@ message CustomPlayerData {
   uint64 exp = 5;
   uint64 exp_to_next_level = 6;
 
-  string representative_character_id = 7;
+  optional string representative_character_id = 7;
 
-  uint32 last_accessed_at = 8;
+  uint64 last_accessed_at = 8;
 
   uint32 vip_level = 10;
   uint32 vip_exp = 11;

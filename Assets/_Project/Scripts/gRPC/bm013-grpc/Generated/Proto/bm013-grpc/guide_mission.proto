@@ -11,12 +11,7 @@ service GuideMissionService {
   /**
    * 가이드 미션 목록 조회
    */
-  rpc List(GuideMissionListRequest) returns (GuideMissionListResponse);
-
-  /**
-   * 가이드 미션 진행 사항 업데이트
-   */
-  rpc UpdateProgress(GuideMissionUpdateProgressRequest) returns (GuideMissionUpdateProgressResponse);
+  rpc Get(GuideMissionGetRequest) returns (GuideMissionGetResponse);
 
   /**
    * 가이드 미션 보상 수령
@@ -28,20 +23,8 @@ enum GuideMissionErrorCode {
   GUIDE_MISSION_UNSPECIFIED = 0;
 }
 
-message GuideMissionListRequest {}
-message GuideMissionListResponse {
-  ResponseStatus status = 1;
-  repeated GuideMissionData guide_missions = 2;
-  uint32 current_order = 3;
-}
-
-
-message GuideMissionUpdateProgressRequest {
-  uint32 guide_mission_id = 1;
-  uint32 add_current_count = 2;
-}
-
-message GuideMissionUpdateProgressResponse {
+message GuideMissionGetRequest {}
+message GuideMissionGetResponse {
   ResponseStatus status = 1;
   GuideMissionData guide_mission = 2;
 }

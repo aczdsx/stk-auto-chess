@@ -25,20 +25,16 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChBlbHBpcytkYXRhLnByb3RvEgx0ZWNoLmhpdmUudjEaFGVscGlzK2ZhY2ls",
-            "aXR5LnByb3RvGhllbHBpcytjb3JlX3Jlc2VhcmNoLnByb3RvGhtlbHBpcyt0",
-            "YWN0aWNfcmVzZWFyY2gucHJvdG8aFmVscGlzK3NpbXVsYXRpb24ucHJvdG8i",
-            "tAIKCUVscGlzRGF0YRINCgVsZXZlbBgBIAEoDRIRCgltYXhfbGV2ZWwYAiAB",
-            "KA0SFwoPZXhwYW5zaW9uX2xldmVsGAMgASgNEhsKE21heF9leHBhbnNpb25f",
-            "bGV2ZWwYBCABKA0SLwoKZmFjaWxpdGllcxgFIAMoCzIbLnRlY2guaGl2ZS52",
-            "MS5FbHBpc0ZhY2lsaXR5EjMKD2NvcmVfcmVzZWFyY2hlcxgGIAMoCzIaLnRl",
-            "Y2guaGl2ZS52MS5Db3JlUmVzZWFyY2gSNwoRdGFjdGljX3Jlc2VhcmNoZXMY",
-            "ByADKAsyHC50ZWNoLmhpdmUudjEuVGFjdGljUmVzZWFyY2gSMAoKc2ltdWxh",
-            "dGlvbhgIIAEoCzIcLnRlY2guaGl2ZS52MS5TaW11bGF0aW9uRGF0YWIGcHJv",
-            "dG8z"));
+            "aXR5LnByb3RvGhllbHBpcytjb3JlX3Jlc2VhcmNoLnByb3RvGhZlbHBpcytz",
+            "aW11bGF0aW9uLnByb3RvIqMBCglFbHBpc0RhdGESLwoKZmFjaWxpdGllcxgB",
+            "IAMoCzIbLnRlY2guaGl2ZS52MS5FbHBpc0ZhY2lsaXR5EjMKD2NvcmVfcmVz",
+            "ZWFyY2hlcxgCIAMoCzIaLnRlY2guaGl2ZS52MS5Db3JlUmVzZWFyY2gSMAoK",
+            "c2ltdWxhdGlvbhgDIAEoCzIcLnRlY2guaGl2ZS52MS5TaW11bGF0aW9uRGF0",
+            "YWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.ElpisFacilityReflection.Descriptor, global::Tech.Hive.V1.ElpisCoreResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisTacticResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisSimulationReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.ElpisFacilityReflection.Descriptor, global::Tech.Hive.V1.ElpisCoreResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisSimulationReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisData), global::Tech.Hive.V1.ElpisData.Parser, new[]{ "Level", "MaxLevel", "ExpansionLevel", "MaxExpansionLevel", "Facilities", "CoreResearches", "TacticResearches", "Simulation" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisData), global::Tech.Hive.V1.ElpisData.Parser, new[]{ "Facilities", "CoreResearches", "Simulation" }, null, null, null, null)
           }));
     }
     #endregion
@@ -80,13 +76,8 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ElpisData(ElpisData other) : this() {
-      level_ = other.level_;
-      maxLevel_ = other.maxLevel_;
-      expansionLevel_ = other.expansionLevel_;
-      maxExpansionLevel_ = other.maxExpansionLevel_;
       facilities_ = other.facilities_.Clone();
       coreResearches_ = other.coreResearches_.Clone();
-      tacticResearches_ = other.tacticResearches_.Clone();
       simulation_ = other.simulation_ != null ? other.simulation_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -97,64 +88,10 @@ namespace Tech.Hive.V1 {
       return new ElpisData(this);
     }
 
-    /// <summary>Field number for the "level" field.</summary>
-    public const int LevelFieldNumber = 1;
-    private uint level_;
-    /// <summary>
-    /// 레벨 정보
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Level {
-      get { return level_; }
-      set {
-        level_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "max_level" field.</summary>
-    public const int MaxLevelFieldNumber = 2;
-    private uint maxLevel_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint MaxLevel {
-      get { return maxLevel_; }
-      set {
-        maxLevel_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "expansion_level" field.</summary>
-    public const int ExpansionLevelFieldNumber = 3;
-    private uint expansionLevel_;
-    /// <summary>
-    /// 확장 정보
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint ExpansionLevel {
-      get { return expansionLevel_; }
-      set {
-        expansionLevel_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "max_expansion_level" field.</summary>
-    public const int MaxExpansionLevelFieldNumber = 4;
-    private uint maxExpansionLevel_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint MaxExpansionLevel {
-      get { return maxExpansionLevel_; }
-      set {
-        maxExpansionLevel_ = value;
-      }
-    }
-
     /// <summary>Field number for the "facilities" field.</summary>
-    public const int FacilitiesFieldNumber = 5;
+    public const int FacilitiesFieldNumber = 1;
     private static readonly pb::FieldCodec<global::Tech.Hive.V1.ElpisFacility> _repeated_facilities_codec
-        = pb::FieldCodec.ForMessage(42, global::Tech.Hive.V1.ElpisFacility.Parser);
+        = pb::FieldCodec.ForMessage(10, global::Tech.Hive.V1.ElpisFacility.Parser);
     private readonly pbc::RepeatedField<global::Tech.Hive.V1.ElpisFacility> facilities_ = new pbc::RepeatedField<global::Tech.Hive.V1.ElpisFacility>();
     /// <summary>
     /// 시설 목록
@@ -166,9 +103,9 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "core_researches" field.</summary>
-    public const int CoreResearchesFieldNumber = 6;
+    public const int CoreResearchesFieldNumber = 2;
     private static readonly pb::FieldCodec<global::Tech.Hive.V1.CoreResearch> _repeated_coreResearches_codec
-        = pb::FieldCodec.ForMessage(50, global::Tech.Hive.V1.CoreResearch.Parser);
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CoreResearch.Parser);
     private readonly pbc::RepeatedField<global::Tech.Hive.V1.CoreResearch> coreResearches_ = new pbc::RepeatedField<global::Tech.Hive.V1.CoreResearch>();
     /// <summary>
     /// 연구 정보
@@ -179,19 +116,8 @@ namespace Tech.Hive.V1 {
       get { return coreResearches_; }
     }
 
-    /// <summary>Field number for the "tactic_researches" field.</summary>
-    public const int TacticResearchesFieldNumber = 7;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.TacticResearch> _repeated_tacticResearches_codec
-        = pb::FieldCodec.ForMessage(58, global::Tech.Hive.V1.TacticResearch.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.TacticResearch> tacticResearches_ = new pbc::RepeatedField<global::Tech.Hive.V1.TacticResearch>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.TacticResearch> TacticResearches {
-      get { return tacticResearches_; }
-    }
-
     /// <summary>Field number for the "simulation" field.</summary>
-    public const int SimulationFieldNumber = 8;
+    public const int SimulationFieldNumber = 3;
     private global::Tech.Hive.V1.SimulationData simulation_;
     /// <summary>
     /// 전투 시뮬레이션 정보
@@ -220,13 +146,8 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Level != other.Level) return false;
-      if (MaxLevel != other.MaxLevel) return false;
-      if (ExpansionLevel != other.ExpansionLevel) return false;
-      if (MaxExpansionLevel != other.MaxExpansionLevel) return false;
       if(!facilities_.Equals(other.facilities_)) return false;
       if(!coreResearches_.Equals(other.coreResearches_)) return false;
-      if(!tacticResearches_.Equals(other.tacticResearches_)) return false;
       if (!object.Equals(Simulation, other.Simulation)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -235,13 +156,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Level != 0) hash ^= Level.GetHashCode();
-      if (MaxLevel != 0) hash ^= MaxLevel.GetHashCode();
-      if (ExpansionLevel != 0) hash ^= ExpansionLevel.GetHashCode();
-      if (MaxExpansionLevel != 0) hash ^= MaxExpansionLevel.GetHashCode();
       hash ^= facilities_.GetHashCode();
       hash ^= coreResearches_.GetHashCode();
-      hash ^= tacticResearches_.GetHashCode();
       if (simulation_ != null) hash ^= Simulation.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -261,27 +177,10 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Level != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(Level);
-      }
-      if (MaxLevel != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(MaxLevel);
-      }
-      if (ExpansionLevel != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(ExpansionLevel);
-      }
-      if (MaxExpansionLevel != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(MaxExpansionLevel);
-      }
       facilities_.WriteTo(output, _repeated_facilities_codec);
       coreResearches_.WriteTo(output, _repeated_coreResearches_codec);
-      tacticResearches_.WriteTo(output, _repeated_tacticResearches_codec);
       if (simulation_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(26);
         output.WriteMessage(Simulation);
       }
       if (_unknownFields != null) {
@@ -294,27 +193,10 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Level != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(Level);
-      }
-      if (MaxLevel != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(MaxLevel);
-      }
-      if (ExpansionLevel != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(ExpansionLevel);
-      }
-      if (MaxExpansionLevel != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(MaxExpansionLevel);
-      }
       facilities_.WriteTo(ref output, _repeated_facilities_codec);
       coreResearches_.WriteTo(ref output, _repeated_coreResearches_codec);
-      tacticResearches_.WriteTo(ref output, _repeated_tacticResearches_codec);
       if (simulation_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(26);
         output.WriteMessage(Simulation);
       }
       if (_unknownFields != null) {
@@ -327,21 +209,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Level != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Level);
-      }
-      if (MaxLevel != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MaxLevel);
-      }
-      if (ExpansionLevel != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ExpansionLevel);
-      }
-      if (MaxExpansionLevel != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MaxExpansionLevel);
-      }
       size += facilities_.CalculateSize(_repeated_facilities_codec);
       size += coreResearches_.CalculateSize(_repeated_coreResearches_codec);
-      size += tacticResearches_.CalculateSize(_repeated_tacticResearches_codec);
       if (simulation_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Simulation);
       }
@@ -357,21 +226,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.Level != 0) {
-        Level = other.Level;
-      }
-      if (other.MaxLevel != 0) {
-        MaxLevel = other.MaxLevel;
-      }
-      if (other.ExpansionLevel != 0) {
-        ExpansionLevel = other.ExpansionLevel;
-      }
-      if (other.MaxExpansionLevel != 0) {
-        MaxExpansionLevel = other.MaxExpansionLevel;
-      }
       facilities_.Add(other.facilities_);
       coreResearches_.Add(other.coreResearches_);
-      tacticResearches_.Add(other.tacticResearches_);
       if (other.simulation_ != null) {
         if (simulation_ == null) {
           Simulation = new global::Tech.Hive.V1.SimulationData();
@@ -393,35 +249,15 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Level = input.ReadUInt32();
-            break;
-          }
-          case 16: {
-            MaxLevel = input.ReadUInt32();
-            break;
-          }
-          case 24: {
-            ExpansionLevel = input.ReadUInt32();
-            break;
-          }
-          case 32: {
-            MaxExpansionLevel = input.ReadUInt32();
-            break;
-          }
-          case 42: {
+          case 10: {
             facilities_.AddEntriesFrom(input, _repeated_facilities_codec);
             break;
           }
-          case 50: {
+          case 18: {
             coreResearches_.AddEntriesFrom(input, _repeated_coreResearches_codec);
             break;
           }
-          case 58: {
-            tacticResearches_.AddEntriesFrom(input, _repeated_tacticResearches_codec);
-            break;
-          }
-          case 66: {
+          case 26: {
             if (simulation_ == null) {
               Simulation = new global::Tech.Hive.V1.SimulationData();
             }
@@ -443,35 +279,15 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Level = input.ReadUInt32();
-            break;
-          }
-          case 16: {
-            MaxLevel = input.ReadUInt32();
-            break;
-          }
-          case 24: {
-            ExpansionLevel = input.ReadUInt32();
-            break;
-          }
-          case 32: {
-            MaxExpansionLevel = input.ReadUInt32();
-            break;
-          }
-          case 42: {
+          case 10: {
             facilities_.AddEntriesFrom(ref input, _repeated_facilities_codec);
             break;
           }
-          case 50: {
+          case 18: {
             coreResearches_.AddEntriesFrom(ref input, _repeated_coreResearches_codec);
             break;
           }
-          case 58: {
-            tacticResearches_.AddEntriesFrom(ref input, _repeated_tacticResearches_codec);
-            break;
-          }
-          case 66: {
+          case 26: {
             if (simulation_ == null) {
               Simulation = new global::Tech.Hive.V1.SimulationData();
             }
