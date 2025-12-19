@@ -555,6 +555,10 @@ namespace CookApps.BattleSystem
         private void EffectCodeOnChangedDirtyFlagHandler(EffectCodeInheritFlag flag)
         {
             needUpdateFlag |= flag;
+            if (flag.HasFlag(EffectCodeInheritFlag.StatHP))
+            {
+                UpdateHpBar();
+            }
         }
 
         #endregion

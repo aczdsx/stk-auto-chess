@@ -21,7 +21,7 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
 
         characters = ListPool<CharacterController>.Get();
 
-        InGameObjectManager.Instance.ClearSynergyFx();
+        InGameSynergyManager.Instance.ClearSynergyFx();
         InGameMain.GetInGameMain().InitCombatStateUI();
         InGameObjectManager.Instance.SaveStartingPlayerCharacter();
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
@@ -39,8 +39,8 @@ public class FlowStateTrialDungeonCombat : StateCombatBase
 
     public override void StateStart()
     {
-        // base.AddSynergy(AllianceType.Player);
-        // base.AddSynergy(AllianceType.Enemy);
+        // 전투 시작 전까지 아이템이 부여되지 않은 아이템들의 콜백 호출
+        InGameSynergyManager.Instance.CheckAndHandleNotAppliedItemsBeforeCombat();
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
