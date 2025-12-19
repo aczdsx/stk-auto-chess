@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Naninovel_Backgrounds
+  m_EditorClassIdentifier: 
+  m_GroupName: Naninovel_Backgrounds
+  m_GUID: 5634f6a3c17a84dd2bef12a64072cdd3
+  m_SerializeEntries:
+  - m_GUID: 32078a69862bdf44fa857d72a6aff90e
+    m_Address: Naninovel/Backgrounds/bg_ruins_04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48c9391c234ac6246a17e584f5890e4f
+    m_Address: Naninovel/Backgrounds/bg_climax_battle_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69996c98389b3e04e8097e3915001512
+    m_Address: Naninovel/Backgrounds/bg_building_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c6fcb6f5a7574f459d2f059aa521fac
+    m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80b22520bb6b5304fad1e1604b96d8b1
+    m_Address: Naninovel/Backgrounds/bg_ruins_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82e3d7cd7eaea0d48b03821dcf05f560
+    m_Address: Naninovel/Backgrounds/bg_ruins_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d7b081000edb124b9ce3ff871e8e0d2
+    m_Address: Naninovel/Backgrounds/bg_hubble_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dab2ac41e0b7064ea0531c689d60b2a
+    m_Address: Naninovel/Backgrounds/bg_hubble_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dcc814883d7e4c4592e0515aa9caf5e
+    m_Address: Naninovel/Backgrounds/bg_past_ruins_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be9cf0d4428c9154b8325ca8e400f8a1
+    m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9d6a8f3940aa894e963407fd36ab0ab
+    m_Address: Naninovel/Backgrounds/bg_ruins_05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb67eab82ec679b4c81d29eda502eece
+    m_Address: Naninovel/Backgrounds/bg_building_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbc30cebc967bbd4b8c5cdadda65c3f6
+    m_Address: Naninovel/Backgrounds/bg_ruins_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5737ca3e4944c94e82667fb70de917c
+    m_Address: Naninovel/Backgrounds/bg_ruins_06
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ded85b5cfa9633d4f85bbc3c6244bace
+    m_Address: Naninovel/Backgrounds/bg_building_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e029f94e0658d6a48b2c761cc84b480b
+    m_Address: Naninovel/Backgrounds/bg_ruins_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6b73c59482faa04da12319a04df9b4c
+    m_Address: Naninovel/Backgrounds/bg_hubble_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f9fe0e128db46483895eb6bbc76bf0b9, type: 2}
+    - {fileID: 11400000, guid: 75b5fa3642f7b41f7b197d60c4e1c0ed, type: 2}

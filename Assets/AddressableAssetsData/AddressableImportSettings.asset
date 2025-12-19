@@ -25,7 +25,18 @@ MonoBehaviour:
     LabelMode: 0
     simplified: 0
     addressReplacement: Data/${1}.asset
-  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Scripts/([^.\r\n]+)\.nani$
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Localization/(?<locale>[^/]+)/Scripts/(?<filename>[^.\r\n]+)\.nani$
+    matchType: 1
+    groupName: Naninovel_Localization
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: Naninovel
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Naninovel/Localization/${locale}/Scripts/${filename}
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Localization/()/Scripts/([^.\r\n]+)\.nani$
     matchType: 1
     groupName: Naninovel_Scripts
     groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
@@ -36,3 +47,69 @@ MonoBehaviour:
     LabelMode: 0
     simplified: 0
     addressReplacement: Naninovel/Scripts/${1}
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Backgrounds/([^.\r\n]+)\.jpg$
+    matchType: 1
+    groupName: Naninovel_Backgrounds
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: Naninovel
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Naninovel/Backgrounds/${1}
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/CutScene/([^.\r\n]+)\.prefab$
+    matchType: 1
+    groupName: Naninovel_Spawn
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: Naninovel
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Naninovel/Spawn/CutScene/${1}
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/Emote/Resources/([^.\r\n]+)\.prefab$
+    matchType: 1
+    groupName: Naninovel_Spawn
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: Naninovel
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Naninovel/Spawn/Etc/${1}
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/Etc/([^.\r\n]+)\.prefab$
+    matchType: 1
+    groupName: Naninovel_Spawn
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: Naninovel
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Naninovel/Audio/Etc/${1}
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Audio/BGM/([^.\r\n]+)\.wav$
+    matchType: 1
+    groupName: Naninovel_BGM
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: Naninovel
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Naninovel/Audio/BGM/${1}
+  - path: ^Assets/_Project/Addressables/Remote/NaninovelRes/Audio/SFX/([^.\r\n]+)\.wav$
+    matchType: 1
+    groupName: Naninovel_SFX
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs:
+    - m_LabelString: Naninovel
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Naninovel/Audio/SFX/${1}

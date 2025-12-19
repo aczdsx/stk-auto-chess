@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Naninovel_BGM
+  m_EditorClassIdentifier: 
+  m_GroupName: Naninovel_BGM
+  m_GUID: b416634ab52844cd4b9382234d28de42
+  m_SerializeEntries:
+  - m_GUID: 26d4d1122b4fac34ab3666aa82f8b6f6
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_cozy_001
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4fae4fcfe7ea86b4d96027fdd87816a2
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_sad_001
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 695d9ecd9605bd048bfc612cf0770f30
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_mad_002
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dce942294325d1498c9dadcbc5d131f
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_happy_001
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a055098d0d2b0f648b687d11ecc8e046
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_happy_002
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cfce8ae1af125084bace55296053e940
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_mad_001
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 757d418a8f0cc4644ab6573f7001a33c, type: 2}
+    - {fileID: 11400000, guid: 5cefa8f14da394141a2550b0ea9729cc, type: 2}

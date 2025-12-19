@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VignetteData
   m_EditorClassIdentifier: 
   stageColors:
-  - InGameType: 7
+  - InGameType: 6
     ID: 0
     Material: {fileID: 2100000, guid: ac805a6aacd2b644dba2618dd3298ba2, type: 2}
     Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
