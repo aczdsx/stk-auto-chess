@@ -19,7 +19,7 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (false)
+            if (true)
             {
                 // 서버 응답으로 로컬 데이터 갱신
                 if (resp != null && resp.Status.Code == 0 && resp.Elpis != null)

@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
         public ElpisMainBlock MainBlock { get; private set; }
         private AsyncOperationHandle<GameObject> elpisMainBlockHandle;
         private AsyncOperationHandle<GameObject> elpisBgHandle;
+        private List<AsyncOperationHandle<GameObject>> characterHandles = new ();
         
         private async UniTask LoadElpis()
         {
@@ -24,6 +25,10 @@ namespace CookApps.AutoBattler
 
             MainBlock = elpisMainBlockHandle.Result.GetComponent<ElpisMainBlock>();
 
+            MainBlock.RebuildNavMesh();
+            var characterHandle = Addressables.InstantiateAsync("SD_Characters/17513401/Elpis_17513401.prefab", new Vector3(-5, 0, -5), Quaternion.identity);
+            characterHandles.Add(characterHandle);
+            await characterHandle.WaitUntilDone();
             // var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             // if (commandCenter.Level >= 2)
             // {

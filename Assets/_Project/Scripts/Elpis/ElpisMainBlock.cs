@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler
         {
             [SerializeField] private Vector3 worldPointSrc;
             [SerializeField] private Vector3 worldPointDest;
+            [SerializeField] private Quaternion rotation;
             [SerializeField] private AssetReferenceGameObject assetRef;
             private AsyncOperationHandle<GameObject> loadedHandle;
             public ElpisSubBlock SubBlock { get; private set; }
@@ -45,21 +46,23 @@ namespace CookApps.AutoBattler
                 }
             }
             
-            public async UniTask MoveBlock(bool withAnimation)
+            public async UniTask MoveBlock(ElpisDummyBlock dummyBlock, bool withAnimation)
             {
                 if (!withAnimation)
                 {
+                    dummyBlock.CachedGo.SetActive(false);
                     SubBlock.CachedTr.position = worldPointDest;
                     return;
                 }
 
+                dummyBlock.AnimateExit().Forget();
                 SubBlock.CachedTr.position = worldPointSrc;
-                var tween = Tween.Position(SubBlock.CachedTr, worldPointDest, 2f, Ease.InOutCirc);
+                var tween = Tween.Position(SubBlock.CachedTr, worldPointDest, 2f, Ease.OutCirc);
                 await tween;
             }
         }
         
-        [SerializeField] private GameObject[] dummySubBlocks;
+        [SerializeField] private ElpisDummyBlock[] dummySubBlocks;
         [SerializeField] private SubBlockInfo[] subBlockInfos;
         [SerializeField] private NavMeshSurface navMeshSurface;
         [SerializeField] private ElevatorLink[] elevatorLinks;
@@ -81,7 +84,10 @@ namespace CookApps.AutoBattler
             if (token.IsCancellationRequested)
                 return;
 
-            await subBlockInfos[index].MoveBlock(withAnimation);
+            var dummyBlock = index < dummySubBlocks.Length ? dummySubBlocks[index] : null;
+            await subBlockInfos[index].MoveBlock(dummyBlock, withAnimation);
+            
+            RebuildNavMesh();
         }
         
         public void RebuildNavMesh()

@@ -13,7 +13,6 @@ namespace Prototypes.Movement
     public class AutoWanderAgent : MonoBehaviour
     {
         [SerializeField] private SpriteAgentView _view;
-        [SerializeField] private Camera _camera;
 
         [Header("Movement Settings")]
         [SerializeField] private float _moveSpeed = 5f;
@@ -35,9 +34,6 @@ namespace Prototypes.Movement
             _agent.acceleration = 1000f;
             _agent.angularSpeed = 0f;
             _agent.stoppingDistance = _stoppingDistance;
-
-            if (_camera == null)
-                _camera = Camera.main;
         }
 
         private void Update()

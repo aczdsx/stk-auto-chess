@@ -13,17 +13,17 @@ using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
-public static class GeneratePixelResources
+public static class GenerateSDResources
 {
     private const int DEAD_FRAME_COUNT = 10;
 
-    public static void CreateAllPixelResources(bool isForce)
+    public static void CreateAllSDResources(bool isForce)
     {
         string[] groupFolderPaths = Directory.GetDirectories(ResourcePath.SD_PATH);
 
         // show progress bar
         int totalFolders = groupFolderPaths.Length;
-        EditorUtility.DisplayProgressBar("Generating Pixel Resources", "Generating...", 0f);
+        EditorUtility.DisplayProgressBar("Generating SD Resources", "Generating...", 0f);
         for (var i = 0; i < groupFolderPaths.Length; i++)
         {
             var groupFolderPath = groupFolderPaths[i];
@@ -46,7 +46,7 @@ public static class GeneratePixelResources
                 }
             }
             
-            EditorUtility.DisplayProgressBar("Generating Pixel Resources", "Generating...", (float)(i + 1) / totalFolders);
+            EditorUtility.DisplayProgressBar("Generating SD Resources", "Generating...", (float)(i + 1) / totalFolders);
         }
         
         AssetDatabase.SaveAssets();
@@ -91,6 +91,7 @@ public static class GeneratePixelResources
 
         AddInGameCharacterPrefab(generateResourcesPath, parentFolderName, overrideController, viewSprite);
         AddUICharacterPrefab(generateResourcesPath, parentFolderName, viewSprite);
+        AddElpisCharacterPrefab(generateResourcesPath, parentFolderName, overrideController, viewSprite);
 
         AddToAddressableGroup(generateResourcesPath);
 
@@ -359,6 +360,56 @@ public static class GeneratePixelResources
         Debug.Log("[Success] UI Prefab Created");
     }
 
+    private static void AddElpisCharacterPrefab(string parentFolderPath, string parentFolderName, AnimatorOverrideController controller, Sprite sprite)
+    {
+        if (!parentFolderPath.Contains("Characters"))
+            return;
+
+        string basePrefabName = "BasePrefab_Elpis";
+        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { ResourcePath.SD_PATH });
+        if (guids.Length == 0)
+        {
+            Debug.Log("[Fail] Find BasePrefab_Elpis");
+            return;
+        }
+
+        string basePrefabPath = AssetDatabase.GUIDToAssetPath(guids[0]);
+        GameObject source = AssetDatabase.LoadAssetAtPath<GameObject>(basePrefabPath);
+        GameObject objSource = (GameObject)PrefabUtility.InstantiatePrefab(source);
+
+        Transform childTransform = objSource.transform.GetChild(0).GetChild(0).GetChild(0);
+
+        SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = sprite;
+        }
+        else
+        {
+            Debug.Log("[Fail] SpriteRenderer");
+            return;
+        }
+
+        Animator animator = childTransform.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.runtimeAnimatorController = controller;
+        }
+        else
+        {
+            Debug.Log("[Fail] Animator");
+            return;
+        }
+
+        string prefabFullPath = Path.Combine(parentFolderPath, $"Elpis_{parentFolderName}.prefab");
+        prefabFullPath = prefabFullPath.Replace("\\", "/");
+        PrefabUtility.SaveAsPrefabAsset(objSource, prefabFullPath);
+
+        Object.DestroyImmediate(objSource);
+
+        Debug.Log("[Success] Elpis Prefab Created");
+    }
+
     private static void CreateSingleSpriteAtlas(string parentFolderPath, List<Sprite> allSprites,
         string parentFolderName)
     {
@@ -407,7 +458,7 @@ public static class GeneratePixelResources
         AssetDatabase.CreateAsset(spriteAtlas, savePath);
 
         // Packing atlases
-        // SpriteAtlasUtility.PackAtlases(new[] {spriteAtlas}, EditorUserBuildSettings.activeBuildTarget);
+        SpriteAtlasUtility.PackAtlases(new[] {spriteAtlas}, EditorUserBuildSettings.activeBuildTarget);
 
         Debug.Log("[Success] Sprite Atlas Created");
     }

@@ -17,16 +17,16 @@ public class GenerateResourcesMenu
         GenerateLDResources.CreateAllLDResources(true);
     }
 
-    [MenuItem("Tools/Pixel Resources/Generate All Pixel Resources")]
+    [MenuItem("Tools/SD Resources/Generate All SD Resources")]
     private static void CreateAnimationsForAllSubfolders()
     {
-        GeneratePixelResources.CreateAllPixelResources(false);
+        GenerateSDResources.CreateAllSDResources(false);
     }
 
-    [MenuItem("Tools/Pixel Resources/Force Generate All Pixel Resources")]
+    [MenuItem("Tools/SD Resources/Force Generate All SD Resources")]
     public static void ForceCreateAnimationsForAllSubfolders()
     {
-        GeneratePixelResources.CreateAllPixelResources(true);
+        GenerateSDResources.CreateAllSDResources(true);
     }
 
     [MenuItem("Assets/Generate Resources", true)]
@@ -65,7 +65,7 @@ public class GenerateResourcesMenu
             }
             else if (pathParts[^3].Contains("SD"))
             {
-                CreatePixelResource(folderPath);
+                CreateSDResource(folderPath);
             }
         }
 
@@ -74,7 +74,7 @@ public class GenerateResourcesMenu
        
     }
 
-    private static void CreatePixelResource(string folderPath)
+    private static void CreateSDResource(string folderPath)
     {
         if (!AssetDatabase.IsValidFolder(folderPath))
             return;
@@ -86,7 +86,7 @@ public class GenerateResourcesMenu
             AssetDatabase.DeleteAsset(generateResourcesPath);
         }
 
-        GeneratePixelResources.CreateAnimationsFromPath(folderPath);
+        GenerateSDResources.CreateAnimationsFromPath(folderPath);
     }
 
     private static void CreateLDResources(string folderPath)
