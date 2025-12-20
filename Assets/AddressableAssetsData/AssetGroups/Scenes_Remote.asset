@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Scenes_Remote
+  m_EditorClassIdentifier: 
+  m_GroupName: Scenes_Remote
+  m_GUID: 677a560a5e670476097a8baadfff9499
+  m_SerializeEntries:
+  - m_GUID: 29c1e210896cb0b4bac47941444ed814
+    m_Address: Assets/_Project/Addressables/Remote/Scenes/Naninovel.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61e7bd672efcc4045915939216d08afd
+    m_Address: Assets/_Project/Addressables/Remote/Scenes/Lobby.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8029178524cba4055adeed793914bebd
+    m_Address: Assets/_Project/Addressables/Remote/Scenes/InGame.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82d3b55c0d6944acd81604cfdc57e37e
+    m_Address: Assets/_Project/Addressables/Remote/Scenes/SceneLoading.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b8e2c1da733c34c5dbb04fe380fccfff
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c90fe9a8b0bc9f940b77073f3af35041
+    m_Address: Assets/_Project/Addressables/Remote/Scenes/SkillScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e2398cf72cf2d43fcb8a4d6d389cf8c7, type: 2}
+    - {fileID: 11400000, guid: 340559141f2104d10a67524590829ff9, type: 2}

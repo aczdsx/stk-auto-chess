@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
 
             if (prevSceneName == "BattleReady")
             {
-                await UnloadLobbyResources();
+                await UnloadBattleReadyResources();
             }
 
             if (prevSceneName == "InGame")
@@ -33,7 +33,7 @@ namespace CookApps.AutoBattler
 
             if (sceneName == "BattleReady")
             {
-                await LoadLobbyResources(defaultUIData);
+                await LoadBattleReadyResources(defaultUIData);
             }
 
             if (sceneName == "InGame")
@@ -55,7 +55,7 @@ namespace CookApps.AutoBattler
             await TopPanelSingleUseHelper.Instance.Initialize();
         }
 
-        private static async UniTask UnloadLobbyResources()
+        private static async UniTask UnloadBattleReadyResources()
         {
             TopPanelSingleUseHelper.Instance.Clear();
             await UniTask.Yield();

@@ -80,7 +80,7 @@ namespace CookApps.AutoBattler
             SceneTransition.Create<SceneTransition_Animator>();
             await SceneTransition.FadeInAsync();
             var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
-            SceneLoading.GoToNextScene("BattleReady", currentStageData.stage_id);
+            SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
         }
     }
 }
