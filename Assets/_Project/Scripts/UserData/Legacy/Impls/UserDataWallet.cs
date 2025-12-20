@@ -146,8 +146,8 @@ namespace CookApps.AutoBattler
             if (needUpdateReddot)
             {
                 // 메인 로비 레드닷 갱신
-                var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-                if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+                // var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+                // if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
             }
         }
 
@@ -210,8 +210,8 @@ namespace CookApps.AutoBattler
             if (needUpdateReddot)
             {
                 // 메인 로비 레드닷 갱신
-                var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-                if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+                // var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+                // if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
             }
         }
 
@@ -225,8 +225,8 @@ namespace CookApps.AutoBattler
             if (isSave) SaveUserWallet();
 
             // 메인 로비 레드닷 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-            if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+            // var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+            // if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
         }
 
         public void DecreaseItem(ItemType itemType, int itemKey, int itemAmount, bool isSave, bool needUpdateReddot)
@@ -279,8 +279,8 @@ namespace CookApps.AutoBattler
             if (needUpdateReddot)
             {
                 // 메인 로비 레드닷 갱신
-                var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-                if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+                // var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+                // if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
             }
         }
 
@@ -294,8 +294,8 @@ namespace CookApps.AutoBattler
             if (isSave) SaveUserWallet();
 
             // 메인 로비 레드닷 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-            if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
+            // var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+            // if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
         }
 
         public bool IsItemMaxCount(ItemType targetItemType)

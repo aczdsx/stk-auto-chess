@@ -79,9 +79,9 @@ namespace CookApps.AutoBattler
         private bool _isIdleRewardFullState = false;
         private ElpisDataBridge elpisDataBridge;
 
-        public static LobbyMain GetLobbyMain()
+        public static BattleReadyMain GetBattleReadyMain()
         {
-            return SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
+            return SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
         }
 
         protected override void Awake()

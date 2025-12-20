@@ -1523,7 +1523,7 @@ namespace CookApps.BattleSystem
             {
                 InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
 
-                Transform targetPos = LobbyMain.GetLobbyMain().GetIdleRewardTransform;
+                Transform targetPos = BattleReadyMain.GetBattleReadyMain().GetIdleRewardTransform;
                 Camera mainCamera = Camera.main;
                 Vector3 screenPos = new Vector3(targetPos.position.x, targetPos.position.y, mainCamera.nearClipPlane);
                 Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
@@ -1532,7 +1532,7 @@ namespace CookApps.BattleSystem
                     if (onComplete != null)
                     {
                         onComplete.Invoke(targetLine);
-                        LobbyMain.GetLobbyMain().PlayDropFx();
+                        BattleReadyMain.GetBattleReadyMain().PlayDropFx();
                     }
                 });
 

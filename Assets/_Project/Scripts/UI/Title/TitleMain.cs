@@ -111,7 +111,7 @@ namespace CookApps.AutoBattler
                 var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
                 if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
 
-                _ = SceneUILayerManager.Instance.ChangeScene("InGame",
+                SceneLoading.GoToNextScene("InGame",
                     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
             }
             else

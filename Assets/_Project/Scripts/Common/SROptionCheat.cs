@@ -113,8 +113,8 @@ public partial class SROptions
     {
         UserDataManager.Instance.CheatResetUserLevelData();
 
-        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-        if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
+        var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+        if (battleReadyMain != null) battleReadyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
     }
 
     [Category("유저 정보 관련")]
@@ -124,8 +124,8 @@ public partial class SROptions
 
         UserDataManager.Instance.AddUserLevelExp(추가유저경험치);
 
-        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-        if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
+        var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+        if (battleReadyMain != null) battleReadyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
     }
 
     [Category("유저 정보 관련")] public int 추가유저경험치 { get; set; } = 0;
@@ -278,11 +278,11 @@ public partial class SROptions
         // 행동력 소모 처리
         UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, targetSpecStageData.need_ap, true, false);
 
-        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-        if (lobbyMain != null)
+        var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+        if (battleReadyMain != null)
         {
-            lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
-            lobbyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
+            battleReadyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+            battleReadyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
         }
     }
 
@@ -329,11 +329,11 @@ public partial class SROptions
         // 행동력 소모 처리
         //UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, targetSpecStageData.need_ap, true, false);
 
-        var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-        if (lobbyMain != null)
+        var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+        if (battleReadyMain != null)
         {
-            lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
-            lobbyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
+            battleReadyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+            battleReadyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
         }
     }
 

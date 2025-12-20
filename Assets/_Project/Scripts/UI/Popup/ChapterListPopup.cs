@@ -195,10 +195,10 @@ namespace CookApps.AutoBattler
             SceneLoading.GoToNextScene("Lobby", _selectedChapterData.chapter_id);
 
             // 로비 메인 하단 스테이지 UI 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-            if (lobbyMain != null)
+            var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+            if (battleReadyMain != null)
             {
-                lobbyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+                battleReadyMain.RefreshUI(LobbyMainRefreshType.STAGE);
             }
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);

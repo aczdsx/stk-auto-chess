@@ -193,10 +193,10 @@ namespace CookApps.AutoBattler
             UserDataManager.Instance.SetLastPlayStageID(_specStageData.stage_id, true);
 
             // 로비 메인 하단 스테이지 UI 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer("LobbyMain");
-            if (lobbyMain != null)
+            var battleReadyMain = SceneUILayerManager.Instance.GetUILayer("BattleReadyMain");
+            if (battleReadyMain != null)
             {
-                lobbyMain.GetComponent<LobbyMain>()?.RefreshBottomStageUI();
+                battleReadyMain.GetComponent<BattleReadyMain>()?.RefreshBottomStageUI();
             }
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
