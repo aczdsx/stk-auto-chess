@@ -11,25 +11,13 @@ public class GenerateResourcesMenu
     [MenuItem("Tools/Resources/Generate All LD Resources")]
     private static void CreateLDResourcesForAllCharacters()
     {
-        GenerateLDResources.CreateAllLDResources(false);
-    }
-
-    [MenuItem("Tools/Resources/Force Generate All LD Resources")]
-    public static void ForceCreateLDResourcesForAllCharacters()
-    {
-        GenerateLDResources.CreateAllLDResources(true);
+        GenerateLDResources.CreateAllLDResources();
     }
 
     [MenuItem("Tools/Resources/Generate All SD Resources")]
     private static void CreateAnimationsForAllSubfolders()
     {
-        GenerateSDResources.CreateAllSDResources(false);
-    }
-
-    [MenuItem("Tools/Resources/Force Generate All SD Resources")]
-    public static void ForceCreateAnimationsForAllSubfolders()
-    {
-        GenerateSDResources.CreateAllSDResources(true);
+        GenerateSDResources.CreateAllSDResources();
     }
 
     [MenuItem("Assets/Generate Resources", true)]
@@ -96,13 +84,6 @@ public class GenerateResourcesMenu
         if (!AssetDatabase.IsValidFolder(folderPath))
             return;
 
-        string generateResourcesPath = Path.Combine(folderPath, "GenerateResources");
-
-        if (AssetDatabase.IsValidFolder(generateResourcesPath))
-        {
-            AssetDatabase.DeleteAsset(generateResourcesPath);
-        }
-
         GenerateSDResources.CreateAnimationsFromPath(folderPath, createdAtlas);
     }
 
@@ -110,13 +91,6 @@ public class GenerateResourcesMenu
     {
         if (!AssetDatabase.IsValidFolder(folderPath))
             return;
-
-        string generateResourcesPath = Path.Combine(folderPath, "GenerateResources");
-
-        if (AssetDatabase.IsValidFolder(generateResourcesPath))
-        {
-            AssetDatabase.DeleteAsset(generateResourcesPath);
-        }
 
         GenerateLDResources.CreateLDResourceFromPath(folderPath);
     }

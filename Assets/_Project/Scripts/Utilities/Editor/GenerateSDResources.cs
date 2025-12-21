@@ -17,7 +17,25 @@ public static class GenerateSDResources
 {
     private const int DEAD_FRAME_COUNT = 10;
 
-    public static void CreateAllSDResources(bool isForce)
+    // 제외할 경로 패턴 (이 문자열이 포함된 경로는 생성에서 제외)
+    private static readonly string[] ExcludedPaths =
+    {
+        "Mob/80109003",
+    };
+
+    private static bool IsExcludedPath(string path)
+    {
+        string normalizedPath = path.Replace("\\", "/");
+        for (var i = 0; i < ExcludedPaths.Length; i++)
+        {
+            if (normalizedPath.Contains(ExcludedPaths[i]))
+                return true;
+        }
+
+        return false;
+    }
+
+    public static void CreateAllSDResources()
     {
         string[] groupFolderPaths = Directory.GetDirectories(ResourcePath.SD_PATH);
 
@@ -35,18 +53,13 @@ public static class GenerateSDResources
                 var subFolders = Directory.GetDirectories(groupFolderPath);
                 foreach (var subFolder in subFolders)
                 {
-                    string folderName = new DirectoryInfo(subFolder).Name;
+                    // 제외 경로 체크
+                    if (IsExcludedPath(subFolder))
+                        continue;
+
+                    var folderName = new DirectoryInfo(subFolder).Name;
                     if (int.TryParse(folderName, out _))
                     {
-                        string generateResourcesPath = Path.Combine(subFolder, "GenerateResources");
-                        if (AssetDatabase.IsValidFolder(generateResourcesPath))
-                        {
-                            if (!isForce)
-                                continue;
-
-                            AssetDatabase.DeleteAsset(generateResourcesPath);
-                        }
-
                         CreateAnimationsFromPath(subFolder, createdAtlases);
                     }
                 }
@@ -87,6 +100,7 @@ public static class GenerateSDResources
         List<string> atlasFolderPaths = new List<string>();
         Sprite viewSprite = null;
 
+        List<AnimationClip> animationClips = new List<AnimationClip>();
         foreach (var (folderPath, sprites) in spritesByFolder)
         {
             // 폴더 구조: .../Back/IDLE, .../Front/ATK 등
@@ -105,7 +119,9 @@ public static class GenerateSDResources
                 atlasFolderPaths.Add(subFolderPath);
 
             // 애니메이션 생성
-            GenerateExtraFiles(sprites, actionName, generateResourcesPath, subFolderName);
+            var animationClip = GenerateExtraFiles(sprites, actionName, generateResourcesPath, subFolderName);
+            if (animationClip != null)
+                animationClips.Add(animationClip);
 
             // viewSprite 설정 (Front/IDLE의 첫 번째 스프라이트)
             if (viewSprite == null && subFolderName == "Front" && actionName == "IDLE" && sprites.Count > 0)
@@ -114,7 +130,7 @@ public static class GenerateSDResources
 
         createdAtlases.Add(CreateOrUpdateSpriteAtlas(generateResourcesPath, atlasFolderPaths, parentFolderName));
 
-        var overrideController = AddAnimationsToBaseController(generateResourcesPath, parentFolderName);
+        var overrideController = AddAnimationsToBaseController(generateResourcesPath, parentFolderName, animationClips);
 
         AddInGameCharacterPrefab(generateResourcesPath, parentFolderName, overrideController, viewSprite);
         AddUICharacterPrefab(generateResourcesPath, parentFolderName, viewSprite);
@@ -172,13 +188,13 @@ public static class GenerateSDResources
             );
     }
 
-    private static void GenerateExtraFiles(List<Sprite> sprites, string actionName,
+    private static AnimationClip GenerateExtraFiles(List<Sprite> sprites, string actionName,
         string animationFolderPath, string subFolderName)
     {
         if (sprites.Count == 0)
         {
             Debug.Log("[Fail] No Sprite");
-            return;
+            return null;
         }
 
         // 애니메이션 클립 생성
@@ -259,25 +275,26 @@ public static class GenerateSDResources
         string savePath = Path.Combine(animationFolderPath, $"{subFolderName}_{actionName}.anim");
         savePath = savePath.Replace("\\", "/");
 
+        string clipName = $"{subFolderName}_{actionName}";
         AnimationClip existingClip = AssetDatabase.LoadAssetAtPath<AnimationClip>(savePath);
         if (existingClip != null)
         {
             EditorUtility.CopySerialized(animationClip, existingClip);
+            existingClip.name = clipName;
             EditorUtility.SetDirty(existingClip);
         }
         else
         {
+            animationClip.name = clipName;
             AssetDatabase.CreateAsset(animationClip, savePath);
         }
+
+        return animationClip;
     }
 
-    private static AnimatorOverrideController AddAnimationsToBaseController(string parentFolderPath, string parentFolderName)
+    private static AnimatorOverrideController AddAnimationsToBaseController(string parentFolderPath, string parentFolderName, List<AnimationClip> animationClips)
     {
-        string[] animationClipPaths = Directory.GetFiles(parentFolderPath, "*.anim");
-        AnimationClip[] animationClips = animationClipPaths
-            .Select(path => AssetDatabase.LoadAssetAtPath<AnimationClip>(path)).ToArray();
-
-        if (animationClips == null || animationClips.Length == 0)
+        if (animationClips == null || animationClips.Count == 0)
         {
             Debug.LogError("[Fail] Animation Clips are not loaded properly");
             return null;

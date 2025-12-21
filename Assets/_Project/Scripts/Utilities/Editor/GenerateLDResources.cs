@@ -11,7 +11,7 @@ public class GenerateLDResources
     private static readonly string BASE_PREFAB_PATH = $"{ResourcePath.LD_PATH}/Template/BasePrefab_UI.prefab";
     private static readonly string BASE_NANINOVEL_PREFAB_PATH = $"{ResourcePath.LD_PATH}/Template/BasePrefab_NaniNovel.prefab";
 
-    public static void CreateAllLDResources(bool isForce)
+    public static void CreateAllLDResources()
     {
         if (!AssetDatabase.IsValidFolder(ResourcePath.LD_PATH))
         {
@@ -20,42 +20,36 @@ public class GenerateLDResources
         }
 
         string[] groupFolderPaths = Directory.GetDirectories(ResourcePath.LD_PATH);
-        
-        // Show progress bar
+
         int totalFolders = groupFolderPaths.Length;
         EditorUtility.DisplayProgressBar("Generating LD Resources", "Generating...", 0f);
 
-        for (var i = 0; i < groupFolderPaths.Length; i++)
+        AssetDatabase.StartAssetEditing();
+        try
         {
-            var groupFolderPath = groupFolderPaths[i];
-            string[] subFolderPaths = Directory.GetDirectories(groupFolderPath);
-            string groupName = new DirectoryInfo(groupFolderPath).Name;
-            EditorUtility.DisplayProgressBar("Generating LD Resources", $"Processing {groupName}...", (float)(i + 1) / totalFolders);
-
-            for (var j = 0; j < subFolderPaths.Length; j++)
+            for (var i = 0; i < groupFolderPaths.Length; i++)
             {
-                var subFolderPath = subFolderPaths[j];
-                string folderName = new DirectoryInfo(subFolderPath).Name;
+                var groupFolderPath = groupFolderPaths[i];
+                string[] subFolderPaths = Directory.GetDirectories(groupFolderPath);
+                string groupName = new DirectoryInfo(groupFolderPath).Name;
+                EditorUtility.DisplayProgressBar("Generating LD Resources", $"Processing {groupName}...", (float)(i + 1) / totalFolders);
 
-                // Only process folders with numeric names
-                if (!int.TryParse(folderName, out _))
-                    continue;
-
-                string generateResourcesPath = Path.Combine(subFolderPath, "GenerateResources");
-
-                if (AssetDatabase.IsValidFolder(generateResourcesPath))
+                for (var j = 0; j < subFolderPaths.Length; j++)
                 {
-                    if (!isForce)
-                    {
-                        Debug.Log($"[Skip] {folderName} - GenerateResources already exists");
+                    var subFolderPath = subFolderPaths[j];
+                    string folderName = new DirectoryInfo(subFolderPath).Name;
+
+                    // Only process folders with numeric names
+                    if (!int.TryParse(folderName, out _))
                         continue;
-                    }
 
-                    AssetDatabase.DeleteAsset(generateResourcesPath);
+                    CreateLDResourceFromPath(subFolderPath);
                 }
-
-                CreateLDResourceFromPath(subFolderPath);
             }
+        }
+        finally
+        {
+            AssetDatabase.StopAssetEditing();
         }
 
         AssetDatabase.SaveAssets();
