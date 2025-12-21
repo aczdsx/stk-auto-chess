@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 6102
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 4
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 01996c412cf580f4db12661c67bb9a96, type: 3}
+    - {fileID: 102900000, guid: a6337b5e9fbd4f7419e27c29f7ffdc25, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 5d270e844a4493744bb45a6940737b5c: -2430129837571001301
+    - 4cfb17d85d7df384fa6735e0989592e1: -2430129837571001301
+    - 986ad9ba2af3521498940ec0f9bd4e5a: -2430129837571001301
+    - 97268e5e5ad6f8946b3d1ccba7b940a4: -2430129837571001301
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -2430129837571001301, guid: 5d270e844a4493744bb45a6940737b5c, type: 3}
+  - {fileID: -2430129837571001301, guid: 4cfb17d85d7df384fa6735e0989592e1, type: 3}
+  - {fileID: -2430129837571001301, guid: 986ad9ba2af3521498940ec0f9bd4e5a, type: 3}
+  - {fileID: -2430129837571001301, guid: 97268e5e5ad6f8946b3d1ccba7b940a4, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Item_300002_0
+  - Item_300002_0
+  - Item_300002_0
+  - Item_300002_0
+  m_RenderDataMap: {}
+  m_Tag: 6102
+  m_IsVariant: 0

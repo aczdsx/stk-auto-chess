@@ -1,29 +1,32 @@
 #if UNITY_EDITOR
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEditor.U2D;
+using UnityEngine.U2D;
 
 public class GenerateResourcesMenu
 {
     
-    [MenuItem("Tools/LD Resources/Generate All LD Resources")]
+    [MenuItem("Tools/Resources/Generate All LD Resources")]
     private static void CreateLDResourcesForAllCharacters()
     {
         GenerateLDResources.CreateAllLDResources(false);
     }
 
-    [MenuItem("Tools/LD Resources/Force Generate All LD Resources")]
+    [MenuItem("Tools/Resources/Force Generate All LD Resources")]
     public static void ForceCreateLDResourcesForAllCharacters()
     {
         GenerateLDResources.CreateAllLDResources(true);
     }
 
-    [MenuItem("Tools/SD Resources/Generate All SD Resources")]
+    [MenuItem("Tools/Resources/Generate All SD Resources")]
     private static void CreateAnimationsForAllSubfolders()
     {
         GenerateSDResources.CreateAllSDResources(false);
     }
 
-    [MenuItem("Tools/SD Resources/Force Generate All SD Resources")]
+    [MenuItem("Tools/Resources/Force Generate All SD Resources")]
     public static void ForceCreateAnimationsForAllSubfolders()
     {
         GenerateSDResources.CreateAllSDResources(true);
@@ -48,6 +51,7 @@ public class GenerateResourcesMenu
     [MenuItem("Assets/Generate Resources")]
     private static void CreateResourcesForSelectedFolders()
     {
+        List<SpriteAtlas> createdAtlas = new List<SpriteAtlas>();
         foreach (var obj in Selection.objects)
         {
             string folderPath = AssetDatabase.GetAssetPath(obj);
@@ -65,8 +69,13 @@ public class GenerateResourcesMenu
             }
             else if (pathParts[^3].Contains("SD"))
             {
-                CreateSDResource(folderPath);
+                CreateSDResource(folderPath, createdAtlas);
             }
+        }
+        
+        if (createdAtlas.Count > 0)
+        {
+            SpriteAtlasUtility.PackAtlases(createdAtlas.ToArray(), EditorUserBuildSettings.activeBuildTarget);
         }
 
         AssetDatabase.SaveAssets();
@@ -74,7 +83,7 @@ public class GenerateResourcesMenu
        
     }
 
-    private static void CreateSDResource(string folderPath)
+    private static void CreateSDResource(string folderPath, List<SpriteAtlas> createdAtlas)
     {
         if (!AssetDatabase.IsValidFolder(folderPath))
             return;
@@ -86,7 +95,7 @@ public class GenerateResourcesMenu
             AssetDatabase.DeleteAsset(generateResourcesPath);
         }
 
-        GenerateSDResources.CreateAnimationsFromPath(folderPath);
+        GenerateSDResources.CreateAnimationsFromPath(folderPath, createdAtlas);
     }
 
     private static void CreateLDResources(string folderPath)

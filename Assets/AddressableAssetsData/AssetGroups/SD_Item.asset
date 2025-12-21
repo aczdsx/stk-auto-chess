@@ -15,8 +15,38 @@ MonoBehaviour:
   m_GroupName: SD_Item
   m_GUID: 5adc00ec1cc7f47978799e71791fecc0
   m_SerializeEntries:
+  - m_GUID: 4e26947e497204ade951c302f0a159e7
+    m_Address: SD_Item/6103
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6cefd7b121057476aafbb49dc92411e4
+    m_Address: SD_Item/6102
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 82107875b2b8fa140a461b1bcf6d097f
     m_Address: SD_Item/6101
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90ce02f6f02ef494dab98e08bf225679
+    m_Address: SD_Item/6107
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc4417c7540b84a558984f22579aca13
+    m_Address: SD_Item/6105
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5c675bf03b1a46a79f73eb7ea07c350
+    m_Address: SD_Item/6106
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6845f2f0a88245a9be630cce5f4becc
+    m_Address: SD_Item/6104
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
