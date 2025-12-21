@@ -52,27 +52,36 @@ public class GenerateResourcesMenu
     private static void CreateResourcesForSelectedFolders()
     {
         List<SpriteAtlas> createdAtlas = new List<SpriteAtlas>();
-        foreach (var obj in Selection.objects)
+
+        AssetDatabase.StartAssetEditing();
+        try
         {
-            string folderPath = AssetDatabase.GetAssetPath(obj);
-            string normalizedPath = folderPath.Replace("\\", "/");
-            string[] pathParts = normalizedPath.Split('/');
-            if (pathParts.Length < 4)
-                continue;
-            
-            if (pathParts[^4] != "Remote")
-                continue;
-            
-            if (pathParts[^3].Contains("LD"))
+            foreach (var obj in Selection.objects)
             {
-                CreateLDResources(folderPath);
-            }
-            else if (pathParts[^3].Contains("SD"))
-            {
-                CreateSDResource(folderPath, createdAtlas);
+                string folderPath = AssetDatabase.GetAssetPath(obj);
+                string normalizedPath = folderPath.Replace("\\", "/");
+                string[] pathParts = normalizedPath.Split('/');
+                if (pathParts.Length < 4)
+                    continue;
+
+                if (pathParts[^4] != "Remote")
+                    continue;
+
+                if (pathParts[^3].Contains("LD"))
+                {
+                    CreateLDResources(folderPath);
+                }
+                else if (pathParts[^3].Contains("SD"))
+                {
+                    CreateSDResource(folderPath, createdAtlas);
+                }
             }
         }
-        
+        finally
+        {
+            AssetDatabase.StopAssetEditing();
+        }
+
         if (createdAtlas.Count > 0)
         {
             SpriteAtlasUtility.PackAtlases(createdAtlas.ToArray(), EditorUserBuildSettings.activeBuildTarget);
@@ -80,7 +89,6 @@ public class GenerateResourcesMenu
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-       
     }
 
     private static void CreateSDResource(string folderPath, List<SpriteAtlas> createdAtlas)

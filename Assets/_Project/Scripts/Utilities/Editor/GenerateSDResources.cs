@@ -22,36 +22,46 @@ public static class GenerateSDResources
         string[] groupFolderPaths = Directory.GetDirectories(ResourcePath.SD_PATH);
 
         List<SpriteAtlas> createdAtlases = new List<SpriteAtlas>();
-        // show progress bar
         int totalFolders = groupFolderPaths.Length;
         EditorUtility.DisplayProgressBar("Generating SD Resources", "Generating...", 0f);
-        for (var i = 0; i < groupFolderPaths.Length; i++)
-        {
-            var groupFolderPath = groupFolderPaths[i];
-            var subFolders = Directory.GetDirectories(groupFolderPath);
-            foreach (var subFolder in subFolders)
-            {
-                string folderName = new DirectoryInfo(subFolder).Name;
-                if (int.TryParse(folderName, out _))
-                {
-                    string generateResourcesPath = Path.Combine(subFolder, "GenerateResources");
-                    if (AssetDatabase.IsValidFolder(generateResourcesPath))
-                    {
-                        if (!isForce)
-                            continue;
-                        
-                        AssetDatabase.DeleteAsset(generateResourcesPath);
-                    }
 
-                    CreateAnimationsFromPath(subFolder, createdAtlases);
+        // Import 파이프라인 일시 중지 (대량 에셋 작업 최적화)
+        AssetDatabase.StartAssetEditing();
+        try
+        {
+            for (var i = 0; i < groupFolderPaths.Length; i++)
+            {
+                var groupFolderPath = groupFolderPaths[i];
+                var subFolders = Directory.GetDirectories(groupFolderPath);
+                foreach (var subFolder in subFolders)
+                {
+                    string folderName = new DirectoryInfo(subFolder).Name;
+                    if (int.TryParse(folderName, out _))
+                    {
+                        string generateResourcesPath = Path.Combine(subFolder, "GenerateResources");
+                        if (AssetDatabase.IsValidFolder(generateResourcesPath))
+                        {
+                            if (!isForce)
+                                continue;
+
+                            AssetDatabase.DeleteAsset(generateResourcesPath);
+                        }
+
+                        CreateAnimationsFromPath(subFolder, createdAtlases);
+                    }
                 }
+
+                EditorUtility.DisplayProgressBar("Generating SD Resources", "Generating...", (float)(i + 1) / totalFolders);
             }
-            
-            EditorUtility.DisplayProgressBar("Generating SD Resources", "Generating...", (float)(i + 1) / totalFolders);
         }
-        
+        finally
+        {
+            // 반드시 StopAssetEditing 호출 (예외 발생해도)
+            AssetDatabase.StopAssetEditing();
+        }
+
         SpriteAtlasUtility.PackAtlases(createdAtlases.ToArray(), EditorUserBuildSettings.activeBuildTarget);
-        
+
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
