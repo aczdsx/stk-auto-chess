@@ -93,52 +93,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class AccountLevelExp
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 계정 레벨
-        public int lv;
-        /// 시작 경험치
-        public int exp_start;
-        /// 마지막 경험치
-        public int exp_last;
-        /// 레벨 당 필요 경험치
-        public int exp_need;
-        /// 행동력 보유 가능 최대량
-        public int ap_max;
-        /// 리워드 id
-        public int reward_id;
-        /// 캐릭터 배치 가능 수
-        public int squad_count;
-    }
-
-    [GeneratorSpecData]
-    public partial class ChapterInfo
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 챕터 ID
-        public int chapter_id;
-        /// 보여지는 챕터 번호
-        public int display_number;
-        /// 난이도
-        public global::CookApps.AutoBattler.DifficultyType difficulty_type;
-        /// 챕터 타이틀 토큰
-        public string name_token;
-        /// 챕터 세부 설명 토큰
-        public string desc_token;
-        /// 클리어 보상 id
-        public int reward_id;
-        /// 진입 일러스트 ID
-        public string clear_pack_bg_image;
-        /// 클리어 패키지 이미지 ID
-        public string clear_pack_char_image;
-    }
-
-    [GeneratorSpecData]
     public partial class CharacterInfo
     {
         /// #SheetIndex
@@ -228,6 +182,52 @@ namespace CookApps.AutoBattler
         public int passive_skill_id;
         /// 가챠 확률
         public float weight;
+    }
+
+    [GeneratorSpecData]
+    public partial class AccountLevelExp
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 계정 레벨
+        public int lv;
+        /// 시작 경험치
+        public int exp_start;
+        /// 마지막 경험치
+        public int exp_last;
+        /// 레벨 당 필요 경험치
+        public int exp_need;
+        /// 행동력 보유 가능 최대량
+        public int ap_max;
+        /// 리워드 id
+        public int reward_id;
+        /// 캐릭터 배치 가능 수
+        public int squad_count;
+    }
+
+    [GeneratorSpecData]
+    public partial class ChapterInfo
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 챕터 ID
+        public int chapter_id;
+        /// 보여지는 챕터 번호
+        public int display_number;
+        /// 난이도
+        public global::CookApps.AutoBattler.DifficultyType difficulty_type;
+        /// 챕터 타이틀 토큰
+        public string name_token;
+        /// 챕터 세부 설명 토큰
+        public string desc_token;
+        /// 클리어 보상 id
+        public int reward_id;
+        /// 진입 일러스트 ID
+        public string clear_pack_bg_image;
+        /// 클리어 패키지 이미지 ID
+        public string clear_pack_char_image;
     }
 
     [GeneratorSpecData]

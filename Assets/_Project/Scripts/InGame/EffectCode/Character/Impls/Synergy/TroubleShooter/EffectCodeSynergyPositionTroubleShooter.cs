@@ -23,9 +23,6 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     }
 
     private int _synergyGrade;
-    private float _elapsedTime;
-    private float _supplyDuration;
-    private float _cannonDuration;
     private List<CharacterController> _dynamiteList = new();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -75,8 +72,6 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     {
         if (_synergyGrade < 2)
             return;
-        
-
     }
 
     public override void OnCombatStart()
@@ -92,26 +87,20 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
             {
                 //전투 준비 시 중립 지역에 대전차지뢰를 최대 {0}개 설치 가능합니다.(위력은 트러블 슈터 성군원들의 공격력 {1}%로 결정됩니다.)
                 case 1:
-                    ApplyDynamiteToTile();
+                    ApplyDynamiteToTile(troubleShooterSynergyList[i-1]);
                     break;
                 case 2:
-                    _supplyDuration = troubleShooterSynergyList[i].effect_stat_value_1;
-                    _elapsedTime = 0;
+                    AddSupplyEffectCode(troubleShooterSynergyList[i-1]);
                     break;
                 case 3:
-                    _cannonDuration = troubleShooterSynergyList[i].effect_stat_value_1;
-                    _elapsedTime = 0;
+
                     break;
             }
         }
-        _elapsedTime = 0;
     }
 
-    public void ApplyDynamiteToTile()
+    public void ApplyDynamiteToTile(ISpecSynergyData synergyData)
     {
-        var troubleShooterSynergyList = SpecDataManager.Instance.GetSpecSynergyList(SynergyType.TROUBLESHOOTER);
-        if (troubleShooterSynergyList == null || troubleShooterSynergyList.Count == 0)
-            return;
         var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(allianceType: AllianceType.Player);
         double FinalDamageValue = 0;
         foreach (var character in playerCharacterList)
@@ -121,7 +110,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
 
         Span<double> stats = stackalloc double[5];
         stats.Clear();
-        stats[1] = FinalDamageValue * (double)troubleShooterSynergyList[0].effect_stat_value_2 * 0.01d;
+        stats[1] = FinalDamageValue * (double)synergyData.effect_stat_value_2 * 0.01d;
 
         foreach (var dynamite in _dynamiteList)
         {
@@ -131,11 +120,20 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
             0, stats);
 
             curDynamiteTile.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
-
-            
         }
-        
-     }
+
+    }
+
+    public void AddSupplyEffectCode(ISpecSynergyData synergyData)
+    {
+        Span<double> stats = stackalloc double[1];
+        stats.Clear();
+        stats[0] = synergyData.effect_stat_value_1;//Time
+        var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.BATTLE_ITEM_SUPPLY,
+        0, stats);
+
+        InGameManager.Instance.TeamEcc.AddOrMergeEffectCode(effectCodeInfo, null, AllianceType.Player);
+    }
 
     public override void OnPreRemoved()
     {
