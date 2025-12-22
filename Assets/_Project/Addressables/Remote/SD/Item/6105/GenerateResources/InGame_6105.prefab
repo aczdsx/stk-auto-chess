@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5653245847034646937
+--- !u!1001 &1007603404511553753
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 125309691991771040, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 6201b59364bc14b1a92185d0edd188ec, type: 2}
+      objectReference: {fileID: 22100000, guid: 33f8fd5a11490bb4f8ffa09b34bb8ff2, type: 2}
     - target: {fileID: 1758468053598742516, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Name
       value: InGame_6105
@@ -59,7 +59,7 @@ PrefabInstance:
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8989293182568364544, guid: 4d35e9049ce9e8d41afe8ddf3348c76b, type: 3}
+      objectReference: {fileID: 21300000, guid: 4d35e9049ce9e8d41afe8ddf3348c76b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

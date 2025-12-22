@@ -90,7 +90,7 @@ namespace CookApps.AutoBattler
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
         private Dictionary<SynergyType, List<ISpecSynergyData>> synergyDic = new();                // key : SynergyType, value : ISpecSynergyData
-        private Dictionary<int, List<ObstacleInfo>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
+        private Dictionary<int, List<Obstacle>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
         private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
         private Dictionary<int, BattleItem> battleItemDic = new();                           // key : battle_item_id, value : BattleItem
@@ -309,11 +309,11 @@ namespace CookApps.AutoBattler
             #endregion
 
             obstacleDic.Clear();
-            foreach (ObstacleInfo obstacle in ObstacleInfo.All)
+            foreach (Obstacle obstacle in Obstacle.All)
             {
                 if (!obstacleDic.TryGetValue(obstacle.obstacle_id, out var list))
                 {
-                    list = new List<ObstacleInfo>();
+                    list = new List<Obstacle>();
                     obstacleDic.Add(obstacle.obstacle_id, list);
                 }
 
@@ -1125,9 +1125,9 @@ namespace CookApps.AutoBattler
                 .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
         }
 
-        public List<ObstacleInfo> GetSpecObstacleList(int obstacleID)
+        public List<Obstacle> GetSpecObstacleList(int obstacleID)
         {
-            if (obstacleDic.TryGetValue(obstacleID, out List<ObstacleInfo> obstacleList))
+            if (obstacleDic.TryGetValue(obstacleID, out List<Obstacle> obstacleList))
             {
                 return obstacleList;
             }
