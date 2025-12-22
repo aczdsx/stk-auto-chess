@@ -12,8 +12,8 @@ namespace CookApps.AutoBattler
     {
         public override UniTask Execute(AsyncToken token = default)
         {
-            SceneLoading.GoToNextScene("InGame",
-                    (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
+            var naninovelMain = NaninovelMain.GetNaninovelMain();
+            naninovelMain.ExecuteEndAction();
 
             return UniTask.CompletedTask;
         }
