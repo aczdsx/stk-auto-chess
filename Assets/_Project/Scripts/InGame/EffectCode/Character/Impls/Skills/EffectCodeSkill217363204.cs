@@ -116,7 +116,7 @@ public partial class EffectCodeSkill217363204 : EffectCodeCharacterBase
             .GetComponent<InGameVfx>();
 
         InGameTile targetTile = null;
-        if (owner.Target is {IsAlive: true})
+        if (owner.Target is { IsAlive: true })
         {
             targetTile = owner.Target.CurrentTile;
         }
@@ -144,6 +144,20 @@ public partial class EffectCodeSkill217363204 : EffectCodeCharacterBase
         IsSkillActivated = false;
     }
 
+
+    public override float AddSkillCooltime(float cooltime)
+
+    {
+
+
+        CoolTimeElapsedTime += cooltime;
+
+
+        return cooltime;
+
+    }
+
+
     private void ActionSkill(InGameTile targetTile)
     {
         if (targetTile == null || _targetCount > _targetMaximumCount)
@@ -152,7 +166,7 @@ public partial class EffectCodeSkill217363204 : EffectCodeCharacterBase
             ActionSkillBuff();
             return;
         }
-        
+
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
         bool isHasTarget = false;
         bool isTargetFound = false;
@@ -169,7 +183,7 @@ public partial class EffectCodeSkill217363204 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
                     targetTile.OccupiedCharacter.GetCharacterView().CachedTr.position);
 
-                float powerRate = _powerRate - _decreasedPowerRate * (float) _targetCount;
+                float powerRate = _powerRate - _decreasedPowerRate * (float)_targetCount;
 
                 var damage = owner.CalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter, codeId, true);
                 // var damage = owner.PrecalculateDamageAmount(owner.AD * powerRate, 0, targetTile.OccupiedCharacter,
@@ -216,7 +230,7 @@ public partial class EffectCodeSkill217363204 : EffectCodeCharacterBase
         double[] eccStats = new double[3];
         eccStats[0] = codeId;
         eccStats[1] = _buffTime;
-        eccStats[2] = _buffRate * (float) _hitCharacters.Count;
+        eccStats[2] = _buffRate * (float)_hitCharacters.Count;
 
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ATK_SPEED_UP, owner, eccStats, source);
 

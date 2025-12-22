@@ -129,8 +129,8 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
         await UniTask.Delay(TimeSpan.FromSeconds(_time));
         MoveDown(moveTime, distance).Forget();
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],owner.CurrentTile.View.CachedTr.position);
-        
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
+
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
         var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
         foreach (var character in characterControllers)
@@ -156,6 +156,18 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
 
         IsSkillActivated = false;
     }
+    
+
+        
+
+        public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+
+    }
+
+        
     
     private async UniTask MoveDown(float duration, float distance)
     {

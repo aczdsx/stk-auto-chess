@@ -112,21 +112,23 @@ public partial class EffectCodeSkill1204031 : EffectCodeCharacterBase
         else if (_count == 2)
         {
             var inGameTiles =
-                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3).FindAll(l => l.View.ID %2 == 0);
+                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3).FindAll(l => l.View.ID % 2 == 0);
             ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
         }
         else if (_count == 3)
         {
             var inGameTiles =
-                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3).FindAll(l => l.View.ID %2 == 1);
+                InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 3).FindAll(l => l.View.ID % 2 == 1);
             ProcessTiles(inGameTiles, owner, _powerRate1).Forget();
         }
 
         _count += 1;
 
         IsSkillActivated = false;
+
+
     }
-    
+
     private void OnSkillEnd()
     {
         IsSkillActivated = false;
@@ -141,12 +143,12 @@ public partial class EffectCodeSkill1204031 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
-    
+
     private async UniTask ProcessTiles(List<InGameTile> tiles, CharacterController owner, float powerRate)
     {
         foreach (var tile in tiles)
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-        
+
         foreach (var tile in tiles.FindAll(l => l.View.AllianceType == AllianceType.Player))
         {
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.18f, 0.1f);
@@ -164,17 +166,23 @@ public partial class EffectCodeSkill1204031 : EffectCodeCharacterBase
 
                 StunCharacter(tile.OccupiedCharacter);
             }
-            
+
             await UniTask.Delay(TimeSpan.FromSeconds(0.2));
         }
     }
-    
+
     private void StunCharacter(CharacterController character)
     {
         Span<double> eccStats = stackalloc double[1];
         eccStats.Clear();
         eccStats[0] = _stunTime;
-        
+
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, character, eccStats, source);
+    }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
     }
 }

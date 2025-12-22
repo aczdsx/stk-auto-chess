@@ -146,4 +146,10 @@ public partial class EffectCodeSkill230505005 : EffectCodeCharacterBase
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
         }
     }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
 }

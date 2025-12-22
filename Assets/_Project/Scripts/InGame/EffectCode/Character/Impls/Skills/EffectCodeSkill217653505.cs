@@ -116,7 +116,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
                 eccStats[0] = codeId;
                 eccStats[1] = _buffTime;
                 eccStats[2] = _atkBuffRate;
-                
+
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ATK_SPEED_UP, tile.OccupiedCharacter, eccStats, source);
             }
         }
@@ -130,4 +130,13 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }

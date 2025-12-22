@@ -129,7 +129,7 @@ public partial class EffectCodeSkill1102061 : EffectCodeCharacterBase
             Span<double> eccStats = stackalloc double[1];
             eccStats.Clear();
             eccStats[0] = _durationTime;
-        
+
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, _targetCharacter, eccStats, source);
         }
 
@@ -142,4 +142,13 @@ public partial class EffectCodeSkill1102061 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }

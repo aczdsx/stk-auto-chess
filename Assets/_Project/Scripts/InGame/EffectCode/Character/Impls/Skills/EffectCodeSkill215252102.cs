@@ -33,7 +33,7 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
-        _specSkill = SpecDataManager.Instance.GetSkillDataList((int) codeId).First();
+        _specSkill = SpecDataManager.Instance.GetSkillDataList((int)codeId).First();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -109,7 +109,7 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
             {
                 if (i >= targetCharacters.Count)
                     break;
-                
+
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
                     targetCharacters[i].CurrentTile);
 
@@ -118,7 +118,7 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
                 eccStats[0] = codeId;
                 eccStats[1] = _duration;
                 eccStats[2] = _atkUpRate;
-                
+
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacters[i], eccStats, source);
             }
         }
@@ -132,4 +132,13 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
 }
+

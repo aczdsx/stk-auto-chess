@@ -70,7 +70,7 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
                         {
                             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                                 tile.OccupiedCharacter.SkillRootTransformFollowable);
-                            
+
                             var damage = owner.CalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter, codeId, true);
                             // var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate,
                             //     tile.OccupiedCharacter,
@@ -163,14 +163,14 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
-                
+
                 var damage = owner.CalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter, codeId, true);
                 // var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
                 //     codeId, true);
                 // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
             }
-            
+
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
         }
 
@@ -183,4 +183,13 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }

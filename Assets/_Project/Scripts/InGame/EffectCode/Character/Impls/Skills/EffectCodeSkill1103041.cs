@@ -131,7 +131,7 @@ public partial class EffectCodeSkill1103041 : EffectCodeCharacterBase
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
-                
+
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
                 float calculatedDamageRate = _damageRate;
 
@@ -145,4 +145,14 @@ public partial class EffectCodeSkill1103041 : EffectCodeCharacterBase
 
         IsSkillActivated = false;
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }
+

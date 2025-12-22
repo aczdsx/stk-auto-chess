@@ -111,6 +111,15 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         ExecuteSkillRoutine(0.2f).Forget();
 
         IsSkillActivated = false;
+
+
+
+    }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
     }
 
     public override void OnSkillAnimationEnd()
@@ -119,16 +128,16 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
-    
+
     private async UniTaskVoid ExecuteSkillRoutine(float WaitTime)
     {
         if (owner.Target == null)
             return;
 
         IsSkillActivated = false;
-        
+
         List<InGameTile> inGameTiles = null;
-        
+
         inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 1, 1);
         await ExecuteSkillStep(inGameTiles);
         await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
@@ -139,14 +148,14 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
 
         inGameTiles.Clear();
-        inGameTiles =InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 1);
+        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 1);
         await ExecuteSkillStep(inGameTiles);
-        
+
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
-    
-    
+
+
     private async UniTask ExecuteSkillStep(List<InGameTile> inGameTiles)
     {
         foreach (var tile in inGameTiles)
@@ -159,7 +168,7 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);   
+                var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
                 // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId,
                 //     true);
                 // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
@@ -170,11 +179,11 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
                 eccStats[0] = codeId;
                 eccStats[1] = _debuffTime;
                 eccStats[2] = _atkSpeedDownRate;
-                    
+
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, tile.OccupiedCharacter, eccStats, source);
             }
         }
-                    
+
         UniTask.Yield();
     }
 }
