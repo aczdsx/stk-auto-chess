@@ -129,9 +129,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 코어 연구 가져오기
         /// </summary>
-        public CoreResearch GetCoreResearch(CoreResearchType researchType)
+        public CoreResearch GetCoreResearch(uint groupId)
         {
-            return Model?.GetCoreResearch(researchType);
+            return Model?.GetCoreResearch(groupId);
         }
 
         /// <summary>
@@ -150,18 +150,18 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 코어 연구 레벨
         /// </summary>
-        public uint GetCoreResearchLevel(CoreResearchType researchType)
+        public uint GetCoreResearchLevel(uint groupId)
         {
-            var research = GetCoreResearch(researchType);
+            var research = GetCoreResearch(groupId);
             return research?.Level ?? 0;
         }
 
         /// <summary>
         /// 코어 연구가 최대 레벨인지 확인
         /// </summary>
-        public bool IsCoreResearchMaxLevel(CoreResearchType researchType)
+        public bool IsCoreResearchMaxLevel(uint groupId)
         {
-            var research = GetCoreResearch(researchType);
+            var research = GetCoreResearch(groupId);
             if (research == null) return false;
             return research.Level >= research.MaxLevel;
         }
@@ -228,9 +228,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 특정 코어 연구가 특정 레벨 이상인지 확인
         /// </summary>
-        public bool IsCoreResearchLevelAtLeast(CoreResearchType researchType, uint minLevel)
+        public bool IsCoreResearchLevelAtLeast(uint groupId, uint minLevel)
         {
-            return GetCoreResearchLevel(researchType) >= minLevel;
+            return GetCoreResearchLevel(groupId) >= minLevel;
         }
 
         #endregion

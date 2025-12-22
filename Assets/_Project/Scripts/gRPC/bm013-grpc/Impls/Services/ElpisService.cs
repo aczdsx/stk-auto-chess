@@ -107,11 +107,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 코어 연구소 - 연구 진행
         /// </summary>
-        public async UniTask<ElpisResearchCoreResponse> ResearchCoreAsync(CoreResearchType researchType, uint levels, CancellationToken cancellationToken = default)
+        public async UniTask<ElpisResearchCoreResponse> ResearchCoreAsync(uint groupId, uint level, CancellationToken cancellationToken = default)
         {
             ElpisResearchCoreResponse resp = await ExecuteAsync(
                 ServiceClient.ResearchCoreAsync,
-                new ElpisResearchCoreRequest { ResearchType = researchType, Levels = levels },
+                new ElpisResearchCoreRequest { UpgradeGroupId = groupId, Level = level },
                 cancellationToken: cancellationToken
             );
 

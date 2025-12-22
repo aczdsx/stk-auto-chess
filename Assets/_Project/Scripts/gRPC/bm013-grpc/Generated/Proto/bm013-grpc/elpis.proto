@@ -65,6 +65,9 @@ enum ElpisErrorCode {
   ELPIS_FACILITY_MAX_LEVEL_REACHED = 10130106; // 시설이 최대 레벨에 도달했습니다.
 
   ELPIS_FACILITY_COMMAND_CENTER_NOT_FOUND = 10130107; // 커맨드센터가 없음.
+
+  ELPIS_CORE_RESEARCH_UPGRADE_GROUP_NOT_FOUND = 10130108; // 코어 연구 업그레이드 그룹을 스펙에서 찾을 수 없습니다.
+  ELPIS_CORE_RESEARCH_MAX_LEVEL_REACHED = 10130109; // 코어 연구 최대 레벨에 도달했습니다.
 }
 
 message ElpisGetRequest {}
@@ -112,8 +115,8 @@ message ElpisUpgradeFacilityResponse {
 }
 
 message ElpisResearchCoreRequest {
-  CoreResearchType research_type = 1;
-  uint32 levels = 2;  // 올릴 레벨 수
+  uint32 upgrade_group_id = 1;
+  uint32 level = 2;  // 올릴 레벨 수
 }
 
 message ElpisResearchCoreResponse {

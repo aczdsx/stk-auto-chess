@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
 
         // 빠른 조회를 위한 캐시
         private readonly Dictionary<string, ElpisFacility> _facilitiesCache = new (32);
-        private readonly Dictionary<CoreResearchType, CoreResearch> _coreResearchCache = new (16);
+        private readonly Dictionary<uint, CoreResearch> _coreResearchCache = new (16);
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -200,9 +200,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 코어 연구 가져오기
         /// </summary>
-        public CoreResearch GetCoreResearch(CoreResearchType researchType)
+        public CoreResearch GetCoreResearch(uint groupId)
         {
-            return _coreResearchCache.GetValueOrDefault(researchType);
+            return _coreResearchCache.GetValueOrDefault(groupId);
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < elpisData.CoreResearches.Count; i++)
             {
                 var research = elpisData.CoreResearches[i];
-                _coreResearchCache[research.Type] = research;
+                _coreResearchCache[research.UpgradeGroupId] = research;
             }
 
             OnChanged.OnNext(Unit.Default);
@@ -347,14 +347,14 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            var previous = _coreResearchCache.GetValueOrDefault(research.Type);
-            _coreResearchCache[research.Type] = research;
+            var previous = _coreResearchCache.GetValueOrDefault(research.UpgradeGroupId);
+            _coreResearchCache[research.UpgradeGroupId] = research;
 
             // 프로토콜 데이터도 업데이트
             bool found = false;
             for (int i = 0; i < _elpisData.CoreResearches.Count; i++)
             {
-                if (_elpisData.CoreResearches[i].Type == research.Type)
+                if (_elpisData.CoreResearches[i].UpgradeGroupId == research.UpgradeGroupId)
                 {
                     _elpisData.CoreResearches[i] = research;
                     found = true;
