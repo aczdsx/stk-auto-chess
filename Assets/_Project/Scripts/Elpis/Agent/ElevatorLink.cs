@@ -35,6 +35,11 @@ namespace Prototypes.Movement
             link.endTransform = endPoint;
         }
 
+        public void ActivateElevator()
+        {
+            link.activated = true;
+        }
+        
         /// <summary>
         /// Agent를 엘리베이터로 이동시킴
         /// </summary>

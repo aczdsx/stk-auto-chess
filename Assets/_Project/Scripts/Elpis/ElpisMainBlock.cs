@@ -35,6 +35,7 @@ namespace CookApps.AutoBattler
                     return;
 
                 SubBlock = loadedHandle.Result.GetComponent<ElpisSubBlock>();
+                SubBlock.CachedTr.rotation = rotation;
             }
             
             public void UnloadAddressable()
@@ -61,11 +62,18 @@ namespace CookApps.AutoBattler
                 await tween;
             }
         }
-        
+
+        [SerializeField] private GameObject walkPath;
         [SerializeField] private ElpisDummyBlock[] dummySubBlocks;
         [SerializeField] private SubBlockInfo[] subBlockInfos;
         [SerializeField] private NavMeshSurface navMeshSurface;
         [SerializeField] private ElevatorLink[] elevatorLinks;
+
+        private void Awake()
+        {
+            walkPath.layer = LayerMask.NameToLayer("ElpisGround");
+            walkPath.AddComponent<BoxCollider>();
+        }
 
         protected override void OnDestroy()
         {
@@ -87,6 +95,7 @@ namespace CookApps.AutoBattler
             var dummyBlock = index < dummySubBlocks.Length ? dummySubBlocks[index] : null;
             await subBlockInfos[index].MoveBlock(dummyBlock, withAnimation);
             
+            elevatorLinks[index].ActivateElevator();
             RebuildNavMesh();
         }
         
