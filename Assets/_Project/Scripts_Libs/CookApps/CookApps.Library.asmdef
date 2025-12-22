@@ -1,11 +1,15 @@
 {
-    "name": "CookApps.TeamBattle.Core",
+    "name": "CookApps.Library",
     "rootNamespace": "",
     "references": [
         "UniTask",
         "UniTask.Addressables",
         "Unity.Addressables",
-        "Unity.ResourceManager"
+        "Unity.ResourceManager",
+        "SerializableDictionary",
+        "CookApps.Obfuscator",
+        "ZString",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

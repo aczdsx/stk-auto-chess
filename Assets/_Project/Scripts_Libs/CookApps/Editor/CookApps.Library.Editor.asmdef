@@ -1,16 +1,14 @@
 {
-    "name": "CookApps.TeamBattle.UIManagements",
+    "name": "CookApps.Library.Editor",
     "rootNamespace": "",
     "references": [
-        "UniTask",
-        "UniTask.Addressables",
-        "UniTask.DOTween",
-        "Unity.ResourceManager",
+        "CookApps.Library",
         "Unity.Addressables",
-        "CookApps.TeamBattle.Core",
-        "CookApps.TeamBattle.Utility"
+        "Unity.Addressables.Editor"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

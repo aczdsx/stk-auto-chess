@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using CookApps.TeamBattle.Utility;
 
 
 namespace CookApps.TeamBattle.UIManagements
@@ -32,7 +33,8 @@ namespace CookApps.TeamBattle.UIManagements
         [SerializeField] private bool isBlockDrag = false;
         [SerializeField] private bool useDefaultClickSound = true;
         [SerializeField] private DefaultClickSoundType defaultClickSoundType;
-        [SerializeField] private ReactionType reactionType = ReactionType.None;
+        [SerializeField] private ReactionType reactionType = ReactionType.None;       
+        [SerializeField] private SimpleSwapper[] swappers;
         public static event Action<DefaultClickSoundType> OnPlayDefaultClickSound;
 
         private Vector3 initialScale;
@@ -41,6 +43,14 @@ namespace CookApps.TeamBattle.UIManagements
         private SimpleTweener tweenScaleY = new SimpleTweener();
         private TweenLerp<float> tweenScaleYValue;
         private bool isPressed = false;
+
+        protected bool isClickable = true;
+
+        public virtual void SetClickableState(bool enabled)
+        {
+            isClickable = enabled;
+            swappers.Swap(enabled ? SimpleSwapType.Normal : SimpleSwapType.Disabled);
+        }
 
         protected override void Start()
         {

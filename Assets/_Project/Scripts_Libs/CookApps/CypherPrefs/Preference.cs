@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using CookApps.TeamBattle;
 using MemoryPack;
 
 namespace CookApps.CypherPrefs
@@ -95,7 +96,7 @@ namespace CookApps.CypherPrefs
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                CADebug.LogException(e);
                 data = new ();
                 return false;
             }
