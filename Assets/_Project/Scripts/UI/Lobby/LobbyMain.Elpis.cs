@@ -56,6 +56,7 @@ namespace CookApps.AutoBattler
         
         private async UniTask OnFacilityLevelChanged(FacilityChangeInfo info)
         {
+            // 함선 렙업 확장 연출
             if (info.Current.Type == ElpisFacilityType.FacilityTypeCommandCenter)
             {
                 for (var i = 0; i < SpecDataManager.Instance.ElpisCommandCenterBenefit.All.Count; i++)
@@ -63,6 +64,7 @@ namespace CookApps.AutoBattler
                     var benefit = SpecDataManager.Instance.ElpisCommandCenterBenefit[i];
                     if (benefit.lv == info.Current.Level)
                     {
+                        // TODO: Focusing
                         await MainBlock.AttachSubBlock(benefit.benefit_key, true);
                         MainBlock.RebuildNavMesh();
                         return;
