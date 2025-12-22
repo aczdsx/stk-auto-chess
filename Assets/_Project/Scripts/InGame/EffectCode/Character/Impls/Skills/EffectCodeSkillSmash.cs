@@ -120,4 +120,10 @@ public partial class EffectCodeSkillSmash : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
         isSkillActivated = false;
     }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
 }

@@ -151,4 +151,10 @@ public partial class EffectCodeSkill230202003 : EffectCodeCharacterBase
 
         IsSkillActivated = false;
     }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
 }

@@ -20,38 +20,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 16508ca84dd8d554792fbd54b9cdbe21
-    m_Address: SD_Item/6106
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 46b97cb90d65fbb4fa621d6807090510
-    m_Address: SD_Item/6103
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6a3f362aa63a819408f03b978ee80aef
-    m_Address: SD_Item/6105
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7b700a20e86f9434486e6b5a5a0f8ebd
-    m_Address: SD_Item/6107
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 82107875b2b8fa140a461b1bcf6d097f
     m_Address: SD_Item/6101
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ed44cdf6d4171cc488940eae2537c2c6
-    m_Address: SD_Item/6108
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fdf459f1e079d104babf91d514899a94
-    m_Address: SD_Item/6104
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

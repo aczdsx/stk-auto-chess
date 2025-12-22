@@ -121,16 +121,15 @@ public partial class EffectCodeSkill1133622021 : EffectCodeCharacterBase
         vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
         var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-        // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-        // owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+
         _targetCharacter.GetDamaged(damage, owner);
 
-        {
-            Span<double> eccStats = stackalloc double[1];
-            eccStats.Clear();
-            eccStats[0] = _debuffTime;
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SILENCE, _targetCharacter, eccStats, source);
-        }
+        // {
+        //     Span<double> eccStats = stackalloc double[1];
+        //     eccStats.Clear();
+        //     eccStats[0] = _debuffTime;
+        //     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SILENCE, _targetCharacter, eccStats, source);
+        // }
 
         {
             Span<double> eccStats = stackalloc double[3];
@@ -151,4 +150,13 @@ public partial class EffectCodeSkill1133622021 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
-}
+
+    
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+    CoolTimeElapsedTime += cooltime;
+    return cooltime;
+    }
+
+    }

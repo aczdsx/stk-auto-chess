@@ -60,8 +60,9 @@ namespace CookApps.BattleSystem
         UseOnSkill = 1L << 53,
         UseOnCombatStart = 1L << 54,
         UseOnAttackEnd = 1L << 55,
+        UseAddSkillCooltime = 1L << 56,
         #endregion
-        MAX = 1L << 56,
+        MAX = 1L << 57,
     };
 
     public static class EffectCodeInheritFlagExtensions

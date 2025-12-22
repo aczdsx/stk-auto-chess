@@ -118,14 +118,14 @@ public partial class EffectCodeSkill215322201 : EffectCodeCharacterBase
 
         if (_targetCharacter == null)
             return;
-        
+
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         if (directionTile.Count > 0)
         {
             var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
             Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
             vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-        
+
             var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.CurrentTile, 1);
             List<int> targetCharacterList = new();
             foreach (var tile in inGameTiles)
@@ -136,7 +136,7 @@ public partial class EffectCodeSkill215322201 : EffectCodeCharacterBase
                     if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
                     {
                         targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
-                    
+
                         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                             tile.OccupiedCharacter.SkillRootTransformFollowable);
 
@@ -144,11 +144,11 @@ public partial class EffectCodeSkill215322201 : EffectCodeCharacterBase
                         // var damage = owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
                         // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                         tile.OccupiedCharacter.GetDamaged(damage, owner);
-        
+
                         var inGameTile =
                             InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, tile.OccupiedCharacter.CurrentTile,
                                 1);
-                    
+
                         Span<double> eccStats = stackalloc double[3];
                         eccStats.Clear();
                         eccStats[0] = 0.3f;
@@ -169,5 +169,13 @@ public partial class EffectCodeSkill215322201 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+    }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
     }
 }

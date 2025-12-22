@@ -115,7 +115,7 @@ public partial class EffectCodeSkill1105031 : EffectCodeCharacterBase
         {
             var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                 _targetCharacter.SkillRootTransformFollowable);
-            
+
             Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
             vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
@@ -124,6 +124,13 @@ public partial class EffectCodeSkill1105031 : EffectCodeCharacterBase
 
         IsSkillActivated = false;
     }
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
+
 
     public override void OnSkillAnimationEnd()
     {
@@ -131,7 +138,7 @@ public partial class EffectCodeSkill1105031 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
-    
+
     private async UniTaskVoid ExecuteSkillRoutine(int count)
     {
         for (int i = 0; i < count; i++)
@@ -142,7 +149,7 @@ public partial class EffectCodeSkill1105031 : EffectCodeCharacterBase
             // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
             // owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
             _targetCharacter.GetDamaged(damage, owner);
-            
+
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
         }
     }

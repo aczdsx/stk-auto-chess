@@ -99,7 +99,7 @@ public partial class EffectCodeSkill217433302 : EffectCodeCharacterBase
         var inGameCharacterListSortedByHpRate =
             InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
         List<CharacterController> targetCharacters = new();
-        
+
         if (inGameCharacterListSortedByHpRate.Count > 0)
         {
             for (int i = 0; i < 3; i++)
@@ -114,12 +114,19 @@ public partial class EffectCodeSkill217433302 : EffectCodeCharacterBase
                 }
             }
         }
-        
+
         ProcessTarget(targetCharacters).Forget();
 
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
     public override void OnSkillAnimationEnd()
     {
         CoolTimeElapsedTime = 0;

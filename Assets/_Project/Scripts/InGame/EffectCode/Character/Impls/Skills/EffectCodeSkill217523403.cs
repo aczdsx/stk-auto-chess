@@ -106,6 +106,13 @@ public partial class EffectCodeSkill217523403 : EffectCodeCharacterBase
         ExecuteSkillRoutine().Forget();
 
         IsSkillActivated = false;
+
+    }
+
+        public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
     }
 
     public override void OnSkillAnimationEnd()

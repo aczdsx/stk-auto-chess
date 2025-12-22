@@ -49,21 +49,38 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
 
         for (int i = 0; i < itemCount; i++)
         {
-            if (InGameTouchManager.Instance.SelectedFirstTileID != -1)
+            // 타일이 이미 점유되어 있으면 다른 타일을 찾음
+            do
             {
-                inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(InGameTouchManager.Instance.SelectedFirstTileID);
-            }
-            else
+                if (InGameTouchManager.Instance.SelectedFirstTileID != -1)
+                {
+                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(InGameTouchManager.Instance.SelectedFirstTileID);
+                }
+                else
+                {
+                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+                }
+            } while (inGameTile != null && inGameTile.IsOccupied());
+
+            // 비어있는 타일을 찾지 못한 경우 랜덤 빈 타일 사용
+            if (inGameTile == null || inGameTile.IsOccupied())
             {
-                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
             }
+
+            if (inGameTile == null)
+            {
+                Debug.LogWarning($"AddGameObjectDynamite: 비어있는 타일을 찾을 수 없습니다. (i={i})");
+                continue;
+            }
+
             int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
             var statData = new CharacterStatData((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE, 1, 1, 1);
             var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.BattleItem,
                 typeof(CharacterStateReady), false, HpBarType.None);
             _dynamiteList.Add(character);
-            var itemInfo = InGameBattleItemDragDropComponent.InGameBattleItemInfo.Create( character: character, source: source, itemInfoHandler: this);
+            var itemInfo = InGameBattleItemDragDropComponent.InGameBattleItemInfo.Create(character: character, source: source, itemInfoHandler: this);
             InGameSynergyManager.Instance.RegisterBattleItem(itemInfo);
         }
     }
@@ -87,10 +104,11 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
             {
                 //전투 준비 시 중립 지역에 대전차지뢰를 최대 {0}개 설치 가능합니다.(위력은 트러블 슈터 성군원들의 공격력 {1}%로 결정됩니다.)
                 case 1:
-                    ApplyDynamiteToTile(troubleShooterSynergyList[i-1]);
+                    ApplyDynamiteToTile(troubleShooterSynergyList[0]);
+                    AddSupplyEffectCode(troubleShooterSynergyList[1]);
                     break;
                 case 2:
-                    AddSupplyEffectCode(troubleShooterSynergyList[i-1]);
+                    // AddSupplyEffectCode(troubleShooterSynergyList[1]);
                     break;
                 case 3:
 
@@ -128,7 +146,8 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        stats[0] = synergyData.effect_stat_value_1;//Time
+        // stats[0] = synergyData.effect_stat_value_1;//Time
+        stats[0] = 6f;
         var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.BATTLE_ITEM_SUPPLY,
         0, stats);
 

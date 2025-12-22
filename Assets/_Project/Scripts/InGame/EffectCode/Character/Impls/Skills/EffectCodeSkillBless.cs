@@ -61,7 +61,7 @@ public partial class EffectCodeSkillBless : EffectCodeCharacterBase
     // public override void OnAttack()
     // {
     //     base.OnAttack();
-    //     // 공격시에 쿨타임을 줄임
+    //     // 공격?�에 쿨�??�을 줄임
     //     elapsedTime += 0.5f;
     // }
 
@@ -73,10 +73,10 @@ public partial class EffectCodeSkillBless : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
-        // 공격할 타겟부터 설정. 이미 공격중인 타겟이 있으면 스킵
+        // 공격???�겟�????�정. ?��? 공격중인 ?�겟이 ?�으�??�킵
         if (owner.Target is not {IsAlive: true}) // owner.Target == null || !owner.Target.IsAlive
         {
-            // 검색 방식에 따라 타겟을 찾음
+            // 검??방식???�라 ?�겟을 찾음
             owner.Target = InGameObjectManager.Instance.GetNearestTargetByBFS(owner);
             if (owner.Target == null)
             {
@@ -95,7 +95,7 @@ public partial class EffectCodeSkillBless : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        // 주변 적에게 데미지를 입힘
+        // 주�? ?�에�??��?지�??�힘
         using var _ = ListPool<CharacterController>.Get(out var enemies);
         InGameObjectManager.Instance.GetNearestEnemiesInRange(owner.Target, range, _rangeShapeType, enemies);
 
@@ -118,5 +118,11 @@ public partial class EffectCodeSkillBless : EffectCodeCharacterBase
     {
         base.OnSkillAnimationEnd();
         isSkillActivated = false;
+    }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
     }
 }

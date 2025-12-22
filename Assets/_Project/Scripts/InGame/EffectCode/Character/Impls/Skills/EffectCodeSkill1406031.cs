@@ -103,14 +103,14 @@ public partial class EffectCodeSkill1406031 : EffectCodeCharacterBase
                 .AddInGameVfx(_specSkill.skill_vfxs[0], owner.GetCharacterView().CachedTr.position)
                 .GetComponent<InGameVfxObj>();
         }
-        
+
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
 
         var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, true);
         if (targetCharacterList.Count > 0)
         {
             var characterWithLowestHp = targetCharacterList[0];
-            
+
             Vector3 direction = (characterWithLowestHp.CurrentTile.View.CachedTr.position - _vfxObj.CachedTr.position).normalized;
             _vfxObj.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
@@ -135,4 +135,13 @@ public partial class EffectCodeSkill1406031 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }
