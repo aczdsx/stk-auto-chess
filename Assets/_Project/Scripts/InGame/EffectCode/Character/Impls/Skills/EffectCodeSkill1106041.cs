@@ -96,9 +96,9 @@ public partial class EffectCodeSkill1106041 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var character in characterControllers)
         {
-            if(character == owner)
+            if (character == owner)
                 continue;
-            
+
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, character.CurrentTile);
         }
 
@@ -120,4 +120,13 @@ public partial class EffectCodeSkill1106041 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }

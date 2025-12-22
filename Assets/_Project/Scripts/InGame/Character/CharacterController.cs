@@ -671,6 +671,16 @@ namespace CookApps.BattleSystem
             }
         }
 
+        /// <summary>
+        /// modify 이나 쿨타임을 더해주는 함수.
+        /// </summary>
+        /// <param name="cooltime"></param>
+        public void AddSkillCooltimeInECC(float cooltime)
+        {
+            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseAddSkillCooltime);
+            EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallAddSkillCooltimeLambda, cooltime);
+        }
+
         public StateBase AddNextState(Type stateType, object stateData = null)
         {
 #if UNITY_EDITOR

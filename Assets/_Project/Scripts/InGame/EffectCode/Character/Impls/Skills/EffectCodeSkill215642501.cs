@@ -149,7 +149,7 @@ public partial class EffectCodeSkill215642501 : EffectCodeCharacterBase
                         targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
                         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                             tile.OccupiedCharacter.SkillRootTransformFollowable);
-                
+
                         float calculatedDamageRate = _damageRate;
                         if (tile.OccupiedCharacter.GetCharacterStat().Spec.character_element_type == SynergyType.FIRE)
                             calculatedDamageRate += _additionalDamageRate;
@@ -166,4 +166,15 @@ public partial class EffectCodeSkill215642501 : EffectCodeCharacterBase
 
         IsSkillActivated = false;
     }
+
+
+
+
+        public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }
+

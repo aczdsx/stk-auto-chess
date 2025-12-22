@@ -214,4 +214,10 @@ public partial class EffectCodeSkill250108003 : EffectCodeCharacterBase
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN,
             tile.OccupiedCharacter, eccStats, source);
     }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
 }

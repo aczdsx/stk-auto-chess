@@ -219,6 +219,18 @@ namespace CookApps.BattleSystem
             return shieldAmount;
         }
 
+        /// <summary>
+        /// 쿨타임 추가 함수
+        /// 컨트롤러에서 한꺼번에 모두 쿨타임을 업데이트 하므로 조심히 오버라이딩 해주세요.
+        /// </summary>
+        /// <param name="cooltime"></param>
+        /// <returns></returns>
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseAddSkillCooltime)]
+        public virtual float AddSkillCooltime(float cooltime)
+        {
+            return cooltime;
+        }
+
         #region Active 기능들
         /// <summary>
         /// 액티브 스킬의 경우 스킬 발동 가능할 때 True를 리턴하면 된다.
@@ -351,7 +363,7 @@ namespace CookApps.BattleSystem
             {
                 code.OnAttackEnd(target);
             }
-        };    
+        };
 
         public static Action<EffectCodeStatBase, EffectCodeBase> CallOnSkillLambda = (x, skillEffectCode) =>
         {
@@ -453,6 +465,15 @@ namespace CookApps.BattleSystem
             }
 
             return false;
+        };
+
+        public static Action<EffectCodeStatBase, float> CallAddSkillCooltimeLambda = (x, cooltime) =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.AddSkillCooltime(cooltime);
+            }
+
         };
     }
 }

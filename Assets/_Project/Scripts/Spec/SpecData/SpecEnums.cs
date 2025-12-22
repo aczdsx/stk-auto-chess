@@ -40,11 +40,7 @@ namespace CookApps.AutoBattler
         DEF_PERCENT_UP = 29,
         BATTLE_ITEM_SUPERNOVA = 6101,
         BATTLE_ITEM_DYNAMITE = 6102,
-        BATTLE_ITEM_CHOCOBAR = 6103,
-        BATTLE_ITEM_ENERGY_DRINK = 6104,
-        BATTLE_ITEM_VITAMIN = 6105,
-        BATTLE_ITEM_EMP_BOMB = 6106,
-        BATTLE_ITEM_CANNON = 6107,
+        BATTLE_ITEM_SUPPLY = 6103,
         COMMANDER_SKILL_EXPLOSION = 300001,
         COMMANDER_SKILL_FREEZING = 300002,
         COMMANDER_SKILL_AIRBORNE = 300003,
@@ -58,7 +54,6 @@ namespace CookApps.AutoBattler
         STUN = 1100000001,
         SHIELD = 1100000002,
         KNOCKBACK = 1100000003,
-        SILENCE = 1100000004,
         AIRBORNE = 1100000005,
         MISA_RESTRAINT = 1100000006,
         TARGET_IMPOSSIBLE = 1100000007,
@@ -536,6 +531,11 @@ namespace CookApps.AutoBattler
         fx_common_synergy_wind_02 = 205,
         fx_common_synergy_wind_03 = 206,
         fx_common_job_espar_01 = 207,
+        fx_common_supply_chocobar = 208,
+        fx_common_supply_vitamin = 209,
+        fx_common_supply_emp_bomb = 210,
+        fx_common_supply_energy_drink = 211,
+        fx_common_supply_emergency_armor = 212,
     }
 
     public enum GlobalEffectProviderType

@@ -102,12 +102,23 @@ public partial class EffectCodeSkill1202071 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-        
+
         SkillProcess(0.2f).Forget();
 
         IsSkillActivated = false;
     }
     
+
+        
+
+        public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
+
+
     public async UniTaskVoid SkillProcess(float time)
     {
         var inGameTiles1 = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
@@ -121,7 +132,7 @@ public partial class EffectCodeSkill1202071 : EffectCodeCharacterBase
         ProcessTiles(inGameTiles3, owner, _damageRate2);
 
         IsSkillActivated = false;
-    }
+    }   
     
     private void OnSkillEnd()
     {

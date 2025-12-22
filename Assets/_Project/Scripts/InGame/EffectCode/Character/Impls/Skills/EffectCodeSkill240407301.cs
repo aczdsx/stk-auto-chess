@@ -204,4 +204,10 @@ private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNam
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
 }

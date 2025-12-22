@@ -97,14 +97,14 @@ public partial class EffectCodeSkill1203021 : EffectCodeCharacterBase
 
         var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
-        
+
         var targetCharacterList =
             InGameObjectManager.Instance.GetCharacterListSortedByDistanceDescending(owner, false);
-        
+
         if (targetCharacterList.Count > 0)
         {
             var target = targetCharacterList[0];
-            
+
             var targetTile = target.CurrentTile;
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, targetTile);
 
@@ -115,7 +115,7 @@ public partial class EffectCodeSkill1203021 : EffectCodeCharacterBase
             vfxProjectile.Initialize(false, movement);
 
             movement.OnReachedTarget += OnReachedTargetHandler;
-            
+
             void OnReachedTargetHandler()
             {
                 vfxProjectile.Remove();
@@ -129,9 +129,9 @@ public partial class EffectCodeSkill1203021 : EffectCodeCharacterBase
                     {
                         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                             tile.OccupiedCharacter.SkillRootTransformFollowable);
-                        
+
                         InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                    
+
                         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], tile.View.CachedTr.position);
                         float calculatedDamageRate = _additionalDamageRate;
 
@@ -155,4 +155,13 @@ public partial class EffectCodeSkill1203021 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }

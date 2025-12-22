@@ -96,22 +96,22 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
         {
             var characterController = characterControllers[0];
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, characterController.CurrentTile);
-            
+
             {
                 Span<double> eccStats = stackalloc double[1];
                 eccStats.Clear();
                 eccStats[0] = _time;
-        
+
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.MISA_RESTRAINT, characterController, eccStats, source);
             }
-            
+
             {
                 Span<double> eccStats = stackalloc double[3];
                 eccStats.Clear();
                 eccStats[0] = codeId;
                 eccStats[1] = _time;
                 eccStats[2] = 0;
-        
+
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_MISA, characterController, eccStats, source);
             }
 
@@ -119,13 +119,24 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
                 Span<double> eccStats = stackalloc double[1];
                 eccStats.Clear();
                 eccStats[0] = _time;
-        
+
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, characterController, eccStats, source);
             }
         }
-        
+
         IsSkillActivated = false;
+
+
     }
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
+
 
     public override void OnSkillAnimationEnd()
     {

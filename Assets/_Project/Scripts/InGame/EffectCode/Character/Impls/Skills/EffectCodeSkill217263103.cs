@@ -123,7 +123,7 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long) EffectCodeNameType.SHIELD);
+                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long)EffectCodeNameType.SHIELD);
                     var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                         tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
 
@@ -145,4 +145,13 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
+
+
+
+    public override float AddSkillCooltime(float cooltime)
+    {
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
+    }
+
 }
