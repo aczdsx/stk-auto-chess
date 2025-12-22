@@ -29,10 +29,17 @@ namespace CookApps.BattleSystem
         /// </summary>
         public void OnTileMoveEnd()
         {
-            if (CurrentTile.EffectCodeContainer.GetEffectCode((int)EffectCodeNameType.CHAPTER_TRAP)
+            var tileEcc = CurrentTile.EffectCodeContainer;
+            if (tileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_TRAP)
                                                 is EffectCodeGameBase effectCodeGameBase)
             {
                 effectCodeGameBase.OnTileMoveEnd(CurrentTile, this);
+            }
+
+            if (tileEcc.GetEffectCode((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE)
+            is EffectCodeGameBase dynamiteEffectCode)
+            {
+                dynamiteEffectCode.OnTileMoveEnd(CurrentTile, this);
             }
         }
 
@@ -260,6 +267,8 @@ namespace CookApps.BattleSystem
 
         private void AddPassive()
         {
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
+                return;
             var specDataManagerInstance = SpecDataManager.Instance;
             int testGrade = 0;
 
@@ -1144,7 +1153,7 @@ namespace CookApps.BattleSystem
             // 로비 전투 상황일 때
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
             {
-                if (attacker.AllianceType == AllianceType.Enemy)
+                if (attacker != null && attacker.AllianceType == AllianceType.Enemy)
                     return DamageReturnType.Damaging;
             }
             // 같은 틱에 대미지를 줘서 여러번 죽이는 경우가 있어서 이미 죽었는지 체크
@@ -1162,7 +1171,7 @@ namespace CookApps.BattleSystem
             }
 
             // effectCode에게 이벤트 전달
-            if (damageInfo.isCritical)
+            if (damageInfo.isCritical && attacker != null)
             {
                 var effectCodes = attacker.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCritical);
                 EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda);
@@ -1176,7 +1185,10 @@ namespace CookApps.BattleSystem
             _currHp -= damageAmount.damageAmount.Value;
             Debug.Log($"damageAmount: {damageAmount.damageAmount.Value}, _currHp: {_currHp}");
 
-            InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
+            if (attacker != null)
+            {
+                InGameStatistics.Instance.AddCombatDamage(attacker, this, damageInfo.damageAmount, _currHp, damageInfo.source);
+            }
             UpdateHpBar();
 
             if (_currHp <= 0)
@@ -1190,7 +1202,10 @@ namespace CookApps.BattleSystem
                     switch (damageInfo.attackerType)
                     {
                         case AttackerType.CHARCTER:
-                            InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
+                            if (attacker != null)
+                            {
+                                InGameMain.GetInGameMain().AddKillLog(attacker, this, attacker.AllianceType == AllianceType.Player);
+                            }
                             break;
                         case AttackerType.COMMANDER_SKILL:
                             var commanderSkill = SpecDataManager.Instance.GetCommanderSkillDataList((int)damageInfo.source)[0];
@@ -1242,7 +1257,10 @@ namespace CookApps.BattleSystem
 
         public void UpdateHpBar()
         {
-            _hpBarView.SetValue(_currHp, HP, _currShield);
+            if (_hpBarView != null)
+            {
+                _hpBarView.SetValue(_currHp, HP, _currShield);
+            }
         }
         #endregion
 

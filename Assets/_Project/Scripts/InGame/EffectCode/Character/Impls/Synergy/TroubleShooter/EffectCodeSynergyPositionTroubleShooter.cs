@@ -22,15 +22,6 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         SUPPORT_CANNON = 3,
     }
 
-    private enum TroubleShooterItemType
-    {
-        DYNAMITE = 6102,
-        CHOCOBAR = 6103,
-        ENERGY_DRINK = 6104,
-        BATTLE_VITAMIN = 6105,
-        EMP_BOMB = 6106,
-        CANNON = 6107,
-    }
     private int _synergyGrade;
     private float _elapsedTime;
     private float _supplyDuration;
@@ -53,10 +44,10 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
 
     private async void AddGameObjectDynamite(IEffectCodeSource source, int itemCount)
     {
-        if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)TroubleShooterItemType.DYNAMITE))
+        if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE))
             return;
 
-        var specCharacter = SpecDataManager.Instance.GetBattleItemData((int)TroubleShooterItemType.DYNAMITE);
+        var specCharacter = SpecDataManager.Instance.GetBattleItemData((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
         InGameTile inGameTile = null;
 
         for (int i = 0; i < itemCount; i++)
@@ -71,7 +62,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
             }
             int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
-            var statData = new CharacterStatData((int)TroubleShooterItemType.DYNAMITE, 1, 1, 1);
+            var statData = new CharacterStatData((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE, 1, 1, 1);
             var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.BattleItem,
                 typeof(CharacterStateReady), false, HpBarType.None);
             _dynamiteList.Add(character);
@@ -135,17 +126,20 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         foreach (var dynamite in _dynamiteList)
         {
             var curDynamiteTile = dynamite.CurrentTile;
-            var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.CHAPTER_TRAP,
+            stats[0] = curDynamiteTile.View.ID;
+            var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.BATTLE_ITEM_DYNAMITE,
             0, stats);
 
             curDynamiteTile.EffectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, null);
+
+            
         }
         
      }
 
     public override void OnPreRemoved()
     {
-        InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget((int)TroubleShooterItemType.DYNAMITE);
+        InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
 
         Debug.LogColor($"trouble shooter Removed", "red");
         base.OnPreRemoved();
@@ -180,7 +174,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
 
     public void OnItemNotAppliedBeforeCombat(CharacterController targetItemController, IEffectCodeSource source)
     {
-
+        InGameSynergyManager.Instance.ModifyBattleItemState(InGameBattleItemDragDropComponent.ItemState.ITEM_APPLIED, _dynamiteList[0], null);
     }
 
     #endregion Dynamite Call

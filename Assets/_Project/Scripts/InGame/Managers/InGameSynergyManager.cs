@@ -54,7 +54,7 @@ namespace CookApps.BattleSystem
         private void ClearSynergyFxByAlliance(AllianceType allianceType)
         {
             var synergyVfxDic = GetSynergyVfxDic(allianceType);
-            
+
             foreach (var kvp in synergyVfxDic)
             {
                 foreach (var vfx in kvp.Value)
@@ -77,7 +77,7 @@ namespace CookApps.BattleSystem
         public void ClearTargetSynergyFx(AllianceType allianceType, SynergyType synergyType)
         {
             var synergyVfxDic = GetSynergyVfxDic(allianceType);
-            
+
             if (synergyVfxDic.TryGetValue(synergyType, out var vfxList))
             {
                 foreach (var vfx in vfxList)
@@ -126,7 +126,7 @@ namespace CookApps.BattleSystem
             if (character.SpecCharacter.character_type != CharacterType.CHARACTER)
                 return;
 
-                
+
             _itemComponent.CheckAffectedByItemController(character);
 
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
@@ -135,7 +135,7 @@ namespace CookApps.BattleSystem
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
 
-            
+
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
         }
@@ -245,7 +245,7 @@ namespace CookApps.BattleSystem
         public void SpawnSynergyFx(AllianceType allianceType, List<CharacterController> targetList, SynergyType synergyType, int grade)
         {
             var synergyVfxDic = GetSynergyVfxDic(allianceType);
-            
+
             foreach (var character in targetList)
             {
                 InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
@@ -338,7 +338,7 @@ namespace CookApps.BattleSystem
                 {
                     var vfx = InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
                         character.GetCharacterView().CachedTr);
-                    
+
                     // 시너지 타입별로 리스트에 추가
                     if (!synergyVfxDic.TryGetValue(synergyType, out var vfxList))
                     {
@@ -351,7 +351,7 @@ namespace CookApps.BattleSystem
                 {
                     var vfx = InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
                         character.GetCharacterView().CachedTr);
-                    
+
                     // 시너지 타입별로 리스트에 추가
                     if (!synergyVfxDic.TryGetValue(synergyType, out var vfxList))
                     {
@@ -406,6 +406,17 @@ namespace CookApps.BattleSystem
         public void CheckAndHandleNotAppliedItemsBeforeCombat()
         {
             _itemComponent.CheckAndHandleNotAppliedItemsBeforeCombat();
+        }
+        
+        /// <summary>
+        /// 배틀 아이템 상태를 변경합니다.
+        /// </summary>
+        /// <param name="itemState">배틀 아이템 상태</param>
+        /// <param name="itemObj">배틀 아이템 오브젝트</param>
+        /// <param name="targetObj">대상 캐릭터 오브젝트</param>
+        public void ModifyBattleItemState(InGameBattleItemDragDropComponent.ItemState itemState, CharacterController itemObj, CharacterController targetObj)
+        {
+            _itemComponent.ModifyBattleItemState(itemState, itemObj, targetObj);
         }
     }
     #endregion

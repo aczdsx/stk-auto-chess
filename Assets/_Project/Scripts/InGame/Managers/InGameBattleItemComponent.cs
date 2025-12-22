@@ -263,6 +263,18 @@ namespace CookApps.BattleSystem
             return true;
         }
 
+        public void ModifyBattleItemState(ItemState itemState, CharacterController itemObj, CharacterController targetObj)
+        {
+            if (!_itemDic.TryGetValue(itemObj.SpecCharacter.prefab_id, out var itemList))
+                return;
+
+            foreach (var item in itemList)
+            {
+                item.itemState = itemState;
+                item.targetObj = targetObj;
+            }
+        }
+
         public void TryRemoveBattleItemFromTarget(int prefab_id)
         {
             if (!_itemDic.TryGetValue(prefab_id, out var itemList))

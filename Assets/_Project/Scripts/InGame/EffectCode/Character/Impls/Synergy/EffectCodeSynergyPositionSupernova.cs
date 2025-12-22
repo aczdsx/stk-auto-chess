@@ -21,7 +21,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         ADD_ATTACK_SPEED_CRITICAL_RATE_ATK_PIERCE = 3,
     }
     public const int CodeId = 200301;
-    public readonly static int SUPERNOVA_ITEM_VIEW_ID = 6101;
     private int _synergyGrade;
     private CharacterController _targetCharacter = null;
     private IEffectCodeSource _source;
@@ -44,10 +43,10 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     private async void AddGameObjectSuperNovaItem(IEffectCodeSource source)
     {
-        if (InGameSynergyManager.Instance.IsRegisteredBattleItem(SUPERNOVA_ITEM_VIEW_ID))
+        if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA))
             return;
 
-        var specCharacter = SpecDataManager.Instance.GetBattleItemData(SUPERNOVA_ITEM_VIEW_ID);
+        var specCharacter = SpecDataManager.Instance.GetBattleItemData((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA);
         InGameTile inGameTile = null;
 
         if (InGameTouchManager.Instance.SelectedFirstTileID != -1)
@@ -60,7 +59,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         }
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
-        var statData = new CharacterStatData(SUPERNOVA_ITEM_VIEW_ID, 1, 1, 1);
+        var statData = new CharacterStatData((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA, 1, 1, 1);
         var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Neutral,
             typeof(CharacterStateReady), false, HpBarType.None);
 
@@ -195,7 +194,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     public override void OnPreRemoved()
     {
-        InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget(SUPERNOVA_ITEM_VIEW_ID);
+        InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA);
 
         Debug.LogColor($"Supernova Removed", "red");
         base.OnPreRemoved();

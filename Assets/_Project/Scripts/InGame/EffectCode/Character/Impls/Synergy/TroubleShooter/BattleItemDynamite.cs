@@ -10,12 +10,12 @@ namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]
 
-    public class EffectCodeChapterRuleTrapExplosion : EffectCodeGameBase
+    public class EffectCodeBattleItemDynamite : EffectCodeGameBase
     {
         //위 클래스의 codeinfo는 0 데미지 1~n은 생성될 타일인덱스로 관리.
-        private const int CodeId = (int)EffectCodeNameType.CHAPTER_TRAP;
+        private const int CodeId = (int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE;
         private const string DamageColor = "#FF550000";
-        private const InGameVfxNameType TrapBodyVfxEnum = InGameVfxNameType.fx_common_trap_explosion;
+        private CharacterController _bombController = null;
 
         private const InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_hit_02;
 
@@ -25,18 +25,14 @@ namespace CookApps.BattleSystem
         //트랩 데미지
         private float _effectCodeStat;
 
-        //Dictionary Key: 트랩타일, Value: 밟으면 사라져야할 Vfx
-        private InGameVfx _targetTileVfx;
 
         protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
         {
             var InGameObejctManagerInstance = InGameObjectManager.Instance;
-            var InGameVfxManagerInstance = InGameVfxManager.Instance;
-
             InGameTile inGameTile = InGameObejctManagerInstance.GetInGameTile(codeInfo.GetCodeStatToInt(0));
-            var TrapBodyVfx = InGameVfxManagerInstance.AddInGameVfx(TrapBodyVfxEnum, inGameTile.View.CachedTr.position);
+            _bombController = inGameTile.OccupiedCharacter;
 
-            _targetTileVfx = TrapBodyVfx;
+            inGameTile.SetUnoccupied();
         }
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -46,7 +42,7 @@ namespace CookApps.BattleSystem
             _effectCodeStat = codeInfo.GetCodeStatToInt(1);
 
             SetRuleTileByInfo(codeInfo);
-
+            
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -58,22 +54,34 @@ namespace CookApps.BattleSystem
 
         public override void OnTileMoveEnd(InGameTile tile, CharacterController character)
         {
+            if (character.AllianceType == AllianceType.Player || character.AllianceType == AllianceType.Neutral)
+                return;
             //펑 터져서 지워야할 타일들 목록.
             var InGameObjectManagerInstance = InGameObjectManager.Instance;
             var InGameVfxManagerInstance = InGameVfxManager.Instance;
 
 
-            //여기까지오면 펑 터지기 수행. 타일의 Vfx를 우선 제거한다.
-            _targetTileVfx.Remove();
-
-            var damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHAPTER_RULE);
+            var damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHARCTER);
             var explosionTiles = InGameObjectManagerInstance.InGameGrid.GetTileListByShapeSquare(tile, _explosionRange);
 
             foreach (var explosionTile in explosionTiles)
             {
-                explosionTile.OccupiedCharacter?.GetDamaged(damage, null, hexColor: DamageColor);
+                explosionTile.OccupiedCharacter?.GetDamaged(damage, _bombController, hexColor: DamageColor);
                 InGameVfxManagerInstance.AddInGameVfx(ExplosionVfxEnum, explosionTile.View.CachedTr.position);
             }
+
+            // _bombController가 null이 아니고 아직 필드에 있는 경우에만 제거
+            if (_bombController != null)
+            {
+                // GetCharacterInField로 캐릭터가 아직 필드에 있는지 확인
+                var characterInField = InGameObjectManagerInstance.GetCharacterInField(_bombController.CharacterUId);
+                if (characterInField == _bombController)
+                {
+                    InGameObjectManagerInstance.RemoveCharacterFromField(_bombController);
+                }
+            }
+            
+            tile.EffectCodeContainer.RemoveEffectCode(codeId);
         }
     }
 }

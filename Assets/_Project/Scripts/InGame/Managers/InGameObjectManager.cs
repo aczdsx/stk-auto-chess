@@ -170,6 +170,14 @@ namespace CookApps.BattleSystem
                 }
             }
 
+            for (var i = 0; i < battleItemInPlaygroundForUpdate.Count; i++)
+            {
+                if (battleItemInPlaygroundForUpdate[i].CharacterUId == characUId)
+                {
+                    return battleItemInPlaygroundForUpdate[i];
+                }
+            }
+
             return null;
         }
 
