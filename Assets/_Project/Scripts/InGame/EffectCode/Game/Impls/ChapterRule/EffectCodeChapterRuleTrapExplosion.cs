@@ -26,7 +26,7 @@ namespace CookApps.BattleSystem
         private float _effectCodeStat;
 
         //Dictionary Key: 트랩타일, Value: 밟으면 사라져야할 Vfx
-        private Dictionary<InGameTile, InGameVfx> _chapterRuleTiles = new();
+        private InGameVfx _targetTileVfx;
 
         protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
         {
@@ -36,9 +36,7 @@ namespace CookApps.BattleSystem
             InGameTile inGameTile = InGameObejctManagerInstance.GetInGameTile(codeInfo.GetCodeStatToInt(0));
             var TrapBodyVfx = InGameVfxManagerInstance.AddInGameVfx(TrapBodyVfxEnum, inGameTile.View.CachedTr.position);
 
-            _chapterRuleTiles.Add(inGameTile, TrapBodyVfx);
-
-            
+            _targetTileVfx = TrapBodyVfx;
         }
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -46,8 +44,9 @@ namespace CookApps.BattleSystem
         {
             base.Initialize(codeInfo, container, source);
             _effectCodeStat = codeInfo.GetCodeStatToInt(1);
-            _chapterRuleTiles.Clear();
+
             SetRuleTileByInfo(codeInfo);
+
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -65,7 +64,7 @@ namespace CookApps.BattleSystem
 
 
             //여기까지오면 펑 터지기 수행. 타일의 Vfx를 우선 제거한다.
-            _chapterRuleTiles[tile].Remove();
+            _targetTileVfx.Remove();
 
             var damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHAPTER_RULE);
             var explosionTiles = InGameObjectManagerInstance.InGameGrid.GetTileListByShapeSquare(tile, _explosionRange);
@@ -75,9 +74,6 @@ namespace CookApps.BattleSystem
                 explosionTile.OccupiedCharacter?.GetDamaged(damage, null, hexColor: DamageColor);
                 InGameVfxManagerInstance.AddInGameVfx(ExplosionVfxEnum, explosionTile.View.CachedTr.position);
             }
-            //마지막은 dictionary에서 아예 제거한다.
-            _chapterRuleTiles.Remove(tile);
-
         }
     }
 }

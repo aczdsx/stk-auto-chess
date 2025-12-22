@@ -1,32 +1,23 @@
 #if UNITY_EDITOR
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEditor.U2D;
+using UnityEngine.U2D;
 
 public class GenerateResourcesMenu
 {
     
-    [MenuItem("Tools/LD Resources/Generate All LD Resources")]
+    [MenuItem("Tools/Resources/Generate All LD Resources")]
     private static void CreateLDResourcesForAllCharacters()
     {
-        GenerateLDResources.CreateAllLDResources(false);
+        GenerateLDResources.CreateAllLDResources();
     }
 
-    [MenuItem("Tools/LD Resources/Force Generate All LD Resources")]
-    public static void ForceCreateLDResourcesForAllCharacters()
-    {
-        GenerateLDResources.CreateAllLDResources(true);
-    }
-
-    [MenuItem("Tools/Pixel Resources/Generate All Pixel Resources")]
+    [MenuItem("Tools/Resources/Generate All SD Resources")]
     private static void CreateAnimationsForAllSubfolders()
     {
-        GeneratePixelResources.CreateAllPixelResources(false);
-    }
-
-    [MenuItem("Tools/Pixel Resources/Force Generate All Pixel Resources")]
-    public static void ForceCreateAnimationsForAllSubfolders()
-    {
-        GeneratePixelResources.CreateAllPixelResources(true);
+        GenerateSDResources.CreateAllSDResources();
     }
 
     [MenuItem("Assets/Generate Resources", true)]
@@ -48,58 +39,58 @@ public class GenerateResourcesMenu
     [MenuItem("Assets/Generate Resources")]
     private static void CreateResourcesForSelectedFolders()
     {
-        foreach (var obj in Selection.objects)
+        List<SpriteAtlas> createdAtlas = new List<SpriteAtlas>();
+
+        AssetDatabase.StartAssetEditing();
+        try
         {
-            string folderPath = AssetDatabase.GetAssetPath(obj);
-            string normalizedPath = folderPath.Replace("\\", "/");
-            string[] pathParts = normalizedPath.Split('/');
-            if (pathParts.Length < 4)
-                continue;
-            
-            if (pathParts[^4] != "Remote")
-                continue;
-            
-            if (pathParts[^3].Contains("LD"))
+            foreach (var obj in Selection.objects)
             {
-                CreateLDResources(folderPath);
+                string folderPath = AssetDatabase.GetAssetPath(obj);
+                string normalizedPath = folderPath.Replace("\\", "/");
+                string[] pathParts = normalizedPath.Split('/');
+                if (pathParts.Length < 4)
+                    continue;
+
+                if (pathParts[^4] != "Remote")
+                    continue;
+
+                if (pathParts[^3].Contains("LD"))
+                {
+                    CreateLDResources(folderPath);
+                }
+                else if (pathParts[^3].Contains("SD"))
+                {
+                    CreateSDResource(folderPath, createdAtlas);
+                }
             }
-            else if (pathParts[^3].Contains("SD"))
-            {
-                CreatePixelResource(folderPath);
-            }
+        }
+        finally
+        {
+            AssetDatabase.StopAssetEditing();
+        }
+
+        if (createdAtlas.Count > 0)
+        {
+            SpriteAtlasUtility.PackAtlases(createdAtlas.ToArray(), EditorUserBuildSettings.activeBuildTarget);
         }
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-       
     }
 
-    private static void CreatePixelResource(string folderPath)
+    private static void CreateSDResource(string folderPath, List<SpriteAtlas> createdAtlas)
     {
         if (!AssetDatabase.IsValidFolder(folderPath))
             return;
 
-        string generateResourcesPath = Path.Combine(folderPath, "GenerateResources");
-
-        if (AssetDatabase.IsValidFolder(generateResourcesPath))
-        {
-            AssetDatabase.DeleteAsset(generateResourcesPath);
-        }
-
-        GeneratePixelResources.CreateAnimationsFromPath(folderPath);
+        GenerateSDResources.CreateAnimationsFromPath(folderPath, createdAtlas);
     }
 
     private static void CreateLDResources(string folderPath)
     {
         if (!AssetDatabase.IsValidFolder(folderPath))
             return;
-
-        string generateResourcesPath = Path.Combine(folderPath, "GenerateResources");
-
-        if (AssetDatabase.IsValidFolder(generateResourcesPath))
-        {
-            AssetDatabase.DeleteAsset(generateResourcesPath);
-        }
 
         GenerateLDResources.CreateLDResourceFromPath(folderPath);
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using R3;
 using Tech.Hive.V1;
 using UnityEngine;
 
@@ -18,29 +19,22 @@ namespace CookApps.AutoBattler
         private BattleChapterData _currentChapter;
 
         // 챕터 목록 (ChapterId -> ChapterData)
-        private readonly Dictionary<uint, BattleChapterData> _chapters;
+        private readonly Dictionary<uint, BattleChapterData> _chapters = new (32);
 
         // 스테이지 진행 정보 (StageId -> StageProgress)
-        private readonly Dictionary<string, BattleStageProgress> _stageProgresses;
+        private readonly Dictionary<string, BattleStageProgress> _stageProgresses = new (128);
 
         // 버전 정보
-        private int _version;
+        private int _version = 0;
 
         public string CategoryKey => CATEGORY_KEY;
         public int Version => _version;
 
-        // 이벤트
-        public event Action OnChanged;
-        public event Action<BattleChapterData> OnCurrentChapterChanged;
-        public event Action<BattleChapterData> OnChapterUpdated;
-        public event Action<BattleStageProgress> OnStageProgressUpdated;
-
-        public BattleModel()
-        {
-            _chapters = new Dictionary<uint, BattleChapterData>(32);
-            _stageProgresses = new Dictionary<string, BattleStageProgress>(128);
-            _version = 0;
-        }
+        // R3 이벤트
+        public Subject<Unit> OnChanged { get; } = new();
+        public readonly Subject<BattleChapterData> OnCurrentChapterChanged = new();
+        public readonly Subject<BattleChapterData> OnChapterUpdated = new();
+        public readonly Subject<BattleStageProgress> OnStageProgressUpdated = new();
 
         /// <summary>
         /// 델타 업데이트 적용
@@ -57,25 +51,25 @@ namespace CookApps.AutoBattler
             if (battleDelta._currentChapter != null)
             {
                 _currentChapter = battleDelta._currentChapter;
-                OnCurrentChapterChanged?.Invoke(_currentChapter);
+                OnCurrentChapterChanged.OnNext(_currentChapter);
             }
 
             // 챕터 업데이트
             foreach (var kvp in battleDelta._chapters)
             {
                 _chapters[kvp.Key] = kvp.Value;
-                OnChapterUpdated?.Invoke(kvp.Value);
+                OnChapterUpdated.OnNext(kvp.Value);
             }
 
             // 스테이지 진행 정보 업데이트
             foreach (var kvp in battleDelta._stageProgresses)
             {
                 _stageProgresses[kvp.Key] = kvp.Value;
-                OnStageProgressUpdated?.Invoke(kvp.Value);
+                OnStageProgressUpdated.OnNext(kvp.Value);
             }
 
             _version = battleDelta._version;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -87,7 +81,7 @@ namespace CookApps.AutoBattler
             _chapters.Clear();
             _stageProgresses.Clear();
             _version = 0;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -129,7 +123,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public BattleChapterData GetChapter(uint chapterId)
         {
-            return _chapters.TryGetValue(chapterId, out var chapter) ? chapter : null;
+            return _chapters.GetValueOrDefault(chapterId);
         }
 
         /// <summary>
@@ -178,7 +172,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public BattleStageProgress GetStageProgress(string stageId)
         {
-            return _stageProgresses.TryGetValue(stageId, out var progress) ? progress : null;
+            return _stageProgresses.GetValueOrDefault(stageId);
         }
 
         /// <summary>
@@ -264,7 +258,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 현재 챕터 설정 (내부용)
         /// </summary>
-        internal void SetCurrentChapter(BattleChapterData chapter, IEnumerable<BattleStageProgress> stages)
+        internal void SetCurrentChapter(BattleChapterData chapter, IReadOnlyList<BattleStageProgress> stages)
         {
             _currentChapter = chapter;
 
@@ -275,8 +269,9 @@ namespace CookApps.AutoBattler
 
             if (stages != null)
             {
-                foreach (var stage in stages)
+                for (var i = 0; i < stages.Count; i++)
                 {
+                    var stage = stages[i];
                     if (!string.IsNullOrEmpty(stage.StageId))
                     {
                         _stageProgresses[stage.StageId] = stage;
@@ -285,38 +280,40 @@ namespace CookApps.AutoBattler
             }
 
             _version++;
-            OnCurrentChapterChanged?.Invoke(chapter);
-            OnChanged?.Invoke();
+            OnCurrentChapterChanged.OnNext(chapter);
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
         /// 챕터 목록 설정 (내부용)
         /// </summary>
-        internal void SetChapters(IEnumerable<BattleChapterData> chapters, int version)
+        internal void SetChapters(IReadOnlyList<BattleChapterData> chapters, int version)
         {
             _chapters.Clear();
 
             if (chapters != null)
             {
-                foreach (var chapter in chapters)
+                for (var i = 0; i < chapters.Count; i++)
                 {
+                    var chapter = chapters[i];
                     _chapters[chapter.ChapterId] = chapter;
                 }
             }
 
             _version = version;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
         /// 스테이지 목록 설정 (내부용)
         /// </summary>
-        internal void SetStages(IEnumerable<BattleStageProgress> stages)
+        internal void SetStages(IReadOnlyList<BattleStageProgress> stages)
         {
             if (stages != null)
             {
-                foreach (var stage in stages)
+                for (var i = 0; i < stages.Count; i++)
                 {
+                    var stage = stages[i];
                     if (!string.IsNullOrEmpty(stage.StageId))
                     {
                         _stageProgresses[stage.StageId] = stage;
@@ -325,7 +322,7 @@ namespace CookApps.AutoBattler
             }
 
             _version++;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -340,7 +337,7 @@ namespace CookApps.AutoBattler
             }
 
             _stageProgresses[progress.StageId] = progress;
-            OnStageProgressUpdated?.Invoke(progress);
+            OnStageProgressUpdated.OnNext(progress);
             _version++;
         }
 
@@ -356,7 +353,7 @@ namespace CookApps.AutoBattler
             }
 
             _chapters[chapter.ChapterId] = chapter;
-            OnChapterUpdated?.Invoke(chapter);
+            OnChapterUpdated.OnNext(chapter);
             _version++;
         }
 

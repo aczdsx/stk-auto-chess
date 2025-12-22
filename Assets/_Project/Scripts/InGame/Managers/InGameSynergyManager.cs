@@ -16,7 +16,7 @@ namespace CookApps.BattleSystem
     public class InGameSynergyManager : SingletonMonoBehaviour<InGameSynergyManager>
     {
         private Dictionary<AllianceType, HashSet<SynergyType>> _synergyManagerDataDic = new Dictionary<AllianceType, HashSet<SynergyType>>();
-        private InGameBattleItemComponent _itemComponent = new InGameBattleItemComponent();
+        private InGameBattleItemDragDropComponent _itemComponent = new InGameBattleItemDragDropComponent();
 
         // 플레이어와 적의 시너지 이펙트를 분리하여 관리
         private Dictionary<SynergyType, List<InGameVfx>> _playerSynergyVfxDic = new();
@@ -54,7 +54,7 @@ namespace CookApps.BattleSystem
         private void ClearSynergyFxByAlliance(AllianceType allianceType)
         {
             var synergyVfxDic = GetSynergyVfxDic(allianceType);
-            
+
             foreach (var kvp in synergyVfxDic)
             {
                 foreach (var vfx in kvp.Value)
@@ -77,7 +77,7 @@ namespace CookApps.BattleSystem
         public void ClearTargetSynergyFx(AllianceType allianceType, SynergyType synergyType)
         {
             var synergyVfxDic = GetSynergyVfxDic(allianceType);
-            
+
             if (synergyVfxDic.TryGetValue(synergyType, out var vfxList))
             {
                 foreach (var vfx in vfxList)
@@ -126,7 +126,7 @@ namespace CookApps.BattleSystem
             if (character.SpecCharacter.character_type != CharacterType.CHARACTER)
                 return;
 
-                
+
             _itemComponent.CheckAffectedByItemController(character);
 
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
@@ -135,7 +135,7 @@ namespace CookApps.BattleSystem
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
 
-            
+
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
         }
@@ -245,7 +245,7 @@ namespace CookApps.BattleSystem
         public void SpawnSynergyFx(AllianceType allianceType, List<CharacterController> targetList, SynergyType synergyType, int grade)
         {
             var synergyVfxDic = GetSynergyVfxDic(allianceType);
-            
+
             foreach (var character in targetList)
             {
                 InGameVfxNameType inGameVfxNameType = InGameVfxNameType.NONE;
@@ -338,7 +338,7 @@ namespace CookApps.BattleSystem
                 {
                     var vfx = InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
                         character.GetCharacterView().CachedTr);
-                    
+
                     // 시너지 타입별로 리스트에 추가
                     if (!synergyVfxDic.TryGetValue(synergyType, out var vfxList))
                     {
@@ -351,7 +351,7 @@ namespace CookApps.BattleSystem
                 {
                     var vfx = InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
                         character.GetCharacterView().CachedTr);
-                    
+
                     // 시너지 타입별로 리스트에 추가
                     if (!synergyVfxDic.TryGetValue(synergyType, out var vfxList))
                     {
@@ -376,7 +376,7 @@ namespace CookApps.BattleSystem
 
         #region item
 
-        public void RegisterBattleItem(InGameBattleItemComponent.InGameBattleItemInfo itemInfo)
+        public void RegisterBattleItem(InGameBattleItemDragDropComponent.InGameBattleItemInfo itemInfo)
         {
             _itemComponent.RegisterBattleItem(itemInfo);
         }
@@ -392,7 +392,11 @@ namespace CookApps.BattleSystem
         {
             return _itemComponent.IsRegisteredBattleItem(prefab_id);
         }
-        public void  TryRemoveBattleItemFromTarget(int prefab_id)
+        /// <summary>
+        /// 위 함수 호출 시 해당 인스턴스(게임오브젝트도 removefromfield로 호출됩니ㅏ.)
+        /// </summary>
+        /// <param name="prefab_id"></param>
+        public void TryRemoveBattleItemFromTarget(int prefab_id)
         {
             _itemComponent.TryRemoveBattleItemFromTarget(prefab_id);
         }
@@ -402,6 +406,17 @@ namespace CookApps.BattleSystem
         public void CheckAndHandleNotAppliedItemsBeforeCombat()
         {
             _itemComponent.CheckAndHandleNotAppliedItemsBeforeCombat();
+        }
+        
+        /// <summary>
+        /// 배틀 아이템 상태를 변경합니다.
+        /// </summary>
+        /// <param name="itemState">배틀 아이템 상태</param>
+        /// <param name="itemObj">배틀 아이템 오브젝트</param>
+        /// <param name="targetObj">대상 캐릭터 오브젝트</param>
+        public void ModifyBattleItemState(InGameBattleItemDragDropComponent.ItemState itemState, CharacterController itemObj, CharacterController targetObj)
+        {
+            _itemComponent.ModifyBattleItemState(itemState, itemObj, targetObj);
         }
     }
     #endregion

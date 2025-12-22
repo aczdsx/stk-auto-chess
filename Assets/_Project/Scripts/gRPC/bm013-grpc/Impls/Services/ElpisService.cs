@@ -19,11 +19,26 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0 && resp.Elpis != null)
+            if (true)
+            {
+                // 서버 응답으로 로컬 데이터 갱신
+                if (resp != null && resp.Status.Code == 0 && resp.Elpis != null)
+                {
+                    ServerDataManager.Instance.Elpis.SetElpisData(
+                        resp.Elpis,
+                        ServerDataManager.Instance.Elpis.Version + 1
+                    );
+                }
+            }
+            else // dummy
             {
                 ServerDataManager.Instance.Elpis.SetElpisData(
-                    resp.Elpis,
+                    new ElpisData()
+                    {
+                        CoreResearches = { },
+                        Facilities = {  },
+                        Simulation = { }
+                    },
                     ServerDataManager.Instance.Elpis.Version + 1
                 );
             }

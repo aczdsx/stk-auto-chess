@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using R3;
 using Tech.Hive.V1;
 using UnityEngine;
 
@@ -14,23 +15,17 @@ namespace CookApps.AutoBattler
         public const string CATEGORY_KEY = "wallet";
 
         // 통화 데이터 (ItemId -> Amount)
-        private readonly Dictionary<uint, ulong> _currencies;
+        private readonly Dictionary<uint, ulong> _currencies = new (16);
 
         // 버전 정보
-        private int _version;
+        private int _version = 0;
 
         public string CategoryKey => CATEGORY_KEY;
         public int Version => _version;
 
-        // 통화 변경 이벤트
-        public event Action OnChanged;
-        public event Action<uint, ulong, ulong> OnCurrencyChanged; // (itemId, oldAmount, newAmount)
-
-        public WalletModel()
-        {
-            _currencies = new Dictionary<uint, ulong>(16);
-            _version = 0;
-        }
+        // R3 이벤트
+        public Subject<Unit> OnChanged { get; } = new();
+        public readonly Subject<(uint itemId, ulong oldAmount, ulong newAmount)> OnCurrencyChanged = new();
 
         /// <summary>
         /// 델타 업데이트 적용
@@ -52,11 +47,11 @@ namespace CookApps.AutoBattler
                 _currencies.TryGetValue(itemId, out var oldAmount);
                 _currencies[itemId] = newAmount;
 
-                OnCurrencyChanged?.Invoke(itemId, oldAmount, newAmount);
+                OnCurrencyChanged.OnNext((itemId, oldAmount, newAmount));
             }
 
             _version = walletDelta._version;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -66,7 +61,7 @@ namespace CookApps.AutoBattler
         {
             _currencies.Clear();
             _version = 0;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -102,27 +97,28 @@ namespace CookApps.AutoBattler
             _currencies.TryGetValue(itemId, out var oldAmount);
             _currencies[itemId] = amount;
 
-            OnCurrencyChanged?.Invoke(itemId, oldAmount, amount);
+            OnCurrencyChanged.OnNext((itemId, oldAmount, amount));
             _version++;
         }
 
         /// <summary>
         /// CurrencyDelta 배열로 업데이트
         /// </summary>
-        internal void ApplyCurrencyDeltas(IEnumerable<CurrencyDelta> deltas)
+        internal void ApplyCurrencyDeltas(IReadOnlyList<CurrencyDelta> deltas)
         {
             if (deltas == null) return;
 
-            foreach (var delta in deltas)
+            for (var i = 0; i < deltas.Count; i++)
             {
+                var delta = deltas[i];
                 var oldAmount = _currencies.TryGetValue(delta.ItemId, out var current) ? current : 0;
                 _currencies[delta.ItemId] = delta.After;
 
-                OnCurrencyChanged?.Invoke(delta.ItemId, oldAmount, delta.After);
+                OnCurrencyChanged.OnNext((delta.ItemId, oldAmount, delta.After));
             }
 
             _version++;
-            OnChanged?.Invoke();
+            OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>

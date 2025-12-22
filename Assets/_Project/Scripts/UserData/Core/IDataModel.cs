@@ -1,4 +1,5 @@
 using System;
+using R3;
 
 namespace CookApps.AutoBattler
 {
@@ -22,7 +23,7 @@ namespace CookApps.AutoBattler
         /// 데이터가 크게 변경되었을 때 발생하는 이벤트
         /// (예: 전체 교체, 델타 적용 등)
         /// </summary>
-        event Action OnChanged;
+        Subject<Unit> OnChanged { get; }
 
         /// <summary>
         /// 델타 업데이트 적용

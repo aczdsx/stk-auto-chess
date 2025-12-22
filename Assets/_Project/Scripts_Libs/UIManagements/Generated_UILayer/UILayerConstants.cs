@@ -11,6 +11,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return uiLayerName switch
             {
+                "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
                 "NaninovelMain" => "Prefabs/UI/00_Main/NaninovelMain.prefab",
@@ -62,10 +63,11 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 "Naninovel" => "Assets/_Project/Addressables/Remote/Scenes/Naninovel.unity",
                 "Lobby" => "Assets/_Project/Addressables/Remote/Scenes/Lobby.unity",
-                "Title" => "Assets/_Project/Addressables/BuiltIn/Scenes/Title.unity",
                 "InGame" => "Assets/_Project/Addressables/Remote/Scenes/InGame.unity",
                 "SceneLoading" => "Assets/_Project/Addressables/Remote/Scenes/SceneLoading.unity",
+                "BattleReady" => "Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity",
                 "SkillScene" => "Assets/_Project/Addressables/Remote/Scenes/SkillScene.unity",
+                "Title" => "Assets/_Project/Addressables/BuiltIn/Scenes/Title.unity",
                 _ => string.Empty
             };
         }

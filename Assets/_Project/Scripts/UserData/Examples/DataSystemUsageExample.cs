@@ -94,13 +94,13 @@ namespace CookApps.AutoBattler
         {
             Debug.Log("=== 4. UI 바인딩 설정 ===");
 
-            // 캐릭터 변경 이벤트 구독
-            _characterBridge.OnCharactersChanged += OnCharactersChanged;
-            _characterBridge.OnCharacterUpdated += OnCharacterUpdated;
-
-            // 통화 변경 이벤트 구독
-            _walletBridge.OnCurrencyChanged += OnCurrencyChanged;
-            _walletBridge.OnWalletChanged += OnWalletChanged;
+            // // 캐릭터 변경 이벤트 구독
+            // _characterBridge.OnCharactersChanged += OnCharactersChanged;
+            // _characterBridge.OnCharacterUpdated += OnCharacterUpdated;
+            //
+            // // 통화 변경 이벤트 구독
+            // _walletBridge.OnCurrencyChanged += OnCurrencyChanged;
+            // _walletBridge.OnWalletChanged += OnWalletChanged;
 
             Debug.Log("✓ UI 바인딩 설정 완료");
         }

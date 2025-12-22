@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using R3;
 using Tech.Hive.V1;
 using UnityEngine.Pool;
 
@@ -12,11 +13,11 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class BattleDataBridge : DataBridgeBase<BattleModel>
     {
-        // UI 갱신 이벤트
-        public event Action OnBattleDataChanged;
-        public event Action<BattleChapterData> OnCurrentChapterChanged;
-        public event Action<BattleChapterData> OnChapterUpdated;
-        public event Action<BattleStageProgress> OnStageProgressUpdated;
+        // R3 이벤트
+        public readonly Subject<Unit> OnBattleDataChanged = new();
+        public readonly Subject<BattleChapterData> OnCurrentChapterChanged = new();
+        public readonly Subject<BattleChapterData> OnChapterUpdated = new();
+        public readonly Subject<BattleStageProgress> OnStageProgressUpdated = new();
 
         public BattleDataBridge()
             : base(ServerDataManager.Instance.Battle, BattleModel.CATEGORY_KEY)
@@ -28,19 +29,14 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void SubscribeModelEvents()
         {
-            Model.OnCurrentChapterChanged += OnCurrentChapterChangedInternal;
-            Model.OnChapterUpdated += OnChapterUpdatedInternal;
-            Model.OnStageProgressUpdated += OnStageProgressUpdatedInternal;
-        }
+            Model.OnCurrentChapterChanged.Subscribe(this, (chapter, self) =>
+            {
+                self.OnCurrentChapterChanged.OnNext(chapter);
+                self.OnBattleDataChanged.OnNext(Unit.Default);
+            }).AddTo(ref disposableBag);
 
-        /// <summary>
-        /// 모델 이벤트 구독 해제
-        /// </summary>
-        protected override void UnsubscribeModelEvents()
-        {
-            Model.OnCurrentChapterChanged -= OnCurrentChapterChangedInternal;
-            Model.OnChapterUpdated -= OnChapterUpdatedInternal;
-            Model.OnStageProgressUpdated -= OnStageProgressUpdatedInternal;
+            Model.OnChapterUpdated.Subscribe(this, (chapter, self) => self.OnChapterUpdated.OnNext(chapter)).AddTo(ref disposableBag);
+            Model.OnStageProgressUpdated.Subscribe(this, (progress, self) => self.OnStageProgressUpdated.OnNext(progress)).AddTo(ref disposableBag);
         }
 
         /// <summary>
@@ -48,28 +44,8 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void OnModelChanged()
         {
-            OnBattleDataChanged?.Invoke();
+            OnBattleDataChanged.OnNext(Unit.Default);
         }
-
-        #region 내부 이벤트 핸들러
-
-        private void OnCurrentChapterChangedInternal(BattleChapterData chapter)
-        {
-            OnCurrentChapterChanged?.Invoke(chapter);
-            OnBattleDataChanged?.Invoke();
-        }
-
-        private void OnChapterUpdatedInternal(BattleChapterData chapter)
-        {
-            OnChapterUpdated?.Invoke(chapter);
-        }
-
-        private void OnStageProgressUpdatedInternal(BattleStageProgress progress)
-        {
-            OnStageProgressUpdated?.Invoke(progress);
-        }
-
-        #endregion
 
         #region 현재 챕터 관련
 

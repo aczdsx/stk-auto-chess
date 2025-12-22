@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Elpis
+  m_EditorClassIdentifier: 
+  m_GroupName: Elpis
+  m_GUID: c8fb35a35886f4f28a3cde122d604f1a
+  m_SerializeEntries:
+  - m_GUID: f0df7316ef3175c4cb1ffcc6244a6093
+    m_Address: Elpis
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f89df4a13acb14fa7825e80e448de809, type: 2}
+    - {fileID: 11400000, guid: 375fd7ac076734e2693b1a9f9c4038f2, type: 2}

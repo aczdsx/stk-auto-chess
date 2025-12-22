@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using R3;
 using Tech.Hive.V1;
 using UnityEngine.Pool;
 
@@ -12,9 +13,9 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class CharacterDataBridge : DataBridgeBase<CharacterModel>
     {
-        // UI 갱신 이벤트
-        public event Action OnCharactersChanged;
-        public event Action<CharacterData> OnCharacterUpdated;
+        // R3 이벤트
+        public readonly Subject<Unit> OnCharactersChanged = new();
+        public readonly Subject<CharacterData> OnCharacterUpdated = new();
 
         public CharacterDataBridge()
             : base(ServerDataManager.Instance.Character, CharacterModel.CATEGORY_KEY)
@@ -26,19 +27,9 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void SubscribeModelEvents()
         {
-            Model.OnCharacterAdded += OnCharacterAdded;
-            Model.OnCharacterUpdated += OnCharacterUpdatedInternal;
-            Model.OnCharacterRemoved += OnCharacterRemoved;
-        }
-
-        /// <summary>
-        /// 모델 이벤트 구독 해제
-        /// </summary>
-        protected override void UnsubscribeModelEvents()
-        {
-            Model.OnCharacterAdded -= OnCharacterAdded;
-            Model.OnCharacterUpdated -= OnCharacterUpdatedInternal;
-            Model.OnCharacterRemoved -= OnCharacterRemoved;
+            Model.OnCharacterAdded.Subscribe(this, (character, self) => self.OnCharactersChanged.OnNext(Unit.Default)).AddTo(ref disposableBag);
+            Model.OnCharacterUpdated.Subscribe(this, (character, self) => self.OnCharacterUpdated.OnNext(character)).AddTo(ref disposableBag);
+            Model.OnCharacterRemoved.Subscribe(this, (_, self) => self.OnCharactersChanged.OnNext(Unit.Default)).AddTo(ref disposableBag);
         }
 
         /// <summary>
@@ -46,31 +37,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void OnModelChanged()
         {
-            OnCharactersChanged?.Invoke();
-        }
-
-        /// <summary>
-        /// 개별 캐릭터 추가 이벤트
-        /// </summary>
-        private void OnCharacterAdded(CharacterData character)
-        {
-            OnCharactersChanged?.Invoke();
-        }
-
-        /// <summary>
-        /// 개별 캐릭터 업데이트 이벤트
-        /// </summary>
-        private void OnCharacterUpdatedInternal(CharacterData character)
-        {
-            OnCharacterUpdated?.Invoke(character);
-        }
-
-        /// <summary>
-        /// 개별 캐릭터 삭제 이벤트
-        /// </summary>
-        private void OnCharacterRemoved(string instanceId)
-        {
-            OnCharactersChanged?.Invoke();
+            OnCharactersChanged.OnNext(Unit.Default);
         }
 
         /// <summary>

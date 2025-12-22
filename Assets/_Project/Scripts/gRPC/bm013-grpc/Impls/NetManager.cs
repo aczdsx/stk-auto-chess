@@ -1,12 +1,13 @@
 ﻿using CookApps.NetLite.Constants;
 using CookApps.NetLite.Initialize;
 using CookApps.NetLite.Manager;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
     /// 네트워크 매니저
-    public class NetManager : NetLiteManagerBase
+    public partial class NetManager : NetLiteManagerBase
     {
         private static NetManager _instance;
         public static NetManager Instance => _instance ??= new NetManager();

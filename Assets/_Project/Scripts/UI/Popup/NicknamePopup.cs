@@ -74,8 +74,8 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PopUILayer(this);
             
             // 로비 정보 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-            if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
+            var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+            if (battleReadyMain != null) battleReadyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
         }
         
         private void OnClickCloseButton()

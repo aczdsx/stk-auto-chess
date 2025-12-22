@@ -1051,26 +1051,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class ElpisGroundinfo
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(index), typeof(int))]
-        public int index;
-        /// 영지의 레벨
-        public int elpis_lv;
-        /// 필요 아이템 키
-        public string item_key;
-        /// 필요 아이템 수량
-        public int item_INT;
-        /// 영지 확장 프리펩
-        public string ground_prefab;
-        /// 영지 혜택 시트
-        public int growth_benefit;
-        /// 건물 혜금 리스트
-        public int[] lockup_list = global::System.Array.Empty<int>();
-    }
-
-    [GeneratorSpecData]
     public partial class ElpisGroundBenefit
     {
         /// #SheetIndex
@@ -1081,6 +1061,8 @@ namespace CookApps.AutoBattler
         public string benefit_desc_token;
         public string benefit_title_token;
         public int build_group_id;
+        /// 건물 유니크 ID
+        public int bulid_id;
         public float before_key;
         public float benefit_key;
     }
@@ -1091,6 +1073,8 @@ namespace CookApps.AutoBattler
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
         public int index;
+        /// 건물 유니크 ID
+        public int bulid_id;
         /// 건물 프리펩
         public string build_prefab;
         /// 건물 ID

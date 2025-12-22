@@ -88,3 +88,6 @@ Assets/NaninovelData/.nani/
 
 # Claude
 .claude/
+
+# MacOS
+.DS_Store

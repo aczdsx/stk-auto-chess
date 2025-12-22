@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using R3;
 using CookApps.AutoBattler;
 using UnityEngine;
 
@@ -11,9 +12,9 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class WalletDataBridge : DataBridgeBase<WalletModel>
     {
-        // UI 갱신 이벤트 (itemId별)
-        public event Action<uint, ulong> OnCurrencyChanged;
-        public event Action OnWalletChanged;
+        // R3 이벤트
+        public readonly Subject<(uint itemId, ulong newAmount)> OnCurrencyChanged = new();
+        public readonly Subject<Unit> OnWalletChanged = new();
 
         public WalletDataBridge()
             : base(ServerDataManager.Instance.Wallet, WalletModel.CATEGORY_KEY)
@@ -25,15 +26,11 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void SubscribeModelEvents()
         {
-            Model.OnCurrencyChanged += OnCurrencyChangedInternal;
-        }
-
-        /// <summary>
-        /// 모델 이벤트 구독 해제
-        /// </summary>
-        protected override void UnsubscribeModelEvents()
-        {
-            Model.OnCurrencyChanged -= OnCurrencyChangedInternal;
+            Model.OnCurrencyChanged.Subscribe(this, (data, self) =>
+            {
+                self.OnCurrencyChanged.OnNext((data.itemId, data.newAmount));
+                self.OnWalletChanged.OnNext(Unit.Default);
+            }).AddTo(ref disposableBag);
         }
 
         /// <summary>
@@ -41,13 +38,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void OnModelChanged()
         {
-            OnWalletChanged?.Invoke();
-        }
-
-        private void OnCurrencyChangedInternal(uint itemId, ulong oldAmount, ulong newAmount)
-        {
-            OnCurrencyChanged?.Invoke(itemId, newAmount);
-            OnWalletChanged?.Invoke();
+            OnWalletChanged.OnNext(Unit.Default);
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using R3;
 using Tech.Hive.V1;
 using UnityEngine.Pool;
 
@@ -12,13 +13,13 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class ElpisDataBridge : DataBridgeBase<ElpisModel>
     {
-        // UI 갱신 이벤트
-        public event Action OnElpisChanged;
-        public event Action<uint> OnLevelChanged;
-        public event Action<uint> OnExpansionLevelChanged;
-        public event Action<ElpisFacility> OnFacilityChanged;
-        public event Action<CoreResearch> OnCoreResearchChanged;
-        public event Action<SimulationData> OnSimulationChanged;
+        // R3 이벤트
+        public readonly Subject<Unit> OnElpisChanged = new();
+        public readonly Subject<uint> OnLevelChanged = new();
+        public readonly Subject<uint> OnExpansionLevelChanged = new();
+        public readonly Subject<ElpisFacility> OnFacilityChanged = new();
+        public readonly Subject<CoreResearch> OnCoreResearchChanged = new();
+        public readonly Subject<SimulationData> OnSimulationChanged = new();
 
         public ElpisDataBridge()
             : base(ServerDataManager.Instance.Elpis, ElpisModel.CATEGORY_KEY)
@@ -30,25 +31,22 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void SubscribeModelEvents()
         {
-            Model.OnLevelChanged += OnLevelChangedInternal;
-            Model.OnExpansionLevelChanged += OnExpansionLevelChangedInternal;
-            Model.OnFacilityAdded += OnFacilityChangedInternal;
-            Model.OnFacilityUpdated += OnFacilityChangedInternal;
-            Model.OnCoreResearchUpdated += OnCoreResearchChangedInternal;
-            Model.OnSimulationUpdated += OnSimulationChangedInternal;
-        }
+            Model.OnLevelChanged.Subscribe(this, (level, self) =>
+            {
+                self.OnLevelChanged.OnNext(level);
+                self.OnElpisChanged.OnNext(Unit.Default);
+            }).AddTo(ref disposableBag);
 
-        /// <summary>
-        /// 모델 이벤트 구독 해제
-        /// </summary>
-        protected override void UnsubscribeModelEvents()
-        {
-            Model.OnLevelChanged -= OnLevelChangedInternal;
-            Model.OnExpansionLevelChanged -= OnExpansionLevelChangedInternal;
-            Model.OnFacilityAdded -= OnFacilityChangedInternal;
-            Model.OnFacilityUpdated -= OnFacilityChangedInternal;
-            Model.OnCoreResearchUpdated -= OnCoreResearchChangedInternal;
-            Model.OnSimulationUpdated -= OnSimulationChangedInternal;
+            Model.OnExpansionLevelChanged.Subscribe(this, (level, self) =>
+            {
+                self.OnExpansionLevelChanged.OnNext(level);
+                self.OnElpisChanged.OnNext(Unit.Default);
+            }).AddTo(ref disposableBag);
+
+            Model.OnFacilityAdded.Subscribe(this, (facility, self) => self.OnFacilityChanged.OnNext(facility)).AddTo(ref disposableBag);
+            Model.OnFacilityUpdated.Subscribe(this, (facility, self) => self.OnFacilityChanged.OnNext(facility)).AddTo(ref disposableBag);
+            Model.OnCoreResearchUpdated.Subscribe(this, (research, self) => self.OnCoreResearchChanged.OnNext(research)).AddTo(ref disposableBag);
+            Model.OnSimulationUpdated.Subscribe(this, (simulation, self) => self.OnSimulationChanged.OnNext(simulation)).AddTo(ref disposableBag);
         }
 
         /// <summary>
@@ -56,39 +54,8 @@ namespace CookApps.AutoBattler
         /// </summary>
         protected override void OnModelChanged()
         {
-            OnElpisChanged?.Invoke();
+            OnElpisChanged.OnNext(Unit.Default);
         }
-
-        #region 내부 이벤트 핸들러
-
-        private void OnLevelChangedInternal(uint level)
-        {
-            OnLevelChanged?.Invoke(level);
-            OnElpisChanged?.Invoke();
-        }
-
-        private void OnExpansionLevelChangedInternal(uint level)
-        {
-            OnExpansionLevelChanged?.Invoke(level);
-            OnElpisChanged?.Invoke();
-        }
-
-        private void OnFacilityChangedInternal(ElpisFacility facility)
-        {
-            OnFacilityChanged?.Invoke(facility);
-        }
-
-        private void OnCoreResearchChangedInternal(CoreResearch research)
-        {
-            OnCoreResearchChanged?.Invoke(research);
-        }
-
-        private void OnSimulationChangedInternal(SimulationData simulation)
-        {
-            OnSimulationChanged?.Invoke(simulation);
-        }
-
-        #endregion
 
         #region 시설 관련
 
@@ -103,9 +70,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 모든 시설 가져오기
         /// </summary>
-        public void GetAllFacilities(List<ElpisFacility> output)
+        public IReadOnlyList<ElpisFacility> GetAllFacilities()
         {
-            Model?.GetAllFacilities(output);
+            return Model?.GetAllFacilities();
         }
 
         /// <summary>
@@ -172,8 +139,7 @@ namespace CookApps.AutoBattler
             if (Model == null || output == null) return;
 
             output.Clear();
-            using var _ = ListPool<ElpisFacility>.Get(out var allFacilities);
-            Model.GetAllFacilities(allFacilities);
+            var allFacilities = Model.GetAllFacilities();
 
             for (int i = 0; i < allFacilities.Count; i++)
             {

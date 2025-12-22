@@ -27,10 +27,10 @@ namespace CookApps.AutoBattler
         // 로비 메인  가이드 미션 UI 갱신
         public void RefreshGuideMissionUI()
         {
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-            if (lobbyMain != null)
+            var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+            if (battleReadyMain != null)
             {
-                lobbyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
+                battleReadyMain.RefreshUI(LobbyMainRefreshType.GUIDE_MISSION);
             }
         }
 

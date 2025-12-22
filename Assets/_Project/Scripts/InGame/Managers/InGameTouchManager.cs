@@ -177,48 +177,109 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void MoveCharacter(Vector3 touchPosition)
     {
-        if (_isMoveEndAnimation)
+        if (_isMoveEndAnimation || _selectedCharacterController == null)
             return;
 
-        if (_selectedCharacterController != null)
+        Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
+        if (!Physics.Raycast(ray, out RaycastHit hit))
+            return;
+
+        // BattleItem의 경우 Slot 태그 체크 없이 진행, 일반 캐릭터는 Slot 태그 필요
+        bool isBattleItem = _selectedCharacterController.AllianceType == AllianceType.BattleItem;
+        if (!isBattleItem && !hit.transform.CompareTag("Slot"))
+            return;
+
+        InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
+        if (ingameTileView == null)
+            return;
+
+        // 타일 변경 조건 체크
+        bool canMoveToTile = CanMoveToTile(ingameTileView, isBattleItem);
+        if (!canMoveToTile)
+            return;
+
+        UpdateSelectedTileAndAnimate(ingameTileView);
+    }
+
+    /// <summary>
+    /// 선택된 캐릭터가 해당 타일로 이동할 수 있는지 확인합니다.
+    /// </summary>
+    private bool CanMoveToTile(InGameTileView targetTileView, bool isBattleItem)
+    {
+        // 같은 타일이면 이동 불가
+        if (targetTileView.ID == _selectedTileView.ID)
+            return false;
+
+        if (isBattleItem)
         {
-            Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
+            //배틀아이템은 타일에 효과코드가 있으면 이동 불가
+            var TileEcc = InGameObjectManager.Instance.InGameGrid.GetTile(targetTileView.ID).EffectCodeContainer;
+            if (TileEcc != null)
             {
-                InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
-                if (ingameTileView.ID != _selectedTileView.ID &&
-                    ingameTileView.AllianceType == AllianceType.Player)
+                if (TileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_TRAP) is not null
+                || TileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_FIRE) is not null
+                || TileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_ICE) is not null
+                || TileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_LANDMINE) is not null
+                || TileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_SANDSTORM) is not null
+                || TileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_RANDOM_MOVE) is not null
+                )
                 {
-                    _selectedTileView.SetActiveObj(false);
-                    InActiveAttackTile();
-
-                    _selectedTileView = ingameTileView;
-
-                    var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
-                    _selectedTileView.SetActiveObj(true);
-                    if (_selectedCharacterController.GetCharacterStat() != null)
-                        ActiveAttackTile(inGameTile, _selectedCharacterController.AttackRange);
-
-                    Vector3 targetPosition = ingameTileView.CachedTr.transform.position;
-                    float duration = 0.15f;
-
-                    Tween.Custom(
-                        _selectedCharacterController.Position3D,
-                        targetPosition,
-                        duration,
-                        (Vector3 value) =>
-                        {
-                            if (_selectedCharacterController != null)
-                            {
-                                // Debug.LogColor($"position : {_selectedCharacterController.Position3D} / target : {targetPosition}");
-                                _selectedCharacterController.Position3D = value;
-                                _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
-                            }
-                        });
+                    return false;
                 }
             }
+
         }
+
+        // BattleItem은 적 타일이 아닌 곳으로 이동 가능
+            // 일반 캐릭터는 플레이어 타일로만 이동 가능
+            return isBattleItem
+                ? targetTileView.AllianceType != AllianceType.Enemy
+                : targetTileView.AllianceType == AllianceType.Player;
+    }
+
+    /// <summary>
+    /// 선택된 타일을 업데이트하고 캐릭터 이동 애니메이션을 실행합니다.
+    /// </summary>
+    private void UpdateSelectedTileAndAnimate(InGameTileView targetTileView)
+    {
+        // 이전 타일 비활성화
+        _selectedTileView.SetActiveObj(false);
+        InActiveAttackTile();
+
+        // 새 타일 선택
+        _selectedTileView = targetTileView;
+        var inGameTile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
+        _selectedTileView.SetActiveObj(true);
+
+        // 공격 범위 타일 활성화
+        if (_selectedCharacterController.GetCharacterStat() != null)
+        {
+            ActiveAttackTile(inGameTile, _selectedCharacterController.AttackRange);
+        }
+
+        // 캐릭터 이동 애니메이션
+        AnimateCharacterPosition(targetTileView.CachedTr.transform.position);
+    }
+
+    /// <summary>
+    /// 캐릭터 위치를 애니메이션으로 이동시킵니다.
+    /// </summary>
+    private void AnimateCharacterPosition(Vector3 targetPosition)
+    {
+        const float duration = 0.15f;
+
+        Tween.Custom(
+            _selectedCharacterController.Position3D,
+            targetPosition,
+            duration,
+            (Vector3 value) =>
+            {
+                if (_selectedCharacterController != null)
+                {
+                    _selectedCharacterController.Position3D = value;
+                    _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
+                }
+            });
     }
 
     private void CancelMoveCharacter(bool isSameHero = false)

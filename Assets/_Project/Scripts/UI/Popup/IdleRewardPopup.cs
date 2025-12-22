@@ -179,10 +179,10 @@ namespace CookApps.AutoBattler
             OnClickCloseButton();
 
             // 메인 로비 갱신
-            var lobbyMain = SceneUILayerManager.Instance.GetUILayer<LobbyMain>();
-            if (lobbyMain != null)
+            var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+            if (battleReadyMain != null)
             {
-                lobbyMain.RefreshUI(LobbyMainRefreshType.IDLE_REWARD);
+                battleReadyMain.RefreshUI(LobbyMainRefreshType.IDLE_REWARD);
             }
         }
 
