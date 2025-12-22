@@ -11,50 +11,22 @@ namespace CookApps.AutoBattler
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// UI가 직접 데이터 모델을 접근하지 않고 브릿지를 통해 접근
     /// </summary>
-    public class ElpisDataBridge : DataBridgeBase<ElpisModel>
+    public class ElpisDataBridge
     {
-        // R3 이벤트
-        public readonly Subject<Unit> OnElpisChanged = new();
-        public readonly Subject<uint> OnLevelChanged = new();
-        public readonly Subject<uint> OnExpansionLevelChanged = new();
-        public readonly Subject<ElpisFacility> OnFacilityChanged = new();
-        public readonly Subject<CoreResearch> OnCoreResearchChanged = new();
-        public readonly Subject<SimulationData> OnSimulationChanged = new();
+        private ElpisModel Model;
+        // Public Observable 노출
+        public Observable<FacilityChangeInfo> OnFacilityAdded;
+        public Observable<FacilityChangeInfo> OnFacilityChanged;
+        public Observable<CoreResearchChangeInfo> OnCoreResearchChanged;
+        public Observable<SimulationChangeInfo> OnSimulationChanged;
 
         public ElpisDataBridge()
-            : base(ServerDataManager.Instance.Elpis, ElpisModel.CATEGORY_KEY)
         {
-        }
-
-        /// <summary>
-        /// 모델 이벤트 구독
-        /// </summary>
-        protected override void SubscribeModelEvents()
-        {
-            Model.OnLevelChanged.Subscribe(this, (level, self) =>
-            {
-                self.OnLevelChanged.OnNext(level);
-                self.OnElpisChanged.OnNext(Unit.Default);
-            }).AddTo(ref disposableBag);
-
-            Model.OnExpansionLevelChanged.Subscribe(this, (level, self) =>
-            {
-                self.OnExpansionLevelChanged.OnNext(level);
-                self.OnElpisChanged.OnNext(Unit.Default);
-            }).AddTo(ref disposableBag);
-
-            Model.OnFacilityAdded.Subscribe(this, (facility, self) => self.OnFacilityChanged.OnNext(facility)).AddTo(ref disposableBag);
-            Model.OnFacilityUpdated.Subscribe(this, (facility, self) => self.OnFacilityChanged.OnNext(facility)).AddTo(ref disposableBag);
-            Model.OnCoreResearchUpdated.Subscribe(this, (research, self) => self.OnCoreResearchChanged.OnNext(research)).AddTo(ref disposableBag);
-            Model.OnSimulationUpdated.Subscribe(this, (simulation, self) => self.OnSimulationChanged.OnNext(simulation)).AddTo(ref disposableBag);
-        }
-
-        /// <summary>
-        /// 모델 변경 감지 (전체 갱신)
-        /// </summary>
-        protected override void OnModelChanged()
-        {
-            OnElpisChanged.OnNext(Unit.Default);
+            Model = ServerDataManager.Instance.Elpis;
+            OnFacilityAdded = Model.OnFacilityAdded;
+            OnFacilityChanged = Model.OnFacilityUpdated;
+            OnCoreResearchChanged = Model.OnCoreResearchUpdated;
+            OnSimulationChanged = Model.OnSimulationUpdated;
         }
 
         #region 시설 관련

@@ -8,20 +8,11 @@ namespace CookApps.AutoBattler
     /// <summary>
     /// 캐릭터 데이터 모델
     /// 서버의 CharacterInfo 프로토콜을 래핑
-    /// 델타 업데이트 지원
     /// </summary>
-    public class CharacterModel : IDataModel
+    public class CharacterModel
     {
-        public const string CATEGORY_KEY = "character";
-
         // 프로토콜 데이터 (서버에서 받은 원본)
         private readonly Dictionary<string, CharacterData> _characters = new (64);
-
-        // 버전 정보
-        private int _version = 0;
-
-        public string CategoryKey => CATEGORY_KEY;
-        public int Version => _version;
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -30,65 +21,12 @@ namespace CookApps.AutoBattler
         public readonly Subject<string> OnCharacterRemoved = new();
 
         /// <summary>
-        /// 델타 업데이트 적용
-        /// </summary>
-        public void ApplyDelta(IDataModel delta)
-        {
-            if (delta is not CharacterModel characterDelta)
-            {
-                Debug.LogError("[CharacterModel] Invalid delta type");
-                return;
-            }
-
-            // 변경된 캐릭터만 업데이트
-            foreach (var kvp in characterDelta._characters)
-            {
-                var instanceId = kvp.Key;
-                var newCharacter = kvp.Value;
-
-                if (_characters.TryGetValue(instanceId, out var existing))
-                {
-                    // 기존 캐릭터 업데이트
-                    _characters[instanceId] = newCharacter;
-                    OnCharacterUpdated.OnNext(newCharacter);
-                }
-                else
-                {
-                    // 새 캐릭터 추가
-                    _characters[instanceId] = newCharacter;
-                    OnCharacterAdded.OnNext(newCharacter);
-                }
-            }
-
-            _version = characterDelta._version;
-            OnChanged.OnNext(Unit.Default);
-        }
-
-        /// <summary>
         /// 데이터 초기화
         /// </summary>
         public void Reset()
         {
             _characters.Clear();
-            _version = 0;
             OnChanged.OnNext(Unit.Default);
-        }
-
-        /// <summary>
-        /// 유효성 검증
-        /// </summary>
-        public bool Validate()
-        {
-            // 각 캐릭터 데이터 검증
-            foreach (var character in _characters.Values)
-            {
-                if (string.IsNullOrEmpty(character.InstanceId))
-                {
-                    Debug.LogError("[CharacterModel] Invalid character: missing InstanceId");
-                    return false;
-                }
-            }
-            return true;
         }
 
         /// <summary>
@@ -131,7 +69,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 서버 응답으로 캐릭터 설정 (내부용)
         /// </summary>
-        internal void SetCharacters(IReadOnlyList<CharacterData> characters, int version)
+        internal void SetCharacters(IReadOnlyList<CharacterData> characters)
         {
             _characters.Clear();
 
@@ -144,7 +82,6 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _version = version;
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -166,8 +103,6 @@ namespace CookApps.AutoBattler
                 OnCharacterAdded.OnNext(character);
             else
                 OnCharacterUpdated.OnNext(character);
-
-            _version++;
         }
 
         /// <summary>
@@ -178,7 +113,6 @@ namespace CookApps.AutoBattler
             if (_characters.Remove(instanceId))
             {
                 OnCharacterRemoved.OnNext(instanceId);
-                _version++;
             }
         }
 

@@ -76,7 +76,7 @@ namespace CookApps.AutoBattler
             {
                 // 서버 응답으로 로컬 데이터 갱신
                 var characterModel = ServerDataManager.Instance.Character;
-                characterModel.SetCharacters(response.Characters, characterModel.Version + 1);
+                characterModel.SetCharacters(response.Characters);
                 // ServerDataManager.SetData 호출 제거 (SetCharacters 내부에서 이벤트 발생)
 
                 Debug.Log($"✓ 캐릭터 로드 완료: {response.Characters.Count}명");
@@ -277,13 +277,6 @@ namespace CookApps.AutoBattler
         {
             Debug.Log("[UI Event] 지갑 전체 변경됨 - 모든 통화 UI 갱신 필요");
             // 전체 통화 UI 갱신
-        }
-
-        private void OnDestroy()
-        {
-            // 정리
-            _characterBridge?.Dispose();
-            _walletBridge?.Dispose();
         }
     }
 }

@@ -11,43 +11,21 @@ namespace CookApps.AutoBattler
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// UI가 직접 데이터 모델을 접근하지 않고 브릿지를 통해 접근
     /// </summary>
-    public class BattleDataBridge : DataBridgeBase<BattleModel>
+    public class BattleDataBridge
     {
-        // R3 이벤트
-        public readonly Subject<Unit> OnBattleDataChanged = new();
-        public readonly Subject<BattleChapterData> OnCurrentChapterChanged = new();
-        public readonly Subject<BattleChapterData> OnChapterUpdated = new();
-        public readonly Subject<BattleStageProgress> OnStageProgressUpdated = new();
+        private BattleModel Model;
+        // Public Observable 노출
+        public Observable<BattleChapterData> OnCurrentChapterChanged;
+        public Observable<BattleChapterData> OnChapterUpdated;
+        public Observable<BattleStageProgress> OnStageProgressUpdated;
 
         public BattleDataBridge()
-            : base(ServerDataManager.Instance.Battle, BattleModel.CATEGORY_KEY)
         {
+            Model = ServerDataManager.Instance.Battle;
+            OnCurrentChapterChanged = Model.OnCurrentChapterChanged;
+            OnChapterUpdated = Model.OnChapterUpdated;
+            OnStageProgressUpdated = Model.OnStageProgressUpdated;
         }
-
-        /// <summary>
-        /// 모델 이벤트 구독
-        /// </summary>
-        protected override void SubscribeModelEvents()
-        {
-            Model.OnCurrentChapterChanged.Subscribe(this, (chapter, self) =>
-            {
-                self.OnCurrentChapterChanged.OnNext(chapter);
-                self.OnBattleDataChanged.OnNext(Unit.Default);
-            }).AddTo(ref disposableBag);
-
-            Model.OnChapterUpdated.Subscribe(this, (chapter, self) => self.OnChapterUpdated.OnNext(chapter)).AddTo(ref disposableBag);
-            Model.OnStageProgressUpdated.Subscribe(this, (progress, self) => self.OnStageProgressUpdated.OnNext(progress)).AddTo(ref disposableBag);
-        }
-
-        /// <summary>
-        /// 모델 변경 감지 (전체 갱신)
-        /// </summary>
-        protected override void OnModelChanged()
-        {
-            OnBattleDataChanged.OnNext(Unit.Default);
-        }
-
-        #region 현재 챕터 관련
 
         /// <summary>
         /// 현재 챕터
@@ -58,10 +36,6 @@ namespace CookApps.AutoBattler
         /// 현재 챕터 ID
         /// </summary>
         public uint CurrentChapterId => Model?.CurrentChapterId ?? 0;
-
-        #endregion
-
-        #region 챕터 관련
 
         /// <summary>
         /// 챕터 가져오기
@@ -88,10 +62,6 @@ namespace CookApps.AutoBattler
         /// 전체 별 개수 (모든 챕터 합계)
         /// </summary>
         public uint TotalStarCount => Model?.TotalStarCount ?? 0;
-
-        #endregion
-
-        #region 스테이지 진행 정보 관련
 
         /// <summary>
         /// 스테이지 진행 정보 가져오기
@@ -215,7 +185,5 @@ namespace CookApps.AutoBattler
 
             return count;
         }
-
-        #endregion
     }
 }

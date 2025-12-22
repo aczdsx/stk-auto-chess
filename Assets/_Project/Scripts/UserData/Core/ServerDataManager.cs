@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class ServerDataManager : Singleton<ServerDataManager>
     {
-        // 데이터 모델들 (직접 접근)
+        // 데이터 모델
         public CharacterModel Character { get; private set; } = new ();
         public WalletModel Wallet { get; private set; } = new ();
         public ElpisModel Elpis { get; private set; } = new ();
@@ -26,40 +26,6 @@ namespace CookApps.AutoBattler
             Wallet.Reset();
             Elpis.Reset();
             Battle.Reset();
-        }
-
-        /// <summary>
-        /// 데이터 유효성 검증 (디버그용)
-        /// </summary>
-        public bool ValidateAll()
-        {
-            bool allValid = true;
-
-            if (!Character.Validate())
-            {
-                Debug.LogError("[ServerDataManager] Character validation failed");
-                allValid = false;
-            }
-
-            if (!Wallet.Validate())
-            {
-                Debug.LogError("[ServerDataManager] Wallet validation failed");
-                allValid = false;
-            }
-
-            if (!Elpis.Validate())
-            {
-                Debug.LogError("[ServerDataManager] Elpis validation failed");
-                allValid = false;
-            }
-
-            if (!Battle.Validate())
-            {
-                Debug.LogError("[ServerDataManager] Battle validation failed");
-                allValid = false;
-            }
-
-            return allValid;
         }
     }
 }

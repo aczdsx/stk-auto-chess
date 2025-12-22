@@ -25,8 +25,7 @@ namespace CookApps.AutoBattler
                 if (resp != null && resp.Status.Code == 0 && resp.Elpis != null)
                 {
                     ServerDataManager.Instance.Elpis.SetElpisData(
-                        resp.Elpis,
-                        ServerDataManager.Instance.Elpis.Version + 1
+                        resp.Elpis
                     );
                 }
             }
@@ -38,8 +37,7 @@ namespace CookApps.AutoBattler
                         CoreResearches = { },
                         Facilities = {  },
                         Simulation = { }
-                    },
-                    ServerDataManager.Instance.Elpis.Version + 1
+                    }
                 );
             }
 

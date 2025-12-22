@@ -43,8 +43,7 @@ namespace CookApps.AutoBattler
             if (resp != null && resp.Status.Code == 0)
             {
                 ServerDataManager.Instance.Battle.SetChapters(
-                    resp.ChapterList,
-                    ServerDataManager.Instance.Battle.Version + 1
+                    resp.ChapterList
                 );
             }
 
