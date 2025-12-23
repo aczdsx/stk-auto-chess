@@ -546,7 +546,7 @@ namespace CookApps.BattleSystem
             var minHP = double.MaxValue;
             foreach (var ourTeamCharacter in reusableList)
             {
-                if (ourTeamCharacter.IsAlive == false)
+                if (ourTeamCharacter.IsAlive == false || ourTeamCharacter == pivot)
                 {
                     continue;
                 }

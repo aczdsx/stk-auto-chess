@@ -39,8 +39,8 @@ namespace CookApps.BattleSystem
             double recoveryAmount = attackPower * _recoveryPercentage;
             recoveryAmount = owner.PostCalculateHealAmount(recoveryAmount, target);
             target.GetHealed(recoveryAmount, owner, codeId, true);
+            
             InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.CurrentTile.View.CachedTr.position);
-
 
         }
         public override void OnPreRemoved()

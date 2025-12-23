@@ -539,6 +539,10 @@ namespace CookApps.AutoBattler
         fx_common_supply_emergency_armor = 212,
         fx_common_emp_bomb = 213,
         fx_troubleshooter_drop_bomb = 214,
+        fx_common_job_guardian_01 = 215,
+        fx_common_job_sharpshooter_01 = 216,
+        fx_common_job_sharpshooter_02 = 217,
+        fx_common_job_striker_01 = 218,
     }
 
     public enum GlobalEffectProviderType
