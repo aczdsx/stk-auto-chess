@@ -41,6 +41,7 @@ namespace CookApps.AutoBattler
         BATTLE_ITEM_SUPERNOVA = 6101,
         BATTLE_ITEM_DYNAMITE = 6102,
         BATTLE_ITEM_SUPPLY = 6103,
+        DROPPING_BOMBS = 6104,
         COMMANDER_SKILL_EXPLOSION = 300001,
         COMMANDER_SKILL_FREEZING = 300002,
         COMMANDER_SKILL_AIRBORNE = 300003,
@@ -536,6 +537,8 @@ namespace CookApps.AutoBattler
         fx_common_supply_emp_bomb = 210,
         fx_common_supply_energy_drink = 211,
         fx_common_supply_emergency_armor = 212,
+        fx_common_emp_bomb = 213,
+        fx_troubleshooter_drop_bomb = 214,
     }
 
     public enum GlobalEffectProviderType

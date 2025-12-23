@@ -59,9 +59,9 @@ namespace CookApps.BattleSystem
             //펑 터져서 지워야할 타일들 목록.
             var InGameObjectManagerInstance = InGameObjectManager.Instance;
             var InGameVfxManagerInstance = InGameVfxManager.Instance;
+            var floorDamage = Math.Floor(_effectCodeStat);
 
-
-            var damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHARCTER);
+            var damage = CharacterController.DamageInfo.Create(floorDamage, codeId, AttackerType.CHARCTER);
             var explosionTiles = InGameObjectManagerInstance.InGameGrid.GetTileListByShapeSquare(tile, _explosionRange);
 
             foreach (var explosionTile in explosionTiles)

@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
         {
             if (_statData == null) return;
 
-            _battlePointText.text = _statData.GetAttrValue().ToString("N0");
+            _battlePointText.text = _statData.GetAttrValueCP().ToString("N0");
             _atkText.text = _statData.AD.ToString("N0");
             //_atkSpdText.text = ((float)_statData.AttackSpeed * 100).ToString("0.##");
             _atkSpdText.text = _statData.AttackSpeed.ToString("0.##");

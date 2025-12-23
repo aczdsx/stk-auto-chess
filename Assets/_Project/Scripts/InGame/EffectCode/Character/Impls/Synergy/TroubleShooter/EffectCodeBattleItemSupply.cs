@@ -21,7 +21,7 @@ namespace CookApps.BattleSystem
         private const int CodeId = (int)EffectCodeNameType.BATTLE_ITEM_SUPPLY;
         private float _duration;
         private float _elapsedTime;
-        private enum TroublieshooterSynergyIdx
+        private enum TroubleshooterSynergyIdx
         {
             CHOCOBAR = 2,
             VITAMIN = 3,
@@ -143,7 +143,7 @@ namespace CookApps.BattleSystem
                 case InGameVfxNameType.fx_common_supply_chocobar:
                     {
                         CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                        damageInfo.damageAmount = targetCharacter.HP * tSData[(int)TroublieshooterSynergyIdx.CHOCOBAR].effect_stat_value_1 * 0.01d;
+                        damageInfo.damageAmount = targetCharacter.HP * tSData[(int)TroubleshooterSynergyIdx.CHOCOBAR].effect_stat_value_1 * 0.01d;
                         targetCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
                         break;
                     }
@@ -151,8 +151,8 @@ namespace CookApps.BattleSystem
                     {//전투자극제
                         Span<double> stats = stackalloc double[3];
                         stats[0] = CodeId;
-                        stats[1] = tSData[(int)TroublieshooterSynergyIdx.VITAMIN].effect_stat_value_1;
-                        stats[2] = tSData[(int)TroublieshooterSynergyIdx.VITAMIN].effect_stat_value_2 * 0.01d;
+                        stats[1] = tSData[(int)TroubleshooterSynergyIdx.VITAMIN].effect_stat_value_1;
+                        stats[2] = tSData[(int)TroubleshooterSynergyIdx.VITAMIN].effect_stat_value_2 * 0.01d;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacter, stats, source);
                         break;
                     }
@@ -165,7 +165,7 @@ namespace CookApps.BattleSystem
                             Span<double> eccStats = stackalloc double[3];
                             eccStats.Clear();
                             eccStats[0] = codeId;
-                            eccStats[1] = tSData[(int)TroublieshooterSynergyIdx.EMP_BOMB].effect_stat_value_1;
+                            eccStats[1] = tSData[(int)TroubleshooterSynergyIdx.EMP_BOMB].effect_stat_value_1;
                             eccStats[2] = 0;
                             foreach (var tile in tileList)
                             {
@@ -185,7 +185,7 @@ namespace CookApps.BattleSystem
                     }
                 case InGameVfxNameType.fx_common_supply_energy_drink:
                     {
-                        targetCharacter.AddSkillCooltimeInECC(tSData[(int)TroublieshooterSynergyIdx.ENERGY_DRINK].effect_stat_value_1);
+                        targetCharacter.AddSkillCooltimeInECC(tSData[(int)TroubleshooterSynergyIdx.ENERGY_DRINK].effect_stat_value_1);
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_emergency_armor:
@@ -193,7 +193,7 @@ namespace CookApps.BattleSystem
                         Span<double> stats = stackalloc double[3];
                         stats.Clear();
                         stats[0] = 99999f;
-                        stats[1] = targetCharacter.CurrentHp * tSData[(int)TroublieshooterSynergyIdx.EMERGENCY_ARMOR].effect_stat_value_1 * 0.01f;
+                        stats[1] = targetCharacter.CurrentHp * tSData[(int)TroubleshooterSynergyIdx.EMERGENCY_ARMOR].effect_stat_value_1 * 0.01f;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, targetCharacter, stats, source);
                         break;
                     }
