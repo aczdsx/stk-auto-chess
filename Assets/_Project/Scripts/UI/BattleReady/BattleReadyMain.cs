@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _bossStageText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
-        [SerializeField] private TextMeshProUGUI _apCostText;
+        // [SerializeField] private TextMeshProUGUI _apCostText;
 
         [Header("Guide Mission")]
         [SerializeField] private GuideMissionSlot _guideMissionSlot;
@@ -92,7 +92,7 @@ namespace CookApps.AutoBattler
 
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
-            _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
+            // _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
             _idleRewardButton.onClick.AddListener(OnClickIdleRewardButton);
             _attendanceButton.onClick.AddListener(OnClickAttendanceButton);
@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
             _playButton.onClick.RemoveListener(OnClickStartButton);
             _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
-            _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
+            // _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.RemoveListener(OnClickGachaButton);
             _idleRewardButton.onClick.RemoveListener(OnClickIdleRewardButton);
             _attendanceButton.onClick.RemoveListener(OnClickAttendanceButton);
@@ -258,7 +258,7 @@ namespace CookApps.AutoBattler
             int totalStageCount = stageList.Count;
             _stageProgressText.SetText("{0}/{1}", specStageData.stage_number, totalStageCount);
 
-            _apCostText.text = $"x{specStageData.need_ap}";
+            // _apCostText.text = $"x{specStageData.need_ap}";
 
             RectTransform currentStageRect = null;
             for (int i = 0; i < stageList.Count; i++)
