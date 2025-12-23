@@ -123,32 +123,17 @@ namespace CookApps.TeamBattle.UIManagements
             Scene activeScene = SceneManager.GetActiveScene();
             GameObject[] rootGOs = activeScene.GetRootGameObjects();
 
-            bool isLoadingScene = activeScene.name == "SceneLoading";
-            var hasLoadingComp = false;
             for (var i = 0; i < rootGOs.Length; i++)
             {
                 if (rootGOs[i].name == "MainCanvas")
                 {
                     SetMainCanvas(rootGOs[i]);
-                    continue;
                 }
 
                 if (rootGOs[i].name == "EventSystem")
                 {
                     rootGOs[i].GetComponent<EventSystem>().pixelDragThreshold = UIManagementsConst.Default.DragThreshold;
-                    continue;
                 }
-
-                if (isLoadingScene && rootGOs[i].GetComponent<SceneLoading>() != null)
-                {
-                    hasLoadingComp = true;
-                }
-            }
-
-            if (isLoadingScene && !hasLoadingComp)
-            {
-                var loadingGo = new GameObject("SceneLoading");
-                loadingGo.AddComponent<SceneLoading>();
             }
         }
 

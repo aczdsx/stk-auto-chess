@@ -19,15 +19,13 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
+            resp.ThrowIfError();
+
             if (true)
             {
-                // 서버 응답으로 로컬 데이터 갱신
-                if (resp != null && resp.Status.Code == 0 && resp.Elpis != null)
-                {
-                    ServerDataManager.Instance.Elpis.SetElpisData(
-                        resp.Elpis
-                    );
-                }
+                ServerDataManager.Instance.Elpis.SetElpisData(
+                    resp.Elpis
+                );
             }
             else // dummy
             {
@@ -55,20 +53,18 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
-            {
-                // 시설 업데이트
-                if (resp.Facility != null)
-                {
-                    ServerDataManager.Instance.Elpis.UpdateFacility(resp.Facility);
-                }
+            resp.ThrowIfError();
 
-                // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
-                {
-                    ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
+            // 시설 업데이트
+            if (resp.Facility != null)
+            {
+                ServerDataManager.Instance.Elpis.UpdateFacility(resp.Facility);
+            }
+
+            // 통화 변화 적용
+            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            {
+                ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
 
             return resp;
@@ -85,20 +81,18 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
-            {
-                // 시설 업데이트
-                if (resp.Facility != null)
-                {
-                    ServerDataManager.Instance.Elpis.UpdateFacility(resp.Facility);
-                }
+            resp.ThrowIfError();
 
-                // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
-                {
-                    ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
+            // 시설 업데이트
+            if (resp.Facility != null)
+            {
+                ServerDataManager.Instance.Elpis.UpdateFacility(resp.Facility);
+            }
+
+            // 통화 변화 적용
+            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            {
+                ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
 
             return resp;
@@ -115,20 +109,18 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
+            resp.ThrowIfError();
+            
+            // 코어 연구 업데이트
+            if (resp.Research != null)
             {
-                // 코어 연구 업데이트
-                if (resp.Research != null)
-                {
-                    ServerDataManager.Instance.Elpis.UpdateCoreResearch(resp.Research);
-                }
+                ServerDataManager.Instance.Elpis.UpdateCoreResearch(resp.Research);
+            }
 
-                // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
-                {
-                    ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
+            // 통화 변화 적용
+            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            {
+                ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
 
             return resp;
@@ -145,20 +137,18 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
-            {
-                // 시뮬레이션 데이터 업데이트
-                if (resp.Simulation != null)
-                {
-                    ServerDataManager.Instance.Elpis.UpdateSimulation(resp.Simulation);
-                }
+            resp.ThrowIfError();
 
-                // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
-                {
-                    ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
+            // 시뮬레이션 데이터 업데이트
+            if (resp.Simulation != null)
+            {
+                ServerDataManager.Instance.Elpis.UpdateSimulation(resp.Simulation);
+            }
+
+            // 통화 변화 적용
+            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            {
+                ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
 
             return resp;

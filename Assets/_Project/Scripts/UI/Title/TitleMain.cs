@@ -87,6 +87,7 @@ namespace CookApps.AutoBattler
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 
+            NetManager.Instance.Initialize_Elpis().Forget();
 
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함

@@ -39,7 +39,10 @@ namespace CookApps.AutoBattler
                 await MainBlock.AttachSubBlock(1, false);
             }
 
-            elpisDataBridge.OnFacilityChanged.Where(info => info.IsLevelChanged).SubscribeAwait(this, (info, self, token) => self.OnFacilityLevelChanged(info), AwaitOperation.Sequential).AddTo(this);
+            elpisDataBridge.OnFacilityChanged
+                .Where(info => info.IsLevelChanged)
+                .SubscribeAwait(this, (info, self, _) => self.OnFacilityLevelChanged(info))
+                .AddTo(this);
             MainBlock.RebuildNavMesh();
         }
         

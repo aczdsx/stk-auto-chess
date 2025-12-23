@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
 #endif
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("Title");
+            SceneUILayerManager.Instance.ChangeScene("Title");
 
             Debug.Log("SceneFirstLoad Awake -2");
         }
