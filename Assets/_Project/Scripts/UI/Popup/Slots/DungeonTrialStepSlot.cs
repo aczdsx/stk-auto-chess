@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _mainCompleteObject;
         [SerializeField] private GameObject _mainDimmedObject;
         [SerializeField] private Image _mainIcon;
+        [SerializeField] private SpriteLoader _mainIconSpriteLoader;
         [SerializeField] private Image _mainDimmedIcon;
+        [SerializeField] private SpriteLoader _mainDimmedIconSpriteLoader;
 
         [Header("Step State - Active")]
         [SerializeField] private GameObject _activeStateObject;
@@ -58,8 +61,8 @@ namespace CookApps.AutoBattler
 
             if (_specDungeonData.is_grade_up)
             {
-                _mainIcon.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonData.trial_type, false);
-                _mainDimmedIcon.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonData.trial_type, true);
+                _mainIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specDungeonData.trial_type, false)).Forget();
+                _mainDimmedIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specDungeonData.trial_type, true)).Forget();
             }
 
             RefreshSlot();
@@ -76,7 +79,7 @@ namespace CookApps.AutoBattler
             bool isCurrentSlot = _parentPopup.CurrentUserDungeonData.DungeonId == _specDungeonData.dungeon_id;
 
             _activeStateObject.SetActive(isCurrentSlot);
-            
+
             _normalStateObject.SetActive(isNormalTrialType);
             _normalCompleteObject.SetActive(isNormalTrialType && isComplete);
 
@@ -93,7 +96,7 @@ namespace CookApps.AutoBattler
             if (_selectedDungeonData == null) return;
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-            
+
             _parentPopup.SetCurrentSelectedDungeonData(_specDungeonData.dungeon_id);
             _parentPopup.RefreshDungeonTrialPopup(DungeonTrialPopupRefreshType.ALL);
         }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
+using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,6 +14,7 @@ public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     public CommanderSkillData Data => _data;
 
     [SerializeField] private Image _iconImage;
+    [SerializeField] private SpriteLoader _iconSpriteLoader;
     [SerializeField] private Image _coolTimeImage;
     [SerializeField] private TextMeshProUGUI _coolTimeText;
     [SerializeField] private GameObject _guideObj;
@@ -32,10 +35,9 @@ public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         }
     }
 
-    public void SetIcon(Sprite sprite)
+    public void SetIcon(string spriteName)
     {
-        _iconImage.sprite = sprite;
-        _iconImage.color = Color.white;
+        _iconSpriteLoader.SetSprite(spriteName).Forget();
     }
 
     public void UpdateCommanderSkillCoolTime()
@@ -69,15 +71,15 @@ public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         _data = data;
         _preference = pref;
 
-         bool isActiveAuto = Preference.LoadPreference(_preference, false);
+        bool isActiveAuto = Preference.LoadPreference(_preference, false);
         SetActiveAuto(isActiveAuto);
-        
+
         var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
         bool _isCanAutoSkill = userGuideMissionData.MissionId >= 28;
-        
+
         _autoObj.SetActive(_isCanAutoSkill);
     }
-    
+
     public void SetActiveAuto(bool isActive)
     {
         _autoActiveObj.SetActive(isActive);

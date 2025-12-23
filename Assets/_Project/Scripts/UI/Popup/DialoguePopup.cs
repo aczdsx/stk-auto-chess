@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Coffee.UIEffects;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Spine.Unity;
@@ -28,6 +29,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _blockLayerButton;
         [SerializeField] private GameObject _extraBGObj;
         [SerializeField] private Image _extraBGImage;
+        [SerializeField] private SpriteLoader _extraBGSpriteLoader;
         [SerializeField] private TextMeshProUGUI _dialogueText;
         [SerializeField] private RectTransform _dialogueTextRect;
 
@@ -104,12 +106,8 @@ namespace CookApps.AutoBattler
             _extraBGObj.SetActive(false);
             if (_currentSpecDialogueData.bg_image != "none")
             {
-                var targetSprite = ImageManager.Instance.GetCutSceneSprite(_currentSpecDialogueData.bg_image);
-                if (targetSprite != null)
-                {
-                    _extraBGObj.SetActive(true);
-                    _extraBGImage.sprite = targetSprite;
-                }
+                _extraBGObj.SetActive(true);
+                _extraBGSpriteLoader.SetSprite(_currentSpecDialogueData.bg_image).Forget();
             }
 
             if (_currentSpecDialogueData.dialogue_animation_type != DialogueAnimationType.NONE)

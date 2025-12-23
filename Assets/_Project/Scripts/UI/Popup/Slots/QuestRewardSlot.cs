@@ -1,4 +1,5 @@
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +13,12 @@ namespace CookApps.AutoBattler
 
         [Header("Reward - Item")]
         [SerializeField] private Image _rewardItemImage;
+        [SerializeField] private SpriteLoader _rewardItemSpriteLoader;
 
         [Header("Reward - Character")]
         [SerializeField] private GameObject _rewardCharacterBGObject;
         [SerializeField] private Image _rewardCharacterImage;
+        [SerializeField] private SpriteLoader _rewardCharacterSpriteLoader;
 
         public void SetRewardSlot(RewardItem reward)
         {
@@ -42,7 +45,7 @@ namespace CookApps.AutoBattler
 
             _rewardItemImage.gameObject.SetActive(true);
 
-            _rewardItemImage.sprite = ImageManager.Instance.GetItemSprite(rewardItem.Type);
+            _rewardItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(rewardItem.Type)).Forget();
             _rewardItemCountText.text = $"x{rewardItem.Count}";
         }
 
@@ -60,7 +63,7 @@ namespace CookApps.AutoBattler
             _rewardCharacterBGObject.SetActive(true);
             _rewardCharacterImage.gameObject.SetActive(true);
 
-            _rewardCharacterImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(specCharacterData.prefab_id);
+            _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
             _rewardItemCountText.text = $"x{rewardPiece.Count}";
         }
 
@@ -75,7 +78,7 @@ namespace CookApps.AutoBattler
             _rewardCharacterBGObject.SetActive(true);
             _rewardCharacterImage.gameObject.SetActive(true);
 
-            _rewardCharacterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id);
+            _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
             _rewardItemCountText.text = $"x{rewardCharacter.Count}";
         }
 

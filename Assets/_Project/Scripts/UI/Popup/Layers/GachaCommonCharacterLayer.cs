@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using TMPro;
@@ -15,11 +16,13 @@ namespace CookApps.AutoBattler
         [Header("Button")]
         [SerializeField] private CAButton _gacha1Button;
         [SerializeField] private Image _gacha1ButtonCostImage;
+        [SerializeField] private SpriteLoader _gacha1ButtonCostSpriteLoader;
         [SerializeField] private TextMeshProUGUI _gacha1ButtonCostText;
-        
+
         [Space(10)]
         [SerializeField] private CAButton _gacha10Button;
         [SerializeField] private Image _gacha10ButtonCostImage;
+        [SerializeField] private SpriteLoader _gacha10ButtonCostSpriteLoader;
         [SerializeField] private TextMeshProUGUI _gacha10ButtonCostText;
 
         private void Awake()
@@ -31,28 +34,28 @@ namespace CookApps.AutoBattler
         public void SetGachaLayer(GachaPopup parentPopup)
         {
             _parentGachaPopup = parentPopup;
-            
+
             _specGachaDataOneTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_1_TIME_COUNT);
             _specGachaDataTenTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_10_TIME_COUNT);
 
-            _gacha1ButtonCostImage.sprite = ImageManager.Instance.GetItemSprite(_specGachaDataOneTime.gacha_cost_item_type);
+            _gacha1ButtonCostSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specGachaDataOneTime.gacha_cost_item_type)).Forget();
             _gacha1ButtonCostText.text = $"x{_specGachaDataOneTime.gacha_cost}";
-            
-            _gacha10ButtonCostImage.sprite = ImageManager.Instance.GetItemSprite(_specGachaDataTenTime.gacha_cost_item_type);
+
+            _gacha10ButtonCostSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specGachaDataTenTime.gacha_cost_item_type)).Forget();
             _gacha10ButtonCostText.text = $"x{_specGachaDataTenTime.gacha_cost}";
         }
-        
+
         private async UniTask OnClickGacha1Button()
         {
             if (_specGachaDataOneTime == null) return;
-            
+
             await ProcessCharacterGacha(GachaCountType.ONE);
         }
 
         private async UniTask OnClickGacha10Button()
         {
             if (_specGachaDataTenTime == null) return;
-            
+
             await ProcessCharacterGacha(GachaCountType.TEN);
         }
     }

@@ -3,6 +3,7 @@ using System.Linq;
 using CookApps.AutoBattler;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -19,11 +20,15 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     [SerializeField] private Image _image;
     [SerializeField] private Image _SynergyImage;
     [SerializeField] private Image _SynergyClassImage;
+    [SerializeField] private SpriteLoader _imageSpriteLoader;
+    [SerializeField] private SpriteLoader _SynergyImageSpriteLoader;
+    [SerializeField] private SpriteLoader _SynergyClassImageSpriteLoader;
     [SerializeField] private TextMeshProUGUI _lvText;
     [SerializeField] private GameObject _body;
     [SerializeField] private GameObject _emptySlotObj;
     [SerializeField] private GameObject _focusObj;
     [SerializeField] private Image _focusImage;
+    [SerializeField] private SpriteLoader _focusImageSpriteLoader;
     [SerializeField] private Animation _dropFxAnimation;
     [SerializeField] private TextMeshProUGUI _focusText;
     [SerializeField] private ParticleSystem _guideFx;
@@ -49,9 +54,9 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _emptySlotObj.SetActive(!isExsist);
         if (_body.activeSelf)
         {//14663506
-            _image.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id);
-            _SynergyImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.character_element_type);
-            _SynergyClassImage.sprite = ImageManager.Instance.GetSynergySprite(_statData.Spec.character_stella_type);
+            _imageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(_statData.Spec.prefab_id)).Forget();
+            _SynergyImageSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_statData.Spec.character_element_type)).Forget();
+            _SynergyClassImageSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_statData.Spec.character_stella_type)).Forget();
             _characterPositionTypeText.text = _statData.Spec.character_position_type.ToString();
             _lvText.text = $"{_statData.Level}";
         }
@@ -62,7 +67,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
 
         if (_guideFx)
             _guideFx.gameObject.SetActive(false);
-        
+
         _onSelected = onSelected;
     }
 
@@ -82,7 +87,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
                     // }
                 }
             }
-            
+
             _onSelected.Invoke(_statData);
         }
 
@@ -95,7 +100,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         if (isActiveFocus)
         {
             var userCharacter = UserDataManager.Instance.GetUserCharacter(spec.character_id);
-            _focusImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(spec.prefab_id);
+            _focusImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(spec.prefab_id)).Forget();
             _focusText.text = userCharacter.Level.ToString("n0");
             _lvText.text = userCharacter.Level.ToString("n0");
         }

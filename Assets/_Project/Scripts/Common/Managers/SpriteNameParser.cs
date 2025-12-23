@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
+using Cysharp.Text;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class ImageManager : Singleton<ImageManager>
+    public static class SpriteNameParser
     {
-        public Sprite GetSprite(string atlasName, string spriteName)
+        public static string GetSpriteName(ItemType itemType)
         {
-            return AtlasManager.Instance.GetSprite(atlasName, spriteName);
+            return ZString.Format("ST_RewardItem_{0}", itemType);
         }
 
-        public Sprite GetItemSprite(ItemType itemType)
-        {
-            string resultString = string.Concat("ST_RewardItem_", itemType.ToString());
-
-            return AtlasManager.Instance.GetSprite(Defines.STELLA_ICON_ATLAS_NAME, resultString);
-        }
-
-        public Sprite GetGradeTypeSprite(GradeType GradeType, bool isActive = true)
+        public static string GetSpriteName(GradeType GradeType, bool isActive = true)
         {
             string spriteName = string.Empty;
 
@@ -39,10 +33,10 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
+            return spriteName;
         }
 
-        public Sprite GetSynergySprite(SynergyType synergyType, bool isActive = true)
+        public static string GetSpriteName(SynergyType synergyType, bool isActive = true)
         {
             string spriteName = string.Empty;
 
@@ -74,15 +68,12 @@ namespace CookApps.AutoBattler
                 case SynergyType.LIGHTNING:
                     spriteName = isActive ? "Icon_Lightning_Active" : "Icon_Lightning_Locked";
                     break;
-                default:
-                    return null;
-            
             }
 
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
+            return spriteName;
         }
 
-        public Sprite GetDungeonTrialClassSprite(TrialType type, bool isCompete)
+        public static string GetSpriteName(TrialType type, bool isCompete)
         {
             string spriteName = string.Empty;
 
@@ -105,10 +96,10 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
+            return spriteName;
         }
 
-        public Sprite GetPVPTierIconSprite(PVPTierType type)
+        public static string GetSpriteName(PVPTierType type)
         {
             string spriteName = string.Empty;
 
@@ -131,98 +122,72 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, spriteName);
+            return spriteName;
         }
 
-        public Sprite GetChapterIconSprite(int chapterID)
+        public static string GetChapterIcon(int chapterID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, $"Icon_Chapter_{chapterID}");
+            return ZString.Format("Icon_Chapter_{0}", chapterID);
         }
 
-        public Sprite GetCutSceneSprite(string spriteName)
+        public static string GetBossBannerSprite(int bannerID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.UI_CUT_SCENE_ATLAS, spriteName);
+            return ZString.Format("BossBanner_{0}", bannerID);
         }
 
-        public Sprite GetBossBannerSprite(int bannerID)
+        public static string GetCharacterIllustSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.UI_BANNER_ATLAS_NAME, $"BossBanner_{bannerID}");
+            return ZString.Format("Character_Illust_{0}", prefabID);
         }
 
-        public Sprite GetCharacterIllustSprite(int prefabID)
+        public static string GetCharacterSubIllustSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_ATLAS_ILLUST_NAME, $"Character_Illust_{prefabID}");
+            return ZString.Format("Character_Illust_Sub_{0}", prefabID);
         }
 
-        public Sprite GetCharacterSubIllustSprite(int prefabID)
+        public static string GetCharacterPieceSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_INVENTORY_ATLAS_NAME, $"Character_Illust_Sub_{prefabID}");
+            return ZString.Format("Piece_{0}", prefabID);
         }
 
-        public Sprite GetCharacterPieceSprite(int prefabID)
+        public static string GetCharacterInGamePortraitSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_CHARACTER_PIECE, $"Piece_{prefabID}");
+            return ZString.Format("IngameChaPortrait_{0}", prefabID);
         }
 
-        public Sprite GetCharacterInGamePortraitSprite(int prefabID)
+        public static string GetObstacleInGamePortraitSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_INGAME_PORTRAIT_ATLAS_NAME, $"IngameChaPortrait_{prefabID}");
+            return ZString.Format("IngameObsPortrait_{0}", prefabID);
         }
 
-        public Sprite GetObstacleInGamePortraitSprite(int prefabID)
+        public static string GetCharacterSmallItemSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_INGAME_PORTRAIT_ATLAS_NAME, $"IngameObsPortrait_{prefabID}");
+            return ZString.Format("Icon_CharacterSmallItem_{0}", prefabID);
         }
 
-        public Sprite GetCharacterSmallItemSprite(int prefabID)
+        public static string GetCharacterStigmaSprite(int prefabID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.UI_ATLAS_NAME, $"Icon_CharacterSmallItem_{prefabID}");
+            return ZString.Format("StigmaIcon_{0}", prefabID);
         }
 
-        public Sprite GetCharacterStigmaSprite(int prefabID)
+        public static string GetCharacterSkillSprite(int skillID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.STIGMA_ATLAS_NAME, $"StigmaIcon_{prefabID}");
+            return ZString.Format("Skill_{0}", skillID);
         }
 
-        public Sprite GetCharacterSkillSprite(int skillID)
+        public static string GetCommanderSkillSprite(int commanderSkillID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_SKILL_ATLAS_NAME, $"Skill_{skillID}");
+            return ZString.Format("CommanderSkill_{0}", commanderSkillID);
         }
 
-        public Sprite GetCommanderSkillSprite(int commanderSkillID)
+        public static string GetBuffDebuffSprite(int codeID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.COMMANDER_SKILL_ATLAS_NAME, $"CommanderSkill_{commanderSkillID}");
+            return ZString.Format("BuffDebuffIcon_{0}", codeID);
         }
 
-        public Sprite GetBuffDebuffSprite(int codeID)
+        public static string GetInfoImageSprite(int infoID)
         {
-            return AtlasManager.Instance.GetSprite(Defines.CHAR_BUFF_DEBUFF_ICON_NAME, $"BuffDebuffIcon_{codeID}");
-        }
-
-        public Sprite GetInfoImageSprite(int infoID)
-        {
-            return AtlasManager.Instance.GetSprite(Defines.UI_INFO_IMAGE, $"InfoImage_{infoID}");
-        }
-
-        public Color GetGradeTypeColor(GradeType GradeType)
-        {
-            Color color = Color.white;
-            switch (GradeType)
-            {
-                case GradeType.COMMON:
-                    ColorUtility.TryParseHtmlString("#4EA82E", out color);
-                    break;
-                case GradeType.RARE:
-                    ColorUtility.TryParseHtmlString("#0A9AE0", out color);
-                    break;
-                case GradeType.EPIC:
-                    ColorUtility.TryParseHtmlString("#7C11DC", out color);
-                    break;
-                case GradeType.LEGENDARY:
-                    ColorUtility.TryParseHtmlString("#FFEA7E", out color);
-                    break;
-            }
-            return color;
+            return ZString.Format("InfoImage_{0}", infoID);
         }
     }
 }

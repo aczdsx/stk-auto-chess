@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
         [SerializeField] private CAButton _skillInfoButton;
         [SerializeField] private Image _normalSkillIconImage;
+        [SerializeField] private SpriteLoader _normalSkillIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _normalSkillNameText;
 
         private CharacterInfo _specCharacterData;
@@ -61,7 +63,7 @@ namespace CookApps.AutoBattler
             {
                 _specSkillBaseData = specSkillList[0];
 
-                _normalSkillIconImage.sprite = ImageManager.Instance.GetCharacterSkillSprite(specSkillList[0].skill_group_id);
+                _normalSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(specSkillList[0].skill_group_id)).Forget();
                 _normalSkillNameText.text = LanguageManager.Instance.GetLanguageText(specSkillList[0].skill_name_token);
             }
         }

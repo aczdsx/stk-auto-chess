@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,7 @@ namespace CookApps.AutoBattler
 
         [Space(10)]
         [SerializeField] private Image _chapterImage;
+        [SerializeField] private SpriteLoader _chapterSpriteLoader;
 
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _chapterNumberText;
@@ -59,7 +61,7 @@ namespace CookApps.AutoBattler
             _chapterNumberText.text = $"{chapterString}-{_specChapterData.chapter_id}-{_specChapterData.difficulty_type}";
             _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_specChapterData.name_token);
 
-            _chapterImage.sprite = ImageManager.Instance.GetChapterIconSprite(_specChapterData.chapter_id);
+            _chapterSpriteLoader.SetSprite(SpriteNameParser.GetChapterIcon(_specChapterData.chapter_id)).Forget();
 
             // 진행 상태에 따른 처리
             _isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
@@ -80,7 +82,7 @@ namespace CookApps.AutoBattler
             int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
-            
+
             // 레드닷 세팅
             UpdateReddotState();
         }
@@ -106,7 +108,7 @@ namespace CookApps.AutoBattler
         public void UpdateReddotState()
         {
             bool isAvailGetChapterReward = false;
-            
+
             int totalChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
             if (totalChapterStarCount > 0)
             {
@@ -125,7 +127,7 @@ namespace CookApps.AutoBattler
                     }
                 }
             }
-            
+
             _reddotObject.SetActive(isAvailGetChapterReward);
         }
 

@@ -39,6 +39,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _synergyObj;
         [SerializeField] private SpriteRenderer _elementSynergySprite;
         [SerializeField] private SpriteRenderer _positionSynergySprite;
+        [SerializeField] private SpriteLoader _elementSynergySpriteLoader;
+        [SerializeField] private SpriteLoader _positionSynergySpriteLoader;
 
         private SpriteRenderer _selectedFillLeft;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
@@ -70,9 +72,8 @@ namespace CookApps.AutoBattler
 
             if (statData != null)
             {
-                _elementSynergySprite.sprite = ImageManager.Instance.GetSynergySprite(statData.Spec.character_element_type);
-                _positionSynergySprite.sprite =
-                    ImageManager.Instance.GetSynergySprite(statData.Spec.character_stella_type);
+                _elementSynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(statData.Spec.character_element_type)).Forget();
+                _positionSynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(statData.Spec.character_stella_type)).Forget();
             }
         }
 
@@ -91,8 +92,8 @@ namespace CookApps.AutoBattler
             }
 
             float startRatio = _selectedFillLeft.size.x / _defalutSize.x;
-            float targetRatio = (currHP + currShield < maxHP) ? Mathf.Clamp01((float) (currHP / maxHP)) : Mathf.Clamp01((float) (currHP / (maxHP + currShield)));
-            float shieldRatio = (currHP + currShield < maxHP) ? Mathf.Clamp01((float) (currShield / maxHP)) : Mathf.Clamp01((float) (currShield / (maxHP + currShield)));
+            float targetRatio = (currHP + currShield < maxHP) ? Mathf.Clamp01((float)(currHP / maxHP)) : Mathf.Clamp01((float)(currHP / (maxHP + currShield)));
+            float shieldRatio = (currHP + currShield < maxHP) ? Mathf.Clamp01((float)(currShield / maxHP)) : Mathf.Clamp01((float)(currShield / (maxHP + currShield)));
 
             float defaultX = _defalutSize.x * targetRatio;
             if (!float.IsNaN(defaultX))
@@ -135,7 +136,7 @@ namespace CookApps.AutoBattler
                 float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
                 // float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1));
 
-                float defaultX = _defalutSize.x* ratio;
+                float defaultX = _defalutSize.x * ratio;
                 if (!float.IsNaN(defaultX))
                     _hpFillSmoothGuage.size = new Vector2(defaultX, _hpFillSmoothGuage.size.y);
 
@@ -186,7 +187,7 @@ namespace CookApps.AutoBattler
                     int codeID = buffDebuffs[i].Item1;
                     if (codeID == 0)
                         continue;
-                    
+
                     inGameBuffDebuff.gameObject.SetActive(true);
                     inGameBuffDebuff.Set(buffDebuffs[i]);
                 }

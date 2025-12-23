@@ -7,6 +7,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using CookApps.TeamBattle;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private RawImage _vignetteImage;
 
         [Header("User Info Layer")]
-        //[SerializeField] private Image _userIconImage;
+        [SerializeField] private SpriteLoader _userIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _userNameText;
         [SerializeField] private TextMeshProUGUI _userLevelText;
         [SerializeField] private TextMeshProUGUI _userExpText;
@@ -45,7 +46,7 @@ namespace CookApps.AutoBattler
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
         [SerializeField] private GameObject _stageSelectSlotObject;
-        [SerializeField] private Image _bossStageImage;
+        [SerializeField] private SpriteLoader _bossStageSpriteLoader;
         [SerializeField] private TextMeshProUGUI _bossStageText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
@@ -128,8 +129,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             PreEnterAsync().Forget();
         }
-        
-        private async UniTask PreEnterAsync() 
+
+        private async UniTask PreEnterAsync()
         {
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
@@ -222,7 +223,7 @@ namespace CookApps.AutoBattler
         {
             var userBasicData = UserDataManager.Instance.UserBasicData;
 
-            //_userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
+            _userIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSubIllustSprite(userBasicData.UserIconId)).Forget();
             _userNameText.text = (userBasicData.Nickname.Length > 25) ? "닉네임을 설정해주세요." : userBasicData.Nickname;
 
             int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
@@ -287,7 +288,7 @@ namespace CookApps.AutoBattler
                 // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
 
                 // 보스 이미지 처리
-                _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specStageData.chapter_id);
+                _bossStageSpriteLoader.SetSprite(SpriteNameParser.GetBossBannerSprite(specStageData.chapter_id)).Forget();
 
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }

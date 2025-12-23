@@ -42,6 +42,7 @@ namespace CookApps.AutoBattler
             await SceneTransition.FadeOutAsync();
 
             await AtlasManager.Instance.Initialize("Data/AtlasManager.asset");
+            await SpriteManager.Instance.Initialize("Data/SpriteManager.asset");
 
             SceneLoading.OnStartChangeScene += AtlasManager.Instance.OnStartChangeScene;
             SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;

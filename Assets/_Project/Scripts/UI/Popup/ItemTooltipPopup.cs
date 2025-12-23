@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,22 +14,24 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimButton;
 
-        [Header("Item Info")] 
+        [Header("Item Info")]
         [SerializeField] private GameObject _itemInfoObj;
         [SerializeField] private Image _itemIconImage;
+        [SerializeField] private SpriteLoader _itemIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _itemNameText;
         [SerializeField] private TextMeshProUGUI _itemDescText;
         [SerializeField] private TextMeshProUGUI _itemCategoryText;
-        
-        [Header("Item Info")] 
+
+        [Header("Item Info")]
         [SerializeField] private GameObject _characterInfoObj;
         [SerializeField] private Image _characterIconImage;
+        [SerializeField] private SpriteLoader _characterIconSpriteLoader;
         [SerializeField] private SynergyUI _characterSynergyUI1;
         [SerializeField] private SynergyUI _characterSynergyUI2;
 
         private Item _specItemData;
         private int _rewardKey;
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -50,12 +54,12 @@ namespace CookApps.AutoBattler
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
-            
+
             (_specItemData, _rewardKey) = ((Item, int))param;
 
             SetTooltipPopup();
         }
-        
+
         private void SetTooltipPopup()
         {
             if (_specItemData == null) return;
@@ -69,7 +73,7 @@ namespace CookApps.AutoBattler
             if (isCharacter)
             {
                 var specCharacterData = SpecDataManager.Instance.GetCharacterData(_rewardKey);
-                _characterIconImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id);
+                _characterIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
                 _itemNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
                 _itemDescText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.desc_token);
                 _characterSynergyUI1.SetSynergyUI(specCharacterData.character_element_type);
@@ -77,15 +81,14 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(_specItemData.item_type);
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specItemData.item_type)).Forget();
                 _itemNameText.text = LanguageManager.Instance.GetLanguageText(_specItemData.name_token);
                 _itemDescText.text = LanguageManager.Instance.GetLanguageText(_specItemData.desc_token);
             }
-            
-            _itemIconImage.sprite = ImageManager.Instance.GetItemSprite(_specItemData.item_type);
+
             _itemCategoryText.text = LanguageManager.Instance.GetItemCategoryText(_specItemData.item_category_type);
         }
-        
+
         private void OnClickCloseButton()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);

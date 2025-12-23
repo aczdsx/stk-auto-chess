@@ -142,5 +142,28 @@ namespace CookApps.TeamBattle
                 });
             }
         }
+        
+        public void UnloadAllSprites()
+        {
+            foreach (var cache in atlasCaches.Values)
+            {
+                foreach (var sprite in cache.sprites.Values)
+                {
+                    Object.Destroy(sprite);
+                }
+
+                cache.sprites.Clear();
+                cache.atlas = null;
+                cache.refCount = 0;
+                cache.atlasRef.ReleaseAsset();
+            }
+
+            foreach (var cache in spriteCaches.Values)
+            {
+                cache.loadedSprite = null;
+                cache.refCount = 0;
+                cache.spriteRef.ReleaseAsset();
+            }
+        }
     }
 }

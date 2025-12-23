@@ -15,6 +15,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private CAButton _getRewardButton;
         [SerializeField] private Image _rewardIconImage;
+        [SerializeField] private SpriteLoader _rewardIconSpriteLoader;
         [SerializeField] private UIShiny _rewardIconUIShiny;
         [SerializeField] private TextMeshProUGUI _clearAmountText;
         [SerializeField] private TextMeshProUGUI _rewardAmountText;
@@ -60,7 +61,7 @@ namespace CookApps.AutoBattler
 
             _clearAmountText.text = _specQuestData.need_count.ToString();
 
-            _rewardIconImage.sprite = ImageManager.Instance.GetItemSprite(_specQuestData.item_type);
+            _rewardIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specQuestData.item_type)).Forget();
             _rewardAmountText.text = $"x{_specQuestData.item_count}";
 
             // 리워드 데이터 세팅
@@ -79,7 +80,7 @@ namespace CookApps.AutoBattler
 
             // 보상 수령 상태에 따른 분기처리
             _isAvailGetReward = _userQuestData.QuestStateType == (int)QuestStateType.REWARD;
-            _isAlreadyGetReward = _userQuestData.QuestStateType == (int) QuestStateType.CLEAR;
+            _isAlreadyGetReward = _userQuestData.QuestStateType == (int)QuestStateType.CLEAR;
 
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
             _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);
