@@ -17,8 +17,26 @@ namespace CookApps.BattleSystem
         [Tooltip("X축 이동 커브 (0~1 범위)")]
         public AnimationCurve xCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
-        [Tooltip("Y축 속도 커브 (속도 값, 높을수록 빠르게 떨어짐)")]
-        public AnimationCurve yCurve = AnimationCurve.Constant(0, 1, 1f);
+        [Tooltip("Y축 속도 커브 (양수: 아래로 떨어짐, 음수: 위로 올라감, 탄성 효과 가능)")]
+        public AnimationCurve yCurve = CreateDefaultElasticCurve();
+        
+        /// <summary>
+        /// 탄성 효과를 위한 기본 커브 생성 (공중에서 튕기고 천천히 떨어짐)
+        /// </summary>
+        private static AnimationCurve CreateDefaultElasticCurve()
+        {
+            AnimationCurve curve = new AnimationCurve();
+            // 0.0 ~ 0.1: 공중에서 위로 튕김 (-4.0)
+            curve.AddKey(0.0f, -4.0f);
+            curve.AddKey(0.1f, -4.0f);
+            // 0.1 ~ 0.9: 천천히 떨어짐 (0.3)
+            curve.AddKey(0.1f, 0.3f);
+            curve.AddKey(0.9f, 0.3f);
+            // 0.9 ~ 1.0: 바닥에서 튕김 (-1.5)
+            curve.AddKey(0.9f, -1.5f);
+            curve.AddKey(1.0f, -1.5f);
+            return curve;
+        }
 
         [Tooltip("Z축 이동 커브 (0~1 범위)")]
         public AnimationCurve zCurve = AnimationCurve.Linear(0, 0, 1, 1);
@@ -40,7 +58,7 @@ namespace CookApps.BattleSystem
             if (xCurve == null || xCurve.length == 0)
                 xCurve = AnimationCurve.Linear(0, 0, 1, 1);
             if (yCurve == null || yCurve.length == 0)
-                yCurve = AnimationCurve.Constant(0, 1, 1f); // 기본 속도 1
+                yCurve = CreateDefaultElasticCurve(); // 탄성 효과 기본 커브
             if (zCurve == null || zCurve.length == 0)
                 zCurve = AnimationCurve.Linear(0, 0, 1, 1);
             if (rotationCurve == null || rotationCurve.length == 0)

@@ -22,6 +22,7 @@ namespace CookApps.BattleSystem
         // Y축 속도 적분을 위한 변수
         private float yProgress = 0f;
         private float ySpeedCurveIntegral = 1f; // 속도 커브의 총 적분값 (정규화용)
+        private float ySpeedScaleFactor = 1f; // 속도 커브의 스케일 팩터 (절대값 반영용)
 
         // CharacterController 추적 설정
         private bool trackCharacter = false;
@@ -33,9 +34,27 @@ namespace CookApps.BattleSystem
 
         // 기본 커브 생성
         private static AnimationCurve CreateDefaultXCurve() => AnimationCurve.Linear(0, 0, 1, 1);
-        private static AnimationCurve CreateDefaultYSpeedCurve() => AnimationCurve.Constant(0, 1, 1f); // 기본 속도 1
+        private static AnimationCurve CreateDefaultYSpeedCurve() => CreateDefaultElasticSpeedCurve(); // 탄성 효과 기본 커브
         private static AnimationCurve CreateDefaultZCurve() => AnimationCurve.Linear(0, 0, 1, 1);
         private static AnimationCurve CreateDefaultRotationCurve() => AnimationCurve.Constant(0, 1, 0);
+        
+        /// <summary>
+        /// 탄성 효과를 위한 기본 속도 커브 생성 (공중에서 튕기고 천천히 떨어짐)
+        /// </summary>
+        private static AnimationCurve CreateDefaultElasticSpeedCurve()
+        {
+            AnimationCurve curve = new AnimationCurve();
+            // 0.0 ~ 0.1: 공중에서 위로 튕김 (-4.0)
+            curve.AddKey(0.0f, -4.0f);
+            curve.AddKey(0.1f, -4.0f);
+            // 0.1 ~ 0.9: 천천히 떨어짐 (0.3)
+            curve.AddKey(0.1f, 0.3f);
+            curve.AddKey(0.9f, 0.3f);
+            // 0.9 ~ 1.0: 바닥에서 튕김 (-1.5)
+            curve.AddKey(0.9f, -1.5f);
+            curve.AddKey(1.0f, -1.5f);
+            return curve;
+        }
 
         public override void SetData(Vector3 srcPos, Vector3 destPos, float speed)
         {
@@ -167,10 +186,12 @@ namespace CookApps.BattleSystem
         
         /// <summary>
         /// Y축 속도 커브의 총 적분값을 계산하여 정규화에 사용
+        /// duration 끝에 목표 위치에 도달하도록 스케일링 팩터 계산
         /// </summary>
         private void CalculateYSpeedCurveIntegral()
         {
             ySpeedCurveIntegral = 0f;
+            float maxSpeed = 0f;
             int integrationSteps = 100;
             float stepSize = 1f / integrationSteps;
             
@@ -179,11 +200,21 @@ namespace CookApps.BattleSystem
                 float t = (i + 0.5f) * stepSize; // 중점 법칙
                 float speed = ySpeedCurve.Evaluate(t);
                 ySpeedCurveIntegral += speed * stepSize;
+                maxSpeed = Mathf.Max(maxSpeed, speed);
             }
             
-            // 적분값이 0이면 기본값 1 사용
+            // 적분값이 0이면 기본값 1 사용 (속도 커브가 모두 0인 경우 방지)
             if (ySpeedCurveIntegral <= 0f)
+            {
                 ySpeedCurveIntegral = 1f;
+                ySpeedScaleFactor = 1f;
+            }
+            else
+            {
+                // 속도 커브의 최대값을 스케일 팩터로 사용 (절대값 반영)
+                // 최대값이 높을수록 더 빠르게 움직임
+                ySpeedScaleFactor = Mathf.Max(1f, maxSpeed);
+            }
         }
 
         private void InitializeParachuteData()
@@ -195,6 +226,7 @@ namespace CookApps.BattleSystem
             }
 
             elapsedTime = 0;
+            yProgress = 0f; // Y 진행률 초기화
             currPos = srcPos;
             
             if (_transform != null)
@@ -253,9 +285,28 @@ namespace CookApps.BattleSystem
             float easedZ = zCurve.Evaluate(t);
             
             // Y축은 속도 커브 사용 (속도를 적분하여 진행률 계산)
-            // 속도 커브를 정규화하여 duration 끝에 항상 목표 위치에 도달하도록 함
+            // 속도 커브의 절대값을 반영하면서 duration 끝에 도달하도록 정규화
+            // 음수 속도는 위로 올라가는 효과 (탄성, 튕김)
             float ySpeed = ySpeedCurve.Evaluate(t);
-            yProgress += (ySpeed / ySpeedCurveIntegral) * dt / duration; // 정규화된 속도 * 시간
+            
+            // 음수 속도 처리: 위로 올라가는 효과
+            if (ySpeed < 0f)
+            {
+                // 음수 속도는 진행률을 감소시킴 (위로 올라감)
+                // 절대값을 사용하되 정규화 적용
+                float absSpeed = Mathf.Abs(ySpeed);
+                float normalizedSpeed = absSpeed / ySpeedCurveIntegral;
+                float scaledSpeed = normalizedSpeed * ySpeedScaleFactor;
+                yProgress -= scaledSpeed * dt / duration; // 진행률 감소 (위로 올라감)
+            }
+            else
+            {
+                // 양수 속도: 아래로 떨어지는 효과
+                float normalizedSpeed = ySpeed / ySpeedCurveIntegral;
+                float scaledSpeed = normalizedSpeed * ySpeedScaleFactor;
+                yProgress += scaledSpeed * dt / duration; // 진행률 증가 (아래로 떨어짐)
+            }
+            
             yProgress = Mathf.Clamp01(yProgress);
             
             // 위치 업데이트

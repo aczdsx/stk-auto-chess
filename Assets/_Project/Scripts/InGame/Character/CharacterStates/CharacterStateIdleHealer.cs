@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using CookApps.BattleSystem;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -20,30 +21,41 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         }
         scanTargetTime = ScanTargetInterval;
 
-        // 2. 타겟 찾기
-        if (characCtrl.Target == null ||
-         (characCtrl.Target.AllianceType != characCtrl.AllianceType))
+        // 2. 타겟 찾기 (힐할 캐릭터 우선, 없으면 공격 타겟)
+        if (characCtrl.Target == null)
         {
             characCtrl.Target = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
         }
 
-        // 3. 적이 공격 범위 안에 들어왔는지 체크
-        if (characCtrl.Target != null)
+        // 힐할 캐릭터가 없으면 공격 타겟으로 전환
+        if (characCtrl.Target == null || !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
         {
-            //힐 할 캐릭터가
-            var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
-
-            if (isInRange)
-            {
-                // 4-1. 공격 범위 안에 들어왔다면 공격 상태로 전환
-                characCtrl.AddNextState<CharacterStateAttack>();
-            }
-            else
-            {
-                characCtrl.MoveToCharacter(isInRange, characCtrl.Target);
-            }
+            characCtrl.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
         }
 
+        // 3. 타겟 처리 (범위 체크 및 상태 전환/이동)
+        HandleTarget();
+
         return CharacterStateRunningResult.CanCallAllWithoutMove;
+    }
+
+    /// <summary>
+    /// 타겟이 있을 때 범위 체크 후 공격 상태로 전환하거나 이동
+    /// </summary>
+    private void HandleTarget()
+    {
+        if (characCtrl.Target == null)
+            return;
+
+        var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
+
+        if (isInRange)
+        {
+            characCtrl.AddNextState<CharacterStateAttack>();
+        }
+        else
+        {
+            characCtrl.MoveToCharacter(isInRange, characCtrl.Target);
+        }
     }
 }

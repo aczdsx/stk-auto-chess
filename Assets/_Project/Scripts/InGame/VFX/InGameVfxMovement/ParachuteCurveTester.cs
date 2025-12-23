@@ -229,7 +229,7 @@ namespace CookApps.BattleSystem
             float rotZ = rCurve.Evaluate(scrubT);
 
             // Y축 속도 커브를 적분하여 진행률 계산
-            // 먼저 총 적분값 계산 (정규화용)
+            // 먼저 총 적분값 계산 (정규화용, 절대값 사용)
             float totalIntegral = 0f;
             int integrationSteps = 100;
             float totalStepSize = 1f / integrationSteps;
@@ -237,19 +237,28 @@ namespace CookApps.BattleSystem
             {
                 float timeValue = (i + 0.5f) * totalStepSize;
                 float speed = ySpeedCurve.Evaluate(timeValue);
-                totalIntegral += speed * totalStepSize;
+                totalIntegral += Mathf.Abs(speed) * totalStepSize; // 절대값 사용
             }
             if (totalIntegral <= 0f)
                 totalIntegral = 1f;
             
-            // scrubT까지의 적분값 계산
+            // scrubT까지의 적분값 계산 (음수 속도는 위로 올라감)
             float yProgress = 0f;
             float stepSize = scrubT / integrationSteps;
             for (int i = 0; i < integrationSteps; i++)
             {
                 float timeStep = (i + 0.5f) * stepSize;
                 float speed = ySpeedCurve.Evaluate(timeStep);
-                yProgress += speed * stepSize;
+                if (speed < 0f)
+                {
+                    // 음수 속도: 위로 올라감 (진행률 감소)
+                    yProgress -= Mathf.Abs(speed) * stepSize;
+                }
+                else
+                {
+                    // 양수 속도: 아래로 떨어짐 (진행률 증가)
+                    yProgress += speed * stepSize;
+                }
             }
             
             // 정규화하여 항상 scrubT=1일 때 yProgress=1이 되도록
