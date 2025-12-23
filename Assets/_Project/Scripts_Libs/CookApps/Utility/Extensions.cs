@@ -110,6 +110,28 @@ namespace CookApps.TeamBattle.Utility
             return hash;
         }
 
+        public static ulong djb2Hash(this ReadOnlySpan<char> s)
+        {
+            ulong hash = 5381;
+            for (var i = 0; i < s.Length; i++)
+            {
+                hash = (hash << 5) + hash + s[i];
+            }
+
+            return hash;
+        }
+
+        public static ulong djb2HashCaseInsensitive(this ReadOnlySpan<char> s)
+        {
+            ulong hash = 5381;
+            for (var i = 0; i < s.Length; i++)
+            {
+                hash = ((hash << 5) + hash) ^ (s[i] & ~0x20UL);
+            }
+
+            return hash;
+        }
+
         public static string ToInvariantString<T>(this T obj) where T : unmanaged
         {
             switch (obj)

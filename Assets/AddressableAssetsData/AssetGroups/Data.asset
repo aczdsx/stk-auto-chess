@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7651ff6843057472d9fba68aabd3e84e
+    m_Address: Data/SpriteManager.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb8a6a12ab83e6444960dc1c56ad819d
     m_Address: Data/ColorData.asset
     m_ReadOnly: 0

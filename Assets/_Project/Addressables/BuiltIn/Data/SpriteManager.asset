@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 725b3eded1ac4239be01de098ee6e740, type: 3}
+  m_Name: SpriteManager
+  m_EditorClassIdentifier: 
+  folderPathGuids:
+  - a3b1d569a331341e990c0537bc364a8f
+  - 6387804946e0c46f2a419066ad10dc79
+  atlasRefs:
+  - m_AssetGUID: e8349454c096d9e45b1936e5fb4c7044
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  spriteRefs:
+    keys: 
+    values: []
+  spriteNameToAtlasDict:
+    keys: a6ee7b593962b197875ff8cd8063b197c1ee7b593962b197c2ee7b593962b197855ff8cd8063b197a8ee7b593962b19783ee7b593962b197f4a938579d6f712dc3ee7b593962b19780ee7b593962b197a15ff8cd8063b197825ff8cd8063b197a7ee7b593962b197805ff8cd8063b197c0ee7b593962b197df9cc81d9dcec4fd84ee7b593962b19765ceedc94a39b197815ff8cd8063b197
+    values: 4992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e54992dd5ad69ae8e5

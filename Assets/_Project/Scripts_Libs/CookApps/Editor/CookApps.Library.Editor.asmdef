@@ -4,7 +4,8 @@
     "references": [
         "CookApps.Library",
         "Unity.Addressables",
-        "Unity.Addressables.Editor"
+        "Unity.Addressables.Editor",
+        "SerializableDictionary"
     ],
     "includePlatforms": [
         "Editor"

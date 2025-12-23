@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: SpriteAtlas
+  m_EditorClassIdentifier: 
+  m_GroupName: SpriteAtlas
+  m_GUID: da8e4fb3007664011be952b5743ea81b
+  m_SerializeEntries:
+  - m_GUID: 2a08188687e084940a69dcce1fb15d79
+    m_Address: SpriteAtlas/UI_Character_Piece
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b4f9a52a4654744abd5683dbc97678e
+    m_Address: SpriteAtlas/Temp_Gacha/Atlas_Character_Inventory
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f72ea5920377a543a0bdddb2a266289
+    m_Address: SpriteAtlas/UI_Character_UI_SD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 758faaba29b082b4c9b8373d1d6f03cc
+    m_Address: SpriteAtlas/UI_Banner
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ac4a9ad6c5f1004e9699ca03f5679ad
+    m_Address: SpriteAtlas/UI_Commander_Skill
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c3525daf8dc12041b2a00abe0381be6
+    m_Address: SpriteAtlas/Temp_Gacha/Atlas_Icon_Skill
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 92962c11bf9f2de41b07523b774ff126
+    m_Address: SpriteAtlas/UI_BackDeco
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7e43331a4807af4687ead39d29007c8
+    m_Address: SpriteAtlas/Temp_Gacha/Atlas_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d59266943ae69f949a660ec9d26a43c6
+    m_Address: SpriteAtlas/UI_Main
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8815f356089b4cbd8a10b185bf1098a
+    m_Address: SpriteAtlas/Temp_Gacha/Atlas_Gacha
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db8a809bfec51ea408dafb36de49bc67
+    m_Address: SpriteAtlas/UI_Character_IngamePortrait
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1eefc5476c2c6944aba2dc6b5a72f9e
+    m_Address: SpriteAtlas/UI_Skill
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e46048157f103ef429313284e0fcaef0
+    m_Address: SpriteAtlas/Temp_Gacha/Atlas_Character_Illust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8349454c096d9e45b1936e5fb4c7044
+    m_Address: SpriteAtlas/Dynamic/UI_Buff
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f846c6d770ba054459777f53eac2820d
+    m_Address: SpriteAtlas/Temp_Gacha/Atlas_Icon_Stigma
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd75ccb0d384c42649360699dfe6130e
+    m_Address: SpriteAtlas/Temp_Gacha/Atlas_Stella_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fee9c2850c4fb834ba5dd37c63fbb1dd
+    m_Address: SpriteAtlas/UI_AttackRange
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8d6d40b8ca2cc4926a90a75890980a0a, type: 2}
+    - {fileID: 11400000, guid: bbe77f3c12f2e486c927e66da023ae88, type: 2}

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: Illust_Characters_ContentUpdateGroupSchema
+  m_Script: {fileID: 11500000, guid: c362618762514bfa9645b58e897ddc51, type: 3}
+  m_Name: ProjectFolderSettings
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 4e5c169b311284c27b88cada86c2e148, type: 2}
-  m_StaticContent: 0
+  rootFolder: {fileID: 102900000, guid: dbea675618dd39a45af4564ea07cf417, type: 3}
+  dataFolder: {fileID: 102900000, guid: dd9a92aee45e449399071695d4f61eed, type: 3}
