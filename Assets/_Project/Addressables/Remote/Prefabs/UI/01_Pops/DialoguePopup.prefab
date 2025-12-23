@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 1584281894303007260}
   - component: {fileID: 7152507623027523276}
   - component: {fileID: 7899799579678266646}
+  - component: {fileID: -3657525332018293767}
   m_Layer: 5
   m_Name: ChaImg (1)
   m_TagString: Untagged
@@ -897,6 +898,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &-3657525332018293767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269233316014724925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 1584281894303007260}
 --- !u!1 &3499654462025782229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1146,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!1 &4164852690396952518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1676,7 @@ MonoBehaviour:
   _blockLayerButton: {fileID: 6084146551450346301}
   _extraBGObj: {fileID: 1866418380673401413}
   _extraBGImage: {fileID: 1584281894303007260}
+  _extraBGSpriteLoader: {fileID: -3657525332018293767}
   _dialogueText: {fileID: 5716887584218562092}
   _dialogueTextRect: {fileID: 5809640002538323639}
   _maskObj: {fileID: 6445167663584666278}

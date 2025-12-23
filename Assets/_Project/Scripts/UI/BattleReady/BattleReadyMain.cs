@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private RawImage _vignetteImage;
 
         [Header("User Info Layer")]
-        [SerializeField] private SpriteLoader _userIconSpriteLoader;
+        // [SerializeField] private SpriteLoader _userIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _userNameText;
         [SerializeField] private TextMeshProUGUI _userLevelText;
         [SerializeField] private TextMeshProUGUI _userExpText;
@@ -46,7 +46,8 @@ namespace CookApps.AutoBattler
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
         [SerializeField] private GameObject _stageSelectSlotObject;
-        [SerializeField] private SpriteLoader _bossStageSpriteLoader;
+        [SerializeField] private Image _bossStageImage;
+        [SerializeField] private SpriteLoader _bossStageImageLoader;
         [SerializeField] private TextMeshProUGUI _bossStageText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
@@ -223,7 +224,7 @@ namespace CookApps.AutoBattler
         {
             var userBasicData = UserDataManager.Instance.UserBasicData;
 
-            _userIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSubIllustSprite(userBasicData.UserIconId)).Forget();
+            // _userIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSubIllustSprite(userBasicData.UserIconId)).Forget();
             _userNameText.text = (userBasicData.Nickname.Length > 25) ? "닉네임을 설정해주세요." : userBasicData.Nickname;
 
             int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
@@ -288,7 +289,7 @@ namespace CookApps.AutoBattler
                 // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
 
                 // 보스 이미지 처리
-                _bossStageSpriteLoader.SetSprite(SpriteNameParser.GetBossBannerSprite(specStageData.chapter_id)).Forget();
+                _bossStageImageLoader.SetSprite(SpriteNameParser.GetBossBannerSprite(specStageData.chapter_id)).Forget();
 
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }

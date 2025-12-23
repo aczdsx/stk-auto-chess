@@ -804,6 +804,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!1 &5494215800935668827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,6 +1689,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!1 &8372375195647350782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +1874,10 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 5179397656157353125, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      propertyPath: _skillIconSpriteLoader
+      value: 
+      objectReference: {fileID: -9203424017198964370}
     - target: {fileID: 6149526250561493733, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
       propertyPath: m_Name
       value: CommanderSkillSlot
@@ -1883,13 +1889,47 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9203424017198964370}
   m_SourcePrefab: {fileID: 100100000, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
 --- !u!224 &1676211016058975336 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 725003678648421696, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
   m_PrefabInstance: {fileID: 2111240484373035304}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2658032052780378436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 2111240484373035304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-9203424017198964370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2658032052780378436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 4271591493589153126}
+--- !u!114 &4271591493589153126 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2741319827981093966, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 2111240484373035304}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2658032052780378436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5195785644807431117 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6149526250561493733, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
@@ -1999,6 +2039,10 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 5179397656157353125, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      propertyPath: _skillIconSpriteLoader
+      value: 
+      objectReference: {fileID: 9145265669512641970}
     - target: {fileID: 6149526250561493733, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
       propertyPath: m_Name
       value: CommanderSkillSlot (1)
@@ -2017,7 +2061,41 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1741934986530901894, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6306351047700878803}
+    - targetCorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9145265669512641970}
   m_SourcePrefab: {fileID: 100100000, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+--- !u!114 &834011312902554039 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2741319827981093966, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 3285410025085505017}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456781557184552341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1456781557184552341 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 3285410025085505017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9145265669512641970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456781557184552341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 834011312902554039}
 --- !u!1 &2149919580184522565 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3480740956950799036, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
@@ -2163,6 +2241,10 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 5179397656157353125, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      propertyPath: _skillIconSpriteLoader
+      value: 
+      objectReference: {fileID: 5556728741913719224}
     - target: {fileID: 6149526250561493733, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
       propertyPath: m_Name
       value: CommanderSkillSlot (2)
@@ -2170,8 +2252,42 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5556728741913719224}
   m_SourcePrefab: {fileID: 100100000, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+--- !u!1 &1094852850291664490 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 3935630147937154566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5556728741913719224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094852850291664490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 1194919655573092936}
+--- !u!114 &1194919655573092936 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2741319827981093966, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 3935630147937154566}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094852850291664490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4364429791905741638 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 725003678648421696, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
@@ -2510,6 +2626,10 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 5179397656157353125, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      propertyPath: _skillIconSpriteLoader
+      value: 
+      objectReference: {fileID: -8410472464631106914}
     - target: {fileID: 6149526250561493733, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
       propertyPath: m_Name
       value: CommanderSkillSlot (3)
@@ -2517,8 +2637,42 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8410472464631106914}
   m_SourcePrefab: {fileID: 100100000, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+--- !u!114 &5483931019169106008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2741319827981093966, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 7643112044935136278}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034350648956785786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6034350648956785786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4156708215602139244, guid: cc67e8b812683524099caeff4588cdfb, type: 3}
+  m_PrefabInstance: {fileID: 7643112044935136278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-8410472464631106914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034350648956785786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 5483931019169106008}
 --- !u!224 &6926099625592916310 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 725003678648421696, guid: cc67e8b812683524099caeff4588cdfb, type: 3}

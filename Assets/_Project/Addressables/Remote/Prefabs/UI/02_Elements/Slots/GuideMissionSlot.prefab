@@ -836,8 +836,10 @@ MonoBehaviour:
   _missionTitleText: {fileID: 3514256403068726953}
   _missionDescText: {fileID: 1618645643540446225}
   _missionRewardItemImage: {fileID: 3263473594171821742}
+  _missionRewardItemSpriteLoader: {fileID: 3848474859972710108}
   _rewardCharacterBGImage: {fileID: 6326870061276751633}
   _missionRewardCharacterImage: {fileID: 8489099042409360403}
+  _missionRewardCharacterSpriteLoader: {fileID: -5015103821061630533}
   _missionRewardAmountText: {fileID: 3789564916552148273}
 --- !u!114 &7518062370182445
 MonoBehaviour:
@@ -1303,6 +1305,7 @@ GameObject:
   - component: {fileID: 4439033365820261673}
   - component: {fileID: 4788249468610457207}
   - component: {fileID: 3263473594171821742}
+  - component: {fileID: 3848474859972710108}
   m_Layer: 5
   m_Name: Img_Item
   m_TagString: Untagged
@@ -1367,6 +1370,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 4
+--- !u!114 &3848474859972710108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627345427633103962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 3263473594171821742}
 --- !u!1 &3691775955671167132
 GameObject:
   m_ObjectHideFlags: 0
@@ -6647,6 +6665,7 @@ GameObject:
   - component: {fileID: 5858069464041398416}
   - component: {fileID: 1735486190425688119}
   - component: {fileID: 8489099042409360403}
+  - component: {fileID: -5015103821061630533}
   m_Layer: 5
   m_Name: Img_Character
   m_TagString: Untagged
@@ -6711,6 +6730,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 4
+--- !u!114 &-5015103821061630533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086806336249179789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 8489099042409360403}
 --- !u!1 &7475620333698445651
 GameObject:
   m_ObjectHideFlags: 0

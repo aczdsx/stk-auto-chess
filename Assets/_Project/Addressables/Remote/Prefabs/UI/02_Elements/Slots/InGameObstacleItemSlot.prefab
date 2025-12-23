@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 7851359982853908048}
   - component: {fileID: 8541941969444491826}
   - component: {fileID: 944487330595865132}
+  - component: {fileID: -8583910690976208774}
   m_Layer: 5
   m_Name: Img_Character
   m_TagString: Untagged
@@ -216,6 +217,21 @@ MonoBehaviour:
   _speed: 0.02
   _chromAberrAmount: 0.08
   changeStep: 0.003
+--- !u!114 &-8583910690976208774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591580675477865636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 8541941969444491826}
 --- !u!1 &849795726247108567
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,15 +340,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -495,13 +513,19 @@ MonoBehaviour:
   _image: {fileID: 5643441958574008579}
   _SynergyImage: {fileID: 1083035387710848597}
   _SynergyClassImage: {fileID: 7255070656595467219}
+  _imageSpriteLoader: {fileID: 5661296447159549932}
+  _SynergyImageSpriteLoader: {fileID: -9139386098969958784}
+  _SynergyClassImageSpriteLoader: {fileID: -2351183961391176047}
   _lvText: {fileID: 3390028407743059545}
   _body: {fileID: 3052446370037572043}
   _emptySlotObj: {fileID: 4679146988832549458}
   _focusObj: {fileID: 6724134815730647592}
   _focusImage: {fileID: 8541941969444491826}
+  _focusImageSpriteLoader: {fileID: -8583910690976208774}
   _dropFxAnimation: {fileID: 2943248564705236822}
   _focusText: {fileID: 6417873719669828059}
+  _guideFx: {fileID: 0}
+  _characterPositionTypeText: {fileID: 0}
 --- !u!114 &524712126046447701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +601,8 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
+  swappers: []
 --- !u!1 &1614935759617791654
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +803,7 @@ GameObject:
   - component: {fileID: 1710576263512831465}
   - component: {fileID: 5600125113013653075}
   - component: {fileID: 7255070656595467219}
+  - component: {fileID: -2351183961391176047}
   m_Layer: 5
   m_Name: Img_PosSynergy
   m_TagString: Untagged
@@ -841,6 +868,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-2351183961391176047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2590612089776164756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 7255070656595467219}
 --- !u!1 &3052446370037572043
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +934,7 @@ GameObject:
   - component: {fileID: 3678483657043856403}
   - component: {fileID: 8912149287062199092}
   - component: {fileID: 1083035387710848597}
+  - component: {fileID: -9139386098969958784}
   m_Layer: 5
   m_Name: Img_Synergy
   m_TagString: Untagged
@@ -956,6 +999,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-9139386098969958784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3408036516695152337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 1083035387710848597}
 --- !u!1 &3869928092096939870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,15 +1400,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1823,6 +1883,7 @@ GameObject:
   - component: {fileID: 6809788076961751684}
   - component: {fileID: 2407421369896045018}
   - component: {fileID: 5643441958574008579}
+  - component: {fileID: 5661296447159549932}
   m_Layer: 5
   m_Name: Img_Character
   m_TagString: Untagged
@@ -1887,6 +1948,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 4
+--- !u!114 &5661296447159549932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5858422306624848887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 5643441958574008579}
 --- !u!1 &5967402179648070141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,13 +2009,14 @@ Animation:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5967402179648070141}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Animation: {fileID: 7400000, guid: f6c6a66c9a9963048b26296711b0a74e, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: f6c6a66c9a9963048b26296711b0a74e, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
+  m_UpdateMode: 0
   m_CullingType: 0
 --- !u!1 &6724134815730647592
 GameObject:
@@ -2274,15 +2351,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -2408,15 +2487,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0

@@ -183,15 +183,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -411,6 +413,8 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
+  swappers: []
 --- !u!1 &2285603616792504955
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,15 +523,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -598,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _getRewardButton: {fileID: 7160189273410401270}
   _rewardIconImage: {fileID: 7332208900535386544}
+  _rewardIconSpriteLoader: {fileID: 1765706923917292164}
   _rewardIconUIShiny: {fileID: 2961381004150643473}
   _clearAmountText: {fileID: 6637049584625135900}
   _rewardAmountText: {fileID: 623811040812660180}
@@ -845,6 +852,7 @@ GameObject:
   - component: {fileID: 6169248038633697542}
   - component: {fileID: 7332208900535386544}
   - component: {fileID: 2961381004150643473}
+  - component: {fileID: 1765706923917292164}
   m_Layer: 5
   m_Name: Icon_Reward
   m_TagString: Untagged
@@ -937,6 +945,21 @@ MonoBehaviour:
     loop: 1
     loopDelay: 0.4
     updateMode: 0
+--- !u!114 &1765706923917292164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077619996698259994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 7332208900535386544}
 --- !u!1 &4179306000107133227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1232,8 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
+  reactionType: 0
+  swappers: []
 --- !u!114 &8574042472142344096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6219,6 +6244,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

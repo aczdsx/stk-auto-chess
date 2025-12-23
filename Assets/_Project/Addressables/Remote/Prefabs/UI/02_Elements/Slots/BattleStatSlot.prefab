@@ -108,15 +108,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -197,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterIconImage: {fileID: 7712297308385556725}
+  _characterIconSpriteLoader: {fileID: -8796887180369575631}
   _damageAmountText: {fileID: 586770607628853988}
   _damageAmountSlider: {fileID: 5133297736606739249}
   _buffListParentObject: {fileID: 5170643456459545127}
@@ -621,6 +624,7 @@ GameObject:
   - component: {fileID: 6751933548843806405}
   - component: {fileID: 7712297308385556725}
   - component: {fileID: 2268912702967867760}
+  - component: {fileID: -8796887180369575631}
   m_Layer: 5
   m_Name: Icon_Cha
   m_TagString: Untagged
@@ -704,6 +708,21 @@ MonoBehaviour:
   m_ColorMode: 0
   m_BlurMode: 0
   m_AdvancedBlur: 0
+--- !u!114 &-8796887180369575631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6218536678294782370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 7712297308385556725}
 --- !u!1 &8383983121259601639
 GameObject:
   m_ObjectHideFlags: 0

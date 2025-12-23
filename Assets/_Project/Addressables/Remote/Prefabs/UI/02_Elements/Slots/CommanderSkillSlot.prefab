@@ -115,6 +115,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!1 &628358736421066414
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +304,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!1 &1214760941097484875
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +801,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!1 &2765397795686769975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,6 +1099,7 @@ GameObject:
   - component: {fileID: 5345544237544731783}
   - component: {fileID: 4847318455856443992}
   - component: {fileID: 2741319827981093966}
+  - component: {fileID: 3432986292645230214}
   m_Layer: 5
   m_Name: img_Skill
   m_TagString: Untagged
@@ -1160,6 +1164,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3432986292645230214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156708215602139244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 2741319827981093966}
 --- !u!1 &4528368391713314429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,6 +1464,7 @@ MonoBehaviour:
   _equipLayerObject: {fileID: 1214760941097484875}
   _equippedLayerObject: {fileID: 2028113142358754162}
   _skillIconImage: {fileID: 2741319827981093966}
+  _skillIconSpriteLoader: {fileID: 3432986292645230214}
   _skillNameText: {fileID: 3940912737784570283}
   _skillLevelText: {fileID: 431564920993809748}
 --- !u!1 &8008210943919512122
