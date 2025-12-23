@@ -14,10 +14,14 @@ namespace CookApps.BattleSystem
         // 커브 데이터 (null이면 기본 커브 사용)
         private ParachuteCurveData curveData = null;
         private AnimationCurve xCurve;
-        private AnimationCurve yCurve;
+        private AnimationCurve ySpeedCurve; // Y축 속도 커브
         private AnimationCurve zCurve;
         private AnimationCurve rotationCurve;
         private bool useCustomCurves = false;
+        
+        // Y축 속도 적분을 위한 변수
+        private float yProgress = 0f;
+        private float ySpeedCurveIntegral = 1f; // 속도 커브의 총 적분값 (정규화용)
 
         // CharacterController 추적 설정
         private bool trackCharacter = false;
@@ -29,7 +33,7 @@ namespace CookApps.BattleSystem
 
         // 기본 커브 생성
         private static AnimationCurve CreateDefaultXCurve() => AnimationCurve.Linear(0, 0, 1, 1);
-        private static AnimationCurve CreateDefaultYCurve() => AnimationCurve.EaseInOut(0, 0, 1, 1);
+        private static AnimationCurve CreateDefaultYSpeedCurve() => AnimationCurve.Constant(0, 1, 1f); // 기본 속도 1
         private static AnimationCurve CreateDefaultZCurve() => AnimationCurve.Linear(0, 0, 1, 1);
         private static AnimationCurve CreateDefaultRotationCurve() => AnimationCurve.Constant(0, 1, 0);
 
@@ -139,9 +143,9 @@ namespace CookApps.BattleSystem
                 xCurve = curveData.xCurve != null && curveData.xCurve.length > 0 
                     ? curveData.xCurve 
                     : CreateDefaultXCurve();
-                yCurve = curveData.yCurve != null && curveData.yCurve.length > 0 
+                ySpeedCurve = curveData.yCurve != null && curveData.yCurve.length > 0 
                     ? curveData.yCurve 
-                    : CreateDefaultYCurve();
+                    : CreateDefaultYSpeedCurve();
                 zCurve = curveData.zCurve != null && curveData.zCurve.length > 0 
                     ? curveData.zCurve 
                     : CreateDefaultZCurve();
@@ -152,10 +156,34 @@ namespace CookApps.BattleSystem
             else
             {
                 xCurve = CreateDefaultXCurve();
-                yCurve = CreateDefaultYCurve();
+                ySpeedCurve = CreateDefaultYSpeedCurve();
                 zCurve = CreateDefaultZCurve();
                 rotationCurve = CreateDefaultRotationCurve();
             }
+            
+            // Y축 속도 커브의 총 적분값 계산 (정규화용)
+            CalculateYSpeedCurveIntegral();
+        }
+        
+        /// <summary>
+        /// Y축 속도 커브의 총 적분값을 계산하여 정규화에 사용
+        /// </summary>
+        private void CalculateYSpeedCurveIntegral()
+        {
+            ySpeedCurveIntegral = 0f;
+            int integrationSteps = 100;
+            float stepSize = 1f / integrationSteps;
+            
+            for (int i = 0; i < integrationSteps; i++)
+            {
+                float t = (i + 0.5f) * stepSize; // 중점 법칙
+                float speed = ySpeedCurve.Evaluate(t);
+                ySpeedCurveIntegral += speed * stepSize;
+            }
+            
+            // 적분값이 0이면 기본값 1 사용
+            if (ySpeedCurveIntegral <= 0f)
+                ySpeedCurveIntegral = 1f;
         }
 
         private void InitializeParachuteData()
@@ -182,7 +210,7 @@ namespace CookApps.BattleSystem
             _characterController = null;
             curveData = null;
             xCurve = null;
-            yCurve = null;
+            ySpeedCurve = null;
             zCurve = null;
             rotationCurve = null;
         }
@@ -220,16 +248,20 @@ namespace CookApps.BattleSystem
             // 정규화된 시간 (0~1)
             float t = Mathf.Clamp01(elapsedTime / duration);
             
-            // 커브를 사용하여 위치 계산
-            // Y축은 낙하산이 위에서 아래로 떨어지므로 커브를 반대로 적용 (1 - easedY)
+            // X, Z는 위치 커브 사용
             float easedX = xCurve.Evaluate(t);
-            float easedY = 1f - yCurve.Evaluate(t); // 위(1)에서 아래(0)로 떨어지도록 반전
             float easedZ = zCurve.Evaluate(t);
+            
+            // Y축은 속도 커브 사용 (속도를 적분하여 진행률 계산)
+            // 속도 커브를 정규화하여 duration 끝에 항상 목표 위치에 도달하도록 함
+            float ySpeed = ySpeedCurve.Evaluate(t);
+            yProgress += (ySpeed / ySpeedCurveIntegral) * dt / duration; // 정규화된 속도 * 시간
+            yProgress = Mathf.Clamp01(yProgress);
             
             // 위치 업데이트
             prevPos = currPos;
             currPos.x = Mathf.Lerp(srcPos.x, destPos.x, easedX);
-            currPos.y = Mathf.Lerp(srcPos.y, destPos.y, easedY);
+            currPos.y = Mathf.Lerp(srcPos.y, destPos.y, yProgress); // 속도 기반 진행률 사용
             currPos.z = Mathf.Lerp(srcPos.z, destPos.z, easedZ);
 
             // 회전 계산 (커브에서 각도 가져오기)

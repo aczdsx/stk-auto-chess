@@ -518,6 +518,7 @@ namespace CookApps.BattleSystem
 
         /// <summary>
         /// pivot을 기준으로 가장 체력이 낮은 우리 팀을 반환
+        /// 자신을 제외합니다.
         /// </summary>
         /// <param name="pivot"></param>    
         /// <returns></returns>

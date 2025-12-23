@@ -17,8 +17,8 @@ namespace CookApps.BattleSystem
         [Tooltip("X축 이동 커브 (0~1 범위)")]
         public AnimationCurve xCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
-        [Tooltip("Y축 이동 커브 (0~1 범위)")]
-        public AnimationCurve yCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        [Tooltip("Y축 속도 커브 (속도 값, 높을수록 빠르게 떨어짐)")]
+        public AnimationCurve yCurve = AnimationCurve.Constant(0, 1, 1f);
 
         [Tooltip("Z축 이동 커브 (0~1 범위)")]
         public AnimationCurve zCurve = AnimationCurve.Linear(0, 0, 1, 1);
@@ -40,7 +40,7 @@ namespace CookApps.BattleSystem
             if (xCurve == null || xCurve.length == 0)
                 xCurve = AnimationCurve.Linear(0, 0, 1, 1);
             if (yCurve == null || yCurve.length == 0)
-                yCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+                yCurve = AnimationCurve.Constant(0, 1, 1f); // 기본 속도 1
             if (zCurve == null || zCurve.length == 0)
                 zCurve = AnimationCurve.Linear(0, 0, 1, 1);
             if (rotationCurve == null || rotationCurve.length == 0)

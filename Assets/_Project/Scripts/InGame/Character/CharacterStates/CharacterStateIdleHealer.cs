@@ -26,15 +26,11 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         {
             characCtrl.Target = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
         }
-        if (characCtrl.Target is {IsAlive: false})
-        {
-            characCtrl.Target = null;
-            return CharacterStateRunningResult.CanCallAllWithoutMove;
-        }
 
         // 3. 적이 공격 범위 안에 들어왔는지 체크
         if (characCtrl.Target != null)
         {
+            //힐 할 캐릭터가
             var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
 
             if (isInRange)
