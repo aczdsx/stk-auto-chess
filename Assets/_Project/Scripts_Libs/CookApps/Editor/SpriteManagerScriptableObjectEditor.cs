@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CookApps.Editor
 {
     [CustomEditor(typeof(SpriteManagerScriptableObject))]
-    public class AtlasManagerScriptableObjectEditor : UnityEditor.Editor
+    public class SpriteManagerScriptableObjectEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -19,10 +19,30 @@ namespace CookApps.Editor
             }
             else
             {
-                foreach (string pathGuid in so.folderPathGuids)
+                string guidToRemove = null;
+
+                for (int i = 0; i < so.folderPathGuids.Count; i++)
                 {
+                    string pathGuid = so.folderPathGuids[i];
                     string path = AssetDatabase.GUIDToAssetPath(pathGuid);
+
+                    EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.LabelField("- " + path);
+
+                    if (GUILayout.Button("X", GUILayout.Width(30)))
+                    {
+                        guidToRemove = pathGuid;
+                    }
+
+                    EditorGUILayout.EndHorizontal();
+                }
+
+                // 제거 버튼이 클릭되었을 때 처리
+                if (guidToRemove != null)
+                {
+                    so.folderPathGuids.Remove(guidToRemove);
+                    SpriteManagerImportProcessor.ClearCachedSpriteManager();
+                    EditorUtility.SetDirty(so);
                 }
             }
 
