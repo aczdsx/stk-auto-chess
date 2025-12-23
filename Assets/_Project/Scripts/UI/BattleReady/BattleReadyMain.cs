@@ -64,15 +64,15 @@ namespace CookApps.AutoBattler
         [SerializeField] private ParticleSystem _dropFx;
 
         [Header("Red dot")]
-        [SerializeField] private GameObject _characterReddotObject;
-        [SerializeField] private GameObject _gachaReddotObject;
-        [SerializeField] private GameObject _idleRewardReddotObject;
-        [SerializeField] private GameObject _chapterSelectReddotObject;
-        [SerializeField] private GameObject _questReddotObject;
-        [SerializeField] private GameObject _attendanceReddotObject;
-        [SerializeField] private GameObject _sessionTimeEventReddotObject;
-        [SerializeField] private GameObject _useAPEventReddotObject;
-        [SerializeField] private GameObject _trialDungeonReddotObject;
+        // [SerializeField] private GameObject _characterReddotObject;
+        // [SerializeField] private GameObject _gachaReddotObject;
+        // [SerializeField] private GameObject _idleRewardReddotObject;
+        // [SerializeField] private GameObject _chapterSelectReddotObject;
+        // [SerializeField] private GameObject _questReddotObject;
+        // [SerializeField] private GameObject _attendanceReddotObject;
+        // [SerializeField] private GameObject _sessionTimeEventReddotObject;
+        // [SerializeField] private GameObject _useAPEventReddotObject;
+        // [SerializeField] private GameObject _trialDungeonReddotObject;
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -510,14 +510,14 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _characterReddotObject.SetActive(isReadyNewCharacter);
+            // _characterReddotObject.SetActive(isReadyNewCharacter);
 
             // 가챠 버튼 레드닷 (티켓이 1장 이상일 경우) -> 10개 이상으로 변경
-            bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket >= 10;
-            _gachaReddotObject.SetActive(isHaveGachaTicket);
+            // bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket >= 10;
+            // _gachaReddotObject.SetActive(isHaveGachaTicket);
 
             // 방치 보상 레드닷 (가득 찼을 경우)
-            _idleRewardReddotObject.SetActive(_isIdleRewardFullState);
+            // _idleRewardReddotObject.SetActive(_isIdleRewardFullState);
 
             // 챕터 선택 레드닷
             bool isAvailGetChapterReward = false;
@@ -545,7 +545,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _chapterSelectReddotObject.SetActive(isAvailGetChapterReward);
+            // _chapterSelectReddotObject.SetActive(isAvailGetChapterReward);
 
             // 퀘스트 레드닷
             bool isAvailDailyQuestReward = false;
@@ -577,7 +577,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _questReddotObject.SetActive(isAvailDailyQuestReward || isAvailWeeklyQuestReward);
+            // _questReddotObject.SetActive(isAvailDailyQuestReward || isAvailWeeklyQuestReward);
 
             // 출석 레드닷
             bool isAvailAttendanceReward = false;
@@ -590,7 +590,7 @@ namespace CookApps.AutoBattler
                     isAvailAttendanceReward = userEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
                 }
 
-                _attendanceReddotObject.SetActive(isAvailAttendanceReward);
+                // _attendanceReddotObject.SetActive(isAvailAttendanceReward);
             }
 
             // 세션타임 이벤트 레드닷
@@ -602,7 +602,7 @@ namespace CookApps.AutoBattler
                 isAvailSessionTimeEventReward = userSessionEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
             }
 
-            _sessionTimeEventReddotObject.SetActive(isAvailSessionTimeEventReward);
+            // _sessionTimeEventReddotObject.SetActive(isAvailSessionTimeEventReward);
 
 
             // 행동력 이벤트 레드닷
@@ -614,7 +614,7 @@ namespace CookApps.AutoBattler
                 isAvailUseAPReward = userUseAPEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
             }
 
-            _useAPEventReddotObject.SetActive(isAvailUseAPReward);
+            // _useAPEventReddotObject.SetActive(isAvailUseAPReward);
 
             // 시련 던전 레드닷
             bool isAvailPlayTrialDungeon = false;
@@ -636,7 +636,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
+            // _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
 
         }
 
