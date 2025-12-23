@@ -25,6 +25,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36882bfd9ea264026b8410d8f091c603
+    m_Address: SpriteAtlas/Dynamic/UI_CharacterThumbnail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a8e93dc74b4242199bce29594091f0c
+    m_Address: SpriteAtlas/Dynamic/UI_Chapter
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f72ea5920377a543a0bdddb2a266289
     m_Address: SpriteAtlas/UI_Character_UI_SD
     m_ReadOnly: 0
@@ -47,6 +57,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 92962c11bf9f2de41b07523b774ff126
     m_Address: SpriteAtlas/UI_BackDeco
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afd98c94cb2e143a0923b550c6257370
+    m_Address: SpriteAtlas/Dynamic/UI_Synergy
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -80,6 +95,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e70ce80a15dcd4feb833626778d76b76
+    m_Address: SpriteAtlas/Dynamic/UI_CharacterGrade
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e8349454c096d9e45b1936e5fb4c7044
     m_Address: SpriteAtlas/Dynamic/UI_Buff
     m_ReadOnly: 0
@@ -92,6 +112,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd75ccb0d384c42649360699dfe6130e
     m_Address: SpriteAtlas/Temp_Gacha/Atlas_Stella_Icon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe676746c2d1844a7a58d55666b4e456
+    m_Address: SpriteAtlas/Dynamic/UI_Currency
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

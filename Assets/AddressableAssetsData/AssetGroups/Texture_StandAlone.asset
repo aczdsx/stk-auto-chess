@@ -15,23 +15,58 @@ MonoBehaviour:
   m_GroupName: Texture_StandAlone
   m_GUID: 34bbdc7f8584d47568a4711e8cb591b6
   m_SerializeEntries:
+  - m_GUID: 002ea40beff75af41a1425cc2a86ab3d
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17333202
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 022ec20802c9b3b49872ed5eada2f063
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_CHAR_TRANSCENDENCE_LIGHT
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03479ce8718b211438f283cd04cfda77
+    m_Address: Texture_StandAlone/Dynamic/ChaPiece/Common_ChaPiece_Frame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 05176f08b4e98084587857395be964c3
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17523403
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0571cf328a219ad4b9a509b0b5bdf76b
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/Common_Img_Class_COMMON
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 058a596f3df86824799abe4af870fb1c
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100400
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100400
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 05b2ec7e5f999d442be5e4fc8b00a473
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17653505
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17653505
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 06be287f9bc890548aea74953c97e101
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1010
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1010
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 08704d46bc2839d43822844ac6bc23f3
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17433303
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a03d010c86dbed48be3f335287ecb82
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_102700
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0d9f04b60febf93429a06941e2b0af5a
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17333202
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17333202
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -45,18 +80,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14447c5ab434b8c498243174fba6bff3
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_E_KTICKET
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 14d9f64d8b3e21045841a092e3dd6acc
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/220340
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/220340
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1869a29b9e26c95409d8d02e657dbc5f
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/102500
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/102500
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 195df3b11e60fe44da0dd08cb6550350
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/200160
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200160
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19aeb6bbc988cea4881c7b9cada2ad71
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_ETICKET
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -70,23 +115,43 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2221ca77332bb4048850b308d7785fdd
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_40604
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 233674361fbc100478310b3827e3bfa2
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17433302
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2538a25ebc11b0d448ab6eadd98f25d6
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/302900
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/302900
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27b6e9b1497191f4fb299a26d3c87cf3
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17263103
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17263103
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27f2600f6e3914343ab86d794349173b
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/200240
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200240
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2839e5b459d79924388b05284529ff36
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_AP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a610939c358c6940937aa232db93457
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17653505
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2a91c7d94155abe4b84a938f1846209e
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/300200
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/300200
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -96,32 +161,62 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 302dddc656a830c40981902ffae0f625
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/200130
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200130
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 30c037fe5e6ea3541a3b8dd1abeba2ee
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1009
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1009
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 318cc4d10e9c98145b2bde444599ac5e
+    m_Address: Texture_StandAlone/Dynamic/ChaPiece/Common_ChaPiece_RARE
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 323b5d7353387be4fb88bcff63fe4899
+    m_Address: Texture_StandAlone/Dynamic/ChaPiece/Common_ChaPiece_EPIC
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33cefdf02eaa0f3469922b0a6a5f7748
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_15252102
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_15252102
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33efc68e4d2259a46b1ffdce5a4ded65
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_40603
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 346d9c889eaf44942b51ba80f8b2c452
+    m_Address: Texture_StandAlone/Dynamic/ChaPiece/Common_ChaPiece_COMMON
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37346d075e6aea84ca012f6f43a0e537
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_15322201
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37d49dab731eb1e409d644a56f92fb69
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100800
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100800
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 380245abbb00cc1449f49032ff554f8f
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_15422301
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 39b61c82b816ca7498166925c944be79
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/302100
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/302100
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3a16d5e73d5e34f40bad8f917687a5a4
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1007
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1007
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -130,13 +225,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3cd45b12c3233d34d93e822ee7899f66
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_40302
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d85482efddfe1949a1886dee31ffb54
     m_Address: Texture_StandAlone/Character_Illust/CharacterIllust_17243102
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f3bd22e54fedd54b8a36430cb1a7dd6
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_15362202
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3fd8180fbb0d5c54bab8cdc3dea14a85
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/101900
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/101900
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40ca5b837fe06e14a9720cce8a30195f
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_BUILDING_SUPPLIES
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -145,8 +255,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 435fc454349492b4bbbad31a0a6ed1f2
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_101500
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 43b833f0eca5f1c4f90948d1b0200284
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/302200
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/302200
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43c13b0f6fc6fbd4bbb7e0f50c20fbc8
+    m_Address: Texture_StandAlone/Dynamic/ChaPiece/Common_ChaPiece_LEGEND
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -155,13 +275,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 464694c0a8334a64dad63114567965a1
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_DUNGEON_KEY2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4a7afeccc04832a49907d5e1ae42fad5
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_15642501
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_15642501
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4df31f9b1c3e0f84481a850a03ab3e00
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100900
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100900
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -171,47 +296,57 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4e476ddc068b43a46958f9d583e211d8
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/220360
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/220360
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 51fe2bf73074e0744b84edbd0a6f0462
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100500
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100500
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 55f0f0cf09dfb1741af43f7dc54e8873
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1004
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1004
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 59c05b945a1a33441ba487990fa64785
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1005
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1005
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5b6a4189558f54549951001c25d24a07
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/102600
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/102600
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c80c548f6862cf4ba8d32dc1154c5cf
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_104400
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ef58e797c6b9254c9d7d04dd4361a7c
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1011
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1011
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5f23a5342701046448534c90c8150e0c
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/200120
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200120
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5fa8cbe1343ff0343b3cd64c4ac0ea01
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100700
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100700
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 627cd840d9554d54f9b1bce6665a380d
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/220320
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/220320
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63c715cb061ec0e4d90e2f789dffebef
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17613501
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -220,8 +355,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 680394e870d359348adeea445b3559d1
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_C_TICKET
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a9f7ea37f5d40345b2b12370cf8b768
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/102100
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/102100
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -235,13 +375,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71098d0641d06e345bfd701701b2b753
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17413301
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 71a254ee7f95d7f40a0e9f64fb670471
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17413301
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17413301
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 723995df899bab7418fee356222df33e
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_15252102
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7268597b9b43d0241a70c57690bf4922
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_CHAR_TRANSCENDENCE_WATER
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 728db00babf36b64291e5f713ec2ce34
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100600
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100600
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -251,17 +406,32 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 74dcdbf639bd6184684f8a3da269248b
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17323201
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17323201
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75a9fa3dcf8e1374e875f6349599bf7d
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1001
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1001
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75b5b2a43aba4d547b2ec0d50f686799
     m_Address: Texture_StandAlone/Character_Illust/CharacterIllust_15422301
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 767993860eb190742a44400900308047
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_102100
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 769d70792e14ea1429189abb1af82956
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_BREAD_Bak
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79b97ebe2e8be2b459d3aab62e95df81
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_CHAR_TRANSCENDENCE_FIRE
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -281,27 +451,37 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8171c1832698e3343849e2e8e19bcfbb
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/102000
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/102000
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82a65dc6c91462343812154be25d6422
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_BUILDING_RANDOMBOX
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8356bd034e9692b4b94b3487e3c46f56
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17353203
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17353203
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 84b12ca4e8121924ca8f2f7fc486cf2d
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/200230
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200230
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86613b26b53f034439ce817bc6722e04
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_40404
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 867289f68aeb98d41b378eaa22eb8073
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17523403
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17523403
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8749176c6a9a0064eb73eac7820d31fd
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_40603
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_40603
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -315,13 +495,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b450c82bccde374e8e9adb5a8df0316
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_USER_EXP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c5453cadc013e4408cc1f00b7872c9b
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/200260
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200260
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ce5d360fd1eb9948b571cc38dfd4dc6
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/101500
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/101500
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d66aaec27c19884da87faef8c94eeac
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17663506
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -341,7 +531,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 925aa8ff8647ff04a941ca50835c4662
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17433303
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17433303
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 944d3770e45584a48ac3b89915dfaabf
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17363204
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -350,18 +545,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97cd6f73099e0854eac2ef2a8148a9c2
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_CHAR_USER_EXP_ITEM
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 99304e35c291d74498c65351a517ecb8
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/302500
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/302500
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 99dd2e5a7dab6e743a94c7ab768f3509
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100200
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100200
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9cd41c8aaf755d74eafe4ca31d3a9634
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/220330
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/220330
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -371,27 +571,37 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a144b7b5c4041ad4196fdcce71132e2a
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1008
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1008
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1b4241c27f43864f8148741b538876f
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/Common_Img_Class_EPIC
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1b77da8b4222544c848cc66e6f3f2b5
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_15422301
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_15422301
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a63702fc2c60f2d44b4c26f0f454db19
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/Common_Img_Class_RARE
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a6c330e3dfdd3c44a924d5a1b4ff5413
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/301200
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/301200
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aa104e7663ac0fb429027335502a68cd
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/100300
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100300
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac021ff93f444aa4bb2ed515e62e30d9
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/101800
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/101800
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -406,7 +616,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ae79847fedff62b4f9d3ca54dbb7b710
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/104100
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/104100
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -415,43 +625,68 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af56f6f4f61f95743aed7d57290412a3
+    m_Address: Texture_StandAlone/Dynamic/ChaPiece/Common_ChaPiece_Class_Bg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b4cf78166fb3a9745bbf217182f43187
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/103400
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/103400
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb4acb6ba4ab9ae47a059537e75f8d9b
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/300400
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/300400
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be796c089c8cf8c418c7ca2638c57e8f
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17243102
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be9d515336ee6bd488109996ff72b490
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/103000
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/103000
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bfd290e786b6b7246b4066d31bcda194
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1006
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1006
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c3c85830f774c554f8f041d270d39ee3
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/300900
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/300900
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9205a790344b88418700abb3510a1b1
+    m_Address: Texture_StandAlone/Dynamic/ChaPiece/Common_ChaPiece_FrameBg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c922a587362a35846ba2b29cf72726f2
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/103600
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/103600
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c94d08e87cf196f47aeb23f094e30acf
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1002
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1002
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca221e4044f83e349ab6bb1b0517eff4
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17263103
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cd0e8112a6f2b4942bef68007d4ecdf1
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/101000
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/101000
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd8d3ed8aa34c86438916899a20a50cf
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/Common_Img_Class_LEGEND
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -461,12 +696,27 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d3355723573f34547b149ab905d8528b
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_15532401
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_15532401
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d47baea7229595a43ac909697ace548e
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_GOLD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5249263dcaa04c3b8930360244ccfe4
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_JEWEL_CASH
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d87800162e1b2284ea82cbf1919e1ed7
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_15532401
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d87cd400685737f40af71412a5130ab1
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/200140
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200140
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -476,7 +726,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: da00d1b1f7b0cc142b45242328219239
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/300300
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/300300
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -485,8 +735,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dad1443a515b8d0408e19185382373f2
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_DUNGEON_KEY1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd00b266c8c72624bae7cceba86fcbc5
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_15362202
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_15362202
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -495,8 +750,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfd7b293fd2f5044abff7fa5e2374662
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_DUNGEON_KEY3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e120ec5fda689ad408ef01fc5ee8953e
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17613501
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17613501
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -506,7 +766,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e30194de4a66cdc4a85ccc604f693a93
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17243102
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17243102
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e379672d78a7c574eacb1a3681051b67
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17323201
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ece4720f8f630f84f83177e89f5bb34e
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_JEWEL
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -516,22 +786,52 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f0b07bc1ff8704147a9cca1d04309c78
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_15322201
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_15322201
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0c85a0472d7e5443a193b41ee5cb945
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_103600
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f172428770808ab4b811c355f3dc39af
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_15642501
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f218670cc1e453941b55360d9bbae1a8
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17513401
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f27bcc100440ab5419fffa5a4e83751b
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/101100
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/101100
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f41ec39c40d808848b761a67a6990de1
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_P_KTICKET
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f4f4f0688db40bf46bfae331cefca67e
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/101200
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/101200
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f5e0d618866db9a40a4aa3de760bf127
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17353203
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f6b74e23705ff2c4cab3a9c93e19035c
     m_Address: Texture_StandAlone/Character_Illust/CharacterIllust_15532401
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6b8cd2ce6d32e9409c8d3eb9648f256
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_CHAR_TRANSCENDENCE_WIND
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -541,32 +841,47 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f9c4984c98ae2a14eada760551a04763
-    m_Address: Texture_StandAlone/InfoImage/InfoImage_1003
+    m_Address: Texture_StandAlone/Dynamic/InfoImage/InfoImage_1003
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa26e9feb895f6b4ea1984c495351c30
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17433302
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17433302
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fabd70eafd50d6d4e9fd38634cb983a0
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/300700
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/300700
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fb3388581ed3d8d4482e12e506acfb26
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/300100
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/300100
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbb9ef97c8253d241bec48eb0c835b8d
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_PURE_PIECE
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbee259e718140c4089c89a433318560
+    m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_CHAR_USER_EXP_ITEM_2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc2a805a1c5a7aa49a7ea916c5312543
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17363204
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17363204
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd4eaac2d7572524aafa613287362bed
+    m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_30602
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ff8efd6b6c71e734ba4e51fcb7bbfe73
-    m_Address: Texture_StandAlone/Illust_Character_Inventory/Character_Illust_Sub_17513401
+    m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17513401
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
