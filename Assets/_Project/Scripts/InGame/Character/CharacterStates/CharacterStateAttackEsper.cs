@@ -134,7 +134,7 @@ public class CharacterStateAttackEsper : CharacterStateAttack
     protected override void OnAttackEndProcess()
     {
         base.OnAttackEndProcess();
-        if(characCtrl == null || characCtrl.Target== null|| !characCtrl.Target.IsAlive)
+        if (characCtrl == null || characCtrl.Target == null || !characCtrl.Target.IsAlive)
             return;
         if (_specialAttackInfo.IsSpecialAttack)
         {

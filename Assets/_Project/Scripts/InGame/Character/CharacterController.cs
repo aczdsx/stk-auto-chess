@@ -1154,7 +1154,7 @@ namespace CookApps.BattleSystem
         /// 대미지를 입힌 후 상태
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
-        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
+        public DamageReturnType   GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
         bool isFirstDamage = true, string hexColor = null)
         {
             if (!InGameManager.Instance.IsInGameCombat)
@@ -1209,6 +1209,7 @@ namespace CookApps.BattleSystem
                 if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
                 {
+                    //TODO 킬로그 처리 추가 필요 ex 트러블슈터 3단계 포격은 여기서 넣을 게 애매.
                     switch (damageInfo.attackerType)
                     {
                         case AttackerType.CHARCTER:

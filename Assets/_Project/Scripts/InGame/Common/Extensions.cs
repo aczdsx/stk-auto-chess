@@ -73,7 +73,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",
                 BuffDebuffType.Misa => InGameVfxNameType.fx_common_debuff_misa_01,
-                BuffDebuffType.NormalAttackShield => InGameVfxNameType.fx_common_buff_normal_attack_shield_01,
+                BuffDebuffType.NormalAttackShield => InGameVfxNameType.fx_common_job_guardian_01,
                 _ => InGameVfxNameType.NONE
             };
         }
@@ -116,7 +116,6 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Invincibility => "",
                 BuffDebuffType.Misa => InGameVfxNameType.fx_common_debuff_misa_02,
                 BuffDebuffType.Airborne => InGameVfxNameType.fx_common_commander_skill_03,
-                BuffDebuffType.NormalAttackShield => InGameVfxNameType.fx_common_buff_normal_attack_shield_02,
 
                 _ => InGameVfxNameType.NONE
             };

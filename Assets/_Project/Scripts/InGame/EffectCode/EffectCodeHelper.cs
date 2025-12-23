@@ -8,14 +8,14 @@ public static class EffectCodeHelper
 {
     static readonly HashSet<EffectCodeNameType> _immuneTypes = new HashSet<EffectCodeNameType>
         {
-            EffectCodeNameType.TILE_BURN,
+            // EffectCodeNameType.TILE_BURN,
             EffectCodeNameType.STUN,
             EffectCodeNameType.KNOCKBACK,
             EffectCodeNameType.AIRBORNE,
             EffectCodeNameType.MISA_RESTRAINT,
-            EffectCodeNameType.CHAPTER_FIRE,
+            // EffectCodeNameType.CHAPTER_FIRE,
             EffectCodeNameType.CHAPTER_ICE,
-            EffectCodeNameType.CHAPTER_LANDMINE,
+            // EffectCodeNameType.CHAPTER_LANDMINE,
             EffectCodeNameType.CHAPTER_SANDSTORM,
             EffectCodeNameType.CHAPTER_RANDOM_MOVE,
             EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN,

@@ -155,18 +155,18 @@ namespace CookApps.AutoBattler
                 dataList.Add((statData));
             }
 
-            dataList.Sort((a, b) => b.GetAttrValue().CompareTo(a.GetAttrValue()));
+            dataList.Sort((a, b) => b.GetAttrValueCP().CompareTo(a.GetAttrValueCP()));
             foreach (var monsterData in dataList)
             {
                 GameObject newSlotObject = Instantiate(_monsterInfoSlotObject, _monsterInfoScrollRect.content);
                 DungeonMonsterInfoSlot newSlot = newSlotObject.GetComponent<DungeonMonsterInfoSlot>();
                 newSlot?.SetMonsterInfoSlot(monsterData);
     
-                double attrValue = monsterData.GetAttrValue();
+                double attrValue = monsterData.GetAttrValueCP();
 
                 attr += attrValue;
 
-                if (topStatData == null || topStatData.GetAttrValue() < attrValue)
+                if (topStatData == null || topStatData.GetAttrValueCP() < attrValue)
                     topStatData = monsterData;
             }
             

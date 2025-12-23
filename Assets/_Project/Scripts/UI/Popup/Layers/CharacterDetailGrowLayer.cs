@@ -152,7 +152,7 @@ namespace CookApps.AutoBattler
             _userStatData = new CharacterStatData(_userCharacterData.CharacterId, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             _levelText.text = $"Lv.{userLevel}/{maxLevel}";
-            _battlePointText.text = _userStatData.GetAttrValue().ToString("N0");
+            _battlePointText.text = _userStatData.GetAttrValueCP().ToString("N0");
             _attackValueText.text = _userStatData.AD.ToString("N0");
             _hpValueText.text = _userStatData.HP.ToString("N0");
             _apDefText.text = _userStatData.APReduce.ToString("N0");

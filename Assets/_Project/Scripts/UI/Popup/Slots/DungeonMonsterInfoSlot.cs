@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
 
             _statData = data;
 
-            _monsterBattlePointText.text = _statData.GetAttrValue().ToString("n0");
+            _monsterBattlePointText.text = _statData.GetAttrValueCP().ToString("n0");
             _monsterNameText.text = $"Lv.{_statData.Level} " + LanguageManager.Instance.GetLanguageText(_statData.Spec.name_token);
 
             _characterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(_statData.Spec.prefab_id);
