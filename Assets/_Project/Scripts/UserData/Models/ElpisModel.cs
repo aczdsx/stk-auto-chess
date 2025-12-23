@@ -7,11 +7,69 @@ using UnityEngine;
 namespace CookApps.AutoBattler
 {
     /// <summary>
+    /// 시설 변경 정보
+    /// </summary>
+    public readonly struct FacilityChangeInfo
+    {
+        public ElpisFacility Current { get; init; }
+        public ElpisFacility Previous { get; init; }
+
+        // 편의 속성들
+        public bool IsLevelChanged => Previous?.Level != Current?.Level;
+        public bool HasPrevious => Previous != null;
+
+        public FacilityChangeInfo(ElpisFacility current, ElpisFacility previous = null)
+        {
+            Current = current;
+            Previous = previous;
+        }
+    }
+
+    /// <summary>
+    /// 코어 연구 변경 정보
+    /// </summary>
+    public readonly struct CoreResearchChangeInfo
+    {
+        public CoreResearch Current { get; init; }
+        public CoreResearch Previous { get; init; }
+
+        // 편의 속성들
+        public bool IsLevelChanged => Previous?.Level != Current?.Level;
+        public bool HasPrevious => Previous != null;
+
+        public CoreResearchChangeInfo(CoreResearch current, CoreResearch previous = null)
+        {
+            Current = current;
+            Previous = previous;
+        }
+    }
+
+    /// <summary>
+    /// 시뮬레이션 변경 정보
+    /// </summary>
+    public readonly struct SimulationChangeInfo
+    {
+        public SimulationData Current { get; init; }
+        public SimulationData Previous { get; init; }
+
+        // 편의 속성들
+        public bool IsLevelChanged => Previous?.Level != Current?.Level;
+        public bool IsAccumulatedBoxesChanged => Previous?.AccumulatedBoxes != Current?.AccumulatedBoxes;
+        public bool HasPrevious => Previous != null;
+
+        public SimulationChangeInfo(SimulationData current, SimulationData previous = null)
+        {
+            Current = current;
+            Previous = previous;
+        }
+    }
+
+    /// <summary>
     /// Elpis (영지) 데이터 모델
     /// 서버의 ElpisData 프로토콜을 래핑
     /// 델타 업데이트 지원
     /// </summary>
-    public class ElpisModel : IDataModel
+    public class ElpisModel
     {
         public const string CATEGORY_KEY = "elpis";
 
@@ -20,71 +78,14 @@ namespace CookApps.AutoBattler
 
         // 빠른 조회를 위한 캐시
         private readonly Dictionary<string, ElpisFacility> _facilitiesCache = new (32);
-        private readonly Dictionary<CoreResearchType, CoreResearch> _coreResearchCache = new (16);
-
-        // 버전 정보
-        private int _version = 0;
-
-        public string CategoryKey => CATEGORY_KEY;
-        public int Version => _version;
+        private readonly Dictionary<uint, CoreResearch> _coreResearchCache = new (16);
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
-        public readonly Subject<uint> OnLevelChanged = new();
-        public readonly Subject<uint> OnExpansionLevelChanged = new();
-        public readonly Subject<ElpisFacility> OnFacilityAdded = new();
-        public readonly Subject<ElpisFacility> OnFacilityUpdated = new();
-        public readonly Subject<CoreResearch> OnCoreResearchUpdated = new();
-        public readonly Subject<SimulationData> OnSimulationUpdated = new();
-
-        /// <summary>
-        /// 델타 업데이트 적용
-        /// </summary>
-        public void ApplyDelta(IDataModel delta)
-        {
-            if (delta is not ElpisModel elpisDelta)
-            {
-                Debug.LogError("[ElpisModel] Invalid delta type");
-                return;
-            }
-
-            if (elpisDelta._elpisData == null)
-            {
-                Debug.LogError("[ElpisModel] Delta data is null");
-                return;
-            }
-
-            // 시설 업데이트
-            for (var i = 0; i < elpisDelta._elpisData.Facilities.Count; i++)
-            {
-                var facility = elpisDelta._elpisData.Facilities[i];
-                bool isNew = !_facilitiesCache.ContainsKey(facility.InstanceId);
-                _facilitiesCache[facility.InstanceId] = facility;
-
-                if (isNew)
-                    OnFacilityAdded.OnNext(facility);
-                else
-                    OnFacilityUpdated.OnNext(facility);
-            }
-
-            // 코어 연구 업데이트
-            for (var i = 0; i < elpisDelta._elpisData.CoreResearches.Count; i++)
-            {
-                var research = elpisDelta._elpisData.CoreResearches[i];
-                _coreResearchCache[research.Type] = research;
-                OnCoreResearchUpdated.OnNext(research);
-            }
-
-            // 시뮬레이션 업데이트
-            if (elpisDelta._elpisData.Simulation != null)
-            {
-                _elpisData.Simulation = elpisDelta._elpisData.Simulation;
-                OnSimulationUpdated.OnNext(_elpisData.Simulation);
-            }
-
-            _version = elpisDelta._version;
-            OnChanged.OnNext(Unit.Default);
-        }
+        public readonly Subject<FacilityChangeInfo> OnFacilityAdded = new();
+        public readonly Subject<FacilityChangeInfo> OnFacilityUpdated = new();
+        public readonly Subject<CoreResearchChangeInfo> OnCoreResearchUpdated = new();
+        public readonly Subject<SimulationChangeInfo> OnSimulationUpdated = new();
 
         /// <summary>
         /// 데이터 초기화
@@ -94,7 +95,6 @@ namespace CookApps.AutoBattler
             _elpisData = new ElpisData();
             _facilitiesCache.Clear();
             _coreResearchCache.Clear();
-            _version = 0;
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -200,9 +200,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 코어 연구 가져오기
         /// </summary>
-        public CoreResearch GetCoreResearch(CoreResearchType researchType)
+        public CoreResearch GetCoreResearch(uint groupId)
         {
-            return _coreResearchCache.GetValueOrDefault(researchType);
+            return _coreResearchCache.GetValueOrDefault(groupId);
         }
 
         /// <summary>
@@ -263,9 +263,9 @@ namespace CookApps.AutoBattler
         #region 내부용 메서드
 
         /// <summary>
-        /// 서버 응답으로 Elpis 데이터 설정 (내부용)
+        /// 서버 응답으로 Elpis 데이터 설정
         /// </summary>
-        internal void SetElpisData(ElpisData elpisData, int version)
+        internal void SetElpisData(ElpisData elpisData)
         {
             if (elpisData == null)
             {
@@ -290,10 +290,9 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < elpisData.CoreResearches.Count; i++)
             {
                 var research = elpisData.CoreResearches[i];
-                _coreResearchCache[research.Type] = research;
+                _coreResearchCache[research.UpgradeGroupId] = research;
             }
 
-            _version = version;
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -308,7 +307,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            bool isNew = !_facilitiesCache.ContainsKey(facility.InstanceId);
+            var previous = _facilitiesCache.GetValueOrDefault(facility.InstanceId);
+            bool isNew = previous == null;
+
             _facilitiesCache[facility.InstanceId] = facility;
 
             // 프로토콜 데이터도 업데이트
@@ -328,12 +329,11 @@ namespace CookApps.AutoBattler
                 _elpisData.Facilities.Add(facility);
             }
 
+            var changeInfo = new FacilityChangeInfo(facility, previous);
             if (isNew)
-                OnFacilityAdded.OnNext(facility);
+                OnFacilityAdded.OnNext(changeInfo);
             else
-                OnFacilityUpdated.OnNext(facility);
-
-            _version++;
+                OnFacilityUpdated.OnNext(changeInfo);
         }
 
         /// <summary>
@@ -347,13 +347,14 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            _coreResearchCache[research.Type] = research;
+            var previous = _coreResearchCache.GetValueOrDefault(research.UpgradeGroupId);
+            _coreResearchCache[research.UpgradeGroupId] = research;
 
             // 프로토콜 데이터도 업데이트
             bool found = false;
             for (int i = 0; i < _elpisData.CoreResearches.Count; i++)
             {
-                if (_elpisData.CoreResearches[i].Type == research.Type)
+                if (_elpisData.CoreResearches[i].UpgradeGroupId == research.UpgradeGroupId)
                 {
                     _elpisData.CoreResearches[i] = research;
                     found = true;
@@ -366,8 +367,8 @@ namespace CookApps.AutoBattler
                 _elpisData.CoreResearches.Add(research);
             }
 
-            OnCoreResearchUpdated.OnNext(research);
-            _version++;
+            var changeInfo = new CoreResearchChangeInfo(research, previous);
+            OnCoreResearchUpdated.OnNext(changeInfo);
         }
 
         /// <summary>
@@ -381,9 +382,11 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            var previous = _elpisData.Simulation;
             _elpisData.Simulation = simulation;
-            OnSimulationUpdated.OnNext(simulation);
-            _version++;
+
+            var changeInfo = new SimulationChangeInfo(simulation, previous);
+            OnSimulationUpdated.OnNext(changeInfo);
         }
 
         #endregion

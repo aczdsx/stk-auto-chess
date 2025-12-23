@@ -10,35 +10,16 @@ namespace CookApps.AutoBattler
     /// 지갑 데이터 브릿지
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// </summary>
-    public class WalletDataBridge : DataBridgeBase<WalletModel>
+    public class WalletDataBridge
     {
-        // R3 이벤트
-        public readonly Subject<(uint itemId, ulong newAmount)> OnCurrencyChanged = new();
-        public readonly Subject<Unit> OnWalletChanged = new();
+        private WalletModel Model;
+        // Public Observable 노출
+        public Observable<(uint itemId, ulong oldAmount, ulong newAmount)> OnCurrencyChanged;
 
         public WalletDataBridge()
-            : base(ServerDataManager.Instance.Wallet, WalletModel.CATEGORY_KEY)
         {
-        }
-
-        /// <summary>
-        /// 모델 이벤트 구독
-        /// </summary>
-        protected override void SubscribeModelEvents()
-        {
-            Model.OnCurrencyChanged.Subscribe(this, (data, self) =>
-            {
-                self.OnCurrencyChanged.OnNext((data.itemId, data.newAmount));
-                self.OnWalletChanged.OnNext(Unit.Default);
-            }).AddTo(ref disposableBag);
-        }
-
-        /// <summary>
-        /// 모델 변경 감지 (전체 갱신)
-        /// </summary>
-        protected override void OnModelChanged()
-        {
-            OnWalletChanged.OnNext(Unit.Default);
+            Model = ServerDataManager.Instance.Wallet;
+            OnCurrencyChanged = Model.OnCurrencyChanged;
         }
 
         /// <summary>

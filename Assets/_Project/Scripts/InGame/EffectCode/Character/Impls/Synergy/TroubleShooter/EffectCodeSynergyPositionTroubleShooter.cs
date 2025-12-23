@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using System.Collections.Generic;
 using GooglePlayGames.BasicApi;
+using Unity.Burst.CompilerServices;
 
 /// <summary>
 ///  트러블슈터
@@ -104,8 +105,9 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
             {
                 //전투 준비 시 중립 지역에 대전차지뢰를 최대 {0}개 설치 가능합니다.(위력은 트러블 슈터 성군원들의 공격력 {1}%로 결정됩니다.)
                 case 1:
-                    ApplyDynamiteToTile(troubleShooterSynergyList[0]);
-                    AddSupplyEffectCode(troubleShooterSynergyList[1]);
+                    ApplyDynamiteToTile(troubleShooterSynergyList.Find(synergy => synergy.grade == 1));
+                    InjectSupplyEffectCode(troubleShooterSynergyList[1]);
+                    InjectDroppingBombsEffectCode(troubleShooterSynergyList.Find(synergy => synergy.grade == 3));
                     break;
                 case 2:
                     // AddSupplyEffectCode(troubleShooterSynergyList[1]);
@@ -142,7 +144,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
 
     }
 
-    public void AddSupplyEffectCode(ISpecSynergyData synergyData)
+    public void InjectSupplyEffectCode(ISpecSynergyData synergyData)
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
@@ -154,6 +156,25 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         InGameManager.Instance.TeamEcc.AddOrMergeEffectCode(effectCodeInfo, null, AllianceType.Player);
     }
 
+    public void InjectDroppingBombsEffectCode(ISpecSynergyData synergyData)
+    {
+        Span<double> stats = stackalloc double[3];
+        var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+        double FinalDamageValue = 0;
+        foreach (var character in playerCharacterList)
+        {
+            FinalDamageValue += character.AD;
+        }
+
+        stats.Clear();
+        stats[0] = synergyData.effect_stat_value_1;//Time
+        stats[1] = FinalDamageValue * (double)synergyData.effect_stat_value_3 * 0.01d;//Damage
+        stats[2] = synergyData.effect_stat_value_2;//Count
+        
+        var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DROPPING_BOMBS, 0, stats);
+
+        InGameManager.Instance.TeamEcc.AddOrMergeEffectCode(effectCodeInfo, null, AllianceType.Player);
+    }
     public override void OnPreRemoved()
     {
         InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);

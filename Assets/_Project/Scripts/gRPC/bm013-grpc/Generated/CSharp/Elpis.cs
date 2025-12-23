@@ -50,50 +50,51 @@ namespace Tech.Hive.V1 {
             "c1VwZ3JhZGVGYWNpbGl0eVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
             "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxItCghmYWNpbGl0eRgCIAEoCzIb",
             "LnRlY2guaGl2ZS52MS5FbHBpc0ZhY2lsaXR5EjQKD2N1cnJlbmN5X2RlbHRh",
-            "cxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhImEKGEVscGlz",
-            "UmVzZWFyY2hDb3JlUmVxdWVzdBI1Cg1yZXNlYXJjaF90eXBlGAEgASgOMh4u",
-            "dGVjaC5oaXZlLnYxLkNvcmVSZXNlYXJjaFR5cGUSDgoGbGV2ZWxzGAIgASgN",
-            "Iq0BChlFbHBpc1Jlc2VhcmNoQ29yZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEo",
-            "CzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIsCghyZXNlYXJjaBgC",
-            "IAEoCzIaLnRlY2guaGl2ZS52MS5Db3JlUmVzZWFyY2gSNAoPY3VycmVuY3lf",
-            "ZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiYgoi",
-            "RWxwaXNDaGFuZ2VGYWNpbGl0eVBvc2l0aW9uUmVxdWVzdBIcChRmYWNpbGl0",
-            "eV9pbnN0YW5jZV9pZBgBIAEoCRIOCgZncmlkX3gYAiABKAUSDgoGZ3JpZF95",
-            "GAMgASgFIoIBCiNFbHBpc0NoYW5nZUZhY2lsaXR5UG9zaXRpb25SZXNwb25z",
-            "ZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0",
-            "dXMSLQoIZmFjaWxpdHkYAiABKAsyGy50ZWNoLmhpdmUudjEuRWxwaXNGYWNp",
-            "bGl0eSIjCiFFbHBpc0NsYWltU2ltdWxhdGlvblJld2FyZFJlcXVlc3QiugEK",
-            "IkVscGlzQ2xhaW1TaW11bGF0aW9uUmV3YXJkUmVzcG9uc2USLAoGc3RhdHVz",
-            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjAKCnNpbXVs",
-            "YXRpb24YAiABKAsyHC50ZWNoLmhpdmUudjEuU2ltdWxhdGlvbkRhdGESNAoP",
-            "Y3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5",
-            "RGVsdGEqvAIKDkVscGlzRXJyb3JDb2RlEhUKEUVMUElTX1VOU1BFQ0lGSUVE",
-            "EAASJAodRUxQSVNfRkFDSUxJVFlfQ09VTlRfRVhDRUVERUQQtaXqBBIiChtF",
-            "TFBJU19GQUNJTElUWV9UWVBFX0lOVkFMSUQQtqXqBBIfChhFTFBJU19GQUNJ",
-            "TElUWV9OT1RfRk9VTkQQt6XqBBIiChtFTFBJU19GQUNJTElUWV9OT1RfQlVJ",
-            "TERJTkcQuKXqBBIrCiRFTFBJU19GQUNJTElUWV9OT1RfRklOSVNIRURfQlVJ",
-            "TERJTkcQuaXqBBInCiBFTFBJU19GQUNJTElUWV9NQVhfTEVWRUxfUkVBQ0hF",
-            "RBC6peoEEi4KJ0VMUElTX0ZBQ0lMSVRZX0NPTU1BTkRfQ0VOVEVSX05PVF9G",
-            "T1VORBC7peoEMs4GCgxFbHBpc1NlcnZpY2USRgoDR2V0Eh0udGVjaC5oaXZl",
-            "LnYxLkVscGlzR2V0UmVxdWVzdBoeLnRlY2guaGl2ZS52MS5FbHBpc0dldFJl",
-            "c3BvbnNlIgASTQoGRXhwYW5kEiAudGVjaC5oaXZlLnYxLkVscGlzRXhwYW5k",
-            "UmVxdWVzdBohLnRlY2guaGl2ZS52MS5FbHBpc0V4cGFuZFJlc3BvbnNlEmIK",
-            "DUJ1aWxkRmFjaWxpdHkSJy50ZWNoLmhpdmUudjEuRWxwaXNCdWlsZEZhY2ls",
-            "aXR5UmVxdWVzdBooLnRlY2guaGl2ZS52MS5FbHBpc0J1aWxkRmFjaWxpdHlS",
-            "ZXNwb25zZRJ9ChZGaW5pc2hCdWlsZGluZ0ZhY2lsaXR5EjAudGVjaC5oaXZl",
-            "LnYxLkVscGlzRmluaXNoQnVpbGRpbmdGYWNpbGl0eVJlcXVlc3QaMS50ZWNo",
-            "LmhpdmUudjEuRWxwaXNGaW5pc2hCdWlsZGluZ0ZhY2lsaXR5UmVzcG9uc2US",
-            "aAoPVXBncmFkZUZhY2lsaXR5EikudGVjaC5oaXZlLnYxLkVscGlzVXBncmFk",
-            "ZUZhY2lsaXR5UmVxdWVzdBoqLnRlY2guaGl2ZS52MS5FbHBpc1VwZ3JhZGVG",
-            "YWNpbGl0eVJlc3BvbnNlEl8KDFJlc2VhcmNoQ29yZRImLnRlY2guaGl2ZS52",
-            "MS5FbHBpc1Jlc2VhcmNoQ29yZVJlcXVlc3QaJy50ZWNoLmhpdmUudjEuRWxw",
-            "aXNSZXNlYXJjaENvcmVSZXNwb25zZRJ9ChZDaGFuZ2VGYWNpbGl0eVBvc2l0",
-            "aW9uEjAudGVjaC5oaXZlLnYxLkVscGlzQ2hhbmdlRmFjaWxpdHlQb3NpdGlv",
-            "blJlcXVlc3QaMS50ZWNoLmhpdmUudjEuRWxwaXNDaGFuZ2VGYWNpbGl0eVBv",
-            "c2l0aW9uUmVzcG9uc2USegoVQ2xhaW1TaW11bGF0aW9uUmV3YXJkEi8udGVj",
-            "aC5oaXZlLnYxLkVscGlzQ2xhaW1TaW11bGF0aW9uUmV3YXJkUmVxdWVzdBow",
-            "LnRlY2guaGl2ZS52MS5FbHBpc0NsYWltU2ltdWxhdGlvblJld2FyZFJlc3Bv",
-            "bnNlYgZwcm90bzM="));
+            "cxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhIkMKGEVscGlz",
+            "UmVzZWFyY2hDb3JlUmVxdWVzdBIYChB1cGdyYWRlX2dyb3VwX2lkGAEgASgN",
+            "Eg0KBWxldmVsGAIgASgNIq0BChlFbHBpc1Jlc2VhcmNoQ29yZVJlc3BvbnNl",
+            "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
+            "cxIsCghyZXNlYXJjaBgCIAEoCzIaLnRlY2guaGl2ZS52MS5Db3JlUmVzZWFy",
+            "Y2gSNAoPY3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1",
+            "cnJlbmN5RGVsdGEiYgoiRWxwaXNDaGFuZ2VGYWNpbGl0eVBvc2l0aW9uUmVx",
+            "dWVzdBIcChRmYWNpbGl0eV9pbnN0YW5jZV9pZBgBIAEoCRIOCgZncmlkX3gY",
+            "AiABKAUSDgoGZ3JpZF95GAMgASgFIoIBCiNFbHBpc0NoYW5nZUZhY2lsaXR5",
+            "UG9zaXRpb25SZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUu",
+            "djEuUmVzcG9uc2VTdGF0dXMSLQoIZmFjaWxpdHkYAiABKAsyGy50ZWNoLmhp",
+            "dmUudjEuRWxwaXNGYWNpbGl0eSIjCiFFbHBpc0NsYWltU2ltdWxhdGlvblJl",
+            "d2FyZFJlcXVlc3QiugEKIkVscGlzQ2xhaW1TaW11bGF0aW9uUmV3YXJkUmVz",
+            "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
+            "U3RhdHVzEjAKCnNpbXVsYXRpb24YAiABKAsyHC50ZWNoLmhpdmUudjEuU2lt",
+            "dWxhdGlvbkRhdGESNAoPY3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5o",
+            "aXZlLnYxLkN1cnJlbmN5RGVsdGEqngMKDkVscGlzRXJyb3JDb2RlEhUKEUVM",
+            "UElTX1VOU1BFQ0lGSUVEEAASJAodRUxQSVNfRkFDSUxJVFlfQ09VTlRfRVhD",
+            "RUVERUQQtaXqBBIiChtFTFBJU19GQUNJTElUWV9UWVBFX0lOVkFMSUQQtqXq",
+            "BBIfChhFTFBJU19GQUNJTElUWV9OT1RfRk9VTkQQt6XqBBIiChtFTFBJU19G",
+            "QUNJTElUWV9OT1RfQlVJTERJTkcQuKXqBBIrCiRFTFBJU19GQUNJTElUWV9O",
+            "T1RfRklOSVNIRURfQlVJTERJTkcQuaXqBBInCiBFTFBJU19GQUNJTElUWV9N",
+            "QVhfTEVWRUxfUkVBQ0hFRBC6peoEEi4KJ0VMUElTX0ZBQ0lMSVRZX0NPTU1B",
+            "TkRfQ0VOVEVSX05PVF9GT1VORBC7peoEEjIKK0VMUElTX0NPUkVfUkVTRUFS",
+            "Q0hfVVBHUkFERV9HUk9VUF9OT1RfRk9VTkQQvKXqBBIsCiVFTFBJU19DT1JF",
+            "X1JFU0VBUkNIX01BWF9MRVZFTF9SRUFDSEVEEL2l6gQyzgYKDEVscGlzU2Vy",
+            "dmljZRJGCgNHZXQSHS50ZWNoLmhpdmUudjEuRWxwaXNHZXRSZXF1ZXN0Gh4u",
+            "dGVjaC5oaXZlLnYxLkVscGlzR2V0UmVzcG9uc2UiABJNCgZFeHBhbmQSIC50",
+            "ZWNoLmhpdmUudjEuRWxwaXNFeHBhbmRSZXF1ZXN0GiEudGVjaC5oaXZlLnYx",
+            "LkVscGlzRXhwYW5kUmVzcG9uc2USYgoNQnVpbGRGYWNpbGl0eRInLnRlY2gu",
+            "aGl2ZS52MS5FbHBpc0J1aWxkRmFjaWxpdHlSZXF1ZXN0GigudGVjaC5oaXZl",
+            "LnYxLkVscGlzQnVpbGRGYWNpbGl0eVJlc3BvbnNlEn0KFkZpbmlzaEJ1aWxk",
+            "aW5nRmFjaWxpdHkSMC50ZWNoLmhpdmUudjEuRWxwaXNGaW5pc2hCdWlsZGlu",
+            "Z0ZhY2lsaXR5UmVxdWVzdBoxLnRlY2guaGl2ZS52MS5FbHBpc0ZpbmlzaEJ1",
+            "aWxkaW5nRmFjaWxpdHlSZXNwb25zZRJoCg9VcGdyYWRlRmFjaWxpdHkSKS50",
+            "ZWNoLmhpdmUudjEuRWxwaXNVcGdyYWRlRmFjaWxpdHlSZXF1ZXN0GioudGVj",
+            "aC5oaXZlLnYxLkVscGlzVXBncmFkZUZhY2lsaXR5UmVzcG9uc2USXwoMUmVz",
+            "ZWFyY2hDb3JlEiYudGVjaC5oaXZlLnYxLkVscGlzUmVzZWFyY2hDb3JlUmVx",
+            "dWVzdBonLnRlY2guaGl2ZS52MS5FbHBpc1Jlc2VhcmNoQ29yZVJlc3BvbnNl",
+            "En0KFkNoYW5nZUZhY2lsaXR5UG9zaXRpb24SMC50ZWNoLmhpdmUudjEuRWxw",
+            "aXNDaGFuZ2VGYWNpbGl0eVBvc2l0aW9uUmVxdWVzdBoxLnRlY2guaGl2ZS52",
+            "MS5FbHBpc0NoYW5nZUZhY2lsaXR5UG9zaXRpb25SZXNwb25zZRJ6ChVDbGFp",
+            "bVNpbXVsYXRpb25SZXdhcmQSLy50ZWNoLmhpdmUudjEuRWxwaXNDbGFpbVNp",
+            "bXVsYXRpb25SZXdhcmRSZXF1ZXN0GjAudGVjaC5oaXZlLnYxLkVscGlzQ2xh",
+            "aW1TaW11bGF0aW9uUmV3YXJkUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.ElpisDataReflection.Descriptor, global::Tech.Hive.V1.ElpisFacilityReflection.Descriptor, global::Tech.Hive.V1.ElpisCoreResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisSimulationReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.ElpisErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -107,7 +108,7 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisFinishBuildingFacilityResponse), global::Tech.Hive.V1.ElpisFinishBuildingFacilityResponse.Parser, new[]{ "Status", "Facility" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisUpgradeFacilityRequest), global::Tech.Hive.V1.ElpisUpgradeFacilityRequest.Parser, new[]{ "FacilityInstanceId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisUpgradeFacilityResponse), global::Tech.Hive.V1.ElpisUpgradeFacilityResponse.Parser, new[]{ "Status", "Facility", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisResearchCoreRequest), global::Tech.Hive.V1.ElpisResearchCoreRequest.Parser, new[]{ "ResearchType", "Levels" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisResearchCoreRequest), global::Tech.Hive.V1.ElpisResearchCoreRequest.Parser, new[]{ "UpgradeGroupId", "Level" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisResearchCoreResponse), global::Tech.Hive.V1.ElpisResearchCoreResponse.Parser, new[]{ "Status", "Research", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisChangeFacilityPositionRequest), global::Tech.Hive.V1.ElpisChangeFacilityPositionRequest.Parser, new[]{ "FacilityInstanceId", "GridX", "GridY" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisChangeFacilityPositionResponse), global::Tech.Hive.V1.ElpisChangeFacilityPositionResponse.Parser, new[]{ "Status", "Facility" }, null, null, null, null),
@@ -149,6 +150,14 @@ namespace Tech.Hive.V1 {
     /// 커맨드센터가 없음.
     /// </summary>
     [pbr::OriginalName("ELPIS_FACILITY_COMMAND_CENTER_NOT_FOUND")] ElpisFacilityCommandCenterNotFound = 10130107,
+    /// <summary>
+    /// 코어 연구 업그레이드 그룹을 스펙에서 찾을 수 없습니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_CORE_RESEARCH_UPGRADE_GROUP_NOT_FOUND")] ElpisCoreResearchUpgradeGroupNotFound = 10130108,
+    /// <summary>
+    /// 코어 연구 최대 레벨에 도달했습니다.
+    /// </summary>
+    [pbr::OriginalName("ELPIS_CORE_RESEARCH_MAX_LEVEL_REACHED")] ElpisCoreResearchMaxLevelReached = 10130109,
   }
 
   #endregion
@@ -2445,8 +2454,8 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ElpisResearchCoreRequest(ElpisResearchCoreRequest other) : this() {
-      researchType_ = other.researchType_;
-      levels_ = other.levels_;
+      upgradeGroupId_ = other.upgradeGroupId_;
+      level_ = other.level_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2456,30 +2465,30 @@ namespace Tech.Hive.V1 {
       return new ElpisResearchCoreRequest(this);
     }
 
-    /// <summary>Field number for the "research_type" field.</summary>
-    public const int ResearchTypeFieldNumber = 1;
-    private global::Tech.Hive.V1.CoreResearchType researchType_ = global::Tech.Hive.V1.CoreResearchType.Unspecified;
+    /// <summary>Field number for the "upgrade_group_id" field.</summary>
+    public const int UpgradeGroupIdFieldNumber = 1;
+    private uint upgradeGroupId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CoreResearchType ResearchType {
-      get { return researchType_; }
+    public uint UpgradeGroupId {
+      get { return upgradeGroupId_; }
       set {
-        researchType_ = value;
+        upgradeGroupId_ = value;
       }
     }
 
-    /// <summary>Field number for the "levels" field.</summary>
-    public const int LevelsFieldNumber = 2;
-    private uint levels_;
+    /// <summary>Field number for the "level" field.</summary>
+    public const int LevelFieldNumber = 2;
+    private uint level_;
     /// <summary>
     /// 올릴 레벨 수
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Levels {
-      get { return levels_; }
+    public uint Level {
+      get { return level_; }
       set {
-        levels_ = value;
+        level_ = value;
       }
     }
 
@@ -2498,8 +2507,8 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (ResearchType != other.ResearchType) return false;
-      if (Levels != other.Levels) return false;
+      if (UpgradeGroupId != other.UpgradeGroupId) return false;
+      if (Level != other.Level) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2507,8 +2516,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ResearchType != global::Tech.Hive.V1.CoreResearchType.Unspecified) hash ^= ResearchType.GetHashCode();
-      if (Levels != 0) hash ^= Levels.GetHashCode();
+      if (UpgradeGroupId != 0) hash ^= UpgradeGroupId.GetHashCode();
+      if (Level != 0) hash ^= Level.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2527,13 +2536,13 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ResearchType != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
+      if (UpgradeGroupId != 0) {
         output.WriteRawTag(8);
-        output.WriteEnum((int) ResearchType);
+        output.WriteUInt32(UpgradeGroupId);
       }
-      if (Levels != 0) {
+      if (Level != 0) {
         output.WriteRawTag(16);
-        output.WriteUInt32(Levels);
+        output.WriteUInt32(Level);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2545,13 +2554,13 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ResearchType != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
+      if (UpgradeGroupId != 0) {
         output.WriteRawTag(8);
-        output.WriteEnum((int) ResearchType);
+        output.WriteUInt32(UpgradeGroupId);
       }
-      if (Levels != 0) {
+      if (Level != 0) {
         output.WriteRawTag(16);
-        output.WriteUInt32(Levels);
+        output.WriteUInt32(Level);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2563,11 +2572,11 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ResearchType != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ResearchType);
+      if (UpgradeGroupId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(UpgradeGroupId);
       }
-      if (Levels != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Levels);
+      if (Level != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Level);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2581,11 +2590,11 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.ResearchType != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
-        ResearchType = other.ResearchType;
+      if (other.UpgradeGroupId != 0) {
+        UpgradeGroupId = other.UpgradeGroupId;
       }
-      if (other.Levels != 0) {
-        Levels = other.Levels;
+      if (other.Level != 0) {
+        Level = other.Level;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2603,11 +2612,11 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            ResearchType = (global::Tech.Hive.V1.CoreResearchType) input.ReadEnum();
+            UpgradeGroupId = input.ReadUInt32();
             break;
           }
           case 16: {
-            Levels = input.ReadUInt32();
+            Level = input.ReadUInt32();
             break;
           }
         }
@@ -2626,11 +2635,11 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            ResearchType = (global::Tech.Hive.V1.CoreResearchType) input.ReadEnum();
+            UpgradeGroupId = input.ReadUInt32();
             break;
           }
           case 16: {
-            Levels = input.ReadUInt32();
+            Level = input.ReadUInt32();
             break;
           }
         }

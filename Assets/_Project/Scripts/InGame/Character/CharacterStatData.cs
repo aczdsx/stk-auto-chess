@@ -22,23 +22,82 @@ namespace CookApps.AutoBattler
         this(characterId, level, 1, 1, globalEffectCodeInfos)
         { }
 
-        public double GetAttrValue()
+        public double GetAttrValueCP()
         {
-            double physicalPenetration = ADPierce; // 물리관통
-            double magicPenetration = APPierce; // 마법관통
+            // double physicalPenetration = ADPierce; // 물리관통
+            // double magicPenetration = APPierce; // 마법관통
 
-            double physicalDefense = ADReduce; // 물리방어 
-            double magicDefense = APReduce; // 마법방어
+            // double physicalDefense = ADReduce; // 물리방어 
+            // double magicDefense = APReduce; // 마법방어
 
-            double hpWeight = 1; // 체력 가중치, 이 값은 게임의 규칙에 따라 변경될 수 있습니다.
+            // double hpWeight = 1; // 체력 가중치, 이 값은 게임의 규칙에 따라 변경될 수 있습니다.
 
-            double CP = (AD * AttackSpeed * (1 + CriticalProb * CriticalDamageRate)) *
-                        (1 + ((physicalPenetration + magicPenetration) / (physicalPenetration + magicPenetration + 100) +
-                              (physicalDefense + magicDefense) / (physicalDefense + magicDefense + 100))) +
-                        hpWeight * Math.Sqrt(HP);
+            // double CP = (AD * AttackSpeed * (1 + CriticalProb * CriticalDamageRate)) *
+            //             (1 + ((physicalPenetration + magicPenetration) / (physicalPenetration + magicPenetration + 100) +
+            //                   (physicalDefense + magicDefense) / (physicalDefense + magicDefense + 100))) +
+            //             hpWeight * Math.Sqrt(HP);
+            var w_OP = 7;
+            var w_DP = 5;
+            var w_UP = 1;
+
+            var CP = w_OP * Math.Sqrt(GetAttrValueOP()) + w_DP * GetAttrValueDP() + w_UP * GetAttrValueUP();
 
             return CP;
         }
+
+        public double GetAttrValueOP()
+        {
+            var APS = AttackSpeed;
+            var CriticalMul = 1 + CriticalDamageRate * (1 - CriticalProb);
+
+            //CP용 명중 배율(기준 상대 회피 = 100% 가정)
+            var HitMul = Math.Clamp(0.90 + 0.004 * (HitProb.Value - 100), 0.10, 0.99);
+
+            //CP용 관통 배율(딜 증가로 근사)
+            var Pierce = Math.Clamp(ADPierce.Value, 0, 0.7);
+
+            var K_Pierce = 0.6f;
+            var PierceMul = 1 + K_Pierce * Pierce;
+
+            return AD * APS * CriticalMul * HitMul * PierceMul;
+        }
+
+        public double GetAttrValueDP()
+        {
+            //방어 배율
+            var K = 100;
+            var DefMul = K / (K + DEF);
+
+            //저항 배율
+            var AvgResist = Math.Clamp(((ADReduce + APReduce) / 2) / 100, 0, 0.60);
+            var ResMul = 1 - AvgResist;
+
+            //블럭 기대값 배율
+            var BlockMul = 1 - 0.5f * BlockingProb;
+
+            //CP용 상대가 나를 때릴때 명중 배율(기준 상대 명중 = 100% 가정)
+            var HitMul_in = Math.Clamp(0.90 + 0.004 * (100 - AvoidProb), 0.10, 0.99);
+
+            //최종 받는 피해 비율: ---> 방어 능력치를 HP로 환산해서 얼마나 더 버틸수 이쓴ㄴ지에 대한 개념
+            var TakenMul = DefMul * ResMul * BlockMul * HitMul_in;
+
+            if (TakenMul <= 0)
+            {
+                Debug.LogError("TakenMul is less than 0");
+                return 0f;
+            }
+            return HP / TakenMul;
+        }
+
+        /// <summary>
+        ///  차후 추가 예정 SkillPointEFF
+        /// </summary>
+        /// <returns></returns>
+        public double GetAttrValueUP()
+        {
+            return 1;
+        }
+
 
         public CharacterStatData(int characterId, int level, float multiAd, float multiHp, IEnumerable<EffectCodeInfo> globalEffectCodeInfos = null)
         {
@@ -133,7 +192,7 @@ namespace CookApps.AutoBattler
         private double CalculateLevelBonusRate(int level)
         {
             // 레벨보너스만 몬스터에게 적용되고 초월, ㅁ돌파는 안붙음.
-            var levelMultiplier = (1f + _spec.inc_lv_rate * (level - 1)) * (1f + _spec.inc_lv_bonus_rate * Mathf.FloorToInt((level - 1) *0.1f));
+            var levelMultiplier = (1f + _spec.inc_lv_rate * (level - 1)) * (1f + _spec.inc_lv_bonus_rate * Mathf.FloorToInt((level - 1) * 0.1f));
             float breakthroughMultiplier = 1f;
             float transcendenceMultiplier = 1f;
             if (_spec is CharacterInfo characterInfo)
@@ -145,8 +204,8 @@ namespace CookApps.AutoBattler
                 var userCharacterData = UserDataManager.Instance.GetUserCharacter(characterInfo.GetId());
                 var TR = userCharacterData.TranscendenceLevel + 1;
                 transcendenceMultiplier += characterInfo.inc_trancendence * TR;
-            } 
-        
+            }
+
             return levelMultiplier * breakthroughMultiplier * transcendenceMultiplier;
         }
 

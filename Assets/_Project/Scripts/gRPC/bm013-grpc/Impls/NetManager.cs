@@ -1,4 +1,5 @@
-﻿using CookApps.NetLite.Constants;
+﻿// #define 재상_로컬
+using CookApps.NetLite.Constants;
 using CookApps.NetLite.Initialize;
 using CookApps.NetLite.Manager;
 using Cysharp.Threading.Tasks;
@@ -30,7 +31,11 @@ namespace CookApps.AutoBattler
         public void Startup()
         {
 #if __DEV
+#if 재상_로컬
+            var serverAddress = "http://100.91.148.60:50051";
+#else
             var serverAddress = "https://gwbm013-grpc.dev.cookappsgames.com:443";
+#endif
 #else
             var serverAddress = "https://gwbm013-grpc.cookappsgames.com:443";
 #endif

@@ -96,7 +96,14 @@ namespace CookApps.AutoBattler
             await subBlockInfos[index].MoveBlock(dummyBlock, withAnimation);
             
             elevatorLinks[index].ActivateElevator();
-            RebuildNavMesh();
+        }
+        
+        public void ReleaseSubBlocks()
+        {
+            for (var i = 0; i < subBlockInfos.Length; i++)
+            {
+                subBlockInfos[i].UnloadAddressable();
+            }
         }
         
         public void RebuildNavMesh()

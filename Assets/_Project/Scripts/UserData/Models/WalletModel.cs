@@ -10,49 +10,14 @@ namespace CookApps.AutoBattler
     /// 지갑 데이터 모델 (통화 관리)
     /// CurrencyDelta를 사용한 델타 업데이트 지원
     /// </summary>
-    public class WalletModel : IDataModel
+    public class WalletModel
     {
-        public const string CATEGORY_KEY = "wallet";
-
         // 통화 데이터 (ItemId -> Amount)
         private readonly Dictionary<uint, ulong> _currencies = new (16);
-
-        // 버전 정보
-        private int _version = 0;
-
-        public string CategoryKey => CATEGORY_KEY;
-        public int Version => _version;
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
         public readonly Subject<(uint itemId, ulong oldAmount, ulong newAmount)> OnCurrencyChanged = new();
-
-        /// <summary>
-        /// 델타 업데이트 적용
-        /// </summary>
-        public void ApplyDelta(IDataModel delta)
-        {
-            if (delta is not WalletModel walletDelta)
-            {
-                Debug.LogError("[WalletModel] Invalid delta type");
-                return;
-            }
-
-            // 변경된 통화만 업데이트
-            foreach (var kvp in walletDelta._currencies)
-            {
-                var itemId = kvp.Key;
-                var newAmount = kvp.Value;
-
-                _currencies.TryGetValue(itemId, out var oldAmount);
-                _currencies[itemId] = newAmount;
-
-                OnCurrencyChanged.OnNext((itemId, oldAmount, newAmount));
-            }
-
-            _version = walletDelta._version;
-            OnChanged.OnNext(Unit.Default);
-        }
 
         /// <summary>
         /// 데이터 초기화
@@ -60,7 +25,6 @@ namespace CookApps.AutoBattler
         public void Reset()
         {
             _currencies.Clear();
-            _version = 0;
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -98,7 +62,6 @@ namespace CookApps.AutoBattler
             _currencies[itemId] = amount;
 
             OnCurrencyChanged.OnNext((itemId, oldAmount, amount));
-            _version++;
         }
 
         /// <summary>
@@ -117,7 +80,6 @@ namespace CookApps.AutoBattler
                 OnCurrencyChanged.OnNext((delta.ItemId, oldAmount, delta.After));
             }
 
-            _version++;
             OnChanged.OnNext(Unit.Default);
         }
 

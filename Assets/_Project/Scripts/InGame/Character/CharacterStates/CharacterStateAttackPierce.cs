@@ -81,7 +81,17 @@ public class CharacterStateAttackPierce : CharacterStateAttack
                 _specialAttackInfo.DamageInfo.damageAmount /= hitCount;
             }
 
-            InGameVfxNameType projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
+            InGameVfxNameType projectile = InGameVfxNameType.NONE;
+            if (_specialAttackInfo.IsSpecialAttack)
+            {
+                projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
+            }
+            else
+            {
+                projectile = characCtrl.SpecCharacter.atk_type is AtkType.AD ?
+                InGameVfxNameType.fx_common_job_sharpshooter_01 : InGameVfxNameType.fx_common_job_sharpshooter_02;
+            }
+            
 
             if (projectile != InGameVfxNameType.NONE)
             {

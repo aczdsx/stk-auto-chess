@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
                     var characterStat = new CharacterStatData(userCharacterData.CharacterId, userCharacterData.Level,
                         GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
-                    battlePower += characterStat.GetAttrValue();
+                    battlePower += characterStat.GetAttrValueCP();
                 }
             }
 
@@ -84,7 +84,7 @@ namespace CookApps.AutoBattler
                     var characterStat = new CharacterStatData(userCharacterData.CharacterId, userCharacterData.Level,
                         GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
-                    battlePower += characterStat.GetAttrValue();
+                    battlePower += characterStat.GetAttrValueCP();
                 }
             }
 

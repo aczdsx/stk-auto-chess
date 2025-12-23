@@ -1051,7 +1051,7 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class ElpisGroundBenefit
+    public partial class ElpisCommandCenterBenefit
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
@@ -1063,12 +1063,12 @@ namespace CookApps.AutoBattler
         public int build_group_id;
         /// 건물 유니크 ID
         public int bulid_id;
-        public float before_key;
-        public float benefit_key;
+        public int before_key;
+        public int benefit_key;
     }
 
     [GeneratorSpecData]
-    public partial class ElpisBuildinfo
+    public partial class ElpisBuildInfo
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]

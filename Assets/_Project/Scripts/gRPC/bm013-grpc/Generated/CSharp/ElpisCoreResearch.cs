@@ -24,53 +24,18 @@ namespace Tech.Hive.V1 {
     static ElpisCoreResearchReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChllbHBpcytjb3JlX3Jlc2VhcmNoLnByb3RvEgx0ZWNoLmhpdmUudjEiXgoM",
-            "Q29yZVJlc2VhcmNoEiwKBHR5cGUYASABKA4yHi50ZWNoLmhpdmUudjEuQ29y",
-            "ZVJlc2VhcmNoVHlwZRINCgVsZXZlbBgCIAEoDRIRCgltYXhfbGV2ZWwYAyAB",
-            "KA0q0QEKEENvcmVSZXNlYXJjaFR5cGUSIgoeQ09SRV9SRVNFQVJDSF9UWVBF",
-            "X1VOU1BFQ0lGSUVEEAASHQoZQ09SRV9SRVNFQVJDSF9UWVBFX0FUVEFDSxAB",
-            "Eh4KGkNPUkVfUkVTRUFSQ0hfVFlQRV9ERUZFTlNFEAISGQoVQ09SRV9SRVNF",
-            "QVJDSF9UWVBFX0hQEAMSHwobQ09SRV9SRVNFQVJDSF9UWVBFX0FDQ1VSQUNZ",
-            "EAQSHgoaQ09SRV9SRVNFQVJDSF9UWVBFX0VWQVNJT04QBWIGcHJvdG8z"));
+            "ChllbHBpcytjb3JlX3Jlc2VhcmNoLnByb3RvEgx0ZWNoLmhpdmUudjEiSgoM",
+            "Q29yZVJlc2VhcmNoEhgKEHVwZ3JhZGVfZ3JvdXBfaWQYASABKA0SDQoFbGV2",
+            "ZWwYAiABKA0SEQoJbWF4X2xldmVsGAMgASgNYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.CoreResearchType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CoreResearch), global::Tech.Hive.V1.CoreResearch.Parser, new[]{ "Type", "Level", "MaxLevel" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CoreResearch), global::Tech.Hive.V1.CoreResearch.Parser, new[]{ "UpgradeGroupId", "Level", "MaxLevel" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
-  #region Enums
-  /// <summary>
-  /// 코어 연구 타입
-  /// </summary>
-  public enum CoreResearchType {
-    [pbr::OriginalName("CORE_RESEARCH_TYPE_UNSPECIFIED")] Unspecified = 0,
-    /// <summary>
-    /// 공격력 증강
-    /// </summary>
-    [pbr::OriginalName("CORE_RESEARCH_TYPE_ATTACK")] Attack = 1,
-    /// <summary>
-    /// 방어력 증강
-    /// </summary>
-    [pbr::OriginalName("CORE_RESEARCH_TYPE_DEFENSE")] Defense = 2,
-    /// <summary>
-    /// 체력 증강
-    /// </summary>
-    [pbr::OriginalName("CORE_RESEARCH_TYPE_HP")] Hp = 3,
-    /// <summary>
-    /// 명중률 증강
-    /// </summary>
-    [pbr::OriginalName("CORE_RESEARCH_TYPE_ACCURACY")] Accuracy = 4,
-    /// <summary>
-    /// 회피율 증강
-    /// </summary>
-    [pbr::OriginalName("CORE_RESEARCH_TYPE_EVASION")] Evasion = 5,
-  }
-
-  #endregion
-
   #region Messages
   /// <summary>
   /// 코어 연구 정보
@@ -110,7 +75,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CoreResearch(CoreResearch other) : this() {
-      type_ = other.type_;
+      upgradeGroupId_ = other.upgradeGroupId_;
       level_ = other.level_;
       maxLevel_ = other.maxLevel_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -122,15 +87,15 @@ namespace Tech.Hive.V1 {
       return new CoreResearch(this);
     }
 
-    /// <summary>Field number for the "type" field.</summary>
-    public const int TypeFieldNumber = 1;
-    private global::Tech.Hive.V1.CoreResearchType type_ = global::Tech.Hive.V1.CoreResearchType.Unspecified;
+    /// <summary>Field number for the "upgrade_group_id" field.</summary>
+    public const int UpgradeGroupIdFieldNumber = 1;
+    private uint upgradeGroupId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CoreResearchType Type {
-      get { return type_; }
+    public uint UpgradeGroupId {
+      get { return upgradeGroupId_; }
       set {
-        type_ = value;
+        upgradeGroupId_ = value;
       }
     }
 
@@ -173,7 +138,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Type != other.Type) return false;
+      if (UpgradeGroupId != other.UpgradeGroupId) return false;
       if (Level != other.Level) return false;
       if (MaxLevel != other.MaxLevel) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -183,7 +148,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Tech.Hive.V1.CoreResearchType.Unspecified) hash ^= Type.GetHashCode();
+      if (UpgradeGroupId != 0) hash ^= UpgradeGroupId.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
       if (MaxLevel != 0) hash ^= MaxLevel.GetHashCode();
       if (_unknownFields != null) {
@@ -204,9 +169,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
+      if (UpgradeGroupId != 0) {
         output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
+        output.WriteUInt32(UpgradeGroupId);
       }
       if (Level != 0) {
         output.WriteRawTag(16);
@@ -226,9 +191,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
+      if (UpgradeGroupId != 0) {
         output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
+        output.WriteUInt32(UpgradeGroupId);
       }
       if (Level != 0) {
         output.WriteRawTag(16);
@@ -248,8 +213,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      if (UpgradeGroupId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(UpgradeGroupId);
       }
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Level);
@@ -269,8 +234,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Tech.Hive.V1.CoreResearchType.Unspecified) {
-        Type = other.Type;
+      if (other.UpgradeGroupId != 0) {
+        UpgradeGroupId = other.UpgradeGroupId;
       }
       if (other.Level != 0) {
         Level = other.Level;
@@ -294,7 +259,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Type = (global::Tech.Hive.V1.CoreResearchType) input.ReadEnum();
+            UpgradeGroupId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -321,7 +286,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Type = (global::Tech.Hive.V1.CoreResearchType) input.ReadEnum();
+            UpgradeGroupId = input.ReadUInt32();
             break;
           }
           case 16: {

@@ -11,33 +11,20 @@ namespace CookApps.AutoBattler
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// UI가 직접 데이터 모델을 접근하지 않고 브릿지를 통해 접근
     /// </summary>
-    public class CharacterDataBridge : DataBridgeBase<CharacterModel>
+    public class CharacterDataBridge
     {
-        // R3 이벤트
-        public readonly Subject<Unit> OnCharactersChanged = new();
-        public readonly Subject<CharacterData> OnCharacterUpdated = new();
+        private CharacterModel Model;
+        // Public Observable 노출
+        public Observable<CharacterData> OnCharacterAdded;
+        public Observable<CharacterData> OnCharacterUpdated;
+        public Observable<string> OnCharacterRemoved;
 
         public CharacterDataBridge()
-            : base(ServerDataManager.Instance.Character, CharacterModel.CATEGORY_KEY)
         {
-        }
-
-        /// <summary>
-        /// 모델 이벤트 구독
-        /// </summary>
-        protected override void SubscribeModelEvents()
-        {
-            Model.OnCharacterAdded.Subscribe(this, (character, self) => self.OnCharactersChanged.OnNext(Unit.Default)).AddTo(ref disposableBag);
-            Model.OnCharacterUpdated.Subscribe(this, (character, self) => self.OnCharacterUpdated.OnNext(character)).AddTo(ref disposableBag);
-            Model.OnCharacterRemoved.Subscribe(this, (_, self) => self.OnCharactersChanged.OnNext(Unit.Default)).AddTo(ref disposableBag);
-        }
-
-        /// <summary>
-        /// 모델 변경 감지 (전체 갱신)
-        /// </summary>
-        protected override void OnModelChanged()
-        {
-            OnCharactersChanged.OnNext(Unit.Default);
+            Model = ServerDataManager.Instance.Character;
+            OnCharacterAdded = Model.OnCharacterAdded;
+            OnCharacterUpdated = Model.OnCharacterUpdated;
+            OnCharacterRemoved = Model.OnCharacterRemoved;
         }
 
         /// <summary>

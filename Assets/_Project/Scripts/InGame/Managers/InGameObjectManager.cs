@@ -546,7 +546,7 @@ namespace CookApps.BattleSystem
             var minHP = double.MaxValue;
             foreach (var ourTeamCharacter in reusableList)
             {
-                if (ourTeamCharacter.IsAlive == false)
+                if (ourTeamCharacter.IsAlive == false || ourTeamCharacter == pivot)
                 {
                     continue;
                 }
@@ -893,7 +893,7 @@ namespace CookApps.BattleSystem
 
             foreach (var character in characterList)
             {
-                attrValue += character.GetCharacterStat().GetAttrValue();
+                attrValue += character.GetCharacterStat().GetAttrValueCP();
             }
 
             return attrValue.ToString($"n0");
@@ -908,7 +908,7 @@ namespace CookApps.BattleSystem
 
             foreach (var character in characterList)
             {
-                attrValue += character.GetCharacterStat().GetAttrValue();
+                attrValue += character.GetCharacterStat().GetAttrValueCP();
             }
 
             return attrValue;
@@ -919,7 +919,7 @@ namespace CookApps.BattleSystem
             double attrValue = 0;
             foreach (var character in startingEnemiesCharacters)
             {
-                attrValue += character.GetCharacterStat().GetAttrValue();
+                attrValue += character.GetCharacterStat().GetAttrValueCP();
             }
             return attrValue;
         }
