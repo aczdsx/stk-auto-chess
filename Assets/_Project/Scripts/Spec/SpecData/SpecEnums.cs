@@ -543,6 +543,7 @@ namespace CookApps.AutoBattler
         fx_common_job_sharpshooter_01 = 216,
         fx_common_job_sharpshooter_02 = 217,
         fx_common_job_striker_01 = 218,
+        fx_common_asterism_troubleshooter_01 = 219,
     }
 
     public enum GlobalEffectProviderType

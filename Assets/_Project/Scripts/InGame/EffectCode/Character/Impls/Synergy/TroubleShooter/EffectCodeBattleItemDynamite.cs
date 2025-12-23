@@ -17,7 +17,7 @@ namespace CookApps.BattleSystem
         private const string DamageColor = "#FF550000";
         private CharacterController _bombController = null;
 
-        private const InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_hit_02;
+        private const InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_asterism_troubleshooter_01;
 
         //폭발 범위는 해당 타일 기준 얼마나 떨어져있는지 변수. 현재 3x3을 터트리고자 1을 사용.
         private int _explosionRange = 1;
@@ -67,8 +67,8 @@ namespace CookApps.BattleSystem
             foreach (var explosionTile in explosionTiles)
             {
                 explosionTile.OccupiedCharacter?.GetDamaged(damage, _bombController, hexColor: DamageColor);
-                InGameVfxManagerInstance.AddInGameVfx(ExplosionVfxEnum, explosionTile.View.CachedTr.position);
             }
+            InGameVfxManagerInstance.AddInGameVfx(ExplosionVfxEnum, tile.View.CachedTr.position);
 
             // _bombController가 null이 아니고 아직 필드에 있는 경우에만 제거
             if (_bombController != null)
