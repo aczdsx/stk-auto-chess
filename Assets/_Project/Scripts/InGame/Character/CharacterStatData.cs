@@ -6,6 +6,7 @@ using Cookapps.Stkauto.V1;
 using Google.Protobuf.Collections;
 using UnityEngine;
 using Unity.Profiling;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace CookApps.AutoBattler
 {
@@ -40,7 +41,7 @@ namespace CookApps.AutoBattler
             var w_DP = 5;
             var w_UP = 1;
 
-            var CP = w_OP * Math.Sqrt(GetAttrValueOP()) + w_DP * GetAttrValueDP() + w_UP * GetAttrValueUP();
+            var CP = w_OP * Math.Sqrt(GetAttrValueOP()) + w_DP * Math.Sqrt(GetAttrValueDP()) + w_UP * GetAttrValueUP();
 
             return CP;
         }
@@ -51,15 +52,16 @@ namespace CookApps.AutoBattler
             var CriticalMul = 1 + CriticalDamageRate * (1 - CriticalProb);
 
             //CP용 명중 배율(기준 상대 회피 = 100% 가정)
-            var HitMul = Math.Clamp(0.90 + 0.004 * (HitProb.Value - 100), 0.10, 0.99);
+            var HitMul = Math.Clamp(0.90 + 0.004 * (HitProb.Value - 1), 0.10, 0.99);
 
             //CP용 관통 배율(딜 증가로 근사)
             var Pierce = Math.Clamp(ADPierce.Value, 0, 0.7);
 
             var K_Pierce = 0.6f;
             var PierceMul = 1 + K_Pierce * Pierce;
+            var returnvaleu = AD * APS * CriticalMul * HitMul * PierceMul;
 
-            return AD * APS * CriticalMul * HitMul * PierceMul;
+            return returnvaleu;
         }
 
         public double GetAttrValueDP()
