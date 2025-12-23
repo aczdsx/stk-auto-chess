@@ -36,7 +36,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ac4a9ad6c5f1004e9699ca03f5679ad
-    m_Address: SpriteAtlas/UI_Commander_Skill
+    m_Address: SpriteAtlas/Dynamic/UI_Commander_Skill
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e1eefc5476c2c6944aba2dc6b5a72f9e
-    m_Address: SpriteAtlas/UI_Skill
+    m_Address: SpriteAtlas/Dynamic/UI_Skill
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

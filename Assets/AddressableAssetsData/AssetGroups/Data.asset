@@ -20,11 +20,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 61c7026b389d14b24bb19ddbae477b89
-    m_Address: Data/AtlasManager.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6e525e54f8ab47e43a10ebe4272074f9
     m_Address: Data/VignetteData.asset
     m_ReadOnly: 0
