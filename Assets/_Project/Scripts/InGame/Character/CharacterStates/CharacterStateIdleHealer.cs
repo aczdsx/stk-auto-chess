@@ -21,22 +21,39 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         }
         scanTargetTime = ScanTargetInterval;
 
-        // 2. 타겟 찾기 (힐할 캐릭터 우선, 없으면 공격 타겟)
+        // 2. 타겟 찾기 (오버라이드된 FindTargetInstance 사용)
         if (characCtrl.Target == null)
         {
-            characCtrl.Target = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
+            characCtrl.Target = FindTargetInstance();
         }
-
-        // 힐할 캐릭터가 없으면 공격 타겟으로 전환
-        if (characCtrl.Target == null || !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
+        if (characCtrl.Target is { IsAlive: false })
         {
-            characCtrl.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+            characCtrl.Target = null;
+            return CharacterStateRunningResult.CanCallAllWithoutMove;
         }
 
         // 3. 타겟 처리 (범위 체크 및 상태 전환/이동)
         HandleTarget();
 
         return CharacterStateRunningResult.CanCallAllWithoutMove;
+    }
+
+    /// <summary>
+    /// 힐러 전용 타겟 찾기 (힐할 캐릭터 우선, 없으면 공격 타겟)
+    /// </summary>
+    protected override CookApps.BattleSystem.CharacterController FindTargetInstance()
+    {
+        // 힐할 캐릭터 찾기
+        var healTarget = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
+        
+        // 힐할 캐릭터가 있고 범위 내에 있으면 힐 타겟 반환
+        if (healTarget != null && InGameObjectManager.Instance.IsInRange(characCtrl, healTarget, 2))
+        {
+            return healTarget;
+        }
+        
+        // 힐할 캐릭터가 없거나 범위 밖이면 공격 타겟 반환
+        return InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
     }
 
     /// <summary>

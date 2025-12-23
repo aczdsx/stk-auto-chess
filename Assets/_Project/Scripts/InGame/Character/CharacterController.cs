@@ -311,6 +311,14 @@ namespace CookApps.BattleSystem
                 _stateTypeMap.Remove(baseStateType);
             }
         }
+        public Type FindStateType(Type baseStateType)
+        {
+            if (_stateTypeMap.TryGetValue(baseStateType, out Type concreteStateType))
+            {
+                return concreteStateType;
+            }
+            return baseStateType;
+        }
 
         public void Clear()
         {

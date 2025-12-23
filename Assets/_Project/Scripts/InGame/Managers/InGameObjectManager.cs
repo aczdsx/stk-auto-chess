@@ -405,7 +405,7 @@ namespace CookApps.BattleSystem
             return enemiesInPlaygroundForUpdate.Concat(charactersInPlaygroundForUpdate).ToList();
         }
 
-        public bool IsInRange(CharacterController pivot, CharacterController target)
+        public bool IsInRange(CharacterController pivot, CharacterController target, int addRange = 0)
         {
             if (pivot == null || target == null)
             {
@@ -417,7 +417,7 @@ namespace CookApps.BattleSystem
                 var targetTiles = InGameGrid.GetTileListByShapeSquare(target.CurrentTile, target.SpecCharacter.size);
                 foreach (var targetTile in targetTiles)
                 {
-                    if (_grid.IsInRange(pivot.CurrentTile, targetTile, pivot.AttackRange))
+                    if (_grid.IsInRange(pivot.CurrentTile, targetTile, pivot.AttackRange + addRange))
                     {
                         return true;
                     }
