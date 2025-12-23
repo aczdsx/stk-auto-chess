@@ -63,7 +63,7 @@ namespace CookApps.BattleSystem
                 Debug.LogError($"CommanderSkillDataList is null or empty for CodeId: {CodeId}");
                 return;
             }
-            _pushCount = (int)_specTargetCommanderSkill.base_rate;
+            _pushCount = 2; //= (int)_specTargetCommanderSkill.base_rate;
             _damageIfCollision = _specTargetCommanderSkill.base_rate_2;
             _stunDuration = _specTargetCommanderSkill.base_rate_3;
 
