@@ -113,8 +113,8 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
             // movement.OnReachedTarget +=
         }
 
-        CoolTimeElapsedTime = 0;
-        IsSkillActivated = false;
+        // 투사체 스킬이므로 OnSkillAnimationEnd에서 쿨타임과 상태를 리셋
+        // IsSkillActivated는 투사체가 완전히 끝날 때까지 유지되어야 함
     }
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
@@ -133,9 +133,7 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
                     var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                    // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
-                    //     codeId, true);
-                    // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                     _hitCharacters.Add(tile.OccupiedCharacter);
