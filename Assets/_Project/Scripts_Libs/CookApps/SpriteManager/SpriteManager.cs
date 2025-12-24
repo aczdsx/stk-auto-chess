@@ -118,7 +118,7 @@ namespace CookApps.TeamBattle
             }
         }
 
-        public async Awaitable Initialize(string soAddress)
+        public async UniTask Initialize(string soAddress)
         {
             var handle = Addressables.LoadAssetAsync<SpriteManagerScriptableObject>(soAddress);
             so = await handle.WaitUntilDone();

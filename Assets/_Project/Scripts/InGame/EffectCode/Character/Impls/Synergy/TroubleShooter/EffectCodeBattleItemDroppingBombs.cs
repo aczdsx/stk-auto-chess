@@ -18,7 +18,7 @@ namespace CookApps.BattleSystem
     public partial class EffectCodeBattleItemDroppingBombs : EffectCodeGameBase
     {
         private const int CodeId = (int)EffectCodeNameType.DROPPING_BOMBS;
-        private static readonly InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_troubleshooter_drop_bomb;
+        private static readonly InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_asterism_ts_bomb_02;
         private float _duration;
         private float _elapsedTime;
         private float _explosionDamage;
