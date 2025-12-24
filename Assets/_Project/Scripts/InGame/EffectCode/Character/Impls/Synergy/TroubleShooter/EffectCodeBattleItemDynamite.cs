@@ -66,8 +66,12 @@ namespace CookApps.BattleSystem
 
             foreach (var explosionTile in explosionTiles)
             {
-                if(explosionTile.OccupiedCharacter is not null &&explosionTile.OccupiedCharacter.AllianceType == AllianceType.Player)
+                if(explosionTile.OccupiedCharacter is null ||
+                explosionTile.OccupiedCharacter.AllianceType == AllianceType.Player||
+                explosionTile.OccupiedCharacter.AllianceType == AllianceType.BattleItem||
+                explosionTile.OccupiedCharacter.AllianceType == AllianceType.Neutral)
                     continue;
+                
                 explosionTile.OccupiedCharacter.GetDamaged(damage, _bombController, hexColor: DamageColor);
             }
             InGameVfxManagerInstance.AddInGameVfx(ExplosionVfxEnum, tile.View.CachedTr.position);
