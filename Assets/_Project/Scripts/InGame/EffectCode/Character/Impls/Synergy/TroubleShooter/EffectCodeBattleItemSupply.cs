@@ -65,16 +65,23 @@ namespace CookApps.BattleSystem
                     effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
                     break;
                 case 1:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_vitamin;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_vitamin;
                     break;
                 case 2:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_emp_bomb;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_emp_bomb;
                     break;
                 case 3:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
                     break;
                 case 4:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_emergency_armor;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_emergency_armor;
                     break;
                 default:
                     break;
@@ -105,7 +112,7 @@ namespace CookApps.BattleSystem
         private void SpawnSupplyVfx(CharacterController targetCharacter, InGameVfxNameType vfxNameType)
         {
             // 시작 위치: 캐릭터 위쪽 높은 위치
-            Vector3 startPos = targetCharacter.Position3D + Vector3.up * 3f;
+            Vector3 startPos = targetCharacter.Position3D + Vector3.up * 10f;
 
             // VFX 생성
             var supplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxNameType, startPos);
@@ -114,7 +121,12 @@ namespace CookApps.BattleSystem
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementParachute>();
 
             // CharacterController를 추적하도록 설정
-            movement.SetData(targetCharacter, startPos, 4.0f);
+            var parachuteCurveData = SoDataProvider.Instance.Get<ParachuteCurveData>();
+            if (parachuteCurveData == null)
+            {
+                Debug.LogError("ParachuteCurveData is null");
+            }
+            movement.SetData(parachuteCurveData, targetCharacter, startPos);
 
             supplyVfx.Initialize(false, movement);
 
