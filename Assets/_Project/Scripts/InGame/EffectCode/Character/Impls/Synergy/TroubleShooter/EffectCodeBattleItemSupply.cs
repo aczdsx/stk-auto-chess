@@ -146,6 +146,7 @@ namespace CookApps.BattleSystem
                         damageInfo.damageAmount = targetCharacter.HP * tSData[(int)TroubleshooterSynergyIdx.CHOCOBAR].effect_stat_value_1 * 0.01d;
                         Math.Floor(damageInfo.damageAmount);
                         targetCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_chocolate_01, targetCharacter.Position3D);
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_vitamin:
@@ -155,6 +156,7 @@ namespace CookApps.BattleSystem
                         stats[1] = tSData[(int)TroubleshooterSynergyIdx.VITAMIN].effect_stat_value_1;
                         stats[2] = tSData[(int)TroubleshooterSynergyIdx.VITAMIN].effect_stat_value_2 * 0.01d;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacter, stats, source);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_stimpack_01, targetCharacter.Position3D);
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_emp_bomb:
@@ -180,12 +182,13 @@ namespace CookApps.BattleSystem
                                     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_SILENCE, empBombCharacter, eccStats, source);
                                 }
                             }
-                            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_job_espar_01, targetTile.View.CachedTr.position);
+                            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_emp_01, targetTile.View.CachedTr.position);
                         }
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_energy_drink:
                     {
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_ctdown_01, targetCharacter.Position3D);
                         targetCharacter.AddSkillCooltimeInECC(tSData[(int)TroubleshooterSynergyIdx.ENERGY_DRINK].effect_stat_value_1);
                         break;
                     }
@@ -196,6 +199,7 @@ namespace CookApps.BattleSystem
                         stats[0] = 99999f;
                         stats[1] = targetCharacter.CurrentHp * tSData[(int)TroubleshooterSynergyIdx.EMERGENCY_ARMOR].effect_stat_value_1 * 0.01f;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, targetCharacter, stats, source);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_shield_01, targetCharacter.Position3D);
                         break;
                     }
                 default:

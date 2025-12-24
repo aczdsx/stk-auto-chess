@@ -17,7 +17,7 @@ namespace CookApps.BattleSystem
         private const string DamageColor = "#FF550000";
         private CharacterController _bombController = null;
 
-        private const InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_asterism_troubleshooter_01;
+        private const InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_asterism_ts_bomb_01;
 
         //폭발 범위는 해당 타일 기준 얼마나 떨어져있는지 변수. 현재 3x3을 터트리고자 1을 사용.
         private int _explosionRange = 1;

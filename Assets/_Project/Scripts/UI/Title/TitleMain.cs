@@ -14,6 +14,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using AppsFlyerSDK;
+using R3;
+using CookApps.BattleSystem;
 
 namespace CookApps.AutoBattler
 {
@@ -41,13 +43,21 @@ namespace CookApps.AutoBattler
 
             await SceneTransition.FadeOutAsync();
 
-            await SpriteManager.Instance.Initialize("Data/SpriteManager.asset");
+            var tasks = new[] {
+                SpriteManager.Instance.Initialize("Data/SpriteManager.asset"),
+                ConnectAppsflyer(),
+                ConnectWithServer(),
+                SoDataProvider.Instance.LoadSoDataBatch(new () {
+                    (typeof(VignetteSO), "Data/VignetteSO.asset"),
+                    (typeof(Item_Chapter_SO), "Data/UIElementData/Item_Chapter_SO.asset"),
+                    (typeof(ColorDataScriptableObject), "Data/ColorData.asset"),
+                    (typeof(ParachuteCurveData), "Data/ParachuteCurveData.asset")
+                })
+            };
 
             SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
 
-            await ConnectAppsflyer();
-
-            await ConnectWithServer();
+            await UniTask.WhenAll(tasks);
 
             _ = InGameTouchManager.Instance;
 
