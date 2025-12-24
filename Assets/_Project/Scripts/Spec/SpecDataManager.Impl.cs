@@ -261,24 +261,40 @@ namespace CookApps.AutoBattler
 
             // synergyElementDic Dic
             synergyDic.Clear();
+            
+            // SynergyElemental과 SynergyStarAsterism을 통합 처리하며, 처음부터 필터링
             foreach (SynergyElemental synergy in SynergyElemental.All)
             {
-                if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
+                ISpecSynergyData synergyData = synergy;
+                // 유효한 시너지만 추가 (모든 effect_value_type이 NONE이 아닌 경우)
+                if (synergyData.effect_value_type_1 != SkillValueType.NONE ||
+                    synergyData.effect_value_type_2 != SkillValueType.NONE ||
+                    synergyData.effect_value_type_3 != SkillValueType.NONE)
                 {
-                    list = new List<ISpecSynergyData>();
-                    synergyDic.Add(synergy.synergy_type, list);
+                    if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
+                    {
+                        list = new List<ISpecSynergyData>();
+                        synergyDic[synergy.synergy_type] = list;
+                    }
+                    list.Add(synergyData);
                 }
-
-                list.Add(synergy);
             }
+            
             foreach (SynergyStarAsterism synergy in SynergyStarAsterism.All)
             {
-                if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
+                ISpecSynergyData synergyData = synergy;
+                // 유효한 시너지만 추가 (모든 effect_value_type이 NONE이 아닌 경우)
+                if (synergyData.effect_value_type_1 != SkillValueType.NONE ||
+                    synergyData.effect_value_type_2 != SkillValueType.NONE ||
+                    synergyData.effect_value_type_3 != SkillValueType.NONE)
                 {
-                    list = new List<ISpecSynergyData>();
-                    synergyDic.Add(synergy.synergy_type, list);
+                    if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
+                    {
+                        list = new List<ISpecSynergyData>();
+                        synergyDic[synergy.synergy_type] = list;
+                    }
+                    list.Add(synergyData);
                 }
-                list.Add(synergy);
             }
 
 

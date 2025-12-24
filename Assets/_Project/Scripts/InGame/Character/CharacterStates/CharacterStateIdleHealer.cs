@@ -27,7 +27,7 @@ public class CharacterStateIdleHealer : CharacterStateIdle
             characCtrl.Target = characCtrl.FindTarget();
         }
 
-        
+
         if (characCtrl.Target is { IsAlive: false })
         {
             characCtrl.Target = null;
@@ -61,16 +61,43 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         CookApps.BattleSystem.CharacterController target = null;
         // 힐할 캐릭터 찾기
         var healTarget = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
-        if (healTarget != null && InGameObjectManager.Instance.IsInRange(characCtrl, healTarget, 2))
+        //hp가 제일 적은 친구를 찾는다.
+        if (healTarget != null && InGameObjectManager.Instance.IsInRange(characCtrl, healTarget))
         {
             target = healTarget;
         }
         else
-        {
-            target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+        {//범위 안에 없다면 캐릭터 리스트에서 범위안에 힐 할 대상이 있는지 체크
+            var attackRangeTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(characCtrl.CurrentTile, characCtrl.AttackRange);
+            double minHP = double.MaxValue;
+            CookApps.BattleSystem.CharacterController minHPCharacter = null;
+            foreach (var tile in attackRangeTiles)
+            {
+                if (tile.OccupiedCharacter is null || tile.OccupiedCharacter.AllianceType != characCtrl.AllianceType)
+                    continue;
+                if(tile.OccupiedCharacter == characCtrl)
+                    continue;
+
+
+                if (tile.OccupiedCharacter.CurrentHp < minHP && tile.OccupiedCharacter.IsAlive)
+                {
+                    minHP = tile.OccupiedCharacter.CurrentHp;
+                    minHPCharacter = tile.OccupiedCharacter;
+                }
+            }
+
+            if (minHPCharacter != null)
+            {
+                target = minHPCharacter;
+            }
+            else
+            {
+                target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+            }
         }
 
-        if (target.AllianceType == characCtrl.AllianceType)
+
+        if (target?.AllianceType == characCtrl.AllianceType)
         {
             Debug.Log("Healer!! HealMode");
         }
@@ -79,7 +106,6 @@ public class CharacterStateIdleHealer : CharacterStateIdle
             Debug.Log("Healer!! AttackMode");
         }
 
-        // 힐할 캐릭터가 없거나 범위 밖이면 공격 타겟 반환
         return target;
     }
 }
