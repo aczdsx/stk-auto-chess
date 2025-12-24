@@ -75,6 +75,7 @@ namespace CookApps.TeamBattle
                         return null;
 
                     cache.loadedSprite = oper.Result as Sprite;
+                    return cache.loadedSprite;
                 }
             }
             return null;
