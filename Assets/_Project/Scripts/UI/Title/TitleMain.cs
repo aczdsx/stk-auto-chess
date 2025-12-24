@@ -60,6 +60,7 @@ namespace CookApps.AutoBattler
             await UniTask.WhenAll(tasks);
 
             _ = InGameTouchManager.Instance;
+            _ = TutorialManager.Instance;
 
             InitTitleMain();
         }
