@@ -865,4 +865,26 @@ namespace CookApps.AutoBattler
         SPECIAL = 4,
         SCARECROW = 5,
     }
+
+    public enum TutorialTriggerType
+    {
+        GAME_START = 0,
+        CHARACTER_PLACEMENT = 1,
+        CHARACTER_DEAD = 2,
+        ENEMY_DEAD_ALL = 3,
+        MOVE_OBJECT_AFTER = 4,
+        SKILL_READY = 5,
+    }
+
+    public enum TutorialActionType
+    {
+        NONE = 0,
+        CHARACTER_PLACEMENT = 1,
+        TOAST_MESSAGE = 2,
+        FORCED_TOUCH_UI = 3,
+        SPAWN_ENEMY = 4,
+        FOCUS_OBJECT = 5,
+        CLEAR_STAGE = 6,
+        MOVE_OBJECT = 7,
+    }
 }

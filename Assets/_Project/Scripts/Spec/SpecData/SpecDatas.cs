@@ -1443,24 +1443,26 @@ namespace CookApps.AutoBattler
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
-        /// 그룹
-        public int group;
-        /// 순서
-        public int sequence;
-        /// 딜레이
-        public int dialogue_delay_ms;
-        /// 파라메터1
-        public string param1;
-        /// 파라메터2
-        public string param2;
-        /// 다이얼로그
-        public int dialogue_id;
-        /// 딜레이
-        public int after_action_delay_ms;
-        /// 파라메터1
-        public string after_param1;
-        /// 파라메터2
-        public string after_param2;
+        /// 튜토리얼 ID
+        public int tutorial_id;
+        /// 턴
+        public int seq;
+        /// 튜토리얼 트리거 타입
+        public global::CookApps.AutoBattler.TutorialTriggerType tutorial_trigger_type;
+        /// 튜토리얼 트리거 키
+        public int tutorial_trigger_key;
+        /// 튜토리얼 액션 타입
+        public global::CookApps.AutoBattler.TutorialActionType tutorial_action_type;
+        /// 액션 키
+        public string tutorial_action_key;
+        /// 하이라이트 크기
+        public float hole_radius;
+        /// 팝업 위치 y 값
+        public int popup_yPos;
+        /// 화살표 위치 y 값
+        public int arrow_yPos;
+        /// 설명 텍스트
+        public string desc_key;
     }
 
     [GeneratorSpecData]

@@ -48,7 +48,7 @@ namespace CookApps.AutoBattler
                 ConnectAppsflyer(),
                 ConnectWithServer(),
                 SoDataProvider.Instance.LoadSoDataBatch(new () {
-                    (typeof(VignetteSO), "Data/VignetteSO.asset"),
+                    (typeof(VignetteSO), "Data/VignetteData.asset"),
                     (typeof(Item_Chapter_SO), "Data/UIElementData/Item_Chapter_SO.asset"),
                     (typeof(ColorDataScriptableObject), "Data/ColorData.asset"),
                     (typeof(ParachuteCurveData), "Data/ParachuteCurveData.asset")
