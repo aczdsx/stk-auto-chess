@@ -425,7 +425,7 @@ namespace CookApps.BattleSystem
                 return false;
             }
             else
-                return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange);
+                return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange + addRange);
         }
 
         /// <summary>

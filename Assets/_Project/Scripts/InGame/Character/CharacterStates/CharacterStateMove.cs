@@ -56,7 +56,7 @@ public class CharacterStateMove : CharacterStateBase
 
                     return;
                 }
-                characCtrl.Target = CharacterStateIdle.FindTarget(characCtrl);
+                characCtrl.Target = characCtrl.FindTarget();
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
                 characCtrl.MoveToCharacter(isInRange, characCtrl.Target);
                 isBlockingChangeState = false;

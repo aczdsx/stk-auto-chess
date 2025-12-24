@@ -319,6 +319,18 @@ namespace CookApps.BattleSystem
             }
             return baseStateType;
         }
+        public CharacterController FindTarget()
+        {
+            var idleStateType = FindStateType(typeof(CharacterStateIdle));
+            if (idleStateType == typeof(CharacterStateIdleHealer))
+            {
+                return CharacterStateIdleHealer.FindTarget(this);
+            }
+            else
+            {
+                return CharacterStateIdle.FindTarget(this);
+            }
+        }
 
         public void Clear()
         {
