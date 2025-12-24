@@ -784,14 +784,6 @@ namespace CookApps.AutoBattler
         MASK = 4,
     }
 
-    public enum ImmuneType
-    {
-        NORMAL = 0,
-        BOSS = 1,
-        SCARECROW = 2,
-        SPECIAL = 3,
-    }
-
     public enum DialogueSceneType
     {
         Chapter = 0,
@@ -855,5 +847,15 @@ namespace CookApps.AutoBattler
         KNIGHT = 1,
         ELEMENTAL = 2,
         STELLA = 3,
+    }
+
+    public enum ImmuneType
+    {
+        NONE = 0,
+        NORMAL = 1,
+        ELETE = 2,
+        BOSS = 3,
+        SPECIAL = 4,
+        SCARECROW = 5,
     }
 }
