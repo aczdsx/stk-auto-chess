@@ -551,6 +551,7 @@ namespace CookApps.AutoBattler
         fx_common_asterism_ts_emp_01 = 224,
         fx_common_asterism_ts_shield_01 = 225,
         fx_common_asterism_ts_stimpack_01 = 226,
+        Skill_17553404 = 227,
     }
 
     public enum GlobalEffectProviderType
