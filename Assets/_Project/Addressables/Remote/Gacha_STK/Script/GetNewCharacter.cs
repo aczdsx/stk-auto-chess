@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
@@ -15,13 +17,19 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject[] TimeLineObject;
 
         [SerializeField] private Image sigmaGlow;
+        [SerializeField] private SpriteLoader sigmaGlowSpriteLoader;
         [SerializeField] private Image sigmaMat;
+        [SerializeField] private SpriteLoader sigmaMatSpriteLoader;
         [SerializeField] private TextMeshProUGUI OpenText;
         [SerializeField] private GameObject LowBodyStaticObject;
+        [SerializeField] private SpriteLoader lowBodySpriteLoader;
         [SerializeField] private GameObject UpperBodyStaticObject;
+        [SerializeField] private SpriteLoader upperBodySpriteLoader;
 
         [SerializeField] private GameObject[] CharaterIdleObjects;
+        [SerializeField] private SpriteLoader[] charaterIdleSpriteLoader;
         [SerializeField] private GameObject[] CharaterStaticObjects;
+        [SerializeField] private SpriteLoader[] charaterStaticSpriteLoader;
 
         [SerializeField] private TextMeshProUGUI[] NameText;
         [SerializeField] private TextMeshProUGUI[] CVText;
@@ -29,12 +37,15 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private TextMeshProUGUI[] SynergyText;
         [SerializeField] private Image[] SynergyImage;
+        [SerializeField] private SpriteLoader[] SynergyImageSpriteLoader;
         [SerializeField] private Image[] SynergyBGImage;
         [SerializeField] private TextMeshProUGUI[] ClassText;
         [SerializeField] private Image[] ClassImage;
+        [SerializeField] private SpriteLoader[] ClassImageSpriteLoader;
         [SerializeField] private GameObject[] NewObjects;
         // piece
         [SerializeField] private Image PieceImage;
+        [SerializeField] private SpriteLoader PieceImageSpriteLoader;
         [SerializeField] private Image PieceImageBG;
         [SerializeField] private GameObject[] GradeImage;
         [SerializeField] private TextMeshProUGUI PieceCharNameText;
@@ -42,6 +53,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI PieceAllText;
         [SerializeField] private GameObject NewObject;
         [SerializeField] private Image pieceSlider;
+        [SerializeField] private SpriteLoader pieceSliderSpriteLoader;
 
         [SerializeField] private GameObject TouchObject;
         private float aniTime = 0f;
@@ -118,7 +130,7 @@ namespace CookApps.AutoBattler
             playObj = TimeLineObject[10].GetComponent<PlayableDirector>();
             playObj.Play();
             //PieceImageBG.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacter.prefab_id);
-            PieceImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacter.prefab_id);
+            PieceImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacter.prefab_id)).Forget();
             PieceCharNameText.text = LanguageManager.Instance.GetLanguageText(_specCharacter.name_token);
             PieceAmountText.text = "x" + amount.ToString();
             // if (dataManager.UserData.isFirstGacha == true)
@@ -305,15 +317,15 @@ namespace CookApps.AutoBattler
             // }
 
 
-            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
-            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
+            sigmaMatSpriteLoader.SetSprite(SpriteNameParser.GetCharacterStigmaSprite(_specCharacter.prefab_id)).Forget();
+            sigmaGlowSpriteLoader.SetSprite(SpriteNameParser.GetCharacterStigmaSprite(_specCharacter.prefab_id)).Forget();
 
             var quoteData = SpecDataManager.Instance.GetCharacterQuotesDataByPrefabID(_specCharacter.prefab_id);
             if (quoteData != null)
             {
                 OpenText.text = LanguageManager.Instance.GetLanguageText(quoteData.dialog_token);
             }
-            
+
             //play
             TimeLineObject[timeLineIdx].SetActive(true);
             playObj = TimeLineObject[timeLineIdx].GetComponent<PlayableDirector>();
@@ -322,37 +334,37 @@ namespace CookApps.AutoBattler
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
             DescText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
 
-            SynergyImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.character_element_type);
+            SynergyImageSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetSpriteName(_specCharacter.character_element_type)).Forget();
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
             SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(_specCharacter.character_stella_type);
-            ClassImage[timeLineIdx].sprite = ImageManager.Instance.GetSynergySprite(_specCharacter.character_stella_type);
+            ClassImageSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetSpriteName(_specCharacter.character_stella_type)).Forget();
             ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(_specCharacter.character_position_type);
 
-            if(lowObj!= null)
+            if (lowObj != null)
                 Destroy(lowObj);
-            if(upperObj!= null)
+            if (upperObj != null)
                 Destroy(upperObj);
-            if(staticObj!= null)
+            if (staticObj != null)
                 Destroy(staticObj);
-            if(idleObj!= null)
+            if (idleObj != null)
                 Destroy(idleObj);
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
+            var targetSpriteName = SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
             //lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
             //upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
-            LowBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
-            LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            UpperBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
-            UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            lowBodySpriteLoader.SetSprite(targetSpriteName).Forget();
+            //LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            upperBodySpriteLoader.SetSprite(targetSpriteName).Forget();
+            //UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
             staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
             CharaterIdleObjects[timeLineIdx].gameObject.SetActive(true);
-            CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
-            CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
+            charaterIdleSpriteLoader[timeLineIdx].SetSprite(targetSpriteName).Forget();
+            //CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            charaterStaticSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id)).Forget();
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);
@@ -407,7 +419,7 @@ namespace CookApps.AutoBattler
 
         public void setCheatCharacter(int chID, Action actoin = null)
         {
-             EndAction = actoin;
+            EndAction = actoin;
             TouchObject.SetActive(false);
             characterID = chID;
             for (int i = 0; i < TimeLineObject.Length; i++)
@@ -482,8 +494,8 @@ namespace CookApps.AutoBattler
             */
 
 
-            sigmaMat.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
-            sigmaGlow.sprite = ImageManager.Instance.GetCharacterStigmaSprite(_specCharacter.prefab_id);
+            sigmaMatSpriteLoader.SetSprite(SpriteNameParser.GetCharacterStigmaSprite(_specCharacter.prefab_id)).Forget();
+            sigmaGlowSpriteLoader.SetSprite(SpriteNameParser.GetCharacterStigmaSprite(_specCharacter.prefab_id)).Forget();
 
             var quoteData = SpecDataManager.Instance.GetCharacterQuotesDataByPrefabID(_specCharacter.prefab_id);
             OpenText.text = LanguageManager.Instance.GetLanguageText(quoteData.dialog_token);
@@ -496,31 +508,31 @@ namespace CookApps.AutoBattler
             // CVText[timeLineIdx].text = Localization.GetLocalizedString($"HEROES_CV_{characterID}");
             DescText[timeLineIdx].text = LanguageManager.Instance.GetLanguageText(_specCharacter.desc_token);
 
-            if(lowObj!= null)
+            if (lowObj != null)
                 Destroy(lowObj);
-            if(upperObj!= null)
+            if (upperObj != null)
                 Destroy(upperObj);
-            if(staticObj!= null)
+            if (staticObj != null)
                 Destroy(staticObj);
-            if(idleObj!= null)
+            if (idleObj != null)
                 Destroy(idleObj);
 
             // lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
             // upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
             // staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
-            var targetSprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
+            var targetSpriteName = SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
-            LowBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
-            LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            UpperBodyStaticObject.GetComponent<Image>().sprite = targetSprite;
-            UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            lowBodySpriteLoader.SetSprite(targetSpriteName).Forget();
+            //LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            upperBodySpriteLoader.SetSprite(targetSpriteName).Forget();
+            //UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
             CharaterIdleObjects[timeLineIdx].gameObject.SetActive(true);
-            CharaterIdleObjects[timeLineIdx].GetComponent<Image>().sprite = targetSprite;
-            CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
+            charaterIdleSpriteLoader[timeLineIdx].SetSprite(targetSpriteName).Forget();
+            //CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
-            CharaterStaticObjects[timeLineIdx].GetComponent<Image>().sprite = ImageManager.Instance.GetCharacterIllustSprite(_specCharacter.prefab_id);
+            charaterStaticSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id)).Forget();
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);

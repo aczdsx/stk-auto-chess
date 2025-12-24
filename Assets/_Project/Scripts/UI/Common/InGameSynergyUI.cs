@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
     public class InGameSynergyUI : CachedMonoBehaviour
     {
         [SerializeField] private Image _iconImage;
+        [SerializeField] private SpriteLoader _iconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _countText;
         [SerializeField] private List<Image> _stepImageList;
 
@@ -32,10 +33,10 @@ namespace CookApps.AutoBattler
         public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true, bool isColorWhite = false)
         {
             _synergyType = synergyType;
-        
+
             _synergyData = data;
             _nextSynergyData = nextData;
-        
+
             Color color = Color.white;
             switch (data.grade)
             {
@@ -58,16 +59,16 @@ namespace CookApps.AutoBattler
                     color = Color.white;
                     break;
             }
-        
+
             _count = count;
-            _iconImage.sprite = ImageManager.Instance.GetSynergySprite(synergyType, isActive);
+            _iconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
 
             _iconImage.color = (isColorWhite) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_int}";
             _countText.color = color;
-        
-        
-        
+
+
+
             for (int i = 0; i < _stepImageList.Count; i++)
             {
                 bool isActiveObject = i <= _synergyData.grade - 1;

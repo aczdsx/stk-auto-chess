@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,8 +21,9 @@ namespace CookApps.AutoBattler
 
         [Space(10)]
         [SerializeField] private Image _skillIconImage;
+        [SerializeField] private SpriteLoader _skillIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _skillNameText;
-        
+
         [Space(10)]
         [SerializeField] private TextMeshProUGUI _skillLevelText;
 
@@ -50,7 +52,7 @@ namespace CookApps.AutoBattler
 
             _specCommanderSkillData = skillData;
 
-            _skillIconImage.sprite = ImageManager.Instance.GetCommanderSkillSprite(_specCommanderSkillData.commander_skill_id);
+            _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCommanderSkillSprite(_specCommanderSkillData.commander_skill_id)).Forget();
             _skillNameText.text = LanguageManager.Instance.GetLanguageText(_specCommanderSkillData.name_token);
             _skillLevelText.text = _specCommanderSkillData.level.ToString();
 
@@ -82,7 +84,7 @@ namespace CookApps.AutoBattler
 
             string msg = LanguageManager.Instance.GetLanguageText("MSG_EQUIP_COMMAND_SKILL");
             string skillNameText = LanguageManager.Instance.GetLanguageText(_specCommanderSkillData.name_token);
-            
+
             ToastManager.Instance.ShowToast(string.Format(msg, skillNameText));
         }
 

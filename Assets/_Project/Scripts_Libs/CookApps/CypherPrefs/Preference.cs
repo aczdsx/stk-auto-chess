@@ -142,12 +142,8 @@ namespace CookApps.CypherPrefs
         }
     }
 
-#if ENABLE_MEMORYPACK
     [MemoryPackable]
     internal partial class PreferenceDict<TKey, TValue>
-#else
-    internal class PreferenceDict<TKey, TValue>
-#endif
     {
         public Dictionary<TKey, TValue> datas = new ();
         public void Clear()
@@ -156,94 +152,94 @@ namespace CookApps.CypherPrefs
         }
     }
 
-//     public abstract class Preference<TKey, TValue> : Preference
-//     {
-//         private PreferenceDict<TKey, TValue> dict = new();
-//
-//         protected Preference(IPreferenceGetterSetter getterSetter) : base(getterSetter)
-//         {
-//         }
-//
-//         public void SetIsDirty(bool dirty)
-//         {
-//             isDirty = dirty;
-//         }
-//
-//         private void Clear()
-//         {
-//             dict.Clear();
-//             isDirty = true;
-//         }
-//
-//         private string Serialize()
-//         {
-//             var bytes = MemoryPackSerializer.Serialize(dict);
-//             ObfuscateBytes(bytes);
-//             return Convert.ToBase64String(bytes);
-//         }
-//         
-//         private bool Deserialize(string data)
-//         {
-//             if (string.IsNullOrEmpty(data))
-//                 return false;
-//             
-//             try
-//             {
-//                 var bytes = EncryptData(data);
-//                 MemoryPackSerializer.Deserialize(bytes, ref dict);
-//             }
-//             catch (Exception e)
-//             {
-//                 Debug.Log(e.Message);
-//                 dict = new ();
-//                 return false;
-//             }
-//
-//             return true;
-//         }
-//
-//         public void SetData(TKey key, TValue value)
-//         {
-//             dict.datas[key] = value;
-//             isDirty = true;
-//         }
-//         
-//         public TValue GetData(TKey key)
-//         {
-//             return dict.datas.GetValueOrDefault(key, default);
-//         }
-//         
-//         public void RemoveData(TKey key)
-//         {
-//             if (dict.datas.Remove(key))
-//             {
-//                 isDirty = true;
-//             }
-//         }
-//         
-//         public override void Save()
-//         {
-//             if (!isDirty)
-//                 return;
-//
-//             var serialized = Serialize();
-//             getterSetter.Set(EncryptedKey, serialized);
-//             isDirty = false;
-//         }
-//
-//         public override void Load()
-//         {
-//             var serialized = getterSetter.Get(EncryptedKey, string.Empty);
-//             if (string.IsNullOrEmpty(serialized))
-//                 dict = new ();
-//             Deserialize(serialized);
-//         }
-//
-//         public override void Delete()
-//         {
-//             dict = new ();
-//             getterSetter.Delete(EncryptedKey);
-//             isDirty = false;
-//         }
-//     }
+     public abstract class Preference<TKey, TValue> : Preference
+     {
+         private PreferenceDict<TKey, TValue> dict = new();
+
+         protected Preference(IPreferenceGetterSetter getterSetter) : base(getterSetter)
+         {
+         }
+
+         public void SetIsDirty(bool dirty)
+         {
+             isDirty = dirty;
+         }
+
+         private void Clear()
+         {
+             dict.Clear();
+             isDirty = true;
+         }
+
+         private string Serialize()
+         {
+             var bytes = MemoryPackSerializer.Serialize(dict);
+             ObfuscateBytes(bytes);
+             return Convert.ToBase64String(bytes);
+         }
+         
+         private bool Deserialize(string data)
+         {
+             if (string.IsNullOrEmpty(data))
+                 return false;
+             
+             try
+             {
+                 var bytes = EncryptData(data);
+                 MemoryPackSerializer.Deserialize(bytes, ref dict);
+             }
+             catch (Exception e)
+             {
+                 CADebug.Log(e.Message);
+                 dict = new ();
+                 return false;
+             }
+
+             return true;
+         }
+
+         public void SetData(TKey key, TValue value)
+         {
+             dict.datas[key] = value;
+             isDirty = true;
+         }
+         
+         public TValue GetData(TKey key)
+         {
+             return dict.datas.GetValueOrDefault(key, default);
+         }
+         
+         public void RemoveData(TKey key)
+         {
+             if (dict.datas.Remove(key))
+             {
+                 isDirty = true;
+             }
+         }
+         
+         public override void Save()
+         {
+             if (!isDirty)
+                 return;
+
+             var serialized = Serialize();
+             getterSetter.Set(EncryptedKey, serialized);
+             isDirty = false;
+         }
+
+         public override void Load()
+         {
+             var serialized = getterSetter.Get(EncryptedKey, string.Empty);
+             if (string.IsNullOrEmpty(serialized))
+                 dict = new ();
+             Deserialize(serialized);
+         }
+
+         public override void Delete()
+         {
+             dict = new ();
+             getterSetter.Delete(EncryptedKey);
+             isDirty = false;
+         }
+     }
 }

@@ -1,4 +1,6 @@
 using CookApps.AutoBattler;
+using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
@@ -12,6 +14,8 @@ public class InGameKillLogItem : MonoBehaviour
 
     [SerializeField] private Image _killCharacterImage;
     [SerializeField] private Image _deathCharacterImage;
+    [SerializeField] private SpriteLoader _killCharacterSpriteLoader;
+    [SerializeField] private SpriteLoader _deathCharacterSpriteLoader;
 
     [SerializeField] private Animator _animator;
 
@@ -34,8 +38,8 @@ public class InGameKillLogItem : MonoBehaviour
         _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(kill.SpecCharacter.name_token);
         _deathCharacterNameText.text = LanguageManager.Instance.GetLanguageText(death.SpecCharacter.name_token);
 
-        _killCharacterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(kill.SpecCharacter.prefab_id);
-        _deathCharacterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(death.SpecCharacter.prefab_id);
+        _killCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(kill.SpecCharacter.prefab_id)).Forget();
+        _deathCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(death.SpecCharacter.prefab_id)).Forget();
     }
 
     public void SetData(CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
@@ -47,7 +51,7 @@ public class InGameKillLogItem : MonoBehaviour
 
         ExtractSourceData(source);
         _deathCharacterNameText.text = LanguageManager.Instance.GetLanguageText(death.SpecCharacter.name_token);
-        _deathCharacterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(death.SpecCharacter.prefab_id);
+        _deathCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(death.SpecCharacter.prefab_id)).Forget();
     }
 
     private void ExtractSourceData(CookApps.AutoBattler.KillSource source)
@@ -58,26 +62,26 @@ public class InGameKillLogItem : MonoBehaviour
                 if (source.Character != null)
                 {
                     _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.Character.SpecCharacter.name_token);
-                    _killCharacterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(source.Character.SpecCharacter.prefab_id);
+                    _killCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(source.Character.SpecCharacter.prefab_id)).Forget();
                 }
                 else
                 {
                     _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.Id.ToString());
-                    _killCharacterImage.sprite = null;
+                    _killCharacterSpriteLoader.UnloadSprite();
                 }
                 break;
             case AttackerType.COMMANDER_SKILL:
                 {
                     var data = SpecDataManager.Instance.GetCommanderSkillDataList((int)source.Id);
                     _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data[0].name_token) : source.Id.ToString();
-                    _killCharacterImage.sprite = null;
+                    _killCharacterSpriteLoader.UnloadSprite();
                 }
                 break;
             case AttackerType.CHAPTER_RULE:
                 {
                     var data = SpecDataManager.Instance.GetChapterRuleData((int)source.Id);
                     _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data.name_token) : source.Id.ToString();
-                    _killCharacterImage.sprite = null;
+                    _killCharacterSpriteLoader.UnloadSprite();
                 }
                 break;
         }

@@ -67,6 +67,7 @@ namespace CookApps.BattleSystem
             {
                 EditorGUILayout.HelpBox("테스트 중지 상태에서 타임라인을 스크럽해 미리보기 가능합니다.", MessageType.None);
 
+                EditorGUILayout.BeginHorizontal();
                 EditorGUI.BeginChangeCheck();
                 float newScrub = EditorGUILayout.Slider("Timeline Scrub", tester.scrubT, 0f, 1f);
                 if (EditorGUI.EndChangeCheck())
@@ -77,6 +78,7 @@ namespace CookApps.BattleSystem
                     EditorUtility.SetDirty(tester);
                     SceneView.RepaintAll();
                 }
+                EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.LabelField("미리보기 시간", (duration * tester.scrubT).ToString("F2") + " / " +
                     (duration > 0 ? duration.ToString("F2") : "0.00") + " 초");

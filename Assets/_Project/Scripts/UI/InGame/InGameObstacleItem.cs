@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using CookApps.AutoBattler;
+using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,11 +20,13 @@ public class InGameObstacleItem : MonoBehaviour
     private const float LONG_PRESS_DURATION = 0.5f;
 
     [SerializeField] private Image _image;
+    [SerializeField] private SpriteLoader _imageSpriteLoader;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private GameObject _body;
     [SerializeField] private GameObject _emptySlotObj;
     [SerializeField] private GameObject _focusObj;
     [SerializeField] private Image _focusImage;
+    [SerializeField] private SpriteLoader _focusImageSpriteLoader;
     [SerializeField] private Animation _dropFxAnimation;
     [SerializeField] private TextMeshProUGUI _focusText;
 
@@ -44,12 +48,12 @@ public class InGameObstacleItem : MonoBehaviour
 
         // 임시처리
         _nameText.text = LanguageManager.Instance.GetLanguageText("OBSTACLE_COMMON_WALL");
-        
+
         _body.SetActive(isExsist);
         _emptySlotObj.SetActive(!isExsist);
         if (_body.activeSelf)
         {
-            _image.sprite = ImageManager.Instance.GetObstacleInGamePortraitSprite(obstacleData.ID);
+            _imageSpriteLoader.SetSprite(SpriteNameParser.GetObstacleInGamePortraitSprite(obstacleData.ID)).Forget();
         }
         _onSelected = onSelected;
     }
@@ -67,7 +71,7 @@ public class InGameObstacleItem : MonoBehaviour
         bool isActiveFocus = spec != null;
         if (isActiveFocus)
         {
-            _focusImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(spec.prefab_id);
+            _focusImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(spec.prefab_id)).Forget();
             _focusText.text = UserDataManager.Instance.GetUserCharacter(spec.character_id).Level.ToString("n0");
         }
         _focusObj.SetActive(isActiveFocus);

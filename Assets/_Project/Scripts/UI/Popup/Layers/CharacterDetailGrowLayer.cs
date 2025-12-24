@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
     public class CharacterDetailGrowLayer : CachedMonoBehaviour
     {
         [SerializeField] private GuideAlert _levelupButtonGuideAlert;
-        
+
         [Header("Stat Info")]
         [SerializeField] private CAButton _detailStatButton;
         [SerializeField] private TextMeshProUGUI _levelText;
@@ -28,6 +28,7 @@ namespace CookApps.AutoBattler
         [Header("Piece Layer")]
         [SerializeField] private GameObject _pieceLayerObject;
         [SerializeField] private Image _pieceIconImage;
+        [SerializeField] private SpriteLoader _pieceIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _pieceAmountText;
         [SerializeField] private Slider _pieceSlider;
 
@@ -121,10 +122,10 @@ namespace CookApps.AutoBattler
             // 초월 기능 관련 처리
             SetTranscendenceLayer();
             SetTranscendencePieceLayer();
-            
+
             // 리셋 기능 관련 처리
             SetLevelResetLayer();
-            
+
             // 가이드 알림 처리
             SetGuideAlert();
 
@@ -136,7 +137,7 @@ namespace CookApps.AutoBattler
             SetUserStatLayer();
             SetLevelupLayer();
             SetLevelResetLayer();
-            
+
             SetTranscendenceLayer();
             SetTranscendencePieceLayer();   // SetTranscendenceLayer 이후 호출되어야 함
         }
@@ -165,10 +166,10 @@ namespace CookApps.AutoBattler
             if (_specCharacterTranscendenceData == null) return;
 
             _pieceLayerObject.SetActive(_isHaveCharacter);
-            
+
             if (_isHaveCharacter == false) return;
 
-            _pieceIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
+            _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.prefab_id)).Forget();
             _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.char_transcendence_count}</color>";
 
             _pieceSlider.maxValue = _specCharacterTranscendenceData.char_transcendence_count;
@@ -186,16 +187,16 @@ namespace CookApps.AutoBattler
 
             // 레벨업에 필요한 자원 정보 세팅
             _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
-            
+
             bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
             if (_specCharacterLevelExpData != null)
             {
-                bool isEnoughGold =_specCharacterLevelExpData.need_gold <= UserDataManager.Instance.UserWallet.Gold;
+                bool isEnoughGold = _specCharacterLevelExpData.need_gold <= UserDataManager.Instance.UserWallet.Gold;
                 bool isEnoughExpItem = _specCharacterLevelExpData.base_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem;
                 bool isEnoughExpItem2 = _specCharacterLevelExpData.sec_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem2;
-                
+
                 isAvailLevelup = isEnoughGold && isEnoughExpItem && isEnoughExpItem2 && isAvailLevelup;
-                
+
                 _goldCurrencyUIItem.SetUIItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold, isEnoughGold);
                 _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count, isEnoughExpItem);
 
@@ -216,9 +217,9 @@ namespace CookApps.AutoBattler
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             _transcendenceLayerObject.SetActive(_isHaveCharacter);
-            
+
             if (_isHaveCharacter == false) return;
-            
+
             // 초월 가능 여부 체크
             var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
             _maxTranscendenceLevel = transcendenceDataList.Max(data => data.transcendence_lv);
@@ -249,7 +250,7 @@ namespace CookApps.AutoBattler
             _resetCountText.text = $"{levelResetString} <color=#C35B79><b>({resultCount})</b></color>";
 
             bool isAvailReset = resultCount > 0;
-            
+
             _activeResetLevelUpButton.gameObject.SetActive(isAvailReset);
             _inactiveResetLevelUpButton.gameObject.SetActive(!isAvailReset);
 
@@ -286,7 +287,7 @@ namespace CookApps.AutoBattler
         private void SetGuideAlert()
         {
             if (_levelupButtonGuideAlert == null) return;
-            
+
             _levelupButtonGuideAlert.InitAlertWithSubKey(_specCharacterData.character_id);
         }
 
@@ -344,7 +345,7 @@ namespace CookApps.AutoBattler
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
             GuideMissionManager.Instance.RefreshGuideMissionUI();
-                
+
             // 퀘스트 데이터 갱신
             UserDataManager.Instance.SetUserQuestActionCount(QuestType.LEVELUP_CHARACTER, 1, true, true);
 
@@ -462,7 +463,7 @@ namespace CookApps.AutoBattler
                 RefreshLayer();
                 // 이펙트 실행
                 PlayLevelUpEffect();
-                
+
                 var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
                     _specCharacterData.character_element_type, _specCharacterData.grade_type,
                     _userCharacterData.TranscendenceLevel + 1);
@@ -477,7 +478,7 @@ namespace CookApps.AutoBattler
                     ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_UP");
                 }
             });
-            
+
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
         }
 
@@ -486,12 +487,12 @@ namespace CookApps.AutoBattler
             _levelupEffectObjectList_1.ForEach(effect => effect.gameObject.SetActive(false));
             _levelupEffectObjectList_2.ForEach(effect => effect.gameObject.SetActive(false));
         }
-        
+
         private async UniTaskVoid StartCountdown()
         {
             DateTime currentTime = TimeManager.Instance.UtcNow();
             DateTime nextDayTime = TimeManager.Instance.TommorrowToUtc();
-            
+
             string msg = LanguageManager.Instance.GetLanguageText("LV_RESET_REMAIN_TIME");
             while (true)
             {
@@ -515,7 +516,7 @@ namespace CookApps.AutoBattler
                 {
                     timeString += $"{minutes}분";
                 }
-                
+
                 _inactiveResetCountText.text = string.Format(msg, timeString);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(1));

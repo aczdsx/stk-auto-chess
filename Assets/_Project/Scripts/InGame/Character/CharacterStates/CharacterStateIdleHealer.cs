@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using CookApps.BattleSystem;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -21,12 +22,13 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         scanTargetTime = ScanTargetInterval;
 
         // 2. 타겟 찾기
-        if (characCtrl.Target == null ||
-         (characCtrl.Target.AllianceType != characCtrl.AllianceType))
+        if (characCtrl.Target == null)
         {
-            characCtrl.Target = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
+            characCtrl.Target = characCtrl.FindTarget();
         }
-        if (characCtrl.Target is {IsAlive: false})
+
+        
+        if (characCtrl.Target is { IsAlive: false })
         {
             characCtrl.Target = null;
             return CharacterStateRunningResult.CanCallAllWithoutMove;
@@ -49,5 +51,35 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         }
 
         return CharacterStateRunningResult.CanCallAllWithoutMove;
+    }
+
+    /// <summary>
+    /// 힐러 전용 타겟 찾기 (힐할 캐릭터 우선, 없으면 공격 타겟)
+    /// </summary>
+    public new static CookApps.BattleSystem.CharacterController FindTarget(CookApps.BattleSystem.CharacterController characCtrl)
+    {
+        CookApps.BattleSystem.CharacterController target = null;
+        // 힐할 캐릭터 찾기
+        var healTarget = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
+        if (healTarget != null && InGameObjectManager.Instance.IsInRange(characCtrl, healTarget, 2))
+        {
+            target = healTarget;
+        }
+        else
+        {
+            target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+        }
+
+        if (target.AllianceType == characCtrl.AllianceType)
+        {
+            Debug.Log("Healer!! HealMode");
+        }
+        else
+        {
+            Debug.Log("Healer!! AttackMode");
+        }
+
+        // 힐할 캐릭터가 없거나 범위 밖이면 공격 타겟 반환
+        return target;
     }
 }

@@ -113,3 +113,23 @@ MonoBehaviour:
     LabelMode: 0
     simplified: 0
     addressReplacement: Naninovel/Audio/SFX/${1}
+  - path: ^Assets/_Project/Addressables/Remote/SpriteAtlas/([^.\r\n]+)\.spriteatlasv2$
+    matchType: 1
+    groupName: SpriteAtlas
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs: []
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: SpriteAtlas/${1}
+  - path: ^Assets/_Project/Addressables/Remote/Texture_StandAlone/([^.\r\n]+)\.([Pp][Nn][Gg]|[Jj][Pp][Ee][Gg]|[Jj][Pp][Gg])$
+    matchType: 1
+    groupName: Texture_StandAlone
+    groupTemplate: {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+    groupTemplateApplicationMode: 0
+    labelRefs: []
+    dynamicLabels: []
+    LabelMode: 0
+    simplified: 0
+    addressReplacement: Texture_StandAlone/${1}

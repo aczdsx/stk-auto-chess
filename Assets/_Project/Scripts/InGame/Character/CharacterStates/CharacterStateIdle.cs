@@ -33,9 +33,9 @@ public class CharacterStateIdle : CharacterStateBase
 
         if (characCtrl.Target == null)
         {
-            characCtrl.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+            characCtrl.Target = characCtrl.FindTarget();
         }
-        if (characCtrl.Target is {IsAlive: false})
+        if (characCtrl.Target is { IsAlive: false })
         {
             characCtrl.Target = null;
             return CharacterStateRunningResult.CanCallAllWithoutMove;
@@ -59,4 +59,15 @@ public class CharacterStateIdle : CharacterStateBase
 
         return CharacterStateRunningResult.CanCallAllWithoutMove;
     }
+
+    /// <summary>
+    /// 타겟을 찾는 static 메서드 (인스턴스 없이 호출 가능)
+    /// CharacterController의 상태 타입 맵을 확인하여 적절한 타겟 찾기 로직 사용
+    /// </summary>
+    public static CookApps.BattleSystem.CharacterController FindTarget(CookApps.BattleSystem.CharacterController characCtrl)
+    {
+        // 기본 로직: 공격 타겟 찾기
+        return InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+    }
+
 }

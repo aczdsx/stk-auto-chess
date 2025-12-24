@@ -7,6 +7,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using CookApps.TeamBattle;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private RawImage _vignetteImage;
 
         [Header("User Info Layer")]
-        //[SerializeField] private Image _userIconImage;
+        // [SerializeField] private SpriteLoader _userIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _userNameText;
         [SerializeField] private TextMeshProUGUI _userLevelText;
         [SerializeField] private TextMeshProUGUI _userExpText;
@@ -46,10 +47,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private ScrollRect _stageSelectScrollRect;
         [SerializeField] private GameObject _stageSelectSlotObject;
         [SerializeField] private Image _bossStageImage;
+        [SerializeField] private SpriteLoader _bossStageImageLoader;
         [SerializeField] private TextMeshProUGUI _bossStageText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
-        [SerializeField] private TextMeshProUGUI _apCostText;
+        // [SerializeField] private TextMeshProUGUI _apCostText;
 
         [Header("Guide Mission")]
         [SerializeField] private GuideMissionSlot _guideMissionSlot;
@@ -62,15 +64,15 @@ namespace CookApps.AutoBattler
         [SerializeField] private ParticleSystem _dropFx;
 
         [Header("Red dot")]
-        [SerializeField] private GameObject _characterReddotObject;
-        [SerializeField] private GameObject _gachaReddotObject;
-        [SerializeField] private GameObject _idleRewardReddotObject;
-        [SerializeField] private GameObject _chapterSelectReddotObject;
-        [SerializeField] private GameObject _questReddotObject;
-        [SerializeField] private GameObject _attendanceReddotObject;
-        [SerializeField] private GameObject _sessionTimeEventReddotObject;
-        [SerializeField] private GameObject _useAPEventReddotObject;
-        [SerializeField] private GameObject _trialDungeonReddotObject;
+        // [SerializeField] private GameObject _characterReddotObject;
+        // [SerializeField] private GameObject _gachaReddotObject;
+        // [SerializeField] private GameObject _idleRewardReddotObject;
+        // [SerializeField] private GameObject _chapterSelectReddotObject;
+        // [SerializeField] private GameObject _questReddotObject;
+        // [SerializeField] private GameObject _attendanceReddotObject;
+        // [SerializeField] private GameObject _sessionTimeEventReddotObject;
+        // [SerializeField] private GameObject _useAPEventReddotObject;
+        // [SerializeField] private GameObject _trialDungeonReddotObject;
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -90,7 +92,7 @@ namespace CookApps.AutoBattler
 
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
-            _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
+            // _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.AddListener(OnClickGachaButton);
             _idleRewardButton.onClick.AddListener(OnClickIdleRewardButton);
             _attendanceButton.onClick.AddListener(OnClickAttendanceButton);
@@ -107,7 +109,7 @@ namespace CookApps.AutoBattler
             base.OnDestroy();
             _playButton.onClick.RemoveListener(OnClickStartButton);
             _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
-            _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
+            // _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
             _gachaButton.onClick.RemoveListener(OnClickGachaButton);
             _idleRewardButton.onClick.RemoveListener(OnClickIdleRewardButton);
             _attendanceButton.onClick.RemoveListener(OnClickAttendanceButton);
@@ -128,8 +130,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             PreEnterAsync().Forget();
         }
-        
-        private async UniTask PreEnterAsync() 
+
+        private async UniTask PreEnterAsync()
         {
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
@@ -222,7 +224,7 @@ namespace CookApps.AutoBattler
         {
             var userBasicData = UserDataManager.Instance.UserBasicData;
 
-            //_userIconImage.sprite = ImageManager.Instance.GetCharacterSubIllustSprite(userBasicData.UserIconId);
+            // _userIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSubIllustSprite(userBasicData.UserIconId)).Forget();
             _userNameText.text = (userBasicData.Nickname.Length > 25) ? "닉네임을 설정해주세요." : userBasicData.Nickname;
 
             int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
@@ -256,7 +258,7 @@ namespace CookApps.AutoBattler
             int totalStageCount = stageList.Count;
             _stageProgressText.SetText("{0}/{1}", specStageData.stage_number, totalStageCount);
 
-            _apCostText.text = $"x{specStageData.need_ap}";
+            // _apCostText.text = $"x{specStageData.need_ap}";
 
             RectTransform currentStageRect = null;
             for (int i = 0; i < stageList.Count; i++)
@@ -287,7 +289,7 @@ namespace CookApps.AutoBattler
                 // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
 
                 // 보스 이미지 처리
-                _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specStageData.chapter_id);
+                _bossStageImageLoader.SetSprite(SpriteNameParser.GetBossBannerSprite(specStageData.chapter_id)).Forget();
 
                 _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
             }
@@ -508,14 +510,14 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _characterReddotObject.SetActive(isReadyNewCharacter);
+            // _characterReddotObject.SetActive(isReadyNewCharacter);
 
             // 가챠 버튼 레드닷 (티켓이 1장 이상일 경우) -> 10개 이상으로 변경
-            bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket >= 10;
-            _gachaReddotObject.SetActive(isHaveGachaTicket);
+            // bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket >= 10;
+            // _gachaReddotObject.SetActive(isHaveGachaTicket);
 
             // 방치 보상 레드닷 (가득 찼을 경우)
-            _idleRewardReddotObject.SetActive(_isIdleRewardFullState);
+            // _idleRewardReddotObject.SetActive(_isIdleRewardFullState);
 
             // 챕터 선택 레드닷
             bool isAvailGetChapterReward = false;
@@ -543,7 +545,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _chapterSelectReddotObject.SetActive(isAvailGetChapterReward);
+            // _chapterSelectReddotObject.SetActive(isAvailGetChapterReward);
 
             // 퀘스트 레드닷
             bool isAvailDailyQuestReward = false;
@@ -575,7 +577,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _questReddotObject.SetActive(isAvailDailyQuestReward || isAvailWeeklyQuestReward);
+            // _questReddotObject.SetActive(isAvailDailyQuestReward || isAvailWeeklyQuestReward);
 
             // 출석 레드닷
             bool isAvailAttendanceReward = false;
@@ -588,7 +590,7 @@ namespace CookApps.AutoBattler
                     isAvailAttendanceReward = userEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
                 }
 
-                _attendanceReddotObject.SetActive(isAvailAttendanceReward);
+                // _attendanceReddotObject.SetActive(isAvailAttendanceReward);
             }
 
             // 세션타임 이벤트 레드닷
@@ -600,7 +602,7 @@ namespace CookApps.AutoBattler
                 isAvailSessionTimeEventReward = userSessionEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
             }
 
-            _sessionTimeEventReddotObject.SetActive(isAvailSessionTimeEventReward);
+            // _sessionTimeEventReddotObject.SetActive(isAvailSessionTimeEventReward);
 
 
             // 행동력 이벤트 레드닷
@@ -612,7 +614,7 @@ namespace CookApps.AutoBattler
                 isAvailUseAPReward = userUseAPEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
             }
 
-            _useAPEventReddotObject.SetActive(isAvailUseAPReward);
+            // _useAPEventReddotObject.SetActive(isAvailUseAPReward);
 
             // 시련 던전 레드닷
             bool isAvailPlayTrialDungeon = false;
@@ -634,7 +636,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
+            // _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
 
         }
 

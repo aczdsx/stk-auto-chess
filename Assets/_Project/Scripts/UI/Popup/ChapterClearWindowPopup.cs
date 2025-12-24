@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +20,7 @@ namespace CookApps.AutoBattler
 
         [Header("Commander Skill Layer")]
         [SerializeField] private Image _commanderSkillIconImage;
+        [SerializeField] private SpriteLoader _commanderSkillIconSpriteLoader;
 
         protected override void Awake()
         {
@@ -78,7 +81,7 @@ namespace CookApps.AutoBattler
             // 애니메이션 컨트롤
             if (isExistCommanderSkill)
             {
-                _commanderSkillIconImage.sprite = ImageManager.Instance.GetCommanderSkillSprite(commanderSkillDataList[0].commander_skill_id);
+                _commanderSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCommanderSkillSprite(commanderSkillDataList[0].commander_skill_id)).Forget();
 
                 baseAnimator.SetTrigger("SetCommanderSkill");
             }

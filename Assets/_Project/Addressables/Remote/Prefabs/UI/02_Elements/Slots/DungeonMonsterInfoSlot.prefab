@@ -216,6 +216,7 @@ MonoBehaviour:
   _monsterNameText: {fileID: 3577758390340936100}
   _monsterBattlePointText: {fileID: 1918627089642056230}
   _characterImage: {fileID: 7107703879215304446}
+  _characterSpriteLoader: {fileID: 1328486928755817792}
   _elementSynergyUI: {fileID: 2717509769036707731}
   _asterismSynergyUI: {fileID: 5696447016349543928}
 --- !u!114 &106204559088884256
@@ -599,6 +600,7 @@ GameObject:
   - component: {fileID: 2717509769036707731}
   - component: {fileID: 6449804637342450870}
   - component: {fileID: 1119317001536419108}
+  - component: {fileID: -3609598151770976149}
   m_Layer: 5
   m_Name: Icon_Synergy1
   m_TagString: Untagged
@@ -646,6 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 6449804637342450870}
+  _iconSpriteLoader: {fileID: -3609598151770976149}
 --- !u!114 &6449804637342450870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,6 +693,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 0.9047619
+--- !u!114 &-3609598151770976149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5125239332049358172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 6449804637342450870}
 --- !u!1 &7244710677721242799
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +721,7 @@ GameObject:
   - component: {fileID: 5696447016349543928}
   - component: {fileID: 7497691485678898553}
   - component: {fileID: 8688580240887102638}
+  - component: {fileID: 3930764488675350467}
   m_Layer: 5
   m_Name: Icon_Synergy2
   m_TagString: Untagged
@@ -750,6 +769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 7497691485678898553}
+  _iconSpriteLoader: {fileID: 3930764488675350467}
 --- !u!114 &7497691485678898553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,6 +814,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 0.90476185
+--- !u!114 &3930764488675350467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244710677721242799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 7497691485678898553}
 --- !u!1001 &5219799882358286647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -929,7 +964,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3064556011408285427, guid: 10772e6674374be4eb6ddc703b4ee52f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1328486928755817792}
   m_SourcePrefab: {fileID: 100100000, guid: 10772e6674374be4eb6ddc703b4ee52f, type: 3}
 --- !u!224 &6875609299605179212 stripped
 RectTransform:
@@ -941,9 +979,29 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3086046922299680713, guid: 10772e6674374be4eb6ddc703b4ee52f, type: 3}
   m_PrefabInstance: {fileID: 5219799882358286647}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7131178580839512004}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7131178580839512004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3064556011408285427, guid: 10772e6674374be4eb6ddc703b4ee52f, type: 3}
+  m_PrefabInstance: {fileID: 5219799882358286647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1328486928755817792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131178580839512004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 7107703879215304446}

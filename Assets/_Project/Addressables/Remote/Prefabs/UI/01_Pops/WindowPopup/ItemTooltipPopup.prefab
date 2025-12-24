@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6195789805468170962}
   - component: {fileID: 5183159572374491177}
   - component: {fileID: 4672688035152048811}
+  - component: {fileID: -7853324463005124163}
   m_Layer: 5
   m_Name: Img_Character
   m_TagString: Untagged
@@ -123,6 +124,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+--- !u!114 &-7853324463005124163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109609922573420295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 5183159572374491177}
 --- !u!1 &429104328072502390
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,11 +400,13 @@ MonoBehaviour:
   _dimButton: {fileID: 1272349375768008826}
   _itemInfoObj: {fileID: 9080570289696862061}
   _itemIconImage: {fileID: 2607329984651085669}
+  _itemIconSpriteLoader: {fileID: 4569923569628599849}
   _itemNameText: {fileID: 2519229887985395199}
   _itemDescText: {fileID: 6046540803503233719}
   _itemCategoryText: {fileID: 4962611232128719572}
   _characterInfoObj: {fileID: 3539243734392086870}
   _characterIconImage: {fileID: 5183159572374491177}
+  _characterIconSpriteLoader: {fileID: -7853324463005124163}
   _characterSynergyUI1: {fileID: 7074106614785964301}
   _characterSynergyUI2: {fileID: 5571898685559955768}
 --- !u!1 &2893971333906931306
@@ -479,6 +497,7 @@ GameObject:
   - component: {fileID: 6540425784942858022}
   - component: {fileID: 5382580537069229538}
   - component: {fileID: 5571898685559955768}
+  - component: {fileID: -7343125641723878496}
   m_Layer: 5
   m_Name: Img_PosSynergy
   m_TagString: Untagged
@@ -556,6 +575,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 5382580537069229538}
+  _iconSpriteLoader: {fileID: -7343125641723878496}
+--- !u!114 &-7343125641723878496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504994197804597410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 5382580537069229538}
 --- !u!1 &3539243734392086870
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +861,7 @@ GameObject:
   - component: {fileID: 3818958390721383650}
   - component: {fileID: 5410635947326465980}
   - component: {fileID: 2607329984651085669}
+  - component: {fileID: 4569923569628599849}
   m_Layer: 5
   m_Name: Img_Currency
   m_TagString: Untagged
@@ -890,6 +926,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 4
+--- !u!114 &4569923569628599849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4265995496840342929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 2607329984651085669}
 --- !u!1 &4596751075746011607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1834,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!114 &3725677968740246417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,6 +1976,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 0
+  swappers: []
 --- !u!1 &8544976129986564025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,6 +1989,7 @@ GameObject:
   - component: {fileID: 7819496819256730134}
   - component: {fileID: 2759035369392159559}
   - component: {fileID: 7074106614785964301}
+  - component: {fileID: 3834459643437043515}
   m_Layer: 5
   m_Name: Img_Synergy
   m_TagString: Untagged
@@ -2013,6 +2067,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 2759035369392159559}
+  _iconSpriteLoader: {fileID: 3834459643437043515}
+--- !u!114 &3834459643437043515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544976129986564025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 2759035369392159559}
 --- !u!1 &8611392029045982350
 GameObject:
   m_ObjectHideFlags: 0

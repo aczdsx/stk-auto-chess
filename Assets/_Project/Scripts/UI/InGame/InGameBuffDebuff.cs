@@ -1,13 +1,17 @@
 using System;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
 public class InGameBuffDebuff : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _baseSprite;
+    [SerializeField] private SpriteLoader _baseSpriteLoader;
     [SerializeField] private SpriteRenderer _elapsedCheckSprite;
+    [SerializeField] private SpriteLoader _elapsedCheckSpriteLoader;
     [SerializeField] private SpriteMask _elapsedCheckMask;
     [SerializeField] private TextMeshPro _buffSubText;
 
@@ -20,13 +24,6 @@ public class InGameBuffDebuff : MonoBehaviour
     {
         codeID = buffData.Item1;
         _buffStackData = buffData.Item2;
-        var sprite = ImageManager.Instance.GetBuffDebuffSprite(codeID);
-
-        if (sprite == null)
-        {
-            Debug.LogError($"BuffDebuff Sprite is null. CodeId : {codeID}");
-            return;
-        }
 
         if (_buffStackData.isShowValue)
         {
@@ -41,7 +38,9 @@ public class InGameBuffDebuff : MonoBehaviour
         Debug.Log($"BuffDebuff is On. CodeId : {codeID}");
         
         IsWorking = true;
-        _baseSprite.sprite = _elapsedCheckSprite.sprite = sprite;
+        var sprite = SpriteNameParser.GetBuffDebuffSprite(codeID);
+        _baseSpriteLoader.SetSprite(sprite).Forget();
+        _elapsedCheckSpriteLoader.SetSprite(sprite).Forget();
         _elapsedCheckMask.alphaCutoff = 1.0f;
     }
 

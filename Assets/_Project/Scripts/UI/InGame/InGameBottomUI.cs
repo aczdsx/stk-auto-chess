@@ -264,10 +264,10 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetCommanderSkillUI(int index, int id)
     {
-        var image = ImageManager.Instance.GetCommanderSkillSprite(id);
-        if (image != null)
+        var spriteName = SpriteNameParser.GetCommanderSkillSprite(id);
+        if (!string.IsNullOrEmpty(spriteName))
         {
-            _commanderSkillUIList[index].SetIcon(image);
+            _commanderSkillUIList[index].SetIcon(spriteName);
             _commanderSkillUIList[index].SetCommanderFx(false);
         }
         else
@@ -515,7 +515,7 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetFocusCharacterUI(CharacterInfo spec)
     {
-        if (spec == null ||spec.character_type == CharacterType.BATTLEITEM)
+        if (spec == null || spec.character_type == CharacterType.BATTLEITEM)
         {
             return;
         }

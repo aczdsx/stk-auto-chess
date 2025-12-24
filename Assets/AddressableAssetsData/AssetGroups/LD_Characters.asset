@@ -45,6 +45,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c0d341bab0de4fc986b09d765c42392
+    m_Address: Assets/_Project/Addressables/BuiltIn/SpriteAtlas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 11032462e228d4e7a8710005828e806d
     m_Address: LD_Characters/15362202/Spine
     m_ReadOnly: 0

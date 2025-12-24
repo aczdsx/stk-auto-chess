@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
         public double BattleValue => _battleValue;
         [Header("Base Info")]
         [SerializeField] private Image _characterIconImage;
+        [SerializeField] private SpriteLoader _characterIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _damageAmountText;
         [SerializeField] private Slider _damageAmountSlider;
 
@@ -25,7 +26,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private UIEffect _characterIconEffect;
         [SerializeField] Image _fillImage;
-        
+
         [SerializeField] Color _fillGivenDamageColor;
         [SerializeField] Color _fillTakenDamageColor;
         [SerializeField] Color _fillHealColor;
@@ -49,13 +50,13 @@ namespace CookApps.AutoBattler
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(_currentCharacterID);
 
-            _characterIconImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacterData.prefab_id);
+            _characterIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.prefab_id)).Forget();
 
             bool isAlive = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Exists(l => l.CharacterId == targetCharacterID);
             if (!isAlive)
                 SetDeadCharacter();
         }
-        
+
         public async UniTask RefreshBattleStatSlotSmooth(BattleStatisticsTabType tabType, float duration)
         {
             if (InGameStatistics.Instance == null) return;
@@ -80,7 +81,7 @@ namespace CookApps.AutoBattler
                     _fillImage.color = _fillHealColor;
                     break;
             }
-            
+
             float startTime = Time.time;
             float startAttackDamageAmount = (float)_battleValue;
 
@@ -96,7 +97,7 @@ namespace CookApps.AutoBattler
 
                 await UniTask.Yield();
             }
-            
+
             _battleValue = value;
             _damageAmountSlider.value = (int)_battleValue;
             _damageAmountText.text = _battleValue.ToString("N0");

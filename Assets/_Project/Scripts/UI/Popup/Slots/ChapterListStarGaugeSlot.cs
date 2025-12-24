@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private CAButton _getRewardButton;
         [SerializeField] private Image _rewardIconImage;
+        [SerializeField] private SpriteLoader _rewardIconSpriteLoader;
         [SerializeField] private UIShiny _rewardIconUIShiny;
         [SerializeField] private TextMeshProUGUI _starAmountText;
         [SerializeField] private TextMeshProUGUI _rewardAmountText;
@@ -53,7 +54,7 @@ namespace CookApps.AutoBattler
 
             _starAmountText.text = _specRewardInfo.sub_value.ToString();
 
-            _rewardIconImage.sprite = ImageManager.Instance.GetItemSprite(_specRewardInfo.item_type);
+            _rewardIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specRewardInfo.item_type)).Forget();
             _rewardAmountText.text = $"x{_specRewardInfo.item_count}";
 
             // 보상 수령 상태에 따른 분기처리

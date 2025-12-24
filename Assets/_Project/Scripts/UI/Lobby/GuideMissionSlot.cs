@@ -21,8 +21,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _missionDescText;
 
         [SerializeField] private Image _missionRewardItemImage;
+        [SerializeField] private SpriteLoader _missionRewardItemSpriteLoader;
         [SerializeField] private Image _rewardCharacterBGImage;
         [SerializeField] private Image _missionRewardCharacterImage;
+        [SerializeField] private SpriteLoader _missionRewardCharacterSpriteLoader;
         [SerializeField] private TextMeshProUGUI _missionRewardAmountText;
 
         private UserGuideMission _userGuideMissionData;
@@ -102,14 +104,14 @@ namespace CookApps.AutoBattler
             {
                 case ItemType.CHARACTER:
                     var characterData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
-                    _missionRewardCharacterImage.sprite = ImageManager.Instance.GetCharacterSmallItemSprite(characterData.prefab_id);
+                    _missionRewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterData.prefab_id)).Forget();
                     break;
                 case ItemType.CHARACTER_PIECE:
                     var characterPieceData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
-                    _missionRewardItemImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(characterPieceData.prefab_id);
+                    _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterPieceData.prefab_id)).Forget();
                     break;
                 default:
-                    _missionRewardItemImage.sprite = ImageManager.Instance.GetItemSprite(_specGuideMissionData.item_type);
+                    _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specGuideMissionData.item_type)).Forget();
                     break;
             }
 

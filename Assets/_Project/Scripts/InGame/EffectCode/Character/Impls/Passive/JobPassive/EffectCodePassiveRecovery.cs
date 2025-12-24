@@ -32,16 +32,24 @@ namespace CookApps.BattleSystem
         public override void OnAttackEnd(CharacterController target)
         {
             base.OnAttackEnd(target);
-            //target에게 공격력 비례 회복적용
-            
-            double attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
+            if (target.AllianceType == owner.AllianceType)
+            {
+                //target에게 공격력 비례 회복적용
 
-            double recoveryAmount = attackPower * _recoveryPercentage;
-            recoveryAmount = owner.PostCalculateHealAmount(recoveryAmount, target);
-            target.GetHealed(recoveryAmount, owner, codeId, true);
-            
-            InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.CurrentTile.View.CachedTr.position);
+                double attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
 
+                double recoveryAmount = attackPower * _recoveryPercentage;
+                recoveryAmount = owner.PostCalculateHealAmount(recoveryAmount, target);
+                target.GetHealed(recoveryAmount, owner, codeId, true);
+
+                InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.CurrentTile.View.CachedTr.position);
+            }
+            else
+            {
+                var stateAttack = owner.GetCurrentState() as CharacterStateAttack;
+                var damageInfo = stateAttack.CalculateNormalAttackDamage();
+                target.GetDamaged(damageInfo, owner);
+            }
         }
         public override void OnPreRemoved()
         {
@@ -50,7 +58,7 @@ namespace CookApps.BattleSystem
 
             base.OnPreRemoved();
         }
-        
+
 
     }
 }

@@ -405,7 +405,7 @@ namespace CookApps.BattleSystem
             return enemiesInPlaygroundForUpdate.Concat(charactersInPlaygroundForUpdate).ToList();
         }
 
-        public bool IsInRange(CharacterController pivot, CharacterController target)
+        public bool IsInRange(CharacterController pivot, CharacterController target, int addRange = 0)
         {
             if (pivot == null || target == null)
             {
@@ -417,7 +417,7 @@ namespace CookApps.BattleSystem
                 var targetTiles = InGameGrid.GetTileListByShapeSquare(target.CurrentTile, target.SpecCharacter.size);
                 foreach (var targetTile in targetTiles)
                 {
-                    if (_grid.IsInRange(pivot.CurrentTile, targetTile, pivot.AttackRange))
+                    if (_grid.IsInRange(pivot.CurrentTile, targetTile, pivot.AttackRange + addRange))
                     {
                         return true;
                     }
@@ -425,7 +425,7 @@ namespace CookApps.BattleSystem
                 return false;
             }
             else
-                return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange);
+                return _grid.IsInRange(pivot.CurrentTile, target.CurrentTile, pivot.AttackRange + addRange);
         }
 
         /// <summary>
@@ -518,6 +518,7 @@ namespace CookApps.BattleSystem
 
         /// <summary>
         /// pivot을 기준으로 가장 체력이 낮은 우리 팀을 반환
+        /// 자신을 제외합니다.
         /// </summary>
         /// <param name="pivot"></param>    
         /// <returns></returns>

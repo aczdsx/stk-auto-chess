@@ -116,18 +116,31 @@ namespace CookApps.BattleSystem
                 return;
             }
 
-            if (_movement == null)
+            // 기존 테스트가 진행 중이면 먼저 중지
+            if (isTesting)
             {
-                _movement = new InGameVfxMovementParachute();
+                StopTest();
             }
 
+            // Movement 초기화 (기존 것이 있으면 정리)
+            if (_movement != null)
+            {
+                _movement.OnReachedTarget -= StopTest;
+                _movement.Clear();
+            }
+            _movement = new InGameVfxMovementParachute();
+
+            // 위치와 회전을 먼저 시작 위치로 초기화
             _initialRotation = transform.rotation;
             _hasInitialRotation = true;
+            transform.position = startPosition;
+            transform.rotation = _initialRotation;
+
+            // Movement 데이터 설정
             _movement.SetData(curveData, transform, startPosition, targetPosition);
             _movement.OnReachedTarget += StopTest;
 
-            transform.position = startPosition;
-            transform.rotation = _initialRotation;
+            // 테스트 상태 초기화
             isTesting = true;
             _testDuration = 0f;
             scrubT = 0f;
@@ -140,7 +153,6 @@ namespace CookApps.BattleSystem
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.SceneView.RepaintAll();
             
-            Debug.Log($"ParachuteCurveTester: 테스트 시작 - duration={_movement.duration}, curveData.duration={curveData.duration}");
 #endif
         }
 
@@ -205,21 +217,56 @@ namespace CookApps.BattleSystem
             // 커브 fallback
             AnimationCurve xCurve = (curveData.xCurve != null && curveData.xCurve.length > 0)
                 ? curveData.xCurve : AnimationCurve.Linear(0, 0, 1, 1);
-            AnimationCurve yCurve = (curveData.yCurve != null && curveData.yCurve.length > 0)
-                ? curveData.yCurve : AnimationCurve.EaseInOut(0, 0, 1, 1);
+            AnimationCurve ySpeedCurve = (curveData.yCurve != null && curveData.yCurve.length > 0)
+                ? curveData.yCurve : AnimationCurve.Constant(0, 1, 1f);
             AnimationCurve zCurve = (curveData.zCurve != null && curveData.zCurve.length > 0)
                 ? curveData.zCurve : AnimationCurve.Linear(0, 0, 1, 1);
             AnimationCurve rCurve = (curveData.rotationCurve != null && curveData.rotationCurve.length > 0)
                 ? curveData.rotationCurve : AnimationCurve.Constant(0, 1, 0);
 
             float easedX = xCurve.Evaluate(scrubT);
-            float easedY = 1f - yCurve.Evaluate(scrubT); // 위(1)에서 아래(0)로 떨어지도록 반전
             float easedZ = zCurve.Evaluate(scrubT);
             float rotZ = rCurve.Evaluate(scrubT);
 
+            // Y축 속도 커브를 적분하여 진행률 계산
+            // 먼저 총 적분값 계산 (정규화용, 절대값 사용)
+            float totalIntegral = 0f;
+            int integrationSteps = 100;
+            float totalStepSize = 1f / integrationSteps;
+            for (int i = 0; i < integrationSteps; i++)
+            {
+                float timeValue = (i + 0.5f) * totalStepSize;
+                float speed = ySpeedCurve.Evaluate(timeValue);
+                totalIntegral += Mathf.Abs(speed) * totalStepSize; // 절대값 사용
+            }
+            if (totalIntegral <= 0f)
+                totalIntegral = 1f;
+            
+            // scrubT까지의 적분값 계산 (음수 속도는 위로 올라감)
+            float yProgress = 0f;
+            float stepSize = scrubT / integrationSteps;
+            for (int i = 0; i < integrationSteps; i++)
+            {
+                float timeStep = (i + 0.5f) * stepSize;
+                float speed = ySpeedCurve.Evaluate(timeStep);
+                if (speed < 0f)
+                {
+                    // 음수 속도: 위로 올라감 (진행률 감소)
+                    yProgress -= Mathf.Abs(speed) * stepSize;
+                }
+                else
+                {
+                    // 양수 속도: 아래로 떨어짐 (진행률 증가)
+                    yProgress += speed * stepSize;
+                }
+            }
+            
+            // 정규화하여 항상 scrubT=1일 때 yProgress=1이 되도록
+            yProgress = Mathf.Clamp01(yProgress / totalIntegral);
+
             Vector3 pos;
             pos.x = Mathf.Lerp(startPosition.x, targetPosition.x, easedX);
-            pos.y = Mathf.Lerp(startPosition.y, targetPosition.y, easedY);
+            pos.y = Mathf.Lerp(startPosition.y, targetPosition.y, yProgress);
             pos.z = Mathf.Lerp(startPosition.z, targetPosition.z, easedZ);
 
             transform.position = pos;

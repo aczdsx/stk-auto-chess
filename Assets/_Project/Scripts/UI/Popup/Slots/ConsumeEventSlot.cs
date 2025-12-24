@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private RewardItemSlot _rewardItemSlot;
 
         [SerializeField] private Image _needItemImage;
+        [SerializeField] private SpriteLoader _needItemSpriteLoader;
         [SerializeField] private TextMeshProUGUI _needItemAmountText;
 
         [Header("Slot State")]
@@ -74,8 +75,8 @@ namespace CookApps.AutoBattler
                 _currentUserEventConditionData = UserDataManager.Instance.GetUserEventConditionData(_currentUserEventData.EventId, _currentUserEventConditionData.EventConditionId);
             }
 
-            bool isAvailGetReward = _currentUserEventConditionData.EventStateType == (int) EventStateType.REWARD;
-            bool isAlreadyGetReward = _currentUserEventConditionData.EventStateType == (int) EventStateType.CLEAR;
+            bool isAvailGetReward = _currentUserEventConditionData.EventStateType == (int)EventStateType.REWARD;
+            bool isAlreadyGetReward = _currentUserEventConditionData.EventStateType == (int)EventStateType.CLEAR;
 
             // 클레임 상태 세팅
             _claimBGObject.SetActive(isAvailGetReward);
@@ -91,10 +92,10 @@ namespace CookApps.AutoBattler
             switch (_specEventData.event_type)
             {
                 case EventType.USE_AP:
-                    _needItemImage.sprite = ImageManager.Instance.GetItemSprite(ItemType.AP);
+                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(ItemType.AP)).Forget();
                     break;
                 case EventType.USE_GOLD:
-                    _needItemImage.sprite = ImageManager.Instance.GetItemSprite(ItemType.GOLD);
+                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(ItemType.GOLD)).Forget();
                     break;
             }
         }

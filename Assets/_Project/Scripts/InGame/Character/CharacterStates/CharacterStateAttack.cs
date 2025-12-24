@@ -108,15 +108,7 @@ public class CharacterStateAttack : CharacterStateBase
             int hitCount = eventKey - AnimationEventKey.ExecuteStart;
 
             // damage 계산
-            CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-            if (characCtrl.SpecCharacter.atk_type == AtkType.AD)
-            {
-                damageInfo = characCtrl.CalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
-            }
-            else
-            {
-                damageInfo = characCtrl.CalculateDamageAmount(0, characCtrl.AP, characCtrl.Target, 0, false);
-            }
+            CharacterController.DamageInfo damageInfo = CalculateNormalAttackDamage();
             if (hitCount > 1)
             {
                 damageInfo.damageAmount /= hitCount;
@@ -167,9 +159,25 @@ public class CharacterStateAttack : CharacterStateBase
         }
     }
 
+    public virtual CharacterController.DamageInfo CalculateNormalAttackDamage()
+    {
+        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+        if (characCtrl.SpecCharacter.atk_type == AtkType.AD)
+        {
+            damageInfo = characCtrl.CalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
+        }
+        else
+        {
+            damageInfo = characCtrl.CalculateDamageAmount(0, characCtrl.AP, characCtrl.Target, 0, false);
+        }
+
+        return damageInfo;
+
+    }
+
     virtual protected void OnAttackEndProcess()
     {
-        if(characCtrl == null || characCtrl.Target == null || !characCtrl.Target.IsAlive)
+        if (characCtrl == null || characCtrl.Target == null || !characCtrl.Target.IsAlive)
             return;
         var ctrlEcc = characCtrl?.GetEffectCodeContainer();
         var effectCodes = ctrlEcc?.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttackEnd);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -39,6 +40,7 @@ namespace CookApps.AutoBattler
 
         [Header("Current Dungeon Info Layer")]
         [SerializeField] private Image _currentStepImage;
+        [SerializeField] private SpriteLoader _currentStepSpriteLoader;
         [SerializeField] private TextMeshProUGUI _currentStepName;
         [SerializeField] private TextMeshProUGUI _currentStepAttr;
         [SerializeField] private GameObject _characterImageParentObject;
@@ -131,7 +133,7 @@ namespace CookApps.AutoBattler
         private void SetCommonInfoLayer()
         {
             if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
-            
+
             var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
             _dungeonClearBtnObj.SetActive(lastDungeonData.Order > _specDungeonTrialData.order);
             _EnterDungeonButton.gameObject.SetActive(!_dungeonClearBtnObj.activeSelf);
@@ -145,13 +147,13 @@ namespace CookApps.AutoBattler
             var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
             double attr = 0;
             CharacterStatData topStatData = null;//114333202
-            
+
             List<CharacterStatData> dataList = new List<CharacterStatData>();
             foreach (var monsterData in monsterDataList)
             {
                 var statData = new CharacterStatData(monsterData.monster_id, monsterData.monster_lv,
                     monsterData.multiple_atk, monsterData.multiple_hp);
-                
+
                 dataList.Add((statData));
             }
 
@@ -161,7 +163,7 @@ namespace CookApps.AutoBattler
                 GameObject newSlotObject = Instantiate(_monsterInfoSlotObject, _monsterInfoScrollRect.content);
                 DungeonMonsterInfoSlot newSlot = newSlotObject.GetComponent<DungeonMonsterInfoSlot>();
                 newSlot?.SetMonsterInfoSlot(monsterData);
-    
+
                 double attrValue = monsterData.GetAttrValueCP();
 
                 attr += attrValue;
@@ -169,8 +171,8 @@ namespace CookApps.AutoBattler
                 if (topStatData == null || topStatData.GetAttrValueCP() < attrValue)
                     topStatData = monsterData;
             }
-            
-            _currentStepImage.sprite = ImageManager.Instance.GetDungeonTrialClassSprite(_specDungeonTrialData.trial_type, false);
+
+            _currentStepSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specDungeonTrialData.trial_type, false)).Forget();
             _currentStepName.text = StringUtil.GetTrialDungeonString(_specDungeonTrialData, true);
             _currentStepAttr.text = attr.ToString("n0");
 
@@ -208,7 +210,7 @@ namespace CookApps.AutoBattler
 
                     RewardItem newRewardItem = new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count);
                     newSlot?.SetRewardSlot(newRewardItem);
-                    
+
                     var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
                     newSlot?.SetCheckSlot(lastDungeonData.Order > _specDungeonTrialData.order);
                 }
@@ -223,11 +225,11 @@ namespace CookApps.AutoBattler
             _stepSlotList.Clear();
 
             var totalDungeonDataList = SpecDataManager.Instance.GetSpecDungeonTrialDataList(DungeonType.TRIAL);
-            
+
             foreach (var dungeonData in totalDungeonDataList)
             {
                 GameObject newSlotObject = Instantiate(_stepSlotObject, _stepScrollRect.content);
-                
+
                 DungeonTrialStepSlot newSlot = newSlotObject.GetComponent<DungeonTrialStepSlot>();
                 newSlot?.SetStepSlot(this, dungeonData, CurrentUserDungeonData);
 
@@ -246,22 +248,22 @@ namespace CookApps.AutoBattler
         private void OnClickEnterDungeonButton()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-            
+
             // 던전 진입 가능 조건 검사
             if (UserDataManager.Instance.GetAllTotalChapterStarCount() < _specDungeonTrialData.need_star)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
                 return;
             }
-            
+
             var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
-            
+
             if (lastDungeonData.Order > _specDungeonTrialData.order)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
                 return;
             }
-            
+
             if (lastDungeonData.Order < _specDungeonTrialData.order)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
@@ -274,9 +276,9 @@ namespace CookApps.AutoBattler
             SceneTransition.Create<SceneTransition_FadeInOut>();
             SceneTransition.FadeInAsync().Forget();
 
-            InGameType inGameType = (_specDungeonTrialData.dungeon_map_id == 1) ? InGameType.TRIAL_BOSS: InGameType.TRIAL;
+            InGameType inGameType = (_specDungeonTrialData.dungeon_map_id == 1) ? InGameType.TRIAL_BOSS : InGameType.TRIAL;
             SceneLoading.GoToNextScene("InGame",
-                (inGameType, (IGameStateUICore) new InGameMainStateTrialDungeon(), _specDungeonTrialData.dungeon_id));
+                (inGameType, (IGameStateUICore)new InGameMainStateTrialDungeon(), _specDungeonTrialData.dungeon_id));
         }
 
         private void OnClickCloseButton()

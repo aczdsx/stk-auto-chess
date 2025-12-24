@@ -56,8 +56,7 @@ public class CharacterStateMove : CharacterStateBase
 
                     return;
                 }
-
-                characCtrl.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(characCtrl);
+                characCtrl.Target = characCtrl.FindTarget();
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
                 characCtrl.MoveToCharacter(isInRange, characCtrl.Target);
                 isBlockingChangeState = false;

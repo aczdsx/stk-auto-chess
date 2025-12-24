@@ -50,11 +50,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e2ecd855df4e3404b93517dde19867d1
-    m_Address: SpriteAtlas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e5767d31317d9ac4e99017232c96c6ad
     m_Address: GetNewCharacter
     m_ReadOnly: 0

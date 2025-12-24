@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +16,7 @@ namespace CookApps.AutoBattler
 
         [Space(10)]
         [SerializeField] private Image _skillIconImage;
+        [SerializeField] private SpriteLoader _skillIconSpriteLoader;
         [SerializeField] private GameObject _skillDamageTypeObject;
         [SerializeField] private GameObject _skillDamageAPTypeObject;
         [SerializeField] private GameObject _skillDamageADTypeObject;
@@ -54,7 +57,7 @@ namespace CookApps.AutoBattler
         {
             if (skillData == null) return;
 
-            _skillIconImage.sprite = ImageManager.Instance.GetCharacterSkillSprite(skillData.skill_group_id);
+            _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(skillData.skill_group_id)).Forget();
 
             _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_name_token);
             _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_desc_token);
@@ -82,7 +85,7 @@ namespace CookApps.AutoBattler
         {
             if (skillData == null) return;
 
-            _skillIconImage.sprite = ImageManager.Instance.GetCommanderSkillSprite(skillData.commander_skill_id);
+            _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCommanderSkillSprite(skillData.commander_skill_id)).Forget();
 
             _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.name_token);
             _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.desc_token);

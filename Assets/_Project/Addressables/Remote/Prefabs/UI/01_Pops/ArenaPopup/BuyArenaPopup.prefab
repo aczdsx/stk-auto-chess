@@ -1274,6 +1274,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 11
+  swappers: []
 --- !u!1 &3564022740481350919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1520,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 11
+  swappers: []
 --- !u!114 &3249811426427645568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1766,6 +1768,7 @@ MonoBehaviour:
   useDefaultClickSound: 1
   defaultClickSoundType: 0
   reactionType: 11
+  swappers: []
 --- !u!222 &3558944799611980231
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2425,6 +2428,7 @@ GameObject:
   - component: {fileID: 1688999425332901940}
   - component: {fileID: 8667705746383591661}
   - component: {fileID: 6726976635092705085}
+  - component: {fileID: -4533995410288885105}
   m_Layer: 5
   m_Name: Img_Synergy
   m_TagString: Untagged
@@ -2502,6 +2506,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 8667705746383591661}
+  _iconSpriteLoader: {fileID: -4533995410288885105}
+--- !u!114 &-4533995410288885105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7445898173194809881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 8667705746383591661}
 --- !u!1 &7683541954480817811
 GameObject:
   m_ObjectHideFlags: 0

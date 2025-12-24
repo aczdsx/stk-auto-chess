@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
     public class CharacterCardSlot : CachedMonoBehaviour
     {
         [SerializeField] private GuideAlert _characterGuideAlert;
-        
+
         [Space(10)]
         [SerializeField] private CAButton _characterCardButton;
 
@@ -26,6 +26,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _characterImageParentObject;
         [SerializeField] private TextMeshProUGUI _chracterLevelText;
         [SerializeField] private Image _gradeImage;
+        [SerializeField] private SpriteLoader _gradeSpriteLoader;
         [SerializeField] private SynergyUI _synergyUI;
         [SerializeField] private SynergyUI _positionSynergyUI;
         [SerializeField] private TextMeshProUGUI _characterPositionTypeText;
@@ -43,7 +44,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _characterSliderImage;
         [SerializeField] private TextMeshProUGUI _characterSliderText;
 
-        [Header("Fade Setting")] 
+        [Header("Fade Setting")]
         [SerializeField] private Color _fadeCharacterColor;
 
 
@@ -83,7 +84,7 @@ namespace CookApps.AutoBattler
             string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
             var newObject = AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
 
-            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(_specCharacterData.grade_type, haveCharacter);
+            _gradeSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specCharacterData.grade_type, haveCharacter)).Forget();
 
             _synergyUI.SetSynergyUI(_specCharacterData.character_element_type, haveCharacter);
             _positionSynergyUI.SetSynergyUI(_specCharacterData.character_stella_type, haveCharacter);
@@ -103,7 +104,7 @@ namespace CookApps.AutoBattler
                     uiCharacter.SetGrayCharacter(!haveCharacter);
                     Color targetColor = haveCharacter ? Color.white : _fadeCharacterColor;
                     uiCharacter.SetCharacterImageColor(targetColor);
-                    
+
                     if (!haveCharacter)
                     {
                         // var newColor = BMUtil.ChangeColorAlpha(newObject.GetComponentInChildren<Image>().color, 0.46f);
@@ -135,7 +136,7 @@ namespace CookApps.AutoBattler
             _lockBGLayerObject.SetActive(!haveCharacter);
             _normalBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type != GradeType.LEGENDARY);
             _SSRBGLayerObject.SetActive(haveCharacter && _specCharacterData.grade_type == GradeType.LEGENDARY);
-            
+
             // 가이드 알림 세팅
             SetGuideAlert();
         }
@@ -148,11 +149,11 @@ namespace CookApps.AutoBattler
                 _starObjectList[i].GetComponent<CharacterGradeStar>().SetStar(isHaveCharacter);
             }
         }
-        
+
         private void SetGuideAlert()
         {
             if (_characterGuideAlert == null) return;
-            
+
             _characterGuideAlert.InitAlertWithSubKey(_specCharacterData.character_id);
         }
 

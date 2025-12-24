@@ -6,36 +6,41 @@ using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
     public class RewardItemSlot : CachedMonoBehaviour
     {
         [SerializeField] private CAButton _rewardSlotButton;
-        
+
         [Header("Reward - Item")]
         [SerializeField] private GameObject _rewardItemLayerObject;
         [SerializeField] private Image _rewardItemImage;
+        [SerializeField] private SpriteLoader _rewardItemSpriteLoader;
         [SerializeField] private TextMeshProUGUI _rewardItemCountText;
         [SerializeField] private GameObject _checkObj;
 
         [Header("Reward - Piece")]
         [SerializeField] private GameObject _rewardPieceLayerObject;
         [SerializeField] private Image _rewardPieceImage;
+        [SerializeField] private SpriteLoader _rewardPieceSpriteLoader;
         [SerializeField] private Image _rewardPieceSliderImage;
         [SerializeField] private TextMeshProUGUI _rewardPieceCountText;
 
         [Header("Reward - Character")]
         [SerializeField] private GameObject _rewardCharacterLayerObject;
         [SerializeField] private Image _rewardCharacterImage;
+        [SerializeField] private SpriteLoader _rewardCharacterSpriteLoader;
         [SerializeField] private TextMeshProUGUI _rewardCharacterNameText;
         [SerializeField] private SynergyUI _rewardElementSynergyUI;
         [SerializeField] private SynergyUI _rewardClassSynergyUI;
         [SerializeField] private Image _gradeImage;
+        [SerializeField] private SpriteLoader _gradeSpriteLoader;
 
         private Item _specItemData;
         private int _rewardKey;
-        
+
         private void Awake()
         {
             _rewardSlotButton.onClick.AddListener(OnClickRewardSlotButton);
@@ -44,7 +49,7 @@ namespace CookApps.AutoBattler
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            
+
             _rewardSlotButton.onClick.RemoveListener(OnClickRewardSlotButton);
         }
 
@@ -72,8 +77,8 @@ namespace CookApps.AutoBattler
             ClearSlot();
 
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardItem.Type);
-            
-            _rewardItemImage.sprite = ImageManager.Instance.GetItemSprite(rewardItem.Type);
+
+            _rewardItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(rewardItem.Type)).Forget();
             _rewardItemCountText.text = $"x{rewardItem.Count}";
 
             // 레이어 활성화
@@ -86,7 +91,7 @@ namespace CookApps.AutoBattler
             if (rewardPiece == null) return;
 
             ClearSlot();
-            
+
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Type);
             _rewardKey = rewardPiece.Key;
 
@@ -96,7 +101,7 @@ namespace CookApps.AutoBattler
             var userCharacterData = UserDataManager.Instance.GetUserCharacter(specCharacterData.character_id);
             if (userCharacterData == null) return;
 
-            _rewardPieceImage.sprite = ImageManager.Instance.GetCharacterPieceSprite(specCharacterData.prefab_id);
+            _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
             _rewardPieceSliderImage.fillAmount = (float)userCharacterData.CharacterPiece / specCharacterData.need_piece;
             _rewardPieceCountText.text = $"{userCharacterData.CharacterPiece}/{specCharacterData.need_piece}";
 
@@ -110,19 +115,19 @@ namespace CookApps.AutoBattler
             if (rewardCharacter == null) return;
 
             ClearSlot();
-            
+
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardCharacter.Type);
 
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardCharacter.Key);
             if (specCharacterData == null) return;
 
             _rewardKey = rewardCharacter.Key;
-            _rewardCharacterImage.sprite = ImageManager.Instance.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id);
+            _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
             _rewardCharacterNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
             _rewardElementSynergyUI.SetSynergyUI(specCharacterData.character_element_type);
             _rewardClassSynergyUI.SetSynergyUI(specCharacterData.character_stella_type);
-            
-            _gradeImage.sprite = ImageManager.Instance.GetGradeTypeSprite(specCharacterData.grade_type);
+
+            _gradeSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(specCharacterData.grade_type)).Forget();
 
             // 레이어 활성화
             _rewardCharacterLayerObject.SetActive(true);
@@ -136,10 +141,10 @@ namespace CookApps.AutoBattler
         private void OnClickRewardSlotButton()
         {
             if (_specItemData == null) return;
-            
+
             SceneUILayerManager.Instance.PushUILayerAsync<ItemTooltipPopup>((_specItemData, _rewardKey));
         }
-        
+
         private void ClearSlot()
         {
             _rewardItemLayerObject.SetActive(false);
