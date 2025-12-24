@@ -54,5 +54,26 @@ namespace CookApps.AutoBattler
             // 앱의 파라메타 및 환경에 맞게 수정 필요
             Startup(param);
         }
+        
+        
+        private void InjectServiceInterceptors()
+        {
+            // Custom services (프로젝트 내에서 정의된 서비스만)
+            Character.ServiceInterceptor = this;
+            Battle.ServiceInterceptor = this;
+            Equipment.ServiceInterceptor = this;
+            Elpis.ServiceInterceptor = this;
+            Inventory.ServiceInterceptor = this;
+            Post.ServiceInterceptor = this;
+            Announcement.ServiceInterceptor = this;
+
+            // Base class services는 외부 패키지에 있어서 Source Generator가 적용되지 않을 수 있음
+            // Auth.ServiceInterceptor = this;
+            // Spec.ServiceInterceptor = this;
+            // Lobby.ServiceInterceptor = this;
+            // PlayerData.ServiceInterceptor = this;
+            // Shop.ServiceInterceptor = this;
+        }
+
     }
 }

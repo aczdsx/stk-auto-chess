@@ -8,11 +8,11 @@
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
-		<AssemblyName>UserData.Generator</AssemblyName>
-		<PackageId>UserData.Generator</PackageId>
+		<AssemblyName>EffectCode.Generator</AssemblyName>
+		<PackageId>EffectCode.Generator</PackageId>
 		<Authors>Taewoo Han</Authors>
 		<Company>CookApps</Company>
-		<Product>UserData.Generator</Product>
+		<Product>EffectCode.Generator</Product>
     </PropertyGroup>
 
     <ItemGroup>
@@ -37,17 +37,17 @@
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>TemplateGrpcV2Manager.cs</LastGenOutput>
       </None>
-      <None Update="CustomAttribute\TemplateClassCollector.tt">
+      <None Update="CustomAttribute\T4\TemplateEffectCodeFactory.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>TemplateClassCollector.cs</LastGenOutput>
+        <LastGenOutput>TemplateEffectCodeFactory.cs</LastGenOutput>
       </None>
-      <None Update="UserData\T4\TemplateUserDataInitializer.tt">
+      <None Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagGetter.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>TemplateUserDataInitializer.cs</LastGenOutput>
+        <LastGenOutput>TemplateInheritOverrideFlagGetter.cs</LastGenOutput>
       </None>
-      <None Update="UserDataInitializer\T4\TemplateUserDataInitializer.tt">
+      <None Update="EffectCodeFactory\T4\TemplateEffectCodeFactory.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>TemplateUserDataInitializer.cs</LastGenOutput>
+        <LastGenOutput>TemplateEffectCodeFactory.cs</LastGenOutput>
       </None>
     </ItemGroup>
 
@@ -77,37 +77,54 @@
         <DesignTime>True</DesignTime>
         <DependentUpon>TemplateGameServiceClient.tt</DependentUpon>
       </Compile>
-      <Compile Update="CustomAttribute\TemplateClassCollector.cs">
+      <Compile Update="CustomAttribute\T4\TemplateClassCollector.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
         <DependentUpon>TemplateClassCollector.tt</DependentUpon>
       </Compile>
-      <Compile Update="UserData\T4\UserDataInitializerTemplate.cs">
+      <Compile Update="InheritOverrideFlag\T4\TemplateClassCollector.cs">
+        <DependentUpon>TemplateClassCollector.tt</DependentUpon>
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
-        <DependentUpon>UserDataInitializerTemplate.tt</DependentUpon>
       </Compile>
-      <Compile Update="UserData\T4\UserDataInitializerTemplate.cs">
+      <Compile Update="CustomAttribute\T4\TemplateClassCollector.cs">
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
-        <DependentUpon>UserDataInitializerTemplate.tt</DependentUpon>
+        <DependentUpon>TemplateClassCollector.tt</DependentUpon>
       </Compile>
-      <Compile Update="UserData\T4\UserDataInitializerTemplate.cs">
+      <Compile Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagCollector.cs">
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
-        <DependentUpon>UserDataInitializerTemplate.tt</DependentUpon>
+        <DependentUpon>TemplateInheritOverrideFlagCollector.tt</DependentUpon>
       </Compile>
-      <Compile Update="UserData\T4\TemplateUserDataInitializer.cs">
+      <Compile Update="CustomAttribute\T4\TemplateClassCollector.cs">
         <AutoGen>True</AutoGen>
         <DesignTime>True</DesignTime>
-        <DependentUpon>TemplateUserDataInitializer.tt</DependentUpon>
+        <DependentUpon>TemplateClassCollector.tt</DependentUpon>
       </Compile>
-      <Compile Update="UserDataInitializer\T4\TemplateUserDataInitializer.cs">
-        <DependentUpon>TemplateUserDataInitializer.tt</DependentUpon>
+      <Compile Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagCollector.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>TemplateInheritOverrideFlagCollector.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CustomAttribute\T4\TemplateEffectCodeFactory.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>TemplateEffectCodeFactory.tt</DependentUpon>
+      </Compile>
+      <Compile Update="EffectCodeFactory\T4\TemplateEffectCodeFactory.cs">
+        <DependentUpon>TemplateEffectCodeFactory.tt</DependentUpon>
+      </Compile>
+      <Compile Update="InheritOverrideFlag\T4\TemplateInheritOverrideFlagGetter.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
+        <DependentUpon>TemplateInheritOverrideFlagGetter.tt</DependentUpon>
       </Compile>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="cp &quot;$(TargetPath)&quot; &quot;$(ProjectDir)../../Assets/_Project/Generators&quot;" Condition=" '$(OS)' == 'Unix' " />
-      <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)../../Assets/_Project/Generators&quot;" Condition=" '$(OS)' != 'Unix' " />
+      <Exec Command="cp &quot;$(TargetPath)&quot; &quot;$(ProjectDir)../../../Assets/_Project/Generators&quot;" Condition=" '$(OS)' == 'Unix' " />
+      <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)../../../Assets/_Project/Generators&quot;" Condition=" '$(OS)' != 'Unix' " />
     </Target>
 
 </Project>

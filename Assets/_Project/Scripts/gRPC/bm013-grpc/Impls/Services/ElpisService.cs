@@ -13,32 +13,28 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<ElpisGetResponse> GetInfoAsync(CancellationToken cancellationToken = default)
         {
-            ElpisGetResponse resp = await ExecuteAsync(
+            ElpisGetResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.GetAsync,
                 new ElpisGetRequest(),
                 cancellationToken: cancellationToken
             );
 
-            resp.ThrowIfError();
-
-            if (true)
+            // resp가 null이면 공통 에러 처리됨 (HandleCommonError가 true 리턴)
+            if (resp == null)
             {
-                ServerDataManager.Instance.Elpis.SetElpisData(
-                    resp.Elpis
-                );
-            }
-            else // dummy
-            {
-                ServerDataManager.Instance.Elpis.SetElpisData(
-                    new ElpisData()
-                    {
-                        CoreResearches = { },
-                        Facilities = {  },
-                        Simulation = { }
-                    }
-                );
+                return null;
             }
 
+            // IsSuccess가 false면 HandleCommonError가 false를 리턴한 경우
+            // 커스텀 에러 처리 가능
+            if (!resp.IsSuccess)
+            {
+                // 여기에 특정 에러 코드에 대한 커스텀 처리 추가
+                return resp;
+            }
+
+            // 성공 시 비즈니스 로직
+            ServerDataManager.Instance.Elpis.SetElpisData(resp.Elpis);
             return resp;
         }
 
@@ -47,13 +43,19 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<ElpisBuildFacilityResponse> BuildFacilityAsync(ElpisFacilityType facilityType, int gridX, int gridY, CancellationToken cancellationToken = default)
         {
-            ElpisBuildFacilityResponse resp = await ExecuteAsync(
+            ElpisBuildFacilityResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.BuildFacilityAsync,
                 new ElpisBuildFacilityRequest { FacilityType = facilityType, GridX = gridX, GridY = gridY },
                 cancellationToken: cancellationToken
             );
 
-            resp.ThrowIfError();
+            if (resp == null) return null;
+
+            if (!resp.IsSuccess)
+            {
+                // 커스텀 에러 처리
+                return resp;
+            }
 
             // 시설 업데이트
             if (resp.Facility != null)
@@ -75,13 +77,19 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<ElpisUpgradeFacilityResponse> UpgradeFacilityAsync(string facilityInstanceId, CancellationToken cancellationToken = default)
         {
-            ElpisUpgradeFacilityResponse resp = await ExecuteAsync(
+            ElpisUpgradeFacilityResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.UpgradeFacilityAsync,
                 new ElpisUpgradeFacilityRequest { FacilityInstanceId = facilityInstanceId },
                 cancellationToken: cancellationToken
             );
 
-            resp.ThrowIfError();
+            if (resp == null) return null;
+
+            if (!resp.IsSuccess)
+            {
+                // 커스텀 에러 처리
+                return resp;
+            }
 
             // 시설 업데이트
             if (resp.Facility != null)
@@ -103,14 +111,20 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<ElpisResearchCoreResponse> ResearchCoreAsync(uint groupId, uint level, CancellationToken cancellationToken = default)
         {
-            ElpisResearchCoreResponse resp = await ExecuteAsync(
+            ElpisResearchCoreResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ResearchCoreAsync,
                 new ElpisResearchCoreRequest { UpgradeGroupId = groupId, Level = level },
                 cancellationToken: cancellationToken
             );
 
-            resp.ThrowIfError();
-            
+            if (resp == null) return null;
+
+            if (!resp.IsSuccess)
+            {
+                // 커스텀 에러 처리
+                return resp;
+            }
+
             // 코어 연구 업데이트
             if (resp.Research != null)
             {
@@ -131,13 +145,19 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<ElpisClaimSimulationRewardResponse> ClaimSimulationRewardAsync(CancellationToken cancellationToken = default)
         {
-            ElpisClaimSimulationRewardResponse resp = await ExecuteAsync(
+            ElpisClaimSimulationRewardResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ClaimSimulationRewardAsync,
                 new ElpisClaimSimulationRewardRequest(),
                 cancellationToken: cancellationToken
             );
 
-            resp.ThrowIfError();
+            if (resp == null) return null;
+
+            if (!resp.IsSuccess)
+            {
+                // 커스텀 에러 처리
+                return resp;
+            }
 
             // 시뮬레이션 데이터 업데이트
             if (resp.Simulation != null)
@@ -150,7 +170,6 @@ namespace CookApps.AutoBattler
             {
                 ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
-
             return resp;
         }
     }
