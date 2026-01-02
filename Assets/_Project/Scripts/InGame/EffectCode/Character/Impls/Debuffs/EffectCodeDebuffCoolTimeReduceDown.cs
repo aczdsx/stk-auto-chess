@@ -5,7 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeDebuffCoolTimeReduceDown : EffectCodeBuffBase
+public partial class EffectCodeDebuffCoolTimeReduceDown : EffectCodeDebuffBase
 {
     public const int CodeId = (int)EffectCodeNameType.DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.CoolTimeDown;

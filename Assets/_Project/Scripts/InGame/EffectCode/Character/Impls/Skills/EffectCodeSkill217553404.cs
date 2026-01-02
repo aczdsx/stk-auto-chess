@@ -22,18 +22,20 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(217553404)]
 public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _healRate;//1
-    private ObfuscatorFloat _tileDamage;//2
-    private ObfuscatorFloat _healRateDecreaseRate;//3
-    private ObfuscatorFloat _debuffTime;//4
+    // 스킬 스탯
+    private ObfuscatorFloat _healRatePercent; // 치유력 비율 (1)
+    private ObfuscatorFloat _damageRatePercent; // 피해 비율 (2)
+    private ObfuscatorFloat _healReductionRatePercent; // 회복량 감소 비율 (3)
+    private ObfuscatorFloat _debuffDuration; // 디버프 지속 시간 (4)
 
+    // 스킬 상태
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
     
-    private float _elapsedTime;
-    private float _totalElapsedTime;
-    private InGameVfx _vfx;
-    private int _count;
+    // 채널링 스킬 설정
+    private const float SKILL_DURATION = 3.0f; // 스킬 지속 시간 (초)
+    private const float TICK_INTERVAL = 0.5f; // 틱 처리 간격 (초)
+    private const int AREA_RANGE = 2; // 영역 범위 (맨해튼 거리)
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -41,10 +43,10 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _tileDamage = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _healRateDecreaseRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
-        _debuffTime = codeInfo.GetCodeStatToFloat(4);
+        _healRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRatePercent = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _healReductionRatePercent = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _debuffDuration = codeInfo.GetCodeStatToFloat(4);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -56,25 +58,10 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _tileDamage = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _healRateDecreaseRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
-        _debuffTime = codeInfo.GetCodeStatToFloat(4);
-    }
-
-    public override void OnUpdate(float dt)
-    {
-        if (!IsSkillActivated)
-        {
-            return;
-        }
-        
-        _elapsedTime += dt;
-
-        if (_elapsedTime >= 1f)
-        {
-            _elapsedTime -= 1f;
-        }
+        _healRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRatePercent = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _healReductionRatePercent = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _debuffDuration = codeInfo.GetCodeStatToFloat(4);
     }
 
     public override void OnCooltime(float dt)
@@ -110,14 +97,13 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         if (owner == null)
             return;
 
-        float duration = 3.0f;
-        _count = 0;
+        var centerTile = owner.CurrentTile;
+        var areaTiles = GetAreaTiles(centerTile);
         
-        var inGameTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.CurrentTile, 2);
-        if (inGameTileList.Count > 0)
+        if (areaTiles.Count > 0)
         {
-            ProcessArea(duration, inGameTileList).Forget();
-            PlayEffect(owner.CurrentTile);
+            ProcessArea(centerTile).Forget();
+            PlayAreaEffect(centerTile, areaTiles);
         }
     }
     
@@ -128,39 +114,58 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
     
-    private async UniTask ProcessArea(float duration, List<InGameTile> areaTiles)
+    private List<InGameTile> GetAreaTiles(InGameTile centerTile)
     {
-        // 1초마다 영역 내 캐릭터들을 처리
-        int tickCount = (int)duration;
-        for (int i = 0; i < tickCount; i++)
+        return InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(centerTile, AREA_RANGE);
+    }
+
+    private async UniTask ProcessArea(InGameTile centerTile)
+    {
+        int tickCount = Mathf.CeilToInt(SKILL_DURATION / TICK_INTERVAL);
+        
+        for (int tickIndex = 0; tickIndex < tickCount; tickIndex++)
         {
-            if (owner == null)
+            if (owner == null || owner.CurrentTile == null)
                 break;
 
-            ProcessTiles(areaTiles, owner);
-            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            // 매 틱마다 최신 영역 타일 리스트를 가져와서 처리
+            var currentAreaTiles = GetAreaTiles(centerTile);
+            
+            // 힐 적용 시점에 모든 타일이 빛나도록 이펙트 표시
+            PlayTileEffectsForTick(currentAreaTiles);
+            
+            // 영역 내 캐릭터들 처리
+            ProcessTilesInArea(currentAreaTiles);
+            
+            // 마지막 tick에서는 delay 없이 종료
+            if (tickIndex < tickCount - 1)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(TICK_INTERVAL));
+            }
         }
     }
 
-    private void PlayEffect(InGameTile tile)
+    private void PlayAreaEffect(InGameTile centerTile, List<InGameTile> areaTiles)
     {
         if (owner == null)
             return;
 
-        // 영역 VFX 생성
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
+        // 중심 타일 VFX 생성
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], centerTile.View.CachedTr.position);
         
         // 영역 타일들에 타일 이펙트 표시
-        var inGameTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(tile, 2);
-        foreach (var areaTile in inGameTileList)
+        foreach (var areaTile in areaTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, areaTile);
         }
     }
 
-    private void ProcessTiles(List<InGameTile> tiles, CharacterController owner)
+    private void ProcessTilesInArea(List<InGameTile> areaTiles)
     {
-        foreach (var tile in tiles)
+        if (owner == null)
+            return;
+
+        foreach (var tile in areaTiles)
         {
             if (tile.OccupiedCharacter == null)
                 continue;
@@ -170,46 +175,54 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
             // 아군 처리: 치유 + CC제거
             if (character.AllianceType == owner.AllianceType)
             {
-                // 치유
-                double healAmount = owner.PostCalculateHealAmount(owner.AP * _healRate, character);
-                character.GetHealed(healAmount, owner, codeId, true);
-                
-                // CC 제거: CrowdControl 타입의 이펙트코드 모두 제거
-                RemoveAllCrowdControls(character);
+                ProcessMyTeamInArea(character);
             }
             // 적군 처리: 피해 + 회복량 감소 디버프
             else if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                // 피해
-                var damage = owner.CalculateDamageAmount(owner.AD * _tileDamage, 0, character, codeId, true);
-                character.GetDamaged(damage, owner);
-                
-                // 회복량 감소 디버프 적용
-                Span<double> eccStats = stackalloc double[3];
-                eccStats.Clear();
-                eccStats[0] = codeId;
-                eccStats[1] = _debuffTime;
-                eccStats[2] = _healRateDecreaseRate;
-                
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, character, eccStats, source);
+                ProcessEnemyInArea(character);
             }
         }
     }
 
-    private void RemoveAllCrowdControls(CharacterController character)
+    private void PlayTileEffectsForTick(List<InGameTile> areaTiles)
     {
-        // 모든 CC 타입을 개별적으로 제거
-        // RemoveCrowdControl을 호출하면 해당 CC 이펙트코드의 OnPreRemoved가 호출되어 자동으로 제거됨
-        character.RemoveCrowdControl(CrowdControlType.Airborne);
-        character.RemoveCrowdControl(CrowdControlType.KnockBack);
-        character.RemoveCrowdControl(CrowdControlType.Entangle);
-        character.RemoveCrowdControl(CrowdControlType.Stun);
-        character.RemoveCrowdControl(CrowdControlType.Slowing);
-        character.RemoveCrowdControl(CrowdControlType.Provocation);
-        character.RemoveCrowdControl(CrowdControlType.Freezing);
-        character.RemoveCrowdControl(CrowdControlType.Silence);
-        character.RemoveCrowdControl(CrowdControlType.MisaRestraint);
+        if (owner == null)
+            return;
+
+        // 힐 적용 시점에 영역 내 모든 타일이 빛나도록 이펙트 표시
+        foreach (var areaTile in areaTiles)
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, areaTile);
+        }
     }
+
+    private void ProcessMyTeamInArea(CharacterController ally)
+    {
+        // 치유
+        double healAmount = owner.PostCalculateHealAmount(owner.AP * _healRatePercent, ally);
+        ally.GetHealed(healAmount, owner, codeId, true);
+        
+        // CC 제거
+        EffectCodeHelper.RemoveAllDebuff(ally);
+        EffectCodeHelper.RemoveAllCrowdControl(ally);
+    }
+
+    private void ProcessEnemyInArea(CharacterController enemy)
+    {
+        // 피해
+        var damage = owner.CalculateDamageAmount(owner.AD * _damageRatePercent, 0, enemy, codeId, true);
+        enemy.GetDamaged(damage, owner);
+        
+        // 회복량 감소 디버프 적용
+        Span<double> eccStats = stackalloc double[3];
+        eccStats[0] = codeId;
+        eccStats[1] = _debuffDuration;
+        eccStats[2] = _healReductionRatePercent;
+        
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN, enemy, eccStats, source);
+    }
+
 
     public override float AddSkillCooltime(float cooltime)
     {

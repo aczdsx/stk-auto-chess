@@ -895,7 +895,7 @@ namespace CookApps.BattleSystem
                         InGameVfxManager.Instance.RemoveInGameVfx(effectView);
                     }
                 }
-            }
+            }//
         }
 
         public bool HasBuffDebuffType(BuffDebuffType type)
@@ -1210,7 +1210,14 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
 
-            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
+            if (!damageInfo.isMissed)
+            {
+                ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
+            }
+            else
+            {
+                ShowNormalText("MISS!!", hexColor).Forget();
+            }
 
             _currHp -= damageAmount.damageAmount.Value;
             Debug.Log($"damageAmount: {damageAmount.damageAmount.Value}, _currHp: {_currHp}");
@@ -1424,6 +1431,7 @@ namespace CookApps.BattleSystem
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowShieldText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
         }
+        
 
         public void MoveToCharacter(bool isInRange, CharacterController target)
         {
