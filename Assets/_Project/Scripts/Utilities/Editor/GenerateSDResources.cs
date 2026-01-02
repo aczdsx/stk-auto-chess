@@ -16,23 +16,19 @@ using UnityEngine.UI;
 public static class GenerateSDResources
 {
     private const int DEAD_FRAME_COUNT = 10;
+    private const string LOCK_SUFFIX = "_lock";
 
-    // 제외할 경로 패턴 (이 문자열이 포함된 경로는 생성에서 제외)
-    private static readonly string[] ExcludedPaths =
-    {
-        "Mob/80109003",
-    };
-
+    /// <summary>
+    /// 폴더가 SD 리소스 생성에서 제외되어야 하는지 확인합니다.
+    /// 폴더명 끝에 "_lock" 접미사가 있으면 제외됩니다. (대소문자 구분 없음)
+    ///
+    /// 사용법: 아트 작업자가 수동 작업이 필요한 폴더의 이름을 변경
+    /// 예시: "80109003" → "80109003_lock" (또는 "80109003_Lock", "80109003_LOCK" 등)
+    /// </summary>
     private static bool IsExcludedPath(string path)
     {
-        string normalizedPath = path.Replace("\\", "/");
-        for (var i = 0; i < ExcludedPaths.Length; i++)
-        {
-            if (normalizedPath.Contains(ExcludedPaths[i]))
-                return true;
-        }
-
-        return false;
+        string folderName = new DirectoryInfo(path).Name;
+        return folderName.EndsWith(LOCK_SUFFIX, System.StringComparison.OrdinalIgnoreCase);
     }
 
     public static void CreateAllSDResources()

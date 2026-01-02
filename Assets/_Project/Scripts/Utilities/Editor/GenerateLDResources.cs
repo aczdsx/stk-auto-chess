@@ -10,6 +10,20 @@ public class GenerateLDResources
 {
     private static readonly string BASE_PREFAB_PATH = $"{ResourcePath.LD_PATH}/Template/BasePrefab_UI.prefab";
     private static readonly string BASE_NANINOVEL_PREFAB_PATH = $"{ResourcePath.LD_PATH}/Template/BasePrefab_NaniNovel.prefab";
+    private const string LOCK_SUFFIX = "_lock";
+
+    /// <summary>
+    /// 폴더가 LD 리소스 생성에서 제외되어야 하는지 확인합니다.
+    /// 폴더명 끝에 "_lock" 접미사가 있으면 제외됩니다. (대소문자 구분 없음)
+    ///
+    /// 사용법: 아트 작업자가 수동 작업이 필요한 폴더의 이름을 변경
+    /// 예시: "10101001" → "10101001_lock" (또는 "10101001_Lock", "10101001_LOCK" 등)
+    /// </summary>
+    private static bool IsExcludedPath(string path)
+    {
+        string folderName = new DirectoryInfo(path).Name;
+        return folderName.EndsWith(LOCK_SUFFIX, System.StringComparison.OrdinalIgnoreCase);
+    }
 
     public static void CreateAllLDResources()
     {
@@ -41,6 +55,10 @@ public class GenerateLDResources
 
                     // Only process folders with numeric names
                     if (!int.TryParse(folderName, out _))
+                        continue;
+
+                    // 제외 경로 체크
+                    if (IsExcludedPath(subFolderPath))
                         continue;
 
                     CreateLDResourceFromPath(subFolderPath);
