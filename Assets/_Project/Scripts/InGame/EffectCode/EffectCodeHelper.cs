@@ -36,15 +36,23 @@ public static class EffectCodeHelper
 
     public static void AddOrMergeEffectCode(EffectCodeNameType effectCodeNameType, CharacterController targetCharacter, Span<double> stats, IEffectCodeSource source)
     {
-        bool isImmuneType = _immuneTypes.Contains(effectCodeNameType);
-        bool hasImmuneBuff = targetCharacter.HasBuffDebuffType(BuffDebuffType.Immune) && isImmuneType;
+        var effectCodeContainer = targetCharacter.GetEffectCodeContainer();
+        if (effectCodeContainer == null)
+            return;
 
-        if (!hasImmuneBuff)
+        bool isImmuneType = _immuneTypes.Contains(effectCodeNameType);
+        bool hasImmune = targetCharacter.HasBuffDebuffType(BuffDebuffType.Immune);
+
+        // 면역 체크: 면역 타입이고 면역 버프가 있으면 이펙트 코드를 적용하지 않음
+        if (isImmuneType && hasImmune)
         {
-            var effectCodeInfo = new EffectCodeInfo((long)effectCodeNameType, 0, stats);
-            if (targetCharacter.GetEffectCodeContainer() != null)
-                targetCharacter.GetEffectCodeContainer().AddOrMergeEffectCode(effectCodeInfo, source);
+            targetCharacter.ShowImmuneSuccessFx();
+            return;
         }
+
+        // 이펙트 코드 적용
+        var effectCodeInfo = new EffectCodeInfo((long)effectCodeNameType, 0, stats);
+        effectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, source);
     }
 
     public static void RemoveAllDebuff(CharacterController targetCharacter)
