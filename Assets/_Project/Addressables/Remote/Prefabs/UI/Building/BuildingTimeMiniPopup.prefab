@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 712319894265088743}
   m_Layer: 5
-  m_Name: Building_Time_MiniPopup
+  m_Name: BuildingTimeMiniPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

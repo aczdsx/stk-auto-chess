@@ -50,7 +50,7 @@ namespace Elpis.Agent
                 angle += 360;
             CachedFront = angle is <= 0 or >= 180;
             CachedFlipX = angle is >= 90 and < 270;
-            Debug.Log(angle);
+
             if (prevCachedFlipX != CachedFlipX)
                 SetFlipOrNot();
 

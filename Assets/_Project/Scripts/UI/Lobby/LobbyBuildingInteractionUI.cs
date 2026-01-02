@@ -3,13 +3,15 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using R3;
 using Tech.Hive.V1;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class UIElpisBuildSlot : CachedMonoBehaviour
+    public class LobbyBuildingInteractionUI : CachedMonoBehaviour
     {
+        [SerializeField] private TMP_Text buildingName;
         [SerializeField] private CAButton button;
         
         private ElpisBuildingBase target;
@@ -42,26 +44,24 @@ namespace CookApps.AutoBattler
                 CachedGo.SetActive(false);
                 return;
             }
-            
-            if (!CachedGo.activeSelf)
-            {
-                CachedGo.SetActive(true);
-            }
 
             UpdatePosition();
         }
 
         private void UpdatePosition()
         {
-            var mainCamera = MainCameraHolder.MainCamera;
-            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(mainCamera, target.CachedTr.position);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPoint, mainCamera, out Vector2 localPoint);
-            CachedRectTr.anchoredPosition = localPoint;
+            CachedRectTr.anchoredPosition = MainCameraHolder.WorldPointToLocalPointInRectangle(target.CachedTr.position, parentRect);
         }
 
         private void OnClick()
         {
-            SceneUILayerManager.Instance.PushUILayerAsync<UIElpisBuildPopup>(facilityData).Forget();
+            var buildingLayer = SceneUILayerManager.Instance.GetUILayer<ElpisBuildLayer>();
+            if (buildingLayer == null)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<ElpisBuildLayer>((facilityData, target.SlotIndex)).Forget();
+                return;
+            }
+            buildingLayer.SetTargetFacilityData(facilityData, target.SlotIndex);
         }
     }
 }

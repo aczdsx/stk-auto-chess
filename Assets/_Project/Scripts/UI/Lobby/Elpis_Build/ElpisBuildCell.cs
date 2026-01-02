@@ -7,13 +7,13 @@ using UnityEngine.UI;
 using TMPro;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using R3;
 
 namespace CookApps.AutoBattler
 {
-    public class UIElpisBuildCell : MonoBehaviour
+    public class ElpisBuildCell : CachedMonoBehaviour
     {
         [Header("UI Components")]
-        [SerializeField] private Image _iconImage;
         [SerializeField] private SpriteLoader _iconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _descText;
@@ -21,10 +21,18 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _conditionText;
         [SerializeField] private CAButton _installButton;
         [SerializeField] private GameObject _lockedOverlay;
-        [SerializeField] private GameObject _installedOverlay;
 
         private ElpisBuildInfo _buildInfo;
         private Action<ElpisBuildInfo> _onInstallClicked;
+
+        private void Awake()
+        {
+            // Bind Button
+            _installButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnInstallClick())
+                .AddTo(this);
+        }
 
         public void SetData(ElpisBuildInfo buildInfo, bool isLocked, bool isInstalled, bool canAfford, Action<ElpisBuildInfo> onInstallClicked)
         {
@@ -39,12 +47,11 @@ namespace CookApps.AutoBattler
             }
             
             _nameText.text = LanguageManager.Instance.GetLanguageText(buildInfo.buld_name_token);
-            _descText.text = LanguageManager.Instance.GetLanguageText(buildInfo.buld_desc_token);
+            // _descText.text = LanguageManager.Instance.GetLanguageText(buildInfo.buld_desc_token);
             _costText.text = buildInfo.item_INT.ToString();
 
             // State Handling
             _lockedOverlay.SetActive(isLocked);
-            _installedOverlay.SetActive(isInstalled);
             
             if (isInstalled)
             {
@@ -63,10 +70,6 @@ namespace CookApps.AutoBattler
                 _installButton.SetClickableState(canAfford);
                 _conditionText.text = "";
             }
-
-            // Bind Button
-            _installButton.onClick.RemoveAllListeners();
-            _installButton.onClick.AddListener(OnInstallClick);
         }
 
         private void OnInstallClick()

@@ -30,6 +30,7 @@ namespace CookApps.AutoBattler
             characterHandles.Add(characterHandle);
             await characterHandle.WaitUntilDone();
             var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+            await MainBlock.LoadAllSubBlocks();
             if (commandCenter.Level >= 2)
             {
                 await MainBlock.AttachSubBlock(0, false);
@@ -43,6 +44,9 @@ namespace CookApps.AutoBattler
                 .Where(info => info.IsLevelChanged)
                 .SubscribeAwait(this, (info, self, _) => self.OnFacilityLevelChanged(info))
                 .AddTo(this);
+            
+            CreateWorldInteractionSlots(MainBlock.ElpisBuildings);
+            
             MainBlock.RebuildNavMesh();
         }
 

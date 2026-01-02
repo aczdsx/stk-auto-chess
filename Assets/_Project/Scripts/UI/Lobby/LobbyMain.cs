@@ -154,5 +154,15 @@ namespace CookApps.AutoBattler
         {
             // TODO: 인벤토리 버튼 클릭 처리
         }
+        
+        public void PlayExitAnimation()
+        {
+            StartExitAnimation(null);
+        }
+        
+        public void PlayEnterAnimation()
+        {
+            StartEnterAnimation(null);
+        }
     }
 }

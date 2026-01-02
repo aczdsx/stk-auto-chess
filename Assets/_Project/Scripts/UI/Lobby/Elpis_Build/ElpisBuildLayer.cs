@@ -12,28 +12,33 @@ using R3;
 
 namespace CookApps.AutoBattler
 {
-    public class UIElpisBuildPopup : UILayer
+    public class ElpisBuildLayer : UILayer
     {
         [Header("UI Components")]
         [SerializeField] private CAButton closeButton;
         [SerializeField] private Transform contentRoot;
-        [SerializeField] private UIElpisBuildCell _cellPrefab;
+        [SerializeField] private ElpisBuildCell cellPrefab;
 
-        private List<UIElpisBuildCell> _cells = new List<UIElpisBuildCell>();
-        private ElpisDataBridge _dataBridge;
+        private List<ElpisBuildCell> cells = new List<ElpisBuildCell>();
+        private ElpisDataBridge dataBridge;
 
         private ElpisFacility facilityData;
+        private int targetSlotIndex;
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            _dataBridge = new ElpisDataBridge();
+            dataBridge = new ElpisDataBridge();
 
-            if (param is ElpisFacility facility)
-            {
-                facilityData = facility;
-            }
+            (facilityData, targetSlotIndex) = ((ElpisFacility, int))param;
             RefreshUI();
+            LobbyMain.GetLobbyMain().PlayExitAnimation();
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+            LobbyMain.GetLobbyMain().PlayEnterAnimation();
         }
 
         protected override void Awake()
@@ -45,6 +50,16 @@ namespace CookApps.AutoBattler
                 .Subscribe(this, (_, self) => self.OnCloseClicked())
                 .AddTo(this);
         }
+        
+        public void SetTargetFacilityData(ElpisFacility facility, int slotIndex)
+        {
+            if (ReferenceEquals(facilityData, facility) && targetSlotIndex == slotIndex)
+                return;
+            
+            facilityData = facility;
+            targetSlotIndex = slotIndex;
+            RefreshUI();
+        }
 
         private void RefreshUI()
         {
@@ -54,21 +69,21 @@ namespace CookApps.AutoBattler
         private void PopulateBuildList()
         {
             // Clear existing cells (Simple destruction for MVP)
-            foreach (var cell in _cells)
+            foreach (var cell in cells)
             {
                 Destroy(cell.gameObject);
             }
-            _cells.Clear();
+            cells.Clear();
 
             // Load Build Infos
             var buildInfos = SpecDataManager.Instance.ElpisBuildInfo.All;
-            var commandCenter = _dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+            var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             int commandCenterLv = (int)commandCenter.Level;
 
             foreach (var info in buildInfos)
             {
                 // Instantiate Cell
-                var cell = Instantiate(_cellPrefab, contentRoot);
+                var cell = Instantiate(cellPrefab, contentRoot);
 
                 // Determine State
                 bool isInstalled = HasFacility(info.bulid_id);
@@ -89,7 +104,7 @@ namespace CookApps.AutoBattler
                 bool canAfford = true; // TODO: Check actual resources
 
                 cell.SetData(info, isLocked, isInstalled, canAfford, OnInstallRequested);
-                _cells.Add(cell);
+                cells.Add(cell);
             }
         }
 
@@ -100,7 +115,7 @@ namespace CookApps.AutoBattler
             // Bridge에 Spec ID(build_id string or unique int)로 체크하는 기능이 없다면,
             // GetAllFacilities()로 순회해야 함.
 
-            var facilities = _dataBridge.GetAllFacilities();
+            var facilities = dataBridge.GetAllFacilities();
             // ElpisFacility에는 DataId(String) 또는 similar field가 있을 것. 
             // 여기서는 간단히 구현하고 추후 수정.
             // return facilities.Any(f => f.DataId == buildId.ToString()); 
@@ -144,7 +159,7 @@ namespace CookApps.AutoBattler
             }
 
             // NetManager 호출
-            var result = await NetManager.Instance.Elpis.BuildFacilityAsync(facilityType, 0, 0);
+            var result = await NetManager.Instance.Elpis.BuildFacilityAsync(facilityType, targetSlotIndex, 0);
 
             if (result != null && result.IsSuccess)
             {
