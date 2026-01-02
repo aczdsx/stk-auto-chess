@@ -140,9 +140,7 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
                 characterControllers[0].CurrentTile);
 
             var damage = owner.CalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate, character, codeId, true);
-            // var damage = owner.PrecalculateDamageAmount(owner.AD * 0, owner.AP * calculatedDamageRate,
-            //     character, codeId, true);
-            // owner.PostCalculateDamageAmount(ref damage, character);
+
             character.GetDamaged(damage, owner);
 
             // 주변 타겟
