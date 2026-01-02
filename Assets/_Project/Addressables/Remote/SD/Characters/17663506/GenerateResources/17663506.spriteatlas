@@ -45,16 +45,182 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
+    - {fileID: 102900000, guid: a5b322fe5b1f8284797abbc5a3d4c0c1, type: 3}
     - {fileID: 102900000, guid: dc8fd69067dc0c34b9b23aa257ec53ad, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
+    - 0daeabc0b87549040943fb757fa49525: 21300000
+    - 135c20f09a6cb7c469cc3728a8c96b0b: 21300000
+    - 560c87f04a7d62644b17b8001ea33597: 21300000
+    - 8f5be2119d6be3748aa861db6a954f94: 21300000
+    - 535dad21eb999bf4c80417253eba12d6: 21300000
+    - 2f259be10e249e74a9670dccfbb2bb72: 21300000
+    - c2e09342235d1d246b4ca224f45f5d55: 21300000
+    - a8036d62ba12928459b95ee908aa6a3e: 21300000
+    - 7a035703ca0a311479bd44a112c41b81: 21300000
+    - a8b2e51346bd2f44da44c65342986096: 21300000
+    - f8c16273c11b3dc4b85d329c7d5564a7: 21300000
+    - b44fe6a3fbb29204a810c5ae5a4ce6d4: 21300000
+    - 0882d1f3640fea74c987cf9440cf1602: 21300000
+    - 0d1e6324e4fd23c428bc125e394f1c0d: 21300000
+    - f727cf7464b82534fb53527b648cb849: 21300000
+    - 665480f4ab251d947a822faefc0f47a5: 21300000
+    - 0af69055749a8944fa793e646bd55f03: 21300000
+    - 77553b55fc9f3e7499caa81cbe47d5a5: 21300000
+    - 5d62c9853fd327a448d579057b400169: 21300000
+    - 5857e9f5fc5d97c41b8389751dfb84a2: 21300000
+    - 5ad7a70673f732741a9222284303c291: 21300000
+    - 49f9373648524814a957fab4244655ec: 21300000
+    - 530f9be619e7f1643b359329a9522abc: 21300000
+    - 95dd7827eabea7249a0bbcd3ca8d4932: 21300000
+    - 0bdd9447718fdd14b960440e0453b932: 21300000
+    - 954224572767de647816b8df5a75ca29: 21300000
+    - 3d7d7b67f063e5c45965c8b43626a086: 21300000
+    - fd7b68777afd90946a5b881113f21fba: 21300000
+    - b3530528e1c4b4f48aca7fc69120c8f9: 21300000
+    - 122068481eb19d142868b40223a5e75c: 21300000
+    - a37c99b8db7eb7a4aad222a9352a78f4: 21300000
+    - ea3b1569766934b438cfcfe0b5e054b1: 21300000
+    - a5a12f99098e17248a151220e56836e8: 21300000
+    - d3b8bbd9712202144b0302cda059da84: 21300000
+    - 83fe541af3a2c9140aa3194276fa86a9: 21300000
+    - 6eb9984be28b55d45a57b6e72fbcef54: 21300000
+    - 83b5e65b51c659d4aa170833dd78806d: 21300000
+    - a12f138b564b77c489bf44cba1412076: 21300000
+    - d11a739bda131514fa649e87ae1f3851: 21300000
+    - 2a5b57bb73f92704488566d16c1737ae: 21300000
+    - f8efc60c1c9f61b4db4fcba3dac6afa2: 21300000
+    - 0a4d517c4aee4664087aba30b17339ee: 21300000
+    - 928bd08c16e9c68409849acc86d8addc: 21300000
+    - 08866c8c8c8048f4b88b5a068ff8a14e: 21300000
+    - 1407a8ac32810764dbb8c3a18fdfd21a: 21300000
+    - 0fbe82fce35843e41bb004e81496ab3d: 21300000
+    - f125d4fcf91464f40a4bb118e1f89d43: 21300000
+    - 3322589d071bbf046a433715b3c91fab: 21300000
+    - bb67b42ef8046aa4aa224be0a8041e98: 21300000
+    - b043af2ebb6f30f46ad689a46fd3a3fc: 21300000
+    - 11d0e03e8e24a814981666a98fcfeda0: 21300000
+    - b501824e5ba572f44bffc4cd639e8236: 21300000
+    - 5b610fde824d8f94788dbc652ae02149: 21300000
+    - 8b3ae22f220f33e42b8dd960aac8f543: 21300000
+    - 4f08c04f3571f0d4d87c97685d335c98: 21300000
     - 03487d5faf9e9af4883d486bc196821e: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 0daeabc0b87549040943fb757fa49525, type: 3}
+  - {fileID: 21300000, guid: 135c20f09a6cb7c469cc3728a8c96b0b, type: 3}
+  - {fileID: 21300000, guid: 560c87f04a7d62644b17b8001ea33597, type: 3}
+  - {fileID: 21300000, guid: 8f5be2119d6be3748aa861db6a954f94, type: 3}
+  - {fileID: 21300000, guid: 535dad21eb999bf4c80417253eba12d6, type: 3}
+  - {fileID: 21300000, guid: 2f259be10e249e74a9670dccfbb2bb72, type: 3}
+  - {fileID: 21300000, guid: c2e09342235d1d246b4ca224f45f5d55, type: 3}
+  - {fileID: 21300000, guid: a8036d62ba12928459b95ee908aa6a3e, type: 3}
+  - {fileID: 21300000, guid: 7a035703ca0a311479bd44a112c41b81, type: 3}
+  - {fileID: 21300000, guid: a8b2e51346bd2f44da44c65342986096, type: 3}
+  - {fileID: 21300000, guid: f8c16273c11b3dc4b85d329c7d5564a7, type: 3}
+  - {fileID: 21300000, guid: b44fe6a3fbb29204a810c5ae5a4ce6d4, type: 3}
+  - {fileID: 21300000, guid: 0882d1f3640fea74c987cf9440cf1602, type: 3}
+  - {fileID: 21300000, guid: 0d1e6324e4fd23c428bc125e394f1c0d, type: 3}
+  - {fileID: 21300000, guid: f727cf7464b82534fb53527b648cb849, type: 3}
+  - {fileID: 21300000, guid: 665480f4ab251d947a822faefc0f47a5, type: 3}
+  - {fileID: 21300000, guid: 0af69055749a8944fa793e646bd55f03, type: 3}
+  - {fileID: 21300000, guid: 77553b55fc9f3e7499caa81cbe47d5a5, type: 3}
+  - {fileID: 21300000, guid: 5d62c9853fd327a448d579057b400169, type: 3}
+  - {fileID: 21300000, guid: 5857e9f5fc5d97c41b8389751dfb84a2, type: 3}
+  - {fileID: 21300000, guid: 5ad7a70673f732741a9222284303c291, type: 3}
+  - {fileID: 21300000, guid: 49f9373648524814a957fab4244655ec, type: 3}
+  - {fileID: 21300000, guid: 530f9be619e7f1643b359329a9522abc, type: 3}
+  - {fileID: 21300000, guid: 95dd7827eabea7249a0bbcd3ca8d4932, type: 3}
+  - {fileID: 21300000, guid: 0bdd9447718fdd14b960440e0453b932, type: 3}
+  - {fileID: 21300000, guid: 954224572767de647816b8df5a75ca29, type: 3}
+  - {fileID: 21300000, guid: 3d7d7b67f063e5c45965c8b43626a086, type: 3}
+  - {fileID: 21300000, guid: fd7b68777afd90946a5b881113f21fba, type: 3}
+  - {fileID: 21300000, guid: b3530528e1c4b4f48aca7fc69120c8f9, type: 3}
+  - {fileID: 21300000, guid: 122068481eb19d142868b40223a5e75c, type: 3}
+  - {fileID: 21300000, guid: a37c99b8db7eb7a4aad222a9352a78f4, type: 3}
+  - {fileID: 21300000, guid: ea3b1569766934b438cfcfe0b5e054b1, type: 3}
+  - {fileID: 21300000, guid: a5a12f99098e17248a151220e56836e8, type: 3}
+  - {fileID: 21300000, guid: d3b8bbd9712202144b0302cda059da84, type: 3}
+  - {fileID: 21300000, guid: 83fe541af3a2c9140aa3194276fa86a9, type: 3}
+  - {fileID: 21300000, guid: 6eb9984be28b55d45a57b6e72fbcef54, type: 3}
+  - {fileID: 21300000, guid: 83b5e65b51c659d4aa170833dd78806d, type: 3}
+  - {fileID: 21300000, guid: a12f138b564b77c489bf44cba1412076, type: 3}
+  - {fileID: 21300000, guid: d11a739bda131514fa649e87ae1f3851, type: 3}
+  - {fileID: 21300000, guid: 2a5b57bb73f92704488566d16c1737ae, type: 3}
+  - {fileID: 21300000, guid: f8efc60c1c9f61b4db4fcba3dac6afa2, type: 3}
+  - {fileID: 21300000, guid: 0a4d517c4aee4664087aba30b17339ee, type: 3}
+  - {fileID: 21300000, guid: 928bd08c16e9c68409849acc86d8addc, type: 3}
+  - {fileID: 21300000, guid: 08866c8c8c8048f4b88b5a068ff8a14e, type: 3}
+  - {fileID: 21300000, guid: 1407a8ac32810764dbb8c3a18fdfd21a, type: 3}
+  - {fileID: 21300000, guid: 0fbe82fce35843e41bb004e81496ab3d, type: 3}
+  - {fileID: 21300000, guid: f125d4fcf91464f40a4bb118e1f89d43, type: 3}
+  - {fileID: 21300000, guid: 3322589d071bbf046a433715b3c91fab, type: 3}
+  - {fileID: 21300000, guid: bb67b42ef8046aa4aa224be0a8041e98, type: 3}
+  - {fileID: 21300000, guid: b043af2ebb6f30f46ad689a46fd3a3fc, type: 3}
+  - {fileID: 21300000, guid: 11d0e03e8e24a814981666a98fcfeda0, type: 3}
+  - {fileID: 21300000, guid: b501824e5ba572f44bffc4cd639e8236, type: 3}
+  - {fileID: 21300000, guid: 5b610fde824d8f94788dbc652ae02149, type: 3}
+  - {fileID: 21300000, guid: 8b3ae22f220f33e42b8dd960aac8f543, type: 3}
+  - {fileID: 21300000, guid: 4f08c04f3571f0d4d87c97685d335c98, type: 3}
   - {fileID: 21300000, guid: 03487d5faf9e9af4883d486bc196821e, type: 3}
   m_PackedSpriteNamesToIndex:
+  - SR_Shirayuki_F_dead
+  - SR_Shirayuki_B_skl7
+  - SR_Shirayuki_B_atk4
+  - SR_Shirayuki_B_move5
+  - SR_Shirayuki_B_move3
+  - SR_Shirayuki_B_move4
+  - SR_Shirayuki_B_skl8
+  - SR_Shirayuki_F_atk4
+  - SR_Shirayuki_B_atk5
+  - SR_Shirayuki_B_atk1
+  - SR_Shirayuki_B_skl9
+  - SR_Shirayuki_B_skl3
+  - SR_Shirayuki_F_atk8
+  - SR_Shirayuki_F_move1
+  - SR_Shirayuki_F_atk7
+  - SR_Shirayuki_F_skl12
+  - SR_Shirayuki_F_atk6
+  - SR_Shirayuki_B_atk2
+  - SR_Shirayuki_B_dead
+  - SR_Shirayuki_F_skl5
+  - SR_Shirayuki_B_move1
+  - SR_Shirayuki_B_skl5
+  - SR_Shirayuki_B_move2
+  - SR_Shirayuki_F_atk2
+  - SR_Shirayuki_F_move2
+  - SR_Shirayuki_F_skl8
+  - SR_Shirayuki_F_atk5
+  - SR_Shirayuki_B_skl1
+  - SR_Shirayuki_F_skl11
+  - SR_Shirayuki_F_skl3
+  - SR_Shirayuki_B_atk3
+  - SR_Shirayuki_B_skl4
+  - SR_Shirayuki_F_skl1
+  - SR_Shirayuki_B_skl6
+  - SR_Shirayuki_F_skl6
+  - SR_Shirayuki_F_move3
+  - SR_Shirayuki_F_skl9
+  - SR_Shirayuki_F_skl2
+  - SR_Shirayuki_F_move4
+  - SR_Shirayuki_B_atk6
+  - SR_Shirayuki_B_skl10
+  - SR_Shirayuki_F_atk3
+  - SR_Shirayuki_B_skl2
+  - SR_Shirayuki_F_skl4
+  - SR_Shirayuki_F_atk1
+  - SR_Shirayuki_B_atk8
+  - SR_Shirayuki_F_move6
+  - SR_Shirayuki_B_atk7
+  - SR_Shirayuki_F_skl7
+  - SR_Shirayuki_F_move5
+  - 17663506_B_idle1
+  - SR_Shirayuki_B_skl11
+  - SR_Shirayuki_B_skl12
+  - SR_Shirayuki_F_skl10
+  - SR_Shirayuki_B_move6
   - 17663506_F_idle1
   m_RenderDataMap: {}
   m_Tag: 17663506

@@ -130,6 +130,7 @@ namespace CookApps.BattleSystem
         CoolTimeUp,
         TargetImpossible,
         Immune,
+        AvoidProbUp,
         AttackDown = 1000,
         DefenceDown,
         CoolTimeDown,

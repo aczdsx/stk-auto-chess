@@ -96,6 +96,7 @@ namespace CookApps.AutoBattler
         BUFF_NORMAL_ATTACK_SHIELD = 2000000022,
         BUFF_AD_REDUCE_UP = 2000000023,
         BUFF_AD_REDUCE_PERCENT_UP = 2000000024,
+        BUFF_AVOID_PROB_PERCENT_UP = 2000000025,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -552,6 +553,8 @@ namespace CookApps.AutoBattler
         fx_common_asterism_ts_shield_01 = 225,
         fx_common_asterism_ts_stimpack_01 = 226,
         Skill_17553404 = 227,
+        Skill_17563405 = 228,
+        Skill_17663506 = 229,
     }
 
     public enum GlobalEffectProviderType
