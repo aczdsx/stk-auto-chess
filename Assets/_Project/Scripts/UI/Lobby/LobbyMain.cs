@@ -27,11 +27,16 @@ namespace CookApps.AutoBattler
 
     public partial class LobbyMain : UILayer
     {
-        [SerializeField] private CAButton _playButton;
+        [SerializeField] private CAButton battleButton;
+        [SerializeField] private CAButton dungeonButton;
+        [SerializeField] private CAButton characterButton;
+        [SerializeField] private CAButton hubbleButton;
+        [SerializeField] private CAButton shopButton;
+        [SerializeField] private CAButton summonButton;
+        [SerializeField] private CAButton eventButton;
+        [SerializeField] private CAButton inventoryButton;
         
-        private List<LobbyBottomStageSlot> _stageSlotList = new();
-
-        private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
+        private List<LobbyBottomStageSlot> stageSlotList = new();
 
         private bool _isIdleRewardFullState = false;
         private ElpisDataBridge elpisDataBridge;
@@ -45,12 +50,44 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _playButton
+            battleButton
                 .OnClickAsObservable()
-                .SubscribeAwait(this,
-                    (_, self, _) =>
-                        self.OnClickStartButtonAsync(),
-                    AwaitOperation.Drop)
+                .Subscribe(this, (_, self) => self.OnClickStartButton().Forget())
+                .AddTo(this);
+
+            dungeonButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickDungeonButton())
+                .AddTo(this);
+
+            characterButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickCharacterButton())
+                .AddTo(this);
+
+            hubbleButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickHubbleButton())
+                .AddTo(this);
+
+            shopButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickShopButton())
+                .AddTo(this);
+
+            summonButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickSummonButton())
+                .AddTo(this);
+
+            eventButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickEventButton())
+                .AddTo(this);
+
+            inventoryButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickInventoryButton())
                 .AddTo(this);
         }
 
@@ -75,12 +112,47 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
         }
 
-        private async UniTask OnClickStartButtonAsync()
+        private async UniTask OnClickStartButton()
         {
-            SceneTransition.Create<SceneTransition_Animator>();
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
             var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
             SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
+        }
+
+        private void OnClickDungeonButton()
+        {
+            // TODO: 던전 버튼 클릭 처리
+        }
+
+        private void OnClickCharacterButton()
+        {
+            // TODO: 캐릭터 버튼 클릭 처리
+        }
+
+        private void OnClickHubbleButton()
+        {
+            // TODO: 허블 버튼 클릭 처리
+        }
+
+        private void OnClickShopButton()
+        {
+            // TODO: 상점 버튼 클릭 처리
+        }
+
+        private void OnClickSummonButton()
+        {
+            // TODO: 소환 버튼 클릭 처리
+        }
+
+        private void OnClickEventButton()
+        {
+            // TODO: 이벤트 버튼 클릭 처리
+        }
+
+        private void OnClickInventoryButton()
+        {
+            // TODO: 인벤토리 버튼 클릭 처리
         }
     }
 }

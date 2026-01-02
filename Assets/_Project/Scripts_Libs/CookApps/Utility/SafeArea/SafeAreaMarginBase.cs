@@ -6,6 +6,8 @@ namespace CookApps.TeamBattle.Utility
     [RequireComponent(typeof(RectTransform))]
     public abstract class SafeAreaMarginBase : MonoBehaviour
     {
+        [SerializeField] private bool extend;
+
         private RectTransform rectTr;
         private CanvasScaler canvasScaler;
         private RectTransform canvasScalerRectTr;
@@ -16,6 +18,8 @@ namespace CookApps.TeamBattle.Utility
         protected RectTransform RectTr => rectTr;
         protected Vector2 OriginSizeDelta => originSizeDelta;
         protected Vector2 OriginAnchoredPosition => originAnchoredPosition;
+        public bool IsExtend => extend;
+        protected bool Extend => extend;
 
         protected abstract float? StoredMargin { get; set; }
         protected abstract Rect ProcessedSafeArea { get; set; }

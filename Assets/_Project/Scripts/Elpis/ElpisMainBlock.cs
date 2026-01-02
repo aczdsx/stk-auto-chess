@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             {
                 if (loadedHandle.IsValid())
                     return;
-                
+
                 loadedHandle = assetRef.InstantiateAsync();
                 await loadedHandle.WaitUntilDone();
                 if (!loadedHandle.IsValid())
@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
                 SubBlock = loadedHandle.Result.GetComponent<ElpisSubBlock>();
                 SubBlock.CachedTr.rotation = rotation;
             }
-            
+
             public void UnloadAddressable()
             {
                 if (loadedHandle.IsValid())
@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
                     SubBlock = null;
                 }
             }
-            
+
             public async UniTask MoveBlock(ElpisDummyBlock dummyBlock, bool withAnimation)
             {
                 if (!withAnimation)
@@ -94,10 +94,10 @@ namespace CookApps.AutoBattler
 
             var dummyBlock = index < dummySubBlocks.Length ? dummySubBlocks[index] : null;
             await subBlockInfos[index].MoveBlock(dummyBlock, withAnimation);
-            
+
             elevatorLinks[index].ActivateElevator();
         }
-        
+
         public void ReleaseSubBlocks()
         {
             for (var i = 0; i < subBlockInfos.Length; i++)
@@ -105,7 +105,7 @@ namespace CookApps.AutoBattler
                 subBlockInfos[i].UnloadAddressable();
             }
         }
-        
+
         public void RebuildNavMesh()
         {
             navMeshSurface.BuildNavMesh();

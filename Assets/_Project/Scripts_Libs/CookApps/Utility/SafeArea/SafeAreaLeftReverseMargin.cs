@@ -21,8 +21,15 @@ namespace CookApps.TeamBattle.Utility
 
         protected override void ApplyMargin(float margin)
         {
-            RectTr.sizeDelta = OriginSizeDelta + new Vector2(margin, 0f);
-            RectTr.anchoredPosition = OriginAnchoredPosition + new Vector2(margin * (RectTr.pivot.x - 1f), 0f);
+            if (Extend)
+            {
+                RectTr.sizeDelta = OriginSizeDelta + new Vector2(margin, 0f);
+                RectTr.anchoredPosition = OriginAnchoredPosition + new Vector2(margin * (RectTr.pivot.x - 1f), 0f);
+            }
+            else
+            {
+                RectTr.anchoredPosition = OriginAnchoredPosition - new Vector2(margin, 0f);
+            }
         }
     }
 }

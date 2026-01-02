@@ -4,16 +4,12 @@ namespace CookApps.TeamBattle.Utility
 {
     public class SafeAreaTopMargin : SafeAreaMarginBase
     {
-        [SerializeField] private bool extend;
-
         private static float? marginTop;
         private static Rect processedSafeArea;
         private static Vector2 processedResolution;
         private static bool hasProcessed;
 
         public static float MarginTop => marginTop ?? 0;
-
-        public bool IsExtend => extend;
 
         protected override float? StoredMargin { get => marginTop; set => marginTop = value; }
         protected override Rect ProcessedSafeArea { get => processedSafeArea; set => processedSafeArea = value; }
@@ -26,7 +22,7 @@ namespace CookApps.TeamBattle.Utility
         protected override void ApplyMargin(float margin)
         {
             // WARNING! scale이 변경되었을 경우(by self or parent) 로직 수정 필요
-            if (extend)
+            if (Extend)
             {
                 RectTr.sizeDelta = OriginSizeDelta + new Vector2(0f, margin);
                 RectTr.anchoredPosition = OriginAnchoredPosition - new Vector2(0f, margin * (1f - RectTr.pivot.y));

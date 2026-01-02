@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 8765056347031514835}
   - component: {fileID: 1499690544028212245}
   m_Layer: 5
-  m_Name: TransitionAnimationPrefab
+  m_Name: AnimateTransition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,11 +320,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2438072062744952223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f666ef0c848fede4382c993c6aba4c18, type: 3}
+  m_Script: {fileID: 11500000, guid: b3c9589593424ba887cd68ea239ba1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1499690544028212245}
   _rawImage: {fileID: 3424889710767284691}
-  _mat: {fileID: 2100000, guid: 3e9d01cf0df388b4b949f5e1db7b7d29, type: 2}
   _radiusPropertyName: _CircleRadius
   _radiusValue: 0
   _colorPropertyName: _DotColor

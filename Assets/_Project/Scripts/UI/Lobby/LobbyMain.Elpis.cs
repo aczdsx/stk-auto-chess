@@ -14,8 +14,8 @@ namespace CookApps.AutoBattler
         public ElpisMainBlock MainBlock { get; private set; }
         private AsyncOperationHandle<GameObject> elpisMainBlockHandle;
         private AsyncOperationHandle<GameObject> elpisBgHandle;
-        private List<AsyncOperationHandle<GameObject>> characterHandles = new ();
-        
+        private List<AsyncOperationHandle<GameObject>> characterHandles = new();
+
         private async UniTask LoadElpis()
         {
             await NetManager.Instance.WaitForElpisInitializationAsync();
@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
                 .AddTo(this);
             MainBlock.RebuildNavMesh();
         }
-        
+
         public void UnloadElpis()
         {
             elpisMainBlockHandle.Release();
@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
             }
             characterHandles.Clear();
         }
-        
+
         private async UniTask OnFacilityLevelChanged(FacilityChangeInfo info)
         {
             // 함선 렙업 확장 연출
