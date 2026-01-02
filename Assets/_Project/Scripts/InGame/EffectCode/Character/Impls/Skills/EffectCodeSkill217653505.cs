@@ -9,8 +9,10 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 엔키
-// 대상 : 아군 전체
-// 효과 : 아군 전체의 체력을 엔키 공격력 {0}%만큼 회복시키고 {1}초 동안 공격 속도를 {2}% 만큼 증가시킨다.
+/// 대상 : 아군 전체
+/// 효과 : 
+/// 큰 물결을 일으켜 아군을 엔키의 치유력 {1}% 만큼 치유하고, 
+/// {2}초간 지속되는 {3}%위력의 지속 회복을 부여합니다.
 /// </summary>
 [UseEffectCodeIds(217653505)]
 public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
