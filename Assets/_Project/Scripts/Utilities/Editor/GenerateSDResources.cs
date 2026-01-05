@@ -195,7 +195,7 @@ public static class GenerateSDResources
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = sprites.Count > 8f ? sprites.Count : 8f;
+        animationClip.frameRate = 8f;
         if (actionName == "IDLE" || actionName == "MOVE")
         {
             animationClip.wrapMode = WrapMode.Loop;
@@ -251,7 +251,7 @@ public static class GenerateSDResources
             AnimationEvent attackEvent = new AnimationEvent();
             attackEvent.functionName = "InvokeAnimationEvent";
             attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
-            attackEvent.time = 1f / animationClip.frameRate; // 2번째 프레임 (프레임 인덱스 1)
+            attackEvent.time = 2f / animationClip.frameRate; // 2번째 프레임 (프레임 인덱스 1)
             animationEvents.Add(attackEvent);
         }
 
@@ -547,6 +547,101 @@ public static class GenerateSDResources
 
         Debug.Log(isNewAtlas ? "[Success] Sprite Atlas Created" : "[Success] Sprite Atlas Updated");
         return spriteAtlas;
+    }
+
+    /// <summary>
+    /// SD 폴더 내 모든 애니메이션 파일의 frameRate와 ATK 이벤트를 일괄 수정합니다.
+    /// - frameRate: 8 (스프라이트 개수가 8보다 크면 스프라이트 개수)
+    /// - ATK 이벤트: 2번째 프레임 (프레임 인덱스 1)
+    /// </summary>
+    [MenuItem("CookApps/SD Resources/Update All Animation Settings")]
+    public static void UpdateAllAnimationSettings()
+    {
+        const float TARGET_FRAME_RATE = 8f;
+        
+        string[] guids = AssetDatabase.FindAssets("t:AnimationClip", new[] { ResourcePath.SD_PATH });
+        int totalCount = guids.Length;
+        int modifiedCount = 0;
+
+        EditorUtility.DisplayProgressBar("Updating Animations", "Processing...", 0f);
+
+        try
+        {
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
+
+                if (clip == null)
+                    continue;
+
+                bool modified = false;
+
+                // frameRate 확인 및 수정
+                // 스프라이트 개수 확인 (키프레임 개수로 추정)
+                var bindings = AnimationUtility.GetObjectReferenceCurveBindings(clip);
+                int spriteCount = 0;
+                foreach (var binding in bindings)
+                {
+                    if (binding.propertyName == "m_Sprite")
+                    {
+                        var keyframes = AnimationUtility.GetObjectReferenceCurve(clip, binding);
+                        spriteCount = keyframes?.Length ?? 0;
+                        break;
+                    }
+                }
+
+                float targetRate = TARGET_FRAME_RATE;
+                if (!Mathf.Approximately(clip.frameRate, targetRate))
+                {
+                    clip.frameRate = targetRate;
+                    modified = true;
+                }
+
+                // ATK 애니메이션 이벤트 수정
+                if (clip.name.Contains("ATK"))
+                {
+                    var events = AnimationUtility.GetAnimationEvents(clip);
+                    bool eventModified = false;
+
+                    for (int j = 0; j < events.Length; j++)
+                    {
+                        if (events[j].intParameter == (int)AnimationEventKey.Execute1Per1)
+                        {
+                            float targetTime = 2f / clip.frameRate; // 2번째 프레임 (인덱스 1)
+                            if (!Mathf.Approximately(events[j].time, targetTime))
+                            {
+                                events[j].time = targetTime;
+                                eventModified = true;
+                            }
+                        }
+                    }
+
+                    if (eventModified)
+                    {
+                        AnimationUtility.SetAnimationEvents(clip, events);
+                        modified = true;
+                    }
+                }
+
+                if (modified)
+                {
+                    EditorUtility.SetDirty(clip);
+                    modifiedCount++;
+                }
+
+                EditorUtility.DisplayProgressBar("Updating Animations", $"Processing {i + 1}/{totalCount}...", (float)(i + 1) / totalCount);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+        finally
+        {
+            EditorUtility.ClearProgressBar();
+        }
+
+        Debug.Log($"[UpdateAllAnimationSettings] 완료: {modifiedCount}/{totalCount} 애니메이션 수정됨");
     }
 }
 #endif
