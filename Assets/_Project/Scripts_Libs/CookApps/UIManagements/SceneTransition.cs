@@ -5,7 +5,7 @@ namespace CookApps.TeamBattle.UIManagements
 {
     public static class SceneTransition
     {
-        public static bool IsFadeProcessing { get; set; }
+        public static bool IsFadeProcessing { get; private set; }
         // Static current transition for easy access
         private static SceneTransitionBase Current { get; set; }
 

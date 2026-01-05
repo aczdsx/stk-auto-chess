@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace CookApps.TeamBattle.Utility
 {
     [RequireComponent(typeof(RectTransform))]
     public class SafeArea : MonoBehaviour
     {
-        // private const string SPEC_OPTION_SAFE_AREA_MARGIN_RATIO_KEY = "SAFE_AREA_MARGIN_RATIO";
         [SerializeField] private bool isControlTop = true;
         [SerializeField] private bool isControlBottom = true;
         [SerializeField] private bool isControlLeft = true;
@@ -18,56 +12,37 @@ namespace CookApps.TeamBattle.Utility
 
         private Rect processedSafeArea;
         private Vector2 processedResolution;
+        private RectTransform rectTr;
 
-        private static (float left, float right, float top, float bottom) marginRatio;
         public static (float left, float right, float top, float bottom) MarginRatio
         {
             get
             {
-                if (!Mathf.Approximately(marginRatio.left, 0f))
-                    return marginRatio;
-
-                // var specData = SpecDataManager.Instance.GetOptionData(SPEC_OPTION_SAFE_AREA_MARGIN_RATIO_KEY);
-                // List<float> specList = null;
-                // if (specData != null)
-                // {
-                //     specList = specData
-                //         .Split(new[] { '|' })
-                //         .Select(x =>
-                //         {
-                //             if (!float.TryParse(x, out var margin))
-                //                 margin = 0f;
-                //             return margin;
-                //         })
-                //         .ToList();
-                // }
-                //
-                // if (specList?.Count == 4)
-                // {
-                //     marginRatio.left = specList[0];
-                //     marginRatio.right = specList[1];
-                //     marginRatio.top = specList[2];
-                //     marginRatio.bottom = specList[3];
-                // }
-                // else
+                var settings = SafeAreaSettings.Active;
+                if (settings != null)
                 {
-                    marginRatio.left = 1f;
-                    marginRatio.right = 1f;
-                    marginRatio.top = 0.5f;
-                    marginRatio.bottom = 0.5f;
+                    return (settings.left, settings.right, settings.top, settings.bottom);
                 }
 
-                return marginRatio;
+                return (1f, 1f, 1f, 1f);
             }
         }
 
-        private void Awake()
+        private void Start()
         {
-            var rectTr = GetComponent<RectTransform>();
+            rectTr = GetComponent<RectTransform>();
+            Refresh();
+        }
+
+        public void Refresh(bool forceRecalculate = false)
+        {
+            if (rectTr == null)
+                rectTr = GetComponent<RectTransform>();
+
             var safeArea = Screen.safeArea;
             var resolution = Screen.fullScreen ? new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) : new Vector2(Screen.width, Screen.height);
 
-            if (processedSafeArea == safeArea && processedResolution == resolution)
+            if (!forceRecalculate && processedSafeArea == safeArea && processedResolution == resolution)
                 return;
             processedSafeArea = safeArea;
             processedResolution = resolution;

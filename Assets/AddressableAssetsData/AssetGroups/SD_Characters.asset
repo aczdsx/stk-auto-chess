@@ -85,6 +85,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e90ce11b2bfd8d43998c9c52d22be6c
+    m_Address: SD_Characters/17553404
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ee45d98fc76b4523bf4c76127b69263
     m_Address: SD_Characters/15662502
     m_ReadOnly: 0

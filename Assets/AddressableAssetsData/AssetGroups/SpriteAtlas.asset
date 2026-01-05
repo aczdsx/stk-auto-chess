@@ -81,7 +81,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: db8a809bfec51ea408dafb36de49bc67
-    m_Address: SpriteAtlas/UI_Character_IngamePortrait
+    m_Address: SpriteAtlas/Dynamic/UI_Character_IngamePortrait
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

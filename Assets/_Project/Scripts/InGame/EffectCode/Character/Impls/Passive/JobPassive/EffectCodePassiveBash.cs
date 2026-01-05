@@ -52,12 +52,13 @@ namespace CookApps.BattleSystem
         public override void Activate()
         {
             base.Activate();
-            InjectNormalAttackShield();
+            InjectImmuneBuff();
             _isReadyToActivate = false;
             CoolTimeElapsedTime = 0f;
         }
-        private void InjectNormalAttackShield()
+        private void InjectImmuneBuff()
         {
+            owner.ImmuneSuccessFx = InGameVfxNameType.fx_common_job_striker_01;
             Span<double> buffStats = stackalloc double[3];
 
             buffStats.Clear();

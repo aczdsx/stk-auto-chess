@@ -1,57 +1,35 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CookApps.TeamBattle.Utility
 {
-    [RequireComponent(typeof(RectTransform))]
-    public class SafeAreaTopMargin : MonoBehaviour
+    public class SafeAreaTopMargin : SafeAreaMarginBase
     {
-        [SerializeField] private bool extend;
-
         private static float? marginTop;
+        private static Rect processedSafeArea;
+        private static Vector2 processedResolution;
+        private static bool hasProcessed;
+
         public static float MarginTop => marginTop ?? 0;
 
-        public bool IsExtend => extend;
+        protected override float? StoredMargin { get => marginTop; set => marginTop = value; }
+        protected override Rect ProcessedSafeArea { get => processedSafeArea; set => processedSafeArea = value; }
+        protected override Vector2 ProcessedResolution { get => processedResolution; set => processedResolution = value; }
+        protected override bool HasProcessed { get => hasProcessed; set => hasProcessed = value; }
 
-        private void Awake()
+        protected override float ComputeRawMargin(Rect safeArea, Vector2 resolution) => resolution.y - (safeArea.y + safeArea.height);
+        protected override float MarginRatio => SafeArea.MarginRatio.top;
+
+        protected override void ApplyMargin(float margin)
         {
-            var rectTr = GetComponent<RectTransform>();
-            var originSizeDelta = rectTr.sizeDelta;
-            var originAnchoredPosition = rectTr.anchoredPosition;
-            var canvasScaler = GetComponentInParent<CanvasScaler>();
-            var canvasScalerRectTr = canvasScaler.GetComponent<RectTransform>();
-
-            // var isTopAnchored = Mathf.Approximately(cachedRectTr.anchorMin.y, cachedRectTr.anchorMax.y) &&
-            //                     Mathf.Approximately(cachedRectTr.anchorMin.y, 1);
-            // Debug.Assert(isTopAnchored, $"{name} is not top anchored RectTransform");
-            if (marginTop == null)
-            {
-                var safeArea = Screen.safeArea;
-                var resolution = Screen.fullScreen ? new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) : new Vector2(Screen.width, Screen.height);
-
-                marginTop = resolution.y - (safeArea.y + safeArea.height);
-                float resolutionRatio;
-                if (Mathf.Approximately(canvasScalerRectTr.rect.size.x, canvasScaler.referenceResolution.x))
-                {
-                    resolutionRatio = canvasScaler.referenceResolution.x / resolution.x;
-                }
-                else
-                {
-                    resolutionRatio = canvasScaler.referenceResolution.y / resolution.y;
-                }
-
-                marginTop = marginTop * resolutionRatio * SafeArea.MarginRatio.top;
-            }
-
             // WARNING! scale이 변경되었을 경우(by self or parent) 로직 수정 필요
-            if (extend)
+            if (Extend)
             {
-                rectTr.sizeDelta = originSizeDelta + new Vector2(0f, MarginTop);
-                rectTr.anchoredPosition = originAnchoredPosition - new Vector2(0f, MarginTop * (1f - rectTr.pivot.y));
+                RectTr.sizeDelta = OriginSizeDelta + new Vector2(0f, margin);
+                RectTr.anchoredPosition = OriginAnchoredPosition - new Vector2(0f, margin * (1f - RectTr.pivot.y));
             }
             else
             {
-                rectTr.anchoredPosition = originAnchoredPosition - new Vector2(0f, MarginTop);
+                RectTr.anchoredPosition = OriginAnchoredPosition - new Vector2(0f, margin);
             }
         }
     }

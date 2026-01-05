@@ -181,6 +181,8 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.AbilityPowerUp => "", 
                 BuffDebuffType.DefenceUp => "INGAME_UI_BUFF_DEF_UP",
                 BuffDebuffType.ResistanceUp => "INGAME_UI_BUFF_RES_UP",
+                BuffDebuffType.NormalAttackShield => "INGAME_UI_NORMAL_ATTACK_SHIELD_GET",
+                BuffDebuffType.AvoidProbUp => "INGAME_UI_BUFF_AVOID_PROB_UP",
                 // BuffDebuffType.AttackDown => "",
                 BuffDebuffType.ResistanceDown => "INGAME_UI_DEBUFF_RES_DOWN",
                 // BuffDebuffType.AttackSpeedUp => "",
@@ -198,7 +200,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Provocation => "",
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",
-                BuffDebuffType.NormalAttackShield => "INGAME_UI_NORMAL_ATTACK_SHIELD_GET",
+
                 _ => "",
             };
         }

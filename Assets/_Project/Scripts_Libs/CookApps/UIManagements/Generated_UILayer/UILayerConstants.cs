@@ -48,6 +48,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "ShopBannerPopup" => "Prefabs/UI/01_Pops/WindowPopup/ShopBannerPopup.prefab",
                 "SystemConfirmPopup" => "Prefabs/UI/01_Pops/WindowPopup/SystemConfirmPopup.prefab",
                 "ToastSystemPopup" => "Prefabs/UI/01_Pops/WindowPopup/ToastSystemPopup.prefab",
+                "ElpisBuildLayer" => "Prefabs/UI/Building/BuildingMainLayer.prefab",
                 "BattleStatisticsPopup" => "Prefabs/UI/InGame/BattleStatisticsPopup.prefab",
                 "SkillTooltipPopup_1" => "Prefabs/UI/InGame/RightSkillTooltipPopup.prefab",
                 "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",

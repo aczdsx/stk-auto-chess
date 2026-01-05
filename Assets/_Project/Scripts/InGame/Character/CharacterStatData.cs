@@ -109,7 +109,6 @@ namespace CookApps.AutoBattler
             _level = level;
 
             var levelBonusRate = CalculateLevelBonusRate(level);
-
             {
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
                 var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);

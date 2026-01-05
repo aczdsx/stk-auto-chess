@@ -16,23 +16,19 @@ using UnityEngine.UI;
 public static class GenerateSDResources
 {
     private const int DEAD_FRAME_COUNT = 10;
+    private const string LOCK_SUFFIX = "_lock";
 
-    // 제외할 경로 패턴 (이 문자열이 포함된 경로는 생성에서 제외)
-    private static readonly string[] ExcludedPaths =
-    {
-        "Mob/80109003",
-    };
-
+    /// <summary>
+    /// 폴더가 SD 리소스 생성에서 제외되어야 하는지 확인합니다.
+    /// 폴더명 끝에 "_lock" 접미사가 있으면 제외됩니다. (대소문자 구분 없음)
+    ///
+    /// 사용법: 아트 작업자가 수동 작업이 필요한 폴더의 이름을 변경
+    /// 예시: "80109003" → "80109003_lock" (또는 "80109003_Lock", "80109003_LOCK" 등)
+    /// </summary>
     private static bool IsExcludedPath(string path)
     {
-        string normalizedPath = path.Replace("\\", "/");
-        for (var i = 0; i < ExcludedPaths.Length; i++)
-        {
-            if (normalizedPath.Contains(ExcludedPaths[i]))
-                return true;
-        }
-
-        return false;
+        string folderName = new DirectoryInfo(path).Name;
+        return folderName.EndsWith(LOCK_SUFFIX, System.StringComparison.OrdinalIgnoreCase);
     }
 
     public static void CreateAllSDResources()
@@ -199,7 +195,7 @@ public static class GenerateSDResources
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = sprites.Count > 12 ? sprites.Count : 12f;
+        animationClip.frameRate = 8f;
         if (actionName == "IDLE" || actionName == "MOVE")
         {
             animationClip.wrapMode = WrapMode.Loop;
@@ -255,7 +251,7 @@ public static class GenerateSDResources
             AnimationEvent attackEvent = new AnimationEvent();
             attackEvent.functionName = "InvokeAnimationEvent";
             attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
-            attackEvent.time = 0.3f;
+            attackEvent.time = 2f / animationClip.frameRate; // 2번째 프레임 (프레임 인덱스 1)
             animationEvents.Add(attackEvent);
         }
 
@@ -551,6 +547,101 @@ public static class GenerateSDResources
 
         Debug.Log(isNewAtlas ? "[Success] Sprite Atlas Created" : "[Success] Sprite Atlas Updated");
         return spriteAtlas;
+    }
+
+    /// <summary>
+    /// SD 폴더 내 모든 애니메이션 파일의 frameRate와 ATK 이벤트를 일괄 수정합니다.
+    /// - frameRate: 8 (스프라이트 개수가 8보다 크면 스프라이트 개수)
+    /// - ATK 이벤트: 2번째 프레임 (프레임 인덱스 1)
+    /// </summary>
+    [MenuItem("CookApps/SD Resources/Update All Animation Settings")]
+    public static void UpdateAllAnimationSettings()
+    {
+        const float TARGET_FRAME_RATE = 8f;
+        
+        string[] guids = AssetDatabase.FindAssets("t:AnimationClip", new[] { ResourcePath.SD_PATH });
+        int totalCount = guids.Length;
+        int modifiedCount = 0;
+
+        EditorUtility.DisplayProgressBar("Updating Animations", "Processing...", 0f);
+
+        try
+        {
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
+
+                if (clip == null)
+                    continue;
+
+                bool modified = false;
+
+                // frameRate 확인 및 수정
+                // 스프라이트 개수 확인 (키프레임 개수로 추정)
+                var bindings = AnimationUtility.GetObjectReferenceCurveBindings(clip);
+                int spriteCount = 0;
+                foreach (var binding in bindings)
+                {
+                    if (binding.propertyName == "m_Sprite")
+                    {
+                        var keyframes = AnimationUtility.GetObjectReferenceCurve(clip, binding);
+                        spriteCount = keyframes?.Length ?? 0;
+                        break;
+                    }
+                }
+
+                float targetRate = TARGET_FRAME_RATE;
+                if (!Mathf.Approximately(clip.frameRate, targetRate))
+                {
+                    clip.frameRate = targetRate;
+                    modified = true;
+                }
+
+                // ATK 애니메이션 이벤트 수정
+                if (clip.name.Contains("ATK"))
+                {
+                    var events = AnimationUtility.GetAnimationEvents(clip);
+                    bool eventModified = false;
+
+                    for (int j = 0; j < events.Length; j++)
+                    {
+                        if (events[j].intParameter == (int)AnimationEventKey.Execute1Per1)
+                        {
+                            float targetTime = 2f / clip.frameRate; // 2번째 프레임 (인덱스 1)
+                            if (!Mathf.Approximately(events[j].time, targetTime))
+                            {
+                                events[j].time = targetTime;
+                                eventModified = true;
+                            }
+                        }
+                    }
+
+                    if (eventModified)
+                    {
+                        AnimationUtility.SetAnimationEvents(clip, events);
+                        modified = true;
+                    }
+                }
+
+                if (modified)
+                {
+                    EditorUtility.SetDirty(clip);
+                    modifiedCount++;
+                }
+
+                EditorUtility.DisplayProgressBar("Updating Animations", $"Processing {i + 1}/{totalCount}...", (float)(i + 1) / totalCount);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+        finally
+        {
+            EditorUtility.ClearProgressBar();
+        }
+
+        Debug.Log($"[UpdateAllAnimationSettings] 완료: {modifiedCount}/{totalCount} 애니메이션 수정됨");
     }
 }
 #endif

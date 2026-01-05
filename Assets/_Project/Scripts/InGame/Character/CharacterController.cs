@@ -129,6 +129,10 @@ namespace CookApps.BattleSystem
 
         public AllianceType AllianceType => _allianceType;
         public double CurrentHp => _currHp;
+        public InGameVfxNameType ImmuneSuccessFx
+        {
+            set => _immuneSuccessFx = value;
+        }
 
         private HpBarView _hpBarView;
 
@@ -175,6 +179,7 @@ namespace CookApps.BattleSystem
 
         private Vector3 SelectedOffSet;
         private InGameVfx _notFoundTargetFx;
+        private InGameVfxNameType _immuneSuccessFx = InGameVfxNameType.NONE;
 
         //캐릭터가 가지고있는 스탯 확률을 건드리지않고, 반드시 크리티컬 확률을 증가시키고 싶을 때 사용하는 변수
         private float _fixedCriticalProb = 0f;
@@ -895,7 +900,7 @@ namespace CookApps.BattleSystem
                         InGameVfxManager.Instance.RemoveInGameVfx(effectView);
                     }
                 }
-            }
+            }//
         }
 
         public bool HasBuffDebuffType(BuffDebuffType type)
@@ -1037,7 +1042,7 @@ namespace CookApps.BattleSystem
                 return damageInfo;
 
             //회피 테스트 진행
-                ProgressAvoidTest(ref damageInfo, target);
+            ProgressAvoidTest(ref damageInfo, target);
             if (damageInfo.isMissed)
             {
                 //미스 시 데미지 0으로 처리 + 바로 리턴
@@ -1174,7 +1179,7 @@ namespace CookApps.BattleSystem
         /// 대미지를 입힌 후 상태
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
-        public DamageReturnType   GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
+        public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
         bool isFirstDamage = true, string hexColor = null)
         {
             if (!InGameManager.Instance.IsInGameCombat)
@@ -1210,7 +1215,14 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             GetCharacterView().OnHit();
 
-            ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
+            if (!damageInfo.isMissed)
+            {
+                ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
+            }
+            else
+            {
+                ShowNormalText("MISS!!", hexColor).Forget();
+            }
 
             _currHp -= damageAmount.damageAmount.Value;
             Debug.Log($"damageAmount: {damageAmount.damageAmount.Value}, _currHp: {_currHp}");
@@ -1425,6 +1437,7 @@ namespace CookApps.BattleSystem
             await textView.ShowShieldText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
         }
 
+
         public void MoveToCharacter(bool isInRange, CharacterController target)
         {
             if (NeedToBeCrowdControlState())
@@ -1599,6 +1612,14 @@ namespace CookApps.BattleSystem
 
             string convertText = LanguageManager.Instance.GetLanguageText(token);
             await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
+        }
+        
+        public void ShowImmuneSuccessFx()
+        {
+            if (_immuneSuccessFx == InGameVfxNameType.NONE)
+                return;
+
+            InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, SkillRootTransformFollowable);
         }
     }
 }

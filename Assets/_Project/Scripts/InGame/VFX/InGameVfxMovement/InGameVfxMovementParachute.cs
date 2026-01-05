@@ -149,7 +149,7 @@ namespace CookApps.BattleSystem
                 ? duration
                 : ((curveData != null && curveData.duration > 0f) ? curveData.duration : 2.0f);
             this.useCustomCurves = curveData != null;
-            this.trackCharacter = (curveData != null && curveData.trackCharacter) && characterController != null;
+            this.trackCharacter = true;
             this.trackingYOffset = curveData != null ? curveData.trackingYOffset : 1.6f;
             InitializeCurves();
             InitializeParachuteData();

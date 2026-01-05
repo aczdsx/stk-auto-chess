@@ -11,6 +11,11 @@ namespace CookApps.TeamBattle.UIManagements
                 return false;
             }
 
+            if (SceneTransition.IsFadeProcessing)
+            {
+                return false;
+            }
+
             if (isSceneChanging)
             {
                 return false;

@@ -1,6 +1,0 @@
-!*.sln
-!*.csproj
-bin/
-obj/
-**/T4/**/*.cs
-!**/T4/**/*_partial.cs

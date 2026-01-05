@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2411182955119440275}
+  - component: {fileID: 3136050774497617358}
   m_Layer: 0
   m_Name: ConstructionArea
   m_TagString: Untagged
@@ -32,6 +33,18 @@ Transform:
   - {fileID: 6452277951401753653}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3136050774497617358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356486583883947358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02e2410ef98645b89242211333d1fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9160169713136624032
 GameObject:
   m_ObjectHideFlags: 0

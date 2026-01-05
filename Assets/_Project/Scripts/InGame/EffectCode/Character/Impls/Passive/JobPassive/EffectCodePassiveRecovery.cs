@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
@@ -38,8 +39,11 @@ namespace CookApps.BattleSystem
 
                 double attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
 
-                double recoveryAmount = attackPower * _recoveryPercentage;
-                recoveryAmount = owner.PostCalculateHealAmount(recoveryAmount, target);
+                double recoveryAmount = CalculateOracleRecoveryAmount(target);
+
+                var effectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
+                recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
+                
                 target.GetHealed(recoveryAmount, owner, codeId, true);
 
                 InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.CurrentTile.View.CachedTr.position);
@@ -57,6 +61,21 @@ namespace CookApps.BattleSystem
             owner.RemoveStateType(typeof(CharacterStateIdle));
 
             base.OnPreRemoved();
+        }
+
+        private double CalculateOracleRecoveryAmount(CharacterController target)
+        {
+            var attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
+            var BaseHealOnHit = attackPower * _recoveryPercentage;
+
+            var HealPowerCaster = owner.SpecCharacter.heal_power;
+            var HealPowerTarget = target.SpecCharacter.heal_power;
+
+            float HealTakenMul = 1f;
+
+            var FinalHealOnHit = BaseHealOnHit * (1 + HealPowerCaster) * (1 + HealPowerTarget) * HealTakenMul;
+
+            return Math.Round(FinalHealOnHit);
         }
 
 

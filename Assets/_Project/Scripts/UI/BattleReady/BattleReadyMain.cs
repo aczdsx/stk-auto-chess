@@ -706,7 +706,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnClickStartButtonAsync(int stageId)
         {
-            SceneTransition.Create<SceneTransition_Animator>();
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
             InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame",

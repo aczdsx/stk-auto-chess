@@ -125,10 +125,12 @@ namespace CookApps.BattleSystem
         ResistanceUp,
         AttackSpeedUp,
         CriticalProbUp,
+        NormalAttackShield,
         Invincibility,
         CoolTimeUp,
         TargetImpossible,
         Immune,
+        AvoidProbUp,
         AttackDown = 1000,
         DefenceDown,
         CoolTimeDown,
@@ -149,7 +151,6 @@ namespace CookApps.BattleSystem
         Silence,
         Airborne,
         Misa,
-        NormalAttackShield,
         MAX
     }
 

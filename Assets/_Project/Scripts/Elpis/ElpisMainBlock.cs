@@ -21,14 +21,16 @@ namespace CookApps.AutoBattler
             [SerializeField] private Vector3 worldPointDest;
             [SerializeField] private Quaternion rotation;
             [SerializeField] private AssetReferenceGameObject assetRef;
+            
             private AsyncOperationHandle<GameObject> loadedHandle;
+
             public ElpisSubBlock SubBlock { get; private set; }
 
             public async UniTask InstantiateAsync()
             {
                 if (loadedHandle.IsValid())
                     return;
-                
+
                 loadedHandle = assetRef.InstantiateAsync();
                 await loadedHandle.WaitUntilDone();
                 if (!loadedHandle.IsValid())
@@ -37,7 +39,7 @@ namespace CookApps.AutoBattler
                 SubBlock = loadedHandle.Result.GetComponent<ElpisSubBlock>();
                 SubBlock.CachedTr.rotation = rotation;
             }
-            
+
             public void UnloadAddressable()
             {
                 if (loadedHandle.IsValid())
@@ -46,7 +48,7 @@ namespace CookApps.AutoBattler
                     SubBlock = null;
                 }
             }
-            
+
             public async UniTask MoveBlock(ElpisDummyBlock dummyBlock, bool withAnimation)
             {
                 if (!withAnimation)
@@ -68,7 +70,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private SubBlockInfo[] subBlockInfos;
         [SerializeField] private NavMeshSurface navMeshSurface;
         [SerializeField] private ElevatorLink[] elevatorLinks;
+        [SerializeField] private ElpisBuildingBase[] elpisBuildings;
 
+        private ElpisBuildingBase[] cachedElpisBuildings;
+        public IReadOnlyList<ElpisBuildingBase> ElpisBuildings => cachedElpisBuildings;
+        
         private void Awake()
         {
             walkPath.layer = LayerMask.NameToLayer("ElpisGround");
@@ -86,18 +92,36 @@ namespace CookApps.AutoBattler
 
         public async UniTask AttachSubBlock(int index, bool withAnimation)
         {
-            var token = destroyCancellationToken;
-            var task = subBlockInfos[index].InstantiateAsync();
-            await task;
-            if (token.IsCancellationRequested)
-                return;
-
             var dummyBlock = index < dummySubBlocks.Length ? dummySubBlocks[index] : null;
             await subBlockInfos[index].MoveBlock(dummyBlock, withAnimation);
-            
+
             elevatorLinks[index].ActivateElevator();
         }
         
+        public async UniTask LoadAllSubBlocks()
+        {
+            var loadTasks = new List<UniTask>();
+            for (var i = 0; i < subBlockInfos.Length; i++)
+            {
+                loadTasks.Add(subBlockInfos[i].InstantiateAsync());
+            }
+
+            await UniTask.WhenAll(loadTasks);
+            
+            var allBuildings = new List<ElpisBuildingBase>(elpisBuildings);
+            allBuildings.AddRange(elpisBuildings);
+            for (var i = 0; i < subBlockInfos.Length; i++)
+            {
+                allBuildings.AddRange(subBlockInfos[i].SubBlock.ElpisBuildings);
+            }
+            
+            cachedElpisBuildings = allBuildings.ToArray();
+            for (var i = 0; i < cachedElpisBuildings.Length; i++)
+            {
+                cachedElpisBuildings[i].Initialize(i);
+            }
+        }
+
         public void ReleaseSubBlocks()
         {
             for (var i = 0; i < subBlockInfos.Length; i++)
@@ -105,7 +129,7 @@ namespace CookApps.AutoBattler
                 subBlockInfos[i].UnloadAddressable();
             }
         }
-        
+
         public void RebuildNavMesh()
         {
             navMeshSurface.BuildNavMesh();

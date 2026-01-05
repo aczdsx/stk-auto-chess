@@ -3,7 +3,6 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
 [UseEffectCodeIds((int)EffectCodeNameType.AVOID_PROB_PERCENT_UP)]
-// [UseEffectCodeIds(27)]
 public partial class EffectCodeStatIncreaseAvoidProbPercent : EffectCodeStatBase
 {
     public override int CalcOrder { get => calcOrder; }

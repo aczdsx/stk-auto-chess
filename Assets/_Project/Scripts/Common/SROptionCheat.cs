@@ -7,7 +7,10 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 [Serializable]
 public partial class SROptions
@@ -546,7 +549,23 @@ public partial class SROptions
     
     ////////////////////////////////////////////////////////////////////////////////////////
     
-    #region 팝업 테스트
+    #region UI 테스트
+    
+    [Category("UI 테스트")]
+    public void SafeArea테스트()
+    {
+        var safeAreas = Object.FindObjectsByType<SafeArea>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (var i = 0; i < safeAreas.Length; i++)
+        {
+            safeAreas[i].Refresh(true);
+        }
+
+        var safeAreaMargins = Object.FindObjectsByType<SafeAreaMarginBase>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (var i = 0; i < safeAreaMargins.Length; i++)
+        {
+            safeAreaMargins[i].Refresh(true);
+        }
+    }
     
     [Category("팝업 테스트")]
     public void 이미지인포팝테스트()
@@ -558,6 +577,7 @@ public partial class SROptions
     }
 
     [Category("팝업 테스트")] public int 다이얼로그아이디 { get; set; } = 0;
+    
     
     #endregion
 

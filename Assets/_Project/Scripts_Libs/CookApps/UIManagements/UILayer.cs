@@ -43,6 +43,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             hasEnterAnimation = baseAnimator.runtimeAnimatorController != null && baseAnimator.HasState(0, EnterAnimationHash);
             hasExitAnimation = baseAnimator.runtimeAnimatorController != null && baseAnimator.HasState(0, ExitAnimationHash);
+            
         }
 
         protected internal virtual void OnPreEnter(object param)
@@ -60,6 +61,7 @@ namespace CookApps.TeamBattle.UIManagements
                 EnterEndCallback -= endCallback;
                 EnterEndCallback += endCallback;
                 baseAnimator.Play(EnterAnimationKey);
+                AddAnimationEventToCurrentClip(EnterAnimationKey);
                 return;
             }
 
@@ -81,6 +83,7 @@ namespace CookApps.TeamBattle.UIManagements
                 ExitEndCallback -= endCallback;
                 ExitEndCallback += endCallback;
                 baseAnimator.Play(ExitAnimationKey);
+                AddAnimationEventToCurrentClip(ExitAnimationKey);
                 return;
             }
 
@@ -115,6 +118,56 @@ namespace CookApps.TeamBattle.UIManagements
                 Action<UILayer> tempAction = ExitEndCallback;
                 ExitEndCallback = null;
                 tempAction?.Invoke(this);
+            }
+        }
+
+        private void AddAnimationEventToCurrentClip(string animationKey)
+        {
+            if (baseAnimator == null)
+            {
+                return;
+            }
+
+            // Play 직후 Update를 호출하여 상태를 갱신
+            baseAnimator.Update(0);
+
+            // 현재 재생 중인 클립 정보 가져오기
+            var clipInfos = baseAnimator.GetCurrentAnimatorClipInfo(0);
+            if (clipInfos.Length == 0)
+            {
+                return;
+            }
+
+            var clip = clipInfos[0].clip;
+            if (clip == null)
+            {
+                return;
+            }
+
+            // 이미 AnimationCompleteHandler 이벤트가 있는지 확인
+            var events = clip.events;
+            bool hasCompleteEvent = false;
+
+            foreach (var evt in events)
+            {
+                if (evt.functionName == nameof(AnimationCompleteHandler) && evt.stringParameter == animationKey)
+                {
+                    hasCompleteEvent = true;
+                    break;
+                }
+            }
+
+            if (!hasCompleteEvent)
+            {
+                // 마지막 프레임에 이벤트 추가
+                var newEvent = new AnimationEvent
+                {
+                    time = clip.length,
+                    functionName = nameof(AnimationCompleteHandler),
+                    stringParameter = animationKey
+                };
+
+                clip.AddEvent(newEvent);
             }
         }
 

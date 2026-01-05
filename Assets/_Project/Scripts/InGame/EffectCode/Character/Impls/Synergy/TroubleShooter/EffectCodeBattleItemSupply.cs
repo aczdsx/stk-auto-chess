@@ -65,16 +65,23 @@ namespace CookApps.BattleSystem
                     effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
                     break;
                 case 1:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_vitamin;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_vitamin;
                     break;
                 case 2:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_emp_bomb;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_emp_bomb;
                     break;
                 case 3:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
                     break;
                 case 4:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_emergency_armor;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
+
+                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_emergency_armor;
                     break;
                 default:
                     break;
@@ -105,7 +112,7 @@ namespace CookApps.BattleSystem
         private void SpawnSupplyVfx(CharacterController targetCharacter, InGameVfxNameType vfxNameType)
         {
             // 시작 위치: 캐릭터 위쪽 높은 위치
-            Vector3 startPos = targetCharacter.Position3D + Vector3.up * 3f;
+            Vector3 startPos = targetCharacter.Position3D + Vector3.up * 10f;
 
             // VFX 생성
             var supplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxNameType, startPos);
@@ -114,7 +121,12 @@ namespace CookApps.BattleSystem
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementParachute>();
 
             // CharacterController를 추적하도록 설정
-            movement.SetData(targetCharacter, startPos, 4.0f);
+            var parachuteCurveData = SoDataProvider.Instance.Get<ParachuteCurveData>();
+            if (parachuteCurveData == null)
+            {
+                Debug.LogError("ParachuteCurveData is null");
+            }
+            movement.SetData(parachuteCurveData, targetCharacter, startPos);
 
             supplyVfx.Initialize(false, movement);
 
@@ -146,6 +158,7 @@ namespace CookApps.BattleSystem
                         damageInfo.damageAmount = targetCharacter.HP * tSData[(int)TroubleshooterSynergyIdx.CHOCOBAR].effect_stat_value_1 * 0.01d;
                         Math.Floor(damageInfo.damageAmount);
                         targetCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_chocolate_01, targetCharacter.Position3D);
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_vitamin:
@@ -155,6 +168,7 @@ namespace CookApps.BattleSystem
                         stats[1] = tSData[(int)TroubleshooterSynergyIdx.VITAMIN].effect_stat_value_1;
                         stats[2] = tSData[(int)TroubleshooterSynergyIdx.VITAMIN].effect_stat_value_2 * 0.01d;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacter, stats, source);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_stimpack_01, targetCharacter.Position3D);
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_emp_bomb:
@@ -180,12 +194,13 @@ namespace CookApps.BattleSystem
                                     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_SILENCE, empBombCharacter, eccStats, source);
                                 }
                             }
-                            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_job_espar_01, targetTile.View.CachedTr.position);
+                            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_emp_01, targetTile.View.CachedTr.position);
                         }
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_energy_drink:
                     {
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_ctdown_01, targetCharacter.Position3D);
                         targetCharacter.AddSkillCooltimeInECC(tSData[(int)TroubleshooterSynergyIdx.ENERGY_DRINK].effect_stat_value_1);
                         break;
                     }
@@ -196,6 +211,7 @@ namespace CookApps.BattleSystem
                         stats[0] = 99999f;
                         stats[1] = targetCharacter.CurrentHp * tSData[(int)TroubleshooterSynergyIdx.EMERGENCY_ARMOR].effect_stat_value_1 * 0.01f;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, targetCharacter, stats, source);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_shield_01, targetCharacter.Position3D);
                         break;
                     }
                 default:

@@ -8,7 +8,6 @@ namespace CookApps.AutoBattler
     [CreateAssetMenu(fileName = "VignetteMaterials", menuName = "ScriptableObjects/VignetteData")]
     public class VignetteSO : ScriptableObject
     {
-        [SerializedDictionary("InGameType", "Stage Colors")]
         public List<MaterialColorPair> stageColors;
     }
 

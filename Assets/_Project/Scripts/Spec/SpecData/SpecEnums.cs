@@ -96,6 +96,7 @@ namespace CookApps.AutoBattler
         BUFF_NORMAL_ATTACK_SHIELD = 2000000022,
         BUFF_AD_REDUCE_UP = 2000000023,
         BUFF_AD_REDUCE_PERCENT_UP = 2000000024,
+        BUFF_AVOID_PROB_PERCENT_UP = 2000000025,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -544,6 +545,16 @@ namespace CookApps.AutoBattler
         fx_common_job_sharpshooter_02 = 217,
         fx_common_job_striker_01 = 218,
         fx_common_asterism_troubleshooter_01 = 219,
+        fx_common_asterism_ts_bomb_01 = 220,
+        fx_common_asterism_ts_bomb_02 = 221,
+        fx_common_asterism_ts_chocolate_01 = 222,
+        fx_common_asterism_ts_ctdown_01 = 223,
+        fx_common_asterism_ts_emp_01 = 224,
+        fx_common_asterism_ts_shield_01 = 225,
+        fx_common_asterism_ts_stimpack_01 = 226,
+        Skill_17553404 = 227,
+        Skill_17563405 = 228,
+        Skill_17663506 = 229,
     }
 
     public enum GlobalEffectProviderType
@@ -784,14 +795,6 @@ namespace CookApps.AutoBattler
         MASK = 4,
     }
 
-    public enum ImmuneType
-    {
-        NORMAL = 0,
-        BOSS = 1,
-        SCARECROW = 2,
-        SPECIAL = 3,
-    }
-
     public enum DialogueSceneType
     {
         Chapter = 0,
@@ -855,5 +858,37 @@ namespace CookApps.AutoBattler
         KNIGHT = 1,
         ELEMENTAL = 2,
         STELLA = 3,
+    }
+
+    public enum ImmuneType
+    {
+        NONE = 0,
+        NORMAL = 1,
+        ELETE = 2,
+        BOSS = 3,
+        SPECIAL = 4,
+        SCARECROW = 5,
+    }
+
+    public enum TutorialTriggerType
+    {
+        GAME_START = 0,
+        CHARACTER_PLACEMENT = 1,
+        CHARACTER_DEAD = 2,
+        ENEMY_DEAD_ALL = 3,
+        MOVE_OBJECT_AFTER = 4,
+        SKILL_READY = 5,
+    }
+
+    public enum TutorialActionType
+    {
+        NONE = 0,
+        CHARACTER_PLACEMENT = 1,
+        TOAST_MESSAGE = 2,
+        FORCED_TOUCH_UI = 3,
+        SPAWN_ENEMY = 4,
+        FOCUS_OBJECT = 5,
+        CLEAR_STAGE = 6,
+        MOVE_OBJECT = 7,
     }
 }
