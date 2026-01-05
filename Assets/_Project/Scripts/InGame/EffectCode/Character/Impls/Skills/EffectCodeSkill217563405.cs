@@ -11,6 +11,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using UnityEngine.Localization.SmartFormat.Utilities;
 
 /// <summary>
 /// 마리에
@@ -125,18 +126,23 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
 
     private CharacterController FindValidTarget()
     {
-        var allTargets = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(owner.AllianceType, false);
+        if (owner == null || owner.CurrentTile == null)
+            return null;
+            
+        var allTargets = InGameObjectManager.Instance?.GetCharacterListSortedByADDescending(owner.AllianceType, false);
+        if (allTargets == null || allTargets.Count == 0)
+            return null;
         
         foreach (var target in allTargets)
         {
-            if (target == null || !target.IsAlive)
+            if (target == null || !target.IsAlive || target.CurrentTile == null)
                 continue;
 
             // 타겟의 뒤로 이동할 타일 찾기
             InGameTile targetBackTile = GetTileBehindTarget(owner.CurrentTile, target.CurrentTile);
             
             // 이동 가능한 타일이 있고 타겟 타일이 아니면 유효한 타겟
-            if (targetBackTile != null && targetBackTile != target.CurrentTile)
+            if (targetBackTile != null && targetBackTile != target.CurrentTile && targetBackTile.OccupiedCharacter == null)
             {
                 return target;
             }
@@ -147,12 +153,18 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
 
     private InGameTile GetTileBehindTarget(InGameTile attackerTile, InGameTile targetTile)
     {
+        if (attackerTile == null || targetTile == null)
+            return null;
+            
         var grid = InGameObjectManager.Instance.InGameGrid;
+        if (grid == null)
+            return null;
         
-        // 바로 뒤 타일(1칸) 찾기
-        InGameTile behindTile = grid.GetTileForKnockBack(targetTile, attackerTile, 1);
+        // 바로 뒤 타일(1칸) 찾기 - 파라미터 순서: (attackerTile, targetTile, count)
+        InGameTile behindTile = grid.GetTileForKnockBack(attackerTile, targetTile, 1);
         
-        // 바로 뒤 타일이 유효하고 타겟 타일이 아니면 반환
+        // GetTileForKnockBack은 차단되면 targetTile을 반환할 수 있으므로 명시적으로 체크
+        // 바로 뒤 타일이 유효하고 타겟 타일이 아니고 비어있으면 반환
         if (behindTile != null && behindTile != targetTile && behindTile.OccupiedCharacter == null)
         {
             return behindTile;
@@ -162,7 +174,10 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
         for (int distance = 1; distance <= 3; distance++)
         {
             var nearbyTiles = grid.GetTileListByManhattanDistance(targetTile, distance);
-            var emptyTile = nearbyTiles.FirstOrDefault(t => t != targetTile && t.OccupiedCharacter == null);
+            if (nearbyTiles == null || nearbyTiles.Count == 0)
+                continue;
+                
+            var emptyTile = nearbyTiles.FirstOrDefault(t => t != null && t != targetTile && t.OccupiedCharacter == null);
             
             if (emptyTile != null)
             {
@@ -187,6 +202,7 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
 
             // 피해 계산 및 적용
             var damage = owner.CalculateDamageAmount(owner.AD * _damageRate, 0, _targetCharacter, codeId, true);
+            damage.damageAmount = Math.Floor(damage.damageAmount.Value);
             _targetCharacter.GetDamaged(damage, owner);
 
             // 표식-아라크네 체크 및 디버프 적용

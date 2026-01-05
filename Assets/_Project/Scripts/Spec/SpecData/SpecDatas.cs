@@ -1067,7 +1067,6 @@ namespace CookApps.AutoBattler
         public int benefit_group;
         public string benefit_desc_token;
         public string benefit_title_token;
-        public int build_group_id;
         /// 건물 유니크 ID
         public int bulid_id;
         public int before_key;
@@ -1084,8 +1083,8 @@ namespace CookApps.AutoBattler
         public int bulid_id;
         /// 건물 프리펩
         public string build_prefab;
-        /// 건물 ID
-        public string build_id;
+        /// 건물 타입
+        public string facility_type;
         /// 그룹 ID
         public int build_group_id;
         /// 건물명
@@ -1096,6 +1095,8 @@ namespace CookApps.AutoBattler
         public int build_lv;
         /// 설치 필요 시간(초)
         public int build_time;
+        /// 슬롯 고유 Num
+        public int slot_index;
         /// 추가 해금 조건(우선 가이드미션)
         public int add_unlock_condition;
         /// 필요 아이템 키

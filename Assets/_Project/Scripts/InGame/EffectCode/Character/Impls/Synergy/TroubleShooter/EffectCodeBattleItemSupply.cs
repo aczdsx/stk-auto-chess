@@ -156,7 +156,7 @@ namespace CookApps.BattleSystem
                     {
                         CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
                         damageInfo.damageAmount = targetCharacter.HP * tSData[(int)TroubleshooterSynergyIdx.CHOCOBAR].effect_stat_value_1 * 0.01d;
-                        Math.Floor(damageInfo.damageAmount);
+                        damageInfo.damageAmount = Math.Floor(damageInfo.damageAmount);
                         targetCharacter.GetHealed(damageInfo.damageAmount, null, codeId);
                         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_chocolate_01, targetCharacter.Position3D);
                         break;

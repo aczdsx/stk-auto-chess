@@ -132,7 +132,8 @@ namespace CookApps.AutoBattler
             // 현재 레벨 이하의 혜택들 중 해당 건물을 해금하는 혜택이 있는지 확인
             foreach (var benefit in benefits)
             {
-                if (benefit.lv <= commandCenterLv && benefit.build_group_id == buildGroupId)
+                // if (benefit.lv <= commandCenterLv && benefit.build_group_id == buildGroupId)
+                if (benefit.lv <= commandCenterLv && benefit.bulid_id == buildGroupId)
                     return true;
             }
             return false;
@@ -152,9 +153,11 @@ namespace CookApps.AutoBattler
             //     return;
             // }
 
-            if (!Enum.TryParse<ElpisFacilityType>(info.build_id, out var facilityType))
+            // if (!Enum.TryParse<ElpisFacilityType>(info.build_id, out var facilityType))
+            if (!Enum.TryParse<ElpisFacilityType>(info.bulid_id.ToString(), out var facilityType))
             {
-                Debug.LogError($"Invalid Facility Type: {info.build_id}");
+                // Debug.LogError($"Invalid Facility Type: {info.build_id}");
+                Debug.LogError($"Invalid Facility Type: {info.bulid_id}");
                 return;
             }
 

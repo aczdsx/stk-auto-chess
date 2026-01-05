@@ -82,14 +82,6 @@ public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
 
     public override void OnUpdate(float dt)
     {
-
-        foreach (var data in _stackDatas)
-        {
-
-        }
-
-
-
         var needRemove = false;
         for (var i = 0; i < _stackDatas.Count; i++)
         {
