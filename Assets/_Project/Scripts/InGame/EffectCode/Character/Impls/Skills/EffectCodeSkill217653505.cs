@@ -129,7 +129,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
             var vfx = InGameVfxManager.Instance.AddInGameVfx(_waveVfxName, startTile.View.CachedTr.position);
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
             movement.SetData(vfx.CachedTr.position, endTile.View.CachedTr.position, 5);
-            vfx.Initialize(true, movement);
+            vfx.Initialize(false, movement);
             vfx.OnCollisionWithTile += OnTrigger2DEnter;
 
             // 목표 지점에 도달하면 VFX 제거
