@@ -55,13 +55,27 @@ namespace CookApps.AutoBattler
 
         private void OnClick()
         {
+            var isBuiltBuilding = facilityData.Level > 0;
             var buildingLayer = SceneUILayerManager.Instance.GetUILayer<ElpisBuildLayer>();
+            if (isBuiltBuilding)
+            {
+                if (buildingLayer != null)
+                {
+                    SceneUILayerManager.Instance.PopUILayer(buildingLayer);
+                }
+                // ElpisBuildingPopup.OpenPopup(facilityData, target.SlotIndex).Forget();
+                return;
+            }
+
+
             if (buildingLayer == null)
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<ElpisBuildLayer>((facilityData, target.SlotIndex)).Forget();
-                return;
             }
-            buildingLayer.SetTargetFacilityData(facilityData, target.SlotIndex);
+            else
+            {
+                buildingLayer.SetTargetFacilityData(facilityData, target.SlotIndex);
+            }
         }
     }
 }

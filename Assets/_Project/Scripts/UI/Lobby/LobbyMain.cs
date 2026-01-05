@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
         REDDOT,
     }
 
-    public partial class LobbyMain : UILayer
+    public partial class LobbyMain : UILayer, TopCurrencyAndMenuBarContainer
     {
         [SerializeField] private CAButton battleButton;
         [SerializeField] private CAButton dungeonButton;
@@ -35,6 +35,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton summonButton;
         [SerializeField] private CAButton eventButton;
         [SerializeField] private CAButton inventoryButton;
+
+        public Transform GetTopCurrencyAndMenuBarParent()
+        {
+            return CachedTr;
+        }
         
         private List<LobbyBottomStageSlot> stageSlotList = new();
 
@@ -103,7 +108,6 @@ namespace CookApps.AutoBattler
         {
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
-            elpisDataBridge = new ElpisDataBridge();
             await LoadElpis();
             
             SceneTransition.FadeOutAsync().Forget();

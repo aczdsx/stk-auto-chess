@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
+    public interface TopCurrencyAndMenuBarContainer
+    {
+        Transform GetTopCurrencyAndMenuBarParent();
+    }
+    
     public class TopCurrencyAndMenuBar : UILayer
     {
         private static int inc;
@@ -25,11 +30,18 @@ namespace CookApps.AutoBattler
         private UILayer targetUI;
         public UILayer TargetUI => targetUI;
 
+        private Transform cachedPerentTr;
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             (targetUI, usePanelTypes) = ((UILayer, TopPanelType[])) param;
             TopPanelSingleUseHelper.Instance.Push(this);
+            if (targetUI is TopCurrencyAndMenuBarContainer container)
+            {
+                cachedPerentTr = panelParent.parent;
+                panelParent.SetParent(container.GetTopCurrencyAndMenuBarParent(), false);
+            }
             SceneUILayerManager.OnUITransitionEvent += OnUITransitionEvent;
         }
 
@@ -37,6 +49,11 @@ namespace CookApps.AutoBattler
         {
             base.OnPreExit();
             panelAnchoredPositions = null;
+            if (cachedPerentTr != null)
+            {
+                panelParent.SetParent(cachedPerentTr, false);
+            }
+            cachedPerentTr = null;
             TopPanelSingleUseHelper.Instance.Pop(this);
             SceneUILayerManager.OnUITransitionEvent -= OnUITransitionEvent;
         }

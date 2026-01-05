@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask LoadElpis()
         {
+            elpisDataBridge = new ElpisDataBridge();
             await NetManager.Instance.WaitForElpisInitializationAsync();
             elpisMainBlockHandle = Addressables.InstantiateAsync("Elpis/MainBlock.prefab");
             elpisBgHandle = Addressables.InstantiateAsync("Elpis/BG.prefab");
