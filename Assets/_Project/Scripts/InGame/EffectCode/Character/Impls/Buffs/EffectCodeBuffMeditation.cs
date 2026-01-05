@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
@@ -5,28 +6,24 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeDebuffBurn : EffectCodeDebuffBase
+public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
 {
-    public const int CodeId = (int) EffectCodeNameType.DEBUFF_FIRE;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.Burn;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_MEDITATION;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.Meditation;
 
-    private float elapsedTime = 0f;
-    private float updateInterval = 1f;
-    private CharacterController _characterController;
+    private float _healElapsedTime = 0f;
+    private float _healUpdateInterval = 1f;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
-        int ownerUID = codeInfo.GetCodeStatToInt(1);
-        _characterController = InGameObjectManager.Instance.GetCharacterInField(ownerUID);
-
         base.Initialize(codeInfo, container, source);
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
-            sourceCodeId: codeInfo.GetCodeStatToInt(0),
-            duration: codeInfo.GetCodeStatToInt(3),
-            value: codeInfo.GetCodeStat(2),
-            source: source
+            codeInfo.GetCodeStatToInt(0),
+            codeInfo.GetCodeStatToFloat(1),
+            codeInfo.GetCodeStat(2),
+            source
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffDebuffType(buffDebuffType);
@@ -39,31 +36,28 @@ public partial class EffectCodeDebuffBurn : EffectCodeDebuffBase
 
         var hasSameSource = false;
         foreach (var stackData in _stackDatas)
-        {
             if (stackData.sourceCodeId == codeInfo.GetCodeStatToInt(0))
             {
                 hasSameSource = true;
                 // 덮어 씌울 경우
-                stackData.duration = codeInfo.GetCodeStatToInt(3);
-                stackData.value = codeInfo.GetCodeStat(2);
-                stackData.elapsedTime = 0f;
+                // stackData.duration = codeInfo.GetCodeStatToFloat(1);
+                // stackData.value = codeInfo.GetCodeStat(2);
+                // stackData.elapsedTime = 0f;
                 // 더할 경우
-                // stackData.duration += codeInfo.GetCodeStatToFloat(1);
-                // stackData.value = Math.Max(stackData.value, codeInfo.GetCodeStat(2));
+                stackData.duration += codeInfo.GetCodeStatToFloat(1);
+                stackData.value = Math.Max(stackData.value, codeInfo.GetCodeStat(2));
                 break;
             }
-        }
 
         if (hasSameSource)
             return;
 
-        _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
-            sourceCodeId: codeInfo.GetCodeStatToInt(0),
-            duration: codeInfo.GetCodeStatToInt(3),
-            value: codeInfo.GetCodeStat(2),
-            source: source
+            codeInfo.GetCodeStatToInt(0),
+            codeInfo.GetCodeStatToFloat(1),
+            codeInfo.GetCodeStat(2),
+            source
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffStackData(CodeId, buffStackData);
@@ -72,15 +66,13 @@ public partial class EffectCodeDebuffBurn : EffectCodeDebuffBase
     public override bool TryRemoveWithSource(IEffectCodeSource source)
     {
         var isRemoved = false;
-        for (int i = 0; i < _stackDatas.Count; i++)
-        {
+        for (var i = 0; i < _stackDatas.Count; i++)
             if (_stackDatas[i].source == source)
             {
                 GenericPool<BuffStackData>.Release(_stackDatas[i]);
                 _stackDatas[i] = null;
                 isRemoved = true;
             }
-        }
 
         if (isRemoved)
             container.SetDirtyFlag(this);
@@ -90,21 +82,21 @@ public partial class EffectCodeDebuffBurn : EffectCodeDebuffBase
 
     public override void OnUpdate(float dt)
     {
-        elapsedTime += dt;
+        _healElapsedTime += dt;
 
-        if (elapsedTime >= updateInterval)
+        if (_healElapsedTime >= _healUpdateInterval)
         {
-            elapsedTime = 0f;
+            _healElapsedTime = 0f;
 
             foreach (var data in _stackDatas)
             {
-                var damage = owner.CalculateDamageAmount(_characterController.AD * data.value, 0, owner, codeId, true);
-                owner.GetDamaged(damage, _characterController);
+                owner.GetHealed(data.value, data.source as CharacterController, CodeId, true);
             }
         }
 
-        bool needRemove = false;
-        for (int i = 0; i < _stackDatas.Count; i++)
+
+        var needRemove = false;
+        for (var i = 0; i < _stackDatas.Count; i++)
         {
             if (_stackDatas[i] == null)
             {
@@ -124,12 +116,10 @@ public partial class EffectCodeDebuffBurn : EffectCodeDebuffBase
         if (needRemove)
         {
             _stackDatas.RemoveAll(NullChecker<BuffStackData>.NullCheck);
-            if (_stackDatas.Count <= 0)
-            {
-                RemoveFromContainer();
-            }
+            if (_stackDatas.Count <= 0) RemoveFromContainer();
 
-            container.SetDirtyFlag(this);
+            if (container != null)
+                container.SetDirtyFlag(this);
         }
     }
 

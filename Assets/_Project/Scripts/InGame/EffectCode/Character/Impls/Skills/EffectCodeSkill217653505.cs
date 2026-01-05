@@ -131,12 +131,13 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
             movement.SetData(vfx.CachedTr.position, endTile.View.CachedTr.position, 5);
             vfx.Initialize(true, movement);
             vfx.OnCollisionWithTile += OnTrigger2DEnter;
-            
+
             // 목표 지점에 도달하면 VFX 제거
             movement.OnReachedTarget += () =>
             {
                 vfx.Remove();
             };
+
         }
         // IsSkillActivated = false;
     }
@@ -156,11 +157,24 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
                     double attackpower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
 
 
-                    var flatHeal = 0d; 
+                    var flatHeal = 0d;
 
                     double healAmount = attackpower * _healRate + flatHeal;
                     healAmount = EffectCodePassiveRecovery.CalculateOracleSkillRecoveryAmount(owner, tile.OccupiedCharacter, healAmount);
                     tile.OccupiedCharacter.GetHealed(healAmount, owner, codeId, true);
+
+
+
+                    healAmount = attackpower * _healBuffRate + flatHeal;
+                    healAmount = EffectCodePassiveRecovery.CalculateOracleSkillRecoveryAmount(owner, tile.OccupiedCharacter, healAmount);
+                    Span<double> eccStats = stackalloc double[3];
+
+                    eccStats.Clear();
+                    eccStats[0] = CodeId;//sourceCodeId
+                    eccStats[1] = _buffTime;//duration
+                    eccStats[2] = healAmount;//value
+
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_MEDITATION, tile.OccupiedCharacter, eccStats, source);
 
                     _hitCharacters.Add(tile.OccupiedCharacter);
                 }
