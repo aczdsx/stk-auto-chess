@@ -4,6 +4,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
@@ -104,10 +105,14 @@ public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
                 GenericPool<BuffStackData>.Release(_stackDatas[i]);
                 _stackDatas[i] = null;
                 needRemove = true;
+                continue;
             }
+
             if (_stackDatas[i].elapsedTime >= _healUpdateInterval)
             {
                 owner.GetHealed(_stackDatas[i].value, _stackDatas[i].source as CharacterController, CodeId, true);
+                _stackDatas[i].elapsedTime = 0f;
+                _stackDatas[i].duration -= _healUpdateInterval;
             }
         }
 
