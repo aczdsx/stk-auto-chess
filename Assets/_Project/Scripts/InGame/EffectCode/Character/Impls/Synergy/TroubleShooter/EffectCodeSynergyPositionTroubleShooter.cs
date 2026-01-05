@@ -1,3 +1,4 @@
+
 using System;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
