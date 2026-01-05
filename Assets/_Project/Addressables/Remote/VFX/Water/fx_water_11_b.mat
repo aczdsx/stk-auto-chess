@@ -144,7 +144,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _ColorMode: 0
     - _Cull: 2
-    - _CullMode: 2
+    - _CullMode: 1
     - _Cutoff: 0.5
     - _Depthpower: 1
     - _DetailAlbedoMapScale: 1
@@ -169,7 +169,7 @@ Material:
     - _Mode: 0
     - _Noise_STR: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0.3
+    - _Opacity: 0.4
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
