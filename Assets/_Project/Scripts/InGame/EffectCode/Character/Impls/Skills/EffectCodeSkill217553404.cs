@@ -106,12 +106,13 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
             PlayAreaEffect(centerTile, areaTiles);
         }
     }
-    
+
     public override void OnSkillAnimationEnd()
     {
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+
     }
     
     private List<InGameTile> GetAreaTiles(InGameTile centerTile)
@@ -143,6 +144,14 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
                 await UniTask.Delay(TimeSpan.FromSeconds(TICK_INTERVAL));
             }
         }
+
+        // // 채널링 완료 후 스킬 상태 종료
+        // if (owner != null)
+        // {
+        //     CoolTimeElapsedTime = 0;
+        //     IsSkillActivated = false;
+        //     base.OnSkillAnimationEnd();
+        // }
     }
 
     private void PlayAreaEffect(InGameTile centerTile, List<InGameTile> areaTiles)

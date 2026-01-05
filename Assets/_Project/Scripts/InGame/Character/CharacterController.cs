@@ -1145,13 +1145,13 @@ namespace CookApps.BattleSystem
         {
             if (damageInfo.isAD)
             {
-                var ResistRaw = target.ADReduce;
+                var ResistRaw = target.ADReduce*0.01d;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - ADPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
             else
             {
-                var ResistRaw = target.APReduce;
+                var ResistRaw = target.APReduce*0.01d;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - APPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
