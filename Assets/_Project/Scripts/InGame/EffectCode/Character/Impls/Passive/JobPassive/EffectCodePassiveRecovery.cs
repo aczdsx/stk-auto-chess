@@ -44,7 +44,7 @@ namespace CookApps.BattleSystem
                 var effectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
                 recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
 
-                //  target.GetHealed(recoveryAmount, owner, codeId, true);
+                 target.GetHealed(recoveryAmount, owner, codeId, true);
 
                 InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.SkillRootTransformFollowable);
             }

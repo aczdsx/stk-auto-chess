@@ -11,7 +11,6 @@ public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
     private const int CodeId = (int)EffectCodeNameType.BUFF_MEDITATION;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.Meditation;
 
-    private float _healElapsedTime = 0f;
     private float _healUpdateInterval = 1f;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -40,12 +39,12 @@ public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
             {
                 hasSameSource = true;
                 // 덮어 씌울 경우
-                // stackData.duration = codeInfo.GetCodeStatToFloat(1);
-                // stackData.value = codeInfo.GetCodeStat(2);
-                // stackData.elapsedTime = 0f;
+                stackData.duration = codeInfo.GetCodeStatToFloat(1);
+                stackData.value = codeInfo.GetCodeStat(2);
+                stackData.elapsedTime = 0f;
                 // 더할 경우
-                stackData.duration += codeInfo.GetCodeStatToFloat(1);
-                stackData.value = Math.Max(stackData.value, codeInfo.GetCodeStat(2));
+                // stackData.duration += codeInfo.GetCodeStatToFloat(1);
+                // stackData.value = Math.Max(stackData.value, codeInfo.GetCodeStat(2));
                 break;
             }
 
@@ -82,17 +81,12 @@ public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
 
     public override void OnUpdate(float dt)
     {
-        _healElapsedTime += dt;
 
-        if (_healElapsedTime >= _healUpdateInterval)
+        foreach (var data in _stackDatas)
         {
-            _healElapsedTime = 0f;
 
-            foreach (var data in _stackDatas)
-            {
-                owner.GetHealed(data.value, data.source as CharacterController, CodeId, true);
-            }
         }
+
 
 
         var needRemove = false;
@@ -110,6 +104,10 @@ public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
                 GenericPool<BuffStackData>.Release(_stackDatas[i]);
                 _stackDatas[i] = null;
                 needRemove = true;
+            }
+            if (_stackDatas[i].elapsedTime >= _healUpdateInterval)
+            {
+                owner.GetHealed(_stackDatas[i].value, _stackDatas[i].source as CharacterController, CodeId, true);
             }
         }
 
