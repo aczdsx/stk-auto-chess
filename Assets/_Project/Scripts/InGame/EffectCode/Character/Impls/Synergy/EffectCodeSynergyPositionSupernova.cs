@@ -39,6 +39,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     {
         base.Merge(codeInfo, source);
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
+
+        if (_supernovaVfx != null && _targetCharacter != null)
+        {
+            _supernovaVfx.Remove();
+            _supernovaVfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
+        }
     }
 
     private async void AddGameObjectSuperNovaItem(IEffectCodeSource source)
@@ -218,7 +224,10 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         _targetCharacter = targetCharacter;
         _source = source;
 
-        _supernovaVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_cast_supernova_02, _targetCharacter.SkillRootTransformFollowable);
+        // _supernovaVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_cast_supernova_02, _targetCharacter.SkillRootTransformFollowable);
+        var vfxName = GetSupernovaVfxName(_synergyGrade);
+
+        _supernovaVfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
     }
 
     public bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter)
@@ -269,5 +278,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             OnCombatStart();
             break;
         }
+    }
+    
+    private InGameVfxNameType GetSupernovaVfxName(int synergyGrade)
+    {
+        return synergyGrade == 1 ? InGameVfxNameType.fx_common_asterism_sn_aura_01 :
+        synergyGrade == 2 ? InGameVfxNameType.fx_common_asterism_sn_aura_02 :
+        InGameVfxNameType.fx_common_asterism_sn_aura_03;
     }
 }

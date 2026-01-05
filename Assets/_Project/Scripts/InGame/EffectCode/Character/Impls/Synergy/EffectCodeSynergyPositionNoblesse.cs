@@ -83,6 +83,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
         stats[1] = owner.HP * _statValue_1 * 0.01f;
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, owner, stats, source);
         base.AddSynergyAddEffectCodeIds(EffectCodeNameType.SHIELD);
+        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_nb_shield_01, owner.SkillRootTransformFollowable);
     }
     private void ImmuneAllDebuff(IEffectCodeSource source)
     {
