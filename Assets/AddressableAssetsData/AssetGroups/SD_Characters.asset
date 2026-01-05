@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: SD_Characters
   m_GUID: 7acadd3a590e84cdc9c43fc0f9821cd3
   m_SerializeEntries:
+  - m_GUID: 024464dcc1cc4ee40aba5ae909e828ba
+    m_Address: SD_Characters/17563405
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1cb8ba5eefee9314f82175baced0c9ca
     m_Address: SD_Characters/17653505
     m_ReadOnly: 0
