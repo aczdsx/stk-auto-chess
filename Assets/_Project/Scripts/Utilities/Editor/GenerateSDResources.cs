@@ -195,7 +195,7 @@ public static class GenerateSDResources
 
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = sprites.Count > 12 ? sprites.Count : 12f;
+        animationClip.frameRate = sprites.Count > 8f ? sprites.Count : 8f;
         if (actionName == "IDLE" || actionName == "MOVE")
         {
             animationClip.wrapMode = WrapMode.Loop;
@@ -251,7 +251,7 @@ public static class GenerateSDResources
             AnimationEvent attackEvent = new AnimationEvent();
             attackEvent.functionName = "InvokeAnimationEvent";
             attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
-            attackEvent.time = 0.3f;
+            attackEvent.time = 1f / animationClip.frameRate; // 2번째 프레임 (프레임 인덱스 1)
             animationEvents.Add(attackEvent);
         }
 
