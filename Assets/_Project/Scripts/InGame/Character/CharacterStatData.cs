@@ -110,6 +110,7 @@ namespace CookApps.AutoBattler
 
             var levelBonusRate = CalculateLevelBonusRate(level);
             {
+                //a 캐릭터가 b캐릭터 ad를 올렸어요. 그쵸 버프로 기존 b캐릭터 스텟(1) + 증분치
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
                 var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
                 var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
@@ -207,7 +208,7 @@ namespace CookApps.AutoBattler
                 transcendenceMultiplier += characterInfo.inc_trancendence * TR;
             }
 
-            return levelMultiplier * breakthroughMultiplier * transcendenceMultiplier;
+            return (levelMultiplier * breakthroughMultiplier * transcendenceMultiplier) - 1f;
         }
 
         public void AddOrUpdateEffectCode(EffectCodeInfo codeInfo)

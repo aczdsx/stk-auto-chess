@@ -6,12 +6,13 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using Unity.Mathematics;
 
 /// <summary>
 /// 엔키
 /// 대상 : 아군 전체
 /// 효과 : 
-/// 큰 물결을 일으켜 아군을 엔키의 치유력 {1}% 만큼 치유하고, 
+/// 물결을 일으켜 아군을 엔키의 치유력 {1}% 만큼 치유하고, 
 /// {2}초간 지속되는 {3}%위력의 지속 회복을 부여합니다.
 /// </summary>
 [UseEffectCodeIds(217653505)]
@@ -19,9 +20,12 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _healRate;
     private ObfuscatorFloat _buffTime;
-    private ObfuscatorFloat _atkBuffRate;
+    private ObfuscatorFloat _healBuffRate;
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
+    private static readonly InGameVfxNameType _waveVfxName = InGameVfxNameType.Skill_406011_wave;
+    private int _waveSize = 5;
+    private List<CharacterController> _hitCharacters = new List<CharacterController>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -31,7 +35,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _buffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkBuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _healBuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -46,7 +50,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _buffTime = codeInfo.GetCodeStatToFloat(2);
-        _atkBuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _healBuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -84,6 +88,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
     {
         base.Activate();
         // TODO: Target Check
+        _hitCharacters.Clear();
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
@@ -94,37 +99,77 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        if (owner.Target == null)
+
+        var ownerTile = owner.CurrentTile;
+        var waveStartY = Math.Clamp(ownerTile.Y - 2, 0, InGameObjectManager.Instance.InGameGrid.Height - 1);//엔키의 두칸뒤에서 시작한다.
+
+        var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(ownerTile.X, waveStartY));
+        if (inGameTile == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 10);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            owner.GetCharacterView().CachedTr.position);
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-        }
+        var waveStartTileList = InGameObjectManager.Instance.InGameGrid.GetTileListByRow(inGameTile, _waveSize / 2);
+        var grid = InGameObjectManager.Instance.InGameGrid;
 
-        foreach (var tile in inGameTiles)
+        foreach (var startTile in waveStartTileList)
         {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+            // 시작 타일에서 +y 방향으로 맵 끝까지 이동할 목표 타일 찾기
+            InGameTile endTile = null;
+            for (int y = startTile.Y; y < grid.Height; y++)
+            {
+                var tile = grid.GetTile(new int2(startTile.X, y));
+                if (tile != null)
+                {
+                    endTile = tile;
+                }
+            }
+
+            if (endTile == null || endTile == startTile)
+                continue;
+
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(_waveVfxName, startTile.View.CachedTr.position);
+            var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+            movement.SetData(vfx.CachedTr.position, endTile.View.CachedTr.position, 5);
+            vfx.Initialize(true, movement);
+            vfx.OnCollisionWithTile += OnTrigger2DEnter;
+            
+            // 목표 지점에 도달하면 VFX 제거
+            movement.OnReachedTarget += () =>
+            {
+                vfx.Remove();
+            };
+        }
+        // IsSkillActivated = false;
+    }
+
+    private void OnTrigger2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    {
+        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+        if (tileFx != null)
+        {
+            tileFx.CachedTr.position = tile.View.CachedTr.position;
+
             if (tile.CheckValidTile(owner.AllianceType, true))
             {
-                double damage = owner.PostCalculateHealAmount(_healRate * owner.AP, tile.OccupiedCharacter);
-                tile.OccupiedCharacter.GetHealed(damage, owner, codeId, true);
+                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    double attackpower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
 
-                Span<double> eccStats = stackalloc double[3];
-                eccStats.Clear();
-                eccStats[0] = codeId;
-                eccStats[1] = _buffTime;
-                eccStats[2] = _atkBuffRate;
 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ATK_SPEED_UP, tile.OccupiedCharacter, eccStats, source);
+                    var flatHeal = 0d; 
+
+                    double healAmount = attackpower * _healRate + flatHeal;
+                    healAmount = EffectCodePassiveRecovery.CalculateOracleSkillRecoveryAmount(owner, tile.OccupiedCharacter, healAmount);
+                    tile.OccupiedCharacter.GetHealed(healAmount, owner, codeId, true);
+
+                    _hitCharacters.Add(tile.OccupiedCharacter);
+                }
             }
         }
-
-        IsSkillActivated = false;
     }
+
+
+
 
     public override void OnSkillAnimationEnd()
     {
@@ -132,8 +177,6 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
-
-
 
     public override float AddSkillCooltime(float cooltime)
     {
