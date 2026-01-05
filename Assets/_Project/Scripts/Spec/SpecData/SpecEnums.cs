@@ -97,6 +97,7 @@ namespace CookApps.AutoBattler
         BUFF_AD_REDUCE_UP = 2000000023,
         BUFF_AD_REDUCE_PERCENT_UP = 2000000024,
         BUFF_AVOID_PROB_PERCENT_UP = 2000000025,
+        BUFF_MEDITATION = 2000000026,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -555,6 +556,7 @@ namespace CookApps.AutoBattler
         Skill_17553404 = 227,
         Skill_17563405 = 228,
         Skill_17663506 = 229,
+        Skill_406011_wave = 230,
     }
 
     public enum GlobalEffectProviderType

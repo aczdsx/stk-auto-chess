@@ -39,14 +39,14 @@ namespace CookApps.BattleSystem
 
                 double attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
 
-                double recoveryAmount = CalculateOracleRecoveryAmount(target);
+                double recoveryAmount = CalculateOracleNormalAttackRecoveryAmount(target);
 
                 var effectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
                 recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
-                
-                target.GetHealed(recoveryAmount, owner, codeId, true);
 
-                InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.CurrentTile.View.CachedTr.position);
+                //  target.GetHealed(recoveryAmount, owner, codeId, true);
+
+                InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.SkillRootTransformFollowable);
             }
             else
             {
@@ -63,7 +63,7 @@ namespace CookApps.BattleSystem
             base.OnPreRemoved();
         }
 
-        private double CalculateOracleRecoveryAmount(CharacterController target)
+        private double CalculateOracleNormalAttackRecoveryAmount(CharacterController target)
         {
             var attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
             var BaseHealOnHit = attackPower * _recoveryPercentage;
@@ -76,6 +76,19 @@ namespace CookApps.BattleSystem
             var FinalHealOnHit = BaseHealOnHit * (1 + HealPowerCaster) * (1 + HealPowerTarget) * HealTakenMul;
 
             return Math.Round(FinalHealOnHit);
+        }
+
+        public static double CalculateOracleSkillRecoveryAmount(CharacterController owner, CharacterController target,
+        double baseHealSkill)
+        {
+            var HealPowerCaster = owner.SpecCharacter.heal_power;
+            var HealPowerTarget = target.SpecCharacter.heal_power;
+
+            var AntiHealMul = 1f;
+
+            var FinalHealSkill = baseHealSkill * (1 + HealPowerCaster) * (1 + HealPowerTarget) * AntiHealMul;
+
+            return Math.Round(FinalHealSkill);
         }
 
 

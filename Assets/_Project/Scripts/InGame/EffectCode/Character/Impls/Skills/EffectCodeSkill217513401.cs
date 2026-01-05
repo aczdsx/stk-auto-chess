@@ -112,9 +112,6 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
             vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
             // movement.OnReachedTarget +=
         }
-
-        // 투사체 스킬이므로 OnSkillAnimationEnd에서 쿨타임과 상태를 리셋
-        // IsSkillActivated는 투사체가 완전히 끝날 때까지 유지되어야 함
     }
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
@@ -149,11 +146,11 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    
+
     public override float AddSkillCooltime(float cooltime)
     {
-    CoolTimeElapsedTime += cooltime;
-    return cooltime;
+        CoolTimeElapsedTime += cooltime;
+        return cooltime;
     }
 
-    }
+}
