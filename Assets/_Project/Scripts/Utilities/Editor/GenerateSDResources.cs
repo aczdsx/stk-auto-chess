@@ -89,6 +89,9 @@ public static class GenerateSDResources
 
         string normalizedParentPath = parentFolderPath.Replace("\\", "/");
 
+        // 스프라이트 텍스처 Import Settings 설정 (SpriteMode: Single)
+        SetTextureImportSettings(normalizedParentPath);
+
         // 한 번에 모든 스프라이트 검색 후 폴더별로 그룹화
         var spritesByFolder = LoadAndGroupSprites(normalizedParentPath);
 
@@ -155,6 +158,56 @@ public static class GenerateSDResources
         string address = ZString.Format("{0}/{1}", groupName, addressKey);
 
         AddressableImportHelper.AddToAddressableGroup(normalizedPath, groupName, address);
+    }
+
+    /// <summary>
+    /// 폴더 내 모든 텍스처의 Import Settings를 설정합니다.
+    /// - SpriteMode: Single
+    /// - FilterMode: Point (no filter)
+    /// - Compression: None
+    /// </summary>
+    private static void SetTextureImportSettings(string folderPath)
+    {
+        string[] guids = AssetDatabase.FindAssets("t:Texture2D", new[] { folderPath });
+        
+        foreach (string guid in guids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            
+            if (importer == null)
+                continue;
+
+            bool needsReimport = false;
+
+            // SpriteMode를 Single로 설정
+            if (importer.spriteImportMode != SpriteImportMode.Single)
+            {
+                importer.spriteImportMode = SpriteImportMode.Single;
+                needsReimport = true;
+            }
+
+            // FilterMode를 Point로 설정
+            if (importer.filterMode != FilterMode.Point)
+            {
+                importer.filterMode = FilterMode.Point;
+                needsReimport = true;
+            }
+
+            // Compression을 None으로 설정
+            TextureImporterPlatformSettings defaultSettings = importer.GetDefaultPlatformTextureSettings();
+            if (defaultSettings.textureCompression != TextureImporterCompression.Uncompressed)
+            {
+                defaultSettings.textureCompression = TextureImporterCompression.Uncompressed;
+                importer.SetPlatformTextureSettings(defaultSettings);
+                needsReimport = true;
+            }
+
+            if (needsReimport)
+            {
+                importer.SaveAndReimport();
+            }
+        }
     }
 
     private static Dictionary<string, List<Sprite>> LoadAndGroupSprites(string parentFolderPath)
