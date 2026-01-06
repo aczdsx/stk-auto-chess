@@ -92,6 +92,8 @@ public class FlowStateStageReady : StateReadyBase
         }
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
+        battleDeckList.RemoveAll(character => SpecDataManager.Instance.GetCharacterData(character.CharacterId) == null);
+
         List<int> obstacleTileIDs = _specStage.obstacle_grid_id.ToList();
         List<int> neutralTileIDs = _specStage.neutral_grid_id.ToList();
 
@@ -101,9 +103,15 @@ public class FlowStateStageReady : StateReadyBase
             var character = battleDeckList[i];
             var currentTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(character.PositionTileX, character.PositionTileY));
             var currentTileID = currentTile.View.ID;
+            if(SpecDataManager.Instance.GetCharacterData(character.CharacterId) is null )
+            {
+                continue;
+            }
+            
 
-            // 장애물이나 중립 타일과 겹치는지 확인
-            bool isOverlapping = obstacleTileIDs.Contains(currentTileID) || neutralTileIDs.Contains(currentTileID);
+            // if(character.CharacterId)
+                // 장애물이나 중립 타일과 겹치는지 확인
+                bool isOverlapping = obstacleTileIDs.Contains(currentTileID) || neutralTileIDs.Contains(currentTileID);
 
             if (isOverlapping)
             {

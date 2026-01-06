@@ -1342,15 +1342,25 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// 회복량 계산
         /// </summary>
-        /// <param name="recoveryAmount"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        public double PostCalculateHealAmount(double recoveryAmount, CharacterController target)
+        /// <param name="recoveryAmount">기본 회복량</param>
+        /// <param name="target">회복 대상</param>
+        /// <param name="isSkill">스킬 힐인지 여부 (평타 힐은 false)</param>
+        /// <returns>계산된 회복량</returns>
+        public double PostCalculateHealAmount(double recoveryAmount, CharacterController target, bool isSkill = false)
         {
-            // 주는/받는 회복량 계수로 회복량 계산
-            recoveryAmount = Math.Round(recoveryAmount * GivenHealRate * target.TakenHealRate);
-            // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
+            // 오라클 캐릭터의 스킬 힐량 계산
+            if (isSkill && SpecCharacter.character_position_type == CharacterPositionType.ORACLE)
+            {
+                recoveryAmount = EffectCodePassiveRecovery.CalculateOracleSkillRecoveryAmount(this, target, recoveryAmount);
+            }
+            else
+            {
+                // 일반 캐릭터 또는 평타 힐량 계산
+                // 주는/받는 회복량 계수로 회복량 계산
+                recoveryAmount = Math.Round(recoveryAmount * GivenHealRate * target.TakenHealRate);
+            }
 
+            // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
                 recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);

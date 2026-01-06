@@ -121,7 +121,7 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         if (owner == null)
             return new List<CharacterController>();
 
-        var allTargets = InGameObjectManager.Instance?.GetCharacterListSortedByHpRate(owner.AllianceType, false);
+        var allTargets = InGameObjectManager.Instance?.GetCharacterListSortedByHPRateDescending(owner.AllianceType, false);
         if (allTargets == null || allTargets.Count == 0)
             return new List<CharacterController>();
 

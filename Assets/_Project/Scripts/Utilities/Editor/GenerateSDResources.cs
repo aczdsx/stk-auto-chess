@@ -155,7 +155,7 @@ public static class GenerateSDResources
 
         string groupName = ZString.Format("SD_{0}", pathParts[^3]);
         string addressKey = pathParts[^2];
-        string address = ZString.Format("{0}/{1}", groupName, addressKey);
+        string address = ZString.Format("SD/{1}", addressKey);
 
         AddressableImportHelper.AddToAddressableGroup(normalizedPath, groupName, address);
     }

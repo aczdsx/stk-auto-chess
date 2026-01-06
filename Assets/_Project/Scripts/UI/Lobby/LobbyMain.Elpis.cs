@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
 
             MainBlock = elpisMainBlockHandle.Result.GetComponent<ElpisMainBlock>();
 
-            var characterHandle = Addressables.InstantiateAsync("SD_Characters/17513401/Elpis_17513401.prefab", new Vector3(-5, 0, -5), Quaternion.identity);
+            var characterHandle = Addressables.InstantiateAsync("SD/17513401/Elpis_17513401.prefab", new Vector3(-5, 0, -5), Quaternion.identity);
             characterHandles.Add(characterHandle);
             await characterHandle.WaitUntilDone();
             var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);

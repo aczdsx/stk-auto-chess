@@ -154,19 +154,15 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
                 if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
                 {
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.SkillRootTransformFollowable);
-                    double attackpower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
 
-
-                    var flatHeal = 0d;
-
-                    double healAmount = attackpower * _healRate + flatHeal;
-                    healAmount = EffectCodePassiveRecovery.CalculateOracleSkillRecoveryAmount(owner, tile.OccupiedCharacter, healAmount);
+                    // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
+                    double healAmount = EffectCodePassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healRate);
+                    healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
                     tile.OccupiedCharacter.GetHealed(healAmount, owner, codeId, true);
 
-
-
-                    healAmount = attackpower * _healBuffRate + flatHeal;
-                    healAmount = EffectCodePassiveRecovery.CalculateOracleSkillRecoveryAmount(owner, tile.OccupiedCharacter, healAmount);
+                    // 지속 회복 버프 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
+                    healAmount = EffectCodePassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healBuffRate);
+                    healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
                     Span<double> eccStats = stackalloc double[3];
 
                     eccStats.Clear();

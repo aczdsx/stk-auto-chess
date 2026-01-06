@@ -97,7 +97,7 @@ public partial class EffectCodeSkill217433302 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
         var inGameCharacterListSortedByHpRate =
-            InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
+            InGameObjectManager.Instance.GetCharacterListSortedByHPRateDescending(owner.AllianceType, false);
         List<CharacterController> targetCharacters = new();
 
         if (inGameCharacterListSortedByHpRate.Count > 0)

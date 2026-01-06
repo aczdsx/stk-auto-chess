@@ -9,8 +9,10 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 유니
-// 대상 : 공격력이 가장 높은 아군 2명
-// 효과 : 공격력을 {0}초 동안 {1}% 증가시킨다.
+// 재사용 시간: {0} 초
+// 체력이 가장 낮은 아군 3인
+// 효과 : 공격력을 {1}초 동안 {2}% 증가시킨다.
+// 대상에게 유니 치유력의 {3}% 만큼 회복 시키고, {4}초간 CC 면역 상태로 만듭니다.
 /// </summary>
 [UseEffectCodeIds(215252102)]
 public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
@@ -18,9 +20,13 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
     private ObfuscatorFloat _duration;
     private ObfuscatorFloat _atkUpRate;
 
-    private bool _isReadyToActivate;
+    private float _healRate;
+    private float _ccImmuneDuration;
 
+    private bool _isReadyToActivate;
     private SkillActive _specSkill;
+
+    private int _targetCount = 3;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -30,6 +36,9 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
         _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _healRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _ccImmuneDuration = codeInfo.GetCodeStatToFloat(4);
+
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -42,7 +51,8 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _duration = codeInfo.GetCodeStatToFloat(1);
         _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        ;
+        _healRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+        _ccImmuneDuration = codeInfo.GetCodeStatToFloat(4);
     }
 
     public override void OnUpdate(float dt)
@@ -102,10 +112,10 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         // 나한테 붙은 vfx
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
 
-        var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(owner.AllianceType, true);
+        var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByHPRateDescending(owner.AllianceType, true);
         if (targetCharacters.Count > 0)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < _targetCount; i++)
             {
                 if (i >= targetCharacters.Count)
                     break;
@@ -120,6 +130,18 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
                 eccStats[2] = _atkUpRate;
 
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacters[i], eccStats, source);
+
+                // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
+                double healAmount = EffectCodePassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healRate);
+                healAmount = owner.PostCalculateHealAmount(healAmount, targetCharacters[i], isSkill: true);
+                targetCharacters[i].GetHealed(healAmount, owner, codeId, true);
+
+                // Span<double> eccStats = stackalloc double[3];
+                eccStats.Clear();
+                eccStats[0] = codeId;
+                eccStats[1] = _ccImmuneDuration;
+                eccStats[2] = 1f;
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, targetCharacters[i], eccStats, source);
             }
         }
 

@@ -128,7 +128,7 @@ public partial class EffectCodeSkill250108002 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],owner.CurrentTile.View.CachedTr.position);
         
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
-        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
+        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByCurrentHPDescending(owner.AllianceType, false);
         foreach (var tile in inGameTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,

@@ -100,13 +100,22 @@ namespace CookApps.BattleSystem
             return neutralInPlaygroundForUpdate;
         }
 
-        public List<CharacterController> GetCharacterListSortedByHpRate(AllianceType allianceType, bool isOwnCharacter)
+        public List<CharacterController> GetCharacterListSortedByCurrentHPDescending(AllianceType allianceType, bool isOwnCharacter)
         {
             List<CharacterController> characterList = isOwnCharacter
                 ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
             return characterList.OrderByDescending(c => c.CurrentHp).ToList();
+        }
+
+        public List<CharacterController> GetCharacterListSortedByHPRateDescending(AllianceType allianceType, bool isOwnCharacter)
+        {
+            List<CharacterController> characterList = isOwnCharacter
+                ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
+                : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
+
+            return characterList.OrderByDescending(c => c.CurrentHp / c.HP).ToList();
         }
 
         public List<CharacterController> GetCharacterListSortedByADDescending(AllianceType allianceType, bool isOwnCharacter)

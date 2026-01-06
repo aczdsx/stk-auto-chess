@@ -132,7 +132,7 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
-        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, false);
+        var characterControllers = InGameObjectManager.Instance.GetCharacterListSortedByCurrentHPDescending(owner.AllianceType, false);
         foreach (var character in characterControllers)
         {
             float calculatedDamageRate = _damageRate;

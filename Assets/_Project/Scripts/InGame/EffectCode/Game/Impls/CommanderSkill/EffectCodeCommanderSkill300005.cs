@@ -78,7 +78,7 @@ namespace CookApps.BattleSystem
         public override InGameTile GetRecommendedTile(SkillCommander specCommanderSkillData)
         {
             InGameObjectManager inGameObjectManagerInstance = InGameObjectManager.Instance;
-            var playerList = inGameObjectManagerInstance.GetCharacterListSortedByHpRate(AllianceType.Player, true);
+            var playerList = inGameObjectManagerInstance.GetCharacterListSortedByCurrentHPDescending(AllianceType.Player, true);
             if (playerList == null || playerList.Count <= 0)
                 return null;
 

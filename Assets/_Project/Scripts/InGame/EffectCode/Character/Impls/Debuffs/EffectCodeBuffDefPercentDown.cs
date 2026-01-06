@@ -5,9 +5,9 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeDebuffADReduceDown : EffectCodeDebuffBase
+public partial class EffectCodeDebuffDefPercentDown : EffectCodeDebuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.DEBUFF_AD_REDUCE_PERCENT_DOWN;
+    private const int CodeId = (int)EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.DefenceDown;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -114,7 +114,7 @@ public partial class EffectCodeDebuffADReduceDown : EffectCodeDebuffBase
         ListPool<BuffStackData>.Release(_stackDatas);
     }
 
-    public override double GetIncrementPercentADReduce()
+    public override double GetIncrementPercentDEF()
     {
         double increaseRate = 0;
         for (var i = 0; i < _stackDatas.Count; i++) increaseRate -= _stackDatas[i]?.value ?? 0;

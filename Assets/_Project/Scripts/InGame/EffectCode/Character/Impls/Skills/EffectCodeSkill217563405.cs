@@ -235,8 +235,9 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
             // 공격력 감소 디버프
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_AD_PERCENT_DOWN, _targetCharacter, debuffStats, source);
 
-            // 방어력 감소 디버프 (DEF 관련 디버프 타입 확인 필요)
-            // EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, _targetCharacter, debuffStats, source);
+            debuffStats[2] = _debuffRate * 100f;
+
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, _targetCharacter, debuffStats, source);
         }
     }
 

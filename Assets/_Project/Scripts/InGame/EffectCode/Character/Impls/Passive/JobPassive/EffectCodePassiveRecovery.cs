@@ -78,6 +78,16 @@ namespace CookApps.BattleSystem
             return Math.Round(FinalHealOnHit);
         }
 
+        public static double CalculateOracleDefaultSkillRecoveryAmount(CharacterController owner, float healRate)
+        {
+            double attackpower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
+
+            double flatHeal = 0d;
+
+                // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
+            return attackpower * healRate + flatHeal;
+        }
+
         public static double CalculateOracleSkillRecoveryAmount(CharacterController owner, CharacterController target,
         double baseHealSkill)
         {

@@ -249,7 +249,39 @@ namespace CookApps.AutoBattler
 
         public List<UserCharacter> GetAllUserCharacterList()
         {
-            return UserCharacterDic.Values.ToList().FindAll(data => data.Level > 0);
+            // SpecDataManager에 없는 캐릭터 제거
+            RemoveInvalidCharacters();
+            
+            return UserCharacterDic.Values.ToList().FindAll(data => data.Level > 0 && SpecDataManager.Instance.GetCharacterData(data.CharacterId) != null);
+        }
+
+        /// <summary>
+        /// SpecDataManager에 존재하지 않는 캐릭터를 UserCharacterDic에서 제거합니다.
+        /// </summary>
+        public void RemoveInvalidCharacters()
+        {
+            if (userCharacterGroup == null || userCharacterGroup.UserCharacters == null)
+                return;
+
+            var characterIdsToRemove = new List<int>();
+            
+            foreach (var kvp in userCharacterGroup.UserCharacters)
+            {
+                if (SpecDataManager.Instance.GetCharacterData(kvp.Key) == null)
+                {
+                    characterIdsToRemove.Add(kvp.Key);
+                }
+            }
+
+            foreach (var characterId in characterIdsToRemove)
+            {
+                userCharacterGroup.UserCharacters.Remove(characterId);
+            }
+
+            if (characterIdsToRemove.Count > 0)
+            {
+                SaveCharacterGroup();
+            }
         }
 
         public List<UserCharacter> GetAllNotHaveUserCharacterList()

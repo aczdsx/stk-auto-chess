@@ -106,6 +106,12 @@ namespace CookApps.AutoBattler
             Debug.LogColor("characterID : " + characterId);
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
+            if(_spec == null)
+            {
+                Debug.LogError("CharacterStatData: _spec is null for characterId: " + characterId);
+                return;
+            }
+
             _level = level;
 
             var levelBonusRate = CalculateLevelBonusRate(level);

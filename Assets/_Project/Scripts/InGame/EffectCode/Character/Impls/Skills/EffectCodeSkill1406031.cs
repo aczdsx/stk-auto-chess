@@ -106,7 +106,7 @@ public partial class EffectCodeSkill1406031 : EffectCodeCharacterBase
 
         var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
 
-        var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByHpRate(owner.AllianceType, true);
+        var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByCurrentHPDescending(owner.AllianceType, true);
         if (targetCharacterList.Count > 0)
         {
             var characterWithLowestHp = targetCharacterList[0];

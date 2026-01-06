@@ -32,21 +32,31 @@ public class FlowStateLobbyCombat : StateCombatBase
     private async UniTask StartAsync()
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
-        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList()
-            .OrderByDescending(character => SpecDataManager.Instance.GetCharacterData(character.CharacterId).seq)
-            .ToList();
+        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
+        
+        // seq 기준으로 내림차순 정렬
+        userCharacters.Sort((a, b) =>
+        {
+            var aData = SpecDataManager.Instance.GetCharacterData(a.CharacterId);
+            var bData = SpecDataManager.Instance.GetCharacterData(b.CharacterId);
+            
+            // GetAllUserCharacterList()에서 이미 필터링되지만 안전을 위해 null 체크
+            if (aData == null && bData == null) return 0;
+            if (aData == null) return 1;
+            if (bData == null) return -1;
+            
+            return bData.seq.CompareTo(aData.seq); // 내림차순
+        });
             
         int count = 0;
         foreach (var character in userCharacters)
         {
-
-            if (character.CharacterId == 117663506 || character.CharacterId == 117613502 ||
-            character.CharacterId == 117643504 || character.CharacterId == 117643504 ||
-            character.CharacterId == 117643503 || character.CharacterId == 117563405||
-            character.CharacterId == 117553404 || character.CharacterId == 117513402 ||
-            character.CharacterId == 114433303) 
-                continue;//시라유키
             var characterStat = new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+            if (characterStat.Spec == null)
+            {
+                continue;
+            }
+
             InGameTile ingameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
             int2 coordinate = new int2(ingameTile.X, ingameTile.Y);
 

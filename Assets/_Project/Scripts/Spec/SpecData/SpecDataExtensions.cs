@@ -78,10 +78,10 @@ namespace CookApps.AutoBattler
         {
             return characterType switch
             {
-                CharacterType.CHARACTER => ZString.Format("SD_Characters/{0}/InGame_{0}.prefab", prefabId),
-                CharacterType.OBSTACLE => ZString.Format("SD_Obstacle/{0}/InGame_{0}.prefab", prefabId),
-                CharacterType.BATTLEITEM => ZString.Format("SD_Item/{0}/InGame_{0}.prefab", prefabId),
-                _ => ZString.Format("SD_Mob/{0}/InGame_{0}.prefab", prefabId),
+                CharacterType.CHARACTER => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
+                CharacterType.OBSTACLE => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
+                CharacterType.BATTLEITEM => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
+                _ => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
             };
         }
 
