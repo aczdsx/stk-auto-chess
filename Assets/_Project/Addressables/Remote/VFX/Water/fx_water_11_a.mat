@@ -87,7 +87,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
-        m_Texture: {fileID: 2800000, guid: 3a219aa1ae717ae4bad07a8bc5dc95c8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3f3d46ab0ba81b04eb0bb7832478cbac, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:

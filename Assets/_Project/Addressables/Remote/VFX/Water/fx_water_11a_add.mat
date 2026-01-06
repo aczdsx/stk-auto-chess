@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fx_water_11_b
-  m_Shader: {fileID: 4800000, guid: b68b99c2e57cef4419465c63c527201b, type: 3}
+  m_Name: fx_water_11a_add
+  m_Shader: {fileID: 4800000, guid: 8b0630d5624432246bf73de2e27b2e31, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -75,8 +75,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 76c0496f41bcf7e438118887aed4db85, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
         m_Texture: {fileID: 0}
@@ -87,7 +87,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
-        m_Texture: {fileID: 2800000, guid: 3f3d46ab0ba81b04eb0bb7832478cbac, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0d6923f497fb0614397f21c0dc1ddb63, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
@@ -144,7 +144,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _ColorMode: 0
     - _Cull: 2
-    - _CullMode: 1
+    - _CullMode: 0
     - _Cutoff: 0.5
     - _Depthpower: 1
     - _DetailAlbedoMapScale: 1
@@ -156,7 +156,7 @@ Material:
     - _DistortionStrengthScaled: 0
     - _DstBlend: 10
     - _DstBlendAlpha: 10
-    - _Emission: 2
+    - _Emission: 5
     - _EmissionEnabled: 0
     - _EnvironmentReflections: 1
     - _FlipbookMode: 0
@@ -169,7 +169,7 @@ Material:
     - _Mode: 0
     - _Noise_STR: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0.4
+    - _Opacity: 0
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -211,7 +211,7 @@ Material:
     - _Noise_UVSpeed: {r: 1, g: 1, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpeedMainTexUVNoiseZW: {r: 0, g: 1, b: 0, a: 0}
+    - _SpeedMainTexUVNoiseZW: {r: 1, g: 0, b: 0, a: 0}
     - _Tile_UVSpeed: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

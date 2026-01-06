@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d1384c754d348a741975fb3e14324f50
+guid: 76c0496f41bcf7e438118887aed4db85
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2880806971339001616
-    second: T_Noise_035_0
+      213: 2405339518372622978
+    second: IntenseWaterTrail_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: T_Noise_035_0
+      name: IntenseWaterTrail_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 256
-        height: 256
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01f41216daeaaf720800000000000000
-      internalID: 2880806971339001616
+      spriteID: 2823fc44c8b716120800000000000000
+      internalID: 2405339518372622978
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      T_Noise_035_0: 2880806971339001616
+      IntenseWaterTrail_0: 2405339518372622978
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
