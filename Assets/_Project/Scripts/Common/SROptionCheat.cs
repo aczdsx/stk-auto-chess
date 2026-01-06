@@ -173,6 +173,13 @@ public partial class SROptions
         UserDataManager.Instance.AddNewCharacter(원하는캐릭터ID);
     }
 
+    [Category("캐릭터 관련")]
+    public void 아트레시아가없으신가요()
+    {
+        UserDataManager.Instance.ForceAddNewCharacter(117513401);
+    }
+
+
     [Category("캐릭터 획득 관련")]
     public void 모든캐릭터획득()
     {
@@ -189,6 +196,8 @@ public partial class SROptions
             UserDataManager.Instance.SetCharacterLevel(userCharacter.character_id, level);
         }
     }
+
+
 
 
     [Category("캐릭터 관련")]

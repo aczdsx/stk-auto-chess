@@ -139,7 +139,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
             };
 
         }
-        // IsSkillActivated = false;
+        IsSkillActivated = false;
     }
 
     private void OnTrigger2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)

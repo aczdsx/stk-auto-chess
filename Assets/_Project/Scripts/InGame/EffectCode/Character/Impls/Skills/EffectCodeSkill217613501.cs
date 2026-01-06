@@ -10,9 +10,12 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 오데트
-// 범위 : 전방 X축 3칸
-// 대미지 : 낫을 크게 휘둘러, 적에게 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 피격된 적은 {1}동안 공격속도가 {2}% 감소한다.
+// 범위 : 
+// 1. 본인기준  2*3 
+// 2. 본인기준 3*3 범위
+// 재사용 시간: {0}초
+// 낫을 크게 휘둘러, 적에게 공격력 {1}%의 대미지를 주고, 상대의 뒤편으로 이동하여 넓은 범위의 공격을 진행합니다.
+// 특수 효과 : 피격된 적은 {2}동안 공격 속도가 {3}% 감소하고 한기를 중첩 시킵니다.
 /// </summary>
 [UseEffectCodeIds(217613501)]
 public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
@@ -108,12 +111,20 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-        ExecuteSkillRoutine(0.2f).Forget();
 
-        IsSkillActivated = false;
+        if (executeIndex == 0)
+        {
+            ExecuteFirstStep().Forget();
+        }
+        else if (executeIndex == 1)
+        {
+            ExecuteSecondStep();
+        }
 
-
-
+        if (executeIndex == 1)
+        {
+            IsSkillActivated = false;
+        }
     }
 
     public override float AddSkillCooltime(float cooltime)
@@ -129,61 +140,105 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-    private async UniTaskVoid ExecuteSkillRoutine(float WaitTime)
+    private async UniTaskVoid ExecuteFirstStep()
     {
-        if (owner.Target == null)
+        List<InGameTile> targetTiles = null;
+
+        // 본인기준 두칸 
+        targetTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 0, 1);
+        // 앞 세칸
+        var frontTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 1, 1);
+        targetTiles.AddRange(frontTiles);
+
+        foreach (var tile in targetTiles)
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+
+            if (tile.CheckValidTile(owner.AllianceType, false))
+            {
+                var target = tile.OccupiedCharacter;
+                var damageValue = target.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AD;
+                damageValue *= _powerRate;
+                var damage = owner.CalculateDamageAmount(damageValue, 0, target, codeId, true);
+                target.GetDamaged(damage, owner);
+
+                double[] eccStats = new double[3];
+                eccStats[0] = codeId;
+                eccStats[1] = _debuffTime;
+                eccStats[2] = _atkSpeedDownRate;
+                
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, target, eccStats, source);
+            }
+        }
+
+        // 0.2초 후 캐릭터가 보고 있는 방향 앞 두칸으로 이동
+        await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
+
+        if (owner == null || owner.CurrentTile == null)
             return;
 
-        IsSkillActivated = false;
+        // 캐릭터가 보고 있는 방향 앞 두칸 타일 가져오기
+        var forwardTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 2);
+        
+        // 두 칸 앞 타일이 있고 비어있으면 이동
+        if (forwardTiles != null && forwardTiles.Count > 0)
+        {
+            var targetTile = forwardTiles[forwardTiles.Count - 1]; // 마지막 타일 (두 칸 앞)
+            if (targetTile != null && targetTile.OccupiedCharacter == null)
+            {
+                MoveToTile(targetTile);
+            }
+        }
+    }
 
-        List<InGameTile> inGameTiles = null;
+    private void MoveToTile(InGameTile targetTile)
+    {
+        owner.ChangeOccupiedTile(targetTile);
+        owner.Position3D = targetTile.View.Position;
 
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 1, 1);
-        await ExecuteSkillStep(inGameTiles);
-        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
+        var characterView = owner.GetCharacterView();
+        if (characterView?.CachedTr != null)
+        {
+            characterView.CachedTr.localPosition = targetTile.View.Position;
+        }
 
-        inGameTiles.Clear();
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 2, 1);
-        await ExecuteSkillStep(inGameTiles);
-        await UniTask.Delay(TimeSpan.FromSeconds(WaitTime));
+    }
 
-        inGameTiles.Clear();
-        inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 1);
-        await ExecuteSkillStep(inGameTiles);
+    private void ExecuteSecondStep()
+    {
+        // 플레이어 기준 Square 3x3 타일 가져오기
+        var areaTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
+
+        foreach (var tile in areaTiles)
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+
+            if (tile.CheckValidTile(owner.AllianceType, false))
+            {
+                var target = tile.OccupiedCharacter;
+                if (target == null || !target.IsAlive)
+                    continue;
+
+                // 데미지 적용
+                var damageValue = target.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AD;
+                damageValue *= _powerRate;
+                var damage = owner.CalculateDamageAmount(damageValue, 0, target, codeId, true);
+                target.GetDamaged(damage, owner);
+
+                // 디버프 적용
+                double[] eccStats = new double[3];
+                eccStats[0] = codeId;
+                eccStats[1] = _debuffTime;
+                eccStats[2] = _atkSpeedDownRate;
+
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, target, eccStats, source);
+            }
+        }
 
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
     }
 
 
-    private async UniTask ExecuteSkillStep(List<InGameTile> inGameTiles)
-    {
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                    tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-                var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId,
-                //     true);
-                // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-
-                double[] eccStats = new double[3];
-                eccStats[0] = codeId;
-                eccStats[1] = _debuffTime;
-                eccStats[2] = _atkSpeedDownRate;
-
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, tile.OccupiedCharacter, eccStats, source);
-            }
-        }
-
-        UniTask.Yield();
-    }
 }
