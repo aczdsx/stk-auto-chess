@@ -9,7 +9,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 하티
-// 대상 : 공격력이 가장 높은 적 1명
+// 대상 : 거리가 가장 먼 적 1명
 // 대미지 : 공격력 {0}%의 대미지를 가한다.
 // 특수 효과 : 피격된 적은 두 칸 거리만큼 넉백된다.
 /// </summary>
@@ -22,7 +22,7 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
 
     private SkillActive _specSkill;
 
-    private CharacterController _targetCharacter;
+    private CharacterController _targetCharacter = null;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -79,23 +79,19 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
-        if (!isInRange)
+        if (_targetCharacter == null)
         {
-            if (owner.Target != null)
+            var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByDistance(owner, false);
+            if (targetCharacters.Count > 0)
             {
-                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
-                    owner.Target.CurrentTile);
-                owner.MoveTile(bestTile);
+                _targetCharacter = targetCharacters[targetCharacters.Count - 1];
             }
-            return;
         }
 
         isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
 
-        _targetCharacter = owner.Target;
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
 
@@ -120,8 +116,7 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
             _targetCharacter.SkillRootTransformFollowable);
 
         var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-        // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-        // owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+
         _targetCharacter.GetDamaged(damage, owner);
 
         var inGameTile =
