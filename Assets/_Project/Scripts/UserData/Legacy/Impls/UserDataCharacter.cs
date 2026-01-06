@@ -241,6 +241,26 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void ForceAddNewCharacter(int characterID)
+        {
+            if(SpecDataManager.Instance.GetCharacterData(characterID) == null) return;
+            if (UserCharacterDic.ContainsKey(characterID))
+            {
+                AddNewCharacter(characterID);
+                return;
+            }
+            userCharacterGroup.UserCharacters.Add(characterID, new UserCharacter
+            {
+                CharacterId = characterID,
+                Level = 1,
+                Exp = 0,
+                StarLevel = SpecDataManager.Instance.GetCharacterData(characterID).init_star,
+                CharacterPiece = 0,
+                TranscendenceLevel = 0,
+            });
+        }
+
+
         // 보유한 캐릭터 인지 확인용
         public bool IsHaveCharacter(int characterID)
         {
@@ -250,9 +270,19 @@ namespace CookApps.AutoBattler
         public List<UserCharacter> GetAllUserCharacterList()
         {
             // SpecDataManager에 없는 캐릭터 제거
-            RemoveInvalidCharacters();
-            
-            return UserCharacterDic.Values.ToList().FindAll(data => data.Level > 0 && SpecDataManager.Instance.GetCharacterData(data.CharacterId) != null);
+            // RemoveInvalidCharacters();
+
+            var result = UserCharacterDic.Values.ToList().FindAll(data => data.Level > 0);
+
+            foreach (var data in result)
+            {
+                if (SpecDataManager.Instance.GetCharacterData(data.CharacterId) == null)
+                {
+                    result.Remove(data);
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -264,7 +294,7 @@ namespace CookApps.AutoBattler
                 return;
 
             var characterIdsToRemove = new List<int>();
-            
+
             foreach (var kvp in userCharacterGroup.UserCharacters)
             {
                 if (SpecDataManager.Instance.GetCharacterData(kvp.Key) == null)

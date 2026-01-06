@@ -146,7 +146,8 @@ namespace CookApps.BattleSystem
         Freezing,
         Stun,
         Sleep,
-        Provocation,
+        Provocation,// 도발
+        Anger,
         Trap,
         Silence,
         Airborne,

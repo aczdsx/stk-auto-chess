@@ -178,32 +178,53 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
 
     private bool TryExecuteAttackGuaranteed(List<CharacterController> targets, int attackIndex, ref int successfulAttacks)
     {
-        // 모든 타겟을 순회하면서 공격 가능한 타겟 찾기
-        int startIndex = attackIndex % targets.Count;
-        int currentIndex = startIndex;
-        int attempts = 0;
-        const int MAX_ATTEMPTS = TARGET_COUNT * 3; // 충분히 많은 시도
+        if (!IsOwnerValid())
+            return false;
 
-        do
+        // 타겟 리스트 갱신 (죽은 타겟 제거)
+        targets = RefreshTargets(targets);
+        if (targets.Count == 0)
+            return false;
+
+        // 이미 시도한 타겟 추적
+        var triedTargets = new HashSet<CharacterController>();
+        const int MAX_ATTEMPTS = TARGET_COUNT * 3;
+
+        // 시작 인덱스 계산
+        int startIndex = targets.Count > 0 ? attackIndex % targets.Count : 0;
+
+        // 모든 타겟을 순회하면서 공격 가능한 타겟 찾기
+        for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
         {
             if (!IsOwnerValid())
                 return false;
 
             // 타겟 리스트 갱신 (죽은 타겟 제거)
-            targets = RefreshTargets(targets);
-            if (targets.Count == 0)
-                return false;
+            if (attempt > 0 && attempt % 5 == 0) // 5번 시도마다 타겟 리스트 갱신
+            {
+                targets = RefreshTargets(targets);
+                if (targets.Count == 0)
+                    break;
+                triedTargets.Clear(); // 리스트가 갱신되면 시도 기록 초기화
+            }
 
             // 순환 인덱스로 타겟 선택
-            currentIndex = currentIndex % targets.Count;
+            int currentIndex = (startIndex + attempt) % targets.Count;
             var target = targets[currentIndex];
 
-            if (!IsTargetValid(target))
+            // 이미 시도한 타겟이면 스킵
+            if (triedTargets.Contains(target))
             {
-                currentIndex++;
-                attempts++;
+                // 모든 타겟을 시도했는지 확인
+                if (triedTargets.Count >= targets.Count)
+                    break;
                 continue;
             }
+
+            triedTargets.Add(target);
+
+            if (!IsTargetValid(target))
+                continue;
 
             // 8방향(인접 타일)에서 이동 가능한 타일 찾기
             var targetTile = GetTileIn8Directions(target.CurrentTile);
@@ -216,17 +237,13 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
                 successfulAttacks++;
                 return true;
             }
-
-            // 타일을 찾지 못했으면 다음 타겟 시도
-            currentIndex++;
-            attempts++;
-        } while (attempts < MAX_ATTEMPTS);
+        }
 
         // 모든 타겟을 시도해도 타일을 찾지 못했으면, 첫 번째 유효한 타겟에게 현재 위치에서 공격
         targets = RefreshTargets(targets);
-        if (targets.Count > 0)
+        for (int i = 0; i < targets.Count; i++)
         {
-            var fallbackTarget = targets[0];
+            var fallbackTarget = targets[i];
             if (IsTargetValid(fallbackTarget))
             {
                 // 현재 위치에서 공격 (이동 없이)

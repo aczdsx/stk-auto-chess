@@ -295,10 +295,10 @@ public class InGameBottomUI : MonoBehaviour
 
             var characterStat = new CharacterStatData(character.CharacterId, character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
-            if (characterStat.Spec == null)
-            {
-                continue;
-            }
+            // if (characterStat.Spec == null)
+            // {
+            //     continue;
+            // }
             _characterStats.Add(characterStat);
         }
 
