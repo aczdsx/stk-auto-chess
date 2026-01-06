@@ -60,7 +60,8 @@ namespace CookApps.AutoBattler
             _dayText.text = _currentSpecEventConditionData.need_count.ToString();
 
             // 리워드 데이터 세팅
-            var rewardItem = new RewardItem(_currentSpecEventConditionData.item_type, _currentSpecEventConditionData.item_key, _currentSpecEventConditionData.item_count);
+            // ItemType의 삭제로 인해 변경.(new RewardItem(_currentSpecEventConditionData.item_type, _currentSpecEventConditionData.item_key, _currentSpecEventConditionData.item_count))
+            var rewardItem = new RewardItem(_currentSpecEventConditionData.item_key == 0 ? (int)_currentSpecEventConditionData.item_type : _currentSpecEventConditionData.item_key, _currentSpecEventConditionData.item_count);
             _rewardItemSlot.SetRewardSlot(rewardItem);
 
             _attendanceRewardItemList.Add(rewardItem);

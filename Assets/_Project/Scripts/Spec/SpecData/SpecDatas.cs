@@ -17,8 +17,6 @@ namespace CookApps.AutoBattler
         public uint ItemId;
         /// 카테고리
         public string Category;
-        /// 아이템 타입
-        public global::CookApps.AutoBattler.ItemType Type;
         /// 이름
         public string Name;
         /// 관리타입
@@ -64,6 +62,110 @@ namespace CookApps.AutoBattler
         public string Id;
         /// 가격 USD
         public float Price;
+    }
+
+    [GeneratorSpecData]
+    public partial class ServerGachaShop
+    {
+        /// 가챠 키 아이디
+        [GeneratorId(nameof(Id), typeof(string))]
+        public string Id;
+        /// 카테고리
+        public string Category;
+        /// 가챠 타입
+        public string GhachaType;
+        /// 상품 이름
+        public string Name;
+        /// 인게임 상품 id
+        public string InGameGroupId;
+        /// 가챠 횟수
+        public string GachaCount;
+        /// 소모 목록
+        public uint PriceItemId;
+        /// 소모 수량
+        public int PriceCount;
+        /// 가챠 기간 타입
+        public string PeriodType;
+        /// 가챠 시작 일정
+        [GeneratorDateTime(nameof(StartDate))]
+        public string StartDate;
+        /// 가챠 종료 일정
+        [GeneratorDateTime(nameof(EndDate))]
+        public string EndDate;
+    }
+
+    [GeneratorSpecData]
+    public partial class SeverGachaList
+    {
+        /// 가챠 키 아이디
+        [GeneratorId(nameof(GachaId), typeof(string))]
+        public string GachaId;
+        /// 보상 아이템명
+        public uint RewardItem;
+        /// 보상 수량
+        public int RewardCount;
+        /// 확률(만분)
+        public int Weight;
+    }
+
+    [GeneratorSpecData]
+    public partial class GachaInfo
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 가챠 그룹 id
+        public int gacha_group_id;
+        /// 가챠 id
+        public int gacha_id;
+        /// 가챠 타입
+        public global::CookApps.AutoBattler.GachaType gacha_type;
+        /// 가챠 카운트
+        public int gacha_count;
+        /// 가챠 코스트 아이템 타입
+        public global::CookApps.AutoBattler.ItemType gacha_cost_item_type;
+        /// 가챠 코스트
+        public int gacha_cost;
+        /// 가챠 기간 타입
+        public global::CookApps.AutoBattler.GachaTermType gacha_term_type;
+        /// 가챠 시작 시간
+        [GeneratorDateTime(nameof(start_at))]
+        public string start_at;
+        /// 가챠 종료 시간
+        [GeneratorDateTime(nameof(end_at))]
+        public string end_at;
+    }
+
+    [GeneratorSpecData]
+    public partial class GachaCharacter
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 가챠  그룹 id
+        public int gacha_group_id;
+        /// 가챠 결과 아이템  id
+        public int result_item_key;
+        /// 가챠 결과 아이템 갯수
+        public int result_item_count;
+        /// 확률
+        public int weight;
+    }
+
+    [GeneratorSpecData]
+    public partial class GachaScenario
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 가챠 누적 횟수
+        public int gacha_acc_count;
+        /// 보상 종류
+        public global::CookApps.AutoBattler.ItemType item_type;
+        /// 보상 세부 key
+        public int item_key;
+        /// 보상 수량
+        public int item_count;
     }
 
     [GeneratorSpecData]
@@ -346,6 +448,20 @@ namespace CookApps.AutoBattler
         public string dialog_token;
         /// 사운드 토큰
         public string sound_token_kr;
+    }
+
+    [GeneratorSpecData]
+    public partial class ImmuneInfo
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 이뮨 타입
+        public global::CookApps.AutoBattler.ImmuneType immune_type;
+        /// 이펙트 코드
+        public global::CookApps.AutoBattler.EffectCodeNameType effect_code;
+        /// 이뮨 적용 여부, 트루인 경우 안통한다
+        public bool immune_application;
     }
 
     [GeneratorSpecData]
@@ -1068,7 +1184,7 @@ namespace CookApps.AutoBattler
         public string benefit_desc_token;
         public string benefit_title_token;
         /// 건물 유니크 ID
-        public int bulid_id;
+        public int build_id;
         public int before_key;
         public int benefit_key;
     }
@@ -1080,13 +1196,11 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(index), typeof(int))]
         public int index;
         /// 건물 유니크 ID
-        public int bulid_id;
+        public int build_id;
         /// 건물 프리펩
         public string build_prefab;
         /// 건물 타입
-        public string facility_type;
-        /// 그룹 ID
-        public int build_group_id;
+        public global::CookApps.AutoBattler.FacilityType facility_type;
         /// 건물명
         public string buld_name_token;
         /// 건물 설명
@@ -1252,68 +1366,6 @@ namespace CookApps.AutoBattler
         /// 보상 종류
         public global::CookApps.AutoBattler.ItemType item_type;
         /// 보상 키 값
-        public int item_key;
-        /// 보상 수량
-        public int item_count;
-    }
-
-    [GeneratorSpecData]
-    public partial class GachaInfo
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 가챠 그룹 id
-        public int gacha_group_id;
-        /// 가챠 id
-        public int gacha_id;
-        /// 가챠 타입
-        public global::CookApps.AutoBattler.GachaType gacha_type;
-        /// 가챠 카운트
-        public int gacha_count;
-        /// 가챠 코스트 아이템 타입
-        public global::CookApps.AutoBattler.ItemType gacha_cost_item_type;
-        /// 가챠 코스트
-        public int gacha_cost;
-        /// 가챠 기간 타입
-        public global::CookApps.AutoBattler.GachaTermType gacha_term_type;
-        /// 가챠 시작 시간
-        [GeneratorDateTime(nameof(start_at))]
-        public string start_at;
-        /// 가챠 종료 시간
-        [GeneratorDateTime(nameof(end_at))]
-        public string end_at;
-    }
-
-    [GeneratorSpecData]
-    public partial class GachaCharacter
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 가챠  그룹 id
-        public int gacha_group_id;
-        /// 가챠 결과 아이템 타입
-        public global::CookApps.AutoBattler.ItemType result_item_type;
-        /// 가챠 결과 아이템  id
-        public int result_item_key;
-        /// 가챠 결과 아이템 갯수
-        public int result_item_count;
-        /// 확률
-        public int weight;
-    }
-
-    [GeneratorSpecData]
-    public partial class GachaScenario
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 가챠 누적 횟수
-        public int gacha_acc_count;
-        /// 보상 종류
-        public global::CookApps.AutoBattler.ItemType item_type;
-        /// 보상 세부 key
         public int item_key;
         /// 보상 수량
         public int item_count;

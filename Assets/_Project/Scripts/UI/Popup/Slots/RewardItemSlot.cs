@@ -55,17 +55,17 @@ namespace CookApps.AutoBattler
 
         public void SetRewardSlot(RewardItem reward)
         {
-            switch (reward.Type)
+            if (reward.Key.IsCharacterId())
             {
-                case ItemType.CHARACTER:
-                    SetRewardCharacter(reward);
-                    break;
-                case ItemType.CHARACTER_PIECE:
-                    SetRewardPiece(reward);
-                    break;
-                default:
-                    SetRewardItem(reward);
-                    break;
+                SetRewardCharacter(reward);
+            }
+            else if (reward.Key.IsCharacterPieceId())
+            {
+                SetRewardPiece(reward);
+            }
+            else
+            {
+                SetRewardItem(reward);   
             }
         }
 
@@ -76,13 +76,14 @@ namespace CookApps.AutoBattler
 
             ClearSlot();
 
-            _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardItem.Type);
-
-            _rewardItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(rewardItem.Type)).Forget();
-            _rewardItemCountText.text = $"x{rewardItem.Count}";
-
-            // 레이어 활성화
-            _rewardItemLayerObject.SetActive(true);
+            // TODO: 아이템 표시
+            // _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardItem.Type);
+            //
+            // _rewardItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(rewardItem.Type)).Forget();
+            // _rewardItemCountText.text = $"x{rewardItem.Count}";
+            //
+            // // 레이어 활성화
+            // _rewardItemLayerObject.SetActive(true);
         }
 
         // 캐릭터 조각 보상 세팅
@@ -92,21 +93,22 @@ namespace CookApps.AutoBattler
 
             ClearSlot();
 
-            _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Type);
-            _rewardKey = rewardPiece.Key;
-
-            var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardPiece.Key);
-            if (specCharacterData == null) return;
-
-            var userCharacterData = UserDataManager.Instance.GetUserCharacter(specCharacterData.character_id);
-            if (userCharacterData == null) return;
-
-            _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
-            _rewardPieceSliderImage.fillAmount = (float)userCharacterData.CharacterPiece / specCharacterData.need_piece;
-            _rewardPieceCountText.text = $"{userCharacterData.CharacterPiece}/{specCharacterData.need_piece}";
-
-            // 레이어 활성화
-            _rewardPieceLayerObject.SetActive(true);
+            // TODO: 아이템 표시
+            // _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Type);
+            // _rewardKey = rewardPiece.Key;
+            //
+            // var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardPiece.Key);
+            // if (specCharacterData == null) return;
+            //
+            // var userCharacterData = UserDataManager.Instance.GetUserCharacter(specCharacterData.character_id);
+            // if (userCharacterData == null) return;
+            //
+            // _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
+            // _rewardPieceSliderImage.fillAmount = (float)userCharacterData.CharacterPiece / specCharacterData.need_piece;
+            // _rewardPieceCountText.text = $"{userCharacterData.CharacterPiece}/{specCharacterData.need_piece}";
+            //
+            // // 레이어 활성화
+            // _rewardPieceLayerObject.SetActive(true);
         }
 
         // 캐릭터 보상 세팅
@@ -116,21 +118,22 @@ namespace CookApps.AutoBattler
 
             ClearSlot();
 
-            _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardCharacter.Type);
-
-            var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardCharacter.Key);
-            if (specCharacterData == null) return;
-
-            _rewardKey = rewardCharacter.Key;
-            _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
-            _rewardCharacterNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
-            _rewardElementSynergyUI.SetSynergyUI(specCharacterData.character_element_type);
-            _rewardClassSynergyUI.SetSynergyUI(specCharacterData.character_stella_type);
-
-            _gradeSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(specCharacterData.grade_type)).Forget();
-
-            // 레이어 활성화
-            _rewardCharacterLayerObject.SetActive(true);
+            // TODO: 아이템 표시
+            // _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardCharacter.Type);
+            //
+            // var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardCharacter.Key);
+            // if (specCharacterData == null) return;
+            //
+            // _rewardKey = rewardCharacter.Key;
+            // _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
+            // _rewardCharacterNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
+            // _rewardElementSynergyUI.SetSynergyUI(specCharacterData.character_element_type);
+            // _rewardClassSynergyUI.SetSynergyUI(specCharacterData.character_stella_type);
+            //
+            // _gradeSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(specCharacterData.grade_type)).Forget();
+            //
+            // // 레이어 활성화
+            // _rewardCharacterLayerObject.SetActive(true);
         }
 
         public void SetCheckSlot(bool isActive)

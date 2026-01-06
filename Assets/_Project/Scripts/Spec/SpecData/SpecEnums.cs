@@ -98,6 +98,7 @@ namespace CookApps.AutoBattler
         BUFF_AD_REDUCE_PERCENT_UP = 2000000024,
         BUFF_AVOID_PROB_PERCENT_UP = 2000000025,
         BUFF_MEDITATION = 2000000026,
+        BUFF_ANGER = 2000000027,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -897,5 +898,14 @@ namespace CookApps.AutoBattler
         FOCUS_OBJECT = 5,
         CLEAR_STAGE = 6,
         MOVE_OBJECT = 7,
+    }
+
+    public enum FacilityType
+    {
+        NONE = 0,
+        COMMAND_CENTER = 1,
+        NEST = 2,
+        DIMENSION_LAB = 3,
+        SIMULATION_CENTER = 4,
     }
 }

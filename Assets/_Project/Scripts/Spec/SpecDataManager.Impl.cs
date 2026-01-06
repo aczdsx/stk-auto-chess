@@ -433,15 +433,18 @@ namespace CookApps.AutoBattler
             var levelExpData = GetCharacterLevelExpData(targetLevel);
             if (levelExpData != null)
             {
-                RewardItem needGoldItem = new RewardItem(ItemType.GOLD, 0, levelExpData.need_gold_sum);
+                // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, levelExpData.need_gold_sum))
+                RewardItem needGoldItem = new RewardItem((int)ItemType.GOLD, levelExpData.need_gold_sum);
                 resultItemList.Add(needGoldItem);
 
-                RewardItem needExpItem = new RewardItem(ItemType.CHAR_USER_EXP_ITEM, 0, levelExpData.base_levelup_item_sum);
+                // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.CHAR_USER_EXP_ITEM, 0, levelExpData.base_levelup_item_sum))
+                RewardItem needExpItem = new RewardItem((int)ItemType.CHAR_USER_EXP_ITEM, levelExpData.base_levelup_item_sum);
                 resultItemList.Add(needExpItem);
 
                 if (levelExpData.sec_levelup_item_sum > 0)
                 {
-                    RewardItem needSecondLevelupItem = new RewardItem(levelExpData.sec_levelup_item_type, characterID, levelExpData.sec_levelup_item_sum);
+                    // ItemType의 삭제로 인해 변경.(new RewardItem(levelExpData.sec_levelup_item_type, characterID, levelExpData.sec_levelup_item_sum))
+                    RewardItem needSecondLevelupItem = new RewardItem(characterID, levelExpData.sec_levelup_item_sum);
                     resultItemList.Add(needSecondLevelupItem);
                 }
             }
@@ -723,7 +726,8 @@ namespace CookApps.AutoBattler
             List<RewardItem> rewardItemList = new List<RewardItem>();
             foreach (var stageReward in stageRewardList)
             {
-                rewardItemList.Add(new RewardItem(stageReward.item_type, stageReward.item_key, stageReward.item_count));
+                // ItemType의 삭제로 인해 변경.(new RewardItem(stageReward.item_type, stageReward.item_key, stageReward.item_count))
+                rewardItemList.Add(new RewardItem(stageReward.item_key == 0 ? (int)stageReward.item_type : stageReward.item_key, stageReward.item_count));
             }
 
             return rewardItemList;
@@ -735,7 +739,8 @@ namespace CookApps.AutoBattler
             List<RewardItem> rewardItemList = new List<RewardItem>();
             foreach (var rewardInfo in rewardInfoList)
             {
-                rewardItemList.Add(new RewardItem(rewardInfo.item_type, rewardInfo.item_key, rewardInfo.item_count));
+                // ItemType의 삭제로 인해 변경.(new RewardItem(rewardInfo.item_type, rewardInfo.item_key, rewardInfo.item_count))
+                rewardItemList.Add(new RewardItem(rewardInfo.item_key == 0 ? (int)rewardInfo.item_type : rewardInfo.item_key, rewardInfo.item_count));
             }
 
             return rewardItemList;
@@ -1228,7 +1233,8 @@ namespace CookApps.AutoBattler
                     GachaCharacter selectedData = targetList.RandomRatePick(content => content.weight);
                     if (selectedData != null)
                     {
-                        rewardItemList.Add(new RewardItem(selectedData.result_item_type, selectedData.result_item_key, selectedData.result_item_count));
+                        // ItemType의 삭제로 인해 변경.(new RewardItem(selectedData.result_item_key, selectedData.result_item_count))
+                        rewardItemList.Add(new RewardItem(selectedData.result_item_key, selectedData.result_item_count));
                     }
                 }
             }
@@ -1242,7 +1248,8 @@ namespace CookApps.AutoBattler
             List<RewardItem> rewardItemList = new List<RewardItem>();
             foreach (var gachaContent in gachaContentList)
             {
-                rewardItemList.Add(new RewardItem(gachaContent.result_item_type, gachaContent.result_item_key, gachaContent.result_item_count));
+                // ItemType의 삭제로 인해 변경.(new RewardItem(gachaContent.result_item_key, gachaContent.result_item_count))
+                rewardItemList.Add(new RewardItem(gachaContent.result_item_key, gachaContent.result_item_count));
             }
 
             return rewardItemList;
@@ -1263,7 +1270,8 @@ namespace CookApps.AutoBattler
             List<RewardItem> rewardItemList = new List<RewardItem>();
             foreach (var gachaScenario in gachaScenarioList)
             {
-                rewardItemList.Add(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count));
+                // ItemType의 삭제로 인해 변경.(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count))
+                rewardItemList.Add(new RewardItem(gachaScenario.item_key == 0 ? (int)gachaScenario.item_type : gachaScenario.item_key, gachaScenario.item_count));
             }
 
             return rewardItemList;

@@ -63,7 +63,7 @@ namespace CookApps.AutoBattler
                 {
                     SceneUILayerManager.Instance.PopUILayer(buildingLayer);
                 }
-                // ElpisBuildingPopup.OpenPopup(facilityData, target.SlotIndex).Forget();
+                ElpisBuildingPopup.OpenPopup(facilityData).Forget();
                 return;
             }
 

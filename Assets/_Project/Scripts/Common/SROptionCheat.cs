@@ -145,7 +145,7 @@ public partial class SROptions
     {
         if (원하는아이템갯수 <= 0) return;
 
-        UserDataManager.Instance.IncreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true, true);
+        // UserDataManager.Instance.IncreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true, true);
     }
 
     [Category("아이템 관련")]
@@ -153,7 +153,7 @@ public partial class SROptions
     {
         if (원하는아이템갯수 <= 0) return;
 
-        UserDataManager.Instance.DecreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true, true);
+        // UserDataManager.Instance.DecreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true, true);
     }
 
     [Category("아이템 관련")] public ItemType 원하는아이템타입 { get; set; } = ItemType.GOLD;
@@ -287,8 +287,8 @@ public partial class SROptions
 
         SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 
-        // 행동력 소모 처리
-        UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, targetSpecStageData.need_ap, true, false);
+        // TODO: 행동력 소모 처리
+        // UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, targetSpecStageData.need_ap, true, false);
 
         var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
         if (battleReadyMain != null)

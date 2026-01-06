@@ -5,21 +5,20 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
+using Tech.Hive.V1;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
     public class RewardItem
     {
-        public ItemType Type { get; init; }
         public int Key { get; init; }
         public int Count { get; init; }
 
         public RewardItem() {}
 
-        public RewardItem(ItemType typeValue, int keyValue, int countValue)
+        public RewardItem(int keyValue, int countValue)
         {
-            Type = typeValue;
             Key = keyValue;
             Count = countValue;
         }
@@ -74,6 +73,30 @@ namespace CookApps.AutoBattler
             };
         }
         
+        public static ElpisFacilityType ToServerType(this FacilityType specFacilityType)
+        {
+            return specFacilityType switch
+            {
+                FacilityType.COMMAND_CENTER => ElpisFacilityType.FacilityTypeCommandCenter,
+                FacilityType.NEST => ElpisFacilityType.FacilityTypeNest,
+                FacilityType.DIMENSION_LAB => ElpisFacilityType.FacilityTypeDimensionLab,
+                FacilityType.SIMULATION_CENTER => ElpisFacilityType.FacilityTypeSimulationCenter,
+                _ => ElpisFacilityType.FacilityTypeUnspecified,
+            };
+        }
+        
+        public static FacilityType ToSpecType(this ElpisFacilityType serverFacilityType)
+        {
+            return serverFacilityType switch
+            {
+                ElpisFacilityType.FacilityTypeCommandCenter => FacilityType.COMMAND_CENTER,
+                ElpisFacilityType.FacilityTypeNest => FacilityType.NEST,
+                ElpisFacilityType.FacilityTypeDimensionLab => FacilityType.DIMENSION_LAB,
+                ElpisFacilityType.FacilityTypeSimulationCenter => FacilityType.SIMULATION_CENTER,
+                _ => FacilityType.NONE,
+            };
+        }
+        
         public static string ToCharacterResourcePath(this CharacterType characterType, int prefabId)
         {
             return characterType switch
@@ -98,6 +121,18 @@ namespace CookApps.AutoBattler
             };
 
             return color;
+        }
+        
+        public static bool IsCharacterId(this int rewardId)
+        {
+            // TODO: rewardId가 캐릭터인지 체크
+            return false;
+        }
+        
+        public static bool IsCharacterPieceId(this int rewardId)
+        {
+            // TODO: rewardId가 캐릭터 조각인지 체크
+            return false;
         }
     }
 }

@@ -97,8 +97,7 @@ namespace CookApps.AutoBattler
                 .OnBind((cell, data, index) =>
                 {
                     cell.SetData(data, index);
-                    cell.SetShortcutCallback(() => NavigateToBenefit(data.bulid_id));
-                    // cell.SetShortcutCallback(() => NavigateToBenefit(data.build_group_id));
+                    // cell.SetShortcutCallback(() => NavigateToBenefit(data.build_id));
                 })
                 .OnCellRecycled(cell => cell.ResetState())
                 .OnCellReleased((index, cell) => cell.ClearEventListeners())
@@ -134,9 +133,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < SpecDataManager.Instance.ElpisBuildInfo.All.Count; i++)
             {
                 var buildInfo = SpecDataManager.Instance.ElpisBuildInfo.All[i];
-                // if (buildInfo.build_id == ElpisFacilityType.FacilityTypeCommandCenter.ToInvariantString() &&
-                //     buildInfo.build_lv == commandCenter.Level)
-                if (buildInfo.bulid_id.ToString() == ElpisFacilityType.FacilityTypeCommandCenter.ToInvariantString() &&
+                if (buildInfo.facility_type.ToServerType() == ElpisFacilityType.FacilityTypeCommandCenter &&
                     buildInfo.build_lv == commandCenter.Level)
                 {
                     requiredCoreForUpgrade = buildInfo.item_INT;

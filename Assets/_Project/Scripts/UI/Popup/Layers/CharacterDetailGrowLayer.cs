@@ -329,11 +329,14 @@ namespace CookApps.AutoBattler
 
             // 재료 아이템 소진
             List<RewardItem> recipeItemList = new List<RewardItem>();
-            recipeItemList.Add(new RewardItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count));
-            recipeItemList.Add(new RewardItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold));
+            // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count))
+            recipeItemList.Add(new RewardItem((int)_specCharacterLevelExpData.base_levelup_item_type, _specCharacterLevelExpData.base_levelup_item_count));
+            // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold))
+            recipeItemList.Add(new RewardItem((int)ItemType.GOLD, _specCharacterLevelExpData.need_gold));
             if (_specCharacterLevelExpData.sec_levelup_item_count > 0)
             {
-                recipeItemList.Add(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count));
+                // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count))
+                recipeItemList.Add(new RewardItem(_specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count));
             }
 
             UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
@@ -447,7 +450,8 @@ namespace CookApps.AutoBattler
             {
                 // 재료 아이템 소진
                 List<RewardItem> recipeItemList = new List<RewardItem>();
-                recipeItemList.Add(new RewardItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count));
+                // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count))
+                recipeItemList.Add(new RewardItem(_specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count));
 
                 UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
 

@@ -168,7 +168,8 @@ namespace CookApps.AutoBattler
             {
                 if (_userCharacterData.CharacterPiece >= _specCharacterData.need_piece)
                 {
-                    RewardItem newCharacter = new RewardItem(ItemType.CHARACTER, _userCharacterData.CharacterId, 1);
+                    // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.CHARACTER, _userCharacterData.CharacterId, 1))
+                    RewardItem newCharacter = new RewardItem(_userCharacterData.CharacterId, 1);
                     List<RewardItem> rewardList = new List<RewardItem> { newCharacter };
 
                     SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardList)).Forget();

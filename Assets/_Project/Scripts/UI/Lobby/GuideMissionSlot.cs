@@ -130,7 +130,8 @@ namespace CookApps.AutoBattler
             {
                 // 보상 수령 처리
                 List<RewardItem> rewardItemList = new List<RewardItem>();
-                rewardItemList.Add(new RewardItem(_specGuideMissionData.item_type, _specGuideMissionData.item_key, _specGuideMissionData.item_count));
+                // ItemType의 삭제로 인해 변경.(new RewardItem(_specGuideMissionData.item_type, _specGuideMissionData.item_key, _specGuideMissionData.item_count))
+                rewardItemList.Add(new RewardItem(_specGuideMissionData.item_key == 0 ? (int)_specGuideMissionData.item_type : _specGuideMissionData.item_key, _specGuideMissionData.item_count));
                 SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
                 {
                     // 다음 가이드 미션 요청

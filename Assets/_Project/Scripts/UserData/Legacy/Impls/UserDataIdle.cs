@@ -76,8 +76,7 @@ namespace CookApps.AutoBattler
                 {
                     var rewardItem = new RewardItem
                     {
-                        Type = idleReward.item_type,
-                        Key = 0,
+                        Key = (int)idleReward.item_type,
                         Count = resultAmount
                     };
 

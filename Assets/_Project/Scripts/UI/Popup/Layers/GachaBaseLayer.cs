@@ -86,8 +86,8 @@ namespace CookApps.AutoBattler
             handle.Result.GetComponent<GachaFxByTen>().SetItem(resultGachaList, isOneTime);
             _loadedGachaFxHandles.Add(handle);
             
-            // 가챠 아이템 소모
-            UserDataManager.Instance.DecreaseItem(_currentSpecGachaData.gacha_cost_item_type, 0, _currentSpecGachaData.gacha_cost, true, true);
+            // TODO: 가챠 아이템 소모
+            // UserDataManager.Instance.DecreaseItem(_currentSpecGachaData.gacha_cost_item_type, 0, _currentSpecGachaData.gacha_cost, true, true);
 
             // 가챠 결과 아이템 저장
             UserDataManager.Instance.IncreaseRewardItemList(resultGachaList, true);

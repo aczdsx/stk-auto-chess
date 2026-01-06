@@ -96,7 +96,8 @@ namespace CookApps.AutoBattler
 
             // 리워드 팝업 생성
             List<RewardItem> rewardItemList = new List<RewardItem>();
-            rewardItemList.Add(new RewardItem(_specRewardInfo.item_type, _specRewardInfo.item_key, _specRewardInfo.item_count));
+            // ItemType의 삭제로 인해 변경.(new RewardItem(_specRewardInfo.item_type, _specRewardInfo.item_key, _specRewardInfo.item_count))
+            rewardItemList.Add(new RewardItem(_specRewardInfo.item_key == 0 ? (int)_specRewardInfo.item_type : _specRewardInfo.item_key, _specRewardInfo.item_count));
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 

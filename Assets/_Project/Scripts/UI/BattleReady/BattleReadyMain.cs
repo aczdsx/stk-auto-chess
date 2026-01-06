@@ -8,6 +8,7 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using CookApps.TeamBattle;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ namespace CookApps.AutoBattler
     {
         public Transform GetIdleRewardTransform => _idleRewardButton.transform;
 
+        [SerializeField] private CAButton _backToLobby;
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
         [SerializeField] private CAButton _shopButton;
@@ -90,6 +92,7 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
+            _backToLobby.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGoToLobby()).AddTo(this);
             _playButton.onClick.AddListener(OnClickStartButton);
             _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
             // _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
@@ -648,6 +651,14 @@ namespace CookApps.AutoBattler
                 SceneUILayerManager.Instance.SetEnableFloatingNodeCanvas(true);
             }).Forget();
         }
+        
+        public async UniTask OnClickGoToLobby()
+        {
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("Lobby");
+        }
+        
         private void OnClickStartButton()
         {
             if (SceneTransition.IsFadeProcessing)

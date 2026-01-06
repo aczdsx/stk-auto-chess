@@ -69,7 +69,7 @@ namespace CookApps.AutoBattler
 
             _rewardItemData = _rewardItem;
 
-            if (_rewardItem.Type == ItemType.CHARACTER_PIECE)
+            if (_rewardItem.Key.IsCharacterPieceId())
             {
                 characterData = SpecDataManager.Instance.GetCharacterData(_rewardItem.Key);
             }
@@ -293,7 +293,8 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    ItemOnImageSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_rewardItemData.Type)).Forget();
+                    // TODO: rewardItem에 맞게 sprite 세팅
+                    // ItemOnImageSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_rewardItemData.Key)).Forget();
                 }
 
                 amountText.text = $"x{_rewardItemData.Count}";

@@ -67,7 +67,8 @@ namespace CookApps.AutoBattler
                 GameObject newRewardItem = Instantiate(_rewardItemSlotObject, _rewardItemListLayerObject.transform);
                 RewardItemSlot rewardItemSlot = newRewardItem.GetComponent<RewardItemSlot>();
 
-                RewardItem newReward = new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count);
+                // ItemType의 삭제로 인해 변경.(new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count))
+                RewardItem newReward = new RewardItem(rewardItem.item_key == 0 ? (int)rewardItem.item_type : rewardItem.item_key, rewardItem.item_count);
 
                 rewardItemSlot.SetRewardSlot(newReward);
 

@@ -86,7 +86,7 @@ namespace CookApps.AutoBattler
                 var cell = Instantiate(cellPrefab, contentRoot);
 
                 // Determine State
-                bool isInstalled = HasFacility(info.bulid_id);
+                bool isInstalled = HasFacility(info.build_id);
                 // 설치 조건: 사령부 레벨이 건물 정보의 조건을 만족해야 함 (여기서는 임시로 build_lv를 요구 레벨로 가정하거나 별도 필드 확인)
                 // ElpisBuildInfo의 build_lv가 설치된 건물의 레벨을 의미하는지, 요구 레벨인지 SpecDatas.cs를 다시 봐야 함.
                 // 보통 build_group_id로 묶이고 level별로 존재.
@@ -98,7 +98,7 @@ namespace CookApps.AutoBattler
 
                 // Check Lock Condition (Command Center Level Dependency)
                 // ElpisCommandCenterBenefit에서 해금 정보를 가져와야 정확함.
-                bool isLocked = !IsUnlockedByCommandCenter(info.build_group_id, commandCenterLv);
+                bool isLocked = !IsUnlockedByCommandCenter(info.build_id, commandCenterLv);
 
                 // Check Cost
                 bool canAfford = true; // TODO: Check actual resources
@@ -122,7 +122,7 @@ namespace CookApps.AutoBattler
             return false; // 임시
         }
 
-        private bool IsUnlockedByCommandCenter(int buildGroupId, int commandCenterLv)
+        private bool IsUnlockedByCommandCenter(int buildId, int commandCenterLv)
         {
             // ElpisCommandCenterBenefit 테이블에서 현재 사령부 레벨로 해금되는 build_group_id 확인
             // 혹은 단순히 요구 레벨 로직이 있다면 사용.
@@ -133,7 +133,7 @@ namespace CookApps.AutoBattler
             foreach (var benefit in benefits)
             {
                 // if (benefit.lv <= commandCenterLv && benefit.build_group_id == buildGroupId)
-                if (benefit.lv <= commandCenterLv && benefit.bulid_id == buildGroupId)
+                if (benefit.lv <= commandCenterLv && benefit.build_id == buildId)
                     return true;
             }
             return false;
@@ -154,10 +154,10 @@ namespace CookApps.AutoBattler
             // }
 
             // if (!Enum.TryParse<ElpisFacilityType>(info.build_id, out var facilityType))
-            if (!Enum.TryParse<ElpisFacilityType>(info.bulid_id.ToString(), out var facilityType))
+            if (!Enum.TryParse<ElpisFacilityType>(info.build_id.ToString(), out var facilityType))
             {
                 // Debug.LogError($"Invalid Facility Type: {info.build_id}");
-                Debug.LogError($"Invalid Facility Type: {info.bulid_id}");
+                Debug.LogError($"Invalid Facility Type: {info.build_id}");
                 return;
             }
 
