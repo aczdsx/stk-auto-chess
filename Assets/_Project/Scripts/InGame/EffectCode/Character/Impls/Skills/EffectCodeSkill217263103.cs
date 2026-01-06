@@ -5,20 +5,32 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using System;
+using Unity.VisualScripting;
 
 /// <summary>
 /// 루키다
-// 범위 : 루키다 중심 3x3
-// 대미지 : 불길을 소환해 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 피격된 적에게 보호막이 있을 경우, 보호막이 즉시 파괴된다.
+// 대상: 자기 자신
+// 재사용 시간: {0}초
+// 효과: 즉시 여우불을 {1}개 만큼 획득합니다. {2}초간 보유한 여우불의 갯수당 공격속도가 {3}% 만큼 증가합니다.
 /// </summary>
 [UseEffectCodeIds(217263103)]
 public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _damageRate;
+    private int _ownedFoxFireCount;
+
+    private int _maxFoxFireCount = 9;
+
+    private int _increaseFoxFireCount;
+    private ObfuscatorFloat _buffTime;
+    private ObfuscatorFloat _attackSpeedIncreaseRate;
+
+    private InGameVfx _tailVfx;
+
+    private List<GameObject> _tailGameObjects = new();
+
 
     private bool _isReadyToActivate;
-
     private SkillActive _specSkill;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -27,18 +39,29 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _increaseFoxFireCount = codeInfo.GetCodeStatToInt(1);
+        _buffTime = codeInfo.GetCodeStatToFloat(2);
+        _attackSpeedIncreaseRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+
+        _tailVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+        for (int i = 0; i < _tailVfx.CachedTr.childCount; i++)
+        {
+            _tailGameObjects.Add(_tailVfx.CachedTr.GetChild(i).gameObject);
+            _tailGameObjects[i].GetComponent<ParticleSystem>().Play();
+            _tailGameObjects[i].SetActive(false);
+        }
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _increaseFoxFireCount = codeInfo.GetCodeStatToInt(1);
+        _attackSpeedIncreaseRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -101,40 +124,8 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
-
-        foreach (var tile in inGameTiles)
-        {
-            if (tile.OccupiedCharacter != owner)
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
-                    tile);
-        }
-
-        List<int> targetCharacterList = new();
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                if (!targetCharacterList.Contains(tile.OccupiedCharacter.CharacterUId))
-                {
-                    targetCharacterList.Add(tile.OccupiedCharacter.CharacterUId);
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-                    tile.OccupiedCharacter.GetEffectCodeContainer().RemoveEffectCode((long)EffectCodeNameType.SHIELD);
-                    var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-                        tile.OccupiedCharacter.CurrentTile.View.CachedTr.position);
-
-                    var damage = owner.CalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                    // var damage =
-                    //     owner.PrecalculateDamageAmount(owner.AD * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                    // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
-                }
-            }
-        }
+        AddFoxFire(_increaseFoxFireCount);
+        IncreaseAttackSpeed();
 
         IsSkillActivated = false;
     }
@@ -153,5 +144,44 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
         CoolTimeElapsedTime += cooltime;
         return cooltime;
     }
+
+    public override void OnPreRemoved()
+    {
+        _tailVfx.Remove();
+        _tailVfx = null;
+        _tailGameObjects.Clear();
+
+        base.OnPreRemoved();
+    }
+    private void AddFoxFire(int increaseCnt)
+    {
+        _ownedFoxFireCount += increaseCnt;
+        Math.Min(_ownedFoxFireCount, _maxFoxFireCount);
+
+        for (int i = 0; i < _tailGameObjects.Count; i++)
+        {
+            if (i < _ownedFoxFireCount)
+            {
+                _tailGameObjects[i].SetActive(true);
+            }
+            else
+            {
+                _tailGameObjects[i].SetActive(false);
+            }
+        }
+    }
+
+    private void IncreaseAttackSpeed()
+    {
+
+        double[] eccStats = new double[3];
+        eccStats[0] = codeId;
+        eccStats[1] = _buffTime;
+        eccStats[2] = _attackSpeedIncreaseRate.Value * _ownedFoxFireCount;
+
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ATK_SPEED_UP, owner, eccStats, source);
+    }
+    
+
 
 }

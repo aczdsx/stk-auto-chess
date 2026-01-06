@@ -9,23 +9,20 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 블린
-// 범위 : 가장 가까운 적 중심 3x3
-// 대미지 : 화염 빔을 소환해, 공격력 {0}%의 대미지를 준다.
-//     특수 효과 : 공격 범위에 잔열이 남아, {1}초 동안 초당 {2}%의 대미지를 준다.
+// 대상 : 가장 가까운 적 기준 5*5 다이아몬드 범위
+// 재사용 시간: {0}초
+// 대미지 : 공격력 {1}%의 마법 대미지를 준다.
 /// </summary>
 [UseEffectCodeIds(217243102)]
 public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _damageRate;
-    private ObfuscatorFloat _durationTime;
-    private ObfuscatorFloat _dotDamageRate;
-    private ObfuscatorFloat _dotDamageElapsedTime;
 
-    private float elapsedTime = 0f;
     private bool _isReadyToActivate;
 
     private SkillActive _specSkill;
     private List<InGameTile> _effectTiles = new List<InGameTile>();
+    private int _areaRange = 2;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -34,8 +31,6 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _durationTime = codeInfo.GetCodeStatToFloat(2);
-        _dotDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _effectTiles = new List<InGameTile>();
         _isReadyToActivate = false;
         IsSkillActivated = false;
@@ -48,47 +43,12 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-        _durationTime = codeInfo.GetCodeStatToFloat(2);
-        _dotDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
         _effectTiles = new List<InGameTile>();
     }
 
     public override void OnUpdate(float dt)
     {
-        elapsedTime += dt;
-        if (elapsedTime >= 1f)
-        {
-            _dotDamageElapsedTime += elapsedTime;
-            foreach (var tile in _effectTiles)
-            {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                if (tile.OccupiedCharacter != null)
-                {
-                    if (tile.OccupiedCharacter.AllianceType != owner.AllianceType)
-                    {
-                        if (tile.OccupiedCharacter.AllianceType != AllianceType.Wall)
-                        {
-                            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                                tile.OccupiedCharacter.SkillRootTransformFollowable);
-
-                            var damage = owner.CalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter, codeId, true);
-                            // var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate,
-                            //     tile.OccupiedCharacter,
-                            //     codeId, true);
-                            // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                            tile.OccupiedCharacter.GetDamaged(damage, owner);
-                        }
-                    }
-                }
-            }
-
-            if (_dotDamageElapsedTime > _durationTime)
-            {
-                _effectTiles.Clear();
-                _dotDamageElapsedTime = 0;
-            }
-            elapsedTime -= 1f;
-        }
+        
 
         if (!IsSkillActivated)
         {
@@ -148,13 +108,15 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        _dotDamageElapsedTime = 0;
-        _effectTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
+        _effectTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.Target.CurrentTile, _areaRange);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in _effectTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
         }
+
+        double defaultDamage = owner.AP;
+        defaultDamage *= _damageRate;
 
         foreach (var tile in _effectTiles)
         {
@@ -164,10 +126,7 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                var damage = owner.CalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter, codeId, true);
-                // var damage = owner.PrecalculateDamageAmount(0, owner.AP * _damageRate, tile.OccupiedCharacter,
-                //     codeId, true);
-                // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                var damage = owner.CalculateDamageAmount(0, defaultDamage, tile.OccupiedCharacter, codeId, true);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
             }
 
