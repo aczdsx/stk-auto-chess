@@ -1,11 +1,35 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
 
 namespace CookApps.AutoBattler.Editor
 {
+    /// <summary>
+    /// OriginalSpecData.json이 변경될 때 자동으로 ItemIdMap.cs를 생성하는 AssetPostprocessor
+    /// </summary>
+    public class ItemIdMapPostprocessor : AssetPostprocessor
+    {
+        private static void OnPostprocessAllAssets(
+            string[] importedAssets,
+            string[] deletedAssets,
+            string[] movedAssets,
+            string[] movedFromAssetPaths)
+        {
+            // OriginalSpecData.json이 변경되었는지 확인
+            bool needsRegeneration = importedAssets.Any(path =>
+                path.EndsWith("OriginalSpecData.json", System.StringComparison.OrdinalIgnoreCase));
+
+            if (needsRegeneration)
+            {
+                Debug.Log("[ItemIdMapPostprocessor] OriginalSpecData.json이 변경되었습니다. ItemIdMap.cs를 재생성합니다...");
+                ItemIdMapGenerator.GenerateItemIdMap();
+            }
+        }
+    }
+
     public static class ItemIdMapGenerator
     {
         [MenuItem("Tools/Generate ItemIdMap")]
