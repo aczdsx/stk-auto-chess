@@ -70,7 +70,8 @@ namespace CookApps.AutoBattler
             await UniTask.Yield();
             GenerateCacheSpecData();
             CustomizeSpecData();
-            Debug.Log(SpecDataManager.Instance.SpecLanguageList.Count);
+            int languageCount = Language.All.Count;
+            Debug.Log(languageCount);
         }
 
         // SpecData Dictionary Cache Data
@@ -100,8 +101,9 @@ namespace CookApps.AutoBattler
             # region SpecData Dictionary Cache
             // Language
             languageDic.Clear();
-            foreach (Language language in Language.All)
+            for (int i = 0; i < Language.All.Count; i++)
             {
+                var language = Language.All[i];
                 if (!languageDic.ContainsKey(language.token_key))
                 {
                     languageDic.Add(language.token_key, language);
@@ -111,8 +113,9 @@ namespace CookApps.AutoBattler
             // Chapter
             chapterDic.Clear();
             chapterDifficultDic.Clear();
-            foreach (ChapterInfo chapter in ChapterInfo.All)
+            for (int i = 0; i < ChapterInfo.All.Count; i++)
             {
+                var chapter = ChapterInfo.All[i];
                 if (!chapterDic.TryGetValue(chapter.chapter_id, out List<ChapterInfo> chapterList))
                 {
                     chapterList = new List<ChapterInfo>();
@@ -131,8 +134,9 @@ namespace CookApps.AutoBattler
             // Stage
             stageChapterDic.Clear();
             stageDifficultDic.Clear();
-            foreach (StageInfo stage in StageInfo.All)
+            for (int i = 0; i < StageInfo.All.Count; i++)
             {
+                var stage = StageInfo.All[i];
                 if (!stageChapterDic.TryGetValue(stage.chapter_id, out List<StageInfo> stageChapterList))
                 {
                     stageChapterList = new List<StageInfo>();
@@ -150,8 +154,9 @@ namespace CookApps.AutoBattler
 
             // Stage Monster
             stageMonsterDic.Clear();
-            foreach (StageMonster stage in StageMonster.All)
+            for (int i = 0; i < StageMonster.All.Count; i++)
             {
+                var stage = StageMonster.All[i];
                 if (!stageMonsterDic.TryGetValue(stage.chapter_id, out List<StageMonster> specStageMonster))
                 {
                     specStageMonster = new List<StageMonster>();
@@ -163,8 +168,9 @@ namespace CookApps.AutoBattler
 
             // Stage Reward
             stageRewardDic.Clear();
-            foreach (StageReward stage in StageReward.All)
+            for (int i = 0; i < StageReward.All.Count; i++)
             {
+                var stage = StageReward.All[i];
                 if (!stageRewardDic.TryGetValue(stage.reward_id, out List<StageReward> specStageReward))
                 {
                     specStageReward = new List<StageReward>();
@@ -176,8 +182,9 @@ namespace CookApps.AutoBattler
 
             // Game Config
             configDic.Clear();
-            foreach (ConfigGame config in ConfigGame.All)
+            for (int i = 0; i < ConfigGame.All.Count; i++)
             {
+                var config = ConfigGame.All[i];
                 if (!configDic.ContainsKey(config.config_key))
                 {
                     configDic.Add(config.config_key, config);
@@ -187,8 +194,9 @@ namespace CookApps.AutoBattler
             // Skill
             skillDic.Clear();
             skillPrefabIDDic.Clear();
-            foreach (SkillActive skill in SkillActive.All)
+            for (int i = 0; i < SkillActive.All.Count; i++)
             {
+                var skill = SkillActive.All[i];
                 // skillDic
                 if (!skillDic.TryGetValue(skill.skill_group_id, out List<SkillActive> skillList1))
                 {
@@ -210,8 +218,9 @@ namespace CookApps.AutoBattler
 
             // Dialogue History
             dialogueHistoryDic.Clear();
-            foreach (DialogueLanguage dialogue in DialogueLanguage.All)
+            for (int i = 0; i < DialogueLanguage.All.Count; i++)
             {
+                var dialogue = DialogueLanguage.All[i];
                 if (!dialogueHistoryDic.TryGetValue(dialogue.dialogue_event_type, out Dictionary<string, int> dialogueHistory))
                 {
                     dialogueHistory = new Dictionary<string, int>();
@@ -225,8 +234,9 @@ namespace CookApps.AutoBattler
 
             // Character
             characterDic.Clear();
-            foreach (CharacterInfo character in CharacterInfo.All)
+            for (int i = 0; i < CharacterInfo.All.Count; i++)
             {
+                var character = CharacterInfo.All[i];
                 if (!characterDic.TryGetValue(character.character_id, out List<CharacterInfo> specCharacter))
                 {
                     specCharacter = new List<CharacterInfo>();
@@ -238,8 +248,9 @@ namespace CookApps.AutoBattler
 
             // Monster
             monsterDic.Clear();
-            foreach (MonsterInfo monster in MonsterInfo.All)
+            for (int i = 0; i < MonsterInfo.All.Count; i++)
             {
+                var monster = MonsterInfo.All[i];
                 if (!monsterDic.TryGetValue(monster.monster_id, out List<MonsterInfo> specMonster))
                 {
                     specMonster = new List<MonsterInfo>();
@@ -251,8 +262,9 @@ namespace CookApps.AutoBattler
 
             // InGameVfx
             inGameVfxDic.Clear();
-            foreach (InGameVfxMap inGameVfx in InGameVfxMap.All)
+            for (int i = 0; i < InGameVfxMap.All.Count; i++)
             {
+                var inGameVfx = InGameVfxMap.All[i];
                 if (!inGameVfxDic.ContainsKey(inGameVfx.vfx_name_type))
                 {
                     inGameVfxDic.Add(inGameVfx.vfx_name_type, inGameVfx);
@@ -263,8 +275,9 @@ namespace CookApps.AutoBattler
             synergyDic.Clear();
             
             // SynergyElemental과 SynergyStarAsterism을 통합 처리하며, 처음부터 필터링
-            foreach (SynergyElemental synergy in SynergyElemental.All)
+            for (int i = 0; i < SynergyElemental.All.Count; i++)
             {
+                var synergy = SynergyElemental.All[i];
                 ISpecSynergyData synergyData = synergy;
                 // 유효한 시너지만 추가 (모든 effect_value_type이 NONE이 아닌 경우)
                 if (synergyData.effect_value_type_1 != SkillValueType.NONE ||
@@ -280,8 +293,9 @@ namespace CookApps.AutoBattler
                 }
             }
             
-            foreach (SynergyStarAsterism synergy in SynergyStarAsterism.All)
+            for (int i = 0; i < SynergyStarAsterism.All.Count; i++)
             {
+                var synergy = SynergyStarAsterism.All[i];
                 ISpecSynergyData synergyData = synergy;
                 // 유효한 시너지만 추가 (모든 effect_value_type이 NONE이 아닌 경우)
                 if (synergyData.effect_value_type_1 != SkillValueType.NONE ||
@@ -300,8 +314,9 @@ namespace CookApps.AutoBattler
 
             // skillJobDic Dic
             skillJobDic.Clear();
-            foreach (SkillJob skillJob in SkillJob.All)
+            for (int i = 0; i < SkillJob.All.Count; i++)
             {
+                var skillJob = SkillJob.All[i];
                 if (!skillJobDic.TryGetValue(skillJob.passive_skill_type, out var list))
                 {
                     list = new List<SkillJob>();
@@ -312,8 +327,9 @@ namespace CookApps.AutoBattler
 
             // Commander Skill Dic
             commanderSkillDic.Clear();
-            foreach (SkillCommander commanderSkill in SkillCommander.All)
+            for (int i = 0; i < SkillCommander.All.Count; i++)
             {
+                var commanderSkill = SkillCommander.All[i];
                 if (!commanderSkillDic.TryGetValue(commanderSkill.commander_skill_id, out var list))
                 {
                     list = new List<SkillCommander>();
@@ -325,8 +341,9 @@ namespace CookApps.AutoBattler
             #endregion
 
             obstacleDic.Clear();
-            foreach (Obstacle obstacle in Obstacle.All)
+            for (int i = 0; i < Obstacle.All.Count; i++)
             {
+                var obstacle = Obstacle.All[i];
                 if (!obstacleDic.TryGetValue(obstacle.obstacle_id, out var list))
                 {
                     list = new List<Obstacle>();
@@ -337,8 +354,9 @@ namespace CookApps.AutoBattler
             }
 
             battleItemDic.Clear();
-            foreach (BattleItem battleItem in BattleItem.All)
+            for (int i = 0; i < BattleItem.All.Count; i++)
             {
+                var battleItem = BattleItem.All[i];
                 if (!battleItemDic.TryGetValue(battleItem.prefab_id, out var battleItemData))
                 {
                     battleItemData = battleItem;
@@ -379,7 +397,13 @@ namespace CookApps.AutoBattler
 
         public CharacterInfo GetCharacterData(int characterID)
         {
-            return SpecCharacterList.Find(character => character.character_id == characterID);
+            for (int i = 0; i < CharacterInfo.All.Count; i++)
+            {
+                var character = CharacterInfo.All[i];
+                if (character.character_id == characterID)
+                    return character;
+            }
+            return null;
         }
 
         public BattleItem GetBattleItemData(int battleItemID)
@@ -389,35 +413,74 @@ namespace CookApps.AutoBattler
 
         public List<CharacterInfo> GetCharacterListByCharacterType(CharacterType type)
         {
-            return SpecCharacterList.FindAll(character => character.character_type == type);
+            var result = new List<CharacterInfo>();
+            for (int i = 0; i < CharacterInfo.All.Count; i++)
+            {
+                var character = CharacterInfo.All[i];
+                if (character.character_type == type)
+                    result.Add(character);
+            }
+            return result;
         }
 
         public int GetCharacterMaxLevel()
         {
-            return SpecCharacterLevelExpList.Max(data => data.level);
+            int maxLevel = 0;
+            for (int i = 0; i < CharacterLevelExp.All.Count; i++)
+            {
+                var data = CharacterLevelExp.All[i];
+                if (data.level > maxLevel)
+                    maxLevel = data.level;
+            }
+            return maxLevel;
         }
 
         public CharacterLevelExp GetCharacterLevelExpData(int level)
         {
-            return SpecCharacterLevelExpList.Find(data => data.level == level);
+            for (int i = 0; i < CharacterLevelExp.All.Count; i++)
+            {
+                var data = CharacterLevelExp.All[i];
+                if (data.level == level)
+                    return data;
+            }
+            return null;
         }
 
         public List<CharacterLevelExp> GetCharacterLevelExpDataList(int level)
         {
-            return SpecCharacterLevelExpList.FindAll(data => data.level <= level);
+            var result = new List<CharacterLevelExp>();
+            for (int i = 0; i < CharacterLevelExp.All.Count; i++)
+            {
+                var data = CharacterLevelExp.All[i];
+                if (data.level <= level)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public CharacterTranscendence GetCharacterTranscendenceData(SynergyType elementType, GradeType gradeType, int transcendenceLevel)
         {
-            return SpecCharacterTranscendenceList.Find(data => data.element_type == elementType
-                                                               && data.grade_type == gradeType
-                                                               && data.transcendence_lv == transcendenceLevel);
+            for (int i = 0; i < CharacterTranscendence.All.Count; i++)
+            {
+                var data = CharacterTranscendence.All[i];
+                if (data.element_type == elementType
+                    && data.grade_type == gradeType
+                    && data.transcendence_lv == transcendenceLevel)
+                    return data;
+            }
+            return null;
         }
 
         public List<CharacterTranscendence> GetCharacterTranscendenceDataList(SynergyType elementType, GradeType gradeType)
         {
-            return SpecCharacterTranscendenceList.FindAll(data => data.element_type == elementType
-                                                                  && data.grade_type == gradeType);
+            var result = new List<CharacterTranscendence>();
+            for (int i = 0; i < CharacterTranscendence.All.Count; i++)
+            {
+                var data = CharacterTranscendence.All[i];
+                if (data.element_type == elementType && data.grade_type == gradeType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 캐릭터 레벨업에 필요한 총 필요 아이템 리스트 반환
@@ -454,12 +517,24 @@ namespace CookApps.AutoBattler
 
         public CharacterQuotes GetCharacterQuotesDataByPrefabID(int prefabID)
         {
-            return SpecCharacterQuotesList.Find(data => data.prefab_id == prefabID);
+            for (int i = 0; i < CharacterQuotes.All.Count; i++)
+            {
+                var data = CharacterQuotes.All[i];
+                if (data.prefab_id == prefabID)
+                    return data;
+            }
+            return null;
         }
 
         public ChapterInfo GetChapterData(int chapterID)
         {
-            return SpecChapterList.Find(dat => dat.chapter_id == chapterID);
+            for (int i = 0; i < ChapterInfo.All.Count; i++)
+            {
+                var chapter = ChapterInfo.All[i];
+                if (chapter.chapter_id == chapterID)
+                    return chapter;
+            }
+            return null;
         }
 
         public ChapterInfo GetChapterData(int chapterID, DifficultyType type)
@@ -479,7 +554,12 @@ namespace CookApps.AutoBattler
             {
                 if (chapterDic.TryGetValue(specStage.chapter_id, out List<ChapterInfo> chapterList))
                 {
-                    return chapterList.Find(data => data.difficulty_type == specStage.difficulty_type);
+                    foreach (var data in chapterList)
+                    {
+                        if (data.difficulty_type == specStage.difficulty_type)
+                            return data;
+                    }
+                    return null;
                 }
             }
 
@@ -514,7 +594,13 @@ namespace CookApps.AutoBattler
 
             if (stageChapterDic.TryGetValue(chapterID, out List<StageInfo> stageList))
             {
-                return stageList.FindAll(stage => stage.difficulty_type == type).Count * stageStarCount;
+                int count = 0;
+                foreach (var stage in stageList)
+                {
+                    if (stage.difficulty_type == type)
+                        count++;
+                }
+                return count * stageStarCount;
             }
 
             return totalStarCount;
@@ -522,7 +608,26 @@ namespace CookApps.AutoBattler
 
         public List<DialogueLanguage> GetDialogueListByGroupID(int groupID)
         {
-            return SpecDialogueList.FindAll(data => data.dialouge_group_id == groupID);
+            var result = new List<DialogueLanguage>();
+            for (int i = 0; i < DialogueLanguage.All.Count; i++)
+            {
+                var data = DialogueLanguage.All[i];
+                if (data.dialouge_group_id == groupID)
+                    result.Add(data);
+            }
+            return result;
+        }
+
+        public List<TutorialDialogue> GetTutorialDialogueList(int tutorialID)
+        {
+            var result = new List<TutorialDialogue>();
+            for (int i = 0; i < TutorialDialogue.All.Count; i++)
+            {
+                var data = TutorialDialogue.All[i];
+                if (data.tutorial_id == tutorialID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public int GetDialgueGroupIDByEventType(DialogueEventType eventType, string subKeyValue)
@@ -539,14 +644,25 @@ namespace CookApps.AutoBattler
 
         public StageInfo GetStageData(int stageID)
         {
-            return SpecStageList.Find(data => data.stage_id == stageID);
+            for (int i = 0; i < StageInfo.All.Count; i++)
+            {
+                var stage = StageInfo.All[i];
+                if (stage.stage_id == stageID)
+                    return stage;
+            }
+            return null;
         }
 
         public StageInfo GetStageData(int chapterID, int stageNumber, DifficultyType type)
         {
             if (stageChapterDic.TryGetValue(chapterID, out List<StageInfo> stageList))
             {
-                return stageList.Find(stage => stage.stage_number == stageNumber && stage.difficulty_type == type);
+                foreach (var stage in stageList)
+                {
+                    if (stage.stage_number == stageNumber && stage.difficulty_type == type)
+                        return stage;
+                }
+                return null;
             }
 
             return null;
@@ -556,7 +672,12 @@ namespace CookApps.AutoBattler
         {
             if (stageChapterDic.TryGetValue(chapterID, out List<StageInfo> stageList))
             {
-                return stageList.Find(stage => stage.difficulty_type == difficultyType && stage.stage_type == stageType);
+                foreach (var stage in stageList)
+                {
+                    if (stage.difficulty_type == difficultyType && stage.stage_type == stageType)
+                        return stage;
+                }
+                return null;
             }
 
             return null;
@@ -577,7 +698,13 @@ namespace CookApps.AutoBattler
         {
             if (stageChapterDic.TryGetValue(chapter, out List<StageInfo> stageList))
             {
-                return stageList.FindAll(stage => stage.difficulty_type == difficulty);
+                var result = new List<StageInfo>();
+                foreach (var stage in stageList)
+                {
+                    if (stage.difficulty_type == difficulty)
+                        result.Add(stage);
+                }
+                return result;
             }
 
             return null;
@@ -617,7 +744,13 @@ namespace CookApps.AutoBattler
         {
             if (stageChapterDic.TryGetValue(chapter, out List<StageInfo> stageList))
             {
-                return stageList.FindAll(stage => stage.difficulty_type == difficulty).Count;
+                int count = 0;
+                foreach (var stage in stageList)
+                {
+                    if (stage.difficulty_type == difficulty)
+                        count++;
+                }
+                return count;
             }
 
             return 0;
@@ -629,10 +762,25 @@ namespace CookApps.AutoBattler
             Debug.LogColor($"GetLastStageData chapterID: {chapterID}, difficulty: {difficulty}");
             if (stageChapterDic.TryGetValue(chapterID, out List<StageInfo> stageList))
             {
-                var targetStageList = stageList.FindAll(stage => stage.difficulty_type == difficulty);
+                var targetStageList = new List<StageInfo>();
+                foreach (var stage in stageList)
+                {
+                    if (stage.difficulty_type == difficulty)
+                        targetStageList.Add(stage);
+                }
 
-                int maxStageNumber = targetStageList.Max(stage => stage.stage_number);
-                return targetStageList.Find(stage => stage.stage_number == maxStageNumber);
+                int maxStageNumber = 0;
+                foreach (var stage in targetStageList)
+                {
+                    if (stage.stage_number > maxStageNumber)
+                        maxStageNumber = stage.stage_number;
+                }
+
+                foreach (var stage in targetStageList)
+                {
+                    if (stage.stage_number == maxStageNumber)
+                        return stage;
+                }
             }
 
             return null;
@@ -641,7 +789,13 @@ namespace CookApps.AutoBattler
         // 가장 마지막 스테이지 데이터 반환
         public StageInfo GetEndStage()
         {
-            var lastChapterData = SpecChapterList.Max(data => data.chapter_id);
+            int lastChapterData = 0;
+            for (int i = 0; i < ChapterInfo.All.Count; i++)
+            {
+                var chapter = ChapterInfo.All[i];
+                if (chapter.chapter_id > lastChapterData)
+                    lastChapterData = chapter.chapter_id;
+            }
 
             return GetLastStageData(lastChapterData, DifficultyType.NORMAL);
         }
@@ -685,7 +839,11 @@ namespace CookApps.AutoBattler
         {
             if (stageMonsterDic.TryGetValue(chapterID, out List<StageMonster> stageMonster))
             {
-                return stageMonster.Find(s => s.stage_number == stageNumber && s.difficulty_type == type);
+                foreach (var s in stageMonster)
+                {
+                    if (s.stage_number == stageNumber && s.difficulty_type == type)
+                        return s;
+                }
             }
 
             return null;
@@ -695,7 +853,13 @@ namespace CookApps.AutoBattler
         {
             if (stageMonsterDic.TryGetValue(chapter, out List<StageMonster> stageMonster))
             {
-                return stageMonster.FindAll(s => s.stage_number == stageNumber && s.difficulty_type == difficulty);
+                var result = new List<StageMonster>();
+                foreach (var s in stageMonster)
+                {
+                    if (s.stage_number == stageNumber && s.difficulty_type == difficulty)
+                        result.Add(s);
+                }
+                return result;
             }
 
             return null;
@@ -704,20 +868,41 @@ namespace CookApps.AutoBattler
         // 해당 챕터에서 받을 수 있는 Idle 보상 리스트 반환 (해당 챕터 이하 리스트 모두 반환)
         public List<IdleReward> GetAllIdleRewardList(int chapterID)
         {
-            return SpecIdleRewardList.FindAll(data => data.chapter_id <= chapterID);
+            var result = new List<IdleReward>();
+            for (int i = 0; i < IdleReward.All.Count; i++)
+            {
+                var data = IdleReward.All[i];
+                if (data.chapter_id <= chapterID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<RewardInfo> GetSpecRewardInfoList(int rewardID)
         {
-            return SpecRewardInfoList.FindAll(dataa => dataa.reward_id == rewardID);
+            var result = new List<RewardInfo>();
+            for (int i = 0; i < RewardInfo.All.Count; i++)
+            {
+                var data = RewardInfo.All[i];
+                if (data.reward_id == rewardID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 보상 데이터 리스트 반환
         public List<RewardInfo> GetSpecRewardInfoList(ContentType contentType, int contentKey, DifficultyType difficultyType)
         {
-            return SpecRewardInfoList.FindAll(data => data.content_type == contentType
-                                                      && data.content_key_value == contentKey
-                                                      && data.difficulty_type == difficultyType);
+            var result = new List<RewardInfo>();
+            for (int i = 0; i < RewardInfo.All.Count; i++)
+            {
+                var data = RewardInfo.All[i];
+                if (data.content_type == contentType
+                    && data.content_key_value == contentKey
+                    && data.difficulty_type == difficultyType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 스테이지 보상 데이터를 RewardItem 리스트로 변환
@@ -763,23 +948,55 @@ namespace CookApps.AutoBattler
 
         public SkillActive GetSkillData(int skillID, SkillValueType type)
         {
-            return SkillActiveList.Find(data => data.skill_group_id == skillID && data.skill_value_type == type);
+            for (int i = 0; i < SkillActive.All.Count; i++)
+            {
+                var data = SkillActive.All[i];
+                if (data.skill_group_id == skillID && data.skill_value_type == type)
+                    return data;
+            }
+            return null;
         }
 
         public List<SkillCommander> GetCommanderSkillList(int chapterID)
         {
-            return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id == chapterID);
+            var result = new List<SkillCommander>();
+            for (int i = 0; i < SkillCommander.All.Count; i++)
+            {
+                var data = SkillCommander.All[i];
+                if (data.open_key_chapter_id == chapterID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<SkillCommander> GetCommanderSkillIncludeList(int chapterID)
         {
-            return SpecCommanderSkillList.FindAll(data => data.open_key_chapter_id <= chapterID);
+            var result = new List<SkillCommander>();
+            for (int i = 0; i < SkillCommander.All.Count; i++)
+            {
+                var data = SkillCommander.All[i];
+                if (data.open_key_chapter_id <= chapterID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public int GetFirstCommanderSkillChapter()
         {
-            int openChapterID = SpecCommanderSkillList.Min(data => data.open_key_chapter_id) - 1;
-            return stageChapterDic[2].Last().stage_id;
+            int minChapterID = int.MaxValue;
+            for (int i = 0; i < SkillCommander.All.Count; i++)
+            {
+                var data = SkillCommander.All[i];
+                if (data.open_key_chapter_id < minChapterID)
+                    minChapterID = data.open_key_chapter_id;
+            }
+            int openChapterID = minChapterID - 1;
+            
+            if (stageChapterDic.TryGetValue(2, out List<StageInfo> stageList) && stageList.Count > 0)
+            {
+                return stageList[stageList.Count - 1].stage_id;
+            }
+            return 0;
         }
 
         public List<SkillCommander> GetCommanderSkillDataList(int commanderSkillID)
@@ -817,32 +1034,45 @@ namespace CookApps.AutoBattler
 
         public ChapterRule GetChapterRuleData(int chapterRuleID)
         {
-            return SpecChapterRuleList.FirstOrDefault(data => (int)data.chapter_rule_effect_code_type == chapterRuleID);
+            for (int i = 0; i < ChapterRule.All.Count; i++)
+            {
+                var data = ChapterRule.All[i];
+                if ((int)data.chapter_rule_effect_code_type == chapterRuleID)
+                    return data;
+            }
+            return null;
         }
 
         public Item GetSpecItemData(ItemType itemType)
         {
-            return SpecItemList.Find(data => data.item_type == itemType);
+            for (int i = 0; i < Item.All.Count; i++)
+            {
+                var data = Item.All[i];
+                if (data.item_type == itemType)
+                    return data;
+            }
+            return null;
         }
 
         public ISpecCharacterInfo GetSpecCharacter(int characterID)
         {
-            ISpecCharacterInfo outCharacterInfo = SpecCharacterList.FirstOrDefault(data => data.character_id == characterID);
-            if (outCharacterInfo != null)
+            for (int i = 0; i < CharacterInfo.All.Count; i++)
             {
-                return outCharacterInfo;
+                var character = CharacterInfo.All[i];
+                if (character.character_id == characterID)
+                    return character;
             }
 
-            outCharacterInfo = SpecMonsterList.FirstOrDefault(data => data.monster_id == characterID);
-            if (outCharacterInfo != null)
+            for (int i = 0; i < MonsterInfo.All.Count; i++)
             {
-                return outCharacterInfo;
+                var monster = MonsterInfo.All[i];
+                if (monster.monster_id == characterID)
+                    return monster;
             }
 
-            outCharacterInfo = battleItemDic.GetValueOrDefault(characterID);
-            if (outCharacterInfo != null)
+            if (battleItemDic.TryGetValue(characterID, out BattleItem battleItem))
             {
-                return outCharacterInfo;
+                return battleItem;
             }
 
             // outCharacterInfo = obstacleDic.GetValueOrDefault(characterID);
@@ -856,13 +1086,28 @@ namespace CookApps.AutoBattler
 
         public int GetLeftCharacterID(int characterID, CharacterType characterType)
         {
-            if (SpecCharacterList == null || SpecCharacterList.Count == 0) return characterID;
+            var targetCharacterList = new List<CharacterInfo>();
+            for (int i = 0; i < CharacterInfo.All.Count; i++)
+            {
+                var c = CharacterInfo.All[i];
+                if (c.character_type == characterType)
+                    targetCharacterList.Add(c);
+            }
 
-            var targetCharacterList = SpecCharacterList.FindAll(c => c.character_type == characterType);
+            if (targetCharacterList.Count == 0) return characterID;
 
-            int idx = targetCharacterList.FindIndex(c => c.character_id == characterID);
+            int idx = -1;
+            for (int i = 0; i < targetCharacterList.Count; i++)
+            {
+                if (targetCharacterList[i].character_id == characterID)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+
             if (idx < 0)
-                return SpecCharacterList.FindAll(c => c.character_type == characterType)[0].character_id; // 못 찾으면 첫 번째로
+                return targetCharacterList[0].character_id; // 못 찾으면 첫 번째로
 
             int leftIdx = (idx == 0) ? targetCharacterList.Count - 1 : idx - 1;
             return targetCharacterList[leftIdx].character_id;
@@ -870,13 +1115,28 @@ namespace CookApps.AutoBattler
 
         public int GetRightCharacterID(int characterID, CharacterType characterType)
         {
-            if (SpecCharacterList == null || SpecCharacterList.Count == 0) return characterID;
+            var targetCharacterList = new List<CharacterInfo>();
+            for (int i = 0; i < CharacterInfo.All.Count; i++)
+            {
+                var c = CharacterInfo.All[i];
+                if (c.character_type == characterType)
+                    targetCharacterList.Add(c);
+            }
 
-            var targetCharacterList = SpecCharacterList.FindAll(c => c.character_type == characterType);
+            if (targetCharacterList.Count == 0) return characterID;
 
-            int idx = targetCharacterList.FindIndex(c => c.character_id == characterID);
+            int idx = -1;
+            for (int i = 0; i < targetCharacterList.Count; i++)
+            {
+                if (targetCharacterList[i].character_id == characterID)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+
             if (idx < 0)
-                return SpecCharacterList.FindAll(c => c.character_type == characterType)[0].character_id;
+                return targetCharacterList[0].character_id;
 
             int rightIdx = (idx == targetCharacterList.Count - 1) ? 0 : idx + 1;
             return targetCharacterList[rightIdx].character_id;
@@ -884,12 +1144,25 @@ namespace CookApps.AutoBattler
 
         public AccountLevelExp GetAccountLevelExpDataByLevel(int level)
         {
-            return SpecAccountLevelExpList.Find(data => data.lv == level);
+            for (int i = 0; i < AccountLevelExp.All.Count; i++)
+            {
+                var data = AccountLevelExp.All[i];
+                if (data.lv == level)
+                    return data;
+            }
+            return null;
         }
 
         public int GetAccountMaxLevel()
         {
-            return SpecAccountLevelExpList.Max(data => data.lv);
+            int maxLevel = 0;
+            for (int i = 0; i < AccountLevelExp.All.Count; i++)
+            {
+                var data = AccountLevelExp.All[i];
+                if (data.lv > maxLevel)
+                    maxLevel = data.lv;
+            }
+            return maxLevel;
         }
 
         public int GetAccountLevelByExp(long exp)
@@ -902,8 +1175,9 @@ namespace CookApps.AutoBattler
             }
 
             // 나머지 레벨 체크
-            foreach (var accountData in SpecAccountLevelExpList)
+            for (int i = 0; i < AccountLevelExp.All.Count; i++)
             {
+                var accountData = AccountLevelExp.All[i];
                 if (accountData.exp_start > exp)
                 {
                     return accountData.lv == 1 ? accountData.lv : accountData.lv - 1;
@@ -915,18 +1189,38 @@ namespace CookApps.AutoBattler
 
         public GuideMissionInfo GetGuideMissionDataByOrder(int order)
         {
-            return SpecGuideMissionList.Find(data => data.order == order);
+            for (int i = 0; i < GuideMissionInfo.All.Count; i++)
+            {
+                var data = GuideMissionInfo.All[i];
+                if (data.order == order)
+                    return data;
+            }
+            return null;
         }
 
         public List<GuideMissionInfo> GetGuideMissionDataList(int order)
         {
-            return SpecGuideMissionList.FindAll(data => data.order <= order);
+            var result = new List<GuideMissionInfo>();
+            for (int i = 0; i < GuideMissionInfo.All.Count; i++)
+            {
+                var data = GuideMissionInfo.All[i];
+                if (data.order <= order)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 가이드 미션 order 최대치 반환
         public int GetGuideMissionMaxOrder()
         {
-            return SpecGuideMissionList.Max(guide => guide.order);
+            int maxOrder = 0;
+            for (int i = 0; i < GuideMissionInfo.All.Count; i++)
+            {
+                var guide = GuideMissionInfo.All[i];
+                if (guide.order > maxOrder)
+                    maxOrder = guide.order;
+            }
+            return maxOrder;
         }
 
         public List<StageReward> GetSpecStageReward(int rewardID)
@@ -962,7 +1256,14 @@ namespace CookApps.AutoBattler
             {
                 return false;
             }
-            outSynergyData = outSynergyList.Find(l => l.min_int <= count && l.max_int >= count);
+            foreach (var l in outSynergyList)
+            {
+                if (l.min_int <= count && l.max_int >= count)
+                {
+                    outSynergyData = l;
+                    break;
+                }
+            }
             if (outSynergyData == null || outSynergyData.grade < 1)
             {
                 return false;
@@ -978,8 +1279,9 @@ namespace CookApps.AutoBattler
             }
 
             List<List<SkillJob>> passiveList = new List<List<SkillJob>>();
-            foreach (var positionPassive in SkillJobPassive.All)
+            for (int i = 0; i < SkillJobPassive.All.Count; i++)
             {
+                var positionPassive = SkillJobPassive.All[i];
                 if (positionType != positionPassive.position_type)
                 {
                     continue;
@@ -995,62 +1297,131 @@ namespace CookApps.AutoBattler
 
         public QuestInfo GetSpecQuestData(int questID)
         {
-            return SpecQuestList.Find(data => data.quest_id == questID);
+            for (int i = 0; i < QuestInfo.All.Count; i++)
+            {
+                var data = QuestInfo.All[i];
+                if (data.quest_id == questID)
+                    return data;
+            }
+            return null;
         }
 
         public List<QuestInfo> GetSpecQuestList(TermType termType, bool isIncludeMilestone)
         {
-            if (isIncludeMilestone)
+            var result = new List<QuestInfo>();
+            for (int i = 0; i < QuestInfo.All.Count; i++)
             {
-                return SpecQuestList.FindAll(data => data.term_type == termType);
+                var data = QuestInfo.All[i];
+                if (data.term_type == termType)
+                {
+                    if (isIncludeMilestone)
+                    {
+                        result.Add(data);
+                    }
+                    else if (data.quest_type != QuestType.CLEAR_DAILY_QUEST
+                             && data.quest_type != QuestType.CLEAR_WEEKLY_QUEST)
+                    {
+                        result.Add(data);
+                    }
+                }
             }
-
-            return SpecQuestList.FindAll(data =>
-                data.term_type == termType
-                && data.quest_type != QuestType.CLEAR_DAILY_QUEST
-                && data.quest_type != QuestType.CLEAR_WEEKLY_QUEST);
+            return result;
         }
 
         public List<QuestInfo> GetSpecQuestList(QuestType questType)
         {
-            return SpecQuestList.FindAll(data => data.quest_type == questType);
+            var result = new List<QuestInfo>();
+            for (int i = 0; i < QuestInfo.All.Count; i++)
+            {
+                var data = QuestInfo.All[i];
+                if (data.quest_type == questType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<QuestInfo> GetSpecQuestList(TermType termType, QuestType questType)
         {
-            return SpecQuestList.FindAll(data => data.term_type == termType && data.quest_type == questType);
+            var result = new List<QuestInfo>();
+            for (int i = 0; i < QuestInfo.All.Count; i++)
+            {
+                var data = QuestInfo.All[i];
+                if (data.term_type == termType && data.quest_type == questType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public EventInfo GetSpecEventData(int eventID)
         {
-            return SpecEventList.Find(data => data.event_id == eventID);
+            for (int i = 0; i < EventInfo.All.Count; i++)
+            {
+                var data = EventInfo.All[i];
+                if (data.event_id == eventID)
+                    return data;
+            }
+            return null;
         }
 
         public EventInfo GetSpecEventData(EventType eventType)
         {
-            return SpecEventList.Find(data => data.event_type == eventType);
+            for (int i = 0; i < EventInfo.All.Count; i++)
+            {
+                var data = EventInfo.All[i];
+                if (data.event_type == eventType)
+                    return data;
+            }
+            return null;
         }
 
         public List<EventInfo> GetSpecEventList(EventType eventType)
         {
-            return SpecEventList.FindAll(data => data.event_type == eventType);
+            var result = new List<EventInfo>();
+            for (int i = 0; i < EventInfo.All.Count; i++)
+            {
+                var data = EventInfo.All[i];
+                if (data.event_type == eventType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<EventInfo> GetSpecEventList(TermType termType)
         {
-            return SpecEventList.FindAll(data => data.term_type == termType);
+            var result = new List<EventInfo>();
+            for (int i = 0; i < EventInfo.All.Count; i++)
+            {
+                var data = EventInfo.All[i];
+                if (data.term_type == termType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 기간 제한이 존재하는 이벤트 리스트를 반환
         public List<EventInfo> GetLimitedSpecEventList()
         {
-            return SpecEventList.FindAll(data => data.frequency_type == FrequencyType.ONCE);
+            var result = new List<EventInfo>();
+            for (int i = 0; i < EventInfo.All.Count; i++)
+            {
+                var data = EventInfo.All[i];
+                if (data.frequency_type == FrequencyType.ONCE)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 기간 제한이 존재하지 않는 이벤트 리스트를 반환 (서비스 중 기간동안 지속 반복)
         public List<EventInfo> GetNoneLimitedSpecEventList()
         {
-            return SpecEventList.FindAll(data => data.frequency_type == FrequencyType.REPEAT);
+            var result = new List<EventInfo>();
+            for (int i = 0; i < EventInfo.All.Count; i++)
+            {
+                var data = EventInfo.All[i];
+                if (data.frequency_type == FrequencyType.REPEAT)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 현재 시간 기준, 운영 기간에 해당하는 이벤트 데이터를 반환
@@ -1106,44 +1477,95 @@ namespace CookApps.AutoBattler
 
         public EventCondition GetSpecEventConditionData(int eventID, int eventConditionID)
         {
-            return SpecEventConditionList.Find(data => data.event_id == eventID && data.event_condition_id == eventConditionID);
+            for (int i = 0; i < EventCondition.All.Count; i++)
+            {
+                var data = EventCondition.All[i];
+                if (data.event_id == eventID && data.event_condition_id == eventConditionID)
+                    return data;
+            }
+            return null;
         }
 
         public List<EventCondition> GetSpecEventConditionList(int eventID)
         {
-            return SpecEventConditionList.FindAll(data => data.event_id == eventID);
+            var result = new List<EventCondition>();
+            for (int i = 0; i < EventCondition.All.Count; i++)
+            {
+                var data = EventCondition.All[i];
+                if (data.event_id == eventID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public DungeonBabelInfo GetSpecDungeonTrialData(int dungeonID)
         {
-            return SpecDungeonTrialList.Find(data => data.dungeon_id == dungeonID);
+            for (int i = 0; i < DungeonBabelInfo.All.Count; i++)
+            {
+                var data = DungeonBabelInfo.All[i];
+                if (data.dungeon_id == dungeonID)
+                    return data;
+            }
+            return null;
         }
 
         public DungeonBabelInfo GetSpecDungeonTrialDataByOrder(int order)
         {
-            return SpecDungeonTrialList.Find(data => data.order == order);
+            for (int i = 0; i < DungeonBabelInfo.All.Count; i++)
+            {
+                var data = DungeonBabelInfo.All[i];
+                if (data.order == order)
+                    return data;
+            }
+            return null;
         }
 
         public List<DungeonBabelInfo> GetSpecDungeonTrialDataList(DungeonType dungeonType)
         {
-            return SpecDungeonTrialList.FindAll(data => data.dungeon_type == dungeonType);
+            var result = new List<DungeonBabelInfo>();
+            for (int i = 0; i < DungeonBabelInfo.All.Count; i++)
+            {
+                var data = DungeonBabelInfo.All[i];
+                if (data.dungeon_type == dungeonType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<DungeonBabelInfo> GetSpecDungeonTrialDataListByStageStar(int stageStar)
         {
-            return SpecDungeonTrialList.FindAll(data => data.need_star <= stageStar);
+            var result = new List<DungeonBabelInfo>();
+            for (int i = 0; i < DungeonBabelInfo.All.Count; i++)
+            {
+                var data = DungeonBabelInfo.All[i];
+                if (data.need_star <= stageStar)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<DungeonBabelMonster> GetSpecDungeonMonsterDataList(DungeonType dungeonType, int dungeonID)
         {
-            return SpecDungeonMonsterList
-                .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
+            var result = new List<DungeonBabelMonster>();
+            for (int i = 0; i < DungeonBabelMonster.All.Count; i++)
+            {
+                var data = DungeonBabelMonster.All[i];
+                if (data.dungeon_type == dungeonType && data.dungeon_id == dungeonID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<DungeonBabelReward> GetSpecDungeonRewardDataList(DungeonType dungeonType, int dungeonID)
         {
-            return SpecDungeonRewardList
-                .FindAll(data => data.dungeon_type == dungeonType && data.dungeon_id == dungeonID);
+            var result = new List<DungeonBabelReward>();
+            for (int i = 0; i < DungeonBabelReward.All.Count; i++)
+            {
+                var data = DungeonBabelReward.All[i];
+                if (data.dungeon_type == dungeonType && data.dungeon_id == dungeonID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<Obstacle> GetSpecObstacleList(int obstacleID)
@@ -1160,22 +1582,48 @@ namespace CookApps.AutoBattler
 
         public ShopInfo GetShopData(int shopID)
         {
-            return SpecShopList.Find(data => data.shop_id == shopID);
+            for (int i = 0; i < ShopInfo.All.Count; i++)
+            {
+                var data = ShopInfo.All[i];
+                if (data.shop_id == shopID)
+                    return data;
+            }
+            return null;
         }
 
         public List<ShopInfo> GetShopDataList(ShopMainGroupType mainGroupType)
         {
-            return SpecShopList.FindAll(data => data.shop_main_group_type == mainGroupType);
+            var result = new List<ShopInfo>();
+            for (int i = 0; i < ShopInfo.All.Count; i++)
+            {
+                var data = ShopInfo.All[i];
+                if (data.shop_main_group_type == mainGroupType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<ShopInfo> GetShopDataList(ShopMainGroupType mainGroupType, ShopSubGroupType subGroupType)
         {
-            return SpecShopList.FindAll(data => data.shop_main_group_type == mainGroupType && data.shop_sub_group_type == subGroupType);
+            var result = new List<ShopInfo>();
+            for (int i = 0; i < ShopInfo.All.Count; i++)
+            {
+                var data = ShopInfo.All[i];
+                if (data.shop_main_group_type == mainGroupType && data.shop_sub_group_type == subGroupType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public ShopBanner GetShopBannerData(int shopID)
         {
-            return SpecShopBannerList.Find(data => data.shop_id == shopID);
+            for (int i = 0; i < ShopBanner.All.Count; i++)
+            {
+                var data = ShopBanner.All[i];
+                if (data.shop_id == shopID)
+                    return data;
+            }
+            return null;
         }
 
         #endregion
@@ -1184,22 +1632,48 @@ namespace CookApps.AutoBattler
 
         public GachaInfo GetGachaData(int gachaID)
         {
-            return SpecGachaList.Find(data => data.gacha_id == gachaID);
+            for (int i = 0; i < GachaInfo.All.Count; i++)
+            {
+                var data = GachaInfo.All[i];
+                if (data.gacha_id == gachaID)
+                    return data;
+            }
+            return null;
         }
 
         public GachaInfo GetGachaData(GachaType gachaType, int gachaCount)
         {
-            return SpecGachaList.Find(data => data.gacha_type == gachaType && data.gacha_count == gachaCount);
+            for (int i = 0; i < GachaInfo.All.Count; i++)
+            {
+                var data = GachaInfo.All[i];
+                if (data.gacha_type == gachaType && data.gacha_count == gachaCount)
+                    return data;
+            }
+            return null;
         }
 
         public List<GachaInfo> GetGachaDataList(GachaType gachaType)
         {
-            return SpecGachaList.FindAll(data => data.gacha_type == gachaType);
+            var result = new List<GachaInfo>();
+            for (int i = 0; i < GachaInfo.All.Count; i++)
+            {
+                var data = GachaInfo.All[i];
+                if (data.gacha_type == gachaType)
+                    result.Add(data);
+            }
+            return result;
         }
 
         public List<GachaCharacter> GetGachaContentDataList(int gachaGroupID)
         {
-            return SpecGachaContentList.FindAll(data => data.gacha_group_id == gachaGroupID);
+            var result = new List<GachaCharacter>();
+            for (int i = 0; i < GachaCharacter.All.Count; i++)
+            {
+                var data = GachaCharacter.All[i];
+                if (data.gacha_group_id == gachaGroupID)
+                    result.Add(data);
+            }
+            return result;
         }
 
         // 가챠 항목에서 랜덤으로 아이템을 뽑아 갯수만큼 반환
@@ -1258,10 +1732,15 @@ namespace CookApps.AutoBattler
         // 시나리오 가챠 데이터 반환
         public List<GachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
         {
-            int maxCount = SpecGachaScenarioList.Count;
+            int maxCount = GachaScenario.All.Count;
             int resultCount = currentCount + gachaCount > maxCount ? maxCount - currentCount : gachaCount;
 
-            return SpecGachaScenarioList.GetRange(currentCount, resultCount);
+            var result = new List<GachaScenario>(resultCount);
+            for (int i = currentCount; i < currentCount + resultCount; i++)
+            {
+                result.Add(GachaScenario.All[i]);
+            }
+            return result;
         }
 
         // 시나리오 가챠 데이터를 RewardItem 리스트로 변환
@@ -1299,18 +1778,38 @@ namespace CookApps.AutoBattler
             var guideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
 
             int currMissionID = guideMissionData.MissionId;
-            var openCondition = SpecOpenConditionList.Find(l => l.open_condition_Type == conditionType);
+            OpenCondition openCondition = null;
+            for (int i = 0; i < OpenCondition.All.Count; i++)
+            {
+                var l = OpenCondition.All[i];
+                if (l.open_condition_Type == conditionType)
+                {
+                    openCondition = l;
+                    break;
+                }
+            }
             return openCondition != null && openCondition.guide_mission_id <= currMissionID;
         }
 
         public ImageInfo GetImageInfoData(int infoID)
         {
-            return SpecImageInfoList.Find(dat => dat.image_info_id == infoID);
+            for (int i = 0; i < ImageInfo.All.Count; i++)
+            {
+                var data = ImageInfo.All[i];
+                if (data.image_info_id == infoID)
+                    return data;
+            }
+            return null;
         }
 
         public List<TileEffectCode> GetSpecTileEffectCodeList()
         {
-            return SpecTileEffectCodeList;
+            var result = new List<TileEffectCode>(TileEffectCode.All.Count);
+            for (int i = 0; i < TileEffectCode.All.Count; i++)
+            {
+                result.Add(TileEffectCode.All[i]);
+            }
+            return result;
         }
     }
 }

@@ -1031,7 +1031,7 @@ namespace CookApps.BattleSystem
 
             damageInfo.isAD = ad >= 0;
             //ad ap로 데미지 1차 결정
-            damageInfo.damageAmount = ap > 0 ? ap : ad;
+            damageInfo.damageAmount = damageInfo.isAD ? ad : ap;
             if (isSkill)
             {
                 //스킬이라면 스킬데미지 계수 적용

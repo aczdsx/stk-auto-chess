@@ -161,7 +161,7 @@ public class CharacterStateAttack : CharacterStateBase
 
     public virtual CharacterController.DamageInfo CalculateNormalAttackDamage()
     {
-        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+        CharacterController.DamageInfo damageInfo;
         if (characCtrl.SpecCharacter.atk_type == AtkType.AD)
         {
             damageInfo = characCtrl.CalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target, 0, false);
