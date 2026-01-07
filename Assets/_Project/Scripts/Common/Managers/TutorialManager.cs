@@ -107,12 +107,12 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     {
         if (_tutorialCanvasInstance != null)
         {
-            // TutorialController 정리
+            // TutorialController 정리 - 가이드가 다 비었을 때 호출됨
             if (_tutorialController != null)
             {
-                _tutorialController.CloseTutorial();
+                _tutorialController.ClearTutorial();
             }
-            
+
             // Addressables로 생성한 경우 Release
             Addressables.ReleaseInstance(_tutorialCanvasInstance);
             _tutorialCanvasInstance = null;
@@ -165,10 +165,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         {
             _canvas.enabled = false;
         }
-        if (_tutorialController != null)
-        {
-            _tutorialController.CloseTutorial();
-        }
         action?.Invoke();
 
         // 모든 튜토리얼이 완료되었는지 확인 (리스트가 비어있으면 완료)
@@ -181,11 +177,15 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     }
 
     /// <summary>
-    /// 스테이지 종료 시 튜토리얼 Canvas 제거
+    /// 모든 튜토리얼 완료 시 또는 스테이지 종료 시 튜토리얼 Canvas 제거
     /// </summary>
     public void ClearTutorial()
     {
-        HandleTutorialClose();
+        IsTutorial = false;
+        if (_canvas != null)
+        {
+            _canvas.enabled = false;
+        }
         DestroyTutorialCanvas();
         _specTutorialDataList.Clear();
     }
