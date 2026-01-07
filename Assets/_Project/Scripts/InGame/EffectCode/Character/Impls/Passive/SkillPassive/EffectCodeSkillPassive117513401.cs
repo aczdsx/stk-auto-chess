@@ -25,5 +25,5 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
         }
 
-    }//117413301
+    }
 }

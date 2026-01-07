@@ -208,10 +208,10 @@ namespace CookApps.AutoBattler
             if (_isEndChapter) return;
 
             // TODO: 행동력 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
-            {
-                return;
-            }
+            // if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
+            // {
+            //     return;
+            // }
 
             int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
             int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
@@ -236,10 +236,11 @@ namespace CookApps.AutoBattler
         private void OnClickRetryStageButton()
         {
             // TODO: 행동력 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
-            {
-                return;
-            }
+            // if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
+            // {
+            //     return;
+            // }
+            
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
