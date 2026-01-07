@@ -7,8 +7,8 @@ using UnityEngine.Pool;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBufAvoidProbPercentUp : EffectCodeBuffBase
 {
-    // private const int CodeId = (int)EffectCodeNameType.BUFF_AVOID_PROB_PERCENT_UP;
-    private const int CodeId = 2000000025;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_AVOID_PROB_PERCENT_UP;
+    // private const int CodeId = 2000000025;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.AvoidProbUp;
     
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

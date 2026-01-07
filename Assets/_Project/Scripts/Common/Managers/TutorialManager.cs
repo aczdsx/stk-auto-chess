@@ -44,7 +44,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public async UniTask<bool> CheckAndInitTutorial(int tutorialID)
     {
-        _specTutorialDataList = SpecDataManager.Instance.SpecTutorialDialogueList.FindAll(l => l.tutorial_id == tutorialID);
+        _specTutorialDataList = SpecDataManager.Instance.GetTutorialDialogueList(tutorialID);
         if (_specTutorialDataList.Count == 0)
         {
             Debug.LogError($"TutorialData not found: {tutorialID}");
