@@ -133,7 +133,7 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
             var currentAreaTiles = GetAreaTiles(centerTile);
             
             // 힐 적용 시점에 모든 타일이 빛나도록 이펙트 표시
-            PlayTileEffectsForTick(currentAreaTiles);
+            PlayTileEffectsForTick(tickIndex, currentAreaTiles);
             
             // 영역 내 캐릭터들 처리
             ProcessTilesInArea(currentAreaTiles);
@@ -194,9 +194,9 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         }
     }
 
-    private void PlayTileEffectsForTick(List<InGameTile> areaTiles)
+    private void PlayTileEffectsForTick(int tickIndex, List<InGameTile> areaTiles)
     {
-        if (owner == null)
+        if (owner == null || tickIndex % 2 == 1)
             return;
 
         // 힐 적용 시점에 영역 내 모든 타일이 빛나도록 이펙트 표시

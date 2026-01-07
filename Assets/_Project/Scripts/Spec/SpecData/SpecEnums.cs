@@ -545,6 +545,7 @@ namespace CookApps.AutoBattler
         fx_common_asterism_sn_aura_03 = 234,
         Skill_401031_1 = 235,
         Skill_401031_2 = 236,
+        Skill_Passive_175134011 = 237,
     }
 
     public enum GlobalEffectProviderType

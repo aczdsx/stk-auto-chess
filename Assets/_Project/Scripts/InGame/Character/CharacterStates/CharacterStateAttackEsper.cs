@@ -19,18 +19,18 @@ public class SpecialAttackDamageInfo
 /// </summary>
 public class CharacterStateAttackEsper : CharacterStateAttack
 {
-    private EffectCodePassiveEsper _passiveEsperEffectCode = null;
+    private EffectCodeJobPassiveEsper _passiveEsperEffectCode = null;
     private SpecialAttackDamageInfo _specialAttackInfo = new SpecialAttackDamageInfo();
     public override void StateInit(object owner)
     {
         base.StateInit(owner);
-        _passiveEsperEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_ESPER) as EffectCodePassiveEsper;
+        _passiveEsperEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_ESPER) as EffectCodeJobPassiveEsper;
     }
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
         if (_passiveEsperEffectCode == null)
         {
-            _passiveEsperEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_ESPER) as EffectCodePassiveEsper;
+            _passiveEsperEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_ESPER) as EffectCodeJobPassiveEsper;
         }
 
         var outRunningResult = base.CharacterStateRunning(dt);

@@ -156,12 +156,12 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.SkillRootTransformFollowable);
 
                     // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
-                    double healAmount = EffectCodePassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healRate);
+                    double healAmount = EffectCodeJobPassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healRate);
                     healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
                     tile.OccupiedCharacter.GetHealed(healAmount, owner, codeId, true);
 
                     // 지속 회복 버프 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
-                    healAmount = EffectCodePassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healBuffRate);
+                    healAmount = EffectCodeJobPassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healBuffRate);
                     healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
                     Span<double> eccStats = stackalloc double[3];
 

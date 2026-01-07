@@ -8,7 +8,7 @@ namespace CookApps.BattleSystem
     /// 평타 공격 시 스택으로 횟수 체크 후 다음공격 크리티컬 적용.
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodePassiveCriticalStack : EffectCodeCharacterBase
+    public partial class EffectCodeJobPassiveCriticalStack : EffectCodeCharacterBase
     {
         public const int CodeId = (int)EffectCodeNameType.JOBS_CRITICAL_STACK;
 

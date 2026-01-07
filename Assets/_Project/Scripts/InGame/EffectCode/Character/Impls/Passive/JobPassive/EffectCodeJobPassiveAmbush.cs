@@ -8,7 +8,7 @@ namespace CookApps.BattleSystem
     /// 암살자 타입 캐릭터 스테이지 시작시 뒤로 이동
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodePassiveAmbush : EffectCodeCharacterBase
+    public partial class EffectCodeJobPassiveAmbush : EffectCodeCharacterBase
     {
         public const int CodeId = (int)EffectCodeNameType.JOBS_AMBUSH;
 

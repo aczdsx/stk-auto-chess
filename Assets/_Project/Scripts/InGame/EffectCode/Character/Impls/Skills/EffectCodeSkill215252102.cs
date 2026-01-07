@@ -98,7 +98,6 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
             owner.GetCharacterView().CachedTr.position);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -110,7 +109,7 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         }
 
         // 나한테 붙은 vfx
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
+        // InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
 
         var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByHPRateDescending(owner.AllianceType, true);
         if (targetCharacters.Count > 0)
@@ -123,6 +122,9 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
                     targetCharacters[i].CurrentTile);
 
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+
+
                 Span<double> eccStats = stackalloc double[3];
                 eccStats.Clear();
                 eccStats[0] = codeId;
@@ -131,9 +133,7 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
 
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacters[i], eccStats, source);
 
-                // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
-                double healAmount = EffectCodePassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healRate);
-                healAmount = owner.PostCalculateHealAmount(healAmount, targetCharacters[i], isSkill: true);
+                double healAmount = owner.PostCalculateHealAmount(owner.AP * _healRate, targetCharacters[i], isSkill: true);
                 targetCharacters[i].GetHealed(healAmount, owner, codeId, true);
 
                 // Span<double> eccStats = stackalloc double[3];

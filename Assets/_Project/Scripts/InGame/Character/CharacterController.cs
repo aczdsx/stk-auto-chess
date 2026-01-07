@@ -272,20 +272,47 @@ namespace CookApps.BattleSystem
 
         private void AddPassive()
         {
+            // job passive 추가
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
                 return;
             var specDataManagerInstance = SpecDataManager.Instance;
+            // TODO: 레벨 추가 시 grade를 변경하여 전달
             int testGrade = 0;
 
-            var passiveList = specDataManagerInstance.GetPassivePositionList(SpecCharacter.character_position_type);
+            var passiveList = specDataManagerInstance.GetJobPassiveList(SpecCharacter.character_position_type);
             if (passiveList == null || passiveList.Count == 0)
                 return;
 
+            Span<double> stats = stackalloc double[5];
             foreach (var passive in passiveList)
             {
-                InjectPassive((long)passive[testGrade].passive_skill_type, passive[testGrade]);
+                var passiveData = passive[testGrade];
+                var effectCodeID = (long)passiveData.passive_skill_type;
+                stats[0] = (double)passiveData.skill_value_type;
+                stats[1] = passiveData.passive_rate;
+                stats[2] = passiveData.lv;
+                stats[3] = (double)passiveData.skill_value_type_2;
+                stats[4] = passiveData.passive_rate_2;
+                var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
+                ecc.AddOrMergeEffectCode(effectCodeInfo, this);
             }
 
+            // // skill passive 추가
+
+            Span<double> statsSkillPasive = stackalloc double[8];
+
+            var skillDataList = SpecDataManager.Instance.GetSkillPassiveDataList(_statData.Spec.passive_skill_id);
+            if (skillDataList != null && skillDataList.Count > 0)
+            {
+                statsSkillPasive.Clear();
+                for (int i = 0; i < skillDataList.Count; i++)
+                {
+                    statsSkillPasive[i] = skillDataList[i].base_rate;
+                }
+
+                var effectCodeInfo = new EffectCodeInfo(skillDataList[0].passive_group_id, 0, statsSkillPasive);
+                ecc.AddOrMergeEffectCode(effectCodeInfo, this);
+            }
         }
 
 
@@ -436,17 +463,6 @@ namespace CookApps.BattleSystem
             ecc.RemoveEffectCode(synergyList[0].synergy_group_id);
         }
 
-        public void InjectPassive(long effectCodeID, SkillJob passiveData)
-        {
-            Span<double> stats = stackalloc double[5];
-            stats[0] = (double)passiveData.skill_value_type;
-            stats[1] = passiveData.passive_rate;
-            stats[2] = passiveData.lv;
-            stats[3] = (double)passiveData.skill_value_type_2;
-            stats[4] = passiveData.passive_rate_2;
-            var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
-            ecc.AddOrMergeEffectCode(effectCodeInfo, this);
-        }
 
         public void SetSelectedCharacter(bool isSetSelected)
         {
@@ -1145,13 +1161,13 @@ namespace CookApps.BattleSystem
         {
             if (damageInfo.isAD)
             {
-                var ResistRaw = target.ADReduce*0.01d;
+                var ResistRaw = target.ADReduce * 0.01d;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - ADPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
             else
             {
-                var ResistRaw = target.APReduce*0.01d;
+                var ResistRaw = target.APReduce * 0.01d;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - APPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
@@ -1349,9 +1365,12 @@ namespace CookApps.BattleSystem
         public double PostCalculateHealAmount(double recoveryAmount, CharacterController target, bool isSkill = false)
         {
             // 오라클 캐릭터의 스킬 힐량 계산
-            if (isSkill && SpecCharacter.character_position_type == CharacterPositionType.ORACLE)
+            bool isOracleHealer = _stateTypeMap.TryGetValue(typeof(CharacterStateAttack), out Type concreteType)
+                                   && concreteType == typeof(CharacterStateAttackHealer);
+
+            if (isSkill && isOracleHealer)
             {
-                recoveryAmount = EffectCodePassiveRecovery.CalculateOracleSkillRecoveryAmount(this, target, recoveryAmount);
+                recoveryAmount = EffectCodeJobPassiveRecovery.CalculateOracleSkillRecoveryAmount(this, target, recoveryAmount);
             }
             else
             {
@@ -1623,7 +1642,7 @@ namespace CookApps.BattleSystem
             string convertText = LanguageManager.Instance.GetLanguageText(token);
             await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
         }
-        
+
         public void ShowImmuneSuccessFx()
         {
             if (_immuneSuccessFx == InGameVfxNameType.NONE)

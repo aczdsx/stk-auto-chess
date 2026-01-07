@@ -8,7 +8,7 @@ namespace CookApps.BattleSystem
      /// 일단 자힐도 함께해야함.
      /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodePassiveRecovery : EffectCodeCharacterBase
+    public partial class EffectCodeJobPassiveRecovery : EffectCodeCharacterBase
     {
         public const int CodeId = (int)EffectCodeNameType.JOBS_RECOVERY;
         private float _recoveryPercentage = 0f;//회복비율

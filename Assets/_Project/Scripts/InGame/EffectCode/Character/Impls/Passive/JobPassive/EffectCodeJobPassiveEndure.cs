@@ -2,18 +2,16 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using System;
-
 namespace CookApps.BattleSystem
 {
-    /// <summary>
-    /// {0}초 마다 CC 효과를 막아내는 방어막이 생성된다 immune buff 주입.
-    /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodePassiveBash : EffectCodeCharacterBase
-    {
-        public const int CodeId = (int)EffectCodeNameType.JOBS_BRAVE;
 
-        private static readonly float _immuneDuration = 1f;
+    /// <summary>
+    /// {0} 초 마다 일반공격 3회 무시 베리어 부여
+    /// </summary>
+    public partial class EffectCodeJobPassiveEndure : EffectCodeCharacterBase
+    {
+        public const int CodeId = (int)EffectCodeNameType.JOBS_ENDURE;
         private bool _isReadyToActivate = false;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -32,7 +30,7 @@ namespace CookApps.BattleSystem
             _isReadyToActivate = false;
         }
 
-         public override void OnCooltime(float dt)
+        public override void OnCooltime(float dt)
         {
             base.OnCooltime(dt);
             if (_isReadyToActivate || IsSkillActivated)
@@ -52,23 +50,20 @@ namespace CookApps.BattleSystem
         public override void Activate()
         {
             base.Activate();
-            InjectImmuneBuff();
+            InjectNormalAttackShield();
             _isReadyToActivate = false;
             CoolTimeElapsedTime = 0f;
         }
-        private void InjectImmuneBuff()
+        private void InjectNormalAttackShield()
         {
-            owner.ImmuneSuccessFx = InGameVfxNameType.fx_common_job_striker_01;
             Span<double> buffStats = stackalloc double[3];
-
             buffStats.Clear();
             buffStats[0] = codeId;
-            buffStats[1] = _immuneDuration;//duration
-            buffStats[2] = 1;//value?
-
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
-
+            buffStats[1] = 999f;
+            buffStats[2] = 3;
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_NORMAL_ATTACK_SHIELD, owner, buffStats, source);
         }
-    }
 
+
+    }
 }

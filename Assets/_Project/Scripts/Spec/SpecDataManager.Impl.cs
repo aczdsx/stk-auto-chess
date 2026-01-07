@@ -86,8 +86,10 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<CharacterInfo>> characterDic = new();                         // key : character_id, value : stage list
         private Dictionary<int, List<MonsterInfo>> monsterDic = new();                             // key : monster_id, value : monster list
         private Dictionary<string, ConfigGame> configDic = new();                                  // key : config_key, value : game config data
-        private Dictionary<long, List<SkillActive>> skillDic = new();                              // key : skill_id, value : skill list
+        private Dictionary<long, List<SkillActive>> skillDic = new();                              // key : skill_group_id, value : skill list
         private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
+        private Dictionary<long, List<SkillPassive>> skillPassiveDic = new();                      // key : passive_group_id, value : SkillPassive
+        private Dictionary<long, List<SkillPassive>> skillPassivePrefabIDDic = new();          // key : equipment_id, value : SkillPassive
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
         private Dictionary<SynergyType, List<ISpecSynergyData>> synergyDic = new();                // key : SynergyType, value : ISpecSynergyData
@@ -218,8 +220,29 @@ namespace CookApps.AutoBattler
                 skillList2.Add(skill);
             }
 
+            // Skill Passive
+            skillPassiveDic.Clear();
+            skillPassivePrefabIDDic.Clear();
+            for (int i = 0; i < SkillPassive.All.Count; i++)
+            {
+                var skillPassive = SkillPassive.All[i];
+                if (!skillPassiveDic.TryGetValue(skillPassive.passive_group_id, out List<SkillPassive> skillPassiveList))
+                {
+                    skillPassiveList = new List<SkillPassive>();
+                    skillPassiveDic.Add(skillPassive.passive_group_id, skillPassiveList);
+                }
+                skillPassiveList.Add(skillPassive);
+
+                if (!skillPassivePrefabIDDic.TryGetValue(skillPassive.prefab_id, out List<SkillPassive> skillPassiveList2))
+                {
+                    skillPassiveList2 = new List<SkillPassive>();
+                    skillPassivePrefabIDDic.Add(skillPassive.prefab_id, skillPassiveList2);
+                }
+                skillPassiveList2.Add(skillPassive);
+            }
+
             // Dialogue History
-            dialogueHistoryDic.Clear();
+                    dialogueHistoryDic.Clear();
             for (int i = 0; i < DialogueLanguage.All.Count; i++)
             {
                 var dialogue = DialogueLanguage.All[i];
@@ -994,6 +1017,27 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        public List<SkillPassive> GetSkillPassiveDataList(int passiveGroupID)
+        {
+            return skillPassiveDic.GetValueOrDefault(passiveGroupID);
+        }
+
+        public List<SkillPassive> GetSkillPassiveDataListByPrefabID(int prefabID)
+        {
+            return skillPassivePrefabIDDic.GetValueOrDefault(prefabID);
+        }
+
+        public SkillPassive GetSkillPassiveData(int passiveGroupID, SkillValueType type)
+        {
+            for (int i = 0; i < SkillPassive.All.Count; i++)
+            {
+                var data = SkillPassive.All[i];
+                if (data.passive_group_id == passiveGroupID && data.passive_value_type == type)
+                    return data;
+            }
+            return null;
+        }
+        
         public List<SkillCommander> GetCommanderSkillList(int chapterID)
         {
             var result = new List<SkillCommander>();
@@ -1303,7 +1347,7 @@ namespace CookApps.AutoBattler
             return true;
         }
 
-        public List<List<SkillJob>> GetPassivePositionList(CharacterPositionType positionType)
+        public List<List<SkillJob>> GetJobPassiveList(CharacterPositionType positionType)
         {
             if (positionType == CharacterPositionType.NONE)
             {
@@ -1326,6 +1370,8 @@ namespace CookApps.AutoBattler
 
             return passiveList;
         }
+
+
 
         public QuestInfo GetSpecQuestData(int questID)
         {

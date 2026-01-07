@@ -12,18 +12,18 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// </summary>
 public class CharacterStateAttackPierce : CharacterStateAttack
 {
-    private EffectCodePassivePierce _passivePierceEffectCode = null;
+    private EffectCodeJobPassivePierce _passivePierceEffectCode = null;
     private SpecialAttackDamageInfo _specialAttackInfo = new SpecialAttackDamageInfo();
     public override void StateInit(object owner)
     {
         base.StateInit(owner);
-        _passivePierceEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_PIERCE) as EffectCodePassivePierce;
+        _passivePierceEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_PIERCE) as EffectCodeJobPassivePierce;
     }
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
         if (_passivePierceEffectCode == null)
         {
-            _passivePierceEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_PIERCE) as EffectCodePassivePierce;
+            _passivePierceEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_PIERCE) as EffectCodeJobPassivePierce;
         }
 
         var outRunningResult = base.CharacterStateRunning(dt);

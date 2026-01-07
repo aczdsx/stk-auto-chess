@@ -97,8 +97,9 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class ServerGachaList
     {
+        [GeneratorId(nameof(index), typeof(int))]
+        public int index;
         /// 가챠 키 아이디
-        [GeneratorId(nameof(GachaGroupId), typeof(string))]
         public string GachaGroupId;
         /// 보상 아이템명
         public uint RewardItem;

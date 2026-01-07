@@ -93,46 +93,50 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
         if (owner == null)
             return;
 
-        // 이동 가능한 타겟 찾기
-        _targetCharacter = FindValidTarget();
-        if (_targetCharacter == null)
-            return;
-
-        // 타겟의 뒤로 이동할 타일 찾기
-        InGameTile targetBackTile = GetTileBehindTarget(owner.CurrentTile, _targetCharacter.CurrentTile);
-        if (targetBackTile == null || targetBackTile == _targetCharacter.CurrentTile)
+        if (executeIndex == 0)
         {
-            // 이동 불가능한 경우 스킬 취소
-            return;
+            // 이동 가능한 타겟 찾기
+            _targetCharacter = FindValidTarget();
+            if (_targetCharacter == null)
+                return;
+
+            // 타겟의 뒤로 이동할 타일 찾기
+            InGameTile targetBackTile = GetTileBehindTarget(owner.CurrentTile, _targetCharacter.CurrentTile);
+            if (targetBackTile == null || targetBackTile == _targetCharacter.CurrentTile)
+            {
+                // 이동 불가능한 경우 스킬 취소
+                return;
+            }
+
+            InGameVfxNameType skillFxType = (owner.AllianceType == AllianceType.Player)
+                ? InGameVfxNameType.fx_common_assassin_awful
+                : InGameVfxNameType.fx_common_assassin_enemy;
+
+            // 이동 전 자리에 이펙트 추가
+            InGameVfxManager.Instance.AddInGameVfx(skillFxType, owner.GetCharacterView().CachedTr.position);
+
+            // 타일 변경 및 위치 설정
+            owner.ChangeOccupiedTile(targetBackTile);
+            owner.Position3D = targetBackTile.View.Position;
+            owner.GetCharacterView().CachedTr.localPosition = targetBackTile.View.Position;
+            owner.GetCharacterView().LookAt(targetBackTile, _targetCharacter.CurrentTile);
+            owner.Target = _targetCharacter;
         }
 
-        InGameVfxNameType skillFxType = (owner.AllianceType == AllianceType.Player)
-            ? InGameVfxNameType.fx_common_assassin_awful
-            : InGameVfxNameType.fx_common_assassin_enemy;
-
-        // 이동 전 자리에 이펙트 추가
-        InGameVfxManager.Instance.AddInGameVfx(skillFxType, owner.GetCharacterView().CachedTr.position);
-
-        // 타일 변경 및 위치 설정
-        owner.ChangeOccupiedTile(targetBackTile);
-        owner.Position3D = targetBackTile.View.Position;
-        owner.GetCharacterView().CachedTr.localPosition = targetBackTile.View.Position;
-        owner.GetCharacterView().LookAt(targetBackTile, _targetCharacter.CurrentTile);
-        owner.Target = _targetCharacter;
 
         // 이동 완료 후 공격 시작
-        StartAttackSequence().Forget();
+        StartAttackSequence(executeIndex, totalLength);
     }
 
     private CharacterController FindValidTarget()
     {
         if (owner == null || owner.CurrentTile == null)
             return null;
-            
+
         var allTargets = InGameObjectManager.Instance?.GetCharacterListSortedByADDescending(owner.AllianceType, false);
         if (allTargets == null || allTargets.Count == 0)
             return null;
-        
+
         foreach (var target in allTargets)
         {
             if (target == null || !target.IsAlive || target.CurrentTile == null)
@@ -140,7 +144,7 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
 
             // 타겟의 뒤로 이동할 타일 찾기
             InGameTile targetBackTile = GetTileBehindTarget(owner.CurrentTile, target.CurrentTile);
-            
+
             // 이동 가능한 타일이 있고 타겟 타일이 아니면 유효한 타겟
             if (targetBackTile != null && targetBackTile != target.CurrentTile && targetBackTile.OccupiedCharacter == null)
             {
@@ -155,47 +159,51 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
     {
         if (attackerTile == null || targetTile == null)
             return null;
-            
+
         var grid = InGameObjectManager.Instance.InGameGrid;
         if (grid == null)
             return null;
-        
+
         // 바로 뒤 타일(1칸) 찾기 - 파라미터 순서: (attackerTile, targetTile, count)
         InGameTile behindTile = grid.GetTileForKnockBack(attackerTile, targetTile, 1);
-        
+
         // GetTileForKnockBack은 차단되면 targetTile을 반환할 수 있으므로 명시적으로 체크
         // 바로 뒤 타일이 유효하고 타겟 타일이 아니고 비어있으면 반환
         if (behindTile != null && behindTile != targetTile && behindTile.OccupiedCharacter == null)
         {
             return behindTile;
         }
-        
+
         // 바로 뒤 타일이 없거나 이동 불가능하면 근처 빈 타일 찾기
         for (int distance = 1; distance <= 3; distance++)
         {
             var nearbyTiles = grid.GetTileListByManhattanDistance(targetTile, distance);
             if (nearbyTiles == null || nearbyTiles.Count == 0)
                 continue;
-                
+
             var emptyTile = nearbyTiles.FirstOrDefault(t => t != null && t != targetTile && t.OccupiedCharacter == null);
-            
+
             if (emptyTile != null)
             {
                 return emptyTile;
             }
         }
-        
-        // 근처 타일도 없으면 null 반환 (이동 불가능)
+
         return null;
     }
 
-    private async UniTask StartAttackSequence()
+    private void StartAttackSequence(int executeIndex, int totalLength)
     {
         if (owner == null || _targetCharacter == null || !_targetCharacter.IsAlive)
             return;
 
+        // executeIndex에 따라 공격 횟수 계산
+        int baseAttackCount = _attackCount / totalLength;
+        int remainder = _attackCount % totalLength;
+        int attackCountForThisIndex = baseAttackCount + (executeIndex == 0 ? remainder : 0);
+
         // 공격 횟수만큼 공격
-        for (int i = 0; i < _attackCount; i++)
+        for (int i = 0; i < attackCountForThisIndex; i++)
         {
             if (owner == null || _targetCharacter == null || !_targetCharacter.IsAlive)
                 break;
@@ -205,14 +213,8 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
             damage.damageAmount = Math.Floor(damage.damageAmount.Value);
             _targetCharacter.GetDamaged(damage, owner);
 
-            // 표식-아라크네 체크 및 디버프 적용
+            // TODO 표식-아라크네 체크 및 디버프 적용
             //CheckAndApplyDebuff();
-
-            // 공격 간격
-            if (i < _attackCount - 1)
-            {
-                await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
-            }
         }
     }
 

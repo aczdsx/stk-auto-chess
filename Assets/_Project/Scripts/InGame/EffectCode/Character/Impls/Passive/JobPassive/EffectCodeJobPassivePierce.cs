@@ -10,7 +10,7 @@ namespace CookApps.BattleSystem
     /// 평타 공격시 {0}% 확률로 상대방의 물방 마방 관통
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodePassivePierce : EffectCodeCharacterBase
+    public partial class EffectCodeJobPassivePierce : EffectCodeCharacterBase
     {
         public const int CodeId = (int)EffectCodeNameType.JOBS_PIERCE;
         private float _piercePercentage = 0f;//관통 확률

@@ -9,7 +9,7 @@ namespace CookApps.BattleSystem
     /// 평타 공격 시 {0}% 확률로 폭발 3x3
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodePassiveEsper : EffectCodeCharacterBase
+    public partial class EffectCodeJobPassiveEsper : EffectCodeCharacterBase
     {
         public const int CodeId = (int)EffectCodeNameType.JOBS_ESPER;
         private const InGameVfxNameType _explosionVfxEnum = InGameVfxNameType.fx_common_job_espar_01;
