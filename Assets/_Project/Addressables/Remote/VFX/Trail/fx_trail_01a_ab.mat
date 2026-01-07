@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: fx_trail_01a_ab
-  m_Shader: {fileID: 4800000, guid: 7b4bf399b1df13c42bec051d0045f8ea, type: 3}
+  m_Shader: {fileID: 4800000, guid: b68b99c2e57cef4419465c63c527201b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -79,3 +79,4 @@ Material:
     - _SpeedMainTexUVNoiseZW: {r: 0, g: 0, b: 1, a: 0.3}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.5}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

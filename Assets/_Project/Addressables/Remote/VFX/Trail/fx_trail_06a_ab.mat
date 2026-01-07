@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: fx_trail_06a_ab
-  m_Shader: {fileID: 4800000, guid: 6ba7ed33dd1bdc4478d28dcd9ab70366, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7deddb00445e0f04f91ab2f3a465a102, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
