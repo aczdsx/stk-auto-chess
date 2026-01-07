@@ -12,11 +12,6 @@ namespace CookApps.AutoBattler
             SpriteManager.Instance.UnloadAllSprites();
             Debug.LogColor($"Scene Change : {prevSceneName} -> {sceneName}", "blue");
 
-            if (prevSceneName == "Lobby")
-            {
-                // await UnloadLobbyResources();
-            }
-
             if (prevSceneName == "BattleReady")
             {
                 await UnloadBattleReadyResources();
@@ -39,6 +34,7 @@ namespace CookApps.AutoBattler
 
             if (sceneName == "InGame")
             {
+                await UnloadLobbyResources();
                 await LoadInGameResources(defaultUIData);
             }
         }
@@ -48,9 +44,15 @@ namespace CookApps.AutoBattler
             await TopPanelSingleUseHelper.Instance.Initialize();
         }
 
+        private static UniTask UnloadLobbyResources()
+        {
+            TopPanelSingleUseHelper.Instance.Clear();
+            return UniTask.CompletedTask;
+        }
+
         private static async UniTask LoadBattleReadyResources(object defaultUIData)
         {
-            int chapter = (int) defaultUIData;
+            int chapter = (int)defaultUIData;
             await InGameResourceHolder.LoadBattleReadyResources(chapter);
 
             await TopPanelSingleUseHelper.Instance.Initialize();
@@ -58,7 +60,7 @@ namespace CookApps.AutoBattler
 
         private static async UniTask UnloadBattleReadyResources()
         {
-            TopPanelSingleUseHelper.Instance.Clear();
+            InGameResourceHolder.UnloadResources();
             await UniTask.Yield();
         }
 

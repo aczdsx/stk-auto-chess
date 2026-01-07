@@ -656,6 +656,7 @@ namespace CookApps.AutoBattler
         {
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
+            InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("Lobby");
         }
         
@@ -667,13 +668,13 @@ namespace CookApps.AutoBattler
             var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
             if (currentStageData != null)
             {
-                // 행동력 검사
-                if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, currentStageData.need_ap, false))
-                {
-                    SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
-                    ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
-                    return;
-                }
+                // TODO: 행동력 검사
+                // if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, currentStageData.need_ap, false))
+                // {
+                //     SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
+                //     ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
+                //     return;
+                // }
 
                 // 게임 플로우 강제성을 위한 예외처리 적용
                 var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
