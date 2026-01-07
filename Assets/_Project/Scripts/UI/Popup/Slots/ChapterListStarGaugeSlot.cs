@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
 
             _starAmountText.text = _specRewardInfo.sub_value.ToString();
 
-            _rewardIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specRewardInfo.item_type)).Forget();
+            _rewardIconSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(_specRewardInfo.item_id)).Forget();
             _rewardAmountText.text = $"x{_specRewardInfo.item_count}";
 
             // 보상 수령 상태에 따른 분기처리
@@ -97,7 +97,7 @@ namespace CookApps.AutoBattler
             // 리워드 팝업 생성
             List<RewardItem> rewardItemList = new List<RewardItem>();
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specRewardInfo.item_type, _specRewardInfo.item_key, _specRewardInfo.item_count))
-            rewardItemList.Add(new RewardItem(_specRewardInfo.item_key == 0 ? (int)_specRewardInfo.item_type : _specRewardInfo.item_key, _specRewardInfo.item_count));
+            rewardItemList.Add(new RewardItem(_specRewardInfo.item_id, _specRewardInfo.item_count));
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 

@@ -9,11 +9,6 @@ namespace CookApps.AutoBattler
 {
     public static class SpriteNameParser
     {
-        public static string GetSpriteName(ItemType itemType)
-        {
-            return ZString.Format("ST_RewardItem_{0}", itemType);
-        }
-
         public static string GetSpriteName(GradeType GradeType, bool isActive = true)
         {
             string spriteName = string.Empty;
@@ -123,6 +118,13 @@ namespace CookApps.AutoBattler
             }
 
             return spriteName;
+        }
+
+        public static string GetItemSprite(int itemId)
+        {
+            // TODO: 아이템 스프라이트 리턴하기
+            return null;
+            // return ZString.Format("ST_RewardItem_{0}", itemType);
         }
 
         public static string GetChapterIcon(int chapterID)

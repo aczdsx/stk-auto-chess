@@ -100,8 +100,7 @@ namespace CookApps.AutoBattler
                 {
                     var transcendenceLevel = UserCharacterDic[characterID].TranscendenceLevel;
                     var specTranscendenceData =
-                        SpecDataManager.Instance.GetCharacterTranscendenceData(specCharacterData.character_element_type, specCharacterData.grade_type,
-                            transcendenceLevel);
+                        SpecDataManager.Instance.GetCharacterTranscendenceData(specCharacterData.grade_type, transcendenceLevel);
 
                     return specTranscendenceData.max_lv;
                 }

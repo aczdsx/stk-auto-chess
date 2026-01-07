@@ -134,9 +134,9 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                if (datas[i].Key.IsCharacterPieceId())
+                if (datas[i].Id.IsCharacterPieceId())
                 {
-                    var specData = SpecDataManager.Instance.GetCharacterData(datas[i].Key);
+                    var specData = SpecDataManager.Instance.GetCharacterData(datas[i].Id);
 
                     if (specData.grade_type == GradeType.LEGENDARY && datas[i].Count == 20)
                     {
@@ -322,7 +322,7 @@ namespace CookApps.AutoBattler
             {
                 if(_datas[i].Count < 20)
                     continue;
-                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[i].Key);
+                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[i].Id);
                 if (idxCharcater.grade_type == GradeType.LEGENDARY)
                 {
                     skipDatas.Add(_datas[i]);
@@ -410,7 +410,7 @@ namespace CookApps.AutoBattler
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
             fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-            var idxCharacter = SpecDataManager.Instance.GetCharacterData(skipDatas[skipCnt].Key);
+            var idxCharacter = SpecDataManager.Instance.GetCharacterData(skipDatas[skipCnt].Id);
             fx.GetComponent<GetNewCharacter>().SetChracater(idxCharacter, ShowSkipCharacterFX);
             skipCnt++;
         }
@@ -516,14 +516,14 @@ namespace CookApps.AutoBattler
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
 
-            if (!_datas[cnt].Key.IsCharacterPieceId())
+            if (!_datas[cnt].Id.IsCharacterPieceId())
             {
                 cnt++;
                 ShowGetFX();
                 return;
             }
 
-            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].Key);
+            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].Id);
             if (_datas[cnt].Count == 20)
             {
                 if (idxCharcater.grade_type == GradeType.LEGENDARY)

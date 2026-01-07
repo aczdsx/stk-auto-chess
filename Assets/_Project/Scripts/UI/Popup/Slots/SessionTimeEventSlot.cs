@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
 
             // 리워드 데이터 세팅
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specEventConditionData.item_type, _specEventConditionData.item_key, _specEventConditionData.item_count))
-            RewardItem newRewardItem = new RewardItem(_specEventConditionData.item_key == 0 ? (int)_specEventConditionData.item_type : _specEventConditionData.item_key, _specEventConditionData.item_count);
+            RewardItem newRewardItem = new RewardItem(_specEventConditionData.item_id, _specEventConditionData.item_count);
             _rewardItemSlot.SetRewardSlot(newRewardItem);
 
             _eventRewardItemList.Add(newRewardItem);

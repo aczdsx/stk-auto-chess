@@ -131,26 +131,6 @@ namespace CookApps.AutoBattler
         MYTHIC = 9,
     }
 
-    public enum ItemType
-    {
-        NONE = 0,
-        JEWEL = 1,
-        GOLD = 2,
-        SOUL = 3,
-        AP = 4,
-        C_TICKET = 5,
-        W_TICKET = 6,
-        USER_EXP = 7,
-        CHAR_USER_EXP_ITEM = 8,
-        CHARACTER = 9,
-        CHARACTER_PIECE = 10,
-        CHAR_USER_EXCEED = 11,
-        KNIGHT_PIECE = 12,
-        PVP_TICKET = 13,
-        OBSTACLE = 14,
-        CHAR_USER_EXP_ITEM_2 = 15,
-    }
-
     public enum SynergyType
     {
         NONE = 0,
@@ -918,5 +898,7 @@ namespace CookApps.AutoBattler
         STAGE_CLEAR = 2,
         CHAPTER_CLEAR = 3,
         GUIDE_COMPLETE = 4,
+        PROLOGUE_END = 5,
+        STAGE_START = 6,
     }
 }

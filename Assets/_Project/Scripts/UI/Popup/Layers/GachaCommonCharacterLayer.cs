@@ -38,10 +38,10 @@ namespace CookApps.AutoBattler
             _specGachaDataOneTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_1_TIME_COUNT);
             _specGachaDataTenTime = SpecDataManager.Instance.GetGachaData(CurrentGachaType, Defines.GACHA_10_TIME_COUNT);
 
-            _gacha1ButtonCostSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specGachaDataOneTime.gacha_cost_item_type)).Forget();
+            _gacha1ButtonCostSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(_specGachaDataOneTime.gacha_cost_item_id)).Forget();
             _gacha1ButtonCostText.text = $"x{_specGachaDataOneTime.gacha_cost}";
 
-            _gacha10ButtonCostSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specGachaDataTenTime.gacha_cost_item_type)).Forget();
+            _gacha10ButtonCostSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(_specGachaDataTenTime.gacha_cost_item_id)).Forget();
             _gacha10ButtonCostText.text = $"x{_specGachaDataTenTime.gacha_cost}";
         }
 

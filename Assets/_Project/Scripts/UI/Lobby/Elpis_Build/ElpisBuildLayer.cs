@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using System.Linq;
 using R3;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 
 namespace CookApps.AutoBattler
 {

@@ -16,33 +16,35 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color enoughColor;
         [SerializeField] private Color notEnoughColor;
 
-        public void SetUIItem(ItemType type, int key, int amount)
+        public void SetUIItem(ItemId itemId, int amount)
         {
-            if (type == ItemType.CHARACTER_PIECE)
+            if (itemId.IsCharacterPieceId())
             {
-                var specCharacterData = SpecDataManager.Instance.GetCharacterData(key);
+                itemId.GetCharacterIndex(out var charIndex);
+                var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
 
                 _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
             }
             else
             {
-                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(type)).Forget();
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(itemId)).Forget();
             }
 
             itemAmountText.text = amount.ToString("N0");
         }
 
-        public void SetUIItem(ItemType type, int key, int amount, bool isEnough)
+        public void SetUIItem(ItemId itemId, int amount, bool isEnough)
         {
-            if (type == ItemType.CHARACTER_PIECE)
+            if (itemId.IsCharacterPieceId())
             {
-                var specCharacterData = SpecDataManager.Instance.GetCharacterData(key);
+                itemId.GetCharacterIndex(out var charIndex);
+                var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
 
                 _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
             }
             else
             {
-                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(type)).Forget();
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(itemId)).Forget();
             }
 
             itemAmountText.color = isEnough ? enoughColor : notEnoughColor;

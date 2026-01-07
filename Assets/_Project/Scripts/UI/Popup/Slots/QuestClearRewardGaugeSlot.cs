@@ -61,12 +61,12 @@ namespace CookApps.AutoBattler
 
             _clearAmountText.text = _specQuestData.need_count.ToString();
 
-            _rewardIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specQuestData.item_type)).Forget();
+            _rewardIconSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(_specQuestData.item_id)).Forget();
             _rewardAmountText.text = $"x{_specQuestData.item_count}";
 
             // 리워드 데이터 세팅
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specQuestData.item_type, _specQuestData.item_key, _specQuestData.item_count))
-            var rewardItem = new RewardItem(_specQuestData.item_key == 0 ? (int)_specQuestData.item_type : _specQuestData.item_key, _specQuestData.item_count);
+            var rewardItem = new RewardItem(_specQuestData.item_id, _specQuestData.item_count);
             _questRewardItemList.Add(rewardItem);
 
             RefreshSlot(false);

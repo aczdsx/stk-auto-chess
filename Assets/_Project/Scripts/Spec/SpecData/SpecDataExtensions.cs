@@ -12,22 +12,22 @@ namespace CookApps.AutoBattler
 {
     public class RewardItem
     {
-        public int Key { get; init; }
+        public ItemId Id { get; init; }
         public int Count { get; init; }
 
         public RewardItem() {}
 
-        public RewardItem(int keyValue, int countValue)
+        public RewardItem(int id, int count)
         {
-            Key = keyValue;
-            Count = countValue;
+            Id = id;
+            Count = count;
         }
 
         public Tech.Hive.V1.Reward ToGrpcReward()
         {
             return new Tech.Hive.V1.Reward
             {
-                ItemId = (uint)Key,
+                ItemId = Id,
                 Count = (ulong)Count
             };
         }
@@ -121,18 +121,6 @@ namespace CookApps.AutoBattler
             };
 
             return color;
-        }
-        
-        public static bool IsCharacterId(this int rewardId)
-        {
-            // TODO: rewardId가 캐릭터인지 체크
-            return false;
-        }
-        
-        public static bool IsCharacterPieceId(this int rewardId)
-        {
-            // TODO: rewardId가 캐릭터 조각인지 체크
-            return false;
         }
     }
 }

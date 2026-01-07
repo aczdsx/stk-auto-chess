@@ -197,13 +197,14 @@ namespace CookApps.AutoBattler
 
                 isAvailLevelup = isEnoughGold && isEnoughExpItem && isEnoughExpItem2 && isAvailLevelup;
 
-                _goldCurrencyUIItem.SetUIItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold, isEnoughGold);
-                _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count, isEnoughExpItem);
+                _goldCurrencyUIItem.SetUIItem(ItemIdMap.Gold, _specCharacterLevelExpData.need_gold, isEnoughGold);
+                _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, isEnoughExpItem);
 
+                // TODO: 체크 필요
                 bool isNeedSecondExpItem = _specCharacterLevelExpData.sec_levelup_item_count > 0;
                 if (isNeedSecondExpItem)
                 {
-                    _secondExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count, isEnoughExpItem2);
+                    _secondExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, isEnoughExpItem2);
                 }
                 _secondExpItemCurrencyUIItem.gameObject.SetActive(isNeedSecondExpItem);
             }
@@ -224,14 +225,13 @@ namespace CookApps.AutoBattler
             var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
             _maxTranscendenceLevel = transcendenceDataList.Max(data => data.transcendence_lv);
             // 초월에 필요한 자원 정보 세팅
-            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.character_element_type,
-            _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
 
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)
             {
                 isHasPiece = _userCharacterData.CharacterPiece >= _specCharacterTranscendenceData.char_transcendence_count;
-                _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count);
+                _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count);
             }
             bool isAvailTranscendence = _isHaveCharacter && _userCharacterData.TranscendenceLevel < _maxTranscendenceLevel && isHasPiece;
 
@@ -319,10 +319,11 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 재료 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count, true)
-                || !UserDataManager.Instance.CheckEnoughItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold, true)
-                || !UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count, true))
+            // TODO: 재료 검사
+            return;
+            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, true)
+                || !UserDataManager.Instance.CheckEnoughItem(ItemIdMap.Gold, _specCharacterLevelExpData.need_gold, true)
+                || !UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, true))
             {
                 return;
             }
@@ -330,9 +331,9 @@ namespace CookApps.AutoBattler
             // 재료 아이템 소진
             List<RewardItem> recipeItemList = new List<RewardItem>();
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count))
-            recipeItemList.Add(new RewardItem((int)_specCharacterLevelExpData.base_levelup_item_type, _specCharacterLevelExpData.base_levelup_item_count));
+            recipeItemList.Add(new RewardItem((int)_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count));
             // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold))
-            recipeItemList.Add(new RewardItem((int)ItemType.GOLD, _specCharacterLevelExpData.need_gold));
+            recipeItemList.Add(new RewardItem((int)ItemIdMap.Gold, _specCharacterLevelExpData.need_gold));
             if (_specCharacterLevelExpData.sec_levelup_item_count > 0)
             {
                 // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count))
@@ -436,8 +437,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 재료 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count, true))
+            // TODO: 재료 검사
+            return;
+            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count, true))
             {
                 return;
             }
@@ -468,8 +470,7 @@ namespace CookApps.AutoBattler
                 // 이펙트 실행
                 PlayLevelUpEffect();
 
-                var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
-                    _specCharacterData.character_element_type, _specCharacterData.grade_type,
+                var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type,
                     _userCharacterData.TranscendenceLevel + 1);
                 if (afterTranscenenceData != null)
                 {

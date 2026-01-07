@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
 
             // 리워드 데이터 세팅
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specQuestData.item_type, _specQuestData.item_key, _specQuestData.item_count))
-            var rewardItem = new RewardItem(_specQuestData.item_key == 0 ? (int)_specQuestData.item_type : _specQuestData.item_key, _specQuestData.item_count);
+            var rewardItem = new RewardItem(_specQuestData.item_id, _specQuestData.item_count);
             _questRewardSlot.SetRewardSlot(rewardItem);
 
             _questRewardItemList.Add(rewardItem);

@@ -95,6 +95,8 @@ namespace CookApps.AutoBattler
         private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
         private Dictionary<int, BattleItem> battleItemDic = new();                           // key : battle_item_id, value : BattleItem
+        private Dictionary<int, ISpecItemInfo> itemTableKeyMap = new();                      // key : item_id (currency_id/item_id), value : ISpecItemInfo
+        private bool isItemTableKeyMapInitialized = false;
 
         private void CustomizeSpecData()
         {
@@ -365,6 +367,42 @@ namespace CookApps.AutoBattler
             }
         }
 
+        private void InitializeItemTableKeyMap()
+        {
+            if (isItemTableKeyMapInitialized) return;
+
+            itemTableKeyMap.Clear();
+
+            for (int i = 0; i < ItemCurrencyTable.All.Count; i++)
+            {
+                var item = ItemCurrencyTable.All[i];
+                if (!itemTableKeyMap.ContainsKey(item.currency_id))
+                {
+                    itemTableKeyMap.Add(item.currency_id, item);
+                }
+            }
+
+            for (int i = 0; i < ItemConsumableTable.All.Count; i++)
+            {
+                var item = ItemConsumableTable.All[i];
+                if (!itemTableKeyMap.ContainsKey(item.item_id))
+                {
+                    itemTableKeyMap.Add(item.item_id, item);
+                }
+            }
+
+            for (int i = 0; i < ItemMaterialTable.All.Count; i++)
+            {
+                var item = ItemMaterialTable.All[i];
+                if (!itemTableKeyMap.ContainsKey(item.item_id))
+                {
+                    itemTableKeyMap.Add(item.item_id, item);
+                }
+            }
+
+            isItemTableKeyMapInitialized = true;
+        }
+
         public string GetLanguageText(string tokenKey, LanguageType targetLanguageType)
         {
             if (languageDic.TryGetValue(tokenKey, out var languageData))
@@ -458,13 +496,12 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        public CharacterTranscendence GetCharacterTranscendenceData(SynergyType elementType, GradeType gradeType, int transcendenceLevel)
+        public CharacterTranscendence GetCharacterTranscendenceData(GradeType gradeType, int transcendenceLevel)
         {
             for (int i = 0; i < CharacterTranscendence.All.Count; i++)
             {
                 var data = CharacterTranscendence.All[i];
-                if (data.element_type == elementType
-                    && data.grade_type == gradeType
+                if (data.grade_type == gradeType
                     && data.transcendence_lv == transcendenceLevel)
                     return data;
             }
@@ -477,7 +514,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < CharacterTranscendence.All.Count; i++)
             {
                 var data = CharacterTranscendence.All[i];
-                if (data.element_type == elementType && data.grade_type == gradeType)
+                if (data.grade_type == gradeType)
                     result.Add(data);
             }
             return result;
@@ -497,11 +534,11 @@ namespace CookApps.AutoBattler
             if (levelExpData != null)
             {
                 // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, levelExpData.need_gold_sum))
-                RewardItem needGoldItem = new RewardItem((int)ItemType.GOLD, levelExpData.need_gold_sum);
+                RewardItem needGoldItem = new RewardItem(ItemIdMap.Gold, levelExpData.need_gold_sum);
                 resultItemList.Add(needGoldItem);
 
                 // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.CHAR_USER_EXP_ITEM, 0, levelExpData.base_levelup_item_sum))
-                RewardItem needExpItem = new RewardItem((int)ItemType.CHAR_USER_EXP_ITEM, levelExpData.base_levelup_item_sum);
+                RewardItem needExpItem = new RewardItem(ItemIdMap.CharExp, levelExpData.base_levelup_item_sum);
                 resultItemList.Add(needExpItem);
 
                 if (levelExpData.sec_levelup_item_sum > 0)
@@ -912,7 +949,7 @@ namespace CookApps.AutoBattler
             foreach (var stageReward in stageRewardList)
             {
                 // ItemType의 삭제로 인해 변경.(new RewardItem(stageReward.item_type, stageReward.item_key, stageReward.item_count))
-                rewardItemList.Add(new RewardItem(stageReward.item_key == 0 ? (int)stageReward.item_type : stageReward.item_key, stageReward.item_count));
+                rewardItemList.Add(new RewardItem(stageReward.item_id, stageReward.item_count));
             }
 
             return rewardItemList;
@@ -925,7 +962,7 @@ namespace CookApps.AutoBattler
             foreach (var rewardInfo in rewardInfoList)
             {
                 // ItemType의 삭제로 인해 변경.(new RewardItem(rewardInfo.item_type, rewardInfo.item_key, rewardInfo.item_count))
-                rewardItemList.Add(new RewardItem(rewardInfo.item_key == 0 ? (int)rewardInfo.item_type : rewardInfo.item_key, rewardInfo.item_count));
+                rewardItemList.Add(new RewardItem(rewardInfo.item_id, rewardInfo.item_count));
             }
 
             return rewardItemList;
@@ -1043,15 +1080,10 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public Item GetSpecItemData(ItemType itemType)
+        public ISpecItemInfo GetSpecItemData(int itemId)
         {
-            for (int i = 0; i < Item.All.Count; i++)
-            {
-                var data = Item.All[i];
-                if (data.item_type == itemType)
-                    return data;
-            }
-            return null;
+            InitializeItemTableKeyMap();
+            return itemTableKeyMap.GetValueOrDefault(itemId);
         }
 
         public ISpecCharacterInfo GetSpecCharacter(int characterID)
@@ -1750,7 +1782,7 @@ namespace CookApps.AutoBattler
             foreach (var gachaScenario in gachaScenarioList)
             {
                 // ItemType의 삭제로 인해 변경.(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count))
-                rewardItemList.Add(new RewardItem(gachaScenario.item_key == 0 ? (int)gachaScenario.item_type : gachaScenario.item_key, gachaScenario.item_count));
+                rewardItemList.Add(new RewardItem(gachaScenario.item_id, gachaScenario.item_count));
             }
 
             return rewardItemList;

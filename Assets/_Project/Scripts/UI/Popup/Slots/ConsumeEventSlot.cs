@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
 
             // 리워드 데이터 세팅
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specEventConditionData.item_type, _specEventConditionData.item_key, _specEventConditionData.item_count))
-            RewardItem newRewardItem = new RewardItem(_specEventConditionData.item_key == 0 ? (int)_specEventConditionData.item_type : _specEventConditionData.item_key, _specEventConditionData.item_count);
+            RewardItem newRewardItem = new RewardItem(_specEventConditionData.item_id, _specEventConditionData.item_count);
             _rewardItemSlot.SetRewardSlot(newRewardItem);
 
             _eventRewardItemList.Add(newRewardItem);
@@ -93,10 +93,10 @@ namespace CookApps.AutoBattler
             switch (_specEventData.event_type)
             {
                 case EventType.USE_AP:
-                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(ItemType.AP)).Forget();
+                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(ItemIdMap.ActionPoint)).Forget();
                     break;
                 case EventType.USE_GOLD:
-                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(ItemType.GOLD)).Forget();
+                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(ItemIdMap.Gold)).Forget();
                     break;
             }
         }

@@ -69,9 +69,9 @@ namespace CookApps.AutoBattler
 
             _rewardItemData = _rewardItem;
 
-            if (_rewardItem.Key.IsCharacterPieceId())
+            if (_rewardItem.Id.IsCharacterPieceId())
             {
-                characterData = SpecDataManager.Instance.GetCharacterData(_rewardItem.Key);
+                characterData = SpecDataManager.Instance.GetCharacterData(_rewardItem.Id);
             }
 
             showParticle.SetActive(false);

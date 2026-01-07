@@ -29,8 +29,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _characterSynergyUI1;
         [SerializeField] private SynergyUI _characterSynergyUI2;
 
-        private Item _specItemData;
-        private int _rewardKey;
+        private ISpecItemInfo _specItemInfo;
 
         protected override void Awake()
         {
@@ -55,24 +54,25 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            (_specItemData, _rewardKey) = ((Item, int))param;
+            _specItemInfo = param as ISpecItemInfo;
 
             SetTooltipPopup();
         }
 
         private void SetTooltipPopup()
         {
-            if (_specItemData == null) return;
+            if (_specItemInfo == null) return;
 
-            bool isCharacter = _specItemData.item_type == ItemType.CHARACTER ||
-                               _specItemData.item_type == ItemType.CHARACTER_PIECE;
+            bool isCharacter = _specItemInfo.GetItemId().IsCharacterId() ||
+                               _specItemInfo.GetItemId().IsCharacterPieceId();
 
             _characterInfoObj.SetActive(isCharacter);
             _itemInfoObj.SetActive(!isCharacter);
 
             if (isCharacter)
             {
-                var specCharacterData = SpecDataManager.Instance.GetCharacterData(_rewardKey);
+                _specItemInfo.GetItemId().GetCharacterIndex(out var charIndex);
+                var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
                 _characterIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
                 _itemNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
                 _itemDescText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.desc_token);
@@ -81,12 +81,13 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specItemData.item_type)).Forget();
-                _itemNameText.text = LanguageManager.Instance.GetLanguageText(_specItemData.name_token);
-                _itemDescText.text = LanguageManager.Instance.GetLanguageText(_specItemData.desc_token);
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(_specItemInfo.GetItemId())).Forget();
+                _itemNameText.text = LanguageManager.Instance.GetLanguageText(_specItemInfo.name_token);
+                _itemDescText.text = LanguageManager.Instance.GetLanguageText(_specItemInfo.desc_token);
             }
 
-            _itemCategoryText.text = LanguageManager.Instance.GetItemCategoryText(_specItemData.item_category_type);
+            // TODO: 뭐고 이건
+            // _itemCategoryText.text = LanguageManager.Instance.GetItemCategoryText(_specItemInfo);
         }
 
         private void OnClickCloseButton()

@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
             if (_currentSpecGachaData == null) return;
             
             // 재화 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(_currentSpecGachaData.gacha_cost_item_type, 0, _currentSpecGachaData.gacha_cost, true))
+            if (!UserDataManager.Instance.CheckEnoughItem(_currentSpecGachaData.gacha_cost_item_id, _currentSpecGachaData.gacha_cost, true))
             {
                 return;
             }

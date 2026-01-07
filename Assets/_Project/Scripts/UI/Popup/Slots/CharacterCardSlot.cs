@@ -117,7 +117,7 @@ namespace CookApps.AutoBattler
             SetStarObject(_specCharacterData.grade_type, haveCharacter);
 
             // 캐릭터 조각 슬라이더 관련 처리
-            var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.character_element_type, _specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
 
             if (specCharacterTranscendenceData != null)
             {

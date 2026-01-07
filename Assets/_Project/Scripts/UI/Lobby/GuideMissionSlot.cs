@@ -100,24 +100,27 @@ namespace CookApps.AutoBattler
 
         private void SetGuideMissionRewardImage()
         {
-            switch (_specGuideMissionData.item_type)
+            ItemId itemId = _specGuideMissionData.item_id;
+            _missionRewardItemImage.gameObject.SetActive(false);
+            _rewardCharacterBGImage.gameObject.SetActive(itemId.IsCharacterId());
+            _missionRewardCharacterImage.gameObject.SetActive(itemId.IsCharacterPieceId());
+            if (itemId.IsCharacterId())
             {
-                case ItemType.CHARACTER:
-                    var characterData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
-                    _missionRewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterData.prefab_id)).Forget();
-                    break;
-                case ItemType.CHARACTER_PIECE:
-                    var characterPieceData = SpecDataManager.Instance.GetCharacterData(_specGuideMissionData.item_key);
-                    _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterPieceData.prefab_id)).Forget();
-                    break;
-                default:
-                    _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specGuideMissionData.item_type)).Forget();
-                    break;
+                itemId.GetCharacterIndex(out var charIndex);
+                var characterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
+                _missionRewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterData.prefab_id)).Forget();
             }
-
-            _missionRewardItemImage.gameObject.SetActive(_specGuideMissionData.item_type != ItemType.CHARACTER);
-            _rewardCharacterBGImage.gameObject.SetActive(_specGuideMissionData.item_type == ItemType.CHARACTER);
-            _missionRewardCharacterImage.gameObject.SetActive(_specGuideMissionData.item_type == ItemType.CHARACTER);
+            else if (itemId.IsCharacterPieceId())
+            {
+                itemId.GetCharacterIndex(out var charIndex);
+                var characterPieceData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
+                _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterPieceData.prefab_id)).Forget();
+            }
+            else
+            {
+                _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(itemId)).Forget();
+                _missionRewardItemImage.gameObject.SetActive(true);
+            }
         }
 
         private void OnClickMissionSlotButton()
@@ -131,7 +134,7 @@ namespace CookApps.AutoBattler
                 // 보상 수령 처리
                 List<RewardItem> rewardItemList = new List<RewardItem>();
                 // ItemType의 삭제로 인해 변경.(new RewardItem(_specGuideMissionData.item_type, _specGuideMissionData.item_key, _specGuideMissionData.item_count))
-                rewardItemList.Add(new RewardItem(_specGuideMissionData.item_key == 0 ? (int)_specGuideMissionData.item_type : _specGuideMissionData.item_key, _specGuideMissionData.item_count));
+                rewardItemList.Add(new RewardItem(_specGuideMissionData.item_id, _specGuideMissionData.item_count));
                 SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
                 {
                     // 다음 가이드 미션 요청

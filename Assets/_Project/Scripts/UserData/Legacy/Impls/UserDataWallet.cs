@@ -43,103 +43,103 @@ namespace CookApps.AutoBattler
             userWallet = null;
         }
 
-        public bool CheckEnoughItem(ItemType itemType, int itemKey, int itemAmount, bool isShowToast)
+        public bool CheckEnoughItem(int itemId, int itemAmount, bool isShowToast)
         {
-            switch (itemType)
-            {
-                case ItemType.GOLD:
-                    if (userWallet.Gold < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GOLD");
-                    return userWallet.Gold >= itemAmount;
-                case ItemType.JEWEL:
-                    if (userWallet.Jewel < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_JEWEL");
-                    return userWallet.Jewel >= itemAmount;
-                case ItemType.AP:
-                    if (userWallet.Ap < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
-                    return userWallet.Ap >= itemAmount;
-                case ItemType.C_TICKET:
-                    if (userWallet.CTicket < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
-                    return userWallet.CTicket >= itemAmount;
-                case ItemType.PVP_TICKET:
-                    if (userWallet.PvpTicket < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_PVP_TICKET");
-                    return userWallet.PvpTicket >= itemAmount;
-                case ItemType.CHAR_USER_EXP_ITEM:
-                    if (userWallet.CharUserExpItem < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP");
-                    return userWallet.CharUserExpItem >= itemAmount;
-                case ItemType.CHAR_USER_EXP_ITEM_2:
-                    if (userWallet.CharUserExpItem2 < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP_2");
-                    return userWallet.CharUserExpItem2 >= itemAmount;
-                case ItemType.CHARACTER_PIECE:
-                    var userCharacter = GetUserCharacter(itemKey);
-                    if (userCharacter != null)
-                        if (userCharacter.CharacterPiece < itemAmount && isShowToast)
-                            ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_PIECE");
-                    return userCharacter != null && userCharacter.CharacterPiece >= itemAmount;
-            }
+            // switch (itemType)
+            // {
+            //     case ItemType.GOLD:
+            //         if (userWallet.Gold < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GOLD");
+            //         return userWallet.Gold >= itemAmount;
+            //     case ItemType.JEWEL:
+            //         if (userWallet.Jewel < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_JEWEL");
+            //         return userWallet.Jewel >= itemAmount;
+            //     case ItemType.AP:
+            //         if (userWallet.Ap < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
+            //         return userWallet.Ap >= itemAmount;
+            //     case ItemType.C_TICKET:
+            //         if (userWallet.CTicket < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_C_TICKET");
+            //         return userWallet.CTicket >= itemAmount;
+            //     case ItemType.PVP_TICKET:
+            //         if (userWallet.PvpTicket < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_GACHA_PVP_TICKET");
+            //         return userWallet.PvpTicket >= itemAmount;
+            //     case ItemType.CHAR_USER_EXP_ITEM:
+            //         if (userWallet.CharUserExpItem < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP");
+            //         return userWallet.CharUserExpItem >= itemAmount;
+            //     case ItemType.CHAR_USER_EXP_ITEM_2:
+            //         if (userWallet.CharUserExpItem2 < itemAmount && isShowToast) ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_EXP_2");
+            //         return userWallet.CharUserExpItem2 >= itemAmount;
+            //     case ItemType.CHARACTER_PIECE:
+            //         var userCharacter = GetUserCharacter(itemId);
+            //         if (userCharacter != null)
+            //             if (userCharacter.CharacterPiece < itemAmount && isShowToast)
+            //                 ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_CHAR_PIECE");
+            //         return userCharacter != null && userCharacter.CharacterPiece >= itemAmount;
+            // }
 
             return false;
         }
 
-        public void SetItemCount(ItemType itemType, int itemKey, int itemAmount, bool isSave, bool needUpdateReddot)
+        public void SetItemCount(int itemId, int itemAmount, bool isSave, bool needUpdateReddot)
         {
-            switch (itemType)
-            {
-                case ItemType.GOLD:
-                    userWallet.Gold = itemAmount;
-                    OnGoldChanged?.Invoke(userWallet.Gold);
-                    break;
-                case ItemType.JEWEL:
-                    userWallet.Jewel = itemAmount;
-                    OnJewelChanged?.Invoke(userWallet.Jewel);
-                    break;
-                case ItemType.AP:
-                    userWallet.Ap = itemAmount;
-                    OnAPChanged?.Invoke(userWallet.Ap);
-                    break;
-                case ItemType.C_TICKET:
-                    userWallet.CTicket = itemAmount;
-                    OnCTicketChanged?.Invoke(userWallet.CTicket);
-                    break;
-                case ItemType.PVP_TICKET:
-                    userWallet.PvpTicket = itemAmount;
-                    OnPVPTicketChanged?.Invoke(userWallet.PvpTicket);
-                    break;
-                case ItemType.CHAR_USER_EXP_ITEM:
-                    userWallet.CharUserExpItem = itemAmount;
-                    OnCharUserExpItemChanged?.Invoke(userWallet.CharUserExpItem);
-                    break;
-                case ItemType.CHAR_USER_EXP_ITEM_2:
-                    userWallet.CharUserExpItem2 = itemAmount;
-                    OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
-                    break;
-                    // case ItemType.USER_EXP:
-                    //     AddUserLevelExp(itemAmount);
-                    //     break;
-                    // case ItemType.CHARACTER:
-                    //     // 최초 완성형 캐릭터 획득 처리 (20조각)
-                    //     var specCharacter = SpecDataManager.Instance.GetCharacterData(itemKey);
-                    //     if (IsHaveCharacter(specCharacter.character_id) == false)
-                    //     {
-                    //         AddNewCharacter(specCharacter.character_id);
-                    //     }
-                    //     else
-                    //     {
-                    //         IncreaseKnightPieceCount(specCharacter.character_id, specCharacter.need_piece);
-                    //     }
-                    //     break;
-                    // case ItemType.CHARACTER_PIECE:
-                    //     // 최초 완성형 캐릭터 획득 처리 (20조각)
-                    //     var specCharacterPiece = SpecDataManager.Instance.GetCharacterData(itemKey);
-                    //     if (IsHaveCharacter(specCharacterPiece.character_id) == false && itemAmount >= 20)
-                    //     {
-                    //         AddNewCharacter(specCharacterPiece.character_id);
-                    //     }
-                    //     else
-                    //     {
-                    //         IncreaseKnightPieceCount(specCharacterPiece.character_id, itemAmount);
-                    //     }
-
-                    break;
-            }
+            // switch (itemType)
+            // {
+            //     case ItemType.GOLD:
+            //         userWallet.Gold = itemAmount;
+            //         OnGoldChanged?.Invoke(userWallet.Gold);
+            //         break;
+            //     case ItemType.JEWEL:
+            //         userWallet.Jewel = itemAmount;
+            //         OnJewelChanged?.Invoke(userWallet.Jewel);
+            //         break;
+            //     case ItemType.AP:
+            //         userWallet.Ap = itemAmount;
+            //         OnAPChanged?.Invoke(userWallet.Ap);
+            //         break;
+            //     case ItemType.C_TICKET:
+            //         userWallet.CTicket = itemAmount;
+            //         OnCTicketChanged?.Invoke(userWallet.CTicket);
+            //         break;
+            //     case ItemType.PVP_TICKET:
+            //         userWallet.PvpTicket = itemAmount;
+            //         OnPVPTicketChanged?.Invoke(userWallet.PvpTicket);
+            //         break;
+            //     case ItemType.CHAR_USER_EXP_ITEM:
+            //         userWallet.CharUserExpItem = itemAmount;
+            //         OnCharUserExpItemChanged?.Invoke(userWallet.CharUserExpItem);
+            //         break;
+            //     case ItemType.CHAR_USER_EXP_ITEM_2:
+            //         userWallet.CharUserExpItem2 = itemAmount;
+            //         OnCharUserExpItem2Changed?.Invoke(userWallet.CharUserExpItem2);
+            //         break;
+            //         // case ItemType.USER_EXP:
+            //         //     AddUserLevelExp(itemAmount);
+            //         //     break;
+            //         // case ItemType.CHARACTER:
+            //         //     // 최초 완성형 캐릭터 획득 처리 (20조각)
+            //         //     var specCharacter = SpecDataManager.Instance.GetCharacterData(itemKey);
+            //         //     if (IsHaveCharacter(specCharacter.character_id) == false)
+            //         //     {
+            //         //         AddNewCharacter(specCharacter.character_id);
+            //         //     }
+            //         //     else
+            //         //     {
+            //         //         IncreaseKnightPieceCount(specCharacter.character_id, specCharacter.need_piece);
+            //         //     }
+            //         //     break;
+            //         // case ItemType.CHARACTER_PIECE:
+            //         //     // 최초 완성형 캐릭터 획득 처리 (20조각)
+            //         //     var specCharacterPiece = SpecDataManager.Instance.GetCharacterData(itemKey);
+            //         //     if (IsHaveCharacter(specCharacterPiece.character_id) == false && itemAmount >= 20)
+            //         //     {
+            //         //         AddNewCharacter(specCharacterPiece.character_id);
+            //         //     }
+            //         //     else
+            //         //     {
+            //         //         IncreaseKnightPieceCount(specCharacterPiece.character_id, itemAmount);
+            //         //     }
+            //
+            //         break;
+            // }
 
             if (isSave) SaveUserWallet();
 
@@ -220,7 +220,7 @@ namespace CookApps.AutoBattler
             if (rewardList == null || rewardList.Count == 0) return;
 
             // 리워드 적용
-            foreach (var reward in rewardList) IncreaseItem(reward.Key, reward.Count, false, false);
+            foreach (var reward in rewardList) IncreaseItem(reward.Id, reward.Count, false, false);
 
             if (isSave) SaveUserWallet();
 
@@ -289,7 +289,7 @@ namespace CookApps.AutoBattler
             if (rewardList == null || rewardList.Count == 0) return;
 
             // 리워드 적용
-            foreach (var reward in rewardList) DecreaseItem(reward.Key, reward.Count, false, false);
+            foreach (var reward in rewardList) DecreaseItem(reward.Id, reward.Count, false, false);
 
             if (isSave) SaveUserWallet();
 
@@ -298,17 +298,17 @@ namespace CookApps.AutoBattler
             // if (lobbyMain != null) lobbyMain.RefreshUI(LobbyMainRefreshType.REDDOT);
         }
 
-        public bool IsItemMaxCount(ItemType targetItemType)
-        {
-            switch (targetItemType)
-            {
-                case ItemType.PVP_TICKET:
-                    var maxCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
-                    return maxCount >= UserWallet.PvpTicket;
-                default:
-                    return false;
-            }
-        }
+        // public bool IsItemMaxCount(ItemType targetItemType)
+        // {
+        //     switch (targetItemType)
+        //     {
+        //         case ItemType.PVP_TICKET:
+        //             var maxCount = SpecDataManager.Instance.GetGameConfig<int>("PVP_DAILY_MAX_TICKET_COUNT");
+        //             return maxCount >= UserWallet.PvpTicket;
+        //         default:
+        //             return false;
+        //     }
+        // }
 
         public void SaveUserWallet()
         {

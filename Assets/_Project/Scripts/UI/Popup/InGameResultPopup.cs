@@ -208,7 +208,7 @@ SceneTransition.FadeInAsync().Forget();
             if (_isEndChapter) return;
 
             // 행동력 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true))
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
             {
                 return;
             }
@@ -236,7 +236,7 @@ SceneTransition.FadeInAsync().Forget();
         private void OnClickRetryStageButton()
         {
             // 행동력 검사
-            if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true))
+            if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
             {
                 return;
             }
@@ -306,7 +306,7 @@ SceneTransition.FadeInAsync().Forget();
                 if (shouldCreateRewardItemSlot)
                 {
                     // ItemType의 삭제로 인해 변경.(new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count))
-                    RewardItem newItem = new RewardItem(rewardItem.item_key == 0 ? (int)rewardItem.item_type : rewardItem.item_key, rewardItem.item_count);
+                    RewardItem newItem = new RewardItem(rewardItem.item_id, rewardItem.item_count);
 
                     var rewardItemSlot = Instantiate(_rewardItemSlotObj, _rewardsTransform).GetComponent<RewardItemSlot>();
                     rewardItemSlot.SetRewardSlot(newItem);

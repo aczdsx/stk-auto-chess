@@ -175,7 +175,7 @@ namespace CookApps.AutoBattler
                     RewardItemSlot newSlot = newSlotObject.GetComponent<RewardItemSlot>();
 
                     // ItemType의 삭제로 인해 변경.(new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count))
-                    RewardItem newRewardItem = new RewardItem(rewardData.item_key == 0 ? (int)rewardData.item_type : rewardData.item_key, rewardData.item_count);
+                    RewardItem newRewardItem = new RewardItem(rewardData.item_id, rewardData.item_count);
                     resultItemList.Add(newRewardItem);
                     newSlot?.SetRewardSlot(newRewardItem);
                 }

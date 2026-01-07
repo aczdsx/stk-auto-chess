@@ -156,7 +156,6 @@ public partial class SROptions
         // UserDataManager.Instance.DecreaseItem(원하는아이템타입, 0, 원하는아이템갯수, true, true);
     }
 
-    [Category("아이템 관련")] public ItemType 원하는아이템타입 { get; set; } = ItemType.GOLD;
     [Category("아이템 관련")] public int 원하는아이템갯수 { get; set; } = 0;
 
     #endregion
@@ -265,12 +264,12 @@ public partial class SROptions
 
         var targetSpecStageData = SpecDataManager.Instance.GetStageData(원하는스테이지ID);
 
-        // 행동력 검사
-        if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, targetSpecStageData.need_ap, false))
-        {
-            ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
-            return;
-        }
+        // TODO: 행동력 검사
+        // if (!UserDataManager.Instance.CheckEnoughItem(ItemType.AP, 0, targetSpecStageData.need_ap, false))
+        // {
+        //     ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
+        //     return;
+        // }
 
         // 스테이지 데이터저장
         UserDataManager.Instance.SetUserStage(원하는스테이지ID, 스테이지클리어별갯수);
