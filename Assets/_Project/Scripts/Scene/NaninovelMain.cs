@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Naninovel;
 using Naninovel.Async;
@@ -19,6 +20,7 @@ namespace CookApps.AutoBattler
         private ILocalizationManager _localizationManager;
         private bool _isInitialized = false;
         private Action _onEndAction;
+        private Queue<string> _pendingScripts = new();
 
         public static NaninovelMain GetNaninovelMain()
         {
@@ -47,12 +49,40 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
 
             // 파라미터 처리
-            string scriptName = defaultScriptName;
             _onEndAction = null;
+            _pendingScripts.Clear();
 
-            (scriptName, _onEndAction) = ((string, Action))param;
+            var (scriptNames, onEndAction) = ((IReadOnlyList<string>, Action))param;
+            _onEndAction = onEndAction;
 
-            InitializeNaninovelAsync(scriptName).Forget();
+            // 스크립트 목록을 큐에 추가
+            if (scriptNames != null)
+            {
+                foreach (var scriptName in scriptNames)
+                {
+                    if (!string.IsNullOrEmpty(scriptName))
+                    {
+                        _pendingScripts.Enqueue(scriptName);
+                    }
+                }
+            }
+
+            // 첫 번째 스크립트 실행
+            PlayNextScriptAsync().Forget();
+        }
+
+        private async UniTaskVoid PlayNextScriptAsync()
+        {
+            if (_pendingScripts.Count == 0)
+            {
+                Debug.LogWarning("NaninovelMain: 실행할 스크립트가 없습니다.");
+                _onEndAction?.Invoke();
+                _onEndAction = null;
+                return;
+            }
+
+            var scriptName = _pendingScripts.Dequeue();
+            await InitializeNaninovelAsync(scriptName);
         }
 
         /// <summary>
@@ -64,12 +94,23 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 스크립트 종료 시 실행할 액션 실행
+        /// 스크립트 종료 시 호출 - 다음 스크립트가 있으면 실행, 없으면 종료 액션 실행
         /// </summary>
         public void ExecuteEndAction()
         {
+            // 다음 스크립트가 있으면 실행
+            if (_pendingScripts.Count > 0)
+            {
+                var nextScript = _pendingScripts.Dequeue();
+                Debug.Log($"NaninovelMain: 다음 스크립트 실행 - {nextScript} (남은 스크립트: {_pendingScripts.Count}개)");
+                PlayScript(nextScript).Forget();
+                return;
+            }
+
+            // 모든 스크립트 완료 - 종료 액션 실행
+            Debug.Log("NaninovelMain: 모든 스크립트 완료, 종료 액션 실행");
             _onEndAction?.Invoke();
-            _onEndAction = null; // 실행 후 정리
+            _onEndAction = null;
         }
 
         private async UniTaskVoid InitializeNaninovelAsync(string scriptName)

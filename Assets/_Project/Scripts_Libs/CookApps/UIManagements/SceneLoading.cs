@@ -25,7 +25,7 @@ namespace CookApps.TeamBattle.UIManagements
             public string NextSceneName;
             public object NextSceneData;
             public SceneLoadingEventReceiver SceneLoadingEventReceiver;
-            public string NaninovelScriptName; // 나니노벨 스크립트 이름 (있으면 나니노벨을 거쳐서 이동)
+            public IReadOnlyList<string> NaninovelScriptNames; // 나니노벨 스크립트 이름 목록 (있으면 나니노벨을 거쳐서 이동)
         }
 
         private SceneLoadingData sceneLoadingData;
@@ -46,13 +46,13 @@ namespace CookApps.TeamBattle.UIManagements
         /// <param name="nextScene">목적지 씬 이름</param>
         /// <param name="nextSceneData">목적지 씬 데이터</param>
         /// <param name="sceneLoadingEventReceiver">씬 로딩 이벤트 리시버</param>
-        /// <param name="naninovelScriptName">나니노벨 스크립트 이름 (있으면 나니노벨을 거쳐서 이동)</param>
-        public static void GoToNextScene(string nextScene, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null, string naninovelScriptName = null)
+        /// <param name="naninovelScriptNames">나니노벨 스크립트 이름 목록 (있으면 나니노벨을 거쳐서 이동)</param>
+        public static void GoToNextScene(string nextScene, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null, IReadOnlyList<string> naninovelScriptNames = null)
         {
             // 나니노벨이 있으면 나니노벨 씬으로 먼저 이동
-            if (!string.IsNullOrEmpty(naninovelScriptName))
+            if (naninovelScriptNames != null && naninovelScriptNames.Count > 0)
             {
-                GoToNextSceneViaNaninovel(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+                GoToNextSceneViaNaninovel(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptNames);
                 return;
             }
 
@@ -64,7 +64,7 @@ namespace CookApps.TeamBattle.UIManagements
                 NextSceneName = nextScene,
                 NextSceneData = nextSceneData,
                 SceneLoadingEventReceiver = sceneLoadingEventReceiver,
-                NaninovelScriptName = null
+                NaninovelScriptNames = null
             };
             SceneUILayerManager.Instance.ChangeScene("SceneLoading", data);
         }
@@ -72,7 +72,7 @@ namespace CookApps.TeamBattle.UIManagements
         /// <summary>
         /// 나니노벨을 거쳐서 목적지 씬으로 이동
         /// </summary>
-        private static void GoToNextSceneViaNaninovel(string nextScene, object nextSceneData, SceneLoadingEventReceiver sceneLoadingEventReceiver, string naninovelScriptName)
+        private static void GoToNextSceneViaNaninovel(string nextScene, object nextSceneData, SceneLoadingEventReceiver sceneLoadingEventReceiver, IReadOnlyList<string> naninovelScriptNames)
         {
             // 나니노벨 종료 시 원래 목적지로 이동하는 액션 생성
             System.Action onNaninovelEnd = () =>
@@ -85,7 +85,7 @@ namespace CookApps.TeamBattle.UIManagements
                     NextSceneName = nextScene,
                     NextSceneData = nextSceneData,
                     SceneLoadingEventReceiver = sceneLoadingEventReceiver,
-                    NaninovelScriptName = null
+                    NaninovelScriptNames = null
                 };
                 SceneUILayerManager.Instance.ChangeScene("SceneLoading", data);
             };
@@ -96,9 +96,9 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 CurrentSceneName = SceneUILayerManager.Instance.CurrentSceneName,
                 NextSceneName = "Naninovel",
-                NextSceneData = (naninovelScriptName, onNaninovelEnd), // 튜플로 스크립트 이름과 종료 액션 전달
+                NextSceneData = (naninovelScriptNames, onNaninovelEnd), // 튜플로 스크립트 이름 목록과 종료 액션 전달
                 SceneLoadingEventReceiver = null,
-                NaninovelScriptName = naninovelScriptName
+                NaninovelScriptNames = naninovelScriptNames
             };
             SceneUILayerManager.Instance.ChangeScene("SceneLoading", naninovelData);
         }
