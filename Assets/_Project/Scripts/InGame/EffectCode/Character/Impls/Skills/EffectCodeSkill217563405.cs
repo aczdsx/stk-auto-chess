@@ -201,6 +201,10 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
         int baseAttackCount = _attackCount / totalLength;
         int remainder = _attackCount % totalLength;
         int attackCountForThisIndex = baseAttackCount + (executeIndex == 0 ? remainder : 0);
+        if(executeIndex == 0)
+        {
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], _targetCharacter.GetCharacterView().CachedTr.position);
+        }
 
         // 공격 횟수만큼 공격
         for (int i = 0; i < attackCountForThisIndex; i++)

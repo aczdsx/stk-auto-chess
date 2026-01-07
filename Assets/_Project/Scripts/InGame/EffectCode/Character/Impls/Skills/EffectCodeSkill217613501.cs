@@ -170,6 +170,7 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, target, eccStats, source);
             }
         }
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
 
         // 0.2초 후 캐릭터가 보고 있는 방향 앞 두칸으로 이동
         await UniTask.Delay(TimeSpan.FromSeconds(0.2f));

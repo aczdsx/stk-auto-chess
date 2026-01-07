@@ -88,7 +88,7 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
             }
 
             var affectText = buffDebuffType.GetAffectToken();
-            owner.ShowNormalText(affectText, hexColor: "5#5DC9FFFF").Forget();
+            owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
         }
 
 
