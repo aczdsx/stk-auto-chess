@@ -229,7 +229,10 @@ public class TutorialController : MonoBehaviour
         }
     }
 
-    public void CloseTutorial()
+    /// <summary>
+    /// 튜토리얼 제거 - TutorialManager의 가이드가 다 비었을 때 호출됨
+    /// </summary>
+    public void ClearTutorial()
     {
         if (_currentSpecTutorialList == null)
         {

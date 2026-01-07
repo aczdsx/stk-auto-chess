@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler
         private ILocalizationManager _localizationManager;
         private bool _isInitialized = false;
         private Action _onEndAction;
+        private string _currentScriptName; // 현재 실행 중인 스크립트 이름
 
         public static NaninovelMain GetNaninovelMain()
         {
@@ -46,13 +47,25 @@ namespace CookApps.AutoBattler
             Debug.Log("NaninovelMain param: " + param);
             base.OnPreEnter(param);
 
-            // 파라미터 처리
-            string scriptName = defaultScriptName;
+            // 파라미터 처리 - (스크립트 이름, 종료 액션) 튜플
             _onEndAction = null;
+            _currentScriptName = null;
 
-            (scriptName, _onEndAction) = ((string, Action))param;
+            var (scriptName, onEndAction) = ((string, Action))param;
+            _onEndAction = onEndAction;
+            _currentScriptName = scriptName;
 
-            InitializeNaninovelAsync(scriptName).Forget();
+            // 스크립트 실행
+            if (!string.IsNullOrEmpty(_currentScriptName))
+            {
+                InitializeNaninovelAsync(_currentScriptName).Forget();
+            }
+            else
+            {
+                Debug.LogWarning("NaninovelMain: 실행할 스크립트가 없습니다.");
+                _onEndAction?.Invoke();
+                _onEndAction = null;
+            }
         }
 
         /// <summary>
@@ -64,12 +77,32 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 스크립트 종료 시 실행할 액션 실행
+        /// 스크립트 종료 시 호출 - 트리거 매니저에서 다음 스크립트 검색 후 실행
         /// </summary>
         public void ExecuteEndAction()
         {
+            // 현재 스크립트 실행 완료 기록
+            if (!string.IsNullOrEmpty(_currentScriptName))
+            {
+                NaninovelTriggerManager.Instance.MarkTriggerExecuted(_currentScriptName);
+            }
+
+            // 트리거 매니저에서 다음 스크립트 검색 (NANINOVEL_END 트리거)
+            var nextScript = NaninovelTriggerManager.Instance.GetTriggerOnNaninovelEnd(_currentScriptName);
+
+            if (!string.IsNullOrEmpty(nextScript))
+            {
+                Debug.Log($"NaninovelMain: 다음 스크립트 실행 - {nextScript}");
+                _currentScriptName = nextScript;
+                PlayScript(nextScript).Forget();
+                return;
+            }
+
+            // 다음 스크립트 없음 - 종료 액션 실행
+            Debug.Log("NaninovelMain: 모든 스크립트 완료, 종료 액션 실행");
+            _currentScriptName = null;
             _onEndAction?.Invoke();
-            _onEndAction = null; // 실행 후 정리
+            _onEndAction = null;
         }
 
         private async UniTaskVoid InitializeNaninovelAsync(string scriptName)

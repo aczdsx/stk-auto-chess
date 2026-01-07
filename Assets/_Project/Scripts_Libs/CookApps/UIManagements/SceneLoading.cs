@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
@@ -41,14 +42,22 @@ namespace CookApps.TeamBattle.UIManagements
         }
 
         /// <summary>
+        /// 씬 진입 시 나니노벨 트리거를 검색하는 델리게이트
+        /// 외부에서 NaninovelTriggerManager 등을 연결
+        /// </summary>
+        public static Func<string, string> OnGetNaninovelTrigger { get; set; }
+
+        /// <summary>
         /// 무거운 씬간 전환시 사용, 전환 중간에 가벼운 씬을 둠으로써 무거운 씬2개가 동시에 떠서 메모리가 부족해지는 것을 방지
         /// </summary>
         /// <param name="nextScene">목적지 씬 이름</param>
         /// <param name="nextSceneData">목적지 씬 데이터</param>
         /// <param name="sceneLoadingEventReceiver">씬 로딩 이벤트 리시버</param>
-        /// <param name="naninovelScriptName">나니노벨 스크립트 이름 (있으면 나니노벨을 거쳐서 이동)</param>
-        public static void GoToNextScene(string nextScene, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null, string naninovelScriptName = null)
+        public static void GoToNextScene(string nextScene, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null)
         {
+            // 트리거 델리게이트가 설정되어 있으면 나니노벨 트리거 검색
+            var naninovelScriptName = OnGetNaninovelTrigger?.Invoke(nextScene);
+
             // 나니노벨이 있으면 나니노벨 씬으로 먼저 이동
             if (!string.IsNullOrEmpty(naninovelScriptName))
             {
