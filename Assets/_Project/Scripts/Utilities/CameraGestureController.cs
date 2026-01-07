@@ -265,30 +265,37 @@ public class CameraGestureController : CachedMonoBehaviour
 
         // 이동량 계산 (화면 기준 정확한 이동)
         var movementDelta = offsetWorld - centerWorld;
-        var newPosition = targetPosition + movementDelta;
         
-        // 새 위치가 바운더리 내에 있는지 미리 확인
-        if (!IsPositionWithinBoundary(newPosition))
+        // 각 축을 독립적으로 체크하여 부분 이동 허용
+        var clampedDelta = ClampMovementToBoundary(movementDelta);
+        
+        if (clampedDelta.sqrMagnitude < 0.0001f)
         {
-            // 바운더리를 넘어가는 이동은 무시
+            // 이동량이 거의 없으면 무시
             return;
         }
         
-        targetPosition = newPosition;
+        targetPosition += clampedDelta;
         needsPositionSmoothing = true;
     }
     
     /// <summary>
-    /// 주어진 카메라 위치가 바운더리 내에 있는지 확인 (카메라 뷰 평면 기준)
+    /// 이동량을 바운더리 내로 제한 (각 축 독립적으로 처리)
     /// </summary>
-    private bool IsPositionWithinBoundary(Vector3 position)
+    private Vector3 ClampMovementToBoundary(Vector3 movementDelta)
     {
         var verticalExtent = mainCamera.orthographicSize;
         var horizontalExtent = verticalExtent * mainCameraAspect;
-
-        // 카메라 뷰 평면의 중심점을 계산 (카메라 회전 고려)
-        var viewCenter = GetViewCenterWorldPosition(position);
-
+        
+        // 현재 뷰 중심의 바운더리 평면 좌표
+        var currentViewCenter = GetViewCenterWorldPosition(targetPosition);
+        var currentBoundaryPoint = WorldToBoundaryPlane(currentViewCenter);
+        
+        // 이동 후 뷰 중심의 바운더리 평면 좌표
+        var newPosition = targetPosition + movementDelta;
+        var newViewCenter = GetViewCenterWorldPosition(newPosition);
+        var newBoundaryPoint = WorldToBoundaryPlane(newViewCenter);
+        
         // boundary 범위 계산
         var centerX = (boundaryMin.x + boundaryMax.x) * 0.5f;
         var centerY = (boundaryMin.y + boundaryMax.y) * 0.5f;
@@ -299,12 +306,19 @@ public class CameraGestureController : CachedMonoBehaviour
         var maxX = centerX + halfWidth;
         var minY = centerY - halfHeight;
         var maxY = centerY + halfHeight;
-
-        // 뷰 평면 좌표를 바운더리 좌표계로 변환하여 확인
-        var boundaryPoint = WorldToBoundaryPlane(viewCenter);
         
-        return boundaryPoint.x >= minX && boundaryPoint.x <= maxX && 
-               boundaryPoint.y >= minY && boundaryPoint.y <= maxY;
+        // 각 축별로 clamp
+        var clampedX = Mathf.Clamp(newBoundaryPoint.x, minX, maxX);
+        var clampedY = Mathf.Clamp(newBoundaryPoint.y, minY, maxY);
+        
+        // 실제 적용할 바운더리 평면 좌표의 델타
+        var allowedDeltaX = clampedX - currentBoundaryPoint.x;
+        var allowedDeltaY = clampedY - currentBoundaryPoint.y;
+        
+        // 바운더리 평면 델타를 월드 좌표로 변환
+        var worldDelta = mainCameraTransform.rotation * new Vector3(allowedDeltaX, allowedDeltaY, 0f);
+        
+        return worldDelta;
     }
     
     /// <summary>
