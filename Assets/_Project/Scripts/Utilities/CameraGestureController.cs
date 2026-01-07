@@ -1,0 +1,423 @@
+﻿using CookApps.AutoBattler;
+using CookApps.TeamBattle;
+using UnityEngine;
+using UnityEngine.EventSystems;
+// ReSharper disable All
+
+public class CameraGestureController : CachedMonoBehaviour
+{
+    private const float PositionThreshold = 0.001f;
+    private const float ZoomThreshold = 0.001f;
+
+    [Header("카메라 이동 설정")]
+    [SerializeField] private float panSpeed = 0.5f;
+    [SerializeField] private float panSmoothing = 10f;
+
+    [Header("카메라 줌 설정")]
+    [SerializeField] private float zoomSpeed = 0.01f;
+    [SerializeField] private float minZoom = 3f;
+    [SerializeField] private float maxZoom = 10f;
+    [SerializeField] private float zoomSmoothing = 10f;
+
+    [Header("마우스 설정 (에디터용)")]
+    [SerializeField] private float mouseScrollZoomSpeed = 2f;
+
+    [Header("카메라 범위 설정")]
+    [SerializeField] private Vector2 boundaryMin = new Vector2(-10f, -10f);
+    [SerializeField] private Vector2 boundaryMax = new Vector2(10f, 10f);
+
+    private Camera mainCamera;
+    private Transform mainCameraTransform;
+    private float mainCameraAspect;
+
+    private Vector3 targetPosition;
+    private float targetZoom;
+    private float cachedMaxAllowedZoom;
+
+    private Vector2 lastTouchPosition;
+    private Vector2 lastMousePosition;
+    private float lastPinchDistance;
+    private bool isDragging;
+    private bool isMouseDragging;
+
+    private EventSystem cachedEventSystem;
+    private bool needsPositionSmoothing;
+    private bool needsZoomSmoothing;
+
+    private void Awake()
+    {
+        InitializeCamera();
+        InitializeVariables();
+        InitializeMaxAllowedZoom();
+    }
+    
+    private void Update()
+    {
+        CheckGesture();
+        ApplySmoothing();
+    }
+    
+    private void CheckGesture()
+    {
+        cachedEventSystem = EventSystem.current;
+        
+#if UNITY_EDITOR
+        
+        isDragging = false;
+        HandleMouseInput();
+        
+#else
+        
+        var touchCount = Input.touchCount;
+        if (touchCount > 0)
+            HandleTouchInput(touchCount);
+        
+#endif
+    }
+
+    #region Initialize
+
+    private void InitializeCamera()
+    {
+        mainCamera = MainCameraHolder.MainCamera;
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+    }
+
+    private void InitializeVariables()
+    {
+        mainCameraAspect = mainCamera.aspect;
+        mainCameraTransform = mainCamera.transform;
+        
+        targetPosition = mainCameraTransform.position;
+        targetZoom = mainCamera.orthographicSize;
+    }
+    
+    private void InitializeMaxAllowedZoom()
+    {
+        var boundaryWidth = boundaryMax.x - boundaryMin.x;
+        var boundaryHeight = boundaryMax.y - boundaryMin.y;
+
+        var maxZoomByWidth = boundaryWidth / (2f * mainCameraAspect);
+        var maxZoomByHeight = boundaryHeight / 2f;
+
+        cachedMaxAllowedZoom = Mathf.Min(maxZoom, maxZoomByWidth, maxZoomByHeight);
+    }
+
+    #endregion
+
+    #region Mouse (Editor)
+
+    private void HandleMouseInput()
+    {
+        HandleMouseDrag();
+        HandleMouseScroll();
+    }
+
+    private void HandleMouseDrag()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!IsMouseOverUI())
+            {
+                lastMousePosition = Input.mousePosition;
+                isMouseDragging = true;
+            }
+        }
+        else if (Input.GetMouseButton(0) && isMouseDragging)
+        {
+            var currentMousePosition = (Vector2)Input.mousePosition;
+            var delta = currentMousePosition - lastMousePosition;
+            ApplyPanDelta(delta);
+            lastMousePosition = currentMousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isMouseDragging = false;
+        }
+    }
+
+    private void HandleMouseScroll()
+    {
+        float scrollDelta = Input.mouseScrollDelta.y;
+        if (scrollDelta == 0f || IsMouseOverUI())
+        {
+            return;
+        }
+
+        ApplyZoomDelta(-scrollDelta * mouseScrollZoomSpeed);
+    }
+
+    private bool IsMouseOverUI()
+    {
+        return cachedEventSystem != null && cachedEventSystem.IsPointerOverGameObject();
+    }
+
+    #endregion
+
+    #region Touch Handler
+    
+    private void HandleTouchInput(int touchCount)
+    {
+        if (touchCount == 1)
+        {
+            HandlePanning();
+        }
+        else if (touchCount == 2)
+        {
+            HandlePinchZoom();
+        }
+        else
+        {
+            isDragging = false;
+        }
+    }
+
+    /// <summary>
+    /// 카메라 드래그 이동을 위한 함수
+    /// </summary>
+    private void HandlePanning()
+    {
+        var currentTouch = Input.GetTouch(0);
+
+        if (IsTouchOverUI(currentTouch))
+        {
+            isDragging = false;
+            return;
+        }
+
+        switch (currentTouch.phase)
+        {
+            case TouchPhase.Began:
+                lastTouchPosition = currentTouch.position;
+                isDragging = true;
+                break;
+
+            case TouchPhase.Moved:
+                if (isDragging)
+                {
+                    Vector2 delta = currentTouch.position - lastTouchPosition;
+                    ApplyPanDelta(delta);
+                    lastTouchPosition = currentTouch.position;
+                }
+                break;
+
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
+                isDragging = false;
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 카메라 줌 기능을 위한 함수
+    /// </summary>
+    private void HandlePinchZoom()
+    {
+        var touch0 = Input.GetTouch(0);
+        var touch1 = Input.GetTouch(1);
+
+        if (IsTouchOverUI(touch0) || IsTouchOverUI(touch1))
+        {
+            return;
+        }
+
+        var currentPinchDistance = Vector2.Distance(touch0.position, touch1.position);
+
+        if (touch0.phase == TouchPhase.Began || touch1.phase == TouchPhase.Began)
+        {
+            lastPinchDistance = currentPinchDistance;
+            isDragging = false;
+            return;
+        }
+
+        if (touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved)
+        {
+            var pinchDelta = lastPinchDistance - currentPinchDistance;
+            ApplyZoomDelta(pinchDelta * zoomSpeed);
+            lastPinchDistance = currentPinchDistance;
+        }
+    }
+
+    private bool IsTouchOverUI(Touch touch)
+    {
+        return cachedEventSystem && cachedEventSystem.IsPointerOverGameObject(touch.fingerId);
+    }
+
+    #endregion
+
+    #region Main
+
+    private void ApplyPanDelta(Vector2 delta)
+    {
+        // 카메라 로컬 좌표계에서 타겟까지의 거리 (회전 고려)
+        var localTarget = mainCameraTransform.InverseTransformPoint(targetPosition);
+        var distanceToTarget = localTarget.z;
+
+        // 화면 중심의 월드 좌표
+        var screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, distanceToTarget);
+        var centerWorld = mainCamera.ScreenToWorldPoint(screenCenter);
+
+        // 드래그 후 위치의 월드 좌표
+        var scaledDelta = delta * panSpeed * Time.deltaTime;
+        var screenOffset = new Vector3(screenCenter.x - scaledDelta.x, screenCenter.y - scaledDelta.y, distanceToTarget);
+        var offsetWorld = mainCamera.ScreenToWorldPoint(screenOffset);
+
+        // 이동량 계산 (화면 기준 정확한 이동)
+        var movementDelta = offsetWorld - centerWorld;
+        var newPosition = targetPosition + movementDelta;
+        
+        // 새 위치가 바운더리 내에 있는지 미리 확인
+        if (!IsPositionWithinBoundary(newPosition))
+        {
+            // 바운더리를 넘어가는 이동은 무시
+            return;
+        }
+        
+        targetPosition = newPosition;
+        needsPositionSmoothing = true;
+    }
+    
+    /// <summary>
+    /// 주어진 카메라 위치가 바운더리 내에 있는지 확인
+    /// </summary>
+    private bool IsPositionWithinBoundary(Vector3 position)
+    {
+        var verticalExtent = mainCamera.orthographicSize;
+        var horizontalExtent = verticalExtent * mainCameraAspect;
+
+        // 임시로 카메라 위치를 변경하여 화면 중심 계산
+        var originalPosition = mainCameraTransform.position;
+        mainCameraTransform.position = position;
+        
+        var localTarget = mainCameraTransform.InverseTransformPoint(position);
+        var distanceToTarget = localTarget.z;
+        var screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, distanceToTarget);
+        var viewCenter = mainCamera.ScreenToWorldPoint(screenCenter);
+        
+        // 원래 위치로 복원
+        mainCameraTransform.position = originalPosition;
+
+        // boundary 범위 계산
+        var centerX = (boundaryMin.x + boundaryMax.x) * 0.5f;
+        var centerY = (boundaryMin.y + boundaryMax.y) * 0.5f;
+        var halfWidth = Mathf.Max(0, (boundaryMax.x - boundaryMin.x) * 0.5f - horizontalExtent);
+        var halfHeight = Mathf.Max(0, (boundaryMax.y - boundaryMin.y) * 0.5f - verticalExtent);
+
+        var minX = centerX - halfWidth;
+        var maxX = centerX + halfWidth;
+        var minY = centerY - halfHeight;
+        var maxY = centerY + halfHeight;
+
+        // 화면 중심이 바운더리 내에 있는지 확인
+        return viewCenter.x >= minX && viewCenter.x <= maxX && 
+               viewCenter.y >= minY && viewCenter.y <= maxY;
+    }
+
+    private void ApplyZoomDelta(float delta)
+    {
+        targetZoom += delta;
+        targetZoom = Mathf.Clamp(targetZoom, minZoom, cachedMaxAllowedZoom);
+        needsZoomSmoothing = true;
+    }
+
+    private void ApplySmoothing()
+    {
+        if (needsZoomSmoothing)
+        {
+            var currentZoomSize = mainCamera.orthographicSize;
+            var newZoomSize = Mathf.Lerp(currentZoomSize, targetZoom, zoomSmoothing * Time.deltaTime);
+            mainCamera.orthographicSize = newZoomSize;
+
+            var zoomDifference = Mathf.Abs(targetZoom - newZoomSize);
+            if (zoomDifference < ZoomThreshold)
+            {
+                mainCamera.orthographicSize = targetZoom;
+                needsZoomSmoothing = false;
+            }
+        }
+
+        if (needsPositionSmoothing || needsZoomSmoothing)
+            ClampTargetPositionToBoundary();
+
+        if (needsPositionSmoothing)
+        {
+            var currentPosition = mainCameraTransform.position;
+            var newPosition = Vector3.Lerp(currentPosition, targetPosition, panSmoothing * Time.deltaTime);
+            mainCameraTransform.position = newPosition;
+
+            var sqrDistance = (targetPosition - newPosition).sqrMagnitude;
+            if (sqrDistance < PositionThreshold * PositionThreshold)
+            {
+                mainCameraTransform.position = targetPosition;
+                needsPositionSmoothing = false;
+            }
+        }
+    }
+
+    #endregion
+
+    /// <summary>
+    /// 카메라 범위내로 카메라 포지션 값 세팅해주는 함수. (회전 고려)
+    /// </summary>
+    private void ClampTargetPositionToBoundary()
+    {
+        var verticalExtent = mainCamera.orthographicSize;
+        var horizontalExtent = verticalExtent * mainCameraAspect;
+
+        // 현재 화면 중심이 보는 월드 좌표 계산
+        var localTarget = mainCameraTransform.InverseTransformPoint(targetPosition);
+        var distanceToTarget = localTarget.z;
+        var screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, distanceToTarget);
+        var viewCenter = mainCamera.ScreenToWorldPoint(screenCenter);
+
+        // boundary 범위
+        var centerX = (boundaryMin.x + boundaryMax.x) * 0.5f;
+        var centerY = (boundaryMin.y + boundaryMax.y) * 0.5f;
+        var halfWidth = Mathf.Max(0, (boundaryMax.x - boundaryMin.x) * 0.5f - horizontalExtent);
+        var halfHeight = Mathf.Max(0, (boundaryMax.y - boundaryMin.y) * 0.5f - verticalExtent);
+
+        // 화면 중심의 월드 XY를 clamp
+        var clampedViewX = Mathf.Clamp(viewCenter.x, centerX - halfWidth, centerX + halfWidth);
+        var clampedViewY = Mathf.Clamp(viewCenter.y, centerY - halfHeight, centerY + halfHeight);
+
+        // clamp된 만큼 카메라 위치 조정
+        var deltaX = clampedViewX - viewCenter.x;
+        var deltaY = clampedViewY - viewCenter.y;
+
+        if (Mathf.Abs(deltaX) > 0.001f || Mathf.Abs(deltaY) > 0.001f)
+        {
+            targetPosition.x += deltaX;
+            targetPosition.y += deltaY;
+            needsPositionSmoothing = true;
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (!Application.isPlaying) return;
+        if (mainCamera == null) return;
+
+        InitializeMaxAllowedZoom();
+        targetZoom = Mathf.Clamp(targetZoom, minZoom, cachedMaxAllowedZoom);
+        needsZoomSmoothing = true;
+        needsPositionSmoothing = true;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // 월드 XY 평면에 boundary 그리기
+        var bottomLeft = new Vector3(boundaryMin.x, boundaryMin.y, 0f);
+        var bottomRight = new Vector3(boundaryMax.x, boundaryMin.y, 0f);
+        var topLeft = new Vector3(boundaryMin.x, boundaryMax.y, 0f);
+        var topRight = new Vector3(boundaryMax.x, boundaryMax.y, 0f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(bottomLeft, bottomRight);
+        Gizmos.DrawLine(bottomRight, topRight);
+        Gizmos.DrawLine(topRight, topLeft);
+        Gizmos.DrawLine(topLeft, bottomLeft);
+    }
+#endif
+}
