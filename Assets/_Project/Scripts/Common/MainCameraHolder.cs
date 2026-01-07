@@ -6,6 +6,7 @@ namespace CookApps.AutoBattler
     public static class MainCameraHolder
     {
         public static Camera MainCamera { get; private set; }
+        public static CameraGestureController CameraGestureController { get; private set; }
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
@@ -33,10 +34,16 @@ namespace CookApps.AutoBattler
         private static void RefreshMainCamera()
         {
             MainCamera = null;
-            if (ObjectRegistry.TryGetObject(RegistryKey.MainCamera, out var registeredObject))
-            {
-                MainCamera = registeredObject != null ? registeredObject.GetComponent<Camera>() : null;
-            }
+            CameraGestureController = null;
+            
+            if (!ObjectRegistry.TryGetObject(RegistryKey.MainCamera, out var registeredObject) || !registeredObject)
+                return;
+            
+            if (registeredObject.TryGetComponent(out Camera camera))
+                MainCamera = camera;
+            
+            if (registeredObject.TryGetComponent(out CameraGestureController controller))
+                CameraGestureController = controller;
         }
 
         public static Vector2 WorldPointToLocalPointInRectangle(Vector2 worldPoint, RectTransform parentTr)

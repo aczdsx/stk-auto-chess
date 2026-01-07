@@ -1,5 +1,6 @@
 ﻿using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 // ReSharper disable All
@@ -43,6 +44,7 @@ public class CameraGestureController : CachedMonoBehaviour
     private EventSystem cachedEventSystem;
     private bool needsPositionSmoothing;
     private bool needsZoomSmoothing;
+    private bool isAutoMoving; // MoveAsync 실행 중 입력 차단용
 
     private void Awake()
     {
@@ -64,12 +66,12 @@ public class CameraGestureController : CachedMonoBehaviour
 #if UNITY_EDITOR
         
         isDragging = false;
-        HandleMouseInput();
+        if (!isAutoMoving) HandleMouseInput();
         
 #else
         
         var touchCount = Input.touchCount;
-        if (touchCount > 0)
+        if (touchCount > 0 && !isAutoMoving)
             HandleTouchInput(touchCount);
         
 #endif
@@ -371,6 +373,9 @@ public class CameraGestureController : CachedMonoBehaviour
 
     private void ApplySmoothing()
     {
+        if(isAutoMoving)
+            return;
+        
         if (needsZoomSmoothing)
         {
             var currentZoomSize = mainCamera.orthographicSize;
@@ -405,6 +410,8 @@ public class CameraGestureController : CachedMonoBehaviour
 
     #endregion
 
+    #region Boundary
+    
     /// <summary>
     /// 카메라 범위내로 카메라 포지션 값 세팅해주는 함수. (카메라 회전 고려)
     /// </summary>
@@ -444,6 +451,41 @@ public class CameraGestureController : CachedMonoBehaviour
             needsPositionSmoothing = true;
         }
     }
+
+    #endregion
+
+    #region Move Task
+
+    public async UniTask MoveAsync(Vector3 targetPos, float duration)
+    {
+        if (isAutoMoving) return;
+        
+        isAutoMoving = true;
+        
+        var startPosition = mainCameraTransform.position;
+        var elapsed = 0f;
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            var t = Mathf.Clamp01(elapsed / duration);
+            
+            // EaseOutCubic for smooth deceleration
+            var easeT = 1f - Mathf.Pow(1f - t, 3f);
+            
+            mainCameraTransform.position = Vector3.Lerp(startPosition, targetPos, easeT);
+            targetPosition = mainCameraTransform.position;
+            
+            await UniTask.Yield();
+        }
+        
+        mainCameraTransform.position = targetPos;
+        targetPosition = targetPos;
+        
+        isAutoMoving = false;
+    }
+
+    #endregion
 
 #if UNITY_EDITOR
     private void OnValidate()
