@@ -1045,7 +1045,7 @@ namespace CookApps.BattleSystem
             var damageInfo = new DamageInfo();
             //일단 공격 타입 결정
 
-            damageInfo.isAD = ad >= 0;
+            damageInfo.isAD = ad > 0d;
             //ad ap로 데미지 1차 결정
             damageInfo.damageAmount = damageInfo.isAD ? ad : ap;
             if (isSkill)
