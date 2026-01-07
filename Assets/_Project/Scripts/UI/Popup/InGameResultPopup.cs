@@ -66,8 +66,8 @@ namespace CookApps.AutoBattler
             if (_isVictory)
                 _victoryStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
             else
-                _failStageText.text =  StringUtil.GetStageString(InGameManager.Instance.SpecStage);
-            
+                _failStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
+
 
             _exitButton?.onClick.AddListener(OnExitButtonClicked);
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
@@ -179,7 +179,7 @@ namespace CookApps.AutoBattler
 
             string buttonStringKey = _isPlayingLastStage ? "UI_CHAPTER_NEXT_MOVE" : "UI_STAGE_NEXT_MOVE";
             _nextStageButtonText.text = LanguageManager.Instance.GetLanguageText(buttonStringKey);
-            
+
             // 앱이벤트 전송
             SendStageEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
         }
@@ -199,7 +199,7 @@ namespace CookApps.AutoBattler
         private void OnNextStageButtonClicked()
         {
             // SceneTransition.Create<SceneTransition_FadeInOut>();
-SceneTransition.FadeInAsync().Forget();
+            SceneTransition.FadeInAsync().Forget();
             // SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
 
             //InGameManager.Instance.EndInGame();
@@ -207,7 +207,7 @@ SceneTransition.FadeInAsync().Forget();
             // 최종 챕터/스테이지 여부 체크
             if (_isEndChapter) return;
 
-            // 행동력 검사
+            // TODO: 행동력 검사
             if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
             {
                 return;
@@ -226,16 +226,16 @@ SceneTransition.FadeInAsync().Forget();
             }
 
             var nextStageData = SpecDataManager.Instance.GetStageData(targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type);
-            
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), nextStageData.stage_id));
+                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), nextStageData.stage_id));
         }
 
         private void OnClickRetryStageButton()
         {
-            // 행동력 검사
+            // TODO: 행동력 검사
             if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
             {
                 return;
@@ -245,7 +245,7 @@ SceneTransition.FadeInAsync().Forget();
 
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore) new InGameMainStateStage(), (int)InGameManager.Instance.SpecStage.stage_id));
+                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), (int)InGameManager.Instance.SpecStage.stage_id));
         }
 
         // 가장 높은 스테이지 클리어 여부 체크
@@ -329,7 +329,7 @@ SceneTransition.FadeInAsync().Forget();
                 UserDataManager.Instance.SetUserStage(currentStageID, _star);
 
                 // 가이드 미션 체크
-                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE,currentStageID, 1);
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, currentStageID, 1);
             }
         }
 
@@ -340,15 +340,15 @@ SceneTransition.FadeInAsync().Forget();
             var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
             int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
             int enemyPower = (int)InGameObjectManager.Instance.GetStartingEnemiesAttr();
-        
+
             int starNum1 = _isVictory ? 1 : 0;
             int starNum2 = _star >= 2 ? 1 : 0;
             int starNum3 = _star >= 3 ? 1 : 0;
             string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1, starNum2, starNum3);
 
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
-            
-            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count, 
+
+            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count,
                 myDeckPower, enemyPower, result, reason, clearCondition);
         }
     }

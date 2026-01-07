@@ -1,5 +1,6 @@
 ﻿using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 // ReSharper disable All
@@ -22,7 +23,7 @@ public class CameraGestureController : CachedMonoBehaviour
     [Header("마우스 설정 (에디터용)")]
     [SerializeField] private float mouseScrollZoomSpeed = 2f;
 
-    [Header("카메라 범위 설정")]
+    [Header("카메라 범위 설정 (카메라 뷰 평면 기준)")]
     [SerializeField] private Vector2 boundaryMin = new Vector2(-10f, -10f);
     [SerializeField] private Vector2 boundaryMax = new Vector2(10f, 10f);
 
@@ -43,6 +44,7 @@ public class CameraGestureController : CachedMonoBehaviour
     private EventSystem cachedEventSystem;
     private bool needsPositionSmoothing;
     private bool needsZoomSmoothing;
+    private bool isAutoMoving; // MoveAsync 실행 중 입력 차단용
 
     private void Awake()
     {
@@ -64,12 +66,12 @@ public class CameraGestureController : CachedMonoBehaviour
 #if UNITY_EDITOR
         
         isDragging = false;
-        HandleMouseInput();
+        if (!isAutoMoving) HandleMouseInput();
         
 #else
         
         var touchCount = Input.touchCount;
-        if (touchCount > 0)
+        if (touchCount > 0 && !isAutoMoving)
             HandleTouchInput(touchCount);
         
 #endif
@@ -265,39 +267,37 @@ public class CameraGestureController : CachedMonoBehaviour
 
         // 이동량 계산 (화면 기준 정확한 이동)
         var movementDelta = offsetWorld - centerWorld;
-        var newPosition = targetPosition + movementDelta;
         
-        // 새 위치가 바운더리 내에 있는지 미리 확인
-        if (!IsPositionWithinBoundary(newPosition))
+        // 각 축을 독립적으로 체크하여 부분 이동 허용
+        var clampedDelta = ClampMovementToBoundary(movementDelta);
+        
+        if (clampedDelta.sqrMagnitude < 0.0001f)
         {
-            // 바운더리를 넘어가는 이동은 무시
+            // 이동량이 거의 없으면 무시
             return;
         }
         
-        targetPosition = newPosition;
+        targetPosition += clampedDelta;
         needsPositionSmoothing = true;
     }
     
     /// <summary>
-    /// 주어진 카메라 위치가 바운더리 내에 있는지 확인
+    /// 이동량을 바운더리 내로 제한 (각 축 독립적으로 처리)
     /// </summary>
-    private bool IsPositionWithinBoundary(Vector3 position)
+    private Vector3 ClampMovementToBoundary(Vector3 movementDelta)
     {
         var verticalExtent = mainCamera.orthographicSize;
         var horizontalExtent = verticalExtent * mainCameraAspect;
-
-        // 임시로 카메라 위치를 변경하여 화면 중심 계산
-        var originalPosition = mainCameraTransform.position;
-        mainCameraTransform.position = position;
         
-        var localTarget = mainCameraTransform.InverseTransformPoint(position);
-        var distanceToTarget = localTarget.z;
-        var screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, distanceToTarget);
-        var viewCenter = mainCamera.ScreenToWorldPoint(screenCenter);
+        // 현재 뷰 중심의 바운더리 평면 좌표
+        var currentViewCenter = GetViewCenterWorldPosition(targetPosition);
+        var currentBoundaryPoint = WorldToBoundaryPlane(currentViewCenter);
         
-        // 원래 위치로 복원
-        mainCameraTransform.position = originalPosition;
-
+        // 이동 후 뷰 중심의 바운더리 평면 좌표
+        var newPosition = targetPosition + movementDelta;
+        var newViewCenter = GetViewCenterWorldPosition(newPosition);
+        var newBoundaryPoint = WorldToBoundaryPlane(newViewCenter);
+        
         // boundary 범위 계산
         var centerX = (boundaryMin.x + boundaryMax.x) * 0.5f;
         var centerY = (boundaryMin.y + boundaryMax.y) * 0.5f;
@@ -308,10 +308,60 @@ public class CameraGestureController : CachedMonoBehaviour
         var maxX = centerX + halfWidth;
         var minY = centerY - halfHeight;
         var maxY = centerY + halfHeight;
-
-        // 화면 중심이 바운더리 내에 있는지 확인
-        return viewCenter.x >= minX && viewCenter.x <= maxX && 
-               viewCenter.y >= minY && viewCenter.y <= maxY;
+        
+        // 각 축별로 clamp
+        var clampedX = Mathf.Clamp(newBoundaryPoint.x, minX, maxX);
+        var clampedY = Mathf.Clamp(newBoundaryPoint.y, minY, maxY);
+        
+        // 실제 적용할 바운더리 평면 좌표의 델타
+        var allowedDeltaX = clampedX - currentBoundaryPoint.x;
+        var allowedDeltaY = clampedY - currentBoundaryPoint.y;
+        
+        // 바운더리 평면 델타를 월드 좌표로 변환
+        var worldDelta = mainCameraTransform.rotation * new Vector3(allowedDeltaX, allowedDeltaY, 0f);
+        
+        return worldDelta;
+    }
+    
+    /// <summary>
+    /// 주어진 카메라 위치에서 화면 중심이 바라보는 월드 좌표
+    /// </summary>
+    private Vector3 GetViewCenterWorldPosition(Vector3 cameraPosition)
+    {
+        var originalPosition = mainCameraTransform.position;
+        mainCameraTransform.position = cameraPosition;
+        
+        var localTarget = mainCameraTransform.InverseTransformPoint(cameraPosition);
+        var distanceToTarget = localTarget.z;
+        var screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, distanceToTarget);
+        var viewCenter = mainCamera.ScreenToWorldPoint(screenCenter);
+        
+        mainCameraTransform.position = originalPosition;
+        return viewCenter;
+    }
+    
+    /// <summary>
+    /// 월드 좌표를 바운더리 평면 좌표(2D)로 변환 (카메라 회전 고려)
+    /// </summary>
+    private Vector2 WorldToBoundaryPlane(Vector3 worldPoint)
+    {
+        // 카메라의 로컬 좌표계를 기준으로 변환
+        // 바운더리는 카메라가 바라보는 평면에 정의됨
+        var cameraRotation = mainCameraTransform.rotation;
+        var boundaryCenter3D = new Vector3(
+            (boundaryMin.x + boundaryMax.x) * 0.5f,
+            (boundaryMin.y + boundaryMax.y) * 0.5f,
+            0f
+        );
+        
+        // 회전된 바운더리 중심을 월드로
+        var rotatedCenter = cameraRotation * boundaryCenter3D;
+        
+        // 월드 좌표를 카메라의 역회전으로 변환하여 바운더리 평면 좌표 획득
+        var inverseRotation = Quaternion.Inverse(cameraRotation);
+        var localPoint = inverseRotation * worldPoint;
+        
+        return new Vector2(localPoint.x, localPoint.y);
     }
 
     private void ApplyZoomDelta(float delta)
@@ -323,6 +373,9 @@ public class CameraGestureController : CachedMonoBehaviour
 
     private void ApplySmoothing()
     {
+        if(isAutoMoving)
+            return;
+        
         if (needsZoomSmoothing)
         {
             var currentZoomSize = mainCamera.orthographicSize;
@@ -357,8 +410,10 @@ public class CameraGestureController : CachedMonoBehaviour
 
     #endregion
 
+    #region Boundary
+    
     /// <summary>
-    /// 카메라 범위내로 카메라 포지션 값 세팅해주는 함수. (회전 고려)
+    /// 카메라 범위내로 카메라 포지션 값 세팅해주는 함수. (카메라 회전 고려)
     /// </summary>
     private void ClampTargetPositionToBoundary()
     {
@@ -371,27 +426,66 @@ public class CameraGestureController : CachedMonoBehaviour
         var screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, distanceToTarget);
         var viewCenter = mainCamera.ScreenToWorldPoint(screenCenter);
 
+        // 뷰 중심을 바운더리 평면 좌표로 변환
+        var boundaryPoint = WorldToBoundaryPlane(viewCenter);
+
         // boundary 범위
         var centerX = (boundaryMin.x + boundaryMax.x) * 0.5f;
         var centerY = (boundaryMin.y + boundaryMax.y) * 0.5f;
         var halfWidth = Mathf.Max(0, (boundaryMax.x - boundaryMin.x) * 0.5f - horizontalExtent);
         var halfHeight = Mathf.Max(0, (boundaryMax.y - boundaryMin.y) * 0.5f - verticalExtent);
 
-        // 화면 중심의 월드 XY를 clamp
-        var clampedViewX = Mathf.Clamp(viewCenter.x, centerX - halfWidth, centerX + halfWidth);
-        var clampedViewY = Mathf.Clamp(viewCenter.y, centerY - halfHeight, centerY + halfHeight);
+        // 바운더리 평면 좌표를 clamp
+        var clampedX = Mathf.Clamp(boundaryPoint.x, centerX - halfWidth, centerX + halfWidth);
+        var clampedY = Mathf.Clamp(boundaryPoint.y, centerY - halfHeight, centerY + halfHeight);
 
-        // clamp된 만큼 카메라 위치 조정
-        var deltaX = clampedViewX - viewCenter.x;
-        var deltaY = clampedViewY - viewCenter.y;
+        // clamp된 만큼 카메라 위치 조정 (회전 고려)
+        var deltaX = clampedX - boundaryPoint.x;
+        var deltaY = clampedY - boundaryPoint.y;
 
         if (Mathf.Abs(deltaX) > 0.001f || Mathf.Abs(deltaY) > 0.001f)
         {
-            targetPosition.x += deltaX;
-            targetPosition.y += deltaY;
+            // 바운더리 평면의 델타를 월드 좌표로 변환
+            var worldDelta = mainCameraTransform.rotation * new Vector3(deltaX, deltaY, 0f);
+            targetPosition += worldDelta;
             needsPositionSmoothing = true;
         }
     }
+
+    #endregion
+
+    #region Move Task
+
+    public async UniTask MoveAsync(Vector3 targetPos, float duration)
+    {
+        if (isAutoMoving) return;
+        
+        isAutoMoving = true;
+        
+        var startPosition = mainCameraTransform.position;
+        var elapsed = 0f;
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            var t = Mathf.Clamp01(elapsed / duration);
+            
+            // EaseOutCubic for smooth deceleration
+            var easeT = 1f - Mathf.Pow(1f - t, 3f);
+            
+            mainCameraTransform.position = Vector3.Lerp(startPosition, targetPos, easeT);
+            targetPosition = mainCameraTransform.position;
+            
+            await UniTask.Yield();
+        }
+        
+        mainCameraTransform.position = targetPos;
+        targetPosition = targetPos;
+        
+        isAutoMoving = false;
+    }
+
+    #endregion
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -407,17 +501,40 @@ public class CameraGestureController : CachedMonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // 월드 XY 평면에 boundary 그리기
-        var bottomLeft = new Vector3(boundaryMin.x, boundaryMin.y, 0f);
-        var bottomRight = new Vector3(boundaryMax.x, boundaryMin.y, 0f);
-        var topLeft = new Vector3(boundaryMin.x, boundaryMax.y, 0f);
-        var topRight = new Vector3(boundaryMax.x, boundaryMax.y, 0f);
+        // 카메라 회전을 적용하여 바운더리 그리기 (고정된 월드 위치)
+        var cameraTransform = Camera.main != null ? Camera.main.transform : transform;
+        var rotation = cameraTransform.rotation;
+        
+        // 바운더리 중심을 원점 기준으로 계산
+        var boundaryCenterLocal = new Vector3(
+            (boundaryMin.x + boundaryMax.x) * 0.5f,
+            (boundaryMin.y + boundaryMax.y) * 0.5f,
+            0f
+        );
+        
+        // 바운더리 네 모서리 (로컬 좌표, 중심 기준)
+        var halfWidth = (boundaryMax.x - boundaryMin.x) * 0.5f;
+        var halfHeight = (boundaryMax.y - boundaryMin.y) * 0.5f;
+        
+        var corner1Local = new Vector3(-halfWidth, -halfHeight, 0f);
+        var corner2Local = new Vector3(halfWidth, -halfHeight, 0f);
+        var corner3Local = new Vector3(halfWidth, halfHeight, 0f);
+        var corner4Local = new Vector3(-halfWidth, halfHeight, 0f);
+        
+        // 회전을 적용한 바운더리 중심 위치
+        var boundaryWorldCenter = rotation * boundaryCenterLocal;
+        
+        // 회전을 적용한 월드 좌표
+        var corner1World = boundaryWorldCenter + rotation * corner1Local;
+        var corner2World = boundaryWorldCenter + rotation * corner2Local;
+        var corner3World = boundaryWorldCenter + rotation * corner3Local;
+        var corner4World = boundaryWorldCenter + rotation * corner4Local;
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(bottomLeft, bottomRight);
-        Gizmos.DrawLine(bottomRight, topRight);
-        Gizmos.DrawLine(topRight, topLeft);
-        Gizmos.DrawLine(topLeft, bottomLeft);
+        Gizmos.DrawLine(corner1World, corner2World);
+        Gizmos.DrawLine(corner2World, corner3World);
+        Gizmos.DrawLine(corner3World, corner4World);
+        Gizmos.DrawLine(corner4World, corner1World);
     }
 #endif
 }
