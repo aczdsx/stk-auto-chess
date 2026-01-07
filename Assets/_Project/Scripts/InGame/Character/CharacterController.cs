@@ -1237,7 +1237,7 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                ShowNormalText("MISS!!", hexColor).Forget();
+                ShowStaticNormalText("MISS!!",  "#FF0000FF").Forget();
             }
 
             _currHp -= damageAmount.damageAmount.Value;
@@ -1641,6 +1641,13 @@ namespace CookApps.BattleSystem
 
             string convertText = LanguageManager.Instance.GetLanguageText(token);
             await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
+        }
+
+        public async UniTask ShowStaticNormalText(string text, string hexColor = null)
+        {
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
+
+            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
         }
 
         public void ShowImmuneSuccessFx()
