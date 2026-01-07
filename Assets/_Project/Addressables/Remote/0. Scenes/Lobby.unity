@@ -876,8 +876,8 @@ MonoBehaviour:
   maxZoom: 100
   zoomSmoothing: 10
   mouseScrollZoomSpeed: 2
-  boundaryMin: {x: -118.7, y: -0.83}
-  boundaryMax: {x: 3.8, y: 75.5}
+  boundaryMin: {x: -77.6, y: -65.11}
+  boundaryMax: {x: 77.6, y: 65.11}
 --- !u!1 &1824850557
 GameObject:
   m_ObjectHideFlags: 0
