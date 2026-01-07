@@ -61,6 +61,7 @@ namespace CookApps.AutoBattler
 
             _ = InGameTouchManager.Instance;
             _ = TutorialManager.Instance;
+            NaninovelTriggerManager.Instance.Initialize();
 
             InitTitleMain();
         }

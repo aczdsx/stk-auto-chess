@@ -563,6 +563,8 @@ namespace CookApps.AutoBattler
         fx_common_asterism_sn_aura_01 = 232,
         fx_common_asterism_sn_aura_02 = 233,
         fx_common_asterism_sn_aura_03 = 234,
+        Skill_401031_1 = 235,
+        Skill_401031_2 = 236,
     }
 
     public enum GlobalEffectProviderType
@@ -907,5 +909,14 @@ namespace CookApps.AutoBattler
         NEST = 2,
         DIMENSION_LAB = 3,
         SIMULATION_CENTER = 4,
+    }
+
+    public enum NaninovelTriggerType
+    {
+        SCENE_ENTER = 0,
+        NANINOVEL_END = 1,
+        STAGE_CLEAR = 2,
+        CHAPTER_CLEAR = 3,
+        GUIDE_COMPLETE = 4,
     }
 }
