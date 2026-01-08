@@ -103,7 +103,6 @@ namespace CookApps.AutoBattler
                 NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
                 NetManager.Instance.Inventory.ListAsync(),
                 NetManager.Instance.Character.ListAsync(),
-                NetManager.Instance.Battle.ListChapterAsync()
             };
             NetManager.Instance.Battle.ListChapterAsync().Forget();
             NetManager.Instance.Initialize_Elpis().Forget();
@@ -141,8 +140,8 @@ namespace CookApps.AutoBattler
                     SceneTransition.Create<SceneTransition_FadeInOut>();
                     SceneTransition.FadeInAsync().Forget();
 
-                    var lastChapterID = UserDataManager.Instance.GetLastPlayStageID();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastChapterID);
+                    var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
                     SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
 
                     return;

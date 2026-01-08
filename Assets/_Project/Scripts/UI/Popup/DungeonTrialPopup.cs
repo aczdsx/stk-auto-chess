@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
             var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
             _dungeonClearBtnObj.SetActive(lastDungeonData.Order > _specDungeonTrialData.order);
             _EnterDungeonButton.gameObject.SetActive(!_dungeonClearBtnObj.activeSelf);
-            _needStageStarText.text = StringUtil.GetCompareString(UserDataManager.Instance.GetAllTotalChapterStarCount(), _specDungeonTrialData.need_star);
+            _needStageStarText.text = StringUtil.GetCompareString((int)ServerDataManager.Instance.Battle.TotalStarCount, _specDungeonTrialData.need_star);
         }
 
         private void SetMonsterInfoLayer()
@@ -251,7 +251,7 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             // 던전 진입 가능 조건 검사
-            if (UserDataManager.Instance.GetAllTotalChapterStarCount() < _specDungeonTrialData.need_star)
+            if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
                 return;

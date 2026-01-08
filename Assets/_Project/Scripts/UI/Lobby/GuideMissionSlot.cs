@@ -154,14 +154,14 @@ namespace CookApps.AutoBattler
                     GuideMissionInfo specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(_specGuideMissionData.id);
 
                     StageInfo guideStageData = SpecDataManager.Instance.GetStageData(_specGuideMissionData.sub_key);
-                    StageInfo currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
+                    StageInfo currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
 
                     bool isMatchChapter = guideStageData.chapter_id == currentStageData.chapter_id;
 
                     if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE && !isMatchChapter)
                     {
                         // 스테이지 데이터 세팅
-                        var lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+                        var lastestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
                         var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
                         var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
 
@@ -176,7 +176,7 @@ namespace CookApps.AutoBattler
                         }
                         // 스테이지 데이터 세팅
                         var targetSpecStage = SpecDataManager.Instance.GetStageData(nextStageData.chapter_id, targetStageNumber, nextStageData.difficulty_type);
-                        UserDataManager.Instance.SetLastPlayStageID(targetSpecStage.stage_id, true);
+                        LocalDataManager.Instance.SetLastPlayStageId((uint)targetSpecStage.stage_id);
 
 
                         // 로비 배경 전환

@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
     public partial class LocalData
     {
         public List<AuthData> AuthDatas { get; set; } = new ();
+        public uint LastPlayStageId { get; set; } = 10001;
     }
     
     public class LocalDataManager : Preference<LocalData>
@@ -94,6 +95,20 @@ namespace CookApps.AutoBattler
                     Id = authId
                 });
             }
+            isDirty = true;
+            throttleSave.ThrottleInvoke();
+        }
+
+        public uint GetLastPlayStageId()
+        {
+            return data.LastPlayStageId;
+        }
+
+        public void SetLastPlayStageId(uint stageId)
+        {
+            if (data.LastPlayStageId == stageId) return;
+
+            data.LastPlayStageId = stageId;
             isDirty = true;
             throttleSave.ThrottleInvoke();
         }

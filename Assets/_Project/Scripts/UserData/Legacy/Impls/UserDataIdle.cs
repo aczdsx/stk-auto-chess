@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
         [Clear]
         private void Clear_IdleData()
         {
-            userStageGroup = null;
+            userIdleData = null;
         }
 
         // 현재 시간을 기준으로 보상 수령 시간 갱신
@@ -50,10 +50,10 @@ namespace CookApps.AutoBattler
         {
             var resultItemList = new List<RewardItem>();
 
-            var lastStageID = GetLatestClearUserStageID();
+            var lastStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
             var lastStageData = SpecDataManager.Instance.GetStageData(lastStageID);
 
-            var totalStageClearCount = GetAllClearUserStageList().Count;
+            var totalStageClearCount = ServerDataManager.Instance.Battle.ClearedStageCount;
             var specIdleRewardList = SpecDataManager.Instance.GetAllIdleRewardList(lastStageData.chapter_id);
 
             var currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserIdleData.LastRewardGetTimestamp);

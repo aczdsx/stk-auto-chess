@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
             {
                 InGameManager.Instance.EndInGame();
                 
-                int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+                int lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
                 var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
                 SceneTransition.Create<SceneTransition_FadeInOut>();

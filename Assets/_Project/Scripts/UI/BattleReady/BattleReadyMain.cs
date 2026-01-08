@@ -141,7 +141,7 @@ namespace CookApps.AutoBattler
             await SceneTransition.FadeOutAsync();
 
             // 전투 진행
-            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
             InGameManager.Instance.StartInGame<FlowStateLobbyCombat>(stageSpecData);
 
@@ -202,7 +202,7 @@ namespace CookApps.AutoBattler
             if (_stageSlotList == null || _stageSlotList.Count <= 0) return;
 
             // 기본 데이터 갱신
-            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
 
             var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
             var chapterSpecData = SpecDataManager.Instance.GetChapterData(stageSpecData.chapter_id, stageSpecData.difficulty_type);
@@ -248,7 +248,7 @@ namespace CookApps.AutoBattler
         {
             ClearBottomSlotLayer();
 
-            int currentStagdId = UserDataManager.Instance.GetLastPlayStageID();
+            int currentStagdId = (int)LocalDataManager.Instance.GetLastPlayStageId();
 
             StageInfo specStageData = SpecDataManager.Instance.GetStageData(currentStagdId);
             var specChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStagdId);
@@ -529,7 +529,7 @@ namespace CookApps.AutoBattler
             {
                 if (isAvailGetChapterReward) break;
 
-                int totalChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(chapterData.chapter_id, chapterData.difficulty_type);
+                int totalChapterStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)chapterData.chapter_id, chapterData.difficulty_type);
                 if (totalChapterStarCount <= 0) continue;
 
                 var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, chapterData.chapter_id, chapterData.difficulty_type);
@@ -537,7 +537,7 @@ namespace CookApps.AutoBattler
                 {
                     bool checkGetReward = totalChapterStarCount >= rewardInfoData.sub_value;
 
-                    bool checkAlreadyGetReward = UserDataManager.Instance.IsGetStageAccReward(rewardInfoData.content_key_value,
+                    bool checkAlreadyGetReward = ServerDataManager.Instance.Battle.IsGetStageAccReward(rewardInfoData.content_key_value,
                         rewardInfoData.difficulty_type, rewardInfoData.sub_value);
 
                     if (checkGetReward && !checkAlreadyGetReward)
@@ -622,7 +622,7 @@ namespace CookApps.AutoBattler
             // 시련 던전 레드닷
             bool isAvailPlayTrialDungeon = false;
 
-            int totalStageStar = UserDataManager.Instance.GetAllTotalChapterStarCount();
+            int totalStageStar = (int)ServerDataManager.Instance.Battle.TotalStarCount;
             var trialDungeonList = SpecDataManager.Instance.GetSpecDungeonTrialDataListByStageStar(totalStageStar);
             if (trialDungeonList != null && trialDungeonList.Count > 0)
             {
@@ -665,7 +665,7 @@ namespace CookApps.AutoBattler
             if (SceneTransition.IsFadeProcessing)
                 return;
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-            var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
+            var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
             if (currentStageData != null)
             {
                 // TODO: 행동력 검사
@@ -729,7 +729,7 @@ namespace CookApps.AutoBattler
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-            int currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterListPopup>(currentStageId).Forget();
         }
 
