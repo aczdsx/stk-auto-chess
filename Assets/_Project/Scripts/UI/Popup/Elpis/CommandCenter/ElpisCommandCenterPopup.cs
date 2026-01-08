@@ -1,11 +1,10 @@
-using System;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.UI;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Text;
 using R3;
 using Tech.Hive.V1;
 using Cysharp.Threading.Tasks;
@@ -14,6 +13,8 @@ namespace CookApps.AutoBattler
 {
     public class ElpisCommandCenterPopup : UILayer
     {
+        [SerializeField] private CAButton closeButton;
+        
         [Header("배경 & NPC")]
         [SerializeField] private CAButton npcAreaButton;
         [SerializeField] private Transform npcDialogueArea;
@@ -21,6 +22,7 @@ namespace CookApps.AutoBattler
 
         [Header("혜택 영역")]
         [SerializeField] private TextMeshProUGUI benefitsTitle;
+        [SerializeField] private TextMeshProUGUI elpisLevelText;
         [SerializeField] private TableView benefitsTableView;
         [SerializeField] private GameObject benefitCellPrefab;
 
@@ -28,6 +30,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton upgradeButton;
         [SerializeField] private TextMeshProUGUI requiredCoreText;
         [SerializeField] private SimpleSwapper[] requiredCoreTextSwappers;
+        [SerializeField] private TextMeshProUGUI currentCoreText;
 
         private int currentElpisLevel;
         private int currentCoreAmount;
@@ -39,12 +42,17 @@ namespace CookApps.AutoBattler
         private TableViewController<ElpisCommandCenterBenefit, ElpisCommandCenterBenefitCell> benefitController;
 
         private ElpisDataBridge dataBridge;
+        private InventoryDataBridge inventoryDataBridge;
         
         protected override void Awake()
         {
             base.Awake();
 
             InitializeTableView();
+            
+            closeButton.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.CloseThisUILayer())
+                .AddTo(this);
 
             upgradeButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, token) => self.OnUpgradeButtonClicked(), AwaitOperation.Drop)
@@ -67,16 +75,13 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
+            var facility = param as ElpisFacility;
+            
             dataBridge = new ElpisDataBridge();
-            if (param is (int elpisLevel, int coreAmount))
-            {
-                currentElpisLevel = elpisLevel;
-                currentCoreAmount = coreAmount;
-            }
-            else
-            {
-                throw new Exception("ElpisCommandCenterPopup 인자 재대로 안넘어옴");
-            }
+            inventoryDataBridge = new InventoryDataBridge();
+            
+            currentElpisLevel = (int)facility.Level;
+            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
 
             LoadElpisData();
             UpdateUI();
@@ -100,7 +105,6 @@ namespace CookApps.AutoBattler
                     // cell.SetShortcutCallback(() => NavigateToBenefit(data.build_id));
                 })
                 .OnCellRecycled(cell => cell.ResetState())
-                .OnCellReleased((index, cell) => cell.ClearEventListeners())
                 .Build();
         }
 
@@ -158,7 +162,12 @@ namespace CookApps.AutoBattler
         {
             if (benefitsTitle != null)
             {
-                benefitsTitle.text = $"레벨 {currentElpisLevel + 1} 확장 혜택";
+                benefitsTitle.text = $"영지 확장 혜택";
+            }
+
+            if (!elpisLevelText)
+            {
+                elpisLevelText.text = ZString.Concat(currentElpisLevel + 1);
             }
         }
 
@@ -180,8 +189,10 @@ namespace CookApps.AutoBattler
             if (requiredCoreText != null)
             {
                 requiredCoreText.text = requiredCoreForUpgrade.ToString();
-                requiredCoreTextSwappers.Swap(currentCoreAmount < requiredCoreForUpgrade ? SimpleSwapType.Disabled : SimpleSwapType.Normal);
+                requiredCoreTextSwappers.Swap(currentCoreAmount < requiredCoreForUpgrade ? SimpleSwapType.Impossible : SimpleSwapType.Possible);
             }
+
+            currentCoreText.SetTextFormat("/{0}", currentCoreAmount);
         }
 
         private void UpdateNPCDialogue()
@@ -227,6 +238,7 @@ namespace CookApps.AutoBattler
             // 애니메이션 완료 후 호출됨
             
             // 새 데이터로 UI 갱신
+            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
             LoadElpisData();
             UpdateUI();
         }

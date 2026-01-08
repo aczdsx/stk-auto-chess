@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
 
             // 최근 플레이 스테이지 저장
-            UserDataManager.Instance.SetLastPlayStageID(_specStage.stage_id, true);
+            LocalDataManager.Instance.SetLastPlayStageId((uint)_specStage.stage_id);
 
             // 유저 레벨업 체크용 이전 레벨 데이터 저장
             UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;

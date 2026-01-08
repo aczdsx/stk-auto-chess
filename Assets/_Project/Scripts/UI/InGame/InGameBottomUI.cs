@@ -62,7 +62,7 @@ public class InGameBottomUI : MonoBehaviour
 
     protected void Awake()
     {
-        var latestClearUserStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+        var latestClearUserStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
         _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
         _commanderSkillObj.SetActive(_isOpenCommanderSkill);
         _isStartRunningProcess = false;

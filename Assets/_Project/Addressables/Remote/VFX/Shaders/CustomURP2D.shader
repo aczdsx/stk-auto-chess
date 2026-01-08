@@ -199,7 +199,7 @@ Shader "Custom/CustomURP2D"
 
         Pass
         {
-            Tags { "LightMode" = "UniversalForward" "Queue"="Transparent" "RenderType"="Transparent"}
+            Tags { "LightMode" = "UniversalForward" "Queue"="AlphaTest" "RenderType"="TransparentCutout"}
 
             HLSLPROGRAM
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"

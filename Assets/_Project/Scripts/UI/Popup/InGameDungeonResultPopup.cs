@@ -81,7 +81,7 @@ namespace CookApps.AutoBattler
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-            int lastPlayStageID = UserDataManager.Instance.GetLastPlayStageID();
+            int lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
             SceneTransition.Create<SceneTransition_FadeInOut>();
@@ -101,7 +101,6 @@ namespace CookApps.AutoBattler
 
         private void CreateRewardItems()
         {
-            var userStage = UserDataManager.Instance.GetUserStage(InGameManager.Instance.SpecStage.stage_id);
             var rewardList = SpecDataManager.Instance.GetSpecStageReward(InGameManager.Instance.SpecStage.reward_id)
                 .FindAll(l => l.difficulty_type == InGameManager.Instance.SpecStage.difficulty_type);
 

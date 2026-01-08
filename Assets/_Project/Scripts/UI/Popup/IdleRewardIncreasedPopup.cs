@@ -18,9 +18,9 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
             
-            var latestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+            var latestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
             var lastStageData = SpecDataManager.Instance.GetStageData(latestStageID);
-            int totalStageClearCount = UserDataManager.Instance.GetAllClearUserStageList().Count + 1;
+            int totalStageClearCount = ServerDataManager.Instance.Battle.ClearedStageCount + 1;
             
             var specIdleRewardList = SpecDataManager.Instance.GetAllIdleRewardList(lastStageData.chapter_id);
 

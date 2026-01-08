@@ -42,9 +42,6 @@ namespace CookApps.AutoBattler
         private Transform _projectileBackTransform;
 
         [SerializeField]
-        private Material _defaultMaterial;
-
-        [SerializeField]
         private Material _disorveMaterial;
 
         [SerializeField]

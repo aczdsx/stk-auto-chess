@@ -147,7 +147,7 @@ namespace CookApps.AutoBattler
                         SetGuideMissionState(GuideMissionType.END_DIALOGUE, specGuideMissionData.sub_key, MissionStateType.REWARD);
                     break;
                 case GuideMissionType.CLEAR_STAGE:
-                    if (IsClearStage(specGuideMissionData.sub_key))
+                    if (ServerDataManager.Instance.Battle.IsStageCleared((uint)specGuideMissionData.sub_key))
                         SetGuideMissionState(GuideMissionType.CLEAR_STAGE, specGuideMissionData.sub_key, MissionStateType.REWARD);
                     break;
                 case GuideMissionType.LEVELUP_CHARACTER_TARGET:
