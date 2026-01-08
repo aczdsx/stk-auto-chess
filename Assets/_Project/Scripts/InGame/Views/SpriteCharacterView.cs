@@ -50,6 +50,14 @@ namespace CookApps.AutoBattler
         [SerializeField]
         private Material _hologramMaterial;
 
+        [SerializeField]
+        private Transform _skillTopFXTransform;
+        [SerializeField]
+        private Transform _skillMiddleFXTransform;
+        [SerializeField]
+        private Transform _skillBottomFXTransform;
+
+
         private AnimationEventListener _animationEventListener;
         public bool CachedFlipX => _cachedFlipX;
         public bool CachedFront => _cachedFront;
@@ -68,6 +76,10 @@ namespace CookApps.AutoBattler
         public Transform SkillRootTransform => _skillRootTransform;
         public Transform ProjectileFrontTransform => _projectileFrontTransform;
         public Transform ProjectileBackTransform => _projectileBackTransform;
+
+        public Transform SkillTopFXTransform => _skillTopFXTransform;
+        public Transform SkillMiddleFXTransform => _skillMiddleFXTransform;
+        public Transform SkillBottomFXTransform => _skillBottomFXTransform;
 
         private void Awake()
         {

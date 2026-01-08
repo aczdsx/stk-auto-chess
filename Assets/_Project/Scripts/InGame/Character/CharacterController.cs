@@ -82,6 +82,9 @@ namespace CookApps.BattleSystem
 
 
         public IFollowable SkillRootTransformFollowable => new SimpleSkillTransformFollowable(this);
+        public IFollowable SkillTopFXTransformFollowable => new SimpleSkillTopFXTransformFollowable(this);
+        public IFollowable SkillMiddleFXTransformFollowable => new SimpleSkillMiddleFXTransformFollowable(this);
+        public IFollowable SkillBottomFXTransformFollowable => new SimpleSkillBottomFXTransformFollowable(this);
 
         /// <summary>
         /// 논리적 위치

@@ -60,7 +60,7 @@ public class FlowStateStageReady : StateReadyBase
 
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(statData, coordinate,
                 AllianceType.Enemy,
-                typeof(CharacterStateReady), true, HpBarType.Synergy| HpBarType.HpBar));
+                typeof(CharacterStateReady), true, HpBarType.Synergy | HpBarType.HpBar));
         }
 
         bool isSize75 = _specStage.chapter_id == 1 || _specStage.chapter_id == 2; // [TODO] 나중에 데이터로 
@@ -92,51 +92,29 @@ public class FlowStateStageReady : StateReadyBase
         }
 
         var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
-        battleDeckList.RemoveAll(character => SpecDataManager.Instance.GetCharacterData(character.CharacterId) == null);
 
-        List<int> obstacleTileIDs = _specStage.obstacle_grid_id.ToList();
-        List<int> neutralTileIDs = _specStage.neutral_grid_id.ToList();
+        // LINQ 제거: 직접 루프로 유효하지 않은 캐릭터 제거
 
-        // 겹치는 캐릭터들을 배치 가능한 위치로 이동
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
-            var character = battleDeckList[i];
-            var currentTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(character.PositionTileX, character.PositionTileY));
-            var currentTileID = currentTile.View.ID;
-            if(SpecDataManager.Instance.GetCharacterData(character.CharacterId) is null )
+            if (SpecDataManager.Instance.GetCharacterData(battleDeckList[i].CharacterId) == null)
             {
-                continue;
-            }
-            
-
-            // if(character.CharacterId)
-                // 장애물이나 중립 타일과 겹치는지 확인
-                bool isOverlapping = obstacleTileIDs.Contains(currentTileID) || neutralTileIDs.Contains(currentTileID);
-
-            if (isOverlapping)
-            {
-                // 현재 위치에서 점진적으로 범위를 넓혀가며 배치 가능한 위치 찾기
-                var emptyTile = InGameObjectManager.Instance.InGameGrid.FindNearestEmptyTile(
-                    character.PositionTileX, character.PositionTileY, obstacleTileIDs, neutralTileIDs);
-                if (emptyTile != null)
-                {
-                    // 새로운 위치로 업데이트
-                    character.PositionTileX = emptyTile.X;
-                    character.PositionTileY = emptyTile.Y;
-                    Debug.LogColor($"캐릭터 {character.CharacterId} 위치 변경: ({character.PositionTileX}, {character.PositionTileY})");
-                }
-                else
-                {
-                    // 배치 가능한 위치가 없으면 제거
-                    Debug.LogColor($"캐릭터 {character.CharacterId} 배치 불가능하여 제거");
-                    battleDeckList.RemoveAt(i);
-                }
+                battleDeckList.RemoveAt(i);
             }
         }
 
-        {
+        CheckOverlapCharacter(battleDeckList);
+
+        // LINQ 제거: 직접 루프로 특정 캐릭터 제거
         if (_specStage.chapter_id == 2 && _specStage.stage_number == 6)
-            battleDeckList.RemoveAll(l => l.CharacterId == 130601);
+        {
+            for (int i = battleDeckList.Count - 1; i >= 0; i--)
+            {
+                if (battleDeckList[i].CharacterId == 130601)
+                {
+                    battleDeckList.RemoveAt(i);
+                }
+            }
         }
 
         foreach (var character in battleDeckList)
@@ -178,7 +156,14 @@ public class FlowStateStageReady : StateReadyBase
             }
             else if (_specStage.stage_number == 6)
             {
-                battleDeckList.RemoveAll(l => l.CharacterId == 113252102);//유니
+                // LINQ 제거: 직접 루프로 특정 캐릭터 제거
+                for (int i = battleDeckList.Count - 1; i >= 0; i--)
+                {
+                    if (battleDeckList[i].CharacterId == 113252102)
+                    {
+                        battleDeckList.RemoveAt(i);
+                    }
+                }
                 InGameMain.GetInGameMain().SetAlertBottomCharacter(113642501);//엘리스
             }
             else if (_specStage.stage_number == 11)
@@ -194,6 +179,69 @@ public class FlowStateStageReady : StateReadyBase
             }
         }
     }
+
+    private void CheckOverlapCharacter(List<Cookapps.Stkauto.V1.UserCharacterBattleDeck> battleDeckList)
+    {
+        // HashSet 사용으로 Contains 성능 최적화 (O(1))
+        var obstacleTileIDs = new HashSet<int>(_specStage.obstacle_grid_id);
+        var neutralTileIDs = new HashSet<int>(_specStage.neutral_grid_id);
+        var reservedPlayerPositions = new HashSet<int2>();
+
+        // 플레이어 캐릭터 위치 중복 해결
+        var grid = InGameObjectManager.Instance.InGameGrid;
+        for (int i = battleDeckList.Count - 1; i >= 0; i--)
+        {
+            var character = battleDeckList[i];
+            var currentPosition = new int2(character.PositionTileX, character.PositionTileY);
+            var currentTile = grid.GetTile(currentPosition);
+            var currentTileID = currentTile.View.ID;
+
+            // 장애물이나 중립 타일과 겹치는지 확인
+            bool isOverlappingWithObstacle = obstacleTileIDs.Contains(currentTileID) || neutralTileIDs.Contains(currentTileID);
+
+            // 다른 플레이어 캐릭터와 겹치는지 확인
+            bool isOverlappingWithPlayer = reservedPlayerPositions.Contains(currentPosition);
+
+            if (isOverlappingWithObstacle || isOverlappingWithPlayer)
+            {
+                // FindNearestEmptyTile은 List<int>를 받으므로 변환
+                var obstacleList = new List<int>(obstacleTileIDs);
+                var neutralList = new List<int>(neutralTileIDs);
+
+                // 예약된 위치의 타일 ID를 임시로 장애물 목록에 추가하여 제외
+                var tempObstacleList = new List<int>(obstacleList);
+                foreach (var reservedPos in reservedPlayerPositions)
+                {
+                    var reservedTile = grid.GetTile(reservedPos);
+                    if (reservedTile != null)
+                    {
+                        tempObstacleList.Add(reservedTile.View.ID);
+                    }
+                }
+
+                // FindNearestEmptyTile 호출 (예약된 위치는 이미 장애물로 처리됨)
+                var emptyTile = grid.FindNearestEmptyTile(currentPosition.x, currentPosition.y, tempObstacleList, neutralList);
+
+                if (emptyTile != null)
+                {
+                    character.PositionTileX = emptyTile.X;
+                    character.PositionTileY = emptyTile.Y;
+                    reservedPlayerPositions.Add(new int2(emptyTile.X, emptyTile.Y));
+                    Debug.LogColor($"캐릭터 {character.CharacterId} 위치 변경: ({currentPosition.x}, {currentPosition.y}) -> ({emptyTile.X}, {emptyTile.Y})");
+                }
+                else
+                {
+                    Debug.LogColor($"캐릭터 {character.CharacterId} 배치 불가능하여 제거");
+                    battleDeckList.RemoveAt(i);
+                }
+            }
+            else
+            {
+                reservedPlayerPositions.Add(currentPosition);
+            }
+        }
+    }
+
 
     public override void StateStart()
     {
@@ -287,4 +335,5 @@ public class FlowStateStageReady : StateReadyBase
         }
 
     }
+
 }
