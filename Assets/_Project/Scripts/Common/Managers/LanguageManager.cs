@@ -15,32 +15,37 @@ namespace CookApps.AutoBattler
         public void InitLanguage()
         {
             var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
-            
+
             if (settingLanguage == (int)LanguageType.NONE)
             {
                 settingLanguage = (int)GetSystemLanguageType();
             }
-            
+
             SetGameLanguage((LanguageType)settingLanguage);
         }
-        
+
         public void SetGameLanguage(LanguageType type)
         {
             Preference.SavePreference(Pref.LANGUAGE, (int)type);
-            
+
             CurrentLanguageType = type;
-            
+
         }
-        
+
         public string GetLanguageText(string tokenKey)
         {
             return SpecDataManager.Instance.GetLanguageText(tokenKey, CurrentLanguageType);
         }
 
+        public string GetDialogueText(string tokenKey)
+        {
+            return SpecDataManager.Instance.GetDialogueText(tokenKey, CurrentLanguageType);
+        }
+
         public string GetTimeText(int targetTimeValue, TimeType type, bool isRemain)
         {
             string formatString = String.Empty;
-            
+
             switch (type)
             {
                 case TimeType.DAY:
@@ -59,7 +64,7 @@ namespace CookApps.AutoBattler
 
             return String.Empty;
         }
-        
+
         public string GetElementText(SynergyType elementType)
         {
             switch (elementType)
@@ -126,7 +131,7 @@ namespace CookApps.AutoBattler
                     return string.Empty;
             }
         }
-        
+
         public string GetGradeText(GradeType type)
         {
             switch (type)
@@ -143,7 +148,7 @@ namespace CookApps.AutoBattler
                     return string.Empty;
             }
         }
-        
+
         public string GetPVPTierText(PVPTierType type)
         {
             switch (type)
@@ -179,39 +184,39 @@ namespace CookApps.AutoBattler
         public string GetTimeSpanFromNowText(long targetTimestamp)
         {
             var timeSpanData = TimeManager.Instance.GetTimeSpanFromNow(targetTimestamp);
-            
+
             StringBuilder timeTextList = new StringBuilder();
 
             if (timeSpanData.Days > 0)
             {
                 timeTextList.Append(GetTimeText(timeSpanData.Days, TimeType.DAY, false));
             }
-            
+
             if (timeSpanData.Hours > 0)
             {
                 timeTextList.Append(GetTimeText(timeSpanData.Hours, TimeType.HOUR, false));
             }
-            
+
             timeTextList.Append(GetTimeText(timeSpanData.Minutes, TimeType.MINUTE, true));
-            
+
             return timeTextList.ToString();
         }
-        
+
         public string GetTimeSpanFromTargetText(long targetTimestamp)
         {
             var targetTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(targetTimestamp);
-            
+
             StringBuilder timeTextList = new StringBuilder();
 
             bool hasDays = targetTimeSpan.Days > 0;
             bool hasHours = targetTimeSpan.Hours > 0;
             bool hasMinutes = targetTimeSpan.Minutes > 0;
-            
+
             if (hasDays)
             {
                 timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.DAY, false));
             }
-            
+
             if (hasHours)
             {
                 timeTextList.Append(GetTimeText(targetTimeSpan.Hours, TimeType.HOUR, false));
@@ -226,7 +231,7 @@ namespace CookApps.AutoBattler
             {
                 timeTextList.Append(GetTimeText(targetTimeSpan.Seconds, TimeType.SECOND, true));
             }
-            
+
             return timeTextList.ToString();
         }
 
@@ -237,12 +242,12 @@ namespace CookApps.AutoBattler
             bool hasDays = targetTimeSpan.Days > 0;
             bool hasHours = targetTimeSpan.Hours > 0;
             bool hasMinutes = targetTimeSpan.Minutes > 0;
-            
+
             if (hasDays)
             {
                 timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.DAY, false));
             }
-            
+
             if (hasHours)
             {
                 timeTextList.Append(GetTimeText(targetTimeSpan.Hours, TimeType.HOUR, false));
@@ -257,10 +262,10 @@ namespace CookApps.AutoBattler
             {
                 timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.SECOND, true));
             }
-            
+
             return timeTextList.ToString();
         }
-        
+
         public LanguageType GetSystemLanguageType()
         {
             switch (Application.systemLanguage)

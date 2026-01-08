@@ -99,6 +99,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
         private Dictionary<int, BattleItem> battleItemDic = new();                           // key : battle_item_id, value : BattleItem
         private Dictionary<int, ISpecItemInfo> itemTableKeyMap = new();                      // key : item_id (currency_id/item_id), value : ISpecItemInfo
+        private Dictionary<string, DialogueLanguage> dialogueLanguageDic = new();           // key : text_desc_token, value : DialogueLanguage
         private bool isItemTableKeyMapInitialized = false;
 
         private void CustomizeSpecData()
@@ -112,6 +113,17 @@ namespace CookApps.AutoBattler
                 if (!languageDic.ContainsKey(language.token_key))
                 {
                     languageDic.Add(language.token_key, language);
+                }
+            }
+
+            // DialogueLanguage
+            dialogueLanguageDic.Clear();
+            for (int i = 0; i < DialogueLanguage.All.Count; i++)
+            {
+                var dialogueLanguage = DialogueLanguage.All[i];
+                if (!dialogueLanguageDic.ContainsKey(dialogueLanguage.text_desc_token))
+                {
+                    dialogueLanguageDic.Add(dialogueLanguage.text_desc_token, dialogueLanguage);
                 }
             }
 
@@ -243,7 +255,7 @@ namespace CookApps.AutoBattler
             }
 
             // Dialogue History
-                    dialogueHistoryDic.Clear();
+            dialogueHistoryDic.Clear();
             for (int i = 0; i < DialogueLanguage.All.Count; i++)
             {
                 var dialogue = DialogueLanguage.All[i];
@@ -299,7 +311,7 @@ namespace CookApps.AutoBattler
 
             // synergyElementDic Dic
             synergyDic.Clear();
-            
+
             // SynergyElemental과 SynergyStarAsterism을 통합 처리하며, 처음부터 필터링
             for (int i = 0; i < SynergyElemental.All.Count; i++)
             {
@@ -318,7 +330,7 @@ namespace CookApps.AutoBattler
                     list.Add(synergyData);
                 }
             }
-            
+
             for (int i = 0; i < SynergyStarAsterism.All.Count; i++)
             {
                 var synergy = SynergyStarAsterism.All[i];
@@ -441,6 +453,11 @@ namespace CookApps.AutoBattler
             }
 
             return string.Empty;
+        }
+
+        public string GetDialogueText(string tokenKey, LanguageType targetLanguageType)
+        {
+            return GetLanguageText(tokenKey, targetLanguageType);
         }
 
         public T GetGameConfig<T>(string key)
@@ -702,7 +719,7 @@ namespace CookApps.AutoBattler
 
             return result;
         }
-        
+
         public StageInfo GetStageData(int stageID)
         {
             for (int i = 0; i < StageInfo.All.Count; i++)
@@ -1038,7 +1055,7 @@ namespace CookApps.AutoBattler
             }
             return null;
         }
-        
+
         public List<SkillCommander> GetCommanderSkillList(int chapterID)
         {
             var result = new List<SkillCommander>();
@@ -1073,7 +1090,7 @@ namespace CookApps.AutoBattler
                     minChapterID = data.open_key_chapter_id;
             }
             int openChapterID = minChapterID - 1;
-            
+
             if (stageChapterDic.TryGetValue(2, out List<StageInfo> stageList) && stageList.Count > 0)
             {
                 return stageList[stageList.Count - 1].stage_id;
