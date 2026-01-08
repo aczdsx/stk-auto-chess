@@ -102,6 +102,8 @@ namespace CookApps.AutoBattler
             {
                 NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
                 NetManager.Instance.Inventory.ListAsync(),
+                NetManager.Instance.Character.ListAsync(),
+                NetManager.Instance.Battle.ListChapterAsync()
             };
             NetManager.Instance.Battle.ListChapterAsync().Forget();
             NetManager.Instance.Initialize_Elpis().Forget();

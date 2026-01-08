@@ -77,7 +77,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        owner.Target = InGameObjectManager.Instance.GetOptimalAttackTarget(owner);
+        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
 
         var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
         if (!isInRange)
@@ -94,8 +94,8 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-            owner.GetCharacterView().CachedTr.position);
+        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+        //     owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -105,7 +105,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, owner.Target.CurrentTile);
+        // InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, owner.Target.CurrentTile);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         if (directionTile.Count > 0)
         {
@@ -117,8 +117,6 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
                 owner.Target.SkillRootTransformFollowable);
 
             var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
-            // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
-            // owner.PostCalculateDamageAmount(ref damage, owner.Target);
             var type = owner.Target.GetDamaged(damage, owner);
 
             if (type == DamageReturnType.Killed)

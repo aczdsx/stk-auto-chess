@@ -114,6 +114,8 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByHPRateDescending(owner.AllianceType, true);
         if (targetCharacters.Count > 0)
         {
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillMiddleFXTransformFollowable);
+
             for (int i = 0; i < _targetCount; i++)
             {
                 if (i >= targetCharacters.Count)
@@ -122,26 +124,22 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type,
                     targetCharacters[i].CurrentTile);
 
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], targetCharacters[i].SkillMiddleFXTransformFollowable);
 
 
-                Span<double> eccStats = stackalloc double[3];
-                eccStats.Clear();
-                eccStats[0] = codeId;
-                eccStats[1] = _duration;
-                eccStats[2] = _atkUpRate;
+                // Span<double> eccStats = stackalloc double[3];
+                // eccStats.Clear();
+                // eccStats[0] = codeId;
+                // eccStats[1] = _duration;
+                // eccStats[2] = _atkUpRate;
 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacters[i], eccStats, source);
+                // EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacters[i], eccStats, source);
 
                 double healAmount = owner.PostCalculateHealAmount(owner.AP * _healRate, targetCharacters[i], isSkill: true);
                 targetCharacters[i].GetHealed(healAmount, owner, codeId, true);
 
-                // Span<double> eccStats = stackalloc double[3];
-                eccStats.Clear();
-                eccStats[0] = codeId;
-                eccStats[1] = _ccImmuneDuration;
-                eccStats[2] = 1f;
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, targetCharacters[i], eccStats, source);
+
+                RemoveDebuffOne(targetCharacters[i]);
             }
         }
 
@@ -155,12 +153,22 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         base.OnSkillAnimationEnd();
     }
 
-
-
     public override float AddSkillCooltime(float cooltime)
     {
         CoolTimeElapsedTime += cooltime;
         return cooltime;
     }
+
+    private void RemoveDebuffOne(CharacterController targetCharacter)
+    {
+        var debuff = targetCharacter.GetEffectCodeContainer().GetEffectCodesByType(EffectCodeType.Debuff);
+        if (debuff.Count > 0)
+        {
+            targetCharacter.GetEffectCodeContainer().RemoveEffectCode(debuff[0].CodeId);
+        }
+    }
+
+
+
 }
 

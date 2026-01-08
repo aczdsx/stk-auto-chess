@@ -401,24 +401,6 @@ namespace CookApps.AutoBattler
         public int id;
         /// 캐릭터 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
-        /// 캐릭터 초월 레벨
-        public int transcendence_lv;
-        /// 캐릭터 맥스 레벨
-        public int max_lv;
-        /// 캐릭터 초월 아이템 필요량
-        public int char_transcendence_count;
-        /// 캐릭터 초월 아이템 누적 필요량
-        public int char_transcendence_item_sum;
-    }
-
-    [GeneratorSpecData]
-    public partial class CharacterEnhance
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 캐릭터 등급
-        public global::CookApps.AutoBattler.GradeType grade_type;
         /// 태생 별 개수
         public int star;
         /// 조각 필요량
