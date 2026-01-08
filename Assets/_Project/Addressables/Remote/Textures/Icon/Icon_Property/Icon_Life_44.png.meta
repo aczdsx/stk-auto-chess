@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: ff790008c7627da4ca67122d49985ef6
+guid: 19983cd84ac32704c9f44bee3abe49a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8005848764688043121
-    second: Icon_Life_74_0
-  - first:
-      213: -8782179149809856969
-    second: Icon_Life_74_1
+      213: 593871899965623381
+    second: Icon_Life_44_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Life_74_0
+      name: Icon_Life_44_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 29
-        width: 59
-        height: 35
+        x: 4
+        y: 5
+        width: 36
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,30 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 17c0bb0e80d7a1f60800000000000000
-      internalID: 8005848764688043121
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Life_74_1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 9
-        width: 55
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 73ecdbdd79e6f1680800000000000000
-      internalID: -8782179149809856969
+      spriteID: 55c8987b85bdd3800800000000000000
+      internalID: 593871899965623381
       vertices: []
       indices: 
       edges: []
@@ -186,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Life_74_0: 8005848764688043121
-      Icon_Life_74_1: -8782179149809856969
+      Icon_Life_44_0: 593871899965623381
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
