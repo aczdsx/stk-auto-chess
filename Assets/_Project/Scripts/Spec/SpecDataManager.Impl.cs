@@ -1907,5 +1907,17 @@ namespace CookApps.AutoBattler
             }
             return result;
         }
+        
+        public ElpisBuildInfo GetBuildInfo(int uniqueId)
+        {
+            for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
+            {
+                var target = ElpisBuildInfo.All[i];
+                if(target.build_id == uniqueId)
+                    return target;
+            }
+            
+            return null;
+        }
     }
 }
