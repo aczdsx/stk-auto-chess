@@ -1,46 +1,53 @@
-@bgm bgm_happy_001
-@spawn cbg_00_02
+; =============================================
+; Title: Prologue_01
+; Description: 의문스러운 소녀의 독백 및 오프닝
+; =============================================
 
-atresia_00: …
-atresia_00: …님!!
-atresia_00: 관측자님!!
-atresia_00: 관측자님, 정신이 드시나요?!
-atresia_00: 방금 네피림의 공격을 받고 잠시 정신을 잃으셨어요.
-atresia_00: 네피림들이 몰려들기 전에 얼른 실종자들을 찾으러 이동해야하는데… 이런 상황에서는 어떡해야…….
+; [설정 가이드]
+; 1. 캐릭터 ID: 'Unknown_00' (표시 이름: 알 수 없는 소녀)
+; 2. 배경 ID: 'bg_black_01' (검은색), 'bg_climax_battle_01 ' (별이 가득한 우주)
+; 3. FX: 'DigitalGlitch' (나니노벨 기본 혹은 커스텀 노이즈 이펙트)
 
-@despawn cbg_00_02
-@back bg_ruins_01 scale:1.38
+@back bg_black_01
+@spawn DigitalGlitch
+@glitch power:0.1 time:3.33
+@sfx NoiseSFX volume:0.5
+@back bg_climax_battle_01 transition:Ripple time:0.5
+@bgm snd_bgm_dialog_mad_002 volume: 0.3
+
+; @char laplace_00.ani_idle_thinking pos:50,-255 scale:1.38 transition:Crossfade time:2
+; @char unknowngirl_00 pos:50,-255 scale:1.38 transition:Crossfade time:2
+
 @char atresia_00.Talk pos:50,-235 scale:1.38
-@camera offset:0 zoom:0.1 time:0.2
-; @forceHighlight atresia_00 enable:false tint:white time:0
 
-@choice "\"넌 누구지?\""
-@stop
+# 8db00a13
+; @voice unknowngirl_00_Prologue_01_01
+unknowngirl_00: 처음부터 이렇게 될 줄 알았다면...
 
-atresia_00: 설마, 기억이… 안나세요?
+# eef18e3e
+; @voice unknowngirl_00_Prologue_01_02
+unknowngirl_00: 그대를 믿지 않았을 텐데.
 
-@choice "\"꿈에서 봤던 것 같은데…\""
-@choice "\"우리는 구면이던가?\""
-@stop
+# 142997ea
+; @voice unknowngirl_00_Prologue_01_03
+unknowngirl_00: 의미없는 후회라는 건 알아.
 
-atresia_00: 네, 관측자님께서 구해주신… 정말 기억나지 않으세요?
-atresia_00: …
-atresia_00: 저는 플레이아데스 소속의 기사, 아트레시아에요.
-@slide atresia_00 to:50,-240 time:0.2
-@slide atresia_00 to:50,-235 time:0.2
+; @animate laplace_00 posY:-355 scale:1.65|1.65|1.65 wait:true
+; @char laplace_00.ani_idle_normal
 
-atresia_00: 현재 관측자님의 지휘 아래 실종된 기사와 군인을 찾는 수색 작전 중이었습니다. 하지만 이동 중 습격을 받아 유니와 필리아와도 뿔뿔이 흩어지고 말았어요.
-atresia_00: 지금은 우선 흩어져버린 동료들을 찾는게…
-@camera offset:0 zoom:0 time:0.1
-@spawn ShakeCamera
-k_Nephilim: 키에에에엑-!!
+# 925692cf
+; @voice unknowngirl_00_Prologue_01_04
+unknowngirl_00: 종국엔 우린 같은 선택을 하게 될 테니까.
 
-@char atresia_00.angry pos:50,-235 scale:1.38
-@camera offset:0 zoom:0.1 time:0.2
-atresia_00: 네, 네피림?! 근처에 아직 한 마리 남아있었나봐요.
-@spawn ShakeCharacter params:atresia_00,4
+# b098fca5
+; @voice unknowngirl_00_Prologue_01_05
+unknowngirl_00: 그러니 잠시간의 유예더라도, 그녀를 행복하게 해주길 바래.
 
-atresia_00: 이렇게 된 이상 싸우는 수 밖에 없겠어요. 관측자님, 지휘를 부탁드려요!!
-@camera offset:0 zoom:0 time:0.1
+# c90590c
+; @voice unknowngirl_00_Prologue_01_06
+unknowngirl_00: 그것만이 당신과 나의 약속이니까.
+
+@hidePrinter Dialogue
+@skip false
 
 @end
