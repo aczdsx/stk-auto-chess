@@ -86,8 +86,8 @@ namespace CookApps.TeamBattle.UIManagements
             // 나니노벨이 있으면 나니노벨 씬으로 먼저 이동
             if (!string.IsNullOrEmpty(naninovelScriptName))
             {
-                //GoToNextSceneViaNaninovel(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
-                //return;
+                GoToNextSceneViaNaninovel(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+                return;
             }
 
             // transition 연출 진행중 다른 씬으로 넘어가는 것을 방지하기 위해

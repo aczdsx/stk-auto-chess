@@ -269,8 +269,8 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         foreach (var effectCode in character.GetEffectCodeContainer().EffectCodes)
         {
-            var characterData = SpecDataManager.Instance.GetCharacterData(character.CharacterId);
-            if (characterData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
+            var specData = SpecDataManager.Instance.GetSpecCharacter(character.CharacterId);
+            if (specData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
             {
                 if (effectCode is EffectCodeCharacterBase characterEffectCode)
                 {
@@ -553,7 +553,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             if (spawnTile != null)
             {
                 // 마리에 소환
-                int marieCharacterId = 130501;
+                int marieCharacterId = 117563405;
                 int marieLevel = 1; // [TODO] 레벨 설정 필요
 
                 var marieStat = new CharacterStatData(marieCharacterId, marieLevel,
@@ -752,24 +752,6 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask ChangeNextState(bool isWin)
     {
-        if (isWin && !_isClearStage)
-        {
-            bool isUsePopup = InGameManager.Instance.SpecStage.chapter_id > 1;
-            if (isUsePopup)
-                SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
-        }
-
-        InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
-        await UniTask.Delay(1500);
-        InGameMainFlowManager.Instance.SetInGameSpeed(false);
-
-        if (isWin)
-        {
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();
-        }
-        else
-        {
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();
-        }
+        InGameMainFlowManager.Instance.AddNextState<FlowStatePrologueClear>();
     }
 }
