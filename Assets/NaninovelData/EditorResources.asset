@@ -932,6 +932,15 @@ MonoBehaviour:
     - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
       pathPrefix: Scripts
       guid: 0a019d8da6bb44bccae259e9520de6c6
+    - name: Scripts/Chapter0_01
+      pathPrefix: Scripts
+      guid: de62e71d7323a8c47bf07f7fe3dd12f2
+    - name: Scripts/Chapter0_02
+      pathPrefix: Scripts
+      guid: 0e786f14d66cf9849bc6ca037003c394
+    - name: Scripts/Chapter0_03
+      pathPrefix: Scripts
+      guid: dd3c90870d22c8243a5b0023d6d423b8
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6
@@ -1033,3 +1042,8 @@ MonoBehaviour:
       guid: 947c8d30ce50a2d42800b9403c37c577
   - Id: Movies
     Resources: []
+  - Id: Characters/9f471a03-df95-4385-b9dd-00377a1464ad
+    Resources:
+    - name: 
+      pathPrefix: Characters/uni_00
+      guid: 

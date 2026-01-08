@@ -15,8 +15,26 @@ MonoBehaviour:
   m_GroupName: Naninovel
   m_GUID: ad3068023c7c24a599a7a663022d5f28
   m_SerializeEntries:
+  - m_GUID: 01e6a422fd3a75f4bbfb16867da6d678
+    m_Address: Naninovel/Characters/uni_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 063225faa980648419adc8d28248d0af
+    m_Address: Naninovel/Characters/odette_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1224d69e1592d624cbde93d0f7383d91
     m_Address: Naninovel/Spawn/ShakeCharacter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15db89af570d8f24ab9dc30aa1490825
+    m_Address: Naninovel/Characters/jeacline_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -69,6 +87,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 666cacdf07569064fae5d75e9823222a
+    m_Address: Naninovel/Characters/asna_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 671ceb4f549ddf046913d7debf113469
     m_Address: Naninovel/UI/ExternalScriptsUI
     m_ReadOnly: 0
@@ -93,6 +117,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71e9159a7240e2c4a811cf04e098dd8b
+    m_Address: Naninovel/Characters/laplace_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 735d6aa767879aa469134858c5b2f0a7
     m_Address: Naninovel/UI/ScriptNavigatorUI
     m_ReadOnly: 0
@@ -101,6 +131,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 781828b806deb1e4cbf50ef9de41da10
     m_Address: /Wide
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a512ea30eef16446833d2d016cbf02e
+    m_Address: Naninovel/Characters/alice_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -135,6 +171,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99dbbdc076fc135498003192804da833
+    m_Address: Naninovel/Characters/philia_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9f4e71cb27fffa04486737d2cf8d622d
     m_Address: Naninovel/Spawn/Snow
     m_ReadOnly: 0
@@ -161,6 +203,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9117e2fa90704d45b3e1461596c11ee
     m_Address: Naninovel/Spawn/Rain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad3c5505442117249a57d5d146f06764
+    m_Address: Naninovel/Characters/maya_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -201,6 +249,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c906d757e64442643a74f5c80cf52f44
+    m_Address: Naninovel/Characters/cley_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc05b5e21b8649f49b5d83d50d84d8b7
     m_Address: Naninovel/ChoiceHandlers/ButtonList
     m_ReadOnly: 0
@@ -233,6 +287,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f5aae572225ee1b4c96d1a17fc5cb073
     m_Address: Naninovel/UI/TipsUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8a8f136f9f2c3e41bfac00cfe24ae82
+    m_Address: Naninovel/Characters/blin_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
