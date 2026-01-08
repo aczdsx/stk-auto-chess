@@ -31,6 +31,15 @@ public class SceneDialog : MonoBehaviour
             return;
         }
 
+        // Title UI 숨기기
+        var uiManager = Engine.GetService<IUIManager>();
+        var titleUI = uiManager?.GetUI<Naninovel.UI.ITitleUI>();
+        if (titleUI != null)
+        {
+            titleUI.Hide();
+            Debug.Log("SceneDialog: TitleMenu UI 숨김");
+        }
+
         var localizationManager = Engine.GetService<ILocalizationManager>();
 
         // var lanCode = Language.TC.ToString();
