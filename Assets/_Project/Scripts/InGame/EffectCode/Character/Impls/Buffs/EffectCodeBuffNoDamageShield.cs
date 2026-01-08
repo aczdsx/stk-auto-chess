@@ -11,10 +11,10 @@ using Cysharp.Threading.Tasks;
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
+public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_NORMAL_ATTACK_SHIELD;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.NormalAttackShield;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_NO_DAMAGE_SHIELD;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.NoDamageShield;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -42,7 +42,7 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
         base.Merge(codeInfo, source);
 
         int newSourceCodeId = codeInfo.GetCodeStatToInt(0);
-        
+
         // 같은 source가 있는지 확인
         for (int i = 0; i < _stackDatas.Count; i++)
         {
@@ -82,32 +82,24 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
     public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo,
      CharacterController attacker, bool isFirstDamage)
     {
-        if(_stackDatas.Count == 0)
+
+        damageInfo.damageAmount = 0d;
+        --_stackDatas[0].value;
+        if (_stackDatas[0].value <= 0)
         {
+            RemoveFromContainer();
             return damageInfo;
         }
-        //기본공격을 받았다면.
-        if (damageInfo.source <= 0)
+        else
         {
-            damageInfo.damageAmount = 0d;
-            --_stackDatas[0].value;
-            if (_stackDatas[0].value <= 0)
-            {
-                RemoveFromContainer();
-                return damageInfo;
-            }
-            else
-            {
-                owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
-            }
-
-            var affectText = buffDebuffType.GetAffectToken();
-            owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
+            owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
         }
 
+        var affectText = buffDebuffType.GetAffectToken();
+        owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
 
         return damageInfo;
-        
+
     }
     public override void OnPreRemoved()
     {

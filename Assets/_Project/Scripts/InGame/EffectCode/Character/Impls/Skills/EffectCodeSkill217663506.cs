@@ -90,8 +90,8 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         // 타겟 불가능 상태 적용
         ApplyTargetImpossible();
         
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-            owner.GetCharacterView().CachedTr.position);
+        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+        //     owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)

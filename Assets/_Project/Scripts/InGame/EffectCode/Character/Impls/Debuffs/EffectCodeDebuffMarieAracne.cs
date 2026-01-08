@@ -4,17 +4,20 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
+using System;
 
 
 /// <summary>
-/// 아이콘을 위해 buff로 처리
+/// 아이콘을 위해 DEBUFF로 처리
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
+public partial class EffectCodeDebuffMarieAracne : EffectCodeDebuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_NORMAL_ATTACK_SHIELD;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.NormalAttackShield;
+    private const int CodeId = (int)EffectCodeNameType.DEBUFF_MARIE_ARACNE;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.MarieAracne;
+    private int _overlapCount;
+    private float _debuffDuration;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -26,10 +29,12 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
         buffStackData.SetData(
         sourceCodeId: codeInfo.GetCodeStatToInt(0),
         duration: codeInfo.GetCodeStatToFloat(1),
-        value: codeInfo.GetCodeStat(2),
+        value: 1,
         source: source,
         isShowValue: true
         );
+        _overlapCount = codeInfo.GetCodeStatToInt(2);
+        _debuffDuration = codeInfo.GetCodeStatToFloat(3);
 
         _stackDatas.Add(buffStackData);
 
@@ -42,7 +47,8 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
         base.Merge(codeInfo, source);
 
         int newSourceCodeId = codeInfo.GetCodeStatToInt(0);
-        
+        _overlapCount = codeInfo.GetCodeStatToInt(2);
+        _debuffDuration = codeInfo.GetCodeStatToFloat(3);
         // 같은 source가 있는지 확인
         for (int i = 0; i < _stackDatas.Count; i++)
         {
@@ -51,7 +57,7 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
                 // 같은 source가 있으면 덮어쓰기
                 var stackData = _stackDatas[i];
                 stackData.duration = codeInfo.GetCodeStatToFloat(1);
-                stackData.value = codeInfo.GetCodeStat(2);
+                stackData.value += 1;
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
                 return;
@@ -77,38 +83,28 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffStackData(CodeId, buffStackData);
+
+        CheckOverlapCount();
     }
 
-    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo,
-     CharacterController attacker, bool isFirstDamage)
+
+    private void CheckOverlapCount()
     {
-        if(_stackDatas.Count == 0)
+        if (_stackDatas[0].value >= _overlapCount)
         {
-            return damageInfo;
+            Span<double> eccStats = stackalloc double[1];
+            eccStats.Clear();
+            eccStats[0] = _debuffDuration;
+
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, owner, eccStats, source);
+
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_debuff_marie_aracne, owner.SkillTopFXTransformFollowable);
+            RemoveFromContainer();
+            // var affectText = buffDebuffType.GetAffectToken();
+            // owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
         }
-        //기본공격을 받았다면.
-        if (damageInfo.source <= 0)
-        {
-            damageInfo.damageAmount = 0d;
-            --_stackDatas[0].value;
-            if (_stackDatas[0].value <= 0)
-            {
-                RemoveFromContainer();
-                return damageInfo;
-            }
-            else
-            {
-                owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
-            }
-
-            var affectText = buffDebuffType.GetAffectToken();
-            owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
-        }
-
-
-        return damageInfo;
-        
     }
+
     public override void OnPreRemoved()
     {
         owner.RemoveBuffDebuffType(buffDebuffType);
