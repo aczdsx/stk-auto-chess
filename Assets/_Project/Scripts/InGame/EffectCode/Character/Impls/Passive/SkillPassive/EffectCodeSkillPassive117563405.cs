@@ -6,7 +6,7 @@ using CookApps.Obfuscator;
 namespace CookApps.BattleSystem
 {
     /// <summary>
-    /// 마리에
+    /// 마리에 패시브브
     /// 범위: 공격 대상
     /// 대상에게 크리티컬 히트 적중 시 표식-아라크네를 남깁니다. 표식 아라크네의 중첩이 {0}가 되면 대상이 {1}초간 기절 상태가 됩니다.
     /// </summary>
