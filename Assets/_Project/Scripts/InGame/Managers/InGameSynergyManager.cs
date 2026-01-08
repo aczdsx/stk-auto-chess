@@ -95,7 +95,7 @@ namespace CookApps.BattleSystem
 
         public void OnAddCharacter(CharacterController character)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat || InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePrologueReady
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
@@ -407,7 +407,7 @@ namespace CookApps.BattleSystem
         {
             _itemComponent.CheckAndHandleNotAppliedItemsBeforeCombat();
         }
-        
+
         /// <summary>
         /// 배틀 아이템 상태를 변경합니다.
         /// </summary>

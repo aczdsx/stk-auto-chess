@@ -99,6 +99,8 @@ namespace CookApps.AutoBattler
         BUFF_AVOID_PROB_PERCENT_UP = 2000000025,
         BUFF_MEDITATION = 2000000026,
         BUFF_ANGER = 2000000027,
+        BUFF_NO_DAMAGE_SHIELD = 2000000028,
+        BUFF_DEF_PERCENT_UP = 2000000029,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -545,7 +547,8 @@ namespace CookApps.AutoBattler
         fx_common_asterism_sn_aura_03 = 234,
         Skill_401031_1 = 235,
         Skill_401031_2 = 236,
-        Skill_Passive_175134011 = 237,
+        fx_common_buff_no_damage_shield_01 = 237,
+        fx_common_buff_no_damage_shield_02 = 238,
     }
 
     public enum GlobalEffectProviderType
@@ -901,5 +904,6 @@ namespace CookApps.AutoBattler
         GUIDE_COMPLETE = 4,
         PROLOGUE_END = 5,
         STAGE_START = 6,
+        SPECIAL = 7,
     }
 }

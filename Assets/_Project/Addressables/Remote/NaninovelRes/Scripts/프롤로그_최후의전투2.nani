@@ -1,0 +1,46 @@
+@bgm bgm_happy_001
+@spawn cbg_00_02
+
+atresia_00: …
+atresia_00: …님!!
+atresia_00: 관측자님!!
+atresia_00: 관측자님, 정신이 드시나요?!
+atresia_00: 방금 네피림의 공격을 받고 잠시 정신을 잃으셨어요.
+atresia_00: 네피림들이 몰려들기 전에 얼른 실종자들을 찾으러 이동해야하는데… 이런 상황에서는 어떡해야…….
+
+@despawn cbg_00_02
+@back bg_ruins_01 scale:1.38
+@char atresia_00.Talk pos:50,-235 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+; @forceHighlight atresia_00 enable:false tint:white time:0
+
+@choice "\"넌 누구지?\""
+@stop
+
+atresia_00: 설마, 기억이… 안나세요?
+
+@choice "\"꿈에서 봤던 것 같은데…\""
+@choice "\"우리는 구면이던가?\""
+@stop
+
+atresia_00: 네, 관측자님께서 구해주신… 정말 기억나지 않으세요?
+atresia_00: …
+atresia_00: 저는 플레이아데스 소속의 기사, 아트레시아에요.
+@slide atresia_00 to:50,-240 time:0.2
+@slide atresia_00 to:50,-235 time:0.2
+
+atresia_00: 현재 관측자님의 지휘 아래 실종된 기사와 군인을 찾는 수색 작전 중이었습니다. 하지만 이동 중 습격을 받아 유니와 필리아와도 뿔뿔이 흩어지고 말았어요.
+atresia_00: 지금은 우선 흩어져버린 동료들을 찾는게…
+@camera offset:0 zoom:0 time:0.1
+@spawn ShakeCamera
+k_Nephilim: 키에에에엑-!!
+
+@char atresia_00.angry pos:50,-235 scale:1.38
+@camera offset:0 zoom:0.1 time:0.2
+atresia_00: 네, 네피림?! 근처에 아직 한 마리 남아있었나봐요.
+@spawn ShakeCharacter params:atresia_00,4
+
+atresia_00: 이렇게 된 이상 싸우는 수 밖에 없겠어요. 관측자님, 지휘를 부탁드려요!!
+@camera offset:0 zoom:0 time:0.1
+
+@end
