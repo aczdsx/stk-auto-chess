@@ -100,6 +100,7 @@ namespace CookApps.AutoBattler
         private Dictionary<int, BattleItem> battleItemDic = new();                           // key : battle_item_id, value : BattleItem
         private Dictionary<int, ISpecItemInfo> itemTableKeyMap = new();                      // key : item_id (currency_id/item_id), value : ISpecItemInfo
         private Dictionary<string, DialogueLanguage> dialogueLanguageDic = new();           // key : text_desc_token, value : DialogueLanguage
+        private Dictionary<int, List<TutorialDialogue>> tutorialDialogueDic = new();           // key : tutorial_id, value : TutorialDialogue list
         private bool isItemTableKeyMapInitialized = false;
 
         private void CustomizeSpecData()
@@ -401,6 +402,19 @@ namespace CookApps.AutoBattler
                     battleItemDic.Add(battleItem.prefab_id, battleItem);
                 }
             }
+
+            // TutorialDialogue
+            tutorialDialogueDic.Clear();
+            for (int i = 0; i < TutorialDialogue.All.Count; i++)
+            {
+                var tutorialDialogue = TutorialDialogue.All[i];
+                if (!tutorialDialogueDic.TryGetValue(tutorialDialogue.tutorial_id, out var list))
+                {
+                    list = new List<TutorialDialogue>();
+                    tutorialDialogueDic.Add(tutorialDialogue.tutorial_id, list);
+                }
+                list.Add(tutorialDialogue);
+            }
         }
 
         private void InitializeItemTableKeyMap()
@@ -698,14 +712,12 @@ namespace CookApps.AutoBattler
 
         public List<TutorialDialogue> GetTutorialDialogueList(int tutorialID)
         {
-            var result = new List<TutorialDialogue>();
-            for (int i = 0; i < TutorialDialogue.All.Count; i++)
+            if (tutorialDialogueDic.TryGetValue(tutorialID, out List<TutorialDialogue> tutorialDialogueList))
             {
-                var data = TutorialDialogue.All[i];
-                if (data.tutorial_id == tutorialID)
-                    result.Add(data);
+                return tutorialDialogueList;
             }
-            return result;
+
+            return null;
         }
 
         public int GetDialgueGroupIDByEventType(DialogueEventType eventType, string subKeyValue)

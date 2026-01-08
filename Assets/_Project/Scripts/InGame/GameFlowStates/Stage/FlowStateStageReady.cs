@@ -40,6 +40,8 @@ public class FlowStateStageReady : StateReadyBase
 
     public override async void StateInit(object target)
     {
+        TutorialManager.Instance.CheckAndInitTutorial(_specStage.stage_id).Forget();
+
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<StageMonster> monsters =
             SpecDataManager.Instance.GetStageMonsterList(_specStage.chapter_id, _specStage.stage_number,
