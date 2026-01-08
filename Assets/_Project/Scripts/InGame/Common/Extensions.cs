@@ -198,7 +198,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Slow => "",
                 // BuffDebuffType.Entangle => "",
                 // BuffDebuffType.Freezing => "",
-                BuffDebuffType.Stun => "INGAME_UI_DEBUFF_STUN",
+                // BuffDebuffType.Stun => "INGAME_UI_DEBUFF_STUN",
                 // BuffDebuffType.Provocation => "",
                 // BuffDebuffType.Sleep => "",
                 // BuffDebuffType.Invincibility => "",

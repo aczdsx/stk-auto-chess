@@ -231,6 +231,23 @@ namespace CookApps.BattleSystem
             return cooltime;
         }
 
+        /// <summary>
+        /// 데미지 계산 시 스킵할 테스트 플래그를 반환
+        /// 각 이펙트 코드에서 오버라이드하여 자신의 플래그를 반환
+        /// </summary>
+        /// <returns>스킵할 테스트 플래그</returns>
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseModifyDamageTestFlags)]
+        public virtual CharacterController.DamageTestFlags GetDamageTestFlags()
+        {
+            return CharacterController.DamageTestFlags.None;
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnModifyAvoidRateAmount)]
+        public virtual float ModifyAvoidRateAmount(float avoidRateAmount)
+        {
+            return avoidRateAmount;
+        }
+
         #region Active 기능들
         /// <summary>
         /// 액티브 스킬의 경우 스킬 발동 가능할 때 True를 리턴하면 된다.
@@ -324,6 +341,7 @@ namespace CookApps.BattleSystem
 
     public static class EffectCodeCharacterLambda
     {
+
         public static Action<EffectCodeStatBase, float> CallOnUpdateLambda = (x, dt) =>
         {
             if (x is EffectCodeCharacterBase code && code.WaitForUpdate(dt))
@@ -410,6 +428,17 @@ namespace CookApps.BattleSystem
 
             return shieldAmount;
         };
+
+        public static Func<EffectCodeStatBase, float, float> CallOnModifyAvoidRateAmountLambda = (x, avoidRateAmount) =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                return code.ModifyAvoidRateAmount(avoidRateAmount);
+            }
+
+            return avoidRateAmount;
+        };
+
 
         public static Action<EffectCodeStatBase, double, bool> CallOnHealedLambda = (x, healAmount, isPure) =>
         {
