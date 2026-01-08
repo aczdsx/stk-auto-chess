@@ -7,6 +7,7 @@ Shader "Custom/CustomURP2D"
         _NormalMap("Normal Map", 2D) = "bump" {}
         _HitColor("Hit Color", Color) = (1,0,0,1)
         _HitTime("Hit Time", Float) = 0.0
+        _Cutoff("Alpha Cutoff", Range(0, 1)) = 0.1
 
         // Legacy properties.
         [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
@@ -18,7 +19,7 @@ Shader "Custom/CustomURP2D"
 
     SubShader
     {
-        Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
+        Tags {"Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "RenderPipeline" = "UniversalPipeline" }
 
         Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         Cull Off
@@ -70,6 +71,7 @@ Shader "Custom/CustomURP2D"
             half4 _RendererColor;
             float4 _HitColor;
             float _HitTime;
+            float _Cutoff;
 
             #if USE_SHAPE_LIGHT_TYPE_0
             SHAPE_LIGHT(0)
@@ -110,6 +112,7 @@ Shader "Custom/CustomURP2D"
             half4 CombinedShapeLightFragment(Varyings i) : SV_Target
             {
                 const half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                clip(main.a - _Cutoff);
                 const half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv);
                 SurfaceData2D surfaceData;
                 InputData2D inputData;
@@ -228,6 +231,7 @@ Shader "Custom/CustomURP2D"
             float4 _MainTex_ST;
             float4 _Color;
             half4 _RendererColor;
+            float _Cutoff;
 
             Varyings UnlitVertex(Attributes attributes)
             {
@@ -247,6 +251,7 @@ Shader "Custom/CustomURP2D"
             float4 UnlitFragment(Varyings i) : SV_Target
             {
                 float4 mainTex = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+                clip(mainTex.a - _Cutoff);
 
                 #if defined(DEBUG_DISPLAY)
                 SurfaceData2D surfaceData;
