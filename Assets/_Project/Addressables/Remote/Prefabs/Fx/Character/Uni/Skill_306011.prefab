@@ -32,12 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8458703649867926555}
-  - {fileID: 8006147690756806040}
-  - {fileID: 6466112447005144689}
-  - {fileID: 6041010875424394372}
-  - {fileID: 393818176230836775}
-  - {fileID: 7988360623160616698}
+  - {fileID: 1190117900676485500}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1748925273872324036
@@ -4781,6 +4776,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4875,12 +4873,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638858941572363080}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.351, z: 0}
-  m_LocalScale: {x: 1.327, y: 1.327, z: 1.327}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 196660528477855630}
+  m_Father: {fileID: 1190117900676485500}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &1459121570859629674
 ParticleSystem:
@@ -4957,7 +4955,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 1188
   InitialModule:
     serializedVersion: 3
@@ -5135,9 +5133,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1
-      minScalar: 1
+      minMaxState: 3
+      scalar: 0.7
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5188,7 +5186,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -5241,7 +5239,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -9623,6 +9621,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9696,7 +9697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6466112447005144689
 Transform:
   m_ObjectHideFlags: 0
@@ -9705,12 +9706,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672569989846825913}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.8660254, z: -0, w: -0.5}
+  m_LocalRotation: {x: -0, y: 0.8660254, z: -0, w: -0.5}
   m_LocalPosition: {x: 0.147, y: 0.16799836, z: 0}
   m_LocalScale: {x: 4.004361, y: 0.6128025, z: 4.004732}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 196660528477855630}
+  m_Father: {fileID: 1190117900676485500}
   m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
 --- !u!198 &6855924099640564554
 ParticleSystem:
@@ -14511,6 +14512,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14584,7 +14588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8458703649867926555
 Transform:
   m_ObjectHideFlags: 0
@@ -14593,12 +14597,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2598839581267950951}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.147, y: 0.168, z: 0}
   m_LocalScale: {x: 4.004361, y: 0.6128025, z: 4.004361}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 196660528477855630}
+  m_Father: {fileID: 1190117900676485500}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &7343308671543066059
 ParticleSystem:
@@ -19399,6 +19403,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19455,6 +19462,43 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &3650394054742135930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190117900676485500}
+  m_Layer: 6
+  m_Name: Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1190117900676485500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3650394054742135930}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 8458703649867926555}
+  - {fileID: 8006147690756806040}
+  - {fileID: 6466112447005144689}
+  - {fileID: 6041010875424394372}
+  - {fileID: 393818176230836775}
+  - {fileID: 7988360623160616698}
+  m_Father: {fileID: 196660528477855630}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7339840641168750196
 GameObject:
   m_ObjectHideFlags: 0
@@ -19481,12 +19525,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7339840641168750196}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.351, z: 0}
-  m_LocalScale: {x: 1.327, y: 1.327, z: 1.327}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 196660528477855630}
+  m_Father: {fileID: 1190117900676485500}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &2791886291994849919
 ParticleSystem:
@@ -19563,7 +19607,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 1188
   InitialModule:
     serializedVersion: 3
@@ -24229,6 +24273,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -24311,12 +24358,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7944716094676561279}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.351, z: 0}
-  m_LocalScale: {x: 1.327, y: 1.327, z: 1.327}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 196660528477855630}
+  m_Father: {fileID: 1190117900676485500}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &1195751164834890656
 ParticleSystem:
@@ -24572,7 +24619,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
+      scalar: 1.5
       minScalar: 2
       maxCurve:
         serializedVersion: 2
@@ -29059,6 +29106,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -29132,7 +29182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8006147690756806040
 Transform:
   m_ObjectHideFlags: 0
@@ -29141,12 +29191,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7948403290142686793}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.86602545, z: 0, w: 0.49999994}
+  m_LocalRotation: {x: -0, y: 0.86602545, z: -0, w: 0.49999994}
   m_LocalPosition: {x: 0.147, y: 0.16799836, z: 0}
   m_LocalScale: {x: 4.004361, y: 0.6128025, z: 4.004732}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 196660528477855630}
+  m_Father: {fileID: 1190117900676485500}
   m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
 --- !u!198 &1997901666818129843
 ParticleSystem:
@@ -33947,6 +33997,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
