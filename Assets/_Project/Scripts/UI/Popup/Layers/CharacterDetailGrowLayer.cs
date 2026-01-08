@@ -170,9 +170,9 @@ namespace CookApps.AutoBattler
             if (_isHaveCharacter == false) return;
 
             _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.prefab_id)).Forget();
-            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.char_transcendence_count}</color>";
+            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.piece}</color>";
 
-            _pieceSlider.maxValue = _specCharacterTranscendenceData.char_transcendence_count;
+            _pieceSlider.maxValue = _specCharacterTranscendenceData.piece;
             _pieceSlider.value = _userCharacterData.CharacterPiece;
         }
 
@@ -223,15 +223,15 @@ namespace CookApps.AutoBattler
 
             // 초월 가능 여부 체크
             var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
-            _maxTranscendenceLevel = transcendenceDataList.Max(data => data.transcendence_lv);
+            _maxTranscendenceLevel = transcendenceDataList.Max(data => data.star);
             // 초월에 필요한 자원 정보 세팅
             _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
 
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)
             {
-                isHasPiece = _userCharacterData.CharacterPiece >= _specCharacterTranscendenceData.char_transcendence_count;
-                _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count);
+                isHasPiece = _userCharacterData.CharacterPiece >= _specCharacterTranscendenceData.piece;
+                _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.character_id, _specCharacterTranscendenceData.piece);
             }
             bool isAvailTranscendence = _isHaveCharacter && _userCharacterData.TranscendenceLevel < _maxTranscendenceLevel && isHasPiece;
 
@@ -439,7 +439,7 @@ namespace CookApps.AutoBattler
 
             // TODO: 재료 검사
             return;
-            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count, true))
+            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterData.character_id, _specCharacterTranscendenceData.piece, true))
             {
                 return;
             }
@@ -453,7 +453,7 @@ namespace CookApps.AutoBattler
                 // 재료 아이템 소진
                 List<RewardItem> recipeItemList = new List<RewardItem>();
                 // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count))
-                recipeItemList.Add(new RewardItem(_specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count));
+                recipeItemList.Add(new RewardItem(_specCharacterData.character_id, _specCharacterTranscendenceData.piece));
 
                 UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
 
@@ -475,7 +475,7 @@ namespace CookApps.AutoBattler
                 if (afterTranscenenceData != null)
                 {
                     string msg =
-                        $"{LanguageManager.Instance.GetLanguageText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_lv} -> {afterTranscenenceData.max_lv}";
+                        $"{LanguageManager.Instance.GetLanguageText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_level} -> {afterTranscenenceData.max_level}";
                     ToastManager.Instance.ShowToast(msg);
                 }
                 else

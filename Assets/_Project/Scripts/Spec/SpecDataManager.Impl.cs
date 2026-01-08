@@ -520,13 +520,13 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        public CharacterTranscendence GetCharacterTranscendenceData(GradeType gradeType, int transcendenceLevel)
+        public CharacterTranscendence GetCharacterTranscendenceData(GradeType gradeType, int star)
         {
             for (int i = 0; i < CharacterTranscendence.All.Count; i++)
             {
                 var data = CharacterTranscendence.All[i];
                 if (data.grade_type == gradeType
-                    && data.transcendence_lv == transcendenceLevel)
+                    && data.star == star)
                     return data;
             }
             return null;

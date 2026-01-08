@@ -121,8 +121,8 @@ namespace CookApps.AutoBattler
 
             if (specCharacterTranscendenceData != null)
             {
-                _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{specCharacterTranscendenceData.char_transcendence_count}";
-                _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / specCharacterTranscendenceData.char_transcendence_count;
+                _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{specCharacterTranscendenceData.piece}";
+                _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / specCharacterTranscendenceData.piece;
             }
 
             // 캐릭터 보유 여부 관련 처리
